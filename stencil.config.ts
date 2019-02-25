@@ -12,6 +12,6 @@ export const config: Config = {
     }
   ],
   plugins: [
-    sass({ includePaths: ['/src/style'] })
+    sass()
   ]
 };

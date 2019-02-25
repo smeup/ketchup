@@ -1,0 +1,91 @@
+ketchup-button {
+  button {
+    background: #4e908f;
+    border: none;
+    color: #fff;
+    border-radius: 2px;
+    box-shadow: none;
+    white-space: nowrap;
+    padding: 0px 8px;
+    line-height: 30px;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      box-shadow: 2px 2px 5px 1px rgba(100, 100, 100, 0.7);
+    }
+
+    > .button-icon {
+      float: left;
+      display: block;
+      width: 18px;
+    }
+
+    &.rounded {
+      border-radius: 50%;
+    }
+
+    &.transparent {
+      background-color: transparent;
+      border: 1px solid gray;
+      color: gray;
+    }
+
+    /* standard classes */
+    &.btn-info {
+      background: #6a8fd1;
+    }
+
+    &.btn-danger {
+      background: #f0423c;
+
+      &:hover {
+        background: #d91e18;
+      }
+    }
+
+    &.btn-warning {
+      background: #ffd454;
+    }
+
+    &.btn-selected {
+      background: #ffc107;
+    }
+
+    /* flat button */
+    &.flat-btn {
+      background: none;
+      border: none;
+      color: #4e908f;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .button-text {
+        text-decoration: underline;
+      }
+    }
+
+    /* align */
+    &.align-right {
+      text-align: right;
+
+      > .button-icon {
+        float: right;
+      }
+    }
+
+    &.align-left {
+      text-align: left;
+    }
+  }
+
+  &.fillspace {
+    width: 100%;
+
+    > button {
+      width: 100%;
+    }
+  }
+}

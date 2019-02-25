@@ -12,6 +12,38 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface KetchupButton {
+    'align': string;
+    'borderColor': string;
+    'btnStyle': any;
+    'buttonClass': string;
+    'fillspace': boolean;
+    'flat': boolean;
+    'iconClass': string;
+    'label': string;
+    'rounded': boolean;
+    'showicon': boolean;
+    'showtext': boolean;
+    'textmode': string;
+    'transparent': boolean;
+  }
+  interface KetchupButtonAttributes extends StencilHTMLAttributes {
+    'align'?: string;
+    'borderColor'?: string;
+    'btnStyle'?: any;
+    'buttonClass'?: string;
+    'fillspace'?: boolean;
+    'flat'?: boolean;
+    'iconClass'?: string;
+    'label'?: string;
+    'onBtnClicked'?: (event: CustomEvent) => void;
+    'rounded'?: boolean;
+    'showicon'?: boolean;
+    'showtext'?: boolean;
+    'textmode'?: string;
+    'transparent'?: boolean;
+  }
+
   interface KetchupFld {
     /**
     * The first name
@@ -39,6 +71,16 @@ export namespace Components {
     * The middle name
     */
     'middle'?: string;
+  }
+
+  interface KetchupRadio {
+    'direction': string;
+    'label': string;
+  }
+  interface KetchupRadioAttributes extends StencilHTMLAttributes {
+    'direction'?: string;
+    'label'?: string;
+    'onBtnClicked'?: (event: CustomEvent) => void;
   }
 
   interface MyComponent {
@@ -73,20 +115,36 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'KetchupButton': Components.KetchupButton;
     'KetchupFld': Components.KetchupFld;
+    'KetchupRadio': Components.KetchupRadio;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
+    'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
+    'ketchup-radio': Components.KetchupRadioAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
+
+  interface HTMLKetchupButtonElement extends Components.KetchupButton, HTMLStencilElement {}
+  var HTMLKetchupButtonElement: {
+    prototype: HTMLKetchupButtonElement;
+    new (): HTMLKetchupButtonElement;
+  };
 
   interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
   var HTMLKetchupFldElement: {
     prototype: HTMLKetchupFldElement;
     new (): HTMLKetchupFldElement;
+  };
+
+  interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
+  var HTMLKetchupRadioElement: {
+    prototype: HTMLKetchupRadioElement;
+    new (): HTMLKetchupRadioElement;
   };
 
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
@@ -96,12 +154,16 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'ketchup-button': HTMLKetchupButtonElement
     'ketchup-fld': HTMLKetchupFldElement
+    'ketchup-radio': HTMLKetchupRadioElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
+    'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-fld': HTMLKetchupFldElement;
+    'ketchup-radio': HTMLKetchupRadioElement;
     'my-component': HTMLMyComponentElement;
   }
 
