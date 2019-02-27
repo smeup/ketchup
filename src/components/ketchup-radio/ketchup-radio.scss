@@ -1,0 +1,97 @@
+ketchup-radio {
+  --rad-font-size: var(--kup-radio_font-size, 14px);
+  --rad-border-color: var(--kup-radio_border-color, #{$gray-80});
+  --rad-border-color--selected: var(--kup-radio_border-color, #{darken($gray-80, 10)});
+  --rad-color: var(--kup-radio_color, #{$smeup-primary});
+  --rad-tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
+}
+
+.ketchup-radio {
+  // The group containing the radio buttons.
+  &__group {
+    list-style-type: none;
+    position: relative;
+    z-index: 0;
+
+    // When items are displayed horizontally
+    &#{&}--horizontal {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  // Style of a single radio element
+  &__item {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    margin: 10px 12px;
+    z-index: 0;
+
+    // Container of the icon
+    > div {
+      height: calc(var(--rad-font-size) * 1.4);
+      position: relative;
+      width: calc(var(--rad-font-size) * 1.4);
+      z-index: 0;
+
+      &::before,
+      &::after {
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: '';
+        position: absolute;
+      }
+
+      &::before {
+        border: 1px solid var(--rad-border-color);
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+      }
+
+      &::after {
+        background-color: var(--rad-color);
+        height: calc(100% - 4px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        opacity: 0;
+        transition: opacity var(--rad-tr-duration);
+        width: calc(100% - 4px);
+        z-index: 1;
+      }
+
+      // Real radio button
+      > input {
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        margin: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+      }
+    }
+
+    &--selected {
+      div {
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    label {
+      cursor: pointer;
+      font-size: var(--rad-font-size);
+      margin-left: 10px;
+    }
+  }
+
+}

@@ -8,6 +8,9 @@
 import '@stencil/core';
 
 
+import {
+  KetchupRadioElement,
+} from './components/ketchup-radio/ketchup-radio-declarations';
 
 
 export namespace Components {
@@ -46,41 +49,65 @@ export namespace Components {
 
   interface KetchupFld {
     /**
-    * The first name
+    * Props to be passed to the button
     */
-    'first': string;
+    'button': {
+      [index: string]: string;
+    };
     /**
-    * The last name
+    * The type of the FLD
     */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+    'type': string;
   }
   interface KetchupFldAttributes extends StencilHTMLAttributes {
     /**
-    * The first name
+    * Props to be passed to the button
     */
-    'first'?: string;
+    'button'?: {
+      [index: string]: string;
+    };
     /**
-    * The last name
+    * The type of the FLD
     */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+    'type'?: string;
   }
 
   interface KetchupRadio {
+    /**
+    * Direction in which the radio elements must be placed
+    */
     'direction': string;
+    /**
+    * Label to describe the radio group
+    */
     'label': string;
+    /**
+    * Radio elements to display
+    */
+    'radioElements': KetchupRadioElement[];
+    /**
+    * Radio elements value
+    */
+    'radioName': string;
   }
   interface KetchupRadioAttributes extends StencilHTMLAttributes {
+    /**
+    * Direction in which the radio elements must be placed
+    */
     'direction'?: string;
+    /**
+    * Label to describe the radio group
+    */
     'label'?: string;
-    'onBtnClicked'?: (event: CustomEvent) => void;
+    'onKetchupRadioChanged'?: (event: CustomEvent) => void;
+    /**
+    * Radio elements to display
+    */
+    'radioElements'?: KetchupRadioElement[];
+    /**
+    * Radio elements value
+    */
+    'radioName'?: string;
   }
 
   interface MyComponent {

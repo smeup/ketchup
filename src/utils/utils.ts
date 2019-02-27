@@ -6,3 +6,8 @@ export function format(first: string, middle: string, last: string): string {
     (last ? ` ${last}` : '')
   );
 }
+
+
+export function generateUniqueId(field: string) {
+  return (new Date()).getTime() + field;
+}

@@ -10,7 +10,43 @@
 <body>
 
   <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
-  <ketchup-fld first="Runaways" last="'Call me any time"></ketchup-fld>
+  <ketchup-fld id="fld1" first="Runaways" last="'Call me any time"></ketchup-fld>
   <ketchup-button label="Sono bottone"></ketchup-button>
+  <ketchup-radio id="krg1" radioName="finalFantasy"></ketchup-radio>
+
+  <script>
+    let once = true;
+    // This is a script for testing these elements
+    // This is mandatory for testing the passage of complex parameters inside web components
+    setInterval(function() {
+      console.log("executed test of settings");
+      document.querySelector('#fld1').button = {label: 'ciao'};
+
+      // Radio develop test
+      const radio = document.querySelector('#krg1');
+      radio.radioName = 'finalFantasy';
+      radio.radioElements = [
+        {
+          label: 'Auron',
+          value: 'Auron'
+        },
+        {
+          label: 'Braska the summoner',
+          value: 'Braska'
+        },
+        {
+          label: 'Jecth the catcher',
+          value: 'Jetch'
+        }
+      ];
+      if (once) {
+        radio.addEventListener('ketchupRadioChanged', (event) => {
+          console.log(event);
+        });
+
+        once = false;
+      }
+    }, 5000);
+  </script>
 </body>
 </html>

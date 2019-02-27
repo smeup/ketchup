@@ -1,32 +1,30 @@
 import { Component, Prop } from '@stencil/core';
-import { format } from '../../utils/utils';
 
 @Component({
   tag: 'ketchup-fld',
   styleUrl: 'ketchup-fld.scss',
   shadow: true
 })
-export class MyComponent {
+export class KetchupFld {
   /**
-   * The first name
+   * The type of the FLD
    */
-  @Prop() first: string;
+  @Prop() type: string;
 
   /**
-   * The middle name
+   * Props to be passed to the button
    */
-  @Prop() middle: string;
-
-  /**
-   * The last name
-   */
-  @Prop() last: string;
-
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
-  }
+  @Prop() button: {
+    [index: string]: string;
+  } = {};
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    //const component =
+  console.log('ssa', this.button);
+
+    return <div class="ketchup-fld">
+      <span>fld</span>
+      <ketchup-button {...this.button}></ketchup-button>
+    </div>;
   }
 }

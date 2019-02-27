@@ -12,6 +12,11 @@ export const config: Config = {
     }
   ],
   plugins: [
-    sass()
+    sass({
+      injectGlobalPaths: [
+        'src/style/_variables.scss',
+        'src/style/global.scss'
+      ]
+    })
   ]
 };
