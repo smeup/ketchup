@@ -110,6 +110,46 @@ export namespace Components {
     'radioName'?: string;
   }
 
+  interface KetchupTextInput {
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue': string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength': number;
+  }
+  interface KetchupTextInputAttributes extends StencilHTMLAttributes {
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue'?: string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength'?: number;
+    'onKetchupTextInputBlurred'?: (event: CustomEvent) => void;
+    'onKetchupTextInputFocused'?: (event: CustomEvent) => void;
+    'onKetchupTextInputUpdated'?: (event: CustomEvent) => void;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -145,6 +185,7 @@ declare global {
     'KetchupButton': Components.KetchupButton;
     'KetchupFld': Components.KetchupFld;
     'KetchupRadio': Components.KetchupRadio;
+    'KetchupTextInput': Components.KetchupTextInput;
     'MyComponent': Components.MyComponent;
   }
 
@@ -152,6 +193,7 @@ declare global {
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
+    'ketchup-text-input': Components.KetchupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -174,6 +216,12 @@ declare global {
     new (): HTMLKetchupRadioElement;
   };
 
+  interface HTMLKetchupTextInputElement extends Components.KetchupTextInput, HTMLStencilElement {}
+  var HTMLKetchupTextInputElement: {
+    prototype: HTMLKetchupTextInputElement;
+    new (): HTMLKetchupTextInputElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -184,6 +232,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-radio': HTMLKetchupRadioElement
+    'ketchup-text-input': HTMLKetchupTextInputElement
     'my-component': HTMLMyComponentElement
   }
 
@@ -191,6 +240,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-radio': HTMLKetchupRadioElement;
+    'ketchup-text-input': HTMLKetchupTextInputElement;
     'my-component': HTMLMyComponentElement;
   }
 

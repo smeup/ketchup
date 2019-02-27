@@ -9,5 +9,5 @@ export function format(first: string, middle: string, last: string): string {
 
 
 export function generateUniqueId(field: string) {
-  return (new Date()).getTime() + field;
+  return (new Date()).getTime() + field.trim().replace(/\s/g,'_');
 }

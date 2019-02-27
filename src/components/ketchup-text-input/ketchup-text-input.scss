@@ -1,0 +1,35 @@
+:host {
+  // Variables
+  --rad-font-size: var(--kup-radio_font-size, 14px);
+  --rad-border-color: var(--kup-radio_border-color, #{$gray-80});
+  --rad-border-color--selected: var(--kup-radio_border-color, #{darken($gray-80, 10)});
+  --rad-color: var(--kup-radio_color, #{$smeup-primary});
+  --rad-tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
+
+  // Style
+  display: inline-block;
+}
+
+.ketchup-input-text {
+  // The div containing the input element.
+  &__container {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+  }
+
+  // Style of the input
+  background-color: #ffffff;
+  border: 1px solid var(--rad-border-color);
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
+  padding: 4px 6px;
+  position: relative;
+  transition: background-color var(--rad-tr-duration);
+  z-index: 0;
+
+  &:focus {
+    border-color: var(--rad-color);
+  }
+}
