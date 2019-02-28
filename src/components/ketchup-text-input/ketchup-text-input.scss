@@ -1,10 +1,16 @@
+// Padding of the input text
+$clear-button-padding: 4px;
+$lateral-padding: 6px;
+
 :host {
   // Variables
-  --rad-font-size: var(--kup-radio_font-size, 14px);
-  --rad-border-color: var(--kup-radio_border-color, #{$gray-80});
-  --rad-border-color--selected: var(--kup-radio_border-color, #{darken($gray-80, 10)});
-  --rad-color: var(--kup-radio_color, #{$smeup-primary});
-  --rad-tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
+  --int-font-size: var(--kup-text-input_font-size, 14px);
+  --int-border-color: var(--kup-text-input_border-color, #{$gray-80});
+  --int-border-color--selected: var(--kup-text-input_border-color, #{darken($gray-80, 10)});
+  --int-color: var(--kup-text-input_color, #{$smeup-primary});
+  --int-tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
+  --int-icon-color: $gray-80;
+  --int-icon-color--hover: darken($gray-80, 10);
 
   // Style
   display: inline-block;
@@ -20,17 +26,52 @@
 
   // Style of the input
   background-color: #ffffff;
-  border: 1px solid var(--rad-border-color);
+  border: 1px solid var(--int-border-color);
   border-radius: 2px;
   box-sizing: border-box;
   outline: none;
-  padding: 4px 6px;
+  padding: 4px $lateral-padding;
   position: relative;
-  transition: background-color var(--rad-tr-duration);
+  transition: background-color var(--int-tr-duration);
   z-index: 0;
 
   &:hover,
   &:focus {
-    border-color: var(--rad-color);
+    border-color: var(--int-color);
+  }
+
+  // When text input is clearable
+  &--clearable {
+    padding-right: calc(#{$lateral-padding} + #{$clear-button-padding} * 2 + var(--int-font-size));
+  }
+
+  // The clear button for the field
+  &__clear {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    margin: 0;
+    outline: none;
+    padding: $clear-button-padding;
+    position: absolute;
+    right: $lateral-padding;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+
+    // The true icon
+    > svg {
+      fill: var(--int-icon-color);
+      height: var(--int-font-size);
+      transition: fill var(--int-tr-duration);
+      width: var(--int-font-size);
+    }
+
+    &:hover > svg {
+      fill: var(--int-icon-color--hover);
+    }
   }
 }

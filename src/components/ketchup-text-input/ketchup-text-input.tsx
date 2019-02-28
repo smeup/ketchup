@@ -6,7 +6,6 @@ import {
     Method,
     Prop,
     State,
-    //Watch
 } from '@stencil/core'
 
 @Component({
@@ -39,7 +38,7 @@ export class KetchupTextInput {
     //---- Internal state ----
     @State() value: string = '';
 
-    //-- not reactive --
+    //-- Not reactive state --
     @Element() inputEl: HTMLElement;
     textInput!: HTMLInputElement;
 
@@ -55,14 +54,23 @@ export class KetchupTextInput {
     //---- Public Methods ----
     /**
      * Triggers the focus event on the input text
+     * @method triggerFocus
      */
     @Method()
     triggerFocus() {
-        console.log("focus", this.textInput, this.inputEl);
+        this.inputEl.focus();
         this.textInput.focus();
     }
 
     //---- Events and handlers ----
+    /**
+     * Clear the current content inside the the text input
+     * @method onClearClick
+     */
+    onClearClick() {
+        this.value = '';
+        setTimeout(() => this.triggerFocus(), 10);
+    }
 
     //-- Emitted --
     // When field is blurred
@@ -124,9 +132,9 @@ export class KetchupTextInput {
         const containerClass = this.classInputText + '__container';
 
         return (
-            <div class={containerClass + this.isClearable ? ' ' + containerClass + '--clearable' : ''}>
+            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}>
                 <input
-                    class={this.classInputText}
+                    class={this.classInputText + (this.isClearable ? ' ' + this.classInputText + '--clearable' : '')}
                     maxlength={this.maxLength}
                     ref={(el) => this.textInput = el as HTMLInputElement}
                     tabindex="0"
@@ -136,9 +144,13 @@ export class KetchupTextInput {
                     onFocus={this.onInputFocused.bind(this)}
                 />
                 {this.isClearable ?
-                    <button role="button" aria-label="Close">
+                    <button
+                        aria-label="Close"
+                        class={this.classInputText + '__clear'}
+                        role="button"
+                        onClick={this.onClearClick.bind(this)}>
                         <svg viewBox="0 0 24 24">
-                            <path fill="#000000" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                         </svg>
                     </button>:
                     null
