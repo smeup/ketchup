@@ -13,7 +13,7 @@
   <ketchup-fld id="fld1" first="Runaways" last="'Call me any time"></ketchup-fld>
   <ketchup-button label="Sono bottone"></ketchup-button>
   <ketchup-radio id="krg1"></ketchup-radio>
-  <ketchup-text-input initial-value="ciao"></ketchup-text-input>
+  <ketchup-text-input id="int1" initial-value="ciao"></ketchup-text-input>
 
   <script>
     let once = true;
@@ -40,11 +40,27 @@
           value: 'Jetch'
         }
       ];
+
+      // Test input text
+      const inText = document.querySelector('#int1');
+
+      // Things which need to be done once
       if (once) {
         radio.addEventListener('ketchupRadioChanged', (event) => {
           console.log(event);
         });
 
+        inText.addEventListener('ketchupTextInputFocused', e => {
+            console.log('#int1 has been FOCUSED', e);
+        });
+        inText.addEventListener('ketchupTextInputBlurred', e => {
+            console.log('#int1 has been BLURRED', e);
+        });
+        inText.addEventListener('ketchupTextInputUpdated', e => {
+            console.log('#int1 has been UPDATED', e);
+        });
+
+        // Never triggers again these part of the code
         once = false;
       }
     }, 5000);

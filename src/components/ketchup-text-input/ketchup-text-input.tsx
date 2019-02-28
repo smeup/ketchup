@@ -1,8 +1,9 @@
 import {
     Component,
-    //Element,
+    Element,
     Event,
     EventEmitter,
+    Method,
     Prop,
     State,
     //Watch
@@ -38,6 +39,10 @@ export class KetchupTextInput {
     //---- Internal state ----
     @State() value: string = '';
 
+    //-- not reactive --
+    @Element() inputEl: HTMLElement;
+    textInput!: HTMLInputElement;
+
     //-- Constants --
     classInputText = 'ketchup-input-text';
 
@@ -45,6 +50,16 @@ export class KetchupTextInput {
     componentWillLoad() {
         // Sets initial value inside the element
         this.value = this.initialValue;
+    }
+
+    //---- Public Methods ----
+    /**
+     * Triggers the focus event on the input text
+     */
+    @Method()
+    triggerFocus() {
+        console.log("focus", this.textInput, this.inputEl);
+        this.textInput.focus();
     }
 
     //---- Events and handlers ----
@@ -113,6 +128,8 @@ export class KetchupTextInput {
                 <input
                     class={this.classInputText}
                     maxlength={this.maxLength}
+                    ref={(el) => this.textInput = el as HTMLInputElement}
+                    tabindex="0"
                     value={this.value}
                     onBlur={this.onInputBlurred.bind(this)}
                     onInput={this.onInputUpdated.bind(this)}

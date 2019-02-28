@@ -29,6 +29,7 @@
   transition: background-color var(--rad-tr-duration);
   z-index: 0;
 
+  &:hover,
   &:focus {
     border-color: var(--rad-color);
   }

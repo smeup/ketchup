@@ -12,7 +12,8 @@ import { KetchupRadioElement } from "./ketchup-radio-declarations";
 
 @Component({
     tag: 'ketchup-radio',
-    styleUrl: 'ketchup-radio.scss'
+    styleUrl: 'ketchup-radio.scss',
+    shadow: true
 })
 export class KetchupRadio {
     /**

@@ -127,6 +127,10 @@ export namespace Components {
     * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
     */
     'maxLength': number;
+    /**
+    * Triggers the focus event on the input text
+    */
+    'triggerFocus': () => void;
   }
   interface KetchupTextInputAttributes extends StencilHTMLAttributes {
     /**
