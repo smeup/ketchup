@@ -9,11 +9,11 @@ import {
 } from '@stencil/core'
 
 @Component({
-    tag: 'ketchup-text-input',
-    styleUrl: 'ketchup-text-input.scss',
+    tag: 'ketchup-combo',
+    styleUrl: 'ketchup-combo.scss',
     shadow: true
 })
-export class KetchupTextInput {
+export class KetchupCombo {
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -37,13 +37,14 @@ export class KetchupTextInput {
 
     //---- Internal state ----
     @State() value: string = '';
+    @State() isOpen: boolean = false;
 
     //-- Not reactive state --
     @Element() inputEl: HTMLElement;
     textInput!: HTMLInputElement;
 
     //-- Constants --
-    classInputText = 'ketchup-input-text';
+    baseClass = 'ketchup-combo';
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
@@ -53,16 +54,21 @@ export class KetchupTextInput {
 
     //---- Public Methods ----
     /**
-     * Triggers the focus event on the input text
-     * @method triggerFocus
+     * Opens the combo box
+     * @method closeCombo
      */
     @Method()
-    triggerFocus() {
-        // For focus issues, maybe have a look here
-        // https://github.com/ionic-team/stencil/issues/180
-        // https://github.com/ionic-team/stencil/issues/1008
-        this.inputEl.focus();
-        this.textInput.focus();
+    closeCombo() {
+        this.isOpen = false;
+    }
+
+    /**
+     * Opens the combo box
+     * @method openCombo
+     */
+    @Method()
+    openCombo() {
+        this.isOpen = true;
     }
 
     //---- Events and handlers ----
@@ -72,20 +78,27 @@ export class KetchupTextInput {
      */
     onClearClick() {
         this.value = '';
-        setTimeout(() => this.triggerFocus(), 10);
+    }
+
+    /**
+     * Opens the combo box when clicked
+     * @method onComboClick
+     */
+    onComboClick() {
+        this.openCombo();
     }
 
     //-- Emitted --
     // When field is blurred
     @Event({
-        eventName: 'ketchupTextInputBlurred',
+        eventName: 'ketchupComboUpdated',
         composed: true,
         cancelable: false,
         bubbles: true
     })
     inputBlur: EventEmitter;
 
-    onInputBlurred(event: UIEvent & {target: HTMLInputElement}) {
+    onComboUpdated(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
         this.inputBlur.emit({
             newValue: target.value,
@@ -94,62 +107,27 @@ export class KetchupTextInput {
         this.value = target.value;
     }
 
-    // Component focus handler
-    @Event({
-        eventName: 'ketchupTextInputFocused',
-        composed: true,
-        cancelable: false,
-        bubbles: true
-    })
-    inputFocused: EventEmitter;
-
-    onInputFocused(event: UIEvent & {target: HTMLInputElement}) {
-        const { target } = event;
-        this.inputFocused.emit({
-            newValue: target.value,
-            oldValue: this.value,
-        });
-        this.value = target.value;
-    }
-
-    // Component updated handler
-    @Event({
-        eventName: 'ketchupTextInputUpdated',
-        composed: true,
-        cancelable: false,
-        bubbles: true
-    })
-    inputUpdated: EventEmitter;
-
-    onInputUpdated(event: UIEvent & {target: HTMLInputElement}) {
-        const { target } = event;
-        this.inputUpdated.emit({
-            newValue: target.value,
-            oldValue: this.value,
-        });
-        this.value = target.value;
-    }
-
     //---- Rendering functions ----
     render() {
-        const containerClass = this.classInputText + '__container';
+        const containerClass = this.baseClass + '__container';
 
         return (
             <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}>
-                <input
-                    class={this.classInputText + (this.isClearable ? ' ' + this.classInputText + '--clearable' : '')}
-                    maxlength={this.maxLength}
-                    ref={(el) => this.textInput = el as HTMLInputElement}
-                    tabindex="0"
-                    value={this.value}
-                    onBlur={this.onInputBlurred.bind(this)}
-                    onInput={this.onInputUpdated.bind(this)}
-                    onFocus={this.onInputFocused.bind(this)}
-                />
+                <span
+                    class={this.baseClass + '__current-value'}
+                    onClick={this.onComboClick.bind(this)}
+                >
+                    {this.value}
+                    <svg
+                        class={this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
+                        viewBox="0 0 24 24">
+                        <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                    </svg>
+                </span>
                 {this.isClearable ?
                     <button
                         aria-label="Close"
-                        class={this.classInputText + '__clear'}
+                        class={this.baseClass + '__clear'}
                         role="button"
                         onClick={this.onClearClick.bind(this)}>
                         <svg viewBox="0 0 24 24">

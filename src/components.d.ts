@@ -47,6 +47,52 @@ export namespace Components {
     'transparent'?: boolean;
   }
 
+  interface KetchupCombo {
+    /**
+    * Opens the combo box
+    */
+    'closeCombo': () => void;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue': string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength': number;
+    /**
+    * Opens the combo box
+    */
+    'openCombo': () => void;
+  }
+  interface KetchupComboAttributes extends StencilHTMLAttributes {
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue'?: string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength'?: number;
+    'onKetchupComboUpdated'?: (event: CustomEvent) => void;
+  }
+
   interface KetchupFld {
     /**
     * Props to be passed to the button
@@ -187,6 +233,7 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'KetchupButton': Components.KetchupButton;
+    'KetchupCombo': Components.KetchupCombo;
     'KetchupFld': Components.KetchupFld;
     'KetchupRadio': Components.KetchupRadio;
     'KetchupTextInput': Components.KetchupTextInput;
@@ -195,6 +242,7 @@ declare global {
 
   interface StencilIntrinsicElements {
     'ketchup-button': Components.KetchupButtonAttributes;
+    'ketchup-combo': Components.KetchupComboAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'ketchup-text-input': Components.KetchupTextInputAttributes;
@@ -206,6 +254,12 @@ declare global {
   var HTMLKetchupButtonElement: {
     prototype: HTMLKetchupButtonElement;
     new (): HTMLKetchupButtonElement;
+  };
+
+  interface HTMLKetchupComboElement extends Components.KetchupCombo, HTMLStencilElement {}
+  var HTMLKetchupComboElement: {
+    prototype: HTMLKetchupComboElement;
+    new (): HTMLKetchupComboElement;
   };
 
   interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
@@ -234,6 +288,7 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'ketchup-button': HTMLKetchupButtonElement
+    'ketchup-combo': HTMLKetchupComboElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-radio': HTMLKetchupRadioElement
     'ketchup-text-input': HTMLKetchupTextInputElement
@@ -242,6 +297,7 @@ declare global {
 
   interface ElementTagNameMap {
     'ketchup-button': HTMLKetchupButtonElement;
+    'ketchup-combo': HTMLKetchupComboElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'ketchup-text-input': HTMLKetchupTextInputElement;
