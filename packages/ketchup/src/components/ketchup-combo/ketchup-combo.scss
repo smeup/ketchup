@@ -11,9 +11,15 @@ $lateral-padding: 6px;
   --cmb-tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
   --cmb-icon-color: $gray-80;
   --cmb-icon-color--hover: darken($gray-80, 10);
+  --cmb-menu-background: #ffffff;
 
-  // Style
+  /* Root style
+   * [1] - By default, the root of this element must have a position != static to allow correct positioning of its list.
+   *    In addition to this, the base z-index is set to 1, but can be regulated by the user accordingly to his/her necessities.
+  */
   display: inline-block;
+  position: relative; // [1]
+  z-index: 1; // [1]
 }
 
 .ketchup-combo {
@@ -75,6 +81,64 @@ $lateral-padding: 6px;
     // Clear icon transition
     &:hover > svg {
       fill: var(--cmb-icon-color--hover);
+    }
+  }
+
+  //---- Ketchup Combo menu ----
+  // Absolute menu
+  &__menu {
+    background-color: var(--cmb-menu-background);
+    border-radius: 2px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    display: inline-block;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    transition: opacity var(--cmb-tr-duration);
+    top: 100%;
+    visibility: hidden;
+    z-index: 1;
+
+    // When list should be open
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    // container of the div for searching
+    > div {
+      box-sizing: border-box;
+      display: inline-block;
+      padding: 4px;
+    }
+  }
+
+  // The list of items to display
+  &__list {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+    max-height: 400px;
+    margin: 0;
+    overflow: auto;
+
+    // Each list item
+    > li {
+      border-bottom: 1px solid #e8eae9;
+      box-sizing: border-box;
+      cursor: pointer;
+      display: inline-block;
+      padding: 6px 8px 5px;
+      width: 100%;
+
+      &:hover,
+      &.is-selected {
+        background-color: #f0f0f0;
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+      }
     }
   }
 }

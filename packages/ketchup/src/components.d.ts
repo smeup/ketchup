@@ -9,6 +9,9 @@ import '@stencil/core';
 
 
 import {
+  ComboItem,
+} from './components/ketchup-combo/ketchup-combo-declarations';
+import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
 
@@ -92,7 +95,11 @@ export namespace Components {
     */
     'closeCombo': () => void;
     /**
-    * Marks the field as clearable, allowing an icon to delete its content
+    * * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Allows to pass an initial selected item for the combobox
     */
     'initialValue': string;
     /**
@@ -100,13 +107,13 @@ export namespace Components {
     */
     'isClearable': boolean;
     /**
+    * Items which can be selected
+    */
+    'items': ComboItem[];
+    /**
     * Label to describe the radio group
     */
     'label': string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength': number;
     /**
     * Opens the combo box
     */
@@ -114,7 +121,11 @@ export namespace Components {
   }
   interface KetchupComboAttributes extends StencilHTMLAttributes {
     /**
-    * Marks the field as clearable, allowing an icon to delete its content
+    * * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the combobox
     */
     'initialValue'?: string;
     /**
@@ -122,14 +133,14 @@ export namespace Components {
     */
     'isClearable'?: boolean;
     /**
+    * Items which can be selected
+    */
+    'items'?: ComboItem[];
+    /**
     * Label to describe the radio group
     */
     'label'?: string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength'?: number;
-    'onKetchupComboUpdated'?: (event: CustomEvent) => void;
+    'onKetchupComboSelected'?: (event: CustomEvent) => void;
   }
 
   interface KetchupFld {

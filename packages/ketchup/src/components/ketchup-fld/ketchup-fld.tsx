@@ -19,9 +19,6 @@ export class KetchupFld {
   } = {};
 
   render() {
-    //const component =
-  console.log('ssa', this.button);
-
     return <div class="ketchup-fld">
       <span>fld</span>
       <ketchup-button {...this.button}></ketchup-button>
