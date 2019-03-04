@@ -15,6 +15,43 @@ import {
 
 export namespace Components {
 
+  interface KetchupBtn {
+    'align': string;
+    'borderColor': string;
+    'btnStyle': any;
+    'buttonClass': string;
+    'buttons': any[];
+    'columns': number;
+    'fillspace': boolean;
+    'flat': boolean;
+    'horizontal': boolean;
+    'iconUrl': string;
+    'rounded': boolean;
+    'showSelection': boolean;
+    'showicon': boolean;
+    'showtext': boolean;
+    'textmode': string;
+    'transparent': boolean;
+  }
+  interface KetchupBtnAttributes extends StencilHTMLAttributes {
+    'align'?: string;
+    'borderColor'?: string;
+    'btnStyle'?: any;
+    'buttonClass'?: string;
+    'buttons'?: any[];
+    'columns'?: number;
+    'fillspace'?: boolean;
+    'flat'?: boolean;
+    'horizontal'?: boolean;
+    'iconUrl'?: string;
+    'rounded'?: boolean;
+    'showSelection'?: boolean;
+    'showicon'?: boolean;
+    'showtext'?: boolean;
+    'textmode'?: string;
+    'transparent'?: boolean;
+  }
+
   interface KetchupButton {
     'align': string;
     'borderColor': string;
@@ -23,6 +60,7 @@ export namespace Components {
     'fillspace': boolean;
     'flat': boolean;
     'iconClass': string;
+    'iconUrl': string;
     'label': string;
     'rounded': boolean;
     'showicon': boolean;
@@ -38,8 +76,9 @@ export namespace Components {
     'fillspace'?: boolean;
     'flat'?: boolean;
     'iconClass'?: string;
+    'iconUrl'?: string;
     'label'?: string;
-    'onBtnClicked'?: (event: CustomEvent) => void;
+    'onKetchupButtonClicked'?: (event: CustomEvent) => void;
     'rounded'?: boolean;
     'showicon'?: boolean;
     'showtext'?: boolean;
@@ -232,6 +271,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'KetchupBtn': Components.KetchupBtn;
     'KetchupButton': Components.KetchupButton;
     'KetchupCombo': Components.KetchupCombo;
     'KetchupFld': Components.KetchupFld;
@@ -241,6 +281,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'ketchup-btn': Components.KetchupBtnAttributes;
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
@@ -249,6 +290,12 @@ declare global {
     'my-component': Components.MyComponentAttributes;
   }
 
+
+  interface HTMLKetchupBtnElement extends Components.KetchupBtn, HTMLStencilElement {}
+  var HTMLKetchupBtnElement: {
+    prototype: HTMLKetchupBtnElement;
+    new (): HTMLKetchupBtnElement;
+  };
 
   interface HTMLKetchupButtonElement extends Components.KetchupButton, HTMLStencilElement {}
   var HTMLKetchupButtonElement: {
@@ -287,6 +334,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'ketchup-btn': HTMLKetchupBtnElement
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-combo': HTMLKetchupComboElement
     'ketchup-fld': HTMLKetchupFldElement
@@ -296,6 +344,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'ketchup-btn': HTMLKetchupBtnElement;
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-combo': HTMLKetchupComboElement;
     'ketchup-fld': HTMLKetchupFldElement;

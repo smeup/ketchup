@@ -8,33 +8,36 @@ import {
 } from '@stencil/core'
 
 @Component({
-    tag: 'ketchup-button',
-    styleUrl: 'ketchup-button.scss'
+  tag: 'ketchup-button',
+  styleUrl: 'ketchup-button.scss',
+  shadow: true
 })
 export class KetchupButton {
     @Element() ketchupButtonEl: HTMLElement
 
-    @Prop() flat = false
-    @Prop() label: string
-    @Prop() buttonClass: string
-    @Prop() iconClass: string
-    @Prop() fillspace = false
-    @Prop() showtext = true
-    @Prop() showicon = true
-    @Prop() rounded = false
-    @Prop() textmode: string
-    @Prop() transparent = false
-    @Prop() borderColor: string
-    @Prop() align: string
-    @Prop() btnStyle: any = {}
+  @Prop() flat = false
+  @Prop() label: string
+  @Prop() buttonClass: string
+  @Prop() iconClass: string
+  @Prop() fillspace = false
+  @Prop() showtext = true
+  @Prop() showicon = true
+  @Prop() rounded = false
+  @Prop() textmode: string
+  @Prop() transparent = false
+  @Prop() borderColor: string
+  @Prop() align: string
+  @Prop() btnStyle: any = {}
+  @Prop() iconUrl =
+    'https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css'
 
     @Event({
-        eventName: 'btnClicked',
+        eventName: 'ketchupButtonClicked',
         composed: true,
         cancelable: true,
         bubbles: true
     })
-    btnClicked: EventEmitter
+    ketchupButtonClicked: EventEmitter
 
     @Watch('borderColor')
     onBorderColorChange(newValue: string, oldValue: string) {
@@ -73,9 +76,9 @@ export class KetchupButton {
         }
     }
 
-    onBtnClickedHandler() {
-        this.btnClicked.emit()
-    }
+  onBtnClickedHandler() {
+    this.ketchupButtonClicked.emit({ id: this.ketchupButtonEl.dataset.id })
+  }
 
     _isHint() {
         return 'Hint' === this.textmode
@@ -132,15 +135,19 @@ export class KetchupButton {
             title = this.label
         }
 
-        return (
-            <button
-                class={btnClass}
-                title={title}
-                onClick={this.onBtnClickedHandler.bind(this)}
-            >
-                {icon}
-                {btnLabel}
-            </button>
-        )
-    }
+    // TODO: check if the div element can be removed by passing JSX an array of elements
+    return (
+      <div>
+        <link href={this.iconUrl} rel="stylesheet" type="text/css" />
+        <button
+          class={btnClass}
+          title={title}
+          onClick={() => this.onBtnClickedHandler()}
+        >
+          {icon}
+          {btnLabel}
+        </button>
+      </div>
+    )
+  }
 }
