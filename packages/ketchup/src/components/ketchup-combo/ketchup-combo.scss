@@ -4,14 +4,14 @@ $lateral-padding: 6px;
 
 :host {
   // Variables
-  --cmb-font-size: var(--kup-text-input_font-size, 14px);
-  --cmb-border-color: var(--kup-text-input_border-color, #{$gray-80});
-  --cmb-border-color--selected: var(--kup-text-input_border-color, #{darken($gray-80, 10)});
-  --cmb-color: var(--kup-text-input_color, #{$smeup-primary});
-  --cmb-tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
-  --cmb-icon-color: $gray-80;
-  --cmb-icon-color--hover: darken($gray-80, 10);
-  --cmb-menu-background: #ffffff;
+  --cmb-font-size: var(--kup-combo-input_font-size, 14px);
+  --cmb-border-color: var(--kup-combo-input_border-color, #{$gray-80});
+  --cmb-border-color--selected: var(--kup-combo-input_border-color, #{darken($gray-80, 10)});
+  --cmb-color: var(--kup-combo-input_color, #{$smeup-primary});
+  --cmb-tr-duration: var(--kup-combo-input_transition-duration, #{$trn-time});
+  --cmb-icon-color: var(--kup-combo-icon_color, #{$gray-80});
+  --cmb-icon-color--hover: var(--kup-combo-icon_color--hover, #{darken($gray-80, 10)});
+  --cmb-menu-background: var(--kup-combo-menu_background, #ffffff);
 
   /* Root style
    * [1] - By default, the root of this element must have a position != static to allow correct positioning of its list.
@@ -36,14 +36,14 @@ $lateral-padding: 6px;
     &:focus {
       border-color: var(--cmb-color);
     }
+  }
 
-    // Common style for the icons
-    svg {
-      fill: var(--cmb-icon-color);
-      height: var(--cmb-font-size);
-      transition: fill var(--cmb-tr-duration), transform var(--cmb-tr-duration);
-      width: var(--cmb-font-size);
-    }
+  // Common style for the icons
+  &__icon {
+    fill: var(--cmb-icon-color);
+    height: var(--cmb-font-size);
+    transition: fill var(--cmb-tr-duration), transform var(--cmb-tr-duration);
+    width: var(--cmb-font-size);
   }
 
   // Style of the container of the currently selected value

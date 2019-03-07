@@ -1,3 +1,8 @@
-* {
-  background-color: $smeup-primary;
+:host {
+  display: block;
+  flex-wrap: wrap;
+}
+
+.ketchup-fld__component {
+
 }

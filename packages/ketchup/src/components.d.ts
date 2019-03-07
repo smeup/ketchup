@@ -95,7 +95,7 @@ export namespace Components {
     */
     'closeCombo': () => void;
     /**
-    * * Chooses which field of an item object should be used to create the list and be filtered.
+    * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField': string;
     /**
@@ -121,7 +121,7 @@ export namespace Components {
   }
   interface KetchupComboAttributes extends StencilHTMLAttributes {
     /**
-    * * Chooses which field of an item object should be used to create the list and be filtered.
+    * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField'?: string;
     /**
@@ -145,9 +145,36 @@ export namespace Components {
 
   interface KetchupFld {
     /**
-    * Props to be passed to the button
+    * Effective data to pass to the component
     */
-    'button': {
+    'data': any;
+    /**
+    * Other configurations
+    */
+    'extensions': {
+      minQueryLength?: number;
+      forceSelection?: boolean;
+    };
+    /**
+    * Chooses the label to show If set to empty or has only white space chars, the label get removed
+    */
+    'label': string;
+    /**
+    * Chooses label position
+    */
+    'labelPos': string;
+    /**
+    * Chooses if there is the need to show the submit button or not
+    */
+    'showSubmit': boolean;
+    /**
+    * Chooses the submit button position
+    */
+    'submitPos': string;
+    /**
+    * Props to be passed to the submit button
+    */
+    'submitProps': {
       [index: string]: string;
     };
     /**
@@ -157,9 +184,36 @@ export namespace Components {
   }
   interface KetchupFldAttributes extends StencilHTMLAttributes {
     /**
-    * Props to be passed to the button
+    * Effective data to pass to the component
     */
-    'button'?: {
+    'data'?: any;
+    /**
+    * Other configurations
+    */
+    'extensions'?: {
+      minQueryLength?: number;
+      forceSelection?: boolean;
+    };
+    /**
+    * Chooses the label to show If set to empty or has only white space chars, the label get removed
+    */
+    'label'?: string;
+    /**
+    * Chooses label position
+    */
+    'labelPos'?: string;
+    /**
+    * Chooses if there is the need to show the submit button or not
+    */
+    'showSubmit'?: boolean;
+    /**
+    * Chooses the submit button position
+    */
+    'submitPos'?: string;
+    /**
+    * Props to be passed to the submit button
+    */
+    'submitProps'?: {
       [index: string]: string;
     };
     /**

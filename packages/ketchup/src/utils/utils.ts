@@ -14,6 +14,7 @@ export function generateUniqueId(field: string) {
 
 export function eventFromElement(element: HTMLElement, eventSource) {
   while (eventSource) {
+      console.log(eventSource);
     if (eventSource === element) return true;
     eventSource = eventSource.parentElement;
   }
