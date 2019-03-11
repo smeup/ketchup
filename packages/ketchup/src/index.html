@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-    <script>
-        Event.prototype.propagationPath = function propagationPath() {
-            var polyfill = function () {
-                var element = this.target || null;
-                var pathArr = [element];
-
-                if (!element || !element.parentElement) {
-                    return [];
-                }
-
-                while (element.parentElement) {
-                    element = element.parentElement;
-                    pathArr.unshift(element);
-                }
-
-                return pathArr;
-            }.bind(this);
-
-            return this.path || (this.composedPath && this.composedPath()) || polyfill();
-        };
-    </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
@@ -78,7 +57,7 @@
   <ketchup-radio id="krg1"></ketchup-radio>
   <ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
   <ketchup-combo initial-value="Darth Vader" is-clearable></ketchup-combo>
-  <ketchup-fld id="kfld-1" type="combo" show-submit submit-pos="right" label="Judas Priest" label-pos="right"></ketchup-fld>
+  <ketchup-fld id="kfld-1"></ketchup-fld>
 
   <script>
     let once = true;
@@ -146,37 +125,51 @@
 
         const fld_1 = document.querySelector('#kfld-1');
         fld_1.data = {
-            items: [
-                {
-                    id: 'Firepwer'
-                },
-                {
-                    id: 'Revelations'
-                },
-                {
-                    id: 'Hellrider'
-                },
-                {
-                    id: 'Painkiller'
-                },
-                {
-                    id: 'Turbo Lover'
-                },
-                {
-                    id: 'Defenders of the faith'
-                },
-                {
-                    id: 'Electric Eye'
-                },
-                {
-                    id: 'Breaking the law'
-                },
-            ],
-            initialValue: 'Song'
         };
-          fld_1.submitProps = {
-              label: 'Seleziona'
-          }
+          fld_1.json = {
+              "type": "cmb",
+              "showSubmit": true,
+              "submitLabel": "Invia",
+              "submitPos": "right",
+              "label": "Seleziona pagina",
+              "labelPos": "top",
+              "extensions": {
+                  "minQueryLength": 4,
+                  "forceSelection": true
+              }
+          };
+          fld_1.data = [
+              {
+                  "value": "label bottone #1",
+                  "options": true,
+                  "obj": "J1KEY",
+                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                  "children": []
+              },
+              {
+                  "value": "label bottone #2",
+                  "options": true,
+                  "obj": "J2KEY",
+                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                  "children": []
+              },
+              {
+                  "value": "label bottone #3",
+                  "options": true,
+                  "obj": "J3KEY",
+                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                  "children": []
+              },
+              {
+                  "value": "label bottone #4",
+                  "options": true,
+                  "obj": "J4KEY",
+                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                  "children": []
+              }
+          ];
+          fld_1.addEventListener('ketchupComboSelected', (payload) => {console.log('ketchupComboSelected', payload);});
+          fld_1.addEventListener('ketchupFldSubmit', (payload) => {console.log('ketchupFldSubmit', payload);});
       }
     }, 5000);
   </script>

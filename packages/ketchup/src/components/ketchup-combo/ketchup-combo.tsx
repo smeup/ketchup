@@ -5,7 +5,8 @@ import {
     EventEmitter,
     Method,
     Prop,
-    State, Watch,
+    State,
+    Watch,
 } from '@stencil/core'
 import { ComboItem } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";

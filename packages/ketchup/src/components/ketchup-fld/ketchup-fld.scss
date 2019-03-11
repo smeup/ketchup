@@ -1,8 +1,44 @@
 :host {
-  display: block;
+  display: flex;
   flex-wrap: wrap;
+  --fld__comp-margin: var(--kup-fld__component-margin, 8px);
 }
 
-.ketchup-fld__component {
+// Base class and its derived
+.ketchup-fld {
+  $rightClass: #{&}--right;
 
+  // the top div container
+  &__top-container {
+    align-items: center;
+    display: flex;
+    order: 0;
+    width: 100%;
+  }
+
+  // the label
+  &__label {
+    margin: var(--fld__comp-margin);
+    order: 1;
+
+    &#{$rightClass} {
+      order: 4;
+    }
+  }
+
+  // the dynamic component
+  &__component {
+    margin: var(--fld__comp-margin);
+    order: 3;
+  }
+
+  // the submit button
+  &__submit {
+    margin: var(--fld__comp-margin);
+    order: 2;
+
+    &#{$rightClass} {
+      order: 5;
+    }
+  }
 }
