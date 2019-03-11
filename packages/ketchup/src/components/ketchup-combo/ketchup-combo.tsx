@@ -62,6 +62,16 @@ export class KetchupCombo {
      * In that case closes the combo
      */
     clickFunction = this.onDocumentClick.bind(this);
+    // Holds reference to the comboText
+    comboText!: HTMLInputElement;
+    // Determins the position on which menu will be open
+    comboPosition: {
+        isRight: boolean;
+        isTop: boolean;
+    } = {
+        isRight: false,
+        isTop: false
+    };
 
     //-- Constants --
     baseClass = 'ketchup-combo';
@@ -93,7 +103,7 @@ export class KetchupCombo {
      */
     @Method()
     openCombo() {
-        console.log("open combo");
+        this.comboPosition = this.calcBoxPosition();
         this.isOpen = true;
     }
 
@@ -104,6 +114,15 @@ export class KetchupCombo {
         this.value = newValue;
     }
 
+    calcBoxPosition() {
+        const windowX = window.innerWidth;
+        const windowY = window.innerHeight;
+        const {height, left, top, width} = this.comboText.getBoundingClientRect();
+        return {
+            isRight: left + width / 2 > windowX / 2,
+            isTop: top + height / 2 > windowY / 2
+        };
+    }
 
     //---- Events and handlers ----
     /**
@@ -196,7 +215,8 @@ export class KetchupCombo {
         const containerClass = this.baseClass + '__container';
 
         return ([
-            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}>
+            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}
+                ref={(el) => this.comboText = el as HTMLInputElement}>
                 <span
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
@@ -223,7 +243,8 @@ export class KetchupCombo {
                 }
             </div>,
 
-            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '')}>
+            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
+                (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
                 <div>
                     <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
                 </div>

@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-wrap: wrap;
-  --fld__comp-margin: var(--kup-fld__component-margin, 8px);
+  --fld_comp-margin: var(--kup-fld_component-margin, 8px);
 }
 
 // Base class and its derived
@@ -18,7 +18,7 @@
 
   // the label
   &__label {
-    margin: var(--fld__comp-margin);
+    margin: var(--fld_comp-margin);
     order: 1;
 
     &#{$rightClass} {
@@ -28,13 +28,13 @@
 
   // the dynamic component
   &__component {
-    margin: var(--fld__comp-margin);
+    margin: var(--fld_comp-margin);
     order: 3;
   }
 
   // the submit button
   &__submit {
-    margin: var(--fld__comp-margin);
+    margin: var(--fld_comp-margin);
     order: 2;
 
     &#{$rightClass} {

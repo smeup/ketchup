@@ -1,4 +1,5 @@
 import {Component, Event, EventEmitter, Prop, State, Watch} from '@stencil/core';
+import { generateUniqueId } from "../../utils/utils";
 
 @Component({
     tag: 'ketchup-fld',
@@ -69,7 +70,7 @@ export class KetchupFld {
     } = {};
 
     //-- Not reactive --
-
+    radioGeneratedName = generateUniqueId('value');
 
     //---- Event handlers ----
     @Event({
@@ -81,7 +82,6 @@ export class KetchupFld {
     ketchupFldSubmit: EventEmitter;
 
     onSubmitClicked() {
-        console.log('Submit clicked');
         this.ketchupFldSubmit.emit();
     }
 
@@ -134,20 +134,26 @@ export class KetchupFld {
          * JSX dynamic component notation
          * @see: https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
          */
-        console.log(this.type);
-
         let type: string = '';
+        let confObj : {[key: string]: any} = {};
         switch (this.type) {
-            default:
+            case 'cmb':
+                confObj.displayedField = 'value';
                 type = 'combo';
+                break;
+            case 'rad':
+                confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
+                type = 'radio';
+                break;
         }
 
         const $DynamicComponent = ('ketchup-' + type) as any;
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
-                displayedField="value"
-                items={this.data}/>
+                items={this.data}
+                {...confObj}
+            />
         );
 
         if (!submitIsTop && submit) {

@@ -5,10 +5,10 @@ Compiler: Stencill.js
 
 ## Conventions
 
-##### 1. Component names
+#### 1. Component names
 Component names must be prefixed with `ketchup-`.
 
-##### 2. Custom event names
+#### 2. Custom event names
 Custom event names must be composed in compliance with the following rules:
 1. use camelCase;
 2. event name = componentName + EventName.
@@ -19,6 +19,28 @@ Example:
 // Updated event
 ketchupTextInputUpdated
 ```
+
+#### 3. CSS variables
+
+Usually there are two variables which can be used for each customizable property on a component:
+1. an internal variable, defined on the `:host` element of the component, which is provided with a fallback;
+2. an external variable, which is not defined by the component and can be used to create themes.
+
+##### Naming
+
+The names of the variables must be composed like this:
+```
+--prefix_internal-component_component-property
+```
+
+Where:
+1. `prefix` is either: a 3 letters acronym of the component for internal defined variables, or `kup-` + `component-name`
+for external variables.
+2. `internal-component` is an optional kebab case prefix used to specify id a property specifically targets an
+element which is part of the component.
+3.  `component-property` is a mandatory kebab case suffix describing the property the variable will change,
+and is referred as a global component change if no `internal-component` has been specified.
+
 
 ## Issues to check
 

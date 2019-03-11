@@ -26,7 +26,7 @@ export class KetchupRadio {
     /**
      * Radio elements to display
      */
-    @Prop() radioElements: KetchupRadioElement[] = [];
+    @Prop() items: KetchupRadioElement[] = [];
     /**
      * Radio elements value
      */
@@ -64,7 +64,7 @@ export class KetchupRadio {
 
     //---- Rendering functions ----
     radioElementsComposer() {
-        return this.radioElements.map((radio) => {
+        return this.items.map((radio) => {
             // The id is necessary for the label to be associated with the input
             // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
             const uId = generateUniqueId(radio.label);

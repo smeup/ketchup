@@ -4,14 +4,14 @@ $lateral-padding: 6px;
 
 :host {
   // Variables
-  --cmb-font-size: var(--kup-combo-input_font-size, 14px);
-  --cmb-border-color: var(--kup-combo-input_border-color, #{$gray-80});
-  --cmb-border-color--selected: var(--kup-combo-input_border-color, #{darken($gray-80, 10)});
-  --cmb-color: var(--kup-combo-input_color, #{$smeup-primary});
-  --cmb-tr-duration: var(--kup-combo-input_transition-duration, #{$trn-time});
-  --cmb-icon-color: var(--kup-combo-icon_color, #{$gray-80});
-  --cmb-icon-color--hover: var(--kup-combo-icon_color--hover, #{darken($gray-80, 10)});
-  --cmb-menu-background: var(--kup-combo-menu_background, #ffffff);
+  --cmb_font-size: var(--kup-combo_input_font-size, 14px);
+  --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-80});
+  --cmb_border-color--selected: var(--kup-combo_input_border-color, #{darken($gray-80, 10)});
+  --cmb_color: var(--kup-combo_input_color, #{$smeup-primary});
+  --cmb_tr-duration: var(--kup-combo_input_transition-duration, #{$trn-time});
+  --cmb_icon-color: var(--kup-combo_icon_color, #{$gray-80});
+  --cmb_icon-color--hover: var(--kup-combo_icon_color--hover, #{darken($gray-80, 10)});
+  --cmb_menu-background: var(--kup-combo_menu_background, #ffffff);
 
   /* Root style
    * [1] - By default, the root of this element must have a position != static to allow correct positioning of its list.
@@ -26,7 +26,7 @@ $lateral-padding: 6px;
   // The div containing the input element.
   &__container {
     background-color: #ffffff;
-    border: 1px solid var(--cmb-border-color);
+    border: 1px solid var(--cmb_border-color);
     border-radius: 2px;
     box-sizing: border-box;
     display: inline-flex;
@@ -34,16 +34,16 @@ $lateral-padding: 6px;
 
     &:hover,
     &:focus {
-      border-color: var(--cmb-color);
+      border-color: var(--cmb_color);
     }
   }
 
   // Common style for the icons
   &__icon {
-    fill: var(--cmb-icon-color);
-    height: var(--cmb-font-size);
-    transition: fill var(--cmb-tr-duration), transform var(--cmb-tr-duration);
-    width: var(--cmb-font-size);
+    fill: var(--cmb_icon-color);
+    height: var(--cmb_font-size);
+    transition: fill var(--cmb_tr-duration), transform var(--cmb_tr-duration);
+    width: var(--cmb_font-size);
   }
 
   // Style of the container of the currently selected value
@@ -51,7 +51,7 @@ $lateral-padding: 6px;
     align-items: center;
     cursor: pointer;
     display: inline-flex;
-    font-size: var(--cmb-font-size);
+    font-size: var(--cmb_font-size);
     justify-content: center;
     padding: 4px $lateral-padding;
   }
@@ -80,21 +80,21 @@ $lateral-padding: 6px;
 
     // Clear icon transition
     &:hover > svg {
-      fill: var(--cmb-icon-color--hover);
+      fill: var(--cmb_icon-color--hover);
     }
   }
 
   //---- Ketchup Combo menu ----
   // Absolute menu
   &__menu {
-    background-color: var(--cmb-menu-background);
+    background-color: var(--cmb_menu-background);
     border-radius: 2px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.5);
     display: inline-block;
     left: 0;
     opacity: 0;
     position: absolute;
-    transition: opacity var(--cmb-tr-duration);
+    transition: opacity var(--cmb_tr-duration);
     top: 100%;
     visibility: hidden;
     z-index: 1;
@@ -103,6 +103,18 @@ $lateral-padding: 6px;
     &.is-open {
       opacity: 1;
       visibility: visible;
+    }
+
+    // When menu must be open over the trigger
+    &.is-top {
+      bottom: 100%;
+      top: auto;
+    }
+
+    // When menu must be open on the left
+    &.is-right {
+      left: auto;
+      right: 0;
     }
 
     // container of the div for searching

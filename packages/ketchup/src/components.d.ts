@@ -171,13 +171,13 @@ export namespace Components {
     */
     'direction': string;
     /**
+    * Radio elements to display
+    */
+    'items': KetchupRadioElement[];
+    /**
     * Label to describe the radio group
     */
     'label': string;
-    /**
-    * Radio elements to display
-    */
-    'radioElements': KetchupRadioElement[];
     /**
     * Radio elements value
     */
@@ -189,14 +189,14 @@ export namespace Components {
     */
     'direction'?: string;
     /**
+    * Radio elements to display
+    */
+    'items'?: KetchupRadioElement[];
+    /**
     * Label to describe the radio group
     */
     'label'?: string;
     'onKetchupRadioChanged'?: (event: CustomEvent) => void;
-    /**
-    * Radio elements to display
-    */
-    'radioElements'?: KetchupRadioElement[];
     /**
     * Radio elements value
     */
