@@ -7,10 +7,17 @@
 
 ## Properties
 
-| Property | Attribute | Description                      | Type                           | Default     |
-| -------- | --------- | -------------------------------- | ------------------------------ | ----------- |
-| `button` | --        | Props to be passed to the button | `{ [index: string]: string; }` | `{}`        |
-| `type`   | `type`    | The type of the FLD              | `string`                       | `undefined` |
+| Property | Attribute | Description                                    | Type               | Default     |
+| -------- | --------- | ---------------------------------------------- | ------------------ | ----------- |
+| `data`   | `data`    | Effective data to pass to the component        | `any`              | `undefined` |
+| `json`   | `json`    | Data the FLD must parse to fully be configured | `object \| string` | `''`        |
+
+
+## Events
+
+| Event              | Description | Type                |
+| ------------------ | ----------- | ------------------- |
+| `ketchupFldSubmit` |             | `CustomEvent<void>` |
 
 
 ----------------------------------------------

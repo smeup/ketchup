@@ -31,8 +31,18 @@ export class KetchupFld {
         // Assigns given values to the state
         const keys = Object.keys(currentData);
         keys.forEach(key => {
-            this[key] = currentData[key];
+            // Detects if a given key is present in the component as a @State variable
+            if (key in this) {
+                this[key] = currentData[key];
+            }
         });
+    }
+
+    //---- Life cycle hooks ----
+    componentWillLoad() {
+        // Mandatory, since on first render the watch directive will not be triggered
+        // therefore preventing component to display data
+        this.updateInternalState();
     }
 
     //---- Internal state ----
