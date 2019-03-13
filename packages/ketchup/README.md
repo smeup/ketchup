@@ -42,6 +42,16 @@ element which is part of the component.
 and is referred as a global component change if no `internal-component` has been specified.
 
 
+## Instructions
+
+During development, there is an incorporated minimal showcase used for test inside this package.
+
+Running `npm run start` compiles and shows this showcase.
+
+If you want to test the showcase inside a browser which do not fully support web components natively,
+you can run `npm run start--es5` to compile components into an ECMAScript 5 compatible version.
+
+
 ## Issues to check
 
 ##### Problem with classes on older browsers

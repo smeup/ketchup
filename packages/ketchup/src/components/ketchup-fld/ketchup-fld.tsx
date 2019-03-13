@@ -142,6 +142,8 @@ export class KetchupFld {
                 type = 'combo';
                 break;
             case 'rad':
+                confObj.displayedField = 'value';
+                confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 type = 'radio';
                 break;

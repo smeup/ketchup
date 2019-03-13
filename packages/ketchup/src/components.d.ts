@@ -171,6 +171,10 @@ export namespace Components {
     */
     'direction': string;
     /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
     * Radio elements to display
     */
     'items': KetchupRadioElement[];
@@ -182,12 +186,20 @@ export namespace Components {
     * Radio elements value
     */
     'radioName': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KetchupRadioAttributes extends StencilHTMLAttributes {
     /**
     * Direction in which the radio elements must be placed
     */
     'direction'?: string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
     /**
     * Radio elements to display
     */
@@ -201,6 +213,10 @@ export namespace Components {
     * Radio elements value
     */
     'radioName'?: string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
 
   interface KetchupTextInput {

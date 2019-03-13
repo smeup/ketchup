@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+    <title>Stencil Component Starter</title>
+    <script src="/build/mycomponent.js"></script>
 
 
     <link
@@ -53,307 +53,361 @@
     </style>
 </head>
 <body>
-  <ketchup-button label="Sono bottone"></ketchup-button>
-  <ketchup-radio id="krg1"></ketchup-radio>
-  <ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
-  <ketchup-combo initial-value="Darth Vader" is-clearable></ketchup-combo>
-  <ketchup-fld id="kfld-1"></ketchup-fld>
+<ketchup-button label="Sono bottone"></ketchup-button>
+<ketchup-radio id="krg1" displayed-field="label" value-field="value"></ketchup-radio>
+<ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
+<ketchup-combo initial-value="Darth Vader" is-clearable></ketchup-combo>
+<ketchup-fld id="kfld-1"></ketchup-fld>
+<ketchup-fld id="kfld-2"></ketchup-fld>
 
-  <script>
+<script>
     let once = true;
     // This is a script for testing these elements
     // This is mandatory for testing the passage of complex parameters inside web components
-    setInterval(function() {
-      // Radio develop test
-      const radio = document.querySelector('#krg1');
-      radio.radioName = 'finalFantasy';
-      radio.items = [
-        {
-          label: 'Auron',
-          value: 'Auron'
-        },
-        {
-          label: 'Braska the summoner',
-          value: 'Braska'
-        },
-        {
-          label: 'Jecth the catcher',
-          value: 'Jetch'
-        }
-      ];
-
-      // Test input text
-      const inText = document.querySelector('#int1');
-
-      // Things which need to be done once
-      if (once) {
-        radio.addEventListener('ketchupRadioChanged', (event) => {
-        });
-
-        inText.addEventListener('ketchupTextInputFocused', e => {
-            console.log('#int1 has been FOCUSED', e);
-        });
-        inText.addEventListener('ketchupTextInputBlurred', e => {
-            console.log('#int1 has been BLURRED', e);
-        });
-        inText.addEventListener('ketchupTextInputUpdated', e => {
-            console.log('#int1 has been UPDATED', e);
-        });
-
-        // Never triggers again these part of the code
-        once = false;
-
-        // The combo box
-        const comboBox = document.querySelector('ketchup-combo');
-        comboBox.items = [
+    setInterval(function () {
+        // Radio develop test
+        const radio = document.querySelector('#krg1');
+        radio.radioName = 'finalFantasy';
+        radio.items = [
             {
-                id: 'Darth Vader'
+                label: 'Auron',
+                value: 'Auron'
             },
             {
-                id: 'Darth Sidius'
+                label: 'Braska the summoner',
+                value: 'Braska'
             },
             {
-                id: 'Darth Maul'
-            },
-            {
-                id: 'Darth Tiranus'
-            },
+                label: 'Jecth the catcher',
+                value: 'Jetch'
+            }
         ];
-        comboBox.addEventListener('ketchupComboSelected',(event) => {
-            console.log("comboHasBeenSelected", event);
-        });
 
-        const fld_1 = document.querySelector('#kfld-1');
-        fld_1.data = {
-        };
-          fld_1.json = {
-              "type": "cmb",
-              "showSubmit": true,
-              "submitLabel": "Invia",
-              "submitPos": "right",
-              "label": "Seleziona pagina",
-              "labelPos": "top",
-              "extensions": {
-                  "minQueryLength": 4,
-                  "forceSelection": true
-              }
-          };
-          fld_1.data = [
-              {
-                  "value": "label bottone #1",
-                  "options": true,
-                  "obj": "J1KEY",
-                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                  "children": []
-              },
-              {
-                  "value": "label bottone #2",
-                  "options": true,
-                  "obj": "J2KEY",
-                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                  "children": []
-              },
-              {
-                  "value": "label bottone #3",
-                  "options": true,
-                  "obj": "J3KEY",
-                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                  "children": []
-              },
-              {
-                  "value": "label bottone #4",
-                  "options": true,
-                  "obj": "J4KEY",
-                  "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                  "children": []
-              }
-          ];
-          fld_1.addEventListener('ketchupComboSelected', (payload) => {console.log('ketchupComboSelected', payload);});
-          fld_1.addEventListener('ketchupFldSubmit', (payload) => {console.log('ketchupFldSubmit', payload);});
-      }
+        // Test input text
+        const inText = document.querySelector('#int1');
+
+        // Things which need to be done once
+        if (once) {
+            radio.addEventListener('ketchupRadioChanged', (event) => {
+            });
+
+            inText.addEventListener('ketchupTextInputFocused', e => {
+                console.log('#int1 has been FOCUSED', e);
+            });
+            inText.addEventListener('ketchupTextInputBlurred', e => {
+                console.log('#int1 has been BLURRED', e);
+            });
+            inText.addEventListener('ketchupTextInputUpdated', e => {
+                console.log('#int1 has been UPDATED', e);
+            });
+
+            // Never triggers again these part of the code
+            once = false;
+
+            // The combo box
+            const comboBox = document.querySelector('ketchup-combo');
+            comboBox.items = [
+                {
+                    id: 'Darth Vader'
+                },
+                {
+                    id: 'Darth Sidius'
+                },
+                {
+                    id: 'Darth Maul'
+                },
+                {
+                    id: 'Darth Tiranus'
+                },
+            ];
+            comboBox.addEventListener('ketchupComboSelected', (event) => {
+                console.log("comboHasBeenSelected", event);
+            });
+
+            const fld_1 = document.querySelector('#kfld-1');
+            fld_1.json = {
+                "type": "cmb",
+                "showSubmit": true,
+                "submitLabel": "Invia",
+                "submitPos": "right",
+                "label": "Seleziona pagina",
+                "labelPos": "top",
+                "extensions": {
+                    "minQueryLength": 4,
+                    "forceSelection": true
+                }
+            };
+            fld_1.data = [
+                {
+                    "value": "label bottone #1",
+                    "options": true,
+                    "obj": "J1KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #2",
+                    "options": true,
+                    "obj": "J2KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #3",
+                    "options": true,
+                    "obj": "J3KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #4",
+                    "options": true,
+                    "obj": "J4KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                }
+            ];
+            fld_1.addEventListener('ketchupComboSelected', (payload) => {
+                console.log('ketchupComboSelected', payload);
+            });
+            fld_1.addEventListener('ketchupFldSubmit', (payload) => {
+                console.log('ketchupFldSubmit', payload);
+            });
+
+            // Radio version
+            const fld_2 = document.querySelector('#kfld-2');
+            fld_2.json = {
+                "type": "rad",
+                "showSubmit": true,
+                "submitLabel": "Invia",
+                "submitPos": "right",
+                "label": "Seleziona pagina",
+                "labelPos": "top",
+                "extensions": {
+                    "minQueryLength": 4,
+                    "forceSelection": true
+                }
+            };
+            fld_2.data = [
+                {
+                    "value": "label bottone #1",
+                    "options": true,
+                    "obj": "J1KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #2",
+                    "options": true,
+                    "obj": "J2KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #3",
+                    "options": true,
+                    "obj": "J3KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                },
+                {
+                    "value": "label bottone #4",
+                    "options": true,
+                    "obj": "J4KEY",
+                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
+                    "children": []
+                }
+            ];
+            fld_2.addEventListener('ketchupComboSelected', (payload) => {
+                console.log('ketchupComboSelected', payload);
+            });
+            fld_2.addEventListener('ketchupFldSubmit', (payload) => {
+                console.log('ketchupFldSubmit', payload);
+            });
+        }
     }, 5000);
-  </script>
+</script>
 
 
-  <div class="BTN">
-      <div class="btn-options">
-          <div>
-              <label for="btn-showtext">Show text</label>
-              <input
-                      type="checkbox"
-                      checked
-                      name="btn-showtext"
-                      id="btn-showtext"
-                      onchange="toggleBtnShowtext(event)"
-              />
-          </div>
+<div class="BTN">
+    <div class="btn-options">
+        <div>
+            <label for="btn-showtext">Show text</label>
+            <input
+                    type="checkbox"
+                    checked
+                    name="btn-showtext"
+                    id="btn-showtext"
+                    onchange="toggleBtnShowtext(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-fillspace">Fillspace</label>
-              <input
-                      type="checkbox"
-                      name="btn-fillspace"
-                      id="btn-fillspace"
-                      onchange="toggleBtnFillspace(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-fillspace">Fillspace</label>
+            <input
+                    type="checkbox"
+                    name="btn-fillspace"
+                    id="btn-fillspace"
+                    onchange="toggleBtnFillspace(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-horizontal">Horizontal</label>
-              <input
-                      type="checkbox"
-                      checked
-                      name="btn-horizontal"
-                      id="btn-horizontal"
-                      onchange="toggleBtnHorizontal(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-horizontal">Horizontal</label>
+            <input
+                    type="checkbox"
+                    checked
+                    name="btn-horizontal"
+                    id="btn-horizontal"
+                    onchange="toggleBtnHorizontal(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-showicon">Show icon</label>
-              <input
-                      type="checkbox"
-                      checked
-                      name="btn-showicon"
-                      id="btn-showicon"
-                      onchange="toggleBtnShowicon(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-showicon">Show icon</label>
+            <input
+                    type="checkbox"
+                    checked
+                    name="btn-showicon"
+                    id="btn-showicon"
+                    onchange="toggleBtnShowicon(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-rounded">Rounded</label>
-              <input
-                      type="checkbox"
-                      name="btn-rounded"
-                      id="btn-rounded"
-                      onchange="toggleBtnRounded(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-rounded">Rounded</label>
+            <input
+                    type="checkbox"
+                    name="btn-rounded"
+                    id="btn-rounded"
+                    onchange="toggleBtnRounded(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-hinttextmode">TextMode='Hint'</label>
-              <input
-                      type="checkbox"
-                      name="btn-hinttextmode"
-                      id="btn-hinttextmode"
-                      onchange="toggleBtnTextModeHint(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-hinttextmode">TextMode='Hint'</label>
+            <input
+                    type="checkbox"
+                    name="btn-hinttextmode"
+                    id="btn-hinttextmode"
+                    onchange="toggleBtnTextModeHint(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-transparent">Transparent</label>
-              <input
-                      type="checkbox"
-                      name="btn-transparent"
-                      id="btn-transparent"
-                      onchange="toggleBtnTransparent(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-transparent">Transparent</label>
+            <input
+                    type="checkbox"
+                    name="btn-transparent"
+                    id="btn-transparent"
+                    onchange="toggleBtnTransparent(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-bordercolor">Border color</label>
-              <input
-                      type="color"
-                      name="btn-bordercolor"
-                      id="btn-bordercolor"
-                      onchange="onBorderColorChange(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-bordercolor">Border color</label>
+            <input
+                    type="color"
+                    name="btn-bordercolor"
+                    id="btn-bordercolor"
+                    onchange="onBorderColorChange(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-buttonclass">Button class</label>
-              <select
-                      name="btn-buttonclass"
-                      id="btn-buttonclass"
-                      onchange="onBorderButtonClassChange(event)"
-              >
-                  <option value=""></option>
-                  <option value="btn-info">btn-info</option>
-                  <option value="btn-danger">btn-danger</option>
-                  <option value="btn-warning">btn-warning</option>
-                  <option value="btn-selected">btn-selected</option>
-              </select>
-          </div>
+        <div>
+            <label for="btn-buttonclass">Button class</label>
+            <select
+                    name="btn-buttonclass"
+                    id="btn-buttonclass"
+                    onchange="onBorderButtonClassChange(event)"
+            >
+                <option value=""></option>
+                <option value="btn-info">btn-info</option>
+                <option value="btn-danger">btn-danger</option>
+                <option value="btn-warning">btn-warning</option>
+                <option value="btn-selected">btn-selected</option>
+            </select>
+        </div>
 
-          <div>
-              <label for="btn-flat">Flat</label>
-              <input
-                      type="checkbox"
-                      name="btn-flat"
-                      id="btn-flat"
-                      onchange="toggleBtnFlat(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-flat">Flat</label>
+            <input
+                    type="checkbox"
+                    name="btn-flat"
+                    id="btn-flat"
+                    onchange="toggleBtnFlat(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-showselection">Show Selection</label>
-              <input
-                      type="checkbox"
-                      name="btn-showselection"
-                      id="btn-showselection"
-                      onchange="toggleBtnShowSelection(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-showselection">Show Selection</label>
+            <input
+                    type="checkbox"
+                    name="btn-showselection"
+                    id="btn-showselection"
+                    onchange="toggleBtnShowSelection(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-columns">Columns</label>
-              <input
-                      type="number"
-                      name="btn-columns"
-                      id="btn-columns"
-                      onchange="toggleBtnColumns(event)"
-              />
-          </div>
+        <div>
+            <label for="btn-columns">Columns</label>
+            <input
+                    type="number"
+                    name="btn-columns"
+                    id="btn-columns"
+                    onchange="toggleBtnColumns(event)"
+            />
+        </div>
 
-          <div>
-              <label for="btn-align">Align</label>
-              <select
-                      name="btn-align"
-                      id="btn-align"
-                      onchange="onBtnAlignChange(event)"
-              >
-                  <option value=""></option>
-                  <option value="left">left</option>
-                  <option value="right">right</option>
-              </select>
-          </div>
+        <div>
+            <label for="btn-align">Align</label>
+            <select
+                    name="btn-align"
+                    id="btn-align"
+                    onchange="onBtnAlignChange(event)"
+            >
+                <option value=""></option>
+                <option value="left">left</option>
+                <option value="right">right</option>
+            </select>
+        </div>
 
-          <div>
-              <label for="btn-fontbold">Bold font</label>
-              <input
-                      type="checkbox"
-                      name="btn-fontbold"
-                      id="btn-fontbold"
-                      onchange="toggleBtnStyle()"
-              />
-          </div>
+        <div>
+            <label for="btn-fontbold">Bold font</label>
+            <input
+                    type="checkbox"
+                    name="btn-fontbold"
+                    id="btn-fontbold"
+                    onchange="toggleBtnStyle()"
+            />
+        </div>
 
-          <div>
-              <label for="btn-fontcolor">Font color</label>
-              <input
-                      type="color"
-                      value="#FFFFFF"
-                      name="btn-fontcolor"
-                      id="btn-fontcolor"
-                      onchange="toggleBtnStyle()"
-              />
-          </div>
+        <div>
+            <label for="btn-fontcolor">Font color</label>
+            <input
+                    type="color"
+                    value="#FFFFFF"
+                    name="btn-fontcolor"
+                    id="btn-fontcolor"
+                    onchange="toggleBtnStyle()"
+            />
+        </div>
 
-          <div>
-              <label for="btn-font">Font</label>
-              <select name="btn-font" id="btn-font" onchange="toggleBtnStyle()">
-                  <option value=""></option>
-                  <option value="Verdana">Verdana</option>
-                  <option value="Courier">Courier</option>
-              </select>
-          </div>
-      </div>
+        <div>
+            <label for="btn-font">Font</label>
+            <select name="btn-font" id="btn-font" onchange="toggleBtnStyle()">
+                <option value=""></option>
+                <option value="Verdana">Verdana</option>
+                <option value="Courier">Courier</option>
+            </select>
+        </div>
+    </div>
 
-      <ketchup-btn></ketchup-btn>
+    <ketchup-btn></ketchup-btn>
 
-      <p id="btn-label"></p>
-  </div>
+    <p id="btn-label"></p>
+</div>
 
-  <script src="/assets/index.js"></script>
+<script src="/assets/index.js"></script>
 </body>
 </html>
