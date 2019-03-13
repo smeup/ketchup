@@ -6,6 +6,7 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core'
 import { ComboItem } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
@@ -22,7 +23,7 @@ import { eventFromElement } from "../../utils/utils";
     shadow: true
 })
 export class KetchupCombo {
-    /***
+    /**
      * Chooses which field of an item object should be used to create the list and be filtered.
      */
     @Prop() displayedField: string = 'id';
@@ -36,7 +37,7 @@ export class KetchupCombo {
     @Prop() isClearable: boolean = false;
     /**
      * Items which can be selected
-     * */
+     */
     @Prop() items: ComboItem[] = [];
     /**
      * Label to describe the radio group
@@ -61,16 +62,21 @@ export class KetchupCombo {
      * In that case closes the combo
      */
     clickFunction = this.onDocumentClick.bind(this);
+    // Holds reference to the comboText
+    comboText!: HTMLInputElement;
+    // Determins the position on which menu will be open
+    comboPosition: {
+        isRight: boolean;
+        isTop: boolean;
+    } = {
+        isRight: false,
+        isTop: false
+    };
 
     //-- Constants --
     baseClass = 'ketchup-combo';
 
     //---- Lifecycle Hooks  ----
-    componentWillLoad() {
-        // Sets initial value inside the element
-        this.value = this.initialValue;
-    }
-
     componentDidLoad() {
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction);
@@ -97,11 +103,26 @@ export class KetchupCombo {
      */
     @Method()
     openCombo() {
+        this.comboPosition = this.calcBoxPosition();
         this.isOpen = true;
     }
 
     //---- Private methods ----
+    // Always reflect changes of initialValue to value element
+    @Watch('initialValue')
+    reflectInitialValue(newValue: string) {
+        this.value = newValue;
+    }
 
+    calcBoxPosition() {
+        const windowX = window.innerWidth;
+        const windowY = window.innerHeight;
+        const {height, left, top, width} = this.comboText.getBoundingClientRect();
+        return {
+            isRight: left + width / 2 > windowX / 2,
+            isTop: top + height / 2 > windowY / 2
+        };
+    }
 
     //---- Events and handlers ----
     /**
@@ -123,12 +144,32 @@ export class KetchupCombo {
     }
 
     /**
-     * Function to trigger when document is clicked
+     * Function to trigger when document is clicked.
+     * If the event does not come from within the element, then the list is closed.
+     *
+     * To check when the event comes from this element, you can't rely on event.target.
+     * That's because, as stated by ShadowDOM specs, event targets gets rewritten.
+     * @see https://polymer-library.polymer-project.org/3.0/docs/devguide/shadow-dom
+     * The event.path property is for Chrome only (maybe also Opera) and it is not standard.
+     *
+     * The specs also specify that the correct way to get from which element the event was effectively originated,
+     * the correct and standard method to use is event.composedPath(), which return an array of the elements the event has traversed.
+     * In this way, you can correctly detect when to close the menu or not.
+     *
+     * However, composed path is not supported by all browser, especially those which do not support ShadowDOM.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
+     * But in that case you can traverse the DOM starting from the target element and going up.
      */
     onDocumentClick(event: UIEvent) {
-        let ele = event.target as HTMLElement;
-        if (!eventFromElement(this.comboEl, ele)) {
-            this.closeCombo();
+        try {
+            if (event.composedPath().indexOf(this.comboEl) < 0) {
+                this.closeCombo();
+            }
+        } catch(e) {
+            const ele = event.target as HTMLElement;
+            if (!eventFromElement(this.comboEl, ele)) {
+                this.closeCombo();
+            }
         }
     }
 
@@ -174,14 +215,15 @@ export class KetchupCombo {
         const containerClass = this.baseClass + '__container';
 
         return ([
-            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}>
+            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}
+                ref={(el) => this.comboText = el as HTMLInputElement}>
                 <span
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
                     {this.value}
                     <svg
-                        class={this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
+                        class={this.baseClass + '__icon ' + this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
                         viewBox="0 0 24 24">
                         <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                     </svg>
@@ -192,7 +234,8 @@ export class KetchupCombo {
                         class={this.baseClass + '__clear'}
                         role="button"
                         onClick={this.onClearClick.bind(this)}>
-                        <svg viewBox="0 0 24 24">
+                        <svg class={this.baseClass + '__icon'}
+                            viewBox="0 0 24 24">
                             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                         </svg>
                     </button>:
@@ -200,7 +243,8 @@ export class KetchupCombo {
                 }
             </div>,
 
-            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '')}>
+            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
+                (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
                 <div>
                     <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
                 </div>

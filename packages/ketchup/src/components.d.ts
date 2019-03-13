@@ -95,7 +95,7 @@ export namespace Components {
     */
     'closeCombo': () => void;
     /**
-    * * Chooses which field of an item object should be used to create the list and be filtered.
+    * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField': string;
     /**
@@ -121,7 +121,7 @@ export namespace Components {
   }
   interface KetchupComboAttributes extends StencilHTMLAttributes {
     /**
-    * * Chooses which field of an item object should be used to create the list and be filtered.
+    * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField'?: string;
     /**
@@ -145,27 +145,24 @@ export namespace Components {
 
   interface KetchupFld {
     /**
-    * Props to be passed to the button
+    * Effective data to pass to the component
     */
-    'button': {
-      [index: string]: string;
-    };
+    'data': any;
     /**
-    * The type of the FLD
+    * Data the FLD must parse to fully be configured
     */
-    'type': string;
+    'json': string | object;
   }
   interface KetchupFldAttributes extends StencilHTMLAttributes {
     /**
-    * Props to be passed to the button
+    * Effective data to pass to the component
     */
-    'button'?: {
-      [index: string]: string;
-    };
+    'data'?: any;
     /**
-    * The type of the FLD
+    * Data the FLD must parse to fully be configured
     */
-    'type'?: string;
+    'json'?: string | object;
+    'onKetchupFldSubmit'?: (event: CustomEvent) => void;
   }
 
   interface KetchupRadio {
@@ -174,17 +171,25 @@ export namespace Components {
     */
     'direction': string;
     /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Radio elements to display
+    */
+    'items': KetchupRadioElement[];
+    /**
     * Label to describe the radio group
     */
     'label': string;
     /**
-    * Radio elements to display
-    */
-    'radioElements': KetchupRadioElement[];
-    /**
     * Radio elements value
     */
     'radioName': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KetchupRadioAttributes extends StencilHTMLAttributes {
     /**
@@ -192,18 +197,26 @@ export namespace Components {
     */
     'direction'?: string;
     /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Radio elements to display
+    */
+    'items'?: KetchupRadioElement[];
+    /**
     * Label to describe the radio group
     */
     'label'?: string;
     'onKetchupRadioChanged'?: (event: CustomEvent) => void;
     /**
-    * Radio elements to display
-    */
-    'radioElements'?: KetchupRadioElement[];
-    /**
     * Radio elements value
     */
     'radioName'?: string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
 
   interface KetchupTextInput {

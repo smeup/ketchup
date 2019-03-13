@@ -24,13 +24,21 @@ export class KetchupRadio {
      */
     @Prop() direction: string = 'horizontal';
     /**
+     * Chooses which field of an item object should be used to create the list and be filtered.
+     */
+    @Prop() displayedField: string = 'id';
+    /**
      * Radio elements to display
      */
-    @Prop() radioElements: KetchupRadioElement[] = [];
+    @Prop() items: KetchupRadioElement[] = [];
     /**
      * Radio elements value
      */
     @Prop() radioName: string = '';
+    /**
+     * Chooses which field of an item object should be used to create the list and be filtered.
+     */
+    @Prop() valueField: string = 'id';
 
     //---- Validating props ----
     @Watch('direction')
@@ -64,15 +72,15 @@ export class KetchupRadio {
 
     //---- Rendering functions ----
     radioElementsComposer() {
-        return this.radioElements.map((radio) => {
+        return this.items.map((radio) => {
             // The id is necessary for the label to be associated with the input
             // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
-            const uId = generateUniqueId(radio.label);
-            return <li class={'ketchup-radio__item' + (this.selectedRadio === radio.value ? ' ketchup-radio__item--selected' : '')}>
+            const uId = generateUniqueId(radio[this.valueField]);
+            return <li class={'ketchup-radio__item' + (this.selectedRadio === radio[this.valueField] ? ' ketchup-radio__item--selected' : '')}>
                 <div>
-                    <input id={uId} type="radio" name={this.radioName} value={radio.value} onChange={this.onRadioChanged.bind(this)}/>
+                    <input id={uId} type="radio" name={this.radioName} value={radio[this.valueField]} onChange={this.onRadioChanged.bind(this)}/>
                 </div>
-                <label htmlFor={uId}>{radio.label}</label>
+                <label htmlFor={uId}>{radio[this.displayedField]}</label>
             </li>
         });
     }

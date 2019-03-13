@@ -4,13 +4,13 @@ $lateral-padding: 6px;
 
 :host {
   // Variables
-  --int-font-size: var(--kup-text-input_font-size, 14px);
-  --int-border-color: var(--kup-text-input_border-color, #{$gray-80});
-  --int-border-color--selected: var(--kup-text-input_border-color, #{darken($gray-80, 10)});
-  --int-color: var(--kup-text-input_color, #{$smeup-primary});
-  --int-tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
-  --int-icon-color: $gray-80;
-  --int-icon-color--hover: darken($gray-80, 10);
+  --int_font-size: var(--kup-text-input_font-size, 14px);
+  --int_border-color: var(--kup-text-input_border-color, #{$gray-80});
+  --int_border-color--selected: var(--kup-text-input_border-color, #{darken($gray-80, 10)});
+  --int_color: var(--kup-text-input_color, #{$smeup-primary});
+  --int_tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
+  --int_icon-color: $gray-80;
+  --int_icon-color--hover: darken($gray-80, 10);
 
   // Style
   display: inline-block;
@@ -26,23 +26,23 @@ $lateral-padding: 6px;
 
   // Style of the input
   background-color: #ffffff;
-  border: 1px solid var(--int-border-color);
+  border: 1px solid var(--int_border-color);
   border-radius: 2px;
   box-sizing: border-box;
   outline: none;
   padding: 4px $lateral-padding;
   position: relative;
-  transition: background-color var(--int-tr-duration);
+  transition: background-color var(--int_tr-duration);
   z-index: 0;
 
   &:hover,
   &:focus {
-    border-color: var(--int-color);
+    border-color: var(--int_color);
   }
 
   // When text input is clearable
   &--clearable {
-    padding-right: calc(#{$lateral-padding} + #{$clear-button-padding} * 2 + var(--int-font-size));
+    padding-right: calc(#{$lateral-padding} + #{$clear-button-padding} * 2 + var(--int_font-size));
   }
 
   // The clear button for the field
@@ -64,14 +64,14 @@ $lateral-padding: 6px;
 
     // The true icon
     > svg {
-      fill: var(--int-icon-color);
-      height: var(--int-font-size);
-      transition: fill var(--int-tr-duration);
-      width: var(--int-font-size);
+      fill: var(--int_icon-color);
+      height: var(--int_font-size);
+      transition: fill var(--int_tr-duration);
+      width: var(--int_font-size);
     }
 
     &:hover > svg {
-      fill: var(--int-icon-color--hover);
+      fill: var(--int_icon-color--hover);
     }
   }
 }
