@@ -177,49 +177,18 @@
             // Radio version
             const fld_2 = document.querySelector('#kfld-2');
             fld_2.json = {
-                "type": "rad",
-                "showSubmit": true,
-                "submitLabel": "Invia",
-                "submitPos": "right",
-                "label": "Seleziona pagina",
-                "labelPos": "top",
-                "extensions": {
-                    "minQueryLength": 4,
-                    "forceSelection": true
-                }
+                "type": "cmb",
+                "displayedField" : "value",
+                "initialValue" : "PRVSHO",
+                "showSubmit": true
             };
             fld_2.data = [
-                {
-                    "value": "label bottone #1",
-                    "options": true,
-                    "obj": "J1KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #2",
-                    "options": true,
-                    "obj": "J2KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #3",
-                    "options": true,
-                    "obj": "J3KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #4",
-                    "options": true,
-                    "obj": "J4KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                }
+                { "value" : "PRVSHO"},
+                { "value" : "PRV123"},
+                { "value" : "PRV456"}
             ];
-            fld_2.addEventListener('ketchupComboSelected', (payload) => {
-                console.log('ketchupComboSelected', payload);
+            fld_2.addEventListener('ketchupRadioChanged', (payload) => {
+                console.log('ketchupRadioChanged', payload);
             });
             fld_2.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);

@@ -22,7 +22,7 @@ export class KetchupFld {
     updateInternalState() {
         // Controls type of data passed to the json parameter and if necessary parses it
         let currentData;
-        if (typeof this.json === 'string') {
+        if (typeof this.json === 'string' && this.json) {
             currentData = JSON.parse(this.json);
         } else {
             currentData = this.json;
@@ -30,12 +30,17 @@ export class KetchupFld {
 
         // Assigns given values to the state
         const keys = Object.keys(currentData);
+        let propagate = {};
         keys.forEach(key => {
             // Detects if a given key is present in the component as a @State variable
             if (key in this) {
                 this[key] = currentData[key];
+            } else {
+                // if key is not present, it will be passed down to the component
+                propagate[key] = currentData[key];
             }
         });
+        this.propagate = propagate;
     }
 
     //---- Life cycle hooks ----
@@ -71,6 +76,10 @@ export class KetchupFld {
      * Chooses label position
      */
     @State() labelPos: string = 'left'; // 'left / right / top'
+    /**
+     * Unsupported props gets propagated down to dynamic component
+     */
+    @State() propagate: any = {};
     /**
      * Other configurations
      */
@@ -159,12 +168,13 @@ export class KetchupFld {
                 break;
         }
 
-        const $DynamicComponent = ('ketchup-' + type) as any;
+        const $DynamicComponent = ('ketchup-' + type) as any; // TODO check if there is a better typing
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
                 items={this.data}
                 {...confObj}
+                {...this.propagate}
             />
         );
 

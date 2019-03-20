@@ -77,6 +77,10 @@ export class KetchupCombo {
     baseClass = 'ketchup-combo';
 
     //---- Lifecycle Hooks  ----
+    componentWillLoad() {
+        this.reflectInitialValue(this.initialValue);
+    }
+
     componentDidLoad() {
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction);
