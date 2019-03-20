@@ -2,15 +2,23 @@
 $clear-button-padding: 4px;
 $lateral-padding: 6px;
 
+/**
+* @prop --int_font-size, --kup-text-input_font-size: Set height of the font and the svg icon
+* @prop --int_border-color, --kup-text-input_border-color: Set normal border color of the input
+* @prop --int_border-color--selected, --kup-text-input_border-color: Set color of the border when focused or hovered
+* @prop --int_tr-duration, --kup-text-input_transition-duration: Set all transitions duration
+* @prop --int_icon-color, --kup-text-input_icon-color: Set icon color
+* @prop --int_icon-color--hover, --kup-text-input_icon-color--hover: Set icon color when hovered
+*/
+
 :host {
   // Variables
   --int_font-size: var(--kup-text-input_font-size, 14px);
   --int_border-color: var(--kup-text-input_border-color, #{$gray-80});
-  --int_border-color--selected: var(--kup-text-input_border-color, #{darken($gray-80, 10)});
-  --int_color: var(--kup-text-input_color, #{$smeup-primary});
+  --int_border-color--selected: var(--kup-text-input_border-color--selected, #{$smeup-primary});
   --int_tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
-  --int_icon-color: $gray-80;
-  --int_icon-color--hover: darken($gray-80, 10);
+  --int_icon-color: var(--kup-text-input_icon-color ,#{$gray-80});
+  --int_icon-color--hover: var(--kup-text-input_icon-color--hover, #{darken($gray-80, 10)});
 
   // Style
   display: inline-block;
@@ -37,7 +45,7 @@ $lateral-padding: 6px;
 
   &:hover,
   &:focus {
-    border-color: var(--int_color);
+    border-color: var(--int_border-color--selected);
   }
 
   // When text input is clearable

@@ -1,3 +1,13 @@
+$radio-button_scale: 1.4;
+
+/**
+* @prop --rad_font-size, --kup-radio_font-size: Sets font size and icon radio button size (size * #{$radio-button_scale})
+* @prop --rad_border-color, --kup-radio_border-color: Set default color of external border of the radio element
+* @prop --rad_border-color--selected --kup-radio_border-color: Set selected color of external border of the radio element
+* @prop --rad_color, --kup-radio_color: Sets radio element color when selected radio appears
+* @prop --rad_tr-duration, --kup-radio_transition-duration: Sets all components transitions duration
+*/
+
 :host {
   --rad_font-size: var(--kup-radio_font-size, 14px);
   --rad_border-color: var(--kup-radio_border-color, #{$gray-80});
@@ -35,10 +45,10 @@
     > div {
       align-items: center;
       display: inline-flex;
-      height: calc(var(--rad_font-size) * 1.4);
+      height: calc(var(--rad_font-size) * #{$radio-button_scale});
       justify-content: center;
       position: relative;
-      width: calc(var(--rad_font-size) * 1.4);
+      width: calc(var(--rad_font-size) * #{$radio-button_scale});
       z-index: 0;
 
       &::before,
@@ -54,6 +64,7 @@
         left: 0;
         position: absolute;
         top: 0;
+        transition: border-color var(--rad_tr-duration);
         width: 100%;
         z-index: 0;
       }
@@ -84,6 +95,10 @@
 
     &--selected {
       div {
+        &::before {
+          border-color: var(--rad_border-color--selected);
+        }
+
         &::after {
           opacity: 1;
         }

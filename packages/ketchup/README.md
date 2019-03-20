@@ -41,6 +41,14 @@ element which is part of the component.
 3.  `component-property` is a mandatory kebab case suffix describing the property the variable will change,
 and is referred as a global component change if no `internal-component` has been specified.
 
+##### Usage
+
+For each property, there are two types of CSS variables: a local one and a more global one, prefixed with `--kup`.
+In this way it's also possible to define a basic theme.
+
+Always use the global one if possible, while override the local one if a particular instance of a component requires
+a peculiar value.
+
 
 ## Instructions
 

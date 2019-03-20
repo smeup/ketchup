@@ -19,9 +19,20 @@
 
 ## Events
 
-| Event                 | Description | Type                |
-| --------------------- | ----------- | ------------------- |
-| `ketchupRadioChanged` |             | `CustomEvent<void>` |
+| Event                 | Description                                            | Type                |
+| --------------------- | ------------------------------------------------------ | ------------------- |
+| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<void>` |
+
+
+## CSS Custom Properties
+
+| Name                                                    | Description                                                |
+| ------------------------------------------------------- | ---------------------------------------------------------- |
+| `--rad_border-color, --kup-radio_border-color`          | Set default color of external border of the radio element  |
+| `--rad_border-color--selected --kup-radio_border-color` | Set selected color of external border of the radio element |
+| `--rad_color, --kup-radio_color`                        | Sets radio element color when selected radio appears       |
+| `--rad_font-size, --kup-radio_font-size`                | Sets font size and icon radio button size (size * 1.4)     |
+| `--rad_tr-duration, --kup-radio_transition-duration`    | Sets all components transitions duration                   |
 
 
 ----------------------------------------------

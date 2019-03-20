@@ -17,11 +17,11 @@
 
 ## Events
 
-| Event                     | Description | Type                |
-| ------------------------- | ----------- | ------------------- |
-| `ketchupTextInputBlurred` |             | `CustomEvent<void>` |
-| `ketchupTextInputFocused` |             | `CustomEvent<void>` |
-| `ketchupTextInputUpdated` |             | `CustomEvent<void>` |
+| Event                     | Description                            | Type                |
+| ------------------------- | -------------------------------------- | ------------------- |
+| `ketchupTextInputBlurred` | When text field loses focus (blur)     | `CustomEvent<void>` |
+| `ketchupTextInputFocused` | When the text input gains focus        | `CustomEvent<void>` |
+| `ketchupTextInputUpdated` | When the input text value gets updated | `CustomEvent<void>` |
 
 
 ## Methods
@@ -35,6 +35,18 @@ Triggers the focus event on the input text
 Type: `void`
 
 
+
+
+## CSS Custom Properties
+
+| Name                                                          | Description                                     |
+| ------------------------------------------------------------- | ----------------------------------------------- |
+| `--int_border-color, --kup-text-input_border-color`           | Set normal border color of the input            |
+| `--int_border-color--selected, --kup-text-input_border-color` | Set color of the border when focused or hovered |
+| `--int_font-size, --kup-text-input_font-size`                 | Set height of the font and the svg icon         |
+| `--int_icon-color, --kup-text-input_icon-color`               | Set icon color                                  |
+| `--int_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |
+| `--int_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
 
 
 ----------------------------------------------

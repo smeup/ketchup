@@ -52,6 +52,9 @@ export class KetchupRadio {
     @State() selectedRadio: string = '';
 
     //---- Emitted events and handlers ----
+    /**
+     * When currently selected radio button has been changed.
+     * */
     @Event({
         eventName: 'ketchupRadioChanged',
         composed: true,

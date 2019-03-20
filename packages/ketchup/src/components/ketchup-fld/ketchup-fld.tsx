@@ -8,7 +8,8 @@ import { generateUniqueId } from "../../utils/utils";
 })
 export class KetchupFld {
     /**
-     * Data the FLD must parse to fully be configured
+     * Data the FLD must parse to fully be configured.
+     * It must be either an Object or a JSON parsable string
      */
     @Prop() json: string | object = '';
 
@@ -92,6 +93,9 @@ export class KetchupFld {
     radioGeneratedName = generateUniqueId('value');
 
     //---- Event handlers ----
+    /**
+     * When the FLD values are confirmed.
+     */
     @Event({
         eventName: 'ketchupFldSubmit',
         composed: true,

@@ -91,7 +91,7 @@ export namespace Components {
 
   interface KetchupCombo {
     /**
-    * Opens the combo box
+    * Programmatically close the combo box
     */
     'closeCombo': () => void;
     /**
@@ -115,7 +115,7 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Opens the combo box
+    * Programmatically opens the combo box
     */
     'openCombo': () => void;
   }
@@ -149,7 +149,7 @@ export namespace Components {
     */
     'data': any;
     /**
-    * Data the FLD must parse to fully be configured
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
     */
     'json': string | object;
   }
@@ -159,9 +159,12 @@ export namespace Components {
     */
     'data'?: any;
     /**
-    * Data the FLD must parse to fully be configured
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
     */
     'json'?: string | object;
+    /**
+    * When the FLD values are confirmed.
+    */
     'onKetchupFldSubmit'?: (event: CustomEvent) => void;
   }
 
@@ -208,6 +211,9 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
+    /**
+    * When currently selected radio button has been changed.
+    */
     'onKetchupRadioChanged'?: (event: CustomEvent) => void;
     /**
     * Radio elements value
@@ -258,8 +264,17 @@ export namespace Components {
     * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
     */
     'maxLength'?: number;
+    /**
+    * When text field loses focus (blur)
+    */
     'onKetchupTextInputBlurred'?: (event: CustomEvent) => void;
+    /**
+    * When the text input gains focus
+    */
     'onKetchupTextInputFocused'?: (event: CustomEvent) => void;
+    /**
+    * When the input text value gets updated
+    */
     'onKetchupTextInputUpdated'?: (event: CustomEvent) => void;
   }
 

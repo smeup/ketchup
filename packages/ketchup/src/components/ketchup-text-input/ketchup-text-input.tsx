@@ -76,7 +76,9 @@ export class KetchupTextInput {
     }
 
     //-- Emitted --
-    // When field is blurred
+    /**
+     * When text field loses focus (blur)
+     */
     @Event({
         eventName: 'ketchupTextInputBlurred',
         composed: true,
@@ -94,7 +96,9 @@ export class KetchupTextInput {
         this.value = target.value;
     }
 
-    // Component focus handler
+    /**
+     * When the text input gains focus
+     */
     @Event({
         eventName: 'ketchupTextInputFocused',
         composed: true,
@@ -112,7 +116,9 @@ export class KetchupTextInput {
         this.value = target.value;
     }
 
-    // Component updated handler
+    /**
+     * When the input text value gets updated
+     */
     @Event({
         eventName: 'ketchupTextInputUpdated',
         composed: true,

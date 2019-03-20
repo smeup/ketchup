@@ -93,7 +93,7 @@ export class KetchupCombo {
 
     //---- Public Methods ----
     /**
-     * Opens the combo box
+     * Programmatically close the combo box
      * @method closeCombo
      */
     @Method()
@@ -102,7 +102,7 @@ export class KetchupCombo {
     }
 
     /**
-     * Opens the combo box
+     * Programmatically opens the combo box
      * @method openCombo
      */
     @Method()
