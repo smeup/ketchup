@@ -56,9 +56,10 @@
 <ketchup-button label="Sono bottone"></ketchup-button>
 <ketchup-radio id="krg1" displayed-field="label" value-field="value"></ketchup-radio>
 <ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
-<ketchup-combo initial-value="Darth Vader" is-clearable></ketchup-combo>
+<ketchup-combo is-clearable></ketchup-combo>
 <ketchup-fld id="kfld-1"></ketchup-fld>
 <ketchup-fld id="kfld-2"></ketchup-fld>
+<ketchup-fld id="kfld-3"></ketchup-fld>
 
 <script>
     let once = true;
@@ -120,6 +121,9 @@
                     id: 'Darth Tiranus'
                 },
             ];
+            comboBox.initialValue = {
+                id: 'Darth Vader'
+            };
             comboBox.addEventListener('ketchupComboSelected', (event) => {
                 console.log("comboHasBeenSelected", event);
             });
@@ -177,15 +181,15 @@
             // Radio version
             const fld_2 = document.querySelector('#kfld-2');
             fld_2.json = {
-                "type": "cmb",
-                "displayedField" : "value",
-                "initialValue" : "PRVSHO",
+                "type": "rad",
+                "displayedField" : "obj",
+                "initialValue" : { value : "PRV123"},
                 "showSubmit": true
             };
             fld_2.data = [
-                { "value" : "PRVSHO"},
-                { "value" : "PRV123"},
-                { "value" : "PRV456"}
+                { "obj" : "PRVSHO"},
+                { "obj" : "PRV123"},
+                { "obj" : "PRV456"}
             ];
             fld_2.addEventListener('ketchupRadioChanged', (payload) => {
                 console.log('ketchupRadioChanged', payload);
@@ -193,6 +197,15 @@
             fld_2.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);
             });
+
+            // Text version
+            const fld_3 = document.querySelector('#kfld-3');
+            fld_3.json = {
+                "type": "Itx",
+                "initialValue" : "PRVSHO",
+                "showSubmit": true,
+                "submitLabel": "Submit"
+            };
         }
     }, 5000);
 </script>

@@ -8,7 +8,7 @@ import {
     State,
     Watch,
 } from '@stencil/core'
-import { ComboItem } from './ketchup-combo-declarations';
+import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 
 /**
@@ -28,9 +28,13 @@ export class KetchupCombo {
      */
     @Prop() displayedField: string = 'id';
     /**
+     * Chooses which field of an item object should be used to create the list and be filtered.
+     */
+    @Prop() valueField: string = 'id';
+    /**
      * Allows to pass an initial selected item for the combobox
      */
-    @Prop() initialValue: string = '';
+    @Prop() initialValue: any= '';
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -64,11 +68,8 @@ export class KetchupCombo {
     clickFunction = this.onDocumentClick.bind(this);
     // Holds reference to the comboText
     comboText!: HTMLInputElement;
-    // Determins the position on which menu will be open
-    comboPosition: {
-        isRight: boolean;
-        isTop: boolean;
-    } = {
+    // Determines the position on which the menu will be open
+    comboPosition: ComboPosition = {
         isRight: false,
         isTop: false
     };
@@ -114,10 +115,18 @@ export class KetchupCombo {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: string) {
-        this.value = newValue;
+    reflectInitialValue(newValue: ComboItem) {
+        this.value = newValue[this.valueField];
+        this.selected = newValue;
     }
 
+    // When valueField changes, then reflects the changes also inside the value prop
+    @Watch('valueField')
+    reflectValueField(newValue: string) {
+        this.value = this.selected ? this.selected[newValue] : '';
+    }
+
+    // Calculates where the box must be positioned according to the position the text input is placed
     calcBoxPosition() {
         const windowX = window.innerWidth;
         const windowY = window.innerHeight;
@@ -190,10 +199,10 @@ export class KetchupCombo {
      * @param item
      */
     onItemSelected(item: ComboItem) {
-        if (item[this.displayedField] !== this.value) {
+        if (item[this.valueField] !== this.value) {
             this.onComboSelected(item);
             this.selected = item;
-            this.value = item[this.displayedField];
+            this.value = item[this.valueField];
         }
         this.closeCombo();
     }

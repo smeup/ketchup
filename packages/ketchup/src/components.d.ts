@@ -101,7 +101,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue': string;
+    'initialValue': any;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -118,6 +118,10 @@ export namespace Components {
     * Programmatically opens the combo box
     */
     'openCombo': () => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KetchupComboAttributes extends StencilHTMLAttributes {
     /**
@@ -127,7 +131,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue'?: string;
+    'initialValue'?: any;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -141,6 +145,10 @@ export namespace Components {
     */
     'label'?: string;
     'onKetchupComboSelected'?: (event: CustomEvent) => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
 
   interface KetchupFld {

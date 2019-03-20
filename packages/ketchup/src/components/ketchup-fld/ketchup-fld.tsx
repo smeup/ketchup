@@ -109,6 +109,10 @@ export class KetchupFld {
     }
 
 
+    //ketchupFieldChanged (quando cambia il valore del field)
+
+    //ketchupFieldSubmit (quando si preme sul pulsante di conferma o quando si da invio sul campo)
+
     //---- Rendering functions ----
     render() {
         let toRender = [];
@@ -162,13 +166,17 @@ export class KetchupFld {
         switch (this.type) {
             case 'cmb':
                 confObj.displayedField = 'value';
+                confObj.valueField = 'value';
                 type = 'combo';
                 break;
             case 'rad':
-                confObj.displayedField = 'value';
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 type = 'radio';
+                break;
+            case 'itx':
+            case 'Itx':
+                type = 'text-input';
                 break;
         }
 

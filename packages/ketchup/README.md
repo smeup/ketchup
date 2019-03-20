@@ -49,6 +49,15 @@ In this way it's also possible to define a basic theme.
 Always use the global one if possible, while override the local one if a particular instance of a component requires
 a peculiar value.
 
+#### 4. Initial value and displayed / value  field
+
+Components which let user choose which field of the given array of objects must be used for display or a a value,
+must expose two attributes: displayedField and valueField.
+
+The initial value prop must always be the initially selected object, from which the displayedField and valueField
+can be obtained.
+
+
 
 ## Instructions
 
