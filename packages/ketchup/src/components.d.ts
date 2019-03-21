@@ -153,23 +153,23 @@ export namespace Components {
 
   interface KetchupFld {
     /**
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+    */
+    'config': string | object;
+    /**
     * Effective data to pass to the component
     */
     'data': any;
+  }
+  interface KetchupFldAttributes extends StencilHTMLAttributes {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
     */
-    'json': string | object;
-  }
-  interface KetchupFldAttributes extends StencilHTMLAttributes {
+    'config'?: string | object;
     /**
     * Effective data to pass to the component
     */
     'data'?: any;
-    /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'json'?: string | object;
     /**
     * When the FLD values are confirmed.
     */

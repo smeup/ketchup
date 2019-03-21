@@ -9,8 +9,8 @@
 
 | Property | Attribute | Description                                                                                           | Type               | Default     |
 | -------- | --------- | ----------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `config` | `config`  | Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string | `object \| string` | `''`        |
 | `data`   | `data`    | Effective data to pass to the component                                                               | `any`              | `undefined` |
-| `json`   | `json`    | Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string | `object \| string` | `''`        |
 
 
 ## Events

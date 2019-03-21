@@ -11,22 +11,22 @@ export class KetchupFld {
      * Data the FLD must parse to fully be configured.
      * It must be either an Object or a JSON parsable string
      */
-    @Prop() json: string | object = '';
+    @Prop() config: string | object = '';
 
     /**
      * Effective data to pass to the component
      */
     @Prop() data: any;
 
-    //-- Reflect JSON to internal state --
-    @Watch('json')
+    //-- Reflect config to internal state --
+    @Watch('config')
     updateInternalState() {
-        // Controls type of data passed to the json parameter and if necessary parses it
+        // Controls type of data passed to the config parameter and if necessary parses it
         let currentData;
-        if (typeof this.json === 'string' && this.json) {
-            currentData = JSON.parse(this.json);
+        if (typeof this.config === 'string' && this.config) {
+            currentData = JSON.parse(this.config);
         } else {
-            currentData = this.json;
+            currentData = this.config;
         }
 
         // Assigns given values to the state
