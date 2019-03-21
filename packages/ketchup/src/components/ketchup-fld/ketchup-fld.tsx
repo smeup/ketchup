@@ -44,13 +44,6 @@ export class KetchupFld {
         this.propagate = propagate;
     }
 
-    //---- Life cycle hooks ----
-    componentWillLoad() {
-        // Mandatory, since on first render the watch directive will not be triggered
-        // therefore preventing component to display data
-        this.updateInternalState();
-    }
-
     //---- Internal state ----
     /**
      * The type of the FLD
@@ -92,7 +85,31 @@ export class KetchupFld {
     //-- Not reactive --
     radioGeneratedName = generateUniqueId('value');
 
-    //---- Event handlers ----
+    // Generates an instance of the event handler while binding the current component as its this value
+    // This is done once per component to improve performance speed
+    onChangeInstance = this.onChange.bind(this);
+    onSubmitInstance = this.onSubmit.bind(this);
+
+    //---- Life cycle hooks ----
+    componentWillLoad() {
+        // Mandatory, since on first render the watch directive will not be triggered
+        // therefore preventing component to display data
+        this.updateInternalState();
+    }
+
+    //---- Methods ----
+
+    // When a change or update event must be launched as if it's coming from the Fld itself
+    onChange(event: CustomEvent) {
+        console.log("on update", event, this);
+    }
+
+    // When a submit event must be launched as if it's coming from the Fld itself
+    onSubmit(event: CustomEvent) {
+        console.log("on update", event, this);
+    }
+
+    //-- Event handlers --
     /**
      * When the FLD values are confirmed.
      */
@@ -176,6 +193,7 @@ export class KetchupFld {
                 break;
             case 'itx':
             case 'Itx':
+                confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 type = 'text-input';
                 break;
         }

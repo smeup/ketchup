@@ -125,11 +125,11 @@ export class KetchupTextInput {
         cancelable: false,
         bubbles: true
     })
-    inputUpdated: EventEmitter;
+    ketchupTextInputUpdated: EventEmitter;
 
     onInputUpdated(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
-        this.inputUpdated.emit({
+        this.ketchupTextInputUpdated.emit({
             value: target.value,
             oldValue: this.value,
         });
