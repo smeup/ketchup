@@ -90,7 +90,7 @@ export class KetchupTextInput {
     onInputBlurred(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
         this.inputBlur.emit({
-            newValue: target.value,
+            value: target.value,
             oldValue: this.value,
         });
         this.value = target.value;
@@ -110,7 +110,7 @@ export class KetchupTextInput {
     onInputFocused(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
         this.inputFocused.emit({
-            newValue: target.value,
+            value: target.value,
             oldValue: this.value,
         });
         this.value = target.value;
@@ -130,7 +130,7 @@ export class KetchupTextInput {
     onInputUpdated(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
         this.inputUpdated.emit({
-            newValue: target.value,
+            value: target.value,
             oldValue: this.value,
         });
         this.value = target.value;

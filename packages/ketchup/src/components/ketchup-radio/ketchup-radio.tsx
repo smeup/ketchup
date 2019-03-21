@@ -49,7 +49,7 @@ export class KetchupRadio {
     }
 
     //---- Internal state ----
-    @State() selectedRadio: string = '';
+    @State() selectedRadio: KetchupRadioElement | null = null;
 
     //---- Emitted events and handlers ----
     /**
@@ -63,14 +63,14 @@ export class KetchupRadio {
     })
     radioChanged: EventEmitter;
 
-    onRadioChanged(event: UIEvent & {target: HTMLInputElement}) {
+    onRadioChanged(radio: KetchupRadioElement, event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
         this.radioChanged.emit({
             target,
-            newValue: target.value,
+            value: radio,
             oldValue: this.selectedRadio,
         });
-        this.selectedRadio = target.value;
+        this.selectedRadio = radio;
     }
 
     //---- Rendering functions ----
@@ -79,9 +79,9 @@ export class KetchupRadio {
             // The id is necessary for the label to be associated with the input
             // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
             const uId = generateUniqueId(radio[this.valueField]);
-            return <li class={'ketchup-radio__item' + (this.selectedRadio === radio[this.valueField] ? ' ketchup-radio__item--selected' : '')}>
+            return <li class={'ketchup-radio__item' + (this.selectedRadio && this.selectedRadio[this.valueField] === radio[this.valueField] ? ' ketchup-radio__item--selected' : '')}>
                 <div>
-                    <input id={uId} type="radio" name={this.radioName} value={radio[this.valueField]} onChange={this.onRadioChanged.bind(this)}/>
+                    <input id={uId} type="radio" name={this.radioName} value={radio[this.valueField]} onChange={this.onRadioChanged.bind(this, radio)}/>
                 </div>
                 <label htmlFor={uId}>{radio[this.displayedField]}</label>
             </li>

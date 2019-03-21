@@ -8,7 +8,9 @@ Compiler: Stencill.js
 #### 1. Component names
 Component names must be prefixed with `ketchup-`.
 
-#### 2. Custom event names
+#### 2. Custom events
+
+##### Naming
 Custom event names must be composed in compliance with the following rules:
 1. use camelCase;
 2. event name = componentName + EventName.
@@ -19,6 +21,31 @@ Example:
 // Updated event
 ketchupTextInputUpdated
 ```
+
+##### Event handlers with .bind
+
+As pointed out
+[from this question here](https://stackoverflow.com/questions/37450221/binding-and-event-handler-passing-the-event-object),
+whenever you use bind to create a new function, and you have to pass both an event and some parameters,
+remember that the event will be automatically added in the arguments object, as the last element.
+
+It is also possible to retrieve the event by using an additional parameter.
+
+Example:
+```
+// On the component renderer inside a loop with radio as object containing the current radio element
+<input type="radio" onChange={this.onRadioChanged.bind(this, radio)}/>
+
+// The event handler
+onRadioChanged(radio: KetchupRadioElement, event: UIEvent & {target: HTMLInputElement}) {
+    // ...code
+}
+```
+
+##### Payload
+
+When triggering events which must pass a selected item, then the entire item object must be passed inside the
+`value` field.
 
 #### 3. CSS variables
 

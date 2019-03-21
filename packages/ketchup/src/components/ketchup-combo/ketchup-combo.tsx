@@ -219,7 +219,7 @@ export class KetchupCombo {
 
     onComboSelected(item: ComboItem | null) {
         this.ketchupComboSelected.emit({
-            newValue: item,
+            value: item,
         });
     }
 
@@ -234,7 +234,7 @@ export class KetchupCombo {
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
-                    {this.value}
+                    {this.selected[this.displayedField]}
                     <svg
                         class={this.baseClass + '__icon ' + this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
                         viewBox="0 0 24 24">
