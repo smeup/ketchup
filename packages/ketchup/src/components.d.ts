@@ -12,8 +12,18 @@ import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
+  KetchupFldChangeEvent,
+  KetchupFldSubmitEvent,
+} from './components/ketchup-fld/ketchup-fld-declarations';
+import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
+import {
+  KetchupTextInputEvent,
+} from './components/ketchup-text-input/ketchup-text-input-declarations';
 
 
 export namespace Components {
@@ -81,7 +91,9 @@ export namespace Components {
     'iconClass'?: string;
     'iconUrl'?: string;
     'label'?: string;
-    'onKetchupButtonClicked'?: (event: CustomEvent) => void;
+    'onKetchupButtonClicked'?: (event: CustomEvent<{
+      id: string;
+    }>) => void;
     'rounded'?: boolean;
     'showicon'?: boolean;
     'showtext'?: boolean;
@@ -144,7 +156,9 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
-    'onKetchupComboSelected'?: (event: CustomEvent) => void;
+    'onKetchupComboSelected'?: (event: CustomEvent<{
+      value: object;
+    }>) => void;
     /**
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
@@ -160,6 +174,10 @@ export namespace Components {
     * Effective data to pass to the component
     */
     'data': any;
+    /**
+    * Provides an interface to get the current value programmatically
+    */
+    'getCurrentValue': () => Promise<string | object>;
   }
   interface KetchupFldAttributes extends StencilHTMLAttributes {
     /**
@@ -171,9 +189,13 @@ export namespace Components {
     */
     'data'?: any;
     /**
-    * When the FLD values are confirmed.
+    * Launched when the value of the current FLD changes.
     */
-    'onKetchupFldSubmit'?: (event: CustomEvent) => void;
+    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
+    /**
+    * Launched when the FLD values are confirmed and a submit event is triggered.
+    */
+    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
   interface KetchupRadio {
@@ -222,7 +244,10 @@ export namespace Components {
     /**
     * When currently selected radio button has been changed.
     */
-    'onKetchupRadioChanged'?: (event: CustomEvent) => void;
+    'onKetchupRadioChanged'?: (event: CustomEvent<{
+      value: KetchupRadioElement;
+      oldValue: KetchupRadioElement;
+    }>) => void;
     /**
     * Radio elements value
     */
@@ -275,15 +300,21 @@ export namespace Components {
     /**
     * When text field loses focus (blur)
     */
-    'onKetchupTextInputBlurred'?: (event: CustomEvent) => void;
+    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
     /**
     * When the text input gains focus
     */
-    'onKetchupTextInputFocused'?: (event: CustomEvent) => void;
+    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When a keydown enter event occurs it generates
+    */
+    'onKetchupTextInputSubmit'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
     /**
     * When the input text value gets updated
     */
-    'onKetchupTextInputUpdated'?: (event: CustomEvent) => void;
+    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
   }
 
   interface MyComponent {

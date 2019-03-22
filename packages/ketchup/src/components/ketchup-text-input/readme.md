@@ -17,11 +17,12 @@
 
 ## Events
 
-| Event                     | Description                            | Type                |
-| ------------------------- | -------------------------------------- | ------------------- |
-| `ketchupTextInputBlurred` | When text field loses focus (blur)     | `CustomEvent<void>` |
-| `ketchupTextInputFocused` | When the text input gains focus        | `CustomEvent<void>` |
-| `ketchupTextInputUpdated` | When the input text value gets updated | `CustomEvent<void>` |
+| Event                     | Description                                    | Type                                          |
+| ------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| `ketchupTextInputBlurred` | When text field loses focus (blur)             | `CustomEvent<KetchupTextInputEvent>`          |
+| `ketchupTextInputFocused` | When the text input gains focus                | `CustomEvent<KetchupTextInputEvent>`          |
+| `ketchupTextInputSubmit`  | When a keydown enter event occurs it generates | `CustomEvent<{         value: string;     }>` |
+| `ketchupTextInputUpdated` | When the input text value gets updated         | `CustomEvent<KetchupTextInputEvent>`          |
 
 
 ## Methods

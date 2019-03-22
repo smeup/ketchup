@@ -61,12 +61,14 @@ export class KetchupRadio {
         cancelable: false,
         bubbles: true
     })
-    radioChanged: EventEmitter;
+    ketchupRadioChanged: EventEmitter<{
+        value: KetchupRadioElement;
+        oldValue: KetchupRadioElement;
+    }>;
 
-    onRadioChanged(radio: KetchupRadioElement, event: UIEvent & {target: HTMLInputElement}) {
-        const { target } = event;
-        this.radioChanged.emit({
-            target,
+    // Typing for input element UIEvent & {target: HTMLInputElement}
+    onRadioChanged(radio: KetchupRadioElement) {
+        this.ketchupRadioChanged.emit({
             value: radio,
             oldValue: this.selectedRadio,
         });

@@ -11,11 +11,11 @@ import {
 import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 
-/**
+/*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
  * See this article here to use the method to get the current position and avoid opening the menu in the wrong direction
  * https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
- **/
+ */
 
 @Component({
     tag: 'ketchup-combo',
@@ -215,7 +215,9 @@ export class KetchupCombo {
         cancelable: false,
         bubbles: true
     })
-    ketchupComboSelected: EventEmitter;
+    ketchupComboSelected: EventEmitter<{
+        value: object;
+    }>;
 
     onComboSelected(item: ComboItem | null) {
         this.ketchupComboSelected.emit({

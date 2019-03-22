@@ -171,8 +171,8 @@
                     "children": []
                 }
             ];
-            fld_1.addEventListener('ketchupComboSelected', (payload) => {
-                console.log('ketchupComboSelected', payload);
+            fld_1.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
             });
             fld_1.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);
@@ -191,8 +191,8 @@
                 { "obj" : "PRV123"},
                 { "obj" : "PRV456"}
             ];
-            fld_2.addEventListener('ketchupRadioChanged', (payload) => {
-                console.log('ketchupRadioChanged', payload);
+            fld_2.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
             });
             fld_2.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);
@@ -206,6 +206,12 @@
                 "showSubmit": true,
                 "submitLabel": "Submit"
             };
+            fld_3.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
+            });
+            fld_3.addEventListener('ketchupFldSubmit', (payload) => {
+                console.log('Text FLD submit', payload);
+            });
         }
     }, 5000);
 </script>

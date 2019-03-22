@@ -27,9 +27,9 @@
 
 ## Events
 
-| Event                  | Description | Type                |
-| ---------------------- | ----------- | ------------------- |
-| `ketchupButtonClicked` |             | `CustomEvent<void>` |
+| Event                  | Description | Type                                       |
+| ---------------------- | ----------- | ------------------------------------------ |
+| `ketchupButtonClicked` |             | `CustomEvent<{         id: string;     }>` |
 
 
 ----------------------------------------------

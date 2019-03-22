@@ -71,11 +71,11 @@ $radio-button_scale: 1.4;
 
       &::after {
         background-color: var(--rad_color);
-        height: calc(100% - 4px);
+        height: calc(100% - 6px);
         position: relative;
         opacity: 0;
         transition: opacity var(--rad_tr-duration);
-        width: calc(100% - 4px);
+        width: calc(100% - 6px);
         z-index: 1;
       }
 

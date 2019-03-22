@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event                 | Description                                            | Type                |
-| --------------------- | ------------------------------------------------------ | ------------------- |
-| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<void>` |
+| Event                 | Description                                            | Type                                                                                              |
+| --------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<{         value: KetchupRadioElement;         oldValue: KetchupRadioElement;     }>` |
 
 
 ## CSS Custom Properties

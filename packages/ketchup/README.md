@@ -84,6 +84,14 @@ must expose two attributes: displayedField and valueField.
 The initial value prop must always be the initially selected object, from which the displayedField and valueField
 can be obtained.
 
+#### 5. Component specific interfaces
+
+When a component needs to use multiple TypeScript interfaces for complex data,
+those interfaces must be placed in a TS file having the same name as the component file
+and the suffix `-declarations` before the file extension.
+
+In this way Stencil compiler is able to fetch type declarations everywhere and these typing can be
+imported in any file of the project.
 
 
 ## Instructions

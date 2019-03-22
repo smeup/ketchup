@@ -15,9 +15,23 @@
 
 ## Events
 
-| Event              | Description                        | Type                |
-| ------------------ | ---------------------------------- | ------------------- |
-| `ketchupFldSubmit` | When the FLD values are confirmed. | `CustomEvent<void>` |
+| Event               | Description                                                                 | Type                                 |
+| ------------------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| `ketchupFldChanged` | Launched when the value of the current FLD changes.                         | `CustomEvent<KetchupFldChangeEvent>` |
+| `ketchupFldSubmit`  | Launched when the FLD values are confirmed and a submit event is triggered. | `CustomEvent<KetchupFldSubmitEvent>` |
+
+
+## Methods
+
+### `getCurrentValue() => Promise<string | object>`
+
+Provides an interface to get the current value programmatically
+
+#### Returns
+
+Type: `Promise<string | object>`
+
+
 
 
 ## CSS Custom Properties

@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event                  | Description | Type                |
-| ---------------------- | ----------- | ------------------- |
-| `ketchupComboSelected` |             | `CustomEvent<void>` |
+| Event                  | Description | Type                                          |
+| ---------------------- | ----------- | --------------------------------------------- |
+| `ketchupComboSelected` |             | `CustomEvent<{         value: object;     }>` |
 
 
 ## Methods

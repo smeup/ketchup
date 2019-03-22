@@ -6,7 +6,8 @@ import {
     Method,
     Prop,
     State,
-} from '@stencil/core'
+} from '@stencil/core';
+import { KetchupTextInputEvent } from './ketchup-text-input-declarations';
 
 @Component({
     tag: 'ketchup-text-input',
@@ -68,11 +69,22 @@ export class KetchupTextInput {
     //---- Events and handlers ----
     /**
      * Clear the current content inside the the text input
-     * @method onClearClick
      */
     onClearClick() {
         this.value = '';
         setTimeout(() => this.triggerFocus(), 10);
+    }
+
+    /**
+     * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
+     */
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.ketchupTextInputSubmit.emit({
+                value: this.value
+            });
+        }
     }
 
     //-- Emitted --
@@ -85,7 +97,7 @@ export class KetchupTextInput {
         cancelable: false,
         bubbles: true
     })
-    inputBlur: EventEmitter;
+    inputBlur: EventEmitter< KetchupTextInputEvent >;
 
     onInputBlurred(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
@@ -105,7 +117,7 @@ export class KetchupTextInput {
         cancelable: false,
         bubbles: true
     })
-    inputFocused: EventEmitter;
+    inputFocused: EventEmitter< KetchupTextInputEvent >;
 
     onInputFocused(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
@@ -117,6 +129,19 @@ export class KetchupTextInput {
     }
 
     /**
+     * When a keydown enter event occurs it generates
+     */
+    @Event({
+        eventName: 'ketchupTextInputSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true
+    })
+    ketchupTextInputSubmit: EventEmitter<{
+        value: string;
+    }>;
+
+    /**
      * When the input text value gets updated
      */
     @Event({
@@ -125,7 +150,7 @@ export class KetchupTextInput {
         cancelable: false,
         bubbles: true
     })
-    ketchupTextInputUpdated: EventEmitter;
+    ketchupTextInputUpdated: EventEmitter< KetchupTextInputEvent >;
 
     onInputUpdated(event: UIEvent & {target: HTMLInputElement}) {
         const { target } = event;
@@ -151,6 +176,7 @@ export class KetchupTextInput {
                     onBlur={this.onInputBlurred.bind(this)}
                     onInput={this.onInputUpdated.bind(this)}
                     onFocus={this.onInputFocused.bind(this)}
+                    onKeyDown={this.onKeyDown.bind(this)}
                 />
                 {this.isClearable ?
                     <button
