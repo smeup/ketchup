@@ -155,7 +155,7 @@ function toggleBtnStyle() {
     const fontColor = document.querySelector('#btn-fontcolor').value
     const font = document.querySelector('#btn-font').value
 
-    const btnStyle = {
+    let btnStyle = {
         bold
     }
 

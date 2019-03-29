@@ -1,67 +1,106 @@
 :host {
+  /* CSS vars
+   * https://stackoverflow.com/questions/41950834/buttons-not-inheriting-parent-div-font-size
+   * As stated above, form elements do not usually inherit stiles from the root of the element.
+   * Therefore css vars are provided
+   */
+  /**
+   * @prop --btn_font-size, --kup-button_font-size: Sets button font size.
+   * @prop --btn_icon-size, --kup-button_icon-size: Set icon size.
+   * @prop --btn_main-color, --kup-button_main-color: Sets the main color of the button.
+   * @prop --btn_text-color, --kup-button_text-color: Sets color of the button text.
+   * @prop --btn_text-color--transparent, --kup-button_text-color--transparent: Sets text color when button is transparent. Falls back to --btn_main-color.
+   * @prop --btn_icon-color, --kup-button_icon-color: Sets icon color. Falls back to --btn_text-color.
+   * @prop --btn_icon--transparent, --kup-button_icon-color--transparent: Sets icon color when button is transparent. Falls back to --btn_text-color--transparent.
+   * @prop --btn_animation-duration, --kup-button_animation-duration: Sets duration of all transitions of the component.
+   * @prop --btn_border-color, --kup-button_border-color: Sets border color of the button only when it is transparent. Falls back to --btn_main-color.
+  */
+  --btn_font-size: var(--kup-button_font-size, 14px);
+  --btn_font-weight: var(--kup-button_font-weight, 400);
+  --btn_font-family: var(--kup-button_font-family, inherit);
+  --btn_icon-size: var(--kup-button_icon-size, 18px);
+  --btn_main-color: var(--kup-button_main-color, #{$smeup-primary});
+  --btn_text-color: var(--kup-button_text-color, #ffffff);
+  --btn_text-color--transparent: var(--kup-button_text-color--transparent, --btn_main-color);
+  --btn_icon-color: var(--kup-button_icon-color, --btn_text-color);
+  --btn_icon--transparent: var(--kup-button_icon-color--transparent, --btn_text-color--transparent);
+  --btn_animation-duration: var(--kup-button_animation-duration, .3s);
+  --btn_border-color: var(--kup-button_border-color, --btn_main-color);
+
+  @include stateVars('--btn');
+
   &.fillspace {
     width: 100%;
   }
 }
 
 button {
-  background: #4e908f;
-  border: none;
-  color: #fff;
+  background: var(--btn_main-color);
   border-radius: 2px;
+  border: none;
   box-shadow: none;
-  white-space: nowrap;
-  padding: 0px 8px;
-  line-height: 30px;
+  color: var(--btn_text-color);
   cursor: pointer;
+  font-family: var(--btn_font-family);
+  font-size: var(--btn_font-size);
+  font-weight: var(--btn_font-weight);
+  line-height: 30px;
+  padding: 0px 8px;
   text-align: center;
+  transition: box-shadow var(--btn_animation-duration);
+  white-space: nowrap;
 
   &:hover {
     box-shadow: 2px 2px 5px 1px rgba(100, 100, 100, 0.7);
   }
 
+  //-- The button icon --
   > .button-icon {
-    float: left;
     display: block;
-    width: 18px;
+    color: var(--btn_icon-color);
+    fill: var(--btn_icon-color);
+    float: left;
+    width: var(--btn_icon-size);
   }
 
+  //-- Rounded --
   &.rounded {
     border-radius: 50%;
   }
 
+  //-- Transparent button --
   &.transparent {
     background-color: transparent;
-    border: 1px solid gray;
-    color: gray;
+    border: 1px solid var(--btn_border-color);
+    color: var(--btn_text-color--transparent);
   }
 
-  /* standard classes */
+  //-- Standard classes for state --
   &.btn-info {
-    background: #6a8fd1;
+    background: var(--btn_color-info);
   }
 
   &.btn-danger {
-    background: #f0423c;
+    background: var(--btn_color-danger);
 
     &:hover {
-      background: #d91e18;
+      background: var(--btn_color-danger--hover);
     }
   }
 
   &.btn-warning {
-    background: #ffd454;
+    background: var(--btn_color-warning);
   }
 
   &.btn-selected {
-    background: #ffc107;
+    background: var(--btn_color-selected);
   }
 
-  /* flat button */
+  //-- Flat button --
   &.flat-btn {
     background: none;
     border: none;
-    color: #4e908f;
+    color: var(--btn_main-color);
 
     &:hover {
       box-shadow: none;
@@ -72,7 +111,7 @@ button {
     }
   }
 
-  /* align */
+  //-- Align --
   &.align-right {
     text-align: right;
 
@@ -85,6 +124,7 @@ button {
     text-align: left;
   }
 
+  //-- Fillspace --
   &.fillspace {
     width: 100%;
   }

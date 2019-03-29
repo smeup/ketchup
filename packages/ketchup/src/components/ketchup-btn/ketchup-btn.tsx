@@ -1,4 +1,5 @@
 import { Component, Prop, State, Watch } from '@stencil/core'
+import {ButtonStyle} from "./ketchup-btn-declarations";
 
 @Component({
     tag: 'ketchup-btn',
@@ -22,7 +23,7 @@ export class KetchupBtn {
     @Prop() textmode: string
     @Prop() align: string
     @Prop() columns: number
-    @Prop() btnStyle: any = {}
+    @Prop() btnStyle: ButtonStyle = {}
     @Prop() iconUrl: string
 
     @State() selectedBtnIndex: number
@@ -88,14 +89,12 @@ export class KetchupBtn {
                                 rounded={this.rounded}
                                 textmode={this.textmode}
                                 transparent={this.transparent}
-                                borderColor={this.borderColor}
                                 buttonClass={btnClass}
                                 flat={this.flat}
                                 data-id={id++}
                                 onKetchupButtonClicked={ev => this.onBtnClicked(ev)}
                                 align={this.align}
                                 class={this.fillspace ? 'fillspace' : ''}
-                                btnStyle={this.btnStyle}
                             />
                         </td>
                     )
@@ -114,8 +113,29 @@ export class KetchupBtn {
             compClass += ' vertical'
         }
 
+        // Composes the style of the button
+        const commonStyle = {};
+
+        console.log(this.btnStyle);
+
+        if (this.btnStyle.fontColor) {
+            commonStyle['--kup-button_text-color'] = this.btnStyle.fontColor;
+        }
+
+        if (this.btnStyle.fontName) {
+            commonStyle['--kup-button_font-family'] = this.btnStyle.fontName;
+        }
+
+        if (this.btnStyle.bold) {
+            commonStyle['--kup-button_font-weight'] = 700;
+        }
+
+        console.log(commonStyle);
+
         return (
-            <table class={compClass}>
+            <table
+                class={compClass}
+                style={commonStyle}>
                 <tbody>{buttonsJsx}</tbody>
             </table>
         )
