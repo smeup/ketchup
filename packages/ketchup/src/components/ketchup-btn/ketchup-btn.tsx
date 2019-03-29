@@ -113,7 +113,11 @@ export class KetchupBtn {
             compClass += ' vertical'
         }
 
-        // Composes the style of the button
+        //- Composes the style of the button -
+        // TODO this is how currently JSX can set custom CSS vars. Check periodically for a better way
+        // It simply sets them in style inside the html. Not the most elegant way,
+        // https://medium.com/geckoboard-under-the-hood/how-we-made-our-product-more-personalized-with-css-variables-and-react-b29298fde608
+        // https://medium.com/fbdevclagos/how-to-leverage-styled-components-and-css-variables-to-build-truly-reusable-components-in-react-4bbf50467666
         const commonStyle = {};
 
         console.log(this.btnStyle);
@@ -128,6 +132,10 @@ export class KetchupBtn {
 
         if (this.btnStyle.bold) {
             commonStyle['--kup-button_font-weight'] = 700;
+        }
+
+        if (this.borderColor) {
+            commonStyle['--kup-button_border-color'] = this.borderColor;
         }
 
         console.log(commonStyle);

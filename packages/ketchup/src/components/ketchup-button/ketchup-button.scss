@@ -6,14 +6,16 @@
    */
   /**
    * @prop --btn_font-size, --kup-button_font-size: Sets button font size.
+   * @prop --btn_font-weight, --kup-button_font-weight: Sets the font weight of the button
+   * @prop --btn_font-family, --kup-button_font-family: sets the font family of the button
    * @prop --btn_icon-size, --kup-button_icon-size: Set icon size.
    * @prop --btn_main-color, --kup-button_main-color: Sets the main color of the button.
    * @prop --btn_text-color, --kup-button_text-color: Sets color of the button text.
-   * @prop --btn_text-color--transparent, --kup-button_text-color--transparent: Sets text color when button is transparent. Falls back to --btn_main-color.
-   * @prop --btn_icon-color, --kup-button_icon-color: Sets icon color. Falls back to --btn_text-color.
-   * @prop --btn_icon--transparent, --kup-button_icon-color--transparent: Sets icon color when button is transparent. Falls back to --btn_text-color--transparent.
+   * @prop --btn_text-color--transparent, --kup-button_text-color--transparent: Sets text color when button is transparent.
+   * @prop --btn_icon-color, --kup-button_icon-color: Sets icon color.
+   * @prop --btn_icon--transparent, --kup-button_icon-color--transparent: Sets icon color when button is transparent.
    * @prop --btn_animation-duration, --kup-button_animation-duration: Sets duration of all transitions of the component.
-   * @prop --btn_border-color, --kup-button_border-color: Sets border color of the button only when it is transparent. Falls back to --btn_main-color.
+   * @prop --btn_border-color, --kup-button_border-color: Sets border color of the button only when it is transparent.
   */
   --btn_font-size: var(--kup-button_font-size, 14px);
   --btn_font-weight: var(--kup-button_font-weight, 400);
@@ -21,11 +23,11 @@
   --btn_icon-size: var(--kup-button_icon-size, 18px);
   --btn_main-color: var(--kup-button_main-color, #{$smeup-primary});
   --btn_text-color: var(--kup-button_text-color, #ffffff);
-  --btn_text-color--transparent: var(--kup-button_text-color--transparent, --btn_main-color);
-  --btn_icon-color: var(--kup-button_icon-color, --btn_text-color);
-  --btn_icon--transparent: var(--kup-button_icon-color--transparent, --btn_text-color--transparent);
+  --btn_text-color--transparent: var(--kup-button_text-color--transparent, gray);
+  --btn_icon-color: var(--kup-button_icon-color, #ffffff);
+  --btn_icon--transparent: var(--kup-button_icon-color--transparent, gray);
   --btn_animation-duration: var(--kup-button_animation-duration, .3s);
-  --btn_border-color: var(--kup-button_border-color, --btn_main-color);
+  --btn_border-color: var(--kup-button_border-color, #{$smeup-primary});
 
   @include stateVars('--btn');
 
@@ -73,6 +75,12 @@ button {
     background-color: transparent;
     border: 1px solid var(--btn_border-color);
     color: var(--btn_text-color--transparent);
+
+    // When transparent, changes icon color
+    > .button-icon {
+      color: var(--btn_icon-color--transparent);
+      fill: var(--btn_icon-color--transparent);
+    }
   }
 
   //-- Standard classes for state --
@@ -108,6 +116,12 @@ button {
 
     .button-text {
       text-decoration: underline;
+    }
+
+    // When transparent, changes icon color
+    > .button-icon {
+      color: var(--btn_main-color);
+      fill: var(--btn_main-color);
     }
   }
 
