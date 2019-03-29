@@ -12,8 +12,18 @@ import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
+  KetchupFldChangeEvent,
+  KetchupFldSubmitEvent,
+} from './components/ketchup-fld/ketchup-fld-declarations';
+import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
+import {
+  KetchupTextInputEvent,
+} from './components/ketchup-text-input/ketchup-text-input-declarations';
 
 
 export namespace Components {
@@ -81,7 +91,9 @@ export namespace Components {
     'iconClass'?: string;
     'iconUrl'?: string;
     'label'?: string;
-    'onKetchupButtonClicked'?: (event: CustomEvent) => void;
+    'onKetchupButtonClicked'?: (event: CustomEvent<{
+      id: string;
+    }>) => void;
     'rounded'?: boolean;
     'showicon'?: boolean;
     'showtext'?: boolean;
@@ -91,7 +103,7 @@ export namespace Components {
 
   interface KetchupCombo {
     /**
-    * Opens the combo box
+    * Programmatically close the combo box
     */
     'closeCombo': () => void;
     /**
@@ -101,7 +113,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue': string;
+    'initialValue': any;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -115,9 +127,13 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Opens the combo box
+    * Programmatically opens the combo box
     */
     'openCombo': () => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KetchupComboAttributes extends StencilHTMLAttributes {
     /**
@@ -127,7 +143,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue'?: string;
+    'initialValue'?: any;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -140,29 +156,46 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
-    'onKetchupComboSelected'?: (event: CustomEvent) => void;
+    'onKetchupComboSelected'?: (event: CustomEvent<{
+      value: object;
+    }>) => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
 
   interface KetchupFld {
+    /**
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+    */
+    'config': string | object;
     /**
     * Effective data to pass to the component
     */
     'data': any;
     /**
-    * Data the FLD must parse to fully be configured
+    * Provides an interface to get the current value programmatically
     */
-    'json': string | object;
+    'getCurrentValue': () => Promise<string | object>;
   }
   interface KetchupFldAttributes extends StencilHTMLAttributes {
+    /**
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+    */
+    'config'?: string | object;
     /**
     * Effective data to pass to the component
     */
     'data'?: any;
     /**
-    * Data the FLD must parse to fully be configured
+    * Launched when the value of the current FLD changes.
     */
-    'json'?: string | object;
-    'onKetchupFldSubmit'?: (event: CustomEvent) => void;
+    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
+    /**
+    * Launched when the FLD values are confirmed and a submit event is triggered.
+    */
+    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
   interface KetchupRadio {
@@ -208,7 +241,13 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
-    'onKetchupRadioChanged'?: (event: CustomEvent) => void;
+    /**
+    * When currently selected radio button has been changed.
+    */
+    'onKetchupRadioChanged'?: (event: CustomEvent<{
+      value: KetchupRadioElement;
+      oldValue: KetchupRadioElement;
+    }>) => void;
     /**
     * Radio elements value
     */
@@ -258,9 +297,24 @@ export namespace Components {
     * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
     */
     'maxLength'?: number;
-    'onKetchupTextInputBlurred'?: (event: CustomEvent) => void;
-    'onKetchupTextInputFocused'?: (event: CustomEvent) => void;
-    'onKetchupTextInputUpdated'?: (event: CustomEvent) => void;
+    /**
+    * When text field loses focus (blur)
+    */
+    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When the text input gains focus
+    */
+    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When a keydown enter event occurs it generates
+    */
+    'onKetchupTextInputSubmit'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    /**
+    * When the input text value gets updated
+    */
+    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
   }
 
   interface MyComponent {

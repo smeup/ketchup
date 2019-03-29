@@ -56,9 +56,10 @@
 <ketchup-button label="Sono bottone"></ketchup-button>
 <ketchup-radio id="krg1" displayed-field="label" value-field="value"></ketchup-radio>
 <ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
-<ketchup-combo initial-value="Darth Vader" is-clearable></ketchup-combo>
+<ketchup-combo is-clearable></ketchup-combo>
 <ketchup-fld id="kfld-1"></ketchup-fld>
 <ketchup-fld id="kfld-2"></ketchup-fld>
+<ketchup-fld id="kfld-3"></ketchup-fld>
 
 <script>
     let once = true;
@@ -120,12 +121,15 @@
                     id: 'Darth Tiranus'
                 },
             ];
+            comboBox.initialValue = {
+                id: 'Darth Vader'
+            };
             comboBox.addEventListener('ketchupComboSelected', (event) => {
                 console.log("comboHasBeenSelected", event);
             });
 
             const fld_1 = document.querySelector('#kfld-1');
-            fld_1.json = {
+            fld_1.config = {
                 "type": "cmb",
                 "showSubmit": true,
                 "submitLabel": "Invia",
@@ -167,8 +171,8 @@
                     "children": []
                 }
             ];
-            fld_1.addEventListener('ketchupComboSelected', (payload) => {
-                console.log('ketchupComboSelected', payload);
+            fld_1.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
             });
             fld_1.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);
@@ -176,53 +180,37 @@
 
             // Radio version
             const fld_2 = document.querySelector('#kfld-2');
-            fld_2.json = {
+            fld_2.config = {
                 "type": "rad",
-                "showSubmit": true,
-                "submitLabel": "Invia",
-                "submitPos": "right",
-                "label": "Seleziona pagina",
-                "labelPos": "top",
-                "extensions": {
-                    "minQueryLength": 4,
-                    "forceSelection": true
-                }
+                "displayedField" : "obj",
+                "initialValue" : { value : "PRV123"},
+                "showSubmit": true
             };
             fld_2.data = [
-                {
-                    "value": "label bottone #1",
-                    "options": true,
-                    "obj": "J1KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #2",
-                    "options": true,
-                    "obj": "J2KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #3",
-                    "options": true,
-                    "obj": "J3KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #4",
-                    "options": true,
-                    "obj": "J4KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                }
+                { "obj" : "PRVSHO"},
+                { "obj" : "PRV123"},
+                { "obj" : "PRV456"}
             ];
-            fld_2.addEventListener('ketchupComboSelected', (payload) => {
-                console.log('ketchupComboSelected', payload);
+            fld_2.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
             });
             fld_2.addEventListener('ketchupFldSubmit', (payload) => {
                 console.log('ketchupFldSubmit', payload);
+            });
+
+            // Text version
+            const fld_3 = document.querySelector('#kfld-3');
+            fld_3.config = {
+                "type": "Itx",
+                "initialValue" : "PRVSHO",
+                "showSubmit": true,
+                "submitLabel": "Submit"
+            };
+            fld_3.addEventListener('ketchupFldChanged', (payload) => {
+                console.log('Text FLD change', payload);
+            });
+            fld_3.addEventListener('ketchupFldSubmit', (payload) => {
+                console.log('Text FLD submit', payload);
             });
         }
     }, 5000);

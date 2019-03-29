@@ -1,3 +1,14 @@
+/**
+* @prop --cmb_font-size, --kup-combo_input_font-size: Regulates sizes of the font and the icon
+* @prop --cmb_border-color, --kup-combo_input_border-color: Specifies the border color
+* @prop --cmb_border-color--selected, --kup-combo_input_border-color: Specifies the border color when focused
+* @prop --cmb_tr-duration, --kup-combo_input_transition-duration: Animation duration of all animations of the component
+* @prop --cmb_icon-color, --kup-combo_icon_color: Base icon color
+* @prop --cmb_icon-color--hover, --kup-combo_icon_color--hover: Icon color when hovered
+* @prop --cmb_menu-background, --kup-combo_menu_background: Specify menu background
+*/
+
+
 // Padding of the input text
 $arrow-button-padding: 4px;
 $lateral-padding: 6px;
@@ -7,7 +18,6 @@ $lateral-padding: 6px;
   --cmb_font-size: var(--kup-combo_input_font-size, 14px);
   --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-80});
   --cmb_border-color--selected: var(--kup-combo_input_border-color, #{darken($gray-80, 10)});
-  --cmb_color: var(--kup-combo_input_color, #{$smeup-primary});
   --cmb_tr-duration: var(--kup-combo_input_transition-duration, #{$trn-time});
   --cmb_icon-color: var(--kup-combo_icon_color, #{$gray-80});
   --cmb_icon-color--hover: var(--kup-combo_icon_color--hover, #{darken($gray-80, 10)});
@@ -34,7 +44,7 @@ $lateral-padding: 6px;
 
     &:hover,
     &:focus {
-      border-color: var(--cmb_color);
+      border-color: var(--cmb_border-color--selected);
     }
   }
 

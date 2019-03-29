@@ -1,5 +1,6 @@
-import {Component, Event, EventEmitter, Prop, State, Watch} from '@stencil/core';
+import {Component, Event, EventEmitter, Method, Prop, State, Watch} from '@stencil/core';
 import { generateUniqueId } from "../../utils/utils";
+import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./ketchup-fld-declarations";
 
 @Component({
     tag: 'ketchup-fld',
@@ -8,41 +9,40 @@ import { generateUniqueId } from "../../utils/utils";
 })
 export class KetchupFld {
     /**
-     * Data the FLD must parse to fully be configured
+     * Data the FLD must parse to fully be configured.
+     * It must be either an Object or a JSON parsable string
      */
-    @Prop() json: string | object = '';
+    @Prop() config: string | object = '';
 
     /**
      * Effective data to pass to the component
      */
     @Prop() data: any;
 
-    //-- Reflect JSON to internal state --
-    @Watch('json')
+    //-- Reflect config to internal state --
+    @Watch('config')
     updateInternalState() {
-        // Controls type of data passed to the json parameter and if necessary parses it
+        // Controls type of data passed to the config parameter and if necessary parses it
         let currentData;
-        if (typeof this.json === 'string') {
-            currentData = JSON.parse(this.json);
+        if (typeof this.config === 'string' && this.config) {
+            currentData = JSON.parse(this.config);
         } else {
-            currentData = this.json;
+            currentData = this.config;
         }
 
         // Assigns given values to the state
         const keys = Object.keys(currentData);
+        let propagate = {};
         keys.forEach(key => {
             // Detects if a given key is present in the component as a @State variable
             if (key in this) {
                 this[key] = currentData[key];
+            } else {
+                // if key is not present, it will be passed down to the component
+                propagate[key] = currentData[key];
             }
         });
-    }
-
-    //---- Life cycle hooks ----
-    componentWillLoad() {
-        // Mandatory, since on first render the watch directive will not be triggered
-        // therefore preventing component to display data
-        this.updateInternalState();
+        this.propagate = propagate;
     }
 
     //---- Internal state ----
@@ -72,6 +72,10 @@ export class KetchupFld {
      */
     @State() labelPos: string = 'left'; // 'left / right / top'
     /**
+     * Unsupported props gets propagated down to dynamic component
+     */
+    @State() propagate: any = {};
+    /**
      * Other configurations
      */
     @State() extensions: {
@@ -81,20 +85,75 @@ export class KetchupFld {
 
     //-- Not reactive --
     radioGeneratedName = generateUniqueId('value');
+    currentValue: object | string = null;
 
-    //---- Event handlers ----
+    // Generates an instance of the event handler while binding the current component as its this value
+    // This is done once per component to improve performance speed
+    onChangeInstance = this.onChange.bind(this);
+    onSubmitInstance = this.onSubmit.bind(this);
+
+    //---- Events ----
+    /**
+     * Launched when the value of the current FLD changes.
+     */
+    @Event({
+        eventName: 'ketchupFldChanged',
+        composed: true,
+        cancelable: false,
+        bubbles: true
+    })
+    ketchupFldChanged: EventEmitter<KetchupFldChangeEvent>;
+
+    /**
+     * Launched when the FLD values are confirmed and a submit event is triggered.
+     */
     @Event({
         eventName: 'ketchupFldSubmit',
         composed: true,
         cancelable: false,
         bubbles: true
     })
-    ketchupFldSubmit: EventEmitter;
+    ketchupFldSubmit: EventEmitter<KetchupFldSubmitEvent>;
 
-    onSubmitClicked() {
-        this.ketchupFldSubmit.emit();
+    //---- Life cycle hooks ----
+    componentWillLoad() {
+        // Mandatory, since on first render the watch directive will not be triggered
+        // therefore preventing component to display data
+        this.updateInternalState();
     }
 
+    //---- Methods ----
+
+    // When a change or update event must be launched as if it's coming from the Fld itself
+    onChange(event: CustomEvent) {
+        const { value } = event.detail;
+        this.ketchupFldChanged.emit({
+            originalEvent: event,
+            oldValue: this.currentValue,
+            value
+        });
+        this.currentValue = value;
+    }
+
+    // When a submit event must be launched as if it's coming from the Fld itself
+    onSubmit(event: CustomEvent) {
+        this.ketchupFldSubmit.emit({
+            originalEvent: event,
+            value: this.currentValue,
+        });
+    }
+
+    //-- Public --
+
+    /**
+     * Provides an interface to get the current value programmatically
+     * @method getCurrentValue
+     * @returns {any}
+     */
+    @Method()
+    async getCurrentValue() {
+        return this.currentValue;
+    }
 
     //---- Rendering functions ----
     render() {
@@ -103,7 +162,7 @@ export class KetchupFld {
         let label = null;
         let submit = null;
 
-        //-- Checks if there is label to output --
+        //-- Label --
         if (this.label.trim().length) {
             label =
                 <label
@@ -119,7 +178,7 @@ export class KetchupFld {
                 <ketchup-button
                     class={baseClass + '__submit' + ' ' + baseClass + '--' + this.submitPos}
                     label={this.submitLabel}
-                    onKetchupButtonClicked={this.onSubmitClicked.bind(this)}/>
+                    onKetchupButtonClicked={this.onSubmitInstance}/>
         }
 
         //-- If a component must be positioned on top of the dynamic one --
@@ -149,22 +208,32 @@ export class KetchupFld {
         switch (this.type) {
             case 'cmb':
                 confObj.displayedField = 'value';
+                confObj.valueField = 'value';
+                confObj.onKetchupComboSelected = this.onChangeInstance;
                 type = 'combo';
                 break;
             case 'rad':
-                confObj.displayedField = 'value';
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
+                confObj.onKetchupRadioChanged = this.onChangeInstance;
                 type = 'radio';
+                break;
+            case 'itx':
+            case 'Itx':
+                confObj.onKetchupTextInputUpdated = this.onChangeInstance;
+                // When FLD has the text form, it should submit also when a user presses Enter on the text field
+                confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
+                type = 'text-input';
                 break;
         }
 
-        const $DynamicComponent = ('ketchup-' + type) as any;
+        const $DynamicComponent = ('ketchup-' + type) as any; // TODO check if there is a better typing
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
                 items={this.data}
                 {...confObj}
+                {...this.propagate}
             />
         );
 

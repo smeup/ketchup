@@ -37,7 +37,9 @@ export class KetchupButton {
         cancelable: true,
         bubbles: true
     })
-    ketchupButtonClicked: EventEmitter
+    ketchupButtonClicked: EventEmitter<{
+        id: string;
+    }>;
 
     @Watch('borderColor')
     onBorderColorChange(newValue: string, oldValue: string) {

@@ -8,14 +8,14 @@ import {
     State,
     Watch,
 } from '@stencil/core'
-import { ComboItem } from './ketchup-combo-declarations';
+import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 
-/**
+/*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
  * See this article here to use the method to get the current position and avoid opening the menu in the wrong direction
  * https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
- **/
+ */
 
 @Component({
     tag: 'ketchup-combo',
@@ -28,9 +28,13 @@ export class KetchupCombo {
      */
     @Prop() displayedField: string = 'id';
     /**
+     * Chooses which field of an item object should be used to create the list and be filtered.
+     */
+    @Prop() valueField: string = 'id';
+    /**
      * Allows to pass an initial selected item for the combobox
      */
-    @Prop() initialValue: string = '';
+    @Prop() initialValue: any= '';
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -64,11 +68,8 @@ export class KetchupCombo {
     clickFunction = this.onDocumentClick.bind(this);
     // Holds reference to the comboText
     comboText!: HTMLInputElement;
-    // Determins the position on which menu will be open
-    comboPosition: {
-        isRight: boolean;
-        isTop: boolean;
-    } = {
+    // Determines the position on which the menu will be open
+    comboPosition: ComboPosition = {
         isRight: false,
         isTop: false
     };
@@ -77,6 +78,10 @@ export class KetchupCombo {
     baseClass = 'ketchup-combo';
 
     //---- Lifecycle Hooks  ----
+    componentWillLoad() {
+        this.reflectInitialValue(this.initialValue);
+    }
+
     componentDidLoad() {
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction);
@@ -89,7 +94,7 @@ export class KetchupCombo {
 
     //---- Public Methods ----
     /**
-     * Opens the combo box
+     * Programmatically close the combo box
      * @method closeCombo
      */
     @Method()
@@ -98,7 +103,7 @@ export class KetchupCombo {
     }
 
     /**
-     * Opens the combo box
+     * Programmatically opens the combo box
      * @method openCombo
      */
     @Method()
@@ -110,10 +115,18 @@ export class KetchupCombo {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: string) {
-        this.value = newValue;
+    reflectInitialValue(newValue: ComboItem) {
+        this.value = newValue[this.valueField];
+        this.selected = newValue;
     }
 
+    // When valueField changes, then reflects the changes also inside the value prop
+    @Watch('valueField')
+    reflectValueField(newValue: string) {
+        this.value = this.selected ? this.selected[newValue] : '';
+    }
+
+    // Calculates where the box must be positioned according to the position the text input is placed
     calcBoxPosition() {
         const windowX = window.innerWidth;
         const windowY = window.innerHeight;
@@ -186,10 +199,10 @@ export class KetchupCombo {
      * @param item
      */
     onItemSelected(item: ComboItem) {
-        if (item[this.displayedField] !== this.value) {
+        if (item[this.valueField] !== this.value) {
             this.onComboSelected(item);
             this.selected = item;
-            this.value = item[this.displayedField];
+            this.value = item[this.valueField];
         }
         this.closeCombo();
     }
@@ -202,11 +215,13 @@ export class KetchupCombo {
         cancelable: false,
         bubbles: true
     })
-    ketchupComboSelected: EventEmitter;
+    ketchupComboSelected: EventEmitter<{
+        value: object;
+    }>;
 
     onComboSelected(item: ComboItem | null) {
         this.ketchupComboSelected.emit({
-            newValue: item,
+            value: item,
         });
     }
 
@@ -221,7 +236,7 @@ export class KetchupCombo {
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
-                    {this.value}
+                    {this.selected[this.displayedField]}
                     <svg
                         class={this.baseClass + '__icon ' + this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
                         viewBox="0 0 24 24">
