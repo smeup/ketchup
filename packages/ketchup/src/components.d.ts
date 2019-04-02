@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  ButtonStyle,
-} from './components/ketchup-btn/ketchup-btn-declarations';
-import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
@@ -32,40 +29,12 @@ import {
 export namespace Components {
 
   interface KetchupBtn {
-    'align': string;
-    'borderColor': string;
-    'btnStyle': ButtonStyle;
-    'buttonClass': string;
     'buttons': any[];
-    'columns': number;
-    'fillspace': boolean;
-    'flat': boolean;
-    'horizontal': boolean;
-    'iconUrl': string;
-    'rounded': boolean;
-    'showSelection': boolean;
-    'showicon': boolean;
-    'showtext': boolean;
-    'textmode': string;
-    'transparent': boolean;
+    'config': any;
   }
   interface KetchupBtnAttributes extends StencilHTMLAttributes {
-    'align'?: string;
-    'borderColor'?: string;
-    'btnStyle'?: ButtonStyle;
-    'buttonClass'?: string;
     'buttons'?: any[];
-    'columns'?: number;
-    'fillspace'?: boolean;
-    'flat'?: boolean;
-    'horizontal'?: boolean;
-    'iconUrl'?: string;
-    'rounded'?: boolean;
-    'showSelection'?: boolean;
-    'showicon'?: boolean;
-    'showtext'?: boolean;
-    'textmode'?: string;
-    'transparent'?: boolean;
+    'config'?: any;
   }
 
   interface KetchupButton {
