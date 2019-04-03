@@ -6,7 +6,7 @@ import {
     Method,
     Prop,
     State,
-    Watch,
+    Watch
 } from '@stencil/core'
 import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
@@ -191,7 +191,8 @@ export class KetchupCombo {
      * @param event
      */
     onFilterUpdate(event: CustomEvent) {
-        this.filter = event.detail.newValue.toLowerCase();
+        console.log(event);
+        this.filter = event.detail.value.toLowerCase();
     }
 
     /**

@@ -166,6 +166,43 @@ export namespace Components {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
+  interface KetchupHtml {
+    /**
+    * If true, the ketchup-html takes the shape of a button
+    */
+    'isButton': boolean;
+    /**
+    * The label to show when button isButton is active
+    */
+    'label': string;
+    /**
+    * The address which must be referenced by the iframe
+    */
+    'src': string;
+  }
+  interface KetchupHtmlAttributes extends StencilHTMLAttributes {
+    /**
+    * If true, the ketchup-html takes the shape of a button
+    */
+    'isButton'?: boolean;
+    /**
+    * The label to show when button isButton is active
+    */
+    'label'?: string;
+    /**
+    * When loading the frame has thrown an error
+    */
+    'onKetchupHtmlError'?: (event: CustomEvent) => void;
+    /**
+    * When the iframe has been loaded
+    */
+    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
+    /**
+    * The address which must be referenced by the iframe
+    */
+    'src'?: string;
+  }
+
   interface KetchupRadio {
     /**
     * Direction in which the radio elements must be placed
@@ -321,6 +358,7 @@ declare global {
     'KetchupButton': Components.KetchupButton;
     'KetchupCombo': Components.KetchupCombo;
     'KetchupFld': Components.KetchupFld;
+    'KetchupHtml': Components.KetchupHtml;
     'KetchupRadio': Components.KetchupRadio;
     'KetchupTextInput': Components.KetchupTextInput;
     'MyComponent': Components.MyComponent;
@@ -331,6 +369,7 @@ declare global {
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
+    'ketchup-html': Components.KetchupHtmlAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'ketchup-text-input': Components.KetchupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
@@ -361,6 +400,12 @@ declare global {
     new (): HTMLKetchupFldElement;
   };
 
+  interface HTMLKetchupHtmlElement extends Components.KetchupHtml, HTMLStencilElement {}
+  var HTMLKetchupHtmlElement: {
+    prototype: HTMLKetchupHtmlElement;
+    new (): HTMLKetchupHtmlElement;
+  };
+
   interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
   var HTMLKetchupRadioElement: {
     prototype: HTMLKetchupRadioElement;
@@ -384,6 +429,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-combo': HTMLKetchupComboElement
     'ketchup-fld': HTMLKetchupFldElement
+    'ketchup-html': HTMLKetchupHtmlElement
     'ketchup-radio': HTMLKetchupRadioElement
     'ketchup-text-input': HTMLKetchupTextInputElement
     'my-component': HTMLMyComponentElement
@@ -394,6 +440,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-combo': HTMLKetchupComboElement;
     'ketchup-fld': HTMLKetchupFldElement;
+    'ketchup-html': HTMLKetchupHtmlElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'ketchup-text-input': HTMLKetchupTextInputElement;
     'my-component': HTMLMyComponentElement;
