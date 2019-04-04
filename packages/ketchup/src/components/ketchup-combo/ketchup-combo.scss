@@ -126,13 +126,13 @@ $lateral-padding: 6px;
       left: auto;
       right: 0;
     }
+  }
 
-    // container of the div for searching
-    > div {
-      box-sizing: border-box;
-      display: inline-block;
-      padding: 4px;
-    }
+  // container of the div for searching
+  &__filter {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4px;
   }
 
   // The list of items to display

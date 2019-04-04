@@ -7,11 +7,10 @@
 
 ## Properties
 
-| Property          | Attribute | Description                                                                                   | Type                           | Default |
-| ----------------- | --------- | --------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
-| `mirroredCssVars` | --        | Array of custom css vars to be mirrored                                                       | `{ [index: string]: string; }` | `{}`    |
-| `styleNode`       | --        | A style Node which will be appended to the component to mirror custom style inside shadowRoot | `HTMLStyleElement`             | `null`  |
-| `vNode`           | --        | A Virtual node object                                                                         | `any[]`                        | `null`  |
+| Property    | Attribute | Description                                              | Type               | Default     |
+| ----------- | --------- | -------------------------------------------------------- | ------------------ | ----------- |
+| `styleNode` | --        | A style node to be copied into the KetchupPortalInstance | `HTMLStyleElement` | `undefined` |
+| `vNodes`    | --        | Virtual node list the KetchupPortalInstance must render  | `any[]`            | `null`      |
 
 
 ----------------------------------------------

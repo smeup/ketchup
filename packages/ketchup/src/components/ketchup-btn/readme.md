@@ -9,10 +9,10 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type    | Default     |
-| --------- | --------- | ----------- | ------- | ----------- |
-| `buttons` | --        |             | `any[]` | `undefined` |
-| `config`  | `config`  |             | `any`   | `{}`        |
+| Property  | Attribute | Description | Type           | Default     |
+| --------- | --------- | ----------- | -------------- | ----------- |
+| `buttons` | --        |             | `any[]`        | `undefined` |
+| `config`  | --        |             | `ButtonConfig` | `{}`        |
 
 
 ----------------------------------------------

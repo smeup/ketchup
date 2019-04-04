@@ -10,6 +10,7 @@ import {
 } from '@stencil/core'
 import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
+import { getElementOffset } from "../../utils/offset";
 
 /*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
@@ -47,6 +48,11 @@ export class KetchupCombo {
      * Label to describe the radio group
      */
     @Prop() label: string = '';
+    /**
+     * If true, the combobox uses a portal to create the menu
+     */
+    @Prop() usePortal: boolean = false;
+
 
     //-- Validating props --
 
@@ -128,8 +134,8 @@ export class KetchupCombo {
 
     // Calculates where the box must be positioned according to the position the text input is placed
     calcBoxPosition() {
-        const windowX = window.innerWidth;
-        const windowY = window.innerHeight;
+        const windowX = document.documentElement.clientWidth;
+        const windowY = document.documentElement.clientHeight;
         const {height, left, top, width} = this.comboText.getBoundingClientRect();
         return {
             isRight: left + width / 2 > windowX / 2,
@@ -227,6 +233,24 @@ export class KetchupCombo {
     }
 
     //---- Rendering functions ----
+    composeList() {
+        return [
+            <div class={this.baseClass + '__filter'}>
+                <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
+            </div>,
+            <ul class={this.baseClass + '__list'}>
+                {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
+                    .map(item =>
+                        <li onClick={() => this.onItemSelected(item)}>
+                            <span>{item[this.displayedField]}</span>
+                        </li>
+                    )
+                }
+            </ul>
+        ];
+    }
+
+
     render() {
         const containerClass = this.baseClass + '__container';
 
@@ -259,21 +283,19 @@ export class KetchupCombo {
                 }
             </div>,
 
-            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
-                (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
-                <div>
-                    <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
+            this.usePortal ?
+                <ketchup-portal
+                    cssVarsRef={this.comboEl}
+                    mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
+                    nodes={this.composeList()}
+                    refOffset={getElementOffset(this.comboEl, this.comboPosition)}
+                    styleNode={this.comboEl.shadowRoot.querySelector('style')}
+                />
+                :
+                <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
+                    (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
+                    {this.composeList()}
                 </div>
-                <ul class={this.baseClass + '__list'}>
-                    {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
-                        .map(item =>
-                            <li onClick={() => this.onItemSelected(item) }>
-                                <span>{item[this.displayedField]}</span>
-                            </li>
-                        )
-                    }
-                </ul>
-            </div>
         ]);
     }
 }

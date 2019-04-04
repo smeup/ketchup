@@ -14,6 +14,7 @@
 | `isClearable`    | `is-clearable`    | Marks the field as clearable, allowing an icon to delete its content                     | `boolean`     | `false` |
 | `items`          | --                | Items which can be selected                                                              | `ComboItem[]` | `[]`    |
 | `label`          | `label`           | Label to describe the radio group                                                        | `string`      | `''`    |
+| `usePortal`      | `use-portal`      | If true, the combobox uses a portal to create the menu                                   | `boolean`     | `false` |
 | `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered. | `string`      | `'id'`  |
 
 

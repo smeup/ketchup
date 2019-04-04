@@ -66,7 +66,7 @@
             is-clearable
             initial-value="ciao"
         ></ketchup-text-input>
-        <ketchup-combo is-clearable></ketchup-combo>
+        <ketchup-combo is-clearable use-portal="true"></ketchup-combo>
         <ketchup-fld id="kfld-1"></ketchup-fld>
         <ketchup-fld id="kfld-2"></ketchup-fld>
         <ketchup-fld id="kfld-3"></ketchup-fld>
@@ -461,7 +461,7 @@
             src="https://www.google.it/"
             is-button
         ></ketchup-html>
-        <ketchup-html id="htm-1" src="https://stenciljs.com/"></ketchup-html>
+        <ketchup-html id="htm-1" src="https://stenciljs.com/" is-button></ketchup-html>
 
         <script>
             const firstHtm = document.querySelector('#htm-1');

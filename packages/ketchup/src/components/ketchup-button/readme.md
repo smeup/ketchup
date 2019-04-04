@@ -43,6 +43,7 @@
 | `--btn_color-warning`                                                 | Background color of the button when warning state is set      |
 | `--btn_font-family, --kup-button_font-family`                         | sets the font family of the button                            |
 | `--btn_font-size, --kup-button_font-size`                             | Sets button font size.                                        |
+| `--btn_font-style, --kup-button_font-style`                           | Sets button font style.                                       |
 | `--btn_font-weight, --kup-button_font-weight`                         | Sets the font weight of the button                            |
 | `--btn_icon--transparent, --kup-button_icon-color--transparent`       | Sets icon color when button is transparent.                   |
 | `--btn_icon-color, --kup-button_icon-color`                           | Sets icon color.                                              |

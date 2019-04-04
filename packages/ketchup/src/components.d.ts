@@ -22,6 +22,9 @@ import {
   KetchupFldSubmitEvent,
 } from './components/ketchup-fld/ketchup-fld-declarations';
 import {
+  ElementOffset,
+} from './utils/offset';
+import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
 import {
@@ -102,6 +105,10 @@ export namespace Components {
     */
     'openCombo': () => void;
     /**
+    * If true, the combobox uses a portal to create the menu
+    */
+    'usePortal': boolean;
+    /**
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'valueField': string;
@@ -130,6 +137,10 @@ export namespace Components {
     'onKetchupComboSelected'?: (event: CustomEvent<{
       value: object;
     }>) => void;
+    /**
+    * If true, the combobox uses a portal to create the menu
+    */
+    'usePortal'?: boolean;
     /**
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
@@ -204,6 +215,88 @@ export namespace Components {
     * The address which must be referenced by the iframe
     */
     'src'?: string;
+  }
+
+  interface KetchupPortalInstance {
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode': HTMLStyleElement;
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'vNodes'?: JSX.Element[];
+  }
+  interface KetchupPortalInstanceAttributes extends StencilHTMLAttributes {
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode'?: HTMLStyleElement;
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'vNodes'?: JSX.Element[];
+  }
+
+  interface KetchupPortal {
+    /**
+    * Reference to the html element from which CSS Custom Properties must be derived
+    */
+    'cssVarsRef': HTMLElement;
+    /**
+    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+    */
+    'mirroredCssVars': string[];
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'nodes': JSX.Element[];
+    /**
+    * The HTML element on which the virtual node must be appended
+    */
+    'portalRootNode': HTMLElement;
+    /**
+    * Calculated offset of where the portal must be positioned
+    */
+    'refOffset': ElementOffset;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode': HTMLStyleElement;
+  }
+  interface KetchupPortalAttributes extends StencilHTMLAttributes {
+    /**
+    * Reference to the html element from which CSS Custom Properties must be derived
+    */
+    'cssVarsRef'?: HTMLElement;
+    /**
+    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+    */
+    'mirroredCssVars'?: string[];
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'nodes'?: JSX.Element[];
+    /**
+    * When loading the frame has thrown an error
+    */
+    'onKetchupHtmlError'?: (event: CustomEvent) => void;
+    /**
+    * When the iframe has been loaded
+    */
+    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
+    /**
+    * The HTML element on which the virtual node must be appended
+    */
+    'portalRootNode'?: HTMLElement;
+    /**
+    * Calculated offset of where the portal must be positioned
+    */
+    'refOffset'?: ElementOffset;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode'?: HTMLStyleElement;
   }
 
   interface KetchupRadio {
@@ -362,6 +455,8 @@ declare global {
     'KetchupCombo': Components.KetchupCombo;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
+    'KetchupPortalInstance': Components.KetchupPortalInstance;
+    'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
     'KetchupTextInput': Components.KetchupTextInput;
     'MyComponent': Components.MyComponent;
@@ -373,6 +468,8 @@ declare global {
     'ketchup-combo': Components.KetchupComboAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
+    'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
+    'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'ketchup-text-input': Components.KetchupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
@@ -409,6 +506,18 @@ declare global {
     new (): HTMLKetchupHtmlElement;
   };
 
+  interface HTMLKetchupPortalInstanceElement extends Components.KetchupPortalInstance, HTMLStencilElement {}
+  var HTMLKetchupPortalInstanceElement: {
+    prototype: HTMLKetchupPortalInstanceElement;
+    new (): HTMLKetchupPortalInstanceElement;
+  };
+
+  interface HTMLKetchupPortalElement extends Components.KetchupPortal, HTMLStencilElement {}
+  var HTMLKetchupPortalElement: {
+    prototype: HTMLKetchupPortalElement;
+    new (): HTMLKetchupPortalElement;
+  };
+
   interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
   var HTMLKetchupRadioElement: {
     prototype: HTMLKetchupRadioElement;
@@ -433,6 +542,8 @@ declare global {
     'ketchup-combo': HTMLKetchupComboElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
+    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
+    'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
     'ketchup-text-input': HTMLKetchupTextInputElement
     'my-component': HTMLMyComponentElement
@@ -444,6 +555,8 @@ declare global {
     'ketchup-combo': HTMLKetchupComboElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
+    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
+    'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'ketchup-text-input': HTMLKetchupTextInputElement;
     'my-component': HTMLMyComponentElement;
