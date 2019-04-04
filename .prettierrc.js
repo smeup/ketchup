@@ -1,14 +1,14 @@
 module.exports = {
     printWidth: 80,
-    tabWidth: 2,
-    "overrides": [
+    tabWidth: 4,
+    overrides: [
         {
-            "files": "*.css",
-            "options": {
-                "tabWidth": 4
-            }
-        }
-    ]
+            files: '*.scss',
+            options: {
+                tabWidth: 2,
+            },
+        },
+    ],
     useTabs: false,
     semi: true,
     singleQuote: true,

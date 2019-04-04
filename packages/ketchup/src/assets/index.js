@@ -80,143 +80,157 @@ const btnlist = JSON.parse(`{
       "dynamisms": []
     }`);
 
-document.querySelector("ketchup-btn").buttons = btnlist.data;
+document.querySelector('ketchup-btn').buttons = btnlist.data;
 
 document
-  .querySelector("ketchup-btn")
-  .addEventListener("ketchupButtonClicked", event => {
-    console.log(event);
+    .querySelector('ketchup-btn')
+    .addEventListener('ketchupButtonClicked', (event) => {
+        console.log(event);
 
-    const btnIndex = event.detail.id;
+        const btnIndex = event.detail.id;
 
-    const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
+        const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
 
-    document.getElementById(
-      "btn-label"
-    ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
-  });
+        document.getElementById(
+            'btn-label'
+        ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
+    });
 
 function toggleBtnFillspace(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = { ...btn.config, fillspace: event.target.checked };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = { ...btn.config, fillspace: event.target.checked };
 }
 
 function toggleBtnShowtext(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    showtext: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        showtext: event.target.checked,
+    };
 }
 
 function toggleBtnHorizontal(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    horizontal: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        horizontal: event.target.checked,
+    };
 }
 
 function toggleBtnShowicon(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    showicon: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        showicon: event.target.checked,
+    };
 }
 
 function toggleBtnRounded(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    rounded: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        rounded: event.target.checked,
+    };
 }
 
 function toggleBtnTextModeHint(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    textmode: event.target.checked ? "Hint" : ""
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        textmode: event.target.checked ? 'Hint' : '',
+    };
 }
 
 function toggleBtnTransparent(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    transparent: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        transparent: event.target.checked,
+    };
 }
 
 function onBorderColorChange(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    borderColor: event.target.value
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        borderColor: event.target.value,
+    };
 }
 
 function onBorderButtonClassChange(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    buttonClass: event.target.value
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        buttonClass: event.target.value,
+    };
 }
 
 function toggleBtnFlat(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    flat: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        flat: event.target.checked,
+    };
 }
 
 function toggleBtnShowSelection(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    showSelection: event.target.checked
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        showSelection: event.target.checked,
+    };
 }
 
 function toggleBtnColumns(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    columns: event.target.value
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        columns: event.target.value,
+    };
 }
 
 function onBtnAlignChange(event) {
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    align: event.target.value
-  };
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        align: event.target.value,
+    };
 }
 
 function toggleBtnStyle() {
-  const bold = document.querySelector("#btn-fontbold").checked;
-  const fontColor = document.querySelector("#btn-fontcolor").value;
-  const font = document.querySelector("#btn-font").value;
+    const bold = document.querySelector('#btn-fontbold').checked;
+    const italic = document.querySelector('#btn-fontitalic').checked;
+    const underline = document.querySelector('#btn-fontunderline').checked;
+    const fontColor = document.querySelector('#btn-fontcolor').value;
+    const bckColor = document.querySelector('#btn-bckcolor').value;
+    const font = document.querySelector('#btn-font').value;
+    const fontsize = document.querySelector('#btn-fontsize').value;
 
-  let btnStyle = {
-    bold
-  };
+    let btnStyle = {
+        bold,
+        italic,
+        underline,
+    };
 
-  if (fontColor) {
-    btnStyle.fontColor = fontColor;
-  }
+    if (fontColor) {
+        btnStyle.fontColor = fontColor;
+    }
 
-  if (font) {
-    btnStyle.fontName = font;
-  }
+    if (bckColor) {
+        btnStyle.bckColor = bckColor;
+    }
 
-  const btn = document.querySelector("ketchup-btn");
-  btn.config = {
-    ...btn.config,
-    btnStyle
-  };
+    if (font) {
+        btnStyle.fontName = font;
+    }
+
+    if (fontsize) {
+        btnStyle.fontSize = '' + fontsize + 'px';
+    }
+
+    const btn = document.querySelector('ketchup-btn');
+    btn.config = {
+        ...btn.config,
+        btnStyle,
+    };
 }

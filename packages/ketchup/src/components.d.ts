@@ -9,6 +9,9 @@ import '@stencil/core';
 
 
 import {
+  ButtonConfig,
+} from './components/ketchup-btn/ketchup-btn-declarations';
+import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
@@ -30,11 +33,11 @@ export namespace Components {
 
   interface KetchupBtn {
     'buttons': any[];
-    'config': any;
+    'config': ButtonConfig;
   }
   interface KetchupBtnAttributes extends StencilHTMLAttributes {
     'buttons'?: any[];
-    'config'?: any;
+    'config'?: ButtonConfig;
   }
 
   interface KetchupButton {
