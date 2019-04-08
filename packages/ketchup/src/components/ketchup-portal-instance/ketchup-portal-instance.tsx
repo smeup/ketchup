@@ -13,13 +13,17 @@ import {
 })
 export class KetchupPortalInstance {
     /**
-     * Virtual node list the KetchupPortalInstance must render
+     * Specifies if the current portal instance should be displayed or not.
      */
-    @Prop() vNodes?: JSX.Element[] = null;
+    @Prop({ reflectToAttr: true }) isVisible: boolean = false;
     /**
      * A style node to be copied into the KetchupPortalInstance
      */
     @Prop() styleNode: HTMLStyleElement;
+    /**
+     * Virtual node list the KetchupPortalInstance must render
+     */
+    @Prop() vNodes?: JSX.Element[] | JSX.Element = null;
 
     //---- Life cycle ----
     componentWillUpdate() {

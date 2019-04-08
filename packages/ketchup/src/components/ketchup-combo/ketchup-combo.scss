@@ -126,6 +126,11 @@ $lateral-padding: 6px;
       left: auto;
       right: 0;
     }
+
+    // When using a portal element
+    &.is-using-portal {
+      position: relative;
+    }
   }
 
   // container of the div for searching
@@ -137,7 +142,7 @@ $lateral-padding: 6px;
 
   // The list of items to display
   &__list {
-    display: inline-block;
+    display: block;
     list-style-type: none;
     padding: 0;
     max-height: 400px;
@@ -149,9 +154,9 @@ $lateral-padding: 6px;
       border-bottom: 1px solid #e8eae9;
       box-sizing: border-box;
       cursor: pointer;
-      display: inline-block;
+      display: block;
       padding: 6px 8px 5px;
-      width: 100%;
+      //width: 100%;
 
       &:hover,
       &.is-selected {

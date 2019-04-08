@@ -1,5 +1,11 @@
 :host {
-  display: inline-block !important;
+  // Mandatory to allow correct positioning of the portal element
+  display: none !important;
   position: absolute !important;
   z-index: 99999 !important;
+}
+
+// When host element is visible
+:host([is-visible]) {
+  display: inline-block !important;
 }
