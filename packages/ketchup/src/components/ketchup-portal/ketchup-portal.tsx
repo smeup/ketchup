@@ -53,7 +53,6 @@ export class KetchupPortal {
     // Actual operations on the elements
     componentWillUpdate() {
         // Updates tree node
-        console.log("portal nodes",this.nodes);
         this.instance.vNodes = this.nodes;
         // Creates style node
         const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
