@@ -185,5 +185,23 @@ describe('ketchup-button', () => {
         expect(button).toHaveClass(alignLeft);
     });
 
-    // TODO testare click
+    it.skip('should trigger click', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(`<ketchup-button data-id="2"></ketchup-button>`);
+
+        const kupBtnClicked = await page.spyOnEvent('ketchupButtonClicked');
+
+        const button = await page.find('ketchup-button >>> button');
+        expect(button).not.toBeNull();
+
+        // TODO how to trigger click?
+        await button.click();
+
+        await page.waitForChanges();
+
+        expect(kupBtnClicked).toHaveReceivedEventDetail({
+            id: '2',
+        });
+    });
 });

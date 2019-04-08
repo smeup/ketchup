@@ -25,26 +25,28 @@ export class KetchupBtn {
 
     render() {
         let buttonsInGrid = [];
-        if (this.config.columns && this.config.columns > 0) {
-            this.buttons.forEach((btn, index) => {
-                const mod = index % this.config.columns;
+        if (this.buttons) {
+            if (this.config.columns && this.config.columns > 0) {
+                this.buttons.forEach((btn, index) => {
+                    const mod = index % this.config.columns;
 
-                if (mod === 0) {
-                    // new row
-                    buttonsInGrid.push([]);
-                }
+                    if (mod === 0) {
+                        // new row
+                        buttonsInGrid.push([]);
+                    }
 
-                buttonsInGrid[buttonsInGrid.length - 1].push(btn);
-            });
-        } else {
-            if (this.config.horizontal) {
-                buttonsInGrid[0] = this.buttons;
-            } else {
-                buttonsInGrid = this.buttons.map((b) => {
-                    const arr = [];
-                    arr.push(b);
-                    return arr;
+                    buttonsInGrid[buttonsInGrid.length - 1].push(btn);
                 });
+            } else {
+                if (this.config.horizontal) {
+                    buttonsInGrid[0] = this.buttons;
+                } else {
+                    buttonsInGrid = this.buttons.map((b) => {
+                        const arr = [];
+                        arr.push(b);
+                        return arr;
+                    });
+                }
             }
         }
 
