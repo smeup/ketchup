@@ -1,4 +1,6 @@
-// Offset Interface
+/**
+ * Offset Interface
+ **/
 export interface ElementOffset {
     bottom?: number;
     left?: number;
@@ -6,6 +8,13 @@ export interface ElementOffset {
     top?: number;
 }
 
+/**
+ * Given an HTML element, how a third element must be positioned relatively to it and an offset element from which it must be positioned
+ * calculates the top or bottom, right or left properties to allow correctly placing that third element.
+ * @param el - The element relative to which the third element must be placed
+ * @param positioning - How the third element must be placed in relation to el (if over or under, left or right aligned)
+ * @param [offsetEl] - An optional parameter to specify from which scrollable element calculations must take place
+ */
 export function getElementOffset(
     el: HTMLElement,
     positioning: {isRight: boolean, isTop: boolean} = {isRight: false, isTop: false},
@@ -35,6 +44,11 @@ export function getElementOffset(
     return ret;
 }
 
+/**
+ * Given an HTMLElement and a position object, sets given positions to that element, while setting the others to initial state.
+ * @param el - The element to position
+ * @param position - The position to assign to that element
+ */
 export function setElementOffset(el: HTMLElement, position: ElementOffset) {
     const style = el.style;
     // Always check alterned elements

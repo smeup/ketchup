@@ -219,15 +219,23 @@ export namespace Components {
 
   interface KetchupPortalInstance {
     /**
+    * Specifies if the current portal instance should be displayed or not.
+    */
+    'isVisible': boolean;
+    /**
     * A style node to be copied into the KetchupPortalInstance
     */
     'styleNode': HTMLStyleElement;
     /**
     * Virtual node list the KetchupPortalInstance must render
     */
-    'vNodes'?: JSX.Element[];
+    'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KetchupPortalInstanceAttributes extends StencilHTMLAttributes {
+    /**
+    * Specifies if the current portal instance should be displayed or not.
+    */
+    'isVisible'?: boolean;
     /**
     * A style node to be copied into the KetchupPortalInstance
     */
@@ -235,7 +243,7 @@ export namespace Components {
     /**
     * Virtual node list the KetchupPortalInstance must render
     */
-    'vNodes'?: JSX.Element[];
+    'vNodes'?: JSX.Element[] | JSX.Element;
   }
 
   interface KetchupPortal {
@@ -244,13 +252,21 @@ export namespace Components {
     */
     'cssVarsRef': HTMLElement;
     /**
+    * Returns the root node instance of the KetchupPortalInstance element
+    */
+    'getPortalInstance': () => Promise<HTMLElement>;
+    /**
+    * Tells the portal instance if it can be visible or not
+    */
+    'isVisible': boolean;
+    /**
     * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
     */
     'mirroredCssVars': string[];
     /**
     * Virtual node list the KetchupPortalInstance must render
     */
-    'nodes': JSX.Element[];
+    'nodes': JSX.Element[] | JSX.Element;
     /**
     * The HTML element on which the virtual node must be appended
     */
@@ -270,13 +286,17 @@ export namespace Components {
     */
     'cssVarsRef'?: HTMLElement;
     /**
+    * Tells the portal instance if it can be visible or not
+    */
+    'isVisible'?: boolean;
+    /**
     * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
     */
     'mirroredCssVars'?: string[];
     /**
     * Virtual node list the KetchupPortalInstance must render
     */
-    'nodes'?: JSX.Element[];
+    'nodes'?: JSX.Element[] | JSX.Element;
     /**
     * When loading the frame has thrown an error
     */

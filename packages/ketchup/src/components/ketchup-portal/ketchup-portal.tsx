@@ -1,7 +1,7 @@
 import {
     Component,
     Event,
-    EventEmitter,
+    EventEmitter, Method,
     Prop, Watch,
 } from '@stencil/core';
 import { ElementOffset, setElementOffset } from "../../utils/offset";
@@ -16,13 +16,17 @@ export class KetchupPortal {
      */
     @Prop() cssVarsRef: HTMLElement;
     /**
+     * Tells the portal instance if it can be visible or not
+     */
+    @Prop() isVisible: boolean = false;
+    /**
      * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
      */
     @Prop() mirroredCssVars: string[] = [];
     /**
      * Virtual node list the KetchupPortalInstance must render
      */
-    @Prop() nodes: JSX.Element[];
+    @Prop() nodes: JSX.Element[] | JSX.Element;
     /**
      * Calculated offset of where the portal must be positioned
      */
@@ -57,6 +61,8 @@ export class KetchupPortal {
         this.instance.styleNode = styleNode;
         // Sets new position
         setElementOffset(this.instance, this.refOffset);
+        // Sets visibility
+        this.instance.isVisible = this.isVisible;
     }
 
     // Before being unmounted
@@ -78,6 +84,14 @@ export class KetchupPortal {
                 this.instance.style.setProperty(prop, computed.getPropertyValue(prop));
             });
         }
+    }
+
+    /**
+     * Returns the root node instance of the KetchupPortalInstance element
+     */
+    @Method()
+    async getPortalInstance() {
+        return this.instance;
     }
 
     //-- Emitted --

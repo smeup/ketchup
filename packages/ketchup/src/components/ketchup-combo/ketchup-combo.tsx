@@ -65,6 +65,7 @@ export class KetchupCombo {
     //-- Not reactive state --
     @Element() comboEl: HTMLElement;
     selected: ComboItem;
+    portalRef?: HTMLKetchupPortalElement = null;
     /**
      * Creates a variable with an instance of the handler for the click event and binds this instance of the combo box to it.
      * This is used to add and more importantly remove events listeners attached to the body.
@@ -179,14 +180,18 @@ export class KetchupCombo {
      * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
      * But in that case you can traverse the DOM starting from the target element and going up.
      */
-    onDocumentClick(event: UIEvent) {
+    async onDocumentClick(event: UIEvent) {
+        let response = null;
+        if (this.usePortal) {
+            response = await this.portalRef.getPortalInstance();
+        }
         try {
-            if (event.composedPath().indexOf(this.comboEl) < 0) {
+            if (event.composedPath().indexOf(this.comboEl) < 0 && event.composedPath().indexOf(response) < 0) {
                 this.closeCombo();
             }
         } catch(e) {
             const ele = event.target as HTMLElement;
-            if (!eventFromElement(this.comboEl, ele)) {
+            if (!eventFromElement(this.comboEl, ele) && !eventFromElement(response, ele)) {
                 this.closeCombo();
             }
         }
@@ -234,10 +239,12 @@ export class KetchupCombo {
 
     //---- Rendering functions ----
     composeList() {
-        return [
+        return <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
+        (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')
+        + (this.usePortal ? ' is-using-portal' : '')}>
             <div class={this.baseClass + '__filter'}>
                 <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
-            </div>,
+            </div>
             <ul class={this.baseClass + '__list'}>
                 {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
                     .map(item =>
@@ -247,7 +254,7 @@ export class KetchupCombo {
                     )
                 }
             </ul>
-        ];
+        </div>;
     }
 
 
@@ -286,16 +293,15 @@ export class KetchupCombo {
             this.usePortal ?
                 <ketchup-portal
                     cssVarsRef={this.comboEl}
+                    isVisible={this.isOpen}
                     mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
                     nodes={this.composeList()}
+                    ref={el => this.portalRef = el as HTMLKetchupPortalElement}
                     refOffset={getElementOffset(this.comboEl, this.comboPosition)}
                     styleNode={this.comboEl.shadowRoot.querySelector('style')}
                 />
                 :
-                <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
-                    (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
-                    {this.composeList()}
-                </div>
+                this.composeList()
         ]);
     }
 }
