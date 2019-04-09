@@ -86,6 +86,7 @@ export class KetchupCombo {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
+        // When the component is going to be loaded, if there is an initial value set, we can
         this.reflectInitialValue(this.initialValue);
     }
 
@@ -122,9 +123,13 @@ export class KetchupCombo {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: ComboItem) {
-        this.value = newValue[this.valueField];
-        this.selected = newValue;
+    reflectInitialValue(newValue: ComboItem, oldValue?: ComboItem) {
+        // When a new initial value is passed, we control that the new items is different from the old one before updating the state
+        if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
+            this.value = newValue[this.valueField];
+            this.selected = newValue;
+            this.onComboSelected(newValue);
+        }
     }
 
     // When valueField changes, then reflects the changes also inside the value prop

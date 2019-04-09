@@ -70,6 +70,7 @@
         <ketchup-fld id="kfld-1"></ketchup-fld>
         <ketchup-fld id="kfld-2"></ketchup-fld>
         <ketchup-fld id="kfld-3"></ketchup-fld>
+        <ketchup-fld id="kfld-4"></ketchup-fld>
 
         <script>
             let once = true;
@@ -202,9 +203,34 @@
                         showSubmit: true,
                     };
                     fld_2.data = [
-                        { obj: 'PRVSHO' },
-                        { obj: 'PRV123' },
-                        { obj: 'PRV456' },
+                        {
+                            value: 'label bottone #1',
+                            options: true,
+                            obj: 'J1KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #3',
+                            options: true,
+                            obj: 'J3KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
                     ];
                     fld_2.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
@@ -225,6 +251,27 @@
                         console.log('Text FLD change', payload);
                     });
                     fld_3.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('Text FLD submit', payload);
+                    });
+
+                    // Example 4
+                    const fld_4 = document.querySelector('#kfld-4');
+                    fld_4.config = {
+                            "type": "cmb",
+                            displayedField: "value",
+                            initialValue: { "value": "PRVSHO" },
+                            showSubmit: true,
+                            submitLabel: "Conferma"
+                        };
+                    fld_4.data = [
+                        { "value": "PRVSHO" },
+                        { "value": "PRV123" },
+                        { "value": "PRV456" }
+                    ];
+                    fld_4.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    fld_4.addEventListener('ketchupFldSubmit', (payload) => {
                         console.log('Text FLD submit', payload);
                     });
                 }

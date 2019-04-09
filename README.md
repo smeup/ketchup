@@ -27,9 +27,24 @@ npm install
 In this way Lerna will be installed as a dependency inside the project,
 and it's not necessary to install it globally.
 
-Then run:
+To use Lerna locally, it has been added to the scripts section of the project.
+The syntax is slightly different than having it installed globally, since it is used inside the scripts JSON field.
+See [this issue](https://github.com/lerna/lerna/issues/138) for more explanations.
+
+All commands must be composed like this:
 ```
-lerna bootstrap
+npm run lerna -- --any --argument 
+```
+Arguments passed after `--` will be passed to Lerna script.
+
+###### Example
+```
+npm run lerna -- --help
+```
+
+So, to install both projects run:
+```
+npm run lerna -- --bootstrap
 ```
 This command will take some time.
 It will install all dependencies in all packages inside the folder 'packages'
