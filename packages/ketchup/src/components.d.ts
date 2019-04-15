@@ -87,7 +87,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue': any;
+    'initialValue': ComboItem;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -105,7 +105,7 @@ export namespace Components {
     */
     'openCombo': () => void;
     /**
-    * If true, the combobox uses a portal to create the menu
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
     */
     'usePortal': boolean;
     /**
@@ -121,7 +121,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue'?: any;
+    'initialValue'?: ComboItem;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -134,11 +134,14 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
+    /**
+    * When an element has been selected, launch ketchupComboSelected
+    */
     'onKetchupComboSelected'?: (event: CustomEvent<{
-      value: object;
+      value: ComboItem;
     }>) => void;
     /**
-    * If true, the combobox uses a portal to create the menu
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
     */
     'usePortal'?: boolean;
     /**

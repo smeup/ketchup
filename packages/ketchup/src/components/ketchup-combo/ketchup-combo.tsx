@@ -35,7 +35,7 @@ export class KetchupCombo {
     /**
      * Allows to pass an initial selected item for the combobox
      */
-    @Prop() initialValue: any= '';
+    @Prop() initialValue: ComboItem = {};
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -49,7 +49,9 @@ export class KetchupCombo {
      */
     @Prop() label: string = '';
     /**
-     * If true, the combobox uses a portal to create the menu
+     * If true, the combobox uses a Stencil portal to create the menu.
+     * Please use this feature carefully, only if needed.
+     * @see ketchup-portal readme for more details.
      */
     @Prop() usePortal: boolean = false;
 
@@ -58,8 +60,11 @@ export class KetchupCombo {
 
 
     //---- Internal state ----
+    // Keeps current value based on selectedElement -> shortcut for some controls
     @State() value: string = '';
+    // Keeps string for filtering elements when filter mode is active
     @State() filter: string = '';
+    // Keeps track when the combobox menu is open or closed
     @State() isOpen: boolean = false;
 
     //-- Not reactive state --
@@ -86,7 +91,8 @@ export class KetchupCombo {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
-        // When the component is going to be loaded, if there is an initial value set, we can
+        // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
+        // This is used because when component is instantiated it does NOT run watchers.
         this.reflectInitialValue(this.initialValue);
     }
 
@@ -124,7 +130,7 @@ export class KetchupCombo {
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
     reflectInitialValue(newValue: ComboItem, oldValue?: ComboItem) {
-        // When a new initial value is passed, we control that the new items is different from the old one before updating the state
+        // When a new initial value is passed, we control that the new item is different from the old one before updating the state
         if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
             this.value = newValue[this.valueField];
             this.selected = newValue;
@@ -226,6 +232,9 @@ export class KetchupCombo {
 
     //-- Emitted --
     // When an element has been selected
+    /**
+     * When an element has been selected
+     */
     @Event({
         eventName: 'ketchupComboSelected',
         composed: true,
@@ -233,7 +242,7 @@ export class KetchupCombo {
         bubbles: true
     })
     ketchupComboSelected: EventEmitter<{
-        value: object;
+        value: ComboItem;
     }>;
 
     onComboSelected(item: ComboItem | null) {
@@ -243,6 +252,7 @@ export class KetchupCombo {
     }
 
     //---- Rendering functions ----
+    // Creates the menu and its items
     composeList() {
         return <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
         (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')

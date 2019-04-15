@@ -7,22 +7,22 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                              | Type          | Default |
-| ---------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------------- | ------- |
-| `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered. | `string`      | `'id'`  |
-| `initialValue`   | `initial-value`   | Allows to pass an initial selected item for the combobox                                 | `any`         | `''`    |
-| `isClearable`    | `is-clearable`    | Marks the field as clearable, allowing an icon to delete its content                     | `boolean`     | `false` |
-| `items`          | --                | Items which can be selected                                                              | `ComboItem[]` | `[]`    |
-| `label`          | `label`           | Label to describe the radio group                                                        | `string`      | `''`    |
-| `usePortal`      | `use-portal`      | If true, the combobox uses a portal to create the menu                                   | `boolean`     | `false` |
-| `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered. | `string`      | `'id'`  |
+| Property         | Attribute         | Description                                                                                                        | Type          | Default |
+| ---------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ | ------------- | ------- |
+| `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered.                           | `string`      | `'id'`  |
+| `initialValue`   | --                | Allows to pass an initial selected item for the combobox                                                           | `ComboItem`   | `{}`    |
+| `isClearable`    | `is-clearable`    | Marks the field as clearable, allowing an icon to delete its content                                               | `boolean`     | `false` |
+| `items`          | --                | Items which can be selected                                                                                        | `ComboItem[]` | `[]`    |
+| `label`          | `label`           | Label to describe the radio group                                                                                  | `string`      | `''`    |
+| `usePortal`      | `use-portal`      | If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed. | `boolean`     | `false` |
+| `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered.                           | `string`      | `'id'`  |
 
 
 ## Events
 
-| Event                  | Description | Type                                          |
-| ---------------------- | ----------- | --------------------------------------------- |
-| `ketchupComboSelected` |             | `CustomEvent<{         value: object;     }>` |
+| Event                  | Description                                                    | Type                                             |
+| ---------------------- | -------------------------------------------------------------- | ------------------------------------------------ |
+| `ketchupComboSelected` | When an element has been selected | `CustomEvent<{         value: ComboItem;     }>` |
 
 
 ## Methods

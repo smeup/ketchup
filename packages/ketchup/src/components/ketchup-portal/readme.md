@@ -58,8 +58,8 @@ Then we can pass this vTree to the portal component, which will pass it to the p
 whose job is to render that tree.
 
 In this way we have achieved the following:
-1. - The PortalInstance gets updated when the component using the portal gets updated.
-2. - Since we're using a vTree on which some event callbacks are bound with `.bind(this)`, when those events are triggered the corresponding methods gets triggered inside the component.
+1. The PortalInstance gets updated when the component using the portal gets updated.
+2. Since we're using a vTree on which some event callbacks are bound with `.bind(this)`, when those events are triggered the corresponding methods gets triggered inside the component.
 
 
 ##### Event propagation

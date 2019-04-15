@@ -67,7 +67,9 @@
             initial-value="ciao"
         ></ketchup-text-input>
         <ketchup-combo is-clearable use-portal="true"></ketchup-combo>
+        <h4>FLD 1</h4>
         <ketchup-fld id="kfld-1"></ketchup-fld>
+        <h4>FLD 2</h4>
         <ketchup-fld id="kfld-2"></ketchup-fld>
         <ketchup-fld id="kfld-3"></ketchup-fld>
         <ketchup-fld id="kfld-4"></ketchup-fld>
@@ -120,6 +122,9 @@
 
                     // The combo box
                     const comboBox = document.querySelector('ketchup-combo');
+                    comboBox.initialValue = {
+                        id: 'Darth Vader',
+                    };
                     comboBox.items = [
                         {
                             id: 'Darth Vader',
@@ -134,9 +139,6 @@
                             id: 'Darth Tiranus',
                         },
                     ];
-                    comboBox.initialValue = {
-                        id: 'Darth Vader',
-                    };
                     comboBox.addEventListener(
                         'ketchupComboSelected',
                         (event) => {
@@ -152,6 +154,13 @@
                         submitPos: 'right',
                         label: 'Seleziona pagina',
                         labelPos: 'top',
+                        initialValue: {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
                         extensions: {
                             minQueryLength: 4,
                             forceSelection: true,
