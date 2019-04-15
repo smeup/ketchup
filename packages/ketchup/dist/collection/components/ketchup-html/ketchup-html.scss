@@ -1,0 +1,26 @@
+/**
+* @prop --htm_height, --kup-html_height: Specifies the height the frame must have. Default: 600px ;
+* @prop --htm_width, --kup-html_width: Specifies the width of the frame Default: 100% ;
+*/
+
+:host {
+  // Variables
+  --htm_height: var(--kup-html_height, 600px);
+  --htm_width: var(--kup-html_width, 100%);
+
+  // Style
+  display: inline-block;
+  width: 100%;
+}
+
+// When behavior is set to button, we automatically set the width to  auto and set display inline-block
+:host([is-button]) {
+  // When the Iframe is in button form
+  display: inline-block;
+  width: auto;
+}
+
+.ketchup-frame {
+  height: var(--htm_height);
+  width: var(--htm_width);
+}

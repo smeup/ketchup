@@ -1,0 +1,49 @@
+/**
+* Css Properties
+* @prop --fld_comp-margin, --kup-fld_component-margin: Specifies internal margin between label, submit button and dynamic component
+*/
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  --fld_comp-margin: var(--kup-fld_component-margin, 8px);
+}
+
+// Base class and its derived
+.ketchup-fld {
+  $rightClass: #{&}--right;
+
+  // the top div container
+  &__top-container {
+    align-items: center;
+    display: flex;
+    order: 0;
+    width: 100%;
+  }
+
+  // the label
+  &__label {
+    margin: var(--fld_comp-margin);
+    order: 1;
+
+    &#{$rightClass} {
+      order: 4;
+    }
+  }
+
+  // the dynamic component
+  &__component {
+    margin: var(--fld_comp-margin);
+    order: 3;
+  }
+
+  // the submit button
+  &__submit {
+    margin: var(--fld_comp-margin);
+    order: 2;
+
+    &#{$rightClass} {
+      order: 5;
+    }
+  }
+}

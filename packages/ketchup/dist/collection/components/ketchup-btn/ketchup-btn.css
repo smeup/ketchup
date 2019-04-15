@@ -1,0 +1,6 @@
+.btn-container {
+  border-collapse: collapse; }
+  .btn-container.fillspace {
+    width: 100%; }
+  .btn-container tbody tr td {
+    padding: 3px; }
