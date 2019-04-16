@@ -1,0 +1,78 @@
+/**
+* @prop --rad_font-size, --kup-radio_font-size: Sets font size and icon radio button size (size * 1.4)
+* @prop --rad_border-color, --kup-radio_border-color: Set default color of external border of the radio element
+* @prop --rad_border-color--selected --kup-radio_border-color: Set selected color of external border of the radio element
+* @prop --rad_color, --kup-radio_color: Sets radio element color when selected radio appears
+* @prop --rad_tr-duration, --kup-radio_transition-duration: Sets all components transitions duration
+*/
+:host {
+  --rad_font-size: var(--kup-radio_font-size, 14px);
+  --rad_border-color: var(--kup-radio_border-color, #808080);
+  --rad_border-color--selected: var(--kup-radio_border-color, #676767);
+  --rad_color: var(--kup-radio_color, #4e908f);
+  --rad_tr-duration: var(--kup-radio_transition-duration, 0.6s); }
+
+.ketchup-radio__group {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 0; }
+  .ketchup-radio__group.ketchup-radio__group--horizontal {
+    display: flex;
+    flex-wrap: wrap; }
+
+.ketchup-radio__item {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+  margin: 10px 12px;
+  z-index: 0; }
+  .ketchup-radio__item > div {
+    align-items: center;
+    display: inline-flex;
+    height: calc(var(--rad_font-size) * 1.4);
+    justify-content: center;
+    position: relative;
+    width: calc(var(--rad_font-size) * 1.4);
+    z-index: 0; }
+    .ketchup-radio__item > div::before, .ketchup-radio__item > div::after {
+      border-radius: 50%;
+      box-sizing: border-box;
+      content: ''; }
+    .ketchup-radio__item > div::before {
+      border: 1px solid var(--rad_border-color);
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: border-color var(--rad_tr-duration);
+      width: 100%;
+      z-index: 0; }
+    .ketchup-radio__item > div::after {
+      background-color: var(--rad_color);
+      height: calc(100% - 6px);
+      position: relative;
+      opacity: 0;
+      transition: opacity var(--rad_tr-duration);
+      width: calc(100% - 6px);
+      z-index: 1; }
+    .ketchup-radio__item > div > input {
+      cursor: pointer;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 2; }
+  .ketchup-radio__item--selected div::before {
+    border-color: var(--rad_border-color--selected); }
+  .ketchup-radio__item--selected div::after {
+    opacity: 1; }
+  .ketchup-radio__item label {
+    cursor: pointer;
+    font-size: var(--rad_font-size);
+    margin-left: 10px; }

@@ -1,401 +1,531 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-    <title>Stencil Component Starter</title>
-    <script src="/build/mycomponent.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+        <title>Stencil Component Starter</title>
+        <script src="/build/mycomponent.js"></script>
 
-
-    <link
+        <link
             href="https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css"
             rel="stylesheet"
             type="text/css"
-    />
+        />
 
-    <link
+        <link
             href="https://fonts.googleapis.com/css?family=Lato"
             rel="stylesheet"
-    />
+        />
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        :focus {
-            outline: none;
-        }
-
-        body {
-            padding: 1rem;
-            font-family: "Lato", sans-serif;
-        }
-
-        .options {
-            margin-bottom: 1rem;
-        }
-
-        hr {
-            margin: 2rem 0;
-        }
-
-        .btn-options {
-            margin-bottom: 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 0.5rem;
-        }
-
-        .BTN {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-<ketchup-button label="Sono bottone"></ketchup-button>
-<ketchup-radio id="krg1" displayed-field="label" value-field="value"></ketchup-radio>
-<ketchup-text-input id="int1" is-clearable initial-value="ciao"></ketchup-text-input>
-<ketchup-combo is-clearable></ketchup-combo>
-<ketchup-fld id="kfld-1"></ketchup-fld>
-<ketchup-fld id="kfld-2"></ketchup-fld>
-<ketchup-fld id="kfld-3"></ketchup-fld>
-
-<script>
-    let once = true;
-    // This is a script for testing these elements
-    // This is mandatory for testing the passage of complex parameters inside web components
-    setInterval(function () {
-        // Radio develop test
-        const radio = document.querySelector('#krg1');
-        radio.radioName = 'finalFantasy';
-        radio.items = [
-            {
-                label: 'Auron',
-                value: 'Auron'
-            },
-            {
-                label: 'Braska the summoner',
-                value: 'Braska'
-            },
-            {
-                label: 'Jecth the catcher',
-                value: 'Jetch'
+        <style>
+            * {
+                box-sizing: border-box;
             }
-        ];
 
-        // Test input text
-        const inText = document.querySelector('#int1');
+            :focus {
+                outline: none;
+            }
 
-        // Things which need to be done once
-        if (once) {
-            radio.addEventListener('ketchupRadioChanged', (event) => {
-            });
+            body {
+                padding: 1rem;
+                font-family: 'Lato', sans-serif;
+            }
 
-            inText.addEventListener('ketchupTextInputFocused', e => {
-                console.log('#int1 has been FOCUSED', e);
-            });
-            inText.addEventListener('ketchupTextInputBlurred', e => {
-                console.log('#int1 has been BLURRED', e);
-            });
-            inText.addEventListener('ketchupTextInputUpdated', e => {
-                console.log('#int1 has been UPDATED', e);
-            });
+            .options {
+                margin-bottom: 1rem;
+            }
 
-            // Never triggers again these part of the code
-            once = false;
+            hr {
+                margin: 2rem 0;
+            }
 
-            // The combo box
-            const comboBox = document.querySelector('ketchup-combo');
-            comboBox.items = [
-                {
-                    id: 'Darth Vader'
-                },
-                {
-                    id: 'Darth Sidius'
-                },
-                {
-                    id: 'Darth Maul'
-                },
-                {
-                    id: 'Darth Tiranus'
-                },
-            ];
-            comboBox.initialValue = {
-                id: 'Darth Vader'
-            };
-            comboBox.addEventListener('ketchupComboSelected', (event) => {
-                console.log("comboHasBeenSelected", event);
-            });
+            .btn-options {
+                margin-bottom: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 0.5rem;
+            }
 
-            const fld_1 = document.querySelector('#kfld-1');
-            fld_1.config = {
-                "type": "cmb",
-                "showSubmit": true,
-                "submitLabel": "Invia",
-                "submitPos": "right",
-                "label": "Seleziona pagina",
-                "labelPos": "top",
-                "extensions": {
-                    "minQueryLength": 4,
-                    "forceSelection": true
+            .BTN {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <ketchup-button label="Sono bottone"></ketchup-button>
+        <ketchup-radio
+            id="krg1"
+            displayed-field="label"
+            value-field="value"
+        ></ketchup-radio>
+        <ketchup-text-input
+            id="int1"
+            is-clearable
+            initial-value="ciao"
+        ></ketchup-text-input>
+        <ketchup-combo is-clearable use-portal="true"></ketchup-combo>
+        <h4>FLD 1</h4>
+        <ketchup-fld id="kfld-1"></ketchup-fld>
+        <h4>FLD 2</h4>
+        <ketchup-fld id="kfld-2"></ketchup-fld>
+        <ketchup-fld id="kfld-3"></ketchup-fld>
+        <ketchup-fld id="kfld-4"></ketchup-fld>
+
+        <script>
+            let once = true;
+            // This is a script for testing these elements
+            // This is mandatory for testing the passage of complex parameters inside web components
+            setInterval(function() {
+                // Radio develop test
+                const radio = document.querySelector('#krg1');
+                radio.radioName = 'finalFantasy';
+                radio.items = [
+                    {
+                        label: 'Auron',
+                        value: 'Auron',
+                    },
+                    {
+                        label: 'Braska the summoner',
+                        value: 'Braska',
+                    },
+                    {
+                        label: 'Jecth the catcher',
+                        value: 'Jetch',
+                    },
+                ];
+
+                // Test input text
+                const inText = document.querySelector('#int1');
+
+                // Things which need to be done once
+                if (once) {
+                    radio.addEventListener(
+                        'ketchupRadioChanged',
+                        (event) => {}
+                    );
+
+                    inText.addEventListener('ketchupTextInputFocused', (e) => {
+                        console.log('#int1 has been FOCUSED', e);
+                    });
+                    inText.addEventListener('ketchupTextInputBlurred', (e) => {
+                        console.log('#int1 has been BLURRED', e);
+                    });
+                    inText.addEventListener('ketchupTextInputUpdated', (e) => {
+                        console.log('#int1 has been UPDATED', e);
+                    });
+
+                    // Never triggers again these part of the code
+                    once = false;
+
+                    // The combo box
+                    const comboBox = document.querySelector('ketchup-combo');
+                    comboBox.initialValue = {
+                        id: 'Darth Vader',
+                    };
+                    comboBox.items = [
+                        {
+                            id: 'Darth Vader',
+                        },
+                        {
+                            id: 'Darth Sidius',
+                        },
+                        {
+                            id: 'Darth Maul',
+                        },
+                        {
+                            id: 'Darth Tiranus',
+                        },
+                    ];
+                    comboBox.addEventListener(
+                        'ketchupComboSelected',
+                        (event) => {
+                            console.log('comboHasBeenSelected', event);
+                        }
+                    );
+
+                    const fld_1 = document.querySelector('#kfld-1');
+                    fld_1.config = {
+                        type: 'cmb',
+                        showSubmit: true,
+                        submitLabel: 'Invia',
+                        submitPos: 'right',
+                        label: 'Seleziona pagina',
+                        labelPos: 'top',
+                        initialValue: {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        extensions: {
+                            minQueryLength: 4,
+                            forceSelection: true,
+                        },
+                    };
+                    fld_1.data = [
+                        {
+                            value: 'label bottone #1',
+                            options: true,
+                            obj: 'J1KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #3',
+                            options: true,
+                            obj: 'J3KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                    ];
+                    fld_1.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    fld_1.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('ketchupFldSubmit', payload);
+                    });
+
+                    // Radio version
+                    const fld_2 = document.querySelector('#kfld-2');
+                    fld_2.config = {
+                        type: 'rad',
+                        displayedField: 'obj',
+                        initialValue: { value: 'PRV123' },
+                        showSubmit: true,
+                    };
+                    fld_2.data = [
+                        {
+                            value: 'label bottone #1',
+                            options: true,
+                            obj: 'J1KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #2',
+                            options: true,
+                            obj: 'J2KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #3',
+                            options: true,
+                            obj: 'J3KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                        {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
+                    ];
+                    fld_2.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    fld_2.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('ketchupFldSubmit', payload);
+                    });
+
+                    // Text version
+                    const fld_3 = document.querySelector('#kfld-3');
+                    fld_3.config = {
+                        type: 'Itx',
+                        initialValue: 'PRVSHO',
+                        showSubmit: true,
+                        submitLabel: 'Submit',
+                    };
+                    fld_3.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    fld_3.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('Text FLD submit', payload);
+                    });
+
+                    // Example 4
+                    const fld_4 = document.querySelector('#kfld-4');
+                    fld_4.config = {
+                            "type": "cmb",
+                            displayedField: "value",
+                            initialValue: { "value": "PRVSHO" },
+                            showSubmit: true,
+                            submitLabel: "Conferma"
+                        };
+                    fld_4.data = [
+                        { "value": "PRVSHO" },
+                        { "value": "PRV123" },
+                        { "value": "PRV456" }
+                    ];
+                    fld_4.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    fld_4.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('Text FLD submit', payload);
+                    });
                 }
-            };
-            fld_1.data = [
-                {
-                    "value": "label bottone #1",
-                    "options": true,
-                    "obj": "J1KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #2",
-                    "options": true,
-                    "obj": "J2KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #3",
-                    "options": true,
-                    "obj": "J3KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                },
-                {
-                    "value": "label bottone #4",
-                    "options": true,
-                    "obj": "J4KEY",
-                    "iconClass": "-smeup-fixed-icon TA-B-AMO-A-BASE",
-                    "children": []
-                }
-            ];
-            fld_1.addEventListener('ketchupFldChanged', (payload) => {
-                console.log('Text FLD change', payload);
+            }, 5000);
+        </script>
+
+        <div class="BTN">
+            <div class="btn-options">
+                <div>
+                    <label for="btn-showtext">Show text</label>
+                    <input
+                        type="checkbox"
+                        checked
+                        name="btn-showtext"
+                        id="btn-showtext"
+                        onchange="toggleBtnShowtext(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-fillspace">Fillspace</label>
+                    <input
+                        type="checkbox"
+                        name="btn-fillspace"
+                        id="btn-fillspace"
+                        onchange="toggleBtnFillspace(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-horizontal">Horizontal</label>
+                    <input
+                        type="checkbox"
+                        checked
+                        name="btn-horizontal"
+                        id="btn-horizontal"
+                        onchange="toggleBtnHorizontal(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-showicon">Show icon</label>
+                    <input
+                        type="checkbox"
+                        checked
+                        name="btn-showicon"
+                        id="btn-showicon"
+                        onchange="toggleBtnShowicon(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-rounded">Rounded</label>
+                    <input
+                        type="checkbox"
+                        name="btn-rounded"
+                        id="btn-rounded"
+                        onchange="toggleBtnRounded(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-hinttextmode">TextMode='Hint'</label>
+                    <input
+                        type="checkbox"
+                        name="btn-hinttextmode"
+                        id="btn-hinttextmode"
+                        onchange="toggleBtnTextModeHint(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-transparent">Transparent</label>
+                    <input
+                        type="checkbox"
+                        name="btn-transparent"
+                        id="btn-transparent"
+                        onchange="toggleBtnTransparent(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-bordercolor">Border color</label>
+                    <input
+                        type="color"
+                        name="btn-bordercolor"
+                        id="btn-bordercolor"
+                        onchange="onBorderColorChange(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-buttonclass">Button class</label>
+                    <select
+                        name="btn-buttonclass"
+                        id="btn-buttonclass"
+                        onchange="onBorderButtonClassChange(event)"
+                    >
+                        <option value=""></option>
+                        <option value="btn-info">btn-info</option>
+                        <option value="btn-danger">btn-danger</option>
+                        <option value="btn-warning">btn-warning</option>
+                        <option value="btn-selected">btn-selected</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="btn-flat">Flat</label>
+                    <input
+                        type="checkbox"
+                        name="btn-flat"
+                        id="btn-flat"
+                        onchange="toggleBtnFlat(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-showselection">Show Selection</label>
+                    <input
+                        type="checkbox"
+                        name="btn-showselection"
+                        id="btn-showselection"
+                        onchange="toggleBtnShowSelection(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-columns">Columns</label>
+                    <input
+                        type="number"
+                        name="btn-columns"
+                        id="btn-columns"
+                        onchange="toggleBtnColumns(event)"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-align">Align</label>
+                    <select
+                        name="btn-align"
+                        id="btn-align"
+                        onchange="onBtnAlignChange(event)"
+                    >
+                        <option value=""></option>
+                        <option value="left">left</option>
+                        <option value="right">right</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="btn-fontbold">Bold font</label>
+                    <input
+                        type="checkbox"
+                        name="btn-fontbold"
+                        id="btn-fontbold"
+                        onchange="toggleBtnStyle()"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-fontitalic">Italic font</label>
+                    <input
+                        type="checkbox"
+                        name="btn-fontitalic"
+                        id="btn-fontitalic"
+                        onchange="toggleBtnStyle()"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-fontunderline">Underline font</label>
+                    <input
+                        type="checkbox"
+                        name="btn-fontunderline"
+                        id="btn-fontunderline"
+                        onchange="toggleBtnStyle()"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-fontcolor">Font color</label>
+                    <input
+                        type="color"
+                        value="#FFFFFF"
+                        name="btn-fontcolor"
+                        id="btn-fontcolor"
+                        onchange="toggleBtnStyle()"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-bckcolor">Background color</label>
+                    <input
+                        type="color"
+                        value="#4e908f"
+                        name="btn-bckcolor"
+                        id="btn-bckcolor"
+                        onchange="toggleBtnStyle()"
+                    />
+                </div>
+
+                <div>
+                    <label for="btn-font">Font</label>
+                    <select
+                        name="btn-font"
+                        id="btn-font"
+                        onchange="toggleBtnStyle()"
+                    >
+                        <option value=""></option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Courier">Courier</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="btn-fontsize">Font size</label>
+                    <input
+                        id="btn-fontsize"
+                        type="number"
+                        onchange="toggleBtnStyle()"
+                        value="14"
+                    />
+                </div>
+            </div>
+
+            <ketchup-btn></ketchup-btn>
+
+            <p id="btn-label"></p>
+        </div>
+
+        <h1>html frame component</h1>
+        <ketchup-html
+            id="htm-2"
+            src="https://www.google.it/"
+            is-button
+        ></ketchup-html>
+        <ketchup-html id="htm-1" src="https://stenciljs.com/" is-button></ketchup-html>
+
+        <script>
+            const firstHtm = document.querySelector('#htm-1');
+            firstHtm.addEventListener('ketchupHtmlLoaded', () => {
+                console.log('ketchupHtmlLoaded success');
             });
-            fld_1.addEventListener('ketchupFldSubmit', (payload) => {
-                console.log('ketchupFldSubmit', payload);
-            });
+        </script>
 
-            // Radio version
-            const fld_2 = document.querySelector('#kfld-2');
-            fld_2.config = {
-                "type": "rad",
-                "displayedField" : "obj",
-                "initialValue" : { value : "PRV123"},
-                "showSubmit": true
-            };
-            fld_2.data = [
-                { "obj" : "PRVSHO"},
-                { "obj" : "PRV123"},
-                { "obj" : "PRV456"}
-            ];
-            fld_2.addEventListener('ketchupFldChanged', (payload) => {
-                console.log('Text FLD change', payload);
-            });
-            fld_2.addEventListener('ketchupFldSubmit', (payload) => {
-                console.log('ketchupFldSubmit', payload);
-            });
-
-            // Text version
-            const fld_3 = document.querySelector('#kfld-3');
-            fld_3.config = {
-                "type": "Itx",
-                "initialValue" : "PRVSHO",
-                "showSubmit": true,
-                "submitLabel": "Submit"
-            };
-            fld_3.addEventListener('ketchupFldChanged', (payload) => {
-                console.log('Text FLD change', payload);
-            });
-            fld_3.addEventListener('ketchupFldSubmit', (payload) => {
-                console.log('Text FLD submit', payload);
-            });
-        }
-    }, 5000);
-</script>
-
-
-<div class="BTN">
-    <div class="btn-options">
-        <div>
-            <label for="btn-showtext">Show text</label>
-            <input
-                    type="checkbox"
-                    checked
-                    name="btn-showtext"
-                    id="btn-showtext"
-                    onchange="toggleBtnShowtext(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-fillspace">Fillspace</label>
-            <input
-                    type="checkbox"
-                    name="btn-fillspace"
-                    id="btn-fillspace"
-                    onchange="toggleBtnFillspace(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-horizontal">Horizontal</label>
-            <input
-                    type="checkbox"
-                    checked
-                    name="btn-horizontal"
-                    id="btn-horizontal"
-                    onchange="toggleBtnHorizontal(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-showicon">Show icon</label>
-            <input
-                    type="checkbox"
-                    checked
-                    name="btn-showicon"
-                    id="btn-showicon"
-                    onchange="toggleBtnShowicon(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-rounded">Rounded</label>
-            <input
-                    type="checkbox"
-                    name="btn-rounded"
-                    id="btn-rounded"
-                    onchange="toggleBtnRounded(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-hinttextmode">TextMode='Hint'</label>
-            <input
-                    type="checkbox"
-                    name="btn-hinttextmode"
-                    id="btn-hinttextmode"
-                    onchange="toggleBtnTextModeHint(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-transparent">Transparent</label>
-            <input
-                    type="checkbox"
-                    name="btn-transparent"
-                    id="btn-transparent"
-                    onchange="toggleBtnTransparent(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-bordercolor">Border color</label>
-            <input
-                    type="color"
-                    name="btn-bordercolor"
-                    id="btn-bordercolor"
-                    onchange="onBorderColorChange(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-buttonclass">Button class</label>
-            <select
-                    name="btn-buttonclass"
-                    id="btn-buttonclass"
-                    onchange="onBorderButtonClassChange(event)"
-            >
-                <option value=""></option>
-                <option value="btn-info">btn-info</option>
-                <option value="btn-danger">btn-danger</option>
-                <option value="btn-warning">btn-warning</option>
-                <option value="btn-selected">btn-selected</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="btn-flat">Flat</label>
-            <input
-                    type="checkbox"
-                    name="btn-flat"
-                    id="btn-flat"
-                    onchange="toggleBtnFlat(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-showselection">Show Selection</label>
-            <input
-                    type="checkbox"
-                    name="btn-showselection"
-                    id="btn-showselection"
-                    onchange="toggleBtnShowSelection(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-columns">Columns</label>
-            <input
-                    type="number"
-                    name="btn-columns"
-                    id="btn-columns"
-                    onchange="toggleBtnColumns(event)"
-            />
-        </div>
-
-        <div>
-            <label for="btn-align">Align</label>
-            <select
-                    name="btn-align"
-                    id="btn-align"
-                    onchange="onBtnAlignChange(event)"
-            >
-                <option value=""></option>
-                <option value="left">left</option>
-                <option value="right">right</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="btn-fontbold">Bold font</label>
-            <input
-                    type="checkbox"
-                    name="btn-fontbold"
-                    id="btn-fontbold"
-                    onchange="toggleBtnStyle()"
-            />
-        </div>
-
-        <div>
-            <label for="btn-fontcolor">Font color</label>
-            <input
-                    type="color"
-                    value="#FFFFFF"
-                    name="btn-fontcolor"
-                    id="btn-fontcolor"
-                    onchange="toggleBtnStyle()"
-            />
-        </div>
-
-        <div>
-            <label for="btn-font">Font</label>
-            <select name="btn-font" id="btn-font" onchange="toggleBtnStyle()">
-                <option value=""></option>
-                <option value="Verdana">Verdana</option>
-                <option value="Courier">Courier</option>
-            </select>
-        </div>
-    </div>
-
-    <ketchup-btn></ketchup-btn>
-
-    <p id="btn-label"></p>
-</div>
-
-<script src="/assets/index.js"></script>
-</body>
+        <script src="/assets/index.js"></script>
+    </body>
 </html>

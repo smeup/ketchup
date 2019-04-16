@@ -1,0 +1,1 @@
+function format(e,n,t){return(e||"")+(n?" "+n:"")+(t?" "+t:"")}function generateUniqueId(e){return(new Date).getTime()+e.trim().replace(/\s/g,"_")}function eventFromElement(e,n){for(;n;){if(console.log(n),n===e)return!0;n=n.parentElement}return!1}export{eventFromElement as a,generateUniqueId as b,format as c};

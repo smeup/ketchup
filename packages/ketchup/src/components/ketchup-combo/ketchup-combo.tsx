@@ -6,10 +6,11 @@ import {
     Method,
     Prop,
     State,
-    Watch,
+    Watch
 } from '@stencil/core'
 import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
+import { getElementOffset } from "../../utils/offset";
 
 /*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
@@ -34,7 +35,7 @@ export class KetchupCombo {
     /**
      * Allows to pass an initial selected item for the combobox
      */
-    @Prop() initialValue: any= '';
+    @Prop() initialValue: ComboItem = {};
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -47,18 +48,29 @@ export class KetchupCombo {
      * Label to describe the radio group
      */
     @Prop() label: string = '';
+    /**
+     * If true, the combobox uses a Stencil portal to create the menu.
+     * Please use this feature carefully, only if needed.
+     * @see ketchup-portal readme for more details.
+     */
+    @Prop() usePortal: boolean = false;
+
 
     //-- Validating props --
 
 
     //---- Internal state ----
+    // Keeps current value based on selectedElement -> shortcut for some controls
     @State() value: string = '';
+    // Keeps string for filtering elements when filter mode is active
     @State() filter: string = '';
+    // Keeps track when the combobox menu is open or closed
     @State() isOpen: boolean = false;
 
     //-- Not reactive state --
     @Element() comboEl: HTMLElement;
     selected: ComboItem;
+    portalRef?: HTMLKetchupPortalElement = null;
     /**
      * Creates a variable with an instance of the handler for the click event and binds this instance of the combo box to it.
      * This is used to add and more importantly remove events listeners attached to the body.
@@ -79,6 +91,8 @@ export class KetchupCombo {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
+        // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
+        // This is used because when component is instantiated it does NOT run watchers.
         this.reflectInitialValue(this.initialValue);
     }
 
@@ -115,9 +129,13 @@ export class KetchupCombo {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: ComboItem) {
-        this.value = newValue[this.valueField];
-        this.selected = newValue;
+    reflectInitialValue(newValue: ComboItem, oldValue?: ComboItem) {
+        // When a new initial value is passed, we control that the new item is different from the old one before updating the state
+        if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
+            this.value = newValue[this.valueField];
+            this.selected = newValue;
+            this.onComboSelected(newValue);
+        }
     }
 
     // When valueField changes, then reflects the changes also inside the value prop
@@ -128,8 +146,8 @@ export class KetchupCombo {
 
     // Calculates where the box must be positioned according to the position the text input is placed
     calcBoxPosition() {
-        const windowX = window.innerWidth;
-        const windowY = window.innerHeight;
+        const windowX = document.documentElement.clientWidth;
+        const windowY = document.documentElement.clientHeight;
         const {height, left, top, width} = this.comboText.getBoundingClientRect();
         return {
             isRight: left + width / 2 > windowX / 2,
@@ -173,14 +191,18 @@ export class KetchupCombo {
      * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
      * But in that case you can traverse the DOM starting from the target element and going up.
      */
-    onDocumentClick(event: UIEvent) {
+    async onDocumentClick(event: UIEvent) {
+        let response = null;
+        if (this.usePortal) {
+            response = await this.portalRef.getPortalInstance();
+        }
         try {
-            if (event.composedPath().indexOf(this.comboEl) < 0) {
+            if (event.composedPath().indexOf(this.comboEl) < 0 && event.composedPath().indexOf(response) < 0) {
                 this.closeCombo();
             }
         } catch(e) {
             const ele = event.target as HTMLElement;
-            if (!eventFromElement(this.comboEl, ele)) {
+            if (!eventFromElement(this.comboEl, ele) && !eventFromElement(response, ele)) {
                 this.closeCombo();
             }
         }
@@ -191,7 +213,8 @@ export class KetchupCombo {
      * @param event
      */
     onFilterUpdate(event: CustomEvent) {
-        this.filter = event.detail.newValue.toLowerCase();
+        console.log(event);
+        this.filter = event.detail.value.toLowerCase();
     }
 
     /**
@@ -209,6 +232,9 @@ export class KetchupCombo {
 
     //-- Emitted --
     // When an element has been selected
+    /**
+     * When an element has been selected
+     */
     @Event({
         eventName: 'ketchupComboSelected',
         composed: true,
@@ -216,7 +242,7 @@ export class KetchupCombo {
         bubbles: true
     })
     ketchupComboSelected: EventEmitter<{
-        value: object;
+        value: ComboItem;
     }>;
 
     onComboSelected(item: ComboItem | null) {
@@ -226,6 +252,27 @@ export class KetchupCombo {
     }
 
     //---- Rendering functions ----
+    // Creates the menu and its items
+    composeList() {
+        return <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
+        (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')
+        + (this.usePortal ? ' is-using-portal' : '')}>
+            <div class={this.baseClass + '__filter'}>
+                <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
+            </div>
+            <ul class={this.baseClass + '__list'}>
+                {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
+                    .map(item =>
+                        <li onClick={() => this.onItemSelected(item)}>
+                            <span>{item[this.displayedField]}</span>
+                        </li>
+                    )
+                }
+            </ul>
+        </div>;
+    }
+
+
     render() {
         const containerClass = this.baseClass + '__container';
 
@@ -258,21 +305,18 @@ export class KetchupCombo {
                 }
             </div>,
 
-            <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
-                (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')}>
-                <div>
-                    <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
-                </div>
-                <ul class={this.baseClass + '__list'}>
-                    {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
-                        .map(item =>
-                            <li onClick={() => this.onItemSelected(item) }>
-                                <span>{item[this.displayedField]}</span>
-                            </li>
-                        )
-                    }
-                </ul>
-            </div>
+            this.usePortal ?
+                <ketchup-portal
+                    cssVarsRef={this.comboEl}
+                    isVisible={this.isOpen}
+                    mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
+                    nodes={this.composeList()}
+                    ref={el => this.portalRef = el as HTMLKetchupPortalElement}
+                    refOffset={getElementOffset(this.comboEl, this.comboPosition)}
+                    styleNode={this.comboEl.shadowRoot.querySelector('style')}
+                />
+                :
+                this.composeList()
         ]);
     }
 }

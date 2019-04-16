@@ -1,123 +1,163 @@
-import { Component, Prop, State, Watch } from '@stencil/core'
+import { Component, Prop, State } from '@stencil/core';
+
+import { ButtonConfig } from './ketchup-btn-declarations';
 
 @Component({
     tag: 'ketchup-btn',
     styleUrl: 'ketchup-btn.scss',
-    shadow: true
+    shadow: true,
 })
 export class KetchupBtn {
-    @Prop() buttons: any[]
+    @Prop() buttons: any[];
 
     // setup props
-    @Prop() buttonClass = ''
-    @Prop() fillspace = false
-    @Prop() showtext = true
-    @Prop() showicon = true
-    @Prop() horizontal = true
-    @Prop() rounded = false
-    @Prop() flat = false
-    @Prop() transparent = false
-    @Prop() showSelection = false
-    @Prop() borderColor: string
-    @Prop() textmode: string
-    @Prop() align: string
-    @Prop() columns: number
-    @Prop() btnStyle: any = {}
-    @Prop() iconUrl: string
+    @Prop() config: ButtonConfig = {};
 
-    @State() selectedBtnIndex: number
-
-    @Watch('showSelection')
-    onShowSelectionChanged(newValue: boolean) {
-        if (!newValue && this.buttons) {
-            // unselecting all buttons
-            this.selectedBtnIndex = -1
-        }
-    }
+    @State() selectedBtnIndex: number;
 
     onBtnClicked(event: CustomEvent) {
-        if (this.showSelection) {
-            this.selectedBtnIndex = parseInt((event.target as HTMLElement).dataset.id)
+        if (this.config.showSelection) {
+            this.selectedBtnIndex = parseInt(
+                (event.target as HTMLElement).dataset.id
+            );
         }
     }
 
     render() {
-        let buttonsInGrid = []
-        if (this.columns && this.columns > 0) {
-            this.buttons.forEach((btn, index) => {
-                const mod = index % this.columns
+        let buttonsInGrid = [];
+        if (this.buttons) {
+            if (this.config.columns && this.config.columns > 0) {
+                this.buttons.forEach((btn, index) => {
+                    const mod = index % this.config.columns;
 
-                if (mod === 0) {
-                    // new row
-                    buttonsInGrid.push([])
-                }
+                    if (mod === 0) {
+                        // new row
+                        buttonsInGrid.push([]);
+                    }
 
-                buttonsInGrid[buttonsInGrid.length - 1].push(btn)
-            })
-        } else {
-            if (this.horizontal) {
-                buttonsInGrid[0] = this.buttons
+                    buttonsInGrid[buttonsInGrid.length - 1].push(btn);
+                });
             } else {
-                buttonsInGrid = this.buttons.map(b => {
-                    const arr = []
-                    arr.push(b)
-                    return arr
-                })
+                if (this.config.horizontal) {
+                    buttonsInGrid[0] = this.buttons;
+                } else {
+                    buttonsInGrid = this.buttons.map((b) => {
+                        const arr = [];
+                        arr.push(b);
+                        return arr;
+                    });
+                }
             }
         }
 
-        let buttonsJsx = null
-        let id = 0
+        let buttonsJsx = null;
+        let id = 0;
         if (buttonsInGrid.length > 0) {
-            buttonsJsx = buttonsInGrid.map(btns => {
-                const btnsJsx = btns.map(btn => {
-                    let btnClass = this.buttonClass || ''
+            buttonsJsx = buttonsInGrid.map((btns) => {
+                const btnsJsx = btns.map((btn) => {
+                    let btnClass = this.config.buttonClass || '';
                     if (id === this.selectedBtnIndex) {
-                        btnClass += ' btn-selected'
+                        btnClass += ' btn-selected';
                     }
+
+                    let cls =
+                        this.config.fillspace || !this.config.horizontal
+                            ? 'fillspace'
+                            : '';
 
                     return (
                         <td>
                             <ketchup-button
-                                iconUrl={this.iconUrl}
+                                iconUrl={this.config.iconUrl}
                                 label={btn.value}
                                 iconClass={btn.iconClass}
-                                fillspace={this.fillspace}
-                                showtext={this.showtext}
-                                showicon={this.showicon}
-                                rounded={this.rounded}
-                                textmode={this.textmode}
-                                transparent={this.transparent}
-                                borderColor={this.borderColor}
+                                fillspace={this.config.fillspace}
+                                showtext={this.config.showtext}
+                                showicon={this.config.showicon}
+                                rounded={this.config.rounded}
+                                textmode={this.config.textmode}
+                                transparent={this.config.transparent}
                                 buttonClass={btnClass}
-                                flat={this.flat}
+                                flat={this.config.flat}
                                 data-id={id++}
-                                onKetchupButtonClicked={ev => this.onBtnClicked(ev)}
-                                align={this.align}
-                                class={this.fillspace ? 'fillspace' : ''}
-                                btnStyle={this.btnStyle}
+                                onKetchupButtonClicked={(ev) =>
+                                    this.onBtnClicked(ev)
+                                }
+                                align={this.config.align}
+                                class={cls}
                             />
                         </td>
-                    )
-                })
+                    );
+                });
 
-                return <tr>{btnsJsx}</tr>
-            })
+                return <tr>{btnsJsx}</tr>;
+            });
         }
 
-        let compClass = 'btn-container'
-        if (this.fillspace) {
-            compClass += ' fillspace'
+        let compClass = 'btn-container';
+        if (this.config.fillspace) {
+            compClass += ' fillspace';
         }
 
-        if (!this.horizontal) {
-            compClass += ' vertical'
+        if (!this.config.horizontal) {
+            compClass += ' vertical';
+        }
+
+        //- Composes the style of the button -
+        // TODO this is how currently JSX can set custom CSS vars. Check periodically for a better way
+        // It simply sets them in style inside the html. Not the most elegant way,
+        // https://medium.com/geckoboard-under-the-hood/how-we-made-our-product-more-personalized-with-css-variables-and-react-b29298fde608
+        // https://medium.com/fbdevclagos/how-to-leverage-styled-components-and-css-variables-to-build-truly-reusable-components-in-react-4bbf50467666
+        const commonStyle = {};
+
+        if (this.config.btnStyle) {
+            if (this.config.btnStyle.fontColor) {
+                commonStyle[
+                    '--kup-button_text-color'
+                ] = this.config.btnStyle.fontColor;
+            }
+
+            if (this.config.btnStyle.underline) {
+                commonStyle['--kup-button_text-decoration'] = 'underline';
+            }
+
+            if (this.config.btnStyle.fontName) {
+                commonStyle[
+                    '--kup-button_font-family'
+                ] = this.config.btnStyle.fontName;
+            }
+
+            if (this.config.btnStyle.fontSize) {
+                commonStyle[
+                    '--kup-button_font-size'
+                ] = this.config.btnStyle.fontSize;
+            }
+
+            if (this.config.btnStyle.bold) {
+                commonStyle['--kup-button_font-weight'] = 700;
+            }
+
+            if (this.config.btnStyle.bckColor) {
+                commonStyle[
+                    '--kup-button_main-color'
+                ] = this.config.btnStyle.bckColor;
+            }
+
+            if (this.config.btnStyle.italic) {
+                commonStyle['--kup-button_font-style'] = 'italic';
+            }
+
+            if (this.config.borderColor) {
+                commonStyle[
+                    '--kup-button_border-color'
+                ] = this.config.borderColor;
+            }
         }
 
         return (
-            <table class={compClass}>
+            <table class={compClass} style={commonStyle}>
                 <tbody>{buttonsJsx}</tbody>
             </table>
-        )
+        );
     }
 }
