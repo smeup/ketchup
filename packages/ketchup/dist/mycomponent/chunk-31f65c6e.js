@@ -1,1 +1,0 @@
-function e(e,n,r){return(e||"")+(n?` ${n}`:"")+(r?` ${r}`:"")}function n(e){return(new Date).getTime()+e.trim().replace(/\s/g,"_")}function r(e,n){for(;n;){if(console.log(n),n===e)return!0;n=n.parentElement}return!1}export{r as a,n as b,e as c};
