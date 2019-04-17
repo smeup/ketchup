@@ -1,0 +1,15 @@
+{
+    "baseUrl": "http://localhost:4000",
+    "fixturesFolder": "tests/e2e/fixtures",
+    "integrationFolder": "tests/e2e/specs",
+    "pluginsFile": "tests/e2e/plugins",
+    "screenshotsFolder": "tests/e2e/screenshots",
+    "supportFile": "tests/e2e/support",
+    "videosFolder": "tests/e2e/videos",
+    "reporter": "junit",
+    "reporterOptions": {
+        "mochaFile": "target/test/e2e/junit/results-[hash].xml",
+        "testCaseSwitchClassnameAndName": true,
+        "useFullSuiteTitle": false
+    }
+}
