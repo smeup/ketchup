@@ -26,14 +26,34 @@
       @change="onFldChange"
       @click="onFldClick"
     />
+
+    <SmeupMatrix
+      :filterable="true"
+      :sortable="true"
+      :grouping="false"
+      :data="data"
+      :selRecord="1"
+      @rowselected="onRowSelected"
+    />
+
+    <MAT :content="matrixData">CIAO</MAT>
+
+
   </div>
 </template>
 
 <script>
 import importedData from "./mock/dataTable";
+import importedMData from "./mock/matrixData";
 
 export default {
   name: "app",
+
+  matrixData() {
+    return {
+      matrixData: importedMData
+    };
+  },
 
   data() {
     return {

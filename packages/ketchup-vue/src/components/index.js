@@ -6,11 +6,13 @@ import Vue from "vue";
 import SmeupFld from "./SmeupFld.vue";
 import SmeupLabel from "./SmeupLabel.vue";
 import SmeupMatrix from "./comp/mat/SmeupMatrix.vue";
+import MAT from "./MAT.vue";
 
 const Components = {
   SmeupFld,
   SmeupLabel,
-  SmeupMatrix
+  SmeupMatrix,
+  MAT
 };
 
 Object.keys(Components).forEach(name => Vue.component(name, Components[name]));

@@ -13,7 +13,8 @@
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0"
+    "vue-property-decorator": "^7.0.0",
+    "vuetify": "^1.5.5"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -34,6 +35,8 @@
     "sass-loader": "^7.1.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "vuetify-loader": "^1.0.5",
+    "vue-cli-plugin-vuetify": "^0.5.0"
   }
 }
