@@ -35,9 +35,7 @@
       :selRecord="1"
       @rowselected="onRowSelected"
     />
-
     <MAT :content="matrixData">CIAO</MAT>
-
 
   </div>
 </template>
@@ -48,13 +46,6 @@ import importedMData from "./mock/matrixData";
 
 export default {
   name: "app",
-
-  matrixData() {
-    return {
-      matrixData: importedMData
-    };
-  },
-
   data() {
     return {
       data: importedData
@@ -68,6 +59,11 @@ export default {
 
     onFldClick() {
       // TODO
+    }
+  },
+  computed: {
+    matrixData() {
+      return importedMData;
     }
   }
 };
