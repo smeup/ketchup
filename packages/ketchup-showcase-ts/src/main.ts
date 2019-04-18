@@ -3,8 +3,8 @@ import App from "./App.vue";
 
 import VueJsf from "ketchup-vue";
 
-//import { defineCustomElements } from 'ketchup/dist/loader';
-//defineCustomElements(window);
+import { defineCustomElements } from 'ketchup/dist/loader';
+defineCustomElements(window);
 
 Vue.config.productionTip = false;
 //Vue.config.ignoredElements = [/[ketchup|app]-\w*/];
