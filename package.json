@@ -16,6 +16,15 @@
     "lerna": "^3.13.1"
   },
   "scripts": {
-    "lerna": "lerna"
+    "lerna": "lerna",
+    "k:build": "lerna run build --scope ketchup --stream",
+    "ksc:serve": "lerna run serve --scope ketchup-showcase --stream",
+    "ksc:build": "lerna run build --scope ketchup-showcase --stream",
+    "ksc:lint": "lerna run lint --scope ketchup-showcase --stream",
+    "ksc:test:unit": "lerna run test:unit --scope ketchup-showcase --stream",    
+    "ksc:test:cy:open": "lerna run test:cy:open --scope ketchup-showcase --stream",
+    "ksc:test:cy:run": "lerna run test:cy:run --scope ketchup-showcase --stream",
+    "ksc:test:e2e:open": "lerna run test:e2e:open --scope ketchup-showcase --stream",
+    "ksc:test:e2e:run": "lerna run test:e2e:run --scope ketchup-showcase --stream"    
   }
 }
