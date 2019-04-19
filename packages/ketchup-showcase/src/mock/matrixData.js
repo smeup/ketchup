@@ -81,5 +81,4 @@ export default JSON.parse(`
     },
     "variables": [],
     "dynamisms": []
-  }`
-);
+  }`);
