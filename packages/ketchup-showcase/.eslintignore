@@ -1,0 +1,5 @@
+# This file is mandatory to preventy a strange issue happening when ESLint encounters a symlinked package
+# @see https://github.com/webpack-contrib/eslint-loader/issues/202
+# By adding this line of ignore, ESLint will ignore all folders named dist.
+# Personallly I think this is not a great solution, but it seems to be better then the other one.
+**/dist/*

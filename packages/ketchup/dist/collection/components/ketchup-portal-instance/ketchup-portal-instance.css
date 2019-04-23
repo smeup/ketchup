@@ -1,7 +1,0 @@
-:host {
-  display: none !important;
-  position: absolute !important;
-  z-index: 99999 !important; }
-
-:host([is-visible]) {
-  display: inline-block !important; }

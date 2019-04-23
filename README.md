@@ -44,11 +44,17 @@ npm run lerna -- --help
 
 So, to install both projects run:
 ```
-npm run lerna -- --bootstrap
+npm run lerna -- bootstrap
 ```
 This command will take some time.
 It will install all dependencies in all packages inside the folder 'packages'
 and will symlink those packages inside the monorepo which are dependencies of one another.
+
+##### 4. Cleaning project
+
+```
+npm run lerna -- clean
+```
 
 #### 4. Developing
 
