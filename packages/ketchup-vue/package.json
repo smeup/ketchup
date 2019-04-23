@@ -4,16 +4,20 @@
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
-    "build": "rimraf dist && vue-cli-service build --target lib --name ketchupvue ./src/components/index.js",
+    "build": "rimraf dist && vue-cli-service build --target lib --name ketchupvue ./index.js",
     "test:unit": "vue-cli-service test:unit"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-material-design-icons": "^2.3.0",
+    "vue-property-decorator": "^7.0.0"
   },
   "dependencies": {
     "@mdi/font": "^2.8.94",
     "element-ui": "^2.4.8",
-    "vue": "^2.5.17",
-    "vue-class-component": "^6.0.0",
-    "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vuetify": "^1.5.5"
   },
   "devDependencies": {
@@ -28,7 +32,7 @@
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
-    "jest-html-reporter": "^2.4.2",    
+    "jest-html-reporter": "^2.4.2",
     "jest-junit": "^5.2.0",
     "node-sass": "^4.9.4",
     "rimraf": "^2.6.2",

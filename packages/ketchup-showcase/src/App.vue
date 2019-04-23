@@ -68,6 +68,12 @@ export default {
         onFldClick() {
             // TODO
         },
+        onLabelClick() {
+            console.log('Label click');
+        },
+        onRowSelected() {
+            console.log('Row selected');
+        }
     },
     computed: {
         matrixData() {
