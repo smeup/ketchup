@@ -1,5 +1,6 @@
 <template>
-    <div id="app">
+    <!-- data-app attribute is MANDATORY to allow Vuetify to correctly install and work -->
+    <div id="app" data-app>
         <SmeupLabel
             content="Test"
             color="#CCCCCC"

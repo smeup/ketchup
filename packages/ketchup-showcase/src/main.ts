@@ -3,8 +3,6 @@ import App from './App.vue';
 
 import KetchupVue from 'ketchup-vue';
 
-console.log(KetchupVue);
-
 import { defineCustomElements } from 'ketchup/dist/loader';
 defineCustomElements(window);
 
@@ -19,5 +17,3 @@ Vue.use(KetchupVue);
 const instance = new Vue({
     render: (h) => h(App),
 }).$mount('#app');
-
-console.log("vue instance", instance);

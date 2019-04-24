@@ -50,7 +50,7 @@ This command will take some time.
 It will install all dependencies in all packages inside the folder 'packages'
 and will symlink those packages inside the monorepo which are dependencies of one another.
 
-##### 4. Cleaning project
+Cleaning project:
 
 ```
 npm run lerna -- clean
@@ -65,3 +65,12 @@ To see which command are available, open package.json in the root package and ta
 Use 'npm run' to execute them
 
 Other details can be found inside the readme of the packages.
+
+To install additional packages, use the syntax [reported here](https://github.com/lerna/lerna/tree/master/commands/add)
+if Lerna has been installed as a global package, or with the `npm run lerna -- add package_name --scope=packages_name`.
+
+To remove a package, there is currently no Lerna shortcut. You have to go tho the terminal inside that package
+and remove it with your package manager. Afterwards, run Lerna `bootstrap` again to be sure that all packages are
+symlinked correctly.
+
+If errors perstist, then clean all `node_modules` with the `clean` command and `bootstrap` them again. 

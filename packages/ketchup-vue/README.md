@@ -2,10 +2,6 @@
 
 ## Commands
 
-### Compiles and minifies for production
-```
-npm run build
-```
 ### Lints and fixes files
 ```
 npm run lint
@@ -16,10 +12,43 @@ npm run lint
 npm run test:unit
 ```
 
+## Requirements
+
+List of packages the consuming application needs to install:
+
+* sass-loader
+* sass
+* stylus
+* stylus-loader
+* css-loader
+* style-loader
+* typescript
+* typescript-loader 
+
+Configure your TypeScript package so that it will also accept `.js` files.
+
+In addition, have a look at the `peerDependencies` list inside `package.json`
+files to see which other packages need to be installed in your project.
 
 
+## Usage
 
-## Issues
+By default, it is highly recommended to install this library in Vue by using the following syntax:
+```javascript
+import Vue from 'vue';
+import KetchupVue from 'ketchup-vue';
+Vue.use(KetchupVue);
+```
+
+However, if you know what you're doing and are willing to spend time in adjusting your configuration,
+all the components installed inside the default exported function are also made available through named exports.
+
+But if you're using named exports, be aware that you have to manually install all the components which requires other components. 
+
+Have a look at the index.js file
+
+
+## Structure explanation and configuration
 
 #### Vue + TypeScript library
 
@@ -108,11 +137,15 @@ when there are particular use cases which requires it.
 
 However since this is a behavior the consumer of the library has to set into their project to allow a correct transpiling,
 this step must be very well documented.
+The consumer application will be the one to transpile this repository source code, ad thus it must be properly configured.
+The consumer package must take care of installing Vue, since it is listed in `peerDependencies`.
+
+This is the most correct and complete way to create a library which wraps other libraries and extends them.
+
 
 [Webpack externals](https://webpack.js.org/configuration/externals/#externals)
-  
 
-## TODO
-* Check if by editing the peerDependency it is possible to have a correct development environment.
-* Check if it's possible to specify the same package in two different dependencies sections without conflicts.
-* Fix the Vue method to bundle the library to be used (it whines currently it has no Vue package since it has been put among `peer`).
+
+#### About Vuetify configuration
+
+See comments and explanation on code inside this package `index.js` file inside the package root.
