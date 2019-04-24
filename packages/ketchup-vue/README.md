@@ -35,6 +35,7 @@ See links for more details.
 * [npm dependencies types](https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies)
 * [About peer dependency](http://codetunnel.com/you-can-finally-npm-link-packages-that-contain-peer-dependencies/)
 
+
 #### Peer dependency development issue
 
 It seems that, even though the need for a way to locally develop libraries in Node.js, currently the only correct solution
@@ -74,6 +75,31 @@ and use the same instance of Vue to correctly initialize it.
 __Possible disadvantages:__
 1. since there is no Vue installed in this package, then we cannot leverage tools such as building a library (throws error);
 2. only way to test these components is to directly edit and adding samples to ketchup-showcase package (which in itself is not a bad idea).
+
+
+#### Bundling
+
+Another option would be to use Vue CLI `build target --lib` as [shown here](https://cli.vuejs.org/guide/build-targets.html#library).
+
+However there are some problems:
+1. As shown in the table below, the size of the bundles is too much big. It's so big it is unreasonable.
+    Without code splitting of some sort, trying to load these kind of scripts would be unacceptable in mobile devices.
+
+    | File                       | Size        | Gzipped         |
+    | -------------------------- | ----------- | --------------- |
+    | dist\ketchupvue.umd.min.js | 1274.17 KiB | 298.06 KiB      |
+    | dist\ketchupvue.umd.js     | 3003.57 KiB | 521.83 KiB      |
+    | dist\ketchupvue.common.js  | 3003.09 KiB | 521.66 KiB      |
+    | dist\ketchupvue.css        | 335.60 KiB  | 48.30 KiB       |
+    
+2. Vuetify is really a complex library. There are some errors of unresolved references at run time,
+    making all the code not able to be run.
+3. For future development, it could be useful to leverage things such as tree shaking, which won't be possible
+    while using bundled code. 
+
+Currently, Vuetify does not offer any other method of being installed other than using a package manager,
+so it is not possible to externalize if from the bundle and directly download it from a CDN.
+
 
 #### Transpile dependency option
 

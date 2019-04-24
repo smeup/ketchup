@@ -11,9 +11,6 @@ import 'vuetify/src/stylus/app.styl'
 function install(Vue, options = {}) {
   Vue.use(Vuetify);
 
-  console.log(Vuetify);
-  console.log(Vue);
-
   Vue.component(SmeupFld.name, SmeupFld);
   Vue.component(SmeupLabel.name, SmeupLabel);
   Vue.component(SmeupMatrix.name, SmeupMatrix);
