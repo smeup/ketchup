@@ -10,7 +10,7 @@ Download project from GitHub and open a terminal inside its root.
 Note: the terminal must have access to Git commands for it to work correctly.
 
 #### 2. npm 6
-First thing to do is to be sure to have installed npm 6 or higher, since it's mandatory to develop with Stancil.
+First thing to do is to be sure to have installed npm 6 or higher, since it's mandatory to develop with Stencil.
 
 Follow the [installation guide](https://www.npmjs.com/get-npm) and run:
 ```
