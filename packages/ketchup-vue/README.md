@@ -33,6 +33,7 @@ See links for more details.
 * [Multiple instances: suggestions](https://github.com/vuejs/vue/issues/8278)
 * [Publishing with TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)
 * [npm dependencies types](https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies)
+* [About peer dependency](http://codetunnel.com/you-can-finally-npm-link-packages-that-contain-peer-dependencies/)
 
 #### Transpile dependency option
 
