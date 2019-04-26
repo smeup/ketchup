@@ -12,6 +12,9 @@ import {
   ButtonConfig,
 } from './components/ketchup-btn/ketchup-btn-declarations';
 import {
+  ChartConfig,
+} from './components/ketchup-chart/ketchup-chart-declarations';
+import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
@@ -73,6 +76,15 @@ export namespace Components {
     'showtext'?: boolean;
     'textmode'?: string;
     'transparent'?: boolean;
+  }
+
+  interface KetchupChart {
+    'config': ChartConfig;
+    'data': any;
+  }
+  interface KetchupChartAttributes extends StencilHTMLAttributes {
+    'config'?: ChartConfig;
+    'data'?: any;
   }
 
   interface KetchupCombo {
@@ -475,6 +487,7 @@ declare global {
   interface StencilElementInterfaces {
     'KetchupBtn': Components.KetchupBtn;
     'KetchupButton': Components.KetchupButton;
+    'KetchupChart': Components.KetchupChart;
     'KetchupCombo': Components.KetchupCombo;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
@@ -488,6 +501,7 @@ declare global {
   interface StencilIntrinsicElements {
     'ketchup-btn': Components.KetchupBtnAttributes;
     'ketchup-button': Components.KetchupButtonAttributes;
+    'ketchup-chart': Components.KetchupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
@@ -509,6 +523,12 @@ declare global {
   var HTMLKetchupButtonElement: {
     prototype: HTMLKetchupButtonElement;
     new (): HTMLKetchupButtonElement;
+  };
+
+  interface HTMLKetchupChartElement extends Components.KetchupChart, HTMLStencilElement {}
+  var HTMLKetchupChartElement: {
+    prototype: HTMLKetchupChartElement;
+    new (): HTMLKetchupChartElement;
   };
 
   interface HTMLKetchupComboElement extends Components.KetchupCombo, HTMLStencilElement {}
@@ -562,6 +582,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'ketchup-btn': HTMLKetchupBtnElement
     'ketchup-button': HTMLKetchupButtonElement
+    'ketchup-chart': HTMLKetchupChartElement
     'ketchup-combo': HTMLKetchupComboElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
@@ -575,6 +596,7 @@ declare global {
   interface ElementTagNameMap {
     'ketchup-btn': HTMLKetchupBtnElement;
     'ketchup-button': HTMLKetchupButtonElement;
+    'ketchup-chart': HTMLKetchupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
