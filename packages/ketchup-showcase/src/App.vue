@@ -29,7 +29,7 @@
                 :selRecord="1"
                 @rowselected="onRowSelected"
             />
-            <MAT :content="matrixData">CIAO</MAT>
+            <KetchupMatrix :content="matrixData">CIAO</KetchupMatrix>
 
             <ketchup-fld
                 id="fld1"
