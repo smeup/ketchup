@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
+    "build": "rimraf dist && cp -R ./../ketchup-showcase/node_modules/vue ./node_modules && vue-cli-service build --target lib --name ketchupvue ./src/components/index.js && rimraf node_modules/vue",
     "test:unit": "vue-cli-service test:unit"
   },
   "peerDependencies": {
