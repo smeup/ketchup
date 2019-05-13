@@ -20,6 +20,11 @@
             rel="stylesheet"
         />
 
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
         <style>
             * {
                 box-sizing: border-box;
@@ -55,6 +60,8 @@
         </style>
     </head>
     <body>
+        <a href="chart.html">Ketchup charts</a>
+        <br />
         <ketchup-button label="Sono bottone"></ketchup-button>
         <ketchup-radio
             id="krg1"
@@ -266,16 +273,16 @@
                     // Example 4
                     const fld_4 = document.querySelector('#kfld-4');
                     fld_4.config = {
-                            "type": "cmb",
-                            displayedField: "value",
-                            initialValue: { "value": "PRVSHO" },
-                            showSubmit: true,
-                            submitLabel: "Conferma"
-                        };
+                        type: 'cmb',
+                        displayedField: 'value',
+                        initialValue: { value: 'PRVSHO' },
+                        showSubmit: true,
+                        submitLabel: 'Conferma',
+                    };
                     fld_4.data = [
-                        { "value": "PRVSHO" },
-                        { "value": "PRV123" },
-                        { "value": "PRV456" }
+                        { value: 'PRVSHO' },
+                        { value: 'PRV123' },
+                        { value: 'PRV456' },
                     ];
                     fld_4.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
@@ -517,7 +524,11 @@
             src="https://www.google.it/"
             is-button
         ></ketchup-html>
-        <ketchup-html id="htm-1" src="https://stenciljs.com/" is-button></ketchup-html>
+        <ketchup-html
+            id="htm-1"
+            src="https://stenciljs.com/"
+            is-button
+        ></ketchup-html>
 
         <script>
             const firstHtm = document.querySelector('#htm-1');
