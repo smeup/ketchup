@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup chart</title>
+
+        <script src="/build/mycomponent.js"></script>
+
+        <style>
+            .data-examples {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="data-examples">
+            <div class="wrapper">
+                <h1>No data</h1>
+                <ketchup-data-table></ketchup-data-table>
+            </div>
+
+            <div class="wrapper">
+                <h1>Only columns</h1>
+                <ketchup-data-table id="only-cols"></ketchup-data-table>
+            </div>
+
+            <div class="wrapper">
+                <h1>Columns and rows</h1>
+                <ketchup-data-table id="basic-data"></ketchup-data-table>
+            </div>
+        </div>
+
+        <script src="/assets/data-table.js"></script>
+    </body>
+</html>

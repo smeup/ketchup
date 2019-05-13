@@ -162,6 +162,13 @@ export namespace Components {
     'valueField'?: string;
   }
 
+  interface KetchupDataTable {
+    'data': { data?: { columns?: Array<any>; rows?: Array<any> } };
+  }
+  interface KetchupDataTableAttributes extends StencilHTMLAttributes {
+    'data'?: { data?: { columns?: Array<any>; rows?: Array<any> } };
+  }
+
   interface KetchupFld {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
@@ -489,6 +496,7 @@ declare global {
     'KetchupButton': Components.KetchupButton;
     'KetchupChart': Components.KetchupChart;
     'KetchupCombo': Components.KetchupCombo;
+    'KetchupDataTable': Components.KetchupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
@@ -503,6 +511,7 @@ declare global {
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-chart': Components.KetchupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
+    'ketchup-data-table': Components.KetchupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
@@ -535,6 +544,12 @@ declare global {
   var HTMLKetchupComboElement: {
     prototype: HTMLKetchupComboElement;
     new (): HTMLKetchupComboElement;
+  };
+
+  interface HTMLKetchupDataTableElement extends Components.KetchupDataTable, HTMLStencilElement {}
+  var HTMLKetchupDataTableElement: {
+    prototype: HTMLKetchupDataTableElement;
+    new (): HTMLKetchupDataTableElement;
   };
 
   interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
@@ -584,6 +599,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-chart': HTMLKetchupChartElement
     'ketchup-combo': HTMLKetchupComboElement
+    'ketchup-data-table': HTMLKetchupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
@@ -598,6 +614,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-chart': HTMLKetchupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
+    'ketchup-data-table': HTMLKetchupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;

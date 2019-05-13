@@ -6,6 +6,9 @@ export const config: Config = {
         {
             src: 'chart.html',
         },
+        {
+            src: 'data-table.html',
+        },
     ],
     namespace: 'mycomponent',
     outputTargets: [
