@@ -11,4 +11,7 @@ module.exports = {
     devServer: {
         port: 4000,
     },
+    // Used to configure Vue to enable transpiling node_modules
+    // https://cli.vuejs.org/config/#transpiledependencies
+    transpileDependencies: ["ketchup-vue"],
 };

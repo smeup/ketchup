@@ -14,17 +14,19 @@
     "test:e2e:open": "start-test 4000 cy:open",
     "test:e2e:run": "start-test 4000 cy:run",
     "start": "vue-cli-service serve"
-
   },
   "dependencies": {
     "@mdi/font": "^2.8.94",
     "element-ui": "^2.4.8",
+    "ketchup": "^0.0.1",
+    "ketchup-vue": "^0.0.1",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0",
-    "ketchup-vue": "^0.0.1",
-    "ketchup": "^0.0.1"
+    "vue-property-decorator": "^7.0.0"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -40,11 +42,11 @@
     "babel-jest": "^23.0.1",
     "cypress": "^3.1.1",
     "jest-html-reporter": "^2.4.2",
-    "jest-junit": "^5.2.0",    
+    "jest-junit": "^5.2.0",
     "node-sass": "^4.9.4",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
-    "start-server-and-test": "^1.7.10",    
+    "start-server-and-test": "^1.7.10",
     "ts-jest": "^23.0.0",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
