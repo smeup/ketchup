@@ -15,13 +15,23 @@ $lateral-padding: 6px;
   // Variables
   --int_font-size: var(--kup-text-input_font-size, 14px);
   --int_border-color: var(--kup-text-input_border-color, #{$gray-80});
-  --int_border-color--selected: var(--kup-text-input_border-color--selected, #{$smeup-primary});
+  --int_border-color--selected: var(
+    --kup-text-input_border-color--selected,
+    #{$smeup-primary}
+  );
   --int_tr-duration: var(--kup-text-input_transition-duration, #{$trn-time});
-  --int_icon-color: var(--kup-text-input_icon-color ,#{$gray-80});
-  --int_icon-color--hover: var(--kup-text-input_icon-color--hover, #{darken($gray-80, 10)});
+  --int_icon-color: var(--kup-text-input_icon-color, #{$gray-80});
+  --int_icon-color--hover: var(
+    --kup-text-input_icon-color--hover,
+    #{darken($gray-80, 10)}
+  );
 
   // Style
   display: inline-block;
+}
+
+label {
+  margin-right: 0.5rem;
 }
 
 .ketchup-input-text {
@@ -50,7 +60,9 @@ $lateral-padding: 6px;
 
   // When text input is clearable
   &--clearable {
-    padding-right: calc(#{$lateral-padding} + #{$clear-button-padding} * 2 + var(--int_font-size));
+    padding-right: calc(
+      #{$lateral-padding} + #{$clear-button-padding} * 2 + var(--int_font-size)
+    );
   }
 
   // The clear button for the field

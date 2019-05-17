@@ -1,4 +1,7 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+
 table {
+  width: 100%;
   border-collapse: collapse;
 
   &,
@@ -11,4 +14,22 @@ table {
   td {
     padding: 0.5rem;
   }
+
+  // sort
+  .column-sort {
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+
+  // filters
+  th {
+    input {
+      display: block;
+    }
+  }
+}
+
+.globalFilter {
+  margin-bottom: 0.5rem;
+  text-align: center;
 }

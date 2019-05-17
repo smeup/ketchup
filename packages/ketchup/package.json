@@ -25,11 +25,14 @@
         "test.watch": "stencil test --spec --e2e --watchAll"
     },
     "dependencies": {
-        "@stencil/sass": "^0.1.1"
+        "@stencil/sass": "^0.1.1",
+        "install": "^0.12.2",
+        "lodash": "^4.17.11"
     },
     "devDependencies": {
         "@stencil/core": "~0.18.1",
         "@types/jest": "23.3.14",
+        "@types/lodash": "^4.14.126",
         "@types/node": "^11.13.0",
         "@types/puppeteer": "1.12.3",
         "jest": "23.6.0",

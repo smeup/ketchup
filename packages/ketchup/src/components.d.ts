@@ -18,6 +18,9 @@ import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
+  DataTableConfig,
+} from './components/ketchup-data-table/ketchup-data-table-declarations';
+import {
   EventEmitter,
 } from '@stencil/core';
 import {
@@ -162,10 +165,12 @@ export namespace Components {
     'valueField'?: string;
   }
 
-  interface KetchupDataTable {
+  interface KupDataTable {
+    'config': DataTableConfig;
     'data': { data?: { columns?: Array<any>; rows?: Array<any> } };
   }
-  interface KetchupDataTableAttributes extends StencilHTMLAttributes {
+  interface KupDataTableAttributes extends StencilHTMLAttributes {
+    'config'?: DataTableConfig;
     'data'?: { data?: { columns?: Array<any>; rows?: Array<any> } };
   }
 
@@ -401,7 +406,11 @@ export namespace Components {
     'valueField'?: string;
   }
 
-  interface KetchupTextInput {
+  interface KupTextInput {
+    /**
+    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+    */
+    'debounce': number;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -423,7 +432,11 @@ export namespace Components {
     */
     'triggerFocus': () => void;
   }
-  interface KetchupTextInputAttributes extends StencilHTMLAttributes {
+  interface KupTextInputAttributes extends StencilHTMLAttributes {
+    /**
+    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+    */
+    'debounce'?: number;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -496,13 +509,13 @@ declare global {
     'KetchupButton': Components.KetchupButton;
     'KetchupChart': Components.KetchupChart;
     'KetchupCombo': Components.KetchupCombo;
-    'KetchupDataTable': Components.KetchupDataTable;
+    'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
     'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
-    'KetchupTextInput': Components.KetchupTextInput;
+    'KupTextInput': Components.KupTextInput;
     'MyComponent': Components.MyComponent;
   }
 
@@ -511,13 +524,13 @@ declare global {
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-chart': Components.KetchupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
-    'ketchup-data-table': Components.KetchupDataTableAttributes;
+    'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
     'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
-    'ketchup-text-input': Components.KetchupTextInputAttributes;
+    'kup-text-input': Components.KupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -546,10 +559,10 @@ declare global {
     new (): HTMLKetchupComboElement;
   };
 
-  interface HTMLKetchupDataTableElement extends Components.KetchupDataTable, HTMLStencilElement {}
-  var HTMLKetchupDataTableElement: {
-    prototype: HTMLKetchupDataTableElement;
-    new (): HTMLKetchupDataTableElement;
+  interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
+  var HTMLKupDataTableElement: {
+    prototype: HTMLKupDataTableElement;
+    new (): HTMLKupDataTableElement;
   };
 
   interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
@@ -582,10 +595,10 @@ declare global {
     new (): HTMLKetchupRadioElement;
   };
 
-  interface HTMLKetchupTextInputElement extends Components.KetchupTextInput, HTMLStencilElement {}
-  var HTMLKetchupTextInputElement: {
-    prototype: HTMLKetchupTextInputElement;
-    new (): HTMLKetchupTextInputElement;
+  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
+  var HTMLKupTextInputElement: {
+    prototype: HTMLKupTextInputElement;
+    new (): HTMLKupTextInputElement;
   };
 
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
@@ -599,13 +612,13 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-chart': HTMLKetchupChartElement
     'ketchup-combo': HTMLKetchupComboElement
-    'ketchup-data-table': HTMLKetchupDataTableElement
+    'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
     'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
-    'ketchup-text-input': HTMLKetchupTextInputElement
+    'kup-text-input': HTMLKupTextInputElement
     'my-component': HTMLMyComponentElement
   }
 
@@ -614,13 +627,13 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-chart': HTMLKetchupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
-    'ketchup-data-table': HTMLKetchupDataTableElement;
+    'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
     'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
-    'ketchup-text-input': HTMLKetchupTextInputElement;
+    'kup-text-input': HTMLKupTextInputElement;
     'my-component': HTMLMyComponentElement;
   }
 
