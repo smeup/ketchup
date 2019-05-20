@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup dash</title>
+
+        <script src="/build/mycomponent.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <style>
+            #container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #container > div {
+                    margin: 1rem;
+                }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div>
+                <h3>Layout 1</h3>
+                <kup-dash id="layout1">
+                    <div slot="descr">Admissions Count</div>
+                    <div slot="value">34,678</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 2</h3>
+                <kup-dash id="layout2" layout="2">
+                    <div slot="icon">
+                        <icon class="mdi mdi-chevron-up" style="color: green;" />
+                    </div>
+                    <div slot="value">15,86</div>
+                    <div slot="unit">%</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 3</h3>
+                <kup-dash id="layout3" layout="3">
+                    <div slot="descr">Admissions Count</div>
+                    <div slot="value">34,678</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 4</h3>
+                <kup-dash id="layout4" layout="4">
+                    <div slot="icon">
+                        <icon class="mdi mdi-chevron-down" style="color: red;" />
+                    </div>
+                    <div slot="value">15,86</div>
+                    <div slot="unit">%</div>
+                    <div slot="descr">Admissions Count</div>
+                </kup-dash>
+            </div>
+        </div>
+    </body>
+</html>

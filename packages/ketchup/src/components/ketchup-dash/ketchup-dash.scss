@@ -1,0 +1,57 @@
+/**
+* @prop --dash_background-color, --kup-text-input_font-size: Set height of the font and the svg icon
+*/
+
+:host {
+  --dash_bkg-color: var(--kup-dash_background-color, #fff);
+  --dash_color: var(--kup-dash_color, #fff);
+  --dash_border-color: var(--kup-dash_border-color, #ddd);
+}
+
+#dash {
+  background-color: var(--dash_bkg-color);
+  border: 1px solid var(--dash_border-color);
+  min-height: 170px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  #content {
+    margin: 2rem;
+
+    &.layout-1,
+    &.layout-3 {
+      text-align: center;
+
+      .descr {
+        font-size: 2rem;
+      }
+
+      .value {
+        font-size: 3rem;
+      }
+    }
+
+    &.layout-2 {
+      > div {
+        display: flex;
+
+        .icon {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    &.layout-4 {
+      > div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .value-and-unit {
+          display: flex;
+        }
+      }
+    }
+  }
+}
