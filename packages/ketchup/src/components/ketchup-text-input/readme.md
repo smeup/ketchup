@@ -9,7 +9,7 @@
 
 | Property       | Attribute       | Description                                                                                                              | Type      | Default  |
 | -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------ | --------- | -------- |
-| `debounce`     | `debounce`      | Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.    | `number`  | `250`    |
+| `debounce`     | `debounce`      | Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.    | `number`  | `400`    |
 | `initialValue` | `initial-value` | Marks the field as clearable, allowing an icon to delete its content                                                     | `string`  | `''`     |
 | `isClearable`  | `is-clearable`  | Marks the field as clearable, allowing an icon to delete its content                                                     | `boolean` | `false`  |
 | `label`        | `label`         | Label to describe the radio group                                                                                        | `string`  | `''`     |

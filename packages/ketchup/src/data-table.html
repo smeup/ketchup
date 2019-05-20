@@ -8,7 +8,7 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
 
-        <title>Ketchup chart</title>
+        <title>Ketchup data table</title>
 
         <link
             href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"
@@ -45,6 +45,28 @@
         <div class="sort-examples">
             <h1>Sort disabled</h1>
             <kup-data-table id="no-sort"></kup-data-table>
+
+            <h1>DftSort</h1>
+            <p>
+                Sort ascending on first column, sort descending on second column
+            </p>
+            <kup-data-table id="dft-sort"></kup-data-table>
+        </div>
+
+        <div class="pagination-examples">
+            <h1>Pagination</h1>
+            <div>
+                <label for="cols">Number of columns</label>
+                <input id="cols" type="number" value="10" />
+
+                <label for="rows">Number of rows</label>
+                <input id="rows" type="number" value="100" />
+
+                <button type="button" onclick="updatePaginationTable()"
+                    >Submit</button
+                >
+            </div>
+            <kup-data-table id="pagination"></kup-data-table>
         </div>
 
         <script src="/assets/data-table.js"></script>

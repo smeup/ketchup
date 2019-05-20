@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { Component, Prop, State, Watch } from '@stencil/core';
 import { DataTableConfig, SortObject } from './ketchup-data-table-declarations';
 
 @Component({
@@ -18,7 +18,17 @@ export class KetchupDataTable {
     private globalFilter = '';
 
     @State()
-    private sort: Array<SortObject> = [];
+    private currentPage = 1;
+
+    @State()
+    private currentRowsPerPage = 10;
+
+    @Watch('config')
+    configHandler(newValue: DataTableConfig) {
+        if (newValue && newValue.rowsPerPage) {
+            this.currentRowsPerPage = newValue.rowsPerPage;
+        }
+    }
 
     private getColumns(): Array<any> {
         return this.data && this.data.data && this.data.data.columns
@@ -50,6 +60,27 @@ export class KetchupDataTable {
             this.config = {
                 showFilter: true,
                 filter: value,
+            };
+        }
+    }
+
+    get sort(): Array<SortObject> {
+        if (this.config && this.config.sort) {
+            return this.config.sort;
+        }
+
+        return [];
+    }
+
+    set sort(sort: Array<SortObject>) {
+        if (this.config) {
+            this.config = {
+                ...this.config,
+                sort,
+            };
+        } else {
+            this.config = {
+                sort,
             };
         }
     }
@@ -166,6 +197,9 @@ export class KetchupDataTable {
     }
 
     private onFilterChange(event: CustomEvent) {
+        // resetting current page
+        this.currentPage = 1;
+
         // getting column name from data-col
         const columnName = (event.target as HTMLElement).dataset.col;
 
@@ -180,6 +214,9 @@ export class KetchupDataTable {
     }
 
     private onGlobalFilterChange(event: CustomEvent) {
+        // resetting current page
+        this.currentPage = 1;
+
         this.globalFilter = event.detail.value;
     }
 
@@ -228,6 +265,20 @@ export class KetchupDataTable {
         });
     }
 
+    get rowsPerPage(): number {
+        return this.config && this.config.rowsPerPage
+            ? this.config.rowsPerPage
+            : 10;
+    }
+
+    private paginateRows(rows: Array<any>): Array<any> {
+        const start =
+            this.currentPage * this.currentRowsPerPage -
+            this.currentRowsPerPage;
+
+        return rows.slice(start, start + this.currentRowsPerPage);
+    }
+
     private getSortIcon(columnName: string): string {
         // check if column in sort array
         for (let i = 0; i < this.sort.length; i++) {
@@ -242,6 +293,14 @@ export class KetchupDataTable {
 
         // default
         return 'mdi-sort';
+    }
+
+    private handlePageChanged({ detail }) {
+        this.currentPage = detail.newPage;
+    }
+
+    private handleRowsPerPageChanged({ detail }) {
+        this.currentRowsPerPage = detail.newRowsPerPage;
     }
 
     // render methods
@@ -303,16 +362,19 @@ export class KetchupDataTable {
         // 2) sort
         const sortedRows = this.sortRows(filteredRows);
 
-        // 3) jsx
+        // 3) pagination
+        const paginatedRows = this.paginateRows(sortedRows);
+
+        // 4) jsx
         let rows = null;
-        if (sortedRows.length === 0) {
+        if (paginatedRows.length === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.getColumns().length}>Empty data</td>
                 </tr>
             );
         } else {
-            rows = sortedRows.map((row) => {
+            rows = paginatedRows.map((row) => {
                 const cells = this.getColumns().map(({ name }) => {
                     return <td>{row.cells[name].value}</td>;
                 });
@@ -321,10 +383,22 @@ export class KetchupDataTable {
             });
         }
 
+        const paginator = (
+            <kup-paginator
+                max={filteredRows.length}
+                perPage={this.rowsPerPage}
+                currentPage={this.currentPage}
+                onKupPageChanged={(e) => this.handlePageChanged(e)}
+                onKupRowsPerPageChanged={(e) =>
+                    this.handleRowsPerPageChanged(e)
+                }
+            />
+        );
+
         let globalFilter = null;
         if (this.config && this.config.globalFilter) {
             globalFilter = (
-                <div class="globalFilter">
+                <div id="globalFilter">
                     <kup-text-input
                         label="Global filter"
                         onKetchupTextInputUpdated={(event) =>
@@ -335,8 +409,9 @@ export class KetchupDataTable {
             );
         }
 
-        return [
+        return (
             <div>
+                {paginator}
                 {globalFilter}
                 <table>
                     <thead>
@@ -344,7 +419,7 @@ export class KetchupDataTable {
                     </thead>
                     <tbody>{rows}</tbody>
                 </table>
-            </div>,
-        ];
+            </div>
+        );
     }
 }

@@ -1,0 +1,29 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+
+#paginator {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  icon {
+    cursor: pointer;
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.3;
+    }
+  }
+
+  .prevPage,
+  .nextPage,
+  select,
+  .nextPageGroup {
+    margin: 0 0.1rem;
+  }
+
+  .nextPageGroup {
+    border-right: 1px solid black;
+    padding-right: 0.3rem;
+  }
+}

@@ -3,6 +3,8 @@ export interface DataTableConfig {
     filter?: GenericMap;
     globalFilter?: boolean;
     enableSort?: boolean;
+    sort?: Array<SortObject>;
+    rowsPerPage?: number;
 }
 
 interface GenericMap {

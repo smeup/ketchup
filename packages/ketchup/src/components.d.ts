@@ -244,6 +244,25 @@ export namespace Components {
     'src'?: string;
   }
 
+  interface KupPaginator {
+    'currentPage': number;
+    'max': number;
+    'perPage': number;
+  }
+  interface KupPaginatorAttributes extends StencilHTMLAttributes {
+    'currentPage'?: number;
+    'max'?: number;
+    /**
+    * When the current page change
+    */
+    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
+    /**
+    * When the rows per page change
+    */
+    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+    'perPage'?: number;
+  }
+
   interface KetchupPortalInstance {
     /**
     * Specifies if the current portal instance should be displayed or not.
@@ -512,6 +531,7 @@ declare global {
     'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
+    'KupPaginator': Components.KupPaginator;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
     'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
@@ -527,6 +547,7 @@ declare global {
     'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
+    'kup-paginator': Components.KupPaginatorAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
     'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
@@ -577,6 +598,12 @@ declare global {
     new (): HTMLKetchupHtmlElement;
   };
 
+  interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
+  var HTMLKupPaginatorElement: {
+    prototype: HTMLKupPaginatorElement;
+    new (): HTMLKupPaginatorElement;
+  };
+
   interface HTMLKetchupPortalInstanceElement extends Components.KetchupPortalInstance, HTMLStencilElement {}
   var HTMLKetchupPortalInstanceElement: {
     prototype: HTMLKetchupPortalInstanceElement;
@@ -615,6 +642,7 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
+    'kup-paginator': HTMLKupPaginatorElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
     'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
@@ -630,6 +658,7 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
+    'kup-paginator': HTMLKupPaginatorElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
     'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;

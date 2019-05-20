@@ -401,5 +401,71 @@ globalFilter.config = {
 const noSort = document.getElementById('no-sort');
 noSort.data = sortData;
 noSort.config = {
-    //enableSort: false,
+    enableSort: false,
 };
+
+const dftSort = document.getElementById('dft-sort');
+dftSort.data = sortData;
+dftSort.config = {
+    sort: [
+        {
+            column: 'FLD1',
+            sortMode: 'A',
+        },
+        {
+            column: 'FLD2',
+            sortMode: 'D',
+        },
+    ],
+};
+
+// pagination
+function createDataForPagination(colSize, rowSize) {
+    const columns = [];
+    for (let i = 0; i < colSize; i++) {
+        columns.push({
+            name: 'FLD' + i,
+            title: 'Column ' + i,
+            size: 10,
+        });
+    }
+
+    const rows = [];
+    for (let i = 0; i < rowSize; i++) {
+        const currentRow = {};
+        const cells = {};
+
+        for (let j = 0; j < columns.length; j++) {
+            const cell = {};
+            cell.value = i.toString() + j.toString();
+
+            cells[columns[j].name] = cell;
+        }
+
+        currentRow.cells = cells;
+        rows.push(currentRow);
+    }
+
+    const pagination = document.getElementById('pagination');
+    pagination.data = {
+        data: {
+            columns,
+            rows,
+        },
+    };
+    pagination.config = {
+        showFilter: true,
+        globalFilter: true,
+        rowsPerPage: 20,
+    };
+}
+
+function updatePaginationTable() {
+    // getting inputs
+    const cols = document.getElementById('cols').value;
+    const rows = document.getElementById('rows').value;
+
+    createDataForPagination(parseInt(cols), parseInt(rows));
+}
+
+createDataForPagination(10, 100);

@@ -441,6 +441,24 @@ describe('kup-data-table', () => {
         // expect(ketchupTextInputUpdated).toHaveBeenCalled();
     });
 
+    it('sort is disabled', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-data-table></kup-data-table>');
+
+        const element = await page.find('kup-data-table');
+        element.setProperty('data', mockData);
+        element.setProperty('config', {
+            enableSort: false,
+        });
+
+        await page.waitForChanges();
+
+        // no sort icons
+        const sortIcons = await page.findAll(sortIconSelector);
+        expect(sortIcons).toHaveLength(0);
+    });
+
     it('sorts rows', async () => {
         const page = await newE2EPage();
 
