@@ -33,7 +33,7 @@
       text-align: center;
 
       .descr {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
       }
 
       .value {
@@ -59,7 +59,7 @@
     &.layout-4 {
       > div {
         display: grid;
-        grid-template-columns: 0.6fr 1.4fr;
+        grid-template-columns: 0fr 0fr;
         font-size: 5rem;
 
         .value-and-unit {
@@ -91,14 +91,24 @@
         }
 
         .descr {
+          margin-left: 0.3rem;
           text-align: left;
-          font-size: 1.5rem;
+          font-size: 1.3rem;
         }
+      }
+    }
 
-        .icon {
-          margin: 0;
-          margin-top: auto;
-        }
+    &.layout-5 {
+      .icon {
+        margin: 0;
+        margin-top: auto;
+      }
+    }
+
+    &.layout-7 {
+      .icon {
+        margin: 0;
+        margin-bottom: auto;
       }
     }
 
@@ -107,13 +117,19 @@
         display: flex;
         justify-content: space-between;
 
+        .icon {
+          font-size: 5rem;
+          margin-right: 2rem;
+        }
+
         .value {
           font-size: 5rem;
           text-align: right;
         }
 
         .descr {
-          font-size: 1.5rem;
+          margin-right: 0.3rem;
+          font-size: 1.3rem;
         }
       }
     }
@@ -122,21 +138,24 @@
       > div {
         display: flex;
         align-items: center;
-        font-size: 5rem;
+        font-size: 7.5rem;
 
         .icon,
         .descr {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
         }
 
-        .icon,
-        .value {
+        .icon {
           margin-right: 1.5rem;
         }
 
+        .value {
+          margin-right: 1.2rem;
+        }
+
         .descr {
-          max-width: 100px; // :(
-          word-spacing: 9999px; // :(
+          text-align: left;
+          word-spacing: 100px;
         }
       }
     }
