@@ -1,11 +1,4 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    Prop,
-    Watch,
-    State,
-} from '@stencil/core';
+import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-paginator',
@@ -20,20 +13,10 @@ export class KetchupPaginator {
     private perPage = 10;
 
     @Prop()
+    private selectedPerPage = 10;
+
+    @Prop()
     private currentPage = 1;
-
-    @State()
-    private currentPerPage = 0;
-
-    @Watch('perPage')
-    perPageHandler(newValue: number) {
-        this.currentPerPage = newValue;
-    }
-
-    // lifecycle hooks
-    componentWillLoad() {
-        this.perPageHandler(this.perPage);
-    }
 
     /**
      * When the current page change
@@ -62,7 +45,7 @@ export class KetchupPaginator {
     }
 
     private isNextPageDisabled() {
-        return this.currentPage * this.currentPerPage >= this.max;
+        return this.currentPage * this.perPage >= this.max;
     }
 
     private onPrevPage() {
@@ -94,10 +77,8 @@ export class KetchupPaginator {
     }
 
     private onRowsPerPage({ target }) {
-        this.currentPerPage = parseInt(target.value);
-
         this.kupRowsPerPageChanged.emit({
-            newRowsPerPage: this.currentPerPage,
+            newRowsPerPage: parseInt(target.value),
         });
     }
 
@@ -134,7 +115,7 @@ export class KetchupPaginator {
 
             while (i < this.max) {
                 rowsPerPageOptions.push(
-                    <option value={i} selected={i === this.currentPerPage}>
+                    <option value={i} selected={i === this.selectedPerPage}>
                         {i}
                     </option>
                 );
@@ -143,17 +124,14 @@ export class KetchupPaginator {
 
             // adding 'max' option
             rowsPerPageOptions.push(
-                <option
-                    value={this.max}
-                    selected={this.max === this.currentPerPage}
-                >
+                <option value={this.max} selected={this.max === this.perPage}>
                     {this.max}
                 </option>
             );
         } else {
             rowsPerPageOptions.push(
-                <option value={this.currentPerPage} selected>
-                    {this.currentPerPage}
+                <option value={this.perPage} selected>
+                    {this.perPage}
                 </option>
             );
         }
@@ -172,7 +150,7 @@ export class KetchupPaginator {
             nextPageClassName += ' disabled';
         }
 
-        const maxNumberOfPage = Math.ceil(this.max / this.currentPerPage);
+        const maxNumberOfPage = Math.ceil(this.max / this.perPage);
 
         const goToPageOptions = this.getGoToPageOptions(maxNumberOfPage);
 

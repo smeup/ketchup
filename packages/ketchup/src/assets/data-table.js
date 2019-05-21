@@ -420,7 +420,7 @@ dftSort.config = {
 };
 
 // pagination
-function createDataForPagination(colSize, rowSize) {
+function createDataForPagination(id, colSize, rowSize) {
     const columns = [];
     for (let i = 0; i < colSize; i++) {
         columns.push({
@@ -446,7 +446,7 @@ function createDataForPagination(colSize, rowSize) {
         rows.push(currentRow);
     }
 
-    const pagination = document.getElementById('pagination');
+    const pagination = document.getElementById(id);
     pagination.data = {
         data: {
             columns,
@@ -454,6 +454,7 @@ function createDataForPagination(colSize, rowSize) {
         },
     };
     pagination.config = {
+        ...pagination.config,
         showFilter: true,
         globalFilter: true,
         rowsPerPage: 20,
@@ -465,7 +466,70 @@ function updatePaginationTable() {
     const cols = document.getElementById('cols').value;
     const rows = document.getElementById('rows').value;
 
-    createDataForPagination(parseInt(cols), parseInt(rows));
+    createDataForPagination('pagination', parseInt(cols), parseInt(rows));
 }
 
-createDataForPagination(10, 100);
+createDataForPagination('pagination', 10, 100);
+
+const pagBottom = document.getElementById('pagination-bottom');
+pagBottom.config = {
+    paginatorPos: 'Bottom',
+};
+createDataForPagination('pagination-bottom', 10, 100);
+
+const pagBoth = document.getElementById('pagination-both');
+pagBoth.config = {
+    paginatorPos: 'Both',
+};
+createDataForPagination('pagination-both', 10, 100);
+
+// custom columns width
+const customColWidth = document.getElementById('custom-columns-width');
+customColWidth.data = defaultData;
+customColWidth.config = {
+    columnsWidth: [
+        {
+            column: 'FLD1',
+            width: 100,
+        },
+        {
+            column: 'FLD3',
+            width: 300,
+        },
+    ],
+};
+
+// hidden header
+const hiddenHeader = document.getElementById('hidden-header');
+hiddenHeader.data = defaultData;
+hiddenHeader.config = {
+    showHeader: false,
+};
+
+// hidden grid
+const hiddenGrid = document.getElementById('hidden-grid');
+hiddenGrid.data = defaultData;
+hiddenGrid.config = {
+    showGrid: false,
+};
+
+// selFirst
+const selFirst = document.getElementById('sel-first');
+selFirst.data = defaultData;
+selFirst.config = {
+    selFirst: true,
+};
+
+// selectRow
+const selectRow = document.getElementById('select-row');
+selectRow.data = defaultData;
+selectRow.config = {
+    selectRow: 3,
+};
+
+// adding rowSelect event listener for all dataTable
+document.querySelectorAll('kup-data-table').forEach((dt) => {
+    dt.addEventListener('kupRowSelected', ({ detail }) => {
+        console.log(`you clicked on ${detail}`);
+    });
+});

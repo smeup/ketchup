@@ -1,5 +1,19 @@
 @import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
 
+/**
+* @prop --int_hover-color, --kup-data-table_hover-color: Set text color when hover on row
+* @prop --int_hover-background-color, --kup-data-table_hover-background-color: Set background color when hover on row
+*/
+
+:host {
+  // variables
+  --int_hover-color: var(--kup-data-table_hover-color, #545454);
+  --int_hover-background-color: var(
+    --kup-data-table_hover-background-color,
+    #f0f0f0
+  );
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -25,6 +39,25 @@ table {
   th {
     input {
       display: block;
+    }
+  }
+
+  tbody {
+    > tr {
+      &:hover,
+      &.selected {
+        > td {
+          color: var(--int_hover-color);
+          background-color: var(--int_hover-background-color);
+        }
+      }
+    }
+  }
+
+  &.noGrid {
+    &,
+    td {
+      border: none;
     }
   }
 }

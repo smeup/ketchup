@@ -18,7 +18,9 @@ import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
+  Column,
   DataTableConfig,
+  Row,
 } from './components/ketchup-data-table/ketchup-data-table-declarations';
 import {
   EventEmitter,
@@ -167,11 +169,15 @@ export namespace Components {
 
   interface KupDataTable {
     'config': DataTableConfig;
-    'data': { data?: { columns?: Array<any>; rows?: Array<any> } };
+    'data': { data?: { columns?: Array<Column>; rows?: Array<Row> } };
   }
   interface KupDataTableAttributes extends StencilHTMLAttributes {
     'config'?: DataTableConfig;
-    'data'?: { data?: { columns?: Array<any>; rows?: Array<any> } };
+    'data'?: { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    /**
+    * When a row is selected
+    */
+    'onKupRowSelected'?: (event: CustomEvent<{ row: any }>) => void;
   }
 
   interface KetchupFld {
@@ -248,6 +254,7 @@ export namespace Components {
     'currentPage': number;
     'max': number;
     'perPage': number;
+    'selectedPerPage': number;
   }
   interface KupPaginatorAttributes extends StencilHTMLAttributes {
     'currentPage'?: number;
@@ -261,6 +268,7 @@ export namespace Components {
     */
     'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
     'perPage'?: number;
+    'selectedPerPage'?: number;
   }
 
   interface KetchupPortalInstance {
