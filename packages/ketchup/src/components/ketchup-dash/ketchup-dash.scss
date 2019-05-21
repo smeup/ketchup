@@ -23,6 +23,11 @@
   #content {
     margin: 2rem;
 
+    .icon {
+      margin: auto;
+      font-size: 4rem;
+    }
+
     &.layout-1,
     &.layout-3 {
       text-align: center;
@@ -57,10 +62,6 @@
         grid-template-columns: 0.6fr 1.4fr;
         font-size: 5rem;
 
-        .icon {
-          margin: auto;
-        }
-
         .value-and-unit {
           display: flex;
 
@@ -75,6 +76,67 @@
           margin-left: 0.6rem;
           text-align: left;
           font-size: 1.5rem;
+        }
+      }
+    }
+
+    &.layout-5,
+    &.layout-7 {
+      > div {
+        display: flex;
+
+        .value {
+          font-size: 4rem;
+          margin-right: 0.6rem;
+        }
+
+        .descr {
+          text-align: left;
+          font-size: 1.5rem;
+        }
+
+        .icon {
+          margin: 0;
+          margin-top: auto;
+        }
+      }
+    }
+
+    &.layout-6 {
+      > div {
+        display: flex;
+        justify-content: space-between;
+
+        .value {
+          font-size: 5rem;
+          text-align: right;
+        }
+
+        .descr {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    &.layout-8 {
+      > div {
+        display: flex;
+        align-items: center;
+        font-size: 5rem;
+
+        .icon,
+        .descr {
+          font-size: 1.5rem;
+        }
+
+        .icon,
+        .value {
+          margin-right: 1.5rem;
+        }
+
+        .descr {
+          max-width: 100px; // :(
+          word-spacing: 9999px; // :(
         }
       }
     }
