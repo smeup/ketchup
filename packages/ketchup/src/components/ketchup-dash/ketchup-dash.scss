@@ -5,7 +5,7 @@
 :host {
   --dash_bkg-color: var(--kup-dash_background-color, #fff);
   --dash_color: var(--kup-dash_color, #fff);
-  --dash_border-color: var(--kup-dash_border-color, #ddd);
+  --dash_border-color: var(--kup-dash_border-color, transparent);
 }
 
 #dash {
@@ -16,6 +16,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  text-align: center;
+  position: relative;
 
   #content {
     margin: 2rem;
@@ -25,20 +28,25 @@
       text-align: center;
 
       .descr {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
 
       .value {
         font-size: 3rem;
+        padding: 0.5rem 0;
       }
     }
 
     &.layout-2 {
       > div {
         display: flex;
+        font-size: 5rem;
 
-        .icon {
-          margin-right: 1rem;
+        .unit {
+          font-size: 3rem;
+          margin-top: auto;
+          margin-left: 1rem;
+          margin-bottom: 0.6rem;
         }
       }
     }
@@ -46,10 +54,27 @@
     &.layout-4 {
       > div {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 0.6fr 1.4fr;
+        font-size: 5rem;
+
+        .icon {
+          margin: auto;
+        }
 
         .value-and-unit {
           display: flex;
+
+          .unit {
+            font-size: 3rem;
+            margin-top: auto;
+            margin-left: 1rem;
+            margin-bottom: 0.6rem;
+          }
+        }
+        .descr {
+          margin-left: 0.6rem;
+          text-align: left;
+          font-size: 1.5rem;
         }
       }
     }
