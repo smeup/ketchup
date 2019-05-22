@@ -18,7 +18,9 @@ const baseRoutes = [
 const routes = [...baseRoutes, ...dataTableRoutes];
 
 export default new Router({
-  //mode: 'history',
+  // If you want to activate the history mode, remember to follow the instructions regarding publicPath prop
+  // inside vue.config.js which holds the configuration for Webpack
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });

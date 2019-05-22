@@ -1,4 +1,7 @@
 module.exports = {
+  // To correctly use History mode with Vue router, this property must be set to '/'
+  // in order to allow webpack to produce correct chunks address when generating the output for the application.
+  // However we must check if by setting this prop to '/' il compatible with CI service.
   publicPath: './',
   // For issues with ESLint whining about not being able to find ESLint conf file inside the dist folder.
   // THe issue is caused by ESLint resolver in combination with sym linked directories.
