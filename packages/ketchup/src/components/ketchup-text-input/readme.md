@@ -45,6 +45,7 @@ Type: `void`
 | ------------------------------------------------------------- | ----------------------------------------------- |
 | `--int_border-color, --kup-text-input_border-color`           | Set normal border color of the input            |
 | `--int_border-color--selected, --kup-text-input_border-color` | Set color of the border when focused or hovered |
+| `--int_color, --kup-text-input_color`                         | Set color of text                               |
 | `--int_font-size, --kup-text-input_font-size`                 | Set height of the font and the svg icon         |
 | `--int_icon-color, --kup-text-input_icon-color`               | Set icon color                                  |
 | `--int_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |

@@ -7,10 +7,26 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                                             | Default     |
-| -------- | --------- | ----------- | ------------------------------------------------ | ----------- |
-| `config` | --        |             | `DataTableConfig`                                | `{}`        |
-| `data`   | --        |             | `{ data?: { columns?: any[]; rows?: any[]; }; }` | `undefined` |
+| Property | Attribute | Description | Type                                                | Default     |
+| -------- | --------- | ----------- | --------------------------------------------------- | ----------- |
+| `config` | --        |             | `DataTableConfig`                                   | `{}`        |
+| `data`   | --        |             | `{ data?: { columns?: Column[]; rows?: Row[]; }; }` | `undefined` |
+
+
+## Events
+
+| Event            | Description            | Type                        |
+| ---------------- | ---------------------- | --------------------------- |
+| `kupRowSelected` | When a row is selected | `CustomEvent<{ row: any }>` |
+
+
+## CSS Custom Properties
+
+| Name                                                                    | Description                            |
+| ----------------------------------------------------------------------- | -------------------------------------- |
+| `--int_color, --kup-data-table_color`                                   | Set text color                         |
+| `--int_hover-background-color, --kup-data-table_hover-background-color` | Set background color when hover on row |
+| `--int_hover-color, --kup-data-table_hover-color`                       | Set text color when hover on row       |
 
 
 ----------------------------------------------

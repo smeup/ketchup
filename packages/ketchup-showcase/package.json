@@ -8,12 +8,12 @@
     "lint": "vue-cli-service lint",
     "build:bundle": "rimraf dist && vue-cli-service build --target lib --name vueup ./src/components/index.js",
     "build:label": "rimraf dist && vue-cli-service build --target lib --name SmeupLabel src/components/SmeupLabel.vue",
-    "test:unit": "vue-cli-service test:unit",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "start": "vue-cli-service serve",
     "test:e2e:open": "start-test 4000 cy:open",
     "test:e2e:run": "start-test 4000 cy:run",
-    "start": "vue-cli-service serve"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@mdi/font": "^2.8.94",
@@ -26,7 +26,8 @@
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-material-design-icons": "^2.3.0",
-    "vue-property-decorator": "^7.0.0"
+    "vue-property-decorator": "^7.0.0",
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
