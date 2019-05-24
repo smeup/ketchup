@@ -150,7 +150,7 @@ export class KetchupPaginator {
             nextPageClassName += ' disabled';
         }
 
-        const maxNumberOfPage = Math.ceil(this.max / this.perPage);
+        const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageOptions = this.getGoToPageOptions(maxNumberOfPage);
 

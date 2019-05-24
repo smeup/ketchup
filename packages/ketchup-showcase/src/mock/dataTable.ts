@@ -13,16 +13,14 @@ function createDataForPagination(colSize: number, rowSize: number) {
     const currentRow: {
       cells: any;
     } = { cells: {} };
-    const cells: any = {};
 
     for (let j = 0; j < columns.length; j++) {
       const cell: any = {};
       cell.value = i.toString() + j.toString();
 
-      cells[columns[j].name] = cell;
+      currentRow.cells[columns[j].name] = cell;
     }
 
-    currentRow.cells = cells;
     rows.push(currentRow);
   }
 

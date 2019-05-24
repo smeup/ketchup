@@ -11,13 +11,14 @@
 | -------- | --------- | ----------- | --------------------------------------------------- | ----------- |
 | `config` | --        |             | `DataTableConfig`                                   | `{}`        |
 | `data`   | --        |             | `{ data?: { columns?: Column[]; rows?: Row[]; }; }` | `undefined` |
+| `totals` | --        |             | `{ [index: string]: TotalMode; }`                   | `undefined` |
 
 
 ## Events
 
 | Event            | Description            | Type                        |
 | ---------------- | ---------------------- | --------------------------- |
-| `kupRowSelected` | When a row is selected | `CustomEvent<{ row: any }>` |
+| `kupRowSelected` | When a row is selected | `CustomEvent<{ row: Row }>` |
 
 
 ## CSS Custom Properties

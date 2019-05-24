@@ -63,6 +63,7 @@ export default {
         ...paginateDataTable,
       },
       config1: {
+        showFilter: true,
         rowsPerPage: 20,
       },
       config2: {

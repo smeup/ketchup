@@ -12,7 +12,6 @@ export interface DataTableConfig {
     }>;
     showHeader?: boolean;
     showGrid?: boolean;
-    selFirst?: boolean;
     selectRow?: number;
 }
 
@@ -24,15 +23,17 @@ export interface Column {
 
 export interface Row {
     cells: {
-        [index: string]: {
-            obj: {
-                t: string;
-                p: string;
-                k: string;
-            };
-            value: string;
-        };
+        [index: string]: Cell;
     };
+}
+
+export interface Cell {
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+    value: string;
 }
 
 interface GenericMap {
@@ -47,6 +48,12 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export enum TotalMode {
+    COUNT = 'Count',
+    SUM = 'Sum',
+    AVARAGE = 'Avarage',
 }
 
 export enum PaginatorPos {

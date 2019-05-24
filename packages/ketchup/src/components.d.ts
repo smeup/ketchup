@@ -21,6 +21,7 @@ import {
   Column,
   DataTableConfig,
   Row,
+  TotalMode,
 } from './components/ketchup-data-table/ketchup-data-table-declarations';
 import {
   EventEmitter,
@@ -170,6 +171,9 @@ export namespace Components {
   interface KupDataTable {
     'config': DataTableConfig;
     'data': { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    'totals': {
+      [index: string]: TotalMode;
+    };
   }
   interface KupDataTableAttributes extends StencilHTMLAttributes {
     'config'?: DataTableConfig;
@@ -177,7 +181,10 @@ export namespace Components {
     /**
     * When a row is selected
     */
-    'onKupRowSelected'?: (event: CustomEvent<{ row: any }>) => void;
+    'onKupRowSelected'?: (event: CustomEvent<{ row: Row }>) => void;
+    'totals'?: {
+      [index: string]: TotalMode;
+    };
   }
 
   interface KetchupFld {

@@ -513,13 +513,6 @@ hiddenGrid.config = {
     showGrid: false,
 };
 
-// selFirst
-const selFirst = document.getElementById('sel-first');
-selFirst.data = defaultData;
-selFirst.config = {
-    selFirst: true,
-};
-
 // selectRow
 const selectRow = document.getElementById('select-row');
 selectRow.data = defaultData;
@@ -530,6 +523,6 @@ selectRow.config = {
 // adding rowSelect event listener for all dataTable
 document.querySelectorAll('kup-data-table').forEach((dt) => {
     dt.addEventListener('kupRowSelected', ({ detail }) => {
-        console.log(`you clicked on ${detail}`);
+        console.log('you clicked on ', detail);
     });
 });
