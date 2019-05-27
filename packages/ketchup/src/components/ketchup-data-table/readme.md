@@ -7,11 +7,21 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                                                | Default     |
-| -------- | --------- | ----------- | --------------------------------------------------- | ----------- |
-| `config` | --        |             | `DataTableConfig`                                   | `{}`        |
-| `data`   | --        |             | `{ data?: { columns?: Column[]; rows?: Row[]; }; }` | `undefined` |
-| `totals` | --        |             | `{ [index: string]: TotalMode; }`                   | `undefined` |
+| Property       | Attribute       | Description | Type                                                           | Default            |
+| -------------- | --------------- | ----------- | -------------------------------------------------------------- | ------------------ |
+| `columnsWidth` | --              |             | `{ column: string; width: number; }[]`                         | `[]`               |
+| `data`         | --              |             | `{ data?: { columns?: Column[]; rows?: Row[]; }; }`            | `undefined`        |
+| `filters`      | --              |             | `GenericMap`                                                   | `{}`               |
+| `globalFilter` | `global-filter` |             | `boolean`                                                      | `false`            |
+| `paginatorPos` | `paginator-pos` |             | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP` | `PaginatorPos.TOP` |
+| `rowsPerPage`  | `rows-per-page` |             | `number`                                                       | `10`               |
+| `selectRow`    | `select-row`    |             | `number`                                                       | `undefined`        |
+| `showFilters`  | `show-filters`  |             | `boolean`                                                      | `false`            |
+| `showGrid`     | `show-grid`     |             | `boolean`                                                      | `true`             |
+| `showHeader`   | `show-header`   |             | `boolean`                                                      | `true`             |
+| `sort`         | --              |             | `SortObject[]`                                                 | `[]`               |
+| `sortEnabled`  | `sort-enabled`  |             | `boolean`                                                      | `true`             |
+| `totals`       | --              |             | `{ [index: string]: TotalMode; }`                              | `undefined`        |
 
 
 ## Events

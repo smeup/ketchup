@@ -1,20 +1,3 @@
-export interface DataTableConfig {
-    showFilter?: boolean;
-    filter?: GenericMap;
-    globalFilter?: boolean;
-    enableSort?: boolean;
-    sort?: Array<SortObject>;
-    rowsPerPage?: number;
-    paginatorPos?: PaginatorPos;
-    columnsWidth?: Array<{
-        column: string;
-        width: number;
-    }>;
-    showHeader?: boolean;
-    showGrid?: boolean;
-    selectRow?: number;
-}
-
 export interface Column {
     name: string;
     title: string;
@@ -36,7 +19,7 @@ export interface Cell {
     value: string;
 }
 
-interface GenericMap {
+export interface GenericMap {
     [index: string]: string;
 }
 

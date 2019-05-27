@@ -377,9 +377,7 @@ document.getElementById('basic-data').data = defaultData;
 // filters
 const showFilter = document.getElementById('show-filter');
 showFilter.data = defaultData;
-showFilter.config = {
-    showFilter: true,
-};
+showFilter.showFilters = true;
 
 const filter = document.getElementById('filter');
 filter.data = defaultData;

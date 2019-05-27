@@ -19,8 +19,10 @@ import {
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
   Column,
-  DataTableConfig,
+  GenericMap,
+  PaginatorPos,
   Row,
+  SortObject,
   TotalMode,
 } from './components/ketchup-data-table/ketchup-data-table-declarations';
 import {
@@ -169,19 +171,45 @@ export namespace Components {
   }
 
   interface KupDataTable {
-    'config': DataTableConfig;
+    'columnsWidth': Array<{
+      column: string;
+      width: number;
+    }>;
     'data': { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    'filters': GenericMap;
+    'globalFilter': boolean;
+    'paginatorPos': PaginatorPos;
+    'rowsPerPage': number;
+    'selectRow': number;
+    'showFilters': boolean;
+    'showGrid': boolean;
+    'showHeader': boolean;
+    'sort': Array<SortObject>;
+    'sortEnabled': boolean;
     'totals': {
       [index: string]: TotalMode;
     };
   }
   interface KupDataTableAttributes extends StencilHTMLAttributes {
-    'config'?: DataTableConfig;
+    'columnsWidth'?: Array<{
+      column: string;
+      width: number;
+    }>;
     'data'?: { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    'filters'?: GenericMap;
+    'globalFilter'?: boolean;
     /**
     * When a row is selected
     */
     'onKupRowSelected'?: (event: CustomEvent<{ row: Row }>) => void;
+    'paginatorPos'?: PaginatorPos;
+    'rowsPerPage'?: number;
+    'selectRow'?: number;
+    'showFilters'?: boolean;
+    'showGrid'?: boolean;
+    'showHeader'?: boolean;
+    'sort'?: Array<SortObject>;
+    'sortEnabled'?: boolean;
     'totals'?: {
       [index: string]: TotalMode;
     };

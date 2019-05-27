@@ -11,14 +11,19 @@ h3 {
     <h3>Select first record</h3>
     <kup-data-table
       :data.prop="data"
-      :config.prop="config"
+      :selectRow.prop="selectedRowIndex"
+      :showFilters.prop="true"
+      :filters.prop="filters"
+      :sort.prop="sort"
       @kupRowSelected="onRowSelect"
     ></kup-data-table>
+
+    <p>Selected row: {{ selectedRow }}</p>
   </div>
 </template>
 
 <script>
-import { defaultDataTable } from '@/mock/dataTable';
+import { sortDataTable } from '@/mock/dataTable';
 
 export default {
   name: 'dataTableRowSelection',
@@ -26,18 +31,25 @@ export default {
   data() {
     return {
       data: {
-        ...defaultDataTable,
+        ...sortDataTable,
       },
-      config: {
-        selectRow: 1,
-      },
+      selectedRowIndex: 1,
       selectedRow: null,
+      filters: {
+        FLD1: 'fra',
+      },
+      sort: [
+        {
+          column: 'FLD2',
+          sortMode: 'D',
+        },
+      ],
     };
   },
 
   methods: {
     onRowSelect({ detail }) {
-      console.log(detail);
+      this.selectedRow = detail;
     },
   },
 };

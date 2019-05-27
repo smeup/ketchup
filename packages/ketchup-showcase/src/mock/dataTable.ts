@@ -18,6 +18,12 @@ function createDataForPagination(colSize: number, rowSize: number) {
       const cell: any = {};
       cell.value = i.toString() + j.toString();
 
+      cell.obj = {
+        t: 'NR',
+        p: '',
+        k: cell.value,
+      };
+
       currentRow.cells[columns[j].name] = cell;
     }
 

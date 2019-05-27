@@ -9,10 +9,13 @@ h3 {
     <h1>Sorting</h1>
 
     <h3>Sort disabled</h3>
-    <kup-data-table :data.prop="data" :config.prop="config1"></kup-data-table>
+    <kup-data-table
+      :data.prop="data"
+      :sortEnabled.prop="false"
+    ></kup-data-table>
 
     <h3>Sort ascending on first column, descending on second</h3>
-    <kup-data-table :data.prop="data" :config.prop="config2"></kup-data-table>
+    <kup-data-table :data.prop="data" :sort.prop="sort"></kup-data-table>
   </div>
 </template>
 
@@ -27,21 +30,16 @@ export default {
       data: {
         ...sortDataTable,
       },
-      config1: {
-        enableSort: false,
-      },
-      config2: {
-        sort: [
-          {
-            column: 'FLD1',
-            sortMode: 'A',
-          },
-          {
-            column: 'FLD2',
-            sortMode: 'D',
-          },
-        ],
-      },
+      sort: [
+        {
+          column: 'FLD1',
+          sortMode: 'A',
+        },
+        {
+          column: 'FLD2',
+          sortMode: 'D',
+        },
+      ],
     };
   },
 };

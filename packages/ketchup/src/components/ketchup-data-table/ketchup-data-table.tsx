@@ -10,13 +10,13 @@ import {
 
 import {
     Column,
-    DataTableConfig,
     PaginatorPos,
     SortMode,
     SortObject,
     Row,
     Cell,
     TotalMode,
+    GenericMap,
 } from './ketchup-data-table-declarations';
 
 import numeral from 'numeral';
@@ -30,18 +30,49 @@ import moment from 'moment';
 export class KetchupDataTable {
     @Prop() data: { data?: { columns?: Array<Column>; rows?: Array<Row> } };
 
-    @Prop({
-        mutable: true,
-    })
-    config: DataTableConfig = {};
+    @Prop()
+    showFilters = false;
+
+    @Prop({ mutable: true })
+    filters: GenericMap = {};
 
     @Prop()
     totals: {
         [index: string]: TotalMode;
     };
 
+    @Prop()
+    globalFilter = false;
+
+    @Prop()
+    sortEnabled = true;
+
+    @Prop({ mutable: true })
+    sort: Array<SortObject> = [];
+
+    @Prop()
+    rowsPerPage = 10;
+
+    @Prop()
+    paginatorPos: PaginatorPos = PaginatorPos.TOP;
+
+    @Prop()
+    columnsWidth: Array<{
+        column: string;
+        width: number;
+    }> = [];
+
+    @Prop()
+    showHeader = true;
+
+    @Prop()
+    showGrid = true;
+
+    @Prop()
+    selectRow: number;
+
     @State()
-    private globalFilter = '';
+    private globalFilterValue = '';
 
     @State()
     private currentPage = 1;
@@ -52,26 +83,9 @@ export class KetchupDataTable {
     @State()
     private selectedRow: Row = null;
 
-    @Watch('config')
-    configHandler(newValue: DataTableConfig) {
-        if (!newValue) {
-            return;
-        }
-
-        if (newValue.rowsPerPage) {
-            this.currentRowsPerPage = newValue.rowsPerPage;
-        }
-
-        if (newValue.selectRow) {
-            const selectedRowIndex = newValue.selectRow - 1;
-
-            const sortedRows = this.sortRows(this.getFilteredRows());
-
-            if (selectedRowIndex <= sortedRows.length) {
-                this.selectedRow = sortedRows[selectedRowIndex];
-                this.kupRowSelected.emit({ row: this.selectedRow });
-            }
-        }
+    @Watch('rowsPerPage')
+    rowsPerPageHandler(newValue: number) {
+        this.currentRowsPerPage = newValue;
     }
 
     /**
@@ -87,7 +101,16 @@ export class KetchupDataTable {
 
     // lifecycle
     componentWillLoad() {
-        this.configHandler(this.config);
+        this.rowsPerPageHandler(this.rowsPerPage);
+
+        if (this.selectRow && this.selectRow > 0) {
+            const sortedRows = this.sortRows(this.getFilteredRows());
+
+            if (this.selectRow <= sortedRows.length) {
+                this.selectedRow = sortedRows[this.selectRow - 1];
+                this.kupRowSelected.emit({ row: this.selectedRow });
+            }
+        }
     }
 
     private getColumns(): Array<Column> {
@@ -100,49 +123,6 @@ export class KetchupDataTable {
         return this.data && this.data.data && this.data.data.rows
             ? this.data.data.rows
             : [];
-    }
-
-    get filters() {
-        if (this.config && this.config.filter) {
-            return this.config.filter;
-        }
-
-        return {};
-    }
-
-    set filters(value) {
-        if (this.config) {
-            this.config = {
-                ...this.config,
-                filter: value,
-            };
-        } else {
-            this.config = {
-                showFilter: true,
-                filter: value,
-            };
-        }
-    }
-
-    get sort(): Array<SortObject> {
-        if (this.config && this.config.sort) {
-            return this.config.sort;
-        }
-
-        return [];
-    }
-
-    set sort(sort: Array<SortObject>) {
-        if (this.config) {
-            this.config = {
-                ...this.config,
-                sort,
-            };
-        } else {
-            this.config = {
-                sort,
-            };
-        }
     }
 
     private getFilteredRows(): Array<any> {
@@ -165,7 +145,9 @@ export class KetchupDataTable {
                         if (
                             cellValue
                                 .toLowerCase()
-                                .includes(this.globalFilter.toLocaleLowerCase())
+                                .includes(
+                                    this.globalFilterValue.toLocaleLowerCase()
+                                )
                         ) {
                             found = true;
                             break;
@@ -200,39 +182,6 @@ export class KetchupDataTable {
         }
 
         return this.getRows();
-    }
-
-    private showFilters(): boolean {
-        return this.config && this.config.showFilter;
-    }
-
-    private showGrid(): boolean {
-        if (this.config) {
-            return (
-                !this.config.hasOwnProperty('showGrid') || this.config.showGrid
-            );
-        }
-        return true;
-    }
-
-    private showHeader(): boolean {
-        if (this.config) {
-            return (
-                !this.config.hasOwnProperty('showHeader') ||
-                this.config.showHeader
-            );
-        }
-        return true;
-    }
-
-    private showSort(): boolean {
-        if (this.config) {
-            return (
-                !this.config.hasOwnProperty('enableSort') ||
-                this.config.enableSort
-            );
-        }
-        return true;
     }
 
     private onColumnSort(e: MouseEvent) {
@@ -322,7 +271,15 @@ export class KetchupDataTable {
                     const cell1: Cell = r1.cells[sortObj.column];
                     const cell2: Cell = r2.cells[sortObj.column];
 
-                    return this.compareCell(cell1, cell2, sortObj.sortMode);
+                    const compare = this.compareCell(
+                        cell1,
+                        cell2,
+                        sortObj.sortMode
+                    );
+
+                    if (compare !== 0) {
+                        return compare;
+                    }
                 }
 
                 // same row
@@ -402,12 +359,6 @@ export class KetchupDataTable {
         return sm * value1.localeCompare(value2);
     }
 
-    get rowsPerPage(): number {
-        return this.config && this.config.rowsPerPage
-            ? this.config.rowsPerPage
-            : 10;
-    }
-
     private paginateRows(rows: Array<any>): Array<any> {
         const start =
             this.currentPage * this.currentRowsPerPage -
@@ -447,15 +398,12 @@ export class KetchupDataTable {
 
     // render methods
     private renderHeader() {
-        const hasCustomColumnsWidth =
-            this.config &&
-            this.config.columnsWidth &&
-            this.config.columnsWidth.length > 0;
+        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         return this.getColumns().map((column) => {
             // filter
             let filter = null;
-            if (this.showFilters()) {
+            if (this.showFilters) {
                 let filterValue = '';
                 if (this.filters && this.filters[column.name]) {
                     filterValue = this.filters[column.name];
@@ -476,7 +424,7 @@ export class KetchupDataTable {
 
             // sort
             let sort = null;
-            if (this.showSort()) {
+            if (this.sortEnabled) {
                 sort = (
                     <span class="column-sort">
                         <icon
@@ -490,8 +438,8 @@ export class KetchupDataTable {
 
             let thStyle = null;
             if (hasCustomColumnsWidth) {
-                for (let i = 0; i < this.config.columnsWidth.length; i++) {
-                    const currentCol = this.config.columnsWidth[i];
+                for (let i = 0; i < this.columnsWidth.length; i++) {
+                    const currentCol = this.columnsWidth[i];
 
                     if (currentCol.column === column.name) {
                         const width = currentCol.width.toString() + 'px';
@@ -630,7 +578,7 @@ export class KetchupDataTable {
         }
 
         let globalFilter = null;
-        if (this.config && this.config.globalFilter) {
+        if (this.globalFilter) {
             globalFilter = (
                 <div id="globalFilter">
                     <kup-text-input
@@ -643,40 +591,46 @@ export class KetchupDataTable {
             );
         }
 
-        const paginator = (
-            <kup-paginator
-                max={filteredRows.length}
-                perPage={this.rowsPerPage}
-                selectedPerPage={this.currentRowsPerPage}
-                currentPage={this.currentPage}
-                onKupPageChanged={(e) => this.handlePageChanged(e)}
-                onKupRowsPerPageChanged={(e) =>
-                    this.handleRowsPerPageChanged(e)
-                }
-            />
-        );
-
         let paginatorTop = null;
         if (
-            !this.config ||
-            !this.config.paginatorPos ||
-            PaginatorPos.TOP === this.config.paginatorPos ||
-            PaginatorPos.BOTH === this.config.paginatorPos
+            PaginatorPos.TOP === this.paginatorPos ||
+            PaginatorPos.BOTH === this.paginatorPos
         ) {
-            paginatorTop = paginator;
+            paginatorTop = (
+                <kup-paginator
+                    max={filteredRows.length}
+                    perPage={this.rowsPerPage}
+                    selectedPerPage={this.currentRowsPerPage}
+                    currentPage={this.currentPage}
+                    onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) =>
+                        this.handleRowsPerPageChanged(e)
+                    }
+                />
+            );
         }
 
         let paginatorBottom = null;
         if (
-            this.config &&
-            (PaginatorPos.BOTTOM === this.config.paginatorPos ||
-                PaginatorPos.BOTH === this.config.paginatorPos)
+            PaginatorPos.BOTTOM === this.paginatorPos ||
+            PaginatorPos.BOTH === this.paginatorPos
         ) {
-            paginatorBottom = paginator;
+            paginatorBottom = (
+                <kup-paginator
+                    max={filteredRows.length}
+                    perPage={this.rowsPerPage}
+                    selectedPerPage={this.currentRowsPerPage}
+                    currentPage={this.currentPage}
+                    onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) =>
+                        this.handleRowsPerPageChanged(e)
+                    }
+                />
+            );
         }
 
         let tableClass = null;
-        if (!this.showGrid()) {
+        if (!this.showGrid) {
             tableClass = 'noGrid';
         }
 
@@ -686,7 +640,7 @@ export class KetchupDataTable {
                 {globalFilter}
                 <div id="data-table-wrapper">
                     <table class={tableClass}>
-                        <thead hidden={!this.showHeader()}>
+                        <thead hidden={!this.showHeader}>
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>

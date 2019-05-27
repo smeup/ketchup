@@ -14,10 +14,11 @@ h3 {
           <div>20 rows per page (default is 10)</div>
         </template>
 
-        <div class="pa-5">
+        <div class="pa-3">
           <kup-data-table
             :data.prop="data"
-            :config.prop="config1"
+            :showFilter.prop="true"
+            :rowsPerPage.prop="20"
           ></kup-data-table>
         </div>
       </v-expansion-panel-content>
@@ -27,10 +28,10 @@ h3 {
           <div>Paginator bottom</div>
         </template>
 
-        <div class="pa-5">
+        <div class="pa-3">
           <kup-data-table
             :data.prop="data"
-            :config.prop="config2"
+            :paginatorPos.prop="'Bottom'"
           ></kup-data-table>
         </div>
       </v-expansion-panel-content>
@@ -40,10 +41,10 @@ h3 {
           <div>Paginator top and bottom</div>
         </template>
 
-        <div class="pa-5">
+        <div class="pa-3">
           <kup-data-table
             :data.prop="data"
-            :config.prop="config3"
+            :paginatorPos.prop="'Both'"
           ></kup-data-table>
         </div>
       </v-expansion-panel-content>
@@ -61,16 +62,6 @@ export default {
     return {
       data: {
         ...paginateDataTable,
-      },
-      config1: {
-        showFilter: true,
-        rowsPerPage: 20,
-      },
-      config2: {
-        paginatorPos: 'Bottom',
-      },
-      config3: {
-        paginatorPos: 'Both',
       },
     };
   },
