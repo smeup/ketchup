@@ -171,6 +171,13 @@ export namespace Components {
     'valueField'?: string;
   }
 
+  interface KupDash {
+    'layout': string;
+  }
+  interface KupDashAttributes extends StencilHTMLAttributes {
+    'layout'?: string;
+  }
+
   interface KupDataTable {
     'columnsWidth': Array<{
       column: string;
@@ -574,6 +581,7 @@ declare global {
     'KetchupButton': Components.KetchupButton;
     'KetchupChart': Components.KetchupChart;
     'KetchupCombo': Components.KetchupCombo;
+    'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
@@ -590,6 +598,7 @@ declare global {
     'ketchup-button': Components.KetchupButtonAttributes;
     'ketchup-chart': Components.KetchupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
+    'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
@@ -624,6 +633,12 @@ declare global {
   var HTMLKetchupComboElement: {
     prototype: HTMLKetchupComboElement;
     new (): HTMLKetchupComboElement;
+  };
+
+  interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
+  var HTMLKupDashElement: {
+    prototype: HTMLKupDashElement;
+    new (): HTMLKupDashElement;
   };
 
   interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
@@ -685,6 +700,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement
     'ketchup-chart': HTMLKetchupChartElement
     'ketchup-combo': HTMLKetchupComboElement
+    'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
@@ -701,6 +717,7 @@ declare global {
     'ketchup-button': HTMLKetchupButtonElement;
     'ketchup-chart': HTMLKetchupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
+    'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;

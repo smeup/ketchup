@@ -9,6 +9,9 @@ export const config: Config = {
         {
             src: 'data-table.html',
         },
+        {
+            src: 'dash.html',
+        },
     ],
     namespace: 'mycomponent',
     outputTargets: [
