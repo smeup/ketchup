@@ -4,7 +4,7 @@ context('Data table without configuration', () => {
   //
   // });
 
-  it('test tables', () => {
+  it.skip('test tables', () => {
     cy.visit('http://localhost:4000/#/dataTable/basic');
 
     cy.get('kup-data-table table').should('have.length', 4);
