@@ -8,6 +8,12 @@ export interface Row {
     cells: {
         [index: string]: Cell;
     };
+
+    group?: {
+        expanded: boolean;
+        label: string;
+        children: Array<Row>;
+    };
 }
 
 export interface Cell {
@@ -43,4 +49,9 @@ export enum PaginatorPos {
     TOP = 'Top',
     BOTTOM = 'Bottom',
     BOTH = 'Both',
+}
+
+export interface GroupObject {
+    column: string;
+    visible: boolean;
 }

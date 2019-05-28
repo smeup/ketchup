@@ -28,6 +28,7 @@ h3 {
     <kup-data-table
       :data.prop="data"
       :showFilters.prop="true"
+      :globalFilter.prop="true"
       :filters.prop="filters"
     ></kup-data-table>
   </div>

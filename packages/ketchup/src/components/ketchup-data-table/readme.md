@@ -10,9 +10,10 @@
 | Property       | Attribute       | Description | Type                                                           | Default            |
 | -------------- | --------------- | ----------- | -------------------------------------------------------------- | ------------------ |
 | `columnsWidth` | --              |             | `{ column: string; width: number; }[]`                         | `[]`               |
-| `data`         | --              |             | `{ data?: { columns?: Column[]; rows?: Row[]; }; }`            | `undefined`        |
+| `data`         | --              |             | `{ columns?: Column[]; rows?: Row[]; }`                        | `undefined`        |
 | `filters`      | --              |             | `GenericMap`                                                   | `{}`               |
 | `globalFilter` | `global-filter` |             | `boolean`                                                      | `false`            |
+| `groups`       | --              |             | `GroupObject[]`                                                | `[]`               |
 | `paginatorPos` | `paginator-pos` |             | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP` | `PaginatorPos.TOP` |
 | `rowsPerPage`  | `rows-per-page` |             | `number`                                                       | `10`               |
 | `selectRow`    | `select-row`    |             | `number`                                                       | `undefined`        |

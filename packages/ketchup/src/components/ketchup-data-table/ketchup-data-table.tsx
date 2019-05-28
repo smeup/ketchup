@@ -17,6 +17,7 @@ import {
     Cell,
     TotalMode,
     GenericMap,
+    GroupObject,
 } from './ketchup-data-table-declarations';
 
 import numeral from 'numeral';
@@ -28,7 +29,7 @@ import moment from 'moment';
     shadow: true,
 })
 export class KetchupDataTable {
-    @Prop() data: { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    @Prop() data: { columns?: Array<Column>; rows?: Array<Row> };
 
     @Prop()
     showFilters = false;
@@ -71,6 +72,9 @@ export class KetchupDataTable {
     @Prop()
     selectRow: number;
 
+    @Prop()
+    groups: Array<GroupObject> = [];
+
     @State()
     private globalFilterValue = '';
 
@@ -82,6 +86,13 @@ export class KetchupDataTable {
 
     @State()
     private selectedRow: Row = null;
+
+    @State()
+    private groupState: {
+        [index: string]: {
+            expanded: boolean;
+        };
+    } = {};
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -114,15 +125,17 @@ export class KetchupDataTable {
     }
 
     private getColumns(): Array<Column> {
-        return this.data && this.data.data && this.data.data.columns
-            ? this.data.data.columns
+        return this.data && this.data.columns
+            ? this.data.columns
             : [{ title: '', name: '', size: 0 }];
     }
 
-    private getRows(): Array<any> {
-        return this.data && this.data.data && this.data.data.rows
-            ? this.data.data.rows
-            : [];
+    private getRows(): Array<Row> {
+        return this.data && this.data.rows ? this.data.rows : [];
+    }
+
+    private isGrouping() {
+        return this.groups && this.groups.length > 0;
     }
 
     private getFilteredRows(): Array<any> {
@@ -138,8 +151,8 @@ export class KetchupDataTable {
                 if (this.globalFilter) {
                     let found = false;
 
-                    for (let i = 0; i < this.data.data.columns.length; i++) {
-                        const c = this.data.data.columns[i];
+                    for (let i = 0; i < this.data.columns.length; i++) {
+                        const c = this.data.columns[i];
                         const cellValue = r.cells[c.name].value;
 
                         if (
@@ -250,7 +263,90 @@ export class KetchupDataTable {
         // resetting current page
         this.currentPage = 1;
 
-        this.globalFilter = event.detail.value;
+        this.globalFilterValue = event.detail.value;
+    }
+
+    private groupRows(rows: Array<any>): Array<any> {
+        if (!this.isGrouping()) {
+            return rows;
+        }
+
+        // creating root
+        const groupRows: Array<Row> = [];
+
+        this.getRows().forEach((row: Row) => {
+            // getting column name from first group
+            const columnName = this.groups[0].column;
+
+            // getting row value
+            const cellValue = row.cells[columnName].value;
+
+            // check in already in groupedRow
+            let groupRow: Row = null;
+            for (let i = 0; i < groupRows.length; i++) {
+                const currentGroupRow = groupRows[i];
+
+                if (currentGroupRow.group.label === cellValue) {
+                    groupRow = currentGroupRow;
+                    break;
+                }
+            }
+
+            if (groupRow === null) {
+                // create group row
+                groupRow = {
+                    group: {
+                        expanded: false,
+                        label: cellValue,
+                        children: [],
+                    },
+                    cells: {},
+                };
+
+                // add group to list
+                groupRows.push(groupRow);
+            }
+
+            // check if in groupState map
+            const isExpanded = this.groupState[cellValue]
+                ? this.groupState[cellValue].expanded
+                : false;
+
+            groupRow.group.expanded = isExpanded;
+
+            // add to groupState map
+            this.groupState[cellValue] = {
+                expanded: groupRow.group.expanded,
+            };
+
+            // adding row
+            groupRow.group.children.push(row);
+
+            // for (let i = 1; i < this.groups.length; i++) {
+            // const group = this.groups[i];
+
+            // // getting cell value
+            // const tempCellValue = r.cells[group.column].value;
+
+            // // check if group already exists
+            // let tempGroupingRow: Row = groupingRow.children[tempCellValue];
+
+            // if (!tempGroupingRow) {
+            //     tempGroupingRow = {
+            //         cells: {},
+            //         children: [],
+            //     };
+            //     groupingRow.children[tempCellValue] = tempGroupingRow;
+            // }
+
+            // groupingRow = tempGroupingRow;
+            // }
+
+            // adding row to current group
+            // groupingRow.children.push(r);
+        });
+
+        return groupRows;
     }
 
     private sortRows(rows: Array<any>): Array<any> {
@@ -396,11 +492,22 @@ export class KetchupDataTable {
         this.selectedRow = row;
     }
 
+    private onRowExpand(row: Row) {
+        // row should be a 'group' row
+        row.group.expanded = !row.group.expanded;
+
+        // updating group map
+        this.groupState[row.group.label].expanded = row.group.expanded;
+
+        // forcing rendering... meh
+        this.groupState = { ...this.groupState };
+    }
+
     // render methods
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
-        return this.getColumns().map((column) => {
+        const dataColumns = this.getColumns().map((column) => {
             // filter
             let filter = null;
             if (this.showFilters) {
@@ -461,6 +568,8 @@ export class KetchupDataTable {
                 </th>
             );
         });
+
+        return dataColumns;
     }
 
     renderFooter(
@@ -534,6 +643,64 @@ export class KetchupDataTable {
         return footer;
     }
 
+    private renderRow(row: Row, level = 0) {
+        if (row.group) {
+            let icon =
+                'mdi mdi-chevron-' + (row.group.expanded ? 'right' : 'down');
+
+            const jsxRows = [];
+
+            jsxRows.push(
+                <tr class="group">
+                    <td colSpan={this.getColumns().length}>
+                        <icon
+                            class={icon}
+                            onClick={() => this.onRowExpand(row)}
+                        />
+                        {row.group.label}
+                    </td>
+                </tr>
+            );
+
+            // if group is expanded, add children
+            if (row.group.expanded) {
+                row.group.children
+                    .map((r) => this.renderRow(r, level + 1))
+                    .forEach((jsxRow) => jsxRows.push(jsxRow));
+            }
+
+            // grouping row
+            return jsxRows;
+        } else {
+            const cells = this.getColumns().map(({ name }, index) => {
+                let indend = [];
+                if (index === 0) {
+                    for (let i = 0; i < level; i++) {
+                        indend.push(<span class="indent" />);
+                    }
+                }
+
+                return (
+                    <td>
+                        {indend}
+                        {row.cells[name].value}
+                    </td>
+                );
+            });
+
+            let rowClass = null;
+            if (this.selectedRow === row) {
+                rowClass = 'selected';
+            }
+
+            return (
+                <tr class={rowClass} onClick={() => this.onRowClick(row)}>
+                    {cells}
+                </tr>
+            );
+        }
+    }
+
     render() {
         // header
         const header = this.renderHeader();
@@ -548,8 +715,11 @@ export class KetchupDataTable {
         // 3) sort
         const sortedRows = this.sortRows(filteredRows);
 
+        // 3) grouping
+        const grouped = this.groupRows(sortedRows);
+
         // 4) pagination
-        const paginatedRows = this.paginateRows(sortedRows);
+        const paginatedRows = this.paginateRows(grouped);
 
         let rows = null;
         if (paginatedRows.length === 0) {
@@ -559,22 +729,7 @@ export class KetchupDataTable {
                 </tr>
             );
         } else {
-            rows = paginatedRows.map((row) => {
-                const cells = this.getColumns().map(({ name }) => {
-                    return <td>{row.cells[name].value}</td>;
-                });
-
-                let rowClass = null;
-                if (this.selectedRow === row) {
-                    rowClass = 'selected';
-                }
-
-                return (
-                    <tr class={rowClass} onClick={() => this.onRowClick(row)}>
-                        {cells}
-                    </tr>
-                );
-            });
+            rows = paginatedRows.map((row: Row) => this.renderRow(row));
         }
 
         let globalFilter = null;

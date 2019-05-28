@@ -13,16 +13,16 @@ h3 {
     <kup-data-table :data.prop="data"></kup-data-table>
 
     <h3>Columns width</h3>
-    <kup-data-table :data.prop="data" :config.prop="config1"></kup-data-table>
-
-    <h3>Without header</h3>
-    <kup-data-table :data.prop="data" :config.prop="config2"></kup-data-table>
-
-    <h3>Without grid</h3>
     <kup-data-table
       :data.prop="data"
-      :config.prop="{ showGrid: false }"
+      :columnsWidth.prop="columnsWidth"
     ></kup-data-table>
+
+    <h3>Without header</h3>
+    <kup-data-table :data.prop="data" :showHeader.prop="false"></kup-data-table>
+
+    <h3>Without grid</h3>
+    <kup-data-table :data.prop="data" :showGrid.prop="false"></kup-data-table>
   </div>
 </template>
 
@@ -37,21 +37,16 @@ export default {
       data: {
         ...defaultDataTable,
       },
-      config1: {
-        columnsWidth: [
-          {
-            column: 'FLD1',
-            width: 100,
-          },
-          {
-            column: 'FLD3',
-            width: 300,
-          },
-        ],
-      },
-      config2: {
-        showHeader: false,
-      },
+      columnsWidth: [
+        {
+          column: 'FLD1',
+          width: 100,
+        },
+        {
+          column: 'FLD3',
+          width: 300,
+        },
+      ],
     };
   },
 };

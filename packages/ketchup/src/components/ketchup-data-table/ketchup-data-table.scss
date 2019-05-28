@@ -57,6 +57,22 @@
             background-color: var(--int_hover-background-color);
           }
         }
+
+        // grouping
+        &.group {
+          icon {
+            cursor: pointer;
+            margin-right: 0.5rem;
+          }
+        }
+
+        > td {
+          .indent {
+            display: inline-block;
+            height: 1rem;
+            width: 2rem;
+          }
+        }
       }
     }
 

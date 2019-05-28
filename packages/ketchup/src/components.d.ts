@@ -20,6 +20,7 @@ import {
 import {
   Column,
   GenericMap,
+  GroupObject,
   PaginatorPos,
   Row,
   SortObject,
@@ -175,9 +176,10 @@ export namespace Components {
       column: string;
       width: number;
     }>;
-    'data': { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    'data': { columns?: Array<Column>; rows?: Array<Row> };
     'filters': GenericMap;
     'globalFilter': boolean;
+    'groups': Array<GroupObject>;
     'paginatorPos': PaginatorPos;
     'rowsPerPage': number;
     'selectRow': number;
@@ -195,9 +197,10 @@ export namespace Components {
       column: string;
       width: number;
     }>;
-    'data'?: { data?: { columns?: Array<Column>; rows?: Array<Row> } };
+    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
+    'groups'?: Array<GroupObject>;
     /**
     * When a row is selected
     */

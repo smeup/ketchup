@@ -10,6 +10,11 @@ export default [
     component: () => import('@/views/dataTable/DTFilters.vue'),
   },
   {
+    path: '/dataTable/groups',
+    name: 'dtGroups',
+    component: () => import('@/views/dataTable/DTGroups.vue'),
+  },
+  {
     path: '/dataTable/pagination',
     name: 'dtPag',
     component: () => import('@/views/dataTable/DTPagination.vue'),

@@ -31,501 +31,692 @@ function createDataForPagination(colSize: number, rowSize: number) {
   }
 
   return {
-    data: {
-      columns,
-      rows,
-    },
+    columns,
+    rows,
   };
 }
 
 export const defaultDataTable = {
-  data: {
-    columns: [
-      {
-        name: 'FLD1',
-        title: 'Column A',
-        size: '',
-      },
-      {
-        name: 'FLD2',
-        title: 'Column B',
-        size: 10,
-      },
-      {
-        name: 'FLD3',
-        title: 'Column C',
-        size: 10,
-      },
-      {
-        name: 'FLD4',
-        title: 'Column D',
-        size: 10,
-      },
-    ],
-    rows: [
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'CASFRA',
-            },
-            value: 'CASFRA',
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Column A',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Column B',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Column C',
+      size: 10,
+    },
+    {
+      name: 'FLD4',
+      title: 'Column D',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '10',
-            },
-            value: '10',
+          value: 'CASFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '100.60',
-            },
-            value: '100.60',
+          value: '10',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180101',
-            },
-            value: '01/01/2018',
+          value: '100.60',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180101',
           },
+          value: '01/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'DELGIO',
-            },
-            value: 'DELGIO',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '6',
-            },
-            value: '6',
+          value: 'DELGIO',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '67.8',
-            },
-            value: '67.8',
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180102',
-            },
-            value: '02/01/2018',
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
           },
+          value: '02/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'PARFRA',
-            },
-            value: 'PARFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '5',
-            },
-            value: '5',
+          value: 'PARFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '120.06',
-            },
-            value: '120.06',
+          value: '5',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '120.06',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180103',
-            },
-            value: '03/01/2018',
+          value: '120.06',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180103',
           },
+          value: '03/01/2018',
         },
       },
-    ],
-  },
+    },
+  ],
 };
 
 export const sortDataTable = {
-  data: {
-    columns: [
-      {
-        name: 'FLD1',
-        title: 'Column A',
-        size: '',
-      },
-      {
-        name: 'FLD2',
-        title: 'Column B',
-        size: 10,
-      },
-      {
-        name: 'FLD3',
-        title: 'Column C',
-        size: 10,
-      },
-      {
-        name: 'FLD4',
-        title: 'Column D',
-        size: 10,
-      },
-    ],
-    rows: [
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'CASFRA',
-            },
-            value: 'CASFRA',
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Column A',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Column B',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Column C',
+      size: 10,
+    },
+    {
+      name: 'FLD4',
+      title: 'Column D',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '10',
-            },
-            value: '10',
+          value: 'CASFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '100.60',
-            },
-            value: '100.60',
+          value: '10',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180101',
-            },
-            value: '01/01/2018',
+          value: '100.60',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180101',
           },
+          value: '01/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'DELGIO',
-            },
-            value: 'DELGIO',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '6',
-            },
-            value: '6',
+          value: 'DELGIO',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '67.8',
-            },
-            value: '67.8',
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180102',
-            },
-            value: '02/01/2018',
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
           },
+          value: '02/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'PARFRA',
-            },
-            value: 'PARFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '5',
-            },
-            value: '5',
+          value: 'PARFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '120.06',
-            },
-            value: '120.06',
+          value: '5',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '120.06',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180103',
-            },
-            value: '03/01/2018',
+          value: '120.06',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180103',
           },
+          value: '03/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'CASFRA',
-            },
-            value: 'CASFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '11',
-            },
-            value: '11',
+          value: 'CASFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '11',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '100.60',
-            },
-            value: '100.60',
+          value: '11',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180101',
-            },
-            value: '01/01/2018',
+          value: '100.60',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180101',
           },
+          value: '01/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'DELGIO',
-            },
-            value: 'DELGIO',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '7',
-            },
-            value: '7',
+          value: 'DELGIO',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '7',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '67.8',
-            },
-            value: '67.8',
+          value: '7',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180102',
-            },
-            value: '02/01/2018',
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
           },
+          value: '02/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'PARFRA',
-            },
-            value: 'PARFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '6',
-            },
-            value: '6',
+          value: 'PARFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '120.06',
-            },
-            value: '120.06',
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '120.06',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180103',
-            },
-            value: '03/01/2018',
+          value: '120.06',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180103',
           },
+          value: '03/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'CASFRA',
-            },
-            value: 'CASFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '12',
-            },
-            value: '12',
+          value: 'CASFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '12',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '100.60',
-            },
-            value: '100.60',
+          value: '12',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180101',
-            },
-            value: '01/01/2018',
+          value: '100.60',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180101',
           },
+          value: '01/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'DELGIO',
-            },
-            value: 'DELGIO',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '8',
-            },
-            value: '8',
+          value: 'DELGIO',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '8',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '67.8',
-            },
-            value: '67.8',
+          value: '8',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180102',
-            },
-            value: '02/01/2018',
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
           },
+          value: '02/01/2018',
         },
       },
-      {
-        cells: {
-          FLD1: {
-            obj: {
-              t: 'CN',
-              p: 'COL',
-              k: 'PARFRA',
-            },
-            value: 'PARFRA',
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
           },
-          FLD2: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '7',
-            },
-            value: '7',
+          value: 'PARFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '7',
           },
-          FLD3: {
-            obj: {
-              t: 'NR',
-              p: '',
-              k: '120.06',
-            },
-            value: '120.06',
+          value: '7',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '120.06',
           },
-          FLD4: {
-            obj: {
-              t: 'D8',
-              p: '*YYMD',
-              k: '20180103',
-            },
-            value: '03/01/2018',
+          value: '120.06',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180103',
           },
+          value: '03/01/2018',
         },
       },
-    ],
-  },
+    },
+  ],
 };
 
 export const paginateDataTable = createDataForPagination(20, 10000);
+
+export const groupDataTable = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Continent',
+      size: 99,
+    },
+    {
+      name: 'FLD2',
+      title: 'State',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Europe',
+          },
+          value: 'Europe',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Italy',
+          },
+          value: 'Italy',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Europe',
+          },
+          value: 'Europe',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'France',
+          },
+          value: 'France',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Europe',
+          },
+          value: 'Europe',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Spain',
+          },
+          value: 'Spain',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'America',
+          },
+          value: 'America',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'California',
+          },
+          value: 'California',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'America',
+          },
+          value: 'America',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Florida',
+          },
+          value: 'Florida',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'America',
+          },
+          value: 'America',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Texas',
+          },
+          value: 'Texas',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Asia',
+          },
+          value: 'Asia',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Japan',
+          },
+          value: 'Japan',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Asia',
+          },
+          value: 'Asia',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'China',
+          },
+          value: 'China',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Asia',
+          },
+          value: 'Asia',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'India',
+          },
+          value: 'India',
+        },
+      },
+    },
+  ],
+};

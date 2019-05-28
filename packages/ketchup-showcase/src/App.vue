@@ -32,6 +32,12 @@
             </v-list-tile-content>
           </v-list-tile>
 
+          <v-list-tile :to="{ name: 'dtGroups' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Grouping</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
           <v-list-tile :to="{ name: 'dtPag' }">
             <v-list-tile-content>
               <v-list-tile-title>Pagination</v-list-tile-title>
