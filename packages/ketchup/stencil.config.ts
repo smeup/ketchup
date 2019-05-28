@@ -6,6 +6,9 @@ export const config: Config = {
         {
             src: 'chart.html',
         },
+        {
+            src: 'dash.html',
+        },
     ],
     namespace: 'mycomponent',
     outputTargets: [

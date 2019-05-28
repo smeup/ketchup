@@ -1,0 +1,163 @@
+/**
+* @prop --dash_background-color, --kup-text-input_font-size: Set height of the font and the svg icon
+*/
+
+:host {
+  --dash_bkg-color: var(--kup-dash_background-color, #fff);
+  --dash_color: var(--kup-dash_color, #fff);
+  --dash_border-color: var(--kup-dash_border-color, transparent);
+}
+
+#dash {
+  background-color: var(--dash_bkg-color);
+  border: 1px solid var(--dash_border-color);
+  min-height: 170px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  position: relative;
+
+  #content {
+    margin: 2rem;
+
+    .icon {
+      margin: auto;
+      font-size: 4rem;
+    }
+
+    &.layout-1,
+    &.layout-3 {
+      text-align: center;
+
+      .descr {
+        font-size: 1.3rem;
+      }
+
+      .value {
+        font-size: 3rem;
+        padding: 0.5rem 0;
+      }
+    }
+
+    &.layout-2 {
+      > div {
+        display: flex;
+        font-size: 5rem;
+
+        .unit {
+          font-size: 3rem;
+          margin-top: auto;
+          margin-left: 1rem;
+          margin-bottom: 0.6rem;
+        }
+      }
+    }
+
+    &.layout-4 {
+      > div {
+        display: grid;
+        grid-template-columns: 0fr 0fr;
+        font-size: 5rem;
+
+        .value-and-unit {
+          display: flex;
+
+          .unit {
+            font-size: 3rem;
+            margin-top: auto;
+            margin-left: 1rem;
+            margin-bottom: 0.6rem;
+          }
+        }
+        .descr {
+          margin-left: 0.6rem;
+          text-align: left;
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    &.layout-5,
+    &.layout-7 {
+      > div {
+        display: flex;
+
+        .value {
+          font-size: 4rem;
+          margin-right: 0.6rem;
+        }
+
+        .descr {
+          margin-left: 0.3rem;
+          text-align: left;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    &.layout-5 {
+      .icon {
+        margin: 0;
+        margin-top: auto;
+      }
+    }
+
+    &.layout-7 {
+      .icon {
+        margin: 0;
+        margin-bottom: auto;
+      }
+    }
+
+    &.layout-6 {
+      > div {
+        display: flex;
+        justify-content: space-between;
+
+        .icon {
+          font-size: 5rem;
+          margin-right: 2rem;
+        }
+
+        .value {
+          font-size: 5rem;
+          text-align: right;
+        }
+
+        .descr {
+          margin-right: 0.3rem;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    &.layout-8 {
+      > div {
+        display: flex;
+        align-items: center;
+        font-size: 7.5rem;
+
+        .icon,
+        .descr {
+          font-size: 1.4rem;
+        }
+
+        .icon {
+          margin-right: 1.5rem;
+        }
+
+        .value {
+          margin-right: 1.2rem;
+        }
+
+        .descr {
+          text-align: left;
+          word-spacing: 10000px;
+        }
+      }
+    }
+  }
+}
