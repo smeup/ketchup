@@ -6,13 +6,16 @@ import {
     Method,
     Prop,
     State,
+    Watch,
 } from '@stencil/core';
 import { KetchupTextInputEvent } from './ketchup-text-input-declarations';
 
+import { debounceEvent } from '../../utils/helpers';
+
 @Component({
-    tag: 'ketchup-text-input',
+    tag: 'kup-text-input',
     styleUrl: 'ketchup-text-input.scss',
-    shadow: true
+    shadow: true,
 })
 export class KetchupTextInput {
     /**
@@ -33,8 +36,20 @@ export class KetchupTextInput {
      */
     @Prop() maxLength: number = 524288;
 
-    //-- Validating props --
+    /**
+     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+     */
+    @Prop() debounce = 400;
 
+    @Watch('debounce')
+    protected debounceChanged() {
+        this.ketchupTextInputUpdated = debounceEvent(
+            this.ketchupTextInputUpdated,
+            this.debounce
+        );
+    }
+
+    //-- Validating props --
 
     //---- Internal state ----
     @State() value: string = '';
@@ -50,6 +65,10 @@ export class KetchupTextInput {
     componentWillLoad() {
         // Sets initial value inside the element
         this.value = this.initialValue;
+    }
+
+    componentDidLoad() {
+        this.debounceChanged();
     }
 
     //---- Public Methods ----
@@ -82,7 +101,7 @@ export class KetchupTextInput {
         if (event.key === 'Enter') {
             event.preventDefault();
             this.ketchupTextInputSubmit.emit({
-                value: this.value
+                value: this.value,
             });
         }
     }
@@ -95,11 +114,11 @@ export class KetchupTextInput {
         eventName: 'ketchupTextInputBlurred',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
-    inputBlur: EventEmitter< KetchupTextInputEvent >;
+    inputBlur: EventEmitter<KetchupTextInputEvent>;
 
-    onInputBlurred(event: UIEvent & {target: HTMLInputElement}) {
+    onInputBlurred(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.inputBlur.emit({
             value: target.value,
@@ -115,11 +134,11 @@ export class KetchupTextInput {
         eventName: 'ketchupTextInputFocused',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
-    inputFocused: EventEmitter< KetchupTextInputEvent >;
+    inputFocused: EventEmitter<KetchupTextInputEvent>;
 
-    onInputFocused(event: UIEvent & {target: HTMLInputElement}) {
+    onInputFocused(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.inputFocused.emit({
             value: target.value,
@@ -135,7 +154,7 @@ export class KetchupTextInput {
         eventName: 'ketchupTextInputSubmit',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupTextInputSubmit: EventEmitter<{
         value: string;
@@ -148,11 +167,11 @@ export class KetchupTextInput {
         eventName: 'ketchupTextInputUpdated',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
-    ketchupTextInputUpdated: EventEmitter< KetchupTextInputEvent >;
+    ketchupTextInputUpdated: EventEmitter<KetchupTextInputEvent>;
 
-    onInputUpdated(event: UIEvent & {target: HTMLInputElement}) {
+    onInputUpdated(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.ketchupTextInputUpdated.emit({
             value: target.value,
@@ -165,12 +184,31 @@ export class KetchupTextInput {
     render() {
         const containerClass = this.classInputText + '__container';
 
+        let lbl = null;
+        if (this.label) {
+            lbl = <label htmlFor="ketchup-input">{this.label}</label>;
+        }
+
         return (
-            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}>
+            <div
+                class={
+                    containerClass +
+                    (this.isClearable
+                        ? ' ' + containerClass + '--clearable'
+                        : '')
+                }
+            >
+                {lbl}
                 <input
-                    class={this.classInputText + (this.isClearable ? ' ' + this.classInputText + '--clearable' : '')}
+                    id="ketchup-input"
+                    class={
+                        this.classInputText +
+                        (this.isClearable
+                            ? ' ' + this.classInputText + '--clearable'
+                            : '')
+                    }
                     maxlength={this.maxLength}
-                    ref={(el) => this.textInput = el as HTMLInputElement}
+                    ref={(el) => (this.textInput = el as HTMLInputElement)}
                     tabindex="0"
                     value={this.value}
                     onBlur={this.onInputBlurred.bind(this)}
@@ -178,18 +216,18 @@ export class KetchupTextInput {
                     onFocus={this.onInputFocused.bind(this)}
                     onKeyDown={this.onKeyDown.bind(this)}
                 />
-                {this.isClearable ?
+                {this.isClearable ? (
                     <button
                         aria-label="Close"
                         class={this.classInputText + '__clear'}
                         role="button"
-                        onClick={this.onClearClick.bind(this)}>
+                        onClick={this.onClearClick.bind(this)}
+                    >
                         <svg viewBox="0 0 24 24">
                             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                         </svg>
-                    </button>:
-                    null
-                }
+                    </button>
+                ) : null}
             </div>
         );
     }

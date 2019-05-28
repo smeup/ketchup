@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup data table</title>
+
+        <link
+            href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <script src="/build/mycomponent.js"></script>
+    </head>
+
+    <body>
+        <div class="data-examples">
+            <h1>No data</h1>
+            <kup-data-table></kup-data-table>
+
+            <h1>Only columns</h1>
+            <kup-data-table id="only-cols"></kup-data-table>
+
+            <h1>Columns and rows</h1>
+            <kup-data-table id="basic-data"></kup-data-table>
+        </div>
+
+        <div class="filter-examples">
+            <h1>Filters</h1>
+            <kup-data-table id="show-filter"></kup-data-table>
+
+            <h1>Filters with initial value</h1>
+            <kup-data-table id="filter"></kup-data-table>
+
+            <h1>Filters with global filter</h1>
+            <kup-data-table id="global-filter"></kup-data-table>
+        </div>
+
+        <div class="sort-examples">
+            <h1>Sort disabled</h1>
+            <kup-data-table id="no-sort"></kup-data-table>
+
+            <h1>DftSort</h1>
+            <p>
+                Sort ascending on first column, sort descending on second column
+            </p>
+            <kup-data-table id="dft-sort"></kup-data-table>
+        </div>
+
+        <div class="pagination-examples">
+            <h1>Pagination</h1>
+            <div>
+                <label for="cols">Number of columns</label>
+                <input id="cols" type="number" value="10" />
+
+                <label for="rows">Number of rows</label>
+                <input id="rows" type="number" value="100" />
+
+                <button type="button" onclick="updatePaginationTable()"
+                    >Submit</button
+                >
+            </div>
+            <kup-data-table id="pagination"></kup-data-table>
+
+            <h1>Pagination bottom</h1>
+            <kup-data-table id="pagination-bottom"></kup-data-table>
+
+            <h1>Pagination both</h1>
+            <kup-data-table id="pagination-both"></kup-data-table>
+        </div>
+
+        <h1>Custom columns width (Column A = 100px / Column C = 300px)</h1>
+        <kup-data-table id="custom-columns-width"></kup-data-table>
+
+        <h1>Hidden header</h1>
+        <kup-data-table id="hidden-header"></kup-data-table>
+
+        <h1>Hidden grid</h1>
+        <kup-data-table id="hidden-grid"></kup-data-table>
+
+        <h1>SelectRow</h1>
+        <kup-data-table id="select-row"></kup-data-table>
+
+        <script src="/assets/data-table.js"></script>
+    </body>
+</html>

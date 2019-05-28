@@ -1,89 +1,95 @@
 <template>
-    <!-- data-app attribute is MANDATORY to allow Vuetify to correctly install and work -->
-    <div id="app" data-app>
-        <div id="content">
-            <SmeupLabel
-                content="Test"
-                color="#CCCCCC"
-                align="center"
-                @click="onLabelClick"
-            />
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" fixed app>
+      <v-list dense>
+        <v-list-tile :to="{ path: '/' }">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
-            <SmeupFld
-                id="fld1"
-                type="Itx"
-                initialValue="asd"
-                label="InputText"
-                showSubmit
-                mobile
-                clearValue
-                @change="onFldChange"
-                @click="onFldClick"
-            />
+        <v-list-group>
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-list-tile-content>
+                <v-list-tile-title>Data Table</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
 
-            <SmeupMatrix
-                :filterable="true"
-                :sortable="true"
-                :grouping="false"
-                :data="data"
-                :selRecord="1"
-                @rowselected="onRowSelected"
-            />
-            <KetchupMatrix :content="matrixData">CIAO</KetchupMatrix>
+          <v-list-tile :to="{ name: 'dtBasic' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Basic</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
 
-            <ketchup-fld
-                id="fld1"
-                first="Runaways"
-                last="'Call me any time"
-            ></ketchup-fld>
-            <ketchup-button label="Sono bottone"></ketchup-button>
-            <ketchup-radio id="krg1"></ketchup-radio>
-            <ketchup-text-input
-                id="int1"
-                is-clearable
-                initial-value="ciao"
-            ></ketchup-text-input>
-            <ketchup-combo
-                initial-value="sono di prova"
-                is-clearable
-            ></ketchup-combo>
-        </div>
-    </div>
+          <v-list-tile :to="{ name: 'dtFilters' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Filters</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile :to="{ name: 'dtGroups' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Grouping</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile :to="{ name: 'dtPag' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Pagination</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile :to="{ name: 'dtRowSel' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Row selection</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile :to="{ name: 'dtSort' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Sort</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile :to="{ name: 'dtTotals' }">
+            <v-list-tile-content>
+              <v-list-tile-title>Totals</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-toolbar>
+
+    <v-content>
+      <v-container>
+        <v-fade-transition mode="out-in">
+          <router-view></router-view>
+        </v-fade-transition>
+      </v-container>
+    </v-content>
+
+    <v-footer color="indigo" app></v-footer>
+  </v-app>
 </template>
 
 <script>
-import importedData from './mock/dataTable';
-import importedMData from './mock/matrixData';
-
 export default {
-    name: 'app',
-    data() {
-        return {
-            data: importedData,
-        };
-    },
+  data: () => ({
+    drawer: null,
+  }),
 
-    methods: {
-        onFldChange() {
-            // TODO
-        },
-
-        onFldClick() {
-            // TODO
-        },
-        onLabelClick() {
-            console.log('Label click');
-        },
-        onRowSelected() {
-            console.log('Row selected');
-        }
-    },
-    computed: {
-        matrixData() {
-            return importedMData;
-        },
-    },
+  props: {
+    source: String,
+  },
 };
 </script>
-
-<style></style>

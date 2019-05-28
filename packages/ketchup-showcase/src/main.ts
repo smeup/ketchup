@@ -12,8 +12,11 @@ Vue.config.ignoredElements = [/[ketchup|app]-\w*/];
 // css
 import '@mdi/font/css/materialdesignicons.min.css';
 
+import router from './plugins/router';
+
 Vue.use(KetchupVue);
 
 const instance = new Vue({
-    render: (h) => h(App),
+  router,
+  render: (h) => h(App),
 }).$mount('#app');
