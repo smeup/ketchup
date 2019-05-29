@@ -3,7 +3,7 @@
 */
 
 :host {
-  --dash_bkg-color: var(--kup-dash_background-color, #fff);
+  --dash_bkg-color: var(--kup-dash_background-color, transparent);
   --dash_color: var(--kup-dash_color, #fff);
   --dash_border-color: var(--kup-dash_border-color, transparent);
 }
@@ -21,11 +21,11 @@
   position: relative;
 
   #content {
-    margin: 2rem;
+    margin: 3vw;
 
     .icon {
       margin: auto;
-      font-size: 4rem;
+      font-size: 6vw;
     }
 
     &.layout-1,
@@ -33,25 +33,29 @@
       text-align: center;
 
       .descr {
-        font-size: 1.3rem;
+        font-size: 2vw;
       }
 
       .value {
-        font-size: 3rem;
-        padding: 0.5rem 0;
+        font-size: 4.5vw;
+        padding: 0.75vw 0;
       }
     }
 
     &.layout-2 {
       > div {
         display: flex;
-        font-size: 5rem;
+        font-size: 7.5vw;
+
+        .value-dec,
+        .unit {
+          font-size: 5vw;
+          margin-top: auto;
+          margin-bottom: 0.6vw;
+        }
 
         .unit {
-          font-size: 3rem;
-          margin-top: auto;
-          margin-left: 1rem;
-          margin-bottom: 0.6rem;
+          margin-left: 1.5vw;
         }
       }
     }
@@ -59,23 +63,23 @@
     &.layout-4 {
       > div {
         display: grid;
-        grid-template-columns: 0fr 0fr;
-        font-size: 5rem;
+        grid-template-columns: 0fr 5fr;
+        font-size: 7.5vw;
 
         .value-and-unit {
           display: flex;
 
           .unit {
-            font-size: 3rem;
+            font-size: 5vw;
             margin-top: auto;
-            margin-left: 1rem;
-            margin-bottom: 0.6rem;
+            margin-left: 1.4vw;
+            margin-bottom: 0.8vw;
           }
         }
         .descr {
-          margin-left: 0.6rem;
+          margin-left: 0.8vw;
           text-align: left;
-          font-size: 1.5rem;
+          font-size: 2vw;
         }
       }
     }
@@ -86,14 +90,14 @@
         display: flex;
 
         .value {
-          font-size: 4rem;
-          margin-right: 0.6rem;
+          font-size: 6vw;
+          margin-right: 1vw;
         }
 
         .descr {
-          margin-left: 0.3rem;
+          margin-left: 0.5vw;
           text-align: left;
-          font-size: 1.3rem;
+          font-size: 2vw;
         }
       }
     }
@@ -118,18 +122,18 @@
         justify-content: space-between;
 
         .icon {
-          font-size: 5rem;
-          margin-right: 2rem;
+          font-size: 7.5vw;
+          margin-right: 2.5vw;
         }
 
         .value {
-          font-size: 5rem;
+          font-size: 7vw;
           text-align: right;
         }
 
         .descr {
-          margin-right: 0.3rem;
-          font-size: 1.3rem;
+          margin-right: 0.5vw;
+          font-size: 2vw;
         }
       }
     }
@@ -138,19 +142,19 @@
       > div {
         display: flex;
         align-items: center;
-        font-size: 7.5rem;
+        font-size: 7.5vw;
 
         .icon,
         .descr {
-          font-size: 1.4rem;
+          font-size: 2vw;
         }
 
         .icon {
-          margin-right: 1.5rem;
+          margin-right: 2vw;
         }
 
         .value {
-          margin-right: 1.2rem;
+          margin-right: 2vw;
         }
 
         .descr {
