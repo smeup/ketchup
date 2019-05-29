@@ -8,11 +8,12 @@
 
 :host {
   // variables
+  --int_main-background-color: var(--kup-data-table_background-color, #6aaaa7);
   --int_color: var(--kup-data-table_color, #111);
   --int_hover-color: var(--kup-data-table_hover-color, #545454);
   --int_hover-background-color: var(
     --kup-data-table_hover-background-color,
-    #f0f0f0
+    #e0e0e0
   );
 }
 
@@ -45,6 +46,12 @@
     th {
       input {
         display: block;
+      }
+    }
+
+    thead {
+      th {
+        position: relative;
       }
     }
 
@@ -89,4 +96,53 @@
 #globalFilter {
   margin-bottom: 0.5rem;
   text-align: center;
+}
+
+// grouping chips
+#group-chips {
+  display: flex;
+  margin-bottom: 0.5rem;
+
+  > .group-chip {
+    display: flex;
+    background-color: var(--int_main-background-color);
+    padding: 0.5rem;
+    color: white;
+    margin-right: 0.5rem;
+    cursor: pointer;
+
+    icon {
+      margin-right: 0.5rem;
+    }
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+// column menu
+.column-menu {
+  position: absolute;
+  // top: 0.5rem;
+  // left: -0.5rem;
+  z-index: 100;
+  background: white;
+  border: 1px solid #ccc;
+  font-weight: normal;
+
+  ul {
+    list-style-type: none;
+    margin: 0; // override browser default
+    padding: 0; // override browser default
+
+    > li {
+      padding: 0.5rem;
+      &:hover {
+        cursor: pointer;
+        background: var(--int_main-background-color);
+        color: white;
+      }
+    }
+  }
 }

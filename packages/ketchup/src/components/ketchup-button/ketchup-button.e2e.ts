@@ -7,32 +7,32 @@ const flat = 'flat-btn';
 const rounded = 'rounded';
 const transparent = 'transparent';
 
-describe('ketchup-button', () => {
+describe('kup-button', () => {
     it('renders', async () => {
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-button></ketchup-button>');
-        const element = await page.find('ketchup-button');
+        await page.setContent('<kup-button></kup-button>');
+        const element = await page.find('kup-button');
         expect(element).toHaveClass('hydrated');
     });
 
     it('testing default', async () => {
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-button></ketchup-button>');
+        await page.setContent('<kup-button></kup-button>');
 
         const buttonText = await page.find(
-            'ketchup-button >>> button .button-text'
+            'kup-button >>> button .button-text'
         );
         expect(buttonText).toBeNull();
 
         const buttonIcon = await page.find(
-            'ketchup-button >>> button .button-icon'
+            'kup-button >>> button .button-icon'
         );
         expect(buttonIcon).toBeNull();
 
         // testing default classes
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
 
         expect(button).toBeTruthy();
 
@@ -55,16 +55,16 @@ describe('ketchup-button', () => {
         const iconClass = 'mdi mdi-account';
 
         await page.setContent(
-            `<ketchup-button label="Pippo" icon-class="${iconClass}"></ketchup-button>`
+            `<kup-button label="Pippo" icon-class="${iconClass}"></kup-button>`
         );
 
         const buttonText = await page.find(
-            'ketchup-button >>> button .button-text'
+            'kup-button >>> button .button-text'
         );
         expect(buttonText).toEqualText('Pippo');
 
         const buttonIcon = await page.find(
-            'ketchup-button >>> button .button-icon'
+            'kup-button >>> button .button-icon'
         );
 
         expect(buttonIcon.className).toEqual('button-icon ' + iconClass);
@@ -73,9 +73,9 @@ describe('ketchup-button', () => {
     it('should be flat', async () => {
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-button flat></ketchup-button>');
+        await page.setContent('<kup-button flat></kup-button>');
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(flat);
     });
 
@@ -84,19 +84,19 @@ describe('ketchup-button', () => {
         const buttonClass = 'my-custom-class';
 
         await page.setContent(
-            `<ketchup-button button-class="${buttonClass}"></ketchup-button>`
+            `<kup-button button-class="${buttonClass}"></kup-button>`
         );
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(buttonClass);
     });
 
     it('has fillspace class', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<ketchup-button fillspace></ketchup-button>`);
+        await page.setContent(`<kup-button fillspace></kup-button>`);
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(fillspace);
     });
 
@@ -104,11 +104,11 @@ describe('ketchup-button', () => {
         const page = await newE2EPage();
 
         await page.setContent(
-            `<ketchup-button showtext="false" label="Pippo"></ketchup-button>`
+            `<kup-button showtext="false" label="Pippo"></kup-button>`
         );
 
         const buttonText = await page.find(
-            'ketchup-button >>> button .button-text'
+            'kup-button >>> button .button-text'
         );
         expect(buttonText).toBeNull();
     });
@@ -119,11 +119,11 @@ describe('ketchup-button', () => {
         const iconClass = 'mdi mdi-account';
 
         await page.setContent(
-            `<ketchup-button showicon="false" icon-class="${iconClass}"></ketchup-button>`
+            `<kup-button showicon="false" icon-class="${iconClass}"></kup-button>`
         );
 
         const buttonIcon = await page.find(
-            'ketchup-button >>> button .button-icon'
+            'kup-button >>> button .button-icon'
         );
         expect(buttonIcon).toBeNull();
     });
@@ -131,9 +131,9 @@ describe('ketchup-button', () => {
     it('should be rounded', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<ketchup-button rounded></ketchup-button>`);
+        await page.setContent(`<kup-button rounded></kup-button>`);
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(rounded);
     });
 
@@ -143,15 +143,15 @@ describe('ketchup-button', () => {
         const label = 'Pippo';
 
         await page.setContent(
-            `<ketchup-button label="${label}" textmode="Hint"></ketchup-button>`
+            `<kup-button label="${label}" textmode="Hint"></kup-button>`
         );
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).not.toBeNull();
         expect(button.getAttribute('title')).toEqual(label);
 
         const buttonText = await page.find(
-            'ketchup-button >>> button .button-text'
+            'kup-button >>> button .button-text'
         );
         expect(buttonText).toBeNull();
     });
@@ -159,40 +159,38 @@ describe('ketchup-button', () => {
     it('should be transparent', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<ketchup-button transparent></ketchup-button>`);
+        await page.setContent(`<kup-button transparent></kup-button>`);
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(transparent);
     });
 
     it('should be right aligned', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(
-            `<ketchup-button align="right"></ketchup-button>`
-        );
+        await page.setContent(`<kup-button align="right"></kup-button>`);
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(alignRight);
     });
 
     it('should be left aligned', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<ketchup-button align="left"></ketchup-button>`);
+        await page.setContent(`<kup-button align="left"></kup-button>`);
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).toHaveClass(alignLeft);
     });
 
     it.skip('should trigger click', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<ketchup-button data-id="2"></ketchup-button>`);
+        await page.setContent(`<kup-button data-id="2"></kup-button>`);
 
         const kupBtnClicked = await page.spyOnEvent('ketchupButtonClicked');
 
-        const button = await page.find('ketchup-button >>> button');
+        const button = await page.find('kup-button >>> button');
         expect(button).not.toBeNull();
 
         // TODO how to trigger click?

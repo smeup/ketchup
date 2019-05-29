@@ -18,7 +18,20 @@ h3 {
       @kupRowSelected="onRowSelect"
     ></kup-data-table>
 
-    <p>Selected row: {{ selectedRow }}</p>
+    <ul>
+      <li v-for="(row, index) in selectedRows" :key="index">
+        {{ row }}
+      </li>
+    </ul>
+
+    <h3>Multi selection</h3>
+    <kup-data-table
+      multi-selection
+      :data.prop="data"
+      :showFilters.prop="true"
+      :filters.prop="filters"
+      :sort.prop="sort"
+    ></kup-data-table>
   </div>
 </template>
 
@@ -34,7 +47,7 @@ export default {
         ...sortDataTable,
       },
       selectedRowIndex: 1,
-      selectedRow: null,
+      selectedRows: null,
       filters: {
         FLD1: 'fra',
       },
@@ -49,7 +62,7 @@ export default {
 
   methods: {
     onRowSelect({ detail }) {
-      this.selectedRow = detail;
+      this.selectedRows = detail;
     },
   },
 };

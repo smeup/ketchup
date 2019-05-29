@@ -23,11 +23,14 @@ h3 {
 
     <h3>Without grid</h3>
     <kup-data-table :data.prop="data" :showGrid.prop="false"></kup-data-table>
+
+    <h3>Cell style</h3>
+    <kup-data-table :data.prop="cellStyleData"></kup-data-table>
   </div>
 </template>
 
 <script>
-import { defaultDataTable } from '@/mock/dataTable';
+import { defaultDataTable, cellStyleDataTable } from '@/mock/dataTable';
 
 export default {
   name: 'dataTableBasic',
@@ -37,6 +40,7 @@ export default {
       data: {
         ...defaultDataTable,
       },
+      cellStyleData: { ...cellStyleDataTable },
       columnsWidth: [
         {
           column: 'FLD1',

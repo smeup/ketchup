@@ -7,16 +7,16 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 })
 export class KetchupPaginator {
     @Prop()
-    private max = 0;
+    max = 0;
 
     @Prop()
-    private perPage = 10;
+    perPage = 10;
 
     @Prop()
-    private selectedPerPage = 10;
+    selectedPerPage = 10;
 
     @Prop()
-    private currentPage = 1;
+    currentPage = 1;
 
     /**
      * When the current page change

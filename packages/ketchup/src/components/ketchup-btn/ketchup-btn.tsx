@@ -67,7 +67,7 @@ export class KetchupBtn {
 
                     return (
                         <td>
-                            <ketchup-button
+                            <kup-button
                                 iconUrl={this.config.iconUrl}
                                 label={btn.value}
                                 iconClass={btn.iconClass}

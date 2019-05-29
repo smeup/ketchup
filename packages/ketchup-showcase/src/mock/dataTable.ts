@@ -1,3 +1,11 @@
+const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
+
+const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
+
+function getRandomArbitrary(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 function createDataForPagination(colSize: number, rowSize: number) {
   const columns: any = [];
   for (let i = 0; i < colSize; i++) {
@@ -16,6 +24,7 @@ function createDataForPagination(colSize: number, rowSize: number) {
 
     for (let j = 0; j < columns.length; j++) {
       const cell: any = {};
+
       cell.value = i.toString() + j.toString();
 
       cell.obj = {
@@ -23,6 +32,14 @@ function createDataForPagination(colSize: number, rowSize: number) {
         p: '',
         k: cell.value,
       };
+
+      if (j === 0) {
+        cell.obj.t = '';
+        cell.value = fld1Values[getRandomArbitrary(0, 4)];
+      } else if (j === 1) {
+        cell.obj.t = '';
+        cell.value = fld2Values[getRandomArbitrary(0, 4)];
+      }
 
       currentRow.cells[columns[j].name] = cell;
     }
@@ -129,6 +146,172 @@ export const defaultDataTable = {
             k: '20180102',
           },
           value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
+          },
+          value: 'PARFRA',
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '5',
+          },
+          value: '5',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '120.06',
+          },
+          value: '120.06',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180103',
+          },
+          value: '03/01/2018',
+        },
+      },
+    },
+  ],
+};
+
+export const cellStyleDataTable = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Column A',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Column B',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Column C',
+      size: 10,
+    },
+    {
+      name: 'FLD4',
+      title: 'Column D',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
+          },
+          value: 'CASFRA',
+          style: {
+            backgroundColor: 'blue',
+            color: '#FFF',
+          },
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '10',
+          },
+          value: '10',
+          style: {
+            backgroundColor: 'blue',
+            color: '#FFF',
+          },
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
+          },
+          value: '100.60',
+          style: {
+            backgroundColor: 'blue',
+            color: '#FFF',
+          },
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180101',
+          },
+          value: '01/01/2018',
+          style: {
+            backgroundColor: 'blue',
+            color: 'yellow',
+            fontWeight: 'bold',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          style: {
+            fontWeight: 'bold',
+          },
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+          style: {
+            fontStyle: 'italic',
+            textAlign: 'center',
+          },
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+          style: {
+            backgroundColor: 'blue',
+            color: '#FFF',
+          },
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+          style: {
+            fontSize: '30px',
+          },
         },
       },
     },
@@ -524,199 +707,4 @@ export const sortDataTable = {
 
 export const paginateDataTable = createDataForPagination(20, 10000);
 
-export const groupDataTable = {
-  columns: [
-    {
-      name: 'FLD1',
-      title: 'Continent',
-      size: 99,
-    },
-    {
-      name: 'FLD2',
-      title: 'State',
-      size: 10,
-    },
-  ],
-  rows: [
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Europe',
-          },
-          value: 'Europe',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Italy',
-          },
-          value: 'Italy',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Europe',
-          },
-          value: 'Europe',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'France',
-          },
-          value: 'France',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Europe',
-          },
-          value: 'Europe',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Spain',
-          },
-          value: 'Spain',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'America',
-          },
-          value: 'America',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'California',
-          },
-          value: 'California',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'America',
-          },
-          value: 'America',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Florida',
-          },
-          value: 'Florida',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'America',
-          },
-          value: 'America',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Texas',
-          },
-          value: 'Texas',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Asia',
-          },
-          value: 'Asia',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Japan',
-          },
-          value: 'Japan',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Asia',
-          },
-          value: 'Asia',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'China',
-          },
-          value: 'China',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'Asia',
-          },
-          value: 'Asia',
-        },
-        FLD2: {
-          obj: {
-            t: '',
-            p: '',
-            k: 'India',
-          },
-          value: 'India',
-        },
-      },
-    },
-  ],
-};
+export const groupDataTable = createDataForPagination(10, 3000);

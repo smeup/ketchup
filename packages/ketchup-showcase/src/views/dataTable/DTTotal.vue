@@ -8,70 +8,36 @@ h3 {
   <div>
     <h1>Totals</h1>
 
-    <v-expansion-panel>
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Count</div>
-        </template>
+    <h3>Count on Column A and Column D</h3>
+    <kup-data-table
+      :data.prop="data"
+      :config.prop="config1"
+      :totals.prop="countTotals"
+    ></kup-data-table>
 
-        <div class="pa-3">
-          <p>Count on Column A and Column D</p>
-          <kup-data-table
-            :data.prop="data"
-            :config.prop="config1"
-            :totals.prop="countTotals"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
+    <h3>Sum on Column B and Column C</h3>
+    <kup-data-table
+      :data.prop="data"
+      :config.prop="config1"
+      :totals.prop="sumTotals"
+    ></kup-data-table>
 
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Sum</div>
-        </template>
+    <h3>Avarage on Column B and Column C</h3>
+    <kup-data-table
+      :data.prop="data"
+      :config.prop="config1"
+      :totals.prop="avgTotals"
+    ></kup-data-table>
 
-        <div class="pa-3">
-          <p>Sum on Column B and Column C</p>
-          <kup-data-table
-            :data.prop="data"
-            :config.prop="config1"
-            :totals.prop="sumTotals"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
-
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Avg</div>
-        </template>
-
-        <div class="pa-3">
-          <p>Avarage on Column B and Column C</p>
-          <kup-data-table
-            :data.prop="data"
-            :config.prop="config1"
-            :totals.prop="avgTotals"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
-
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Mixed</div>
-        </template>
-
-        <div class="pa-3">
-          <p
-            >Count on Column A, Sum on column B, Avg on Column C and count on
-            Column D</p
-          >
-          <kup-data-table
-            :data.prop="data"
-            :config.prop="config1"
-            :totals.prop="mixedTotals"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+    <h3
+      >Count on Column A, Sum on column B, Avg on Column C and count on Column
+      d</h3
+    >
+    <kup-data-table
+      :data.prop="data"
+      :config.prop="config1"
+      :totals.prop="mixedTotals"
+    ></kup-data-table>
   </div>
 </template>
 

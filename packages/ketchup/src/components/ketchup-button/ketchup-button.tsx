@@ -1,7 +1,7 @@
 import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
-    tag: 'ketchup-button',
+    tag: 'kup-button',
     styleUrl: 'ketchup-button.scss',
     shadow: true,
 })

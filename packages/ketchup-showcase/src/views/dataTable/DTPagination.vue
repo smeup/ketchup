@@ -6,49 +6,32 @@ h3 {
 
 <template>
   <div>
-    <h1>Sorting</h1>
+    <h1>Pagination</h1>
 
-    <v-expansion-panel>
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>20 rows per page (default is 10)</div>
-        </template>
+    <h3>20 rows per page (default is 10)</h3>
+    <div class="pa-3">
+      <kup-data-table
+        :data.prop="data"
+        :showFilter.prop="true"
+        :rowsPerPage.prop="20"
+      ></kup-data-table>
+    </div>
 
-        <div class="pa-3">
-          <kup-data-table
-            :data.prop="data"
-            :showFilter.prop="true"
-            :rowsPerPage.prop="20"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
+    <h3>Paginator bottom</h3>
+    <div class="pa-3">
+      <kup-data-table
+        :data.prop="data"
+        :paginatorPos.prop="'Bottom'"
+      ></kup-data-table>
+    </div>
 
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Paginator bottom</div>
-        </template>
-
-        <div class="pa-3">
-          <kup-data-table
-            :data.prop="data"
-            :paginatorPos.prop="'Bottom'"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
-
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>Paginator top and bottom</div>
-        </template>
-
-        <div class="pa-3">
-          <kup-data-table
-            :data.prop="data"
-            :paginatorPos.prop="'Both'"
-          ></kup-data-table>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+    <h3>Paginator top and bottom</h3>
+    <div class="pa-3">
+      <kup-data-table
+        :data.prop="data"
+        :paginatorPos.prop="'Both'"
+      ></kup-data-table>
+    </div>
   </div>
 </template>
 

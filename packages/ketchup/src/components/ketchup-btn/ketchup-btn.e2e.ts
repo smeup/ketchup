@@ -15,7 +15,7 @@ describe('ketchup-btn', () => {
 
         await page.setContent('<ketchup-btn></ketchup-btn>');
 
-        const buttons = await page.findAll('ketchup-btn >>> ketchup-button');
+        const buttons = await page.findAll('ketchup-btn >>> kup-button');
         expect(buttons).toHaveLength(0);
     });
 
@@ -46,11 +46,11 @@ describe('ketchup-btn', () => {
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];
 
-            const kupBtn = await row.find('ketchup-button');
+            const kupBtn = await row.find('kup-button');
 
             expect(kupBtn).toHaveClass('fillspace');
 
-            const button = await row.find('ketchup-button >>> button');
+            const button = await row.find('kup-button >>> button');
             expect(button).not.toBeNull();
 
             // testint text
@@ -99,11 +99,11 @@ describe('ketchup-btn', () => {
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];
 
-            const kupBtn = await row.find('ketchup-button');
+            const kupBtn = await row.find('kup-button');
 
             expect(kupBtn).toHaveClass('fillspace');
 
-            const button = await row.find('ketchup-button >>> button');
+            const button = await row.find('kup-button >>> button');
             expect(button).not.toBeNull();
 
             // testint text
@@ -157,7 +157,7 @@ describe('ketchup-btn', () => {
         expect(cells).toHaveLength(2);
 
         for (let i = 0; i < cells.length; i++) {
-            const kupBtn = await cells[i].find('ketchup-button');
+            const kupBtn = await cells[i].find('kup-button');
             expect(kupBtn).not.toBeNull();
         }
     });
@@ -204,7 +204,7 @@ describe('ketchup-btn', () => {
             expect(cells).toHaveLength(2);
 
             for (let j = 0; j < cells.length; j++) {
-                const kupBtn = await cells[j].find('ketchup-button');
+                const kupBtn = await cells[j].find('kup-button');
                 expect(kupBtn).not.toBeNull();
             }
         }
@@ -247,7 +247,7 @@ describe('ketchup-btn', () => {
         expect(cells).toHaveLength(2);
 
         for (let i = 0; i < cells.length; i++) {
-            const kupBtn = await cells[i].find('ketchup-button');
+            const kupBtn = await cells[i].find('kup-button');
             expect(kupBtn).not.toBeNull();
             expect(kupBtn).toHaveClass('fillspace');
         }
