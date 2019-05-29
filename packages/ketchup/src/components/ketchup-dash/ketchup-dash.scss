@@ -12,7 +12,7 @@
   background-color: var(--dash_bkg-color);
   border: 1px solid var(--dash_border-color);
   min-height: 170px;
-
+  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,11 +21,11 @@
   position: relative;
 
   #content {
-    margin: 3vw;
+    margin: 5%;
 
     .icon {
       margin: auto;
-      font-size: 6vw;
+      font-size: 90%;
     }
 
     &.layout-1,
@@ -33,29 +33,37 @@
       text-align: center;
 
       .descr {
-        font-size: 2vw;
+        font-size: 80%;
       }
 
       .value {
-        font-size: 4.5vw;
-        padding: 0.75vw 0;
+        font-size: 150%;
+        padding: 2% 0;
       }
     }
 
     &.layout-2 {
       > div {
         display: flex;
-        font-size: 7.5vw;
+
+        .icon {
+          margin: auto;
+          font-size: 200%;
+        }
+
+        .value-int {
+          font-size: 250%;
+        }
 
         .value-dec,
         .unit {
-          font-size: 5vw;
+          font-size: 130%;
           margin-top: auto;
-          margin-bottom: 0.6vw;
+          margin-bottom: 4%;
         }
 
         .unit {
-          margin-left: 1.5vw;
+          margin-left: 4%;
         }
       }
     }
@@ -64,22 +72,27 @@
       > div {
         display: grid;
         grid-template-columns: 0fr 5fr;
-        font-size: 7.5vw;
+
+        .icon {
+          margin: auto;
+          font-size: 200%;
+        }
 
         .value-and-unit {
           display: flex;
+          font-size: 250%;
 
           .unit {
-            font-size: 5vw;
+            font-size: 50%;
             margin-top: auto;
-            margin-left: 1.4vw;
-            margin-bottom: 0.8vw;
+            margin-left: 4%;
+            margin-bottom: 4%;
           }
         }
         .descr {
-          margin-left: 0.8vw;
+          margin-left: 4%;
           text-align: left;
-          font-size: 2vw;
+          font-size: 80%;
         }
       }
     }
@@ -90,29 +103,34 @@
         display: flex;
 
         .value {
-          font-size: 6vw;
-          margin-right: 1vw;
+          font-size: 200%;
         }
 
         .descr {
-          margin-left: 0.5vw;
+          margin-left: 4%;
           text-align: left;
-          font-size: 2vw;
+          font-size: 65%;
         }
       }
     }
 
     &.layout-5 {
       .icon {
+        font-size: 150%;
         margin: 0;
         margin-top: auto;
+        margin-left: 4%;
+        margin-bottom: 2%;
       }
     }
 
     &.layout-7 {
       .icon {
+        font-size: 150%;
         margin: 0;
         margin-bottom: auto;
+        margin-left: 4%;
+        margin-top: 4%;
       }
     }
 
@@ -122,18 +140,18 @@
         justify-content: space-between;
 
         .icon {
-          font-size: 7.5vw;
-          margin-right: 2.5vw;
+          font-size: 250%;
+          width: 10%;
         }
 
         .value {
-          font-size: 7vw;
+          font-size: 220%;
           text-align: right;
         }
 
         .descr {
-          margin-right: 0.5vw;
-          font-size: 2vw;
+          font-size: 80%;
+          text-align: right;
         }
       }
     }
@@ -142,22 +160,19 @@
       > div {
         display: flex;
         align-items: center;
-        font-size: 7.5vw;
-
-        .icon,
-        .descr {
-          font-size: 2vw;
-        }
 
         .icon {
-          margin-right: 2vw;
+          margin-right: 4%;
+          font-size: 75%;
         }
 
         .value {
-          margin-right: 2vw;
+          margin-right: 4%;
+          font-size: 250%;
         }
 
         .descr {
+          font-size: 60%;
           text-align: left;
           word-spacing: 10000px;
         }
