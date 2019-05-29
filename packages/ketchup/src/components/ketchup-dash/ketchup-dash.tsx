@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-dash',
@@ -8,6 +8,19 @@ import { Component, Prop } from '@stencil/core';
 export class KetchupDash {
     @Prop()
     layout = '1';
+
+    @Event({
+        eventName: 'ketchupDashClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    ketchupDashClicked: EventEmitter<{
+    }>;
+
+    onDshClickedHandler() {
+        this.ketchupDashClicked.emit();
+    }
 
     render() {
         let content = null;
@@ -163,7 +176,7 @@ export class KetchupDash {
         }
 
         return (
-            <div id="dash">
+            <div id="dash" onClick={() => this.onDshClickedHandler()}>
                 <div id="content" class={`layout-${this.layout}`}>
                     {content}
                 </div>
