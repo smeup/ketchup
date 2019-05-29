@@ -19,6 +19,7 @@
   position: relative;
   text-align: center;
   position: relative;
+  word-break: normal;
 
   #content {
     margin: 5%;
@@ -34,6 +35,7 @@
 
       .descr {
         font-size: 80%;
+        width: max-content;
       }
 
       .value {
@@ -48,7 +50,8 @@
 
         .icon {
           margin: auto;
-          font-size: 200%;
+          font-size: 100%;
+          margin-right: 10%;
         }
 
         .value-int {
@@ -75,7 +78,8 @@
 
         .icon {
           margin: auto;
-          font-size: 200%;
+          font-size: 100%;
+          margin-right: 10%;
         }
 
         .value-and-unit {
@@ -93,6 +97,7 @@
           margin-left: 4%;
           text-align: left;
           font-size: 80%;
+          width: max-content;
         }
       }
     }
@@ -107,9 +112,10 @@
         }
 
         .descr {
-          margin-left: 4%;
+          margin-left: 10%;
           text-align: left;
           font-size: 65%;
+          width: max-content;
         }
       }
     }
@@ -140,8 +146,8 @@
         justify-content: space-between;
 
         .icon {
-          font-size: 250%;
-          width: 10%;
+          font-size: 150%;
+          margin-right: 10%;
         }
 
         .value {
