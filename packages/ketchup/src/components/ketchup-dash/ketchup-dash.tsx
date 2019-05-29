@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-dash',
@@ -8,19 +8,6 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 export class KetchupDash {
     @Prop()
     layout = '1';
-
-    @Event({
-        eventName: 'ketchupDashClicked',
-        composed: true,
-        cancelable: true,
-        bubbles: true,
-    })
-    ketchupDashClicked: EventEmitter<{
-    }>;
-
-    onDshClickedHandler() {
-        this.ketchupDashClicked.emit();
-    }
 
     render() {
         let content = null;
@@ -66,8 +53,11 @@ export class KetchupDash {
                         </div>
 
                         <div class="value-and-unit">
-                            <div class="value">
-                                <slot name="value" />
+                            <div class="value-int">
+                                <slot name="value-int" />
+                            </div>
+                            <div class="value-dec">
+                                <slot name="value-dec" />
                             </div>
                             <div class="unit">
                                 <slot name="unit" />
@@ -176,7 +166,7 @@ export class KetchupDash {
         }
 
         return (
-            <div id="dash" onClick={() => this.onDshClickedHandler()}>
+            <div id="dash">
                 <div id="content" class={`layout-${this.layout}`}>
                     {content}
                 </div>
