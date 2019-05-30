@@ -9,6 +9,9 @@ export class KetchupDash {
     @Prop()
     layout = '1';
 
+    @Prop()
+    fontsize ='';
+
     render() {
         let content = null;
 
@@ -164,9 +167,10 @@ export class KetchupDash {
                 );
                 break;
         }
+        const style = {fontSize: this.fontsize};
 
         return (
-            <div id="dash">
+            <div id="dash" style={style}>
                 <div id="content" class={`layout-${this.layout}`}>
                     {content}
                 </div>

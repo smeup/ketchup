@@ -172,9 +172,11 @@ export namespace Components {
   }
 
   interface KupDash {
+    'fontsize': string;
     'layout': string;
   }
   interface KupDashAttributes extends StencilHTMLAttributes {
+    'fontsize'?: string;
     'layout'?: string;
   }
 
