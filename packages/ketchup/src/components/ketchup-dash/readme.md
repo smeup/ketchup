@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default |
-| -------- | --------- | ----------- | -------- | ------- |
-| `layout` | `layout`  |             | `string` | `'1'`   |
+| Property   | Attribute  | Description | Type     | Default |
+| ---------- | ---------- | ----------- | -------- | ------- |
+| `fontsize` | `fontsize` |             | `string` | `''`    |
+| `layout`   | `layout`   |             | `string` | `'1'`   |
 
 
 ## CSS Custom Properties
