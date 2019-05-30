@@ -84,12 +84,15 @@
 
         .value-and-unit {
           display: flex;
-          font-size: 250%;
 
+          .value-int {
+            font-size: 250%;
+          }
+
+          .value-dec,
           .unit {
-            font-size: 50%;
+            font-size: 130%;
             margin-top: auto;
-            margin-left: 4%;
             margin-bottom: 4%;
           }
         }
