@@ -178,6 +178,8 @@ export namespace Components {
   interface KupDashAttributes extends StencilHTMLAttributes {
     'fontsize'?: string;
     'layout'?: string;
+    'onKetchupDashClicked'?: (event: CustomEvent<{
+    }>) => void;
   }
 
   interface KupDataTable {
@@ -430,6 +432,10 @@ export namespace Components {
     */
     'displayedField': string;
     /**
+    * Allows to pass an initial selected item for the Radio group
+    */
+    'initialValue': KetchupRadioElement;
+    /**
     * Radio elements to display
     */
     'items': KetchupRadioElement[];
@@ -455,6 +461,10 @@ export namespace Components {
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the Radio group
+    */
+    'initialValue'?: KetchupRadioElement;
     /**
     * Radio elements to display
     */

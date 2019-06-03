@@ -82,6 +82,7 @@
         <ketchup-fld id="kfld-2"></ketchup-fld>
         <ketchup-fld id="kfld-3"></ketchup-fld>
         <ketchup-fld id="kfld-4"></ketchup-fld>
+        <ketchup-fld id="fld-radio-initialValue"></ketchup-fld>
 
         <script>
             let once = true;
@@ -217,8 +218,15 @@
                     fld_2.config = {
                         type: 'rad',
                         displayedField: 'obj',
-                        initialValue: { value: 'PRV123' },
+                        initialValue: {
+                            value: 'label bottone #4',
+                            options: true,
+                            obj: 'J4KEY',
+                            iconClass: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                            children: [],
+                        },
                         showSubmit: true,
+                        valueField: 'obj'
                     };
                     fld_2.data = [
                         {
@@ -292,6 +300,31 @@
                     fld_4.addEventListener('ketchupFldSubmit', (payload) => {
                         console.log('Text FLD submit', payload);
                     });
+
+                    // Radio FLD
+                    const fldRadioInitial = document.querySelector('#fld-radio-initialValue');
+                    fldRadioInitial.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Radio FLD change', payload);
+                    });
+                    fldRadioInitial.config = {
+                        "type": "rad",
+                        "showSubmit": false,
+                        "valueField": "value",
+                        "displayedField": "value",
+                        "extensions": {
+                            "minQueryLength": 4,
+                            "forceSelection": true
+                        },
+                        "initialValue": {
+                            "value": "PRVSHO"
+                        }
+                    };
+                    fldRadioInitial.data = [
+                        { value: 'PRVSHO' },
+                        { value: 'PRV123' },
+                        { value: 'PRV456' },
+                    ];
+
                 }
             }, 5000);
         </script>
