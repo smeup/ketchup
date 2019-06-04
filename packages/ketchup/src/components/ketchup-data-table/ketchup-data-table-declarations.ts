@@ -10,9 +10,12 @@ export interface Row {
     };
 
     group?: {
+        parent: Row;
+        column: string;
         expanded: boolean;
         label: string;
         children: Array<Row>;
+        totals: { [index: string]: number };
     };
 }
 
@@ -23,6 +26,7 @@ export interface Cell {
         k: string;
     };
     value: string;
+    style?: GenericMap;
 }
 
 export interface GenericMap {
@@ -37,6 +41,10 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export interface TotalsMap {
+    [index: string]: TotalMode;
 }
 
 export enum TotalMode {

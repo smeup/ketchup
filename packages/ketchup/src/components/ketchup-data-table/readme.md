@@ -7,29 +7,30 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type                                                           | Default            |
-| -------------- | --------------- | ----------- | -------------------------------------------------------------- | ------------------ |
-| `columnsWidth` | --              |             | `{ column: string; width: number; }[]`                         | `[]`               |
-| `data`         | --              |             | `{ columns?: Column[]; rows?: Row[]; }`                        | `undefined`        |
-| `filters`      | --              |             | `GenericMap`                                                   | `{}`               |
-| `globalFilter` | `global-filter` |             | `boolean`                                                      | `false`            |
-| `groups`       | --              |             | `GroupObject[]`                                                | `[]`               |
-| `paginatorPos` | `paginator-pos` |             | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP` | `PaginatorPos.TOP` |
-| `rowsPerPage`  | `rows-per-page` |             | `number`                                                       | `10`               |
-| `selectRow`    | `select-row`    |             | `number`                                                       | `undefined`        |
-| `showFilters`  | `show-filters`  |             | `boolean`                                                      | `false`            |
-| `showGrid`     | `show-grid`     |             | `boolean`                                                      | `true`             |
-| `showHeader`   | `show-header`   |             | `boolean`                                                      | `true`             |
-| `sort`         | --              |             | `SortObject[]`                                                 | `[]`               |
-| `sortEnabled`  | `sort-enabled`  |             | `boolean`                                                      | `true`             |
-| `totals`       | --              |             | `{ [index: string]: TotalMode; }`                              | `undefined`        |
+| Property         | Attribute         | Description | Type                                                           | Default            |
+| ---------------- | ----------------- | ----------- | -------------------------------------------------------------- | ------------------ |
+| `columnsWidth`   | --                |             | `{ column: string; width: number; }[]`                         | `[]`               |
+| `data`           | --                |             | `{ columns?: Column[]; rows?: Row[]; }`                        | `undefined`        |
+| `filters`        | --                |             | `GenericMap`                                                   | `{}`               |
+| `globalFilter`   | `global-filter`   |             | `boolean`                                                      | `false`            |
+| `groups`         | --                |             | `GroupObject[]`                                                | `[]`               |
+| `multiSelection` | `multi-selection` |             | `boolean`                                                      | `false`            |
+| `paginatorPos`   | `paginator-pos`   |             | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP` | `PaginatorPos.TOP` |
+| `rowsPerPage`    | `rows-per-page`   |             | `number`                                                       | `10`               |
+| `selectRow`      | `select-row`      |             | `number`                                                       | `undefined`        |
+| `showFilters`    | `show-filters`    |             | `boolean`                                                      | `false`            |
+| `showGrid`       | `show-grid`       |             | `boolean`                                                      | `true`             |
+| `showHeader`     | `show-header`     |             | `boolean`                                                      | `true`             |
+| `sort`           | --                |             | `SortObject[]`                                                 | `[]`               |
+| `sortEnabled`    | `sort-enabled`    |             | `boolean`                                                      | `true`             |
+| `totals`         | --                |             | `TotalsMap`                                                    | `undefined`        |
 
 
 ## Events
 
-| Event            | Description            | Type                        |
-| ---------------- | ---------------------- | --------------------------- |
-| `kupRowSelected` | When a row is selected | `CustomEvent<{ row: Row }>` |
+| Event            | Description            | Type                      |
+| ---------------- | ---------------------- | ------------------------- |
+| `kupRowSelected` | When a row is selected | `CustomEvent<Array<Row>>` |
 
 
 ## CSS Custom Properties

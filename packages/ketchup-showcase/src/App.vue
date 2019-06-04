@@ -20,45 +20,13 @@
             </v-list-tile>
           </template>
 
-          <v-list-tile :to="{ name: 'dtBasic' }">
+          <v-list-tile
+            v-for="tile in dataTableTiles"
+            :key="tile.title"
+            :to="tile.to"
+          >
             <v-list-tile-content>
-              <v-list-tile-title>Basic</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtFilters' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Filters</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtGroups' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Grouping</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtPag' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Pagination</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtRowSel' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Row selection</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtSort' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Sort</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile :to="{ name: 'dtTotals' }">
-            <v-list-tile-content>
-              <v-list-tile-title>Totals</v-list-tile-title>
+              <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list-group>
@@ -86,6 +54,50 @@
 export default {
   data: () => ({
     drawer: null,
+    dataTableTiles: [
+      {
+        title: 'Basic',
+        to: {
+          name: 'dtBasic',
+        },
+      },
+      {
+        title: 'Filters',
+        to: {
+          name: 'dtFilters',
+        },
+      },
+      {
+        title: 'Grouping',
+        to: {
+          name: 'dtGroups',
+        },
+      },
+      {
+        title: 'Pagination',
+        to: {
+          name: 'dtPag',
+        },
+      },
+      {
+        title: 'Row selection',
+        to: {
+          name: 'dtRowSel',
+        },
+      },
+      {
+        title: 'Sort',
+        to: {
+          name: 'dtSort',
+        },
+      },
+      {
+        title: 'Totals',
+        to: {
+          name: 'dtTotals',
+        },
+      },
+    ],
   }),
 
   props: {

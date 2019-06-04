@@ -14,14 +14,17 @@ import {
     SortMode,
     SortObject,
     Row,
-    Cell,
-    TotalMode,
     GenericMap,
     GroupObject,
+    TotalsMap,
 } from './ketchup-data-table-declarations';
 
-import numeral from 'numeral';
-import moment from 'moment';
+import {
+    calcTotals,
+    filterRows,
+    groupRows,
+    sortRows,
+} from './ketchup-data-table-helper';
 
 @Component({
     tag: 'kup-data-table',
@@ -38,9 +41,7 @@ export class KetchupDataTable {
     filters: GenericMap = {};
 
     @Prop()
-    totals: {
-        [index: string]: TotalMode;
-    };
+    totals: TotalsMap;
 
     @Prop()
     globalFilter = false;
@@ -72,8 +73,11 @@ export class KetchupDataTable {
     @Prop()
     selectRow: number;
 
-    @Prop()
+    @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
+
+    @Prop()
+    multiSelection = false;
 
     @State()
     private globalFilterValue = '';
@@ -85,7 +89,7 @@ export class KetchupDataTable {
     private currentRowsPerPage = 10;
 
     @State()
-    private selectedRow: Row = null;
+    private selectedRows: Array<Row> = null;
 
     @State()
     private groupState: {
@@ -94,10 +98,18 @@ export class KetchupDataTable {
         };
     } = {};
 
+    /**
+     * name of the column with an open menu
+     */
+    @State()
+    private openedMenu: string = null;
+
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
     }
+
+    private renderedRows: Array<Row> = [];
 
     /**
      * When a row is selected
@@ -108,7 +120,7 @@ export class KetchupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupRowSelected: EventEmitter<{ row: Row }>;
+    kupRowSelected: EventEmitter<Array<Row>>;
 
     // lifecycle
     componentWillLoad() {
@@ -118,8 +130,9 @@ export class KetchupDataTable {
             const sortedRows = this.sortRows(this.getFilteredRows());
 
             if (this.selectRow <= sortedRows.length) {
-                this.selectedRow = sortedRows[this.selectRow - 1];
-                this.kupRowSelected.emit({ row: this.selectedRow });
+                this.selectedRows = [];
+                this.selectedRows.push(sortedRows[this.selectRow - 1]);
+                this.kupRowSelected.emit(this.selectedRows);
             }
         }
     }
@@ -130,76 +143,97 @@ export class KetchupDataTable {
             : [{ title: '', name: '', size: 0 }];
     }
 
+    private getVisibleColumns(): Array<Column> {
+        const columns = this.getColumns();
+
+        // check grouping
+        if (this.isGrouping()) {
+            // filtering column based on group visibility
+            return columns.filter((column) => {
+                // check if in group
+                let group = null;
+                for (let currentGroup of this.groups) {
+                    if (currentGroup.column === column.name) {
+                        group = currentGroup;
+                        break;
+                    }
+                }
+
+                if (group) {
+                    // return true if
+                    // 1) group obj has not the 'visible' property or
+                    // 2) group has 'visible' property and it is true
+                    return !group.hasOwnProperty('visible') || group.visible;
+                }
+
+                // not in group -> visible
+                return true;
+            });
+        }
+
+        return columns;
+    }
+
+    private getColumnByName(name: string): Column {
+        for (let column of this.getColumns()) {
+            if (column.name === name) {
+                return column;
+            }
+        }
+
+        return null;
+    }
+
+    private getGroupByName(column: string): GroupObject {
+        if (!this.isGrouping()) {
+            return null;
+        }
+
+        for (let group of this.groups) {
+            if (group.column === column) {
+                return group;
+            }
+        }
+
+        return null;
+    }
+
     private getRows(): Array<Row> {
         return this.data && this.data.rows ? this.data.rows : [];
+    }
+
+    private getFilteredRows(): Array<any> {
+        return filterRows(
+            this.getRows(),
+            this.filters,
+            this.globalFilterValue,
+            this.getVisibleColumns().map((c) => c.name)
+        );
     }
 
     private isGrouping() {
         return this.groups && this.groups.length > 0;
     }
 
-    private getFilteredRows(): Array<any> {
-        if (
-            (this.filters && Object.keys(this.filters).length > 0) ||
-            this.globalFilter
-        ) {
-            const keys = Object.keys(this.filters);
+    private removeGroup(group: GroupObject) {
+        const index = this.groups.indexOf(group);
 
-            // filtering rows
-            return this.getRows().filter((r: Row) => {
-                // check global filter
-                if (this.globalFilter) {
-                    let found = false;
+        if (index >= 0) {
+            // removing group from prop
+            this.groups.splice(index, 1);
+            this.groups = [...this.groups];
 
-                    for (let i = 0; i < this.data.columns.length; i++) {
-                        const c = this.data.columns[i];
-                        const cellValue = r.cells[c.name].value;
-
-                        if (
-                            cellValue
-                                .toLowerCase()
-                                .includes(
-                                    this.globalFilterValue.toLocaleLowerCase()
-                                )
-                        ) {
-                            found = true;
-                            break;
-                        }
-                    }
-
-                    if (!found) {
-                        return false;
-                    }
-                }
-
-                return (
-                    keys.filter((key) => {
-                        const filterValue = this.filters[key];
-
-                        // getting cell value
-                        const cellValue = r.cells[key];
-                        if (!cellValue || !cellValue.value) {
-                            return false;
-                        }
-
-                        if (
-                            cellValue.value
-                                .toLowerCase()
-                                .includes(filterValue.toLowerCase())
-                        ) {
-                            return true;
-                        }
-                    }).length === keys.length
-                );
-            });
+            // resetting group state
+            this.groupState = {};
         }
-
-        return this.getRows();
     }
 
-    private onColumnSort(e: MouseEvent) {
-        const columnName: string = (e.target as HTMLElement).dataset.col;
+    private hasTotals() {
+        return this.totals && Object.keys(this.totals).length > 0;
+    }
 
+    // event listeners
+    private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
         for (; i < this.sort.length; i++) {
@@ -219,7 +253,7 @@ export class KetchupDataTable {
                     sortObj.sortMode === SortMode.A ? SortMode.D : SortMode.A,
             };
 
-            if (e.ctrlKey) {
+            if (ctrlKey) {
                 const newSort = [...this.sort];
                 newSort[i] = newSortObj;
                 this.sort = newSort;
@@ -234,7 +268,7 @@ export class KetchupDataTable {
 
             // if CTRL is pressed, push to array
             // else, replace current array
-            if (e.ctrlKey) {
+            if (ctrlKey) {
                 this.sort = [...this.sort, sortObj];
             } else {
                 this.sort = [sortObj];
@@ -242,217 +276,175 @@ export class KetchupDataTable {
         }
     }
 
-    private onFilterChange(event: CustomEvent) {
+    private onFilterChange({ detail }, column: string) {
         // resetting current page
         this.currentPage = 1;
 
-        // getting column name from data-col
-        const columnName = (event.target as HTMLElement).dataset.col;
-
         const newFilters = { ...this.filters };
-        if (event.detail.value.length === 0) {
-            delete newFilters[columnName];
+        if (detail.value.length === 0) {
+            delete newFilters[column];
         } else {
-            newFilters[columnName] = event.detail.value;
+            newFilters[column] = detail.value;
         }
 
         this.filters = newFilters;
     }
 
-    private onGlobalFilterChange(event: CustomEvent) {
+    private onGlobalFilterChange({ detail }) {
         // resetting current page
         this.currentPage = 1;
 
-        this.globalFilterValue = event.detail.value;
+        this.globalFilterValue = detail.value;
     }
 
-    private groupRows(rows: Array<any>): Array<any> {
+    private handlePageChanged({ detail }) {
+        this.currentPage = detail.newPage;
+    }
+
+    private handleRowsPerPageChanged({ detail }) {
+        this.currentRowsPerPage = detail.newRowsPerPage;
+    }
+
+    private onRowClick({ ctrlKey }, row: Row) {
+        if (this.multiSelection) {
+            if (ctrlKey && this.selectedRows) {
+                const index = this.selectedRows.indexOf(row);
+
+                if (index < 0) {
+                    // adding
+                    this.selectedRows = [...this.selectedRows, row];
+                } else {
+                    // removing
+                    this.selectedRows.splice(index, 1);
+                    this.selectedRows = [...this.selectedRows];
+                }
+            } else {
+                this.selectedRows = [row];
+            }
+        } else {
+            this.selectedRows = [row];
+        }
+
+        this.kupRowSelected.emit(this.selectedRows);
+    }
+
+    private onRowCheckboxSelection({ target }, row: Row) {
+        if (target.checked) {
+            if (this.selectedRows) {
+                this.selectedRows = [...this.selectedRows, row];
+            } else {
+                this.selectedRows = [row];
+            }
+
+            this.kupRowSelected.emit(this.selectedRows);
+        } else {
+            const index = this.selectedRows.indexOf(row);
+
+            if (index >= 0) {
+                this.selectedRows.splice(index, 1);
+                this.selectedRows = [...this.selectedRows];
+            }
+        }
+    }
+
+    private onRowExpand(row: Row) {
+        // row should be a 'group' row
+        row.group.expanded = !row.group.expanded;
+
+        // updating group map
+        this.groupState[row.group.label].expanded = row.group.expanded;
+
+        // changing group state to trigger rendering
+        this.groupState = { ...this.groupState };
+    }
+
+    private onSelectAll({ target }) {
+        if (target.checked) {
+            // select all rows
+            this.selectedRows = this.renderedRows;
+        } else {
+            // deselect all rows
+            this.selectedRows = [];
+        }
+    }
+
+    private onColumnMouseOver(column: string) {
+        this.openedMenu = column;
+    }
+
+    private onColumnMouseLeave(column: string) {
+        if (this.openedMenu === column) {
+            this.openedMenu = null;
+        }
+    }
+
+    private switchColumnGroup(group: GroupObject, column: string) {
+        // resetting opened menu
+        this.openedMenu = null;
+
+        if (group !== null) {
+            // remove from grouping
+            const index = this.groups.indexOf(group);
+            this.groups.splice(index, 1);
+            this.groups = [...this.groups];
+
+            // reset group state
+            this.groupState = {};
+        } else {
+            // add to groups
+            this.groups = [...this.groups, { column, visible: true }];
+
+            // reset group state
+            this.groupState = {};
+        }
+    }
+
+    // utility methods
+    private groupRows(rows: Array<any>): Array<Row> {
         if (!this.isGrouping()) {
             return rows;
         }
 
-        // creating root
-        const groupRows: Array<Row> = [];
+        const groupedRows = groupRows(rows, this.groups, this.totals);
 
-        this.getRows().forEach((row: Row) => {
-            // getting column name from first group
-            const columnName = this.groups[0].column;
+        this.adjustGroupState(groupedRows);
 
-            // getting row value
-            const cellValue = row.cells[columnName].value;
+        return groupedRows;
+    }
 
-            // check in already in groupedRow
-            let groupRow: Row = null;
-            for (let i = 0; i < groupRows.length; i++) {
-                const currentGroupRow = groupRows[i];
+    private adjustGroupState(rows: Array<Row>): void {
+        if (!rows || rows.length === 0 || !rows[0].hasOwnProperty('group')) {
+            // no grouping
+            return;
+        }
 
-                if (currentGroupRow.group.label === cellValue) {
-                    groupRow = currentGroupRow;
-                    break;
-                }
-            }
+        rows.forEach((r) => this.adjustGroupStateFromRow(r));
+    }
 
-            if (groupRow === null) {
-                // create group row
-                groupRow = {
-                    group: {
-                        expanded: false,
-                        label: cellValue,
-                        children: [],
-                    },
-                    cells: {},
-                };
+    private adjustGroupStateFromRow(row: Row): void {
+        if (!row || !row.hasOwnProperty('group')) {
+            // not a groping row, nothing to do
+            return;
+        }
 
-                // add group to list
-                groupRows.push(groupRow);
-            }
+        const group = row.group;
 
-            // check if in groupState map
-            const isExpanded = this.groupState[cellValue]
-                ? this.groupState[cellValue].expanded
-                : false;
+        // check if already in group state
+        let groupFromState = this.groupState[group.label];
 
-            groupRow.group.expanded = isExpanded;
+        if (!groupFromState) {
+            // add to state
+            this.groupState[group.label] = group;
+        } else {
+            // update expanded
+            group.expanded = groupFromState.expanded;
+        }
 
-            // add to groupState map
-            this.groupState[cellValue] = {
-                expanded: groupRow.group.expanded,
-            };
-
-            // adding row
-            groupRow.group.children.push(row);
-
-            // for (let i = 1; i < this.groups.length; i++) {
-            // const group = this.groups[i];
-
-            // // getting cell value
-            // const tempCellValue = r.cells[group.column].value;
-
-            // // check if group already exists
-            // let tempGroupingRow: Row = groupingRow.children[tempCellValue];
-
-            // if (!tempGroupingRow) {
-            //     tempGroupingRow = {
-            //         cells: {},
-            //         children: [],
-            //     };
-            //     groupingRow.children[tempCellValue] = tempGroupingRow;
-            // }
-
-            // groupingRow = tempGroupingRow;
-            // }
-
-            // adding row to current group
-            // groupingRow.children.push(r);
-        });
-
-        return groupRows;
+        group.children.forEach((child) => this.adjustGroupStateFromRow(child));
     }
 
     private sortRows(rows: Array<any>): Array<any> {
-        if (this.sort.length === 0) {
-            // no sort -> return rows as they are
-            return rows;
-        }
-
-        // check multiple sort
-        const isMultiSort = this.sort.length > 1;
-
-        // sorting rows
-        return rows.sort((r1: Row, r2: Row) => {
-            if (isMultiSort) {
-                for (let i = 0; i < this.sort.length; i++) {
-                    const sortObj = this.sort[i];
-
-                    const cell1: Cell = r1.cells[sortObj.column];
-                    const cell2: Cell = r2.cells[sortObj.column];
-
-                    const compare = this.compareCell(
-                        cell1,
-                        cell2,
-                        sortObj.sortMode
-                    );
-
-                    if (compare !== 0) {
-                        return compare;
-                    }
-                }
-
-                // same row
-                return 0;
-            } else {
-                const sortObj = this.sort[0];
-
-                const cell1: Cell = r1.cells[sortObj.column];
-                const cell2: Cell = r2.cells[sortObj.column];
-
-                return this.compareCell(cell1, cell2, sortObj.sortMode);
-            }
-        });
-    }
-
-    private compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
-        const sm = sortMode === 'A' ? 1 : -1;
-
-        const obj1 = cell1.obj;
-        const obj2 = cell2.obj;
-
-        if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
-            let compare = obj1.t.localeCompare(obj2.t);
-            if (compare === 0) {
-                compare = obj1.p.localeCompare(obj2.p);
-            }
-            return compare;
-        }
-
-        // number
-        if ('NR' === obj1.t) {
-            const n1: number = numeral(obj1.k).value();
-            const n2: number = numeral(obj2.k).value();
-
-            if (n1 === n2) {
-                return 0;
-            }
-
-            if (n1 > n2) {
-                return sm * 1;
-            } else {
-                return sm * -1;
-            }
-        }
-
-        // date
-        if ('D8' === obj1.t) {
-            let m1: moment.Moment;
-            let m2: moment.Moment;
-
-            if (obj1.p === '*YYMD') {
-                m1 = moment(obj1.k, 'YYYYMMDD');
-                m2 = moment(obj2.k, 'YYYYMMDD');
-            } else if (obj1.p === '*DMYY') {
-                m1 = moment(obj1.k, 'DDMMYYYY');
-                m2 = moment(obj2.k, 'DDMMYYYY');
-            } else {
-                // no valid format -> check via k
-                return obj1.k.localeCompare(obj2.k);
-            }
-
-            if (m1.isSame(m2)) {
-                return 0;
-            }
-
-            if (m1.isBefore(m2)) {
-                return sm * -1;
-            } else {
-                return sm * 1;
-            }
-        }
-
-        // sort by cell value
-        let value1 = cell1.value;
-        let value2 = cell2.value;
-
-        return sm * value1.localeCompare(value2);
+        return sortRows(rows, this.sort);
     }
 
     private paginateRows(rows: Array<any>): Array<any> {
@@ -465,9 +457,7 @@ export class KetchupDataTable {
 
     private getSortIcon(columnName: string): string {
         // check if column in sort array
-        for (let i = 0; i < this.sort.length; i++) {
-            const sortObj = this.sort[i];
-
+        for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
                     ? 'mdi-sort-ascending'
@@ -479,35 +469,25 @@ export class KetchupDataTable {
         return 'mdi-sort';
     }
 
-    private handlePageChanged({ detail }) {
-        this.currentPage = detail.newPage;
-    }
+    private calculateColspan() {
+        let colSpan = this.getVisibleColumns().length;
 
-    private handleRowsPerPageChanged({ detail }) {
-        this.currentRowsPerPage = detail.newRowsPerPage;
-    }
+        if (this.multiSelection) {
+            colSpan += 1;
+        }
 
-    private onRowClick(row: Row) {
-        this.kupRowSelected.emit({ row });
-        this.selectedRow = row;
-    }
+        if (this.isGrouping() && this.hasTotals()) {
+            colSpan += 1;
+        }
 
-    private onRowExpand(row: Row) {
-        // row should be a 'group' row
-        row.group.expanded = !row.group.expanded;
-
-        // updating group map
-        this.groupState[row.group.label].expanded = row.group.expanded;
-
-        // forcing rendering... meh
-        this.groupState = { ...this.groupState };
+        return colSpan;
     }
 
     // render methods
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
-        const dataColumns = this.getColumns().map((column) => {
+        const dataColumns = this.getVisibleColumns().map((column) => {
             // filter
             let filter = null;
             if (this.showFilters) {
@@ -522,7 +502,7 @@ export class KetchupDataTable {
                             initialValue={filterValue}
                             data-col={column.name}
                             onKetchupTextInputUpdated={(e) => {
-                                this.onFilterChange(e);
+                                this.onFilterChange(e, column.name);
                             }}
                         />
                     </div>
@@ -536,8 +516,9 @@ export class KetchupDataTable {
                     <span class="column-sort">
                         <icon
                             class={'mdi ' + this.getSortIcon(column.name)}
-                            data-col={column.name}
-                            onClick={(e: MouseEvent) => this.onColumnSort(e)}
+                            onClick={(e: MouseEvent) =>
+                                this.onColumnSort(e, column.name)
+                            }
                         />
                     </span>
                 );
@@ -560,77 +541,86 @@ export class KetchupDataTable {
                 }
             }
 
+            const columnMenuItems: JSX.Element[] = [];
+
+            // adding grouping
+            const group = this.getGroupByName(column.name);
+            const groupLabel =
+                group != null
+                    ? 'Disattiva raggruppamento'
+                    : 'Attiva raggruppamento';
+
+            columnMenuItems.push(
+                <li
+                    role="menuitem"
+                    onClick={() => this.switchColumnGroup(group, column.name)}
+                >
+                    <icon class="mdi mdi-book" /> {groupLabel}
+                </li>
+            );
+
+            let columnMenu = null;
+            if (columnMenuItems.length !== 0) {
+                const style = {
+                    display: this.openedMenu === column.name ? 'block' : 'none',
+                };
+
+                columnMenu = (
+                    <div style={style} class="column-menu">
+                        <ul role="menubar">{columnMenuItems}</ul>
+                    </div>
+                );
+            }
+
             return (
-                <th style={thStyle}>
+                <th
+                    style={thStyle}
+                    onMouseOver={() => this.onColumnMouseOver(column.name)}
+                    onMouseLeave={() => this.onColumnMouseLeave(column.name)}
+                >
                     <span class="column-title">{column.title}</span>
                     {sort}
                     {filter}
+                    {columnMenu}
                 </th>
             );
         });
 
-        return dataColumns;
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+            };
+            multiSelectColumn = (
+                <th style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                    />
+                </th>
+            );
+        }
+
+        let groupColumn = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupColumn = <th />;
+        }
+
+        return [multiSelectColumn, groupColumn, ...dataColumns];
     }
 
     renderFooter(
         rows: Array<Row>
     ): JSXElements.HTMLAttributes<HTMLTableSectionElement> | null {
-        if (!this.totals) {
+        if (!this.hasTotals()) {
             // no footer
             return null;
         }
 
-        const keys = Object.keys(this.totals);
+        const footerRow = calcTotals(rows, this.totals);
 
-        const footerRow = {};
-
-        // if there are only COUNT, no need to loop on rows
-        let onlyCount =
-            keys.length === 0 ||
-            keys.every((key) => this.totals[key] === TotalMode.COUNT);
-
-        if (onlyCount) {
-            keys.forEach((columnName) => (footerRow[columnName] = rows.length));
-        } else {
-            rows.forEach((r) => {
-                keys.filter(
-                    (key) => TotalMode.COUNT !== this.totals[key]
-                ).forEach((key) => {
-                    // getting column
-                    const cell = r.cells[key];
-
-                    // check if number
-                    if (cell.obj.t === 'NR') {
-                        const cellValue = numeral(cell.obj.k);
-
-                        const currentFooterValue = footerRow[key] || 0;
-
-                        footerRow[key] = cellValue
-                            .add(currentFooterValue)
-                            .value();
-                    }
-                });
-            });
-
-            // fixing count and avg
-            for (let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-
-                if (this.totals[key] === TotalMode.AVARAGE) {
-                    const sum: number = footerRow[key];
-
-                    if (sum && rows.length > 0) {
-                        footerRow[key] = numeral(sum)
-                            .divide(rows.length)
-                            .value();
-                    }
-                } else if (this.totals[key] === TotalMode.COUNT) {
-                    footerRow[key] = rows.length;
-                }
-            }
-        }
-
-        const footerCells = this.getColumns().map(({ name }) => (
+        const footerCells = this.getVisibleColumns().map(({ name }) => (
             <td>{footerRow[name]}</td>
         ));
 
@@ -644,57 +634,132 @@ export class KetchupDataTable {
     }
 
     private renderRow(row: Row, level = 0) {
+        const visibleColumns = this.getVisibleColumns();
+
         if (row.group) {
+            if (row.group.children.length === 0) {
+                // empty group
+                return null;
+            }
+
             let icon =
                 'mdi mdi-chevron-' + (row.group.expanded ? 'right' : 'down');
 
             const jsxRows = [];
 
-            jsxRows.push(
-                <tr class="group">
-                    <td colSpan={this.getColumns().length}>
+            let indent = [];
+            for (let i = 0; i < level; i++) {
+                indent.push(<span class="indent" />);
+            }
+
+            if (this.hasTotals()) {
+                const cells = [];
+
+                // adding 'grouping' cell
+                const colSpan = this.multiSelection ? 2 : 1;
+                cells.push(
+                    <td colSpan={colSpan}>
+                        {indent}
                         <icon
                             class={icon}
                             onClick={() => this.onRowExpand(row)}
                         />
                         {row.group.label}
                     </td>
-                </tr>
-            );
+                );
+
+                for (let column of visibleColumns) {
+                    cells.push(<td>{row.group.totals[column.name]}</td>);
+                }
+
+                jsxRows.push(<tr>{cells}</tr>);
+            } else {
+                jsxRows.push(
+                    <tr class="group">
+                        <td colSpan={this.calculateColspan()}>
+                            {indent}
+                            <icon
+                                class={`row-expander ${icon}`}
+                                onClick={() => this.onRowExpand(row)}
+                            />
+                            {row.group.label}
+                        </td>
+                    </tr>
+                );
+            }
 
             // if group is expanded, add children
             if (row.group.expanded) {
                 row.group.children
-                    .map((r) => this.renderRow(r, level + 1))
-                    .forEach((jsxRow) => jsxRows.push(jsxRow));
+                    .map((r) => {
+                        return this.renderRow(r, level + 1);
+                    })
+                    .forEach((jsxRow) => {
+                        if (Array.isArray(jsxRow)) {
+                            jsxRow.forEach((jr) => jsxRows.push(jr));
+                        } else {
+                            jsxRows.push(jsxRow);
+                        }
+                    });
             }
 
             // grouping row
             return jsxRows;
         } else {
-            const cells = this.getColumns().map(({ name }, index) => {
+            const cells = visibleColumns.map(({ name }, index) => {
                 let indend = [];
-                if (index === 0) {
+                if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
                 }
 
+                const cell = row.cells[name];
+
                 return (
-                    <td>
+                    <td style={cell.style}>
                         {indend}
-                        {row.cells[name].value}
+                        {cell.value}
                     </td>
                 );
             });
 
             let rowClass = null;
-            if (this.selectedRow === row) {
+            if (this.selectedRows && this.selectedRows.includes(row)) {
                 rowClass = 'selected';
             }
 
+            let selectRowCell = null;
+            if (this.multiSelection) {
+                selectRowCell = (
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={
+                                this.selectedRows &&
+                                this.selectedRows.includes(row)
+                            }
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) =>
+                                this.onRowCheckboxSelection(e, row)
+                            }
+                        />
+                    </td>
+                );
+            }
+
+            let groupingCell = null;
+            if (this.isGrouping() && this.hasTotals()) {
+                groupingCell = <td />;
+            }
+
+            // adding row to rendered rows
+            this.renderedRows.push(row);
+
             return (
-                <tr class={rowClass} onClick={() => this.onRowClick(row)}>
+                <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
+                    {selectRowCell}
+                    {groupingCell}
                     {cells}
                 </tr>
             );
@@ -702,34 +767,41 @@ export class KetchupDataTable {
     }
 
     render() {
+        // resetting rows
+        this.renderedRows = [];
+
         // header
         const header = this.renderHeader();
 
         // rows
-        // 1) filters
         const filteredRows = this.getFilteredRows();
 
-        // 2) footer (based on filtered rows)
-        const footer = this.renderFooter(filteredRows);
-
-        // 3) sort
         const sortedRows = this.sortRows(filteredRows);
 
-        // 3) grouping
+        const footer = this.renderFooter(sortedRows);
+
         const grouped = this.groupRows(sortedRows);
 
-        // 4) pagination
         const paginatedRows = this.paginateRows(grouped);
 
         let rows = null;
         if (paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.getColumns().length}>Empty data</td>
+                    <td colSpan={this.calculateColspan()}>Empty data</td>
                 </tr>
             );
         } else {
-            rows = paginatedRows.map((row: Row) => this.renderRow(row));
+            rows = [];
+            paginatedRows
+                .map((row: Row) => this.renderRow(row))
+                .forEach((jsxRow) => {
+                    if (Array.isArray(jsxRow)) {
+                        jsxRow.forEach((jr) => rows.push(jr));
+                    } else {
+                        rows.push(jsxRow);
+                    }
+                });
         }
 
         let globalFilter = null;
@@ -753,6 +825,7 @@ export class KetchupDataTable {
         ) {
             paginatorTop = (
                 <kup-paginator
+                    id="top-paginator"
                     max={filteredRows.length}
                     perPage={this.rowsPerPage}
                     selectedPerPage={this.currentRowsPerPage}
@@ -772,6 +845,7 @@ export class KetchupDataTable {
         ) {
             paginatorBottom = (
                 <kup-paginator
+                    id="bottom-paginator"
                     max={filteredRows.length}
                     perPage={this.rowsPerPage}
                     selectedPerPage={this.currentRowsPerPage}
@@ -789,8 +863,33 @@ export class KetchupDataTable {
             tableClass = 'noGrid';
         }
 
+        let groupChips = null;
+        if (this.isGrouping()) {
+            const chips = this.groups.map((group) => {
+                const column = this.getColumnByName(group.column);
+
+                if (column) {
+                    return (
+                        <div
+                            class="group-chip"
+                            tabIndex={0}
+                            onClick={() => this.removeGroup(group)}
+                        >
+                            <icon class="mdi mdi-close-circle" />
+                            {column.title}
+                        </div>
+                    );
+                } else {
+                    return null;
+                }
+            });
+
+            groupChips = <div id="group-chips">{chips}</div>;
+        }
+
         return (
             <div>
+                {groupChips}
                 {paginatorTop}
                 {globalFilter}
                 <div id="data-table-wrapper">
