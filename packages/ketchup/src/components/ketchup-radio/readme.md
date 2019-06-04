@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                              | Type                    | Default        |
-| ---------------- | ----------------- | ---------------------------------------------------------------------------------------- | ----------------------- | -------------- |
-| `direction`      | `direction`       | Direction in which the radio elements must be placed                                     | `string`                | `'horizontal'` |
-| `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`         |
-| `items`          | --                | Radio elements to display                                                                | `KetchupRadioElement[]` | `[]`           |
-| `label`          | `label`           | Label to describe the radio group                                                        | `string`                | `''`           |
-| `radioName`      | `radio-name`      | Radio elements value                                                                     | `string`                | `''`           |
-| `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`         |
+| Property         | Attribute         | Description                                                                              | Type                    | Default                        |
+| ---------------- | ----------------- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------------ |
+| `direction`      | `direction`       | Direction in which the radio elements must be placed                                     | `string`                | `'horizontal'`                 |
+| `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`                         |
+| `initialValue`   | --                | Allows to pass an initial selected item for the Radio group                              | `KetchupRadioElement`   | `KetchupRadioElementFactory()` |
+| `items`          | --                | Radio elements to display                                                                | `KetchupRadioElement[]` | `[]`                           |
+| `label`          | `label`           | Label to describe the radio group                                                        | `string`                | `''`                           |
+| `radioName`      | `radio-name`      | Radio elements value                                                                     | `string`                | `''`                           |
+| `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`                         |
 
 
 ## Events

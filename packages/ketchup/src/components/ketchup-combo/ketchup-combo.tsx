@@ -89,7 +89,7 @@ export class KetchupCombo {
     //-- Constants --
     baseClass = 'ketchup-combo';
 
-    //---- Lifecycle Hooks  ----
+    //---- Lifecycle Hooks ----
     componentWillLoad() {
         // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
         // This is used because when component is instantiated it does NOT run watchers.
