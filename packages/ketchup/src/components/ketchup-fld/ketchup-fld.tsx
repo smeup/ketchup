@@ -175,7 +175,7 @@ export class KetchupFld {
         //-- Submit --
         if (this.showSubmit) {
             submit =
-                <ketchup-button
+                <kup-button
                     class={baseClass + '__submit' + ' ' + baseClass + '--' + this.submitPos}
                     label={this.submitLabel}
                     onKetchupButtonClicked={this.onSubmitInstance}/>

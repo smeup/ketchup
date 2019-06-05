@@ -2,10 +2,10 @@ import { Component, Element, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-button',
-    styleUrl: 'ketchup-button.scss',
+    styleUrl: 'kup-button.scss',
     shadow: true,
 })
-export class KetchupButton {
+export class KupButton {
     @Element() ketchupButtonEl: HTMLElement;
 
     @Prop() flat = false;

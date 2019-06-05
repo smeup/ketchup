@@ -1,12 +1,12 @@
-import { KetchupButton } from './ketchup-button';
+import { KupButton } from './kup-button';
 
-describe('ketchup-button', () => {
+describe('kup-button', () => {
     it('builds', () => {
-        expect(new KetchupButton()).toBeTruthy();
+        expect(new KupButton()).toBeTruthy();
     });
 
     it('button default props values', () => {
-        const btn = new KetchupButton();
+        const btn = new KupButton();
 
         expect(btn.flat).toBeFalsy();
         expect(btn.label).toBeFalsy();
@@ -30,7 +30,7 @@ describe('ketchup-button', () => {
     });
 
     it('test hints', () => {
-        const btn = new KetchupButton();
+        const btn = new KupButton();
         btn.textmode = 'Hint';
 
         expect(btn._isHint()).toBeTruthy();
