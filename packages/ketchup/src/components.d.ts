@@ -33,6 +33,9 @@ import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
   KetchupTextInputEvent,
 } from './components/ketchup-text-input/ketchup-text-input-declarations';
 import {
@@ -44,6 +47,10 @@ import {
 import {
   ComboItem,
 } from './components/kup-combo/kup-combo-declarations';
+import {
+  KetchupFldChangeEvent,
+  KetchupFldSubmitEvent,
+} from './components/kup-fld/kup-fld-declarations';
 
 
 export namespace Components {
@@ -620,8 +627,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupFld': Components.KupFld;
-    'KetchupHtml': Components.KetchupHtml;
     'KupPaginator': Components.KupPaginator;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
     'KetchupPortal': Components.KetchupPortal;
@@ -632,12 +637,13 @@ declare global {
     'KupChart': Components.KupChart;
     'KupCombo': Components.KupCombo;
     'KupDash': Components.KupDash;
+    'KupDataTable': Components.KupDataTable;
+    'KupFld': Components.KupFld;
+    'KupHtml': Components.KupHtml;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-fld': Components.KupFldAttributes;
-    'ketchup-html': Components.KetchupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
     'ketchup-portal': Components.KetchupPortalAttributes;
@@ -648,6 +654,9 @@ declare global {
     'kup-chart': Components.KupChartAttributes;
     'kup-combo': Components.KupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
+    'kup-data-table': Components.KupDataTableAttributes;
+    'kup-fld': Components.KupFldAttributes;
+    'kup-html': Components.KupHtmlAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -730,6 +739,24 @@ declare global {
     new (): HTMLKupDashElement;
   };
 
+  interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
+  var HTMLKupDataTableElement: {
+    prototype: HTMLKupDataTableElement;
+    new (): HTMLKupDataTableElement;
+  };
+
+  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
+  var HTMLKupFldElement: {
+    prototype: HTMLKupFldElement;
+    new (): HTMLKupFldElement;
+  };
+
+  interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {}
+  var HTMLKupHtmlElement: {
+    prototype: HTMLKupHtmlElement;
+    new (): HTMLKupHtmlElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -737,8 +764,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-fld': HTMLKupFldElement
-    'ketchup-html': HTMLKetchupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
     'ketchup-portal': HTMLKetchupPortalElement
@@ -749,12 +774,13 @@ declare global {
     'kup-chart': HTMLKupChartElement
     'kup-combo': HTMLKupComboElement
     'kup-dash': HTMLKupDashElement
+    'kup-data-table': HTMLKupDataTableElement
+    'kup-fld': HTMLKupFldElement
+    'kup-html': HTMLKupHtmlElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-fld': HTMLKupFldElement;
-    'ketchup-html': HTMLKetchupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
     'ketchup-portal': HTMLKetchupPortalElement;
@@ -765,6 +791,9 @@ declare global {
     'kup-chart': HTMLKupChartElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
+    'kup-data-table': HTMLKupDataTableElement;
+    'kup-fld': HTMLKupFldElement;
+    'kup-html': HTMLKupHtmlElement;
     'my-component': HTMLMyComponentElement;
   }
 

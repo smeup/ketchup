@@ -6,8 +6,8 @@ import {
 } from '@stencil/core';
 
 @Component({
-    tag: 'ketchup-html',
-    styleUrl: 'ketchup-html.scss',
+    tag: 'kup-html',
+    styleUrl: 'kup-html.scss',
     shadow: true
 })
 export class KetchupTextInput {
@@ -16,7 +16,7 @@ export class KetchupTextInput {
      */
     @Prop() label: string = 'Apri in nuova finestra';
     /**
-     * If true, the ketchup-html takes the shape of a button
+     * If true, the kup-html takes the shape of a button
      */
     @Prop({
         reflectToAttr: true
