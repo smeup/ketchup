@@ -69,7 +69,7 @@ export class KetchupTextInput {
             <a
                 href={this.src}
                 target="_blank">
-                <ketchup-button
+                <kup-button
                     align="right"
                     iconClass="mdi mdi-open-in-new"
                     label={this.label}/>
