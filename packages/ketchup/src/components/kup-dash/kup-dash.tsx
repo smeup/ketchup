@@ -2,10 +2,10 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-dash',
-    styleUrl: 'ketchup-dash.scss',
+    styleUrl: 'kup-dash.scss',
     shadow: true,
 })
-export class KetchupDash {
+export class KupDash {
     @Prop()
     layout = '1';
 
