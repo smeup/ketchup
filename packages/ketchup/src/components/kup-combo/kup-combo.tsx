@@ -51,7 +51,7 @@ export class KupCombo {
     /**
      * If true, the combobox uses a Stencil portal to create the menu.
      * Please use this feature carefully, only if needed.
-     * @see ketchup-portal readme for more details.
+     * @see kup-portal readme for more details.
      */
     @Prop() usePortal: boolean = false;
 
@@ -70,7 +70,7 @@ export class KupCombo {
     //-- Not reactive state --
     @Element() comboEl: HTMLElement;
     selected: ComboItem;
-    portalRef?: HTMLKetchupPortalElement = null;
+    portalRef?: HTMLKupPortalElement = null;
     /**
      * Creates a variable with an instance of the handler for the click event and binds this instance of the combo box to it.
      * This is used to add and more importantly remove events listeners attached to the body.
@@ -306,12 +306,12 @@ export class KupCombo {
             </div>,
 
             this.usePortal ?
-                <ketchup-portal
+                <kup-portal
                     cssVarsRef={this.comboEl}
                     isVisible={this.isOpen}
                     mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
                     nodes={this.composeList()}
-                    ref={el => this.portalRef = el as HTMLKetchupPortalElement}
+                    ref={el => this.portalRef = el as HTMLKupPortalElement}
                     refOffset={getElementOffset(this.comboEl, this.comboPosition)}
                     styleNode={this.comboEl.shadowRoot.querySelector('style')}
                 />

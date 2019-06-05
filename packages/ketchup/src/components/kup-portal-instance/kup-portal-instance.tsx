@@ -7,11 +7,11 @@ import {
 } from '@stencil/core';
 
 @Component({
-    tag: 'ketchup-portal-instance',
-    styleUrl: 'ketchup-portal-instance.scss',
+    tag: 'kup-portal-instance',
+    styleUrl: 'kup-portal-instance.scss',
     shadow: true
 })
-export class KetchupPortalInstance {
+export class KupPortalInstance {
     /**
      * Specifies if the current portal instance should be displayed or not.
      */

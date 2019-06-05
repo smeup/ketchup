@@ -51,6 +51,9 @@ import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
+import {
+  ElementOffset,
+} from './utils/offset';
 
 
 export namespace Components {
@@ -644,9 +647,6 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
-    'kup-paginator': Components.KupPaginatorAttributes;
-    'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
-    'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
@@ -657,6 +657,9 @@ declare global {
     'kup-data-table': Components.KupDataTableAttributes;
     'kup-fld': Components.KupFldAttributes;
     'kup-html': Components.KupHtmlAttributes;
+    'kup-paginator': Components.KupPaginatorAttributes;
+    'kup-portal-instance': Components.KupPortalInstanceAttributes;
+    'kup-portal': Components.KupPortalAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -757,6 +760,24 @@ declare global {
     new (): HTMLKupHtmlElement;
   };
 
+  interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
+  var HTMLKupPaginatorElement: {
+    prototype: HTMLKupPaginatorElement;
+    new (): HTMLKupPaginatorElement;
+  };
+
+  interface HTMLKupPortalInstanceElement extends Components.KupPortalInstance, HTMLStencilElement {}
+  var HTMLKupPortalInstanceElement: {
+    prototype: HTMLKupPortalInstanceElement;
+    new (): HTMLKupPortalInstanceElement;
+  };
+
+  interface HTMLKupPortalElement extends Components.KupPortal, HTMLStencilElement {}
+  var HTMLKupPortalElement: {
+    prototype: HTMLKupPortalElement;
+    new (): HTMLKupPortalElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -777,6 +798,9 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement
     'kup-fld': HTMLKupFldElement
     'kup-html': HTMLKupHtmlElement
+    'kup-paginator': HTMLKupPaginatorElement
+    'kup-portal-instance': HTMLKupPortalInstanceElement
+    'kup-portal': HTMLKupPortalElement
     'my-component': HTMLMyComponentElement
   }
 
@@ -794,6 +818,9 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
     'kup-html': HTMLKupHtmlElement;
+    'kup-paginator': HTMLKupPaginatorElement;
+    'kup-portal-instance': HTMLKupPortalInstanceElement;
+    'kup-portal': HTMLKupPortalElement;
     'my-component': HTMLMyComponentElement;
   }
 
