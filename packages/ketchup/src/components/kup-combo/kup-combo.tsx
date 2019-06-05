@@ -8,7 +8,7 @@ import {
     State,
     Watch
 } from '@stencil/core'
-import { ComboItem, ComboPosition } from './ketchup-combo-declarations';
+import { ComboItem, ComboPosition } from './kup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 import { getElementOffset } from "../../utils/offset";
 
@@ -19,11 +19,11 @@ import { getElementOffset } from "../../utils/offset";
  */
 
 @Component({
-    tag: 'ketchup-combo',
-    styleUrl: 'ketchup-combo.scss',
+    tag: 'kup-combo',
+    styleUrl: 'kup-combo.scss',
     shadow: true
 })
-export class KetchupCombo {
+export class KupCombo {
     /**
      * Chooses which field of an item object should be used to create the list and be filtered.
      */
@@ -87,7 +87,7 @@ export class KetchupCombo {
     };
 
     //-- Constants --
-    baseClass = 'ketchup-combo';
+    baseClass = 'kup-combo';
 
     //---- Lifecycle Hooks ----
     componentWillLoad() {

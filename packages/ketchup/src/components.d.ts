@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  ComboItem,
-} from './components/ketchup-combo/ketchup-combo-declarations';
-import {
   Column,
   GenericMap,
   GroupObject,
@@ -42,84 +39,12 @@ import {
 import {
   ChartConfig,
 } from './components/kup-chart/kup-chart-declarations';
+import {
+  ComboItem,
+} from './components/kup-combo/kup-combo-declarations';
 
 
 export namespace Components {
-
-  interface KetchupCombo {
-    /**
-    * Programmatically close the combo box
-    */
-    'closeCombo': () => void;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue': ComboItem;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Items which can be selected
-    */
-    'items': ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * Programmatically opens the combo box
-    */
-    'openCombo': () => void;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KetchupComboAttributes extends StencilHTMLAttributes {
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue'?: ComboItem;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Items which can be selected
-    */
-    'items'?: ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * When an element has been selected
-    */
-    'onKetchupComboSelected'?: (event: CustomEvent<{
-      value: ComboItem;
-    }>) => void;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
 
   interface KupDash {
     'fontsize': string;
@@ -555,6 +480,81 @@ export namespace Components {
     'data'?: any;
   }
 
+  interface KupCombo {
+    /**
+    * Programmatically close the combo box
+    */
+    'closeCombo': () => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue': ComboItem;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Items which can be selected
+    */
+    'items': ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * Programmatically opens the combo box
+    */
+    'openCombo': () => void;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal': boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
+  }
+  interface KupComboAttributes extends StencilHTMLAttributes {
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue'?: ComboItem;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Items which can be selected
+    */
+    'items'?: ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * When an element has been selected
+    */
+    'onKetchupComboSelected'?: (event: CustomEvent<{
+      value: ComboItem;
+    }>) => void;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal'?: boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupCombo': Components.KetchupCombo;
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
@@ -600,11 +599,11 @@ declare global {
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
     'KupChart': Components.KupChart;
+    'KupCombo': Components.KupCombo;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-combo': Components.KetchupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
     'kup-chart': Components.KupChartAttributes;
+    'kup-combo': Components.KupComboAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKetchupComboElement extends Components.KetchupCombo, HTMLStencilElement {}
-  var HTMLKetchupComboElement: {
-    prototype: HTMLKetchupComboElement;
-    new (): HTMLKetchupComboElement;
-  };
 
   interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
   var HTMLKupDashElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
+  var HTMLKupComboElement: {
+    prototype: HTMLKupComboElement;
+    new (): HTMLKupComboElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-combo': HTMLKetchupComboElement
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
@@ -719,11 +718,11 @@ declare global {
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
     'kup-chart': HTMLKupChartElement
+    'kup-combo': HTMLKupComboElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'ketchup-combo': HTMLKetchupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-combo': HTMLKupComboElement;
     'my-component': HTMLMyComponentElement;
   }
 
