@@ -11,25 +11,28 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-group>
+        <v-list-group
+          v-for="(section, index) in navigationSections"
+          :key="index">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
-                <v-list-tile-title>Data Table</v-list-tile-title>
+                <v-list-tile-title>{{ section.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </template>
 
           <v-list-tile
-            v-for="tile in dataTableTiles"
-            :key="tile.title"
-            :to="tile.to"
+            v-for="route in section.routes"
+            :key="route.to.name"
+            :to="route.to"
           >
             <v-list-tile-content>
-              <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
+              <v-list-tile-title>{{ route.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list-group>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -54,58 +57,91 @@
 export default {
   data: () => ({
     drawer: null,
-    dataTableTiles: [
+    navigationSections: [
       {
-        title: 'Basic',
-        to: {
-          name: 'dtBasic',
-        },
+        title: 'Data Table',
+        routes: [
+          {
+            title: 'Basic',
+            to: {
+              name: 'dtBasic',
+            },
+          },
+          {
+            title: 'Filters',
+            to: {
+              name: 'dtFilters',
+            },
+          },
+          {
+            title: 'Grouping',
+            to: {
+              name: 'dtGroups',
+            },
+          },
+          {
+            title: 'Pagination',
+            to: {
+              name: 'dtPag',
+            },
+          },
+          {
+            title: 'Row actions',
+            to: {
+              name: 'dtRowActions',
+            },
+          },
+          {
+            title: 'Row selection',
+            to: {
+              name: 'dtRowSel',
+            },
+          },
+          {
+            title: 'Sort',
+            to: {
+              name: 'dtSort',
+            },
+          },
+          {
+            title: 'Totals',
+            to: {
+              name: 'dtTotals',
+            },
+          },
+        ],
       },
       {
-        title: 'Filters',
-        to: {
-          name: 'dtFilters',
-        },
-      },
-      {
-        title: 'Grouping',
-        to: {
-          name: 'dtGroups',
-        },
-      },
-      {
-        title: 'Pagination',
-        to: {
-          name: 'dtPag',
-        },
-      },
-      {
-        title: 'Row actions',
-        to: {
-          name: 'dtRowActions',
-        },
-      },
-      {
-        title: 'Row selection',
-        to: {
-          name: 'dtRowSel',
-        },
-      },
-      {
-        title: 'Sort',
-        to: {
-          name: 'dtSort',
-        },
-      },
-      {
-        title: 'Totals',
-        to: {
-          name: 'dtTotals',
-        },
-      },
+        title: 'Field',
+        routes: [
+          {
+            title: `Combo form`,
+            to: {
+              name: 'fldCombo'
+            }
+          },
+          {
+            title: `Radio form`,
+            to: {
+              name: 'fldRadio'
+            }
+          },
+          {
+            title: `Text Input form`,
+            to: {
+              name: 'fldText'
+            }
+          },
+          {
+            title: `Custom graphic`,
+            to: {
+              name: 'fldGraphic'
+            }
+          }
+        ]
+      }
     ],
   }),
-
   props: {
     source: String,
   },
