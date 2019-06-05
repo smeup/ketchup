@@ -1,7 +1,16 @@
 {
   "name": "ketchup-showcase",
   "version": "0.0.1",
-  "private": true,
+  "keywords": [
+    "Sme.UP",
+    "KetchUP showcase",
+    "pwa",
+    "custom elements",
+    "components",
+    "Vue.js"
+  ],
+  "description": "Sme.UP's KetchUP web components library showcase based on Vuetify",
+  "license": "Apache-2.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

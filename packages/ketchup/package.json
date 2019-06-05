@@ -4,9 +4,16 @@
     "keywords": [
         "Sme.UP",
         "KetchUP",
-        "webcomponents"
+        "web component",
+        "library",
+        "Stencil",
+        "pwa",
+        "custom elements",
+        "progressive web app",
+        "components"
     ],
-    "description": "Sme.UP webcomponents library",
+    "description": "Sme.UP web components library",
+    "license": "Apache-2.0",
     "module": "dist/esm/index.js",
     "main": "dist/index.js",
     "unpkg": "dist/ionic.js",
@@ -41,6 +48,5 @@
         "jest": "23.6.0",
         "jest-cli": "23.6.0",
         "puppeteer": "1.11.0"
-    },
-    "license": "MIT"
+    }
 }
