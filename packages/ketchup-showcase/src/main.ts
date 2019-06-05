@@ -7,7 +7,7 @@ import { defineCustomElements } from 'ketchup/dist/loader';
 defineCustomElements(window);
 
 Vue.config.productionTip = false;
-Vue.config.ignoredElements = [/[ketchup|app]-\w*/];
+Vue.config.ignoredElements = [/[ketchup|app|kup]-\w*/];
 
 // css
 import '@mdi/font/css/materialdesignicons.min.css';
