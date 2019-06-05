@@ -144,12 +144,18 @@ export class KetchupDataTable {
     }
 
     private getVisibleColumns(): Array<Column> {
-        const columns = this.getColumns();
+        const visibleColumns = this.getColumns().filter((column) => {
+            if (column.hasOwnProperty('visible')) {
+                return column.visible;
+            }
+
+            return true;
+        });
 
         // check grouping
         if (this.isGrouping()) {
             // filtering column based on group visibility
-            return columns.filter((column) => {
+            return visibleColumns.filter((column) => {
                 // check if in group
                 let group = null;
                 for (let currentGroup of this.groups) {
@@ -171,7 +177,7 @@ export class KetchupDataTable {
             });
         }
 
-        return columns;
+        return visibleColumns;
     }
 
     private getColumnByName(name: string): Column {
