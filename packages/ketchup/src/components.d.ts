@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  ButtonConfig,
-} from './components/ketchup-btn/ketchup-btn-declarations';
-import {
   ChartConfig,
 } from './components/ketchup-chart/ketchup-chart-declarations';
 import {
@@ -42,18 +39,12 @@ import {
 import {
   KetchupTextInputEvent,
 } from './components/ketchup-text-input/ketchup-text-input-declarations';
+import {
+  ButtonConfig,
+} from './components/kup-btn/kup-btn-declarations';
 
 
 export namespace Components {
-
-  interface KetchupBtn {
-    'buttons': any[];
-    'config': ButtonConfig;
-  }
-  interface KetchupBtnAttributes extends StencilHTMLAttributes {
-    'buttons'?: any[];
-    'config'?: ButtonConfig;
-  }
 
   interface KupButton {
     'align': string;
@@ -555,6 +546,15 @@ export namespace Components {
     'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
   }
 
+  interface KupBtn {
+    'buttons': any[];
+    'config': ButtonConfig;
+  }
+  interface KupBtnAttributes extends StencilHTMLAttributes {
+    'buttons'?: any[];
+    'config'?: ButtonConfig;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupBtn': Components.KetchupBtn;
     'KupButton': Components.KupButton;
     'KetchupChart': Components.KetchupChart;
     'KetchupCombo': Components.KetchupCombo;
@@ -600,11 +599,11 @@ declare global {
     'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
     'KupTextInput': Components.KupTextInput;
+    'KupBtn': Components.KupBtn;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-btn': Components.KetchupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
     'ketchup-chart': Components.KetchupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
@@ -617,15 +616,10 @@ declare global {
     'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
+    'kup-btn': Components.KupBtnAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKetchupBtnElement extends Components.KetchupBtn, HTMLStencilElement {}
-  var HTMLKetchupBtnElement: {
-    prototype: HTMLKetchupBtnElement;
-    new (): HTMLKetchupBtnElement;
-  };
 
   interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {}
   var HTMLKupButtonElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupTextInputElement;
   };
 
+  interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
+  var HTMLKupBtnElement: {
+    prototype: HTMLKupBtnElement;
+    new (): HTMLKupBtnElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-btn': HTMLKetchupBtnElement
     'kup-button': HTMLKupButtonElement
     'ketchup-chart': HTMLKetchupChartElement
     'ketchup-combo': HTMLKetchupComboElement
@@ -719,11 +718,11 @@ declare global {
     'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
     'kup-text-input': HTMLKupTextInputElement
+    'kup-btn': HTMLKupBtnElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'ketchup-btn': HTMLKetchupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'ketchup-chart': HTMLKetchupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
@@ -736,6 +735,7 @@ declare global {
     'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
+    'kup-btn': HTMLKupBtnElement;
     'my-component': HTMLMyComponentElement;
   }
 

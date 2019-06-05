@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('ketchup-btn', () => {
+describe('kup-btn', () => {
     it('renders', async () => {
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
-        const element = await page.find('ketchup-btn');
+        await page.setContent('<kup-btn></kup-btn>');
+        const element = await page.find('kup-btn');
         expect(element).toHaveClass('hydrated');
     });
 
@@ -13,9 +13,9 @@ describe('ketchup-btn', () => {
         // no buttons, no config
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const buttons = await page.findAll('ketchup-btn >>> kup-button');
+        const buttons = await page.findAll('kup-btn >>> kup-button');
         expect(buttons).toHaveLength(0);
     });
 
@@ -23,9 +23,9 @@ describe('ketchup-btn', () => {
         // only buttons
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const btn = await page.find('ketchup-btn');
+        const btn = await page.find('kup-btn');
 
         const buttons = [
             {
@@ -40,7 +40,7 @@ describe('ketchup-btn', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('ketchup-btn >>> table > tbody > tr');
+        const rows = await page.findAll('kup-btn >>> table > tbody > tr');
         expect(rows).toHaveLength(buttons.length);
 
         for (let i = 0; i < rows.length; i++) {
@@ -74,9 +74,9 @@ describe('ketchup-btn', () => {
         // only buttons
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const btn = await page.find('ketchup-btn');
+        const btn = await page.find('kup-btn');
 
         const buttons = [
             {
@@ -93,7 +93,7 @@ describe('ketchup-btn', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('ketchup-btn >>> table > tbody > tr');
+        const rows = await page.findAll('kup-btn >>> table > tbody > tr');
         expect(rows).toHaveLength(buttons.length);
 
         for (let i = 0; i < rows.length; i++) {
@@ -128,9 +128,9 @@ describe('ketchup-btn', () => {
         // only buttons
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const btn = await page.find('ketchup-btn');
+        const btn = await page.find('kup-btn');
 
         const buttons = [
             {
@@ -150,7 +150,7 @@ describe('ketchup-btn', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('ketchup-btn >>> table > tbody > tr');
+        const rows = await page.findAll('kup-btn >>> table > tbody > tr');
         expect(rows).toHaveLength(1);
 
         const cells = await rows[0].findAll('td');
@@ -165,9 +165,9 @@ describe('ketchup-btn', () => {
     it('columns vs horizontal: columns should win', async () => {
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const btn = await page.find('ketchup-btn');
+        const btn = await page.find('kup-btn');
 
         const buttons = [
             {
@@ -196,7 +196,7 @@ describe('ketchup-btn', () => {
 
         await page.waitForChanges();
 
-        const rows = await page.findAll('ketchup-btn >>> table > tbody > tr');
+        const rows = await page.findAll('kup-btn >>> table > tbody > tr');
         expect(rows).toHaveLength(2);
 
         for (let i = 0; i < rows.length; i++) {
@@ -214,9 +214,9 @@ describe('ketchup-btn', () => {
         // only buttons
         const page = await newE2EPage();
 
-        await page.setContent('<ketchup-btn></ketchup-btn>');
+        await page.setContent('<kup-btn></kup-btn>');
 
-        const btn = await page.find('ketchup-btn');
+        const btn = await page.find('kup-btn');
 
         const buttons = [
             {
@@ -237,7 +237,7 @@ describe('ketchup-btn', () => {
 
         await page.waitForChanges();
 
-        const table = await page.find('ketchup-btn >>> table');
+        const table = await page.find('kup-btn >>> table');
         expect(table).toHaveClass('fillspace');
 
         const rows = await table.findAll('tbody > tr');
