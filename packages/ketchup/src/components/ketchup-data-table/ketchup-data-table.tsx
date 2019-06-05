@@ -630,9 +630,23 @@ export class KetchupDataTable {
             <td>{footerRow[name]}</td>
         ));
 
+        let selectRowCell = null;
+        if (this.multiSelection) {
+            selectRowCell = <td />;
+        }
+
+        let groupingCell = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupingCell = <td />;
+        }
+
         const footer = (
             <tfoot>
-                <tr>{footerCells}</tr>
+                <tr>
+                    {selectRowCell}
+                    {groupingCell}
+                    {footerCells}
+                </tr>
             </tfoot>
         );
 
