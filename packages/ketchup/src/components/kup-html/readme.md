@@ -1,4 +1,4 @@
-# ketchup-html
+# kup-html
 
 
 
@@ -9,7 +9,7 @@
 
 | Property   | Attribute   | Description                                           | Type      | Default                    |
 | ---------- | ----------- | ----------------------------------------------------- | --------- | -------------------------- |
-| `isButton` | `is-button` | If true, the ketchup-html takes the shape of a button | `boolean` | `false`                    |
+| `isButton` | `is-button` | If true, the kup-html takes the shape of a button | `boolean` | `false`                    |
 | `label`    | `label`     | The label to show when button isButton is active      | `string`  | `'Apri in nuova finestra'` |
 | `src`      | `src`       | The address which must be referenced by the iframe    | `string`  | `''`                       |
 

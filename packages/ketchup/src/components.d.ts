@@ -9,18 +9,14 @@ import '@stencil/core';
 
 
 import {
-  EventEmitter,
-} from '@stencil/core';
-import {
-  KetchupFldChangeEvent,
-  KetchupFldSubmitEvent,
-} from './components/ketchup-fld/kup-fld-declarations';
-import {
   ElementOffset,
 } from './utils/offset';
 import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
+import {
+  EventEmitter,
+} from '@stencil/core';
 import {
   KetchupTextInputEvent,
 } from './components/ketchup-text-input/ketchup-text-input-declarations';
@@ -42,79 +38,13 @@ import {
   SortObject,
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
+import {
+  KetchupFldChangeEvent,
+  KetchupFldSubmitEvent,
+} from './components/kup-fld/kup-fld-declarations';
 
 
 export namespace Components {
-
-  interface KupFld {
-    /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config': string | object;
-    /**
-    * Effective data to pass to the component
-    */
-    'data': any;
-    /**
-    * Provides an interface to get the current value programmatically
-    */
-    'getCurrentValue': () => Promise<string | object>;
-  }
-  interface KupFldAttributes extends StencilHTMLAttributes {
-    /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config'?: string | object;
-    /**
-    * Effective data to pass to the component
-    */
-    'data'?: any;
-    /**
-    * Launched when the value of the current FLD changes.
-    */
-    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
-    /**
-    * Launched when the FLD values are confirmed and a submit event is triggered.
-    */
-    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
-  }
-
-  interface KetchupHtml {
-    /**
-    * If true, the ketchup-html takes the shape of a button
-    */
-    'isButton': boolean;
-    /**
-    * The label to show when button isButton is active
-    */
-    'label': string;
-    /**
-    * The address which must be referenced by the iframe
-    */
-    'src': string;
-  }
-  interface KetchupHtmlAttributes extends StencilHTMLAttributes {
-    /**
-    * If true, the ketchup-html takes the shape of a button
-    */
-    'isButton'?: boolean;
-    /**
-    * The label to show when button isButton is active
-    */
-    'label'?: string;
-    /**
-    * When loading the frame has thrown an error
-    */
-    'onKetchupHtmlError'?: (event: CustomEvent) => void;
-    /**
-    * When the iframe has been loaded
-    */
-    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
-    /**
-    * The address which must be referenced by the iframe
-    */
-    'src'?: string;
-  }
 
   interface KupPaginator {
     'currentPage': number;
@@ -555,6 +485,76 @@ export namespace Components {
     'totals'?: TotalsMap;
   }
 
+  interface KupFld {
+    /**
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+    */
+    'config': string | object;
+    /**
+    * Effective data to pass to the component
+    */
+    'data': any;
+    /**
+    * Provides an interface to get the current value programmatically
+    */
+    'getCurrentValue': () => Promise<string | object>;
+  }
+  interface KupFldAttributes extends StencilHTMLAttributes {
+    /**
+    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+    */
+    'config'?: string | object;
+    /**
+    * Effective data to pass to the component
+    */
+    'data'?: any;
+    /**
+    * Launched when the value of the current FLD changes.
+    */
+    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
+    /**
+    * Launched when the FLD values are confirmed and a submit event is triggered.
+    */
+    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
+  }
+
+  interface KupHtml {
+    /**
+    * If true, the kup-html takes the shape of a button
+    */
+    'isButton': boolean;
+    /**
+    * The label to show when button isButton is active
+    */
+    'label': string;
+    /**
+    * The address which must be referenced by the iframe
+    */
+    'src': string;
+  }
+  interface KupHtmlAttributes extends StencilHTMLAttributes {
+    /**
+    * If true, the kup-html takes the shape of a button
+    */
+    'isButton'?: boolean;
+    /**
+    * The label to show when button isButton is active
+    */
+    'label'?: string;
+    /**
+    * When loading the frame has thrown an error
+    */
+    'onKetchupHtmlError'?: (event: CustomEvent) => void;
+    /**
+    * When the iframe has been loaded
+    */
+    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
+    /**
+    * The address which must be referenced by the iframe
+    */
+    'src'?: string;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,8 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupFld': Components.KupFld;
-    'KetchupHtml': Components.KetchupHtml;
     'KupPaginator': Components.KupPaginator;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
     'KetchupPortal': Components.KetchupPortal;
@@ -600,12 +598,12 @@ declare global {
     'KupCombo': Components.KupCombo;
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
+    'KupFld': Components.KupFld;
+    'KupHtml': Components.KupHtml;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-fld': Components.KupFldAttributes;
-    'ketchup-html': Components.KetchupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
     'ketchup-portal': Components.KetchupPortalAttributes;
@@ -617,21 +615,11 @@ declare global {
     'kup-combo': Components.KupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
+    'kup-fld': Components.KupFldAttributes;
+    'kup-html': Components.KupHtmlAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
-  var HTMLKupFldElement: {
-    prototype: HTMLKupFldElement;
-    new (): HTMLKupFldElement;
-  };
-
-  interface HTMLKetchupHtmlElement extends Components.KetchupHtml, HTMLStencilElement {}
-  var HTMLKetchupHtmlElement: {
-    prototype: HTMLKetchupHtmlElement;
-    new (): HTMLKetchupHtmlElement;
-  };
 
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
   var HTMLKupPaginatorElement: {
@@ -699,6 +687,18 @@ declare global {
     new (): HTMLKupDataTableElement;
   };
 
+  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
+  var HTMLKupFldElement: {
+    prototype: HTMLKupFldElement;
+    new (): HTMLKupFldElement;
+  };
+
+  interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {}
+  var HTMLKupHtmlElement: {
+    prototype: HTMLKupHtmlElement;
+    new (): HTMLKupHtmlElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,8 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-fld': HTMLKupFldElement
-    'ketchup-html': HTMLKetchupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
     'ketchup-portal': HTMLKetchupPortalElement
@@ -719,12 +717,12 @@ declare global {
     'kup-combo': HTMLKupComboElement
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
+    'kup-fld': HTMLKupFldElement
+    'kup-html': HTMLKupHtmlElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-fld': HTMLKupFldElement;
-    'ketchup-html': HTMLKetchupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
     'ketchup-portal': HTMLKetchupPortalElement;
@@ -736,6 +734,8 @@ declare global {
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
+    'kup-fld': HTMLKupFldElement;
+    'kup-html': HTMLKupHtmlElement;
     'my-component': HTMLMyComponentElement;
   }
 
