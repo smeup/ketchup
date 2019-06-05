@@ -17,21 +17,21 @@ import {
     GenericMap,
     GroupObject,
     TotalsMap,
-} from './ketchup-data-table-declarations';
+} from './kup-data-table-declarations';
 
 import {
     calcTotals,
     filterRows,
     groupRows,
     sortRows,
-} from './ketchup-data-table-helper';
+} from './kup-data-table-helper';
 
 @Component({
     tag: 'kup-data-table',
-    styleUrl: 'ketchup-data-table.scss',
+    styleUrl: 'kup-data-table.scss',
     shadow: true,
 })
-export class KetchupDataTable {
+export class KupDataTable {
     @Prop() data: { columns?: Array<Column>; rows?: Array<Row> };
 
     @Prop()

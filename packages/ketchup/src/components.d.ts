@@ -9,15 +9,6 @@ import '@stencil/core';
 
 
 import {
-  Column,
-  GenericMap,
-  GroupObject,
-  PaginatorPos,
-  Row,
-  SortObject,
-  TotalsMap,
-} from './components/ketchup-data-table/ketchup-data-table-declarations';
-import {
   EventEmitter,
 } from '@stencil/core';
 import {
@@ -42,54 +33,18 @@ import {
 import {
   ComboItem,
 } from './components/kup-combo/kup-combo-declarations';
+import {
+  Column,
+  GenericMap,
+  GroupObject,
+  PaginatorPos,
+  Row,
+  SortObject,
+  TotalsMap,
+} from './components/kup-data-table/kup-data-table-declarations';
 
 
 export namespace Components {
-
-  interface KupDataTable {
-    'columnsWidth': Array<{
-      column: string;
-      width: number;
-    }>;
-    'data': { columns?: Array<Column>; rows?: Array<Row> };
-    'filters': GenericMap;
-    'globalFilter': boolean;
-    'groups': Array<GroupObject>;
-    'multiSelection': boolean;
-    'paginatorPos': PaginatorPos;
-    'rowsPerPage': number;
-    'selectRow': number;
-    'showFilters': boolean;
-    'showGrid': boolean;
-    'showHeader': boolean;
-    'sort': Array<SortObject>;
-    'sortEnabled': boolean;
-    'totals': TotalsMap;
-  }
-  interface KupDataTableAttributes extends StencilHTMLAttributes {
-    'columnsWidth'?: Array<{
-      column: string;
-      width: number;
-    }>;
-    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
-    'filters'?: GenericMap;
-    'globalFilter'?: boolean;
-    'groups'?: Array<GroupObject>;
-    'multiSelection'?: boolean;
-    /**
-    * When a row is selected
-    */
-    'onKupRowSelected'?: (event: CustomEvent<Array<Row>>) => void;
-    'paginatorPos'?: PaginatorPos;
-    'rowsPerPage'?: number;
-    'selectRow'?: number;
-    'showFilters'?: boolean;
-    'showGrid'?: boolean;
-    'showHeader'?: boolean;
-    'sort'?: Array<SortObject>;
-    'sortEnabled'?: boolean;
-    'totals'?: TotalsMap;
-  }
 
   interface KetchupFld {
     /**
@@ -555,6 +510,51 @@ export namespace Components {
     }>) => void;
   }
 
+  interface KupDataTable {
+    'columnsWidth': Array<{
+      column: string;
+      width: number;
+    }>;
+    'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'filters': GenericMap;
+    'globalFilter': boolean;
+    'groups': Array<GroupObject>;
+    'multiSelection': boolean;
+    'paginatorPos': PaginatorPos;
+    'rowsPerPage': number;
+    'selectRow': number;
+    'showFilters': boolean;
+    'showGrid': boolean;
+    'showHeader': boolean;
+    'sort': Array<SortObject>;
+    'sortEnabled': boolean;
+    'totals': TotalsMap;
+  }
+  interface KupDataTableAttributes extends StencilHTMLAttributes {
+    'columnsWidth'?: Array<{
+      column: string;
+      width: number;
+    }>;
+    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'filters'?: GenericMap;
+    'globalFilter'?: boolean;
+    'groups'?: Array<GroupObject>;
+    'multiSelection'?: boolean;
+    /**
+    * When a row is selected
+    */
+    'onKupRowSelected'?: (event: CustomEvent<Array<Row>>) => void;
+    'paginatorPos'?: PaginatorPos;
+    'rowsPerPage'?: number;
+    'selectRow'?: number;
+    'showFilters'?: boolean;
+    'showGrid'?: boolean;
+    'showHeader'?: boolean;
+    'sort'?: Array<SortObject>;
+    'sortEnabled'?: boolean;
+    'totals'?: TotalsMap;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
     'KupPaginator': Components.KupPaginator;
@@ -600,11 +599,11 @@ declare global {
     'KupChart': Components.KupChart;
     'KupCombo': Components.KupCombo;
     'KupDash': Components.KupDash;
+    'KupDataTable': Components.KupDataTable;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-chart': Components.KupChartAttributes;
     'kup-combo': Components.KupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
+    'kup-data-table': Components.KupDataTableAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
-  var HTMLKupDataTableElement: {
-    prototype: HTMLKupDataTableElement;
-    new (): HTMLKupDataTableElement;
-  };
 
   interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
   var HTMLKetchupFldElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupDashElement;
   };
 
+  interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
+  var HTMLKupDataTableElement: {
+    prototype: HTMLKupDataTableElement;
+    new (): HTMLKupDataTableElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
@@ -719,11 +718,11 @@ declare global {
     'kup-chart': HTMLKupChartElement
     'kup-combo': HTMLKupComboElement
     'kup-dash': HTMLKupDashElement
+    'kup-data-table': HTMLKupDataTableElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-chart': HTMLKupChartElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
+    'kup-data-table': HTMLKupDataTableElement;
     'my-component': HTMLMyComponentElement;
   }
 

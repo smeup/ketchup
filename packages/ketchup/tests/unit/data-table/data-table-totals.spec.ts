@@ -1,5 +1,5 @@
-import { calcTotals } from '../../../src/components/ketchup-data-table/ketchup-data-table-helper';
-import { TotalMode } from '../../../src/components/ketchup-data-table/ketchup-data-table-declarations';
+import { calcTotals } from '../../../src/components/kup-data-table/kup-data-table-helper';
+import { TotalMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 
 const mockedRows = [
     {
