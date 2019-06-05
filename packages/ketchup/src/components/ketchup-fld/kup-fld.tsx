@@ -1,13 +1,13 @@
 import {Component, Event, EventEmitter, Method, Prop, State, Watch} from '@stencil/core';
 import { generateUniqueId } from "../../utils/utils";
-import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./ketchup-fld-declarations";
+import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
 
 @Component({
-    tag: 'ketchup-fld',
-    styleUrl: 'ketchup-fld.scss',
+    tag: 'kup-fld',
+    styleUrl: 'kup-fld.scss',
     shadow: true
 })
-export class KetchupFld {
+export class KupFld {
     /**
      * Data the FLD must parse to fully be configured.
      * It must be either an Object or a JSON parsable string
@@ -158,7 +158,7 @@ export class KetchupFld {
     //---- Rendering functions ----
     render() {
         let toRender = [];
-        const baseClass = 'ketchup-fld';
+        const baseClass = 'kup-fld';
         let label = null;
         let submit = null;
 

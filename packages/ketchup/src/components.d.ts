@@ -14,7 +14,7 @@ import {
 import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
-} from './components/ketchup-fld/ketchup-fld-declarations';
+} from './components/ketchup-fld/kup-fld-declarations';
 import {
   ElementOffset,
 } from './utils/offset';
@@ -46,7 +46,7 @@ import {
 
 export namespace Components {
 
-  interface KetchupFld {
+  interface KupFld {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
     */
@@ -60,7 +60,7 @@ export namespace Components {
     */
     'getCurrentValue': () => Promise<string | object>;
   }
-  interface KetchupFldAttributes extends StencilHTMLAttributes {
+  interface KupFldAttributes extends StencilHTMLAttributes {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
     */
@@ -587,7 +587,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupFld': Components.KetchupFld;
+    'KupFld': Components.KupFld;
     'KetchupHtml': Components.KetchupHtml;
     'KupPaginator': Components.KupPaginator;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
@@ -604,7 +604,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-fld': Components.KetchupFldAttributes;
+    'kup-fld': Components.KupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
@@ -621,10 +621,10 @@ declare global {
   }
 
 
-  interface HTMLKetchupFldElement extends Components.KetchupFld, HTMLStencilElement {}
-  var HTMLKetchupFldElement: {
-    prototype: HTMLKetchupFldElement;
-    new (): HTMLKetchupFldElement;
+  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
+  var HTMLKupFldElement: {
+    prototype: HTMLKupFldElement;
+    new (): HTMLKupFldElement;
   };
 
   interface HTMLKetchupHtmlElement extends Components.KetchupHtml, HTMLStencilElement {}
@@ -706,7 +706,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-fld': HTMLKetchupFldElement
+    'kup-fld': HTMLKupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
@@ -723,7 +723,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
-    'ketchup-fld': HTMLKetchupFldElement;
+    'kup-fld': HTMLKupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
