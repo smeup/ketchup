@@ -10,7 +10,7 @@ import {
     GroupObject,
     TotalMode,
     TotalsMap,
-} from './ketchup-data-table-declarations';
+} from './kup-data-table-declarations';
 
 export function sortRows(
     rows: Array<Row> = [],

@@ -1,4 +1,4 @@
-import { filterRows } from '../../../src/components/ketchup-data-table/ketchup-data-table-helper';
+import { filterRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
 
 const mockedRows = [
     {
