@@ -7,14 +7,14 @@ import {
     Watch
 } from '@stencil/core'
 import { generateUniqueId } from "../../utils/utils";
-import { KetchupRadioElement, KetchupRadioElementFactory } from "./ketchup-radio-declarations";
+import { KetchupRadioElement, KetchupRadioElementFactory } from "./kup-radio-declarations";
 
 @Component({
-    tag: 'ketchup-radio',
-    styleUrl: 'ketchup-radio.scss',
+    tag: 'kup-radio',
+    styleUrl: 'kup-radio.scss',
     shadow: true
 })
-export class KetchupRadio {
+export class KupRadio {
     /**
      * Label to describe the radio group
      */
@@ -48,7 +48,7 @@ export class KetchupRadio {
     @Watch('direction')
     checkDirection(newVal: string) {
         if (!/horizontal|vertical/.test(newVal)) {
-            throw new Error('ketchup-radio: direction must be horizontal or vertical.');
+            throw new Error('kup-radio: direction must be horizontal or vertical.');
         }
     }
 
@@ -103,7 +103,7 @@ export class KetchupRadio {
             // The id is necessary for the label to be associated with the input
             // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
             const uId = generateUniqueId(radio[this.valueField]);
-            return <li class={'ketchup-radio__item' + (this.selectedRadio && this.selectedRadio[this.valueField] === radio[this.valueField] ? ' ketchup-radio__item--selected' : '')}>
+            return <li class={'kup-radio__item' + (this.selectedRadio && this.selectedRadio[this.valueField] === radio[this.valueField] ? ' kup-radio__item--selected' : '')}>
                 <div>
                     <input id={uId} type="radio" name={this.radioName} value={radio[this.valueField]} onChange={this.onRadioChanged.bind(this, radio)}/>
                 </div>
@@ -113,11 +113,11 @@ export class KetchupRadio {
     }
 
     render() {
-        let classRadioGroup = 'ketchup-radio__group';
+        let classRadioGroup = 'kup-radio__group';
 
         // When direction is horizontal
         if (this.direction === 'horizontal') {
-            classRadioGroup += ' ketchup-radio__group--horizontal';
+            classRadioGroup += ' kup-radio__group--horizontal';
         }
 
         return (

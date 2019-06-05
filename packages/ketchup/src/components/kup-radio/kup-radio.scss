@@ -16,7 +16,7 @@ $radio-button_scale: 1.4;
   --rad_tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
 }
 
-.ketchup-radio {
+.kup-radio {
   // The group containing the radio buttons. Uses a ul element
   &__group {
     list-style-type: none;

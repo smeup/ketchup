@@ -216,7 +216,7 @@ export class KupFld {
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
-                type = 'etchup-radio';
+                type = 'up-radio';
                 break;
             case 'itx':
             case 'Itx':

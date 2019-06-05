@@ -54,6 +54,9 @@ import {
 import {
   ElementOffset,
 } from './utils/offset';
+import {
+  KetchupRadioElement,
+} from './components/kup-radio/kup-radio-declarations';
 
 
 export namespace Components {
@@ -630,10 +633,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupPaginator': Components.KupPaginator;
-    'KetchupPortalInstance': Components.KetchupPortalInstance;
-    'KetchupPortal': Components.KetchupPortal;
-    'KetchupRadio': Components.KetchupRadio;
     'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
@@ -643,11 +642,14 @@ declare global {
     'KupDataTable': Components.KupDataTable;
     'KupFld': Components.KupFld;
     'KupHtml': Components.KupHtml;
+    'KupPaginator': Components.KupPaginator;
+    'KupPortalInstance': Components.KupPortalInstance;
+    'KupPortal': Components.KupPortal;
+    'KupRadio': Components.KupRadio;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
@@ -660,6 +662,7 @@ declare global {
     'kup-paginator': Components.KupPaginatorAttributes;
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
+    'kup-radio': Components.KupRadioAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -778,6 +781,12 @@ declare global {
     new (): HTMLKupPortalElement;
   };
 
+  interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {}
+  var HTMLKupRadioElement: {
+    prototype: HTMLKupRadioElement;
+    new (): HTMLKupRadioElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -785,10 +794,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-paginator': HTMLKupPaginatorElement
-    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
-    'ketchup-portal': HTMLKetchupPortalElement
-    'ketchup-radio': HTMLKetchupRadioElement
     'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
@@ -801,14 +806,11 @@ declare global {
     'kup-paginator': HTMLKupPaginatorElement
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
+    'kup-radio': HTMLKupRadioElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-paginator': HTMLKupPaginatorElement;
-    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
-    'ketchup-portal': HTMLKetchupPortalElement;
-    'ketchup-radio': HTMLKetchupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
@@ -821,6 +823,7 @@ declare global {
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;
+    'kup-radio': HTMLKupRadioElement;
     'my-component': HTMLMyComponentElement;
   }
 
