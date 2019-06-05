@@ -1,13 +1,13 @@
 import { Component, Prop, State } from '@stencil/core';
 
-import { ButtonConfig } from './ketchup-btn-declarations';
+import { ButtonConfig } from './kup-btn-declarations';
 
 @Component({
-    tag: 'ketchup-btn',
-    styleUrl: 'ketchup-btn.scss',
+    tag: 'kup-btn',
+    styleUrl: 'kup-btn.scss',
     shadow: true,
 })
-export class KetchupBtn {
+export class KupBtn {
     @Prop() buttons: any[];
 
     // setup props
