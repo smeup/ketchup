@@ -210,24 +210,24 @@ export class KetchupFld {
                 confObj.displayedField = 'value';
                 confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
-                type = 'combo';
+                type = 'up-combo';
                 break;
             case 'rad':
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
-                type = 'radio';
+                type = 'etchup-radio';
                 break;
             case 'itx':
             case 'Itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                type = 'text-input';
+                type = 'etchup-text-input';
                 break;
         }
 
-        const $DynamicComponent = ('ketchup-' + type) as any; // TODO check if there is a better typing
+        const $DynamicComponent = ('k' + type) as any; // TODO check if there is a better typing
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
