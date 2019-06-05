@@ -1,15 +1,16 @@
 {
   "name": "ketchup-root",
   "version": "0.0.1",
-  "description": "Sme.UP KetchUP web components library and showcase monorepo.",
+  "description": "Sme.UP KetchUP components, web components library and showcase monorepo.",
   "keywords":  [
     "Sme.UP",
     "monorepo",
-    "Stencil.js",
+    "Stencil",
     "web components",
     "Vue.js components",
-    "components showcase"
+    "showcase"
   ],
+  "license": "Apache-2.0",
   "author":  "Gruppo Sme.UP <info@smeup.com> (https://www.smeup.com/)",
   "repository": "https://github.com/smeup/ketchup",
   "devDependencies": {

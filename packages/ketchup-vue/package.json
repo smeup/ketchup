@@ -1,7 +1,16 @@
 {
   "name": "ketchup-vue",
   "version": "0.0.1",
-  "private": true,
+  "keywords": [
+    "Sme.UP",
+    "KetchUP-Vue",
+    "pwa",
+    "components",
+    "Vue components",
+    "Vue.js"
+  ],
+  "description": "Sme.UP Vue.js components library.",
+  "license": "Apache-2.0",
   "scripts": {
     "lint": "vue-cli-service lint",
     "build": "rimraf dist && cp -R ./../ketchup-showcase/node_modules/vue ./node_modules && vue-cli-service build --target lib --name ketchupvue ./src/components/index.js && rimraf node_modules/vue",
