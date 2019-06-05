@@ -33,21 +33,6 @@ import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
 import {
-  EventEmitter,
-} from '@stencil/core';
-import {
-  KetchupTextInputEvent,
-} from './components/ketchup-text-input/ketchup-text-input-declarations';
-import {
-  ButtonConfig,
-} from './components/kup-btn/kup-btn-declarations';
-import {
-  ChartConfig,
-} from './components/kup-chart/kup-chart-declarations';
-import {
-  ComboItem,
-} from './components/kup-combo/kup-combo-declarations';
-import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -57,7 +42,6 @@ import {
 import {
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
-
 
 export namespace Components {
 
@@ -633,7 +617,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
     'KupChart': Components.KupChart;
@@ -646,11 +629,11 @@ declare global {
     'KupPortalInstance': Components.KupPortalInstance;
     'KupPortal': Components.KupPortal;
     'KupRadio': Components.KupRadio;
+    'KupTextInput': Components.KupTextInput;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
     'kup-chart': Components.KupChartAttributes;
@@ -663,6 +646,7 @@ declare global {
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
     'kup-radio': Components.KupRadioAttributes;
+    'kup-text-input': Components.KupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -787,6 +771,12 @@ declare global {
     new (): HTMLKupRadioElement;
   };
 
+  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
+  var HTMLKupTextInputElement: {
+    prototype: HTMLKupTextInputElement;
+    new (): HTMLKupTextInputElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -794,7 +784,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
     'kup-chart': HTMLKupChartElement
@@ -807,11 +796,11 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
     'kup-radio': HTMLKupRadioElement
+    'kup-text-input': HTMLKupTextInputElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
@@ -824,6 +813,7 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-radio': HTMLKupRadioElement;
+    'kup-text-input': HTMLKupTextInputElement;
     'my-component': HTMLMyComponentElement;
   }
 

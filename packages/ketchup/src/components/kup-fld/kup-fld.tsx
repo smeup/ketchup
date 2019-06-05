@@ -210,24 +210,24 @@ export class KupFld {
                 confObj.displayedField = 'value';
                 confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
-                type = 'up-combo';
+                type = 'combo';
                 break;
             case 'rad':
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
-                type = 'up-radio';
+                type = 'radio';
                 break;
             case 'itx':
             case 'Itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                type = 'etchup-text-input';
+                type = 'text-input';
                 break;
         }
 
-        const $DynamicComponent = ('k' + type) as any; // TODO check if there is a better typing
+        const $DynamicComponent = ('kup-' + type) as any; // TODO check if there is a better typing
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
