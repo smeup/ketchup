@@ -48,17 +48,6 @@ import {
 
 export namespace Components {
 
-  interface KupDash {
-    'fontsize': string;
-    'layout': string;
-  }
-  interface KupDashAttributes extends StencilHTMLAttributes {
-    'fontsize'?: string;
-    'layout'?: string;
-    'onKetchupDashClicked'?: (event: CustomEvent<{
-    }>) => void;
-  }
-
   interface KupDataTable {
     'columnsWidth': Array<{
       column: string;
@@ -588,6 +577,17 @@ export namespace Components {
     'valueField'?: string;
   }
 
+  interface KupDash {
+    'fontsize': string;
+    'layout': string;
+  }
+  interface KupDashAttributes extends StencilHTMLAttributes {
+    'fontsize'?: string;
+    'layout'?: string;
+    'onKetchupDashClicked'?: (event: CustomEvent<{
+    }>) => void;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -620,7 +620,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KetchupFld': Components.KetchupFld;
     'KetchupHtml': Components.KetchupHtml;
@@ -633,11 +632,11 @@ declare global {
     'KupButton': Components.KupButton;
     'KupChart': Components.KupChart;
     'KupCombo': Components.KupCombo;
+    'KupDash': Components.KupDash;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'ketchup-fld': Components.KetchupFldAttributes;
     'ketchup-html': Components.KetchupHtmlAttributes;
@@ -650,15 +649,10 @@ declare global {
     'kup-button': Components.KupButtonAttributes;
     'kup-chart': Components.KupChartAttributes;
     'kup-combo': Components.KupComboAttributes;
+    'kup-dash': Components.KupDashAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
-  var HTMLKupDashElement: {
-    prototype: HTMLKupDashElement;
-    new (): HTMLKupDashElement;
-  };
 
   interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
   var HTMLKupDataTableElement: {
@@ -732,6 +726,12 @@ declare global {
     new (): HTMLKupComboElement;
   };
 
+  interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
+  var HTMLKupDashElement: {
+    prototype: HTMLKupDashElement;
+    new (): HTMLKupDashElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -739,7 +739,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'ketchup-fld': HTMLKetchupFldElement
     'ketchup-html': HTMLKetchupHtmlElement
@@ -752,11 +751,11 @@ declare global {
     'kup-button': HTMLKupButtonElement
     'kup-chart': HTMLKupChartElement
     'kup-combo': HTMLKupComboElement
+    'kup-dash': HTMLKupDashElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'ketchup-fld': HTMLKetchupFldElement;
     'ketchup-html': HTMLKetchupHtmlElement;
@@ -769,6 +768,7 @@ declare global {
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
     'kup-combo': HTMLKupComboElement;
+    'kup-dash': HTMLKupDashElement;
     'my-component': HTMLMyComponentElement;
   }
 
