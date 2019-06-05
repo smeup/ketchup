@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  ChartConfig,
-} from './components/ketchup-chart/kup-chart-declarations';
-import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
 import {
@@ -42,18 +39,12 @@ import {
 import {
   ButtonConfig,
 } from './components/kup-btn/kup-btn-declarations';
+import {
+  ChartConfig,
+} from './components/kup-chart/kup-chart-declarations';
 
 
 export namespace Components {
-
-  interface KupChart {
-    'config': ChartConfig;
-    'data': any;
-  }
-  interface KupChartAttributes extends StencilHTMLAttributes {
-    'config'?: ChartConfig;
-    'data'?: any;
-  }
 
   interface KetchupCombo {
     /**
@@ -555,6 +546,15 @@ export namespace Components {
     'transparent'?: boolean;
   }
 
+  interface KupChart {
+    'config': ChartConfig;
+    'data': any;
+  }
+  interface KupChartAttributes extends StencilHTMLAttributes {
+    'config'?: ChartConfig;
+    'data'?: any;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupChart': Components.KupChart;
     'KetchupCombo': Components.KetchupCombo;
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
@@ -600,11 +599,11 @@ declare global {
     'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
+    'KupChart': Components.KupChart;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-chart': Components.KupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
+    'kup-chart': Components.KupChartAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
-  var HTMLKupChartElement: {
-    prototype: HTMLKupChartElement;
-    new (): HTMLKupChartElement;
-  };
 
   interface HTMLKetchupComboElement extends Components.KetchupCombo, HTMLStencilElement {}
   var HTMLKetchupComboElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupButtonElement;
   };
 
+  interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
+  var HTMLKupChartElement: {
+    prototype: HTMLKupChartElement;
+    new (): HTMLKupChartElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-chart': HTMLKupChartElement
     'ketchup-combo': HTMLKetchupComboElement
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
@@ -719,11 +718,11 @@ declare global {
     'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
+    'kup-chart': HTMLKupChartElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-chart': HTMLKupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
+    'kup-chart': HTMLKupChartElement;
     'my-component': HTMLMyComponentElement;
   }
 
