@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import dataTableRoutes from './router/dataTable';
+import fldRoutes from './router/fldRoutes';
 
 import Home from '@/views/Home.vue';
 
@@ -15,7 +16,11 @@ const baseRoutes = [
   },
 ];
 
-const routes = [...baseRoutes, ...dataTableRoutes];
+const routes = [
+  ...baseRoutes,
+  ...dataTableRoutes,
+  ...fldRoutes
+];
 
 export default new Router({
   // If you want to activate the history mode, remember to follow the instructions regarding publicPath prop
