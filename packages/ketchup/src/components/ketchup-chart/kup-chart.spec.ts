@@ -1,6 +1,6 @@
-import { KetchupChart } from './ketchup-chart';
-import { ChartConfig, ChartType } from './ketchup-chart-declarations';
-import { convertColumns, convertRows } from './ketchup-chart-builder';
+import { KupChart } from './kup-chart';
+import { ChartConfig, ChartType } from './kup-chart-declarations';
+import { convertColumns, convertRows } from './kup-chart-builder';
 
 const dataMock = {
     columns: [
@@ -159,8 +159,8 @@ describe('data conversion', () => {
     });
 });
 
-describe('ketchup-chart', () => {
+describe('kup-chart', () => {
     it('builds', () => {
-        expect(new KetchupChart()).toBeTruthy();
+        expect(new KupChart()).toBeTruthy();
     });
 });

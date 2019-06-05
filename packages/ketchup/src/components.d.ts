@@ -10,7 +10,7 @@ import '@stencil/core';
 
 import {
   ChartConfig,
-} from './components/ketchup-chart/ketchup-chart-declarations';
+} from './components/ketchup-chart/kup-chart-declarations';
 import {
   ComboItem,
 } from './components/ketchup-combo/ketchup-combo-declarations';
@@ -48,11 +48,11 @@ import {
 
 export namespace Components {
 
-  interface KetchupChart {
+  interface KupChart {
     'config': ChartConfig;
     'data': any;
   }
-  interface KetchupChartAttributes extends StencilHTMLAttributes {
+  interface KupChartAttributes extends StencilHTMLAttributes {
     'config'?: ChartConfig;
     'data'?: any;
   }
@@ -620,7 +620,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupChart': Components.KetchupChart;
+    'KupChart': Components.KupChart;
     'KetchupCombo': Components.KetchupCombo;
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
@@ -637,7 +637,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-chart': Components.KetchupChartAttributes;
+    'kup-chart': Components.KupChartAttributes;
     'ketchup-combo': Components.KetchupComboAttributes;
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
@@ -654,10 +654,10 @@ declare global {
   }
 
 
-  interface HTMLKetchupChartElement extends Components.KetchupChart, HTMLStencilElement {}
-  var HTMLKetchupChartElement: {
-    prototype: HTMLKetchupChartElement;
-    new (): HTMLKetchupChartElement;
+  interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
+  var HTMLKupChartElement: {
+    prototype: HTMLKupChartElement;
+    new (): HTMLKupChartElement;
   };
 
   interface HTMLKetchupComboElement extends Components.KetchupCombo, HTMLStencilElement {}
@@ -739,7 +739,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-chart': HTMLKetchupChartElement
+    'kup-chart': HTMLKupChartElement
     'ketchup-combo': HTMLKetchupComboElement
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
@@ -756,7 +756,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
-    'ketchup-chart': HTMLKetchupChartElement;
+    'kup-chart': HTMLKupChartElement;
     'ketchup-combo': HTMLKetchupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;

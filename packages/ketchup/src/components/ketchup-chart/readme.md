@@ -1,4 +1,4 @@
-# ketchup-chart
+# kup-chart
 
 
 

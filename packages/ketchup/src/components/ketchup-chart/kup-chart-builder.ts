@@ -1,4 +1,4 @@
-import { ChartConfig } from './ketchup-chart-declarations';
+import { ChartConfig } from './kup-chart-declarations';
 
 export const convertColumns = (data: any, config: ChartConfig) => {
     if (!data || !config || !config.series) {
