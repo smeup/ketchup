@@ -9,12 +9,6 @@ import '@stencil/core';
 
 
 import {
-  EventEmitter,
-} from '@stencil/core';
-import {
-  KetchupTextInputEvent,
-} from './components/ketchup-text-input/ketchup-text-input-declarations';
-import {
   ButtonConfig,
 } from './components/kup-btn/kup-btn-declarations';
 import {
@@ -33,6 +27,9 @@ import {
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -42,76 +39,12 @@ import {
 import {
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
+import {
+  KetchupTextInputEvent,
+} from './components/kup-text-input/kup-text-input-declarations';
 
 
 export namespace Components {
-
-  interface KupTextInput {
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce': number;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue': string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength': number;
-    /**
-    * Triggers the focus event on the input text
-    */
-    'triggerFocus': () => void;
-  }
-  interface KupTextInputAttributes extends StencilHTMLAttributes {
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce'?: number;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue'?: string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength'?: number;
-    /**
-    * When text field loses focus (blur)
-    */
-    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the text input gains focus
-    */
-    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When a keydown enter event occurs it generates
-    */
-    'onKetchupTextInputSubmit'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    /**
-    * When the input text value gets updated
-    */
-    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-  }
 
   interface KupBtn {
     'buttons': any[];
@@ -555,6 +488,73 @@ export namespace Components {
     'valueField'?: string;
   }
 
+  interface KupTextInput {
+    /**
+    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+    */
+    'debounce': number;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue': string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength': number;
+    /**
+    * Triggers the focus event on the input text
+    */
+    'triggerFocus': () => void;
+  }
+  interface KupTextInputAttributes extends StencilHTMLAttributes {
+    /**
+    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+    */
+    'debounce'?: number;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'initialValue'?: string;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+    */
+    'maxLength'?: number;
+    /**
+    * When text field loses focus (blur)
+    */
+    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When the text input gains focus
+    */
+    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When a keydown enter event occurs it generates
+    */
+    'onKetchupTextInputSubmit'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    /**
+    * When the input text value gets updated
+    */
+    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
     'KupChart': Components.KupChart;
@@ -600,11 +599,11 @@ declare global {
     'KupPortalInstance': Components.KupPortalInstance;
     'KupPortal': Components.KupPortal;
     'KupRadio': Components.KupRadio;
+    'KupTextInput': Components.KupTextInput;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
     'kup-chart': Components.KupChartAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
     'kup-radio': Components.KupRadioAttributes;
+    'kup-text-input': Components.KupTextInputAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
-  var HTMLKupTextInputElement: {
-    prototype: HTMLKupTextInputElement;
-    new (): HTMLKupTextInputElement;
-  };
 
   interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
   var HTMLKupBtnElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupRadioElement;
   };
 
+  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
+  var HTMLKupTextInputElement: {
+    prototype: HTMLKupTextInputElement;
+    new (): HTMLKupTextInputElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
     'kup-chart': HTMLKupChartElement
@@ -719,11 +718,11 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
     'kup-radio': HTMLKupRadioElement
+    'kup-text-input': HTMLKupTextInputElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-radio': HTMLKupRadioElement;
+    'kup-text-input': HTMLKupTextInputElement;
     'my-component': HTMLMyComponentElement;
   }
 

@@ -258,7 +258,7 @@ export class KupCombo {
         (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')
         + (this.usePortal ? ' is-using-portal' : '')}>
             <div class={this.baseClass + '__filter'}>
-                <ketchup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
+                <kup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
             </div>
             <ul class={this.baseClass + '__list'}>
                 {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)

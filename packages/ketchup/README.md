@@ -6,18 +6,20 @@ Compiler: Stencill.js
 ## Conventions
 
 #### 1. Component names
-Component names must be prefixed with `ketchup-`.
+Component names must be prefixed with `kup-`.
 
 #### 2. Custom events
 
 ##### Naming
 Custom event names must be composed in compliance with the following rules:
 1. use camelCase;
-2. event name = componentName + EventName.
+2. event name = componentName + EventName;
+
+Where `componentName` has the prefix `kup` converted into `ketchup`.
 
 Example:
 ```
-// Events for the component ketchup-text-input
+// Events for the component kup-text-input
 // Updated event
 ketchupTextInputUpdated
 ```

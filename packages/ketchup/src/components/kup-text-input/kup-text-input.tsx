@@ -8,16 +8,16 @@ import {
     State,
     Watch,
 } from '@stencil/core';
-import { KetchupTextInputEvent } from './ketchup-text-input-declarations';
+import { KetchupTextInputEvent } from './kup-text-input-declarations';
 
 import { debounceEvent } from '../../utils/helpers';
 
 @Component({
     tag: 'kup-text-input',
-    styleUrl: 'ketchup-text-input.scss',
+    styleUrl: 'kup-text-input.scss',
     shadow: true,
 })
-export class KetchupTextInput {
+export class KupTextInput {
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
