@@ -1,17 +1,17 @@
 import { Component, Prop } from '@stencil/core';
 
-import { ChartConfig, ChartType } from './ketchup-chart-declarations';
+import { ChartConfig, ChartType } from './kup-chart-declarations';
 
-import { convertColumns, convertRows } from './ketchup-chart-builder';
+import { convertColumns, convertRows } from './kup-chart-builder';
 
 declare const google: any;
 
 @Component({
-    tag: 'ketchup-chart',
-    styleUrl: 'ketchup-chart.scss',
+    tag: 'kup-chart',
+    styleUrl: 'kup-chart.scss',
     shadow: true,
 })
-export class KetchupChart {
+export class KupChart {
     @Prop() data: any;
 
     @Prop() config: ChartConfig = {
