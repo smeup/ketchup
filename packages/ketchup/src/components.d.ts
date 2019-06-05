@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  KetchupRadioElement,
-} from './components/ketchup-radio/ketchup-radio-declarations';
-import {
   EventEmitter,
 } from '@stencil/core';
 import {
@@ -42,77 +39,12 @@ import {
 import {
   ElementOffset,
 } from './utils/offset';
+import {
+  KetchupRadioElement,
+} from './components/kup-radio/kup-radio-declarations';
 
 
 export namespace Components {
-
-  interface KetchupRadio {
-    /**
-    * Direction in which the radio elements must be placed
-    */
-    'direction': string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the Radio group
-    */
-    'initialValue': KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items': KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * Radio elements value
-    */
-    'radioName': string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KetchupRadioAttributes extends StencilHTMLAttributes {
-    /**
-    * Direction in which the radio elements must be placed
-    */
-    'direction'?: string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * Allows to pass an initial selected item for the Radio group
-    */
-    'initialValue'?: KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items'?: KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * When currently selected radio button has been changed.
-    */
-    'onKetchupRadioChanged'?: (event: CustomEvent<{
-      value: KetchupRadioElement;
-      oldValue: KetchupRadioElement;
-    }>) => void;
-    /**
-    * Radio elements value
-    */
-    'radioName'?: string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
 
   interface KupTextInput {
     /**
@@ -555,6 +487,74 @@ export namespace Components {
     'styleNode'?: HTMLStyleElement;
   }
 
+  interface KupRadio {
+    /**
+    * Direction in which the radio elements must be placed
+    */
+    'direction': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Allows to pass an initial selected item for the Radio group
+    */
+    'initialValue': KetchupRadioElement;
+    /**
+    * Radio elements to display
+    */
+    'items': KetchupRadioElement[];
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * Radio elements value
+    */
+    'radioName': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
+  }
+  interface KupRadioAttributes extends StencilHTMLAttributes {
+    /**
+    * Direction in which the radio elements must be placed
+    */
+    'direction'?: string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the Radio group
+    */
+    'initialValue'?: KetchupRadioElement;
+    /**
+    * Radio elements to display
+    */
+    'items'?: KetchupRadioElement[];
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * When currently selected radio button has been changed.
+    */
+    'onKetchupRadioChanged'?: (event: CustomEvent<{
+      value: KetchupRadioElement;
+      oldValue: KetchupRadioElement;
+    }>) => void;
+    /**
+    * Radio elements value
+    */
+    'radioName'?: string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupRadio': Components.KetchupRadio;
     'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
@@ -600,11 +599,11 @@ declare global {
     'KupPaginator': Components.KupPaginator;
     'KupPortalInstance': Components.KupPortalInstance;
     'KupPortal': Components.KupPortal;
+    'KupRadio': Components.KupRadio;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-paginator': Components.KupPaginatorAttributes;
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
+    'kup-radio': Components.KupRadioAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
-  var HTMLKetchupRadioElement: {
-    prototype: HTMLKetchupRadioElement;
-    new (): HTMLKetchupRadioElement;
-  };
 
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupPortalElement;
   };
 
+  interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {}
+  var HTMLKupRadioElement: {
+    prototype: HTMLKupRadioElement;
+    new (): HTMLKupRadioElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-radio': HTMLKetchupRadioElement
     'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
@@ -719,11 +718,11 @@ declare global {
     'kup-paginator': HTMLKupPaginatorElement
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
+    'kup-radio': HTMLKupRadioElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'ketchup-radio': HTMLKetchupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;
+    'kup-radio': HTMLKupRadioElement;
     'my-component': HTMLMyComponentElement;
   }
 
