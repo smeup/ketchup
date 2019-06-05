@@ -46,27 +46,6 @@ import {
 
 export namespace Components {
 
-  interface KupPaginator {
-    'currentPage': number;
-    'max': number;
-    'perPage': number;
-    'selectedPerPage': number;
-  }
-  interface KupPaginatorAttributes extends StencilHTMLAttributes {
-    'currentPage'?: number;
-    'max'?: number;
-    /**
-    * When the current page change
-    */
-    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
-    /**
-    * When the rows per page change
-    */
-    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
-    'perPage'?: number;
-    'selectedPerPage'?: number;
-  }
-
   interface KetchupPortalInstance {
     /**
     * Specifies if the current portal instance should be displayed or not.
@@ -555,6 +534,27 @@ export namespace Components {
     'src'?: string;
   }
 
+  interface KupPaginator {
+    'currentPage': number;
+    'max': number;
+    'perPage': number;
+    'selectedPerPage': number;
+  }
+  interface KupPaginatorAttributes extends StencilHTMLAttributes {
+    'currentPage'?: number;
+    'max'?: number;
+    /**
+    * When the current page change
+    */
+    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
+    /**
+    * When the rows per page change
+    */
+    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+    'perPage'?: number;
+    'selectedPerPage'?: number;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,7 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KupPaginator': Components.KupPaginator;
     'KetchupPortalInstance': Components.KetchupPortalInstance;
     'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
@@ -600,11 +599,11 @@ declare global {
     'KupDataTable': Components.KupDataTable;
     'KupFld': Components.KupFld;
     'KupHtml': Components.KupHtml;
+    'KupPaginator': Components.KupPaginator;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'kup-paginator': Components.KupPaginatorAttributes;
     'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
     'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
@@ -617,15 +616,10 @@ declare global {
     'kup-data-table': Components.KupDataTableAttributes;
     'kup-fld': Components.KupFldAttributes;
     'kup-html': Components.KupHtmlAttributes;
+    'kup-paginator': Components.KupPaginatorAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
-  var HTMLKupPaginatorElement: {
-    prototype: HTMLKupPaginatorElement;
-    new (): HTMLKupPaginatorElement;
-  };
 
   interface HTMLKetchupPortalInstanceElement extends Components.KetchupPortalInstance, HTMLStencilElement {}
   var HTMLKetchupPortalInstanceElement: {
@@ -699,6 +693,12 @@ declare global {
     new (): HTMLKupHtmlElement;
   };
 
+  interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
+  var HTMLKupPaginatorElement: {
+    prototype: HTMLKupPaginatorElement;
+    new (): HTMLKupPaginatorElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,7 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'kup-paginator': HTMLKupPaginatorElement
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
     'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
@@ -719,11 +718,11 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement
     'kup-fld': HTMLKupFldElement
     'kup-html': HTMLKupHtmlElement
+    'kup-paginator': HTMLKupPaginatorElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'kup-paginator': HTMLKupPaginatorElement;
     'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
     'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
@@ -736,6 +735,7 @@ declare global {
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
     'kup-html': HTMLKupHtmlElement;
+    'kup-paginator': HTMLKupPaginatorElement;
     'my-component': HTMLMyComponentElement;
   }
 

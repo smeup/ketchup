@@ -2,10 +2,10 @@ import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
     tag: 'kup-paginator',
-    styleUrl: 'ketchup-paginator.scss',
+    styleUrl: 'kup-paginator.scss',
     shadow: true,
 })
-export class KetchupPaginator {
+export class KupPaginator {
     @Prop()
     max = 0;
 
