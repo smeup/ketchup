@@ -9,9 +9,6 @@ import '@stencil/core';
 
 
 import {
-  ElementOffset,
-} from './utils/offset';
-import {
   KetchupRadioElement,
 } from './components/ketchup-radio/ketchup-radio-declarations';
 import {
@@ -42,111 +39,12 @@ import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
+import {
+  ElementOffset,
+} from './utils/offset';
 
 
 export namespace Components {
-
-  interface KetchupPortalInstance {
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible': boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
-  interface KetchupPortalInstanceAttributes extends StencilHTMLAttributes {
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible'?: boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
-
-  interface KetchupPortal {
-    /**
-    * Reference to the html element from which CSS Custom Properties must be derived
-    */
-    'cssVarsRef': HTMLElement;
-    /**
-    * Returns the root node instance of the KetchupPortalInstance element
-    */
-    'getPortalInstance': () => Promise<HTMLElement>;
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible': boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars': string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes': JSX.Element[] | JSX.Element;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode': HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset': ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement;
-  }
-  interface KetchupPortalAttributes extends StencilHTMLAttributes {
-    /**
-    * Reference to the html element from which CSS Custom Properties must be derived
-    */
-    'cssVarsRef'?: HTMLElement;
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible'?: boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars'?: string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes'?: JSX.Element[] | JSX.Element;
-    /**
-    * When loading the frame has thrown an error
-    */
-    'onKetchupHtmlError'?: (event: CustomEvent) => void;
-    /**
-    * When the iframe has been loaded
-    */
-    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode'?: HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset'?: ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement;
-  }
 
   interface KetchupRadio {
     /**
@@ -555,6 +453,108 @@ export namespace Components {
     'selectedPerPage'?: number;
   }
 
+  interface KupPortalInstance {
+    /**
+    * Specifies if the current portal instance should be displayed or not.
+    */
+    'isVisible': boolean;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode': HTMLStyleElement;
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'vNodes'?: JSX.Element[] | JSX.Element;
+  }
+  interface KupPortalInstanceAttributes extends StencilHTMLAttributes {
+    /**
+    * Specifies if the current portal instance should be displayed or not.
+    */
+    'isVisible'?: boolean;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode'?: HTMLStyleElement;
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'vNodes'?: JSX.Element[] | JSX.Element;
+  }
+
+  interface KupPortal {
+    /**
+    * Reference to the html element from which CSS Custom Properties must be derived
+    */
+    'cssVarsRef': HTMLElement;
+    /**
+    * Returns the root node instance of the KetchupPortalInstance element
+    */
+    'getPortalInstance': () => Promise<HTMLElement>;
+    /**
+    * Tells the portal instance if it can be visible or not
+    */
+    'isVisible': boolean;
+    /**
+    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+    */
+    'mirroredCssVars': string[];
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'nodes': JSX.Element[] | JSX.Element;
+    /**
+    * The HTML element on which the virtual node must be appended
+    */
+    'portalRootNode': HTMLElement;
+    /**
+    * Calculated offset of where the portal must be positioned
+    */
+    'refOffset': ElementOffset;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode': HTMLStyleElement;
+  }
+  interface KupPortalAttributes extends StencilHTMLAttributes {
+    /**
+    * Reference to the html element from which CSS Custom Properties must be derived
+    */
+    'cssVarsRef'?: HTMLElement;
+    /**
+    * Tells the portal instance if it can be visible or not
+    */
+    'isVisible'?: boolean;
+    /**
+    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+    */
+    'mirroredCssVars'?: string[];
+    /**
+    * Virtual node list the KetchupPortalInstance must render
+    */
+    'nodes'?: JSX.Element[] | JSX.Element;
+    /**
+    * When loading the frame has thrown an error
+    */
+    'onKetchupHtmlError'?: (event: CustomEvent) => void;
+    /**
+    * When the iframe has been loaded
+    */
+    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
+    /**
+    * The HTML element on which the virtual node must be appended
+    */
+    'portalRootNode'?: HTMLElement;
+    /**
+    * Calculated offset of where the portal must be positioned
+    */
+    'refOffset'?: ElementOffset;
+    /**
+    * A style node to be copied into the KetchupPortalInstance
+    */
+    'styleNode'?: HTMLStyleElement;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -587,8 +587,6 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
-    'KetchupPortalInstance': Components.KetchupPortalInstance;
-    'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
     'KupTextInput': Components.KupTextInput;
     'KupBtn': Components.KupBtn;
@@ -600,12 +598,12 @@ declare global {
     'KupFld': Components.KupFld;
     'KupHtml': Components.KupHtml;
     'KupPaginator': Components.KupPaginator;
+    'KupPortalInstance': Components.KupPortalInstance;
+    'KupPortal': Components.KupPortal;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
-    'ketchup-portal-instance': Components.KetchupPortalInstanceAttributes;
-    'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
     'kup-btn': Components.KupBtnAttributes;
@@ -617,21 +615,11 @@ declare global {
     'kup-fld': Components.KupFldAttributes;
     'kup-html': Components.KupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
+    'kup-portal-instance': Components.KupPortalInstanceAttributes;
+    'kup-portal': Components.KupPortalAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
-
-  interface HTMLKetchupPortalInstanceElement extends Components.KetchupPortalInstance, HTMLStencilElement {}
-  var HTMLKetchupPortalInstanceElement: {
-    prototype: HTMLKetchupPortalInstanceElement;
-    new (): HTMLKetchupPortalInstanceElement;
-  };
-
-  interface HTMLKetchupPortalElement extends Components.KetchupPortal, HTMLStencilElement {}
-  var HTMLKetchupPortalElement: {
-    prototype: HTMLKetchupPortalElement;
-    new (): HTMLKetchupPortalElement;
-  };
 
   interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
   var HTMLKetchupRadioElement: {
@@ -699,6 +687,18 @@ declare global {
     new (): HTMLKupPaginatorElement;
   };
 
+  interface HTMLKupPortalInstanceElement extends Components.KupPortalInstance, HTMLStencilElement {}
+  var HTMLKupPortalInstanceElement: {
+    prototype: HTMLKupPortalInstanceElement;
+    new (): HTMLKupPortalInstanceElement;
+  };
+
+  interface HTMLKupPortalElement extends Components.KupPortal, HTMLStencilElement {}
+  var HTMLKupPortalElement: {
+    prototype: HTMLKupPortalElement;
+    new (): HTMLKupPortalElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -706,8 +706,6 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
-    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement
-    'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
     'kup-text-input': HTMLKupTextInputElement
     'kup-btn': HTMLKupBtnElement
@@ -719,12 +717,12 @@ declare global {
     'kup-fld': HTMLKupFldElement
     'kup-html': HTMLKupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
+    'kup-portal-instance': HTMLKupPortalInstanceElement
+    'kup-portal': HTMLKupPortalElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
-    'ketchup-portal-instance': HTMLKetchupPortalInstanceElement;
-    'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-btn': HTMLKupBtnElement;
@@ -736,6 +734,8 @@ declare global {
     'kup-fld': HTMLKupFldElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
+    'kup-portal-instance': HTMLKupPortalInstanceElement;
+    'kup-portal': HTMLKupPortalElement;
     'my-component': HTMLMyComponentElement;
   }
 

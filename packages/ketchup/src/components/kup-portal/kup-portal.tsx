@@ -7,10 +7,10 @@ import {
 import { ElementOffset, setElementOffset } from "../../utils/offset";
 
 @Component({
-    tag: 'ketchup-portal',
+    tag: 'kup-portal',
     shadow: true
 })
-export class KetchupPortal {
+export class KupPortal {
     /**
      * Reference to the html element from which CSS Custom Properties must be derived
      */
@@ -41,7 +41,7 @@ export class KetchupPortal {
     @Prop() styleNode: HTMLStyleElement;
 
     //---- Internal state ----
-    instance = document.createElement('ketchup-portal-instance');
+    instance = document.createElement('kup-portal-instance');
 
     //---- Lifecycle ----
     // Initial operations

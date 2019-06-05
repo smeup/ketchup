@@ -1,4 +1,4 @@
-# ketchup-portal
+# kup-portal
 
 
 ## Usage and considerations

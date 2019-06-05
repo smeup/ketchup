@@ -1,4 +1,4 @@
-# ketchup-portal-instance
+# kup-portal-instance
 
 
 
