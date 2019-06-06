@@ -96,7 +96,7 @@
           font-weight: bold;
 
           td {
-            padding: 1rem 0 !important;
+            padding: 1rem 0;
           }
           icon {
             cursor: pointer;
@@ -129,12 +129,20 @@
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
         }
+        tbody > tr.group > td {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+        }
       }
 
       &big {
         tbody > tr > td {
           padding-top: 1rem;
           padding-bottom: 1rem;
+        }
+        tbody > tr.group > td {
+          padding-top: 1.25rem;
+          padding-bottom: 1.25rem;
         }
       }
     }
