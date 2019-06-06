@@ -1,6 +1,15 @@
-# KetchUP Monorepo
+# Ketch.UP
 
-Monorepo for KetchUP project.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+Ketch.UP is a project that provides components to build web applications. 
+
+Actually all the components are web components, built using [Stencil](https://stenciljs.com/). 
+
+Go [Ketch.UP Showcase](https://smeup.github.io/ketchup) to see our components live. 
+
+## Repo architecture
+Ketch.UP is a monorepo managed with [Lerna](https://github.com/lerna/lerna).
 
 ## Project setup
 

@@ -57,6 +57,8 @@
 
     tbody {
       > tr {
+        cursor: pointer;
+
         &:hover,
         &.selected {
           > td {

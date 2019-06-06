@@ -12,6 +12,9 @@ h3 {
     <h3>Without configuration</h3>
     <kup-data-table :data.prop="data"></kup-data-table>
 
+    <h3>Hidden columns</h3>
+    <kup-data-table :data.prop="hiddenColumnsData"></kup-data-table>
+
     <h3>Columns width</h3>
     <kup-data-table
       :data.prop="data"
@@ -30,7 +33,11 @@ h3 {
 </template>
 
 <script>
-import { defaultDataTable, cellStyleDataTable } from '@/mock/dataTable';
+import {
+  defaultDataTable,
+  cellStyleDataTable,
+  hiddenColumnsData,
+} from '@/mock/dataTable';
 
 export default {
   name: 'dataTableBasic',
@@ -40,6 +47,7 @@ export default {
       data: {
         ...defaultDataTable,
       },
+      hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
       columnsWidth: [
         {

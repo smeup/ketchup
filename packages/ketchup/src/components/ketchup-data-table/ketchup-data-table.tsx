@@ -166,12 +166,18 @@ export class KetchupDataTable {
     }
 
     private getVisibleColumns(): Array<Column> {
-        const columns = this.getColumns();
+        const visibleColumns = this.getColumns().filter((column) => {
+            if (column.hasOwnProperty('visible')) {
+                return column.visible;
+            }
+
+            return true;
+        });
 
         // check grouping
         if (this.isGrouping()) {
             // filtering column based on group visibility
-            return columns.filter((column) => {
+            return visibleColumns.filter((column) => {
                 // check if in group
                 let group = null;
                 for (let currentGroup of this.groups) {
@@ -193,7 +199,7 @@ export class KetchupDataTable {
             });
         }
 
-        return columns;
+        return visibleColumns;
     }
 
     private getColumnByName(name: string): Column {
@@ -682,9 +688,23 @@ export class KetchupDataTable {
             <td>{footerRow[name]}</td>
         ));
 
+        let selectRowCell = null;
+        if (this.multiSelection) {
+            selectRowCell = <td />;
+        }
+
+        let groupingCell = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupingCell = <td />;
+        }
+
         const footer = (
             <tfoot>
-                <tr>{footerCells}</tr>
+                <tr>
+                    {selectRowCell}
+                    {groupingCell}
+                    {footerCells}
+                </tr>
             </tfoot>
         );
 

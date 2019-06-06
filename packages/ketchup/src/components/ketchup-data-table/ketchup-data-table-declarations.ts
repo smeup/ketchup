@@ -1,7 +1,8 @@
 export interface Column {
     name: string;
     title: string;
-    size: number;
+    size?: number;
+    visible?: boolean;
 }
 
 export interface Row {
