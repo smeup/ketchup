@@ -312,7 +312,8 @@ export class KupCombo {
                     mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
                     nodes={this.composeList()}
                     ref={el => this.portalRef = el as HTMLKupPortalElement}
-                    refOffset={getElementOffset(this.comboEl, this.comboPosition)}
+                    // Notice that the portal offset MUST be calculated considering the menu button, not the whole web component
+                    refOffset={getElementOffset(this.comboText, this.comboPosition)}
                     styleNode={this.comboEl.shadowRoot.querySelector('style')}
                 />
                 :

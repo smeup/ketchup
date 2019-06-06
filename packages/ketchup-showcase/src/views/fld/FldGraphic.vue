@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Fld Graphic</h1>
+    <h1>Field Graphic</h1>
 
     <h3>Change label and submit position</h3>
     <div class="example-container">
@@ -14,6 +14,7 @@
           :items.prop="labelPositions"
           :initial-value.prop="labelPositions[0]"
           label="Select label position"
+          use-portal
           @ketchupComboSelected="onPositionChange"
         />
         <h4>Select submit position</h4>
@@ -21,6 +22,7 @@
           :items.prop="labelPositions"
           :initial-value.prop="labelPositions[0]"
           label="Select submit position"
+          use-portal
           @ketchupComboSelected="onSubmitPositionChange"
         />
       </div>
@@ -43,6 +45,20 @@
     </div>
 
     <h3>Custom submit label</h3>
+    <div class="example-container">
+      <kup-fld
+        :config.prop="fldConfigSubmitText"
+        :data.prop="fldData"
+      />
+      <div>
+        <h4>Change label text</h4>
+        <kup-text-input
+          :items.prop="labelPositions"
+          initial-value="Change me"
+          @ketchupTextInputUpdated="onSubmitTextChange"
+        />
+      </div>
+    </div>
 
     <h3>Without submit button</h3>
     <div class="example-container">
@@ -52,10 +68,19 @@
       />
     </div>
 
+    <div v-html="stile"/>
+
   </div>
 </template>
 
 <script>
+const styleEditor = `
+<style style="display: inline-block;" contenteditable>
+  /* Edit here */
+</style>
+`;
+
+
   export default {
     name: "FldGraphic",
     data() {
@@ -64,12 +89,14 @@
         fldData: [],
         fldConfigPosition: {},
         fldConfigLabelText: {},
+        fldConfigSubmitText: {},
         fldConfigSubmitNone: {},
         labelPositions: [
           { id: 'left' },
           { id: 'right' },
           { id: 'top' },
-        ]
+        ],
+        stile: styleEditor
       };
     },
     mounted() {
@@ -82,6 +109,7 @@
           this.fldConfig = fldConfigFactory();
           this.fldConfigPosition = fldConfigFactory([{labelPos: 'top'}]);
           this.fldConfigLabelText = fldConfigFactory();
+          this.fldConfigSubmitText = fldConfigFactory();
           this.fldConfigSubmitNone = fldConfigFactory([
             {
               name: 'showSubmit',
@@ -111,6 +139,12 @@
         this.fldConfigPosition = {
           ...this.fldConfigPosition,
           submitPos: e.detail.value.id
+        };
+      },
+      onSubmitTextChange(e) {
+        this.fldConfigSubmitText = {
+          ...this.fldConfigSubmitText,
+          submitLabel: e.detail.value
         };
       }
     }

@@ -148,7 +148,7 @@ export default {
   }
 
   h4 {
-    margin: .5rem 0;
+    margin: 0 0 .5rem;
   }
 
   .example-container {
@@ -158,6 +158,10 @@ export default {
 
     > *:nth-child(2) {
       justify-self: center;
+
+      > * {
+        margin-bottom: 10px;
+      }
     }
   }
 
