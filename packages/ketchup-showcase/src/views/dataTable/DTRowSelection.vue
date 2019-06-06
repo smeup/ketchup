@@ -15,9 +15,11 @@ h3 {
       :showFilters.prop="true"
       :filters.prop="filters"
       :sort.prop="sort"
+      @kupAutoRowSelect="onAutoRowSelect"
       @kupRowSelected="onRowSelect"
     ></kup-data-table>
 
+    <p>Clicked column: {{ clickedColumn }}</p>
     <ul>
       <li v-for="(row, index) in selectedRows" :key="index">
         {{ row }}
@@ -31,6 +33,7 @@ h3 {
       :showFilters.prop="true"
       :filters.prop="filters"
       :sort.prop="sort"
+      @kupRowSelected="onRowSelect"
     ></kup-data-table>
   </div>
 </template>
@@ -48,6 +51,7 @@ export default {
       },
       selectedRowIndex: 1,
       selectedRows: null,
+      clickedColumn: null,
       filters: {
         FLD1: 'fra',
       },
@@ -61,8 +65,13 @@ export default {
   },
 
   methods: {
+    onAutoRowSelect({ detail }) {
+      this.selectedRows = [detail.selectedRow];
+    },
+
     onRowSelect({ detail }) {
-      this.selectedRows = detail;
+      this.selectedRows = detail.selectedRows;
+      this.clickedColumn = detail.clickedColumn;
     },
   },
 };

@@ -213,9 +213,18 @@ export namespace Components {
     'groups'?: Array<GroupObject>;
     'multiSelection'?: boolean;
     /**
+    * When a row is auto selected via selectRow prop
+    */
+    'onKupAutoRowSelect'?: (event: CustomEvent<{
+      selectedRow: Row;
+    }>) => void;
+    /**
     * When a row is selected
     */
-    'onKupRowSelected'?: (event: CustomEvent<Array<Row>>) => void;
+    'onKupRowSelected'?: (event: CustomEvent<{
+      selectedRows: Array<Row>;
+      clickedColumn: string;
+    }>) => void;
     'paginatorPos'?: PaginatorPos;
     'rowsPerPage'?: number;
     'selectRow'?: number;
