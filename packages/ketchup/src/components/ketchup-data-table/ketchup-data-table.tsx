@@ -89,7 +89,7 @@ export class KetchupDataTable {
     private currentRowsPerPage = 10;
 
     @State()
-    private selectedRows: Array<Row> = null;
+    private selectedRows: Array<Row> = [];
 
     @State()
     private groupState: {
@@ -104,12 +104,28 @@ export class KetchupDataTable {
     @State()
     private openedMenu: string = null;
 
+    @State()
+    private density: string = 'medium';
+
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
     }
 
     private renderedRows: Array<Row> = [];
+
+    /**
+     * When a row is auto selected via selectRow prop
+     */
+    @Event({
+        eventName: 'kupAutoRowSelect',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAutoRowSelect: EventEmitter<{
+        selectedRow: Row;
+    }>;
 
     /**
      * When a row is selected
@@ -120,19 +136,25 @@ export class KetchupDataTable {
         cancelable: false,
         bubbles: true,
     })
-    kupRowSelected: EventEmitter<Array<Row>>;
+    kupRowSelected: EventEmitter<{
+        selectedRows: Array<Row>;
+        clickedColumn: string;
+    }>;
 
     // lifecycle
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
+    }
 
+    componentDidLoad() {
+        // automatic row selection
         if (this.selectRow && this.selectRow > 0) {
-            const sortedRows = this.sortRows(this.getFilteredRows());
-
-            if (this.selectRow <= sortedRows.length) {
+            if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
-                this.selectedRows.push(sortedRows[this.selectRow - 1]);
-                this.kupRowSelected.emit(this.selectedRows);
+                this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
+                this.kupAutoRowSelect.emit({
+                    selectedRow: this.selectedRows[0],
+                });
             }
         }
     }
@@ -311,7 +333,28 @@ export class KetchupDataTable {
         this.currentRowsPerPage = detail.newRowsPerPage;
     }
 
-    private onRowClick({ ctrlKey }, row: Row) {
+    private onRowClick(event: MouseEvent, row: Row) {
+        // selecting row
+        this.handleRowSelect(row, event.ctrlKey);
+
+        // checking target
+        const target = event.target;
+
+        let clickedColumn: string = null;
+        if (target instanceof HTMLElement) {
+            if (target.tagName === 'TD') {
+                // checking column
+                clickedColumn = target.dataset.column;
+            }
+        }
+
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn,
+        });
+    }
+
+    private handleRowSelect(row: Row, ctrlKey: boolean) {
         if (this.multiSelection) {
             if (ctrlKey && this.selectedRows) {
                 const index = this.selectedRows.indexOf(row);
@@ -330,19 +373,20 @@ export class KetchupDataTable {
         } else {
             this.selectedRows = [row];
         }
-
-        this.kupRowSelected.emit(this.selectedRows);
     }
 
     private onRowCheckboxSelection({ target }, row: Row) {
         if (target.checked) {
-            if (this.selectedRows) {
+            if (this.selectedRows.length > 0) {
                 this.selectedRows = [...this.selectedRows, row];
             } else {
                 this.selectedRows = [row];
             }
 
-            this.kupRowSelected.emit(this.selectedRows);
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+            });
         } else {
             const index = this.selectedRows.indexOf(row);
 
@@ -372,6 +416,12 @@ export class KetchupDataTable {
             // deselect all rows
             this.selectedRows = [];
         }
+
+        // triggering event
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn: null,
+        });
     }
 
     private onColumnMouseOver(column: string) {
@@ -603,6 +653,14 @@ export class KetchupDataTable {
                     <input
                         type="checkbox"
                         onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${
+                            this.selectedRows.length
+                        } - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length ===
+                                this.renderedRows.length
+                        }
                     />
                 </th>
             );
@@ -737,7 +795,7 @@ export class KetchupDataTable {
                 const cell = row.cells[name];
 
                 return (
-                    <td style={cell.style}>
+                    <td data-column={name} style={cell.style}>
                         {indend}
                         {cell.value}
                     </td>
@@ -745,7 +803,7 @@ export class KetchupDataTable {
             });
 
             let rowClass = null;
-            if (this.selectedRows && this.selectedRows.includes(row)) {
+            if (this.selectedRows.includes(row)) {
                 rowClass = 'selected';
             }
 
@@ -755,10 +813,7 @@ export class KetchupDataTable {
                     <td>
                         <input
                             type="checkbox"
-                            checked={
-                                this.selectedRows &&
-                                this.selectedRows.includes(row)
-                            }
+                            checked={this.selectedRows.includes(row)}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) =>
                                 this.onRowCheckboxSelection(e, row)
@@ -790,9 +845,6 @@ export class KetchupDataTable {
         // resetting rows
         this.renderedRows = [];
 
-        // header
-        const header = this.renderHeader();
-
         // rows
         const filteredRows = this.getFilteredRows();
 
@@ -823,6 +875,10 @@ export class KetchupDataTable {
                     }
                 });
         }
+
+        // header
+        // for multi selection purposes, this should be called before this.renderedRows has been evaluated
+        const header = this.renderHeader();
 
         let globalFilter = null;
         if (this.globalFilter) {
@@ -878,9 +934,9 @@ export class KetchupDataTable {
             );
         }
 
-        let tableClass = null;
+        let tableClass = `density-${this.density}`;
         if (!this.showGrid) {
-            tableClass = 'noGrid';
+            tableClass += ' noGrid';
         }
 
         let groupChips = null;
@@ -907,11 +963,34 @@ export class KetchupDataTable {
             groupChips = <div id="group-chips">{chips}</div>;
         }
 
+        const densityPanel = (
+            <div id="density-panel">
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-format-align-justify"
+                    onClick={() => (this.density = 'small')}
+                />
+
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-menu"
+                    onClick={() => (this.density = 'medium')}
+                />
+
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-view-sequential"
+                    onClick={() => (this.density = 'big')}
+                />
+            </div>
+        );
+
         return (
             <div>
                 {groupChips}
                 {paginatorTop}
                 {globalFilter}
+                {densityPanel}
                 <div id="data-table-wrapper">
                     <table class={tableClass}>
                         <thead hidden={!this.showHeader}>

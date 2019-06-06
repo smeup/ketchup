@@ -28,9 +28,10 @@
 
 ## Events
 
-| Event            | Description            | Type                      |
-| ---------------- | ---------------------- | ------------------------- |
-| `kupRowSelected` | When a row is selected | `CustomEvent<Array<Row>>` |
+| Event              | Description                                    | Type                                                                                    |
+| ------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `kupAutoRowSelect` | When a row is auto selected via selectRow prop | `CustomEvent<{         selectedRow: Row;     }>`                                        |
+| `kupRowSelected`   | When a row is selected                         | `CustomEvent<{         selectedRows: Array<Row>;         clickedColumn: string;     }>` |
 
 
 ## CSS Custom Properties
