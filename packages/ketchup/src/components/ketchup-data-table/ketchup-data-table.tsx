@@ -104,6 +104,9 @@ export class KetchupDataTable {
     @State()
     private openedMenu: string = null;
 
+    @State()
+    private density: string = 'medium';
+
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -858,9 +861,9 @@ export class KetchupDataTable {
             );
         }
 
-        let tableClass = null;
+        let tableClass = `density-${this.density}`;
         if (!this.showGrid) {
-            tableClass = 'noGrid';
+            tableClass += ' noGrid';
         }
 
         let groupChips = null;
@@ -887,11 +890,34 @@ export class KetchupDataTable {
             groupChips = <div id="group-chips">{chips}</div>;
         }
 
+        const densityPanel = (
+            <div id="density-panel">
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-format-align-justify"
+                    onClick={() => (this.density = 'small')}
+                />
+
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-menu"
+                    onClick={() => (this.density = 'medium')}
+                />
+
+                <kup-button
+                    flat
+                    iconClass="mdi mdi-view-sequential"
+                    onClick={() => (this.density = 'big')}
+                />
+            </div>
+        );
+
         return (
             <div>
                 {groupChips}
                 {paginatorTop}
                 {globalFilter}
+                {densityPanel}
                 <div id="data-table-wrapper">
                     <table class={tableClass}>
                         <thead hidden={!this.showHeader}>

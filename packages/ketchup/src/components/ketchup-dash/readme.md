@@ -13,6 +13,13 @@
 | `layout`   | `layout`   |             | `string` | `'1'`   |
 
 
+## Events
+
+| Event                | Description | Type                     |
+| -------------------- | ----------- | ------------------------ |
+| `ketchupDashClicked` |             | `CustomEvent<{		     }>` |
+
+
 ## CSS Custom Properties
 
 | Name                                                  | Description                             |

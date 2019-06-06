@@ -89,6 +89,22 @@
         border: none;
       }
     }
+
+    &.density- {
+      &small {
+        tbody > tr > td {
+          padding-top: 0.2rem;
+          padding-bottom: 0.2rem;
+        }
+      }
+
+      &big {
+        tbody > tr > td {
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+        }
+      }
+    }
   }
 }
 
@@ -145,4 +161,8 @@
       }
     }
   }
+}
+
+#density-panel {
+  text-align: right;
 }
