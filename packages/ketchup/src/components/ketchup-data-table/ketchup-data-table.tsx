@@ -555,6 +555,7 @@ export class KetchupDataTable {
                 filter = (
                     <div>
                         <kup-text-input
+                            class="datatable-filter"
                             initialValue={filterValue}
                             data-col={column.name}
                             onKetchupTextInputUpdated={(e) => {
