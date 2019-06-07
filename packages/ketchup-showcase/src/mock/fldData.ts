@@ -54,3 +54,21 @@ export function fldConfigFactory(propToChange: {name: string, value: string}[] =
 
   return toRet;
 }
+
+export function fldConfigItxFactory(propToChange: {name: string, value: string}[] = []) {
+  let toRet: {
+    [index: string]: string | object | boolean;
+  } = {
+    "type": "itx",
+    "displayedField": "value",
+    "showSubmit": true,
+    "submitLabel": "Confirm",
+    "usePortal": true
+  };
+
+  propToChange.forEach(prop => {
+    toRet[prop.name] = prop.value;
+  });
+
+  return toRet;
+}
