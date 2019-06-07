@@ -1,7 +1,36 @@
 <template>
-  <div>
-    <h1>The Home Page!</h1>
+  <div class="max-width-container">
+    <h1>Ketch.UP showcase</h1>
 
+    <h2>About Ketch.UP</h2>
+    <p>
+      Ketch.UP is a <a href="https://www.webcomponents.org/" target="_blank" rel="noopener">web components</a> library, built with
+      <a href="https://stenciljs.com/" target="_blank" rel="noopener">Ionic's Stencil</a>,
+      a small TypeScript based web component compiler.
+    </p>
+    <p>Ketch.UP primary focus it to provide a suite of powerful and configurable web components,
+      based on simpler web components, whose main objective is to abstract complex but very recurrent programming patterns.
+    </p>
+
+    <h2>Future development</h2>
+    <p>This library is currently in its early stages and is under constant and active development.</p>
+    <p>The following is a list of components which will be added to the project.
+      We will update this list when new components will be built and others will be planned to be added to the project.
+    </p>
+    <ul>
+      <li>Tree viewer</li>
+      <li>Tree map</li>
+      <li>Input panel</li>
+      <li>Timeline</li>
+      <li>Gantt</li>
+      <li>Calendar</li>
+      <li>Min map</li>
+    </ul>
+
+    <h3>Credits</h3>
+    <p>This showcase was built using <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>
+      and one of its UI frameworks, <a href="https://vuetifyjs.com/en/" target="_blank" rel="noopener">Vuetify</a>.
+    </p>
   </div>
 </template>
 

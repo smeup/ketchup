@@ -83,7 +83,7 @@
         />
       </div>
       <div>
-        <h4>No portal</h4>
+        <h4>Without</h4>
         <kup-fld
           :config.prop="fldConfigNoPortal"
           :data.prop="fldData"
@@ -171,7 +171,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
