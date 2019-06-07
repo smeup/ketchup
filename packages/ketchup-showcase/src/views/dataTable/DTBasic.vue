@@ -10,7 +10,10 @@ h3 {
     <h1>Data Table</h1>
 
     <h3>Without configuration</h3>
-    <kup-data-table :data.prop="data"></kup-data-table>
+    <kup-data-table
+      :data.prop="data"
+      @kupOptionClicked="handleKupOptionClicked"
+    ></kup-data-table>
 
     <h3>Hidden columns</h3>
     <kup-data-table :data.prop="hiddenColumnsData"></kup-data-table>
@@ -60,6 +63,12 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    handleKupOptionClicked({ detail }) {
+      console.log('detail', detail);
+    },
   },
 };
 </script>

@@ -28,6 +28,7 @@ export interface Cell {
     };
     value: string;
     style?: GenericMap;
+    options?: boolean;
 }
 
 export interface GenericMap {

@@ -156,6 +156,8 @@
 
     > li {
       padding: 0.5rem;
+      text-align: left;
+
       &:hover {
         cursor: pointer;
         background: var(--int_main-background-color);

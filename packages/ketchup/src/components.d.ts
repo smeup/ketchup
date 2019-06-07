@@ -213,10 +213,21 @@ export namespace Components {
     'groups'?: Array<GroupObject>;
     'multiSelection'?: boolean;
     /**
+    * When 'add column' menu item is clicked
+    */
+    'onKupAddColumn'?: (event: CustomEvent<{ column: string }>) => void;
+    /**
     * When a row is auto selected via selectRow prop
     */
     'onKupAutoRowSelect'?: (event: CustomEvent<{
       selectedRow: Row;
+    }>) => void;
+    /**
+    * When cell option is clicked
+    */
+    'onKupOptionClicked'?: (event: CustomEvent<{
+      column: string;
+      row: Row;
     }>) => void;
     /**
     * When a row is selected
