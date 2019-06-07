@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import dataTableRoutes from './router/dataTable';
 import fldRoutes from './router/fldRoutes';
+import easterRoutes from './router/easterRoutes';
 
 import Home from '@/views/Home.vue';
 
@@ -19,7 +20,8 @@ const baseRoutes = [
 const routes = [
   ...baseRoutes,
   ...dataTableRoutes,
-  ...fldRoutes
+  ...fldRoutes,
+  ...easterRoutes
 ];
 
 export default new Router({
