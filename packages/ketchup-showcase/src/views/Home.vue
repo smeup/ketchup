@@ -14,9 +14,8 @@
 
     <h2>Future development</h2>
     <p>This library is currently in its early stages and is under constant and active development.</p>
-    <p>The following is a list of components which will be added to the project.
-      We will update this list when new components will be built and others will be planned to be added to the project.
-    </p>
+    <p>The following is a list of components which will be added to the project.</p>
+    <p>We will update this list when new components will be built and others will be planned to be added to the project.</p>
     <ul>
       <li>Tree viewer</li>
       <li>Tree map</li>
