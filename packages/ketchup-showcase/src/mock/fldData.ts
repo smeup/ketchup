@@ -1,9 +1,34 @@
 export const fldData = [
-    { "value": "DELGIO" },
-    { "value": "CASFRA" },
-    { "value": "PARFRA" },
-    { "value": "FIOGIA" },
-    { "value": "ZAMCHI" }
+    {
+      "value": "DELGIO",
+      "programs": "Java",
+      "id": "sme001"
+    },
+    {
+      "value": "SANMAU",
+      "programs": "Kotlin",
+      "id": "sme002"
+    },
+    {
+      "value": "CASFRA",
+      "programs": "Javascript",
+      "id": "sme003"
+    },
+    {
+      "value": "PARFRA",
+      "programs": "Delphi",
+      "id": "sme004"
+    },
+    {
+      "value": "FIOGIA",
+      "programs": "Kotlin",
+      "id": "sme005"
+    },
+    {
+      "value": "ZAMCHI",
+      "programs": "Go",
+      "id": "sme006"
+    }
 ];
 
 export function fldConfigFactory(propToChange: {name: string, value: string}[] = []) {
@@ -14,7 +39,9 @@ export function fldConfigFactory(propToChange: {name: string, value: string}[] =
     "displayedField": "value",
     "label": "Select a team member",
     "initialValue": {
-      "value": "FIOGIA"
+      "value": "DELGIO",
+      "programs": "Java",
+      "id": "sme001"
     },
     "showSubmit": true,
     "submitLabel": "Confirm",

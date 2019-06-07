@@ -67,8 +67,6 @@ export function getElementOffset(
         // See [IMPORTANT #2] on this doc for more info about this calculation
         ret.bottom = scrollTop + rect.top;
     }
-
-    console.log("positioning", positioning.isTop, ret.top, ret.bottom, rect);
     return ret;
 }
 
