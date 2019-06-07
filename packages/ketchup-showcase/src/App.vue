@@ -143,6 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
+  // For small titles
   h3 {
     margin: 2rem 0 1rem;
   }
@@ -151,13 +152,14 @@ export default {
     margin: 0 0 .5rem;
   }
 
+  // Main container
   .example-container {
     display: grid;
-    grid-template-areas: "component configuration";
-    grid-template-columns: 50% 50%;
+    grid-template-areas: "component space configuration";
+    grid-template-columns: 47% 6% 47%;
 
     > *:nth-child(2) {
-      justify-self: center;
+      grid-area: configuration;
 
       > * {
         margin-bottom: 10px;
@@ -165,7 +167,18 @@ export default {
     }
   }
 
-  // Common styles for elements
+  .hide-overflow {
+    overflow: hidden;
+  }
+
+  // For code sources
+  code {
+    box-sizing: border-box;
+    padding: 8px;
+  }
+
+
+  //---- Common styles for elements ----
   // Combo must have display flex.
   kup-fld {
     border: 1px solid rgba(0,0,0,.54);
