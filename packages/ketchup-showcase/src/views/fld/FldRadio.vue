@@ -11,8 +11,8 @@
       />
     </div>
 
-    <h3>Radio group witch label and initial value</h3>
-    <div class="example-container">
+    <h3>Radio group with label and initial value</h3>
+    <div>
       <kup-fld
         :config.prop="fldConfigInitialValue"
         :data.prop="fldData"
