@@ -35,7 +35,7 @@ $radio-button_scale: 1.4;
   // Style of a single radio element
   &__item {
     align-items: center;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     position: relative;
     margin: 10px 12px;
