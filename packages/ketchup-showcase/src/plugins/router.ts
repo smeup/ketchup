@@ -6,8 +6,28 @@ import fldRoutes from './router/fldRoutes';
 import easterRoutes from './router/easterRoutes';
 
 import Home from '@/views/Home.vue';
+import KupPortals from '@/views/KupPortals.vue';
 
 Vue.use(Router);
+
+let simpleRoutes = [
+  {
+    path: `/kup-btn`,
+    name: 'btn',
+    component: () => import(`@/views/KupBottoniera.vue`),
+  },
+  {
+    path: `/charts`,
+    name: 'charts',
+    component: () => import(`@/views/KupCharts.vue`),
+  },
+  {
+    path: `/portals`,
+    name: 'portals',
+    component: () => import(`@/views/KupPortals.vue`),
+  },
+
+];
 
 const baseRoutes = [
   {
@@ -21,7 +41,8 @@ const routes = [
   ...baseRoutes,
   ...dataTableRoutes,
   ...fldRoutes,
-  ...easterRoutes
+  ...easterRoutes,
+  ...simpleRoutes
 ];
 
 export default new Router({

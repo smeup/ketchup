@@ -5,7 +5,7 @@ export const fldData = [
       "id": "sme001"
     },
     {
-      "value": "SANMAU",
+      "value": "SANCOS",
       "programs": "Kotlin",
       "id": "sme002"
     },

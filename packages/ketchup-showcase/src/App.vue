@@ -33,6 +33,15 @@
           </v-list-tile>
         </v-list-group>
 
+        <v-list-tile
+          v-for="route in simpleRoutes"
+          :key="route.to.name"
+          :to="route.to">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -135,6 +144,26 @@ export default {
         ]
       }
     ],
+    simpleRoutes: [
+      {
+        title: `Btn - Bottoniera`,
+        to: {
+          name: 'btn'
+        }
+      },
+      {
+        title: `Charts`,
+        to: {
+          name: 'charts'
+        }
+      },
+      {
+        title: `Portals`,
+        to: {
+          name: 'portals'
+        }
+      },
+    ]
   }),
   props: {
     source: String,
@@ -143,6 +172,19 @@ export default {
 </script>
 
 <style lang="scss">
+  //---- Tags ----
+  // For code sources
+  code {
+    box-sizing: border-box;
+    padding: 8px;
+
+    // When there is code which needs to be displayed inline
+    &.inline {
+      padding: 2px;
+      margin: 1px 2px;
+    }
+  }
+
   // For small titles
   h3 {
     margin: 2rem 0 1rem;
@@ -152,7 +194,16 @@ export default {
     margin: 0 0 .5rem;
   }
 
-  // Main container
+  //---- General classes ----
+  // Max with for a more readable text
+  .max-width-container {
+    display: block;
+    margin: 0 auto;
+    padding: 24px 40px;
+    max-width: 700px;
+  }
+
+  // Main components container
   .example-container {
     display: grid;
     grid-template-areas: "component space configuration";
@@ -167,16 +218,10 @@ export default {
     }
   }
 
+  // When there is the need to hide overflow
   .hide-overflow {
     overflow: hidden;
   }
-
-  // For code sources
-  code {
-    box-sizing: border-box;
-    padding: 8px;
-  }
-
 
   //---- Common styles for elements ----
   // Combo must have display flex.
