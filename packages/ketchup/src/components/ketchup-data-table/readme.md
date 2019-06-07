@@ -30,7 +30,9 @@
 
 | Event              | Description                                    | Type                                                                                    |
 | ------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `kupAddColumn`     | When 'add column' menu item is clicked         | `CustomEvent<{ column: string }>`                                                       |
 | `kupAutoRowSelect` | When a row is auto selected via selectRow prop | `CustomEvent<{         selectedRow: Row;     }>`                                        |
+| `kupOptionClicked` | When cell option is clicked                    | `CustomEvent<{         column: string;         row: Row;     }>`                        |
 | `kupRowSelected`   | When a row is selected                         | `CustomEvent<{         selectedRows: Array<Row>;         clickedColumn: string;     }>` |
 
 

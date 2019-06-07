@@ -86,6 +86,7 @@ export const defaultDataTable = {
             k: 'CASFRA',
           },
           value: 'CASFRA',
+          options: true,
         },
         FLD2: {
           obj: {
@@ -122,6 +123,7 @@ export const defaultDataTable = {
             k: 'DELGIO',
           },
           value: 'DELGIO',
+          options: true,
         },
         FLD2: {
           obj: {
@@ -158,6 +160,7 @@ export const defaultDataTable = {
             k: 'PARFRA',
           },
           value: 'PARFRA',
+          options: true,
         },
         FLD2: {
           obj: {

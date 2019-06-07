@@ -141,6 +141,31 @@ export class KetchupDataTable {
         clickedColumn: string;
     }>;
 
+    /**
+     * When cell option is clicked
+     */
+    @Event({
+        eventName: 'kupOptionClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupOptionClicked: EventEmitter<{
+        column: string;
+        row: Row;
+    }>;
+
+    /**
+     * When 'add column' menu item is clicked
+     */
+    @Event({
+        eventName: 'kupAddColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddColumn: EventEmitter<{ column: string }>;
+
     // lifecycle
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
@@ -455,6 +480,13 @@ export class KetchupDataTable {
         }
     }
 
+    private onOptionClicked(column: string, row: Row) {
+        this.kupOptionClicked.emit({
+            column,
+            row,
+        });
+    }
+
     // utility methods
     private groupRows(rows: Array<any>): Array<Row> {
         if (!this.isGrouping()) {
@@ -571,7 +603,9 @@ export class KetchupDataTable {
             if (this.sortEnabled) {
                 sort = (
                     <span class="column-sort">
-                        <icon
+                        <span
+                            role="button"
+                            aria-label="Sort column" // TODO
                             class={'mdi ' + this.getSortIcon(column.name)}
                             onClick={(e: MouseEvent) =>
                                 this.onColumnSort(e, column.name)
@@ -612,7 +646,19 @@ export class KetchupDataTable {
                     role="menuitem"
                     onClick={() => this.switchColumnGroup(group, column.name)}
                 >
-                    <icon class="mdi mdi-book" /> {groupLabel}
+                    <span class="mdi mdi-book" /> {groupLabel}
+                </li>
+            );
+
+            columnMenuItems.push(
+                <li
+                    role="menuitem"
+                    onClick={() =>
+                        this.kupAddColumn.emit({ column: column.name })
+                    }
+                >
+                    <span class="mdi mdi-table-column-plus-after" />
+                    Aggiungi colonna
                 </li>
             );
 
@@ -739,7 +785,9 @@ export class KetchupDataTable {
                 cells.push(
                     <td colSpan={colSpan}>
                         {indent}
-                        <icon
+                        <span
+                            role="button"
+                            aria-label="Row expander" // TODO change this label
                             class={icon}
                             onClick={() => this.onRowExpand(row)}
                         />
@@ -757,7 +805,9 @@ export class KetchupDataTable {
                     <tr class="group">
                         <td colSpan={this.calculateColspan()}>
                             {indent}
-                            <icon
+                            <span
+                                role="button"
+                                aria-label="Row expander" // TODO change this label
                                 class={`row-expander ${icon}`}
                                 onClick={() => this.onRowExpand(row)}
                             />
@@ -795,10 +845,26 @@ export class KetchupDataTable {
 
                 const cell = row.cells[name];
 
+                let options = null;
+                if (cell.options) {
+                    options = (
+                        <span
+                            class="options"
+                            role="button"
+                            aria-label="Opzioni oggetto"
+                            title="Opzioni oggetto"
+                            onClick={() => this.onOptionClicked(name, row)}
+                        >
+                            <i class="mdi mdi-settings" />
+                        </span>
+                    );
+                }
+
                 return (
                     <td data-column={name} style={cell.style}>
                         {indend}
                         {cell.value}
+                        {options}
                     </td>
                 );
             });
@@ -952,7 +1018,7 @@ export class KetchupDataTable {
                             tabIndex={0}
                             onClick={() => this.removeGroup(group)}
                         >
-                            <icon class="mdi mdi-close-circle" />
+                            <span class="mdi mdi-close-circle" />
                             {column.title}
                         </div>
                     );
