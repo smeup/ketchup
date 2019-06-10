@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Field radio group</h1>
+    <p>Displays data using radio buttons and grouping them.</p>
 
     <h3>Radio group with label</h3>
     <div>

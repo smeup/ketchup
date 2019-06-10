@@ -229,15 +229,12 @@
 
       <code
         id="btn-label"
-        class=""
         v-text="labelText"/>
     </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: "KupBottoniera",
   data() {
@@ -479,21 +476,6 @@ const btnlist = JSON.parse(`{
 </script>
 
 <style scoped lang="scss">
-hr {
-  margin: 2rem 0;
-}
-
-label {
-  margin-right: 6px;
-}
-
-select,
-[type=number]{
-  border-radius: 2px;
-  border: 1px solid rgb(169, 169, 169);
-  padding: 2px;
-}
-
 .options {
   margin-bottom: 1rem;
 }

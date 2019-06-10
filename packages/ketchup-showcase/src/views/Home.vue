@@ -11,6 +11,7 @@
     <p>Ketch.UP primary focus it to provide a suite of powerful and configurable web components,
       based on simpler web components, whose main objective is to abstract complex but very recurrent programming patterns.
     </p>
+    <p>Inside <a href="https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components" target="_blank" rel="noopener">Ketch.UP repo</a> you can find all the documentation concerning these components.</p>
 
     <h2>Future development</h2>
     <p>This library is currently in its early stages and is under constant and active development.</p>
@@ -23,7 +24,7 @@
       <li>Timeline</li>
       <li>Gantt</li>
       <li>Calendar</li>
-      <li>Min map</li>
+      <li>Mind map</li>
     </ul>
 
     <h3>Credits</h3>

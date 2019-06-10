@@ -194,6 +194,22 @@ export default {
     margin: 0 0 .5rem;
   }
 
+  hr {
+    margin: 2rem 0;
+  }
+
+  label {
+    margin-right: 8px !important;
+  }
+
+  select,
+  [type="number"],
+  [type="text"] {
+    border-radius: 2px !important;
+    border: 1px solid rgb(169, 169, 169) !important;
+    padding: 1px !important;
+  }
+
   //---- General classes ----
   // Max with for a more readable text
   .max-width-container {
