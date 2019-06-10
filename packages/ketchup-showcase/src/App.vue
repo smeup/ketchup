@@ -158,6 +158,12 @@ export default {
         }
       },
       {
+        title: `Dash`,
+        to: {
+          name: 'dash'
+        }
+      },
+      {
         title: `Portals`,
         to: {
           name: 'portals'
