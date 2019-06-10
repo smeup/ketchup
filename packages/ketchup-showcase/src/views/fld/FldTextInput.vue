@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Fld text input</h1>
+    <p>In this form, the Field wraps a kup-text-input element.</p>
 
     <h3>Basic input text</h3>
     <div class="example-container">

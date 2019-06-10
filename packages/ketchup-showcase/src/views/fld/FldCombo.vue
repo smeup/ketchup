@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Fld combo</h1>
+    <p>Displays data using a combobox component.</p>
 
     <v-expansion-panel>
       <v-expansion-panel-content>

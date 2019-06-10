@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Ketchup Charts</h1>
+    <h1>Ketch.UP Charts</h1>
 
     <div class="config-panel">
       <div class="field">
@@ -87,6 +87,9 @@
       id="pie"
       :config.prop="pieConfig"
       :data.prop="baseData"/>
+
+    <h3>Credits</h3>
+    <p>This web component is a wrapper of <a href="https://developers.google.com/chart/" target="_blank" rel="noopener">Google Charts</a> library.</p>
 
   </div>
 </template>

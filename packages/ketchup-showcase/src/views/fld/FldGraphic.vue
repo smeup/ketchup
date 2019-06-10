@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Field Graphic</h1>
+    <p>This section describes the most common configurations of the Field component.</p>
 
     <h3>Change label and submit position</h3>
     <div class="example-container">
@@ -67,9 +68,6 @@
         :data.prop="fldData"
       />
     </div>
-
-    <div v-html="stile"/>
-
   </div>
 </template>
 
@@ -96,7 +94,6 @@ const styleEditor = `
           { id: 'right' },
           { id: 'top' },
         ],
-        stile: styleEditor
       };
     },
     mounted() {
@@ -116,7 +113,6 @@ const styleEditor = `
               value: false
             }
           ]);
-          console.log(this.fldConfigSubmitNone);
         })
         .catch(err => {
           console.log(err);
@@ -150,7 +146,3 @@ const styleEditor = `
     }
   }
 </script>
-
-<style scoped>
-
-</style>
