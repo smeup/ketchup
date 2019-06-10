@@ -26,6 +26,11 @@ let simpleRoutes = [
     name: 'portals',
     component: () => import(`@/views/KupPortals.vue`),
   },
+  {
+    path: `/kup-html`,
+    name: 'html',
+    component: () => import(`@/views/KupHtmlExamples.vue`),
+  },
 
 ];
 

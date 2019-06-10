@@ -169,6 +169,12 @@ export default {
           name: 'portals'
         }
       },
+      {
+        title: `Html`,
+        to: {
+          name: 'html'
+        }
+      },
     ]
   }),
   props: {
@@ -217,6 +223,11 @@ export default {
   }
 
   //---- General classes ----
+  // Basic spacer
+  .basic-spacer {
+    margin: 8px 12px;
+  }
+
   // Max with for a more readable text
   .max-width-container {
     display: block;
