@@ -10,11 +10,11 @@ import {
     styleUrl: 'kup-html.scss',
     shadow: true
 })
-export class KetchupTextInput {
+export class KupHtml {
     /**
      * The label to show when button isButton is active
      */
-    @Prop() label: string = 'Apri in nuova finestra';
+    @Prop() label: string = 'Open in a new window';
     /**
      * If true, the kup-html takes the shape of a button
      */
@@ -67,7 +67,9 @@ export class KetchupTextInput {
                 onLoad={this.onFrameLoaded.bind(this)}
                 src={this.src}/> :
             <a
+                aria-label={this.label}
                 href={this.src}
+                rel="noopener"
                 target="_blank">
                 <kup-button
                     align="right"
