@@ -10,6 +10,7 @@ import KupPortals from '@/views/KupPortals.vue';
 
 Vue.use(Router);
 
+// TODO when these simple routes gets too many, move them to their own file inside the router folder.
 let simpleRoutes = [
   {
     path: `/kup-btn`,
@@ -20,6 +21,11 @@ let simpleRoutes = [
     path: `/charts`,
     name: 'charts',
     component: () => import(`@/views/KupCharts.vue`),
+  },
+  {
+    path: `/kup-dash`,
+    name: 'dash',
+    component: () => import(`@/views/DashExamples.vue`),
   },
   {
     path: `/portals`,
