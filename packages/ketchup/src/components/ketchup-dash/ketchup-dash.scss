@@ -4,13 +4,14 @@
 
 :host {
   --dash_bkg-color: var(--kup-dash_background-color, transparent);
-  --dash_color: var(--kup-dash_color, #fff);
+  --dash_color: var(--kup-dash_color, #111);
   --dash_border-color: var(--kup-dash_border-color, transparent);
 }
 
 #dash {
   background-color: var(--dash_bkg-color);
   border: 1px solid var(--dash_border-color);
+  color: var(--dash_color);
   min-height: 170px;
   font-size: 30px;
   display: flex;
@@ -48,8 +49,8 @@
 
         .icon {
           margin: auto;
-          font-size: 100%;
-          margin-right: 10%;
+          font-size: 150%;
+          margin-right: 5%;
         }
 
         .value-int {
@@ -76,8 +77,8 @@
 
         .icon {
           margin: auto;
-          font-size: 100%;
-          margin-right: 10%;
+          font-size: 150%;
+          margin-right: 5%;
         }
 
         .value-and-unit {
