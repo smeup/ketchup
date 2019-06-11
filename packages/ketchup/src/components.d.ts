@@ -23,6 +23,7 @@ import {
   GroupObject,
   PaginatorPos,
   Row,
+  RowAction,
   SortObject,
   TotalsMap,
 } from './components/ketchup-data-table/ketchup-data-table-declarations';
@@ -193,6 +194,7 @@ export namespace Components {
     'groups': Array<GroupObject>;
     'multiSelection': boolean;
     'paginatorPos': PaginatorPos;
+    'rowActions': Array<RowAction>;
     'rowsPerPage': number;
     'selectRow': number;
     'showFilters': boolean;
@@ -230,6 +232,15 @@ export namespace Components {
       row: Row;
     }>) => void;
     /**
+    * When a row action is clicked
+    */
+    'onKupRowActionClicked'?: (event: CustomEvent<{
+      type: 'default' | 'variable' | 'expander';
+      row: Row;
+      action?: RowAction;
+      index?: number;
+    }>) => void;
+    /**
     * When a row is selected
     */
     'onKupRowSelected'?: (event: CustomEvent<{
@@ -237,6 +248,7 @@ export namespace Components {
       clickedColumn: string;
     }>) => void;
     'paginatorPos'?: PaginatorPos;
+    'rowActions'?: Array<RowAction>;
     'rowsPerPage'?: number;
     'selectRow'?: number;
     'showFilters'?: boolean;

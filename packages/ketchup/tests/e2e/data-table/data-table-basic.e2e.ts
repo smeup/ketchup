@@ -3,7 +3,7 @@ import { newE2EPage } from '@stencil/core/testing';
 import { staticData, hiddenColumns } from './mocked-data';
 
 const globalFilterSelector = 'kup-data-table >>> .globalFilter';
-const sortIconSelector = 'kup-data-table >>> table thead .column-sort icon';
+const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
 describe('kup-data-table', () => {
     it('renders', async () => {
@@ -120,5 +120,40 @@ describe('kup-data-table', () => {
         const firstRowCells = await bodyRows[0].findAll('td');
         expect(firstRowCells).toHaveLength(1);
         expect(firstRowCells[0]).toEqualText('10');
+    });
+
+    it('cell has right click button', async (done) => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-data-table></kup-data-table>');
+
+        const element = await page.find('kup-data-table');
+        element.setProperty('data', staticData);
+
+        await page.waitForChanges();
+
+        // testing body
+        const bodyRows = await page.findAll(
+            'kup-data-table >>> table tbody > tr'
+        );
+        expect(bodyRows).toHaveLength(3);
+
+        // testing first row
+        const firstRowCells = await bodyRows[0].findAll('td');
+        expect(firstRowCells).toHaveLength(3);
+
+        firstRowCells.map(async (cell, index) => {
+            const rightClick = await cell.findAll('.options');
+
+            if (index === 0) {
+                expect(rightClick).toHaveLength(1);
+            } else {
+                expect(rightClick).toHaveLength(0);
+            }
+
+            if (index === firstRowCells.length - 1) {
+                done();
+            }
+        });
     });
 });

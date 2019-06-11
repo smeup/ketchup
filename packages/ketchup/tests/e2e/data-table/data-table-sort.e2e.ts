@@ -2,7 +2,7 @@ import { newE2EPage } from '@stencil/core/testing';
 
 import { multiSortMockData, staticData } from './mocked-data';
 
-const sortIconSelector = 'kup-data-table >>> table thead .column-sort icon';
+const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 const cellSelector = 'kup-data-table >>> table tbody > tr > td';
 
 describe('sorting disabled', () => {

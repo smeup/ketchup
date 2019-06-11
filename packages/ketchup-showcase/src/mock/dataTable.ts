@@ -328,6 +328,115 @@ export const hiddenColumnsData = {
   ],
 };
 
+export const iconImagesDataTable = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Person',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Icon',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Image',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
+          },
+          value: 'John Doe',
+        },
+        FLD2: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'CN;COL;CASFRA',
+          },
+          value: 'mdi mdi-account',
+        },
+        FLD3: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;CASFRA',
+          },
+          value:
+            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BCN%253BCOL.jsf?ln=smeupImages',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
+          },
+          value: 'Jonnie Doe',
+        },
+        FLD2: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'OG;J1;PATHFILE',
+          },
+          value: 'mdi mdi-folder',
+        },
+        FLD3: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'OG;J1;PATHFILE',
+          },
+          value:
+            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BJ1%253BPATHFILE.jsf?ln=smeupImages',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'Baby Doe',
+        },
+        FLD2: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'J1;KEY;CTRL',
+          },
+          value: 'mdi mdi-play',
+        },
+        FLD3: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'J1;KEY;CTRL',
+          },
+          value:
+            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/J1%253BKEY%253BCTRL.jsf?ln=smeupImages',
+        },
+      },
+    },
+  ],
+};
+
 export const cellStyleDataTable = {
   columns: [
     {

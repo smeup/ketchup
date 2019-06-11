@@ -20,6 +20,11 @@ export default [
     component: () => import('@/views/dataTable/DTPagination.vue'),
   },
   {
+    path: '/dataTable/rowActions',
+    name: 'dtRowActions',
+    component: () => import('@/views/dataTable/DTRowActions.vue'),
+  },
+  {
     path: '/dataTable/rowSelection',
     name: 'dtRowSel',
     component: () => import('@/views/dataTable/DTRowSelection.vue'),
