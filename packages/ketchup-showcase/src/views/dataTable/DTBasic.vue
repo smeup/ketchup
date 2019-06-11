@@ -32,6 +32,9 @@ h3 {
 
     <h3>Cell style</h3>
     <kup-data-table :data.prop="cellStyleData"></kup-data-table>
+
+    <h3>Icons and images</h3>
+    <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
   </div>
 </template>
 
@@ -40,6 +43,7 @@ import {
   defaultDataTable,
   cellStyleDataTable,
   hiddenColumnsData,
+  iconImagesDataTable,
 } from '@/mock/dataTable';
 
 export default {
@@ -52,6 +56,7 @@ export default {
       },
       hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
+      iconImagesDataTable: { ...iconImagesDataTable },
       columnsWidth: [
         {
           column: 'FLD1',

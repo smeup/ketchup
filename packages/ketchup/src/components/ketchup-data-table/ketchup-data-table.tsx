@@ -17,6 +17,8 @@ import {
     GenericMap,
     GroupObject,
     TotalsMap,
+    Cell,
+    RowAction,
 } from './ketchup-data-table-declarations';
 
 import {
@@ -25,6 +27,8 @@ import {
     groupRows,
     sortRows,
 } from './ketchup-data-table-helper';
+
+import { isIcon, isImage } from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -78,6 +82,9 @@ export class KetchupDataTable {
 
     @Prop()
     multiSelection = false;
+
+    @Prop()
+    rowActions: Array<RowAction>;
 
     @State()
     private globalFilterValue = '';
@@ -165,6 +172,22 @@ export class KetchupDataTable {
         bubbles: true,
     })
     kupAddColumn: EventEmitter<{ column: string }>;
+
+    /**
+     * When a row action is clicked
+     */
+    @Event({
+        eventName: 'kupRowActionClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionClicked: EventEmitter<{
+        type: 'default' | 'variable' | 'expander';
+        row: Row;
+        action?: RowAction;
+        index?: number;
+    }>;
 
     // lifecycle
     componentWillLoad() {
@@ -266,6 +289,10 @@ export class KetchupDataTable {
 
     private isGrouping() {
         return this.groups && this.groups.length > 0;
+    }
+
+    private hasRowActions() {
+        return this.rowActions !== undefined;
     }
 
     private removeGroup(group: GroupObject) {
@@ -376,6 +403,29 @@ export class KetchupDataTable {
         this.kupRowSelected.emit({
             selectedRows: this.selectedRows,
             clickedColumn,
+        });
+    }
+
+    private onDefaultRowActionClick(
+        e: MouseEvent,
+        { action, row, type, index }
+    ) {
+        e.stopPropagation();
+
+        this.kupRowActionClicked.emit({
+            action,
+            index,
+            row,
+            type,
+        });
+    }
+
+    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
+        e.stopPropagation();
+
+        this.kupRowActionClicked.emit({
+            row,
+            type: 'expander',
         });
     }
 
@@ -568,6 +618,10 @@ export class KetchupDataTable {
             colSpan += 1;
         }
 
+        if (this.hasRowActions()) {
+            colSpan += 1;
+        }
+
         return colSpan;
     }
 
@@ -718,7 +772,12 @@ export class KetchupDataTable {
             groupColumn = <th />;
         }
 
-        return [multiSelectColumn, groupColumn, ...dataColumns];
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            actionsColumn = <th />;
+        }
+
+        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderFooter(
@@ -860,10 +919,12 @@ export class KetchupDataTable {
                     );
                 }
 
+                const jsxCell = this.renderCell(cell);
+
                 return (
                     <td data-column={name} style={cell.style}>
                         {indend}
-                        {cell.value}
+                        {jsxCell}
                         {options}
                     </td>
                 );
@@ -898,14 +959,100 @@ export class KetchupDataTable {
             // adding row to rendered rows
             this.renderedRows.push(row);
 
+            let rowActionsCell = null;
+            if (this.hasRowActions()) {
+                const defaultRowActions = this.rowActions.map(
+                    (action, index) => {
+                        return (
+                            <span
+                                title={action.text}
+                                class={`row-action ${action.icon}`}
+                                onClick={(e) =>
+                                    this.onDefaultRowActionClick(e, {
+                                        action,
+                                        index,
+                                        row,
+                                        type: 'default',
+                                    })
+                                }
+                                role="button"
+                                aria-label={action.text}
+                                aria-pressed="false"
+                            />
+                        );
+                    }
+                );
+
+                let rowActionExpander = null;
+                let variableActions = null;
+                if (row.actions) {
+                    // adding variable actions
+                    // TODO refactor with default actions
+                    variableActions = row.actions.map((action, index) => {
+                        return (
+                            <span
+                                title={action.text}
+                                class={`row-action ${action.icon}`}
+                                onClick={(e) =>
+                                    this.onDefaultRowActionClick(e, {
+                                        action,
+                                        index,
+                                        row,
+                                        type: 'variable',
+                                    })
+                                }
+                                role="button"
+                                aria-label={action.text}
+                                aria-pressed="false"
+                            />
+                        );
+                    });
+                } else {
+                    // adding expander
+                    rowActionExpander = (
+                        <span
+                            title="Espandi voci"
+                            class={`row-action mdi mdi-chevron-right`}
+                            onClick={(e) =>
+                                this.onRowActionExpanderClick(e, row)
+                            }
+                            role="button"
+                            aria-label="Espandi voci"
+                            aria-pressed="false"
+                        />
+                    );
+                }
+
+                rowActionsCell = (
+                    <td>
+                        {defaultRowActions}
+                        {rowActionExpander}
+                        {variableActions}
+                    </td>
+                );
+            }
+
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
                     {selectRowCell}
                     {groupingCell}
+                    {rowActionsCell}
                     {cells}
                 </tr>
             );
         }
+    }
+
+    private renderCell(cell: Cell) {
+        let content: any = cell.value;
+
+        if (isIcon(cell.obj)) {
+            content = <span class={cell.value} />;
+        } else if (isImage(cell.obj)) {
+            content = <img src={cell.value} alt="" width="64" height="64" />;
+        }
+
+        return <span class="cell-content">{content}</span>;
     }
 
     render() {

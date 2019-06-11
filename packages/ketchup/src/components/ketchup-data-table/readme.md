@@ -16,6 +16,7 @@
 | `groups`         | --                |             | `GroupObject[]`                                                | `[]`               |
 | `multiSelection` | `multi-selection` |             | `boolean`                                                      | `false`            |
 | `paginatorPos`   | `paginator-pos`   |             | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP` | `PaginatorPos.TOP` |
+| `rowActions`     | --                |             | `RowAction[]`                                                  | `undefined`        |
 | `rowsPerPage`    | `rows-per-page`   |             | `number`                                                       | `10`               |
 | `selectRow`      | `select-row`      |             | `number`                                                       | `undefined`        |
 | `showFilters`    | `show-filters`    |             | `boolean`                                                      | `false`            |
@@ -28,12 +29,13 @@
 
 ## Events
 
-| Event              | Description                                    | Type                                                                                    |
-| ------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `kupAddColumn`     | When 'add column' menu item is clicked         | `CustomEvent<{ column: string }>`                                                       |
-| `kupAutoRowSelect` | When a row is auto selected via selectRow prop | `CustomEvent<{         selectedRow: Row;     }>`                                        |
-| `kupOptionClicked` | When cell option is clicked                    | `CustomEvent<{         column: string;         row: Row;     }>`                        |
-| `kupRowSelected`   | When a row is selected                         | `CustomEvent<{         selectedRows: Array<Row>;         clickedColumn: string;     }>` |
+| Event                 | Description                                    | Type                                                                                                                                              |
+| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `kupAddColumn`        | When 'add column' menu item is clicked         | `CustomEvent<{ column: string }>`                                                                                                                 |
+| `kupAutoRowSelect`    | When a row is auto selected via selectRow prop | `CustomEvent<{         selectedRow: Row;     }>`                                                                                                  |
+| `kupOptionClicked`    | When cell option is clicked                    | `CustomEvent<{         column: string;         row: Row;     }>`                                                                                  |
+| `kupRowActionClicked` | When a row action is clicked                   | `CustomEvent<{         type: 'default' \| 'variable' \| 'expander';         row: Row;         action?: RowAction;         index?: number;     }>` |
+| `kupRowSelected`      | When a row is selected                         | `CustomEvent<{         selectedRows: Array<Row>;         clickedColumn: string;     }>`                                                           |
 
 
 ## CSS Custom Properties

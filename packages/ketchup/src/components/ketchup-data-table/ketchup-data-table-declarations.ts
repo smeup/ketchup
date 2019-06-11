@@ -10,6 +10,8 @@ export interface Row {
         [index: string]: Cell;
     };
 
+    actions?: Array<RowAction>;
+
     group?: {
         parent: Row;
         column: string;
@@ -65,3 +67,13 @@ export interface GroupObject {
     column: string;
     visible: boolean;
 }
+
+export interface RowAction {
+    text: string;
+    icon: string;
+}
+
+// export enum RowActionType {
+//     DEFAULT = 'Default',
+//     VARIABLE = 'Variable',
+// }

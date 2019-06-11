@@ -6,7 +6,7 @@ const headerCellsSelector = 'kup-data-table >>> table > thead > tr > th';
 const rowSelector = 'kup-data-table >>> table > tbody > tr';
 const rowExpanderSelector =
     'kup-data-table >>> table > tbody > tr.group .row-expander';
-const sortIconSelector = 'kup-data-table >>> table thead .column-sort icon';
+const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
 describe('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {
@@ -39,7 +39,7 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                const expandIcon = await cells[0].find('icon.mdi');
+                const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
             })
@@ -68,7 +68,7 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                const expandIcon = await cells[0].find('icon.mdi');
+                const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-right']);
             } else {
@@ -119,7 +119,7 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '2');
 
-                const expandIcon = await cells[0].find('icon.mdi');
+                const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
             })
@@ -148,7 +148,7 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '2');
 
-                const expandIcon = await cells[0].find('icon.mdi');
+                const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-right']);
             } else {
