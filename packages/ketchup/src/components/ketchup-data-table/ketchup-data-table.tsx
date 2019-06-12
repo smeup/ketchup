@@ -8,6 +8,8 @@ import {
     JSXElements,
 } from '@stencil/core';
 
+import debounce from 'lodash/debounce';
+
 import {
     Column,
     PaginatorPos,
@@ -425,8 +427,12 @@ export class KetchupDataTable {
     }
 
     private onColumnMouseOver(column: string) {
-        this.openedMenu = column;
+        this.debouncedColumnMouseOver(column);
     }
+
+    private debouncedColumnMouseOver = debounce((column: string) => {
+        this.openedMenu = column;
+    }, 1000);
 
     private onColumnMouseLeave(column: string) {
         if (this.openedMenu === column) {
@@ -618,12 +624,11 @@ export class KetchupDataTable {
 
             let columnMenu = null;
             if (columnMenuItems.length !== 0) {
-                const style = {
-                    display: this.openedMenu === column.name ? 'block' : 'none',
-                };
+                const menuClass =
+                    this.openedMenu === column.name ? 'open' : 'closed';
 
                 columnMenu = (
-                    <div style={style} class="column-menu">
+                    <div class={`column-menu ${menuClass}`}>
                         <ul role="menubar">{columnMenuItems}</ul>
                     </div>
                 );
