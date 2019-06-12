@@ -40,6 +40,12 @@ import {
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
 import {
+  KupPayloadEvent,
+} from './types/EventInterfaces';
+import {
+  GenericObject,
+} from './types/GenericTypes';
+import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 
@@ -474,10 +480,7 @@ export namespace Components {
     /**
     * When currently selected radio button has been changed.
     */
-    'onKetchupRadioChanged'?: (event: CustomEvent<{
-      value: KetchupRadioElement;
-      oldValue: KetchupRadioElement;
-    }>) => void;
+    'onKetchupRadioChanged'?: (event: CustomEvent<KupPayloadEvent<any,any>>) => void;
     /**
     * Radio elements value
     */
@@ -498,17 +501,25 @@ export namespace Components {
     */
     'initialValue': string;
     /**
+    * Specify the type of input. Allowed values: password, text.
+    */
+    'inputType': string;
+    /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable': boolean;
     /**
-    * Label to describe the radio group
+    * Label to describe the text-input clear button group
     */
     'label': string;
     /**
     * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
     */
     'maxLength': number;
+    /**
+    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
+    */
+    'obj'?: GenericObject;
     /**
     * Triggers the focus event on the input text
     */
@@ -524,17 +535,25 @@ export namespace Components {
     */
     'initialValue'?: string;
     /**
+    * Specify the type of input. Allowed values: password, text.
+    */
+    'inputType'?: string;
+    /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable'?: boolean;
     /**
-    * Label to describe the radio group
+    * Label to describe the text-input clear button group
     */
     'label'?: string;
     /**
     * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
     */
     'maxLength'?: number;
+    /**
+    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
+    */
+    'obj'?: GenericObject;
     /**
     * When text field loses focus (blur)
     */
@@ -546,9 +565,7 @@ export namespace Components {
     /**
     * When a keydown enter event occurs it generates
     */
-    'onKetchupTextInputSubmit'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
+    'onKetchupTextInputSubmit'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
     /**
     * When the input text value gets updated
     */

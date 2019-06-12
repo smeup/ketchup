@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event                 | Description                                            | Type                                                                                              |
-| --------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<{         value: KetchupRadioElement;         oldValue: KetchupRadioElement;     }>` |
+| Event                 | Description                                            | Type                                    |
+| --------------------- | ------------------------------------------------------ | --------------------------------------- |
+| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<KupPayloadEvent<any,any>>` |
 
 
 ## CSS Custom Properties

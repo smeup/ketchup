@@ -9,6 +9,8 @@ import {
     Watch,
 } from '@stencil/core';
 import { KetchupTextInputEvent } from './kup-text-input-declarations';
+import { generateUniqueId } from '../../utils/utils';
+import { GenericObject } from "../../types/GenericTypes";
 
 import { debounceEvent } from '../../utils/helpers';
 
@@ -23,11 +25,15 @@ export class KupTextInput {
      */
     @Prop() initialValue: string = '';
     /**
+     * Specify the type of input. Allowed values: password, text.
+     */
+    @Prop() inputType: string = 'text';
+    /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
     @Prop() isClearable: boolean = false;
     /**
-     * Label to describe the radio group
+     * Label to describe the text-input clear button group
      */
     @Prop() label: string = '';
     /**
@@ -35,11 +41,17 @@ export class KupTextInput {
      * Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
      */
     @Prop() maxLength: number = 524288;
-
     /**
      * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
      */
-    @Prop() debounce = 400;
+    @Prop() debounce: number = 400;
+
+    /**
+     * A generic object which can be passed to the component.
+     * Once this object is set, it will always be returned inside the info field of the
+     * ketchupTextInputUpdated and ketchupTextInputSubmit.
+     */
+    @Prop() obj?: GenericObject;
 
     @Watch('debounce')
     protected debounceChanged() {
@@ -56,10 +68,11 @@ export class KupTextInput {
 
     //-- Not reactive state --
     @Element() inputEl: HTMLElement;
+    elementId = generateUniqueId('kup-input');
     textInput!: HTMLInputElement;
 
     //-- Constants --
-    classInputText = 'ketchup-input-text';
+    classInputText = 'kup-input-text';
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
@@ -90,7 +103,16 @@ export class KupTextInput {
      * Clear the current content inside the the text input
      */
     onClearClick() {
+        const oldValue = this.value;
         this.value = '';
+        this.ketchupTextInputUpdated.emit({
+            value: this.value,
+            oldValue: oldValue,
+            info: {
+                obj: this.obj
+            }
+        });
+
         setTimeout(() => this.triggerFocus(), 10);
     }
 
@@ -102,6 +124,10 @@ export class KupTextInput {
             event.preventDefault();
             this.ketchupTextInputSubmit.emit({
                 value: this.value,
+                oldValue: this.value,
+                info: {
+                    obj: this.obj
+                }
             });
         }
     }
@@ -123,6 +149,9 @@ export class KupTextInput {
         this.inputBlur.emit({
             value: target.value,
             oldValue: this.value,
+            info: {
+                obj: this.obj
+            }
         });
         this.value = target.value;
     }
@@ -143,6 +172,9 @@ export class KupTextInput {
         this.inputFocused.emit({
             value: target.value,
             oldValue: this.value,
+            info: {
+                obj: this.obj
+            }
         });
         this.value = target.value;
     }
@@ -156,9 +188,7 @@ export class KupTextInput {
         cancelable: false,
         bubbles: true,
     })
-    ketchupTextInputSubmit: EventEmitter<{
-        value: string;
-    }>;
+    ketchupTextInputSubmit: EventEmitter<KetchupTextInputEvent>;
 
     /**
      * When the input text value gets updated
@@ -176,6 +206,9 @@ export class KupTextInput {
         this.ketchupTextInputUpdated.emit({
             value: target.value,
             oldValue: this.value,
+            info: {
+                obj: this.obj
+            }
         });
         this.value = target.value;
     }
@@ -186,7 +219,7 @@ export class KupTextInput {
 
         let lbl = null;
         if (this.label) {
-            lbl = <label htmlFor="ketchup-input">{this.label}</label>;
+            lbl = <label htmlFor={this.elementId}>{this.label}</label>;
         }
 
         return (
@@ -200,7 +233,7 @@ export class KupTextInput {
             >
                 {lbl}
                 <input
-                    id="ketchup-input"
+                    id={this.elementId}
                     class={
                         this.classInputText +
                         (this.isClearable
@@ -210,6 +243,7 @@ export class KupTextInput {
                     maxlength={this.maxLength}
                     ref={(el) => (this.textInput = el as HTMLInputElement)}
                     tabindex="0"
+                    type={this.inputType}
                     value={this.value}
                     onBlur={this.onInputBlurred.bind(this)}
                     onInput={this.onInputUpdated.bind(this)}

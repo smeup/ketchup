@@ -88,6 +88,9 @@
         <h4>FLD Initial value</h4>
         <kup-fld id="fld-radio-initialValue"></kup-fld>
 
+        <h4>Input text type password</h4>
+        <kup-text-input input-type="password" initial-value="pippo" debounce="100" is-clearable></kup-text-input>
+
         <script>
             let once = true;
             // This is a script for testing these elements
@@ -330,10 +333,22 @@
                         { value: 'PRV456' },
                     ];
 
+                    // For the password field
+                    const inPassword = document.querySelector('kup-text-input[input-type="password"]');
+                    inPassword.addEventListener('ketchupTextInputFocused', (e) => {
+                        console.log('Password has been FOCUSED', e);
+                    });
+                    inPassword.addEventListener('ketchupTextInputBlurred', (e) => {
+                        console.log('#Password has been BLURRED', e);
+                    });
+                    inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
+                        console.log('Password has been UPDATED', e);
+                    });
                 }
             }, 5000);
         </script>
 
+        <h4>Playground bottoniera</h4>
         <div class="BTN">
             <div class="btn-options">
                 <div>
