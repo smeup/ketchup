@@ -207,6 +207,8 @@
 
 // column menu
 .column-menu {
+  display: none;
+  opacity: 0;
   background-color: var(--int_background-color);
   box-shadow: var(--int_box-shadow);
   color: var(--int_color);
@@ -215,6 +217,12 @@
   // left: -0.5rem;
   z-index: 100;
   font-weight: normal;
+  transition: opacity 0.2s ease-in-out;
+
+  &.open {
+    display: block;
+    opacity: 1;
+  }
 
   ul {
     list-style-type: none;
