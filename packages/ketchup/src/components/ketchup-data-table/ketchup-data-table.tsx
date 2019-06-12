@@ -8,8 +8,6 @@ import {
     JSXElements,
 } from '@stencil/core';
 
-import debounce from 'lodash/debounce';
-
 import {
     Column,
     PaginatorPos,
@@ -426,15 +424,18 @@ export class KetchupDataTable {
         });
     }
 
-    private onColumnMouseOver(column: string) {
-        this.debouncedColumnMouseOver(column);
+    private columnOverTimeout: NodeJS.Timeout;
+
+    private onColumnMouseEnter(column: string) {
+        this.columnOverTimeout = setTimeout(() => {
+            this.openedMenu = column;
+        }, 500);
     }
 
-    private debouncedColumnMouseOver = debounce((column: string) => {
-        this.openedMenu = column;
-    }, 1000);
-
     private onColumnMouseLeave(column: string) {
+        // clearing timeout
+        clearTimeout(this.columnOverTimeout);
+
         if (this.openedMenu === column) {
             this.openedMenu = null;
         }
@@ -637,7 +638,7 @@ export class KetchupDataTable {
             return (
                 <th
                     style={thStyle}
-                    onMouseOver={() => this.onColumnMouseOver(column.name)}
+                    onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
                 >
                     <span class="column-title">{column.title}</span>
