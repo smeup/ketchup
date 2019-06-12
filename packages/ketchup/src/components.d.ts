@@ -40,11 +40,9 @@ import {
   ElementOffset,
 } from './utils/offset';
 import {
+  KetchupRadioChangeEvent,
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
-import {
-  KupPayloadEvent,
-} from './types/EventInterfaces';
 import {
   GenericObject,
 } from './types/GenericTypes';
@@ -378,7 +376,7 @@ export namespace Components {
     /**
     * When currently selected radio button has been changed.
     */
-    'onKetchupRadioChanged'?: (event: CustomEvent<KupPayloadEvent<any,any>>) => void;
+    'onKetchupRadioChanged'?: (event: CustomEvent<KetchupRadioChangeEvent>) => void;
     /**
     * Radio elements value
     */

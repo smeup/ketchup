@@ -7,8 +7,7 @@ import {
     Watch
 } from '@stencil/core'
 import { generateUniqueId } from "../../utils/utils";
-import { KetchupRadioElement, KetchupRadioElementFactory } from "./kup-radio-declarations";
-import { KupPayloadEvent } from "../../types/EventInterfaces";
+import { KetchupRadioElement, KetchupRadioChangeEvent, KetchupRadioElementFactory } from "./kup-radio-declarations";
 
 @Component({
     tag: 'kup-radio',
@@ -84,7 +83,7 @@ export class KupRadio {
         cancelable: false,
         bubbles: true
     })
-    ketchupRadioChanged: EventEmitter<KupPayloadEvent<any,any>>;
+    ketchupRadioChanged: EventEmitter<KetchupRadioChangeEvent>;
 
     // Typing for input element UIEvent & {target: HTMLInputElement}
     onRadioChanged(radio: KetchupRadioElement) {
