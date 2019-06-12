@@ -1,8 +1,6 @@
 import {
     Component,
     Element,
-    //Event,
-    // EventEmitter,
     Prop,
 } from '@stencil/core';
 
@@ -35,25 +33,9 @@ export class KupPortalInstance {
     //---- Internal state ----
     @Element() port: HTMLElement;
 
-    /**
-     * When loading the frame has thrown an error
-
-    @Event({
-        eventName: 'ketchupHtmlError',
-        composed: true,
-        cancelable: false,
-        bubbles: true
-    })
-    ketchupHtmlError: EventEmitter;
-
-    onFrameError() {
-        this.ketchupHtmlError.emit();
-    }*/
-
     //---- Rendering functions ----
     // This is portal component, which does not need any rendering
     render() {
-        console.log("portal instance",this.vNodes);
         return this.vNodes;
     }
 }

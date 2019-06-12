@@ -301,14 +301,6 @@ export namespace Components {
     */
     'nodes'?: JSX.Element[] | JSX.Element;
     /**
-    * When loading the frame has thrown an error
-    */
-    'onKetchupHtmlError'?: (event: CustomEvent) => void;
-    /**
-    * When the iframe has been loaded
-    */
-    'onKetchupHtmlLoaded'?: (event: CustomEvent) => void;
-    /**
     * The HTML element on which the virtual node must be appended
     */
     'portalRootNode'?: HTMLElement;
