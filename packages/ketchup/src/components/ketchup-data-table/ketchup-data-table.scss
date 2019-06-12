@@ -59,6 +59,15 @@
     .column-sort {
       margin-left: 0.5rem;
       cursor: pointer;
+
+      .mdi {
+        transition: color 0.2s ease-in-out;
+      }
+
+      .mdi-sort-ascending,
+      .mdi-sort-descending {
+        color: var(--int_main-color);
+      }
     }
 
     // filters
