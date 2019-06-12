@@ -1,6 +1,12 @@
 @import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
 
+:host {
+  // variables
+  --int_text-color: var(--kup-paginator_text-color, #545454);
+}
+
 #paginator {
+  color: var(--int_text-color);
   margin: 0.5rem 0;
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +14,12 @@
 
   icon {
     cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+
+    &:hover:not(.disabled) {
+      opacity: 0.75;
+    }
 
     &.disabled {
       cursor: default;
@@ -15,15 +27,17 @@
     }
   }
 
-  .prevPage,
-  .nextPage,
   select,
   .nextPageGroup {
-    margin: 0 0.1rem;
+    margin: 0 0.5rem;
+  }
+
+  .prev-page,
+  .next-page {
+    margin: 0 0.25rem;
   }
 
   .nextPageGroup {
-    border-right: 1px solid black;
-    padding-right: 0.3rem;
+    padding-right: 1.5rem;
   }
 }
