@@ -1,8 +1,8 @@
 import {
     Component,
-    Event,
-    EventEmitter, Method,
-    Prop, Watch,
+    Method,
+    Prop,
+    Watch,
 } from '@stencil/core';
 import { ElementOffset, setElementOffset } from "../../utils/offset";
 
@@ -91,38 +91,6 @@ export class KupPortal {
     @Method()
     async getPortalInstance() {
         return this.instance;
-    }
-
-    //-- Emitted --
-
-    /**
-     * When loading the frame has thrown an error
-     */
-    @Event({
-        eventName: 'ketchupHtmlError',
-        composed: true,
-        cancelable: false,
-        bubbles: true
-    })
-    ketchupHtmlError: EventEmitter;
-
-    onFrameError() {
-        this.ketchupHtmlError.emit();
-    }
-
-    /**
-     * When the iframe has been loaded
-     */
-    @Event({
-        eventName: 'ketchupHtmlLoaded',
-        composed: true,
-        cancelable: false,
-        bubbles: true
-    })
-    ketchupHtmlLoaded: EventEmitter;
-
-    onFrameLoaded() {
-        this.ketchupHtmlLoaded.emit();
     }
 
     //---- Rendering functions ----

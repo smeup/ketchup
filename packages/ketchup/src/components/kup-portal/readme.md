@@ -106,14 +106,6 @@ use portals only in edge cases requiring them, like the ones listed above.
 | `styleNode`       | --           | A style node to be copied into the KetchupPortalInstance                                     | `HTMLStyleElement` | `undefined`     |
 
 
-## Events
-
-| Event               | Description                                | Type                |
-| ------------------- | ------------------------------------------ | ------------------- |
-| `ketchupHtmlError`  | When loading the frame has thrown an error | `CustomEvent<void>` |
-| `ketchupHtmlLoaded` | When the iframe has been loaded            | `CustomEvent<void>` |
-
-
 ## Methods
 
 ### `getPortalInstance() => Promise<HTMLElement>`
