@@ -114,6 +114,8 @@ export class KetchupDataTable {
 
     private renderedRows: Array<Row> = [];
 
+    private columnOverTimeout: NodeJS.Timeout;
+
     /**
      * When a row is auto selected via selectRow prop
      */
@@ -423,8 +425,6 @@ export class KetchupDataTable {
             clickedColumn: null,
         });
     }
-
-    private columnOverTimeout: NodeJS.Timeout;
 
     private onColumnMouseEnter(column: string) {
         this.columnOverTimeout = setTimeout(() => {
@@ -993,20 +993,18 @@ export class KetchupDataTable {
         );
 
         return (
-            <div>
+            <div id="data-table-wrapper">
                 {groupChips}
                 {paginatorTop}
                 {globalFilter}
                 {densityPanel}
-                <div id="data-table-wrapper">
-                    <table class={tableClass}>
-                        <thead hidden={!this.showHeader}>
-                            <tr>{header}</tr>
-                        </thead>
-                        <tbody>{rows}</tbody>
-                        {footer}
-                    </table>
-                </div>
+                <table class={tableClass}>
+                    <thead hidden={!this.showHeader}>
+                        <tr>{header}</tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                    {footer}
+                </table>
                 {paginatorBottom}
             </div>
         );
