@@ -80,6 +80,12 @@ export default {
         },
       },
       {
+        title: 'Row actions',
+        to: {
+          name: 'dtRowActions',
+        },
+      },
+      {
         title: 'Row selection',
         to: {
           name: 'dtRowSel',

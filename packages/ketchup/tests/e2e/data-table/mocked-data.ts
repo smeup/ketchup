@@ -87,6 +87,7 @@ export const staticData = {
                         k: 'CASFRA',
                     },
                     value: 'CASFRA',
+                    options: true,
                 },
                 FLD2: {
                     obj: {
@@ -115,6 +116,7 @@ export const staticData = {
                         k: 'PARFRA',
                     },
                     value: 'PARFRA',
+                    options: true,
                 },
                 FLD2: {
                     obj: {
@@ -143,6 +145,7 @@ export const staticData = {
                         k: 'DELGIO',
                     },
                     value: 'DELGIO',
+                    options: true,
                 },
                 FLD2: {
                     obj: {

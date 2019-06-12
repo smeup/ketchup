@@ -10,7 +10,10 @@ h3 {
     <h1>Data Table</h1>
 
     <h3>Without configuration</h3>
-    <kup-data-table :data.prop="data"></kup-data-table>
+    <kup-data-table
+      :data.prop="data"
+      @kupOptionClicked="handleKupOptionClicked"
+    ></kup-data-table>
 
     <h3>Hidden columns</h3>
     <kup-data-table :data.prop="hiddenColumnsData"></kup-data-table>
@@ -29,6 +32,9 @@ h3 {
 
     <h3>Cell style</h3>
     <kup-data-table :data.prop="cellStyleData"></kup-data-table>
+
+    <h3>Icons and images</h3>
+    <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
   </div>
 </template>
 
@@ -37,6 +43,7 @@ import {
   defaultDataTable,
   cellStyleDataTable,
   hiddenColumnsData,
+  iconImagesDataTable,
 } from '@/mock/dataTable';
 
 export default {
@@ -49,6 +56,7 @@ export default {
       },
       hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
+      iconImagesDataTable: { ...iconImagesDataTable },
       columnsWidth: [
         {
           column: 'FLD1',
@@ -60,6 +68,12 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    handleKupOptionClicked({ detail }) {
+      console.log('detail', detail);
+    },
   },
 };
 </script>

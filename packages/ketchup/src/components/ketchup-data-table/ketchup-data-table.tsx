@@ -17,6 +17,8 @@ import {
     GenericMap,
     GroupObject,
     TotalsMap,
+    Cell,
+    RowAction,
 } from './ketchup-data-table-declarations';
 
 import {
@@ -25,6 +27,8 @@ import {
     groupRows,
     sortRows,
 } from './ketchup-data-table-helper';
+
+import { isIcon, isImage } from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -78,6 +82,9 @@ export class KetchupDataTable {
 
     @Prop()
     multiSelection = false;
+
+    @Prop()
+    rowActions: Array<RowAction>;
 
     @State()
     private globalFilterValue = '';
@@ -141,6 +148,47 @@ export class KetchupDataTable {
     kupRowSelected: EventEmitter<{
         selectedRows: Array<Row>;
         clickedColumn: string;
+    }>;
+
+    /**
+     * When cell option is clicked
+     */
+    @Event({
+        eventName: 'kupOptionClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupOptionClicked: EventEmitter<{
+        column: string;
+        row: Row;
+    }>;
+
+    /**
+     * When 'add column' menu item is clicked
+     */
+    @Event({
+        eventName: 'kupAddColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddColumn: EventEmitter<{ column: string }>;
+
+    /**
+     * When a row action is clicked
+     */
+    @Event({
+        eventName: 'kupRowActionClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionClicked: EventEmitter<{
+        type: 'default' | 'variable' | 'expander';
+        row: Row;
+        action?: RowAction;
+        index?: number;
     }>;
 
     // lifecycle
@@ -243,6 +291,10 @@ export class KetchupDataTable {
 
     private isGrouping() {
         return this.groups && this.groups.length > 0;
+    }
+
+    private hasRowActions() {
+        return this.rowActions !== undefined;
     }
 
     private removeGroup(group: GroupObject) {
@@ -356,6 +408,29 @@ export class KetchupDataTable {
         });
     }
 
+    private onDefaultRowActionClick(
+        e: MouseEvent,
+        { action, row, type, index }
+    ) {
+        e.stopPropagation();
+
+        this.kupRowActionClicked.emit({
+            action,
+            index,
+            row,
+            type,
+        });
+    }
+
+    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
+        e.stopPropagation();
+
+        this.kupRowActionClicked.emit({
+            row,
+            type: 'expander',
+        });
+    }
+
     private handleRowSelect(row: Row, ctrlKey: boolean) {
         if (this.multiSelection) {
             if (ctrlKey && this.selectedRows) {
@@ -462,6 +537,13 @@ export class KetchupDataTable {
         }
     }
 
+    private onOptionClicked(column: string, row: Row) {
+        this.kupOptionClicked.emit({
+            column,
+            row,
+        });
+    }
+
     // utility methods
     private groupRows(rows: Array<any>): Array<Row> {
         if (!this.isGrouping()) {
@@ -543,6 +625,10 @@ export class KetchupDataTable {
             colSpan += 1;
         }
 
+        if (this.hasRowActions()) {
+            colSpan += 1;
+        }
+
         return colSpan;
     }
 
@@ -578,7 +664,9 @@ export class KetchupDataTable {
             if (this.sortEnabled) {
                 sort = (
                     <span class="column-sort">
-                        <icon
+                        <span
+                            role="button"
+                            aria-label="Sort column" // TODO
                             class={'mdi ' + this.getSortIcon(column.name)}
                             onClick={(e: MouseEvent) =>
                                 this.onColumnSort(e, column.name)
@@ -619,7 +707,19 @@ export class KetchupDataTable {
                     role="menuitem"
                     onClick={() => this.switchColumnGroup(group, column.name)}
                 >
-                    <icon class="mdi mdi-book" /> {groupLabel}
+                    <span class="mdi mdi-book" /> {groupLabel}
+                </li>
+            );
+
+            columnMenuItems.push(
+                <li
+                    role="menuitem"
+                    onClick={() =>
+                        this.kupAddColumn.emit({ column: column.name })
+                    }
+                >
+                    <span class="mdi mdi-table-column-plus-after" />
+                    Aggiungi colonna
                 </li>
             );
 
@@ -678,7 +778,12 @@ export class KetchupDataTable {
             groupColumn = <th />;
         }
 
-        return [multiSelectColumn, groupColumn, ...dataColumns];
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            actionsColumn = <th />;
+        }
+
+        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderFooter(
@@ -745,7 +850,9 @@ export class KetchupDataTable {
                 cells.push(
                     <td colSpan={colSpan}>
                         {indent}
-                        <icon
+                        <span
+                            role="button"
+                            aria-label="Row expander" // TODO change this label
                             class={icon}
                             onClick={() => this.onRowExpand(row)}
                         />
@@ -763,7 +870,9 @@ export class KetchupDataTable {
                     <tr class="group">
                         <td colSpan={this.calculateColspan()}>
                             {indent}
-                            <icon
+                            <span
+                                role="button"
+                                aria-label="Row expander" // TODO change this label
                                 class={`row-expander ${icon}`}
                                 onClick={() => this.onRowExpand(row)}
                             />
@@ -801,10 +910,28 @@ export class KetchupDataTable {
 
                 const cell = row.cells[name];
 
+                let options = null;
+                if (cell.options) {
+                    options = (
+                        <span
+                            class="options"
+                            role="button"
+                            aria-label="Opzioni oggetto"
+                            title="Opzioni oggetto"
+                            onClick={() => this.onOptionClicked(name, row)}
+                        >
+                            <i class="mdi mdi-settings" />
+                        </span>
+                    );
+                }
+
+                const jsxCell = this.renderCell(cell);
+
                 return (
                     <td data-column={name} style={cell.style}>
                         {indend}
-                        {cell.value}
+                        {jsxCell}
+                        {options}
                     </td>
                 );
             });
@@ -838,14 +965,100 @@ export class KetchupDataTable {
             // adding row to rendered rows
             this.renderedRows.push(row);
 
+            let rowActionsCell = null;
+            if (this.hasRowActions()) {
+                const defaultRowActions = this.rowActions.map(
+                    (action, index) => {
+                        return (
+                            <span
+                                title={action.text}
+                                class={`row-action ${action.icon}`}
+                                onClick={(e) =>
+                                    this.onDefaultRowActionClick(e, {
+                                        action,
+                                        index,
+                                        row,
+                                        type: 'default',
+                                    })
+                                }
+                                role="button"
+                                aria-label={action.text}
+                                aria-pressed="false"
+                            />
+                        );
+                    }
+                );
+
+                let rowActionExpander = null;
+                let variableActions = null;
+                if (row.actions) {
+                    // adding variable actions
+                    // TODO refactor with default actions
+                    variableActions = row.actions.map((action, index) => {
+                        return (
+                            <span
+                                title={action.text}
+                                class={`row-action ${action.icon}`}
+                                onClick={(e) =>
+                                    this.onDefaultRowActionClick(e, {
+                                        action,
+                                        index,
+                                        row,
+                                        type: 'variable',
+                                    })
+                                }
+                                role="button"
+                                aria-label={action.text}
+                                aria-pressed="false"
+                            />
+                        );
+                    });
+                } else {
+                    // adding expander
+                    rowActionExpander = (
+                        <span
+                            title="Espandi voci"
+                            class={`row-action mdi mdi-chevron-right`}
+                            onClick={(e) =>
+                                this.onRowActionExpanderClick(e, row)
+                            }
+                            role="button"
+                            aria-label="Espandi voci"
+                            aria-pressed="false"
+                        />
+                    );
+                }
+
+                rowActionsCell = (
+                    <td>
+                        {defaultRowActions}
+                        {rowActionExpander}
+                        {variableActions}
+                    </td>
+                );
+            }
+
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
                     {selectRowCell}
                     {groupingCell}
+                    {rowActionsCell}
                     {cells}
                 </tr>
             );
         }
+    }
+
+    private renderCell(cell: Cell) {
+        let content: any = cell.value;
+
+        if (isIcon(cell.obj)) {
+            content = <span class={cell.value} />;
+        } else if (isImage(cell.obj)) {
+            content = <img src={cell.value} alt="" width="64" height="64" />;
+        }
+
+        return <span class="cell-content">{content}</span>;
     }
 
     render() {
@@ -958,7 +1171,7 @@ export class KetchupDataTable {
                             tabIndex={0}
                             onClick={() => this.removeGroup(group)}
                         >
-                            <icon class="mdi mdi-close-circle" />
+                            <span class="mdi mdi-close-circle" />
                             {column.title}
                         </div>
                     );
