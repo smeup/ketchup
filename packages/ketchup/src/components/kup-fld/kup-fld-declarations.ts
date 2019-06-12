@@ -1,10 +1,9 @@
-export interface KetchupFldSubmitEvent {
+import { KupPayloadEvent } from "../../types/EventInterfaces";
+
+export interface KetchupFldSubmitEvent extends KupPayloadEvent<any, object> {
     originalEvent: CustomEvent;
-    value: object | string;
 }
 
-export interface KetchupFldChangeEvent {
+export interface KetchupFldChangeEvent extends KupPayloadEvent<any, object> {
     originalEvent: CustomEvent<any>;
-    oldValue: object | string;
-    value: object | string;
 }

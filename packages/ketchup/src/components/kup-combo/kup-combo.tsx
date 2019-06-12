@@ -8,7 +8,7 @@ import {
     State,
     Watch
 } from '@stencil/core'
-import { ComboItem, ComboPosition } from './kup-combo-declarations';
+import { ComboItem, ComboPosition, KetchupComboEvent } from './kup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 import { getElementOffset } from "../../utils/offset";
 
@@ -35,7 +35,7 @@ export class KupCombo {
     /**
      * Allows to pass an initial selected item for the combobox
      */
-    @Prop() initialValue: ComboItem = {};
+    @Prop() initialValue: ComboItem | null = null;
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -69,7 +69,7 @@ export class KupCombo {
 
     //-- Not reactive state --
     @Element() comboEl: HTMLElement;
-    selected: ComboItem;
+    selected: ComboItem | null = null;
     portalRef?: HTMLKupPortalElement = null;
     /**
      * Creates a variable with an instance of the handler for the click event and binds this instance of the combo box to it.
@@ -129,12 +129,10 @@ export class KupCombo {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: ComboItem, oldValue?: ComboItem) {
+    reflectInitialValue(newValue: ComboItem | null, oldValue?: ComboItem) {
         // When a new initial value is passed, we control that the new item is different from the old one before updating the state
         if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
-            this.value = newValue[this.valueField];
-            this.selected = newValue;
-            this.onComboSelected(newValue);
+            this.onComboSelected(newValue, oldValue);
         }
     }
 
@@ -161,9 +159,7 @@ export class KupCombo {
      * @method onClearClick
      */
     onClearClick() {
-        this.value = '';
-        this.selected = null;
-        this.onComboSelected(null);
+        this.onComboSelected(null, this.selected);
     }
 
     /**
@@ -223,9 +219,7 @@ export class KupCombo {
      */
     onItemSelected(item: ComboItem) {
         if (item[this.valueField] !== this.value) {
-            this.onComboSelected(item);
-            this.selected = item;
-            this.value = item[this.valueField];
+            this.onComboSelected(item, this.selected);
         }
         this.closeCombo();
     }
@@ -241,14 +235,19 @@ export class KupCombo {
         cancelable: false,
         bubbles: true
     })
-    ketchupComboSelected: EventEmitter<{
-        value: ComboItem;
-    }>;
+    ketchupComboSelected: EventEmitter<KetchupComboEvent>;
 
-    onComboSelected(item: ComboItem | null) {
+    onComboSelected(item: ComboItem | null, oldItem: ComboItem | null) {
         this.ketchupComboSelected.emit({
             value: item,
+            oldValue: oldItem,
+            info: {
+                obj: undefined
+            }
         });
+        // Updates corresponding fields
+        this.selected = item;
+        this.value = item ? item[this.valueField] : null;
     }
 
     //---- Rendering functions ----
@@ -283,7 +282,7 @@ export class KupCombo {
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
-                    {this.selected[this.displayedField]}
+                    {this.selected ? this.selected[this.displayedField] : ''}
                     <svg
                         class={this.baseClass + '__icon ' + this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
                         viewBox="0 0 24 24">

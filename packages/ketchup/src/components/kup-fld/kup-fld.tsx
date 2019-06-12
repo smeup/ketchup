@@ -1,6 +1,9 @@
 import {Component, Event, EventEmitter, Method, Prop, State, Watch} from '@stencil/core';
 import { generateUniqueId } from "../../utils/utils";
 import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
+import {KetchupTextInputEvent} from "../../../dist/types/components/kup-text-input/kup-text-input-declarations";
+import {KetchupRadioChangeEvent} from "../kup-radio/kup-radio-declarations";
+import {KetchupComboEvent} from "../../../dist/types/components/kup-combo/kup-combo-declarations";
 
 @Component({
     tag: 'kup-fld',
@@ -86,6 +89,7 @@ export class KupFld {
     //-- Not reactive --
     radioGeneratedName = generateUniqueId('value');
     currentValue: object | string = null;
+    previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
     // This is done once per component to improve performance speed
@@ -125,13 +129,15 @@ export class KupFld {
     //---- Methods ----
 
     // When a change or update event must be launched as if it's coming from the Fld itself
-    onChange(event: CustomEvent) {
-        const { value } = event.detail;
+    onChange(event: CustomEvent<KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent>) {
+        const { value, info } = event.detail;
         this.ketchupFldChanged.emit({
             originalEvent: event,
             oldValue: this.currentValue,
-            value
+            value,
+            info
         });
+        this.previousValue = this.currentValue;
         this.currentValue = value;
     }
 
@@ -140,6 +146,10 @@ export class KupFld {
         this.ketchupFldSubmit.emit({
             originalEvent: event,
             value: this.currentValue,
+            oldValue: this.previousValue,
+            info: {
+                obj: undefined
+            }
         });
     }
 

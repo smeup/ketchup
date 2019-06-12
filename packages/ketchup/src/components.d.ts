@@ -16,7 +16,11 @@ import {
 } from './components/kup-chart/kup-chart-declarations';
 import {
   ComboItem,
+  KetchupComboEvent,
 } from './components/kup-combo/kup-combo-declarations';
+import {
+  EventEmitter,
+} from '@stencil/core';
 import {
   Column,
   GenericMap,
@@ -27,9 +31,6 @@ import {
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
-  EventEmitter,
-} from '@stencil/core';
-import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -37,11 +38,9 @@ import {
   ElementOffset,
 } from './utils/offset';
 import {
+  KetchupRadioChangeEvent,
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
-import {
-  KupPayloadEvent,
-} from './types/EventInterfaces';
 import {
   GenericObject,
 } from './types/GenericTypes';
@@ -114,7 +113,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue': ComboItem;
+    'initialValue': ComboItem | null;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -148,7 +147,7 @@ export namespace Components {
     /**
     * Allows to pass an initial selected item for the combobox
     */
-    'initialValue'?: ComboItem;
+    'initialValue'?: ComboItem | null;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -164,9 +163,7 @@ export namespace Components {
     /**
     * When an element has been selected
     */
-    'onKetchupComboSelected'?: (event: CustomEvent<{
-      value: ComboItem;
-    }>) => void;
+    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
     /**
     * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
     */
@@ -480,7 +477,7 @@ export namespace Components {
     /**
     * When currently selected radio button has been changed.
     */
-    'onKetchupRadioChanged'?: (event: CustomEvent<KupPayloadEvent<any,any>>) => void;
+    'onKetchupRadioChanged'?: (event: CustomEvent<KetchupRadioChangeEvent>) => void;
     /**
     * Radio elements value
     */
