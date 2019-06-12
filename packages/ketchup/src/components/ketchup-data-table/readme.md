@@ -42,9 +42,9 @@
 
 | Name                                                                    | Description                            |
 | ----------------------------------------------------------------------- | -------------------------------------- |
-| `--int_color, --kup-data-table_color`                                   | Set text color                         |
 | `--int_hover-background-color, --kup-data-table_hover-background-color` | Set background color when hover on row |
 | `--int_hover-color, --kup-data-table_hover-color`                       | Set text color when hover on row       |
+| `--int_stronger-color, --kup-data-table_stronger-color`                 | Set text color                         |
 
 
 ----------------------------------------------

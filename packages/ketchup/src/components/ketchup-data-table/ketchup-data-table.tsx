@@ -121,6 +121,8 @@ export class KetchupDataTable {
 
     private renderedRows: Array<Row> = [];
 
+    private columnOverTimeout: NodeJS.Timeout;
+
     /**
      * When a row is auto selected via selectRow prop
      */
@@ -499,11 +501,16 @@ export class KetchupDataTable {
         });
     }
 
-    private onColumnMouseOver(column: string) {
-        this.openedMenu = column;
+    private onColumnMouseEnter(column: string) {
+        this.columnOverTimeout = setTimeout(() => {
+            this.openedMenu = column;
+        }, 500);
     }
 
     private onColumnMouseLeave(column: string) {
+        // clearing timeout
+        clearTimeout(this.columnOverTimeout);
+
         if (this.openedMenu === column) {
             this.openedMenu = null;
         }
@@ -718,12 +725,11 @@ export class KetchupDataTable {
 
             let columnMenu = null;
             if (columnMenuItems.length !== 0) {
-                const style = {
-                    display: this.openedMenu === column.name ? 'block' : 'none',
-                };
+                const menuClass =
+                    this.openedMenu === column.name ? 'open' : 'closed';
 
                 columnMenu = (
-                    <div style={style} class="column-menu">
+                    <div class={`column-menu ${menuClass}`}>
                         <ul role="menubar">{columnMenuItems}</ul>
                     </div>
                 );
@@ -732,7 +738,7 @@ export class KetchupDataTable {
             return (
                 <th
                     style={thStyle}
-                    onMouseOver={() => this.onColumnMouseOver(column.name)}
+                    onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
                 >
                     <span class="column-title">{column.title}</span>
@@ -1200,20 +1206,18 @@ export class KetchupDataTable {
         );
 
         return (
-            <div>
+            <div id="data-table-wrapper">
                 {groupChips}
                 {paginatorTop}
                 {globalFilter}
                 {densityPanel}
-                <div id="data-table-wrapper">
-                    <table class={tableClass}>
-                        <thead hidden={!this.showHeader}>
-                            <tr>{header}</tr>
-                        </thead>
-                        <tbody>{rows}</tbody>
-                        {footer}
-                    </table>
-                </div>
+                <table class={tableClass}>
+                    <thead hidden={!this.showHeader}>
+                        <tr>{header}</tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                    {footer}
+                </table>
                 {paginatorBottom}
             </div>
         );
