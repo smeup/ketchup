@@ -202,8 +202,6 @@
 
 // column menu
 .column-menu {
-  display: none;
-  opacity: 0;
   background-color: var(--int_background-color);
   box-shadow: var(--int_box-shadow);
   color: var(--int_color);
@@ -214,9 +212,18 @@
   font-weight: normal;
   transition: opacity 0.2s ease-in-out;
 
+  &.closed {
+    display: none;
+    opacity: 0;
+  }
+
   &.open {
     display: block;
     opacity: 1;
+    -webkit-animation: display-none-transition 0.5s both;
+    -webkit-animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
+    animation: display-none-transition 0.5s both;
+    animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
   }
 
   ul {
@@ -239,4 +246,15 @@
 
 #density-panel {
   text-align: center;
+}
+
+@-webkit-keyframes display-none-transition {
+  0% {
+    opacity: 0;
+  }
+}
+@keyframes display-none-transition {
+  0% {
+    opacity: 0;
+  }
 }
