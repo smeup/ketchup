@@ -38,7 +38,10 @@
   --btn_animation-duration: var(--kup-button_animation-duration, 0.3s);
   --btn_border-color: var(--kup-button_border-color, #{$smeup-primary});
   --btn_opacity: var(--kup-button_opacity, 1);
-  --btn_box-shadow: var(--kup-button_opacity, 1);
+  --btn_box-shadow: var(
+    --kup-button_opacity,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  );
   --btn_border: var(--kup-button_border, none);
 
   @include stateVars('--btn');
