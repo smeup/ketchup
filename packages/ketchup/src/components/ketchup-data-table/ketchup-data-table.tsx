@@ -139,6 +139,8 @@ export class KetchupDataTable {
 
     private columnOverTimeout: NodeJS.Timeout;
 
+    private theadRef: HTMLTableSectionElement;
+
     /**
      * When a row is auto selected via selectRow prop
      */
@@ -207,6 +209,24 @@ export class KetchupDataTable {
         index?: number;
     }>;
 
+    private theadObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.intersectionRatio === 1) {
+                    // fully visible
+                    console.log('fully visible', entry.target);
+                } else if (entry.intersectionRatio === 0) {
+                    // hidden
+                    console.log('hidden', entry.target);
+                }
+            });
+        },
+        {
+            threshold: [0, 0.5, 1],
+            rootMargin: '-100px 0px 0px 0px',
+        }
+    );
+
     // lifecycle
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
@@ -214,6 +234,9 @@ export class KetchupDataTable {
     }
 
     componentDidLoad() {
+        // observing table
+        this.theadObserver.observe(this.theadRef);
+
         // automatic row selection
         if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
@@ -1214,19 +1237,19 @@ export class KetchupDataTable {
         const densityPanel = (
             <div id="density-panel">
                 <kup-button
-                    flat
+                    class={this.density === 'small' ? 'active' : ''}
                     iconClass="mdi mdi-format-align-justify"
                     onClick={() => (this.density = 'small')}
                 />
 
                 <kup-button
-                    flat
+                    class={this.density === 'medium' ? 'active' : ''}
                     iconClass="mdi mdi-menu"
                     onClick={() => (this.density = 'medium')}
                 />
 
                 <kup-button
-                    flat
+                    class={this.density === 'big' ? 'active' : ''}
                     iconClass="mdi mdi-view-sequential"
                     onClick={() => (this.density = 'big')}
                 />
@@ -1235,17 +1258,24 @@ export class KetchupDataTable {
 
         return (
             <div id="data-table-wrapper">
-                {groupChips}
-                {paginatorTop}
-                {globalFilter}
-                {densityPanel}
-                <table class={tableClass}>
-                    <thead hidden={!this.showHeader}>
-                        <tr>{header}</tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                    {footer}
-                </table>
+                <div class="above-wrapper">
+                    {paginatorTop}
+                    {globalFilter}
+                    {densityPanel}
+                </div>
+                <div class="below-wrapper">
+                    {groupChips}
+                    <table class={tableClass}>
+                        <thead
+                            hidden={!this.showHeader}
+                            ref={(el) => (this.theadRef = el)}
+                        >
+                            <tr>{header}</tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                        {footer}
+                    </table>
+                </div>
                 {paginatorBottom}
             </div>
         );

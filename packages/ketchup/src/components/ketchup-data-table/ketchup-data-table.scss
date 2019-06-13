@@ -40,7 +40,7 @@
 #data-table-wrapper {
   background-color: var(--int_background-color);
 
-  > table {
+  table {
     color: var(--int_stronger-color);
     width: 100%;
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
@@ -52,6 +52,15 @@
     th,
     td {
       padding: 0.5rem 1rem;
+    }
+
+    &.row-separation tr {
+      border-bottom: 1px solid var(--int_border-color);
+    }
+
+    &.column-separation th,
+    &.column-separation td {
+      border-right: 1px solid var(--int_border-color);
     }
 
     // sort
@@ -250,12 +259,31 @@
         cursor: pointer;
         color: var(--int_main-color);
       }
+
+      .mdi {
+        margin-right: 0.5rem;
+      }
     }
   }
 }
 
 #density-panel {
   text-align: center;
+
+  kup-button {
+    --kup-button_main-color: transparent;
+    --kup-button_opacity: 0.25;
+    --kup-button_icon-color: var(--int_main-color);
+    --kup-button_box-shadow: none;
+
+    &:hover {
+      --kup-button_opacity: 0.75;
+    }
+
+    &.active {
+      --kup-button_opacity: 1;
+    }
+  }
 }
 
 @-webkit-keyframes display-none-transition {
