@@ -73,6 +73,13 @@ export interface RowAction {
     icon: string;
 }
 
+export enum ShowGrid {
+    NONE = 'None',
+    ROW = 'Row',
+    COL = 'Col',
+    COMPLETE = 'Complete',
+}
+
 // export enum RowActionType {
 //     DEFAULT = 'Default',
 //     VARIABLE = 'Variable',
