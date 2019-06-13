@@ -256,6 +256,14 @@
 
 #density-panel {
   text-align: center;
+
+  kup-button {
+    --kup-button_main-color: red;
+
+    &.active {
+      --kup-button_main-color: yellow;
+    }
+  }
 }
 
 @-webkit-keyframes display-none-transition {
