@@ -40,7 +40,7 @@
 #data-table-wrapper {
   background-color: var(--int_background-color);
 
-  > table {
+  table {
     color: var(--int_stronger-color);
     width: 100%;
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
@@ -258,10 +258,17 @@
   text-align: center;
 
   kup-button {
-    --kup-button_main-color: red;
+    --kup-button_main-color: transparent;
+    --kup-button_opacity: 0.25;
+    --kup-button_icon-color: var(--int_main-color);
+    --kup-button_box-shadow: none;
+
+    &:hover {
+      --kup-button_opacity: 0.75;
+    }
 
     &.active {
-      --kup-button_main-color: yellow;
+      --kup-button_opacity: 1;
     }
   }
 }
