@@ -17,6 +17,9 @@
    * @prop --btn_icon--transparent, --kup-button_icon-color--transparent: Sets icon color when button is transparent.
    * @prop --btn_animation-duration, --kup-button_animation-duration: Sets duration of all transitions of the component.
    * @prop --btn_border-color, --kup-button_border-color: Sets border color of the button only when it is transparent.
+   * @prop --btn_opacity, --kup-button_opacity: Sets opacity of the button.
+   * @prop --btn_box-shadow, --kup-button_box-shadow: Sets hover box shadow of the button.
+   * @prop --btn_border, --kup-button_border: Sets border of the button.
   */
   --btn_font-style: var(--kup-button_font-style, 'normal');
   --btn_font-size: var(--kup-button_font-size, 14px);
@@ -34,6 +37,9 @@
   --btn_icon--transparent: var(--kup-button_icon-color--transparent, gray);
   --btn_animation-duration: var(--kup-button_animation-duration, 0.3s);
   --btn_border-color: var(--kup-button_border-color, #{$smeup-primary});
+  --btn_opacity: var(--kup-button_opacity, 1);
+  --btn_box-shadow: var(--kup-button_opacity, 1);
+  --btn_border: var(--kup-button_border, none);
 
   @include stateVars('--btn');
 }
@@ -45,9 +51,11 @@
 }
 
 button {
+  outline: none; //override browser
+  opacity: var(--btn_opacity);
   background: var(--btn_main-color);
   border-radius: 2px;
-  border: none;
+  border: var(--btn_border);
   box-shadow: none;
   color: var(--btn_text-color);
   cursor: pointer;
@@ -57,11 +65,11 @@ button {
   line-height: 30px;
   padding: 0px 8px;
   text-align: center;
-  transition: box-shadow var(--btn_animation-duration);
+  transition: box-shadow var(--btn_animation-duration), opacity 0.2s ease-in-out;
   white-space: nowrap;
 
   &:hover {
-    box-shadow: 2px 2px 5px 1px rgba(100, 100, 100, 0.7);
+    box-shadow: var(--btn_box-shadow);
   }
 
   //-- The button icon --
