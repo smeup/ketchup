@@ -27,14 +27,20 @@ h3 {
     <h3>Without header</h3>
     <kup-data-table :data.prop="data" :showHeader.prop="false"></kup-data-table>
 
-    <h3>Without grid</h3>
-    <kup-data-table :data.prop="data" :showGrid.prop="false"></kup-data-table>
-
     <h3>Cell style</h3>
     <kup-data-table :data.prop="cellStyleData"></kup-data-table>
 
     <h3>Icons and images</h3>
     <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
+
+    <h3>Column separation</h3>
+    <kup-data-table :data.prop="data" :showGrid.prop="`Col`"></kup-data-table>
+
+    <h3>Row separation</h3>
+    <kup-data-table :data.prop="data" :showGrid.prop="`Row`"></kup-data-table>
+
+    <h3>Full grid</h3>
+    <kup-data-table :data.prop="data" :showGrid.prop="`Full`"></kup-data-table>
   </div>
 </template>
 

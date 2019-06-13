@@ -20,6 +20,7 @@ import {
     Cell,
     RowAction,
     ShowGrid,
+    RowActionType,
 } from './ketchup-data-table-declarations';
 
 import {
@@ -29,7 +30,7 @@ import {
     sortRows,
 } from './ketchup-data-table-helper';
 
-import { isIcon, isImage, isLink } from '../../utils/object-utils';
+import { isIcon, isImage, isLink, isNumber } from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -139,7 +140,7 @@ export class KetchupDataTable {
 
     private columnOverTimeout: NodeJS.Timeout;
 
-    private theadRef: HTMLTableSectionElement;
+    // private theadRef: HTMLTableSectionElement;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -203,29 +204,29 @@ export class KetchupDataTable {
         bubbles: true,
     })
     kupRowActionClicked: EventEmitter<{
-        type: 'default' | 'variable' | 'expander';
+        type: string;
         row: Row;
         action?: RowAction;
         index?: number;
     }>;
 
-    private theadObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.intersectionRatio === 1) {
-                    // fully visible
-                    console.log('fully visible', entry.target);
-                } else if (entry.intersectionRatio === 0) {
-                    // hidden
-                    console.log('hidden', entry.target);
-                }
-            });
-        },
-        {
-            threshold: [0, 0.5, 1],
-            rootMargin: '-100px 0px 0px 0px',
-        }
-    );
+    // private theadObserver = new IntersectionObserver(
+    //     (entries) => {
+    //         entries.forEach((entry) => {
+    //             if (entry.intersectionRatio === 1) {
+    //                 // fully visible
+    //                 console.log('fully visible', entry.target);
+    //             } else if (entry.intersectionRatio === 0) {
+    //                 // hidden
+    //                 console.log('hidden', entry.target);
+    //             }
+    //         });
+    //     },
+    //     {
+    //         threshold: [0, 0.5, 1],
+    //         rootMargin: '-100px 0px 0px 0px',
+    //     }
+    // );
 
     // lifecycle
     componentWillLoad() {
@@ -235,7 +236,7 @@ export class KetchupDataTable {
 
     componentDidLoad() {
         // observing table
-        this.theadObserver.observe(this.theadRef);
+        // this.theadObserver.observe(this.theadRef);
 
         // automatic row selection
         if (this.selectRow && this.selectRow > 0) {
@@ -479,7 +480,7 @@ export class KetchupDataTable {
 
         this.kupRowActionClicked.emit({
             row,
-            type: 'expander',
+            type: RowActionType.EXPANDER,
         });
     }
 
@@ -973,8 +974,12 @@ export class KetchupDataTable {
 
                 const jsxCell = this.renderCell(cell);
 
+                const cellClass = {
+                    number: isNumber(cell.obj),
+                };
+
                 return (
-                    <td data-column={name} style={cell.style}>
+                    <td data-column={name} style={cell.style} class={cellClass}>
                         {indend}
                         {jsxCell}
                         {options}
@@ -1200,16 +1205,6 @@ export class KetchupDataTable {
             );
         }
 
-        let tableClass = `density-${this.density}`;
-
-        if (ShowGrid.COMPLETE === this.showGrid) {
-            tableClass += ' column-separation row-separation';
-        } else if (ShowGrid.ROW === this.showGrid) {
-            tableClass += ' row-separation';
-        } else if (ShowGrid.COL === this.showGrid) {
-            tableClass += ' column-separation';
-        }
-
         let groupChips = null;
         if (this.isGrouping()) {
             const chips = this.groups.map((group) => {
@@ -1256,6 +1251,16 @@ export class KetchupDataTable {
             </div>
         );
 
+        let tableClass = {
+            'row-separation':
+                ShowGrid.FULL === this.showGrid ||
+                ShowGrid.ROW === this.showGrid,
+            'column-separation':
+                ShowGrid.FULL === this.showGrid ||
+                ShowGrid.COL === this.showGrid,
+        };
+        tableClass[`density-${this.density}`] = true;
+
         return (
             <div id="data-table-wrapper">
                 <div class="above-wrapper">
@@ -1266,10 +1271,7 @@ export class KetchupDataTable {
                 <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
-                        <thead
-                            hidden={!this.showHeader}
-                            ref={(el) => (this.theadRef = el)}
-                        >
+                        <thead hidden={!this.showHeader}>
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>

@@ -77,10 +77,11 @@ export enum ShowGrid {
     NONE = 'None',
     ROW = 'Row',
     COL = 'Col',
-    COMPLETE = 'Complete',
+    FULL = 'Full',
 }
 
-// export enum RowActionType {
-//     DEFAULT = 'Default',
-//     VARIABLE = 'Variable',
-// }
+export enum RowActionType {
+    DEFAULT = 'default',
+    VARIABLE = 'variable',
+    EXPANDER = 'expander',
+}
