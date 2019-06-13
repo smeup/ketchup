@@ -19,6 +19,7 @@ import {
     TotalsMap,
     Cell,
     RowAction,
+    ShowGrid,
 } from './ketchup-data-table-declarations';
 
 import {
@@ -28,7 +29,7 @@ import {
     sortRows,
 } from './ketchup-data-table-helper';
 
-import { isIcon, isImage } from '../../utils/object-utils';
+import { isIcon, isImage, isLink } from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -72,7 +73,7 @@ export class KetchupDataTable {
     showHeader = true;
 
     @Prop()
-    showGrid = true;
+    showGrid: ShowGrid = ShowGrid.NONE;
 
     @Prop()
     selectRow: number;
@@ -119,11 +120,26 @@ export class KetchupDataTable {
         this.currentRowsPerPage = newValue;
     }
 
+    @Watch('data')
+    @Watch('sort')
+    @Watch('filters')
+    @Watch('globalFilterValue')
+    @Watch('rowsPerPage')
+    @Watch('groups')
+    @Watch('totals')
+    recalculateRows() {
+        this.initRows();
+    }
+
+    private rows: Array<Row>;
+
+    private footer: { [index: string]: number };
+
     private renderedRows: Array<Row> = [];
 
     private columnOverTimeout: NodeJS.Timeout;
 
-    private theadRef: HTMLTableSectionElement;
+    // private theadRef: HTMLTableSectionElement;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -193,32 +209,33 @@ export class KetchupDataTable {
         index?: number;
     }>;
 
-    private theadObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.intersectionRatio === 1) {
-                    // fully visible
-                    console.log('fully visible', entry.target);
-                } else if (entry.intersectionRatio === 0) {
-                    // hidden
-                    console.log('hidden', entry.target);
-                }
-            });
-        },
-        {
-            threshold: [0, 0.5, 1],
-            rootMargin: '-100px 0px 0px 0px',
-        }
-    );
+    // private theadObserver = new IntersectionObserver(
+    //     (entries) => {
+    //         entries.forEach((entry) => {
+    //             if (entry.intersectionRatio === 1) {
+    //                 // fully visible
+    //                 console.log('fully visible', entry.target);
+    //             } else if (entry.intersectionRatio === 0) {
+    //                 // hidden
+    //                 console.log('hidden', entry.target);
+    //             }
+    //         });
+    //     },
+    //     {
+    //         threshold: [0, 0.5, 1],
+    //         rootMargin: '-100px 0px 0px 0px',
+    //     }
+    // );
 
     // lifecycle
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
+        this.initRows();
     }
 
     componentDidLoad() {
         // observing table
-        this.theadObserver.observe(this.theadRef);
+        // this.theadObserver.observe(this.theadRef);
 
         // automatic row selection
         if (this.selectRow && this.selectRow > 0) {
@@ -303,6 +320,18 @@ export class KetchupDataTable {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
+    private initRows(): void {
+        const filteredRows = this.getFilteredRows();
+
+        const sortedRows = this.sortRows(filteredRows);
+
+        this.footer = calcTotals(sortedRows, this.totals);
+
+        const grouped = this.groupRows(sortedRows);
+
+        this.rows = this.paginateRows(grouped);
+    }
+
     private getFilteredRows(): Array<any> {
         return filterRows(
             this.getRows(),
@@ -321,15 +350,15 @@ export class KetchupDataTable {
     }
 
     private removeGroup(group: GroupObject) {
+        // resetting group state
+        this.groupState = {};
+
         const index = this.groups.indexOf(group);
 
         if (index >= 0) {
             // removing group from prop
             this.groups.splice(index, 1);
             this.groups = [...this.groups];
-
-            // resetting group state
-            this.groupState = {};
         }
     }
 
@@ -543,20 +572,17 @@ export class KetchupDataTable {
         // resetting opened menu
         this.openedMenu = null;
 
+        // reset group state
+        this.groupState = {};
+
         if (group !== null) {
             // remove from grouping
             const index = this.groups.indexOf(group);
             this.groups.splice(index, 1);
             this.groups = [...this.groups];
-
-            // reset group state
-            this.groupState = {};
         } else {
             // add to groups
             this.groups = [...this.groups, { column, visible: true }];
-
-            // reset group state
-            this.groupState = {};
         }
     }
 
@@ -810,18 +836,14 @@ export class KetchupDataTable {
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
-    renderFooter(
-        rows: Array<Row>
-    ): JSXElements.HTMLAttributes<HTMLTableSectionElement> | null {
+    renderFooter(): JSXElements.HTMLAttributes<HTMLTableSectionElement> | null {
         if (!this.hasTotals()) {
             // no footer
             return null;
         }
 
-        const footerRow = calcTotals(rows, this.totals);
-
         const footerCells = this.getVisibleColumns().map(({ name }) => (
-            <td>{footerRow[name]}</td>
+            <td>{this.footer[name]}</td>
         ));
 
         let selectRowCell = null;
@@ -1073,13 +1095,21 @@ export class KetchupDataTable {
         }
     }
 
-    private renderCell(cell: Cell) {
+    private renderCell(
+        cell: Cell
+    ): JSXElements.HTMLAttributes<HTMLSpanElement> {
         let content: any = cell.value;
 
         if (isIcon(cell.obj)) {
             content = <span class={cell.value} />;
         } else if (isImage(cell.obj)) {
             content = <img src={cell.value} alt="" width="64" height="64" />;
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a href={cell.value} target="_blank">
+                    {cell.value}
+                </a>
+            );
         }
 
         return <span class="cell-content">{content}</span>;
@@ -1089,19 +1119,8 @@ export class KetchupDataTable {
         // resetting rows
         this.renderedRows = [];
 
-        // rows
-        const filteredRows = this.getFilteredRows();
-
-        const sortedRows = this.sortRows(filteredRows);
-
-        const footer = this.renderFooter(sortedRows);
-
-        const grouped = this.groupRows(sortedRows);
-
-        const paginatedRows = this.paginateRows(grouped);
-
         let rows = null;
-        if (paginatedRows.length === 0) {
+        if (this.rows.length === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.calculateColspan()}>Empty data</td>
@@ -1109,7 +1128,7 @@ export class KetchupDataTable {
             );
         } else {
             rows = [];
-            paginatedRows
+            this.rows
                 .map((row: Row) => this.renderRow(row))
                 .forEach((jsxRow) => {
                     if (Array.isArray(jsxRow)) {
@@ -1123,6 +1142,9 @@ export class KetchupDataTable {
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
         const header = this.renderHeader();
+
+        // footer
+        const footer = this.renderFooter();
 
         let globalFilter = null;
         if (this.globalFilter) {
@@ -1146,7 +1168,7 @@ export class KetchupDataTable {
             paginatorTop = (
                 <kup-paginator
                     id="top-paginator"
-                    max={filteredRows.length}
+                    max={this.rows.length}
                     perPage={this.rowsPerPage}
                     selectedPerPage={this.currentRowsPerPage}
                     currentPage={this.currentPage}
@@ -1166,7 +1188,7 @@ export class KetchupDataTable {
             paginatorBottom = (
                 <kup-paginator
                     id="bottom-paginator"
-                    max={filteredRows.length}
+                    max={this.rows.length}
                     perPage={this.rowsPerPage}
                     selectedPerPage={this.currentRowsPerPage}
                     currentPage={this.currentPage}
@@ -1179,8 +1201,13 @@ export class KetchupDataTable {
         }
 
         let tableClass = `density-${this.density}`;
-        if (!this.showGrid) {
-            tableClass += ' noGrid';
+
+        if (ShowGrid.COMPLETE === this.showGrid) {
+            tableClass += ' column-separation row-separation';
+        } else if (ShowGrid.ROW === this.showGrid) {
+            tableClass += ' row-separation';
+        } else if (ShowGrid.COL === this.showGrid) {
+            tableClass += ' column-separation';
         }
 
         let groupChips = null;
@@ -1239,10 +1266,7 @@ export class KetchupDataTable {
                 <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
-                        <thead
-                            hidden={!this.showHeader}
-                            ref={(el) => (this.theadRef = el)}
-                        >
+                        <thead hidden={!this.showHeader}>
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>
