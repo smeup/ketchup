@@ -19,6 +19,8 @@
   "scripts": {
     "lerna": "lerna",
     "k:build": "lerna run build --scope ketchup --stream",
+    "k:test:unit": "lerna run test:spec --scope ketchup --stream",
+    "k:test:e2e": "lerna run test:e2e --scope ketchup --stream",
     "ksc:serve": "lerna run serve --scope ketchup-showcase --stream",
     "ksc:build": "lerna run build --scope ketchup-showcase --stream",
     "ksc:lint": "lerna run lint --scope ketchup-showcase --stream",
