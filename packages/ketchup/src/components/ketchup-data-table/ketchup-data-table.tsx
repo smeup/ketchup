@@ -730,7 +730,8 @@ export class KetchupDataTable {
                     role="menuitem"
                     onClick={() => this.switchColumnGroup(group, column.name)}
                 >
-                    <span class="mdi mdi-book" /> {groupLabel}
+                    <span class="mdi mdi-book" />
+                    {groupLabel}
                 </li>
             );
 
@@ -1230,12 +1231,12 @@ export class KetchupDataTable {
 
         return (
             <div id="data-table-wrapper">
-                <div class="wrapper">
+                <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
                     {densityPanel}
                 </div>
-                <div>
+                <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
                         <thead

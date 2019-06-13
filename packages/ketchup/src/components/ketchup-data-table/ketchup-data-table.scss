@@ -54,6 +54,15 @@
       padding: 0.5rem 1rem;
     }
 
+    &.row-separation tr {
+      border-bottom: 1px solid var(--int_border-color);
+    }
+
+    &.column-separation th,
+    &.column-separation td {
+      border-right: 1px solid var(--int_border-color);
+    }
+
     // sort
     .column-sort {
       margin-left: 0.5rem;
