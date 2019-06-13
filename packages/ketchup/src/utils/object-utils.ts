@@ -6,25 +6,17 @@ interface CellObject {
 }
 
 export function isIcon({ t, p }: CellObject): boolean {
-    if (t && p) {
-        return 'J4' === t && 'ICO' === p;
-    }
-
-    return false;
+    return 'J4' === t && 'ICO' === p;
 }
 
 export function isImage({ t, p }: CellObject): boolean {
-    if (t && p) {
-        return 'J4' === t && 'IMG' === p;
-    }
-
-    return false;
+    return 'J4' === t && 'IMG' === p;
 }
 
 export function isLink({ t, p }: CellObject): boolean {
-    if (t && p) {
-        return 'J1' === t && 'URL' === p;
-    }
+    return 'J1' === t && 'URL' === p;
+}
 
-    return false;
+export function isNumber({ t }: CellObject): boolean {
+    return 'NR' === t;
 }

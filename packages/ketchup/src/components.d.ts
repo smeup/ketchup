@@ -24,6 +24,7 @@ import {
   PaginatorPos,
   Row,
   RowAction,
+  ShowGrid,
   SortObject,
   TotalsMap,
 } from './components/ketchup-data-table/ketchup-data-table-declarations';
@@ -198,7 +199,7 @@ export namespace Components {
     'rowsPerPage': number;
     'selectRow': number;
     'showFilters': boolean;
-    'showGrid': boolean;
+    'showGrid': ShowGrid;
     'showHeader': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
@@ -235,7 +236,7 @@ export namespace Components {
     * When a row action is clicked
     */
     'onKupRowActionClicked'?: (event: CustomEvent<{
-      type: 'default' | 'variable' | 'expander';
+      type: string;
       row: Row;
       action?: RowAction;
       index?: number;
@@ -252,7 +253,7 @@ export namespace Components {
     'rowsPerPage'?: number;
     'selectRow'?: number;
     'showFilters'?: boolean;
-    'showGrid'?: boolean;
+    'showGrid'?: ShowGrid;
     'showHeader'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;
