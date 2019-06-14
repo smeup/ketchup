@@ -20,3 +20,11 @@ export function isImage({ t, p }: CellObject): boolean {
 
     return false;
 }
+
+export function isLink({ t, p }: CellObject): boolean {
+    if (t && p) {
+        return 'J1' === t && 'URL' === p;
+    }
+
+    return false;
+}
