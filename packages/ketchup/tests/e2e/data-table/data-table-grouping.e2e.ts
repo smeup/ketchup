@@ -29,7 +29,7 @@ describe('kup-data-table with single grouping', () => {
         expect(rows).toHaveLength(3);
 
         // all group rows
-        Promise.all(
+        await Promise.all(
             rows.map(async (row) => {
                 expect(row).toHaveClass('group');
 
@@ -109,7 +109,7 @@ describe('kup-data-table with single grouping', () => {
         expect(rows).toHaveLength(3);
 
         // all group rows
-        Promise.all(
+        await Promise.all(
             rows.map(async (row) => {
                 expect(row).toHaveClass('group');
 
@@ -243,7 +243,7 @@ describe('kup-data-table with multiple grouping', () => {
         // testing rows
         let rows = await page.findAll(rowSelector);
         expect(rows).toHaveLength(3);
-        Promise.all(
+        await Promise.all(
             rows.map(async (row) => {
                 expect(row).toHaveClasses(['group']);
 
@@ -263,7 +263,7 @@ describe('kup-data-table with multiple grouping', () => {
         rows = await page.findAll(rowSelector);
         expect(rows).toHaveLength(7);
 
-        Promise.all(
+        await Promise.all(
             rows.map(async (row) => {
                 expect(row).toHaveClasses(['group']);
 
@@ -283,7 +283,7 @@ describe('kup-data-table with multiple grouping', () => {
         rows = await page.findAll(rowSelector);
         expect(rows).toHaveLength(8);
 
-        Promise.all(
+        await Promise.all(
             rows.map(async (row, index) => {
                 if (index === 2) {
                     expect(row).not.toHaveClasses(['group']);
