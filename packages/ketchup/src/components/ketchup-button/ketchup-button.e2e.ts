@@ -183,17 +183,19 @@ describe('kup-button', () => {
         expect(button).toHaveClass(alignLeft);
     });
 
-    it.skip('should trigger click', async () => {
+    it('should trigger click', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(`<kup-button data-id="2"></kup-button>`);
+        await page.setContent(
+            `<kup-button data-id="2" label="test"></kup-button>`
+        );
+
+        await page.waitForChanges();
 
         const kupBtnClicked = await page.spyOnEvent('ketchupButtonClicked');
 
         const button = await page.find('kup-button >>> button');
-        expect(button).not.toBeNull();
 
-        // TODO how to trigger click?
         await button.click();
 
         await page.waitForChanges();

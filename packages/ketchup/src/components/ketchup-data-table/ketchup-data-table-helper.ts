@@ -33,70 +33,46 @@ export function sortRows(
     return rows.slice(0).sort((r1: Row, r2: Row) => {
         if (isMultiSort) {
             for (let i = 0; i < sort.length; i++) {
-                const sortObj = sort[i];
+                const compare = compareRows(r1, r2, sort[i]);
 
-                // TODO refactor with single sort
-                // check if grouping row
-                if (r1.group) {
-                    // sort children
-                    r1.group.children = sortRows(r1.group.children);
-                    r2.group.children = sortRows(r2.group.children);
-
-                    // check if valid group
-                    if (r1.group.column !== sortObj.column) {
-                        return 0;
-                    }
-
-                    // comparing group
-                    const group1 = r1.group.label;
-                    const group2 = r2.group.label;
-
-                    const sm = sortObj.sortMode === 'A' ? 1 : -1;
-
-                    return sm * group1.localeCompare(group2);
-                } else {
-                    const cell1: Cell = r1.cells[sortObj.column];
-                    const cell2: Cell = r2.cells[sortObj.column];
-
-                    const compare = compareCell(cell1, cell2, sortObj.sortMode);
-
-                    if (compare !== 0) {
-                        return compare;
-                    }
+                if (compare !== 0) {
+                    // not same row
+                    return compare;
                 }
             }
 
             // same row
             return 0;
         } else {
-            const sortObj = sort[0];
-
-            // check if grouping row
-            if (r1.group) {
-                // sort children
-                r1.group.children = sortRows(r1.group.children);
-                r2.group.children = sortRows(r2.group.children);
-
-                // check if valid group
-                if (r1.group.column !== sortObj.column) {
-                    return 0;
-                }
-
-                // comparing group
-                const group1 = r1.group.label;
-                const group2 = r2.group.label;
-
-                const sm = sortObj.sortMode === 'A' ? 1 : -1;
-
-                return sm * group1.localeCompare(group2);
-            } else {
-                const cell1: Cell = r1.cells[sortObj.column];
-                const cell2: Cell = r2.cells[sortObj.column];
-
-                return compareCell(cell1, cell2, sortObj.sortMode);
-            }
+            return compareRows(r1, r2, sort[0]);
         }
     });
+}
+
+function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
+    if (r1.group) {
+        // sort children
+        r1.group.children = sortRows(r1.group.children);
+        r2.group.children = sortRows(r2.group.children);
+
+        // check if valid group
+        if (r1.group.column !== sortObj.column) {
+            return 0;
+        }
+
+        // comparing group
+        const group1 = r1.group.label;
+        const group2 = r2.group.label;
+
+        const sm = sortObj.sortMode === 'A' ? 1 : -1;
+
+        return sm * group1.localeCompare(group2);
+    } else {
+        const cell1: Cell = r1.cells[sortObj.column];
+        const cell2: Cell = r2.cells[sortObj.column];
+
+        return compareCell(cell1, cell2, sortObj.sortMode);
+    }
 }
 
 export function filterRows(
@@ -216,6 +192,7 @@ export function groupRows(
             // create group row
             groupRow = {
                 group: {
+                    id: cellValue,
                     parent: null,
                     column: columnName,
                     expanded: false,
@@ -252,6 +229,7 @@ export function groupRows(
                 tempGroupingRow = {
                     cells: {},
                     group: {
+                        id: tempCellValue,
                         parent: groupRow,
                         column: group.column,
                         children: [],
@@ -260,6 +238,7 @@ export function groupRows(
                         totals: {},
                     },
                 };
+                adjustGroupId(tempGroupingRow);
                 groupRow.group.children.push(tempGroupingRow);
             }
 
@@ -525,4 +504,21 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     let value2 = cell2.value;
 
     return sm * value1.localeCompare(value2);
+}
+
+function adjustGroupId(row: Row): void {
+    if (!row.group) {
+        return;
+    }
+
+    let groupID = row.group.id;
+
+    let parentRow = row.group.parent;
+
+    while (parentRow !== null) {
+        groupID = `${parentRow.group.id};${groupID}`;
+        parentRow = parentRow.group.parent;
+    }
+
+    row.group.id = groupID;
 }

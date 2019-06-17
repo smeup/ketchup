@@ -91,7 +91,6 @@ export class KetchupButton {
             title = this.label;
         }
 
-        // TODO: check if the div element can be removed by passing JSX an array of elements
         return [
             <link href={this.iconUrl} rel="stylesheet" type="text/css" />,
             <button

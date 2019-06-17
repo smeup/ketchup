@@ -35,7 +35,9 @@
 | Name                                                                  | Description                                                   |
 | --------------------------------------------------------------------- | ------------------------------------------------------------- |
 | `--btn_animation-duration, --kup-button_animation-duration`           | Sets duration of all transitions of the component.            |
+| `--btn_border, --kup-button_border`                                   | Sets border of the button.                                    |
 | `--btn_border-color, --kup-button_border-color`                       | Sets border color of the button only when it is transparent.  |
+| `--btn_box-shadow, --kup-button_box-shadow`                           | Sets hover box shadow of the button.                          |
 | `--btn_color-danger`                                                  | Background color of the button when danger state is set       |
 | `--btn_color-danger--hover`                                           | Background color of the button when danger:hover state is set |
 | `--btn_color-info`                                                    | Background color of the button when info state is set         |
@@ -49,6 +51,7 @@
 | `--btn_icon-color, --kup-button_icon-color`                           | Sets icon color.                                              |
 | `--btn_icon-size, --kup-button_icon-size`                             | Set icon size.                                                |
 | `--btn_main-color, --kup-button_main-color`                           | Sets the main color of the button.                            |
+| `--btn_opacity, --kup-button_opacity`                                 | Sets opacity of the button.                                   |
 | `--btn_text-color, --kup-button_text-color`                           | Sets color of the button text.                                |
 | `--btn_text-color--transparent, --kup-button_text-color--transparent` | Sets text color when button is transparent.                   |
 

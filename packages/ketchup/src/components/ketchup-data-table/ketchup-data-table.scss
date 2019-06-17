@@ -120,7 +120,13 @@
 
           td {
             padding: 1rem 0;
+
+            &.total {
+              text-align: right;
+              padding-right: 1rem;
+            }
           }
+
           icon {
             margin-right: 0.5rem;
           }
@@ -128,6 +134,10 @@
 
         > td {
           transition: padding 0.1s ease-in-out;
+
+          &.number {
+            text-align: right;
+          }
 
           .row-expander {
             margin-right: 0.5rem;
@@ -153,6 +163,12 @@
             margin-right: 0.2rem;
           }
         }
+      }
+    }
+
+    tfoot {
+      td {
+        text-align: right;
       }
     }
 

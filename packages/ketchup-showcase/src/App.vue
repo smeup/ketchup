@@ -68,6 +68,12 @@ export default {
         },
       },
       {
+        title: 'Graphic cells',
+        to: {
+          name: 'dtGraphicCells',
+        },
+      },
+      {
         title: 'Grouping',
         to: {
           name: 'dtGroups',

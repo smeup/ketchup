@@ -190,6 +190,7 @@ export namespace Components {
       width: number;
     }>;
     'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
     'groups': Array<GroupObject>;
@@ -211,6 +212,7 @@ export namespace Components {
       width: number;
     }>;
     'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
     'groups'?: Array<GroupObject>;
@@ -588,6 +590,26 @@ export namespace Components {
     'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
   }
 
+  interface KupGraphicCell {
+    'height': number;
+    'value': string;
+    'width': number;
+  }
+  interface KupGraphicCellAttributes extends StencilHTMLAttributes {
+    'height'?: number;
+    'value'?: string;
+    'width'?: number;
+  }
+
+  interface KupProgressBar {
+    'label': string;
+    'value': number;
+  }
+  interface KupProgressBarAttributes extends StencilHTMLAttributes {
+    'label'?: string;
+    'value'?: number;
+  }
+
   interface MyComponent {
     /**
     * The first name
@@ -633,6 +655,8 @@ declare global {
     'KetchupPortal': Components.KetchupPortal;
     'KetchupRadio': Components.KetchupRadio;
     'KupTextInput': Components.KupTextInput;
+    'KupGraphicCell': Components.KupGraphicCell;
+    'KupProgressBar': Components.KupProgressBar;
     'MyComponent': Components.MyComponent;
   }
 
@@ -650,6 +674,8 @@ declare global {
     'ketchup-portal': Components.KetchupPortalAttributes;
     'ketchup-radio': Components.KetchupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
+    'kup-graphic-cell': Components.KupGraphicCellAttributes;
+    'kup-progress-bar': Components.KupProgressBarAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
@@ -732,6 +758,18 @@ declare global {
     new (): HTMLKupTextInputElement;
   };
 
+  interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {}
+  var HTMLKupGraphicCellElement: {
+    prototype: HTMLKupGraphicCellElement;
+    new (): HTMLKupGraphicCellElement;
+  };
+
+  interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {}
+  var HTMLKupProgressBarElement: {
+    prototype: HTMLKupProgressBarElement;
+    new (): HTMLKupProgressBarElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
@@ -752,6 +790,8 @@ declare global {
     'ketchup-portal': HTMLKetchupPortalElement
     'ketchup-radio': HTMLKetchupRadioElement
     'kup-text-input': HTMLKupTextInputElement
+    'kup-graphic-cell': HTMLKupGraphicCellElement
+    'kup-progress-bar': HTMLKupProgressBarElement
     'my-component': HTMLMyComponentElement
   }
 
@@ -769,6 +809,8 @@ declare global {
     'ketchup-portal': HTMLKetchupPortalElement;
     'ketchup-radio': HTMLKetchupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
+    'kup-graphic-cell': HTMLKupGraphicCellElement;
+    'kup-progress-bar': HTMLKupProgressBarElement;
     'my-component': HTMLMyComponentElement;
   }
 

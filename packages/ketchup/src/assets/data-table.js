@@ -516,6 +516,141 @@ selectRow.config = {
     selectRow: 3,
 };
 
+// graphic cells
+document.getElementById('graphic-cells').data = {
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Value',
+            size: '',
+        },
+        {
+            name: 'FLD2',
+            title: 'Graphic cell',
+            size: 10,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value: 'R255G128B000;20,58\\\\HEIGHT;60',
+                    options: true,
+                },
+                FLD2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BAR',
+                        k: 'R255G128B000;20,58\\\\HEIGHT;60',
+                    },
+                    value: 'R255G128B000;20,58\\\\HEIGHT;60',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value:
+                        'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                    options: true,
+                },
+                FLD2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BAR',
+                        k:
+                            'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                    },
+                    value:
+                        'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value:
+                        'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                    options: true,
+                },
+                FLD2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BAR',
+                        k:
+                            'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                    },
+                    value:
+                        'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value:
+                        'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                    options: true,
+                },
+                FLD2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BAR',
+                        k:
+                            'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                    },
+                    value:
+                        'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value:
+                        'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                    options: true,
+                },
+                FLD2: {
+                    obj: {
+                        t: 'J4',
+                        p: 'BAR',
+                        k:
+                            'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                    },
+                    value:
+                        'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                },
+            },
+        },
+    ],
+}
+
 // adding rowSelect event listener for all dataTable
 document.querySelectorAll('kup-data-table').forEach((dt) => {
     dt.addEventListener('kupRowSelected', ({ detail }) => {

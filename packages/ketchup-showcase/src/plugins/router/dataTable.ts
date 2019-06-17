@@ -10,6 +10,11 @@ export default [
     component: () => import('@/views/dataTable/DTFilters.vue'),
   },
   {
+    path: '/dataTable/graphicCells',
+    name: 'dtGraphicCells',
+    component: () => import('@/views/dataTable/DTGraphicCell.vue'),
+  },
+  {
     path: '/dataTable/groups',
     name: 'dtGroups',
     component: () => import('@/views/dataTable/DTGroups.vue'),
