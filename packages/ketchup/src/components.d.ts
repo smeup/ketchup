@@ -44,9 +44,6 @@ import {
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
 import {
-  GenericObject,
-} from './types/GenericTypes';
-import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 

@@ -1,9 +1,9 @@
 import {Component, Event, EventEmitter, Method, Prop, State, Watch} from '@stencil/core';
 import { generateUniqueId } from "../../utils/utils";
 import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
-import {KetchupTextInputEvent} from "../../../dist/types/components/kup-text-input/kup-text-input-declarations";
+import {KetchupTextInputEvent} from "../kup-text-input/kup-text-input-declarations";
 import {KetchupRadioChangeEvent} from "../kup-radio/kup-radio-declarations";
-import {KetchupComboEvent} from "../../../dist/types/components/kup-combo/kup-combo-declarations";
+import {KetchupComboEvent} from "../kup-combo/kup-combo-declarations";
 
 @Component({
     tag: 'kup-fld',
@@ -142,13 +142,13 @@ export class KupFld {
     }
 
     // When a submit event must be launched as if it's coming from the Fld itself
-    onSubmit(event: CustomEvent) {
+    onSubmit(event: CustomEvent<KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent>) {
         this.ketchupFldSubmit.emit({
             originalEvent: event,
             value: this.currentValue,
             oldValue: this.previousValue,
             info: {
-                obj: undefined
+                obj: event.detail.info && event.detail.info.obj ? event.detail.info.obj : undefined
             }
         });
     }
