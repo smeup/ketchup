@@ -40,6 +40,12 @@
       </div>
     </div>
 
+    <h3>Input text: password form</h3>
+    <div class="example-container">
+      <kup-fld
+        :config.prop="inputUsePassword"/>
+    </div>
+
   </div>
 </template>
 
@@ -53,7 +59,8 @@
         inputInitialValue: {},
         inputIsClearable: {},
         inputWithLabel: {},
-        inputWithMaxLength: {}
+        inputWithMaxLength: {},
+        inputUsePassword: {}
       };
     },
     mounted() {
@@ -88,6 +95,12 @@
             {
               name: "maxLength",
               value: "5"
+            }
+          ]);
+          this.inputUsePassword = fldConfigItxFactory([
+            {
+              name: "inputType",
+              value: "password"
             }
           ]);
         })
