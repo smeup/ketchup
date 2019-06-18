@@ -45,7 +45,6 @@ export class KupTextInput {
      * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
      */
     @Prop() debounce: number = 400;
-
     /**
      * A generic object which can be passed to the component.
      * Once this object is set, it will always be returned inside the info field of the
