@@ -9,6 +9,22 @@ import '@stencil/core';
 
 
 import {
+  ButtonConfig,
+} from './components/kup-btn/kup-btn-declarations';
+import {
+  ChartConfig,
+} from './components/kup-chart/kup-chart-declarations';
+import {
+  ComboItem,
+  KetchupComboEvent,
+} from './components/kup-combo/kup-combo-declarations';
+import {
+  GenericObject,
+} from './types/GenericTypes';
+import {
+  EventEmitter,
+} from '@stencil/core';
+import {
   Column,
   GenericMap,
   GroupObject,
@@ -18,20 +34,18 @@ import {
   ShowGrid,
   SortObject,
   TotalsMap,
-} from './components/ketchup-data-table/ketchup-data-table-declarations';
-import {
-  EventEmitter,
-} from '@stencil/core';
+} from './components/kup-data-table/kup-data-table-declarations';
 import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
-} from './components/ketchup-fld/kup-fld-declarations';
+} from './components/kup-fld/kup-fld-declarations';
 import {
   ElementOffset,
 } from './utils/offset';
 import {
+  KetchupRadioChangeEvent,
   KetchupRadioElement,
-} from './components/ketchup-radio/ketchup-radio-declarations';
+} from './components/kup-radio/kup-radio-declarations';
 import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
@@ -49,6 +63,148 @@ import {
 
 
 export namespace Components {
+
+  interface KupBtn {
+    'buttons': any[];
+    'config': ButtonConfig;
+  }
+  interface KupBtnAttributes extends StencilHTMLAttributes {
+    'buttons'?: any[];
+    'config'?: ButtonConfig;
+  }
+
+  interface KupButton {
+    'align': string;
+    'buttonClass': string;
+    'fillspace': boolean;
+    'flat': boolean;
+    'iconClass': string;
+    'iconUrl': string;
+    'label': string;
+    'rounded': boolean;
+    'showicon': boolean;
+    'showtext': boolean;
+    'textmode': string;
+    'transparent': boolean;
+  }
+  interface KupButtonAttributes extends StencilHTMLAttributes {
+    'align'?: string;
+    'buttonClass'?: string;
+    'fillspace'?: boolean;
+    'flat'?: boolean;
+    'iconClass'?: string;
+    'iconUrl'?: string;
+    'label'?: string;
+    'onKetchupButtonClicked'?: (event: CustomEvent<{
+      id: string;
+    }>) => void;
+    'rounded'?: boolean;
+    'showicon'?: boolean;
+    'showtext'?: boolean;
+    'textmode'?: string;
+    'transparent'?: boolean;
+  }
+
+  interface KupChart {
+    'config': ChartConfig;
+    'data': any;
+  }
+  interface KupChartAttributes extends StencilHTMLAttributes {
+    'config'?: ChartConfig;
+    'data'?: any;
+  }
+
+  interface KupCombo {
+    /**
+    * Programmatically close the combo box
+    */
+    'closeCombo': () => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue': ComboItem | null;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Items which can be selected
+    */
+    'items': ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
+    /**
+    * Programmatically opens the combo box
+    */
+    'openCombo': () => void;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal': boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
+  }
+  interface KupComboAttributes extends StencilHTMLAttributes {
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue'?: ComboItem | null;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Items which can be selected
+    */
+    'items'?: ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
+    /**
+    * When an element has been selected
+    */
+    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal'?: boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
+  }
+
+  interface KupDash {
+    'fontsize': string;
+    'layout': string;
+  }
+  interface KupDashAttributes extends StencilHTMLAttributes {
+    'fontsize'?: string;
+    'layout'?: string;
+    'onKetchupDashClicked'?: (event: CustomEvent<{
+    }>) => void;
+  }
 
   interface KupDataTable {
     'columnsWidth': Array<{
@@ -159,9 +315,9 @@ export namespace Components {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
-  interface KetchupHtml {
+  interface KupHtml {
     /**
-    * If true, the ketchup-html takes the shape of a button
+    * If true, the kup-html takes the shape of a button
     */
     'isButton': boolean;
     /**
@@ -173,9 +329,9 @@ export namespace Components {
     */
     'src': string;
   }
-  interface KetchupHtmlAttributes extends StencilHTMLAttributes {
+  interface KupHtmlAttributes extends StencilHTMLAttributes {
     /**
-    * If true, the ketchup-html takes the shape of a button
+    * If true, the kup-html takes the shape of a button
     */
     'isButton'?: boolean;
     /**
@@ -217,7 +373,7 @@ export namespace Components {
     'selectedPerPage'?: number;
   }
 
-  interface KetchupPortalInstance {
+  interface KupPortalInstance {
     /**
     * Specifies if the current portal instance should be displayed or not.
     */
@@ -231,7 +387,7 @@ export namespace Components {
     */
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
-  interface KetchupPortalInstanceAttributes extends StencilHTMLAttributes {
+  interface KupPortalInstanceAttributes extends StencilHTMLAttributes {
     /**
     * Specifies if the current portal instance should be displayed or not.
     */
@@ -246,7 +402,7 @@ export namespace Components {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
 
-  interface KetchupPortal {
+  interface KupPortal {
     /**
     * Reference to the html element from which CSS Custom Properties must be derived
     */
@@ -280,7 +436,7 @@ export namespace Components {
     */
     'styleNode': HTMLStyleElement;
   }
-  interface KetchupPortalAttributes extends StencilHTMLAttributes {
+  interface KupPortalAttributes extends StencilHTMLAttributes {
     /**
     * Reference to the html element from which CSS Custom Properties must be derived
     */
@@ -311,7 +467,7 @@ export namespace Components {
     'styleNode'?: HTMLStyleElement;
   }
 
-  interface KetchupRadio {
+  interface KupRadio {
     /**
     * Direction in which the radio elements must be placed
     */
@@ -341,7 +497,7 @@ export namespace Components {
     */
     'valueField': string;
   }
-  interface KetchupRadioAttributes extends StencilHTMLAttributes {
+  interface KupRadioAttributes extends StencilHTMLAttributes {
     /**
     * Direction in which the radio elements must be placed
     */
@@ -659,6 +815,36 @@ declare global {
   }
 
 
+  interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
+  var HTMLKupBtnElement: {
+    prototype: HTMLKupBtnElement;
+    new (): HTMLKupBtnElement;
+  };
+
+  interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {}
+  var HTMLKupButtonElement: {
+    prototype: HTMLKupButtonElement;
+    new (): HTMLKupButtonElement;
+  };
+
+  interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
+  var HTMLKupChartElement: {
+    prototype: HTMLKupChartElement;
+    new (): HTMLKupChartElement;
+  };
+
+  interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
+  var HTMLKupComboElement: {
+    prototype: HTMLKupComboElement;
+    new (): HTMLKupComboElement;
+  };
+
+  interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
+  var HTMLKupDashElement: {
+    prototype: HTMLKupDashElement;
+    new (): HTMLKupDashElement;
+  };
+
   interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
   var HTMLKupDataTableElement: {
     prototype: HTMLKupDataTableElement;
@@ -671,10 +857,10 @@ declare global {
     new (): HTMLKupFldElement;
   };
 
-  interface HTMLKetchupHtmlElement extends Components.KetchupHtml, HTMLStencilElement {}
-  var HTMLKetchupHtmlElement: {
-    prototype: HTMLKetchupHtmlElement;
-    new (): HTMLKetchupHtmlElement;
+  interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {}
+  var HTMLKupHtmlElement: {
+    prototype: HTMLKupHtmlElement;
+    new (): HTMLKupHtmlElement;
   };
 
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
@@ -683,22 +869,22 @@ declare global {
     new (): HTMLKupPaginatorElement;
   };
 
-  interface HTMLKetchupPortalInstanceElement extends Components.KetchupPortalInstance, HTMLStencilElement {}
-  var HTMLKetchupPortalInstanceElement: {
-    prototype: HTMLKetchupPortalInstanceElement;
-    new (): HTMLKetchupPortalInstanceElement;
+  interface HTMLKupPortalInstanceElement extends Components.KupPortalInstance, HTMLStencilElement {}
+  var HTMLKupPortalInstanceElement: {
+    prototype: HTMLKupPortalInstanceElement;
+    new (): HTMLKupPortalInstanceElement;
   };
 
-  interface HTMLKetchupPortalElement extends Components.KetchupPortal, HTMLStencilElement {}
-  var HTMLKetchupPortalElement: {
-    prototype: HTMLKetchupPortalElement;
-    new (): HTMLKetchupPortalElement;
+  interface HTMLKupPortalElement extends Components.KupPortal, HTMLStencilElement {}
+  var HTMLKupPortalElement: {
+    prototype: HTMLKupPortalElement;
+    new (): HTMLKupPortalElement;
   };
 
-  interface HTMLKetchupRadioElement extends Components.KetchupRadio, HTMLStencilElement {}
-  var HTMLKetchupRadioElement: {
-    prototype: HTMLKetchupRadioElement;
-    new (): HTMLKetchupRadioElement;
+  interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {}
+  var HTMLKupRadioElement: {
+    prototype: HTMLKupRadioElement;
+    new (): HTMLKupRadioElement;
   };
 
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
