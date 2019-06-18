@@ -19,6 +19,9 @@ import {
   KetchupComboEvent,
 } from './components/kup-combo/kup-combo-declarations';
 import {
+  GenericObject,
+} from './types/GenericTypes';
+import {
   EventEmitter,
 } from '@stencil/core';
 import {
@@ -41,9 +44,6 @@ import {
   KetchupRadioChangeEvent,
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
-import {
-  GenericObject,
-} from './types/GenericTypes';
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
@@ -127,6 +127,10 @@ export namespace Components {
     */
     'label': string;
     /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
+    /**
     * Programmatically opens the combo box
     */
     'openCombo': () => void;
@@ -160,6 +164,10 @@ export namespace Components {
     * Label to describe the radio group
     */
     'label'?: string;
+    /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
     /**
     * When an element has been selected
     */

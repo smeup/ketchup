@@ -11,6 +11,7 @@ import {
 import { ComboItem, ComboPosition, KetchupComboEvent } from './kup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
 import { getElementOffset } from "../../utils/offset";
+import {GenericObject} from "../../types/GenericTypes";
 
 /*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
@@ -29,10 +30,6 @@ export class KupCombo {
      */
     @Prop() displayedField: string = 'id';
     /**
-     * Chooses which field of an item object should be used to create the list and be filtered.
-     */
-    @Prop() valueField: string = 'id';
-    /**
      * Allows to pass an initial selected item for the combobox
      */
     @Prop() initialValue: ComboItem | null = null;
@@ -48,6 +45,15 @@ export class KupCombo {
      * Label to describe the radio group
      */
     @Prop() label: string = '';
+    /**
+     * An arbitrary object object which can be passed to the component.
+     * It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+     */
+    @Prop() obj?: GenericObject;
+    /**
+     * Chooses which field of an item object should be used to create the list and be filtered.
+     */
+    @Prop() valueField: string = 'id';
     /**
      * If true, the combobox uses a Stencil portal to create the menu.
      * Please use this feature carefully, only if needed.
@@ -242,7 +248,7 @@ export class KupCombo {
             value: item,
             oldValue: oldItem,
             info: {
-                obj: undefined
+                obj: this.obj
             }
         });
         // Updates corresponding fields
