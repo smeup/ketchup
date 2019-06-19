@@ -13,7 +13,8 @@
 
         <v-list-group
           v-for="(section, index) in navigationSections"
-          :key="index">
+          :key="index"
+        >
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
@@ -36,12 +37,12 @@
         <v-list-tile
           v-for="route in simpleRoutes"
           :key="route.to.name"
-          :to="route.to">
+          :to="route.to"
+        >
           <v-list-tile-content>
             <v-list-tile-title>{{ route.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-
       </v-list>
     </v-navigation-drawer>
 
@@ -83,6 +84,12 @@ export default {
             },
           },
           {
+            title: 'Graphic cells',
+            to: {
+              name: 'dtGraphicCells',
+            },
+          },
+          {
             title: 'Grouping',
             to: {
               name: 'dtGroups',
@@ -121,38 +128,67 @@ export default {
         ],
       },
       {
-
+        title: 'Field',
+        routes: [
+          {
+            title: `Combo form`,
+            to: {
+              name: 'fldCombo',
+            },
+          },
+          {
+            title: `Radio form`,
+            to: {
+              name: 'fldRadio',
+            },
+          },
+          {
+            title: `Text Input form`,
+            to: {
+              name: 'fldText',
+            },
+          },
+          {
+            title: `Custom graphic`,
+            to: {
+              name: 'fldGraphic',
+            },
+          },
+        ],
+      },
+    ],
+    simpleRoutes: [
       {
         title: `Btn - Bottoniera`,
         to: {
-          name: 'btn'
-        }
+          name: 'btn',
+        },
       },
       {
         title: `Charts`,
         to: {
-          name: 'charts'
-        }
+          name: 'charts',
+        },
       },
       {
         title: `Dash`,
         to: {
-          name: 'dash'
-        }
+          name: 'dash',
+        },
       },
       {
         title: `Portals`,
         to: {
-          name: 'portals'
-        }
+          name: 'portals',
+        },
       },
       {
         title: `Html`,
         to: {
-          name: 'html'
-        }
+          name: 'html',
+        },
       },
-    ]
+    ],
   }),
   props: {
     source: String,
@@ -161,84 +197,84 @@ export default {
 </script>
 
 <style lang="scss">
-  //---- Tags ----
-  // For code sources
-  code {
-    box-sizing: border-box;
-    padding: 8px;
+//---- Tags ----
+// For code sources
+code {
+  box-sizing: border-box;
+  padding: 8px;
 
-    // When there is code which needs to be displayed inline
-    &.inline {
-      padding: 2px;
-      margin: 1px 2px;
+  // When there is code which needs to be displayed inline
+  &.inline {
+    padding: 2px;
+    margin: 1px 2px;
+  }
+}
+
+// For small titles
+h3 {
+  margin: 2rem 0 1rem;
+}
+
+h4 {
+  margin: 0 0 0.5rem;
+}
+
+hr {
+  margin: 2rem 0;
+}
+
+label {
+  margin-right: 8px !important;
+}
+
+select,
+[type='number'],
+[type='text'] {
+  border-radius: 2px !important;
+  border: 1px solid rgb(169, 169, 169) !important;
+  padding: 1px !important;
+}
+
+//---- General classes ----
+// Basic spacer
+.basic-spacer {
+  margin: 8px 12px;
+}
+
+// Max with for a more readable text
+.max-width-container {
+  display: block;
+  margin: 0 auto;
+  padding: 24px 40px;
+  max-width: 700px;
+}
+
+// Main components container
+.example-container {
+  display: grid;
+  grid-template-areas: 'component space configuration';
+  grid-template-columns: 47% 6% 47%;
+
+  > *:nth-child(2) {
+    grid-area: configuration;
+
+    > * {
+      margin-bottom: 10px;
     }
   }
+}
 
-  // For small titles
-  h3 {
-    margin: 2rem 0 1rem;
-  }
+// When there is the need to hide overflow
+.hide-overflow {
+  overflow: hidden;
+}
 
-  h4 {
-    margin: 0 0 .5rem;
-  }
-
-  hr {
-    margin: 2rem 0;
-  }
-
-  label {
-    margin-right: 8px !important;
-  }
-
-  select,
-  [type="number"],
-  [type="text"] {
-    border-radius: 2px !important;
-    border: 1px solid rgb(169, 169, 169) !important;
-    padding: 1px !important;
-  }
-
-  //---- General classes ----
-  // Basic spacer
-  .basic-spacer {
-    margin: 8px 12px;
-  }
-
-  // Max with for a more readable text
-  .max-width-container {
-    display: block;
-    margin: 0 auto;
-    padding: 24px 40px;
-    max-width: 700px;
-  }
-
-  // Main components container
-  .example-container {
-    display: grid;
-    grid-template-areas: "component space configuration";
-    grid-template-columns: 47% 6% 47%;
-
-    > *:nth-child(2) {
-      grid-area: configuration;
-
-      > * {
-        margin-bottom: 10px;
-      }
-    }
-  }
-
-  // When there is the need to hide overflow
-  .hide-overflow {
-    overflow: hidden;
-  }
-
-  //---- Common styles for elements ----
-  // Combo must have display flex.
-  kup-fld {
-    border: 1px solid rgba(0,0,0,.54);
-    border-radius: 4px;
-    display: inline-flex;
-    padding: 12px;
-  }
+//---- Common styles for elements ----
+// Combo must have display flex.
+kup-fld {
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  border-radius: 4px;
+  display: inline-flex;
+  padding: 12px;
+}
 </style>
