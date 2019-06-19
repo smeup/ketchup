@@ -29,7 +29,14 @@ import {
     sortRows,
 } from './kup-data-table-helper';
 
-import { isIcon, isImage, isLink } from '../../utils/object-utils';
+import {
+    isIcon,
+    isImage,
+    isLink,
+    isNumber,
+    isVoCodver,
+    isBar,
+} from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -82,6 +89,9 @@ export class KupDataTable {
     groups: Array<GroupObject> = [];
 
     @Prop()
+    expandGroups = false;
+
+    @Prop()
     multiSelection = false;
 
     @Prop()
@@ -120,6 +130,11 @@ export class KupDataTable {
         this.currentRowsPerPage = newValue;
     }
 
+    @Watch('expandGroups')
+    expandGroupsHandler() {
+        this.forceGroupExpansion();
+    }
+
     @Watch('data')
     @Watch('sort')
     @Watch('filters')
@@ -127,11 +142,15 @@ export class KupDataTable {
     @Watch('rowsPerPage')
     @Watch('groups')
     @Watch('totals')
+    @Watch('currentPage')
+    @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
     }
 
     private rows: Array<Row>;
+
+    private paginatedRows: Array<Row>;
 
     private footer: { [index: string]: number };
 
@@ -231,6 +250,10 @@ export class KupDataTable {
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+
+        if (this.expandGroups) {
+            this.forceGroupExpansion();
+        }
     }
 
     componentDidLoad() {
@@ -327,9 +350,9 @@ export class KupDataTable {
 
         this.footer = calcTotals(sortedRows, this.totals);
 
-        const grouped = this.groupRows(sortedRows);
+        this.rows = this.groupRows(sortedRows);
 
-        this.rows = this.paginateRows(grouped);
+        this.paginatedRows = this.paginateRows(this.rows);
     }
 
     private getFilteredRows(): Array<any> {
@@ -364,6 +387,36 @@ export class KupDataTable {
 
     private hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
+    }
+
+    private forceGroupExpansion() {
+        this.rows.forEach((row) => this.forceRowGroupExpansion(row));
+
+        console.log(this.groupState);
+    }
+
+    private forceRowGroupExpansion(row: Row) {
+        // check if row is group
+        if (!row.group) {
+            return;
+        }
+
+        let groupState = this.groupState[row.group.id];
+        if (!groupState) {
+            groupState = {
+                expanded: this.expandGroups,
+            };
+        } else {
+            groupState.expanded = this.expandGroups;
+        }
+
+        this.groupState[row.group.id] = groupState;
+
+        if (row.group.children) {
+            row.group.children.forEach((childRow) =>
+                this.forceRowGroupExpansion(childRow)
+            );
+        }
     }
 
     // event listeners
@@ -448,9 +501,13 @@ export class KupDataTable {
 
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
-            if (target.tagName === 'TD') {
-                // checking column
-                clickedColumn = target.dataset.column;
+            if (target.tagName !== 'TR') {
+                let currentElement = target;
+                while (currentElement.tagName !== 'TD') {
+                    currentElement = currentElement.parentElement;
+                }
+
+                clickedColumn = currentElement.dataset.column;
             }
         }
 
@@ -511,11 +568,6 @@ export class KupDataTable {
             } else {
                 this.selectedRows = [row];
             }
-
-            this.kupRowSelected.emit({
-                selectedRows: this.selectedRows,
-                clickedColumn: null,
-            });
         } else {
             const index = this.selectedRows.indexOf(row);
 
@@ -524,6 +576,11 @@ export class KupDataTable {
                 this.selectedRows = [...this.selectedRows];
             }
         }
+
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn: null,
+        });
     }
 
     private onRowExpand(row: Row) {
@@ -531,7 +588,7 @@ export class KupDataTable {
         row.group.expanded = !row.group.expanded;
 
         // updating group map
-        this.groupState[row.group.label].expanded = row.group.expanded;
+        this.groupState[row.group.id].expanded = row.group.expanded;
 
         // changing group state to trigger rendering
         this.groupState = { ...this.groupState };
@@ -624,11 +681,11 @@ export class KupDataTable {
         const group = row.group;
 
         // check if already in group state
-        let groupFromState = this.groupState[group.label];
+        let groupFromState = this.groupState[group.id];
 
         if (!groupFromState) {
             // add to state
-            this.groupState[group.label] = group;
+            this.groupState[group.id] = group;
         } else {
             // update expanded
             group.expanded = groupFromState.expanded;
@@ -695,7 +752,14 @@ export class KupDataTable {
                 }
 
                 filter = (
-                    <div>
+                    <div
+                        onMouseEnter={() =>
+                            this.onColumnMouseLeave(column.name)
+                        }
+                        onMouseLeave={() =>
+                            this.onColumnMouseEnter(column.name)
+                        }
+                    >
                         <kup-text-input
                             class="datatable-filter"
                             initialValue={filterValue}
@@ -712,7 +776,15 @@ export class KupDataTable {
             let sort = null;
             if (this.sortEnabled) {
                 sort = (
-                    <span class="column-sort">
+                    <span
+                        class="column-sort"
+                        onMouseEnter={() =>
+                            this.onColumnMouseLeave(column.name)
+                        }
+                        onMouseLeave={() =>
+                            this.onColumnMouseEnter(column.name)
+                        }
+                    >
                         <span
                             role="button"
                             aria-label="Sort column" // TODO
@@ -900,27 +972,39 @@ export class KupDataTable {
                             role="button"
                             aria-label="Row expander" // TODO change this label
                             class={icon}
-                            onClick={() => this.onRowExpand(row)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onRowExpand(row);
+                            }}
                         />
                         {row.group.label}
                     </td>
                 );
 
                 for (let column of visibleColumns) {
-                    cells.push(<td>{row.group.totals[column.name]}</td>);
+                    cells.push(
+                        <td class="total">{row.group.totals[column.name]}</td>
+                    );
                 }
 
-                jsxRows.push(<tr>{cells}</tr>);
+                jsxRows.push(
+                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                        {cells}
+                    </tr>
+                );
             } else {
                 jsxRows.push(
-                    <tr class="group">
+                    <tr class="group" onClick={() => this.onRowExpand(row)}>
                         <td colSpan={this.calculateColspan()}>
                             {indent}
                             <span
                                 role="button"
                                 aria-label="Row expander" // TODO change this label
                                 class={`row-expander ${icon}`}
-                                onClick={() => this.onRowExpand(row)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.onRowExpand(row);
+                                }}
                             />
                             {row.group.label}
                         </td>
@@ -971,21 +1055,20 @@ export class KupDataTable {
                     );
                 }
 
-                const jsxCell = this.renderCell(cell);
+                const jsxCell = this.renderCell(cell, name);
+
+                const cellClass = {
+                    number: isNumber(cell.obj),
+                };
 
                 return (
-                    <td data-column={name} style={cell.style}>
+                    <td data-column={name} style={cell.style} class={cellClass}>
                         {indend}
                         {jsxCell}
                         {options}
                     </td>
                 );
             });
-
-            let rowClass = null;
-            if (this.selectedRows.includes(row)) {
-                rowClass = 'selected';
-            }
 
             let selectRowCell = null;
             if (this.multiSelection) {
@@ -1013,52 +1096,21 @@ export class KupDataTable {
 
             let rowActionsCell = null;
             if (this.hasRowActions()) {
-                const defaultRowActions = this.rowActions.map(
-                    (action, index) => {
-                        return (
-                            <span
-                                title={action.text}
-                                class={`row-action ${action.icon}`}
-                                onClick={(e) =>
-                                    this.onDefaultRowActionClick(e, {
-                                        action,
-                                        index,
-                                        row,
-                                        type: 'default',
-                                    })
-                                }
-                                role="button"
-                                aria-label={action.text}
-                                aria-pressed="false"
-                            />
-                        );
-                    }
+                const defaultRowActions = this.renderActions(
+                    this.rowActions,
+                    row,
+                    'default'
                 );
 
                 let rowActionExpander = null;
                 let variableActions = null;
                 if (row.actions) {
                     // adding variable actions
-                    // TODO refactor with default actions
-                    variableActions = row.actions.map((action, index) => {
-                        return (
-                            <span
-                                title={action.text}
-                                class={`row-action ${action.icon}`}
-                                onClick={(e) =>
-                                    this.onDefaultRowActionClick(e, {
-                                        action,
-                                        index,
-                                        row,
-                                        type: 'variable',
-                                    })
-                                }
-                                role="button"
-                                aria-label={action.text}
-                                aria-pressed="false"
-                            />
-                        );
-                    });
+                    variableActions = this.renderActions(
+                        row.actions,
+                        row,
+                        'variable'
+                    );
                 } else {
                     // adding expander
                     rowActionExpander = (
@@ -1084,6 +1136,10 @@ export class KupDataTable {
                 );
             }
 
+            const rowClass = {
+                selected: this.selectedRows.includes(row),
+            };
+
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
                     {selectRowCell}
@@ -1095,12 +1151,39 @@ export class KupDataTable {
         }
     }
 
+    private renderActions(
+        actions: Array<RowAction>,
+        row: Row,
+        type: string
+    ): JSX.Element[] {
+        return actions.map((action, index) => {
+            return (
+                <span
+                    title={action.text}
+                    class={`row-action ${action.icon}`}
+                    onClick={(e) =>
+                        this.onDefaultRowActionClick(e, {
+                            action,
+                            index,
+                            row,
+                            type,
+                        })
+                    }
+                    role="button"
+                    aria-label={action.text}
+                    aria-pressed="false"
+                />
+            );
+        });
+    }
+
     private renderCell(
-        cell: Cell
+        cell: Cell,
+        column: string
     ): JSXElements.HTMLAttributes<HTMLSpanElement> {
         let content: any = cell.value;
 
-        if (isIcon(cell.obj)) {
+        if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             content = <span class={cell.value} />;
         } else if (isImage(cell.obj)) {
             content = <img src={cell.value} alt="" width="64" height="64" />;
@@ -1110,7 +1193,23 @@ export class KupDataTable {
                     {cell.value}
                 </a>
             );
+        } else if (isBar(cell.obj)) {
+            const props: { value: string; width?: number } = {
+                value: cell.value,
+            };
+
+            // check if column has width
+            if (this.columnsWidth && this.columnsWidth[column]) {
+                props.width = this.columnsWidth[column];
+            }
+
+            content = <kup-graphic-cell {...props} />;
         }
+
+        // TODO
+        // else if (isProgressBar(cell.obj)) {
+        //     content = <kup-progress-bar />;
+        // }
 
         return <span class="cell-content">{content}</span>;
     }
@@ -1120,7 +1219,7 @@ export class KupDataTable {
         this.renderedRows = [];
 
         let rows = null;
-        if (this.rows.length === 0) {
+        if (this.paginatedRows.length === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.calculateColspan()}>Empty data</td>
@@ -1128,7 +1227,7 @@ export class KupDataTable {
             );
         } else {
             rows = [];
-            this.rows
+            this.paginatedRows
                 .map((row: Row) => this.renderRow(row))
                 .forEach((jsxRow) => {
                     if (Array.isArray(jsxRow)) {
@@ -1200,16 +1299,6 @@ export class KupDataTable {
             );
         }
 
-        let tableClass = `density-${this.density}`;
-
-        if (ShowGrid.COMPLETE === this.showGrid) {
-            tableClass += ' column-separation row-separation';
-        } else if (ShowGrid.ROW === this.showGrid) {
-            tableClass += ' row-separation';
-        } else if (ShowGrid.COL === this.showGrid) {
-            tableClass += ' column-separation';
-        }
-
         let groupChips = null;
         if (this.isGrouping()) {
             const chips = this.groups.map((group) => {
@@ -1237,24 +1326,36 @@ export class KupDataTable {
         const densityPanel = (
             <div id="density-panel">
                 <kup-button
-                    class={this.density === 'small' ? 'active' : ''}
+                    class={{ active: this.density === 'small' }}
                     iconClass="mdi mdi-format-align-justify"
                     onClick={() => (this.density = 'small')}
                 />
 
                 <kup-button
-                    class={this.density === 'medium' ? 'active' : ''}
+                    class={{ active: this.density === 'medium' }}
                     iconClass="mdi mdi-menu"
                     onClick={() => (this.density = 'medium')}
                 />
 
                 <kup-button
-                    class={this.density === 'big' ? 'active' : ''}
+                    class={{ active: this.density === 'big' }}
                     iconClass="mdi mdi-view-sequential"
                     onClick={() => (this.density = 'big')}
                 />
             </div>
         );
+
+        const tableClass = {
+            'column-separation':
+                ShowGrid.COMPLETE === this.showGrid ||
+                ShowGrid.COL === this.showGrid,
+
+            'row-separation':
+                ShowGrid.COMPLETE === this.showGrid ||
+                ShowGrid.ROW === this.showGrid,
+        };
+
+        tableClass[`density-${this.density}`] = true;
 
         return (
             <div id="data-table-wrapper">

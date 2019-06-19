@@ -201,6 +201,7 @@ export namespace Components {
       width: number;
     }>;
     'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
     'groups': Array<GroupObject>;
@@ -222,6 +223,7 @@ export namespace Components {
       width: number;
     }>;
     'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
     'groups'?: Array<GroupObject>;
@@ -302,6 +304,17 @@ export namespace Components {
     * Launched when the FLD values are confirmed and a submit event is triggered.
     */
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
+  }
+
+  interface KupGraphicCell {
+    'height': number;
+    'value': string;
+    'width': number;
+  }
+  interface KupGraphicCellAttributes extends StencilHTMLAttributes {
+    'height'?: number;
+    'value'?: string;
+    'width'?: number;
   }
 
   interface KupHtml {
@@ -454,6 +467,15 @@ export namespace Components {
     * A style node to be copied into the KetchupPortalInstance
     */
     'styleNode'?: HTMLStyleElement;
+  }
+
+  interface KupProgressBar {
+    'label': string;
+    'value': number;
+  }
+  interface KupProgressBarAttributes extends StencilHTMLAttributes {
+    'label'?: string;
+    'value'?: number;
   }
 
   interface KupRadio {
@@ -612,10 +634,12 @@ declare global {
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KupFld': Components.KupFld;
+    'KupGraphicCell': Components.KupGraphicCell;
     'KupHtml': Components.KupHtml;
     'KupPaginator': Components.KupPaginator;
     'KupPortalInstance': Components.KupPortalInstance;
     'KupPortal': Components.KupPortal;
+    'KupProgressBar': Components.KupProgressBar;
     'KupRadio': Components.KupRadio;
     'KupTextInput': Components.KupTextInput;
   }
@@ -628,10 +652,12 @@ declare global {
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'kup-fld': Components.KupFldAttributes;
+    'kup-graphic-cell': Components.KupGraphicCellAttributes;
     'kup-html': Components.KupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
+    'kup-progress-bar': Components.KupProgressBarAttributes;
     'kup-radio': Components.KupRadioAttributes;
     'kup-text-input': Components.KupTextInputAttributes;
   }
@@ -679,6 +705,12 @@ declare global {
     new (): HTMLKupFldElement;
   };
 
+  interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {}
+  var HTMLKupGraphicCellElement: {
+    prototype: HTMLKupGraphicCellElement;
+    new (): HTMLKupGraphicCellElement;
+  };
+
   interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {}
   var HTMLKupHtmlElement: {
     prototype: HTMLKupHtmlElement;
@@ -703,6 +735,12 @@ declare global {
     new (): HTMLKupPortalElement;
   };
 
+  interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {}
+  var HTMLKupProgressBarElement: {
+    prototype: HTMLKupProgressBarElement;
+    new (): HTMLKupProgressBarElement;
+  };
+
   interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {}
   var HTMLKupRadioElement: {
     prototype: HTMLKupRadioElement;
@@ -723,10 +761,12 @@ declare global {
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'kup-fld': HTMLKupFldElement
+    'kup-graphic-cell': HTMLKupGraphicCellElement
     'kup-html': HTMLKupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
+    'kup-progress-bar': HTMLKupProgressBarElement
     'kup-radio': HTMLKupRadioElement
     'kup-text-input': HTMLKupTextInputElement
   }
@@ -739,10 +779,12 @@ declare global {
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
+    'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;
+    'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
   }

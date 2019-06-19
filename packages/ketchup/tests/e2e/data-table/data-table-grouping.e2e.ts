@@ -2,8 +2,9 @@ import { newE2EPage } from '@stencil/core/testing';
 
 import { groupingData } from './mocked-data';
 
+import { rowsSelector } from './data-table-selectors';
+
 const headerCellsSelector = 'kup-data-table >>> table > thead > tr > th';
-const rowSelector = 'kup-data-table >>> table > tbody > tr';
 const rowExpanderSelector =
     'kup-data-table >>> table > tbody > tr.group .row-expander';
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
@@ -22,9 +23,12 @@ describe('kup-data-table with single grouping', () => {
 
         await page.waitForChanges();
 
-        // TODO test header (number of columns)
+        // test header (number of columns)
+        const headerCells = await page.findAll(headerCellsSelector);
+        expect(headerCells).toHaveLength(3);
 
-        let rows = await page.findAll(rowSelector);
+        // test rows
+        let rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(3);
 
@@ -52,7 +56,7 @@ describe('kup-data-table with single grouping', () => {
 
         await page.waitForChanges();
 
-        rows = await page.findAll(rowSelector);
+        rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(7);
 
@@ -84,7 +88,7 @@ describe('kup-data-table with single grouping', () => {
 
         await page.waitForChanges();
 
-        rows = await page.findAll(rowSelector);
+        rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(3);
 
@@ -104,7 +108,11 @@ describe('kup-data-table with single grouping', () => {
 
         await page.waitForChanges();
 
-        let rows = await page.findAll(rowSelector);
+        // test header (number of columns)
+        const headerCells = await page.findAll(headerCellsSelector);
+        expect(headerCells).toHaveLength(2);
+
+        let rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(3);
 
@@ -132,7 +140,7 @@ describe('kup-data-table with single grouping', () => {
 
         await page.waitForChanges();
 
-        rows = await page.findAll(rowSelector);
+        rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(7);
 
@@ -186,7 +194,7 @@ describe('kup-data-table with single grouping', () => {
         await page.waitForChanges();
 
         // testing rows
-        const rows = await page.findAll(rowSelector);
+        const rows = await page.findAll(rowsSelector);
 
         expect(rows).toHaveLength(7);
 
@@ -241,7 +249,7 @@ describe('kup-data-table with multiple grouping', () => {
         expect(headerCells).toHaveLength(3);
 
         // testing rows
-        let rows = await page.findAll(rowSelector);
+        let rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(3);
         await Promise.all(
             rows.map(async (row) => {
@@ -260,7 +268,7 @@ describe('kup-data-table with multiple grouping', () => {
         await page.waitForChanges();
 
         // all group rows
-        rows = await page.findAll(rowSelector);
+        rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(7);
 
         await Promise.all(
@@ -280,7 +288,7 @@ describe('kup-data-table with multiple grouping', () => {
         await expanders[1].click();
         await page.waitForChanges();
 
-        rows = await page.findAll(rowSelector);
+        rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(8);
 
         await Promise.all(
@@ -295,5 +303,60 @@ describe('kup-data-table with multiple grouping', () => {
                 }
             })
         );
+    });
+});
+
+describe('kup-data-table with groups expanded', () => {
+    it('single group and expansion', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-data-table global-filter></kup-data-table>'
+        );
+        const element = await page.find('kup-data-table');
+
+        element.setProperty('data', groupingData);
+        element.setProperty('groups', [{ column: 'FLD1', visible: true }]);
+        element.setProperty('expandGroups', true);
+
+        await page.waitForChanges();
+
+        const rows = await page.findAll(rowsSelector);
+
+        expect(rows).toHaveLength(15);
+
+        rows.forEach((row, index) => {
+            if (index === 0 || index === 5 || index === 10) {
+                expect(row).toHaveClass('group');
+            } else {
+                expect(row).not.toHaveClass('group');
+            }
+        });
+    });
+
+    it('multi group and expansion', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent(
+            '<kup-data-table global-filter></kup-data-table>'
+        );
+        const element = await page.find('kup-data-table');
+
+        element.setProperty('data', groupingData);
+        element.setProperty('groups', [
+            { column: 'FLD1', visible: true },
+            { column: 'FLD2', visible: true },
+        ]);
+        element.setProperty('expandGroups', true);
+
+        await page.waitForChanges();
+
+        const rows = await page.findAll(rowsSelector);
+
+        expect(rows).toHaveLength(27);
+
+        const groupRows = rows.filter((row) => row.classList.contains('group'));
+
+        expect(groupRows).toHaveLength(15);
     });
 });

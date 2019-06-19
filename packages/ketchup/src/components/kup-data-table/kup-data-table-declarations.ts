@@ -13,6 +13,7 @@ export interface Row {
     actions?: Array<RowAction>;
 
     group?: {
+        id: string;
         parent: Row;
         column: string;
         expanded: boolean;
