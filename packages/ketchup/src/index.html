@@ -64,25 +64,34 @@
         <br />
         <a href="data-table.html">Ketchup data table</a>
         <br />
-        <ketchup-button label="Sono bottone"></ketchup-button>
-        <ketchup-radio
+        <kup-button label="Sono bottone"></kup-button>
+        <kup-radio
             id="krg1"
             displayed-field="label"
             value-field="value"
-        ></ketchup-radio>
-        <ketchup-text-input
+        ></kup-radio>
+        <kup-text-input
             id="int1"
             is-clearable
             initial-value="ciao"
-        ></ketchup-text-input>
-        <ketchup-combo is-clearable use-portal="true"></ketchup-combo>
+        ></kup-text-input>
+        <h4>Combo using portal</h4>
+        <kup-combo is-clearable use-portal="true"></kup-combo>
         <h4>FLD 1</h4>
-        <ketchup-fld id="kfld-1"></ketchup-fld>
+        <kup-fld id="kfld-1"></kup-fld>
         <h4>FLD 2</h4>
-        <ketchup-fld id="kfld-2"></ketchup-fld>
-        <ketchup-fld id="kfld-3"></ketchup-fld>
-        <ketchup-fld id="kfld-4"></ketchup-fld>
-        <ketchup-fld id="fld-radio-initialValue"></ketchup-fld>
+        <kup-fld id="kfld-2"></kup-fld>
+        <h4>FLD 3</h4>
+        <kup-fld id="kfld-3"></kup-fld>
+        <h4>FLD 4</h4>
+        <kup-fld id="kfld-4"></kup-fld>
+        <h4>FLD Initial value</h4>
+        <kup-fld id="fld-radio-initialValue"></kup-fld>
+        <h4>FLD 5: text format</h4>
+        <kup-fld id="fld-5-text"></kup-fld>
+
+        <h4>Input text type password</h4>
+        <kup-text-input input-type="password" initial-value="pippo" debounce="100" is-clearable></kup-text-input>
 
         <script>
             let once = true;
@@ -131,7 +140,7 @@
                     once = false;
 
                     // The combo box
-                    const comboBox = document.querySelector('ketchup-combo');
+                    const comboBox = document.querySelector('kup-combo');
                     comboBox.initialValue = {
                         id: 'Darth Vader',
                     };
@@ -226,6 +235,7 @@
                             children: [],
                         },
                         showSubmit: true,
+                        submitLabel: 'Conferma 1',
                         valueField: 'obj'
                     };
                     fld_2.data = [
@@ -285,6 +295,7 @@
                     fld_4.config = {
                         type: 'cmb',
                         displayedField: 'value',
+                        isClearable: true,
                         initialValue: { value: 'PRVSHO' },
                         showSubmit: true,
                         submitLabel: 'Conferma',
@@ -325,10 +336,42 @@
                         { value: 'PRV456' },
                     ];
 
+                    // Text FLD
+                    const textFld = document.querySelector("#fld-5-text");
+                    textFld.config = {
+                        "type": "itx",
+                        "showSubmit": true,
+                        "valueField": "value",
+                        "displayedField": "value",
+                        "extensions": {
+                            "minQueryLength": 4,
+                            "forceSelection": true
+                        },
+                        "submitLabel": "Prova submit"
+                    };
+                    textFld.addEventListener('ketchupFldChanged', (payload) => {
+                        console.log('Text FLD change', payload);
+                    });
+                    textFld.addEventListener('ketchupFldSubmit', (payload) => {
+                        console.log('Text FLD submit', payload);
+                    });
+
+                    // For the password field
+                    const inPassword = document.querySelector('kup-text-input[input-type="password"]');
+                    inPassword.addEventListener('ketchupTextInputFocused', (e) => {
+                        console.log('Password has been FOCUSED', e);
+                    });
+                    inPassword.addEventListener('ketchupTextInputBlurred', (e) => {
+                        console.log('#Password has been BLURRED', e);
+                    });
+                    inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
+                        console.log('Password has been UPDATED', e);
+                    });
                 }
             }, 5000);
         </script>
 
+        <h4>Playground bottoniera</h4>
         <div class="BTN">
             <div class="btn-options">
                 <div>
@@ -548,22 +591,22 @@
                 </div>
             </div>
 
-            <ketchup-btn></ketchup-btn>
+            <kup-btn></kup-btn>
 
             <p id="btn-label"></p>
         </div>
 
         <h1>html frame component</h1>
-        <ketchup-html
+        <kup-html
             id="htm-2"
             src="https://www.google.it/"
             is-button
-        ></ketchup-html>
-        <ketchup-html
+        ></kup-html>
+        <kup-html
             id="htm-1"
             src="https://stenciljs.com/"
             is-button
-        ></ketchup-html>
+        ></kup-html>
 
         <script>
             const firstHtm = document.querySelector('#htm-1');
