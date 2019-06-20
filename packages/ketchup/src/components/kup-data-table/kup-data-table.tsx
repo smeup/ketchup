@@ -1377,7 +1377,6 @@ export class KupDataTable {
 
         return (
             <div id="data-table-wrapper">
-                <div>Expand groups: {this.expandGroups ? 'Yes' : 'No'}</div>
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
