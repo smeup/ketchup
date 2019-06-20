@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import boxRoutes from './router/box';
 import dataTableRoutes from './router/dataTable';
 import fldRoutes from './router/fldRoutes';
 import easterRoutes from './router/easterRoutes';
 
 import Home from '@/views/Home.vue';
 import KupPortals from '@/views/KupPortals.vue';
+import box from './router/box';
 
 Vue.use(Router);
 
@@ -28,6 +30,11 @@ let simpleRoutes = [
     component: () => import(`@/views/DashExamples.vue`),
   },
   {
+    path: `/kup-image`,
+    name: 'image',
+    component: () => import(`@/views/KupImage.vue`),
+  },
+  {
     path: `/portals`,
     name: 'portals',
     component: () => import(`@/views/KupPortals.vue`),
@@ -37,7 +44,6 @@ let simpleRoutes = [
     name: 'html',
     component: () => import(`@/views/KupHtmlExamples.vue`),
   },
-
 ];
 
 const baseRoutes = [
@@ -50,10 +56,11 @@ const baseRoutes = [
 
 const routes = [
   ...baseRoutes,
+  ...boxRoutes,
   ...dataTableRoutes,
   ...fldRoutes,
   ...easterRoutes,
-  ...simpleRoutes
+  ...simpleRoutes,
 ];
 
 export default new Router({

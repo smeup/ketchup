@@ -8,6 +8,10 @@ export function isBar({ t, p }: CellObject): boolean {
     return 'J4' === t && 'BAR' === p;
 }
 
+export function isButton({ t, p }: CellObject): boolean {
+    return 'J4' === t && 'BTN' === p;
+}
+
 export function isIcon({ t, p }: CellObject): boolean {
     return 'J4' === t && 'ICO' === p;
 }

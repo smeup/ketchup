@@ -1,14 +1,25 @@
-import {Component, Event, EventEmitter, Method, Prop, State, Watch} from '@stencil/core';
-import { generateUniqueId } from "../../utils/utils";
-import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
-import {KetchupTextInputEvent} from "../kup-text-input/kup-text-input-declarations";
-import {KetchupRadioChangeEvent} from "../kup-radio/kup-radio-declarations";
-import {KetchupComboEvent} from "../kup-combo/kup-combo-declarations";
+import {
+    Component,
+    Event,
+    EventEmitter,
+    Method,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
+import { generateUniqueId } from '../../utils/utils';
+import {
+    KetchupFldChangeEvent,
+    KetchupFldSubmitEvent,
+} from './kup-fld-declarations';
+import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+import { KetchupRadioChangeEvent } from '../kup-radio/kup-radio-declarations';
+import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 
 @Component({
     tag: 'kup-fld',
     styleUrl: 'kup-fld.scss',
-    shadow: true
+    shadow: true,
 })
 export class KupFld {
     /**
@@ -36,7 +47,7 @@ export class KupFld {
         // Assigns given values to the state
         const keys = Object.keys(currentData);
         let propagate = {};
-        keys.forEach(key => {
+        keys.forEach((key) => {
             // Detects if a given key is present in the component as a @State variable
             if (key in this) {
                 this[key] = currentData[key];
@@ -104,7 +115,7 @@ export class KupFld {
         eventName: 'ketchupFldChanged',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupFldChanged: EventEmitter<KetchupFldChangeEvent>;
 
@@ -115,7 +126,7 @@ export class KupFld {
         eventName: 'ketchupFldSubmit',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupFldSubmit: EventEmitter<KetchupFldSubmitEvent>;
 
@@ -129,27 +140,38 @@ export class KupFld {
     //---- Methods ----
 
     // When a change or update event must be launched as if it's coming from the Fld itself
-    onChange(event: CustomEvent<KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent>) {
+    onChange(
+        event: CustomEvent<
+            KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent
+        >
+    ) {
         const { value, info } = event.detail;
         this.ketchupFldChanged.emit({
             originalEvent: event,
             oldValue: this.currentValue,
             value,
-            info
+            info,
         });
         this.previousValue = this.currentValue;
         this.currentValue = value;
     }
 
     // When a submit event must be launched as if it's coming from the Fld itself
-    onSubmit(event: CustomEvent<KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent>) {
+    onSubmit(
+        event: CustomEvent<
+            KetchupTextInputEvent | KetchupRadioChangeEvent | KetchupComboEvent
+        >
+    ) {
         this.ketchupFldSubmit.emit({
             originalEvent: event,
             value: this.currentValue,
             oldValue: this.previousValue,
             info: {
-                obj: event.detail.info && event.detail.info.obj ? event.detail.info.obj : undefined
-            }
+                obj:
+                    event.detail.info && event.detail.info.obj
+                        ? event.detail.info.obj
+                        : undefined,
+            },
         });
     }
 
@@ -174,21 +196,38 @@ export class KupFld {
 
         //-- Label --
         if (this.label.trim().length) {
-            label =
+            label = (
                 <label
-                    class={baseClass + '__label' + ' ' + baseClass + '--' + this.labelPos}>
+                    class={
+                        baseClass +
+                        '__label' +
+                        ' ' +
+                        baseClass +
+                        '--' +
+                        this.labelPos
+                    }
+                >
                     {this.label}
                 </label>
-            ;
+            );
         }
 
         //-- Submit --
         if (this.showSubmit) {
-            submit =
+            submit = (
                 <kup-button
-                    class={baseClass + '__submit' + ' ' + baseClass + '--' + this.submitPos}
+                    class={
+                        baseClass +
+                        '__submit' +
+                        ' ' +
+                        baseClass +
+                        '--' +
+                        this.submitPos
+                    }
                     label={this.submitLabel}
-                    onKetchupButtonClicked={this.onSubmitInstance}/>
+                    onKupButtonClicked={this.onSubmitInstance}
+                />
+            );
         }
 
         //-- If a component must be positioned on top of the dynamic one --
@@ -214,7 +253,7 @@ export class KupFld {
          * @see: https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
          */
         let type: string = '';
-        let confObj : {[key: string]: any} = {};
+        let confObj: { [key: string]: any } = {};
         switch (this.type) {
             case 'cmb':
                 confObj.displayedField = 'value';

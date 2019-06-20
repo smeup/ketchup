@@ -25,9 +25,9 @@
 
 ## Events
 
-| Event                  | Description | Type                                       |
-| ---------------------- | ----------- | ------------------------------------------ |
-| `ketchupButtonClicked` |             | `CustomEvent<{         id: string;     }>` |
+| Event              | Description | Type                                       |
+| ------------------ | ----------- | ------------------------------------------ |
+| `kupButtonClicked` |             | `CustomEvent<{         id: string;     }>` |
 
 
 ## CSS Custom Properties

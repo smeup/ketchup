@@ -23,17 +23,17 @@ export class KupButton {
         'https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css';
 
     @Event({
-        eventName: 'ketchupButtonClicked',
+        eventName: 'kupButtonClicked',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    ketchupButtonClicked: EventEmitter<{
+    kupButtonClicked: EventEmitter<{
         id: string;
     }>;
 
     onBtnClickedHandler() {
-        this.ketchupButtonClicked.emit({ id: this.ketchupButtonEl.dataset.id });
+        this.kupButtonClicked.emit({ id: this.ketchupButtonEl.dataset.id });
     }
 
     _isHint() {
@@ -94,6 +94,7 @@ export class KupButton {
         return [
             <link href={this.iconUrl} rel="stylesheet" type="text/css" />,
             <button
+                type="button"
                 class={btnClass}
                 title={title}
                 onClick={() => this.onBtnClickedHandler()}

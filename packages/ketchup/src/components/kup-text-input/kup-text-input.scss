@@ -10,6 +10,7 @@ $lateral-padding: 6px;
 * @prop --int_tr-duration, --kup-text-input_transition-duration: Set all transitions duration
 * @prop --int_icon-color, --kup-text-input_icon-color: Set icon color
 * @prop --int_icon-color--hover, --kup-text-input_icon-color--hover: Set icon color when hovered
+* @prop --int_placeholder-color, --kup-text-input_placeholder-color: Set placeholder text color
 */
 
 :host {
@@ -27,6 +28,7 @@ $lateral-padding: 6px;
     --kup-text-input_icon-color--hover,
     #{darken($gray-80, 10)}
   );
+  --int_placeholder-color: var(--kup-text-input_placeholder-color, #bebebe);
 
   // Style
   display: inline-block;
@@ -42,6 +44,10 @@ label {
     display: inline-block;
     position: relative;
     z-index: 0;
+  }
+
+  &::placeholder {
+    color: var(--int_placeholder-color);
   }
 
   // Style of the input

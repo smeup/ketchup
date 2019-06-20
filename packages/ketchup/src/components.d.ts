@@ -9,6 +9,20 @@ import '@stencil/core';
 
 
 import {
+  Column,
+  GenericMap,
+  GroupObject,
+  PaginatorPos,
+  Row,
+  RowAction,
+  ShowGrid,
+  SortObject,
+  TotalsMap,
+} from './components/kup-data-table/kup-data-table-declarations';
+import {
+  Layout,
+} from './components/kup-box/kup-box-declarations';
+import {
   ButtonConfig,
 } from './components/kup-btn/kup-btn-declarations';
 import {
@@ -25,20 +39,12 @@ import {
   EventEmitter,
 } from '@stencil/core';
 import {
-  Column,
-  GenericMap,
-  GroupObject,
-  PaginatorPos,
-  Row,
-  RowAction,
-  ShowGrid,
-  SortObject,
-  TotalsMap,
-} from './components/kup-data-table/kup-data-table-declarations';
-import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
+import {
+  Badge,
+} from './components/kup-image/kup-image-declarations';
 import {
   ElementOffset,
 } from './utils/offset';
@@ -52,6 +58,32 @@ import {
 
 
 export namespace Components {
+
+  interface KupBox {
+    'columns': number;
+    'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'filterEnabled': boolean;
+    'layout': Layout;
+    'multiSelection': boolean;
+    'sortBy': string;
+    'sortEnabled': boolean;
+  }
+  interface KupBoxAttributes extends StencilHTMLAttributes {
+    'columns'?: number;
+    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'filterEnabled'?: boolean;
+    'layout'?: Layout;
+    'multiSelection'?: boolean;
+    'onKupBoxClicked'?: (event: CustomEvent<{
+      row: Row;
+      column?: string;
+    }>) => void;
+    'onKupBoxSelected'?: (event: CustomEvent<{
+      rows: Row[];
+    }>) => void;
+    'sortBy'?: string;
+    'sortEnabled'?: boolean;
+  }
 
   interface KupBtn {
     'buttons': any[];
@@ -84,7 +116,7 @@ export namespace Components {
     'iconClass'?: string;
     'iconUrl'?: string;
     'label'?: string;
-    'onKetchupButtonClicked'?: (event: CustomEvent<{
+    'onKupButtonClicked'?: (event: CustomEvent<{
       id: string;
     }>) => void;
     'rounded'?: boolean;
@@ -354,6 +386,21 @@ export namespace Components {
     'src'?: string;
   }
 
+  interface KupImage {
+    'alt': string;
+    'badges': Badge[];
+    'height': number;
+    'src': string;
+    'width': number;
+  }
+  interface KupImageAttributes extends StencilHTMLAttributes {
+    'alt'?: string;
+    'badges'?: Badge[];
+    'height'?: number;
+    'src'?: string;
+    'width'?: number;
+  }
+
   interface KupPaginator {
     'currentPage': number;
     'max': number;
@@ -573,6 +620,10 @@ export namespace Components {
     */
     'obj'?: GenericObject;
     /**
+    * text for input placeholder
+    */
+    'placeholder': string;
+    /**
     * Triggers the focus event on the input text
     */
     'triggerFocus': () => void;
@@ -622,11 +673,16 @@ export namespace Components {
     * When the input text value gets updated
     */
     'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * text for input placeholder
+    */
+    'placeholder'?: string;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
+    'KupBox': Components.KupBox;
     'KupBtn': Components.KupBtn;
     'KupButton': Components.KupButton;
     'KupChart': Components.KupChart;
@@ -636,6 +692,7 @@ declare global {
     'KupFld': Components.KupFld;
     'KupGraphicCell': Components.KupGraphicCell;
     'KupHtml': Components.KupHtml;
+    'KupImage': Components.KupImage;
     'KupPaginator': Components.KupPaginator;
     'KupPortalInstance': Components.KupPortalInstance;
     'KupPortal': Components.KupPortal;
@@ -645,6 +702,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'kup-box': Components.KupBoxAttributes;
     'kup-btn': Components.KupBtnAttributes;
     'kup-button': Components.KupButtonAttributes;
     'kup-chart': Components.KupChartAttributes;
@@ -654,6 +712,7 @@ declare global {
     'kup-fld': Components.KupFldAttributes;
     'kup-graphic-cell': Components.KupGraphicCellAttributes;
     'kup-html': Components.KupHtmlAttributes;
+    'kup-image': Components.KupImageAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
     'kup-portal-instance': Components.KupPortalInstanceAttributes;
     'kup-portal': Components.KupPortalAttributes;
@@ -662,6 +721,12 @@ declare global {
     'kup-text-input': Components.KupTextInputAttributes;
   }
 
+
+  interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {}
+  var HTMLKupBoxElement: {
+    prototype: HTMLKupBoxElement;
+    new (): HTMLKupBoxElement;
+  };
 
   interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
   var HTMLKupBtnElement: {
@@ -717,6 +782,12 @@ declare global {
     new (): HTMLKupHtmlElement;
   };
 
+  interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {}
+  var HTMLKupImageElement: {
+    prototype: HTMLKupImageElement;
+    new (): HTMLKupImageElement;
+  };
+
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
   var HTMLKupPaginatorElement: {
     prototype: HTMLKupPaginatorElement;
@@ -754,6 +825,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'kup-box': HTMLKupBoxElement
     'kup-btn': HTMLKupBtnElement
     'kup-button': HTMLKupButtonElement
     'kup-chart': HTMLKupChartElement
@@ -763,6 +835,7 @@ declare global {
     'kup-fld': HTMLKupFldElement
     'kup-graphic-cell': HTMLKupGraphicCellElement
     'kup-html': HTMLKupHtmlElement
+    'kup-image': HTMLKupImageElement
     'kup-paginator': HTMLKupPaginatorElement
     'kup-portal-instance': HTMLKupPortalInstanceElement
     'kup-portal': HTMLKupPortalElement
@@ -772,6 +845,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
@@ -781,6 +855,7 @@ declare global {
     'kup-fld': HTMLKupFldElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
+    'kup-image': HTMLKupImageElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-portal': HTMLKupPortalElement;

@@ -84,7 +84,7 @@ document.querySelector('kup-btn').buttons = btnlist.data;
 
 document
     .querySelector('kup-btn')
-    .addEventListener('ketchupButtonClicked', (event) => {
+    .addEventListener('kupButtonClicked', (event) => {
         console.log(event);
 
         const btnIndex = event.detail.id;
