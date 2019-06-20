@@ -3,6 +3,7 @@
 :host {
   // variables
   --int_text-color: var(--kup-paginator_text-color, #545454);
+  --int_font-size: var(--kup-paginator_font-size, 16px);
 }
 
 #paginator {
@@ -11,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  font-size: var(--int_font-size);
 
   icon {
     cursor: pointer;
