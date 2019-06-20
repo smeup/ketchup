@@ -8,27 +8,34 @@ h3 {
   <div>
     <h1>Grouping</h1>
 
-    <h3>Group on continent</h3>
+    <h3>Single group (visible)</h3>
     <kup-data-table
       :data.prop="data"
       :groups.prop="group1"
       :showFilters.prop="true"
     ></kup-data-table>
 
-    <h3>Hidden group on continent</h3>
+    <h3>Single group (hidden)</h3>
     <kup-data-table :data.prop="data" :groups.prop="group2"></kup-data-table>
 
-    <h3>Group on continent and state</h3>
+    <h3>Multiple group (visible)</h3>
     <kup-data-table :data.prop="data" :groups.prop="group3"></kup-data-table>
 
-    <h3>Hidden group on continent and state</h3>
+    <h3>Multiple group (hidden)</h3>
     <kup-data-table :data.prop="data" :groups.prop="group4"></kup-data-table>
 
-    <h3>Group and continent and count on state</h3>
+    <h3>Single group and totals</h3>
     <kup-data-table
       :data.prop="data"
       :groups.prop="group1"
       :totals.prop="totals1"
+    ></kup-data-table>
+
+    <h3>Multiple group and expansion</h3>
+    <kup-data-table
+      :data.prop="data"
+      :groups.prop="group3"
+      :expandGroups.prop="true"
     ></kup-data-table>
   </div>
 </template>

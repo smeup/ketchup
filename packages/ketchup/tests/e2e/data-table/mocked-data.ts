@@ -288,6 +288,7 @@ msMockData.rows = [
                     k: 'CASFRA',
                 },
                 value: 'CASFRA',
+                options: false,
             },
             FLD2: {
                 obj: {
@@ -316,6 +317,7 @@ msMockData.rows = [
                     k: 'DELGIO',
                 },
                 value: 'DELGIO',
+                options: false,
             },
             FLD2: {
                 obj: {
@@ -344,6 +346,7 @@ msMockData.rows = [
                     k: 'PARFRA',
                 },
                 value: 'PARFRA',
+                options: false,
             },
             FLD2: {
                 obj: {
@@ -372,6 +375,7 @@ msMockData.rows = [
                     k: 'CASFRA',
                 },
                 value: 'CASFRA',
+                options: false,
             },
             FLD2: {
                 obj: {
@@ -400,6 +404,7 @@ msMockData.rows = [
                     k: 'DELGIO',
                 },
                 value: 'DELGIO',
+                options: false,
             },
             FLD2: {
                 obj: {
@@ -428,6 +433,7 @@ msMockData.rows = [
                     k: 'PARFRA',
                 },
                 value: 'PARFRA',
+                options: false,
             },
             FLD2: {
                 obj: {

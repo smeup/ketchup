@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>ketchup-showcase</title>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script>
+      if (google) {
+        google.charts.load('45.2', {
+          packages: [
+            'corechart',
+            'gantt',
+            'gauge',
+            'geochart',
+            'calendar',
+            'sankey',
+            'treemap',
+          ],
+          language: 'en',
+        });
+      }
+    </script>
   </head>
   <body>
     <noscript>

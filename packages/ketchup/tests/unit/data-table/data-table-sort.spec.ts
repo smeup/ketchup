@@ -1,5 +1,5 @@
-import { sortRows } from '../../../src/components/ketchup-data-table/ketchup-data-table-helper';
-import { SortMode } from '../../../src/components/ketchup-data-table/ketchup-data-table-declarations';
+import { sortRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
+import { SortMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 
 const mockedRows = [
     {

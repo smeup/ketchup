@@ -148,7 +148,7 @@ document.getElementById('pie-aspect').addEventListener('change', (e) => {
 
 // custom colors
 document.getElementById('colors').addEventListener('change', ({ target }) => {
-    const charts = document.querySelectorAll('ketchup-chart');
+    const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
         const config = { ...chart.config };
@@ -165,7 +165,7 @@ document.getElementById('colors').addEventListener('change', ({ target }) => {
 
 // custom size
 document.getElementById('size').addEventListener('change', ({ target }) => {
-    const charts = document.querySelectorAll('ketchup-chart');
+    const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
         const config = { ...chart.config };
@@ -183,7 +183,7 @@ document.getElementById('size').addEventListener('change', ({ target }) => {
 
 // enable / disable legend
 document.getElementById('legend').addEventListener('change', ({ target }) => {
-    const charts = document.querySelectorAll('ketchup-chart');
+    const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
         chart.config = {
@@ -195,7 +195,7 @@ document.getElementById('legend').addEventListener('change', ({ target }) => {
 
 // title
 document.getElementById('title').addEventListener('change', ({ target }) => {
-    const charts = document.querySelectorAll('ketchup-chart');
+    const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
         chart.config = {
@@ -209,7 +209,7 @@ document.getElementById('title').addEventListener('change', ({ target }) => {
 document
     .getElementById('title-color')
     .addEventListener('change', ({ target }) => {
-        const charts = document.querySelectorAll('ketchup-chart');
+        const charts = document.querySelectorAll('kup-chart');
 
         charts.forEach((chart) => {
             chart.config = {
@@ -229,7 +229,7 @@ document
             return;
         }
 
-        const charts = document.querySelectorAll('ketchup-chart');
+        const charts = document.querySelectorAll('kup-chart');
 
         charts.forEach((chart) => {
             chart.config = {

@@ -37,10 +37,15 @@ export interface ElementOffset {
  * @returns the position in pixel to apply to the third element to be placed correctly.
  */
 export function getElementOffset(
-    el: HTMLElement,
+    el: HTMLElement | null,
     positioning: {isRight: boolean, isTop: boolean} = {isRight: false, isTop: false},
     offsetEl: HTMLElement = document.documentElement
-): ElementOffset {
+): ElementOffset | null {
+    // We must consider the use case where the el element is not available in reality
+    // In this case this code will throw an error
+    // To avoid that we exit the function when such a case will happen.
+    if (!el) {return ;}
+
     let ret: ElementOffset = {};
     // Get rectangle of the component.
     let rect = el.getBoundingClientRect(),
@@ -83,16 +88,18 @@ export function setElementOffset(el: HTMLElement, position: ElementOffset) {
     if (position.left) {
         style.left = position.left + 'px';
         style.right = 'initial';
-    } else if (style.right) {
+    } else if (position.right) {
         style.right = position.right + 'px';
         style.left = 'initial';
     }
 
+    // Notice that this piece must ALWAYS return a value.
+    // Otherwise the positioning offset will be wrongly placed.
     if (position.top) {
         style.top = position.top + 'px';
         style.bottom = 'initial';
         style.transform = '';
-    } else if (style.bottom) {
+    } else if (position.bottom) {
         style.top = position.bottom + 'px';
         style.bottom = 'initial';
         style.transform = 'translateY(-100%)';

@@ -1,5 +1,5 @@
-import { groupRows } from '../../../src/components/ketchup-data-table/ketchup-data-table-helper';
-import { TotalMode } from '../../../src/components/ketchup-data-table/ketchup-data-table-declarations';
+import { groupRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
+import { TotalMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
 
 const rows = [
     {
