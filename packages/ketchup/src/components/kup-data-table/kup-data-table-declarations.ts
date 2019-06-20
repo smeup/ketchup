@@ -16,7 +16,7 @@ export interface Row {
         id: string;
         parent: Row;
         column: string;
-        expanded: boolean;
+        expanded: boolean; // not sure if this is needed
         label: string;
         children: Array<Row>;
         totals: { [index: string]: number };

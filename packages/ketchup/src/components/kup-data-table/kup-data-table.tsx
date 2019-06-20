@@ -132,6 +132,8 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
+        // reset group state
+        this.groupState = {};
         this.forceGroupExpansion();
     }
 
@@ -391,8 +393,6 @@ export class KupDataTable {
 
     private forceGroupExpansion() {
         this.rows.forEach((row) => this.forceRowGroupExpansion(row));
-
-        console.log(this.groupState);
     }
 
     private forceRowGroupExpansion(row: Row) {
@@ -401,6 +401,11 @@ export class KupDataTable {
             return;
         }
 
+        // forcing row expanded
+        row.group.expanded = true;
+
+        // updating group state
+        // check if already present
         let groupState = this.groupState[row.group.id];
         if (!groupState) {
             groupState = {
@@ -738,6 +743,19 @@ export class KupDataTable {
         return colSpan;
     }
 
+    private isGroupExpanded({ group }: Row): boolean {
+        if (!group) {
+            return false;
+        }
+
+        // check if in group state
+        if (this.groupState[group.id]) {
+            return this.groupState[group.id].expanded;
+        } else {
+            return false;
+        }
+    }
+
     // render methods
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
@@ -1013,7 +1031,7 @@ export class KupDataTable {
             }
 
             // if group is expanded, add children
-            if (row.group.expanded) {
+            if (this.isGroupExpanded(row)) {
                 row.group.children
                     .map((r) => {
                         return this.renderRow(r, level + 1);
@@ -1359,6 +1377,7 @@ export class KupDataTable {
 
         return (
             <div id="data-table-wrapper">
+                <div>Expand groups: {this.expandGroups ? 'Yes' : 'No'}</div>
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
