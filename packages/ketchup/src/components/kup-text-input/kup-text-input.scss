@@ -27,6 +27,7 @@ $lateral-padding: 6px;
     --kup-text-input_icon-color--hover,
     #{darken($gray-80, 10)}
   );
+  --int_background-color: var(--kup-text-input_background-color, transparent);
 
   // Style
   display: inline-block;
@@ -46,7 +47,7 @@ label {
 
   // Style of the input
   color: var(--int_color);
-  background-color: #ffffff;
+  background-color: var(--int_background-color);
   border: 1px solid var(--int_border-color);
   border-radius: 2px;
   box-sizing: border-box;
