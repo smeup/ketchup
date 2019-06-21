@@ -118,9 +118,9 @@
 
         // grouping
         &.group {
-          border-left: 10px solid var(--int_group-border-color);
           background: var(--int_group-background-color);
           font-weight: bold;
+          border-top: 1px solid var(--int_border-color);
 
           td {
             padding: 1rem 0;
@@ -137,8 +137,6 @@
         }
 
         > td {
-          transition: padding 0.1s ease-in-out;
-
           &.number {
             text-align: right;
           }
