@@ -7,6 +7,7 @@ import {
     Prop,
     State,
     Watch,
+    h
 } from '@stencil/core';
 import { KetchupTextInputEvent } from './kup-text-input-declarations';
 import { generateUniqueId } from '../../utils/utils';
@@ -93,7 +94,7 @@ export class KupTextInput {
      * @method triggerFocus
      */
     @Method()
-    triggerFocus() {
+    async triggerFocus() {
         // For focus issues, maybe have a look here
         // https://github.com/ionic-team/stencil/issues/180
         // https://github.com/ionic-team/stencil/issues/1008

@@ -25,9 +25,9 @@
 
 ## Events
 
-| Event              | Description | Type                                       |
-| ------------------ | ----------- | ------------------------------------------ |
-| `kupButtonClicked` |             | `CustomEvent<{         id: string;     }>` |
+| Event              | Description | Type                           |
+| ------------------ | ----------- | ------------------------------ |
+| `kupButtonClicked` |             | `CustomEvent<{ id: string; }>` |
 
 
 ## CSS Custom Properties
@@ -55,6 +55,25 @@
 | `--btn_text-color, --kup-button_text-color`                           | Sets color of the button text.                                |
 | `--btn_text-color--transparent, --kup-button_text-color--transparent` | Sets text color when button is transparent.                   |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-btn](..\kup-btn)
+ - [kup-data-table](..\kup-data-table)
+ - [kup-fld](..\kup-fld)
+ - [kup-html](..\kup-html)
+
+### Graph
+```mermaid
+graph TD;
+  kup-btn --> kup-button
+  kup-data-table --> kup-button
+  kup-fld --> kup-button
+  kup-html --> kup-button
+  style kup-button fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

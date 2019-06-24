@@ -21,30 +21,30 @@
 
 ## Events
 
-| Event                  | Description                       | Type                             |
-| ---------------------- | --------------------------------- | -------------------------------- |
-| `ketchupComboSelected` | When an element has been selected | `CustomEvent<KetchupComboEvent>` |
+| Event                  | Description                       | Type                                                     |
+| ---------------------- | --------------------------------- | -------------------------------------------------------- |
+| `ketchupComboSelected` | When an element has been selected | `CustomEvent<KupPayloadEvent<ComboItem, GenericObject>>` |
 
 
 ## Methods
 
-### `closeCombo() => void`
+### `closeCombo() => Promise<void>`
 
 Programmatically close the combo box
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
-### `openCombo() => void`
+### `openCombo() => Promise<void>`
 
 Programmatically opens the combo box
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
@@ -61,6 +61,22 @@ Type: `void`
 | `--cmb_menu-background, --kup-combo_menu_background`           | Specify menu background                               |
 | `--cmb_tr-duration, --kup-combo_input_transition-duration`     | Animation duration of all animations of the component |
 
+
+## Dependencies
+
+### Depends on
+
+- [kup-text-input](..\kup-text-input)
+- [kup-portal](..\kup-portal)
+
+### Graph
+```mermaid
+graph TD;
+  kup-combo --> kup-text-input
+  kup-combo --> kup-portal
+  kup-portal --> kup-portal-instance
+  style kup-combo fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 
