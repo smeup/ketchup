@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h, JSX } from '@stencil/core';
 
 @Component({
     tag: 'kup-paginator',

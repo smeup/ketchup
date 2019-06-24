@@ -3,6 +3,7 @@ import {
     Method,
     Prop,
     Watch,
+    JSX
 } from '@stencil/core';
 import { ElementOffset, setElementOffset } from "../../utils/offset";
 

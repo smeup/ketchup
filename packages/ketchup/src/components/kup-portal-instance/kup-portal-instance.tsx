@@ -2,6 +2,7 @@ import {
     Component,
     Element,
     Prop,
+  JSX
 } from '@stencil/core';
 
 @Component({

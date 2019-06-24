@@ -17,11 +17,24 @@
 
 ## Events
 
-| Event                   | Description                   | Type                                      |
-| ----------------------- | ----------------------------- | ----------------------------------------- |
-| `kupPageChanged`        | When the current page change  | `CustomEvent<{ newPage: number }>`        |
-| `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number }>` |
+| Event                   | Description                   | Type                                       |
+| ----------------------- | ----------------------------- | ------------------------------------------ |
+| `kupPageChanged`        | When the current page change  | `CustomEvent<{ newPage: number; }>`        |
+| `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number; }>` |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-data-table](..\kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-data-table --> kup-paginator
+  style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

@@ -20,23 +20,23 @@
 
 ## Events
 
-| Event                     | Description                                    | Type                                 |
-| ------------------------- | ---------------------------------------------- | ------------------------------------ |
-| `ketchupTextInputBlurred` | When text field loses focus (blur)             | `CustomEvent<KetchupTextInputEvent>` |
-| `ketchupTextInputFocused` | When the text input gains focus                | `CustomEvent<KetchupTextInputEvent>` |
-| `ketchupTextInputSubmit`  | When a keydown enter event occurs it generates | `CustomEvent<KetchupTextInputEvent>` |
-| `ketchupTextInputUpdated` | When the input text value gets updated         | `CustomEvent<KetchupTextInputEvent>` |
+| Event                     | Description                                    | Type                                                  |
+| ------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| `ketchupTextInputBlurred` | When text field loses focus (blur)             | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputFocused` | When the text input gains focus                | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputSubmit`  | When a keydown enter event occurs it generates | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputUpdated` | When the input text value gets updated         | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
 
 
 ## Methods
 
-### `triggerFocus() => void`
+### `triggerFocus() => Promise<void>`
 
 Triggers the focus event on the input text
 
 #### Returns
 
-Type: `void`
+Type: `Promise<void>`
 
 
 
@@ -53,6 +53,21 @@ Type: `void`
 | `--int_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |
 | `--int_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-combo](..\kup-combo)
+ - [kup-data-table](..\kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-combo --> kup-text-input
+  kup-data-table --> kup-text-input
+  style kup-text-input fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

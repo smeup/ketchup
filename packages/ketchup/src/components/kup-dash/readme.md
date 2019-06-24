@@ -15,9 +15,9 @@
 
 ## Events
 
-| Event                | Description | Type                     |
-| -------------------- | ----------- | ------------------------ |
-| `ketchupDashClicked` |             | `CustomEvent<{		     }>` |
+| Event                | Description | Type              |
+| -------------------- | ----------- | ----------------- |
+| `ketchupDashClicked` |             | `CustomEvent<{}>` |
 
 
 ## CSS Custom Properties
