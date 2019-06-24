@@ -26,7 +26,8 @@ export class KupPortalInstance {
 
     //---- Life cycle ----
     componentWillUpdate() {
-        if (!this.port.shadowRoot.querySelector('style[data-portal-style]')) {
+        // Avoid an error when there is no given style node
+        if (!this.port.shadowRoot.querySelector('style[data-portal-style]') && this.styleNode) {
             this.port.shadowRoot.insertBefore(this.styleNode, this.port.shadowRoot.querySelector('style'))
         }
     }

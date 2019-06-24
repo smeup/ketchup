@@ -52,7 +52,11 @@ export class KupPortal {
     }
 
     // Actual operations on the elements
-    componentWillUpdate() {
+    // Migrated this hook from componentWillUpdate to componentWillRender
+    // https://stenciljs.com/docs/component-lifecycle#componentwillrender-
+    // Used this hook because props will held the new value
+    // While componentWillUpdate does not have the correct value inside the props.
+    componentWillRender() {
         // Updates tree node
         this.instance.vNodes = this.nodes;
         // Creates style node
