@@ -306,6 +306,29 @@ export namespace Components {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
+  interface KupGauge {
+    'colors': string[];
+    'firstThreshold': number;
+    'maxValue': number;
+    'minValue': number;
+    'secondThreshold': number;
+    'showLabels': boolean;
+    'showValues': boolean;
+    'size': number;
+    'value': number;
+  }
+  interface KupGaugeAttributes extends StencilHTMLAttributes {
+    'colors'?: string[];
+    'firstThreshold'?: number;
+    'maxValue'?: number;
+    'minValue'?: number;
+    'secondThreshold'?: number;
+    'showLabels'?: boolean;
+    'showValues'?: boolean;
+    'size'?: number;
+    'value'?: number;
+  }
+
   interface KupGraphicCell {
     'height': number;
     'value': string;
@@ -634,6 +657,7 @@ declare global {
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KupFld': Components.KupFld;
+    'KupGauge': Components.KupGauge;
     'KupGraphicCell': Components.KupGraphicCell;
     'KupHtml': Components.KupHtml;
     'KupPaginator': Components.KupPaginator;
@@ -652,6 +676,7 @@ declare global {
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'kup-fld': Components.KupFldAttributes;
+    'kup-gauge': Components.KupGaugeAttributes;
     'kup-graphic-cell': Components.KupGraphicCellAttributes;
     'kup-html': Components.KupHtmlAttributes;
     'kup-paginator': Components.KupPaginatorAttributes;
@@ -703,6 +728,12 @@ declare global {
   var HTMLKupFldElement: {
     prototype: HTMLKupFldElement;
     new (): HTMLKupFldElement;
+  };
+
+  interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {}
+  var HTMLKupGaugeElement: {
+    prototype: HTMLKupGaugeElement;
+    new (): HTMLKupGaugeElement;
   };
 
   interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {}
@@ -761,6 +792,7 @@ declare global {
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'kup-fld': HTMLKupFldElement
+    'kup-gauge': HTMLKupGaugeElement
     'kup-graphic-cell': HTMLKupGraphicCellElement
     'kup-html': HTMLKupHtmlElement
     'kup-paginator': HTMLKupPaginatorElement
@@ -779,6 +811,7 @@ declare global {
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
+    'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-paginator': HTMLKupPaginatorElement;

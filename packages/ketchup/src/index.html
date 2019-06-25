@@ -7,6 +7,8 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
         <title>Stencil Component Starter</title>
+        <script src="https://d3js.org/d3-path.v1.min.js"></script>
+        <script src="https://d3js.org/d3-shape.v1.min.js"></script>
         <script src="/build/mycomponent.js"></script>
 
         <link
@@ -92,6 +94,9 @@
 
         <h4>Input text type password</h4>
         <kup-text-input input-type="password" initial-value="pippo" debounce="100" is-clearable></kup-text-input>
+
+        <h4>The gauge</h4>
+        <kup-gauge value="100" size="300"></kup-gauge>
 
         <script>
             let once = true;
