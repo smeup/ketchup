@@ -4,7 +4,7 @@ declare const d3: any;
 
 @Component({
   tag: 'kup-gauge',
-  //styleUrl: 'kup-chart.scss',
+  styleUrl: 'kup-gauge.scss',
   shadow: true,
 })
 export class KupGauge {
@@ -98,7 +98,8 @@ export class KupGauge {
       <div
         // ref={(el) => (this.gaugeContainer = el as HTMLDivElement)}
       >
-        <svg width={`${this.size}px`} height={`${this.size / 2}px`} viewBox={`0 0 ${this.size} ${this.size / 2}`}>
+        <svg
+          viewBox={`0 0 ${this.size} ${this.size / 2}`}>
           <g transform={`rotate(-90) translate(-${this.size / 2}, ${this.size / 2})`}>
             <path d={a1} style={{fill: this.colors[0] }}/>
             <path d={a2} style={{fill: this.colors[1] }}/>
@@ -106,7 +107,7 @@ export class KupGauge {
           </g>
         </svg>
       </div>,
-      <span>{this.value}</span>
+      <p>{this.value}</p>
     ];
   }
 }
