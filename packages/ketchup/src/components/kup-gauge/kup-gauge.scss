@@ -13,6 +13,7 @@
   }
 
   .gauge {
+    &__label-text,
     &__value-text  {
       font-size: 16px;
       text-align: center;

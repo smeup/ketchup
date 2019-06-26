@@ -126,7 +126,7 @@ export class KupGauge {
    */
   paintNeedle(needleLength: number, needleBaseRadius: number, centerX: number, centerY: number, rotationPercentage: number = 0): string {
     let leftX, leftY, rightX, rightY, thetaRad, topX, topY;
-    thetaRad = this.percToRad(rotationPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half
+    thetaRad = this.percToRad(rotationPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
     topX = centerX - needleLength * Math.cos(thetaRad);
     topY = centerY - needleLength * Math.sin(thetaRad);
     leftX = centerX - needleBaseRadius * Math.cos(thetaRad - Math.PI / 2);
@@ -150,17 +150,18 @@ export class KupGauge {
     const needleCircleRadius = this.size / 16; // Arbitrary size of the base of the needle
     const needleLength = halvedSize - this.arcThickness / 2; // Calculates the length of the needle in pure units
 
-    // This creates the various point from which the arcs are generated
-    // TODO support this thing better by using an array of thresholds
-    const arcsThresholds = [];
-    arcsThresholds.push(this.minValue);
+    // User provided thresholds
+    // TODO these thresholds will be given to the component by a user prop
+    const givenThresholds = [];
     if (this.firstThreshold) {
-      arcsThresholds.push(this.firstThreshold);
+      givenThresholds.push(this.firstThreshold);
     }
     if (this.secondThreshold) {
-      arcsThresholds.push(this.secondThreshold);
+      givenThresholds.push(this.secondThreshold);
     }
-    arcsThresholds.push(this.maxValue);
+
+    // This creates the various point from which the arcs are generated
+    const arcsThresholds = [this.minValue, ...givenThresholds, this.maxValue];
 
     // Creates arc elements
     const arcsElements = [];
@@ -174,6 +175,19 @@ export class KupGauge {
       // If there is no color specified for that arc, we provide a black fallback.
       arcsElements.push(<path d={currentArcPath} style={{ fill: this.colors[i] ? this.colors[i] : '#000000' }}/>);
     }
+
+    const textElements = this.showLabels ? givenThresholds.map(threshold => {
+        const thresholdPercentage = this.calculateValuePercentage(threshold);
+        const thetaRad = this.percToRad(thresholdPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
+        const topX = halvedSize - needleLength * Math.cos(thetaRad);
+        const topY = halvedSize - needleLength * Math.sin(thetaRad);
+        return <text
+          class="gauge__value-text"
+          text-anchor="middle"
+          x={topX}
+          y={topY}>{threshold + ' ' + this.measurementUnit}</text>
+      })
+      : [];
 
     return [
       <div>
@@ -190,6 +204,7 @@ export class KupGauge {
             class="gauge__needle"
             d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
           />
+          {textElements}
         </svg>
       </div>,
       <div class="gauge__bottom-container">
