@@ -6,7 +6,7 @@ import { getColorFromString } from './kup-graphic-cell-helper';
     tag: 'kup-graphic-cell',
     shadow: true,
 })
-export class KetchupDataTable {
+export class KupGraphicCell {
     @Prop()
     value: string;
 

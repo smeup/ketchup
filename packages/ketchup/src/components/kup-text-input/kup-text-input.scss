@@ -11,6 +11,7 @@ $lateral-padding: 6px;
 * @prop --int_icon-color, --kup-text-input_icon-color: Set icon color
 * @prop --int_icon-color--hover, --kup-text-input_icon-color--hover: Set icon color when hovered
 * @prop --int_placeholder-color, --kup-text-input_placeholder-color: Set placeholder text color
+* @prop --int_background-color, --kup-text-input_background-color: Sets the background color of the input text
 */
 
 :host {
@@ -29,6 +30,7 @@ $lateral-padding: 6px;
     #{darken($gray-80, 10)}
   );
   --int_placeholder-color: var(--kup-text-input_placeholder-color, #bebebe);
+  --int_background-color: var(--kup-text-input_background-color, transparent);
 
   // Style
   display: inline-block;
@@ -52,7 +54,7 @@ label {
 
   // Style of the input
   color: var(--int_color);
-  background-color: #ffffff;
+  background-color: var(--int_background-color);
   border: 1px solid var(--int_border-color);
   border-radius: 2px;
   box-sizing: border-box;
