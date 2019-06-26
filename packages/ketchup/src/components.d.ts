@@ -307,25 +307,95 @@ export namespace Components {
   }
 
   interface KupGauge {
+    /**
+    * Sets how much the arc of the gauge should be thick.
+    */
+    'arcThickness': number;
+    /**
+    * Array of three elements to specify the color of the arcs.
+    */
     'colors': string[];
+    /**
+    * The first threshold, establishing the length of the first and second arc.
+    */
     'firstThreshold': number;
+    /**
+    * The maximum value reachable in the current graph.
+    */
     'maxValue': number;
+    /**
+    * A string which will be appended to the displayed values of the component.
+    */
+    'measurementUnit': string;
+    /**
+    * The minimum value reachable in the current graph.
+    */
     'minValue': number;
+    /**
+    * The second threshold, establishing the length of the second and third arc.
+    */
     'secondThreshold': number;
+    /**
+    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    */
     'showLabels': boolean;
-    'showValues': boolean;
+    /**
+    * If set to false, the current value of the gauge is not displayed.
+    */
+    'showValue': boolean;
+    /**
+    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+    */
     'size': number;
+    /**
+    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+    */
     'value': number;
   }
   interface KupGaugeAttributes extends StencilHTMLAttributes {
+    /**
+    * Sets how much the arc of the gauge should be thick.
+    */
+    'arcThickness'?: number;
+    /**
+    * Array of three elements to specify the color of the arcs.
+    */
     'colors'?: string[];
+    /**
+    * The first threshold, establishing the length of the first and second arc.
+    */
     'firstThreshold'?: number;
+    /**
+    * The maximum value reachable in the current graph.
+    */
     'maxValue'?: number;
+    /**
+    * A string which will be appended to the displayed values of the component.
+    */
+    'measurementUnit'?: string;
+    /**
+    * The minimum value reachable in the current graph.
+    */
     'minValue'?: number;
+    /**
+    * The second threshold, establishing the length of the second and third arc.
+    */
     'secondThreshold'?: number;
+    /**
+    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    */
     'showLabels'?: boolean;
-    'showValues'?: boolean;
+    /**
+    * If set to false, the current value of the gauge is not displayed.
+    */
+    'showValue'?: boolean;
+    /**
+    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+    */
     'size'?: number;
+    /**
+    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+    */
     'value'?: number;
   }
 

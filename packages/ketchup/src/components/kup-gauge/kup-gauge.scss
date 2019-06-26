@@ -12,16 +12,21 @@
     width: 100%;
   }
 
-  p {
-    font-size: 16px;
-    margin: 12px 0 0;
-    text-align: center;
-    width: 100%;
-  }
+  .gauge {
+    &__value-text  {
+      font-size: 16px;
+      text-align: center;
+    }
 
-  circle,
-  .needle {
-    fill: var(--gau_needle-color);
+    &__needle-base,
+    &__needle {
+      fill: var(--gau_needle-color);
+    }
+
+    &__bottom-container {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
