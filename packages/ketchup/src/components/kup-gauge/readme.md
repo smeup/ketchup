@@ -1,5 +1,17 @@
 # kup-gauge
 
+## Usage
+
+Currently, this component depends on the two following scripts:
+```javascript
+<script src="https://d3js.org/d3-path.v1.min.js"></script>
+<script src="https://d3js.org/d3-shape.v1.min.js"></script>
+```
+
+These scripts must be included into the head tag of the page before including Stencil project.
+
+Our intention is to remove these dependencies as soon as possible.
+
 ### Useful references for this component
 
 https://codepen.io/enxaneta/pen/EVYRJJ

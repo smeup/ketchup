@@ -11,13 +11,13 @@ export class KupGauge {
 
   @Prop() colors: string[] = ['red', 'yellow', 'green'];
 
-  @Prop() firstThreshold: number = 0;
+  @Prop() firstThreshold: number = -50;
 
-  @Prop() maxValue: number = 0;
+  @Prop() maxValue: number = 100;
 
-  @Prop() minValue: number = 0;
+  @Prop() minValue: number = -100;
 
-  @Prop() secondThreshold: number = 0;
+  @Prop() secondThreshold: number = 50;
 
   @Prop() showValues: boolean = true;
 
@@ -45,6 +45,7 @@ export class KupGauge {
   private arc2 = d3.arc();
   private arc3 = d3.arc();
   private arcThickness = 30;
+  private maxValuePositive = 0;
 
   componentWillLoad() {
     console.log("this is the", d3);
@@ -63,6 +64,10 @@ export class KupGauge {
   degToRad(deg) {
     return deg * Math.PI / 180;
   };
+
+  calculateValuePercentage(valueToPercentage: number = 0): number {
+    return (valueToPercentage - this.minValue) / this.maxValuePositive;
+  }
 
   /**
    * Provided all the necessary data, returns the string necessary for a <path/> element to build the gauge needle.
@@ -96,7 +101,10 @@ export class KupGauge {
     console.log(next_start, arcEndRad, arcStartRad);
     */
 
-    // mathematic operations
+    // mathematics operations
+    this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
+    const firstThresholdPercentage = this.calculateValuePercentage(this.firstThreshold) * Math.PI; //Math.PI / 3
+    const secondThresholdPercentage = this.calculateValuePercentage(this.secondThreshold) * Math.PI; // Math.PI / 3 * 2
 
     // Svg constants
     const halvedSize = this.size / 2; // The svg size ratio w : w / 2
@@ -107,18 +115,18 @@ export class KupGauge {
       innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
       startAngle: 0,
-      endAngle: Math.PI / 3
+      endAngle: firstThresholdPercentage
     });
     const a2 = this.arc2({
       innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
-      startAngle: Math.PI / 3,
-      endAngle: Math.PI / 3 * 2
+      startAngle: firstThresholdPercentage,
+      endAngle: secondThresholdPercentage
     });
     const a3 = this.arc3({
       innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
-      startAngle: Math.PI / 3 * 2,
+      startAngle: secondThresholdPercentage,
       endAngle: Math.PI
     });
 
@@ -140,7 +148,7 @@ export class KupGauge {
             r={needleCircleRadius}/>
           <path
             class="needle"
-            d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.value)}
+            d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
           />
         </svg>
       </div>,
