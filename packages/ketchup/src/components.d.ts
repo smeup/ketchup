@@ -320,6 +320,10 @@ export namespace Components {
     */
     'firstThreshold'?: number;
     /**
+    * The distance the label and the value has from the gauge graph.
+    */
+    'labelDistance': number;
+    /**
     * The maximum value reachable in the current graph.
     */
     'maxValue': number;
@@ -348,10 +352,6 @@ export namespace Components {
     */
     'size': number;
     /**
-    * Sets the font size for the texts inside the svg. Used because SVG <text> element does not support css font size.
-    */
-    'svgFontSize': string;
-    /**
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */
     'value': number;
@@ -369,6 +369,10 @@ export namespace Components {
     * The first threshold, establishing the length of the first and second arc.
     */
     'firstThreshold'?: number;
+    /**
+    * The distance the label and the value has from the gauge graph.
+    */
+    'labelDistance'?: number;
     /**
     * The maximum value reachable in the current graph.
     */
@@ -397,10 +401,6 @@ export namespace Components {
     * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
     */
     'size'?: number;
-    /**
-    * Sets the font size for the texts inside the svg. Used because SVG <text> element does not support css font size.
-    */
-    'svgFontSize'?: string;
     /**
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */

@@ -23,6 +23,10 @@ export class KupGauge {
    */
   @Prop() firstThreshold?: number;
   /**
+   * The distance the label and the value has from the gauge graph.
+   */
+  @Prop() labelDistance: number = 20;
+  /**
    * The maximum value reachable in the current graph.
    */
   @Prop() maxValue: number = 100;
@@ -39,45 +43,30 @@ export class KupGauge {
    */
   @Prop() secondThreshold?: number;
   /**
-   * If set to false, the current value of the gauge is not displayed.
-   */
-  @Prop() showValue: boolean = true;
-  /**
    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
    */
   @Prop() showLabels: boolean = true;
+  /**
+   * If set to false, the current value of the gauge is not displayed.
+   */
+  @Prop() showValue: boolean = true;
   /**
    * Con be used change the viewbox of the SVG.
    * By manipulating this value, some customizations of the aspect of the gauge is achievable.
    * @namespace kup-gauge.size
    * @see kup-gauge.arcThickness
    */
-  @Prop() size: number = 200;
+  @Prop() size: number = 300;
   /**
    * The current value of the gauge.
    * The gauge's needle points to the percentage based on this prop.
    */
   @Prop() value: number = 0;
 
-  /*
-  Da prop: Valore, Max, Min, Soglia1 e Soglia2, Inversione colori, Mostra il valore, Mostra etichette.
-
-  Da JSON: Valore, Max, Min, Soglia1 e Soglia2
-
-  Non ha eventi.
-
-  */
-
   //---- Internal not reactive state ----
 
-  // Arcs generators
+  // Arcs generator
   private arcGenerator = d3.arc();
-  // Arc constants
-  /*private arcHelpers = {
-    end: Math.PI,
-    start: 0
-  }*/
-
 
   /**
    * Holds the maximum positive interval.
@@ -136,11 +125,6 @@ export class KupGauge {
     return "M " + leftX + " " + leftY + " L " + topX + " " + topY + " L " + rightX + " " + rightY;
   }
 
-  //---- Rendering functions ----
-  valueTextFactory(text) {
-    return <span class="gauge__value-text">{text + (this.measurementUnit ? ' ' + this.measurementUnit : '') }</span>;
-  }
-
   render() {
     // mathematical operations
     this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
@@ -149,6 +133,7 @@ export class KupGauge {
     const halvedSize = this.size / 2; // The svg size ratio w : w / 2
     const needleCircleRadius = this.size / 16; // Arbitrary size of the base of the needle
     const needleLength = halvedSize - this.arcThickness / 2; // Calculates the length of the needle in pure units
+    const valueLabelYPosition = halvedSize + needleCircleRadius + this.labelDistance * 1;
 
     // User provided thresholds
     // TODO these thresholds will be given to the component by a user prop
@@ -176,22 +161,32 @@ export class KupGauge {
       arcsElements.push(<path d={currentArcPath} style={{ fill: this.colors[i] ? this.colors[i] : '#000000' }}/>);
     }
 
-    const textElements = this.showLabels ? givenThresholds.map(threshold => {
+    const textElements = this.showLabels ? arcsThresholds.map(threshold => {
         const thresholdPercentage = this.calculateValuePercentage(threshold);
         const thetaRad = this.percToRad(thresholdPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
-        const topX = halvedSize - needleLength * Math.cos(thetaRad);
-        const topY = halvedSize - needleLength * Math.sin(thetaRad);
+        // Decides the position of the text
+        // @see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+        let textPosition = 'end';
+        if (thresholdPercentage > .5) {
+          textPosition = 'start';
+        } else if (thresholdPercentage === .5) {
+          textPosition = 'middle';
+        }
+        const topX = halvedSize - (needleLength + this.labelDistance) * Math.cos(thetaRad);
+        const topY = halvedSize - (needleLength + this.labelDistance) * Math.sin(thetaRad);
         return <text
-          class="gauge__value-text"
-          text-anchor="middle"
+          class="gauge__label-text"
+          text-anchor={textPosition}
           x={topX}
           y={topY}>{threshold + ' ' + this.measurementUnit}</text>
       })
       : [];
 
-    return [
-      <div>
-        <svg viewBox={`0 0 ${this.size} ${halvedSize + needleCircleRadius}`}>
+    return (
+      <div class="gauge__container">
+        <svg
+          class="gauge"
+          viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}>
           <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
             {arcsElements}
           </g>
@@ -205,13 +200,15 @@ export class KupGauge {
             d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
           />
           {textElements}
+          {this.showValue ?
+            <text
+              class="gauge__value-text"
+              text-anchor="middle"
+              x={halvedSize}
+              y={valueLabelYPosition}>{this.value + ' ' + this.measurementUnit}</text>
+            : null}
         </svg>
-      </div>,
-      <div class="gauge__bottom-container">
-        {this.showLabels ? this.valueTextFactory(this.minValue): null}
-        {this.showValue ? this.valueTextFactory(this.value): null}
-        {this.showLabels ? this.valueTextFactory(this.maxValue): null}
       </div>
-    ];
+    );
   }
 }

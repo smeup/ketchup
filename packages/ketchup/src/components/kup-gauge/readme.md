@@ -38,7 +38,32 @@ https://stackoverflow.com/questions/26882177/react-js-inline-style-best-practice
 http://www.pindari.com/svg-arc.html
 http://bl.ocks.org/msqr/3202712
 
+##### Idea for creating dynamic margin for correct visualization of the labels
 
+```javascript
+  // Gauge ref
+  private gaugeRef: SVGElement;
+  //---- LifeCycle hooks ----
+  componentDidLoad() {
+    this.setComponentPadding();
+  }
+  
+  componentDidUpdate() {
+    this.setComponentPadding();
+  }
+
+  //---- Rendering functions ----
+  setComponentPadding() {
+    console.log("si è aggiornato", this.gaugeRef);
+    const allTexts = this.gaugeRef.querySelectorAll('text');
+    // Searches all text elements and compares their length
+    // The longest element width gets set to the left and right of the component's padding
+    // The height of one of the labels gets added on the padding-top
+  }
+
+  // Inside the render function on the svg element
+  ref={(el) => this.gaugeRef = el as SVGElement}
+```
 
 <!-- Auto Generated Below -->
 
@@ -49,14 +74,15 @@ http://bl.ocks.org/msqr/3202712
 | ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ---------------------------- |
 | `arcThickness`    | `arc-thickness`    | Sets how much the arc of the gauge should be thick.                                                                                  | `number`   | `30`                         |
 | `colors`          | --                 | Array of three elements to specify the color of the arcs.                                                                            | `string[]` | `['red', 'yellow', 'green']` |
-| `firstThreshold`  | `first-threshold`  | The first threshold, establishing the length of the first and second arc.                                                            | `number`   | `-50`                        |
+| `firstThreshold`  | `first-threshold`  | The first threshold, establishing the length of the first and second arc.                                                            | `number`   | `undefined`                  |
+| `labelDistance`   | `label-distance`   | The distance the label and the value has from the gauge graph.                                                                       | `number`   | `20`                         |
 | `maxValue`        | `max-value`        | The maximum value reachable in the current graph.                                                                                    | `number`   | `100`                        |
 | `measurementUnit` | `measurement-unit` | A string which will be appended to the displayed values of the component.                                                            | `string`   | `''`                         |
 | `minValue`        | `min-value`        | The minimum value reachable in the current graph.                                                                                    | `number`   | `-100`                       |
-| `secondThreshold` | `second-threshold` | The second threshold, establishing the length of the second and third arc.                                                           | `number`   | `50`                         |
+| `secondThreshold` | `second-threshold` | The second threshold, establishing the length of the second and third arc.                                                           | `number`   | `undefined`                  |
 | `showLabels`      | `show-labels`      | If set to false, the maximum, minimum and threshold values of the gauge are not displayed.                                           | `boolean`  | `true`                       |
 | `showValue`       | `show-value`       | If set to false, the current value of the gauge is not displayed.                                                                    | `boolean`  | `true`                       |
-| `size`            | `size`             | Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable. | `number`   | `200`                        |
+| `size`            | `size`             | Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable. | `number`   | `300`                        |
 | `value`           | `value`            | The current value of the gauge. The gauge's needle points to the percentage based on this prop.                                      | `number`   | `0`                          |
 
 

@@ -7,12 +7,19 @@
 
   display: inline-block;
 
-  svg {
-    height: auto;
-    width: 100%;
-  }
-
   .gauge {
+    /*
+     * [1] - This overflow visible here is necessary to allow the numbers of the thresholds to be visible even when placed outside
+     *   the main borders of the svg.
+     */
+    height: auto;
+    overflow: visible; // [1]
+    width: 100%;
+
+    &__container {
+      padding: 30px 30px 0;
+    }
+
     &__label-text,
     &__value-text  {
       font-size: 16px;
