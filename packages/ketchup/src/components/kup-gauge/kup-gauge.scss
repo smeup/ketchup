@@ -1,4 +1,10 @@
+/**
+* @prop --gau_needle-color, --kup-gauge_needle-color: Set icon color of the needle
+*/
+
 :host {
+  --gau_needle-color: var(--kup-gauge_needle-color, #000000);
+
   display: inline-block;
 
   svg {
@@ -15,7 +21,7 @@
 
   circle,
   .needle {
-    fill: black;
+    fill: var(--gau_needle-color);
   }
 }
 

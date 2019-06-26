@@ -44,6 +44,7 @@ export class KupGauge {
   private arc1 = d3.arc();
   private arc2 = d3.arc();
   private arc3 = d3.arc();
+  private arcThickness = 30;
 
   componentWillLoad() {
     console.log("this is the", d3);
@@ -63,9 +64,18 @@ export class KupGauge {
     return deg * Math.PI / 180;
   };
 
-  paintNeedle(needleLength: number, needleBaseRadius: number, centerX: number, centerY: number) {
+  /**
+   * Provided all the necessary data, returns the string necessary for a <path/> element to build the gauge needle.
+   * @param needleLength - A pure number of viewbox units indicating the needle lenght.
+   * @param needleBaseRadius - Sets the needle radius in viewbox units.
+   * @param centerX - X coordinate of the center of the base needle.
+   * @param centerY - Y coordinate of the center of the base needle.
+   * @param rotationPercentage {number} - A percentage number setting the current rotation of the needle. (0 < rotationPercentage < 1)
+   * @returns {string}
+   */
+  paintNeedle(needleLength: number, needleBaseRadius: number, centerX: number, centerY: number, rotationPercentage: number = 0): string {
     let leftX, leftY, rightX, rightY, thetaRad, topX, topY;
-    thetaRad = 0; //percToRad(perc / 2);
+    thetaRad = this.percToRad(rotationPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half
     topX = centerX - needleLength * Math.cos(thetaRad);
     topY = centerY - needleLength * Math.sin(thetaRad);
     leftX = centerX - needleBaseRadius * Math.cos(thetaRad - Math.PI / 2);
@@ -85,24 +95,28 @@ export class KupGauge {
 
     console.log(next_start, arcEndRad, arcStartRad);
     */
-    const halvedSize = this.size / 2;
-    const needleCircleRadius = this.size / 16;
-    const needleLenght = halvedSize - 15;
+
+    // mathematic operations
+
+    // Svg constants
+    const halvedSize = this.size / 2; // The svg size ratio w : w / 2
+    const needleCircleRadius = this.size / 16; // Arbitrary size of the base of the needle
+    const needleLength = halvedSize - this.arcThickness / 2; // Calculates the length of the needle in pure units
 
     const a1 = this.arc1({
-      innerRadius: halvedSize - 30,
+      innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
       startAngle: 0,
       endAngle: Math.PI / 3
     });
     const a2 = this.arc2({
-      innerRadius: halvedSize - 30,
+      innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
       startAngle: Math.PI / 3,
       endAngle: Math.PI / 3 * 2
     });
     const a3 = this.arc3({
-      innerRadius: halvedSize - 30,
+      innerRadius: halvedSize - this.arcThickness,
       outerRadius: halvedSize,
       startAngle: Math.PI / 3 * 2,
       endAngle: Math.PI
@@ -114,7 +128,7 @@ export class KupGauge {
       <div
         // ref={(el) => (this.gaugeContainer = el as HTMLDivElement)}
       >
-        <svg viewBox={`0 0 ${this.size} ${halvedSize}`}>
+        <svg viewBox={`0 0 ${this.size} ${halvedSize + needleCircleRadius}`}>
           <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
             <path d={a1} style={{ fill: this.colors[0] }}/>
             <path d={a2} style={{ fill: this.colors[1] }}/>
@@ -122,11 +136,11 @@ export class KupGauge {
           </g>
           <circle
             cx={halvedSize}
-            cy={halvedSize - needleCircleRadius}
+            cy={halvedSize}
             r={needleCircleRadius}/>
           <path
             class="needle"
-            d={this.paintNeedle(needleLenght, needleCircleRadius, halvedSize, halvedSize - needleCircleRadius)}
+            d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.value)}
           />
         </svg>
       </div>,

@@ -46,6 +46,13 @@ http://bl.ocks.org/msqr/3202712
 | `value`           | `value`            |             | `number`   | `0`                          |
 
 
+## CSS Custom Properties
+
+| Name                                           | Description                  |
+| ---------------------------------------------- | ---------------------------- |
+| `--gau_needle-color, --kup-gauge_needle-color` | Set icon color of the needle |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
