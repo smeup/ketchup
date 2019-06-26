@@ -4,6 +4,9 @@ import { sass } from '@stencil/sass';
 export const config: Config = {
     copy: [
         {
+            src: 'box.html',
+        },
+        {
             src: 'chart.html',
         },
         {

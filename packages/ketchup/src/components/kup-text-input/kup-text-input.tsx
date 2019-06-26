@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import { KetchupTextInputEvent } from './kup-text-input-declarations';
 import { generateUniqueId } from '../../utils/utils';
-import { GenericObject } from "../../types/GenericTypes";
+import { GenericObject } from '../../types/GenericTypes';
 
 import { debounceEvent } from '../../utils/helpers';
 
@@ -51,6 +51,10 @@ export class KupTextInput {
      * ketchupTextInputUpdated and ketchupTextInputSubmit.
      */
     @Prop() obj?: GenericObject;
+    /**
+     * text for input placeholder
+     */
+    @Prop() placeholder = '';
 
     @Watch('debounce')
     protected debounceChanged() {
@@ -108,8 +112,8 @@ export class KupTextInput {
             value: this.value,
             oldValue: oldValue,
             info: {
-                obj: this.obj
-            }
+                obj: this.obj,
+            },
         });
 
         setTimeout(() => this.triggerFocus(), 10);
@@ -125,8 +129,8 @@ export class KupTextInput {
                 value: this.value,
                 oldValue: this.value,
                 info: {
-                    obj: this.obj
-                }
+                    obj: this.obj,
+                },
             });
         }
     }
@@ -149,8 +153,8 @@ export class KupTextInput {
             value: target.value,
             oldValue: this.value,
             info: {
-                obj: this.obj
-            }
+                obj: this.obj,
+            },
         });
         this.value = target.value;
     }
@@ -172,8 +176,8 @@ export class KupTextInput {
             value: target.value,
             oldValue: this.value,
             info: {
-                obj: this.obj
-            }
+                obj: this.obj,
+            },
         });
         this.value = target.value;
     }
@@ -206,8 +210,8 @@ export class KupTextInput {
             value: target.value,
             oldValue: this.value,
             info: {
-                obj: this.obj
-            }
+                obj: this.obj,
+            },
         });
         this.value = target.value;
     }
@@ -248,6 +252,7 @@ export class KupTextInput {
                     onInput={this.onInputUpdated.bind(this)}
                     onFocus={this.onInputFocused.bind(this)}
                     onKeyDown={this.onKeyDown.bind(this)}
+                    placeholder={this.placeholder}
                 />
                 {this.isClearable ? (
                     <button

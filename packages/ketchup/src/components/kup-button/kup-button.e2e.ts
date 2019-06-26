@@ -192,7 +192,7 @@ describe('kup-button', () => {
 
         await page.waitForChanges();
 
-        const kupBtnClicked = await page.spyOnEvent('ketchupButtonClicked');
+        const kupBtnClicked = await page.spyOnEvent('kupButtonClicked');
 
         const button = await page.find('kup-button >>> button');
 

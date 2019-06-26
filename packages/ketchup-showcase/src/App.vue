@@ -69,6 +69,47 @@ export default {
     drawer: null,
     navigationSections: [
       {
+        title: 'Box',
+        routes: [
+          {
+            title: 'Basic',
+            to: {
+              name: 'boxBasic',
+            },
+          },
+          {
+            title: 'Buttons',
+            to: {
+              name: 'boxButtons',
+            },
+          },
+          {
+            title: 'Filters',
+            to: {
+              name: 'boxFilter',
+            },
+          },
+          {
+            title: 'Layout',
+            to: {
+              name: 'boxLayout',
+            },
+          },
+          {
+            title: 'Selection',
+            to: {
+              name: 'boxSel',
+            },
+          },
+          {
+            title: 'Sort',
+            to: {
+              name: 'boxSort',
+            },
+          },
+        ],
+      },
+      {
         title: 'Data Table',
         routes: [
           {
@@ -174,6 +215,12 @@ export default {
         title: `Dash`,
         to: {
           name: 'dash',
+        },
+      },
+      {
+        title: `Image`,
+        to: {
+          name: 'image',
         },
       },
       {

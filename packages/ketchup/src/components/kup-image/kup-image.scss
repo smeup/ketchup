@@ -1,0 +1,61 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+
+/**
+* @prop --int_badge-background-color, --kup-image_badge-background-color: badge background color
+* @prop --int_badge-color, --kup-image_badge-color: badge text color
+*/
+
+:host {
+  // variables
+  --int_badge-background-color: var(
+    --kup-image_badge-background-color,
+    #95a5a6
+  );
+  --int_badge-color: var(--kup-image_badge-color, #fff);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#image-wrapper {
+  position: relative;
+  display: inline-block;
+
+  .badge {
+    position: absolute;
+    background-color: var(--int_badge-background-color);
+    color: var(--int_badge-color);
+    padding: 1px 2px;
+    min-width: 20px;
+    max-width: 70%;
+    line-height: 14px;
+    font-size: 11px;
+    border-radius: 3px;
+    text-align: center;
+
+    &.top {
+      &Left {
+        top: -3px;
+        left: -4px;
+      }
+
+      &Right {
+        top: -3px;
+        right: -4px;
+      }
+    }
+
+    &.bottom {
+      &Left {
+        bottom: 3px;
+        left: -4px;
+      }
+
+      &Right {
+        bottom: 3px;
+        right: -4px;
+      }
+    }
+  }
+}

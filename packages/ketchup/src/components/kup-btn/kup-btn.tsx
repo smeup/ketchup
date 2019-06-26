@@ -80,7 +80,7 @@ export class KupBtn {
                                 buttonClass={btnClass}
                                 flat={this.config.flat}
                                 data-id={id++}
-                                onKetchupButtonClicked={(ev) =>
+                                onKupButtonClicked={(ev) =>
                                     this.onBtnClicked(ev)
                                 }
                                 align={this.config.align}

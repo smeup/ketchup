@@ -16,6 +16,7 @@
 | `label`        | `label`         | Label to describe the text-input clear button group                                                                                                                                         | `string`        | `''`        |
 | `maxLength`    | `max-length`    | The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp                                                                    | `number`        | `524288`    |
 | `obj`          | --              | A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit. | `GenericObject` | `undefined` |
+| `placeholder`  | `placeholder`   | text for input placeholder                                                                                                                                                                  | `string`        | `''`        |
 
 
 ## Events
@@ -51,6 +52,7 @@ Type: `void`
 | `--int_font-size, --kup-text-input_font-size`                 | Set height of the font and the svg icon         |
 | `--int_icon-color, --kup-text-input_icon-color`               | Set icon color                                  |
 | `--int_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |
+| `--int_placeholder-color, --kup-text-input_placeholder-color` | Set placeholder text color                      |
 | `--int_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
 
 
