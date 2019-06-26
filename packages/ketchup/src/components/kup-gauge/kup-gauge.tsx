@@ -21,7 +21,7 @@ export class KupGauge {
   /**
    * The first threshold, establishing the length of the first and second arc.
    */
-  @Prop() firstThreshold: number = -50;
+  @Prop() firstThreshold?: number;
   /**
    * The maximum value reachable in the current graph.
    */
@@ -37,7 +37,7 @@ export class KupGauge {
   /**
    * The second threshold, establishing the length of the second and third arc.
    */
-  @Prop() secondThreshold: number = 50;
+  @Prop() secondThreshold?: number;
   /**
    * If set to false, the current value of the gauge is not displayed.
    */
@@ -71,9 +71,13 @@ export class KupGauge {
   //---- Internal not reactive state ----
 
   // Arcs generators
-  private arc1 = d3.arc();
-  private arc2 = d3.arc();
-  private arc3 = d3.arc();
+  private arcGenerator = d3.arc();
+  // Arc constants
+  /*private arcHelpers = {
+    end: Math.PI,
+    start: 0
+  }*/
+
 
   /**
    * Holds the maximum positive interval.
@@ -84,6 +88,7 @@ export class KupGauge {
    * @namespace kup-gauge.maxValuePositive
    */
   private maxValuePositive = 0;
+
 
   //---- Utility functions ----
   // Manipulates and transforms degrees to percentage and vice versa.
@@ -109,6 +114,7 @@ export class KupGauge {
     return (valueToPercentage - this.minValue) / this.maxValuePositive;
   }
 
+  //---- Rendering functions ----
   /**
    * Provided all the necessary data, returns the string necessary for a <path/> element to build the gauge needle.
    * @param needleLength - A pure number of viewbox units indicating the needle lenght.
@@ -138,42 +144,42 @@ export class KupGauge {
   render() {
     // mathematical operations
     this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
-    const firstThresholdPercentage = this.calculateValuePercentage(this.firstThreshold) * Math.PI; //Math.PI / 3
-    const secondThresholdPercentage = this.calculateValuePercentage(this.secondThreshold) * Math.PI; // Math.PI / 3 * 2
 
     // Svg constants
     const halvedSize = this.size / 2; // The svg size ratio w : w / 2
     const needleCircleRadius = this.size / 16; // Arbitrary size of the base of the needle
     const needleLength = halvedSize - this.arcThickness / 2; // Calculates the length of the needle in pure units
 
-    const a1 = this.arc1({
-      innerRadius: halvedSize - this.arcThickness,
-      outerRadius: halvedSize,
-      startAngle: 0,
-      endAngle: firstThresholdPercentage
-    });
-    const a2 = this.arc2({
-      innerRadius: halvedSize - this.arcThickness,
-      outerRadius: halvedSize,
-      startAngle: firstThresholdPercentage,
-      endAngle: secondThresholdPercentage
-    });
-    const a3 = this.arc3({
-      innerRadius: halvedSize - this.arcThickness,
-      outerRadius: halvedSize,
-      startAngle: secondThresholdPercentage,
-      endAngle: Math.PI
-    });
+    // This creates the various point from which the arcs are generated
+    // TODO support this thing better by using an array of thresholds
+    const arcsThresholds = [];
+    arcsThresholds.push(this.minValue);
+    if (this.firstThreshold) {
+      arcsThresholds.push(this.firstThreshold);
+    }
+    if (this.secondThreshold) {
+      arcsThresholds.push(this.secondThreshold);
+    }
+    arcsThresholds.push(this.maxValue);
 
-    console.log(a1, halvedSize)
+    // Creates arc elements
+    const arcsElements = [];
+    for (let i = 0; i < arcsThresholds.length - 1; i++) {
+      const currentArcPath = this.arcGenerator({
+        innerRadius: halvedSize - this.arcThickness,
+        outerRadius: halvedSize,
+        startAngle: this.calculateValuePercentage(arcsThresholds[i]) * Math.PI,
+        endAngle: this.calculateValuePercentage(arcsThresholds[i + 1]) * Math.PI
+      });
+      // If there is no color specified for that arc, we provide a black fallback.
+      arcsElements.push(<path d={currentArcPath} style={{ fill: this.colors[i] ? this.colors[i] : '#000000' }}/>);
+    }
 
     return [
       <div>
         <svg viewBox={`0 0 ${this.size} ${halvedSize + needleCircleRadius}`}>
           <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
-            <path d={a1} style={{ fill: this.colors[0] }}/>
-            <path d={a2} style={{ fill: this.colors[1] }}/>
-            <path d={a3} style={{ fill: this.colors[2] }}/>
+            {arcsElements}
           </g>
           <circle
             class="gauge__needle-base"

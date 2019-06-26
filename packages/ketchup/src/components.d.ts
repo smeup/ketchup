@@ -318,7 +318,7 @@ export namespace Components {
     /**
     * The first threshold, establishing the length of the first and second arc.
     */
-    'firstThreshold': number;
+    'firstThreshold'?: number;
     /**
     * The maximum value reachable in the current graph.
     */
@@ -334,7 +334,7 @@ export namespace Components {
     /**
     * The second threshold, establishing the length of the second and third arc.
     */
-    'secondThreshold': number;
+    'secondThreshold'?: number;
     /**
     * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
     */
