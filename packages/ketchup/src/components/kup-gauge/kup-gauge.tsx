@@ -39,6 +39,10 @@ export class KupGauge {
    */
   @Prop() minValue: number = -100;
   /**
+   * If set to true, the colors inside the colors array are used in the reversed order.
+   */
+  @Prop() reverseColors: boolean = false;
+  /**
    * The second threshold, establishing the length of the second and third arc.
    */
   @Prop() secondThreshold?: number;
@@ -148,8 +152,9 @@ export class KupGauge {
     // This creates the various point from which the arcs are generated
     const arcsThresholds = [this.minValue, ...givenThresholds, this.maxValue];
 
-    // Creates arc elements
+    // Creates arc elements and chooses their color orders
     const arcsElements = [];
+    const arcsColors = !this.reverseColors ? this.colors : this.colors.reverse();
     for (let i = 0; i < arcsThresholds.length - 1; i++) {
       const currentArcPath = this.arcGenerator({
         innerRadius: halvedSize - this.arcThickness,
@@ -157,8 +162,8 @@ export class KupGauge {
         startAngle: this.calculateValuePercentage(arcsThresholds[i]) * Math.PI,
         endAngle: this.calculateValuePercentage(arcsThresholds[i + 1]) * Math.PI
       });
-      // If there is no color specified for that arc, we provide a black fallback.
-      arcsElements.push(<path d={currentArcPath} style={{ fill: this.colors[i] ? this.colors[i] : '#000000' }}/>);
+      // If there is no color specified for that arc, we provide a black fallback
+      arcsElements.push(<path d={currentArcPath} style={{ fill: arcsColors[i] ? arcsColors[i] : '#000000' }}/>);
     }
 
     // Composes the threshold label elements, if labels must be displayed
