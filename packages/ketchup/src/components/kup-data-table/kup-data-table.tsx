@@ -346,19 +346,19 @@ export class KupDataTable {
     }
 
     private initRows(): void {
-        const filteredRows = this.getFilteredRows();
+        this.filterRows();
 
-        const sortedRows = this.sortRows(filteredRows);
+        this.footer = calcTotals(this.rows, this.totals);
 
-        this.footer = calcTotals(sortedRows, this.totals);
+        this.groupRows();
 
-        this.rows = this.groupRows(sortedRows);
+        this.sortRows();
 
         this.paginatedRows = this.paginateRows(this.rows);
     }
 
-    private getFilteredRows(): Array<any> {
-        return filterRows(
+    private filterRows(): void {
+        this.rows = filterRows(
             this.getRows(),
             this.filters,
             this.globalFilterValue,
@@ -656,25 +656,32 @@ export class KupDataTable {
     }
 
     // utility methods
-    private groupRows(rows: Array<any>): Array<Row> {
+    private groupRows(): void {
         if (!this.isGrouping()) {
-            return rows;
+            return;
         }
 
-        const groupedRows = groupRows(rows, this.groups, this.totals);
+        this.rows = groupRows(
+            this.getColumns(),
+            this.rows,
+            this.groups,
+            this.totals
+        );
 
-        this.adjustGroupState(groupedRows);
-
-        return groupedRows;
+        this.adjustGroupState();
     }
 
-    private adjustGroupState(rows: Array<Row>): void {
-        if (!rows || rows.length === 0 || !rows[0].hasOwnProperty('group')) {
+    private adjustGroupState(): void {
+        if (
+            !this.rows ||
+            this.rows.length === 0 ||
+            !this.rows[0].hasOwnProperty('group')
+        ) {
             // no grouping
             return;
         }
 
-        rows.forEach((r) => this.adjustGroupStateFromRow(r));
+        this.rows.forEach((r) => this.adjustGroupStateFromRow(r));
     }
 
     private adjustGroupStateFromRow(row: Row): void {
@@ -699,8 +706,8 @@ export class KupDataTable {
         group.children.forEach((child) => this.adjustGroupStateFromRow(child));
     }
 
-    private sortRows(rows: Array<any>): Array<any> {
-        return sortRows(rows, this.sort);
+    private sortRows(): void {
+        this.rows = sortRows(this.rows, this.sort);
     }
 
     private paginateRows(rows: Array<any>): Array<any> {
