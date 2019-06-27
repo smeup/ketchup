@@ -1,9 +1,15 @@
 /**
-* @prop --gau_needle-color, --kup-gauge_needle-color: Set icon color of the needle
+* @prop --gau_needle-color, --kup-gauge_needle-color: Sets color of the needle.
+* @prop --gau_top-lateral-padding, --kup-gauge_top-lateral-padding: Set a top and lateral padding for the svg to prevent threshold labels to overlap other elements.
+* @prop --gau_threshold-color, --kup-gauge_threshold-color: Sets the color of the threshold labels.
+* @prop --gau_value-color, --kup-gauge_value-color: Sets the color of the value label.
 */
 
 :host {
   --gau_needle-color: var(--kup-gauge_needle-color, #000000);
+  --gau_top-lateral-padding: var(--kup-gauge_top-lateral-padding, 30px);
+  --gau_threshold-color: var(--kup-gauge_threshold-color, #000000);
+  --gau_value-color: var(--kup-gauge_value-color, #000000);
 
   display: inline-block;
 
@@ -16,24 +22,27 @@
     overflow: visible; // [1]
     width: 100%;
 
+    // Div wrapping the SVG element
     &__container {
-      padding: 30px 30px 0;
+      padding: var(--gau_top-lateral-padding) var(--gau_top-lateral-padding) 0;
     }
 
-    &__label-text,
-    &__value-text  {
-      font-size: 16px;
+    // Class for the labels of the threshold
+    &__label-text {
+      fill: var(--gau_threshold-color);
       text-align: center;
     }
 
+    // Class for the value label
+    &__value-text {
+      fill: var(--gau_value-color);
+      text-align: center;
+    }
+
+    // Needle colors
     &__needle-base,
     &__needle {
       fill: var(--gau_needle-color);
-    }
-
-    &__bottom-container {
-      display: flex;
-      justify-content: space-between;
     }
   }
 }

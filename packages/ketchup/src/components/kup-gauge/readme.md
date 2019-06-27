@@ -12,6 +12,11 @@ These scripts must be included into the head tag of the page before including St
 
 Our intention is to remove these dependencies as soon as possible.
 
+##### Font size
+
+To specify the font size of the text elements of the SVG it's sufficient to set the `font-size` property on the
+component itself. This property will change the size of both the threshold and value labels.
+
 ### Useful references for this component
 
 https://codepen.io/enxaneta/pen/EVYRJJ
@@ -38,7 +43,9 @@ https://stackoverflow.com/questions/26882177/react-js-inline-style-best-practice
 http://www.pindari.com/svg-arc.html
 http://bl.ocks.org/msqr/3202712
 
-##### Idea for creating dynamic margin for correct visualization of the labels
+### Idea for creating dynamic margin for correct visualization of the labels
+
+Fundamentally, the main problem here is that that if 
 
 ```javascript
   // Gauge ref
@@ -88,9 +95,12 @@ http://bl.ocks.org/msqr/3202712
 
 ## CSS Custom Properties
 
-| Name                                           | Description                  |
-| ---------------------------------------------- | ---------------------------- |
-| `--gau_needle-color, --kup-gauge_needle-color` | Set icon color of the needle |
+| Name                                                         | Description                                                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `--gau_needle-color, --kup-gauge_needle-color`               | Sets color of the needle.                                                                        |
+| `--gau_threshold-color, --kup-gauge_threshold-color`         | Sets the color of the threshold labels.                                                          |
+| `--gau_top-lateral-padding, --kup-gauge_top-lateral-padding` | Set a top and lateral padding for the svg to prevent threshold labels to overlap other elements. |
+| `--gau_value-color, --kup-gauge_value-color`                 | Sets the color of the value label.                                                               |
 
 
 ----------------------------------------------

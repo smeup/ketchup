@@ -161,9 +161,10 @@ export class KupGauge {
       arcsElements.push(<path d={currentArcPath} style={{ fill: this.colors[i] ? this.colors[i] : '#000000' }}/>);
     }
 
+    // Composes the threshold label elements, if labels must be displayed
     const textElements = this.showLabels ? arcsThresholds.map(threshold => {
+      // Given the
         const thresholdPercentage = this.calculateValuePercentage(threshold);
-        const thetaRad = this.percToRad(thresholdPercentage / 2); // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
         // Decides the position of the text
         // @see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
         let textPosition = 'end';
@@ -172,6 +173,8 @@ export class KupGauge {
         } else if (thresholdPercentage === .5) {
           textPosition = 'middle';
         }
+        // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
+        const thetaRad = this.percToRad(thresholdPercentage / 2);
         const topX = halvedSize - (needleLength + this.labelDistance) * Math.cos(thetaRad);
         const topY = halvedSize - (needleLength + this.labelDistance) * Math.sin(thetaRad);
         return <text
