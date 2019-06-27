@@ -497,6 +497,8 @@ export const cellStyleDataTable = {
           style: {
             backgroundColor: 'blue',
             color: '#FFF',
+            borderRadius: '50px',
+            padding: '3px',
           },
         },
         FLD4: {

@@ -10,14 +10,20 @@ import {
     GroupObject,
     TotalMode,
     TotalsMap,
+    Column,
 } from './kup-data-table-declarations';
 
 export function sortRows(
     rows: Array<Row> = [],
     sort: Array<SortObject> = []
 ): Array<Row> {
-    if (!rows) {
+    if (!rows || rows.length === 0) {
         return [];
+    }
+
+    // check if row is group
+    if (rows[0].group) {
+        return sortGroupRows(rows, sort);
     }
 
     // sorting rows
@@ -49,30 +55,77 @@ export function sortRows(
     });
 }
 
-function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
-    if (r1.group) {
-        // sort children
-        r1.group.children = sortRows(r1.group.children);
-        r2.group.children = sortRows(r2.group.children);
-
-        // check if valid group
-        if (r1.group.column !== sortObj.column) {
-            return 0;
-        }
-
-        // comparing group
-        const group1 = r1.group.label;
-        const group2 = r2.group.label;
-
-        const sm = sortObj.sortMode === 'A' ? 1 : -1;
-
-        return sm * group1.localeCompare(group2);
-    } else {
-        const cell1: Cell = r1.cells[sortObj.column];
-        const cell2: Cell = r2.cells[sortObj.column];
-
-        return compareCell(cell1, cell2, sortObj.sortMode);
+function sortGroupRows(
+    rows: Array<Row> = [],
+    sort: Array<SortObject> = []
+): Array<Row> {
+    if (!rows || rows.length === 0) {
+        return [];
     }
+
+    // getting columm group
+    const groupColumn = rows[0].group.column;
+
+    // check if column is in sort
+    let sortObject = getSortOnColumn(groupColumn, sort);
+
+    if (!sortObject) {
+        sortObject = {
+            column: groupColumn,
+            sortMode: SortMode.A,
+        };
+    }
+
+    // sorting rows
+    rows.sort((r1, r2) => {
+        // creating fake cells
+        const cell1: Cell = {
+            obj: r1.group.obj,
+            value: r1.group.label,
+        };
+
+        const cell2: Cell = {
+            obj: r2.group.obj,
+            value: r2.group.label,
+        };
+
+        return compareCell(cell1, cell2, sortObject.sortMode);
+    });
+
+    // sorting children
+    rows.forEach((row) => {
+        row.group.children = sortRows(row.group.children, sort);
+    });
+
+    return rows;
+}
+
+function getSortOnColumn(
+    column: string = '',
+    sort: Array<SortObject> = []
+): SortObject {
+    if (!column || !sort || sort.length === 0) {
+        return null;
+    }
+
+    for (let sortObject of sort) {
+        if (sortObject.column === column) {
+            return sortObject;
+        }
+    }
+
+    return null;
+}
+
+function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
+    const cell1: Cell = r1.cells[sortObj.column];
+    const cell2: Cell = r2.cells[sortObj.column];
+
+    if (!cell1 || !cell2) {
+        return 0;
+    }
+
+    return compareCell(cell1, cell2, sortObj.sortMode);
 }
 
 export function filterRows(
@@ -155,15 +208,32 @@ export function filterRows(
 }
 
 export function groupRows(
-    rows: Array<Row> = [],
-    groups: Array<GroupObject> = [],
+    columns: Column[] = [],
+    rows: Row[] = [],
+    groups: GroupObject[] = [],
     totals: TotalsMap = {}
 ): Array<Row> {
     if (!rows) {
         return [];
     }
 
-    if (!groups || groups.length === 0) {
+    if (!groups || groups.length === 0 || !columns || columns.length === 0) {
+        return rows;
+    }
+
+    // remove invalid groups
+    const validGroups = groups.filter(({ column }) => {
+        for (let { name } of columns) {
+            if (name === column) {
+                return true;
+            }
+        }
+
+        return false;
+    });
+
+    if (validGroups.length === 0) {
+        // no valid groups
         return rows;
     }
 
@@ -172,16 +242,15 @@ export function groupRows(
 
     rows.forEach((row: Row) => {
         // getting column name from first group
-        const columnName = groups[0].column;
+        const columnName = validGroups[0].column;
 
         // getting row value
-        const cellValue = row.cells[columnName].value;
+        const cell = row.cells[columnName];
+        const cellValue = cell.value;
 
         // check in already in groupedRow
         let groupRow: Row = null;
-        for (let i = 0; i < groupRows.length; i++) {
-            const currentGroupRow = groupRows[i];
-
+        for (let currentGroupRow of groupRows) {
             if (currentGroupRow.group.label === cellValue) {
                 groupRow = currentGroupRow;
                 break;
@@ -198,6 +267,7 @@ export function groupRows(
                     expanded: false,
                     label: cellValue,
                     children: [],
+                    obj: cell.obj,
                     totals: {},
                 },
                 cells: {},
@@ -207,11 +277,12 @@ export function groupRows(
             groupRows.push(groupRow);
         }
 
-        for (let i = 1; i < groups.length; i++) {
-            const group = groups[i];
+        for (let i = 1; i < validGroups.length; i++) {
+            const group = validGroups[i];
 
             // getting cell value
-            const tempCellValue = row.cells[group.column].value;
+            const tempCell = row.cells[group.column];
+            const tempCellValue = tempCell.value;
 
             // check if group already exists
             let tempGroupingRow: Row = null;
@@ -236,6 +307,7 @@ export function groupRows(
                         expanded: false,
                         label: tempCellValue,
                         totals: {},
+                        obj: tempCell.obj,
                     },
                 };
                 adjustGroupId(tempGroupingRow);

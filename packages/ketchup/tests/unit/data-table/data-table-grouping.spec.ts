@@ -1,7 +1,30 @@
 import { groupRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-import { TotalMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import {
+    TotalMode,
+    Column,
+    Row,
+} from '../../../src/components/kup-data-table/kup-data-table-declarations';
 
-const rows = [
+const columns: Column[] = [
+    {
+        name: 'FLD1',
+        title: '',
+    },
+    {
+        name: 'FLD2',
+        title: '',
+    },
+    {
+        name: 'FLD3',
+        title: '',
+    },
+    {
+        name: 'FLD4',
+        title: '',
+    },
+];
+
+const rows: Row[] = [
     {
         cells: {
             FLD1: {
@@ -335,7 +358,7 @@ describe('it group rows', () => {
         expect(groups).toEqual([]);
     });
 
-    it('group with empty rows', () => {
+    it('group with empty columns', () => {
         let groups = groupRows(null);
 
         expect(groups).toEqual([]);
@@ -345,22 +368,45 @@ describe('it group rows', () => {
         expect(groups).toEqual([]);
     });
 
+    it('group with empty rows', () => {
+        let groups = groupRows(null, null);
+
+        expect(groups).toEqual([]);
+
+        groups = groupRows([]);
+
+        expect(groups).toEqual([]);
+    });
+
     it('if no / null / empty group, return rows as they are', () => {
-        let groups = groupRows(rows);
+        let groups = groupRows(columns, rows);
 
         expect(groups).toEqual(rows);
 
-        groups = groupRows(rows, null);
+        groups = groupRows(columns, rows, null);
 
         expect(groups).toEqual(rows);
 
-        groups = groupRows(rows, []);
+        groups = groupRows(columns, rows, []);
 
         expect(groups).toEqual(rows);
     });
 
+    it('group on invalid column', () => {
+        const groups = groupRows(columns, rows, [
+            { column: 'XXXX', visible: true },
+        ]);
+
+        expect(groups).toHaveLength(rows.length);
+
+        // no group rows
+        groups.forEach((row) => expect(row).not.toHaveProperty('group'));
+    });
+
     it('Grouping on FLD1', () => {
-        const groups = groupRows(rows, [{ column: 'FLD1', visible: true }]);
+        const groups = groupRows(columns, rows, [
+            { column: 'FLD1', visible: true },
+        ]);
 
         expect(groups).not.toEqual(rows);
 
@@ -422,7 +468,7 @@ describe('it group rows', () => {
     });
 
     it('Grouping on FLD1 and FLD2', () => {
-        const groups = groupRows(rows, [
+        const groups = groupRows(columns, rows, [
             { column: 'FLD1', visible: true },
             { column: 'FLD2', visible: true },
         ]);
@@ -524,9 +570,14 @@ describe('it group rows', () => {
 
 describe('single groups with totals', () => {
     it('Group on FLD1, count on FLD2', () => {
-        const groups = groupRows(rows, [{ column: 'FLD1', visible: true }], {
-            FLD2: TotalMode.COUNT,
-        });
+        const groups = groupRows(
+            columns,
+            rows,
+            [{ column: 'FLD1', visible: true }],
+            {
+                FLD2: TotalMode.COUNT,
+            }
+        );
 
         expect(groups).not.toEqual(rows);
 
@@ -544,9 +595,14 @@ describe('single groups with totals', () => {
     });
 
     it('Group on FLD1, sum on FLD4', () => {
-        const groups = groupRows(rows, [{ column: 'FLD1', visible: true }], {
-            FLD4: TotalMode.SUM,
-        });
+        const groups = groupRows(
+            columns,
+            rows,
+            [{ column: 'FLD1', visible: true }],
+            {
+                FLD4: TotalMode.SUM,
+            }
+        );
 
         expect(groups).not.toEqual(rows);
 
@@ -580,9 +636,14 @@ describe('single groups with totals', () => {
     });
 
     it('Group on FLD1, avarate on FLD4', () => {
-        const groups = groupRows(rows, [{ column: 'FLD1', visible: true }], {
-            FLD4: TotalMode.AVARAGE,
-        });
+        const groups = groupRows(
+            columns,
+            rows,
+            [{ column: 'FLD1', visible: true }],
+            {
+                FLD4: TotalMode.AVARAGE,
+            }
+        );
 
         expect(groups).not.toEqual(rows);
 
@@ -617,10 +678,15 @@ describe('single groups with totals', () => {
     });
 
     it('Group on FLD1, count on FLD1, avarage on FLD4', () => {
-        const groups = groupRows(rows, [{ column: 'FLD1', visible: true }], {
-            FLD1: TotalMode.COUNT,
-            FLD4: TotalMode.AVARAGE,
-        });
+        const groups = groupRows(
+            columns,
+            rows,
+            [{ column: 'FLD1', visible: true }],
+            {
+                FLD1: TotalMode.COUNT,
+                FLD4: TotalMode.AVARAGE,
+            }
+        );
 
         expect(groups).not.toEqual(rows);
 
@@ -661,6 +727,7 @@ describe('single groups with totals', () => {
 describe('multiple groups with totals', () => {
     it('Group on FLD1 and FLD2, count on FLD2', () => {
         const groups = groupRows(
+            columns,
             rows,
             [
                 { column: 'FLD1', visible: true },
@@ -701,6 +768,7 @@ describe('multiple groups with totals', () => {
 
     it('Group on FLD1 and FLD2, sum on FLD4', () => {
         const groups = groupRows(
+            columns,
             rows,
             [
                 { column: 'FLD1', visible: true },
@@ -760,6 +828,7 @@ describe('multiple groups with totals', () => {
 
     it('Group on FLD1 and FLD2, avarage on FLD4', () => {
         const groups = groupRows(
+            columns,
             rows,
             [
                 { column: 'FLD1', visible: true },
@@ -819,6 +888,7 @@ describe('multiple groups with totals', () => {
 
     it('Group on FLD1 and FLD2, count on FLD2 and avarage on FLD4', () => {
         const groups = groupRows(
+            columns,
             rows,
             [
                 { column: 'FLD1', visible: true },

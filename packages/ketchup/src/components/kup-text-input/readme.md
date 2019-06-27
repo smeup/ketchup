@@ -46,6 +46,7 @@ Type: `void`
 
 | Name                                                          | Description                                     |
 | ------------------------------------------------------------- | ----------------------------------------------- |
+| `--int_background-color, --kup-text-input_background-color`   | Sets the background color of the input text     |
 | `--int_border-color, --kup-text-input_border-color`           | Set normal border color of the input            |
 | `--int_border-color--selected, --kup-text-input_border-color` | Set color of the border when focused or hovered |
 | `--int_color, --kup-text-input_color`                         | Set color of text                               |

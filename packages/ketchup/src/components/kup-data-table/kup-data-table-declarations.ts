@@ -21,6 +21,11 @@ export interface Row {
         expanded: boolean; // not sure if this is needed
         label: string;
         children: Array<Row>;
+        obj: {
+            t: string;
+            p: string;
+            k: string;
+        };
         totals: { [index: string]: number };
     };
 }
