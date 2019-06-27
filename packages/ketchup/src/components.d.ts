@@ -338,6 +338,107 @@ export namespace Components {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
 
+  interface KupGauge {
+    /**
+    * Sets how much the arc of the gauge should be thick.
+    */
+    'arcThickness': number;
+    /**
+    * Array of three elements to specify the color of the arcs.
+    */
+    'colors': string[];
+    /**
+    * The first threshold, establishing the length of the first and second arc.
+    */
+    'firstThreshold'?: number;
+    /**
+    * The distance the label and the value has from the gauge graph.
+    */
+    'labelDistance': number;
+    /**
+    * The maximum value reachable in the current graph.
+    */
+    'maxValue': number;
+    /**
+    * A string which will be appended to the displayed values of the component.
+    */
+    'measurementUnit': string;
+    /**
+    * The minimum value reachable in the current graph.
+    */
+    'minValue': number;
+    /**
+    * The second threshold, establishing the length of the second and third arc.
+    */
+    'secondThreshold'?: number;
+    /**
+    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    */
+    'showLabels': boolean;
+    /**
+    * If set to false, the current value of the gauge is not displayed.
+    */
+    'showValue': boolean;
+    /**
+    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+    */
+    'size': number;
+    /**
+    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+    */
+    'value': number;
+  }
+  interface KupGaugeAttributes extends StencilHTMLAttributes {
+    /**
+    * Sets how much the arc of the gauge should be thick.
+    */
+    'arcThickness'?: number;
+    /**
+    * Array of three elements to specify the color of the arcs.
+    */
+    'colors'?: string[];
+    /**
+    * The first threshold, establishing the length of the first and second arc.
+    */
+    'firstThreshold'?: number;
+    /**
+    * The distance the label and the value has from the gauge graph.
+    */
+    'labelDistance'?: number;
+    /**
+    * The maximum value reachable in the current graph.
+    */
+    'maxValue'?: number;
+    /**
+    * A string which will be appended to the displayed values of the component.
+    */
+    'measurementUnit'?: string;
+    /**
+    * The minimum value reachable in the current graph.
+    */
+    'minValue'?: number;
+    /**
+    * The second threshold, establishing the length of the second and third arc.
+    */
+    'secondThreshold'?: number;
+    /**
+    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    */
+    'showLabels'?: boolean;
+    /**
+    * If set to false, the current value of the gauge is not displayed.
+    */
+    'showValue'?: boolean;
+    /**
+    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+    */
+    'size'?: number;
+    /**
+    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+    */
+    'value'?: number;
+  }
+
   interface KupGraphicCell {
     'height': number;
     'value': string;
@@ -690,6 +791,7 @@ declare global {
     'KupDash': Components.KupDash;
     'KupDataTable': Components.KupDataTable;
     'KupFld': Components.KupFld;
+    'KupGauge': Components.KupGauge;
     'KupGraphicCell': Components.KupGraphicCell;
     'KupHtml': Components.KupHtml;
     'KupImage': Components.KupImage;
@@ -710,6 +812,7 @@ declare global {
     'kup-dash': Components.KupDashAttributes;
     'kup-data-table': Components.KupDataTableAttributes;
     'kup-fld': Components.KupFldAttributes;
+    'kup-gauge': Components.KupGaugeAttributes;
     'kup-graphic-cell': Components.KupGraphicCellAttributes;
     'kup-html': Components.KupHtmlAttributes;
     'kup-image': Components.KupImageAttributes;
@@ -768,6 +871,12 @@ declare global {
   var HTMLKupFldElement: {
     prototype: HTMLKupFldElement;
     new (): HTMLKupFldElement;
+  };
+
+  interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {}
+  var HTMLKupGaugeElement: {
+    prototype: HTMLKupGaugeElement;
+    new (): HTMLKupGaugeElement;
   };
 
   interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {}
@@ -833,6 +942,7 @@ declare global {
     'kup-dash': HTMLKupDashElement
     'kup-data-table': HTMLKupDataTableElement
     'kup-fld': HTMLKupFldElement
+    'kup-gauge': HTMLKupGaugeElement
     'kup-graphic-cell': HTMLKupGraphicCellElement
     'kup-html': HTMLKupHtmlElement
     'kup-image': HTMLKupImageElement
@@ -853,6 +963,7 @@ declare global {
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
+    'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-image': HTMLKupImageElement;
