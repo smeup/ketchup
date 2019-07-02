@@ -154,7 +154,8 @@ export class KupGauge {
 
     // Creates arc elements and chooses their color orders
     const arcsElements = [];
-    const arcsColors = !this.reverseColors ? this.colors : this.colors.reverse();
+    const arcsColors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
+
     for (let i = 0; i < arcsThresholds.length - 1; i++) {
       const currentArcPath = this.arcGenerator({
         innerRadius: halvedSize - this.arcThickness,
