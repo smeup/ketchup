@@ -368,6 +368,10 @@ export namespace Components {
     */
     'minValue': number;
     /**
+    * If set to true, the colors inside the colors array are used in the reversed order.
+    */
+    'reverseColors': boolean;
+    /**
     * The second threshold, establishing the length of the second and third arc.
     */
     'secondThreshold'?: number;
@@ -417,6 +421,10 @@ export namespace Components {
     * The minimum value reachable in the current graph.
     */
     'minValue'?: number;
+    /**
+    * If set to true, the colors inside the colors array are used in the reversed order.
+    */
+    'reverseColors'?: boolean;
     /**
     * The second threshold, establishing the length of the second and third arc.
     */
