@@ -64,6 +64,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](..\kup-box)
+
 ### Depends on
 
 - [kup-text-input](..\kup-text-input)
@@ -75,6 +79,7 @@ graph TD;
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
+  kup-box --> kup-combo
   style kup-combo fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

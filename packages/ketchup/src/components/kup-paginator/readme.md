@@ -23,6 +23,14 @@
 | `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number; }>` |
 
 
+## CSS Custom Properties
+
+| Name                                           | Description          |
+| ---------------------------------------------- | -------------------- |
+| `--int_font-size, --kup-paginator_font-size`   | Set size of the font |
+| `--int_text-color, --kup-paginator_text-color` | Set color of text    |
+
+
 ## Dependencies
 
 ### Used by
@@ -35,14 +43,6 @@ graph TD;
   kup-data-table --> kup-paginator
   style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px
 ```
-
-## CSS Custom Properties
-
-| Name                                           | Description          |
-| ---------------------------------------------- | -------------------- |
-| `--int_font-size, --kup-paginator_font-size`   | Set size of the font |
-| `--int_text-color, --kup-paginator_text-color` | Set color of text    |
-
 
 ----------------------------------------------
 

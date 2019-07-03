@@ -60,6 +60,7 @@
 
 ### Used by
 
+ - [kup-box](..\kup-box)
  - [kup-btn](..\kup-btn)
  - [kup-data-table](..\kup-data-table)
  - [kup-fld](..\kup-fld)
@@ -68,6 +69,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-button
   kup-btn --> kup-button
   kup-data-table --> kup-button
   kup-fld --> kup-button
