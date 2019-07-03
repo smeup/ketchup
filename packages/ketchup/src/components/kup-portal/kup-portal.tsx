@@ -13,10 +13,6 @@ import { ElementOffset, setElementOffset } from "../../utils/offset";
 })
 export class KupPortal {
     /**
-     * Reference to the html element from which CSS Custom Properties must be derived
-     */
-    @Prop() cssVarsRef: HTMLElement;
-    /**
      * Tells the portal instance if it can be visible or not
      */
     @Prop() isVisible: boolean = false;
@@ -29,6 +25,11 @@ export class KupPortal {
      */
     @Prop() nodes: JSX.Element[] | JSX.Element;
     /**
+     * Reference to the html element which is using the portal.
+     * It must be a root of a web component.
+     */
+    @Prop() portalParentRef: HTMLElement;
+    /**
      * Calculated offset of where the portal must be positioned
      */
     @Prop() refOffset: ElementOffset = {};
@@ -39,7 +40,7 @@ export class KupPortal {
     /**
      * A style node to be copied into the KetchupPortalInstance
      */
-    @Prop() styleNode: HTMLStyleElement;
+    @Prop() styleNode: HTMLStyleElement | null;
 
     //---- Internal state ----
     instance = document.createElement('kup-portal-instance');
@@ -60,9 +61,15 @@ export class KupPortal {
         // Updates tree node
         this.instance.vNodes = this.nodes;
         // Creates style node
-        const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
-        styleNode.setAttribute('data-portal-style', 'true');
-        this.instance.styleNode = styleNode;
+        console.log("the style node",this.styleNode)
+        if (this.styleNode) {
+            const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
+            styleNode.setAttribute('data-portal-style', 'true');
+            this.instance.styleNode = styleNode;
+        } else if (this.portalParentRef && this.portalParentRef.shadowRoot.adoptedStyleSheets.length) {
+            console.log("la instance", this.instance);
+            this.instance.shadowRoot.adoptedStyleSheets = this.instance.shadowRoot.adoptedStyleSheets.concat(this.portalParentRef.shadowRoot.adoptedStyleSheets.slice());
+        }
         // Sets new position
         setElementOffset(this.instance, this.refOffset);
         // Sets visibility

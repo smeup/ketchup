@@ -92,6 +92,9 @@ export class KupCombo {
         isRight: false,
         isTop: false
     };
+    // Variable to hold Constructed Style Sheet
+    // TODO check if there is a better typing.
+    constructedStyleSheet: any = null;
 
     //-- Constants --
     baseClass = 'kup-combo';
@@ -101,6 +104,11 @@ export class KupCombo {
         // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
         // This is used because when component is instantiated it does NOT run watchers.
         this.reflectInitialValue(this.initialValue);
+
+        console.log("this is the combo element", this.comboEl);
+        if (!this.constructedStyleSheet && this.comboEl.shadowRoot) {
+            console.log("this is the constructed stylesheet", this.constructedStyleSheet, this.comboEl.shadowRoot);
+        }
     }
 
     componentDidLoad() {
@@ -313,10 +321,10 @@ export class KupCombo {
 
             this.usePortal ?
                 <kup-portal
-                    cssVarsRef={this.comboEl}
                     isVisible={this.isOpen}
                     mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
                     nodes={this.composeList()}
+                    portalParentRef={this.comboEl}
                     ref={el => this.portalRef = el as HTMLKupPortalElement}
                     // Notice that the portal offset MUST be calculated considering the menu button, not the whole web component
                     refOffset={getElementOffset(this.comboText, this.comboPosition)}
