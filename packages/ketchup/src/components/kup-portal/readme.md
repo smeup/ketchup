@@ -95,15 +95,15 @@ use portals only in edge cases requiring them, like the ones listed above.
 
 ## Properties
 
-| Property          | Attribute    | Description                                                                                  | Type                   | Default         |
-| ----------------- | ------------ | -------------------------------------------------------------------------------------------- | ---------------------- | --------------- |
-| `cssVarsRef`      | --           | Reference to the html element from which CSS Custom Properties must be derived               | `HTMLElement`          | `undefined`     |
-| `isVisible`       | `is-visible` | Tells the portal instance if it can be visible or not                                        | `boolean`              | `false`         |
-| `mirroredCssVars` | --           | Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef | `string[]`             | `[]`            |
-| `nodes`           | --           | Virtual node list the KetchupPortalInstance must render                                      | `Element \| Element[]` | `undefined`     |
-| `portalRootNode`  | --           | The HTML element on which the virtual node must be appended                                  | `HTMLElement`          | `document.body` |
-| `refOffset`       | --           | Calculated offset of where the portal must be positioned                                     | `ElementOffset`        | `{}`            |
-| `styleNode`       | --           | A style node to be copied into the KetchupPortalInstance                                     | `HTMLStyleElement`     | `undefined`     |
+| Property          | Attribute    | Description                                                                                    | Type                   | Default         |
+| ----------------- | ------------ | ---------------------------------------------------------------------------------------------- | ---------------------- | --------------- |
+| `isVisible`       | `is-visible` | Tells the portal instance if it can be visible or not                                          | `boolean`              | `false`         |
+| `mirroredCssVars` | --           | Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef   | `string[]`             | `[]`            |
+| `nodes`           | --           | Virtual node list the KetchupPortalInstance must render                                        | `Element \| Element[]` | `undefined`     |
+| `portalParentRef` | --           | Reference to the html element which is using the portal. It must be a root of a web component. | `HTMLElement`          | `undefined`     |
+| `portalRootNode`  | --           | The HTML element on which the virtual node must be appended                                    | `HTMLElement`          | `document.body` |
+| `refOffset`       | --           | Calculated offset of where the portal must be positioned                                       | `ElementOffset`        | `{}`            |
+| `styleNode`       | --           | A style node to be copied into the KetchupPortalInstance                                       | `HTMLStyleElement`     | `undefined`     |
 
 
 ## Methods

@@ -104,11 +104,6 @@ export class KupCombo {
         // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
         // This is used because when component is instantiated it does NOT run watchers.
         this.reflectInitialValue(this.initialValue);
-
-        console.log("this is the combo element", this.comboEl);
-        if (!this.constructedStyleSheet && this.comboEl.shadowRoot) {
-            console.log("this is the constructed stylesheet", this.constructedStyleSheet, this.comboEl.shadowRoot);
-        }
     }
 
     componentDidLoad() {
@@ -224,7 +219,6 @@ export class KupCombo {
      * @param event
      */
     onFilterUpdate(event: CustomEvent) {
-        console.log(event);
         this.filter = event.detail.value.toLowerCase();
     }
 

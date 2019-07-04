@@ -44,31 +44,42 @@ export class KupPortal {
 
     //---- Internal state ----
     instance = document.createElement('kup-portal-instance');
+    supportsShadowRoot: boolean = false;
+    supportsAdoptedStyle: boolean = false;
 
     //---- Lifecycle ----
     // Initial operations
     componentWillLoad() {
         // Attach the created element to the designed father
         this.portalRootNode.appendChild(this.instance);
+
+        // Controls if the browsers supports shadow root
+        // https://wicg.github.io/construct-stylesheets/
+        if (this.instance.shadowRoot) {
+            // If it is supported, then stores the portal initial stylesheet
+            this.supportsShadowRoot = true;
+            // and Construtable Stylesheet Objects
+            if ('adoptedStyleSheets' in this.instance.shadowRoot) {
+                this.supportsAdoptedStyle = true;
+            }
+        }
     }
 
-    // Actual operations on the elements
+    // Actual operations on the elements to update the portal instance
     // Migrated this hook from componentWillUpdate to componentWillRender
     // https://stenciljs.com/docs/component-lifecycle#componentwillrender-
-    // Used this hook because props will held the new value
+    // Used this hook because during its execution props will held the new value
     // While componentWillUpdate does not have the correct value inside the props.
     componentWillRender() {
         // Updates tree node
         this.instance.vNodes = this.nodes;
         // Creates style node
-        console.log("the style node",this.styleNode)
         if (this.styleNode) {
             const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
             styleNode.setAttribute('data-portal-style', 'true');
             this.instance.styleNode = styleNode;
-        } else if (this.portalParentRef && this.portalParentRef.shadowRoot.adoptedStyleSheets.length) {
-            console.log("la instance", this.instance);
-            this.instance.shadowRoot.adoptedStyleSheets = this.instance.shadowRoot.adoptedStyleSheets.concat(this.portalParentRef.shadowRoot.adoptedStyleSheets.slice());
+        } else if (this.portalParentRef && this.supportsAdoptedStyle) {
+            this.instance.additionalAdoptedStyleSheets = this.portalParentRef.shadowRoot.adoptedStyleSheets.slice();
         }
         // Sets new position
         setElementOffset(this.instance, this.refOffset);
@@ -107,5 +118,5 @@ export class KupPortal {
 
     //---- Rendering functions ----
     // This is portal component, which does not need any rendering
-    render() { return null;}
+    render() {return null;}
 }

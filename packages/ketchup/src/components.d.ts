@@ -256,10 +256,6 @@ export namespace Components {
   }
   interface KupPortal {
     /**
-    * Reference to the html element from which CSS Custom Properties must be derived
-    */
-    'cssVarsRef': HTMLElement;
-    /**
     * Returns the root node instance of the KetchupPortalInstance element
     */
     'getPortalInstance': () => Promise<HTMLElement>;
@@ -276,6 +272,10 @@ export namespace Components {
     */
     'nodes': JSX.Element[] | JSX.Element;
     /**
+    * Reference to the html element which is using the portal. It must be a root of a web component.
+    */
+    'portalParentRef': HTMLElement;
+    /**
     * The HTML element on which the virtual node must be appended
     */
     'portalRootNode': HTMLElement;
@@ -286,9 +286,10 @@ export namespace Components {
     /**
     * A style node to be copied into the KetchupPortalInstance
     */
-    'styleNode': HTMLStyleElement;
+    'styleNode': HTMLStyleElement | null;
   }
   interface KupPortalInstance {
+    'additionalAdoptedStyleSheets': CSSStyleSheet[];
     /**
     * Specifies if the current portal instance should be displayed or not.
     */
@@ -771,10 +772,6 @@ declare namespace LocalJSX {
   }
   interface KupPortal extends JSXBase.HTMLAttributes<HTMLKupPortalElement> {
     /**
-    * Reference to the html element from which CSS Custom Properties must be derived
-    */
-    'cssVarsRef'?: HTMLElement;
-    /**
     * Tells the portal instance if it can be visible or not
     */
     'isVisible'?: boolean;
@@ -787,6 +784,10 @@ declare namespace LocalJSX {
     */
     'nodes'?: JSX.Element[] | JSX.Element;
     /**
+    * Reference to the html element which is using the portal. It must be a root of a web component.
+    */
+    'portalParentRef'?: HTMLElement;
+    /**
     * The HTML element on which the virtual node must be appended
     */
     'portalRootNode'?: HTMLElement;
@@ -797,9 +798,10 @@ declare namespace LocalJSX {
     /**
     * A style node to be copied into the KetchupPortalInstance
     */
-    'styleNode'?: HTMLStyleElement;
+    'styleNode'?: HTMLStyleElement | null;
   }
   interface KupPortalInstance extends JSXBase.HTMLAttributes<HTMLKupPortalInstanceElement> {
+    'additionalAdoptedStyleSheets'?: CSSStyleSheet[];
     /**
     * Specifies if the current portal instance should be displayed or not.
     */
