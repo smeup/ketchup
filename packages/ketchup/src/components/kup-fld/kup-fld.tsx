@@ -1,20 +1,9 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    Method,
-    Prop,
-    State,
-    Watch,
-} from '@stencil/core';
-import { generateUniqueId } from '../../utils/utils';
-import {
-    KetchupFldChangeEvent,
-    KetchupFldSubmitEvent,
-} from './kup-fld-declarations';
-import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
-import { KetchupRadioChangeEvent } from '../kup-radio/kup-radio-declarations';
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
+import { Component, Event, EventEmitter, Method, Prop, State, Watch, h } from '@stencil/core';
+import { generateUniqueId } from "../../utils/utils";
+import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
+import {KetchupTextInputEvent} from "../kup-text-input/kup-text-input-declarations";
+import {KetchupRadioChangeEvent} from "../kup-radio/kup-radio-declarations";
+import {KetchupComboEvent} from "../kup-combo/kup-combo-declarations";
 
 @Component({
     tag: 'kup-fld',

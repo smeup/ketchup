@@ -4,7 +4,8 @@ import {
     EventEmitter,
     Prop,
     State,
-    Watch
+    Watch,
+    h
 } from '@stencil/core'
 import { generateUniqueId } from "../../utils/utils";
 import { KetchupRadioElement, KetchupRadioChangeEvent, KetchupRadioElementFactory } from "./kup-radio-declarations";

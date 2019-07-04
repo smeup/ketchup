@@ -16,10 +16,10 @@
 
 ## Events
 
-| Event               | Description                                | Type                |
-| ------------------- | ------------------------------------------ | ------------------- |
-| `ketchupHtmlError`  | When loading the frame has thrown an error | `CustomEvent<void>` |
-| `ketchupHtmlLoaded` | When the iframe has been loaded            | `CustomEvent<void>` |
+| Event               | Description                                | Type               |
+| ------------------- | ------------------------------------------ | ------------------ |
+| `ketchupHtmlError`  | When loading the frame has thrown an error | `CustomEvent<any>` |
+| `ketchupHtmlLoaded` | When the iframe has been loaded            | `CustomEvent<any>` |
 
 
 ## CSS Custom Properties
@@ -29,6 +29,19 @@
 | `--htm_height, --kup-html_height` | Specifies the height the frame must have. Default: 600px ; |
 | `--htm_width, --kup-html_width`   | Specifies the width of the frame Default: 100% ;           |
 
+
+## Dependencies
+
+### Depends on
+
+- [kup-button](../kup-button)
+
+### Graph
+```mermaid
+graph TD;
+  kup-html --> kup-button
+  style kup-html fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

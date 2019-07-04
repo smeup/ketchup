@@ -6,7 +6,8 @@ import {
     Method,
     Prop,
     State,
-    Watch
+    Watch,
+    h
 } from '@stencil/core'
 import { ComboItem, ComboPosition, KetchupComboEvent } from './kup-combo-declarations';
 import { eventFromElement } from "../../utils/utils";
@@ -91,6 +92,9 @@ export class KupCombo {
         isRight: false,
         isTop: false
     };
+    // Variable to hold Constructed Style Sheet
+    // TODO check if there is a better typing.
+    constructedStyleSheet: any = null;
 
     //-- Constants --
     baseClass = 'kup-combo';
@@ -118,7 +122,7 @@ export class KupCombo {
      * @method closeCombo
      */
     @Method()
-    closeCombo() {
+    async closeCombo() {
         this.isOpen = false;
     }
 
@@ -127,7 +131,7 @@ export class KupCombo {
      * @method openCombo
      */
     @Method()
-    openCombo() {
+    async openCombo() {
         this.comboPosition = this.calcBoxPosition();
         this.isOpen = true;
     }
@@ -215,7 +219,6 @@ export class KupCombo {
      * @param event
      */
     onFilterUpdate(event: CustomEvent) {
-        console.log(event);
         this.filter = event.detail.value.toLowerCase();
     }
 
@@ -312,10 +315,10 @@ export class KupCombo {
 
             this.usePortal ?
                 <kup-portal
-                    cssVarsRef={this.comboEl}
                     isVisible={this.isOpen}
                     mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
                     nodes={this.composeList()}
+                    portalParentRef={this.comboEl}
                     ref={el => this.portalRef = el as HTMLKupPortalElement}
                     // Notice that the portal offset MUST be calculated considering the menu button, not the whole web component
                     refOffset={getElementOffset(this.comboText, this.comboPosition)}

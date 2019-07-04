@@ -482,34 +482,6 @@ export const groupingData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Javascript',
-                    },
-                    value: 'Javascript',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
-                    },
-                    value: '100.60',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
                         k: 'DELGIO',
                     },
                     value: 'DELGIO',
@@ -526,9 +498,9 @@ export const groupingData = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '67.8',
+                        k: '100.60',
                     },
-                    value: '67.8',
+                    value: '100.60',
                 },
             },
         },
@@ -557,6 +529,34 @@ export const groupingData = {
                         k: '120.06',
                     },
                     value: '120.06',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Javascript',
+                    },
+                    value: 'Javascript',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '67.8',
+                    },
+                    value: '67.8',
                 },
             },
         },
@@ -809,6 +809,165 @@ export const groupingData = {
                         k: '120.06',
                     },
                     value: '120.06',
+                },
+            },
+        },
+    ],
+};
+
+export const d8Data = {
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Person',
+            size: 10,
+        },
+        {
+            name: 'FLD2',
+            title: 'Date',
+            size: 10,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20181201',
+                    },
+                    value: '01/12/2018',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180301',
+                    },
+                    value: '01/03/2018',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'PARFRA',
+                    },
+                    value: 'PARFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180601',
+                    },
+                    value: '01/06/2018',
+                },
+            },
+        },
+    ],
+};
+
+export const cellStyleDataTable = {
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Column A',
+            size: '',
+        },
+        {
+            name: 'FLD2',
+            title: 'Column B',
+            size: 10,
+        },
+        {
+            name: 'FLD3',
+            title: 'Column C',
+            size: 10,
+        },
+        {
+            name: 'FLD4',
+            title: 'Column D',
+            size: 10,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                    style: {
+                        backgroundColor: 'blue',
+                        color: '#FFF',
+                    },
+                },
+                FLD2: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '10',
+                    },
+                    value: '10',
+                    style: {
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                    },
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '100.60',
+                    },
+                    value: '100.60',
+                    style: {
+                        backgroundColor: 'blue',
+                        color: '#FFF',
+                        borderRadius: '50px',
+                        padding: '3px',
+                    },
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '01/01/2018',
+                    style: {
+                        backgroundColor: 'blue',
+                        color: 'yellow',
+                        fontWeight: 'bold',
+                    },
                 },
             },
         },

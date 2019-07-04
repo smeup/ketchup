@@ -1,10 +1,9 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-import { groupingData } from './mocked-data';
+import { groupingData, d8Data } from './mocked-data';
 
-import { rowsSelector } from './data-table-selectors';
+import { rowsSelector, headerCellsSelector } from './data-table-selectors';
 
-const headerCellsSelector = 'kup-data-table >>> table > thead > tr > th';
 const rowExpanderSelector =
     'kup-data-table >>> table > tbody > tr.group .row-expander';
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
@@ -34,7 +33,7 @@ describe('kup-data-table with single grouping', () => {
 
         // all group rows
         await Promise.all(
-            rows.map(async (row) => {
+            rows.map(async (row, index) => {
                 expect(row).toHaveClass('group');
 
                 const cells = await row.findAll('td');
@@ -46,6 +45,21 @@ describe('kup-data-table with single grouping', () => {
                 const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+
+                // testing group order
+                switch (index) {
+                    case 1:
+                        expect(cells[0]).toEqualText('DELGIO');
+                        break;
+
+                    case 2:
+                        expect(cells[0]).toEqualText('PARFRA');
+                        break;
+
+                    default:
+                        expect(cells[0]).toEqualText('CASFRA');
+                        break;
+                }
             })
         );
 
@@ -118,7 +132,7 @@ describe('kup-data-table with single grouping', () => {
 
         // all group rows
         await Promise.all(
-            rows.map(async (row) => {
+            rows.map(async (row, index) => {
                 expect(row).toHaveClass('group');
 
                 const cells = await row.findAll('td');
@@ -130,6 +144,21 @@ describe('kup-data-table with single grouping', () => {
                 const expandIcon = await cells[0].find('span.mdi');
 
                 expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+
+                // testing group order
+                switch (index) {
+                    case 1:
+                        expect(cells[0]).toEqualText('DELGIO');
+                        break;
+
+                    case 2:
+                        expect(cells[0]).toEqualText('PARFRA');
+                        break;
+
+                    default:
+                        expect(cells[0]).toEqualText('CASFRA');
+                        break;
+                }
             })
         );
 
@@ -252,13 +281,28 @@ describe('kup-data-table with multiple grouping', () => {
         let rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(3);
         await Promise.all(
-            rows.map(async (row) => {
+            rows.map(async (row, index) => {
                 expect(row).toHaveClasses(['group']);
 
                 // testing cells
                 const cells = await row.findAll('td');
                 expect(cells).toHaveLength(1);
                 expect(cells[0]).toEqualAttribute('colspan', '3');
+
+                // testing group order
+                switch (index) {
+                    case 1:
+                        expect(cells[0]).toEqualText('DELGIO');
+                        break;
+
+                    case 2:
+                        expect(cells[0]).toEqualText('PARFRA');
+                        break;
+
+                    default:
+                        expect(cells[0]).toEqualText('CASFRA');
+                        break;
+                }
             })
         );
 
@@ -272,13 +316,44 @@ describe('kup-data-table with multiple grouping', () => {
         expect(rows).toHaveLength(7);
 
         await Promise.all(
-            rows.map(async (row) => {
+            rows.map(async (row, index) => {
                 expect(row).toHaveClasses(['group']);
 
                 // testing cells
                 const cells = await row.findAll('td');
                 expect(cells).toHaveLength(1);
                 expect(cells[0]).toEqualAttribute('colspan', '3');
+
+                // testing group order
+                switch (index) {
+                    case 1:
+                        expect(cells[0]).toEqualText('Delphi');
+                        break;
+
+                    case 2:
+                        expect(cells[0]).toEqualText('Go');
+                        break;
+
+                    case 3:
+                        expect(cells[0]).toEqualText('Java');
+                        break;
+
+                    case 4:
+                        expect(cells[0]).toEqualText('Javascript');
+                        break;
+
+                    case 5:
+                        expect(cells[0]).toEqualText('DELGIO');
+                        break;
+
+                    case 6:
+                        expect(cells[0]).toEqualText('PARFRA');
+                        break;
+
+                    default:
+                        expect(cells[0]).toEqualText('CASFRA');
+                        break;
+                }
             })
         );
 
@@ -337,9 +412,7 @@ describe('kup-data-table with groups expanded', () => {
     it('multi group and expansion', async () => {
         const page = await newE2EPage();
 
-        await page.setContent(
-            '<kup-data-table global-filter></kup-data-table>'
-        );
+        await page.setContent('<kup-data-table></kup-data-table>');
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', groupingData);
@@ -358,5 +431,47 @@ describe('kup-data-table with groups expanded', () => {
         const groupRows = rows.filter((row) => row.classList.contains('group'));
 
         expect(groupRows).toHaveLength(15);
+    });
+});
+
+describe('grouping on complex objects', () => {
+    it('group on date', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-data-table></kup-data-table>');
+        const element = await page.find('kup-data-table');
+
+        element.setProperty('data', d8Data);
+        element.setProperty('groups', [{ column: 'FLD2', visible: true }]);
+
+        await page.waitForChanges();
+
+        const rows = await page.findAll(rowsSelector);
+
+        expect(rows).toHaveLength(3);
+
+        expect(rows[0]).toEqualText('01/03/2018');
+        expect(rows[1]).toEqualText('01/06/2018');
+        expect(rows[2]).toEqualText('01/12/2018');
+    });
+
+    it('group on number', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-data-table></kup-data-table>');
+        const element = await page.find('kup-data-table');
+
+        element.setProperty('data', groupingData);
+        element.setProperty('groups', [{ column: 'FLD3', visible: true }]);
+
+        await page.waitForChanges();
+
+        const rows = await page.findAll(rowsSelector);
+
+        expect(rows).toHaveLength(3);
+
+        expect(rows[0]).toEqualText('67.8');
+        expect(rows[1]).toEqualText('100.60');
+        expect(rows[2]).toEqualText('120.06');
     });
 });

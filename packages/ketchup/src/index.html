@@ -9,7 +9,8 @@
         <title>Stencil Component Starter</title>
         <script src="https://d3js.org/d3-path.v1.min.js"></script>
         <script src="https://d3js.org/d3-shape.v1.min.js"></script>
-        <script src="/build/mycomponent.js"></script>
+        <script type="module" src="/build/mycomponent.esm.js"></script>
+        <script nomodule src="/build/mycomponent.js"></script>
 
         <link
             href="https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css"
@@ -102,6 +103,11 @@
         <kup-gauge value="50" size="300" first-threshold="-25" second-threshold="50"></kup-gauge>
         <h5>Valori positivi</h5>
         <kup-gauge value="100" min-value="80" max-value="350" first-threshold="150" second-threshold="275"></kup-gauge>
+        <h5>Valori negativi</h5>
+        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit="°F"></kup-gauge>
+        <h5>Casi di errore</h5>
+        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit=""></kup-gauge>
+        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit arc-thickness></kup-gauge>
         <h5>Valori negativi e colori invertiti</h5>
         <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit="°F" reverse-colors></kup-gauge>
         <h5>Arc thickness</h5>

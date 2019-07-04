@@ -1,6 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-import { staticData, hiddenColumns } from './mocked-data';
+import { staticData, hiddenColumns, cellStyleDataTable } from './mocked-data';
+import { rowsSelector, cellsSelector } from './data-table-selectors';
 
 const globalFilterSelector = 'kup-data-table >>> .globalFilter';
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
@@ -155,5 +156,47 @@ describe('kup-data-table', () => {
                 done();
             }
         });
+    });
+
+    it('cell has style', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-data-table></kup-data-table>');
+
+        const element = await page.find('kup-data-table');
+        element.setProperty('data', cellStyleDataTable);
+
+        await page.waitForChanges();
+
+        const cells = await page.findAll(cellsSelector);
+
+        expect(cells).toHaveLength(4);
+
+        // testing first cell
+        let cellStyle = await cells[0].getComputedStyle();
+
+        expect(cellStyle.color).toBe('rgb(255, 255, 255)');
+
+        expect(cellStyle.backgroundColor).toBe('rgb(0, 0, 255)');
+
+        // testing second cell
+        cellStyle = await cells[1].getComputedStyle();
+
+        expect(cellStyle.textAlign).toBe('center');
+
+        expect(cellStyle.fontWeight).toBe('700');
+
+        // testing third cell
+        cellStyle = await cells[2].getComputedStyle();
+
+        expect(cellStyle.borderRadius).not.toBe('50px');
+        expect(cellStyle.padding).not.toBe('3px');
+
+        const cellContent = await cells[2].find('.cell-content');
+
+        const contentStyle = await cellContent.getComputedStyle();
+
+        expect(contentStyle.borderRadius).toBe('50px');
+        expect(contentStyle.padding).toBe('3px');
     });
 });
