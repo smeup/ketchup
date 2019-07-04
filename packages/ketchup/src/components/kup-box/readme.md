@@ -20,10 +20,10 @@
 
 ## Events
 
-| Event            | Description | Type                                                              |
-| ---------------- | ----------- | ----------------------------------------------------------------- |
-| `kupBoxClicked`  |             | `CustomEvent<{         row: Row;         column?: string;     }>` |
-| `kupBoxSelected` |             | `CustomEvent<{         rows: Row[];     }>`                       |
+| Event            | Description | Type                                          |
+| ---------------- | ----------- | --------------------------------------------- |
+| `kupBoxClicked`  |             | `CustomEvent<{ row: Row; column?: string; }>` |
+| `kupBoxSelected` |             | `CustomEvent<{ rows: Row[]; }>`               |
 
 
 ## CSS Custom Properties
@@ -36,6 +36,28 @@
 | `--int_expand-panel-color, --kup-box_expand-panel-color` | text color for collapse header panel |
 | `--int_img-border-radius, --kup-box_img-border-radius`   | box image border radius              |
 
+
+## Dependencies
+
+### Depends on
+
+- [kup-image](..\kup-image)
+- [kup-button](..\kup-button)
+- [kup-combo](..\kup-combo)
+- [kup-text-input](..\kup-text-input)
+
+### Graph
+```mermaid
+graph TD;
+  kup-box --> kup-image
+  kup-box --> kup-button
+  kup-box --> kup-combo
+  kup-box --> kup-text-input
+  kup-combo --> kup-text-input
+  kup-combo --> kup-portal
+  kup-portal --> kup-portal-instance
+  style kup-box fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

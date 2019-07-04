@@ -5,6 +5,7 @@ import {
     State,
     Watch,
     EventEmitter,
+    h
 } from '@stencil/core';
 
 import {

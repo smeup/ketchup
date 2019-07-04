@@ -17,10 +17,10 @@
 
 ## Events
 
-| Event                   | Description                   | Type                                      |
-| ----------------------- | ----------------------------- | ----------------------------------------- |
-| `kupPageChanged`        | When the current page change  | `CustomEvent<{ newPage: number }>`        |
-| `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number }>` |
+| Event                   | Description                   | Type                                       |
+| ----------------------- | ----------------------------- | ------------------------------------------ |
+| `kupPageChanged`        | When the current page change  | `CustomEvent<{ newPage: number; }>`        |
+| `kupRowsPerPageChanged` | When the rows per page change | `CustomEvent<{ newRowsPerPage: number; }>` |
 
 
 ## CSS Custom Properties
@@ -30,6 +30,19 @@
 | `--int_font-size, --kup-paginator_font-size`   | Set size of the font |
 | `--int_text-color, --kup-paginator_text-color` | Set color of text    |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-data-table](..\kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-data-table --> kup-paginator
+  style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

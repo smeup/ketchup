@@ -41,6 +41,19 @@ Type: `Promise<string | object>`
 | `--fld_comp-margin, --kup-fld_component-margin` | Specifies internal margin between label, submit button and dynamic component |
 
 
+## Dependencies
+
+### Depends on
+
+- [kup-button](..\kup-button)
+
+### Graph
+```mermaid
+graph TD;
+  kup-fld --> kup-button
+  style kup-fld fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

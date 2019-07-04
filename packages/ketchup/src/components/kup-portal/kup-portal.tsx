@@ -3,6 +3,7 @@ import {
     Method,
     Prop,
     Watch,
+    JSX
 } from '@stencil/core';
 import { ElementOffset, setElementOffset } from "../../utils/offset";
 
@@ -11,10 +12,6 @@ import { ElementOffset, setElementOffset } from "../../utils/offset";
     shadow: true
 })
 export class KupPortal {
-    /**
-     * Reference to the html element from which CSS Custom Properties must be derived
-     */
-    @Prop() cssVarsRef: HTMLElement;
     /**
      * Tells the portal instance if it can be visible or not
      */
@@ -28,6 +25,11 @@ export class KupPortal {
      */
     @Prop() nodes: JSX.Element[] | JSX.Element;
     /**
+     * Reference to the html element which is using the portal.
+     * It must be a root of a web component.
+     */
+    @Prop() portalParentRef: HTMLElement;
+    /**
      * Calculated offset of where the portal must be positioned
      */
     @Prop() refOffset: ElementOffset = {};
@@ -38,26 +40,47 @@ export class KupPortal {
     /**
      * A style node to be copied into the KetchupPortalInstance
      */
-    @Prop() styleNode: HTMLStyleElement;
+    @Prop() styleNode: HTMLStyleElement | null;
 
     //---- Internal state ----
     instance = document.createElement('kup-portal-instance');
+    supportsShadowRoot: boolean = false;
+    supportsAdoptedStyle: boolean = false;
 
     //---- Lifecycle ----
     // Initial operations
     componentWillLoad() {
         // Attach the created element to the designed father
         this.portalRootNode.appendChild(this.instance);
+
+        // Controls if the browsers supports shadow root
+        // https://wicg.github.io/construct-stylesheets/
+        if (this.instance.shadowRoot) {
+            // If it is supported, then stores the portal initial stylesheet
+            this.supportsShadowRoot = true;
+            // and Construtable Stylesheet Objects
+            if ('adoptedStyleSheets' in this.instance.shadowRoot) {
+                this.supportsAdoptedStyle = true;
+            }
+        }
     }
 
-    // Actual operations on the elements
-    componentWillUpdate() {
+    // Actual operations on the elements to update the portal instance
+    // Migrated this hook from componentWillUpdate to componentWillRender
+    // https://stenciljs.com/docs/component-lifecycle#componentwillrender-
+    // Used this hook because during its execution props will held the new value
+    // While componentWillUpdate does not have the correct value inside the props.
+    componentWillRender() {
         // Updates tree node
         this.instance.vNodes = this.nodes;
         // Creates style node
-        const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
-        styleNode.setAttribute('data-portal-style', 'true');
-        this.instance.styleNode = styleNode;
+        if (this.styleNode) {
+            const styleNode = this.styleNode.cloneNode(true) as HTMLStyleElement;
+            styleNode.setAttribute('data-portal-style', 'true');
+            this.instance.styleNode = styleNode;
+        } else if (this.portalParentRef && this.supportsAdoptedStyle) {
+            this.instance.additionalAdoptedStyleSheets = this.portalParentRef.shadowRoot.adoptedStyleSheets.slice();
+        }
         // Sets new position
         setElementOffset(this.instance, this.refOffset);
         // Sets visibility
@@ -95,5 +118,5 @@ export class KupPortal {
 
     //---- Rendering functions ----
     // This is portal component, which does not need any rendering
-    render() { return null;}
+    render() {return null;}
 }

@@ -5,7 +5,8 @@ import {
     Prop,
     State,
     Watch,
-    JSXElements,
+    JSX,
+    h,
 } from '@stencil/core';
 
 import {
@@ -941,7 +942,7 @@ export class KupDataTable {
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
-    renderFooter(): JSXElements.HTMLAttributes<HTMLTableSectionElement> | null {
+    renderFooter() {
         if (!this.hasTotals()) {
             // no footer
             return null;
@@ -1218,7 +1219,7 @@ export class KupDataTable {
     private renderCell(
         cell: Cell,
         column: string
-    ): JSXElements.HTMLAttributes<HTMLSpanElement> {
+    ) {
         let content: any = cell.value;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
