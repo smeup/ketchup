@@ -17,7 +17,7 @@ export class KupGauge {
   /**
    * Array of three elements to specify the color of the arcs.
    */
-  @Prop() colors: string[] = ['red', 'yellow', 'green'];
+  @Prop() colors: string[] = ['#eb4d4d', '#f2b203', '#02a045'];
   /**
    * The first threshold, establishing the length of the first and second arc.
    */
@@ -47,9 +47,13 @@ export class KupGauge {
    */
   @Prop() secondThreshold?: number;
   /**
-   * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+   * If set to false, threshold values of the gauge are not displayed.
    */
   @Prop() showLabels: boolean = true;
+  /**
+   * If set to false, the maximum and minimum values of the gauge are not displayed.
+   */
+  @Prop() showMaxmin: boolean = true;
   /**
    * If set to false, the current value of the gauge is not displayed.
    */
@@ -66,6 +70,15 @@ export class KupGauge {
    * The gauge's needle points to the percentage based on this prop.
    */
   @Prop() value: number = 0;
+  /**
+   * The current size of gauge's value.
+   * Correct values are: 0,1,2 or 3.
+   */
+  @Prop() valueSize: number = 0;
+  /**
+   * if true, shows a rounded needle.
+   */
+  @Prop() needleCircle: boolean = false;
 
   //---- Internal not reactive state ----
 
@@ -107,6 +120,17 @@ export class KupGauge {
     return (valueToPercentage - this.minValue) / this.maxValuePositive;
   }
 
+  calculateValueFontSize(): string {
+    if (this.valueSize > 2)
+      return '3vw';
+    if (this.valueSize > 1)
+      return '2.5vw';
+    if (this.valueSize > 0)
+      return '2vw';
+
+    return '1.5vw';  
+  }
+
   //---- Rendering functions ----
   /**
    * Provided all the necessary data, returns the string necessary for a <path/> element to build the gauge needle.
@@ -135,8 +159,8 @@ export class KupGauge {
 
     // Svg constants
     const halvedSize = this.size / 2; // The svg size ratio w : w / 2
-    const needleCircleRadius = this.size / 16; // Arbitrary size of the base of the needle
-    const needleLength = halvedSize - this.arcThickness / 2; // Calculates the length of the needle in pure units
+    const needleCircleRadius = this.size / 20; // Arbitrary size of the base of the needle
+    const needleLength = halvedSize - 2*this.arcThickness; // Calculates the length of the needle in pure units
     const valueLabelYPosition = halvedSize + needleCircleRadius + this.labelDistance * 1;
 
     // User provided thresholds
@@ -168,7 +192,7 @@ export class KupGauge {
     }
 
     // Composes the threshold label elements, if labels must be displayed
-    const textElements = this.showLabels ? arcsThresholds.map(threshold => {
+    const textElements = this.showLabels || this.showMaxmin ? arcsThresholds.map(threshold => {
       // Given the
         const thresholdPercentage = this.calculateValuePercentage(threshold);
         // Decides the position of the text
@@ -181,15 +205,41 @@ export class KupGauge {
         }
         // Since the gauge is a semicircle, we must divide the percentage in half to have the correct angle
         const thetaRad = this.percToRad(thresholdPercentage / 2);
-        const topX = halvedSize - (needleLength + this.labelDistance) * Math.cos(thetaRad);
-        const topY = halvedSize - (needleLength + this.labelDistance) * Math.sin(thetaRad);
-        return <text
-          class="gauge__label-text"
-          text-anchor={textPosition}
-          x={topX}
-          y={topY}>{threshold + ' ' + this.measurementUnit}</text>
+        let topX = halvedSize - (needleLength+2) * Math.cos(thetaRad);
+        let topY = halvedSize - (needleLength+2) * Math.sin(thetaRad);
+        
+        let retValue = "";
+        if (thresholdPercentage>0 && thresholdPercentage<1) {
+          if (this.showLabels) {
+            retValue = 
+            <text
+              class="gauge__label-text"
+              text-anchor={textPosition}
+              x={topX}
+              y={topY}>{threshold}</text>;
+          }
+        } else {
+          if (this.showMaxmin) {
+            if (thresholdPercentage===0) {
+              topX = this.arcThickness;
+              topY = halvedSize + this.labelDistance;
+            } else {
+              topX = this.size - this.arcThickness;
+              topY = halvedSize + this.labelDistance;
+            }
+            retValue = 
+            <text
+              class="gauge__label-text"
+              text-anchor={textPosition}
+              x={topX}
+              y={topY}>{threshold}</text>;
+          }
+        }
+        return retValue;
       })
       : [];
+
+    const style = {fontSize: this.calculateValueFontSize()};
 
     return (
       <div class="gauge__container">
@@ -199,24 +249,26 @@ export class KupGauge {
           <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
             {arcsElements}
           </g>
+          {this.needleCircle ?
           <circle
             class="gauge__needle-base"
             cx={halvedSize}
             cy={halvedSize}
-            r={needleCircleRadius}/>
+            r={needleCircleRadius}/> : null }
           <path
             class="gauge__needle"
             d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
           />
           {textElements}
-          {this.showValue ?
-            <text
+        </svg>
+        <div>
+        {this.showValue ?
+            <div
               class="gauge__value-text"
               text-anchor="middle"
-              x={halvedSize}
-              y={valueLabelYPosition}>{this.value + ' ' + this.measurementUnit}</text>
+              style={style}>{this.value + ' ' + this.measurementUnit}</div>
             : null}
-        </svg>
+       </div>
       </div>
     );
   }

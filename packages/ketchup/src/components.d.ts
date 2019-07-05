@@ -198,6 +198,10 @@ export namespace Components {
     */
     'minValue': number;
     /**
+    * if true, shows a rounded needle.
+    */
+    'needleCircle': boolean;
+    /**
     * If set to true, the colors inside the colors array are used in the reversed order.
     */
     'reverseColors': boolean;
@@ -206,9 +210,13 @@ export namespace Components {
     */
     'secondThreshold'?: number;
     /**
-    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    * If set to false, threshold values of the gauge are not displayed.
     */
     'showLabels': boolean;
+    /**
+    * If set to false, the maximum and minimum values of the gauge are not displayed.
+    */
+    'showMaxmin': boolean;
     /**
     * If set to false, the current value of the gauge is not displayed.
     */
@@ -221,6 +229,10 @@ export namespace Components {
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */
     'value': number;
+    /**
+    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+    */
+    'valueSize': number;
   }
   interface KupGraphicCell {
     'height': number;
@@ -698,6 +710,10 @@ declare namespace LocalJSX {
     */
     'minValue'?: number;
     /**
+    * if true, shows a rounded needle.
+    */
+    'needleCircle'?: boolean;
+    /**
     * If set to true, the colors inside the colors array are used in the reversed order.
     */
     'reverseColors'?: boolean;
@@ -706,9 +722,13 @@ declare namespace LocalJSX {
     */
     'secondThreshold'?: number;
     /**
-    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    * If set to false, threshold values of the gauge are not displayed.
     */
     'showLabels'?: boolean;
+    /**
+    * If set to false, the maximum and minimum values of the gauge are not displayed.
+    */
+    'showMaxmin'?: boolean;
     /**
     * If set to false, the current value of the gauge is not displayed.
     */
@@ -721,6 +741,10 @@ declare namespace LocalJSX {
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */
     'value'?: number;
+    /**
+    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+    */
+    'valueSize'?: number;
   }
   interface KupGraphicCell extends JSXBase.HTMLAttributes<HTMLKupGraphicCellElement> {
     'height'?: number;
