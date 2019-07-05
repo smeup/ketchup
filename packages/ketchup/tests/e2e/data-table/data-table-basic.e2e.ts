@@ -123,7 +123,7 @@ describe('kup-data-table', () => {
         expect(firstRowCells[0]).toEqualText('10');
     });
 
-    it('cell has right click button', async (done) => {
+    it('cell has right click button', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -143,19 +143,17 @@ describe('kup-data-table', () => {
         const firstRowCells = await bodyRows[0].findAll('td');
         expect(firstRowCells).toHaveLength(3);
 
-        firstRowCells.map(async (cell, index) => {
+        for (let i = 0; i < firstRowCells.length; i++) {
+            const cell = firstRowCells[i];
+
             const rightClick = await cell.findAll('.options');
 
-            if (index === 0) {
+            if (i === 0) {
                 expect(rightClick).toHaveLength(1);
             } else {
                 expect(rightClick).toHaveLength(0);
             }
-
-            if (index === firstRowCells.length - 1) {
-                done();
-            }
-        });
+        }
     });
 
     it('cell has style', async () => {
