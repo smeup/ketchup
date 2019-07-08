@@ -79,6 +79,13 @@ export class KupGauge {
    * if true, shows a rounded needle.
    */
   @Prop() needleCircle: boolean = false;
+  /**
+   * if true, ignore threasholds in gauge and show 
+   * colored value's arc.
+   */
+  @Prop() onlyValue: boolean = false;
+
+
 
   //---- Internal not reactive state ----
 
@@ -166,11 +173,15 @@ export class KupGauge {
     // User provided thresholds
     // TODO these thresholds will be given to the component by a user prop
     const givenThresholds = [];
-    if (this.firstThreshold) {
-      givenThresholds.push(this.firstThreshold);
-    }
-    if (this.secondThreshold) {
-      givenThresholds.push(this.secondThreshold);
+    if (!this.onlyValue) {
+      if (this.firstThreshold) {
+        givenThresholds.push(this.firstThreshold);
+      }
+      if (this.secondThreshold) {
+        givenThresholds.push(this.secondThreshold);
+      }
+    } else {
+      givenThresholds.push(this.value);
     }
 
     // This creates the various point from which the arcs are generated
@@ -178,7 +189,15 @@ export class KupGauge {
 
     // Creates arc elements and chooses their color orders
     const arcsElements = [];
-    const arcsColors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
+    let arcsColors;
+    if (!this.onlyValue) {
+      arcsColors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
+    } else {
+      let reversecolors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
+      let valuecolor = this.value < this.firstThreshold? 
+                        reversecolors[0]: this.value < this.secondThreshold? reversecolors[1]: reversecolors[2];
+      arcsColors= [valuecolor, '#E2E2E2'];
+    }
 
     for (let i = 0; i < arcsThresholds.length - 1; i++) {
       const currentArcPath = this.arcGenerator({
@@ -210,7 +229,7 @@ export class KupGauge {
         
         let retValue = "";
         if (thresholdPercentage>0 && thresholdPercentage<1) {
-          if (this.showLabels) {
+          if (this.showLabels && !this.onlyValue) {
             retValue = 
             <text
               class="gauge__label-text"
