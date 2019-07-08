@@ -18,7 +18,6 @@ import {
 import {
     Layout,
     Section,
-    BoxObject,
     CollapsedSectionsState,
 } from './kup-box-declarations';
 
@@ -28,29 +27,48 @@ import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 
-import { generateRandomID } from '../../utils/utils';
-
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
     shadow: true,
 })
 export class KupBox {
-    @Prop() data: { columns?: Array<Column>; rows?: Array<Row> };
+    /**
+     * Data
+     */
+    @Prop() data: { columns?: Column[]; rows?: Row[] };
 
+    /**
+     * How the field will be displayed. If not present, a default one will be created.
+     */
     @Prop() layout: Layout;
 
+    /**
+     * Number of columns
+     */
     @Prop() columns = 1;
 
+    /**
+     * Enable sorting
+     */
     @Prop()
     sortEnabled = false;
 
-    @Prop()
-    filterEnabled = false;
-
+    /**
+     * If sorting is enabled, specifies which column to sort
+     */
     @Prop({ mutable: true })
     sortBy: string;
 
+    /**
+     * Enable filtering
+     */
+    @Prop()
+    filterEnabled = false;
+
+    /**
+     * Enable multi selection
+     */
     @Prop()
     multiSelection = false;
 
@@ -60,6 +78,9 @@ export class KupBox {
     @State()
     private collapsedSection: CollapsedSectionsState = {};
 
+    /**
+     * Lauched when a box is clicked
+     */
     @Event({
         eventName: 'kupBoxClicked',
         composed: true,
@@ -71,6 +92,9 @@ export class KupBox {
         column?: string;
     }>;
 
+    /**
+     * Lauched when the multi selection checkbox changes value
+     */
     @Event({
         eventName: 'kupBoxSelected',
         composed: true,
@@ -83,11 +107,14 @@ export class KupBox {
 
     private boxLayout: Layout;
 
+    private visibleColumns: Column[] = [];
+
     private rows: Row[] = [];
 
     private selectedRows: Row[] = [];
 
-    @Watch('data')
+    private lastColumnIndex = 0;
+
     @Watch('globalFilterValue')
     @Watch('sortBy')
     recalculateRows() {
@@ -96,13 +123,14 @@ export class KupBox {
 
     @Watch('data')
     onDataChanged() {
+        this.initVisibleColumns();
+        this.initRows();
         this.checkLayout();
     }
 
     // lifecycle hooks
     componentWillLoad() {
-        this.checkLayout();
-        this.initRows();
+        this.onDataChanged();
     }
 
     // private methods
@@ -112,8 +140,8 @@ export class KupBox {
             : [{ title: '', name: '', size: 0 }];
     }
 
-    private getVisibleColumns(): Array<Column> {
-        return this.getColumns().filter((column) => {
+    private initVisibleColumns(): void {
+        this.visibleColumns = this.getColumns().filter((column) => {
             if (column.hasOwnProperty('visible')) {
                 return column.visible;
             }
@@ -130,12 +158,22 @@ export class KupBox {
         let filteredRows = this.getRows();
 
         if (this.filterEnabled && this.globalFilterValue) {
+            const visibleCols = Object.freeze(this.visibleColumns);
+            let size = visibleCols.length;
+            let columnNames = [];
+
+            let cnt = 0;
+
+            while (size-- > 0) {
+                columnNames.push(visibleCols[cnt++].name);
+            }
+
             // filtering rows
             filteredRows = filterRows(
-                this.getRows(),
+                filteredRows,
                 null,
                 this.globalFilterValue,
-                this.getVisibleColumns().map((column) => column.name)
+                columnNames
             );
         }
 
@@ -169,20 +207,26 @@ export class KupBox {
         // only one section, containing all visible fields
         const section: Section = {
             horizontal: false,
-            children: [],
+            sections: [],
             style: {
                 textAlign: 'center',
             },
         };
 
         // adding box objects to section
-        section.content = this.getVisibleColumns().map((column) => {
-            const boxObject: BoxObject = {
-                column: column.name,
-            };
+        const visibleColumns = Object.freeze(this.visibleColumns);
+        let size = visibleColumns.length;
+        let content = [];
 
-            return boxObject;
-        });
+        let cnt = 0;
+
+        while (size-- > 0) {
+            content.push({
+                column: visibleColumns[cnt++].name,
+            });
+        }
+
+        section.content = content;
 
         // creating a new layout
         this.boxLayout = {
@@ -234,7 +278,7 @@ export class KupBox {
             classList = element.classList;
         }
 
-        // evauating column
+        // evaluating column
         let column = null;
         if (classList.contains('box-object')) {
             column = element.dataset.column;
@@ -263,13 +307,17 @@ export class KupBox {
     private toggleSectionExpand(row: Row, section: Section) {
         // check if section / row has id
         if (!section.id) {
-            // generate id
-            section.id = generateRandomID();
+            // error
+            console.error('cannot expand / collapse a section withoun an ID');
+            return;
         }
 
         if (!row.id) {
-            // generate id
-            row.id = generateRandomID();
+            // error
+            console.error(
+                'cannot expand / collapse a section of a row without ad id'
+            );
+            return;
         }
 
         // check if section already in collapsedSection
@@ -292,14 +340,30 @@ export class KupBox {
     }
 
     // render methods
-    private renderRow(row: Row) {
+    private renderRow(row: Row, visibleColumns: Column[]) {
+        // resetting lastColumnIndex
+        this.lastColumnIndex = 0;
+
         let boxContent = null;
         if (this.boxLayout && this.boxLayout.sections) {
-            const visibleColumns = this.getVisibleColumns();
+            const sections = Object.freeze(this.boxLayout.sections);
+            let size = sections.length;
 
-            boxContent = this.boxLayout.sections.map((section) =>
-                this.renderSection(section, row, visibleColumns)
-            );
+            let cnt = 0;
+            if (size > 0) {
+                boxContent = [];
+            }
+
+            while (size-- > 0) {
+                boxContent.push(
+                    this.renderSection(
+                        sections[cnt++],
+                        null,
+                        row,
+                        visibleColumns
+                    )
+                );
+            }
         }
 
         let multiSel = null;
@@ -325,24 +389,51 @@ export class KupBox {
 
     private renderSection(
         section: Section,
+        parent: Section,
         row: Row,
         visibleColumns: Column[]
     ) {
         let sectionContent = null;
 
-        if (section.children && section.children.length > 0) {
+        if (section.sections && section.sections.length > 0) {
             // rendering child
-            sectionContent = section.children.map((child) =>
-                this.renderSection(child, row, visibleColumns)
-            );
+            const sections = Object.freeze(section.sections);
+            let size = sections.length;
+
+            let cnt = 0;
+            if (size > 0) {
+                sectionContent = [];
+            }
+
+            while (size-- > 0) {
+                sectionContent.push(
+                    this.renderSection(
+                        sections[cnt++],
+                        section,
+                        row,
+                        visibleColumns
+                    )
+                );
+            }
         } else if (section.content) {
             // rendering box objects
-            sectionContent = section.content.map((content) =>
-                this.renderBoxObject(content.column, row)
-            );
-        } else if (visibleColumns.length > 0) {
+            const content = Object.freeze(section.content);
+            let size = content.length;
+
+            let cnt = 0;
+            if (size > 0) {
+                sectionContent = [];
+            }
+
+            while (size-- > 0) {
+                sectionContent.push(
+                    this.renderBoxObject(content[cnt++].column, row)
+                );
+            }
+        } else if (this.lastColumnIndex < visibleColumns.length) {
             // getting first column
-            const column = visibleColumns.splice(0, 1)[0];
+            const column = visibleColumns[this.lastColumnIndex];
+            this.lastColumnIndex += 1;
 
             sectionContent = this.renderBoxObject(column.name, row);
         }
@@ -356,7 +447,7 @@ export class KupBox {
         };
 
         const sectionStyle: any = section.style || {};
-        if (section.dim) {
+        if (section.dim && parent && parent.horizontal) {
             sectionStyle.maxWidth = section.dim;
             sectionStyle.flex = `0 0 ${section.dim}`;
         }
@@ -474,21 +565,19 @@ export class KupBox {
             let initialValue = { value: '', id: '' };
 
             // creating items
-            const visibleColumnsItems = this.getVisibleColumns().map(
-                (column) => {
-                    const item = {
-                        value: column.title,
-                        id: column.name,
-                    };
+            const visibleColumnsItems = this.visibleColumns.map((column) => {
+                const item = {
+                    value: column.title,
+                    id: column.name,
+                };
 
-                    if (column.name === this.sortBy) {
-                        // setting initial value
-                        initialValue = item;
-                    }
-
-                    return item;
+                if (column.name === this.sortBy) {
+                    // setting initial value
+                    initialValue = item;
                 }
-            );
+
+                return item;
+            });
 
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
 
@@ -525,7 +614,17 @@ export class KupBox {
         if (this.rows.length === 0) {
             boxContent = <p id="empty-data-message">Empty data</p>;
         } else {
-            boxContent = this.rows.map((row) => this.renderRow(row));
+            const rows = Object.freeze(this.rows);
+            let size = rows.length;
+
+            let cnt = 0;
+            boxContent = [];
+
+            while (size-- > 0) {
+                boxContent.push(
+                    this.renderRow(rows[cnt++], this.visibleColumns)
+                );
+            }
         }
 
         const containerStyle = {

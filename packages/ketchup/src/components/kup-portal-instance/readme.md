@@ -19,7 +19,7 @@
 
 ### Used by
 
- - [kup-portal](..\kup-portal)
+ - [kup-portal](../kup-portal)
 
 ### Graph
 ```mermaid

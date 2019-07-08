@@ -52,10 +52,10 @@
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-graphic-cell](..\kup-graphic-cell)
-- [kup-paginator](..\kup-paginator)
-- [kup-button](..\kup-button)
+- [kup-text-input](../kup-text-input)
+- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-paginator](../kup-paginator)
+- [kup-button](../kup-button)
 
 ### Graph
 ```mermaid

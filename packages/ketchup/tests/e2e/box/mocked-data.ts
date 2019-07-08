@@ -359,3 +359,44 @@ export const j4btnData = {
         },
     ],
 };
+
+export function boxDataFactory(numberOfCols: number, numberOfRows: number) {
+    // creating columns
+    const columns = [];
+
+    for (let i = 0; i < numberOfCols; i++) {
+        const name = 'COL' + i;
+
+        columns.push({
+            name,
+            title: name,
+        });
+    }
+
+    // creating rows
+    const rows = [];
+
+    for (let i = 0; i < numberOfRows; i++) {
+        const r = {
+            cells: {},
+        };
+
+        for (let c of columns) {
+            r.cells[c.name] = {
+                obj: {
+                    t: '',
+                    p: '',
+                    k: '',
+                },
+                value: 'pippo',
+            };
+        }
+
+        rows.push(r);
+    }
+
+    return {
+        columns,
+        rows,
+    };
+}

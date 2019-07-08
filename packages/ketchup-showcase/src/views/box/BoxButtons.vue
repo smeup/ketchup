@@ -22,10 +22,10 @@ export default {
         sections: [
           {
             horizontal: true,
-            children: [
+            sections: [
               {},
               {
-                children: [
+                sections: [
                   {
                     style: {
                       fontWeight: 'bold',

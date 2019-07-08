@@ -6,10 +6,11 @@ export interface Section {
     id?: string;
     horizontal?: boolean;
     dim?: string;
-    children?: Section[]; // TODO rename in sections
+    sections?: Section[];
     content?: BoxObject[];
     style?: { [index: string]: string };
     collapsible?: boolean;
+    columns?: number;
 }
 
 export interface BoxObject {

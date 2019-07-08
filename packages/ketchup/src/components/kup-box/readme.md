@@ -7,23 +7,23 @@
 
 ## Properties
 
-| Property         | Attribute         | Description | Type                                    | Default     |
-| ---------------- | ----------------- | ----------- | --------------------------------------- | ----------- |
-| `columns`        | `columns`         |             | `number`                                | `1`         |
-| `data`           | --                |             | `{ columns?: Column[]; rows?: Row[]; }` | `undefined` |
-| `filterEnabled`  | `filter-enabled`  |             | `boolean`                               | `false`     |
-| `layout`         | --                |             | `Layout`                                | `undefined` |
-| `multiSelection` | `multi-selection` |             | `boolean`                               | `false`     |
-| `sortBy`         | `sort-by`         |             | `string`                                | `undefined` |
-| `sortEnabled`    | `sort-enabled`    |             | `boolean`                               | `false`     |
+| Property         | Attribute         | Description                                                                     | Type                                    | Default     |
+| ---------------- | ----------------- | ------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
+| `columns`        | `columns`         | Number of columns                                                               | `number`                                | `1`         |
+| `data`           | --                | Data                                                                            | `{ columns?: Column[]; rows?: Row[]; }` | `undefined` |
+| `filterEnabled`  | `filter-enabled`  | Enable filtering                                                                | `boolean`                               | `false`     |
+| `layout`         | --                | How the field will be displayed. If not present, a default one will be created. | `Layout`                                | `undefined` |
+| `multiSelection` | `multi-selection` | Enable multi selection                                                          | `boolean`                               | `false`     |
+| `sortBy`         | `sort-by`         | If sorting is enabled, specifies which column to sort                           | `string`                                | `undefined` |
+| `sortEnabled`    | `sort-enabled`    | Enable sorting                                                                  | `boolean`                               | `false`     |
 
 
 ## Events
 
-| Event            | Description | Type                                          |
-| ---------------- | ----------- | --------------------------------------------- |
-| `kupBoxClicked`  |             | `CustomEvent<{ row: Row; column?: string; }>` |
-| `kupBoxSelected` |             | `CustomEvent<{ rows: Row[]; }>`               |
+| Event            | Description                                             | Type                                          |
+| ---------------- | ------------------------------------------------------- | --------------------------------------------- |
+| `kupBoxClicked`  | Lauched when a box is clicked                           | `CustomEvent<{ row: Row; column?: string; }>` |
+| `kupBoxSelected` | Lauched when the multi selection checkbox changes value | `CustomEvent<{ rows: Row[]; }>`               |
 
 
 ## CSS Custom Properties
@@ -41,10 +41,10 @@
 
 ### Depends on
 
-- [kup-image](..\kup-image)
-- [kup-button](..\kup-button)
-- [kup-combo](..\kup-combo)
-- [kup-text-input](..\kup-text-input)
+- [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-combo](../kup-combo)
+- [kup-text-input](../kup-text-input)
 
 ### Graph
 ```mermaid

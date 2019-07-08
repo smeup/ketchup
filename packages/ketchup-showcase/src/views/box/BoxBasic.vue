@@ -37,10 +37,11 @@ export default {
           },
           {
             collapsible: true,
+            id: '1',
             style: {
               textAlign: 'center',
             },
-            children: [
+            sections: [
               {
                 style: {
                   fontWeight: 'bold',

@@ -20,7 +20,7 @@ export default {
         sections: [
           {
             horizontal: true,
-            children: [{}, {}, {}, {}],
+            sections: [{}, {}, {}, {}],
           },
         ],
       },
@@ -28,12 +28,12 @@ export default {
         sections: [
           {
             horizontal: true,
-            children: [
+            sections: [
               {
                 dim: '100px',
               },
               {
-                children: [{}, {}, {}],
+                sections: [{}, {}, {}],
               },
             ],
           },

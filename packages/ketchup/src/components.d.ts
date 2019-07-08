@@ -56,12 +56,33 @@ import {
 
 export namespace Components {
   interface KupBox {
+    /**
+    * Number of columns
+    */
     'columns': number;
-    'data': { columns?: Array<Column>; rows?: Array<Row> };
+    /**
+    * Data
+    */
+    'data': { columns?: Column[]; rows?: Row[] };
+    /**
+    * Enable filtering
+    */
     'filterEnabled': boolean;
+    /**
+    * How the field will be displayed. If not present, a default one will be created.
+    */
     'layout': Layout;
+    /**
+    * Enable multi selection
+    */
     'multiSelection': boolean;
+    /**
+    * If sorting is enabled, specifies which column to sort
+    */
     'sortBy': string;
+    /**
+    * Enable sorting
+    */
     'sortEnabled': boolean;
   }
   interface KupBtn {
@@ -523,19 +544,46 @@ declare global {
 
 declare namespace LocalJSX {
   interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
+    /**
+    * Number of columns
+    */
     'columns'?: number;
-    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    /**
+    * Data
+    */
+    'data'?: { columns?: Column[]; rows?: Row[] };
+    /**
+    * Enable filtering
+    */
     'filterEnabled'?: boolean;
+    /**
+    * How the field will be displayed. If not present, a default one will be created.
+    */
     'layout'?: Layout;
+    /**
+    * Enable multi selection
+    */
     'multiSelection'?: boolean;
+    /**
+    * Lauched when a box is clicked
+    */
     'onKupBoxClicked'?: (event: CustomEvent<{
       row: Row;
       column?: string;
     }>) => void;
+    /**
+    * Lauched when the multi selection checkbox changes value
+    */
     'onKupBoxSelected'?: (event: CustomEvent<{
       rows: Row[];
     }>) => void;
+    /**
+    * If sorting is enabled, specifies which column to sort
+    */
     'sortBy'?: string;
+    /**
+    * Enable sorting
+    */
     'sortEnabled'?: boolean;
   }
   interface KupBtn extends JSXBase.HTMLAttributes<HTMLKupBtnElement> {
