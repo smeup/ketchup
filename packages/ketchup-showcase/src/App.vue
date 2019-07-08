@@ -324,4 +324,15 @@ kup-fld {
   display: inline-flex;
   padding: 12px;
 }
+
+// For tables
+kup-data-table {
+
+  --kup-data-table_box-shadow: 0px 0px 7.5px -7.5px rgba(128, 128, 128, 0.5);
+  --kup-data-table_header-offset: 64px;
+
+  @media only screen and (max-width: 959px) {
+    --kup-data-table_header-offset: 55px;
+  }
+}
 </style>

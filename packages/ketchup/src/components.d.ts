@@ -163,6 +163,10 @@ export namespace Components {
     'filters': GenericMap;
     'globalFilter': boolean;
     'groups': Array<GroupObject>;
+    /**
+    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
+    */
+    'headerIsPersistent': boolean;
     'multiSelection': boolean;
     'paginatorPos': PaginatorPos;
     'rowActions': Array<RowAction>;
@@ -170,6 +174,9 @@ export namespace Components {
     'selectRow': number;
     'showFilters': boolean;
     'showGrid': ShowGrid;
+    /**
+    * Enables rendering of the table header.
+    */
     'showHeader': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
@@ -665,6 +672,10 @@ declare namespace LocalJSX {
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
     'groups'?: Array<GroupObject>;
+    /**
+    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
+    */
+    'headerIsPersistent'?: boolean;
     'multiSelection'?: boolean;
     /**
     * When 'add column' menu item is clicked
@@ -705,6 +716,9 @@ declare namespace LocalJSX {
     'selectRow'?: number;
     'showFilters'?: boolean;
     'showGrid'?: ShowGrid;
+    /**
+    * Enables rendering of the table header.
+    */
     'showHeader'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;

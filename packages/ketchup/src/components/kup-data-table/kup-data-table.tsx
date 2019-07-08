@@ -77,8 +77,24 @@ export class KupDataTable {
         width: number;
     }> = [];
 
+    /**
+     * Enables rendering of the table header.
+     * @namespace KupDataTable.showHeader
+     */
     @Prop()
     showHeader = true;
+
+    /**
+     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
+     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
+     * It uses CSS position: sticky.
+     * @version 1.0
+     * @namespace KupDataTable.headerIsPersistent
+     * @see KupDataTable.showHeader
+     * @see https://caniuse.com/#feat=css-sticky
+     */
+    @Prop({ reflect: true })
+    headerIsPersistent = false;
 
     @Prop()
     showGrid: ShowGrid = ShowGrid.NONE;
@@ -1402,6 +1418,8 @@ export class KupDataTable {
             'row-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.ROW === this.showGrid,
+
+            'persistent-header': this.headerIsPersistent,
         };
 
         tableClass[`density-${this.density}`] = true;

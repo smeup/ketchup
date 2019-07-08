@@ -9,33 +9,34 @@
 :host {
   // variables
   --int_background-color: var(--kup-data-table_background-color, #ffffff);
-  --int_main-color: var(--kup-data-table_main-color, #6aaaa7);
-  --int_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
-  --int_color: var(--kup-data-table_color, #545454);
-  --int_stronger-color: var(--kup-data-table_stronger-color, #111111);
-  --int_hover-color: var(--kup-data-table_hover-color, #545454);
-  --int_hover-background-color: var(
-    --kup-data-table_hover-background-color,
-    #e0e0e0
-  );
   --int_border-color: var(--kup-data-table_border-color, #000000);
+  --int_box-shadow: var(
+      --kup-data-table_box-shadow,
+      0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  );
+  --int_color: var(--kup-data-table_color, #545454);
+  --int_filter-border-color: var(--kup-data-table_filter-border-color, #dadada);
+  --int_group-background-color: var(
+      --kup-data-table_group-background-color,
+      #f5f5f5
+  );
+  --int_group-border-color: var(--kup-data-table_group-border-color, #6aaaa7);
+  --int_hover-color: var(--kup-data-table_hover-color, #545454);
   --int_head-background-color: var(
     --kup-data-table_head-background-color,
     #f5f5f5
   );
-  --int_group-background-color: var(
-    --kup-data-table_group-background-color,
-    #f5f5f5
+  --int_header-offset: var(--kup-data-table_header-offset, 50px);
+  --int_hover-background-color: var(
+    --kup-data-table_hover-background-color,
+    #e0e0e0
   );
-  --int_group-border-color: var(--kup-data-table_group-border-color, #6aaaa7);
-  --int_filter-border-color: var(--kup-data-table_filter-border-color, #dadada);
   --int_icons-color: var(--kup-data-table_icons-color, #808080);
   --int_icons-hover-color: var(--kup-data-table_icons-hover-color, #a0a0a0);
-  --int_box-shadow: var(
-    --kup-data-table_box-shadow,
-    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
-  );
   --int_font-size: var(--kup-data-table_font-size, 1rem);
+  --int_main-color: var(--kup-data-table_main-color, #6aaaa7);
+  --int_stronger-color: var(--kup-data-table_stronger-color, #111111);
+  --int_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
 }
 
 #data-table-wrapper {
@@ -99,6 +100,38 @@
 
       th {
         position: relative;
+      }
+    }
+
+    /**
+     * When the header must be persistent (sticky)
+     * There is an issue with borders not being moved alongside the content.
+     * To prevent horrible renders we move border declarations on other elements
+     * Border top gets set on the table itself.
+     * thead hosts the lateral borders.
+     * tbody sets border-top.
+     * Header cells get set to sticky positioning.
+     */
+    &.persistent-header {
+      border-top: 1px solid var(--int_border-color);
+      position: relative;
+
+      thead {
+        border-color: var(--int_border-color);
+        border-style: solid;
+        border-width: 0 1px 0;
+
+        th {
+          background-color: var(--int_head-background-color);
+          box-shadow: var(--int_box-shadow);
+          position: -webkit-sticky; // For Safari
+          position: sticky;
+          top: var(--int_header-offset);
+        }
+      }
+
+      tbody {
+        border-top: 3px solid var(--int_border-color);
       }
     }
 

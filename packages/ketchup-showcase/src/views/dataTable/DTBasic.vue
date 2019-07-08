@@ -27,6 +27,9 @@ h3 {
     <h3>Without header</h3>
     <kup-data-table :data.prop="data" :showHeader.prop="false"></kup-data-table>
 
+    <h3>Persistent header (sticky)</h3>
+    <kup-data-table :data.prop="iconImagesDataTable" header-is-persistent></kup-data-table>
+
     <h3>Without grid</h3>
     <kup-data-table :data.prop="data" :showGrid.prop="false"></kup-data-table>
 
