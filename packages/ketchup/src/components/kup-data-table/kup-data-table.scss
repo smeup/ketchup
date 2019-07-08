@@ -1,9 +1,23 @@
 @import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
 
 /**
-* @prop --int_stronger-color, --kup-data-table_stronger-color: Set text color
-* @prop --int_hover-color, --kup-data-table_hover-color: Set text color when hover on row
-* @prop --int_hover-background-color, --kup-data-table_hover-background-color: Set background color when hover on row
+* @prop --int_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
+* @prop --int_border-color, --kup-data-table_border-color: border-color for the whole table.
+* @prop --int_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
+* @prop --int_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
+* @prop --int_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
+* @prop --int_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
+* @prop --int_group-border-color, --kup-data-table_group-border-color: TODO check where used.
+* @prop --int_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
+* @prop --int_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
+* @prop --int_header-offset, --kup-data-table_header-offset: Top offset of the thead when table header must be persistent. Default: 50px;
+* @prop --int_hover-background-color, --kup-data-table_hover-background-color: background-color of a row when it's selected or hovered.
+* @prop --int_icons-color, --kup-data-table_icons-color: Color of a table icon.
+* @prop --int_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
+* @prop --int_font-size, --kup-data-table_font-size: Sets basic font size.
+* @prop --int_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
+* @prop --int_stronger-color, --kup-data-table_stronger-color: Set text color on the whole table element.
+* @prop --int_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
 */
 
 :host {
@@ -127,6 +141,7 @@
           position: -webkit-sticky; // For Safari
           position: sticky;
           top: var(--int_header-offset);
+          will-change: transform; // For performance
         }
       }
 
