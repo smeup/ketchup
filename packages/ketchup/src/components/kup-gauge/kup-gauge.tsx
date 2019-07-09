@@ -193,9 +193,9 @@ export class KupGauge {
     if (!this.onlyValue) {
       arcsColors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
     } else {
-      let reversecolors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
+      let computedcolors = !this.reverseColors ? this.colors : this.colors.slice().reverse();
       let valuecolor = this.value < this.firstThreshold? 
-                        reversecolors[0]: this.value < this.secondThreshold? reversecolors[1]: reversecolors[2];
+          computedcolors[0]: this.value < this.secondThreshold? computedcolors[1]: computedcolors[2];
       arcsColors= [valuecolor, '#E2E2E2'];
     }
 
