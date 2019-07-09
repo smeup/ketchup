@@ -112,8 +112,18 @@
         <h5>Arc thickness</h5>
         <kup-gauge value="50" arc-thickness="40"></kup-gauge>
         <kup-gauge value="50" arc-thickness="20"></kup-gauge>
+        <h5>Colors</h5>
+        <kup-gauge id="gaucolor" value="150" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+        <h5>OnlyValue</h5>
+        <kup-gauge only-value=true value="220" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+        <h5>OnlyValue reverted colors</h5>
+        <kup-gauge reverse-colors=true only-value=true value="100" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+ 
 
         <script>
+            let gaucolor = document.getElementById('gaucolor');
+            gaucolor.colors=['red','yellow','green'];
+
             let once = true;
             // This is a script for testing these elements
             // This is mandatory for testing the passage of complex parameters inside web components
