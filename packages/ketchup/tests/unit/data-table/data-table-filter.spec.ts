@@ -336,5 +336,20 @@ describe('it filters rows', () => {
             })
 
         });
+
+        it('on global column filter', () => {
+            const filtered = filterRows(
+              mockedRowsWithEmptyValues,
+              {},
+              "''",
+              ['FLD1', 'FLD2', 'FLD3', 'FLD4']
+            );
+
+            expect(filtered).toHaveLength(2);
+            filtered.forEach(row => {
+                expect(row.cells[columnToFilterOn].value).toBe('');
+            })
+
+        });
     });
 });
