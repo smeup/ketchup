@@ -31,6 +31,20 @@ h3 {
       :globalFilter.prop="true"
       :filters.prop="filters"
     ></kup-data-table>
+
+    <h3>Column filter with empty value</h3>
+    <kup-data-table
+      :data.prop="dataTableWithEmptyValues"
+      :showFilters.prop="true"
+      :filters.prop="filtersEmpty"
+    ></kup-data-table>
+
+    <h3>Column and global filter with empty value</h3>
+    <kup-data-table
+      :data.prop="dataTableWithEmptyValues"
+      :showFilters.prop="true"
+      :globalFilter.prop="true"
+    ></kup-data-table>
   </div>
 </template>
 
@@ -41,13 +55,23 @@ export default {
   name: 'dataTableFilters',
 
   data() {
+    let dataTableWithEmptyValues = {
+      ...defaultDataTable
+    };
+
+    dataTableWithEmptyValues.rows[0].cells.FLD1.value = '';
+
     return {
       data: {
         ...defaultDataTable,
       },
+      dataTableWithEmptyValues,
       filters: {
         FLD1: 'FRA',
       },
+      filtersEmpty: {
+        FLD1: "''",
+      }
     };
   },
 };

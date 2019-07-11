@@ -128,6 +128,21 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
     return compareCell(cell1, cell2, sortObj.sortMode);
 }
 
+//-------- FILTER FUNCTIONS --------
+/**
+ * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed if
+ * both values are empty.
+ * @param cellValue - The value of the current cell.
+ * @param currentFilter - The value of the current filter.
+ * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
+ */
+function matchEmptyFilter(cellValue: string, currentFilter: string):boolean {
+    const parsedFilter = currentFilter.trim();
+    // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
+    return (/* !parsedFilter ||*/ parsedFilter === "''") && !cellValue.trim();
+}
+
+
 export function filterRows(
     rows: Array<Row> = [],
     filters: GenericMap = {},
@@ -166,7 +181,8 @@ export function filterRows(
                     if (
                         cellValue
                             .toLowerCase()
-                            .includes(globalFilter.toLocaleLowerCase())
+                            .includes(globalFilter.toLocaleLowerCase()) ||
+                        matchEmptyFilter(cellValue, globalFilter)
                     ) {
                         found = true;
                         break;
@@ -188,14 +204,15 @@ export function filterRows(
 
                     // getting cell value
                     const cellValue = r.cells[key];
-                    if (!cellValue || !cellValue.value) {
+                    if (!cellValue) {
                         return false;
                     }
 
                     if (
                         cellValue.value
                             .toLowerCase()
-                            .includes(filterValue.toLowerCase())
+                            .includes(filterValue.toLowerCase()) ||
+                        matchEmptyFilter(cellValue.value, filterValue)
                     ) {
                         return true;
                     }
