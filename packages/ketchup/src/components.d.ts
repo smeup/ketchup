@@ -163,6 +163,10 @@ export namespace Components {
     'filters': GenericMap;
     'globalFilter': boolean;
     'groups': Array<GroupObject>;
+    /**
+    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
+    */
+    'headerIsPersistent': boolean;
     'multiSelection': boolean;
     'paginatorPos': PaginatorPos;
     'rowActions': Array<RowAction>;
@@ -170,6 +174,9 @@ export namespace Components {
     'selectRow': number;
     'showFilters': boolean;
     'showGrid': ShowGrid;
+    /**
+    * Enables rendering of the table header.
+    */
     'showHeader': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
@@ -219,6 +226,14 @@ export namespace Components {
     */
     'minValue': number;
     /**
+    * if true, shows a rounded needle.
+    */
+    'needleCircle': boolean;
+    /**
+    * if true, ignore threasholds in gauge and show colored value's arc.
+    */
+    'onlyValue': boolean;
+    /**
     * If set to true, the colors inside the colors array are used in the reversed order.
     */
     'reverseColors': boolean;
@@ -227,9 +242,13 @@ export namespace Components {
     */
     'secondThreshold'?: number;
     /**
-    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    * If set to false, threshold values of the gauge are not displayed.
     */
     'showLabels': boolean;
+    /**
+    * If set to false, the maximum and minimum values of the gauge are not displayed.
+    */
+    'showMaxmin': boolean;
     /**
     * If set to false, the current value of the gauge is not displayed.
     */
@@ -242,6 +261,10 @@ export namespace Components {
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */
     'value': number;
+    /**
+    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+    */
+    'valueSize': number;
   }
   interface KupGraphicCell {
     'height': number;
@@ -653,6 +676,10 @@ declare namespace LocalJSX {
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
     'groups'?: Array<GroupObject>;
+    /**
+    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
+    */
+    'headerIsPersistent'?: boolean;
     'multiSelection'?: boolean;
     /**
     * When 'add column' menu item is clicked
@@ -693,6 +720,9 @@ declare namespace LocalJSX {
     'selectRow'?: number;
     'showFilters'?: boolean;
     'showGrid'?: ShowGrid;
+    /**
+    * Enables rendering of the table header.
+    */
     'showHeader'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;
@@ -746,6 +776,14 @@ declare namespace LocalJSX {
     */
     'minValue'?: number;
     /**
+    * if true, shows a rounded needle.
+    */
+    'needleCircle'?: boolean;
+    /**
+    * if true, ignore threasholds in gauge and show colored value's arc.
+    */
+    'onlyValue'?: boolean;
+    /**
     * If set to true, the colors inside the colors array are used in the reversed order.
     */
     'reverseColors'?: boolean;
@@ -754,9 +792,13 @@ declare namespace LocalJSX {
     */
     'secondThreshold'?: number;
     /**
-    * If set to false, the maximum, minimum and threshold values of the gauge are not displayed.
+    * If set to false, threshold values of the gauge are not displayed.
     */
     'showLabels'?: boolean;
+    /**
+    * If set to false, the maximum and minimum values of the gauge are not displayed.
+    */
+    'showMaxmin'?: boolean;
     /**
     * If set to false, the current value of the gauge is not displayed.
     */
@@ -769,6 +811,10 @@ declare namespace LocalJSX {
     * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
     */
     'value'?: number;
+    /**
+    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+    */
+    'valueSize'?: number;
   }
   interface KupGraphicCell extends JSXBase.HTMLAttributes<HTMLKupGraphicCellElement> {
     'height'?: number;

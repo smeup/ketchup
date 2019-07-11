@@ -16,7 +16,7 @@ export class KupPortalInstance {
     /**
      * Specifies if the current portal instance should be displayed or not.
      */
-    @Prop({ reflectToAttr: true }) isVisible: boolean = false;
+    @Prop({ reflect: true }) isVisible: boolean = false;
     /**
      * A style node to be copied into the KetchupPortalInstance
      */

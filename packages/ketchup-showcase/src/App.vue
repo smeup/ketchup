@@ -311,6 +311,12 @@ select,
   }
 }
 
+// A scrollable container which can be used to perform test on some components.
+.scrollable-container {
+  height: 400px;
+  overflow: auto;
+}
+
 // When there is the need to hide overflow
 .hide-overflow {
   overflow: hidden;
@@ -323,5 +329,15 @@ kup-fld {
   border-radius: 4px;
   display: inline-flex;
   padding: 12px;
+}
+
+// For tables
+kup-data-table {
+  // These pixels measurement are taken from the height of the toolbar of the vuetify webapp.
+  --kup-data-table_header-offset: 64px;
+
+  @media only screen and (max-width: 959px) {
+    --kup-data-table_header-offset: 55px;
+  }
 }
 </style>
