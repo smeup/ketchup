@@ -84,7 +84,10 @@ export class KupGauge {
    * colored value's arc.
    */
   @Prop() onlyValue: boolean = false;
-
+   /**
+   * Set Width gauge.
+   */
+  @Prop() widthComponent: string='22vw';
 
 
   //---- Internal not reactive state ----
@@ -259,11 +262,11 @@ export class KupGauge {
       : [];
 
     const style = {fontSize: this.calculateValueFontSize()};
-
+    const width = {width: this.widthComponent};
     return (
       <div class="gauge__container">
         <svg
-          class="gauge"
+          class="gauge" style={width}
           viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}>
           <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
             {arcsElements}

@@ -3,6 +3,7 @@
 * @prop --gau_top-lateral-padding, --kup-gauge_top-lateral-padding: Set a top and lateral padding for the svg to prevent threshold labels to overlap other elements.
 * @prop --gau_threshold-color, --kup-gauge_threshold-color: Sets the color of the threshold labels.
 * @prop --gau_value-color, --kup-gauge_value-color: Sets the color of the value label.
+* @prop --gau_width, --kup-gauge_width: Set the width auge
 */
 
 :host {
@@ -11,7 +12,7 @@
   --gau_threshold-color: var(--kup-gauge_threshold-color, #676767);
   --gau_value-color: var(--kup-gauge_value-color, #676767);
   --gau_back-color: var(--kup-gauge_back-color, #E2E2E2);
-
+   
   display: inline-block;
 
   .gauge {
@@ -21,7 +22,6 @@
      */
     height: auto;
     overflow: visible; // [1]
-    width: 22vw;
 
     // Div wrapping the SVG element
     &__container {

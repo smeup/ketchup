@@ -258,6 +258,10 @@ export namespace Components {
     * The current size of gauge's value. Correct values are: 0,1,2 or 3.
     */
     'valueSize': number;
+    /**
+    * Set Width gauge.
+    */
+    'widthComponent': string;
   }
   interface KupGraphicCell {
     'height': number;
@@ -801,6 +805,10 @@ declare namespace LocalJSX {
     * The current size of gauge's value. Correct values are: 0,1,2 or 3.
     */
     'valueSize'?: number;
+    /**
+    * Set Width gauge.
+    */
+    'widthComponent'?: string;
   }
   interface KupGraphicCell extends JSXBase.HTMLAttributes<HTMLKupGraphicCellElement> {
     'height'?: number;
