@@ -20,7 +20,7 @@ export class KupHtml {
      * If true, the kup-html takes the shape of a button
      */
     @Prop({
-        reflectToAttr: true
+        reflect: true
     }) isButton: boolean = false;
     /**
      * The address which must be referenced by the iframe

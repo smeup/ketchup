@@ -124,6 +124,11 @@ describe('kup-data-table', () => {
     });
 
     it('cell has right click button', async (done) => {
+        /* TODO this test some time fails due to a strange error which seems to be caused by Puppeteer itself.
+        * @see https://github.com/ionic-team/stencil/issues/1297
+        * No fix still found.
+        **/
+
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
