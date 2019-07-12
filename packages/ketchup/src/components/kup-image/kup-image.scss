@@ -22,6 +22,11 @@
   position: relative;
   display: inline-block;
 
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
   .badge {
     position: absolute;
     background-color: var(--int_badge-background-color);
@@ -48,12 +53,12 @@
 
     &.bottom {
       &Left {
-        bottom: 3px;
+        bottom: -3px;
         left: -4px;
       }
 
       &Right {
-        bottom: 3px;
+        bottom: -3px;
         right: -4px;
       }
     }

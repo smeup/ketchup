@@ -79,6 +79,9 @@ export class KupBox {
     @State()
     private collapsedSection: CollapsedSectionsState = {};
 
+    @State()
+    private selectedRows: Row[] = [];
+
     /**
      * Lauched when a box is clicked
      */
@@ -111,8 +114,6 @@ export class KupBox {
     private visibleColumns: Column[] = [];
 
     private rows: Row[] = [];
-
-    private selectedRows: Row[] = [];
 
     private lastColumnIndex = 0;
 
@@ -286,6 +287,14 @@ export class KupBox {
         }
 
         this.kupBoxClicked.emit({ row, column });
+
+        // selecting box
+        if (this.multiSelection) {
+            // triggering multi selection
+            this.onSelectionCheckChange(row);
+        } else {
+            this.selectedRows = [row];
+        }
     }
 
     private onSelectionCheckChange(row: Row) {
@@ -367,23 +376,33 @@ export class KupBox {
             }
         }
 
+        const isSelected = this.selectedRows.includes(row);
+
         let multiSel = null;
         if (this.multiSelection) {
             multiSel = (
                 <div class="box-selection">
                     <input
                         type="checkbox"
-                        checked={this.selectedRows.includes(row)}
+                        checked={isSelected}
+                        onClick={(e) => e.stopPropagation()}
                         onChange={() => this.onSelectionCheckChange(row)}
                     />
                 </div>
             );
         }
 
+        const boxClass = {
+            box: true,
+            selected: isSelected,
+        };
+
         return (
-            <div class="box" onClick={(e) => this.onBoxClick(e, row)}>
-                {multiSel}
-                {boxContent}
+            <div>
+                <div class={boxClass} onClick={(e) => this.onBoxClick(e, row)}>
+                    {multiSel}
+                    {boxContent}
+                </div>
             </div>
         );
     }
@@ -494,6 +513,8 @@ export class KupBox {
     private renderBoxObject(boxObject: BoxObject, row: Row) {
         let boContent = null;
 
+        let boStyle = {};
+
         // check if fixed value
         if (boxObject.value) {
             boContent = boxObject.value;
@@ -501,6 +522,10 @@ export class KupBox {
             const cell = row.cells[boxObject.column];
 
             if (cell) {
+                if (cell.style) {
+                    boStyle = { ...cell.style };
+                }
+
                 if (isImage(cell.obj)) {
                     let badges = null;
                     if (cell.config && cell.config.badges) {
@@ -531,6 +556,10 @@ export class KupBox {
 
                         if (config.hasOwnProperty('flat')) {
                             flat = config.flat;
+
+                            if (!flat) {
+                                textMode = '';
+                            }
                         }
 
                         if (config.hasOwnProperty('fillspace')) {
@@ -555,7 +584,11 @@ export class KupBox {
         }
 
         return (
-            <div data-column={boxObject.column} class="box-object">
+            <div
+                data-column={boxObject.column}
+                class="box-object"
+                style={boStyle}
+            >
                 {boContent}
             </div>
         );

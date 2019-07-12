@@ -31,24 +31,28 @@ export default {
       collapseLay: {
         sections: [
           {
-            style: {
-              textAlign: 'center',
-            },
-          },
-          {
-            collapsible: true,
-            id: '1',
-            style: {
-              textAlign: 'center',
-            },
             sections: [
               {
                 style: {
-                  fontWeight: 'bold',
+                  textAlign: 'center',
                 },
               },
-              {},
-              {},
+              {
+                collapsible: true,
+                id: '1',
+                style: {
+                  textAlign: 'center',
+                },
+                sections: [
+                  {
+                    style: {
+                      fontWeight: 'bold',
+                    },
+                  },
+                  {},
+                  {},
+                ],
+              },
             ],
           },
         ],
