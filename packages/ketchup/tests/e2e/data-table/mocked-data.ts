@@ -1,3 +1,5 @@
+import {TableData} from "../../../src/components/kup-data-table/kup-data-table-declarations";
+
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
 const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
@@ -457,363 +459,379 @@ msMockData.rows = [
 
 export const multiSortMockData = msMockData;
 
-export const groupingData = {
-    columns: [
-        {
-            name: 'FLD1',
-            title: 'Column A',
-            size: '',
-        },
-        {
-            name: 'FLD2',
-            title: 'Column B',
-            size: 10,
-        },
-        {
-            name: 'FLD3',
-            title: 'Column C',
-            size: 10,
-        },
-    ],
-    rows: [
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
+
+
+function GroupingDataFactory() {
+    return {
+        columns: [
+            {
+                name: 'FLD1',
+                title: 'Column A',
+                size: '',
+            },
+            {
+                name: 'FLD2',
+                title: 'Column B',
+                size: 10,
+            },
+            {
+                name: 'FLD3',
+                title: 'Column C',
+                size: 10,
+            },
+        ],
+        rows: [
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'DELGIO',
+                        },
+                        value: 'DELGIO',
                     },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Javascript',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Javascript',
+                        },
+                        value: 'Javascript',
                     },
-                    value: 'Javascript',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '100.60',
+                        },
+                        value: '100.60',
                     },
-                    value: '100.60',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'PARFRA',
+                        },
+                        value: 'PARFRA',
                     },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Javascript',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Javascript',
+                        },
+                        value: 'Javascript',
                     },
-                    value: 'Javascript',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '120.06',
+                        },
+                        value: '120.06',
                     },
-                    value: '120.06',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Javascript',
-                    },
-                    value: 'Javascript',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'CASFRA',
+                        },
+                        value: 'CASFRA',
                     },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Delphi',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Javascript',
+                        },
+                        value: 'Javascript',
                     },
-                    value: 'Delphi',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '67.8',
+                        },
+                        value: '67.8',
                     },
-                    value: '100.60',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
-                    },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Delphi',
-                    },
-                    value: 'Delphi',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'CASFRA',
+                        },
+                        value: 'CASFRA',
                     },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Delphi',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Delphi',
+                        },
+                        value: 'Delphi',
                     },
-                    value: 'Delphi',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '100.60',
+                        },
+                        value: '100.60',
                     },
-                    value: '120.06',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Go',
-                    },
-                    value: 'Go',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
-                    },
-                    value: '100.60',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'DELGIO',
+                        },
+                        value: 'DELGIO',
                     },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Go',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Delphi',
+                        },
+                        value: 'Delphi',
                     },
-                    value: 'Go',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '67.8',
+                        },
+                        value: '67.8',
                     },
-                    value: '67.8',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
-                    },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Go',
-                    },
-                    value: 'Go',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
-                    },
-                    value: '120.06',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'PARFRA',
+                        },
+                        value: 'PARFRA',
                     },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Java',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Delphi',
+                        },
+                        value: 'Delphi',
                     },
-                    value: 'Java',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '120.06',
+                        },
+                        value: '120.06',
                     },
-                    value: '100.60',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
-                    },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Java',
-                    },
-                    value: 'Java',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
                 },
             },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'CASFRA',
+                        },
+                        value: 'CASFRA',
                     },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: '',
-                        p: '',
-                        k: 'Java',
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Go',
+                        },
+                        value: 'Go',
                     },
-                    value: 'Java',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '100.60',
+                        },
+                        value: '100.60',
                     },
-                    value: '120.06',
                 },
             },
-        },
-    ],
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'DELGIO',
+                        },
+                        value: 'DELGIO',
+                    },
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Go',
+                        },
+                        value: 'Go',
+                    },
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '67.8',
+                        },
+                        value: '67.8',
+                    },
+                },
+            },
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'PARFRA',
+                        },
+                        value: 'PARFRA',
+                    },
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Go',
+                        },
+                        value: 'Go',
+                    },
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '120.06',
+                        },
+                        value: '120.06',
+                    },
+                },
+            },
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'CASFRA',
+                        },
+                        value: 'CASFRA',
+                    },
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Java',
+                        },
+                        value: 'Java',
+                    },
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '100.60',
+                        },
+                        value: '100.60',
+                    },
+                },
+            },
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'DELGIO',
+                        },
+                        value: 'DELGIO',
+                    },
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Java',
+                        },
+                        value: 'Java',
+                    },
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '67.8',
+                        },
+                        value: '67.8',
+                    },
+                },
+            },
+            {
+                cells: {
+                    FLD1: {
+                        obj: {
+                            t: 'CN',
+                            p: 'COL',
+                            k: 'PARFRA',
+                        },
+                        value: 'PARFRA',
+                    },
+                    FLD2: {
+                        obj: {
+                            t: '',
+                            p: '',
+                            k: 'Java',
+                        },
+                        value: 'Java',
+                    },
+                    FLD3: {
+                        obj: {
+                            t: 'NR',
+                            p: '',
+                            k: '120.06',
+                        },
+                        value: '120.06',
+                    },
+                },
+            },
+        ],
+    };
 };
+
+export const groupingData = GroupingDataFactory();
+
+// Builds the data for the data table when equal values must not be displayed.
+// Placed here a forced type to allow a correct usage later
+let dataTableHideRepetitions = (GroupingDataFactory() as TableData);
+
+dataTableHideRepetitions.columns.forEach(column => {
+    column.hideValuesRepetitions = true;
+});
+
+export const dataTableHideRepetitionsData = dataTableHideRepetitions;
 
 export const d8Data = {
     columns: [

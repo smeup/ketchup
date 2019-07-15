@@ -43,6 +43,11 @@ export interface Cell {
     config?: any;
 }
 
+export interface TableData {
+    columns?: Array<Column>;
+    rows?: Array<Row>;
+}
+
 export interface GenericMap {
     [index: string]: string;
 }

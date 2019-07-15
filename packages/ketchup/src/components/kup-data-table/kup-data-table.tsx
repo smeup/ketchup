@@ -21,6 +21,7 @@ import {
     Cell,
     RowAction,
     ShowGrid,
+    TableData,
 } from './kup-data-table-declarations';
 
 import {
@@ -45,7 +46,7 @@ import {
     shadow: true,
 })
 export class KupDataTable {
-    @Prop() data: { columns?: Array<Column>; rows?: Array<Row> };
+    @Prop() data: TableData;
 
     @Prop()
     showFilters = false;

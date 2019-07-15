@@ -15,6 +15,7 @@ import {
   RowAction,
   ShowGrid,
   SortObject,
+  TableData,
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
@@ -158,7 +159,7 @@ export namespace Components {
       column: string;
       width: number;
     }>;
-    'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'data': TableData;
     'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
@@ -675,7 +676,7 @@ declare namespace LocalJSX {
       column: string;
       width: number;
     }>;
-    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'data'?: TableData;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
