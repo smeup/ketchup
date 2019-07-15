@@ -51,14 +51,14 @@ export class KupImage {
             });
         }
 
+        const wrapperStyle = {
+            width: `${this.width}px`,
+            height: `${this.height}px`,
+        };
+
         return (
-            <div id="image-wrapper">
-                <img
-                    src={this.src}
-                    alt={this.alt}
-                    width={this.width}
-                    height={this.height}
-                />
+            <div id="image-wrapper" style={wrapperStyle}>
+                <img src={this.src} alt={this.alt} />
                 {badgesElem}
             </div>
         );

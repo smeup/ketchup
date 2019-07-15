@@ -230,7 +230,7 @@ export namespace Components {
     */
     'needleCircle': boolean;
     /**
-    * if true, ignore threasholds in gauge and show  colored value's arc.
+    * if true, ignore threasholds in gauge and show colored value's arc.
     */
     'onlyValue': boolean;
     /**
@@ -784,7 +784,7 @@ declare namespace LocalJSX {
     */
     'needleCircle'?: boolean;
     /**
-    * if true, ignore threasholds in gauge and show  colored value's arc.
+    * if true, ignore threasholds in gauge and show colored value's arc.
     */
     'onlyValue'?: boolean;
     /**

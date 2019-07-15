@@ -14,7 +14,8 @@ export interface Section {
 }
 
 export interface BoxObject {
-    column: string;
+    column?: string;
+    value?: string;
 }
 
 export interface CollapsedSectionsState {

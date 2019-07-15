@@ -34,6 +34,7 @@
 | `--int_border-radius, --kup-box_border-radius`           | single box border radius             |
 | `--int_color, --kup-box_color`                           | text color                           |
 | `--int_expand-panel-color, --kup-box_expand-panel-color` | text color for collapse header panel |
+| `--int_hover-box-shadow, --kup-box_hover-box-shadow`     | shadow when hovering on a box        |
 | `--int_img-border-radius, --kup-box_img-border-radius`   | box image border radius              |
 
 
