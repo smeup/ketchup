@@ -44,4 +44,9 @@ export default [
     name: 'dtTotals',
     component: () => import('@/views/dataTable/DTTotal.vue'),
   },
+  {
+    path: '/dataTable/hide-repetition',
+    name: 'dtRowsRepetition',
+    component: () => import('@/views/dataTable/DTRowsRepetition.vue'),
+  },
 ];

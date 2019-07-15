@@ -166,6 +166,12 @@ export default {
               name: 'dtTotals',
             },
           },
+          {
+            title: 'Hide repetitions',
+            to: {
+              name: 'dtRowsRepetition',
+            },
+          },
         ],
       },
       {

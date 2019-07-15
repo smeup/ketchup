@@ -991,7 +991,7 @@ export class KupDataTable {
         return footer;
     }
 
-    private renderRow(row: Row, level = 0) {
+    private renderRow(row: Row, level = 0, previousRow?: Row) {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
@@ -1065,9 +1065,9 @@ export class KupDataTable {
             // if group is expanded, add children
             if (this.isGroupExpanded(row)) {
                 row.group.children
-                    .map((r) => {
-                        return this.renderRow(r, level + 1);
-                    })
+                    // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                    // When the column has specified the parameter hideValuesRepetitions
+                    .map((row, groupRowIndex, currentArray) => this.renderRow(row, level + 1, groupRowIndex > 0 ? currentArray[groupRowIndex - 1] : null))
                     .forEach((jsxRow) => {
                         if (Array.isArray(jsxRow)) {
                             jsxRow.forEach((jr) => jsxRows.push(jr));
@@ -1080,13 +1080,17 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            const cells = visibleColumns.map(({ name }, index) => {
+            const cells = visibleColumns.map(({ name, hideValuesRepetitions }, index) => {
                 let indend = [];
                 if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
                 }
+
+                /*if (hideValuesRepetitions) {
+                    console.log("MOSTRAMI LE COLONNE VISIBILI che bloccano le ripeizioni", visibleColumns, rest);
+                }*/
 
                 const cell = row.cells[name];
 
@@ -1105,7 +1109,12 @@ export class KupDataTable {
                     );
                 }
 
-                const jsxCell = this.renderCell(cell, name);
+                const jsxCell = this.renderCell(
+                  cell,
+                  name,
+                  // The previous value must be passed only if repeated values can be hidden and we have a previous row.
+                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null
+                );
 
                 const cellClass = {
                     number: isNumber(cell.obj),
@@ -1232,20 +1241,31 @@ export class KupDataTable {
         });
     }
 
+    /**
+     *
+     * @param cell
+     * @param column
+     * @param previousRowCellValue
+     */
     private renderCell(
         cell: Cell,
-        column: string
+        column: string,
+        previousRowCellValue?: string
     ) {
-        let content: any = cell.value;
+        // When the previous row value is different from the current value, we can show the current value.
+        const valueToDisplay = previousRowCellValue !== cell.value ? cell.value : '';
+
+        // Sets the default value
+        let content: any = valueToDisplay;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <span class={cell.value} />;
+            content = <span class={valueToDisplay} />;
         } else if (isImage(cell.obj)) {
-            content = <img src={cell.value} alt="" width="64" height="64" />;
+            content = <img src={valueToDisplay} alt="" width="64" height="64" />;
         } else if (isLink(cell.obj)) {
             content = (
-                <a href={cell.value} target="_blank">
-                    {cell.value}
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
                 </a>
             );
         } else if (isBar(cell.obj)) {
@@ -1258,7 +1278,8 @@ export class KupDataTable {
                 props.width = this.columnsWidth[column];
             }
 
-            content = <kup-graphic-cell {...props} />;
+            // Controls if we should display this cell value
+            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
         }
 
         // TODO
@@ -1293,7 +1314,9 @@ export class KupDataTable {
         } else {
             rows = [];
             this.paginatedRows
-                .map((row: Row) => this.renderRow(row))
+                // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                // When the column has specified the parameter hideValuesRepetitions
+                .map((row, rowIndex, currentArray) => this.renderRow(row, 0, rowIndex > 0 ? currentArray[rowIndex - 1] : null))
                 .forEach((jsxRow) => {
                     if (Array.isArray(jsxRow)) {
                         jsxRow.forEach((jr) => rows.push(jr));

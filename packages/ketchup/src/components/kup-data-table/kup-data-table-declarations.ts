@@ -3,6 +3,7 @@ export interface Column {
     title: string;
     size?: number;
     visible?: boolean;
+    hideValuesRepetitions?: boolean;
 }
 
 export interface Row {
