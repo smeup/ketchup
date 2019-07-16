@@ -11,7 +11,7 @@ import {
   GenericMap,
   GroupObject,
   PaginatorPos,
-  Row,
+  Row as Row1,
   RowAction,
   ShowGrid,
   SortObject,
@@ -19,6 +19,7 @@ import {
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
   Layout,
+  Row,
 } from './components/kup-box/kup-box-declarations';
 import {
   ButtonConfig,
