@@ -6,6 +6,10 @@
     <hr />
     <h3>Layout with fixed values</h3>
     <kup-box :data.prop="basicData" :layout.prop="layout2"></kup-box>
+    <hr />
+    <h3>Different layout for each row</h3>
+    <p>The layout can be specified in each row</p>
+    <kup-box :data.prop="dataTableWithLayout"></kup-box>
   </div>
 </template>
 
@@ -13,10 +17,51 @@
 <script>
 import { defaultData } from '@/mock/box';
 
+const colors = ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd'];
+
 export default {
   data() {
+    // deep clone
+    let dataTableWithLayout = JSON.parse(JSON.stringify(defaultData));
+
+    let i = dataTableWithLayout.rows.length - 1;
+    while (i >= 0) {
+      const row = dataTableWithLayout.rows[i];
+
+      const bgColor = colors[i % colors.length];
+
+      const layout = {
+        sections: [
+          {
+            horizontal: true,
+            sections: [
+              {
+                dim: '20%',
+                style: {
+                  backgroundColor: bgColor,
+                },
+                content: [
+                  {
+                    column: 'FLD1',
+                  },
+                ],
+              },
+              {
+                sections: [{}, {}, {}],
+              },
+            ],
+          },
+        ],
+      };
+
+      row.layout = layout;
+
+      i--;
+    }
+
     return {
       basicData: defaultData,
+      dataTableWithLayout,
       horizontalLayout: {
         sections: [
           {
