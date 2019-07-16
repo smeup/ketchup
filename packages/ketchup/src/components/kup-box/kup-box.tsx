@@ -10,12 +10,12 @@ import {
 
 import {
     Column,
-    Row,
     SortObject,
     SortMode,
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
+    Row,
     Layout,
     Section,
     CollapsedSectionsState,
@@ -355,8 +355,21 @@ export class KupBox {
         this.lastColumnIndex = 0;
 
         let boxContent = null;
-        if (this.boxLayout && this.boxLayout.sections) {
-            const sections = this.boxLayout.sections;
+
+        // if layout in row, use that one
+        let rowLayout = row.layout;
+        if (!rowLayout) {
+            // otherwise, use 'default' layout
+            rowLayout = this.boxLayout;
+        }
+
+        let horizontal = false;
+        if (rowLayout) {
+            if (rowLayout.horizontal) {
+                horizontal = true;
+            }
+
+            const sections = rowLayout.sections;
             let size = sections.length;
 
             let cnt = 0;
@@ -364,11 +377,16 @@ export class KupBox {
                 boxContent = [];
             }
 
+            // create fake parent section
+            const parent: Section = {
+                horizontal: horizontal,
+            };
+
             while (size-- > 0) {
                 boxContent.push(
                     this.renderSection(
                         sections[cnt++],
-                        null,
+                        parent,
                         row,
                         visibleColumns
                     )
@@ -395,6 +413,7 @@ export class KupBox {
         const boxClass = {
             box: true,
             selected: isSelected,
+            column: !horizontal,
         };
 
         return (
@@ -465,9 +484,14 @@ export class KupBox {
         };
 
         const sectionStyle: any = section.style || {};
-        if (section.dim && parent && parent.horizontal) {
-            sectionStyle.maxWidth = section.dim;
+        if (section.dim && parent) {
             sectionStyle.flex = `0 0 ${section.dim}`;
+
+            if (parent.horizontal) {
+                sectionStyle.maxWidth = section.dim;
+            } else {
+                sectionStyle.maxHeight = section.dim;
+            }
         }
 
         let sectionContainer = null;

@@ -38,6 +38,10 @@
     border: 1px solid var(--int_border-color);
     display: flex;
 
+    &.column {
+      flex-direction: column;
+    }
+
     &:hover,
     &.selected {
       box-shadow: var(--int_hover-box-shadow);

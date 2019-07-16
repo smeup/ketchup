@@ -96,6 +96,7 @@ Fundamentally, the main problem here is that that if
 | `size`            | `size`             | Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable. | `number`   | `300`                                                                                                            |
 | `value`           | `value`            | The current value of the gauge. The gauge's needle points to the percentage based on this prop.                                      | `number`   | `0`                                                                                                              |
 | `valueSize`       | `value-size`       | The current size of gauge's value. Correct values are: 0,1,2 or 3.                                                                   | `number`   | `0`                                                                                                              |
+| `widthComponent`  | `width-component`  | Set Width gauge.                                                                                                                     | `string`   | `'22vw'`                                                                                                         |
 
 
 ## CSS Custom Properties
