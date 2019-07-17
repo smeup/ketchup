@@ -145,7 +145,7 @@ describe('sort rows', () => {
 
 // TODO this isn't working, there is an infinite loop somewere
 // waiting for stencil one pr
-describe.skip('errors', () => {
+describe('errors', () => {
     it('sort on invalid column', async () => {
         const page = await newE2EPage();
 
@@ -176,9 +176,28 @@ describe.skip('errors', () => {
 
         expect(rows).toHaveLength(3);
 
-        // same order
-        expect(rows[0]).toEqual(staticData.rows[0]);
-        expect(rows[1]).toEqual(staticData.rows[1]);
-        expect(rows[2]).toEqual(staticData.rows[2]);
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+
+            const cells = await row.findAll('td');
+
+            expect(cells).toHaveLength(3);
+
+            const firstCell = cells[0];
+
+            switch (i) {
+                case 0:
+                    expect(firstCell).toEqualText('CASFRA');
+                    break;
+
+                case 1:
+                    expect(firstCell).toEqualText('PARFRA');
+                    break;
+
+                default:
+                    expect(firstCell).toEqualText('DELGIO');
+                    break;
+            }
+        }
     });
 });

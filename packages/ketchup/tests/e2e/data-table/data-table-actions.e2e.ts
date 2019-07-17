@@ -171,15 +171,13 @@ describe('renders actions', () => {
 
         expect(rows).toHaveLength(5);
 
-        await Promise.all(
-            rows.map(async (row) => {
-                expect(row).toHaveClass('group');
+        for (let row of rows) {
+            expect(row).toHaveClass('group');
 
-                const cells = await row.findAll('td');
-                expect(cells).toHaveLength(1);
-                expect(cells[0]).toEqualAttribute('colspan', '4');
-            })
-        );
+            const cells = await row.findAll('td');
+            expect(cells).toHaveLength(1);
+            expect(cells[0]).toEqualAttribute('colspan', '4');
+        }
 
         // expanding row
         const expander = await page.find(rowExpanderSelector);
