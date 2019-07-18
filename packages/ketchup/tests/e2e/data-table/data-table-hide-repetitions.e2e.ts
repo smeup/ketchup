@@ -28,8 +28,9 @@ describe('kup-data-table with hide repetitions active', () => {
     const columnsNames = columns.map(column => column.name);
 
 
+    console.log("the rows", tableRows.length, rows.length);
     // no filters or grouping -> length must be the same
-    expect(tableRows.length).toHaveLength(rows.length);
+    expect(tableRows).toHaveLength(rows.length);
 
     await Promise.all(
       rows.map(async (row, index, currentArr) => {
