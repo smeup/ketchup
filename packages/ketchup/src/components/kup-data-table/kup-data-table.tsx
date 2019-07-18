@@ -1,44 +1,24 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    Prop,
-    State,
-    Watch,
-    JSX,
-    h,
-} from '@stencil/core';
+import {Component, Event, EventEmitter, h, JSX, Prop, State, Watch,} from '@stencil/core';
 
 import {
+    Cell,
     Column,
-    PaginatorPos,
-    SortMode,
-    SortObject,
-    Row,
     GenericMap,
     GroupObject,
-    TotalsMap,
-    Cell,
+    LoadMoreMode,
+    PaginatorPos,
+    Row,
     RowAction,
     ShowGrid,
+    SortMode,
+    SortObject,
     TableData,
+    TotalsMap,
 } from './kup-data-table-declarations';
 
-import {
-    calcTotals,
-    filterRows,
-    groupRows,
-    sortRows,
-} from './kup-data-table-helper';
+import {calcTotals, filterRows, groupRows, sortRows,} from './kup-data-table-helper';
 
-import {
-    isIcon,
-    isImage,
-    isLink,
-    isNumber,
-    isVoCodver,
-    isBar,
-} from '../../utils/object-utils';
+import {isBar, isIcon, isImage, isLink, isNumber, isVoCodver,} from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -72,6 +52,34 @@ export class KupDataTable {
     @Prop()
     paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
+    /**
+     * If set to true, displays the button to load more records.
+     */
+    @Prop({ reflect: true }) showLoadMore: boolean = false;
+
+    /**
+     * The number of records which will be requested to be downloaded when clicking on the load more button.
+     *
+     * This property is regulated also by loadMoreMode.
+     * @see loadMoreMode
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreStep: number = 60;
+
+    /**
+     * Establish the modality of how many new records will be downloaded.
+     *
+     * This property is regulated also by loadMoreStep.
+     * @see loadMoreStep
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
+
+    /**
+     * Sets a maximum limit of new records which can be required by the load more functionality.
+     */
+    @Prop() loadMoreLimit: number = 1000;
+
     @Prop()
     columnsWidth: Array<{
         column: string;
@@ -82,7 +90,7 @@ export class KupDataTable {
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop()
+    @Prop({ reflect: true })
     showHeader = true;
 
     /**
@@ -178,6 +186,10 @@ export class KupDataTable {
 
     private columnOverTimeout: NodeJS.Timeout;
 
+    private loadMoreEventCounter: number = 0;
+
+    private loadMoreEventPreviousQuantity: number = 0;
+
     // private theadRef: HTMLTableSectionElement;
 
     /**
@@ -246,6 +258,16 @@ export class KupDataTable {
         row: Row;
         action?: RowAction;
         index?: number;
+    }>;
+
+    @Event({
+        eventName: 'kupLoadMoreClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoadMoreClicked: EventEmitter<{
+        loadItems: number;
     }>;
 
     // private theadObserver = new IntersectionObserver(
@@ -687,6 +709,34 @@ export class KupDataTable {
         );
 
         this.adjustGroupState();
+    }
+
+    // Handler for loadMore button is clicked.
+    private onLoadMoreClick() {
+        let loadItems: number = 0;
+
+        switch (this.loadMoreMode) {
+            case LoadMoreMode.CONSTANT:
+                loadItems = this.loadMoreStep;
+                break;
+            case LoadMoreMode.CONSTANT_INCREMENT:
+                loadItems = this.loadMoreStep * (this.loadMoreEventCounter + 1);
+                break;
+            case LoadMoreMode.PROGRESSIVE_THRESHOLD:
+                loadItems = Math.max(this.loadMoreEventPreviousQuantity, this.loadMoreStep) * Math.min(this.loadMoreEventCounter + 1, 2);
+                break;
+        }
+
+        if (loadItems > this.loadMoreLimit) {
+            loadItems = this.loadMoreLimit;
+        }
+
+        this.kupLoadMoreClicked.emit({
+            loadItems,
+        });
+
+        this.loadMoreEventPreviousQuantity = loadItems;
+        this.loadMoreEventCounter++;
     }
 
     private adjustGroupState(): void {
@@ -1243,10 +1293,10 @@ export class KupDataTable {
     }
 
     /**
-     *
-     * @param cell
-     * @param column
-     * @param previousRowCellValue
+     * FActory function for cells.
+     * @param cell - cell object
+     * @param column - the cell's column name
+     * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
      */
     private renderCell(
         cell: Cell,
@@ -1299,6 +1349,19 @@ export class KupDataTable {
                 {content}
             </span>
         );
+    }
+
+    private renderLoadMoreButton(isSlotted: boolean = true) {
+        const label = "Carica altri dati";
+        return <button
+          aria-label={label}
+          class="load-more-records mdi mdi-plus-circle"
+          role="button"
+          slot={isSlotted ? 'more-results' : null}
+          tabindex="0"
+          title={label}
+          onClick={() => this.onLoadMoreClick()}
+        />;
     }
 
     render() {
@@ -1364,7 +1427,9 @@ export class KupDataTable {
                     onKupRowsPerPageChanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
-                />
+                >
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </kup-paginator>
             );
         }
 
@@ -1384,7 +1449,9 @@ export class KupDataTable {
                     onKupRowsPerPageChanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
-                />
+                >
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </kup-paginator>
             );
         }
 

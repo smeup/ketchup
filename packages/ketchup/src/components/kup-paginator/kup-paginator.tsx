@@ -182,6 +182,7 @@ export class KupPaginator {
                     <span class="nextPageGroup">
                         Numero risultati: {this.max}
                     </span>
+                    <slot name="more-results"/>
                     Mostra
                     <select onChange={(e) => this.onRowsPerPage(e)}>
                         {rowsPerPageOptions}

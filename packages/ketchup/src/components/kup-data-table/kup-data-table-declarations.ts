@@ -99,3 +99,11 @@ export enum ShowGrid {
 //     DEFAULT = 'Default',
 //     VARIABLE = 'Variable',
 // }
+
+
+//---- *NEXT functionalit AKA load more ----
+export enum LoadMoreMode {
+    CONSTANT = 'constant',
+    CONSTANT_INCREMENT = 'constant_increment',
+    PROGRESSIVE_THRESHOLD = 'progressive_threshold',
+}
