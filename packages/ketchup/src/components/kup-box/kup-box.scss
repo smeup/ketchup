@@ -177,6 +177,12 @@
 #filter-panel {
   kup-text-input {
     --kup-text-input_border-color: #d0d0d0;
+    --kup-text-input_color: #545454;
+  }
+
+  svg {
+    fill: #808080;
+    margin-left: 3px;
   }
 }
 
