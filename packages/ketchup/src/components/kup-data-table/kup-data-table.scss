@@ -6,6 +6,7 @@
 * @prop --int_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --int_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
 * @prop --int_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
+* @prop --int_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-input elements used to filter rows.
 * @prop --int_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
 * @prop --int_group-border-color, --kup-data-table_group-border-color: TODO check where used.
 * @prop --int_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
@@ -25,20 +26,24 @@
   --int_background-color: var(--kup-data-table_background-color, #ffffff);
   --int_border-color: var(--kup-data-table_border-color, #000000);
   --int_box-shadow: var(
-      --kup-data-table_box-shadow,
-      0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+    --kup-data-table_box-shadow,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
   --int_color: var(--kup-data-table_color, #545454);
-  --int_filter-border-color: var(--kup-data-table_filter-border-color, #dadada);
+  --int_filter-border-color: var(--kup-data-table_filter-border-color, #d0d0d0);
+  --int_filter-background-color: var(
+    --kup-data-table_filter-background-color,
+    white
+  );
   --int_group-background-color: var(
-      --kup-data-table_group-background-color,
-      #f5f5f5
+    --kup-data-table_group-background-color,
+    #f9f9f9
   );
   --int_group-border-color: var(--kup-data-table_group-border-color, #6aaaa7);
   --int_hover-color: var(--kup-data-table_hover-color, #545454);
   --int_head-background-color: var(
     --kup-data-table_head-background-color,
-    #f5f5f5
+    #f9f9f9
   );
   --int_header-offset: var(--kup-data-table_header-offset, 50px);
   --int_hover-background-color: var(
@@ -99,6 +104,7 @@
     th {
       kup-text-input.datatable-filter {
         --int_border-color: var(--int_filter-border-color);
+        --int_background-color: var(--int_filter-background-color);
       }
 
       input {
@@ -109,7 +115,6 @@
     thead {
       background: var(--int_head-background-color);
       border: 1px solid var(--int_border-color);
-      border-bottom: 3px solid var(--int_border-color);
       font-size: 115%;
 
       th {
