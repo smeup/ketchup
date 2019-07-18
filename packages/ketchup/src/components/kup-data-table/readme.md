@@ -112,17 +112,17 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 ### Depends on
 
 - [kup-text-input](..\kup-text-input)
+- [kup-button](..\kup-button)
 - [kup-graphic-cell](..\kup-graphic-cell)
 - [kup-paginator](..\kup-paginator)
-- [kup-button](..\kup-button)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-data-table --> kup-text-input
+  kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-paginator
-  kup-data-table --> kup-button
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

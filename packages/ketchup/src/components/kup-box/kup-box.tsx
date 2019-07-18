@@ -22,7 +22,11 @@ import {
     BoxObject,
 } from './kup-box-declarations';
 
-import { isImage, isButton } from '../../utils/object-utils';
+import {
+    isImage,
+    isButton,
+    createJ4objButtonConfig,
+} from '../../utils/object-utils';
 
 import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
 
@@ -534,47 +538,9 @@ export class KupBox {
 
                     boContent = <kup-image src={cell.value} badges={badges} />;
                 } else if (isButton(cell.obj)) {
-                    let label = cell.value;
-                    let textMode = 'Hint';
-                    let icon = null;
-                    let flat = true;
-                    let showtext = false;
-                    let fillspace = false;
-
-                    if (cell.config) {
-                        const config = cell.config;
-
-                        icon = config.icon;
-
-                        if (config.hasOwnProperty('showtext')) {
-                            showtext = config.showtext;
-                        }
-
-                        if (config.hasOwnProperty('fillspace')) {
-                            fillspace = config.fillspace;
-                        }
-
-                        if (config.hasOwnProperty('flat')) {
-                            flat = config.flat;
-
-                            if (!flat) {
-                                textMode = '';
-                            }
-                        }
-
-                        if (config.hasOwnProperty('fillspace')) {
-                            fillspace = config.fillspace;
-                        }
-                    }
-
                     boContent = (
                         <kup-button
-                            flat={flat}
-                            iconClass={icon}
-                            label={label}
-                            textmode={textMode}
-                            showtext={showtext}
-                            fillspace={fillspace}
+                          {...createJ4objButtonConfig(cell)}
                         />
                     );
                 } else {

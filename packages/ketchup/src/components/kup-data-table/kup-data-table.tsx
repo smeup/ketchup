@@ -1,8 +1,18 @@
-import {Component, Event, EventEmitter, h, JSX, Prop, State, Watch,} from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    JSX,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 
 import {
     Cell,
     Column,
+    KupDataTableCellButtonClick,
     GenericMap,
     GroupObject,
     LoadMoreMode,
@@ -16,9 +26,23 @@ import {
     TotalsMap,
 } from './kup-data-table-declarations';
 
-import {calcTotals, filterRows, groupRows, sortRows,} from './kup-data-table-helper';
+import {
+    calcTotals,
+    filterRows,
+    groupRows,
+    sortRows,
+} from './kup-data-table-helper';
 
-import {isBar, isIcon, isImage, isLink, isNumber, isVoCodver,} from '../../utils/object-utils';
+import {
+    isBar,
+    isButton,
+    isIcon,
+    isImage,
+    isLink,
+    isNumber,
+    isVoCodver,
+    createJ4objButtonConfig,
+} from '../../utils/object-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -695,6 +719,10 @@ export class KupDataTable {
         });
     }
 
+    private onJ4btnClicked(row, column) {
+        console.log("tabella cliccato qui", this, row, column, arguments);
+    }
+
     // utility methods
     private groupRows(): void {
         if (!this.isGrouping()) {
@@ -1131,7 +1159,8 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            const cells = visibleColumns.map(({ name, hideValuesRepetitions }, index) => {
+            const cells = visibleColumns.map((currentColumn, index) => {
+                const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
                 if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
                     for (let i = 0; i < level; i++) {
@@ -1164,7 +1193,11 @@ export class KupDataTable {
                   cell,
                   name,
                   // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null
+                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
+                  {
+                      row,
+                      column: currentColumn
+                  }
                 );
 
                 const cellClass = {
@@ -1301,7 +1334,8 @@ export class KupDataTable {
     private renderCell(
         cell: Cell,
         column: string,
-        previousRowCellValue?: string
+        previousRowCellValue?: string,
+        cellData?: KupDataTableCellButtonClick,
     ) {
         // When the previous row value is different from the current value, we can show the current value.
         const valueToDisplay = previousRowCellValue !== cell.value ? cell.value : '';
@@ -1318,6 +1352,14 @@ export class KupDataTable {
                 <a href={valueToDisplay} target="_blank">
                     {valueToDisplay}
                 </a>
+            );
+        } else if (isButton(cell.obj)) {
+            content = (
+              <kup-button
+                {...createJ4objButtonConfig(cell)}
+                // TODO check if there is a better way. Maybe make callData mandatory
+                onKupButtonClicked={this.onJ4btnClicked.call(this, cellData ? cellData.row : null, cellData ? cellData.column : null)}
+              />
             );
         } else if (isBar(cell.obj)) {
             const props: { value: string; width?: number } = {

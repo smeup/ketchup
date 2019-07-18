@@ -100,6 +100,10 @@ export enum ShowGrid {
 //     VARIABLE = 'Variable',
 // }
 
+export interface KupDataTableCellButtonClick {
+    column: Column;
+    row: Row;
+}
 
 //---- *NEXT functionalit AKA load more ----
 export enum LoadMoreMode {
