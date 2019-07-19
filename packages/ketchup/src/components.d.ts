@@ -8,6 +8,7 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   Column,
+  DataTable,
   GenericMap,
   GroupObject,
   PaginatorPos,
@@ -25,7 +26,8 @@ import {
   ButtonConfig,
 } from './components/kup-btn/kup-btn-declarations';
 import {
-  ChartConfig,
+  ChartAspect,
+  ChartType,
 } from './components/kup-chart/kup-chart-declarations';
 import {
   ComboItem,
@@ -105,8 +107,19 @@ export namespace Components {
     'transparent': boolean;
   }
   interface KupChart {
-    'config': ChartConfig;
-    'data': any;
+    'asp': ChartAspect;
+    'axe': string;
+    'colors': string[];
+    'data': DataTable;
+    'graphTitle': string;
+    'graphTitleColor': string;
+    'graphTitleSize': number;
+    'height': number;
+    'legend': boolean;
+    'series': string[];
+    'stacked': boolean;
+    'type': ChartType;
+    'width': number;
   }
   interface KupChip {
     'closable': boolean;
@@ -635,8 +648,19 @@ declare namespace LocalJSX {
     'transparent'?: boolean;
   }
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
-    'config'?: ChartConfig;
-    'data'?: any;
+    'asp'?: ChartAspect;
+    'axe'?: string;
+    'colors'?: string[];
+    'data'?: DataTable;
+    'graphTitle'?: string;
+    'graphTitleColor'?: string;
+    'graphTitleSize'?: number;
+    'height'?: number;
+    'legend'?: boolean;
+    'series'?: string[];
+    'stacked'?: boolean;
+    'type'?: ChartType;
+    'width'?: number;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
     'closable'?: boolean;

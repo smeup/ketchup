@@ -1,3 +1,8 @@
+export interface DataTable {
+    columns?: Array<Column>;
+    rows?: Array<Row>;
+}
+
 export interface Column {
     name: string;
     title: string;

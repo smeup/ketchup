@@ -1,31 +1,62 @@
 import { Component, Prop, h } from '@stencil/core';
 
-import { ChartConfig, ChartType } from './kup-chart-declarations';
+import { ChartType, ChartAspect } from './kup-chart-declarations';
 
 import { convertColumns, convertRows } from './kup-chart-builder';
+
+import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 declare const google: any;
 
 @Component({
     tag: 'kup-chart',
-    styleUrl: 'kup-chart.scss',
     shadow: true,
 })
 export class KupChart {
-    @Prop() data: any;
+    @Prop() data: DataTable;
 
-    @Prop() config: ChartConfig = {
-        type: ChartType.Hbar,
-        axe: 'Col1',
-        series: ['Col2', 'Col3'],
-    };
+    @Prop()
+    type: ChartType = ChartType.Hbar;
+
+    @Prop()
+    axe: string;
+
+    @Prop()
+    series: string[];
+
+    @Prop()
+    asp: ChartAspect;
+
+    @Prop()
+    colors: string[] = [];
+
+    @Prop()
+    width: number;
+
+    @Prop()
+    height: number;
+
+    @Prop()
+    legend = true;
+
+    @Prop()
+    stacked = false;
+
+    @Prop()
+    graphTitle: string;
+
+    @Prop()
+    graphTitleColor: string;
+
+    @Prop()
+    graphTitleSize: number;
 
     private chartContainer?: HTMLDivElement;
 
     private gChart: any;
 
     componentDidLoad() {
-        if (!this.config.axe || !this.config.series) {
+        if (!this.axe || !this.series) {
             // cannot create chart
             return;
         }
@@ -55,7 +86,7 @@ export class KupChart {
     }
 
     private _createGoogleChart() {
-        switch (this.config.type) {
+        switch (this.type) {
             case ChartType.Area:
                 return new google.visualization.AreaChart(this.chartContainer);
 
@@ -103,60 +134,55 @@ export class KupChart {
     }
 
     private _createGoogleChartOptions() {
-        if (!this.config) {
-            return {};
-        }
-
         const opts: any = {};
 
         // 2d vs 3d
-        opts.is3D = '3D' === this.config.asp;
+        opts.is3D = ChartAspect.D3 === this.asp;
 
-        if (this.config.colors) {
-            opts.colors = this.config.colors;
+        if (this.colors && this.colors.length > 0) {
+            opts.colors = this.colors;
         }
 
-        if (this.config.width) {
+        if (this.width) {
             try {
-                opts.width = this.config.width;
+                opts.width = this.width;
             } catch (e) {
                 console.error(e);
             }
         }
 
-        if (this.config.height) {
+        if (this.height) {
             try {
-                opts.height = this.config.height;
+                opts.height = this.height;
             } catch (e) {
                 console.error(e);
             }
         }
 
         // wtf check for legend
-        if (this.config.hasOwnProperty('leg') && !this.config.leg) {
+        if (!this.legend) {
             opts.legend = {
                 position: 'none',
             };
         }
 
         if (
-            this.config.stacked &&
-            (ChartType.Hbar === this.config.type ||
-                ChartType.Vbar === this.config.type)
+            this.stacked &&
+            (ChartType.Hbar === this.type || ChartType.Vbar === this.type)
         ) {
             opts.isStacked = true;
         }
 
-        if (this.config.title) {
-            opts.title = this.config.title;
+        if (this.graphTitle) {
+            opts.title = this.graphTitle;
 
             opts.titleTextStyle = {};
-            if (this.config.titleColor) {
-                opts.titleTextStyle.color = this.config.titleColor;
+            if (this.graphTitleColor) {
+                opts.titleTextStyle.color = this.graphTitleColor;
             }
 
-            if (this.config.titleSize) {
-                opts.titleTextStyle.fontSize = this.config.titleSize;
+            if (this.graphTitleSize) {
+                opts.titleTextStyle.fontSize = this.graphTitleSize;
             }
         }
 
@@ -164,12 +190,17 @@ export class KupChart {
     }
 
     private _createChart() {
-        const tableColumns = convertColumns(this.data, this.config);
+        const tableColumns = convertColumns(this.data, {
+            axe: this.axe,
+            series: this.series,
+        });
 
         const tableRows = convertRows(this.data, tableColumns);
 
+        const columnTitles = tableColumns.map((c) => c.title);
+
         const dataTable = new google.visualization.arrayToDataTable([
-            tableColumns,
+            columnTitles,
             ...tableRows,
         ]);
 

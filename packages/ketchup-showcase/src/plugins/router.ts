@@ -3,12 +3,12 @@ import Router from 'vue-router';
 
 import boxRoutes from './router/box';
 import dataTableRoutes from './router/dataTable';
+import chartRoutes from './router/chart';
 import fldRoutes from './router/fldRoutes';
 import easterRoutes from './router/easterRoutes';
 
 import Home from '@/views/Home.vue';
-import KupPortals from '@/views/KupPortals.vue';
-import box from './router/box';
+import chart from './router/chart';
 
 Vue.use(Router);
 
@@ -18,11 +18,6 @@ let simpleRoutes = [
     path: `/kup-btn`,
     name: 'btn',
     component: () => import(`@/views/KupBottoniera.vue`),
-  },
-  {
-    path: `/charts`,
-    name: 'charts',
-    component: () => import(`@/views/KupCharts.vue`),
   },
   {
     path: `/kup-dash`,
@@ -62,6 +57,7 @@ const baseRoutes = [
 const routes = [
   ...baseRoutes,
   ...boxRoutes,
+  ...chartRoutes,
   ...dataTableRoutes,
   ...fldRoutes,
   ...easterRoutes,
