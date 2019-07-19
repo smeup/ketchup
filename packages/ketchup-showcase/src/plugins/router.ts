@@ -44,6 +44,11 @@ let simpleRoutes = [
     name: 'html',
     component: () => import(`@/views/KupHtmlExamples.vue`),
   },
+  {
+    path: `/kup-progress-bar`,
+    name: 'progressbar',
+    component: () => import(`@/views/KupProgressBar.vue`),
+  },
 ];
 
 const baseRoutes = [

@@ -218,6 +218,12 @@ export default {
         },
       },
       {
+        title: `Html`,
+        to: {
+          name: 'html',
+        },
+      },
+      {
         title: `Image`,
         to: {
           name: 'image',
@@ -230,9 +236,9 @@ export default {
         },
       },
       {
-        title: `Html`,
+        title: 'Progress bar',
         to: {
-          name: 'html',
+          name: 'progressbar',
         },
       },
     ],
