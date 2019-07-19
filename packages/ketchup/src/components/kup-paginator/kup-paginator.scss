@@ -2,12 +2,12 @@
 
 /**
 * @prop --int_text-color, --kup-paginator_text-color: Set color of text
-* @prop --int_font-size, --kup-paginator_font-size: Set size of the font 
+* @prop --int_font-size, --kup-paginator_font-size: Set size of the font
 */
 
 :host {
   // variables
-  --int_text-color: var(--kup-paginator_text-color, #545454);
+  --int_text-color: var(--kup-paginator_text-color, $mainTextColor);
   --int_font-size: var(--kup-paginator_font-size, 1rem);
 }
 

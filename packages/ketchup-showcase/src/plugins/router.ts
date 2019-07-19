@@ -44,6 +44,11 @@ let simpleRoutes = [
     name: 'html',
     component: () => import(`@/views/KupHtmlExamples.vue`),
   },
+  {
+    path: `/kup-chips`,
+    name: 'chips',
+    component: () => import(`@/views/KupChips.vue`),
+  },
 ];
 
 const baseRoutes = [

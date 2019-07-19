@@ -1,0 +1,37 @@
+#chip {
+  background: $gray-e0;
+  color: $mainTextColor;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  outline: none;
+
+  #content {
+    height: 25px;
+    margin: 0 3px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: space-between;
+    cursor: default;
+
+    svg {
+      cursor: pointer;
+      fill: $mainTextColor;
+      margin-left: 2px;
+    }
+  }
+
+  &.disabled {
+    background: $gray-f5;
+
+    #content {
+      svg {
+        cursor: default;
+      }
+    }
+  }
+}

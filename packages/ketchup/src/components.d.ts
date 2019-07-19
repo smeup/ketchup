@@ -108,6 +108,10 @@ export namespace Components {
     'config': ChartConfig;
     'data': any;
   }
+  interface KupChip {
+    'closable': boolean;
+    'disabled': boolean;
+  }
   interface KupCombo {
     /**
     * Programmatically close the combo box
@@ -453,6 +457,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
+  var HTMLKupChipElement: {
+    prototype: HTMLKupChipElement;
+    new (): HTMLKupChipElement;
+  };
+
   interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
   var HTMLKupComboElement: {
     prototype: HTMLKupComboElement;
@@ -541,6 +551,7 @@ declare global {
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-chip': HTMLKupChipElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -626,6 +637,11 @@ declare namespace LocalJSX {
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
     'config'?: ChartConfig;
     'data'?: any;
+  }
+  interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
+    'closable'?: boolean;
+    'disabled'?: boolean;
+    'onClose'?: (event: CustomEvent<any>) => void;
   }
   interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
     /**
@@ -1012,6 +1028,7 @@ declare namespace LocalJSX {
     'kup-btn': KupBtn;
     'kup-button': KupButton;
     'kup-chart': KupChart;
+    'kup-chip': KupChip;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
