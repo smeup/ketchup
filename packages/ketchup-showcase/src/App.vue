@@ -218,6 +218,12 @@ export default {
         },
       },
       {
+        title: `Chips`,
+        to: {
+          name: 'chips',
+        },
+      },
+      {
         title: `Dash`,
         to: {
           name: 'dash',

@@ -29,7 +29,7 @@
     --kup-data-table_box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
-  --int_color: var(--kup-data-table_color, #545454);
+  --int_color: var(--kup-data-table_color, $mainTextColor);
   --int_filter-border-color: var(--kup-data-table_filter-border-color, #d0d0d0);
   --int_filter-background-color: var(
     --kup-data-table_filter-background-color,
@@ -40,7 +40,7 @@
     #f9f9f9
   );
   --int_group-border-color: var(--kup-data-table_group-border-color, #6aaaa7);
-  --int_hover-color: var(--kup-data-table_hover-color, #545454);
+  --int_hover-color: var(--kup-data-table_hover-color, $mainTextColor);
   --int_head-background-color: var(
     --kup-data-table_head-background-color,
     #f9f9f9
