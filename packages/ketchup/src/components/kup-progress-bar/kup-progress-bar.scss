@@ -1,24 +1,24 @@
 /*
-* @prop --int_background-color, --kup-pb_background-color: Background color of the progress bar.
-* @prop --int_foreground-color, --kup-pb_foreground-color: Foreground color of the progress bar.
-* @prop --int_text-color, --kup-pb_text-color: Text color.
+* @prop --pgb_background-color, --kup-pb_background-color: Background color of the progress bar.
+* @prop --pgb_foreground-color, --kup-pb_foreground-color: Foreground color of the progress bar.
+* @prop --pgb_text-color, --kup-pb_text-color: Text color.
 */
 
 :host {
   // variables
-  --int_background-color: var(--kup-pb_background-color, #cccccc);
-  --int_foreground-color: var(--kup-pb_foreground-color, #3063a5);
-  --int_text-color: var(--kup-pb_text-color, #ffffff);
+  --pgb_background-color: var(--kup-pb_background-color, #cccccc);
+  --pgb_foreground-color: var(--kup-pb_foreground-color, #3063a5);
+  --pgb_text-color: var(--kup-pb_text-color, #ffffff);
 }
 
 #progress-bar {
   width: 100%;
-  background: var(--int_background-color);
+  background: var(--pgb_background-color);
   position: relative;
   border-radius: 5px;
 
   #progress-bar-percentage {
-    background: var(--int_foreground-color);
+    background: var(--pgb_foreground-color);
     padding: 5px 0px;
     color: #fff;
     text-align: center;

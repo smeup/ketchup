@@ -29,8 +29,8 @@ export default {
 
 <style scoped>
 #custom-colors {
-  --int_background-color: black;
-  --int_foreground-color: green;
+  --pgb_background-color: black;
+  --pgb_foreground-color: green;
 }
 </style>
 
