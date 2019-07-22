@@ -84,6 +84,12 @@ export default {
             },
           },
           {
+            title: 'Classes',
+            to: {
+              name: 'boxClasses',
+            },
+          },
+          {
             title: 'Filters',
             to: {
               name: 'boxFilter',

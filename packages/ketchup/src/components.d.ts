@@ -11,15 +11,15 @@ import {
   GenericMap,
   GroupObject,
   PaginatorPos,
-  Row as Row1,
+  Row,
   RowAction,
   ShowGrid,
   SortObject,
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
+  BoxRow,
   Layout,
-  Row,
 } from './components/kup-box/kup-box-declarations';
 import {
   ButtonConfig,
@@ -64,7 +64,7 @@ export namespace Components {
     /**
     * Data
     */
-    'data': { columns?: Column[]; rows?: Row[] };
+    'data': { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -77,6 +77,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox': number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection': boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */
@@ -567,7 +575,7 @@ declare namespace LocalJSX {
     /**
     * Data
     */
-    'data'?: { columns?: Column[]; rows?: Row[] };
+    'data'?: { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -581,18 +589,32 @@ declare namespace LocalJSX {
     */
     'multiSelection'?: boolean;
     /**
-    * Lauched when a box is clicked
+    * Triggered when a box is auto selected via selectBox prop
+    */
+    'onKupAutoBoxSelect'?: (event: CustomEvent<{
+      row: BoxRow;
+    }>) => void;
+    /**
+    * Triggered when a box is clicked
     */
     'onKupBoxClicked'?: (event: CustomEvent<{
-      row: Row;
+      row: BoxRow;
       column?: string;
     }>) => void;
     /**
-    * Lauched when the multi selection checkbox changes value
+    * Triggered when the multi selection checkbox changes value
     */
     'onKupBoxSelected'?: (event: CustomEvent<{
-      rows: Row[];
+      rows: BoxRow[];
     }>) => void;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox'?: number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection'?: boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */

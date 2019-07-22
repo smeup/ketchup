@@ -7,6 +7,9 @@
 * @prop --int_img-border-radius, --kup-box_img-border-radius: box image border radius
 * @prop --int_expand-panel-color, --kup-box_expand-panel-color: text color for collapse header panel
 * @prop --int_hover-box-shadow, --kup-box_hover-box-shadow: shadow when hovering on a box
+* @prop --int_titled-section-font-size, --kup-box_titled-section-font-size: font size for section title
+* @prop --int_titled-section-bg-color, --kup-box_titled-section-bg-color: background color for section title
+* @prop --int_titled-section-top, --kup-box_titled-section-top: top position for section title
 */
 
 :host {
@@ -20,6 +23,12 @@
     --kup-box_hover-box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
+  --int_titled-section-font-size: var(--kup-box_titled-section-font-size, 12px);
+  --int_titled-section-bg-color: var(
+    --kup-box_titled-section-bg-color,
+    #ffffff
+  );
+  --int_titled-section-top: var(--kup-box_titled-section-top, -9px);
 }
 
 #box-container {
@@ -37,6 +46,7 @@
     border-radius: var(--int_border-radius);
     border: 1px solid var(--int_border-color);
     display: flex;
+    padding: 3px;
 
     &.column {
       flex-direction: column;
@@ -50,9 +60,12 @@
     .box-section {
       display: flex;
       flex-direction: row;
-      padding: 3px 4px;
       flex: 1 1 1%;
       flex-wrap: wrap;
+
+      &.last-child {
+        margin: 3px 4px;
+      }
 
       &.column {
         flex-direction: column;
@@ -62,6 +75,10 @@
         > .box-section {
           flex: 0 0 auto;
         }
+      }
+
+      &.grid {
+        display: grid;
       }
 
       .box-object {
@@ -100,8 +117,6 @@
 
         &.open {
           .header {
-            // border-top: none;
-
             .header-content {
               .mdi::before {
                 animation: rotate-icon 500ms ease-out forwards;
@@ -114,12 +129,42 @@
           }
         }
       }
+
+      &.titled {
+        border: 1px solid var(--int_border-color);
+        padding-top: 5px;
+        position: relative;
+        margin: 10px;
+
+        > h3 {
+          position: absolute;
+          margin: 0;
+          padding: 0 3px;
+          top: var(--int_titled-section-top);
+          left: 5px;
+          font-size: var(--int_titled-section-font-size);
+          background: var(--int_titled-section-bg-color);
+        }
+      }
     }
 
     .box-selection {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
+    }
+  }
+}
+
+:host(.no-shadow) {
+  #box-container {
+    .box {
+      border: none;
+
+      &:hover,
+      &.selected {
+        box-shadow: none;
+      }
     }
   }
 }
