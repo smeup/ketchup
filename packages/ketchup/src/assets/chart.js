@@ -106,7 +106,7 @@ const baseData = {
 
 const baseConfig = {
     type: 'Hbar',
-    axe: 'Col1',
+    axis: 'Col1',
     series: ['Col2', 'Col3'],
 };
 

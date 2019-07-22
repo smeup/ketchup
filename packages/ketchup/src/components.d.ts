@@ -108,7 +108,7 @@ export namespace Components {
   }
   interface KupChart {
     'asp': ChartAspect;
-    'axe': string;
+    'axis': string;
     'colors': string[];
     'data': DataTable;
     'graphTitle': string;
@@ -649,7 +649,7 @@ declare namespace LocalJSX {
   }
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
     'asp'?: ChartAspect;
-    'axe'?: string;
+    'axis'?: string;
     'colors'?: string[];
     'data'?: DataTable;
     'graphTitle'?: string;

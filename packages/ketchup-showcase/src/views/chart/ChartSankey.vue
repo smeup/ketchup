@@ -4,7 +4,7 @@
     <kup-chart
       :data.prop="sankeyData"
       :type="type"
-      axe="Col1"
+      axis="Col1"
       :series.prop="['Col2', 'Col3']"
     />
     <hr />

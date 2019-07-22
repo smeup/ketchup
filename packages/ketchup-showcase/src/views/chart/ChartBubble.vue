@@ -4,7 +4,7 @@
     <kup-chart
       :data.prop="baseData"
       :type="type"
-      axe="Col1"
+      axis="Col1"
       :series.prop="['Col3', 'Col4']"
     />
     <hr />

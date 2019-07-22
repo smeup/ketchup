@@ -19,7 +19,7 @@ export class KupChart {
     type: ChartType = ChartType.Hbar;
 
     @Prop()
-    axe: string;
+    axis: string;
 
     @Prop()
     series: string[];
@@ -56,7 +56,7 @@ export class KupChart {
     private gChart: any;
 
     componentDidLoad() {
-        if (!this.axe || !this.series) {
+        if (!this.axis || !this.series) {
             // cannot create chart
             return;
         }
@@ -191,7 +191,7 @@ export class KupChart {
 
     private _createChart() {
         const tableColumns = convertColumns(this.data, {
-            axe: this.axe,
+            axis: this.axis,
             series: this.series,
         });
 

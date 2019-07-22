@@ -5,7 +5,7 @@
     <kup-chart
       :data.prop="baseData"
       type="Pie"
-      axe="Col1"
+      axis="Col1"
       :series.prop="['Col2']"
     />
     <hr />
@@ -14,7 +14,7 @@
     <kup-chart
       :data.prop="baseData"
       type="Pie"
-      axe="Col1"
+      axis="Col1"
       asp="3D"
       :series.prop="['Col2']"
     />

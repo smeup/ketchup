@@ -4,7 +4,7 @@
     <kup-chart
       :data.prop="calendarData"
       :type="type"
-      axe="Col1"
+      axis="Col1"
       :series.prop="['Col2']"
     />
     <hr />

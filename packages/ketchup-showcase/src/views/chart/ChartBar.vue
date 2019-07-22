@@ -4,19 +4,23 @@
     <h3>Single serie</h3>
     <kup-chart
       :data.prop="baseData"
-      :axe.prop="'Col1'"
+      :axis.prop="'Col1'"
       :series.prop="['Col2']"
     />
     <hr />
 
     <h3>Multiple serie</h3>
-    <kup-chart :data.prop="baseData" :axe.prop="'Col1'" :series.prop="series" />
+    <kup-chart
+      :data.prop="baseData"
+      :axis.prop="'Col1'"
+      :series.prop="series"
+    />
     <hr />
 
     <h3>Stacked</h3>
     <kup-chart
       :data.prop="baseData"
-      :axe.prop="'Col1'"
+      :axis.prop="'Col1'"
       :series.prop="series"
       stacked
     />

@@ -39,7 +39,7 @@
     <kup-chart
       id="hbar"
       :data.prop="baseData"
-      :axe.prop="'Col1'"
+      :axis.prop="'Col1'"
       :series.prop="series"
       :colors.prop="colors"
       :width.prop="width"
@@ -58,7 +58,7 @@
       id="vbar"
       :data.prop="baseData"
       :type.prop="'Vbar'"
-      :axe.prop="'Col1'"
+      :axis.prop="'Col1'"
       :series.prop="series"
       :colors.prop="colors"
       :width.prop="width"
@@ -77,7 +77,7 @@
       id="pie"
       :data.prop="baseData"
       :type.prop="'Pie'"
-      :axe.prop="'Col1'"
+      :axis.prop="'Col1'"
       :series.prop="pieSeries"
       :colors.prop="colors"
       :width.prop="width"
@@ -262,7 +262,7 @@ const baseData = {
 
 const baseConfig = {
   type: 'Hbar',
-  axe: 'Col1',
+  axis: 'Col1',
   series: ['Col2', 'Col3'],
 };
 </script>

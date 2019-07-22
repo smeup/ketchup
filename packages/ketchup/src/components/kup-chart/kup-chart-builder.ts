@@ -18,17 +18,17 @@ function getColumnByName(name: string, columns: Column[]): Column | null {
     return null;
 }
 
-export const convertColumns = (data: DataTable, { series, axe }): Column[] => {
+export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     if (!data || !series) {
         return [];
     }
 
     const columns: Column[] = [];
 
-    // axe
-    const axeColumn = getColumnByName(axe, data.columns);
-    if (axeColumn) {
-        columns.push(axeColumn);
+    // axis
+    const axisColumn = getColumnByName(axis, data.columns);
+    if (axisColumn) {
+        columns.push(axisColumn);
     }
 
     // series

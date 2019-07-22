@@ -5,7 +5,7 @@
     <kup-chart
       :data.prop="baseData"
       type="Vbar"
-      axe="Col1"
+      axis="Col1"
       :series.prop="['Col2']"
     />
     <hr />
@@ -14,7 +14,7 @@
     <kup-chart
       :data.prop="baseData"
       type="Vbar"
-      axe="Col1"
+      axis="Col1"
       :series.prop="series"
     />
     <hr />
@@ -23,7 +23,7 @@
     <kup-chart
       :data.prop="baseData"
       type="Vbar"
-      axe="Col1"
+      axis="Col1"
       :series.prop="series"
       stacked
     />

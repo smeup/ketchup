@@ -109,12 +109,12 @@ const dataMock: DataTable = {
     ],
 };
 
-const axe = 'Col1';
+const axis = 'Col1';
 const series = ['Col2', 'Col3'];
 
 describe('data conversion', () => {
     it('can convert null', () => {
-        const columns = convertColumns(null, { axe: null, series: null });
+        const columns = convertColumns(null, { axis: null, series: null });
         const rows = convertRows(null, null);
 
         expect(columns).toEqual([]);
@@ -126,7 +126,7 @@ describe('data conversion', () => {
             {},
             {
                 series: null,
-                axe: null,
+                axis: null,
             }
         );
         const rows = convertRows({}, []);
@@ -137,7 +137,7 @@ describe('data conversion', () => {
 
     it('columns conversion', () => {
         const columns = convertColumns(dataMock, {
-            axe,
+            axis: axis,
             series,
         });
 
@@ -146,7 +146,7 @@ describe('data conversion', () => {
 
     it('rows conversion (one serie)', () => {
         const columns = convertColumns(dataMock, {
-            axe,
+            axis: axis,
             series: ['Col2'],
         });
         const rows = convertRows(dataMock, columns);
@@ -155,7 +155,7 @@ describe('data conversion', () => {
     });
 
     it('rows conversion (two series)', () => {
-        const columns = convertColumns(dataMock, { axe, series });
+        const columns = convertColumns(dataMock, { axis: axis, series });
         const rows = convertRows(dataMock, columns);
 
         expect(rows).toEqual([
