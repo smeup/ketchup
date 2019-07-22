@@ -116,6 +116,83 @@ export default {
         ],
       },
       {
+        title: 'Chart',
+        routes: [
+          {
+            title: 'Playground',
+            to: {
+              name: 'chartPlayground',
+            },
+          },
+          {
+            title: 'Area',
+            to: {
+              name: 'chartArea',
+            },
+          },
+          {
+            title: 'Bar',
+            to: {
+              name: 'chartBar',
+            },
+          },
+          {
+            title: 'Bubble',
+            to: {
+              name: 'chartBubble',
+            },
+          },
+          {
+            title: 'Calendar',
+            to: {
+              name: 'chartCalendar',
+            },
+          },
+          {
+            title: 'Candlestick',
+            to: {
+              name: 'chartCandlestick',
+            },
+          },
+          {
+            title: 'Column',
+            to: {
+              name: 'chartColumn',
+            },
+          },
+          {
+            title: 'Geo',
+            to: {
+              name: 'chartGeo',
+            },
+          },
+          {
+            title: 'Line',
+            to: {
+              name: 'chartLine',
+            },
+          },
+          {
+            title: 'Pie',
+            to: {
+              name: 'chartPie',
+            },
+          },
+          {
+            title: 'Sankey',
+            to: {
+              name: 'chartSankey',
+            },
+          },
+          {
+            title: 'Scatter',
+            to: {
+              name: 'chartScatter',
+            },
+          },
+        ],
+      },
+      {
         title: 'Data Table',
         routes: [
           {
@@ -209,12 +286,6 @@ export default {
         title: `Btn - Bottoniera`,
         to: {
           name: 'btn',
-        },
-      },
-      {
-        title: `Charts`,
-        to: {
-          name: 'charts',
         },
       },
       {
