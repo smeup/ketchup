@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>With buttons</h3>
+    <h3>Buttons</h3>
     <kup-box
       :data.prop="btnData"
       :layout.prop="btnLayout"
@@ -8,16 +8,22 @@
     ></kup-box>
 
     <p v-if="clickedBtn">You clicked: {{ clickedBtn }}</p>
+
+    <hr />
+
+    <h3>Progress bar</h3>
+    <kup-box :data.prop="pgbData" :layout.prop="pgbLayout"></kup-box>
   </div>
 </template>
 
 <script>
-import { j4btnData } from '@/mock/box';
+import { j4btnData, pgbData } from '@/mock/box';
 
 export default {
   data() {
     return {
       btnData: j4btnData,
+      pgbData,
       btnLayout: {
         sections: [
           {
@@ -35,6 +41,29 @@ export default {
                 ],
               },
               {},
+            ],
+          },
+        ],
+      },
+      pgbLayout: {
+        sections: [
+          {
+            horizontal: true,
+            sections: [
+              {
+                dim: '70px',
+              },
+              {
+                sections: [
+                  {
+                    style: {
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    },
+                  },
+                  {},
+                ],
+              },
             ],
           },
         ],

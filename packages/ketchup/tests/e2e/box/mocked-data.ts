@@ -400,3 +400,146 @@ export function boxDataFactory(numberOfCols: number, numberOfRows: number) {
         rows,
     };
 }
+
+export const pgbData = {
+    columns: [
+        {
+            name: 'FLD1',
+            title: 'Image',
+            size: '',
+        },
+        {
+            name: 'FLD2',
+            title: 'Todo',
+            size: 10,
+        },
+        {
+            name: 'FLD3',
+            title: 'Progress',
+            size: 10,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;SANCOS',
+                    },
+                    value: 'https://via.placeholder.com/64?text=SC',
+                },
+                FLD2: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Todo #1',
+                    },
+                    value: 'Todo #1',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'J4',
+                        p: 'PGB',
+                        k: '80',
+                    },
+                    value: '80',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'https://via.placeholder.com/64?text=CF',
+                },
+                FLD2: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Todo #2',
+                    },
+                    value: 'Todo #2',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'J4',
+                        p: 'PGB',
+                        k: '100\\*LAB;Done',
+                    },
+                    value: '100',
+                    config: {
+                        labelText: 'Done',
+                    },
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;DELGIO',
+                    },
+                    value: 'https://via.placeholder.com/64?text=DG',
+                },
+                FLD2: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Todo #3',
+                    },
+                    value: 'Todo #3',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'J4',
+                        p: 'PGB',
+                        k: '75',
+                    },
+                    value: '75',
+                    config: {
+                        hideLabel: true,
+                    },
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;PARFRA',
+                    },
+                    value: 'https://via.placeholder.com/64?text=PF',
+                },
+                FLD2: {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'Todo #4',
+                    },
+                    value: 'Todo #4',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'J4',
+                        p: 'PGB',
+                        k: '#C01BAF;33',
+                    },
+                    value: '33',
+                    config: {
+                        foregroundColor: 'green',
+                    },
+                },
+            },
+        },
+    ],
+};
