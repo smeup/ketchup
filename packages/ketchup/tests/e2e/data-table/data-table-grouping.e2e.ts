@@ -31,37 +31,36 @@ describe('kup-data-table with single grouping', () => {
 
         expect(rows).toHaveLength(3);
 
-        // all group rows
-        await Promise.all(
-            rows.map(async (row, index) => {
-                expect(row).toHaveClass('group');
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-                const cells = await row.findAll('td');
+            expect(row).toHaveClass('group');
 
-                expect(cells).toHaveLength(1);
+            const cells = await row.findAll('td');
 
-                expect(cells[0]).toEqualAttribute('colspan', '3');
+            expect(cells).toHaveLength(1);
 
-                const expandIcon = await cells[0].find('span.mdi');
+            expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+            const expandIcon = await cells[0].find('span.mdi');
 
-                // testing group order
-                switch (index) {
-                    case 1:
-                        expect(cells[0]).toEqualText('DELGIO');
-                        break;
+            expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
 
-                    case 2:
-                        expect(cells[0]).toEqualText('PARFRA');
-                        break;
+            // testing group order
+            switch (i) {
+                case 1:
+                    expect(cells[0]).toEqualText('DELGIO');
+                    break;
 
-                    default:
-                        expect(cells[0]).toEqualText('CASFRA');
-                        break;
-                }
-            })
-        );
+                case 2:
+                    expect(cells[0]).toEqualText('PARFRA');
+                    break;
+
+                default:
+                    expect(cells[0]).toEqualText('CASFRA');
+                    break;
+            }
+        }
 
         // expanding first group
         let icon = await page.find(rowExpanderSelector);
@@ -131,36 +130,36 @@ describe('kup-data-table with single grouping', () => {
         expect(rows).toHaveLength(3);
 
         // all group rows
-        await Promise.all(
-            rows.map(async (row, index) => {
-                expect(row).toHaveClass('group');
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-                const cells = await row.findAll('td');
+            expect(row).toHaveClass('group');
 
-                expect(cells).toHaveLength(1);
+            const cells = await row.findAll('td');
 
-                expect(cells[0]).toEqualAttribute('colspan', '2');
+            expect(cells).toHaveLength(1);
 
-                const expandIcon = await cells[0].find('span.mdi');
+            expect(cells[0]).toEqualAttribute('colspan', '2');
 
-                expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+            const expandIcon = await cells[0].find('span.mdi');
 
-                // testing group order
-                switch (index) {
-                    case 1:
-                        expect(cells[0]).toEqualText('DELGIO');
-                        break;
+            expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
 
-                    case 2:
-                        expect(cells[0]).toEqualText('PARFRA');
-                        break;
+            // testing group order
+            switch (i) {
+                case 1:
+                    expect(cells[0]).toEqualText('DELGIO');
+                    break;
 
-                    default:
-                        expect(cells[0]).toEqualText('CASFRA');
-                        break;
-                }
-            })
-        );
+                case 2:
+                    expect(cells[0]).toEqualText('PARFRA');
+                    break;
+
+                default:
+                    expect(cells[0]).toEqualText('CASFRA');
+                    break;
+            }
+        }
 
         // expanding first group
         let icon = await page.find(rowExpanderSelector);
@@ -280,31 +279,32 @@ describe('kup-data-table with multiple grouping', () => {
         // testing rows
         let rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(3);
-        await Promise.all(
-            rows.map(async (row, index) => {
-                expect(row).toHaveClasses(['group']);
 
-                // testing cells
-                const cells = await row.findAll('td');
-                expect(cells).toHaveLength(1);
-                expect(cells[0]).toEqualAttribute('colspan', '3');
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-                // testing group order
-                switch (index) {
-                    case 1:
-                        expect(cells[0]).toEqualText('DELGIO');
-                        break;
+            expect(row).toHaveClasses(['group']);
 
-                    case 2:
-                        expect(cells[0]).toEqualText('PARFRA');
-                        break;
+            // testing cells
+            const cells = await row.findAll('td');
+            expect(cells).toHaveLength(1);
+            expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                    default:
-                        expect(cells[0]).toEqualText('CASFRA');
-                        break;
-                }
-            })
-        );
+            // testing group order
+            switch (i) {
+                case 1:
+                    expect(cells[0]).toEqualText('DELGIO');
+                    break;
+
+                case 2:
+                    expect(cells[0]).toEqualText('PARFRA');
+                    break;
+
+                default:
+                    expect(cells[0]).toEqualText('CASFRA');
+                    break;
+            }
+        }
 
         // expanding first group
         const expander = await page.find(rowExpanderSelector);
@@ -315,47 +315,47 @@ describe('kup-data-table with multiple grouping', () => {
         rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(7);
 
-        await Promise.all(
-            rows.map(async (row, index) => {
-                expect(row).toHaveClasses(['group']);
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-                // testing cells
-                const cells = await row.findAll('td');
-                expect(cells).toHaveLength(1);
-                expect(cells[0]).toEqualAttribute('colspan', '3');
+            expect(row).toHaveClasses(['group']);
 
-                // testing group order
-                switch (index) {
-                    case 1:
-                        expect(cells[0]).toEqualText('Delphi');
-                        break;
+            // testing cells
+            const cells = await row.findAll('td');
+            expect(cells).toHaveLength(1);
+            expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                    case 2:
-                        expect(cells[0]).toEqualText('Go');
-                        break;
+            // testing group order
+            switch (i) {
+                case 1:
+                    expect(cells[0]).toEqualText('Delphi');
+                    break;
 
-                    case 3:
-                        expect(cells[0]).toEqualText('Java');
-                        break;
+                case 2:
+                    expect(cells[0]).toEqualText('Go');
+                    break;
 
-                    case 4:
-                        expect(cells[0]).toEqualText('Javascript');
-                        break;
+                case 3:
+                    expect(cells[0]).toEqualText('Java');
+                    break;
 
-                    case 5:
-                        expect(cells[0]).toEqualText('DELGIO');
-                        break;
+                case 4:
+                    expect(cells[0]).toEqualText('Javascript');
+                    break;
 
-                    case 6:
-                        expect(cells[0]).toEqualText('PARFRA');
-                        break;
+                case 5:
+                    expect(cells[0]).toEqualText('DELGIO');
+                    break;
 
-                    default:
-                        expect(cells[0]).toEqualText('CASFRA');
-                        break;
-                }
-            })
-        );
+                case 6:
+                    expect(cells[0]).toEqualText('PARFRA');
+                    break;
+
+                default:
+                    expect(cells[0]).toEqualText('CASFRA');
+                    break;
+            }
+        }
 
         // expanding second level group
         const expanders = await page.findAll(rowExpanderSelector);
@@ -366,18 +366,18 @@ describe('kup-data-table with multiple grouping', () => {
         rows = await page.findAll(rowsSelector);
         expect(rows).toHaveLength(8);
 
-        await Promise.all(
-            rows.map(async (row, index) => {
-                if (index === 2) {
-                    expect(row).not.toHaveClasses(['group']);
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-                    const cells = await row.findAll('td');
-                    expect(cells).toHaveLength(3);
-                } else {
-                    expect(row).toHaveClasses(['group']);
-                }
-            })
-        );
+            if (i === 2) {
+                expect(row).not.toHaveClasses(['group']);
+
+                const cells = await row.findAll('td');
+                expect(cells).toHaveLength(3);
+            } else {
+                expect(row).toHaveClasses(['group']);
+            }
+        }
     });
 });
 

@@ -84,6 +84,12 @@ export default {
             },
           },
           {
+            title: 'Classes',
+            to: {
+              name: 'boxClasses',
+            },
+          },
+          {
             title: 'Filters',
             to: {
               name: 'boxFilter',
@@ -209,6 +215,12 @@ export default {
         title: `Charts`,
         to: {
           name: 'charts',
+        },
+      },
+      {
+        title: `Chips`,
+        to: {
+          name: 'chips',
         },
       },
       {

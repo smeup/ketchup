@@ -10,6 +10,11 @@
     <h3>Different layout for each row</h3>
     <p>The layout can be specified in each row</p>
     <kup-box :data.prop="dataTableWithLayout"></kup-box>
+    <hr />
+    <h3>Section with column</h3>
+    <kup-box :data.prop="basicData" :layout.prop="layout3"></kup-box>
+    <h3>Section with title</h3>
+    <kup-box :data.prop="basicData" :layout.prop="layout4"></kup-box>
   </div>
 </template>
 
@@ -111,7 +116,34 @@ export default {
           },
         ],
       },
+      layout3: {
+        sections: [
+          {
+            columns: 4,
+            sections: [{}, {}, {}, {}],
+          },
+        ],
+      },
+      layout4: {
+        horizontal: true,
+        sections: [
+          {
+            dim: '100px',
+          },
+          {
+            title: 'User informations',
+            sections: [{}, {}, {}],
+          },
+        ],
+      },
     };
   },
 };
 </script>
+
+<style scoped>
+kup-box {
+  --int_titled-section-bg-color: #fafafa;
+}
+</style>
+

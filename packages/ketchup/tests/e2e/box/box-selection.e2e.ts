@@ -11,6 +11,7 @@ describe('box selection', () => {
         await page.setContent('<kup-box></kup-box>');
 
         const elm = await page.find('kup-box');
+
         elm.setProperty('data', defaultData);
 
         await page.waitForChanges();
@@ -44,6 +45,11 @@ describe('box selection', () => {
         expect(event.detail.row).toEqual(defaultData.rows[0]);
 
         expect(event.detail.column).toBe('FLD2');
+
+        // testing selected class
+        const boxes = await page.findAll(boxSelector + '.selected');
+
+        expect(boxes).toHaveLength(1);
     });
 
     it('multiple selection', async () => {
@@ -57,7 +63,7 @@ describe('box selection', () => {
 
         await page.waitForChanges();
 
-        const boxes = await page.findAll(boxSelector);
+        let boxes = await page.findAll(boxSelector);
 
         const kupBoxSelected = await page.spyOnEvent('kupBoxSelected');
 
@@ -81,6 +87,11 @@ describe('box selection', () => {
         expect(detail.rows[0]).toEqual(defaultData.rows[0]);
         expect(detail.rows[1]).toEqual(defaultData.rows[2]);
 
+        // testing selected class
+        boxes = await page.findAll(boxSelector + '.selected');
+
+        expect(boxes).toHaveLength(2);
+
         // deselect first row
         chk = await boxes[0].find(checkboxSelector);
 
@@ -92,5 +103,57 @@ describe('box selection', () => {
 
         expect(detail.rows).toHaveLength(1);
         expect(detail.rows[0]).toEqual(defaultData.rows[2]);
+
+        // testing selected class
+        boxes = await page.findAll(boxSelector + '.selected');
+
+        expect(boxes).toHaveLength(1);
+    });
+
+    it('automatic box selection', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-box></kup-box>');
+
+        const elm = await page.find('kup-box');
+
+        const kupAutoBoxSelect = await page.spyOnEvent('kupAutoBoxSelect');
+
+        elm.setProperty('data', defaultData);
+
+        elm.setProperty('selectBox', 2);
+
+        await page.waitForChanges();
+
+        expect(kupAutoBoxSelect).toHaveLength(1);
+
+        const row = kupAutoBoxSelect.firstEvent.detail.row;
+
+        expect(row).toEqual(defaultData.rows[1]);
+    });
+
+    it('no box highlight', async () => {
+        const page = await newE2EPage();
+
+        await page.setContent('<kup-box></kup-box>');
+
+        const elm = await page.find('kup-box');
+
+        elm.setProperty('data', defaultData);
+
+        elm.setProperty('showSelection', false);
+
+        await page.waitForChanges();
+
+        const firstBox = await page.find(boxSelector);
+
+        const obj = await firstBox.find('.box-object');
+
+        await obj.click();
+
+        // testing selected class
+        const boxes = await page.findAll(boxSelector + '.selected');
+
+        expect(boxes).toHaveLength(0);
     });
 });

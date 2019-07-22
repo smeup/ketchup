@@ -15,7 +15,7 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
-    Row,
+    BoxRow,
     Layout,
     Section,
     CollapsedSectionsState,
@@ -37,7 +37,7 @@ export class KupBox {
     /**
      * Data
      */
-    @Prop() data: { columns?: Column[]; rows?: Row[] };
+    @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
 
     /**
      * How the field will be displayed. If not present, a default one will be created.
@@ -73,6 +73,18 @@ export class KupBox {
     @Prop()
     multiSelection = false;
 
+    /**
+     * Automatically selects the box at the specified index
+     */
+    @Prop()
+    selectBox: number;
+
+    /**
+     * If enabled, highlights the selected box/boxes
+     */
+    @Prop()
+    showSelection = true;
+
     @State()
     private globalFilterValue = '';
 
@@ -80,10 +92,10 @@ export class KupBox {
     private collapsedSection: CollapsedSectionsState = {};
 
     @State()
-    private selectedRows: Row[] = [];
+    private selectedRows: BoxRow[] = [];
 
     /**
-     * Lauched when a box is clicked
+     * Triggered when a box is clicked
      */
     @Event({
         eventName: 'kupBoxClicked',
@@ -92,12 +104,12 @@ export class KupBox {
         bubbles: true,
     })
     kupBoxClicked: EventEmitter<{
-        row: Row;
+        row: BoxRow;
         column?: string;
     }>;
 
     /**
-     * Lauched when the multi selection checkbox changes value
+     * Triggered when the multi selection checkbox changes value
      */
     @Event({
         eventName: 'kupBoxSelected',
@@ -106,14 +118,27 @@ export class KupBox {
         bubbles: true,
     })
     kupBoxSelected: EventEmitter<{
-        rows: Row[];
+        rows: BoxRow[];
+    }>;
+
+    /**
+     * Triggered when a box is auto selected via selectBox prop
+     */
+    @Event({
+        eventName: 'kupAutoBoxSelect',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAutoBoxSelect: EventEmitter<{
+        row: BoxRow;
     }>;
 
     private boxLayout: Layout;
 
     private visibleColumns: Column[] = [];
 
-    private rows: Row[] = [];
+    private rows: BoxRow[] = [];
 
     @Watch('globalFilterValue')
     @Watch('sortBy')
@@ -128,9 +153,23 @@ export class KupBox {
         this.checkLayout();
     }
 
+    @Watch('layout')
+    onLayoutChanged() {
+        this.checkLayout();
+    }
+
+    @Watch('selectBox')
+    onSelectBoxChanged() {
+        this.handleAutomaticBoxSelection();
+    }
+
     // lifecycle hooks
     componentWillLoad() {
         this.onDataChanged();
+    }
+
+    componentDidLoad() {
+        this.handleAutomaticBoxSelection();
     }
 
     // private methods
@@ -150,7 +189,7 @@ export class KupBox {
         });
     }
 
-    private getRows(): Row[] {
+    private getRows(): BoxRow[] {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -180,7 +219,7 @@ export class KupBox {
         this.rows = this.sortRows(filteredRows);
     }
 
-    private sortRows(rows: Row[]): Row[] {
+    private sortRows(rows: BoxRow[]): BoxRow[] {
         let sortedRows = rows;
 
         if (this.sortBy) {
@@ -243,7 +282,7 @@ export class KupBox {
         this.globalFilterValue = detail.value;
     }
 
-    private isSectionExpanded(row: Row, section: Section): boolean {
+    private isSectionExpanded(row: BoxRow, section: Section): boolean {
         if (!row.id || !section.id) {
             return false;
         }
@@ -254,8 +293,24 @@ export class KupBox {
         );
     }
 
+    private handleAutomaticBoxSelection() {
+        // automatic row selection
+        if (
+            this.selectBox &&
+            this.selectBox > 0 &&
+            this.selectBox <= this.rows.length
+        ) {
+            this.selectedRows = [];
+            this.selectedRows.push(this.rows[this.selectBox - 1]);
+
+            this.kupAutoBoxSelect.emit({
+                row: this.selectedRows[0],
+            });
+        }
+    }
+
     // event listeners
-    private onBoxClick({ target }: MouseEvent, row: Row) {
+    private onBoxClick({ target }: MouseEvent, row: BoxRow) {
         if (!(target instanceof HTMLElement)) {
             return;
         }
@@ -295,7 +350,7 @@ export class KupBox {
         }
     }
 
-    private onSelectionCheckChange(row: Row) {
+    private onSelectionCheckChange(row: BoxRow) {
         const index = this.selectedRows.indexOf(row);
 
         if (index >= 0) {
@@ -312,7 +367,7 @@ export class KupBox {
         });
     }
 
-    private toggleSectionExpand(row: Row, section: Section) {
+    private toggleSectionExpand(row: BoxRow, section: Section) {
         // check if section / row has id
         if (!section.id) {
             // error
@@ -348,7 +403,7 @@ export class KupBox {
     }
 
     // render methods
-    private renderRow(row: Row) {
+    private renderRow(row: BoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
         let boxContent = null;
@@ -409,7 +464,7 @@ export class KupBox {
 
         const boxClass = {
             box: true,
-            selected: isSelected,
+            selected: this.showSelection && isSelected,
             column: !horizontal,
         };
 
@@ -426,7 +481,7 @@ export class KupBox {
     private renderSection(
         section: Section,
         parent: Section,
-        row: Row,
+        row: BoxRow,
         visibleColumns: Column[]
     ) {
         let sectionContent = null;
@@ -482,10 +537,15 @@ export class KupBox {
 
         const sectionExpanded = this.isSectionExpanded(row, section);
 
+        const isGrid = !!section.columns;
+
         const sectionClass: { [index: string]: boolean } = {
             'box-section': true,
             open: sectionExpanded,
-            column: !section.horizontal,
+            column: !isGrid && !section.horizontal,
+            grid: isGrid,
+            titled: !!section.title,
+            'last-child': !section.sections || section.sections.length === 0,
         };
 
         const sectionStyle: any = section.style || {};
@@ -499,6 +559,12 @@ export class KupBox {
             }
         }
 
+        if (isGrid) {
+            sectionStyle['grid-template-columns'] = `repeat(${
+                section.columns
+            }, 1fr)`;
+        }
+
         let sectionContainer = null;
         if (section.collapsible) {
             sectionClass['collapse-section'] = true;
@@ -506,6 +572,16 @@ export class KupBox {
             const contentClass = {
                 content: true,
             };
+
+            // TODO I18N
+            let headerTitle = '';
+            if (section.title) {
+                headerTitle = section.title;
+            } else if (sectionExpanded) {
+                headerTitle = 'Collassa';
+            } else {
+                headerTitle = 'Espandi';
+            }
 
             sectionContainer = (
                 <div class={sectionClass} style={sectionStyle}>
@@ -519,18 +595,18 @@ export class KupBox {
                         }}
                     >
                         <div class="header-content">
-                            <span>
-                                {// TODO i18n
-                                sectionExpanded ? 'Collassa' : 'Espandi'}
-                            </span>
+                            <span>{headerTitle}</span>
                             <span class="mdi mdi-chevron-down" />
                         </div>
                     </div>
                 </div>
             );
         } else {
+            const title = section.title ? <h3>{section.title}</h3> : null;
+
             sectionContainer = (
                 <div class={sectionClass} style={sectionStyle}>
+                    {title}
                     {sectionContent}
                 </div>
             );
@@ -541,7 +617,7 @@ export class KupBox {
 
     private renderBoxObject(
         boxObject: BoxObject,
-        row: Row,
+        row: BoxRow,
         visibleColumns: Column[]
     ) {
         let boContent = null;
@@ -688,7 +764,17 @@ export class KupBox {
                         onKetchupTextInputUpdated={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                    />
+                    >
+                        <svg
+                            slot="left"
+                            version="1.1"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                        </svg>
+                    </kup-text-input>
                 </div>
             );
         }

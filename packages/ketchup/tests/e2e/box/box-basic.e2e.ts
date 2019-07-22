@@ -34,7 +34,7 @@ describe('kup-box', () => {
         expect(boxes).toHaveLength(0);
     });
 
-    it('renders with data', async (done) => {
+    it('renders with data', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-box></kup-box>');
@@ -55,7 +55,7 @@ describe('kup-box', () => {
 
         expect(boxes).toHaveLength(4);
 
-        boxes.forEach(async (box, index) => {
+        for (let box of boxes) {
             // test default layout
             const sections = await box.findAll('.box-section');
 
@@ -64,11 +64,7 @@ describe('kup-box', () => {
             const boxObjects = await sections[0].findAll('.box-object');
 
             expect(boxObjects).toHaveLength(4);
-
-            if (index === boxes.length - 1) {
-                done();
-            }
-        });
+        }
     });
 
     it('box on 3 columns', async () => {

@@ -15,6 +15,11 @@ export default [
     component: () => import('@/views/box/BoxSel.vue'),
   },
   {
+    path: '/box/classes',
+    name: 'boxClasses',
+    component: () => import('@/views/box/BoxClasses.vue'),
+  },
+  {
     path: '/box/filter',
     name: 'boxFilter',
     component: () => import('@/views/box/BoxFilter.vue'),

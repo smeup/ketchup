@@ -11,15 +11,15 @@ import {
   GenericMap,
   GroupObject,
   PaginatorPos,
-  Row as Row1,
+  Row,
   RowAction,
   ShowGrid,
   SortObject,
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
+  BoxRow,
   Layout,
-  Row,
 } from './components/kup-box/kup-box-declarations';
 import {
   ButtonConfig,
@@ -64,7 +64,7 @@ export namespace Components {
     /**
     * Data
     */
-    'data': { columns?: Column[]; rows?: Row[] };
+    'data': { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -77,6 +77,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox': number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection': boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */
@@ -107,6 +115,10 @@ export namespace Components {
   interface KupChart {
     'config': ChartConfig;
     'data': any;
+  }
+  interface KupChip {
+    'closable': boolean;
+    'disabled': boolean;
   }
   interface KupCombo {
     /**
@@ -454,6 +466,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
+  var HTMLKupChipElement: {
+    prototype: HTMLKupChipElement;
+    new (): HTMLKupChipElement;
+  };
+
   interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
   var HTMLKupComboElement: {
     prototype: HTMLKupComboElement;
@@ -542,6 +560,7 @@ declare global {
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-chip': HTMLKupChipElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -568,7 +587,7 @@ declare namespace LocalJSX {
     /**
     * Data
     */
-    'data'?: { columns?: Column[]; rows?: Row[] };
+    'data'?: { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -582,18 +601,32 @@ declare namespace LocalJSX {
     */
     'multiSelection'?: boolean;
     /**
-    * Lauched when a box is clicked
+    * Triggered when a box is auto selected via selectBox prop
+    */
+    'onKupAutoBoxSelect'?: (event: CustomEvent<{
+      row: BoxRow;
+    }>) => void;
+    /**
+    * Triggered when a box is clicked
     */
     'onKupBoxClicked'?: (event: CustomEvent<{
-      row: Row;
+      row: BoxRow;
       column?: string;
     }>) => void;
     /**
-    * Lauched when the multi selection checkbox changes value
+    * Triggered when the multi selection checkbox changes value
     */
     'onKupBoxSelected'?: (event: CustomEvent<{
-      rows: Row[];
+      rows: BoxRow[];
     }>) => void;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox'?: number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection'?: boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */
@@ -627,6 +660,11 @@ declare namespace LocalJSX {
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
     'config'?: ChartConfig;
     'data'?: any;
+  }
+  interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
+    'closable'?: boolean;
+    'disabled'?: boolean;
+    'onClose'?: (event: CustomEvent<any>) => void;
   }
   interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
     /**
@@ -1014,6 +1052,7 @@ declare namespace LocalJSX {
     'kup-btn': KupBtn;
     'kup-button': KupButton;
     'kup-chart': KupChart;
+    'kup-chip': KupChip;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;

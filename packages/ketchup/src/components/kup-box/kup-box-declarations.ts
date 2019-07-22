@@ -1,7 +1,7 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 
 // TODO use same structure as data table row?
-export interface Row {
+export interface BoxRow {
     cells: {
         [index: string]: Cell;
     };
@@ -27,6 +27,7 @@ export interface Section {
     style?: { [index: string]: string };
     collapsible?: boolean;
     columns?: number;
+    title?: string;
 }
 
 export interface BoxObject {
