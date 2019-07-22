@@ -49,4 +49,9 @@ export default [
     name: 'dtRowsRepetition',
     component: () => import('@/views/dataTable/DTRowsRepetition.vue'),
   },
+  {
+    path: '/dataTable/button-cell',
+    name: 'dtButtonCell',
+    component: () => import('@/views/dataTable/DTJ4btn.vue'),
+  },
 ];

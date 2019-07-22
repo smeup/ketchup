@@ -63,6 +63,7 @@ import {
   hiddenColumnsData,
   iconImagesDataTable,
 } from '@/mock/dataTable';
+import { j4btnData } from '@/mock/box';
 
 export default {
   name: 'dataTableBasic',
@@ -72,6 +73,7 @@ export default {
       data: {
         ...defaultDataTable,
       },
+      j4btnData,
       hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
       iconImagesDataTable: { ...iconImagesDataTable },
@@ -92,6 +94,9 @@ export default {
   methods: {
     handleKupOptionClicked({ detail }) {
       console.log('detail', detail);
+    },
+    onObjMatrix(e) {
+      console.log("the matrix obj", e);
     },
     onLoadMoreClick(e) {
       this.loadQuantity = e.detail.loadItems.toString();

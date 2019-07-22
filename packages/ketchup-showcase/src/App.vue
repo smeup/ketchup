@@ -172,6 +172,12 @@ export default {
               name: 'dtRowsRepetition',
             },
           },
+          {
+            title: 'Button Cell (J4btn)',
+            to: {
+              name: 'dtButtonCell'
+            }
+          }
         ],
       },
       {

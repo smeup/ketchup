@@ -1373,7 +1373,6 @@ export class KupDataTable {
                 </a>
             );
         } else if (isButton(cell.obj)) {
-            console.log("Dentro una cella", cell, column, cellData)
             /**
              * Here either using .bind() or () => {} function would bring more or less the same result.
              * Both those syntax would create at run time a new function for each cell on which they're rendered.
