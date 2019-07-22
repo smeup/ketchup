@@ -10,6 +10,7 @@ import {
   Column,
   GenericMap,
   GroupObject,
+  KupDataTableCellButtonClick,
   LoadMoreMode,
   PaginatorPos,
   Row,
@@ -725,6 +726,7 @@ declare namespace LocalJSX {
     'onKupAutoRowSelect'?: (event: CustomEvent<{
       selectedRow: Row;
     }>) => void;
+    'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
     }>) => void;

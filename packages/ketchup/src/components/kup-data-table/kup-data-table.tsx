@@ -294,6 +294,14 @@ export class KupDataTable {
         loadItems: number;
     }>;
 
+    @Event({
+        eventName: 'kupCellButtonClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
+
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
     //         entries.forEach((entry) => {
@@ -719,8 +727,13 @@ export class KupDataTable {
         });
     }
 
-    private onJ4btnClicked(row, column) {
-        console.log("tabella cliccato qui", this, row, column, arguments);
+    private onJ4btnClicked(row, column, cell) {
+        this.kupCellButtonClicked.emit({
+            cell,
+            column,
+            row,
+        });
+
     }
 
     // utility methods
@@ -1330,12 +1343,18 @@ export class KupDataTable {
      * @param cell - cell object
      * @param column - the cell's column name
      * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
+     * @param cellData - Additional data for the current cell.
+     * @param cellData.column - The column object to which the cell belongs.
+     * @param cellData.row - The row object to which the cell belongs.
      */
     private renderCell(
         cell: Cell,
         column: string,
         previousRowCellValue?: string,
-        cellData?: KupDataTableCellButtonClick,
+        cellData?: {
+            column: Column;
+            row: Row;
+        },
     ) {
         // When the previous row value is different from the current value, we can show the current value.
         const valueToDisplay = previousRowCellValue !== cell.value ? cell.value : '';
@@ -1354,12 +1373,31 @@ export class KupDataTable {
                 </a>
             );
         } else if (isButton(cell.obj)) {
+            console.log("Dentro una cella", cell, column, cellData)
+            /**
+             * Here either using .bind() or () => {} function would bring more or less the same result.
+             * Both those syntax would create at run time a new function for each cell on which they're rendered.
+             * (See references below.)
+             *
+             * Another solution would be to simply bind an event handler like this:
+             * onKupButtonClicked={this.onJ4btnClicked}
+             *
+             * The problem here is that, by using that syntax:
+             * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
+             *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
+             * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
+             * 3 - searches those column and row inside the current data for the table;
+             * 4 - once the data is found, creates the custom event with the data to be sent.
+             *
+             * Currently there is no reason to perform such a search, but it may arise if on large data tables
+             * there is a significant performance loss.
+             * @see https://reactjs.org/docs/handling-events.html
+             */
             content = (
-              <kup-button
-                {...createJ4objButtonConfig(cell)}
-                // TODO check if there is a better way. Maybe make callData mandatory
-                onKupButtonClicked={this.onJ4btnClicked.call(this, cellData ? cellData.row : null, cellData ? cellData.column : null)}
-              />
+                <kup-button
+                    {...createJ4objButtonConfig(cell)}
+                    onKupButtonClicked={this.onJ4btnClicked.bind(this, cellData ? cellData.row : null, cellData ? cellData.column : null, cell)}
+                />
             );
         } else if (isBar(cell.obj)) {
             const props: { value: string; width?: number } = {

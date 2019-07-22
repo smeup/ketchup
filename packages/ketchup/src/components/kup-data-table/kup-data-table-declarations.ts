@@ -101,6 +101,7 @@ export enum ShowGrid {
 // }
 
 export interface KupDataTableCellButtonClick {
+    cell: Cell;
     column: Column;
     row: Row;
 }
