@@ -97,7 +97,7 @@ export class KupDataTable {
     headerIsPersistent = false;
 
     @Prop()
-    showGrid: ShowGrid = ShowGrid.NONE;
+    showGrid: ShowGrid = ShowGrid.COMPLETE;
 
     @Prop()
     selectRow: number;
@@ -1232,10 +1232,7 @@ export class KupDataTable {
         });
     }
 
-    private renderCell(
-        cell: Cell,
-        column: string
-    ) {
+    private renderCell(cell: Cell, column: string) {
         let content: any = cell.value;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
