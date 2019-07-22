@@ -45,6 +45,11 @@ let simpleRoutes = [
     component: () => import(`@/views/KupHtmlExamples.vue`),
   },
   {
+    path: `/kup-progress-bar`,
+    name: 'progressbar',
+    component: () => import(`@/views/KupProgressBar.vue`),
+  },
+  {
     path: `/kup-chips`,
     name: 'chips',
     component: () => import(`@/views/KupChips.vue`),

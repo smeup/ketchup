@@ -365,7 +365,8 @@ export namespace Components {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar {
-    'label': string;
+    'hideLabel': boolean;
+    'labelText': string;
     'value': number;
   }
   interface KupRadio {
@@ -957,7 +958,8 @@ declare namespace LocalJSX {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
-    'label'?: string;
+    'hideLabel'?: boolean;
+    'labelText'?: string;
     'value'?: number;
   }
   interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {

@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default |
-| -------- | --------- | ----------- | -------- | ------- |
-| `label`  | `label`   |             | `string` | `''`    |
-| `value`  | `value`   |             | `number` | `0`     |
+| Property    | Attribute    | Description | Type      | Default     |
+| ----------- | ------------ | ----------- | --------- | ----------- |
+| `hideLabel` | `hide-label` |             | `boolean` | `false`     |
+| `labelText` | `label-text` |             | `string`  | `undefined` |
+| `value`     | `value`      |             | `number`  | `0`         |
 
 
 ----------------------------------------------
