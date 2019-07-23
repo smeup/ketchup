@@ -108,6 +108,12 @@ export default {
             },
           },
           {
+            title: 'Row actions',
+            to: {
+              name: 'boxRowActions',
+            },
+          },
+          {
             title: 'Sort',
             to: {
               name: 'boxSort',

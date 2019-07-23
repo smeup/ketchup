@@ -30,6 +30,11 @@ export default [
     component: () => import('@/views/box/BoxLayout.vue'),
   },
   {
+    path: '/box/rowActions',
+    name: 'boxRowActions',
+    component: () => import('@/views/box/BoxRowActions.vue'),
+  },
+  {
     path: '/box/sort',
     name: 'boxSort',
     component: () => import('@/views/box/BoxSort.vue'),

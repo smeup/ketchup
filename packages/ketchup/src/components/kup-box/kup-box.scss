@@ -40,118 +40,190 @@
     box-sizing: border-box;
   }
 
-  .box {
-    cursor: pointer;
-    position: relative;
-    border-radius: var(--int_border-radius);
-    border: 1px solid var(--int_border-color);
+  .box-wrapper {
     display: flex;
-    padding: 3px;
+    align-items: center;
 
-    &.column {
-      flex-direction: column;
-    }
-
-    &:hover,
-    &.selected {
-      box-shadow: var(--int_hover-box-shadow);
-    }
-
-    .box-section {
+    .box {
+      flex-grow: 1;
+      cursor: pointer;
+      position: relative;
+      border-radius: var(--int_border-radius);
+      border: 1px solid var(--int_border-color);
       display: flex;
-      flex-direction: row;
-      flex: 1 1 1%;
-      flex-wrap: wrap;
-
-      &.last-child {
-        margin: 3px 4px;
-      }
+      padding: 3px;
 
       &.column {
         flex-direction: column;
-        justify-content: center;
-        flex-wrap: unset;
+      }
 
-        > .box-section {
-          flex: 0 0 auto;
+      &:hover,
+      &.selected {
+        box-shadow: var(--int_hover-box-shadow);
+      }
+
+      .box-section {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 1%;
+        flex-wrap: wrap;
+
+        &.last-child {
+          margin: 3px 4px;
         }
-      }
 
-      &.grid {
-        display: grid;
-      }
+        &.column {
+          flex-direction: column;
+          justify-content: center;
+          flex-wrap: unset;
 
-      .box-object {
-        padding: 1px 4px;
-
-        img {
-          border-radius: var(--int_img-border-radius);
-          height: auto;
-        }
-      }
-
-      // collapsible sections
-      &.collapse-section {
-        .header {
-          border-top: 1px solid var(--int_border-color);
-          color: var(--int_expand-panel-color);
-          display: flex;
-          justify-content: space-around;
-          width: 100%;
-
-          .header-content {
-            margin: 0.5rem;
-            display: flex;
-            align-items: center;
-
-            .mdi {
-              margin-left: 5px;
-            }
+          > .box-section {
+            flex: 0 0 auto;
           }
         }
 
-        .content {
-          display: none;
-          width: 100%;
+        &.grid {
+          display: grid;
         }
 
-        &.open {
+        .box-object {
+          padding: 1px 4px;
+
+          img {
+            border-radius: var(--int_img-border-radius);
+            height: auto;
+          }
+        }
+
+        // collapsible sections
+        &.collapse-section {
           .header {
+            border-top: 1px solid var(--int_border-color);
+            color: var(--int_expand-panel-color);
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+
             .header-content {
-              .mdi::before {
-                animation: rotate-icon 500ms ease-out forwards;
+              margin: 0.5rem;
+              display: flex;
+              align-items: center;
+
+              .mdi {
+                margin-left: 5px;
               }
             }
           }
 
           .content {
-            display: block;
+            display: none;
+            width: 100%;
+          }
+
+          &.open {
+            .header {
+              .header-content {
+                .mdi::before {
+                  animation: rotate-icon 500ms ease-out forwards;
+                }
+              }
+            }
+
+            .content {
+              display: block;
+            }
+          }
+        }
+
+        &.titled {
+          border: 1px solid var(--int_border-color);
+          padding-top: 5px;
+          position: relative;
+          margin: 10px;
+
+          > h3 {
+            position: absolute;
+            margin: 0;
+            padding: 0 3px;
+            top: var(--int_titled-section-top);
+            left: 5px;
+            font-size: var(--int_titled-section-font-size);
+            background: var(--int_titled-section-bg-color);
           }
         }
       }
 
-      &.titled {
-        border: 1px solid var(--int_border-color);
-        padding-top: 5px;
-        position: relative;
-        margin: 10px;
+      .box-selection {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+    }
 
-        > h3 {
+    .row-actions-wrapper {
+      .row-actions-toggler {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+
+        svg {
+          cursor: pointer;
+          opacity: 0;
+          fill: $mainTextColor; // TODO var
+          transition: opacity 500ms ease-out;
+        }
+
+        .row-action-menu {
           position: absolute;
-          margin: 0;
-          padding: 0 3px;
-          top: var(--int_titled-section-top);
-          left: 5px;
-          font-size: var(--int_titled-section-font-size);
-          background: var(--int_titled-section-bg-color);
+          top: 0;
+          right: 24px;
+          display: none;
+          border: 1px solid var(--int_border-color);
+          z-index: 10;
+
+          // TODO this should probably be vars
+          background: white;
+          box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+
+          ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            > li {
+              cursor: pointer;
+              white-space: nowrap;
+              padding: 0 12px;
+              display: flex;
+              align-items: center;
+              line-height: 30px;
+
+              &:not(:last-child) {
+                border-bottom: 1px solid var(--int_border-color);
+              }
+
+              .icon {
+                margin-right: 5px;
+              }
+            }
+          }
+
+          &.open {
+            display: block;
+          }
         }
       }
     }
 
-    .box-selection {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
+    &:hover {
+      .row-actions-wrapper {
+        .row-actions-toggler {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

@@ -6,12 +6,14 @@ import {
     Watch,
     EventEmitter,
     h,
+    Method,
 } from '@stencil/core';
 
 import {
     Column,
     SortObject,
     SortMode,
+    RowAction,
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -85,6 +87,13 @@ export class KupBox {
     @Prop()
     showSelection = true;
 
+    /**
+     * If enabled, a button to load / display the row actions
+     * will be displayed on the right of every box
+     */
+    @Prop()
+    enableRowActions = false;
+
     @State()
     private globalFilterValue = '';
 
@@ -93,6 +102,12 @@ export class KupBox {
 
     @State()
     private selectedRows: BoxRow[] = [];
+
+    /**
+     * Row that has the row object menu open
+     */
+    @State()
+    private rowActionMenuOpened: BoxRow;
 
     /**
      * Triggered when a box is clicked
@@ -134,6 +149,34 @@ export class KupBox {
         row: BoxRow;
     }>;
 
+    /**
+     * When the row menu action icon is clicked
+     */
+    @Event({
+        eventName: 'kupRowActionMenuClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionMenuClicked: EventEmitter<{
+        row: BoxRow;
+    }>;
+
+    /**
+     * When the row menu action icon is clicked
+     */
+    @Event({
+        eventName: 'kupRowActionClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupRowActionClicked: EventEmitter<{
+        row: BoxRow;
+        action: RowAction;
+        index: number;
+    }>;
+
     private boxLayout: Layout;
 
     private visibleColumns: Column[] = [];
@@ -170,6 +213,23 @@ export class KupBox {
 
     componentDidLoad() {
         this.handleAutomaticBoxSelection();
+
+        // When component is created, then the listener is set. @See clickFunction for more details
+        document.addEventListener('click', this.clickFunction.bind(this));
+    }
+
+    componentDidUnload() {
+        // When component is destroyed, then the listener is removed. @See clickFunction for more details
+        document.removeEventListener('click', this.clickFunction.bind(this));
+    }
+
+    // @Methods
+    @Method()
+    async loadRowActions(row: BoxRow, actions: RowAction[]) {
+        row.actions = actions;
+
+        // show menu
+        this.rowActionMenuOpened = row;
     }
 
     // private methods
@@ -309,6 +369,21 @@ export class KupBox {
         }
     }
 
+    /**
+     * Checks if the element is the svg that opens the "row actions menu"
+     * @param element the element to check
+     */
+    private checkIfElementIsActionMenuIcon(element: any) {
+        if (element.tagName && element.parentElement) {
+            return (
+                element.tagName === 'svg' &&
+                element.parentElement.classList.contains('row-actions-toggler')
+            );
+        }
+
+        return false;
+    }
+
     // event listeners
     private onBoxClick({ target }: MouseEvent, row: BoxRow) {
         if (!(target instanceof HTMLElement)) {
@@ -402,6 +477,57 @@ export class KupBox {
         this.collapsedSection = { ...this.collapsedSection };
     }
 
+    private onRowAction(row: BoxRow) {
+        if (!row) {
+            return;
+        }
+
+        if (row === this.rowActionMenuOpened) {
+            // closing menu
+            this.rowActionMenuOpened = null;
+            return;
+        }
+
+        if (row.actions) {
+            // actions already loaded -> show menu
+            this.rowActionMenuOpened = row;
+        } else {
+            // no actions -> triggering event
+            this.kupRowActionMenuClicked.emit({
+                row,
+            });
+        }
+    }
+
+    private onRowActionClicked(row: BoxRow, action: RowAction, index: number) {
+        this.kupRowActionClicked.emit({
+            row,
+            action,
+            index,
+        });
+    }
+
+    /**
+     * see onDocumentClick in kup-combo
+     */
+    private clickFunction(event: UIEvent) {
+        try {
+            const targets = event.composedPath();
+
+            for (let target of targets) {
+                if (this.checkIfElementIsActionMenuIcon(target)) {
+                    return;
+                }
+            }
+        } catch (err) {
+            if (this.checkIfElementIsActionMenuIcon(event.target)) {
+                return;
+            }
+        }
+
+        this.rowActionMenuOpened = null;
+    }
+
     // render methods
     private renderRow(row: BoxRow) {
         const visibleColumns = [...this.visibleColumns];
@@ -462,6 +588,52 @@ export class KupBox {
             );
         }
 
+        let rowObject = null;
+        if (this.enableRowActions) {
+            const menuClass = {
+                'row-action-menu': true,
+                open: row === this.rowActionMenuOpened,
+            };
+
+            let rowActionMenuContent = null;
+            if (row.actions) {
+                const actionItems = row.actions.map((item, index) => {
+                    const iconClass = `icon ${item.icon}`;
+
+                    return (
+                        <li
+                            tabindex="0"
+                            onClick={() =>
+                                this.onRowActionClicked(row, item, index)
+                            }
+                        >
+                            <div class={iconClass} />
+                            <div class="text">{item.text}</div>
+                        </li>
+                    );
+                });
+
+                rowActionMenuContent = <ul>{actionItems}</ul>;
+            }
+
+            rowObject = (
+                <div class="row-actions-wrapper">
+                    <div class="row-actions-toggler">
+                        <svg
+                            version="1.1"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            onClick={() => this.onRowAction(row)}
+                        >
+                            <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                        </svg>
+                        <div class={menuClass}>{rowActionMenuContent}</div>
+                    </div>
+                </div>
+            );
+        }
+
         const boxClass = {
             box: true,
             selected: this.showSelection && isSelected,
@@ -469,11 +641,12 @@ export class KupBox {
         };
 
         return (
-            <div>
+            <div class="box-wrapper">
                 <div class={boxClass} onClick={(e) => this.onBoxClick(e, row)}>
                     {multiSel}
                     {boxContent}
                 </div>
+                {rowObject}
             </div>
         );
     }
