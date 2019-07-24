@@ -2,25 +2,28 @@ import {
     Component,
     Event,
     EventEmitter,
+    h,
+    JSX,
     Prop,
     State,
     Watch,
-    JSX,
-    h,
 } from '@stencil/core';
 
 import {
+    Cell,
     Column,
-    PaginatorPos,
-    SortMode,
-    SortObject,
-    Row,
+    KupDataTableCellButtonClick,
     GenericMap,
     GroupObject,
-    TotalsMap,
-    Cell,
+    LoadMoreMode,
+    PaginatorPos,
+    Row,
     RowAction,
     ShowGrid,
+    SortMode,
+    SortObject,
+    TableData,
+    TotalsMap,
 } from './kup-data-table-declarations';
 
 import {
@@ -31,12 +34,14 @@ import {
 } from './kup-data-table-helper';
 
 import {
+    isBar,
+    isButton,
     isIcon,
     isImage,
     isLink,
     isNumber,
     isVoCodver,
-    isBar,
+    createJ4objButtonConfig,
 } from '../../utils/object-utils';
 
 @Component({
@@ -45,7 +50,7 @@ import {
     shadow: true,
 })
 export class KupDataTable {
-    @Prop() data: { columns?: Array<Column>; rows?: Array<Row> };
+    @Prop() data: TableData;
 
     @Prop()
     showFilters = false;
@@ -71,6 +76,34 @@ export class KupDataTable {
     @Prop()
     paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
+    /**
+     * If set to true, displays the button to load more records.
+     */
+    @Prop({ reflect: true }) showLoadMore: boolean = false;
+
+    /**
+     * The number of records which will be requested to be downloaded when clicking on the load more button.
+     *
+     * This property is regulated also by loadMoreMode.
+     * @see loadMoreMode
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreStep: number = 60;
+
+    /**
+     * Establish the modality of how many new records will be downloaded.
+     *
+     * This property is regulated also by loadMoreStep.
+     * @see loadMoreStep
+     * @see loadMoreLimit
+     */
+    @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
+
+    /**
+     * Sets a maximum limit of new records which can be required by the load more functionality.
+     */
+    @Prop() loadMoreLimit: number = 1000;
+
     @Prop()
     columnsWidth: Array<{
         column: string;
@@ -81,7 +114,7 @@ export class KupDataTable {
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop()
+    @Prop({ reflect: true })
     showHeader = true;
 
     /**
@@ -177,6 +210,10 @@ export class KupDataTable {
 
     private columnOverTimeout: NodeJS.Timeout;
 
+    private loadMoreEventCounter: number = 0;
+
+    private loadMoreEventPreviousQuantity: number = 0;
+
     // private theadRef: HTMLTableSectionElement;
 
     /**
@@ -246,6 +283,24 @@ export class KupDataTable {
         action?: RowAction;
         index?: number;
     }>;
+
+    @Event({
+        eventName: 'kupLoadMoreClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoadMoreClicked: EventEmitter<{
+        loadItems: number;
+    }>;
+
+    @Event({
+        eventName: 'kupCellButtonClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -672,6 +727,15 @@ export class KupDataTable {
         });
     }
 
+    private onJ4btnClicked(row, column, cell) {
+        this.kupCellButtonClicked.emit({
+            cell,
+            column,
+            row,
+        });
+
+    }
+
     // utility methods
     private groupRows(): void {
         if (!this.isGrouping()) {
@@ -686,6 +750,34 @@ export class KupDataTable {
         );
 
         this.adjustGroupState();
+    }
+
+    // Handler for loadMore button is clicked.
+    private onLoadMoreClick() {
+        let loadItems: number = 0;
+
+        switch (this.loadMoreMode) {
+            case LoadMoreMode.CONSTANT:
+                loadItems = this.loadMoreStep;
+                break;
+            case LoadMoreMode.CONSTANT_INCREMENT:
+                loadItems = this.loadMoreStep * (this.loadMoreEventCounter + 1);
+                break;
+            case LoadMoreMode.PROGRESSIVE_THRESHOLD:
+                loadItems = Math.max(this.loadMoreEventPreviousQuantity, this.loadMoreStep) * Math.min(this.loadMoreEventCounter + 1, 2);
+                break;
+        }
+
+        if (loadItems > this.loadMoreLimit) {
+            loadItems = this.loadMoreLimit;
+        }
+
+        this.kupLoadMoreClicked.emit({
+            loadItems,
+        });
+
+        this.loadMoreEventPreviousQuantity = loadItems;
+        this.loadMoreEventCounter++;
     }
 
     private adjustGroupState(): void {
@@ -991,7 +1083,7 @@ export class KupDataTable {
         return footer;
     }
 
-    private renderRow(row: Row, level = 0) {
+    private renderRow(row: Row, level = 0, previousRow?: Row) {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
@@ -1065,9 +1157,9 @@ export class KupDataTable {
             // if group is expanded, add children
             if (this.isGroupExpanded(row)) {
                 row.group.children
-                    .map((r) => {
-                        return this.renderRow(r, level + 1);
-                    })
+                    // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                    // When the column has specified the parameter hideValuesRepetitions
+                    .map((row, groupRowIndex, currentArray) => this.renderRow(row, level + 1, groupRowIndex > 0 ? currentArray[groupRowIndex - 1] : null))
                     .forEach((jsxRow) => {
                         if (Array.isArray(jsxRow)) {
                             jsxRow.forEach((jr) => jsxRows.push(jr));
@@ -1080,13 +1172,18 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            const cells = visibleColumns.map(({ name }, index) => {
+            const cells = visibleColumns.map((currentColumn, index) => {
+                const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
                 if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
                 }
+
+                /*if (hideValuesRepetitions) {
+                    console.log("MOSTRAMI LE COLONNE VISIBILI che bloccano le ripeizioni", visibleColumns, rest);
+                }*/
 
                 const cell = row.cells[name];
 
@@ -1105,7 +1202,16 @@ export class KupDataTable {
                     );
                 }
 
-                const jsxCell = this.renderCell(cell, name);
+                const jsxCell = this.renderCell(
+                  cell,
+                  name,
+                  // The previous value must be passed only if repeated values can be hidden and we have a previous row.
+                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
+                  {
+                      row,
+                      column: currentColumn
+                  }
+                );
 
                 const cellClass = {
                     number: isNumber(cell.obj),
@@ -1232,18 +1338,65 @@ export class KupDataTable {
         });
     }
 
-    private renderCell(cell: Cell, column: string) {
-        let content: any = cell.value;
+    /**
+     * FActory function for cells.
+     * @param cell - cell object
+     * @param column - the cell's column name
+     * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
+     * @param cellData - Additional data for the current cell.
+     * @param cellData.column - The column object to which the cell belongs.
+     * @param cellData.row - The row object to which the cell belongs.
+     */
+    private renderCell(
+        cell: Cell,
+        column: string,
+        previousRowCellValue?: string,
+        cellData?: {
+            column: Column;
+            row: Row;
+        },
+    ) {
+        // When the previous row value is different from the current value, we can show the current value.
+        const valueToDisplay = previousRowCellValue !== cell.value ? cell.value : '';
+
+        // Sets the default value
+        let content: any = valueToDisplay;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <span class={cell.value} />;
+            content = <span class={valueToDisplay} />;
         } else if (isImage(cell.obj)) {
-            content = <img src={cell.value} alt="" width="64" height="64" />;
+            content = <img src={valueToDisplay} alt="" width="64" height="64" />;
         } else if (isLink(cell.obj)) {
             content = (
-                <a href={cell.value} target="_blank">
-                    {cell.value}
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
                 </a>
+            );
+        } else if (isButton(cell.obj)) {
+            /**
+             * Here either using .bind() or () => {} function would bring more or less the same result.
+             * Both those syntax would create at run time a new function for each cell on which they're rendered.
+             * (See references below.)
+             *
+             * Another solution would be to simply bind an event handler like this:
+             * onKupButtonClicked={this.onJ4btnClicked}
+             *
+             * The problem here is that, by using that syntax:
+             * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
+             *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
+             * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
+             * 3 - searches those column and row inside the current data for the table;
+             * 4 - once the data is found, creates the custom event with the data to be sent.
+             *
+             * Currently there is no reason to perform such a search, but it may arise if on large data tables
+             * there is a significant performance loss.
+             * @see https://reactjs.org/docs/handling-events.html
+             */
+            content = (
+                <kup-button
+                    {...createJ4objButtonConfig(cell)}
+                    onKupButtonClicked={this.onJ4btnClicked.bind(this, cellData ? cellData.row : null, cellData ? cellData.column : null, cell)}
+                />
             );
         } else if (isBar(cell.obj)) {
             const props: { value: string; width?: number } = {
@@ -1255,7 +1408,8 @@ export class KupDataTable {
                 props.width = this.columnsWidth[column];
             }
 
-            content = <kup-graphic-cell {...props} />;
+            // Controls if we should display this cell value
+            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
         }
 
         // TODO
@@ -1276,6 +1430,19 @@ export class KupDataTable {
         );
     }
 
+    private renderLoadMoreButton(isSlotted: boolean = true) {
+        const label = "Carica altri dati";
+        return <button
+          aria-label={label}
+          class="load-more-records mdi mdi-plus-circle"
+          role="button"
+          slot={isSlotted ? 'more-results' : null}
+          tabindex="0"
+          title={label}
+          onClick={() => this.onLoadMoreClick()}
+        />;
+    }
+
     render() {
         // resetting rows
         this.renderedRows = [];
@@ -1290,7 +1457,9 @@ export class KupDataTable {
         } else {
             rows = [];
             this.paginatedRows
-                .map((row: Row) => this.renderRow(row))
+                // We must pass the previous element of the array to check if we must hide or display the value of the cell
+                // When the column has specified the parameter hideValuesRepetitions
+                .map((row, rowIndex, currentArray) => this.renderRow(row, 0, rowIndex > 0 ? currentArray[rowIndex - 1] : null))
                 .forEach((jsxRow) => {
                     if (Array.isArray(jsxRow)) {
                         jsxRow.forEach((jr) => rows.push(jr));
@@ -1337,7 +1506,9 @@ export class KupDataTable {
                     onKupRowsPerPageChanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
-                />
+                >
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </kup-paginator>
             );
         }
 
@@ -1357,7 +1528,9 @@ export class KupDataTable {
                     onKupRowsPerPageChanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
-                />
+                >
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </kup-paginator>
             );
         }
 

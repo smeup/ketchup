@@ -255,6 +255,18 @@ export default {
               name: 'dtTotals',
             },
           },
+          {
+            title: 'Hide repetitions',
+            to: {
+              name: 'dtRowsRepetition',
+            },
+          },
+          {
+            title: 'Button Cell (J4btn)',
+            to: {
+              name: 'dtButtonCell'
+            }
+          }
         ],
       },
       {

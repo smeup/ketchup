@@ -8,6 +8,7 @@ export interface Column {
     title: string;
     size?: number;
     visible?: boolean;
+    hideValuesRepetitions?: boolean;
 }
 
 export interface Row {
@@ -45,6 +46,11 @@ export interface Cell {
     style?: GenericMap;
     options?: boolean;
     config?: any;
+}
+
+export interface TableData {
+    columns?: Array<Column>;
+    rows?: Array<Row>;
 }
 
 export interface GenericMap {
@@ -98,3 +104,16 @@ export enum ShowGrid {
 //     DEFAULT = 'Default',
 //     VARIABLE = 'Variable',
 // }
+
+export interface KupDataTableCellButtonClick {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+
+//---- *NEXT functionalit AKA load more ----
+export enum LoadMoreMode {
+    CONSTANT = 'constant',
+    CONSTANT_INCREMENT = 'constant_increment',
+    PROGRESSIVE_THRESHOLD = 'progressive_threshold',
+}

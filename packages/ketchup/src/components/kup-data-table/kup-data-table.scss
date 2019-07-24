@@ -371,3 +371,27 @@
     opacity: 0;
   }
 }
+
+// Button to load more records.
+.load-more-records {
+  background-color: transparent;
+  border: 0 none;
+  color: var(--int_icons-color);
+  cursor: pointer;
+  display: inline-block;
+  font-size: calc(var(--int_font-size) *1.2);
+  height: calc(var(--int_font-size) *1.2);
+  margin: 0 6px;
+  padding: 0;
+  transition: color .3s;
+  width: calc(var(--int_font-size) *1.2);
+
+  &:hover {
+    color: var(--int_icons-hover-color);
+  }
+
+  &::before {
+    height: inherit;
+    width: inherit;
+  }
+}

@@ -85,6 +85,7 @@ export class KupPortal {
         setElementOffset(this.instance, this.refOffset);
         // Sets visibility
         this.instance.isVisible = this.isVisible;
+        this.computeCssVars(this.portalParentRef, this.mirroredCssVars);
     }
 
     // Before being unmounted
