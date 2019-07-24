@@ -1,6 +1,7 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 
-// TODO use same structure as data table row?
+import { Badge } from '../kup-image/kup-image-declarations';
+
 export interface BoxRow {
     cells: {
         [index: string]: Cell;
@@ -11,6 +12,8 @@ export interface BoxRow {
     id?: string;
 
     layout?: Layout;
+
+    badges?: Badge[];
 }
 
 export interface Layout {

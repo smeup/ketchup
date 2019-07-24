@@ -634,6 +634,18 @@ export class KupBox {
             );
         }
 
+        let badges = null;
+        if (row.badges && row.badges.length > 0) {
+            badges = row.badges.map((badge) => (
+                <kup-badge
+                    text={badge.text}
+                    position={badge.position}
+                    icon={badge.icon}
+                    class="centered"
+                />
+            ));
+        }
+
         const boxClass = {
             box: true,
             selected: this.showSelection && isSelected,
@@ -645,6 +657,7 @@ export class KupBox {
                 <div class={boxClass} onClick={(e) => this.onBoxClick(e, row)}>
                     {multiSel}
                     {boxContent}
+                    {badges}
                 </div>
                 {rowObject}
             </div>

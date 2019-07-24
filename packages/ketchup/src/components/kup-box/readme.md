@@ -64,6 +64,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-badge](../kup-badge)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-combo](../kup-combo)
@@ -72,10 +73,12 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-badge
   kup-box --> kup-image
   kup-box --> kup-button
   kup-box --> kup-combo
   kup-box --> kup-text-input
+  kup-image --> kup-badge
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance

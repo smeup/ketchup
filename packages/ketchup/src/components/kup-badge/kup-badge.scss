@@ -1,0 +1,72 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+
+/**
+* @prop --bdg-background-color, --kup-badge_background-color: badge background color
+* @prop --bdg-color,            --kup-badge_color:            badge text color
+*/
+
+:host {
+  // variables
+  --bdg_background-color: var(--kup-badge_background-color, #95a5a6);
+  --bdg_color: var(--kup-badge_color, #fff);
+}
+
+#badge {
+  position: absolute;
+  background-color: var(--bdg_background-color);
+  color: var(--bdg_color);
+  padding: 3px 5px;
+  min-width: 20px;
+  height: 20px;
+  max-width: 70%;
+  font-size: 11px;
+  border-radius: 3px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.top {
+    &Left {
+      top: -3px;
+      left: -4px;
+    }
+
+    &Right {
+      top: -3px;
+      right: -4px;
+    }
+  }
+
+  &.bottom {
+    &Left {
+      bottom: -3px;
+      left: -4px;
+    }
+
+    &Right {
+      bottom: -3px;
+      right: -4px;
+    }
+  }
+}
+
+// CASFRA: not sure about this.
+// Maybe there is a better way?
+// Something like 2 different css vars?
+// PS: 10px is the badge width / 2
+:host(.centered) {
+  #badge {
+    &.top {
+      &Left {
+        top: -10px;
+        left: -10px;
+      }
+
+      &Right {
+        top: -10px;
+        right: -10px;
+      }
+    }
+  }
+}

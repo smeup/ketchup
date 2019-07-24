@@ -78,6 +78,12 @@ export default {
             },
           },
           {
+            title: 'Badges',
+            to: {
+              name: 'boxBadge',
+            },
+          },
+          {
             title: 'Buttons',
             to: {
               name: 'boxButtons',

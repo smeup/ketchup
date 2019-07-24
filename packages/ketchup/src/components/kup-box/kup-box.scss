@@ -158,6 +158,10 @@
         top: 0.5rem;
         right: 0.5rem;
       }
+
+      kup-badge {
+        --bdg_background-color: #{$mainOrange};
+      }
     }
 
     .row-actions-wrapper {

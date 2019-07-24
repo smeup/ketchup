@@ -5,6 +5,11 @@ export default [
     component: () => import('@/views/box/BoxBasic.vue'),
   },
   {
+    path: '/box/badge',
+    name: 'boxBadge',
+    component: () => import('@/views/box/BoxBadge.vue'),
+  },
+  {
     path: '/box/buttons',
     name: 'boxButtons',
     component: () => import('@/views/box/BoxButtons.vue'),
