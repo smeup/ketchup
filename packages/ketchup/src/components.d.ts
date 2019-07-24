@@ -147,6 +147,20 @@ export namespace Components {
     'types': ChartType[];
     'width': number;
   }
+  interface KupCheckbox {
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'checked': boolean;
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'disabled': boolean;
+    /**
+    * Sets the tabindex of the checkbox
+    */
+    'setTabIndex': number;
+  }
   interface KupChip {
     'closable': boolean;
     'disabled': boolean;
@@ -519,6 +533,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {}
+  var HTMLKupCheckboxElement: {
+    prototype: HTMLKupCheckboxElement;
+    new (): HTMLKupCheckboxElement;
+  };
+
   interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
   var HTMLKupChipElement: {
     prototype: HTMLKupChipElement;
@@ -614,6 +634,7 @@ declare global {
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-checkbox': HTMLKupCheckboxElement;
     'kup-chip': HTMLKupChipElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
@@ -753,6 +774,26 @@ declare namespace LocalJSX {
     'stacked'?: boolean;
     'types'?: ChartType[];
     'width'?: number;
+  }
+  interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'checked'?: boolean;
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * When the row menu action icon is clicked
+    */
+    'onKupCheckboxChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Sets the tabindex of the checkbox
+    */
+    'setTabIndex'?: number;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
     'closable'?: boolean;
@@ -1166,6 +1207,7 @@ declare namespace LocalJSX {
     'kup-btn': KupBtn;
     'kup-button': KupButton;
     'kup-chart': KupChart;
+    'kup-checkbox': KupCheckbox;
     'kup-chip': KupChip;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;
