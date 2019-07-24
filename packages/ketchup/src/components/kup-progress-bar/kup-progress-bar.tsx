@@ -10,17 +10,30 @@ export class KupProgressBar {
     value = 0;
 
     @Prop()
-    label = '';
+    labelText: string;
+
+    @Prop()
+    hideLabel = false;
 
     render() {
         const valueStyle = {
             width: `${this.value}%`,
         };
 
+        let label = null;
+        if (!this.hideLabel) {
+            if (this.labelText) {
+                label = this.labelText;
+            } else {
+                label = this.value + '%';
+            }
+        }
+
         return (
             <div id="progress-bar">
-                <div id="value" style={valueStyle} />
-                <div id="label">{this.label}</div>
+                <div id="progress-bar-percentage" style={valueStyle}>
+                    <span>{label}</span>
+                </div>
             </div>
         );
     }

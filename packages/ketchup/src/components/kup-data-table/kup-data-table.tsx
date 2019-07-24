@@ -130,7 +130,7 @@ export class KupDataTable {
     headerIsPersistent = false;
 
     @Prop()
-    showGrid: ShowGrid = ShowGrid.NONE;
+    showGrid: ShowGrid = ShowGrid.COMPLETE;
 
     @Prop()
     selectRow: number;

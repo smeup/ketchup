@@ -1,31 +1,40 @@
 @import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
 
 /**
-* @prop --int_color, --kup-box_color: text color
-* @prop --int_border-color, --kup-box_border-color: single box border color
-* @prop --int_border-radius, --kup-box_border-radius: single box border radius
-* @prop --int_img-border-radius, --kup-box_img-border-radius: box image border radius
-* @prop --int_expand-panel-color, --kup-box_expand-panel-color: text color for collapse header panel
-* @prop --int_hover-box-shadow, --kup-box_hover-box-shadow: shadow when hovering on a box
+* @prop --box_color, --kup-box_color: text color
+* @prop --box_border-color, --kup-box_border-color: single box border color
+* @prop --box_border-radius, --kup-box_border-radius: single box border radius
+* @prop --box_img-border-radius, --kup-box_img-border-radius: box image border radius
+* @prop --box_expand-panel-color, --kup-box_expand-panel-color: text color for collapse header panel
+* @prop --box_hover-box-shadow, --kup-box_hover-box-shadow: shadow when hovering on a box
+* @prop --box_titled-section-font-size, --kup-box_titled-section-font-size: font size for section title
+* @prop --box_titled-section-bg-color, --kup-box_titled-section-bg-color: background color for section title
+* @prop --box_titled-section-top, --kup-box_titled-section-top: top position for section title
 */
 
 :host {
   // variables
-  --int_color: var(--kup-box_color, #707070);
-  --int_border-color: var(--kup-box_border-color, #d0d0d0);
-  --int_border-radius: var(--kup-box_border-radius, 3px);
-  --int_img-border-radius: var(--kup-box_img-border-radius, 4px);
-  --int_expand-panel-color: var(--kup-box_expand-panel-color, #4e908f);
-  --int_hover-box-shadow: var(
+  --box_color: var(--kup-box_color, #707070);
+  --box_border-color: var(--kup-box_border-color, #d0d0d0);
+  --box_border-radius: var(--kup-box_border-radius, 3px);
+  --box_img-border-radius: var(--kup-box_img-border-radius, 4px);
+  --box_expand-panel-color: var(--kup-box_expand-panel-color, $smeup-primary);
+  --box_hover-box-shadow: var(
     --kup-box_hover-box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
+  --box_titled-section-font-size: var(--kup-box_titled-section-font-size, 12px);
+  --box_titled-section-bg-color: var(
+    --kup-box_titled-section-bg-color,
+    #ffffff
+  );
+  --box_titled-section-top: var(--kup-box_titled-section-top, -9px);
 }
 
 #box-container {
   display: grid;
   grid-gap: 1rem;
-  color: var(--int_color);
+  color: var(--box_color);
 
   * {
     box-sizing: border-box;
@@ -34,21 +43,29 @@
   .box {
     cursor: pointer;
     position: relative;
-    border-radius: var(--int_border-radius);
-    border: 1px solid var(--int_border-color);
+    border-radius: var(--box_border-radius);
+    border: 1px solid var(--box_border-color);
     display: flex;
+    padding: 3px;
+
+    &.column {
+      flex-direction: column;
+    }
 
     &:hover,
     &.selected {
-      box-shadow: var(--int_hover-box-shadow);
+      box-shadow: var(--box_hover-box-shadow);
     }
 
     .box-section {
       display: flex;
       flex-direction: row;
-      padding: 3px 4px;
       flex: 1 1 1%;
       flex-wrap: wrap;
+
+      &.last-child {
+        margin: 3px 4px;
+      }
 
       &.column {
         flex-direction: column;
@@ -60,11 +77,15 @@
         }
       }
 
+      &.grid {
+        display: grid;
+      }
+
       .box-object {
         padding: 1px 4px;
 
         img {
-          border-radius: var(--int_img-border-radius);
+          border-radius: var(--box_img-border-radius);
           height: auto;
         }
       }
@@ -72,8 +93,8 @@
       // collapsible sections
       &.collapse-section {
         .header {
-          border-top: 1px solid var(--int_border-color);
-          color: var(--int_expand-panel-color);
+          border-top: 1px solid var(--box_border-color);
+          color: var(--box_expand-panel-color);
           display: flex;
           justify-content: space-around;
           width: 100%;
@@ -96,8 +117,6 @@
 
         &.open {
           .header {
-            // border-top: none;
-
             .header-content {
               .mdi::before {
                 animation: rotate-icon 500ms ease-out forwards;
@@ -110,12 +129,42 @@
           }
         }
       }
+
+      &.titled {
+        border: 1px solid var(--box_border-color);
+        padding-top: 5px;
+        position: relative;
+        margin: 10px;
+
+        > h3 {
+          position: absolute;
+          margin: 0;
+          padding: 0 3px;
+          top: var(--box_titled-section-top);
+          left: 5px;
+          font-size: var(--box_titled-section-font-size);
+          background: var(--box_titled-section-bg-color);
+        }
+      }
     }
 
     .box-selection {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
+    }
+  }
+}
+
+:host(.no-shadow) {
+  #box-container {
+    .box {
+      border: none;
+
+      &:hover,
+      &.selected {
+        box-shadow: none;
+      }
     }
   }
 }
@@ -128,6 +177,12 @@
 #filter-panel {
   kup-text-input {
     --kup-text-input_border-color: #d0d0d0;
+    --kup-text-input_color: #545454;
+  }
+
+  svg {
+    fill: #808080;
+    margin-left: 3px;
   }
 }
 

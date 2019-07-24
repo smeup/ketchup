@@ -1,37 +1,50 @@
-import { ChartConfig } from './kup-chart-declarations';
+import {
+    Row,
+    Column,
+    DataTable,
+} from '../kup-data-table/kup-data-table-declarations';
 
-export const convertColumns = (data: any, config: ChartConfig) => {
-    if (!data || !config || !config.series) {
+import { isDate, isNumber } from '../../utils/object-utils';
+import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
+
+function getColumnByName(name: string, columns: Column[]): Column | null {
+    for (let i = 0; i < columns.length; i++) {
+        const column = columns[i];
+        if (name === column.name) {
+            return column;
+        }
+    }
+
+    return null;
+}
+
+export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
+    if (!data || !series) {
         return [];
     }
 
-    const columns: Array<string> = [];
+    const columns: Column[] = [];
 
-    // axe
-    columns.push(config.axe);
+    // axis
+    const axisColumn = getColumnByName(axis, data.columns);
+    if (axisColumn) {
+        columns.push(axisColumn);
+    }
 
     // series
-    config.series.map((serie: string) => {
+    series.map((serie: string) => {
         // searching colum
-        let c: any;
-
-        for (let i = 0; i < data.columns.length; i++) {
-            const column = data.columns[i];
-            if (serie === column.name) {
-                c = column;
-                break;
-            }
-        }
+        const c = getColumnByName(serie, data.columns);
 
         if (c) {
-            columns.push(c.name);
+            columns.push(c);
         }
     });
 
     return columns;
 };
 
-export const convertRows = (data: any, series: Array<string>) => {
+export const convertRows = (data: any, columns: Column[]) => {
     if (!data) {
         return [];
     }
@@ -39,18 +52,19 @@ export const convertRows = (data: any, series: Array<string>) => {
     const rows = [];
 
     if (data.rows) {
-        data.rows.forEach((r) => {
+        data.rows.forEach((r: Row) => {
             const cells = r.cells;
 
             const currentRow = [];
 
-            // adding series
-            series.forEach((serie) => {
-                const cell = cells[serie];
+            columns.forEach((c) => {
+                const cell = cells[c.name];
 
                 if (cell && cell.obj) {
-                    if ('NR' === cell.obj.t) {
-                        currentRow.push(parseFloat(cell.obj.k));
+                    if (isNumber(cell.obj)) {
+                        currentRow.push(formatToNumber(cell));
+                    } else if (isDate(cell.obj)) {
+                        currentRow.push(formatToMomentDate(cell).toDate());
                     } else {
                         currentRow.push(cell.obj.k);
                     }

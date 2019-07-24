@@ -87,25 +87,26 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 
 ## CSS Custom Properties
 
-| Name                                                                    | Description                                                                  |
-| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `--int_background-color, --kup-data-table_background-color`             | background-color of the whole component (paginator and table).               |
-| `--int_border-color, --kup-data-table_border-color`                     | border-color for the whole table.                                            |
-| `--int_box-shadow, --kup-data-table_box-shadow`                         | common box-shadow used by the table.                                         |
-| `--int_color, --kup-data-table_color`                                   | Text color of the column menu when hovering a header cell.                   |
-| `--int_filter-border-color, --kup-data-table_filter-border-color`       | Sets border color onto kup-text-input elements used to filter rows.          |
-| `--int_font-size, --kup-data-table_font-size`                           | Sets basic font size.                                                        |
-| `--int_group-background-color, --kup-data-table_group-background-color` | background-color when grouping elements.                                     |
-| `--int_group-border-color, --kup-data-table_group-border-color`         | TODO check where used.                                                       |
-| `--int_head-background-color, --kup-data-table_head-background-color`   | Background color of the table header.                                        |
-| `--int_header-offset, --kup-data-table_header-offset`                   | Top offset of the thead when table header must be persistent. Default: 50px; |
-| `--int_hover-background-color, --kup-data-table_hover-background-color` | background-color of a row when it's selected or hovered.                     |
-| `--int_hover-color, --kup-data-table_hover-color`                       | text color of a row when it's selected or hovered.                           |
-| `--int_icons-color, --kup-data-table_icons-color`                       | Color of a table icon.                                                       |
-| `--int_icons-hover-color, --kup-data-table_icons-hover-color`           | Color of a hovered icon.                                                     |
-| `--int_main-color, --kup-data-table_main-color`                         | Set text color. Has the precedence.                                          |
-| `--int_stronger-color, --kup-data-table_stronger-color`                 | Set text color on the whole table element.                                   |
-| `--int_text-on-main-color, --kup-data-table_text-on-main-color`         | Color of the grouping chips of a column.                                     |
+| Name                                                                      | Description                                                                  |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `--int_background-color, --kup-data-table_background-color`               | background-color of the whole component (paginator and table).               |
+| `--int_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
+| `--int_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
+| `--int_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
+| `--int_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
+| `--int_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-input elements used to filter rows.          |
+| `--int_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                        |
+| `--int_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                     |
+| `--int_group-border-color, --kup-data-table_group-border-color`           | TODO check where used.                                                       |
+| `--int_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                        |
+| `--int_header-offset, --kup-data-table_header-offset`                     | Top offset of the thead when table header must be persistent. Default: 50px; |
+| `--int_hover-background-color, --kup-data-table_hover-background-color`   | background-color of a row when it's selected or hovered.                     |
+| `--int_hover-color, --kup-data-table_hover-color`                         | text color of a row when it's selected or hovered.                           |
+| `--int_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
+| `--int_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
+| `--int_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
+| `--int_stronger-color, --kup-data-table_stronger-color`                   | Set text color on the whole table element.                                   |
+| `--int_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 
 ## Dependencies

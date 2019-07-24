@@ -78,9 +78,15 @@ export default {
             },
           },
           {
-            title: 'Buttons',
+            title: 'Objects',
             to: {
-              name: 'boxButtons',
+              name: 'boxObjects',
+            },
+          },
+          {
+            title: 'Classes',
+            to: {
+              name: 'boxClasses',
             },
           },
           {
@@ -105,6 +111,83 @@ export default {
             title: 'Sort',
             to: {
               name: 'boxSort',
+            },
+          },
+        ],
+      },
+      {
+        title: 'Chart',
+        routes: [
+          {
+            title: 'Playground',
+            to: {
+              name: 'chartPlayground',
+            },
+          },
+          {
+            title: 'Area',
+            to: {
+              name: 'chartArea',
+            },
+          },
+          {
+            title: 'Bar',
+            to: {
+              name: 'chartBar',
+            },
+          },
+          {
+            title: 'Bubble',
+            to: {
+              name: 'chartBubble',
+            },
+          },
+          {
+            title: 'Calendar',
+            to: {
+              name: 'chartCalendar',
+            },
+          },
+          {
+            title: 'Candlestick',
+            to: {
+              name: 'chartCandlestick',
+            },
+          },
+          {
+            title: 'Column',
+            to: {
+              name: 'chartColumn',
+            },
+          },
+          {
+            title: 'Geo',
+            to: {
+              name: 'chartGeo',
+            },
+          },
+          {
+            title: 'Line',
+            to: {
+              name: 'chartLine',
+            },
+          },
+          {
+            title: 'Pie',
+            to: {
+              name: 'chartPie',
+            },
+          },
+          {
+            title: 'Sankey',
+            to: {
+              name: 'chartSankey',
+            },
+          },
+          {
+            title: 'Scatter',
+            to: {
+              name: 'chartScatter',
             },
           },
         ],
@@ -218,15 +301,21 @@ export default {
         },
       },
       {
-        title: `Charts`,
+        title: `Chips`,
         to: {
-          name: 'charts',
+          name: 'chips',
         },
       },
       {
         title: `Dash`,
         to: {
           name: 'dash',
+        },
+      },
+      {
+        title: `Html`,
+        to: {
+          name: 'html',
         },
       },
       {
@@ -242,9 +331,9 @@ export default {
         },
       },
       {
-        title: `Html`,
+        title: 'Progress bar',
         to: {
-          name: 'html',
+          name: 'progressbar',
         },
       },
     ],

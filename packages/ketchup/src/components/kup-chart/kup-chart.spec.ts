@@ -1,23 +1,24 @@
 import { KupChart } from './kup-chart';
-import { ChartConfig, ChartType } from './kup-chart-declarations';
-import { convertColumns, convertRows } from './kup-chart-builder';
 
-const dataMock = {
+import { convertColumns, convertRows } from './kup-chart-builder';
+import { DataTable } from '../kup-data-table/kup-data-table-declarations';
+
+const dataMock: DataTable = {
     columns: [
         {
             name: 'Col1',
             title: 'Person',
-            size: '10',
+            size: 10,
         },
         {
             name: 'Col2',
             title: 'Value1',
-            size: '10',
+            size: 10,
         },
         {
             name: 'Col3',
             title: 'Value2',
-            size: '10',
+            size: 10,
         },
     ],
     rows: [
@@ -108,15 +109,12 @@ const dataMock = {
     ],
 };
 
-const configMock: ChartConfig = {
-    type: ChartType.Hbar,
-    axe: 'Col1',
-    series: ['Col2', 'Col3'],
-};
+const axis = 'Col1';
+const series = ['Col2', 'Col3'];
 
 describe('data conversion', () => {
     it('can convert null', () => {
-        const columns = convertColumns(null, null);
+        const columns = convertColumns(null, { axis: null, series: null });
         const rows = convertRows(null, null);
 
         expect(columns).toEqual([]);
@@ -124,7 +122,13 @@ describe('data conversion', () => {
     });
 
     it('can convert empty objects', () => {
-        const columns = convertColumns({}, {});
+        const columns = convertColumns(
+            {},
+            {
+                series: null,
+                axis: null,
+            }
+        );
         const rows = convertRows({}, []);
 
         expect(columns).toEqual([]);
@@ -132,14 +136,17 @@ describe('data conversion', () => {
     });
 
     it('columns conversion', () => {
-        const columns = convertColumns(dataMock, configMock);
+        const columns = convertColumns(dataMock, {
+            axis: axis,
+            series,
+        });
 
-        expect(columns).toEqual(['Col1', 'Col2', 'Col3']);
+        expect(columns).toEqual(dataMock.columns);
     });
 
     it('rows conversion (one serie)', () => {
         const columns = convertColumns(dataMock, {
-            ...configMock,
+            axis: axis,
             series: ['Col2'],
         });
         const rows = convertRows(dataMock, columns);
@@ -148,7 +155,7 @@ describe('data conversion', () => {
     });
 
     it('rows conversion (two series)', () => {
-        const columns = convertColumns(dataMock, configMock);
+        const columns = convertColumns(dataMock, { axis: axis, series });
         const rows = convertRows(dataMock, columns);
 
         expect(rows).toEqual([

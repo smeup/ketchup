@@ -6,6 +6,8 @@
     <p v-if="clickedRow">Selected row: {{ clickedRow }}</p>
     <p v-if="clickedColumn">Selected column: {{ clickedColumn }}</p>
 
+    <hr />
+
     <h3>Multi select</h3>
     <kup-box
       :data.prop="basicData"
@@ -18,6 +20,32 @@
         <li v-for="(row, index) in selectedRows" :key="index">{{ row }}</li>
       </ul>
     </div>
+
+    <hr />
+
+    <h3>SelectBox</h3>
+    <p>The prop SelectBox allows to automatically select a Box</p>
+    <p v-if="autoSelectedRow"
+      >Automatically selected row: {{ autoSelectedRow }}</p
+    >
+    <kup-box
+      :data.prop="basicData"
+      :selectBox.prop="2"
+      @kupAutoBoxSelect="onBoxAutoSelection"
+    ></kup-box>
+
+    <hr />
+
+    <h3>ShowSelection</h3>
+    <p
+      >If the showSelection prop is false, the selected box/boxes will not be
+      highlighted</p
+    >
+    <kup-box
+      :data.prop="basicData"
+      :multiSelection.prop="true"
+      :showSelection.prop="false"
+    ></kup-box>
   </div>
 </template>
 
@@ -31,6 +59,7 @@ export default {
       clickedRow: null,
       clickedColumn: null,
       selectedRows: null,
+      autoSelectedRow: null,
     };
   },
 
@@ -42,6 +71,10 @@ export default {
 
     onBoxSelected({ detail }) {
       this.selectedRows = detail.rows;
+    },
+
+    onBoxAutoSelection({ detail }) {
+      this.autoSelectedRow = detail.row;
     },
   },
 };

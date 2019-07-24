@@ -8,6 +8,7 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   Column,
+  DataTable,
   GenericMap,
   GroupObject,
   KupDataTableCellButtonClick,
@@ -21,13 +22,15 @@ import {
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
+  BoxRow,
   Layout,
 } from './components/kup-box/kup-box-declarations';
 import {
   ButtonConfig,
 } from './components/kup-btn/kup-btn-declarations';
 import {
-  ChartConfig,
+  ChartAspect,
+  ChartType,
 } from './components/kup-chart/kup-chart-declarations';
 import {
   ComboItem,
@@ -66,7 +69,7 @@ export namespace Components {
     /**
     * Data
     */
-    'data': { columns?: Column[]; rows?: Row[] };
+    'data': { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -79,6 +82,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox': number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection': boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */
@@ -107,8 +118,23 @@ export namespace Components {
     'transparent': boolean;
   }
   interface KupChart {
-    'config': ChartConfig;
-    'data': any;
+    'asp': ChartAspect;
+    'axis': string;
+    'colors': string[];
+    'data': DataTable;
+    'graphTitle': string;
+    'graphTitleColor': string;
+    'graphTitleSize': number;
+    'height': number;
+    'legend': boolean;
+    'series': string[];
+    'stacked': boolean;
+    'type': ChartType;
+    'width': number;
+  }
+  interface KupChip {
+    'closable': boolean;
+    'disabled': boolean;
   }
   interface KupCombo {
     /**
@@ -371,7 +397,8 @@ export namespace Components {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar {
-    'label': string;
+    'hideLabel': boolean;
+    'labelText': string;
     'value': number;
   }
   interface KupRadio {
@@ -471,6 +498,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
+  var HTMLKupChipElement: {
+    prototype: HTMLKupChipElement;
+    new (): HTMLKupChipElement;
+  };
+
   interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
   var HTMLKupComboElement: {
     prototype: HTMLKupComboElement;
@@ -559,6 +592,7 @@ declare global {
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-chip': HTMLKupChipElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -585,7 +619,7 @@ declare namespace LocalJSX {
     /**
     * Data
     */
-    'data'?: { columns?: Column[]; rows?: Row[] };
+    'data'?: { columns?: Column[]; rows?: BoxRow[] };
     /**
     * Enable filtering
     */
@@ -599,18 +633,32 @@ declare namespace LocalJSX {
     */
     'multiSelection'?: boolean;
     /**
-    * Lauched when a box is clicked
+    * Triggered when a box is auto selected via selectBox prop
+    */
+    'onKupAutoBoxSelect'?: (event: CustomEvent<{
+      row: BoxRow;
+    }>) => void;
+    /**
+    * Triggered when a box is clicked
     */
     'onKupBoxClicked'?: (event: CustomEvent<{
-      row: Row;
+      row: BoxRow;
       column?: string;
     }>) => void;
     /**
-    * Lauched when the multi selection checkbox changes value
+    * Triggered when the multi selection checkbox changes value
     */
     'onKupBoxSelected'?: (event: CustomEvent<{
-      rows: Row[];
+      rows: BoxRow[];
     }>) => void;
+    /**
+    * Automatically selects the box at the specified index
+    */
+    'selectBox'?: number;
+    /**
+    * If enabled, highlights the selected box/boxes
+    */
+    'showSelection'?: boolean;
     /**
     * If sorting is enabled, specifies which column to sort
     */
@@ -642,8 +690,24 @@ declare namespace LocalJSX {
     'transparent'?: boolean;
   }
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
-    'config'?: ChartConfig;
-    'data'?: any;
+    'asp'?: ChartAspect;
+    'axis'?: string;
+    'colors'?: string[];
+    'data'?: DataTable;
+    'graphTitle'?: string;
+    'graphTitleColor'?: string;
+    'graphTitleSize'?: number;
+    'height'?: number;
+    'legend'?: boolean;
+    'series'?: string[];
+    'stacked'?: boolean;
+    'type'?: ChartType;
+    'width'?: number;
+  }
+  interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
+    'closable'?: boolean;
+    'disabled'?: boolean;
+    'onClose'?: (event: CustomEvent<any>) => void;
   }
   interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
     /**
@@ -957,7 +1021,8 @@ declare namespace LocalJSX {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
-    'label'?: string;
+    'hideLabel'?: boolean;
+    'labelText'?: string;
     'value'?: number;
   }
   interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
@@ -1050,6 +1115,7 @@ declare namespace LocalJSX {
     'kup-btn': KupBtn;
     'kup-button': KupButton;
     'kup-chart': KupChart;
+    'kup-chip': KupChip;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;

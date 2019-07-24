@@ -23,6 +23,10 @@ export function isButton({ t, p }: CellObject): boolean {
     return 'J4' === t && 'BTN' === p;
 }
 
+export function isDate({ t }: CellObject): boolean {
+    return 'D8' === t;
+}
+
 export function isIcon({ t, p }: CellObject): boolean {
     return 'J4' === t && 'ICO' === p;
 }

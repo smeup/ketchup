@@ -1,18 +1,3 @@
-export interface ChartConfig {
-    type: ChartType;
-    axe: string;
-    series: Array<string>;
-    asp?: string;
-    colors?: Array<string>;
-    height?: number;
-    width?: number;
-    leg?: boolean;
-    stacked?: boolean;
-    title?: string;
-    titleColor?: string;
-    titleSize?: string;
-}
-
 export enum ChartType {
     Area = 'Area',
     Bubble = 'Bubble',
@@ -28,4 +13,9 @@ export enum ChartType {
     Scatter = 'Scatter',
     Unk = 'Unk',
     Vbar = 'Vbar',
+}
+
+export enum ChartAspect {
+    D2 = '2D',
+    D3 = '3D',
 }

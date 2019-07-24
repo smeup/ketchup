@@ -230,7 +230,7 @@ export class KupGauge {
                     : this.value < this.secondThreshold
                     ? computedcolors[1]
                     : computedcolors[2];
-            arcsColors = [valuecolor, '#E2E2E2'];
+            arcsColors = [valuecolor, 'var(--gau_empty-color)'];
         }
 
         for (let i = 0; i < arcsThresholds.length - 1; i++) {
