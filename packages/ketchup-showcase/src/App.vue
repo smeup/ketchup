@@ -78,9 +78,9 @@ export default {
             },
           },
           {
-            title: 'Buttons',
+            title: 'Objects',
             to: {
-              name: 'boxButtons',
+              name: 'boxObjects',
             },
           },
           {

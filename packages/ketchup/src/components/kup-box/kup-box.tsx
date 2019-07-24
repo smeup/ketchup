@@ -9,6 +9,8 @@ import {
     Method,
 } from '@stencil/core';
 
+import numeral from 'numeral';
+
 import {
     Column,
     SortObject,
@@ -24,7 +26,7 @@ import {
     BoxObject,
 } from './kup-box-declarations';
 
-import { isImage, isButton } from '../../utils/object-utils';
+import { isImage, isButton, isProgressBar } from '../../utils/object-utils';
 
 import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
 
@@ -874,6 +876,35 @@ export class KupBox {
                             showtext={showtext}
                             fillspace={fillspace}
                         />
+                    );
+                } else if (isProgressBar(cell.obj)) {
+                    const value = numeral(cell.value).value();
+
+                    let hideLabel = false;
+                    let labelText: string = null;
+                    const wrapperStyle = {};
+
+                    if (cell.config) {
+                        hideLabel = !!cell.config.hideLabel;
+
+                        if (cell.config.hasOwnProperty('labelText')) {
+                            labelText = cell.config.labelText;
+                        }
+
+                        if (cell.config.foregroundColor) {
+                            wrapperStyle['--kup-pb_foreground-color'] =
+                                cell.config.foregroundColor;
+                        }
+                    }
+
+                    boContent = (
+                        <div style={wrapperStyle}>
+                            <kup-progress-bar
+                                value={value}
+                                labelText={labelText}
+                                hideLabel={hideLabel}
+                            />
+                        </div>
                     );
                 } else {
                     boContent = cell.value;
