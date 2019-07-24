@@ -7,26 +7,42 @@
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                     | Type                                       | Default     |
-| ---------------- | ----------------- | ------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `columns`        | `columns`         | Number of columns                                                               | `number`                                   | `1`         |
-| `data`           | --                | Data                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
-| `filterEnabled`  | `filter-enabled`  | Enable filtering                                                                | `boolean`                                  | `false`     |
-| `layout`         | --                | How the field will be displayed. If not present, a default one will be created. | `Layout`                                   | `undefined` |
-| `multiSelection` | `multi-selection` | Enable multi selection                                                          | `boolean`                                  | `false`     |
-| `selectBox`      | `select-box`      | Automatically selects the box at the specified index                            | `number`                                   | `undefined` |
-| `showSelection`  | `show-selection`  | If enabled, highlights the selected box/boxes                                   | `boolean`                                  | `true`      |
-| `sortBy`         | `sort-by`         | If sorting is enabled, specifies which column to sort                           | `string`                                   | `undefined` |
-| `sortEnabled`    | `sort-enabled`    | Enable sorting                                                                  | `boolean`                                  | `false`     |
+| Property           | Attribute            | Description                                                                                        | Type                                       | Default     |
+| ------------------ | -------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `columns`          | `columns`            | Number of columns                                                                                  | `number`                                   | `1`         |
+| `data`             | --                   | Data                                                                                               | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
+| `enableRowActions` | `enable-row-actions` | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`                                  | `false`     |
+| `filterEnabled`    | `filter-enabled`     | Enable filtering                                                                                   | `boolean`                                  | `false`     |
+| `layout`           | --                   | How the field will be displayed. If not present, a default one will be created.                    | `Layout`                                   | `undefined` |
+| `multiSelection`   | `multi-selection`    | Enable multi selection                                                                             | `boolean`                                  | `false`     |
+| `selectBox`        | `select-box`         | Automatically selects the box at the specified index                                               | `number`                                   | `undefined` |
+| `showSelection`    | `show-selection`     | If enabled, highlights the selected box/boxes                                                      | `boolean`                                  | `true`      |
+| `sortBy`           | `sort-by`            | If sorting is enabled, specifies which column to sort                                              | `string`                                   | `undefined` |
+| `sortEnabled`      | `sort-enabled`       | Enable sorting                                                                                     | `boolean`                                  | `false`     |
 
 
 ## Events
 
-| Event              | Description                                               | Type                                             |
-| ------------------ | --------------------------------------------------------- | ------------------------------------------------ |
-| `kupAutoBoxSelect` | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                  |
-| `kupBoxClicked`    | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>` |
-| `kupBoxSelected`   | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`               |
+| Event                     | Description                                               | Type                                                              |
+| ------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------- |
+| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                   |
+| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                  |
+| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                |
+| `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>` |
+| `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                   |
+
+
+## Methods
+
+### `loadRowActions(row: BoxRow, actions: RowAction[]) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## CSS Custom Properties

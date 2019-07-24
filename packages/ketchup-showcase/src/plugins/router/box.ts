@@ -25,6 +25,11 @@ export default [
     component: () => import('@/views/box/BoxLayout.vue'),
   },
   {
+    path: '/box/rowActions',
+    name: 'boxRowActions',
+    component: () => import('@/views/box/BoxRowActions.vue'),
+  },
+  {
     path: '/box/objects',
     name: 'boxObjects',
     component: () => import('@/views/box/BoxObjects.vue'),

@@ -68,6 +68,10 @@ export namespace Components {
     */
     'data': { columns?: Column[]; rows?: BoxRow[] };
     /**
+    * If enabled, a button to load / display the row actions will be displayed on the right of every box
+    */
+    'enableRowActions': boolean;
+    /**
     * Enable filtering
     */
     'filterEnabled': boolean;
@@ -75,6 +79,7 @@ export namespace Components {
     * How the field will be displayed. If not present, a default one will be created.
     */
     'layout': Layout;
+    'loadRowActions': (row: BoxRow, actions: RowAction[]) => Promise<void>;
     /**
     * Enable multi selection
     */
@@ -602,6 +607,10 @@ declare namespace LocalJSX {
     */
     'data'?: { columns?: Column[]; rows?: BoxRow[] };
     /**
+    * If enabled, a button to load / display the row actions will be displayed on the right of every box
+    */
+    'enableRowActions'?: boolean;
+    /**
     * Enable filtering
     */
     'filterEnabled'?: boolean;
@@ -631,6 +640,20 @@ declare namespace LocalJSX {
     */
     'onKupBoxSelected'?: (event: CustomEvent<{
       rows: BoxRow[];
+    }>) => void;
+    /**
+    * When the row menu action icon is clicked
+    */
+    'onKupRowActionClicked'?: (event: CustomEvent<{
+      row: BoxRow;
+      action: RowAction;
+      index: number;
+    }>) => void;
+    /**
+    * When the row menu action icon is clicked
+    */
+    'onKupRowActionMenuClicked'?: (event: CustomEvent<{
+      row: BoxRow;
     }>) => void;
     /**
     * Automatically selects the box at the specified index
