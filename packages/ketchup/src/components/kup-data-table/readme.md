@@ -64,7 +64,7 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `rowsPerPage`        | `rows-per-page`        |                                                                                                                                                                                                                                                                 | `number`                                                                                         | `10`                                 |
 | `selectRow`          | `select-row`           |                                                                                                                                                                                                                                                                 | `number`                                                                                         | `undefined`                          |
 | `showFilters`        | `show-filters`         |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
-| `showGrid`           | `show-grid`            |                                                                                                                                                                                                                                                                 | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.NONE`                      |
+| `showGrid`           | `show-grid`            |                                                                                                                                                                                                                                                                 | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.COMPLETE`                  |
 | `showHeader`         | `show-header`          | Enables rendering of the table header.                                                                                                                                                                                                                          | `boolean`                                                                                        | `true`                               |
 | `showLoadMore`       | `show-load-more`       | If set to true, displays the button to load more records.                                                                                                                                                                                                       | `boolean`                                                                                        | `false`                              |
 | `sort`               | --                     |                                                                                                                                                                                                                                                                 | `SortObject[]`                                                                                   | `[]`                                 |
@@ -113,10 +113,10 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-button](..\kup-button)
-- [kup-graphic-cell](..\kup-graphic-cell)
-- [kup-paginator](..\kup-paginator)
+- [kup-text-input](../kup-text-input)
+- [kup-button](../kup-button)
+- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-paginator](../kup-paginator)
 
 ### Graph
 ```mermaid

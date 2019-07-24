@@ -28,6 +28,7 @@ import {
     isImage,
     isButton,
     createJ4objButtonConfig,
+    isProgressBar,
 } from '../../utils/object-utils';
 
 import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
@@ -666,9 +667,7 @@ export class KupBox {
                     boContent = <kup-image src={cell.value} badges={badges} />;
                 } else if (isButton(cell.obj)) {
                     boContent = (
-                        <kup-button
-                          {...createJ4objButtonConfig(cell)}
-                        />
+                        <kup-button {...createJ4objButtonConfig(cell)} />
                     );
                 } else if (isProgressBar(cell.obj)) {
                     const value = numeral(cell.value).value();
