@@ -74,14 +74,15 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 
 ## Events
 
-| Event                 | Description                                    | Type                                                                                                          |
-| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `kupAddColumn`        | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAutoRowSelect`    | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
-| `kupLoadMoreClicked`  |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupOptionClicked`    | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
-| `kupRowActionClicked` | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`      | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| Event                  | Description                                    | Type                                                                                                          |
+| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `kupAddColumn`         | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAutoRowSelect`     | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
+| `kupCellButtonClicked` |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupLoadMoreClicked`   |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupOptionClicked`     | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupRowActionClicked`  | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
+| `kupRowSelected`       | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
 
 
 ## CSS Custom Properties

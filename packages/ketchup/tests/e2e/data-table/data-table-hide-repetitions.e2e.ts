@@ -1,25 +1,18 @@
 import { newE2EPage } from '@stencil/core/testing';
-
 import { dataTableHideRepetitionsData } from './mocked-data';
-
 import { rowsSelector } from './data-table-selectors';
-
-console.log("cercami", dataTableHideRepetitionsData);
-dataTableHideRepetitionsData.rows.forEach(row => console.log("riga", row))
 
 describe('kup-data-table with hide repetitions active', () => {
   it('hides values where the previous cell on the same column has the same value', async () => {
     const page = await newE2EPage();
-
     const { rows, columns } = dataTableHideRepetitionsData;
 
     await page.setContent(
       `<kup-data-table global-filter rows-per-page="${rows.length}"></kup-data-table>`
     );
+
     const element = await page.find('kup-data-table');
-
     element.setProperty('data', dataTableHideRepetitionsData);
-
     await page.waitForChanges();
 
     // testing rows
@@ -28,7 +21,6 @@ describe('kup-data-table with hide repetitions active', () => {
     const columnsNames = columns.map(column => column.name);
 
 
-    console.log("the rows", tableRows.length, rows.length);
     // no filters or grouping -> length must be the same
     expect(tableRows).toHaveLength(rows.length);
 
