@@ -81,11 +81,11 @@ export class KupCheckbox {
     //-- Events handlers --
 
     onCheckboxBlur() {
-        this.kupCheckboxBlur.emit({checked: !!this.checkbox.value})
+        this.kupCheckboxBlur.emit({checked: !!this.checkbox.checked})
     }
 
     onCheckboxChange(e: UIEvent) {
-        const newValue = !!(e.target as HTMLInputElement).value;
+        const newValue = !!(e.target as HTMLInputElement).checked;
         if (newValue !== this.checked) {
             this.checked = newValue;
             this.kupCheckboxChange.emit({
@@ -95,7 +95,7 @@ export class KupCheckbox {
     }
 
     onCheckboxFocus() {
-        this.kupCheckboxFocus.emit({checked: !!this.checkbox.value})
+        this.kupCheckboxFocus.emit({checked: !!this.checkbox.checked})
     }
 
     onHostFocus() {
