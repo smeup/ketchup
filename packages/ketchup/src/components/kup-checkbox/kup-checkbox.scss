@@ -4,15 +4,17 @@
 * @prop --checkbox_background-color, --kup-checkbox_background-color: Sets the background color of the checkbox
 * @prop --checkbox_size, --kup-checkbox_size: Sets the component size; all other sizes are scaled automatically.
 * @prop --checkbox_tick-color, --kup-checkbox_tick-color: Sets color of the tick of the checkbox.
+* @prop --checkbox_tick-color-disabled, --kup-checkbox_tick-color-disabled: Sets color of the tick of the checkbox when checkbox is disabled.
 */
 
 :host {
   // variables
-  --checkbox_border-color: var(--kup-checkbox_border-color, #707070);
-  --checkbox_border-color-disabled: var(--kup-checkbox_border-color-disabled, transparent);
+  --checkbox_border-color: var(--kup-checkbox_border-color, #{$gray-80});
+  --checkbox_border-color-disabled: var(--kup-checkbox_border-color-disabled, #{lighten($gray-80, 20)});
   --checkbox_background-color: var(--kup-checkbox_background-color, #f5f5f5);
   --checkbox_size: var(--kup-checkbox_size, 20px);
   --checkbox_tick-color: var(--kup-checkbox_tick-color, #{$smeup-primary});
+  --checkbox_tick-color-disabled: var(--kup-checkbox_tick-color-disabled, #{lighten($smeup-primary, 20)});
 
   display: inline-block;
 }
@@ -76,6 +78,11 @@
 
     > input {
       cursor: initial;
+
+      &:checked ~ #{$checkbox-tick} {
+        border-bottom-color: var(--checkbox_tick-color-disabled);
+        border-right-color: var(--checkbox_tick-color-disabled);
+      }
     }
   }
 }

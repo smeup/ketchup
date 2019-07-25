@@ -331,6 +331,12 @@ export default {
         },
       },
       {
+        title: `Checkbox`,
+        to: {
+          name: 'checkbox',
+        },
+      },
+      {
         title: `Dash`,
         to: {
           name: 'dash',
@@ -418,7 +424,7 @@ select,
   display: block;
   margin: 0 auto;
   padding: 24px 40px;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 // Main components container
