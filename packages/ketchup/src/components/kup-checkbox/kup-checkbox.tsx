@@ -22,8 +22,10 @@ export class KupCheckbox {
     @Prop({ mutable: true, reflect: true}) checked: boolean = false;
     /**
      * Sets the checkbox to be disabled
+     *
+     * Must have reflect into the attribute
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true}) disabled: boolean = false;
     /**
      * The label to set to the component
      */

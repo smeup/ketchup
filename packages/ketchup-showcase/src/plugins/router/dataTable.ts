@@ -54,4 +54,9 @@ export default [
     name: 'dtButtonCell',
     component: () => import('@/views/dataTable/DTJ4btn.vue'),
   },
+  {
+    path: '/dataTable/checkbox-cell',
+    name: 'dtCheckboxCell',
+    component: () => import('@/views/dataTable/DTCheckbox.vue'),
+  },
 ];

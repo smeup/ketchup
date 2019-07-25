@@ -10,12 +10,12 @@
 
 ## Properties
 
-| Property      | Attribute       | Description                       | Type      | Default |
-| ------------- | --------------- | --------------------------------- | --------- | ------- |
-| `checked`     | `checked`       | Sets the checkbox to be disabled  | `boolean` | `false` |
-| `disabled`    | `disabled`      | Sets the checkbox to be disabled  | `boolean` | `false` |
-| `label`       | `label`         | The label to set to the component | `string`  | `''`    |
-| `setTabIndex` | `set-tab-index` | Sets the tabindex of the checkbox | `number`  | `0`     |
+| Property      | Attribute       | Description                                                            | Type      | Default |
+| ------------- | --------------- | ---------------------------------------------------------------------- | --------- | ------- |
+| `checked`     | `checked`       | Sets the checkbox to be disabled                                       | `boolean` | `false` |
+| `disabled`    | `disabled`      | Sets the checkbox to be disabled  Must have reflect into the attribute | `boolean` | `false` |
+| `label`       | `label`         | The label to set to the component                                      | `string`  | `''`    |
+| `setTabIndex` | `set-tab-index` | Sets the tabindex of the checkbox                                      | `number`  | `0`     |
 
 
 ## Events
@@ -38,6 +38,19 @@
 | `--checkbox_tick-color, --kup-checkbox_tick-color`                       | Sets color of the tick of the checkbox.                            |
 | `--checkbox_tick-color-disabled, --kup-checkbox_tick-color-disabled`     | Sets color of the tick of the checkbox when checkbox is disabled.  |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-data-table](..\kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-data-table --> kup-checkbox
+  style kup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

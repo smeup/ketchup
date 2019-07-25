@@ -266,7 +266,13 @@ export default {
             to: {
               name: 'dtButtonCell'
             }
-          }
+          },
+          {
+            title: 'Checkbox Cell',
+            to: {
+              name: 'dtCheckboxCell'
+            }
+          },
         ],
       },
       {
