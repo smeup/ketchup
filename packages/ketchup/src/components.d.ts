@@ -157,6 +157,10 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
+    * The label to set to the component
+    */
+    'label': string;
+    /**
     * Sets the tabindex of the checkbox
     */
     'setTabIndex': number;
@@ -785,9 +789,25 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
-    * When the row menu action icon is clicked
+    * The label to set to the component
+    */
+    'label'?: string;
+    /**
+    * Fired when the checkbox input is blurred
+    */
+    'onKupCheckboxBlur'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Fired when the checkbox input changes its value
     */
     'onKupCheckboxChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Fired when the checkbox input receive focus
+    */
+    'onKupCheckboxFocus'?: (event: CustomEvent<{
       checked: boolean;
     }>) => void;
     /**
