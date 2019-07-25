@@ -9,6 +9,8 @@ import {
     Method,
 } from '@stencil/core';
 
+import numeral from 'numeral';
+
 import {
     Column,
     SortObject,
@@ -24,7 +26,12 @@ import {
     BoxObject,
 } from './kup-box-declarations';
 
-import { isImage, isButton } from '../../utils/object-utils';
+import {
+    isImage,
+    isButton,
+    createJ4objButtonConfig,
+    isProgressBar,
+} from '../../utils/object-utils';
 
 import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
 
@@ -845,48 +852,37 @@ export class KupBox {
 
                     boContent = <kup-image src={cell.value} badges={badges} />;
                 } else if (isButton(cell.obj)) {
-                    let label = cell.value;
-                    let textMode = 'Hint';
-                    let icon = null;
-                    let flat = true;
-                    let showtext = false;
-                    let fillspace = false;
+                    boContent = (
+                        <kup-button {...createJ4objButtonConfig(cell)} />
+                    );
+                } else if (isProgressBar(cell.obj)) {
+                    const value = numeral(cell.value).value();
+
+                    let hideLabel = false;
+                    let labelText: string = null;
+                    const wrapperStyle = {};
 
                     if (cell.config) {
-                        const config = cell.config;
+                        hideLabel = !!cell.config.hideLabel;
 
-                        icon = config.icon;
-
-                        if (config.hasOwnProperty('showtext')) {
-                            showtext = config.showtext;
+                        if (cell.config.hasOwnProperty('labelText')) {
+                            labelText = cell.config.labelText;
                         }
 
-                        if (config.hasOwnProperty('fillspace')) {
-                            fillspace = config.fillspace;
-                        }
-
-                        if (config.hasOwnProperty('flat')) {
-                            flat = config.flat;
-
-                            if (!flat) {
-                                textMode = '';
-                            }
-                        }
-
-                        if (config.hasOwnProperty('fillspace')) {
-                            fillspace = config.fillspace;
+                        if (cell.config.foregroundColor) {
+                            wrapperStyle['--kup-pb_foreground-color'] =
+                                cell.config.foregroundColor;
                         }
                     }
 
                     boContent = (
-                        <kup-button
-                            flat={flat}
-                            iconClass={icon}
-                            label={label}
-                            textmode={textMode}
-                            showtext={showtext}
-                            fillspace={fillspace}
-                        />
+                        <div style={wrapperStyle}>
+                            <kup-progress-bar
+                                value={value}
+                                labelText={labelText}
+                                hideLabel={hideLabel}
+                            />
+                        </div>
                     );
                 } else {
                     boContent = cell.value;

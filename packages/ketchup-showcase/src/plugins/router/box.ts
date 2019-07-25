@@ -10,11 +10,6 @@ export default [
     component: () => import('@/views/box/BoxBadge.vue'),
   },
   {
-    path: '/box/buttons',
-    name: 'boxButtons',
-    component: () => import('@/views/box/BoxButtons.vue'),
-  },
-  {
     path: '/box/boxSelection',
     name: 'boxSel',
     component: () => import('@/views/box/BoxSel.vue'),
@@ -38,6 +33,11 @@ export default [
     path: '/box/rowActions',
     name: 'boxRowActions',
     component: () => import('@/views/box/BoxRowActions.vue'),
+  },
+  {
+    path: '/box/objects',
+    name: 'boxObjects',
+    component: () => import('@/views/box/BoxObjects.vue'),
   },
   {
     path: '/box/sort',

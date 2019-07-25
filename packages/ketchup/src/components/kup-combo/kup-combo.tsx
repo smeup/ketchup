@@ -96,6 +96,9 @@ export class KupCombo {
     // TODO check if there is a better typing.
     constructedStyleSheet: any = null;
 
+    // For CSS vars
+    internalCssVars = ['--cmb_font-size', '--cmb_border-color', '--cmb_border-color--selected', '--cmb_tr-duration', '--cmb_icon-color', '--cmb_icon-color--hover', '--cmb_menu-background'];
+
     //-- Constants --
     baseClass = 'kup-combo';
 
@@ -316,7 +319,7 @@ export class KupCombo {
             this.usePortal ?
                 <kup-portal
                     isVisible={this.isOpen}
-                    mirroredCssVars={['--cmb_menu-background', '--cmb_tr-duration']}
+                    mirroredCssVars={this.internalCssVars}
                     nodes={this.composeList()}
                     portalParentRef={this.comboEl}
                     ref={el => this.portalRef = el as HTMLKupPortalElement}

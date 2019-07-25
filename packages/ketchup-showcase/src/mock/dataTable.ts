@@ -6,13 +6,18 @@ function getRandomArbitrary(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-function createDataForPagination(colSize: number, rowSize: number) {
+function createDataForPagination(colSize: number, rowSize: number, useStepValues: boolean = false) {
   const columns: any = [];
+  let stepValue = -20;
+  const stepIncrement = 10;
+  const stepValuesAlwaysFilteredRows = [0,1];
+
   for (let i = 0; i < colSize; i++) {
     columns.push({
       name: 'FLD' + i,
       title: 'Column ' + i,
       size: 10,
+      hideValuesRepetitions: useStepValues && (Math.random() > .5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0)
     });
   }
 
@@ -25,7 +30,7 @@ function createDataForPagination(colSize: number, rowSize: number) {
     for (let j = 0; j < columns.length; j++) {
       const cell: any = {};
 
-      cell.value = i.toString() + j.toString();
+      cell.value = (!useStepValues ? i.toString() : stepValue.toString()) + j.toString();
 
       cell.obj = {
         t: 'NR',
@@ -43,6 +48,8 @@ function createDataForPagination(colSize: number, rowSize: number) {
 
       currentRow.cells[columns[j].name] = cell;
     }
+
+    if (!(i % stepIncrement)) stepValue++;
 
     rows.push(currentRow);
   }
@@ -959,3 +966,5 @@ export const sortDataTable = {
 export const paginateDataTable = createDataForPagination(20, 10000);
 
 export const groupDataTable = createDataForPagination(10, 3000);
+
+export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);

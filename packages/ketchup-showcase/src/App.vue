@@ -84,9 +84,9 @@ export default {
             },
           },
           {
-            title: 'Buttons',
+            title: 'Objects',
             to: {
-              name: 'boxButtons',
+              name: 'boxObjects',
             },
           },
           {
@@ -259,6 +259,18 @@ export default {
             title: 'Totals',
             to: {
               name: 'dtTotals',
+            },
+          },
+          {
+            title: 'Hide repetitions',
+            to: {
+              name: 'dtRowsRepetition',
+            },
+          },
+          {
+            title: 'Button Cell (J4btn)',
+            to: {
+              name: 'dtButtonCell',
             },
           },
         ],

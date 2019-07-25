@@ -14,11 +14,14 @@ import {
   DataTable,
   GenericMap,
   GroupObject,
+  KupDataTableCellButtonClick,
+  LoadMoreMode,
   PaginatorPos,
   Row,
   RowAction,
   ShowGrid,
   SortObject,
+  TableData,
   TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
 import {
@@ -197,7 +200,7 @@ export namespace Components {
       column: string;
       width: number;
     }>;
-    'data': { columns?: Array<Column>; rows?: Array<Row> };
+    'data': TableData;
     'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
@@ -206,6 +209,18 @@ export namespace Components {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent': boolean;
+    /**
+    * Sets a maximum limit of new records which can be required by the load more functionality.
+    */
+    'loadMoreLimit': number;
+    /**
+    * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+    */
+    'loadMoreMode': LoadMoreMode;
+    /**
+    * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+    */
+    'loadMoreStep': number;
     'multiSelection': boolean;
     'paginatorPos': PaginatorPos;
     'rowActions': Array<RowAction>;
@@ -217,6 +232,10 @@ export namespace Components {
     * Enables rendering of the table header.
     */
     'showHeader': boolean;
+    /**
+    * If set to true, displays the button to load more records.
+    */
+    'showLoadMore': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
     'totals': TotalsMap;
@@ -782,7 +801,7 @@ declare namespace LocalJSX {
       column: string;
       width: number;
     }>;
-    'data'?: { columns?: Array<Column>; rows?: Array<Row> };
+    'data'?: TableData;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
@@ -791,6 +810,18 @@ declare namespace LocalJSX {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent'?: boolean;
+    /**
+    * Sets a maximum limit of new records which can be required by the load more functionality.
+    */
+    'loadMoreLimit'?: number;
+    /**
+    * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+    */
+    'loadMoreMode'?: LoadMoreMode;
+    /**
+    * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+    */
+    'loadMoreStep'?: number;
     'multiSelection'?: boolean;
     /**
     * When 'add column' menu item is clicked
@@ -801,6 +832,10 @@ declare namespace LocalJSX {
     */
     'onKupAutoRowSelect'?: (event: CustomEvent<{
       selectedRow: Row;
+    }>) => void;
+    'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+    'onKupLoadMoreClicked'?: (event: CustomEvent<{
+      loadItems: number;
     }>) => void;
     /**
     * When cell option is clicked
@@ -835,6 +870,10 @@ declare namespace LocalJSX {
     * Enables rendering of the table header.
     */
     'showHeader'?: boolean;
+    /**
+    * If set to true, displays the button to load more records.
+    */
+    'showLoadMore'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;
     'totals'?: TotalsMap;

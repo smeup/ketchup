@@ -49,15 +49,15 @@ Type: `Promise<void>`
 
 | Name                                                                 | Description                          |
 | -------------------------------------------------------------------- | ------------------------------------ |
-| `--int_border-color, --kup-box_border-color`                         | single box border color              |
-| `--int_border-radius, --kup-box_border-radius`                       | single box border radius             |
-| `--int_color, --kup-box_color`                                       | text color                           |
-| `--int_expand-panel-color, --kup-box_expand-panel-color`             | text color for collapse header panel |
-| `--int_hover-box-shadow, --kup-box_hover-box-shadow`                 | shadow when hovering on a box        |
-| `--int_img-border-radius, --kup-box_img-border-radius`               | box image border radius              |
-| `--int_titled-section-bg-color, --kup-box_titled-section-bg-color`   | background color for section title   |
-| `--int_titled-section-font-size, --kup-box_titled-section-font-size` | font size for section title          |
-| `--int_titled-section-top, --kup-box_titled-section-top`             | top position for section title       |
+| `--box_border-color, --kup-box_border-color`                         | single box border color              |
+| `--box_border-radius, --kup-box_border-radius`                       | single box border radius             |
+| `--box_color, --kup-box_color`                                       | text color                           |
+| `--box_expand-panel-color, --kup-box_expand-panel-color`             | text color for collapse header panel |
+| `--box_hover-box-shadow, --kup-box_hover-box-shadow`                 | shadow when hovering on a box        |
+| `--box_img-border-radius, --kup-box_img-border-radius`               | box image border radius              |
+| `--box_titled-section-bg-color, --kup-box_titled-section-bg-color`   | background color for section title   |
+| `--box_titled-section-font-size, --kup-box_titled-section-font-size` | font size for section title          |
+| `--box_titled-section-top, --kup-box_titled-section-top`             | top position for section title       |
 
 
 ## Dependencies
@@ -67,6 +67,7 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
+- [kup-progress-bar](../kup-progress-bar)
 - [kup-combo](../kup-combo)
 - [kup-text-input](../kup-text-input)
 
@@ -76,6 +77,7 @@ graph TD;
   kup-box --> kup-badge
   kup-box --> kup-image
   kup-box --> kup-button
+  kup-box --> kup-progress-bar
   kup-box --> kup-combo
   kup-box --> kup-text-input
   kup-image --> kup-badge

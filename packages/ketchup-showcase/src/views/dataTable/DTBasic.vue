@@ -45,6 +45,14 @@ h3 {
 
     <h3>Icons and images</h3>
     <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
+
+    <h3>With load more button</h3>
+    <code>Load more elements: {{ loadQuantity }}</code>
+    <kup-data-table
+      :data.prop="data"
+      show-load-more
+      @kupLoadMoreClicked="onLoadMoreClick"/>
+
   </div>
 </template>
 
@@ -55,6 +63,7 @@ import {
   hiddenColumnsData,
   iconImagesDataTable,
 } from '@/mock/dataTable';
+import { j4btnData } from '@/mock/box';
 
 export default {
   name: 'dataTableBasic',
@@ -64,6 +73,7 @@ export default {
       data: {
         ...defaultDataTable,
       },
+      j4btnData,
       hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
       iconImagesDataTable: { ...iconImagesDataTable },
@@ -77,6 +87,7 @@ export default {
           width: 300,
         },
       ],
+      loadQuantity: ''
     };
   },
 
@@ -84,6 +95,12 @@ export default {
     handleKupOptionClicked({ detail }) {
       console.log('detail', detail);
     },
+    onObjMatrix(e) {
+      console.log("the matrix obj", e);
+    },
+    onLoadMoreClick(e) {
+      this.loadQuantity = e.detail.loadItems.toString();
+    }
   },
 };
 </script>
