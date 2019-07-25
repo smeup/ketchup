@@ -34,6 +34,8 @@ export interface Row {
         };
         totals: { [index: string]: number };
     };
+
+    readOnly?: boolean;
 }
 
 export interface Cell {

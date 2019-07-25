@@ -37,6 +37,7 @@ import {
 import {
     isBar,
     isButton,
+    isCheckbox,
     isIcon,
     isImage,
     isLink,
@@ -1379,6 +1380,10 @@ export class KupDataTable {
                     {valueToDisplay}
                 </a>
             );
+        } else if (isCheckbox(cell.obj)) {
+            content = <kup-checkbox
+                checked={!!cell.obj.k}
+                disabled={cellData && cellData.row && cellData.row.hasOwnProperty('readOnly') ? cellData.row.readOnly : true}/>;
         } else if (isButton(cell.obj)) {
             /**
              * Here either using .bind() or () => {} function would bring more or less the same result.

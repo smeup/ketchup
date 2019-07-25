@@ -282,8 +282,14 @@ export default {
           {
             title: 'Button Cell (J4btn)',
             to: {
-              name: 'dtButtonCell',
-            },
+              name: 'dtButtonCell'
+            }
+          },
+          {
+            title: 'Checkbox Cell',
+            to: {
+              name: 'dtCheckboxCell'
+            }
           },
         ],
       },

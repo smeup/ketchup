@@ -153,7 +153,7 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
     */
     'disabled': boolean;
     /**
@@ -785,7 +785,7 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
     */
     'disabled'?: boolean;
     /**

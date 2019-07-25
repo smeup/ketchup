@@ -23,6 +23,10 @@ export function isButton({ t, p }: CellObject): boolean {
     return 'J4' === t && 'BTN' === p;
 }
 
+export function isCheckbox({ t, p }: CellObject): boolean {
+    return 'V2' === t && 'SI/NO' === p.toUpperCase();
+}
+
 export function isDate({ t }: CellObject): boolean {
     return 'D8' === t;
 }
