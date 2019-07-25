@@ -131,6 +131,12 @@ export default {
             },
           },
           {
+            title: 'Events',
+            to: {
+              name: 'chartEvents',
+            },
+          },
+          {
             title: 'Area',
             to: {
               name: 'chartArea',
@@ -164,6 +170,12 @@ export default {
             title: 'Column',
             to: {
               name: 'chartColumn',
+            },
+          },
+          {
+            title: 'Combo',
+            to: {
+              name: 'chartCombo',
             },
           },
           {
@@ -264,9 +276,9 @@ export default {
           {
             title: 'Button Cell (J4btn)',
             to: {
-              name: 'dtButtonCell'
-            }
-          }
+              name: 'dtButtonCell',
+            },
+          },
         ],
       },
       {

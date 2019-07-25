@@ -3,7 +3,7 @@
     <h1>Candlestick chart</h1>
     <kup-chart
       :data.prop="csData"
-      :type="type"
+      :types.prop="types"
       axis="Col1"
       :series.prop="['Col2', 'Col3', 'Col4', 'Col5']"
     />
@@ -13,10 +13,9 @@
 
 <script>
 export default {
-  name: 'KupCharts',
   data() {
     return {
-      type: 'Candlestick',
+      types: ['Candlestick'],
       csData: {
         columns: [
           {

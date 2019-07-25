@@ -59,4 +59,14 @@ export default [
     name: 'chartScatter',
     component: () => import('@/views/chart/ChartScatter.vue'),
   },
+  {
+    path: '/chart/combo',
+    name: 'chartCombo',
+    component: () => import('@/views/chart/ChartCombo.vue'),
+  },
+  {
+    path: '/chart/events',
+    name: 'chartEvents',
+    component: () => import('@/views/chart/ChartEvents.vue'),
+  },
 ];
