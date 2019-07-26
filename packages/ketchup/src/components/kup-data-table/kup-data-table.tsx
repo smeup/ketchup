@@ -24,6 +24,7 @@ import {
     SortObject,
     TableData,
     TotalsMap,
+    KupDataTableColumnDragType,
 } from './kup-data-table-declarations';
 
 import {
@@ -52,36 +53,45 @@ import {
     shadow: true,
 })
 export class KupDataTable {
+    @Prop()
+    columnsWidth: Array<{
+        column: string;
+        width: number;
+    }> = [];
+
     @Prop() data: TableData;
 
     @Prop()
-    showFilters = false;
+    expandGroups = false;
 
     @Prop({ mutable: true })
     filters: GenericMap = {};
 
     @Prop()
-    totals: TotalsMap;
-
-    @Prop()
     globalFilter = false;
 
-    @Prop()
-    sortEnabled = true;
-
     @Prop({ mutable: true })
-    sort: Array<SortObject> = [];
-
-    @Prop()
-    rowsPerPage = 10;
-
-    @Prop()
-    paginatorPos: PaginatorPos = PaginatorPos.TOP;
+    groups: Array<GroupObject> = [];
 
     /**
-     * If set to true, displays the button to load more records.
+     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
+     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
+     * It uses CSS position: sticky.
+     * @version 1.0
+     * @namespace KupDataTable.headerIsPersistent
+     * @see KupDataTable.showHeader
+     * @see https://caniuse.com/#feat=css-sticky
      */
-    @Prop({ reflect: true }) showLoadMore: boolean = false;
+    @Prop({ reflect: true })
+    headerIsPersistent = false;
+
+    @Prop()
+    multiSelection = false;
+
+    /**
+     * Sets a maximum limit of new records which can be required by the load more functionality.
+     */
+    @Prop() loadMoreLimit: number = 1000;
 
     /**
      * The number of records which will be requested to be downloaded when clicking on the load more button.
@@ -101,16 +111,17 @@ export class KupDataTable {
      */
     @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
 
-    /**
-     * Sets a maximum limit of new records which can be required by the load more functionality.
-     */
-    @Prop() loadMoreLimit: number = 1000;
+    @Prop()
+    paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
     @Prop()
-    columnsWidth: Array<{
-        column: string;
-        width: number;
-    }> = [];
+    rowsPerPage = 10;
+
+    @Prop()
+    rowActions: Array<RowAction>;
+
+    @Prop()
+    selectRow: number;
 
     /**
      * Enables rendering of the table header.
@@ -119,35 +130,32 @@ export class KupDataTable {
     @Prop({ reflect: true })
     showHeader = true;
 
-    /**
-     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
-     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
-     * It uses CSS position: sticky.
-     * @version 1.0
-     * @namespace KupDataTable.headerIsPersistent
-     * @see KupDataTable.showHeader
-     * @see https://caniuse.com/#feat=css-sticky
-     */
-    @Prop({ reflect: true })
-    headerIsPersistent = false;
+    @Prop()
+    showFilters = false;
 
     @Prop()
     showGrid: ShowGrid = ShowGrid.COMPLETE;
 
+    /**
+     * If set to true, displays the button to load more records.
+     */
+    @Prop({ reflect: true }) showLoadMore: boolean = false;
+
+    /**
+     *
+     */
+    @Prop() enableSortableColumns: boolean = false;
+
     @Prop()
-    selectRow: number;
+    sortEnabled = true;
 
     @Prop({ mutable: true })
-    groups: Array<GroupObject> = [];
+    sort: Array<SortObject> = [];
 
     @Prop()
-    expandGroups = false;
+    totals: TotalsMap;
 
-    @Prop()
-    multiSelection = false;
-
-    @Prop()
-    rowActions: Array<RowAction>;
+    //---- State ----
 
     @State()
     private globalFilterValue = '';
@@ -720,6 +728,14 @@ export class KupDataTable {
     }
 
     private onJ4btnClicked(row, column, cell) {
+        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
+        const buttonEvent = arguments[3] as UIEvent;
+        if (buttonEvent) {
+            // Prevents double events to be fired.
+            buttonEvent.stopPropagation();
+        } else {
+            throw "kup-data-table error: missing event";
+        }
         this.kupCellButtonClicked.emit({
             cell,
             column,
@@ -994,11 +1010,43 @@ export class KupDataTable {
                 );
             }
 
+            // Check if columns are droppable and sets their handlers
+            // TODO set better typing.
+            let dragHandlers: any = {};
+            if (this.enableSortableColumns) {
+                dragHandlers = {
+                    draggable: true,
+                    onDragStart: (e: DragEvent) => {
+                        e.dataTransfer.setData(
+                            KupDataTableColumnDragType,
+                            JSON.stringify(column)
+                        );
+                        console.log(JSON.stringify(column), e.dataTransfer.getData(KupDataTableColumnDragType));
+                        e.dataTransfer.effectAllowed = 'move';
+                    },
+                    onDragOver: (e: DragEvent) => {
+                        console.log(e.dataTransfer.types, e.dataTransfer.types.indexOf(KupDataTableColumnDragType));
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            e.preventDefault(); // Mandatory to allow drop
+                        }
+                    },
+                    onDrop: (e: DragEvent) => {
+                        e.preventDefault();
+                        console.log("on drop", JSON.parse(e.dataTransfer.getData(KupDataTableColumnDragType)));
+                    },
+                    onDragEnd: (e: DragEvent) => {
+                        e.preventDefault();
+                        console.log("on drag end", e.dataTransfer.types);
+                    }
+                }
+            }
+
             return (
                 <th
                     style={thStyle}
                     onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
+                    {...dragHandlers}
                 >
                     <span class="column-title">{column.title}</span>
                     {sort}

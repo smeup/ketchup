@@ -221,6 +221,7 @@ export namespace Components {
       width: number;
     }>;
     'data': TableData;
+    'enableSortableColumns': boolean;
     'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
@@ -870,6 +871,7 @@ declare namespace LocalJSX {
       width: number;
     }>;
     'data'?: TableData;
+    'enableSortableColumns'?: boolean;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;

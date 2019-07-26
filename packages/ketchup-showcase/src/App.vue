@@ -268,6 +268,12 @@ export default {
             },
           },
           {
+            title: 'Sortable columns',
+            to: {
+              name: 'dtSortableColumns',
+            },
+          },
+          {
             title: 'Totals',
             to: {
               name: 'dtTotals',

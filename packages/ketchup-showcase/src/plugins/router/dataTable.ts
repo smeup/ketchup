@@ -39,6 +39,11 @@ export default [
     name: 'dtSort',
     component: () => import('@/views/dataTable/DTSort.vue'),
   },
+   {
+    path: '/dataTable/sortable-columns',
+    name: 'dtSortableColumns',
+    component: () => import('@/views/dataTable/DTSortableColumns.vue'),
+  },
   {
     path: '/dataTable/totals',
     name: 'dtTotals',

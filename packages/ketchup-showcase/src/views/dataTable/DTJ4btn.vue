@@ -4,6 +4,7 @@
         <kup-data-table
             :data.prop="j4btnData"
             @kupCellButtonClicked="onObjMatrix"
+            @kupButtonClicked="printWarning"
             data-code="small"
         />
         <code ref="small"/>
@@ -11,8 +12,9 @@
         <h3>Larger dataset - With and without buttons</h3>
         <kup-data-table
             :data.prop="j4btnLargeData"
-            @kupCellButtonClicked="onObjMatrix"
             data-code="large"
+            @kupCellButtonClicked="onObjMatrix"
+            @kupButtonClicked="printWarning"
         />
         <code ref="large"/>
     </div>
@@ -41,6 +43,9 @@
                 this.$refs[e.target.dataset.code].innerHTML =  `Cell:<br>${cell}<br>Column:<br>${column}<br>Row:<br>${row}<br>`
                 ;
             },
+            printWarning(e) {
+                console.warn("This message is displayed because the matrix component may not have blocked the button cell event.\n Check the event", e)
+            }
         },
     }
 </script>
