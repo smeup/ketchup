@@ -644,6 +644,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'CASFRA',
           },
+          options: true,
           value: 'CASFRA',
         },
         FLD2: {
@@ -680,6 +681,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'DELGIO',
           },
+          options: true,
           value: 'DELGIO',
         },
         FLD2: {
@@ -716,6 +718,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'PARFRA',
           },
+          options: true,
           value: 'PARFRA',
         },
         FLD2: {
@@ -752,6 +755,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'CASFRA',
           },
+          options: true,
           value: 'CASFRA',
         },
         FLD2: {
@@ -788,6 +792,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'DELGIO',
           },
+          options: true,
           value: 'DELGIO',
         },
         FLD2: {
@@ -824,6 +829,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'PARFRA',
           },
+          options: true,
           value: 'PARFRA',
         },
         FLD2: {
@@ -860,6 +866,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'CASFRA',
           },
+          options: true,
           value: 'CASFRA',
         },
         FLD2: {
@@ -896,6 +903,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'DELGIO',
           },
+          options: true,
           value: 'DELGIO',
         },
         FLD2: {
@@ -932,6 +940,7 @@ export const sortDataTable = {
             p: 'COL',
             k: 'PARFRA',
           },
+          options: true,
           value: 'PARFRA',
         },
         FLD2: {

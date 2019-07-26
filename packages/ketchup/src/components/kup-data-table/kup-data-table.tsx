@@ -1184,14 +1184,17 @@ export class KupDataTable {
                     }
                 }
 
-                /*if (hideValuesRepetitions) {
-                    console.log("MOSTRAMI LE COLONNE VISIBILI che bloccano le ripeizioni", visibleColumns, rest);
-                }*/
-
                 const cell = row.cells[name];
 
                 let options = null;
-                if (cell.options) {
+                /**
+                 * Options must be rendered when the option field is specified AND (one of the following):
+                 * 1 - Column do not have to hide repetitions
+                 * 2 - Column has to hide repetitions but we are printing the first row.
+                 * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
+                 * @todo Move this rendering, if possible, inside renderCell()
+                 */
+                if (cell.options && (!hideValuesRepetitions || (hideValuesRepetitions && (!previousRow || previousRow.cells[name].value !== cell.value)))) {
                     options = (
                         <span
                             class="options"
@@ -1206,16 +1209,14 @@ export class KupDataTable {
                 }
 
                 const jsxCell = this.renderCell(
-                    cell,
-                    name,
-                    // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                    hideValuesRepetitions && previousRow
-                        ? previousRow.cells[name].value
-                        : null,
-                    {
-                        row,
-                        column: currentColumn,
-                    }
+                  cell,
+                  name,
+                  // The previous value must be passed only if repeated values can be hidden and we have a previous row.
+                  {
+                      row,
+                      column: currentColumn
+                  },
+                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
                 );
 
                 const cellClass = {
@@ -1355,11 +1356,11 @@ export class KupDataTable {
     private renderCell(
         cell: Cell,
         column: string,
-        previousRowCellValue?: string,
-        cellData?: {
+        cellData: {
             column: Column;
             row: Row;
-        }
+        },
+        previousRowCellValue?: string,
     ) {
         // When the previous row value is different from the current value, we can show the current value.
         const valueToDisplay =

@@ -28,13 +28,25 @@ describe('kup-data-table with hide repetitions active', () => {
       rows.map(async (row, index, currentArr) => {
         const cells = await tableRows[index].findAll('td');
 
-        columnsNames.forEach((column, columnIndex) => {
-          if (!index || (currentArr[index - 1] && row.cells[column].value !== currentArr[index - 1].cells[column].value)) {
-            expect(cells[columnIndex]).toEqualText(row.cells[column].value);
-          } else {
-            expect(cells[columnIndex]).toEqualText('');
+        await Promise.all(
+          columnsNames.map(async(column, columnIndex) => {
+            if (!index || (currentArr[index - 1] && row.cells[column].value !== currentArr[index - 1].cells[column].value)) {
+              // When values are different or is the first item
+              expect(cells[columnIndex]).toEqualText(row.cells[column].value);
+              if (row.cells[column].options) {
+                const option = await cells[columnIndex].find('span.options');
+                expect(option).toBeTruthy();
+              }
+            } else {
+              // When value must be hidden
+              expect(cells[columnIndex]).toEqualText('');
+              if (row.cells[column].options) {
+                const option = await cells[columnIndex].find('span.options');
+                expect(option).toBeFalsy();
+              }
+            }
           }
-        });
+        ));
       })
     );
   });

@@ -831,6 +831,10 @@ dataTableHideRepetitions.columns.forEach(column => {
     column.hideValuesRepetitions = true;
 });
 
+dataTableHideRepetitions.rows.forEach(row => {
+    row.cells.FLD1.options = true;
+});
+
 export const dataTableHideRepetitionsData = dataTableHideRepetitions;
 
 export const d8Data = {
