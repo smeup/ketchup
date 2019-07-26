@@ -1,4 +1,11 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    h,
+} from '@stencil/core';
 
 import {
     ChartType,
@@ -62,6 +69,14 @@ export class KupChart {
     showMarks = false;
 
     /**
+     * Google chart version to load
+     */
+    @Prop()
+    version = '45.2';
+
+    @Element() el: HTMLElement;
+
+    /**
      * Triggered when a chart serie is clicked
      */
     @Event({
@@ -88,10 +103,21 @@ export class KupChart {
 
         // loading charts
         if (google) {
+            // getting google charts css from main document
+            document
+                .querySelectorAll(
+                    `link[href^="https://www.gstatic.com/charts/${
+                        this.version
+                    }/css"]`
+                )
+                .forEach((node) =>
+                    this.el.shadowRoot.appendChild(node.cloneNode())
+                );
+
             try {
                 this.loadGoogleChart();
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         }
     }
