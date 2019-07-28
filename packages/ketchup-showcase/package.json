@@ -51,6 +51,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
     "cypress": "^3.1.1",
+    "cypress-shadow-dom": "^1.0.0",
     "jest-html-reporter": "^2.4.2",
     "jest-junit": "^5.2.0",
     "node-sass": "^4.9.4",
