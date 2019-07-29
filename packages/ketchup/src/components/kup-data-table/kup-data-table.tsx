@@ -4,6 +4,7 @@ import {
     EventEmitter,
     h,
     JSX,
+    Method,
     Prop,
     State,
     Watch,
@@ -25,6 +26,7 @@ import {
     TableData,
     TotalsMap,
     KupDataTableColumnDragType,
+    KupDataTableSortedColumnIndexes,
 } from './kup-data-table-declarations';
 
 import {
@@ -60,6 +62,11 @@ export class KupDataTable {
     }> = [];
 
     @Prop() data: TableData;
+
+    /**
+     * Enables sorting of the columns by dragging them into different columns
+     */
+    @Prop() enableSortableColumns: boolean = false;
 
     @Prop()
     expandGroups = false;
@@ -141,16 +148,17 @@ export class KupDataTable {
      */
     @Prop({ reflect: true }) showLoadMore: boolean = false;
 
-    /**
-     * Enables sorting of the columns by dragging them into different columns
-     */
-    @Prop() enableSortableColumns: boolean = false;
-
     @Prop()
     sortEnabled = true;
 
     @Prop({ mutable: true })
     sort: Array<SortObject> = [];
+
+    /**
+     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property
+     * and then fires the event
+     */
+    @Prop() sortableColumnsMutateData: boolean = true;
 
     @Prop()
     totals: TotalsMap;
@@ -345,6 +353,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
+
+    @Event({
+        eventName: 'kupDataTableSortedColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -927,7 +943,42 @@ export class KupDataTable {
 
     //==== Column sort order methods ====
     private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
-        console.log("handle column sort", receivingColumn, sortedColumn);
+        // Get receiving column position
+        const receivingColIndex = this.data.columns.findIndex(col => col.name === receivingColumn.name && col.title === receivingColumn.title);
+        // Get sorted column current position
+        const sortedColIndex = this.data.columns.findIndex(col => col.name === sortedColumn.name && col.title === sortedColumn.title);
+
+        // Moves the sortedColumn into the correct position
+        if (this.sortableColumnsMutateData) {
+            this.moveSortedColumns(this.data.columns, receivingColIndex, sortedColIndex);
+        }
+        // fires event
+        this.kupDataTableSortedColumn.emit({
+            receivingColumnIndex: receivingColIndex,
+            sortedColumnIndex: sortedColIndex,
+        });
+    }
+
+    private moveSortedColumns(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number) {
+        const remove = columns.splice(sortedColumnIndex, 1);
+        columns.splice(receivingColumnIndex, 0, remove[0]);
+    }
+
+    @Method() async defaultSortingFunction(
+        columns: Column[],
+        receivingColumnIndex: number,
+        sortedColumnIndex: number,
+        useNewObject: boolean = false,
+    ) {
+        const toSort = !useNewObject ? columns : [...columns];
+
+        this.moveSortedColumns(
+            toSort,
+            receivingColumnIndex,
+            sortedColumnIndex
+        );
+
+        return toSort;
     }
 
     //======== render methods ========

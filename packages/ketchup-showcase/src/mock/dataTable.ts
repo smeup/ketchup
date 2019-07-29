@@ -6,7 +6,7 @@ function getRandomArbitrary(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-function createDataForPagination(colSize: number, rowSize: number, useStepValues: boolean = false) {
+export function createDataForPagination(colSize: number, rowSize: number, useStepValues: boolean = false) {
   const columns: any = [];
   let stepValue = -20;
   const stepIncrement = 10;
