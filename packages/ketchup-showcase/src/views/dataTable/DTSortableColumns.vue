@@ -7,12 +7,12 @@
             :data.prop="data"
             enable-sortable-columns
             @kupOptionClicked="handleKupOptionClicked"
-        ></kup-data-table>
+        />
 
         <h3>Hidden columns</h3>
         <kup-data-table
             :data.prop="hiddenColumnsData"
-            enableSortableColumns.prop="true"/>
+            :enableSortableColumns.prop="true"/>
     </div>
 </template>
 
