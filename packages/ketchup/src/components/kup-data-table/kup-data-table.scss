@@ -5,6 +5,8 @@
 * @prop --int_border-color, --kup-data-table_border-color: border-color for the whole table.
 * @prop --int_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --int_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
+* @prop --int_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
+* @prop --int_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
 * @prop --int_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
 * @prop --int_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-input elements used to filter rows.
 * @prop --int_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
@@ -30,6 +32,8 @@
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
   --int_color: var(--kup-data-table_color, $mainTextColor);
+  --int_drag-over--allowed: var(--kup-data-table_drag-over--allowed, #{rgba($smeup-primary, .24)});
+  --int_drag-over--forbidden: var(--kup-data-table_drag-over--forbidden, #{rgba($smeup-danger, .24)});
   --int_filter-border-color: var(--kup-data-table_filter-border-color, #d0d0d0);
   --int_filter-background-color: var(
     --kup-data-table_filter-background-color,
@@ -100,8 +104,8 @@
       }
     }
 
-    // filters
     th {
+      // filters
       kup-text-input.datatable-filter {
         --int_border-color: var(--int_filter-border-color);
         --int_background-color: var(--int_filter-background-color);
@@ -119,6 +123,23 @@
 
       th {
         position: relative;
+      }
+
+      &[columns-dragging] {
+        // When the drag is over a valid target
+        [drag-over] {
+          background-color: var(--int_drag-over--allowed);
+
+          // Mandatory to allow a correct drop effect when dragging
+          > * {
+            pointer-events: none;
+          }
+        }
+
+        // When the drag is over but it is the starting element
+        [drag-over][drag-starter] {
+          background-color: var(--int_drag-over--forbidden);
+        }
       }
     }
 

@@ -221,6 +221,9 @@ export namespace Components {
       width: number;
     }>;
     'data': TableData;
+    /**
+    * Enables sorting of the columns by dragging them into different columns
+    */
     'enableSortableColumns': boolean;
     'expandGroups': boolean;
     'filters': GenericMap;
@@ -871,6 +874,9 @@ declare namespace LocalJSX {
       width: number;
     }>;
     'data'?: TableData;
+    /**
+    * Enables sorting of the columns by dragging them into different columns
+    */
     'enableSortableColumns'?: boolean;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;

@@ -142,7 +142,7 @@ export class KupDataTable {
     @Prop({ reflect: true }) showLoadMore: boolean = false;
 
     /**
-     *
+     * Enables sorting of the columns by dragging them into different columns
      */
     @Prop() enableSortableColumns: boolean = false;
 
@@ -224,7 +224,41 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
-    // private theadRef: HTMLTableSectionElement;
+    /**
+     * Internal not reactive state used to keep track if a column is being dragged.
+     * @private
+     */
+    private columnsAreBeingDragged: boolean = false;
+
+    /**
+     * Attribute to set when a column is being dragged on the whole thead element
+     * @const
+     * @default 'columns-dragging'
+     * @private
+     */
+    private dragFlagAttribute: string = 'columns-dragging';
+
+    /**
+     * The string representing the drag over attribute
+     * @const
+     * @default 'drag-over'
+     * @private
+     */
+    private dragOverAttribute: string = 'drag-over';
+
+    /**
+     * The string representing the drag starter attribute to set onto the element
+     * @const
+     * @default 'drag-starter'
+     * @private
+     */
+    private dragStarterAttribute: string = 'drag-starter';
+
+    /**
+     * Reference for the thead element
+     * @private
+     */
+    private theadRef: HTMLTableSectionElement;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -891,7 +925,12 @@ export class KupDataTable {
         return false;
     }
 
-    // render methods
+    //==== Column sort order methods ====
+    private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
+        console.log("handle column sort", receivingColumn, sortedColumn);
+    }
+
+    //======== render methods ========
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
@@ -1014,30 +1053,63 @@ export class KupDataTable {
             // TODO set better typing.
             let dragHandlers: any = {};
             if (this.enableSortableColumns) {
+                // Reference for drag events and what they permit or not
+                // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
+
                 dragHandlers = {
                     draggable: true,
                     onDragStart: (e: DragEvent) => {
+                        // Sets drag data and the type of drag
                         e.dataTransfer.setData(
                             KupDataTableColumnDragType,
                             JSON.stringify(column)
                         );
-                        console.log(JSON.stringify(column), e.dataTransfer.getData(KupDataTableColumnDragType));
                         e.dataTransfer.effectAllowed = 'move';
+
+                        // Remember that the current target is different from the one print out in the console
+                        // Sets which element has started the drag
+                        (e.target as HTMLElement).setAttribute(this.dragStarterAttribute, '');
+                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
+                        this.columnsAreBeingDragged = true;
                     },
-                    onDragOver: (e: DragEvent) => {
-                        console.log(e.dataTransfer.types, e.dataTransfer.types.indexOf(KupDataTableColumnDragType));
+                    onDragLeave: (e: DragEvent) => {
                         if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
-                            e.preventDefault(); // Mandatory to allow drop
+                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
                         }
                     },
-                    onDrop: (e: DragEvent) => {
-                        e.preventDefault();
-                        console.log("on drop", JSON.parse(e.dataTransfer.getData(KupDataTableColumnDragType)));
+                    onDragOver: (e: DragEvent) => {
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            const overElement = e.target as HTMLElement;
+                            overElement.setAttribute(this.dragOverAttribute,'');
+                            // If element can have a drop effect
+                            if (!overElement.hasAttribute(this.dragStarterAttribute) && this.columnsAreBeingDragged) {
+                                e.preventDefault(); // Mandatory to allow drop
+                                e.dataTransfer.effectAllowed = 'move';
+                            } else {
+                                e.dataTransfer.effectAllowed = 'none';
+                            }
+                        }
                     },
                     onDragEnd: (e: DragEvent) => {
-                        e.preventDefault();
-                        console.log("on drag end", e.dataTransfer.types);
-                    }
+                        // When the drag has ended, checks if the element still exists or it was destroyed by the JSX
+                        const dragStarter = e.target as HTMLElement;
+                        if (dragStarter) {
+                            // IF it still exists, removes the attribute so that it can perform a new drag again
+                            dragStarter.removeAttribute(this.dragStarterAttribute);
+                        }
+                        this.theadRef.removeAttribute(this.dragFlagAttribute);
+                        this.columnsAreBeingDragged = false;
+                    },
+                    onDrop: (e: DragEvent) => {
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            const transferredData = JSON.parse(e.dataTransfer.getData(KupDataTableColumnDragType)) as Column;
+                            e.preventDefault();
+                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
+
+                            // We are sure the tables have been dropped in a valid location -> starts sorting the columns
+                            this.handleColumnSort(column, transferredData);
+                        }
+                    },
                 }
             }
 
@@ -1678,7 +1750,7 @@ export class KupDataTable {
                 <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
-                        <thead hidden={!this.showHeader}>
+                        <thead hidden={!this.showHeader} ref={(el) => this.theadRef = el as HTMLTableSectionElement}>
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>
