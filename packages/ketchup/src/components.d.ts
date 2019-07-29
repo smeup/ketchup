@@ -12,6 +12,7 @@ import {
   GenericMap,
   GroupObject,
   KupDataTableCellButtonClick,
+  KupDataTableSortedColumnIndexes,
   LoadMoreMode,
   PaginatorPos,
   Row,
@@ -211,6 +212,7 @@ export namespace Components {
       width: number;
     }>;
     'data': TableData;
+    'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
     /**
     * Enables sorting of the columns by dragging them into different columns
     */
@@ -252,6 +254,10 @@ export namespace Components {
     'showLoadMore': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
+    /**
+    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    */
+    'sortableColumnsMutateData': boolean;
     'totals': TotalsMap;
   }
   interface KupFld {
@@ -883,6 +889,7 @@ declare namespace LocalJSX {
       selectedRow: Row;
     }>) => void;
     'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+    'onKupDataTableSortedColumn'?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
     }>) => void;
@@ -925,6 +932,10 @@ declare namespace LocalJSX {
     'showLoadMore'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;
+    /**
+    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    */
+    'sortableColumnsMutateData'?: boolean;
     'totals'?: TotalsMap;
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {

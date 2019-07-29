@@ -122,3 +122,8 @@ export enum LoadMoreMode {
 
 //---- Sortable Columns Functionality ----
 export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
+
+export interface KupDataTableSortedColumnIndexes {
+    receivingColumnIndex: number;
+    sortedColumnIndex: number;
+}
