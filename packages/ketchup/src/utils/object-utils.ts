@@ -1,5 +1,5 @@
 // dont know how to call this interface
-import { Cell } from "../../dist/types/components/kup-data-table/kup-data-table-declarations";
+import { Cell } from "../components/kup-data-table/kup-data-table-declarations";
 
 interface CellObject {
     t: string;

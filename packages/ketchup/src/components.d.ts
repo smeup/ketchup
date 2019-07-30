@@ -146,6 +146,10 @@ export namespace Components {
     'showMarks': boolean;
     'stacked': boolean;
     'types': ChartType[];
+    /**
+    * Google chart version to load
+    */
+    'version': string;
     'width': number;
   }
   interface KupCheckbox {
@@ -787,6 +791,10 @@ declare namespace LocalJSX {
     'showMarks'?: boolean;
     'stacked'?: boolean;
     'types'?: ChartType[];
+    /**
+    * Google chart version to load
+    */
+    'version'?: string;
     'width'?: number;
   }
   interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
