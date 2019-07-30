@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 
 import { BadgePosition } from './kup-badge-declarations';
 
@@ -24,21 +24,24 @@ export class KupBadge {
         const isBottomRight = BadgePosition.BOTTOM_RIGHT === this.position;
         const isBottomLeft = BadgePosition.BOTTOM_LEFT === this.position;
 
-        const badgeClass = {
-            topLeft: !isTopRight && !isBottomRight && !isBottomLeft,
-            topRight: isTopRight,
-            bottomRight: isBottomRight,
-            bottomLeft: isBottomLeft,
+        const hostClass = {
+            'top-left': !isTopRight && !isBottomRight && !isBottomLeft,
+            'top-right': isTopRight,
+            'bottom-right': isBottomRight,
+            'bottom-left': isBottomLeft,
         };
 
+        const badgeClass: any = {};
         if (!text && this.icon) {
             badgeClass[this.icon] = true;
         }
 
         return (
-            <div id="badge" class={badgeClass}>
-                {text}
-            </div>
+            <Host class={hostClass}>
+                <div id="badge" class={badgeClass}>
+                    {text}
+                </div>
+            </Host>
         );
     }
 }

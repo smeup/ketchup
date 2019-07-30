@@ -20,6 +20,7 @@
 | ------------------------------------------------------ | ---------------------- |
 | `--bdg-background-color, --kup-badge_background-color` | badge background color |
 | `--bdg-color, --kup-badge_color`                       | badge text color       |
+| `--bdg-dim, --kup-badge_dimension`                     | badge dimension        |
 
 
 ## Dependencies

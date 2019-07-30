@@ -3,70 +3,96 @@
 /**
 * @prop --bdg-background-color, --kup-badge_background-color: badge background color
 * @prop --bdg-color,            --kup-badge_color:            badge text color
+* @prop --bdg-dim,              --kup-badge_dimension:        badge dimension
 */
 
 :host {
   // variables
   --bdg_background-color: var(--kup-badge_background-color, #95a5a6);
   --bdg_color: var(--kup-badge_color, #fff);
-}
+  --bdg_dim: var(--kup-badge_dimension, 20px);
 
-#badge {
   position: absolute;
-  background-color: var(--bdg_background-color);
-  color: var(--bdg_color);
-  padding: 3px 5px;
-  min-width: 20px;
-  height: 20px;
   max-width: 70%;
-  font-size: 11px;
-  border-radius: 3px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  #badge {
+    background-color: var(--bdg_background-color);
+    color: var(--bdg_color);
+    padding: 0 3px;
+    font-size: 11px;
+    border-radius: 3px;
 
-  &.top {
-    &Left {
-      top: -3px;
-      left: -4px;
-    }
-
-    &Right {
-      top: -3px;
-      right: -4px;
-    }
-  }
-
-  &.bottom {
-    &Left {
-      bottom: -3px;
-      left: -4px;
-    }
-
-    &Right {
-      bottom: -3px;
-      right: -4px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-// CASFRA: not sure about this.
-// Maybe there is a better way?
-// Something like 2 different css vars?
-// PS: 10px is the badge width / 2
+:host(.top-right) {
+  top: -3px;
+  right: -4px;
+}
+
+:host(.top-left) {
+  top: -3px;
+  left: -4px;
+}
+
+:host(.bottom-right) {
+  bottom: -3px;
+  right: -4px;
+}
+
+:host(.bottom-left) {
+  bottom: -3px;
+  left: -4px;
+}
+
 :host(.centered) {
   #badge {
-    &.top {
-      &Left {
-        top: -10px;
-        left: -10px;
-      }
-
-      &Right {
-        top: -10px;
-        right: -10px;
-      }
-    }
+    box-sizing: border-box;
+    min-width: var(--bdg_dim);
+    height: var(--bdg_dim);
+    border-radius: calc(var(--bdg_dim) / 2);
   }
 }
+
+:host(.centered.top-right) {
+  top: -10px;
+  right: -10px;
+}
+
+:host(.centered.top-left) {
+  top: -10px;
+  left: -10px;
+}
+
+:host(.centered.bottom-right) {
+  bottom: -10px;
+  right: -10px;
+}
+
+:host(.centered.bottom-left) {
+  bottom: -10px;
+  left: -10px;
+}
+
+// :host(.centered.top-right) {
+//   top: calc((var(--bdg_dim) + 5px) / 2 * -1);
+//   right: calc((var(--bdg_dim) + 5px) / 2 * -1);
+// }
+
+// :host(.centered.top-left) {
+//   top: calc((var(--bdg_dim) + 5px) / 2 * -1);
+//   left: calc((var(--bdg_dim) + 5px) / 2 * -1);
+// }
+
+// :host(.centered.bottom-right) {
+//   bottom: calc((var(--bdg_dim) + 5px) / 2 * -1);
+//   right: calc((var(--bdg_dim) + 5px) / 2 * -1);
+// }
+
+// :host(.centered.bottom-left) {
+//   bottom: calc((var(--bdg_dim) + 5px) / 2 * -1);
+//   left: calc((var(--bdg_dim) + 5px) / 2 * -1);
+// }
