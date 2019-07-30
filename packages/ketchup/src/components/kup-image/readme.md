@@ -16,23 +16,20 @@
 | `width`  | `width`   |             | `number`  | `64`        |
 
 
-## CSS Custom Properties
-
-| Name                                                               | Description            |
-| ------------------------------------------------------------------ | ---------------------- |
-| `--int_badge-background-color, --kup-image_badge-background-color` | badge background color |
-| `--int_badge-color, --kup-image_badge-color`                       | badge text color       |
-
-
 ## Dependencies
 
 ### Used by
 
  - [kup-box](../kup-box)
 
+### Depends on
+
+- [kup-badge](../kup-badge)
+
 ### Graph
 ```mermaid
 graph TD;
+  kup-image --> kup-badge
   kup-box --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

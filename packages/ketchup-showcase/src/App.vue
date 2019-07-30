@@ -78,6 +78,12 @@ export default {
             },
           },
           {
+            title: 'Badges',
+            to: {
+              name: 'boxBadge',
+            },
+          },
+          {
             title: 'Objects',
             to: {
               name: 'boxObjects',
@@ -264,9 +270,9 @@ export default {
           {
             title: 'Button Cell (J4btn)',
             to: {
-              name: 'dtButtonCell'
-            }
-          }
+              name: 'dtButtonCell',
+            },
+          },
         ],
       },
       {

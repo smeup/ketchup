@@ -7,6 +7,9 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  BadgePosition,
+} from './components/kup-badge/kup-badge-declarations';
+import {
   Column,
   DataTable,
   GenericMap,
@@ -61,6 +64,11 @@ import {
 } from './components/kup-text-input/kup-text-input-declarations';
 
 export namespace Components {
+  interface KupBadge {
+    'icon': string;
+    'position': BadgePosition;
+    'text': string;
+  }
   interface KupBox {
     /**
     * Number of columns
@@ -479,6 +487,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {}
+  var HTMLKupBadgeElement: {
+    prototype: HTMLKupBadgeElement;
+    new (): HTMLKupBadgeElement;
+  };
+
   interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {}
   var HTMLKupBoxElement: {
     prototype: HTMLKupBoxElement;
@@ -593,6 +607,7 @@ declare global {
     new (): HTMLKupTextInputElement;
   };
   interface HTMLElementTagNameMap {
+    'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
@@ -616,6 +631,11 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
+    'icon'?: string;
+    'position'?: BadgePosition;
+    'text'?: string;
+  }
   interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
     /**
     * Number of columns
@@ -1134,6 +1154,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'kup-badge': KupBadge;
     'kup-box': KupBox;
     'kup-btn': KupBtn;
     'kup-button': KupButton;
