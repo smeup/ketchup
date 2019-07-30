@@ -49,6 +49,11 @@ let simpleRoutes = [
     name: 'chips',
     component: () => import(`@/views/KupChips.vue`),
   },
+  {
+    path: `/tooltip`,
+    name: 'tooltip',
+    component: () => import(`@/views/KupTooltip.vue`),
+  },
 ];
 
 const baseRoutes = [
