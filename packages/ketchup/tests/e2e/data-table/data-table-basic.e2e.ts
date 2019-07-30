@@ -1,7 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 import { staticData, hiddenColumns, cellStyleDataTable } from './mocked-data';
-import { rowsSelector, cellsSelector } from './data-table-selectors';
+import { cellsSelector } from './data-table-selectors';
 
 const globalFilterSelector = 'kup-data-table >>> .globalFilter';
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';

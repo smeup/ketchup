@@ -474,6 +474,16 @@ export namespace Components {
     */
     'triggerFocus': () => Promise<void>;
   }
+  interface KupTooltip {
+    /**
+    * Data for the detail
+    */
+    'detailData': DataTable;
+    /**
+    * Layout used to display the items
+    */
+    'layout': string;
+  }
 }
 
 declare global {
@@ -592,6 +602,12 @@ declare global {
     prototype: HTMLKupTextInputElement;
     new (): HTMLKupTextInputElement;
   };
+
+  interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {}
+  var HTMLKupTooltipElement: {
+    prototype: HTMLKupTooltipElement;
+    new (): HTMLKupTooltipElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
@@ -612,6 +628,7 @@ declare global {
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
+    'kup-tooltip': HTMLKupTooltipElement;
   }
 }
 
@@ -1132,6 +1149,20 @@ declare namespace LocalJSX {
     */
     'placeholder'?: string;
   }
+  interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
+    /**
+    * Data for the detail
+    */
+    'detailData'?: DataTable;
+    /**
+    * Layout used to display the items
+    */
+    'layout'?: string;
+    /**
+    * Triggered when a box is clicked
+    */
+    'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
+  }
 
   interface IntrinsicElements {
     'kup-box': KupBox;
@@ -1153,6 +1184,7 @@ declare namespace LocalJSX {
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
     'kup-text-input': KupTextInput;
+    'kup-tooltip': KupTooltip;
   }
 }
 
