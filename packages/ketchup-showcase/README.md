@@ -33,25 +33,26 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
 ### Lints and fixes files
 ```
 npm run lint
 ```
 
-### Run your end-to-end tests
+### Run your e2e tests with a served app
 ```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
+npm run cy:open
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Run your e2e tests with a served app headlessly
+```
+npm run cy:run
+
+```
+### Start the server and run your e2e tests
+```
+npm run test:e2e:open
+```
+### Start ther server and run your e2e headlessly
+```
+npm run test:e2e:run
+```
