@@ -136,12 +136,11 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
  * @param currentFilter - The value of the current filter.
  * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
  */
-function matchEmptyFilter(cellValue: string, currentFilter: string):boolean {
+function matchEmptyFilter(cellValue: string, currentFilter: string): boolean {
     const parsedFilter = currentFilter.trim();
     // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
-    return (/* !parsedFilter ||*/ parsedFilter === "''") && !cellValue.trim();
+    return /* !parsedFilter ||*/ parsedFilter === "''" && !cellValue.trim();
 }
-
 
 export function filterRows(
     rows: Array<Row> = [],
@@ -610,4 +609,14 @@ function adjustGroupId(row: Row): void {
     }
 
     row.group.id = groupID;
+}
+
+export function getColumnByName(columns: Column[], name: string): Column {
+    for (let column of columns) {
+        if (column.name === name) {
+            return column;
+        }
+    }
+
+    return null;
 }

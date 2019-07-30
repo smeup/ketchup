@@ -33,6 +33,7 @@ import {
 } from './components/kup-btn/kup-btn-declarations';
 import {
   ChartAspect,
+  ChartClickedEvent,
   ChartType,
 } from './components/kup-chart/kup-chart-declarations';
 import {
@@ -141,8 +142,9 @@ export namespace Components {
     'height': number;
     'legend': boolean;
     'series': string[];
+    'showMarks': boolean;
     'stacked': boolean;
-    'type': ChartType;
+    'types': ChartType[];
     'width': number;
   }
   interface KupChip {
@@ -742,9 +744,14 @@ declare namespace LocalJSX {
     'graphTitleSize'?: number;
     'height'?: number;
     'legend'?: boolean;
+    /**
+    * Triggered when a chart serie is clicked
+    */
+    'onKupChartClicked'?: (event: CustomEvent<ChartClickedEvent>) => void;
     'series'?: string[];
+    'showMarks'?: boolean;
     'stacked'?: boolean;
-    'type'?: ChartType;
+    'types'?: ChartType[];
     'width'?: number;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {

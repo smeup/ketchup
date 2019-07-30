@@ -3,7 +3,7 @@
     <h1>Scatter charts</h1>
     <kup-chart
       :data.prop="scatterData"
-      :type="type"
+      :types.prop="types"
       axis="Col1"
       :series.prop="['Col2']"
     />
@@ -13,10 +13,9 @@
 
 <script>
 export default {
-  name: 'KupCharts',
   data() {
     return {
-      type: 'Scatter',
+      types: ['Scatter'],
       scatterData: {
         columns: [
           {
