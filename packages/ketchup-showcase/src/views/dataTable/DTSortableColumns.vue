@@ -7,6 +7,7 @@
             :data.prop="data"
             enable-sortable-columns
             @kupDataTableSortedColumn="handleKupDataTable('noConfig', $event)"
+            @dragstart="logger"
         />
         <code>{{ JSON.stringify(data.columns) }}
             <br>
@@ -104,6 +105,9 @@ export default {
                         }
                     });
             }
+        },
+        logger(e) {
+            console.log("event logger", e);
         }
     },
 };
