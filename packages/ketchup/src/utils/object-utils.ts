@@ -1,5 +1,5 @@
 // dont know how to call this interface
-import { Cell } from "../../dist/types/components/kup-data-table/kup-data-table-declarations";
+import { Cell } from "../components/kup-data-table/kup-data-table-declarations";
 
 interface CellObject {
     t: string;
@@ -21,6 +21,10 @@ export function isBar({ t, p }: CellObject): boolean {
 
 export function isButton({ t, p }: CellObject): boolean {
     return 'J4' === t && 'BTN' === p;
+}
+
+export function isCheckbox({ t, p }: CellObject): boolean {
+    return 'V2' === t && 'SI/NO' === p.toUpperCase();
 }
 
 export function isDate({ t }: CellObject): boolean {

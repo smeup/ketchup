@@ -34,6 +34,8 @@ export interface Row {
         };
         totals: { [index: string]: number };
     };
+
+    readOnly?: boolean;
 }
 
 export interface Cell {
@@ -116,4 +118,12 @@ export enum LoadMoreMode {
     CONSTANT = 'constant',
     CONSTANT_INCREMENT = 'constant_increment',
     PROGRESSIVE_THRESHOLD = 'progressive_threshold',
+}
+
+//---- Sortable Columns Functionality ----
+export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
+
+export interface KupDataTableSortedColumnIndexes {
+    receivingColumnIndex: number;
+    sortedColumnIndex: number;
 }

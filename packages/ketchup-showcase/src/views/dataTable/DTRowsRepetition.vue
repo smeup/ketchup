@@ -8,8 +8,6 @@ h3 {
   <div>
     <h1>Hiding repetitions</h1>
 
-
-
     <h2>With sorted tables</h2>
 
     <h3>Sort disabled</h3>

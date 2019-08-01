@@ -268,6 +268,12 @@ export default {
             },
           },
           {
+            title: 'Sortable columns',
+            to: {
+              name: 'dtSortableColumns',
+            },
+          },
+          {
             title: 'Totals',
             to: {
               name: 'dtTotals',
@@ -282,8 +288,14 @@ export default {
           {
             title: 'Button Cell (J4btn)',
             to: {
-              name: 'dtButtonCell',
-            },
+              name: 'dtButtonCell'
+            }
+          },
+          {
+            title: 'Checkbox Cell',
+            to: {
+              name: 'dtCheckboxCell'
+            }
           },
         ],
       },
@@ -328,6 +340,12 @@ export default {
         title: `Chips`,
         to: {
           name: 'chips',
+        },
+      },
+      {
+        title: `Checkbox`,
+        to: {
+          name: 'checkbox',
         },
       },
       {
@@ -418,7 +436,7 @@ select,
   display: block;
   margin: 0 auto;
   padding: 24px 40px;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 // Main components container

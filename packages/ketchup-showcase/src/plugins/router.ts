@@ -49,6 +49,11 @@ let simpleRoutes = [
     name: 'chips',
     component: () => import(`@/views/KupChips.vue`),
   },
+  {
+    path: `/kup-checkbox`,
+    name: 'checkbox',
+    component: () => import(`@/views/KupCheckboxExamples.vue`),
+  },
 ];
 
 const baseRoutes = [
