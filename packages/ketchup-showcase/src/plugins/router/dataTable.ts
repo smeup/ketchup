@@ -39,6 +39,11 @@ export default [
     name: 'dtSort',
     component: () => import('@/views/dataTable/DTSort.vue'),
   },
+   {
+    path: '/dataTable/sortable-columns',
+    name: 'dtSortableColumns',
+    component: () => import('@/views/dataTable/DTSortableColumns.vue'),
+  },
   {
     path: '/dataTable/totals',
     name: 'dtTotals',
@@ -53,5 +58,10 @@ export default [
     path: '/dataTable/button-cell',
     name: 'dtButtonCell',
     component: () => import('@/views/dataTable/DTJ4btn.vue'),
+  },
+  {
+    path: '/dataTable/checkbox-cell',
+    name: 'dtCheckboxCell',
+    component: () => import('@/views/dataTable/DTCheckbox.vue'),
   },
 ];

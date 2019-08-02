@@ -19,6 +19,11 @@
       </div>
 
       <div>
+        <label for="marks">Show marks</label>
+        <input id="marks" type="checkbox" v-model="marks" />
+      </div>
+
+      <div>
         <label for="title">Title</label>
         <input id="title" type="text" v-model="title" />
       </div>
@@ -45,9 +50,10 @@
       :width.prop="width"
       :height.prop="height"
       :legend.prop="legend"
-      :title.prop="title"
-      :titleColor.prop="titleColor"
-      :titleSize.prop="titleSize"
+      :graphTitle.prop="title"
+      :graphTitleColor.prop="titleColor"
+      :graphTitleSize.prop="titleSize"
+      :showMarks.prop="marks"
     />
     <hr />
 
@@ -57,7 +63,7 @@
     <kup-chart
       id="vbar"
       :data.prop="baseData"
-      :type.prop="'Vbar'"
+      :types.prop="['Vbar']"
       :axis.prop="'Col1'"
       :series.prop="series"
       :colors.prop="colors"
@@ -67,6 +73,7 @@
       :title.prop="title"
       :titleColor.prop="titleColor"
       :titleSize.prop="titleSize"
+      :showMarks.prop="marks"
     />
     <hr />
 
@@ -76,7 +83,7 @@
     <kup-chart
       id="pie"
       :data.prop="baseData"
-      :type.prop="'Pie'"
+      :types.prop="['Pie']"
       :axis.prop="'Col1'"
       :series.prop="pieSeries"
       :colors.prop="colors"
@@ -86,6 +93,7 @@
       :title.prop="title"
       :titleColor.prop="titleColor"
       :titleSize.prop="titleSize"
+      :showMarks.prop="marks"
     />
 
     <h3>Credits</h3>
@@ -104,7 +112,6 @@
 
 <script>
 export default {
-  name: 'KupCharts',
   data() {
     return {
       baseData,
@@ -117,6 +124,7 @@ export default {
       title: '',
       titleColor: '#000000',
       titleSize: 12,
+      marks: false,
     };
   },
   methods: {
@@ -261,7 +269,7 @@ const baseData = {
 };
 
 const baseConfig = {
-  type: 'Hbar',
+  types: ['Hbar'],
   axis: 'Col1',
   series: ['Col2', 'Col3'],
 };
@@ -270,6 +278,7 @@ const baseConfig = {
 <style scoped lang="scss">
 .config-panel {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 </style>

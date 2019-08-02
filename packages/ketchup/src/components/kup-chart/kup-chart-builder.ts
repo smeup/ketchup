@@ -5,8 +5,10 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 
 import { isDate, isNumber } from '../../utils/object-utils';
+
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
 
+// TODO this should be in a "data-table" utility file
 function getColumnByName(name: string, columns: Column[]): Column | null {
     for (let i = 0; i < columns.length; i++) {
         const column = columns[i];
@@ -44,7 +46,11 @@ export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     return columns;
 };
 
-export const convertRows = (data: any, columns: Column[]) => {
+export const convertRows = (
+    data: any,
+    columns: Column[],
+    showMarks: boolean
+) => {
     if (!data) {
         return [];
     }
@@ -57,16 +63,29 @@ export const convertRows = (data: any, columns: Column[]) => {
 
             const currentRow = [];
 
-            columns.forEach((c) => {
+            columns.forEach((c, index) => {
                 const cell = cells[c.name];
 
                 if (cell && cell.obj) {
+                    const addMark = showMarks && index > 0;
+
                     if (isNumber(cell.obj)) {
-                        currentRow.push(formatToNumber(cell));
+                        const value = formatToNumber(cell);
+                        currentRow.push(value);
+                        if (addMark) {
+                            currentRow.push(value.toString());
+                        }
                     } else if (isDate(cell.obj)) {
-                        currentRow.push(formatToMomentDate(cell).toDate());
+                        const value = formatToMomentDate(cell).toDate();
+                        currentRow.push(value);
+                        if (addMark) {
+                            currentRow.push(value.toString());
+                        }
                     } else {
                         currentRow.push(cell.obj.k);
+                        if (addMark) {
+                            currentRow.push(cell.value);
+                        }
                     }
                 }
             });

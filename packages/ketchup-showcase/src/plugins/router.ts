@@ -54,6 +54,11 @@ let simpleRoutes = [
     name: 'tooltip',
     component: () => import(`@/views/KupTooltip.vue`),
   },
+  {
+    path: `/kup-checkbox`,
+    name: 'checkbox',
+    component: () => import(`@/views/KupCheckboxExamples.vue`),
+  },
 ];
 
 const baseRoutes = [

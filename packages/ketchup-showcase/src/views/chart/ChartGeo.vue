@@ -3,7 +3,7 @@
     <h1>Geo chart</h1>
     <kup-chart
       :data.prop="geoData"
-      :type="type"
+      :types.prop="types"
       axis="Col1"
       :series.prop="['Col2']"
     />
@@ -13,10 +13,9 @@
 
 <script>
 export default {
-  name: 'KupCharts',
   data() {
     return {
-      type: 'Geo',
+      types: ['Geo'],
       geoData: {
         columns: [
           {

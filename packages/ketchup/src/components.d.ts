@@ -7,11 +7,15 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  BadgePosition,
+} from './components/kup-badge/kup-badge-declarations';
+import {
   Column,
   DataTable,
   GenericMap,
   GroupObject,
   KupDataTableCellButtonClick,
+  KupDataTableSortedColumnIndexes,
   LoadMoreMode,
   PaginatorPos,
   Row,
@@ -30,6 +34,7 @@ import {
 } from './components/kup-btn/kup-btn-declarations';
 import {
   ChartAspect,
+  ChartClickedEvent,
   ChartType,
 } from './components/kup-chart/kup-chart-declarations';
 import {
@@ -61,6 +66,11 @@ import {
 } from './components/kup-text-input/kup-text-input-declarations';
 
 export namespace Components {
+  interface KupBadge {
+    'icon': string;
+    'position': BadgePosition;
+    'text': string;
+  }
   interface KupBox {
     /**
     * Number of columns
@@ -133,9 +143,32 @@ export namespace Components {
     'height': number;
     'legend': boolean;
     'series': string[];
+    'showMarks': boolean;
     'stacked': boolean;
-    'type': ChartType;
+    'types': ChartType[];
+    /**
+    * Google chart version to load
+    */
+    'version': string;
     'width': number;
+  }
+  interface KupCheckbox {
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'checked': boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'disabled': boolean;
+    /**
+    * The label to set to the component
+    */
+    'label': string;
+    /**
+    * Sets the tabindex of the checkbox
+    */
+    'setTabIndex': number;
   }
   interface KupChip {
     'closable': boolean;
@@ -193,6 +226,11 @@ export namespace Components {
       width: number;
     }>;
     'data': TableData;
+    'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
+    /**
+    * Enables sorting of the columns by dragging them into different columns
+    */
+    'enableSortableColumns': boolean;
     'expandGroups': boolean;
     'filters': GenericMap;
     'globalFilter': boolean;
@@ -230,6 +268,10 @@ export namespace Components {
     'showLoadMore': boolean;
     'sort': Array<SortObject>;
     'sortEnabled': boolean;
+    /**
+    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    */
+    'sortableColumnsMutateData': boolean;
     'totals': TotalsMap;
   }
   interface KupFld {
@@ -489,6 +531,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {}
+  var HTMLKupBadgeElement: {
+    prototype: HTMLKupBadgeElement;
+    new (): HTMLKupBadgeElement;
+  };
+
   interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {}
   var HTMLKupBoxElement: {
     prototype: HTMLKupBoxElement;
@@ -511,6 +559,12 @@ declare global {
   var HTMLKupChartElement: {
     prototype: HTMLKupChartElement;
     new (): HTMLKupChartElement;
+  };
+
+  interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {}
+  var HTMLKupCheckboxElement: {
+    prototype: HTMLKupCheckboxElement;
+    new (): HTMLKupCheckboxElement;
   };
 
   interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
@@ -609,10 +663,12 @@ declare global {
     new (): HTMLKupTooltipElement;
   };
   interface HTMLElementTagNameMap {
+    'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-checkbox': HTMLKupCheckboxElement;
     'kup-chip': HTMLKupChipElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
@@ -633,6 +689,11 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
+    'icon'?: string;
+    'position'?: BadgePosition;
+    'text'?: string;
+  }
   interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
     /**
     * Number of columns
@@ -739,10 +800,55 @@ declare namespace LocalJSX {
     'graphTitleSize'?: number;
     'height'?: number;
     'legend'?: boolean;
+    /**
+    * Triggered when a chart serie is clicked
+    */
+    'onKupChartClicked'?: (event: CustomEvent<ChartClickedEvent>) => void;
     'series'?: string[];
+    'showMarks'?: boolean;
     'stacked'?: boolean;
-    'type'?: ChartType;
+    'types'?: ChartType[];
+    /**
+    * Google chart version to load
+    */
+    'version'?: string;
     'width'?: number;
+  }
+  interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
+    /**
+    * Sets the checkbox to be disabled
+    */
+    'checked'?: boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'disabled'?: boolean;
+    /**
+    * The label to set to the component
+    */
+    'label'?: string;
+    /**
+    * Fired when the checkbox input is blurred
+    */
+    'onKupCheckboxBlur'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Fired when the checkbox input changes its value
+    */
+    'onKupCheckboxChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Fired when the checkbox input receive focus
+    */
+    'onKupCheckboxFocus'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+    /**
+    * Sets the tabindex of the checkbox
+    */
+    'setTabIndex'?: number;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
     'closable'?: boolean;
@@ -799,6 +905,10 @@ declare namespace LocalJSX {
       width: number;
     }>;
     'data'?: TableData;
+    /**
+    * Enables sorting of the columns by dragging them into different columns
+    */
+    'enableSortableColumns'?: boolean;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
     'globalFilter'?: boolean;
@@ -831,6 +941,7 @@ declare namespace LocalJSX {
       selectedRow: Row;
     }>) => void;
     'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+    'onKupDataTableSortedColumn'?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
     }>) => void;
@@ -873,6 +984,10 @@ declare namespace LocalJSX {
     'showLoadMore'?: boolean;
     'sort'?: Array<SortObject>;
     'sortEnabled'?: boolean;
+    /**
+    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    */
+    'sortableColumnsMutateData'?: boolean;
     'totals'?: TotalsMap;
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
@@ -1165,10 +1280,12 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'kup-badge': KupBadge;
     'kup-box': KupBox;
     'kup-btn': KupBtn;
     'kup-button': KupButton;
     'kup-chart': KupChart;
+    'kup-checkbox': KupCheckbox;
     'kup-chip': KupChip;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;

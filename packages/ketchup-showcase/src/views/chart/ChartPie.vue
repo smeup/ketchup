@@ -4,7 +4,7 @@
     <h3>2D</h3>
     <kup-chart
       :data.prop="baseData"
-      type="Pie"
+      :types.prop="types"
       axis="Col1"
       :series.prop="['Col2']"
     />
@@ -13,7 +13,7 @@
     <h3>3D</h3>
     <kup-chart
       :data.prop="baseData"
-      type="Pie"
+      :types.prop="types"
       axis="Col1"
       asp="3D"
       :series.prop="['Col2']"
@@ -26,9 +26,9 @@
 import { baseData } from '@/mock/chart';
 
 export default {
-  name: 'KupCharts',
   data() {
     return {
+      types: ['Pie'],
       baseData,
     };
   },

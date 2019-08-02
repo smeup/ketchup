@@ -3,7 +3,7 @@
     <h1>Sankey chart</h1>
     <kup-chart
       :data.prop="sankeyData"
-      :type="type"
+      :types.prop="types"
       axis="Col1"
       :series.prop="['Col2', 'Col3']"
     />
@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      type: 'Sankey',
+      types: ['Sankey'],
       sankeyData: {
         columns: [
           {

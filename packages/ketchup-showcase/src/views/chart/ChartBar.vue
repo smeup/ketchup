@@ -31,7 +31,6 @@
 import { baseData } from '@/mock/chart';
 
 export default {
-  name: 'KupCharts',
   data() {
     return {
       baseData,

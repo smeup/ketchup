@@ -4,6 +4,7 @@ import {
     EventEmitter,
     h,
     JSX,
+    Method,
     Prop,
     State,
     Watch,
@@ -24,6 +25,8 @@ import {
     SortObject,
     TableData,
     TotalsMap,
+    KupDataTableColumnDragType,
+    KupDataTableSortedColumnIndexes,
 } from './kup-data-table-declarations';
 
 import {
@@ -31,11 +34,13 @@ import {
     filterRows,
     groupRows,
     sortRows,
+    getColumnByName,
 } from './kup-data-table-helper';
 
 import {
     isBar,
     isButton,
+    isCheckbox,
     isIcon,
     isImage,
     isLink,
@@ -50,36 +55,50 @@ import {
     shadow: true,
 })
 export class KupDataTable {
+    @Prop()
+    columnsWidth: Array<{
+        column: string;
+        width: number;
+    }> = [];
+
     @Prop() data: TableData;
 
+    /**
+     * Enables sorting of the columns by dragging them into different columns
+     */
+    @Prop() enableSortableColumns: boolean = false;
+
     @Prop()
-    showFilters = false;
+    expandGroups = false;
 
     @Prop({ mutable: true })
     filters: GenericMap = {};
 
     @Prop()
-    totals: TotalsMap;
-
-    @Prop()
     globalFilter = false;
 
-    @Prop()
-    sortEnabled = true;
-
     @Prop({ mutable: true })
-    sort: Array<SortObject> = [];
-
-    @Prop()
-    rowsPerPage = 10;
-
-    @Prop()
-    paginatorPos: PaginatorPos = PaginatorPos.TOP;
+    groups: Array<GroupObject> = [];
 
     /**
-     * If set to true, displays the button to load more records.
+     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
+     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
+     * It uses CSS position: sticky.
+     * @version 1.0
+     * @namespace KupDataTable.headerIsPersistent
+     * @see KupDataTable.showHeader
+     * @see https://caniuse.com/#feat=css-sticky
      */
-    @Prop({ reflect: true }) showLoadMore: boolean = false;
+    @Prop({ reflect: true })
+    headerIsPersistent = false;
+
+    @Prop()
+    multiSelection = false;
+
+    /**
+     * Sets a maximum limit of new records which can be required by the load more functionality.
+     */
+    @Prop() loadMoreLimit: number = 1000;
 
     /**
      * The number of records which will be requested to be downloaded when clicking on the load more button.
@@ -99,16 +118,17 @@ export class KupDataTable {
      */
     @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
 
-    /**
-     * Sets a maximum limit of new records which can be required by the load more functionality.
-     */
-    @Prop() loadMoreLimit: number = 1000;
+    @Prop()
+    paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
     @Prop()
-    columnsWidth: Array<{
-        column: string;
-        width: number;
-    }> = [];
+    rowsPerPage = 10;
+
+    @Prop()
+    rowActions: Array<RowAction>;
+
+    @Prop()
+    selectRow: number;
 
     /**
      * Enables rendering of the table header.
@@ -117,35 +137,33 @@ export class KupDataTable {
     @Prop({ reflect: true })
     showHeader = true;
 
-    /**
-     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
-     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
-     * It uses CSS position: sticky.
-     * @version 1.0
-     * @namespace KupDataTable.headerIsPersistent
-     * @see KupDataTable.showHeader
-     * @see https://caniuse.com/#feat=css-sticky
-     */
-    @Prop({ reflect: true })
-    headerIsPersistent = false;
+    @Prop()
+    showFilters = false;
 
     @Prop()
     showGrid: ShowGrid = ShowGrid.COMPLETE;
 
+    /**
+     * If set to true, displays the button to load more records.
+     */
+    @Prop({ reflect: true }) showLoadMore: boolean = false;
+
     @Prop()
-    selectRow: number;
+    sortEnabled = true;
 
     @Prop({ mutable: true })
-    groups: Array<GroupObject> = [];
+    sort: Array<SortObject> = [];
+
+    /**
+     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property
+     * and then fires the event
+     */
+    @Prop() sortableColumnsMutateData: boolean = true;
 
     @Prop()
-    expandGroups = false;
+    totals: TotalsMap;
 
-    @Prop()
-    multiSelection = false;
-
-    @Prop()
-    rowActions: Array<RowAction>;
+    //---- State ----
 
     @State()
     private globalFilterValue = '';
@@ -214,7 +232,41 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
-    // private theadRef: HTMLTableSectionElement;
+    /**
+     * Internal not reactive state used to keep track if a column is being dragged.
+     * @private
+     */
+    private columnsAreBeingDragged: boolean = false;
+
+    /**
+     * Attribute to set when a column is being dragged on the whole thead element
+     * @const
+     * @default 'columns-dragging'
+     * @private
+     */
+    private dragFlagAttribute: string = 'columns-dragging';
+
+    /**
+     * The string representing the drag over attribute
+     * @const
+     * @default 'drag-over'
+     * @private
+     */
+    private dragOverAttribute: string = 'drag-over';
+
+    /**
+     * The string representing the drag starter attribute to set onto the element
+     * @const
+     * @default 'drag-starter'
+     * @private
+     */
+    private dragStarterAttribute: string = 'drag-starter';
+
+    /**
+     * Reference for the thead element
+     * @private
+     */
+    private theadRef: HTMLTableSectionElement;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -302,6 +354,14 @@ export class KupDataTable {
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
+    @Event({
+        eventName: 'kupDataTableSortedColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
+
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
     //         entries.forEach((entry) => {
@@ -387,16 +447,6 @@ export class KupDataTable {
         }
 
         return visibleColumns;
-    }
-
-    private getColumnByName(name: string): Column {
-        for (let column of this.getColumns()) {
-            if (column.name === name) {
-                return column;
-            }
-        }
-
-        return null;
     }
 
     private getGroupByName(column: string): GroupObject {
@@ -728,12 +778,19 @@ export class KupDataTable {
     }
 
     private onJ4btnClicked(row, column, cell) {
+        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
+        const buttonEvent = arguments[3] as UIEvent;
+        if (buttonEvent) {
+            // Prevents double events to be fired.
+            buttonEvent.stopPropagation();
+        } else {
+            throw "kup-data-table error: missing event";
+        }
         this.kupCellButtonClicked.emit({
             cell,
             column,
             row,
         });
-
     }
 
     // utility methods
@@ -764,7 +821,11 @@ export class KupDataTable {
                 loadItems = this.loadMoreStep * (this.loadMoreEventCounter + 1);
                 break;
             case LoadMoreMode.PROGRESSIVE_THRESHOLD:
-                loadItems = Math.max(this.loadMoreEventPreviousQuantity, this.loadMoreStep) * Math.min(this.loadMoreEventCounter + 1, 2);
+                loadItems =
+                    Math.max(
+                        this.loadMoreEventPreviousQuantity,
+                        this.loadMoreStep
+                    ) * Math.min(this.loadMoreEventCounter + 1, 2);
                 break;
         }
 
@@ -880,7 +941,47 @@ export class KupDataTable {
         return false;
     }
 
-    // render methods
+    //==== Column sort order methods ====
+    private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
+        // Get receiving column position
+        const receivingColIndex = this.data.columns.findIndex(col => col.name === receivingColumn.name && col.title === receivingColumn.title);
+        // Get sorted column current position
+        const sortedColIndex = this.data.columns.findIndex(col => col.name === sortedColumn.name && col.title === sortedColumn.title);
+
+        // Moves the sortedColumn into the correct position
+        if (this.sortableColumnsMutateData) {
+            this.moveSortedColumns(this.data.columns, receivingColIndex, sortedColIndex);
+        }
+        // fires event
+        this.kupDataTableSortedColumn.emit({
+            receivingColumnIndex: receivingColIndex,
+            sortedColumnIndex: sortedColIndex,
+        });
+    }
+
+    private moveSortedColumns(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number) {
+        const remove = columns.splice(sortedColumnIndex, 1);
+        columns.splice(receivingColumnIndex, 0, remove[0]);
+    }
+
+    @Method() async defaultSortingFunction(
+        columns: Column[],
+        receivingColumnIndex: number,
+        sortedColumnIndex: number,
+        useNewObject: boolean = false,
+    ) {
+        const toSort = !useNewObject ? columns : [...columns];
+
+        this.moveSortedColumns(
+            toSort,
+            receivingColumnIndex,
+            sortedColumnIndex
+        );
+
+        return toSort;
+    }
+
+    //======== render methods ========
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
@@ -999,11 +1100,76 @@ export class KupDataTable {
                 );
             }
 
+            // Check if columns are droppable and sets their handlers
+            // TODO set better typing.
+            let dragHandlers: any = {};
+            if (this.enableSortableColumns) {
+                // Reference for drag events and what they permit or not
+                // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
+
+                dragHandlers = {
+                    draggable: true,
+                    onDragStart: (e: DragEvent) => {
+                        // Sets drag data and the type of drag
+                        e.dataTransfer.setData(
+                            KupDataTableColumnDragType,
+                            JSON.stringify(column)
+                        );
+                        e.dataTransfer.effectAllowed = 'move';
+
+                        // Remember that the current target is different from the one print out in the console
+                        // Sets which element has started the drag
+                        (e.target as HTMLElement).setAttribute(this.dragStarterAttribute, '');
+                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
+                        this.columnsAreBeingDragged = true;
+                    },
+                    onDragLeave: (e: DragEvent) => {
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
+                        }
+                    },
+                    onDragOver: (e: DragEvent) => {
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            const overElement = e.target as HTMLElement;
+                            overElement.setAttribute(this.dragOverAttribute,'');
+                            // If element can have a drop effect
+                            if (!overElement.hasAttribute(this.dragStarterAttribute) && this.columnsAreBeingDragged) {
+                                e.preventDefault(); // Mandatory to allow drop
+                                e.dataTransfer.effectAllowed = 'move';
+                            } else {
+                                e.dataTransfer.effectAllowed = 'none';
+                            }
+                        }
+                    },
+                    onDragEnd: (e: DragEvent) => {
+                        // When the drag has ended, checks if the element still exists or it was destroyed by the JSX
+                        const dragStarter = e.target as HTMLElement;
+                        if (dragStarter) {
+                            // IF it still exists, removes the attribute so that it can perform a new drag again
+                            dragStarter.removeAttribute(this.dragStarterAttribute);
+                        }
+                        this.theadRef.removeAttribute(this.dragFlagAttribute);
+                        this.columnsAreBeingDragged = false;
+                    },
+                    onDrop: (e: DragEvent) => {
+                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                            const transferredData = JSON.parse(e.dataTransfer.getData(KupDataTableColumnDragType)) as Column;
+                            e.preventDefault();
+                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
+
+                            // We are sure the tables have been dropped in a valid location -> starts sorting the columns
+                            this.handleColumnSort(column, transferredData);
+                        }
+                    },
+                }
+            }
+
             return (
                 <th
                     style={thStyle}
                     onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
+                    {...dragHandlers}
                 >
                     <span class="column-title">{column.title}</span>
                     {sort}
@@ -1159,7 +1325,15 @@ export class KupDataTable {
                 row.group.children
                     // We must pass the previous element of the array to check if we must hide or display the value of the cell
                     // When the column has specified the parameter hideValuesRepetitions
-                    .map((row, groupRowIndex, currentArray) => this.renderRow(row, level + 1, groupRowIndex > 0 ? currentArray[groupRowIndex - 1] : null))
+                    .map((row, groupRowIndex, currentArray) =>
+                        this.renderRow(
+                            row,
+                            level + 1,
+                            groupRowIndex > 0
+                                ? currentArray[groupRowIndex - 1]
+                                : null
+                        )
+                    )
                     .forEach((jsxRow) => {
                         if (Array.isArray(jsxRow)) {
                             jsxRow.forEach((jr) => jsxRows.push(jr));
@@ -1181,14 +1355,17 @@ export class KupDataTable {
                     }
                 }
 
-                /*if (hideValuesRepetitions) {
-                    console.log("MOSTRAMI LE COLONNE VISIBILI che bloccano le ripeizioni", visibleColumns, rest);
-                }*/
-
                 const cell = row.cells[name];
 
                 let options = null;
-                if (cell.options) {
+                /**
+                 * Options must be rendered when the option field is specified AND (one of the following):
+                 * 1 - Column do not have to hide repetitions
+                 * 2 - Column has to hide repetitions but we are printing the first row.
+                 * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
+                 * @todo Move this rendering, if possible, inside renderCell()
+                 */
+                if (cell.options && (!hideValuesRepetitions || (hideValuesRepetitions && (!previousRow || previousRow.cells[name].value !== cell.value)))) {
                     options = (
                         <span
                             class="options"
@@ -1206,11 +1383,11 @@ export class KupDataTable {
                   cell,
                   name,
                   // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
                   {
                       row,
                       column: currentColumn
-                  }
+                  },
+                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
                 );
 
                 const cellClass = {
@@ -1350,14 +1527,15 @@ export class KupDataTable {
     private renderCell(
         cell: Cell,
         column: string,
-        previousRowCellValue?: string,
-        cellData?: {
+        cellData: {
             column: Column;
             row: Row;
         },
+        previousRowCellValue?: string,
     ) {
         // When the previous row value is different from the current value, we can show the current value.
-        const valueToDisplay = previousRowCellValue !== cell.value ? cell.value : '';
+        const valueToDisplay =
+            previousRowCellValue !== cell.value ? cell.value : '';
 
         // Sets the default value
         let content: any = valueToDisplay;
@@ -1365,13 +1543,19 @@ export class KupDataTable {
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             content = <span class={valueToDisplay} />;
         } else if (isImage(cell.obj)) {
-            content = <img src={valueToDisplay} alt="" width="64" height="64" />;
+            content = (
+                <img src={valueToDisplay} alt="" width="64" height="64" />
+            );
         } else if (isLink(cell.obj)) {
             content = (
                 <a href={valueToDisplay} target="_blank">
                     {valueToDisplay}
                 </a>
             );
+        } else if (isCheckbox(cell.obj)) {
+            content = <kup-checkbox
+                checked={!!cell.obj.k}
+                disabled={cellData && cellData.row && cellData.row.hasOwnProperty('readOnly') ? cellData.row.readOnly : true}/>;
         } else if (isButton(cell.obj)) {
             /**
              * Here either using .bind() or () => {} function would bring more or less the same result.
@@ -1395,7 +1579,12 @@ export class KupDataTable {
             content = (
                 <kup-button
                     {...createJ4objButtonConfig(cell)}
-                    onKupButtonClicked={this.onJ4btnClicked.bind(this, cellData ? cellData.row : null, cellData ? cellData.column : null, cell)}
+                    onKupButtonClicked={this.onJ4btnClicked.bind(
+                        this,
+                        cellData ? cellData.row : null,
+                        cellData ? cellData.column : null,
+                        cell
+                    )}
                 />
             );
         } else if (isBar(cell.obj)) {
@@ -1431,16 +1620,18 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = "Carica altri dati";
-        return <button
-          aria-label={label}
-          class="load-more-records mdi mdi-plus-circle"
-          role="button"
-          slot={isSlotted ? 'more-results' : null}
-          tabindex="0"
-          title={label}
-          onClick={() => this.onLoadMoreClick()}
-        />;
+        const label = 'Carica altri dati';
+        return (
+            <button
+                aria-label={label}
+                class="load-more-records mdi mdi-plus-circle"
+                role="button"
+                slot={isSlotted ? 'more-results' : null}
+                tabindex="0"
+                title={label}
+                onClick={() => this.onLoadMoreClick()}
+            />
+        );
     }
 
     render() {
@@ -1459,7 +1650,13 @@ export class KupDataTable {
             this.paginatedRows
                 // We must pass the previous element of the array to check if we must hide or display the value of the cell
                 // When the column has specified the parameter hideValuesRepetitions
-                .map((row, rowIndex, currentArray) => this.renderRow(row, 0, rowIndex > 0 ? currentArray[rowIndex - 1] : null))
+                .map((row, rowIndex, currentArray) =>
+                    this.renderRow(
+                        row,
+                        0,
+                        rowIndex > 0 ? currentArray[rowIndex - 1] : null
+                    )
+                )
                 .forEach((jsxRow) => {
                     if (Array.isArray(jsxRow)) {
                         jsxRow.forEach((jr) => rows.push(jr));
@@ -1537,7 +1734,7 @@ export class KupDataTable {
         let groupChips = null;
         if (this.isGrouping()) {
             const chips = this.groups.map((group) => {
-                const column = this.getColumnByName(group.column);
+                const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
                     return (
@@ -1604,7 +1801,7 @@ export class KupDataTable {
                 <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
-                        <thead hidden={!this.showHeader}>
+                        <thead hidden={!this.showHeader} ref={(el) => this.theadRef = el as HTMLTableSectionElement}>
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>

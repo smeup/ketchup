@@ -78,6 +78,12 @@ export default {
             },
           },
           {
+            title: 'Badges',
+            to: {
+              name: 'boxBadge',
+            },
+          },
+          {
             title: 'Objects',
             to: {
               name: 'boxObjects',
@@ -131,6 +137,12 @@ export default {
             },
           },
           {
+            title: 'Events',
+            to: {
+              name: 'chartEvents',
+            },
+          },
+          {
             title: 'Area',
             to: {
               name: 'chartArea',
@@ -164,6 +176,12 @@ export default {
             title: 'Column',
             to: {
               name: 'chartColumn',
+            },
+          },
+          {
+            title: 'Combo',
+            to: {
+              name: 'chartCombo',
             },
           },
           {
@@ -250,6 +268,12 @@ export default {
             },
           },
           {
+            title: 'Sortable columns',
+            to: {
+              name: 'dtSortableColumns',
+            },
+          },
+          {
             title: 'Totals',
             to: {
               name: 'dtTotals',
@@ -266,6 +290,12 @@ export default {
             to: {
               name: 'dtButtonCell',
             },
+          },
+          {
+            title: 'Checkbox Cell',
+            to: {
+              name: 'dtCheckboxCell'
+            }
           },
         ],
       },
@@ -310,6 +340,12 @@ export default {
         title: `Chips`,
         to: {
           name: 'chips',
+        },
+      },
+      {
+        title: `Checkbox`,
+        to: {
+          name: 'checkbox',
         },
       },
       {
@@ -406,7 +442,7 @@ select,
   display: block;
   margin: 0 auto;
   padding: 24px 40px;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 // Main components container
