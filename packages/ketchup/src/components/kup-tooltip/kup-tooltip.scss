@@ -1,0 +1,83 @@
+/**
+* @Prop --tlt_background, --kup-tlt_background: tooltip background
+* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail label color
+* @Prop --tlt_shadow, --kup-tlt_shadow: tooltip shadow
+*/
+
+:host {
+  --tlt_background: var(--kup-tlt_background, #ffffff);
+  --tlt_detail-lbl-color: var(--kup-detail-lbl-color, #888888);
+  --tlt_shadow: var(--kup-tlt_shadow, #{$mainShadow});
+
+  #wrapper {
+    position: relative;
+    display: inline-block;
+
+    #tooltip {
+      position: absolute;
+      background: var(--tlt_background);
+      z-index: 1000;
+      box-shadow: var(--tlt_shadow);
+      border-radius: 3px;
+      min-width: 350px;
+
+      #main-content {
+        margin: 20px;
+        display: flex;
+
+        .left {
+          width: 75px;
+          margin-right: 15px;
+        }
+
+        .right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        &.layout2 {
+          justify-content: center;
+          align-items: center;
+        }
+
+        &.layout3 {
+          flex-direction: column;
+
+          > div:not(:last-child) {
+            margin-bottom: 6px;
+          }
+        }
+      }
+
+      #detail {
+        &:not(.visible) {
+          max-height: 0;
+          opacity: 0;
+          transition: max-height 500ms ease-out, opacity 500ms ease-out;
+        }
+
+        &.visible {
+          border-top: 1px solid #ccc;
+          padding: 20px;
+          max-height: 500px;
+          opacity: 1;
+          transition: max-height 500ms ease-in, opacity 500ms ease-in;
+        }
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+
+          &:not(:last-child) {
+            margin-bottom: 6px;
+          }
+
+          &__label {
+            color: var(--tlt_detail-lbl-color);
+          }
+        }
+      }
+    }
+  }
+}
