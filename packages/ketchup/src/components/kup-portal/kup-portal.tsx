@@ -70,7 +70,7 @@ export class KupPortal {
     // https://stenciljs.com/docs/component-lifecycle#componentwillrender-
     // Used this hook because during its execution props will held the new value
     // While componentWillUpdate does not have the correct value inside the props.
-    componentWillRender() {
+    componentDidUpdate() {
         // Updates tree node
         this.instance.vNodes = this.nodes;
         // Creates style node
