@@ -1,4 +1,7 @@
-import { Component, Event, EventEmitter, Prop, h, JSX } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+
+import { ComboItem } from '../kup-combo/kup-combo-declarations';
+import { PaginatorMode } from './kup-paginator-declarations';
 
 @Component({
     tag: 'kup-paginator',
@@ -17,6 +20,9 @@ export class KupPaginator {
 
     @Prop()
     currentPage = 1;
+
+    @Prop({ reflect: true })
+    mode: PaginatorMode = PaginatorMode.FULL;
 
     /**
      * When the current page change
@@ -48,6 +54,16 @@ export class KupPaginator {
         return this.currentPage * this.perPage >= this.max;
     }
 
+    private onPageChange(event: CustomEvent) {
+        event.stopPropagation();
+
+        if (event.detail.value) {
+            this.kupPageChanged.emit({
+                newPage: event.detail.value['id'],
+            });
+        }
+    }
+
     private onPrevPage() {
         if (this.isPrevPageDisabled()) {
             return;
@@ -70,73 +86,57 @@ export class KupPaginator {
         });
     }
 
-    private onGoToPage({ target }) {
-        this.kupPageChanged.emit({
-            newPage: parseInt(target.value),
-        });
-    }
+    private onRowsPerPage(event: CustomEvent) {
+        event.stopPropagation();
 
-    private onRowsPerPage({ target }) {
-        this.kupRowsPerPageChanged.emit({
-            newRowsPerPage: parseInt(target.value),
-        });
+        if (event.detail.value) {
+            this.kupRowsPerPageChanged.emit({
+                newRowsPerPage: event.detail.value.id,
+            });
+        }
     }
 
     // render functions
-    private getGoToPageOptions(maxNumberOfPage: number): JSX.Element[] {
-        const goToPageOptions: JSX.Element[] = [];
+    private getGoToPageItems(maxNumberOfPage: number): ComboItem[] {
+        const goToPageItems: ComboItem[] = [];
 
-        goToPageOptions.push(
-            <option value="1" selected={this.currentPage === 1}>
-                1
-            </option>
-        );
-
-        for (let i = 2; i <= maxNumberOfPage; i++) {
-            goToPageOptions.push(
-                <option value={i} selected={this.currentPage === i}>
-                    {i}
-                </option>
-            );
+        for (let i = 1; i <= maxNumberOfPage; i++) {
+            const item: ComboItem = {};
+            item['id'] = i;
+            goToPageItems.push(item);
         }
 
-        return goToPageOptions;
+        return goToPageItems;
     }
 
-    private getRowsPerPageOptions(): JSX.Element[] {
-        const rowsPerPageOptions: JSX.Element[] = [];
+    private getRowsPerPageItems(): ComboItem[] {
+        const rowsPerPageItems: ComboItem[] = [];
 
-        if (this.currentPage != this.max) {
+        if (this.currentPage !== this.max) {
             let i = this.perPage;
 
             if (i === 0) {
-                return rowsPerPageOptions;
+                return rowsPerPageItems;
             }
 
             while (i < this.max) {
-                rowsPerPageOptions.push(
-                    <option value={i} selected={i === this.selectedPerPage}>
-                        {i}
-                    </option>
-                );
+                rowsPerPageItems.push({
+                    id: i,
+                });
                 i = i * 2;
             }
 
             // adding 'max' option
-            rowsPerPageOptions.push(
-                <option value={this.max} selected={this.max === this.perPage}>
-                    {this.max}
-                </option>
-            );
+            rowsPerPageItems.push({
+                id: this.max,
+            });
         } else {
-            rowsPerPageOptions.push(
-                <option value={this.perPage} selected>
-                    {this.perPage}
-                </option>
-            );
+            rowsPerPageItems.push({
+                id: this.perPage,
+            });
         }
 
-        return rowsPerPageOptions;
+        return rowsPerPageItems;
     }
 
     render() {
@@ -152,9 +152,9 @@ export class KupPaginator {
 
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
-        const goToPageOptions = this.getGoToPageOptions(maxNumberOfPage);
+        const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
 
-        const rowsPerPageOptions = this.getRowsPerPageOptions();
+        const rowsPerPageItems = this.getRowsPerPageItems();
 
         return (
             <div id="paginator">
@@ -166,27 +166,37 @@ export class KupPaginator {
                             onclick={() => this.onPrevPage()}
                         />
                     </span>
-                    <select onChange={(e) => this.onGoToPage(e)}>
-                        {goToPageOptions}
-                    </select>
+                    <kup-combo
+                        items={goToPageItems}
+                        isFilterable={false}
+                        initialValue={{
+                            id: this.currentPage,
+                        }}
+                        onKetchupComboSelected={(e) => this.onPageChange(e)}
+                    />
                     <span class="next-page">
                         <icon
                             className={nextPageClassName}
                             onclick={() => this.onNextPage()}
                         />
                     </span>
-                    Di {maxNumberOfPage}
+                    <span class="number-of-pages">di {maxNumberOfPage}</span>
                 </div>
 
                 <div class="align-right">
                     <span class="nextPageGroup">
                         Numero risultati: {this.max}
                     </span>
-                    <slot name="more-results"/>
+                    <slot name="more-results" />
                     Mostra
-                    <select onChange={(e) => this.onRowsPerPage(e)}>
-                        {rowsPerPageOptions}
-                    </select>
+                    <kup-combo
+                        items={rowsPerPageItems}
+                        isFilterable={false}
+                        initialValue={{
+                            id: this.perPage,
+                        }}
+                        onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
+                    />
                     righe per pagina
                 </div>
             </div>

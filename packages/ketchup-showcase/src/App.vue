@@ -108,6 +108,12 @@ export default {
             },
           },
           {
+            title: 'Pagination',
+            to: {
+              name: 'boxPagination',
+            },
+          },
+          {
             title: 'Selection',
             to: {
               name: 'boxSel',
@@ -294,8 +300,8 @@ export default {
           {
             title: 'Checkbox Cell',
             to: {
-              name: 'dtCheckboxCell'
-            }
+              name: 'dtCheckboxCell',
+            },
           },
         ],
       },

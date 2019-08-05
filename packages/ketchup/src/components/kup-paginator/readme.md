@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property          | Attribute           | Description | Type     | Default |
-| ----------------- | ------------------- | ----------- | -------- | ------- |
-| `currentPage`     | `current-page`      |             | `number` | `1`     |
-| `max`             | `max`               |             | `number` | `0`     |
-| `perPage`         | `per-page`          |             | `number` | `10`    |
-| `selectedPerPage` | `selected-per-page` |             | `number` | `10`    |
+| Property          | Attribute           | Description | Type                                         | Default              |
+| ----------------- | ------------------- | ----------- | -------------------------------------------- | -------------------- |
+| `currentPage`     | `current-page`      |             | `number`                                     | `1`                  |
+| `max`             | `max`               |             | `number`                                     | `0`                  |
+| `mode`            | `mode`              |             | `PaginatorMode.FULL \| PaginatorMode.SIMPLE` | `PaginatorMode.FULL` |
+| `perPage`         | `per-page`          |             | `number`                                     | `10`                 |
+| `selectedPerPage` | `selected-per-page` |             | `number`                                     | `10`                 |
 
 
 ## Events
@@ -35,11 +36,21 @@
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
+
+### Depends on
+
+- [kup-combo](../kup-combo)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-paginator --> kup-combo
+  kup-combo --> kup-text-input
+  kup-combo --> kup-portal
+  kup-portal --> kup-portal-instance
+  kup-box --> kup-paginator
   kup-data-table --> kup-paginator
   style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px
 ```

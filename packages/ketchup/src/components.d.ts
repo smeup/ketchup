@@ -52,6 +52,9 @@ import {
   Badge,
 } from './components/kup-image/kup-image-declarations';
 import {
+  PaginatorMode,
+} from './components/kup-paginator/kup-paginator-declarations';
+import {
   JSX,
 } from '@stencil/core';
 import {
@@ -97,6 +100,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Number of boxes per page
+    */
+    'pageSize': number;
+    /**
+    * Enables pagination
+    */
+    'pagination': boolean;
     /**
     * Automatically selects the box at the specified index
     */
@@ -191,6 +202,10 @@ export namespace Components {
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable': boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
     /**
     * Items which can be selected
     */
@@ -391,6 +406,7 @@ export namespace Components {
   interface KupPaginator {
     'currentPage': number;
     'max': number;
+    'mode': PaginatorMode;
     'perPage': number;
     'selectedPerPage': number;
   }
@@ -753,6 +769,14 @@ declare namespace LocalJSX {
       row: BoxRow;
     }>) => void;
     /**
+    * Number of boxes per page
+    */
+    'pageSize'?: number;
+    /**
+    * Enables pagination
+    */
+    'pagination'?: boolean;
+    /**
     * Automatically selects the box at the specified index
     */
     'selectBox'?: number;
@@ -868,6 +892,10 @@ declare namespace LocalJSX {
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable'?: boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
     /**
     * Items which can be selected
     */
@@ -1119,6 +1147,7 @@ declare namespace LocalJSX {
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
+    'mode'?: PaginatorMode;
     /**
     * When the current page change
     */
