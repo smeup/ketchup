@@ -105,37 +105,36 @@ Type: `Promise<Column[]>`
 
 | Name                                                                      | Description                                                                  |
 | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `--int_background-color, --kup-data-table_background-color`               | background-color of the whole component (paginator and table).               |
-| `--int_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
-| `--int_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
-| `--int_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
-| `--int_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.                  |
-| `--int_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.                |
-| `--int_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
-| `--int_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-input elements used to filter rows.          |
-| `--int_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                        |
-| `--int_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                     |
-| `--int_group-border-color, --kup-data-table_group-border-color`           | TODO check where used.                                                       |
-| `--int_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                        |
-| `--int_header-offset, --kup-data-table_header-offset`                     | Top offset of the thead when table header must be persistent. Default: 50px; |
-| `--int_hover-background-color, --kup-data-table_hover-background-color`   | background-color of a row when it's selected or hovered.                     |
-| `--int_hover-color, --kup-data-table_hover-color`                         | text color of a row when it's selected or hovered.                           |
-| `--int_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
-| `--int_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
-| `--int_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
-| `--int_stronger-color, --kup-data-table_stronger-color`                   | Set text color on the whole table element.                                   |
-| `--int_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
+| `--dtt_background-color, --kup-data-table_background-color`               | background-color of the whole component (paginator and table).               |
+| `--dtt_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
+| `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
+| `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
+| `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.                  |
+| `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.                |
+| `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
+| `--dtt_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-input elements used to filter rows.          |
+| `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                        |
+| `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                     |
+| `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                        |
+| `--dtt_header-offset, --kup-data-table_header-offset`                     | Top offset of the thead when table header must be persistent. Default: 50px; |
+| `--dtt_hover-background-color, --kup-data-table_hover-background-color`   | background-color of a row when it's selected or hovered.                     |
+| `--dtt_hover-color, --kup-data-table_hover-color`                         | text color of a row when it's selected or hovered.                           |
+| `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
+| `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
+| `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
+| `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-checkbox](..\kup-checkbox)
-- [kup-button](..\kup-button)
-- [kup-graphic-cell](..\kup-graphic-cell)
-- [kup-paginator](..\kup-paginator)
+- [kup-text-input](../kup-text-input)
+- [kup-checkbox](../kup-checkbox)
+- [kup-button](../kup-button)
+- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-paginator](../kup-paginator)
+- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
@@ -145,6 +144,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-chip
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
