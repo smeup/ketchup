@@ -46,15 +46,15 @@ Type: `Promise<void>`
 
 | Name                                                          | Description                                     |
 | ------------------------------------------------------------- | ----------------------------------------------- |
-| `--int_background-color, --kup-text-input_background-color`   | Sets the background color of the input text     |
-| `--int_border-color, --kup-text-input_border-color`           | Set normal border color of the input            |
-| `--int_border-color--selected, --kup-text-input_border-color` | Set color of the border when focused or hovered |
-| `--int_color, --kup-text-input_color`                         | Set color of text                               |
-| `--int_font-size, --kup-text-input_font-size`                 | Set height of the font and the svg icon         |
-| `--int_icon-color, --kup-text-input_icon-color`               | Set icon color                                  |
-| `--int_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |
-| `--int_placeholder-color, --kup-text-input_placeholder-color` | Set placeholder text color                      |
-| `--int_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
+| `--itx_background-color, --kup-text-input_background-color`   | Sets the background color of the input text     |
+| `--itx_border-color, --kup-text-input_border-color`           | Set normal border color of the input            |
+| `--itx_border-color--selected, --kup-text-input_border-color` | Set color of the border when focused or hovered |
+| `--itx_color, --kup-text-input_color`                         | Set color of text                               |
+| `--itx_font-size, --kup-text-input_font-size`                 | Set height of the font and the svg icon         |
+| `--itx_icon-color, --kup-text-input_icon-color`               | Set icon color                                  |
+| `--itx_icon-color--hover, --kup-text-input_icon-color--hover` | Set icon color when hovered                     |
+| `--itx_placeholder-color, --kup-text-input_placeholder-color` | Set placeholder text color                      |
+| `--itx_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
 
 
 ## Dependencies

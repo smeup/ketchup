@@ -115,7 +115,6 @@ Type: `Promise<Column[]>`
 | `--dtt_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-input elements used to filter rows.          |
 | `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                        |
 | `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                     |
-| `--dtt_group-border-color, --kup-data-table_group-border-color`           | TODO check where used.                                                       |
 | `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                        |
 | `--dtt_header-offset, --kup-data-table_header-offset`                     | Top offset of the thead when table header must be persistent. Default: 50px; |
 | `--dtt_hover-background-color, --kup-data-table_hover-background-color`   | background-color of a row when it's selected or hovered.                     |
@@ -123,7 +122,6 @@ Type: `Promise<Column[]>`
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
-| `--dtt_stronger-color, --kup-data-table_stronger-color`                   | Set text color on the whole table element.                                   |
 | `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 
@@ -136,6 +134,7 @@ Type: `Promise<Column[]>`
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
 - [kup-paginator](../kup-paginator)
+- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
@@ -145,6 +144,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-chip
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

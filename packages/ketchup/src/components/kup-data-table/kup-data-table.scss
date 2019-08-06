@@ -61,7 +61,10 @@
     #{$gray-f0}
   );
   --dtt_icons-color: var(--kup-data-table_icons-color, #{$gray-80});
-  --dtt_icons-hover-color: var(--kup-data-table_icons-hover-color, #{$gray-a0});
+  --dtt_icons-hover-color: var(
+    --kup-data-table_icons-hover-color,
+    #{$smeup-primary}
+  );
   --dtt_font-size: var(--kup-data-table_font-size, 0.8125rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
   --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
@@ -92,8 +95,8 @@
 
         // filters
         kup-text-input.datatable-filter {
-          --dtt_border-color: var(--dtt_filter-border-color);
-          --dtt_background-color: var(--dtt_filter-background-color);
+          --kup-text-input_border-color: var(--dtt_filter-border-color);
+          --kup-text-input_background-color: var(--dtt_filter-background-color);
         }
 
         // sort
@@ -104,6 +107,10 @@
           .mdi {
             color: var(--dtt_icons-color);
             transition: color 0.2s ease-in-out;
+
+            &:hover {
+              color: var(--dtt_icons-hover-color);
+            }
           }
 
           .mdi-sort-ascending,
@@ -149,6 +156,7 @@
             > li {
               padding: 0.8rem;
               transition: color 0.2s ease-in-out;
+              color: #{$mainTextColor};
 
               &:not(:last-child) {
                 border-bottom: 1px solid var(--dtt_border-color);
@@ -160,6 +168,7 @@
               }
 
               .mdi {
+                color: #{$smeup-primary};
                 margin-right: 0.5rem;
               }
             }
