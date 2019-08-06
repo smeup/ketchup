@@ -131,11 +131,11 @@ Type: `Promise<Column[]>`
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-checkbox](..\kup-checkbox)
-- [kup-button](..\kup-button)
-- [kup-graphic-cell](..\kup-graphic-cell)
-- [kup-paginator](..\kup-paginator)
+- [kup-text-input](../kup-text-input)
+- [kup-checkbox](../kup-checkbox)
+- [kup-button](../kup-button)
+- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-paginator](../kup-paginator)
 
 ### Graph
 ```mermaid

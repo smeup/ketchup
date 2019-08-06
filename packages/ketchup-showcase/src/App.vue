@@ -294,8 +294,8 @@ export default {
           {
             title: 'Checkbox Cell',
             to: {
-              name: 'dtCheckboxCell'
-            }
+              name: 'dtCheckboxCell',
+            },
           },
         ],
       },
@@ -364,6 +364,12 @@ export default {
         title: `Image`,
         to: {
           name: 'image',
+        },
+      },
+      {
+        title: `Image button`,
+        to: {
+          name: 'image-button',
         },
       },
       {
