@@ -1,134 +1,176 @@
 @import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
 
 /**
-* @prop --int_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
-* @prop --int_border-color, --kup-data-table_border-color: border-color for the whole table.
-* @prop --int_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
-* @prop --int_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
-* @prop --int_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
-* @prop --int_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --int_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
-* @prop --int_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-input elements used to filter rows.
-* @prop --int_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
-* @prop --int_group-border-color, --kup-data-table_group-border-color: TODO check where used.
-* @prop --int_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
-* @prop --int_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
-* @prop --int_header-offset, --kup-data-table_header-offset: Top offset of the thead when table header must be persistent. Default: 50px;
-* @prop --int_hover-background-color, --kup-data-table_hover-background-color: background-color of a row when it's selected or hovered.
-* @prop --int_icons-color, --kup-data-table_icons-color: Color of a table icon.
-* @prop --int_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
-* @prop --int_font-size, --kup-data-table_font-size: Sets basic font size.
-* @prop --int_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
-* @prop --int_stronger-color, --kup-data-table_stronger-color: Set text color on the whole table element.
-* @prop --int_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
+* @prop --dtt_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
+* @prop --dtt_border-color, --kup-data-table_border-color: border-color for the whole table.
+* @prop --dtt_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
+* @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
+* @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
+* @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
+* @prop --dtt_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
+* @prop --dtt_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-input elements used to filter rows.
+* @prop --dtt_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
+* @prop --dtt_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
+* @prop --dtt_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
+* @prop --dtt_header-offset, --kup-data-table_header-offset: Top offset of the thead when table header must be persistent. Default: 50px;
+* @prop --dtt_hover-background-color, --kup-data-table_hover-background-color: background-color of a row when it's selected or hovered.
+* @prop --dtt_icons-color, --kup-data-table_icons-color: Color of a table icon.
+* @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
+* @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
+* @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
+* @prop --dtt_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
 */
 
 :host {
   // variables
-  --int_background-color: var(--kup-data-table_background-color, #ffffff);
-  --int_border-color: var(--kup-data-table_border-color, #000000);
-  --int_box-shadow: var(
+  --dtt_background-color: var(--kup-data-table_background-color, #ffffff);
+  --dtt_border-color: var(--kup-data-table_border-color, #{$gray-bd});
+  --dtt_box-shadow: var(
     --kup-data-table_box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
-  --int_color: var(--kup-data-table_color, $mainTextColor);
-  --int_drag-over--allowed: var(--kup-data-table_drag-over--allowed, #{rgba($smeup-primary, .24)});
-  --int_drag-over--forbidden: var(--kup-data-table_drag-over--forbidden, #{rgba($smeup-danger, .24)});
-  --int_filter-border-color: var(--kup-data-table_filter-border-color, #d0d0d0);
-  --int_filter-background-color: var(
+  --dtt_color: var(--kup-data-table_color, #{$gray-1a});
+  --dtt_drag-over--allowed: var(
+    --kup-data-table_drag-over--allowed,
+    #{rgba($smeup-primary, 0.24)}
+  );
+  --dtt_drag-over--forbidden: var(
+    --kup-data-table_drag-over--forbidden,
+    #{rgba($smeup-danger, 0.24)}
+  );
+  --dtt_filter-border-color: var(
+    --kup-data-table_filter-border-color,
+    #{$gray-d0}
+  );
+  --dtt_filter-background-color: var(
     --kup-data-table_filter-background-color,
     white
   );
-  --int_group-background-color: var(
+  --dtt_group-background-color: var(
     --kup-data-table_group-background-color,
-    #f9f9f9
+    #{$gray-f9}
   );
-  --int_group-border-color: var(--kup-data-table_group-border-color, #6aaaa7);
-  --int_hover-color: var(--kup-data-table_hover-color, $mainTextColor);
-  --int_head-background-color: var(
+  --dtt_hover-color: var(--kup-data-table_hover-color, #{$mainTextColor});
+  --dtt_head-background-color: var(
     --kup-data-table_head-background-color,
-    #f9f9f9
+    #ffffff
   );
-  --int_header-offset: var(--kup-data-table_header-offset, 50px);
-  --int_hover-background-color: var(
+  --dtt_header-offset: var(--kup-data-table_header-offset, 50px);
+  --dtt_hover-background-color: var(
     --kup-data-table_hover-background-color,
-    #e0e0e0
+    #{$gray-f0}
   );
-  --int_icons-color: var(--kup-data-table_icons-color, #808080);
-  --int_icons-hover-color: var(--kup-data-table_icons-hover-color, #a0a0a0);
-  --int_font-size: var(--kup-data-table_font-size, 1rem);
-  --int_main-color: var(--kup-data-table_main-color, #6aaaa7);
-  --int_stronger-color: var(--kup-data-table_stronger-color, #111111);
-  --int_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
+  --dtt_icons-color: var(--kup-data-table_icons-color, #{$gray-80});
+  --dtt_icons-hover-color: var(--kup-data-table_icons-hover-color, #{$gray-a0});
+  --dtt_font-size: var(--kup-data-table_font-size, 0.8125rem);
+  --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
+  --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
 }
 
 #data-table-wrapper {
-  background-color: var(--int_background-color);
+  background-color: var(--dtt_background-color);
 
   table {
-    color: var(--int_stronger-color);
+    color: var(--dtt_color);
     width: 100%;
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
     min-width: -moz-max-content; /* Firefox/Gecko */
     min-width: -webkit-max-content; /* Chrome */
     border-collapse: collapse;
     text-align: left;
-    font-size: var(--int_font-size);
+    font-size: var(--dtt_font-size);
 
-    th,
-    td {
-      padding: 0.5rem 1rem;
-    }
-
-    &.row-separation tr {
-      border-bottom: 1px solid var(--int_border-color);
-    }
-
-    &.column-separation th,
-    &.column-separation td {
-      border-right: 1px solid var(--int_border-color);
-    }
-
-    // sort
-    .column-sort {
-      margin-left: 0.5rem;
-      cursor: pointer;
-
-      .mdi {
-        transition: color 0.2s ease-in-out;
-      }
-
-      .mdi-sort-ascending,
-      .mdi-sort-descending {
-        color: var(--int_main-color);
-      }
-    }
-
-    th {
-      // filters
-      kup-text-input.datatable-filter {
-        --int_border-color: var(--int_filter-border-color);
-        --int_background-color: var(--int_filter-background-color);
-      }
-
-      input {
-        display: block;
-      }
-    }
-
-    thead {
-      background: var(--int_head-background-color);
-      border: 1px solid var(--int_border-color);
-      font-size: 115%;
+    > thead {
+      background: var(--dtt_head-background-color);
 
       th {
         position: relative;
+        padding: 0.5rem 0.3125rem;
+        white-space: nowrap;
+        border-bottom: 2px solid var(--dtt_border-color);
+        border-right: 1px solid var(--dtt_border-color);
+
+        // filters
+        kup-text-input.datatable-filter {
+          --dtt_border-color: var(--dtt_filter-border-color);
+          --dtt_background-color: var(--dtt_filter-background-color);
+        }
+
+        // sort
+        .column-sort {
+          margin-left: 0.5rem;
+          cursor: pointer;
+
+          .mdi {
+            color: var(--dtt_icons-color);
+            transition: color 0.2s ease-in-out;
+          }
+
+          .mdi-sort-ascending,
+          .mdi-sort-descending {
+            color: var(--dtt_main-color);
+          }
+        }
+
+        // column menu
+        .column-menu {
+          background-color: var(--dtt_background-color);
+          box-shadow: var(--dtt_box-shadow);
+          color: var(--dtt_color);
+          position: absolute;
+          z-index: 100;
+          font-weight: normal;
+          min-width: 200px;
+          min-width: -moz-max-content; /* Firefox/Gecko */
+          min-width: -webkit-max-content; /* Chrome */
+
+          &.closed {
+            display: none;
+          }
+
+          &.open {
+            display: block;
+            -webkit-animation: display-none-transition 0.5s both;
+            -webkit-animation-timing-function: cubic-bezier(
+              0.67,
+              -0.81,
+              0.89,
+              0.71
+            );
+            animation: display-none-transition 0.5s both;
+            animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
+          }
+
+          ul {
+            list-style-type: none;
+            margin: 0; // override browser default
+            padding: 0; // override browser default
+
+            > li {
+              padding: 0.8rem;
+              transition: color 0.2s ease-in-out;
+
+              &:not(:last-child) {
+                border-bottom: 1px solid var(--dtt_border-color);
+              }
+
+              &:hover {
+                cursor: pointer;
+                color: var(--dtt_main-color);
+              }
+
+              .mdi {
+                margin-right: 0.5rem;
+              }
+            }
+          }
+        }
       }
 
       &[columns-dragging] {
         // When the drag is over a valid target
         [drag-over] {
-          background-color: var(--int_drag-over--allowed);
+          background-color: var(--dtt_drag-over--allowed);
 
           // Mandatory to allow a correct drop effect when dragging
           > * {
@@ -138,65 +180,32 @@
 
         // When the drag is over but it is the starting element
         [drag-over][drag-starter] {
-          background-color: var(--int_drag-over--forbidden);
+          background-color: var(--dtt_drag-over--forbidden);
         }
       }
     }
 
-    /**
-     * When the header must be persistent (sticky)
-     * There is an issue with borders not being moved alongside the content.
-     * To prevent horrible renders we move border declarations on other elements
-     * Border top gets set on the table itself.
-     * thead hosts the lateral borders.
-     * tbody sets border-top.
-     * Header cells get set to sticky positioning.
-     */
-    &.persistent-header {
-      border-top: 1px solid var(--int_border-color);
-      position: relative;
-
-      thead {
-        border-color: var(--int_border-color);
-        border-style: solid;
-        border-width: 0 1px 0;
-
-        th {
-          background-color: var(--int_head-background-color);
-          box-shadow: var(--int_box-shadow);
-          position: -webkit-sticky; // For Safari
-          position: sticky;
-          top: var(--int_header-offset);
-          will-change: transform; // For performance
-        }
-      }
-
-      tbody {
-        border-top: 3px solid var(--int_border-color);
-      }
-    }
-
-    tbody {
-      border: 1px solid var(--int_border-color);
+    > tbody {
+      border: 1px solid var(--dtt_border-color);
       cursor: pointer;
-      font-size: 100%;
 
       > tr {
         &:hover,
         &.selected {
           > td {
-            color: var(--int_hover-color);
-            background-color: var(--int_hover-background-color);
+            color: var(--dtt_hover-color);
+            background-color: var(--dtt_hover-background-color);
+            transition: background-color 250ms ease-in-out;
           }
         }
 
         // grouping
         &.group {
-          background: var(--int_group-background-color);
+          background: var(--dtt_group-background-color);
           font-weight: bold;
-          border-top: 1px solid var(--int_border-color);
+          border-top: 1px solid var(--dtt_border-color);
 
-          td {
+          > td {
             padding: 1rem 0;
 
             &.total {
@@ -204,13 +213,11 @@
               padding-right: 1rem;
             }
           }
-
-          icon {
-            margin-right: 0.5rem;
-          }
         }
 
         > td {
+          padding: 0.5rem 0.3125rem;
+
           &.number {
             text-align: right;
           }
@@ -226,12 +233,12 @@
           }
 
           .options {
-            font-size: 100%;
             margin-left: 0.5rem;
-            color: var(--int_icons-color);
+            color: var(--dtt_icons-color);
 
             &:hover {
-              color: var(--int_icons-hover-color);
+              color: var(--dtt_icons-hover-color);
+              transition: color 250ms ease-out;
             }
           }
 
@@ -242,8 +249,48 @@
       }
     }
 
-    tfoot {
-      font-size: 110%;
+    &.row-separation > tbody > tr {
+      border-bottom: 1px solid var(--dtt_border-color);
+    }
+
+    &.column-separation > tbody > tr > td {
+      border-right: 1px solid var(--dtt_border-color);
+    }
+
+    /**
+     * When the header must be persistent (sticky)
+     * There is an issue with borders not being moved alongside the content.
+     * To prevent horrible renders we move border declarations on other elements
+     * Border top gets set on the table itself.
+     * thead hosts the lateral borders.
+     * tbody sets border-top.
+     * Header cells get set to sticky positioning.
+     */
+    &.persistent-header {
+      border-top: 1px solid var(--dtt_border-color);
+      position: relative;
+
+      > thead {
+        border-color: var(--dtt_border-color);
+        border-style: solid;
+        border-width: 0 1px 0;
+
+        > th {
+          background-color: var(--dtt_head-background-color);
+          box-shadow: var(--dtt_box-shadow);
+          position: -webkit-sticky; // For Safari
+          position: sticky;
+          top: var(--dtt_header-offset);
+          will-change: transform; // For performance
+        }
+      }
+
+      > tbody {
+        border-top: 3px solid var(--dtt_border-color);
+      }
+    }
+
+    > tfoot {
       td {
         text-align: right;
       }
@@ -295,70 +342,15 @@
 
   > .group-chip {
     display: flex;
-    background-color: var(--int_main-color);
+    background-color: var(--dtt_main-color);
     padding: 0.5rem;
-    color: var(--int_text-on-main-color);
+    color: var(--dtt_text-on-main-color);
     margin-right: 0.5rem;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
 
-    icon {
-      margin-right: 0.5rem;
-    }
-
     &:hover {
       opacity: 0.75;
-    }
-  }
-}
-
-// column menu
-.column-menu {
-  background-color: var(--int_background-color);
-  box-shadow: var(--int_box-shadow);
-  color: var(--int_color);
-  position: absolute;
-  // top: 0.5rem;
-  // left: -0.5rem;
-  z-index: 100;
-  font-weight: normal;
-  transition: opacity 0.2s ease-in-out;
-  min-width: 200px;
-  min-width: -moz-max-content; /* Firefox/Gecko */
-  min-width: -webkit-max-content; /* Chrome */
-
-  &.closed {
-    display: none;
-    opacity: 0;
-  }
-
-  &.open {
-    display: block;
-    opacity: 1;
-    -webkit-animation: display-none-transition 0.5s both;
-    -webkit-animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
-    animation: display-none-transition 0.5s both;
-    animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0; // override browser default
-    padding: 0; // override browser default
-
-    > li {
-      padding: 0.8rem;
-      font-size: 1rem;
-      transition: color 0.2s ease-in-out;
-
-      &:hover {
-        cursor: pointer;
-        color: var(--int_main-color);
-      }
-
-      .mdi {
-        margin-right: 0.5rem;
-      }
     }
   }
 }
@@ -369,7 +361,7 @@
   kup-button {
     --kup-button_main-color: transparent;
     --kup-button_opacity: 0.25;
-    --kup-button_icon-color: var(--int_main-color);
+    --kup-button_icon-color: var(--dtt_main-color);
     --kup-button_box-shadow: none;
 
     &:hover {
@@ -386,10 +378,16 @@
   0% {
     opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes display-none-transition {
   0% {
     opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -397,18 +395,18 @@
 .load-more-records {
   background-color: transparent;
   border: 0 none;
-  color: var(--int_icons-color);
+  color: var(--dtt_icons-color);
   cursor: pointer;
   display: inline-block;
-  font-size: calc(var(--int_font-size) *1.2);
-  height: calc(var(--int_font-size) *1.2);
+  font-size: calc(var(--dtt_font-size) * 1.2);
+  height: calc(var(--dtt_font-size) * 1.2);
   margin: 0 6px;
   padding: 0;
-  transition: color .3s;
-  width: calc(var(--int_font-size) *1.2);
+  transition: color 0.3s;
+  width: calc(var(--dtt_font-size) * 1.2);
 
   &:hover {
-    color: var(--int_icons-hover-color);
+    color: var(--dtt_icons-hover-color);
   }
 
   &::before {
