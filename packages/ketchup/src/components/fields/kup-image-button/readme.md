@@ -15,6 +15,20 @@
 | `size`                | `size`                  | image dimension                                           | `number`  | `64`    |
 
 
+## Events
+
+| Event                    | Description | Type                                        |
+| ------------------------ | ----------- | ------------------------------------------- |
+| `kupImageButtonSelected` |             | `CustomEvent<{ selectedImages: Image[]; }>` |
+
+
+## CSS Custom Properties
+
+| Name                           | Description         |
+| ------------------------------ | ------------------- |
+| `--imb_color, --kup-imb_color` | Sets the text color |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

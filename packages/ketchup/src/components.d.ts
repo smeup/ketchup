@@ -1153,6 +1153,9 @@ declare namespace LocalJSX {
     * urls of the images
     */
     'images'?: Image[];
+    'onKupImageButtonSelected'?: (event: CustomEvent<{
+      selectedImages: Image[];
+    }>) => void;
     /**
     * If enabled, display the image description below the image
     */

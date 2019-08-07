@@ -1,4 +1,4 @@
-import { Component, Prop, h, State } from '@stencil/core';
+import { Component, Prop, h, State, Event, EventEmitter } from '@stencil/core';
 
 import { Image } from './kup-image-declarations';
 
@@ -30,6 +30,16 @@ export class KupImageButton {
 
     @State() selectedImages: Image[] = [];
 
+    @Event({
+        eventName: 'kupImageButtonSelected',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupImageButtonSelected: EventEmitter<{
+        selectedImages: Image[];
+    }>;
+
     // ---- Listeners ----
     onImageClick(image: Image) {
         const imageIndex = this.selectedImages.indexOf(image);
@@ -50,6 +60,10 @@ export class KupImageButton {
                 this.selectedImages = [image];
             }
         }
+
+        this.kupImageButtonSelected.emit({
+            selectedImages: this.selectedImages,
+        });
     }
 
     render() {
@@ -60,17 +74,17 @@ export class KupImageButton {
                     selected: this.selectedImages.includes(image),
                 };
 
+                const divStyle = {
+                    width: `${this.size}px`,
+                };
+
                 return (
                     <div
                         class={divClass}
                         onClick={() => this.onImageClick(image)}
+                        style={divStyle}
                     >
-                        <img
-                            src={image.src}
-                            title={image.description}
-                            width={this.size}
-                            height={this.size}
-                        />
+                        <img src={image.src} title={image.description} />
                         {this.showDescription ? image.description : null}
                         <div class="overlay" />
                     </div>
