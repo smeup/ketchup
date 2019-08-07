@@ -35,6 +35,7 @@ import {
     groupRows,
     sortRows,
     getColumnByName,
+    paginateRows,
 } from './kup-data-table-helper';
 
 import {
@@ -476,7 +477,11 @@ export class KupDataTable {
 
         this.sortRows();
 
-        this.paginatedRows = this.paginateRows(this.rows);
+        this.paginatedRows = paginateRows(
+            this.rows,
+            this.currentPage,
+            this.currentRowsPerPage
+        );
     }
 
     private filterRows(): void {
@@ -784,7 +789,7 @@ export class KupDataTable {
             // Prevents double events to be fired.
             buttonEvent.stopPropagation();
         } else {
-            throw "kup-data-table error: missing event";
+            throw 'kup-data-table error: missing event';
         }
         this.kupCellButtonClicked.emit({
             cell,
@@ -880,14 +885,6 @@ export class KupDataTable {
         this.rows = sortRows(this.rows, this.sort);
     }
 
-    private paginateRows(rows: Array<any>): Array<any> {
-        const start =
-            this.currentPage * this.currentRowsPerPage -
-            this.currentRowsPerPage;
-
-        return rows.slice(start, start + this.currentRowsPerPage);
-    }
-
     private getSortIcon(columnName: string): string {
         // check if column in sort array
         for (let sortObj of this.sort) {
@@ -944,13 +941,25 @@ export class KupDataTable {
     //==== Column sort order methods ====
     private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
         // Get receiving column position
-        const receivingColIndex = this.data.columns.findIndex(col => col.name === receivingColumn.name && col.title === receivingColumn.title);
+        const receivingColIndex = this.data.columns.findIndex(
+            (col) =>
+                col.name === receivingColumn.name &&
+                col.title === receivingColumn.title
+        );
         // Get sorted column current position
-        const sortedColIndex = this.data.columns.findIndex(col => col.name === sortedColumn.name && col.title === sortedColumn.title);
+        const sortedColIndex = this.data.columns.findIndex(
+            (col) =>
+                col.name === sortedColumn.name &&
+                col.title === sortedColumn.title
+        );
 
         // Moves the sortedColumn into the correct position
         if (this.sortableColumnsMutateData) {
-            this.moveSortedColumns(this.data.columns, receivingColIndex, sortedColIndex);
+            this.moveSortedColumns(
+                this.data.columns,
+                receivingColIndex,
+                sortedColIndex
+            );
         }
         // fires event
         this.kupDataTableSortedColumn.emit({
@@ -959,7 +968,11 @@ export class KupDataTable {
         });
     }
 
-    private moveSortedColumns(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number) {
+    private moveSortedColumns(
+        columns: Column[],
+        receivingColumnIndex: number,
+        sortedColumnIndex: number
+    ) {
         const remove = columns.splice(sortedColumnIndex, 1);
         columns.splice(receivingColumnIndex, 0, remove[0]);
     }
@@ -968,15 +981,11 @@ export class KupDataTable {
         columns: Column[],
         receivingColumnIndex: number,
         sortedColumnIndex: number,
-        useNewObject: boolean = false,
+        useNewObject: boolean = false
     ) {
         const toSort = !useNewObject ? columns : [...columns];
 
-        this.moveSortedColumns(
-            toSort,
-            receivingColumnIndex,
-            sortedColumnIndex
-        );
+        this.moveSortedColumns(toSort, receivingColumnIndex, sortedColumnIndex);
 
         return toSort;
     }
@@ -1119,21 +1128,42 @@ export class KupDataTable {
 
                         // Remember that the current target is different from the one print out in the console
                         // Sets which element has started the drag
-                        (e.target as HTMLElement).setAttribute(this.dragStarterAttribute, '');
+                        (e.target as HTMLElement).setAttribute(
+                            this.dragStarterAttribute,
+                            ''
+                        );
                         this.theadRef.setAttribute(this.dragFlagAttribute, '');
                         this.columnsAreBeingDragged = true;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
-                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableColumnDragType
+                            ) >= 0
+                        ) {
+                            (e.target as HTMLElement).removeAttribute(
+                                this.dragOverAttribute
+                            );
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableColumnDragType
+                            ) >= 0
+                        ) {
                             const overElement = e.target as HTMLElement;
-                            overElement.setAttribute(this.dragOverAttribute,'');
+                            overElement.setAttribute(
+                                this.dragOverAttribute,
+                                ''
+                            );
                             // If element can have a drop effect
-                            if (!overElement.hasAttribute(this.dragStarterAttribute) && this.columnsAreBeingDragged) {
+                            if (
+                                !overElement.hasAttribute(
+                                    this.dragStarterAttribute
+                                ) &&
+                                this.columnsAreBeingDragged
+                            ) {
                                 e.preventDefault(); // Mandatory to allow drop
                                 e.dataTransfer.effectAllowed = 'move';
                             } else {
@@ -1146,22 +1176,34 @@ export class KupDataTable {
                         const dragStarter = e.target as HTMLElement;
                         if (dragStarter) {
                             // IF it still exists, removes the attribute so that it can perform a new drag again
-                            dragStarter.removeAttribute(this.dragStarterAttribute);
+                            dragStarter.removeAttribute(
+                                this.dragStarterAttribute
+                            );
                         }
                         this.theadRef.removeAttribute(this.dragFlagAttribute);
                         this.columnsAreBeingDragged = false;
                     },
                     onDrop: (e: DragEvent) => {
-                        if (e.dataTransfer.types.indexOf(KupDataTableColumnDragType) >= 0) {
-                            const transferredData = JSON.parse(e.dataTransfer.getData(KupDataTableColumnDragType)) as Column;
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableColumnDragType
+                            ) >= 0
+                        ) {
+                            const transferredData = JSON.parse(
+                                e.dataTransfer.getData(
+                                    KupDataTableColumnDragType
+                                )
+                            ) as Column;
                             e.preventDefault();
-                            (e.target as HTMLElement).removeAttribute(this.dragOverAttribute);
+                            (e.target as HTMLElement).removeAttribute(
+                                this.dragOverAttribute
+                            );
 
                             // We are sure the tables have been dropped in a valid location -> starts sorting the columns
                             this.handleColumnSort(column, transferredData);
                         }
                     },
-                }
+                };
             }
 
             return (
@@ -1365,7 +1407,13 @@ export class KupDataTable {
                  * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
                  * @todo Move this rendering, if possible, inside renderCell()
                  */
-                if (cell.options && (!hideValuesRepetitions || (hideValuesRepetitions && (!previousRow || previousRow.cells[name].value !== cell.value)))) {
+                if (
+                    cell.options &&
+                    (!hideValuesRepetitions ||
+                        (hideValuesRepetitions &&
+                            (!previousRow ||
+                                previousRow.cells[name].value !== cell.value)))
+                ) {
                     options = (
                         <span
                             class="options"
@@ -1380,14 +1428,16 @@ export class KupDataTable {
                 }
 
                 const jsxCell = this.renderCell(
-                  cell,
-                  name,
-                  // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                  {
-                      row,
-                      column: currentColumn
-                  },
-                  hideValuesRepetitions && previousRow ? previousRow.cells[name].value : null,
+                    cell,
+                    name,
+                    // The previous value must be passed only if repeated values can be hidden and we have a previous row.
+                    {
+                        row,
+                        column: currentColumn,
+                    },
+                    hideValuesRepetitions && previousRow
+                        ? previousRow.cells[name].value
+                        : null
                 );
 
                 const cellClass = {
@@ -1531,7 +1581,7 @@ export class KupDataTable {
             column: Column;
             row: Row;
         },
-        previousRowCellValue?: string,
+        previousRowCellValue?: string
     ) {
         // When the previous row value is different from the current value, we can show the current value.
         const valueToDisplay =
@@ -1553,9 +1603,18 @@ export class KupDataTable {
                 </a>
             );
         } else if (isCheckbox(cell.obj)) {
-            content = <kup-checkbox
-                checked={!!cell.obj.k}
-                disabled={cellData && cellData.row && cellData.row.hasOwnProperty('readOnly') ? cellData.row.readOnly : true}/>;
+            content = (
+                <kup-checkbox
+                    checked={!!cell.obj.k}
+                    disabled={
+                        cellData &&
+                        cellData.row &&
+                        cellData.row.hasOwnProperty('readOnly')
+                            ? cellData.row.readOnly
+                            : true
+                    }
+                />
+            );
         } else if (isButton(cell.obj)) {
             /**
              * Here either using .bind() or () => {} function would bring more or less the same result.
@@ -1801,7 +1860,12 @@ export class KupDataTable {
                 <div class="below-wrapper">
                     {groupChips}
                     <table class={tableClass}>
-                        <thead hidden={!this.showHeader} ref={(el) => this.theadRef = el as HTMLTableSectionElement}>
+                        <thead
+                            hidden={!this.showHeader}
+                            ref={(el) =>
+                                (this.theadRef = el as HTMLTableSectionElement)
+                            }
+                        >
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>

@@ -12,6 +12,7 @@
 | `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered.                                                              | `string`        | `'id'`      |
 | `initialValue`   | --                | Allows to pass an initial selected item for the combobox                                                                                              | `ComboItem`     | `null`      |
 | `isClearable`    | `is-clearable`    | Marks the field as clearable, allowing an icon to delete its content                                                                                  | `boolean`       | `false`     |
+| `isFilterable`   | `is-filterable`   | Marks the field as filterable, allowing an input text to filter the options                                                                           | `boolean`       | `true`      |
 | `items`          | --                | Items which can be selected                                                                                                                           | `ComboItem[]`   | `[]`        |
 | `label`          | `label`           | Label to describe the radio group                                                                                                                     | `string`        | `''`        |
 | `obj`            | --                | An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj | `GenericObject` | `undefined` |
@@ -67,6 +68,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
@@ -80,6 +82,7 @@ graph TD;
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
   kup-box --> kup-combo
+  kup-paginator --> kup-combo
   style kup-combo fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

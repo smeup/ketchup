@@ -44,4 +44,9 @@ export default [
     name: 'boxSort',
     component: () => import('@/views/box/BoxSort.vue'),
   },
+  {
+    path: '/box/pagination',
+    name: 'boxPagination',
+    component: () => import('@/views/box/BoxPagination.vue'),
+  },
 ];

@@ -33,9 +33,14 @@ import {
     isProgressBar,
 } from '../../utils/object-utils';
 
-import { filterRows, sortRows } from '../kup-data-table/kup-data-table-helper';
+import {
+    filterRows,
+    sortRows,
+    paginateRows,
+} from '../kup-data-table/kup-data-table-helper';
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
+import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -101,6 +106,18 @@ export class KupBox {
     @Prop()
     enableRowActions = false;
 
+    /**
+     * Enables pagination
+     */
+    @Prop({ reflect: true })
+    pagination = false;
+
+    /**
+     * Number of boxes per page
+     */
+    @Prop({ reflect: true })
+    pageSize = 10;
+
     @State()
     private globalFilterValue = '';
 
@@ -115,6 +132,9 @@ export class KupBox {
      */
     @State()
     private rowActionMenuOpened: BoxRow;
+
+    @State()
+    private currentPage = 1;
 
     /**
      * Triggered when a box is clicked
@@ -189,9 +209,13 @@ export class KupBox {
     private visibleColumns: Column[] = [];
 
     private rows: BoxRow[] = [];
+    private filteredRows: BoxRow[] = [];
 
     @Watch('globalFilterValue')
     @Watch('sortBy')
+    @Watch('pagination')
+    @Watch('pageSize')
+    @Watch('currentPage')
     recalculateRows() {
         this.initRows();
     }
@@ -261,7 +285,7 @@ export class KupBox {
     }
 
     private initRows(): void {
-        let filteredRows = this.getRows();
+        this.filteredRows = this.getRows();
 
         if (this.filterEnabled && this.globalFilterValue) {
             const visibleCols = this.visibleColumns;
@@ -275,15 +299,23 @@ export class KupBox {
             }
 
             // filtering rows
-            filteredRows = filterRows(
-                filteredRows,
+            this.filteredRows = filterRows(
+                this.filteredRows,
                 null,
                 this.globalFilterValue,
                 columnNames
             );
         }
 
-        this.rows = this.sortRows(filteredRows);
+        this.rows = this.sortRows(this.filteredRows);
+
+        if (this.pagination) {
+            this.rows = paginateRows(
+                this.rows,
+                this.currentPage,
+                this.pageSize
+            );
+        }
     }
 
     private sortRows(rows: BoxRow[]): BoxRow[] {
@@ -533,6 +565,10 @@ export class KupBox {
         }
 
         this.rowActionMenuOpened = null;
+    }
+
+    private handlePageChanged({ detail }) {
+        this.currentPage = detail.newPage;
     }
 
     // render methods
@@ -961,6 +997,19 @@ export class KupBox {
             );
         }
 
+        let paginator = null;
+        if (this.pagination) {
+            paginator = (
+                <kup-paginator
+                    max={this.filteredRows.length}
+                    perPage={this.pageSize}
+                    currentPage={this.currentPage}
+                    onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    mode={PaginatorMode.SIMPLE}
+                />
+            );
+        }
+
         let boxContent = null;
 
         if (this.rows.length === 0) {
@@ -985,6 +1034,7 @@ export class KupBox {
             <div>
                 {sortPanel}
                 {filterPanel}
+                {paginator}
                 <div id="box-container" style={containerStyle}>
                     {boxContent}
                 </div>
