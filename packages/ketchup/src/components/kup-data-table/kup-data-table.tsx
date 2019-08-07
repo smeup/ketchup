@@ -1297,7 +1297,7 @@ export class KupDataTable {
             }
 
             let icon =
-                'mdi mdi-chevron-' + (row.group.expanded ? 'right' : 'down');
+                'mdi mdi-chevron-' + (row.group.expanded ? 'down' : 'right');
 
             const jsxRows = [];
 
