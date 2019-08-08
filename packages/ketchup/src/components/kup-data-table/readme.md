@@ -145,6 +145,10 @@ graph TD;
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-paginator --> kup-combo
+  kup-combo --> kup-text-input
+  kup-combo --> kup-portal
+  kup-portal --> kup-portal-instance
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

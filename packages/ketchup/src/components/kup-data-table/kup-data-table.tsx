@@ -37,6 +37,7 @@ import {
     groupRows,
     sortRows,
     getColumnByName,
+    paginateRows,
 } from './kup-data-table-helper';
 
 import {
@@ -478,7 +479,11 @@ export class KupDataTable {
 
         this.sortRows();
 
-        this.paginatedRows = this.paginateRows(this.rows);
+        this.paginatedRows = paginateRows(
+            this.rows,
+            this.currentPage,
+            this.currentRowsPerPage
+        );
     }
 
     private filterRows(): void {
@@ -880,14 +885,6 @@ export class KupDataTable {
 
     private sortRows(): void {
         this.rows = sortRows(this.rows, this.sort);
-    }
-
-    private paginateRows(rows: Array<any>): Array<any> {
-        const start =
-            this.currentPage * this.currentRowsPerPage -
-            this.currentRowsPerPage;
-
-        return rows.slice(start, start + this.currentRowsPerPage);
     }
 
     private getSortIcon(columnName: string): string {

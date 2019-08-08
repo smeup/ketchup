@@ -15,6 +15,8 @@
 | `filterEnabled`    | `filter-enabled`     | Enable filtering                                                                                   | `boolean`                                  | `false`     |
 | `layout`           | --                   | How the field will be displayed. If not present, a default one will be created.                    | `Layout`                                   | `undefined` |
 | `multiSelection`   | `multi-selection`    | Enable multi selection                                                                             | `boolean`                                  | `false`     |
+| `pageSize`         | `page-size`          | Number of boxes per page                                                                           | `number`                                   | `10`        |
+| `pagination`       | `pagination`         | Enables pagination                                                                                 | `boolean`                                  | `false`     |
 | `selectBox`        | `select-box`         | Automatically selects the box at the specified index                                               | `number`                                   | `undefined` |
 | `showSelection`    | `show-selection`     | If enabled, highlights the selected box/boxes                                                      | `boolean`                                  | `true`      |
 | `sortBy`           | `sort-by`            | If sorting is enabled, specifies which column to sort                                              | `string`                                   | `undefined` |
@@ -70,6 +72,7 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-combo](../kup-combo)
 - [kup-text-input](../kup-text-input)
+- [kup-paginator](../kup-paginator)
 
 ### Graph
 ```mermaid
@@ -80,10 +83,12 @@ graph TD;
   kup-box --> kup-progress-bar
   kup-box --> kup-combo
   kup-box --> kup-text-input
+  kup-box --> kup-paginator
   kup-image --> kup-badge
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
+  kup-paginator --> kup-combo
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

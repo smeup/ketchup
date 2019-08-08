@@ -7,12 +7,16 @@ import {
     Prop,
     State,
     Watch,
-    h
-} from '@stencil/core'
-import { ComboItem, ComboPosition, KetchupComboEvent } from './kup-combo-declarations';
-import { eventFromElement } from "../../utils/utils";
-import { getElementOffset } from "../../utils/offset";
-import {GenericObject} from "../../types/GenericTypes";
+    h,
+} from '@stencil/core';
+import {
+    ComboItem,
+    ComboPosition,
+    KetchupComboEvent,
+} from './kup-combo-declarations';
+import { eventFromElement } from '../../utils/utils';
+import { getElementOffset } from '../../utils/offset';
+import { GenericObject } from '../../types/GenericTypes';
 
 /*
  * TODO: Control if there can be issues with z-index and elements not correctly triggering the functions to close the combo box list
@@ -23,7 +27,7 @@ import {GenericObject} from "../../types/GenericTypes";
 @Component({
     tag: 'kup-combo',
     styleUrl: 'kup-combo.scss',
-    shadow: true
+    shadow: true,
 })
 export class KupCombo {
     /**
@@ -38,6 +42,10 @@ export class KupCombo {
      * Marks the field as clearable, allowing an icon to delete its content
      */
     @Prop() isClearable: boolean = false;
+    /**
+     * Marks the field as filterable, allowing an input text to filter the options
+     */
+    @Prop({ reflect: true }) isFilterable: boolean = true;
     /**
      * Items which can be selected
      */
@@ -62,9 +70,7 @@ export class KupCombo {
      */
     @Prop() usePortal: boolean = false;
 
-
     //-- Validating props --
-
 
     //---- Internal state ----
     // Keeps current value based on selectedElement -> shortcut for some controls
@@ -90,14 +96,22 @@ export class KupCombo {
     // Determines the position on which the menu will be open
     comboPosition: ComboPosition = {
         isRight: false,
-        isTop: false
+        isTop: false,
     };
     // Variable to hold Constructed Style Sheet
     // TODO check if there is a better typing.
     constructedStyleSheet: any = null;
 
     // For CSS vars
-    internalCssVars = ['--cmb_font-size', '--cmb_border-color', '--cmb_border-color--selected', '--cmb_tr-duration', '--cmb_icon-color', '--cmb_icon-color--hover', '--cmb_menu-background'];
+    internalCssVars = [
+        '--cmb_font-size',
+        '--cmb_border-color',
+        '--cmb_border-color--selected',
+        '--cmb_tr-duration',
+        '--cmb_icon-color',
+        '--cmb_icon-color--hover',
+        '--cmb_menu-background',
+    ];
 
     //-- Constants --
     baseClass = 'kup-combo';
@@ -144,7 +158,10 @@ export class KupCombo {
     @Watch('initialValue')
     reflectInitialValue(newValue: ComboItem | null, oldValue?: ComboItem) {
         // When a new initial value is passed, we control that the new item is different from the old one before updating the state
-        if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
+        if (
+            !oldValue ||
+            newValue[this.valueField] !== oldValue[this.valueField]
+        ) {
             this.onComboSelected(newValue, oldValue);
         }
     }
@@ -159,10 +176,15 @@ export class KupCombo {
     calcBoxPosition() {
         const windowX = document.documentElement.clientWidth;
         const windowY = document.documentElement.clientHeight;
-        const {height, left, top, width} = this.comboText.getBoundingClientRect();
+        const {
+            height,
+            left,
+            top,
+            width,
+        } = this.comboText.getBoundingClientRect();
         return {
             isRight: left + width / 2 > windowX / 2,
-            isTop: top + height / 2 > windowY / 2
+            isTop: top + height / 2 > windowY / 2,
         };
     }
 
@@ -206,12 +228,18 @@ export class KupCombo {
             response = await this.portalRef.getPortalInstance();
         }
         try {
-            if (event.composedPath().indexOf(this.comboEl) < 0 && event.composedPath().indexOf(response) < 0) {
+            if (
+                event.composedPath().indexOf(this.comboEl) < 0 &&
+                event.composedPath().indexOf(response) < 0
+            ) {
                 this.closeCombo();
             }
-        } catch(e) {
+        } catch (e) {
             const ele = event.target as HTMLElement;
-            if (!eventFromElement(this.comboEl, ele) && !eventFromElement(response, ele)) {
+            if (
+                !eventFromElement(this.comboEl, ele) &&
+                !eventFromElement(response, ele)
+            ) {
                 this.closeCombo();
             }
         }
@@ -245,7 +273,7 @@ export class KupCombo {
         eventName: 'ketchupComboSelected',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupComboSelected: EventEmitter<KetchupComboEvent>;
 
@@ -254,8 +282,8 @@ export class KupCombo {
             value: item,
             oldValue: oldItem,
             info: {
-                obj: this.obj
-            }
+                obj: this.obj,
+            },
         });
         // Updates corresponding fields
         this.selected = item;
@@ -265,70 +293,120 @@ export class KupCombo {
     //---- Rendering functions ----
     // Creates the menu and its items
     composeList() {
-        return <div class={this.baseClass + '__menu' + (this.isOpen ? ' is-open' : '') +
-        (this.comboPosition.isRight ? ' is-right' : '') + (this.comboPosition.isTop ? ' is-top' : '')
-        + (this.usePortal ? ' is-using-portal' : '')}>
-            <div class={this.baseClass + '__filter'}>
-                <kup-text-input onKetchupTextInputUpdated={this.onFilterUpdate.bind(this)}/>
-            </div>
-            <ul class={this.baseClass + '__list'}>
-                {this.items.filter(item => !this.filter || item[this.displayedField].toLowerCase().indexOf(this.filter) >= 0)
-                    .map(item =>
-                        <li onClick={() => this.onItemSelected(item)}>
-                            <span>{item[this.displayedField]}</span>
-                        </li>
-                    )
-                }
-            </ul>
-        </div>;
-    }
+        let filter = null;
+        if (this.isFilterable) {
+            filter = (
+                <div class={this.baseClass + '__filter'}>
+                    <kup-text-input
+                        onKetchupTextInputUpdated={this.onFilterUpdate.bind(
+                            this
+                        )}
+                    />
+                </div>
+            );
+        }
 
+        return (
+            <div
+                class={
+                    this.baseClass +
+                    '__menu' +
+                    (this.isOpen ? ' is-open' : '') +
+                    (this.comboPosition.isRight ? ' is-right' : '') +
+                    (this.comboPosition.isTop ? ' is-top' : '') +
+                    (this.usePortal ? ' is-using-portal' : '')
+                }
+            >
+                {filter}
+                <ul class={this.baseClass + '__list'}>
+                    {this.items
+                        .filter(
+                            (item) =>
+                                !this.filter ||
+                                item[this.displayedField]
+                                    .toLowerCase()
+                                    .indexOf(this.filter) >= 0
+                        )
+                        .map((item) => (
+                            <li onClick={() => this.onItemSelected(item)}>
+                                <span>{item[this.displayedField]}</span>
+                            </li>
+                        ))}
+                </ul>
+            </div>
+        );
+    }
 
     render() {
         const containerClass = this.baseClass + '__container';
 
-        return ([
-            <div class={containerClass + (this.isClearable ? ' ' + containerClass + '--clearable' : '')}
-                ref={(el) => this.comboText = el as HTMLInputElement}>
+        return [
+            <div
+                class={
+                    containerClass +
+                    (this.isClearable
+                        ? ' ' + containerClass + '--clearable'
+                        : '')
+                }
+                ref={(el) => (this.comboText = el as HTMLInputElement)}
+            >
                 <span
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
                     {this.selected ? this.selected[this.displayedField] : ''}
                     <svg
-                        class={this.baseClass + '__icon ' + this.baseClass + '__chevron' + (this.isOpen ? ' ' + this.baseClass + '__chevron--open' : '')}
-                        viewBox="0 0 24 24">
-                        <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                        class={
+                            this.baseClass +
+                            '__icon ' +
+                            this.baseClass +
+                            '__chevron' +
+                            (this.isOpen
+                                ? ' ' + this.baseClass + '__chevron--open'
+                                : '')
+                        }
+                        version="1.1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M7,10L12,15L17,10H7Z" />
                     </svg>
                 </span>
-                {this.isClearable ?
+                {this.isClearable ? (
                     <button
                         aria-label="Close"
                         class={this.baseClass + '__clear'}
                         role="button"
-                        onClick={this.onClearClick.bind(this)}>
-                        <svg class={this.baseClass + '__icon'}
-                            viewBox="0 0 24 24">
+                        onClick={this.onClearClick.bind(this)}
+                    >
+                        <svg
+                            class={this.baseClass + '__icon'}
+                            viewBox="0 0 24 24"
+                        >
                             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                         </svg>
-                    </button>:
-                    null
-                }
+                    </button>
+                ) : null}
             </div>,
 
-            this.usePortal ?
+            this.usePortal ? (
                 <kup-portal
                     isVisible={this.isOpen}
                     mirroredCssVars={this.internalCssVars}
                     nodes={this.composeList()}
                     portalParentRef={this.comboEl}
-                    ref={el => this.portalRef = el as HTMLKupPortalElement}
+                    ref={(el) => (this.portalRef = el as HTMLKupPortalElement)}
                     // Notice that the portal offset MUST be calculated considering the menu button, not the whole web component
-                    refOffset={getElementOffset(this.comboText, this.comboPosition)}
+                    refOffset={getElementOffset(
+                        this.comboText,
+                        this.comboPosition
+                    )}
                     styleNode={this.comboEl.shadowRoot.querySelector('style')}
                 />
-                :
+            ) : (
                 this.composeList()
-        ]);
+            ),
+        ];
     }
 }

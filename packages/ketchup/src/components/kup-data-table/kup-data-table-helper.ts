@@ -620,3 +620,13 @@ export function getColumnByName(columns: Column[], name: string): Column {
 
     return null;
 }
+
+export function paginateRows(
+    rows: Row[],
+    currentPage: number,
+    rowsPerPage: number
+) {
+    const start = currentPage * rowsPerPage - rowsPerPage;
+
+    return rows.slice(start, start + rowsPerPage);
+}
