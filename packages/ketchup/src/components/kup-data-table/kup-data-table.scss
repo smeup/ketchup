@@ -65,7 +65,7 @@
     --kup-data-table_icons-hover-color,
     #{$smeup-primary}
   );
-  --dtt_font-size: var(--kup-data-table_font-size, 0.8125rem);
+  --dtt_font-size: var(--kup-data-table_font-size, 0.9375rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
   --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
   --dtt_negative-number-color: var(
@@ -221,6 +221,33 @@
           > td {
             padding: 1rem 0;
 
+            .group-cell-content {
+              svg {
+                cursor: pointer;
+                width: var(--dtt_font-size);
+                height: var(--dtt_font-size);
+                margin: 0 0.3rem;
+
+                &.group-expander {
+                  padding: 0.2rem;
+                  border-radius: 50%;
+                  background: #{$gray-e5};
+                  margin-right: 1rem;
+                  margin-left: 0.5rem;
+                }
+
+                &.group-remove {
+                  fill: #{$mainRed};
+                }
+              }
+
+              > span {
+                display: inline-flex;
+                vertical-align: middle;
+                outline: none;
+              }
+            }
+
             &.total {
               text-align: right;
               padding-right: 1rem;
@@ -348,6 +375,14 @@
       }
     }
   }
+
+  .paginator-wrapper {
+    display: flex;
+
+    kup-paginator {
+      flex-grow: 1;
+    }
+  }
 }
 
 // global filter
@@ -376,21 +411,68 @@
   }
 }
 
-#density-panel {
-  text-align: center;
+.density-panel {
+  position: relative;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
 
-  kup-button {
-    --kup-button_main-color: transparent;
-    --kup-button_opacity: 0.25;
-    --kup-button_icon-color: var(--dtt_main-color);
-    --kup-button_box-shadow: none;
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 
-    &:hover {
-      --kup-button_opacity: 0.75;
+  [role='button'] {
+    outline: none;
+    cursor: pointer;
+    display: flex;
+
+    svg {
+      fill: #{$gray-bd};
+    }
+  }
+
+  .density-panel-overlay {
+    background: var(--dtt_background-color);
+    position: absolute;
+    top: 1.6rem;
+    right: 0;
+    display: none;
+    opacity: 0;
+    z-index: 10;
+    box-shadow: #{$mainShadow};
+    padding: 1rem;
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      outline: none;
+      color: #{$smeup-primary};
+      cursor: pointer;
+      padding: 6px 8px 5px;
+
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      svg {
+        margin-right: 0.5rem;
+        fill: #{$smeup-primary};
+      }
+
+      &:hover,
+      &.active {
+        color: #{$mainTextColor};
+
+        svg {
+          fill: #{$mainTextColor};
+        }
+      }
     }
 
-    &.active {
-      --kup-button_opacity: 1;
+    &.open {
+      opacity: 1;
+      display: block;
     }
   }
 }

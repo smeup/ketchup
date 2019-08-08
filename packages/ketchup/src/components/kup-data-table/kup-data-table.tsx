@@ -29,6 +29,7 @@ import {
     TotalsMap,
     KupDataTableColumnDragType,
     KupDataTableSortedColumnIndexes,
+    RowGroup,
 } from './kup-data-table-declarations';
 
 import {
@@ -144,7 +145,7 @@ export class KupDataTable {
     showFilters = false;
 
     @Prop()
-    showGrid: ShowGrid = ShowGrid.COMPLETE;
+    showGrid: ShowGrid = ShowGrid.ROW;
 
     /**
      * If set to true, displays the button to load more records.
@@ -195,6 +196,12 @@ export class KupDataTable {
 
     @State()
     private density: string = 'medium';
+
+    @State()
+    private topDensityPanelVisible = false;
+
+    @State()
+    private botDensityPanelVisible = false;
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -365,6 +372,11 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
+    onDocumentClick = () => {
+        this.topDensityPanelVisible = false;
+        this.botDensityPanelVisible = false;
+    };
+
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
     //         entries.forEach((entry) => {
@@ -394,6 +406,8 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
+        document.addEventListener('click', this.onDocumentClick);
+
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -407,6 +421,10 @@ export class KupDataTable {
                 });
             }
         }
+    }
+
+    componentDidUnload() {
+        document.removeEventListener('click', this.onDocumentClick);
     }
 
     private getColumns(): Array<Column> {
@@ -508,6 +526,32 @@ export class KupDataTable {
         this.groupState = {};
 
         const index = this.groups.indexOf(group);
+
+        if (index >= 0) {
+            // removing group from prop
+            this.groups.splice(index, 1);
+            this.groups = [...this.groups];
+        }
+    }
+
+    private removeGroupFromRow(group: RowGroup) {
+        if (!group) {
+            return;
+        }
+
+        // resetting group state
+        this.groupState = {};
+
+        // search group
+        let index = -1;
+        for (let i = 0; i < this.groups.length; i++) {
+            const g = this.groups[i];
+
+            if (g.column === group.column) {
+                index = i;
+                break;
+            }
+        }
 
         if (index >= 0) {
             // removing group from prop
@@ -992,6 +1036,17 @@ export class KupDataTable {
         return toSort;
     }
 
+    private toggleDensityVisibility(event: MouseEvent, top: boolean) {
+        event.stopPropagation();
+        if (top) {
+            this.topDensityPanelVisible = !this.topDensityPanelVisible;
+            this.botDensityPanelVisible = false;
+        } else {
+            this.topDensityPanelVisible = false;
+            this.botDensityPanelVisible = !this.botDensityPanelVisible;
+        }
+    }
+
     //======== render methods ========
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
@@ -1295,8 +1350,11 @@ export class KupDataTable {
                 return null;
             }
 
-            let icon =
-                'mdi mdi-chevron-' + (row.group.expanded ? 'down' : 'right');
+            const icon = row.group.expanded ? (
+                <path d="M19,13H5V11H19V13Z" />
+            ) : (
+                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+            );
 
             const jsxRows = [];
 
@@ -1313,16 +1371,45 @@ export class KupDataTable {
                 cells.push(
                     <td colSpan={colSpan}>
                         {indent}
-                        <span
-                            role="button"
-                            aria-label="Row expander" // TODO change this label
-                            class={icon}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                this.onRowExpand(row);
-                            }}
-                        />
-                        {row.group.label}
+                        <span class="group-cell-content">
+                            <span
+                                role="button"
+                                aria-label="Row expander" // TODO change this label
+                                tabindex="0"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.onRowExpand(row);
+                                }}
+                            >
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    class="group-expander"
+                                >
+                                    {icon}
+                                </svg>
+                            </span>
+                            {row.group.label}
+                            <span
+                                role="button"
+                                aria-label="Remove group" // TODO change this label
+                                tabindex="0"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.removeGroupFromRow(row.group);
+                                }}
+                            >
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    class="group-remove"
+                                >
+                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                </svg>
+                            </span>
+                        </span>
                     </td>
                 );
 
@@ -1342,16 +1429,45 @@ export class KupDataTable {
                     <tr class="group" onClick={() => this.onRowExpand(row)}>
                         <td colSpan={this.calculateColspan()}>
                             {indent}
-                            <span
-                                role="button"
-                                aria-label="Row expander" // TODO change this label
-                                class={`row-expander ${icon}`}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.onRowExpand(row);
-                                }}
-                            />
-                            {row.group.label}
+                            <span class="group-cell-content">
+                                <span
+                                    role="button"
+                                    aria-label="Row expander" // TODO change this label
+                                    tabindex="0"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        this.onRowExpand(row);
+                                    }}
+                                >
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        class="group-expander"
+                                    >
+                                        {icon}
+                                    </svg>
+                                </span>
+                                <span class="text">{row.group.label}</span>
+                                <span
+                                    role="button"
+                                    aria-label="Remove group" // TODO change this label
+                                    tabindex="0"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        this.removeGroupFromRow(row.group);
+                                    }}
+                                >
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        class="group-remove"
+                                    >
+                                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                    </svg>
+                                </span>
+                            </span>
                         </td>
                     </tr>
                 );
@@ -1505,7 +1621,6 @@ export class KupDataTable {
                             }
                             role="button"
                             aria-label="Espandi voci"
-                            aria-pressed="false"
                         />
                     );
                 }
@@ -1554,7 +1669,6 @@ export class KupDataTable {
                     }
                     role="button"
                     aria-label={action.text}
-                    aria-pressed="false"
                 />
             );
         });
@@ -1702,6 +1816,128 @@ export class KupDataTable {
         );
     }
 
+    private renderPaginator(top: boolean) {
+        return (
+            <div class="paginator-wrapper">
+                <kup-paginator
+                    id="top-paginator"
+                    max={this.rows.length}
+                    perPage={this.rowsPerPage}
+                    selectedPerPage={this.currentRowsPerPage}
+                    currentPage={this.currentPage}
+                    onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) =>
+                        this.handleRowsPerPageChanged(e)
+                    }
+                >
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </kup-paginator>
+                {this.renderDensityPanel(top)}
+            </div>
+        );
+    }
+
+    private renderDensityPanel(top: boolean) {
+        return (
+            <div class="density-panel">
+                <svg version="1.1" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+                </svg>
+
+                <div
+                    role="button"
+                    tabindex="0"
+                    onClick={(e) => this.toggleDensityVisibility(e, top)}
+                >
+                    <svg
+                        version="1.1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M7,10L12,15L17,10H7Z" />
+                    </svg>
+                </div>
+
+                <div
+                    class={{
+                        'density-panel-overlay': true,
+                        open: top
+                            ? this.topDensityPanelVisible
+                            : this.botDensityPanelVisible,
+                    }}
+                >
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'small',
+                        }}
+                        onClick={() => (this.density = 'small')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.density === 'small' ? 'true' : 'false'
+                        }
+                    >
+                        <svg
+                            version="1.1"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" />
+                        </svg>
+                        Bassa
+                    </div>
+
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'medium',
+                        }}
+                        onClick={() => (this.density = 'medium')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.density === 'medium' ? 'true' : 'false'
+                        }
+                    >
+                        <svg
+                            version="1.1"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+                        </svg>
+                        Media
+                    </div>
+
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'big',
+                        }}
+                        onClick={() => (this.density = 'big')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
+                    >
+                        <svg
+                            version="1.1"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z" />
+                        </svg>
+                        Alta
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         // resetting rows
         this.renderedRows = [];
@@ -1760,21 +1996,7 @@ export class KupDataTable {
             PaginatorPos.TOP === this.paginatorPos ||
             PaginatorPos.BOTH === this.paginatorPos
         ) {
-            paginatorTop = (
-                <kup-paginator
-                    id="top-paginator"
-                    max={this.rows.length}
-                    perPage={this.rowsPerPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    currentPage={this.currentPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
-                    }
-                >
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
-                </kup-paginator>
-            );
+            paginatorTop = this.renderPaginator(true);
         }
 
         let paginatorBottom = null;
@@ -1782,21 +2004,7 @@ export class KupDataTable {
             PaginatorPos.BOTTOM === this.paginatorPos ||
             PaginatorPos.BOTH === this.paginatorPos
         ) {
-            paginatorBottom = (
-                <kup-paginator
-                    id="bottom-paginator"
-                    max={this.rows.length}
-                    perPage={this.rowsPerPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    currentPage={this.currentPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
-                    }
-                >
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
-                </kup-paginator>
-            );
+            paginatorBottom = this.renderPaginator(false);
         }
 
         let groupChips = null;
@@ -1821,28 +2029,6 @@ export class KupDataTable {
             groupChips = <div id="group-chips">{chips}</div>;
         }
 
-        const densityPanel = (
-            <div id="density-panel">
-                <kup-button
-                    class={{ active: this.density === 'small' }}
-                    iconClass="mdi mdi-format-align-justify"
-                    onClick={() => (this.density = 'small')}
-                />
-
-                <kup-button
-                    class={{ active: this.density === 'medium' }}
-                    iconClass="mdi mdi-menu"
-                    onClick={() => (this.density = 'medium')}
-                />
-
-                <kup-button
-                    class={{ active: this.density === 'big' }}
-                    iconClass="mdi mdi-view-sequential"
-                    onClick={() => (this.density = 'big')}
-                />
-            </div>
-        );
-
         const tableClass = {
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
@@ -1862,7 +2048,6 @@ export class KupDataTable {
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
-                    {densityPanel}
                 </div>
                 <div class="below-wrapper">
                     {groupChips}
