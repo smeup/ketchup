@@ -1,14 +1,25 @@
 import {
   Component,
   // Element,
-  // Event,
-  // EventEmitter,
+  Event,
+  EventEmitter,
   // Method,
   Prop,
   // State,
-  //Watch,
+  Watch,
   h,
 } from '@stencil/core';
+
+import {
+  //Cell,
+  Column,
+  //RowAction,
+} from "./../kup-data-table/kup-data-table-declarations";
+
+import {
+  treeExpandedPropName,
+  TreeNode
+} from "./kup-tree-declarations";
 
 /*import {
   ComboItem,
@@ -27,9 +38,13 @@ import { GenericObject } from '../../types/GenericTypes';
 })
 export class KupTree {
   /**
+   * The columns of the tree when tree visualization is active
+   */
+  @Prop() columns?: Column[];
+  /**
    * The json data used to populate the tree view.
    */
-  @Prop() data: JSON;
+  @Prop() data: TreeNode;
   /**
    * Flag: the nodes of the whole tree must be already expanded upon loading.
    */
@@ -89,6 +104,91 @@ export class KupTree {
    */
   // @Prop() draggableNodes: boolean = false;
 
+  //-------- State --------
+
+
+  //-------- Events --------
+  /**
+   * When a cell option is clicked
+   */
+  @Event({
+    eventName: 'kupTreeNodeActionClicked',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupTreeNodeOptionClicked: EventEmitter<{
+    column: string;
+    // row: Row;
+  }>;
+
+  /**
+   * Fired when a node of the tree has been selected
+   */
+  @Event({
+    eventName: 'kupTreeNodeSelected',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupTreeNodeSelected: EventEmitter<{
+    column: string;
+    // row: Row;
+  }>;
+
+  /**
+   * Fired when a dynamicExpansion has been triggered.
+   */
+  @Event({
+    eventName: 'kupTreeNodeExpand',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupTreeNodeExpand: EventEmitter<{
+    column: string;
+    // row: Row;
+  }>;
+
+  //-------- Lifecycle hooks --------
+  componentWillLoad() {
+    if (this.data) {
+      // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion
+      // the default value of the treeExpandedPropName is set to true
+      this.enrichWithIsExpanded(this.data, this.expanded && !this.useDynamicExpansion)
+    }
+  }
+
+  //-------- Watchers --------
+  @Watch('data')
+  enrichDataWhenChanged(newData, oldData) {
+    if (newData !== oldData) {
+      this.enrichWithIsExpanded(newData);
+    }
+  }
+
+  //-------- Methods --------
+  enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
+    // The node is expandable, which means there are sub trees
+    if (treeNode.expandable) {
+      // If the node does not already have the property to toggle expansion we add it
+      if (!treeNode.hasOwnProperty(treeExpandedPropName)) {
+        treeNode[treeExpandedPropName] = expandNode;
+      }
+
+      // Enriches also direct subtrees recursively (if it has children)
+      if (treeNode.children && treeNode.children.length) {
+        // To save some function calls, only child elements which are expandable will be enriched
+        for (let i = 0; i < treeNode.children.length; i ++) {
+          if (treeNode.children[i].expandable) {
+            this.enrichWithIsExpanded(treeNode.children[i], expandNode);
+          }
+        }
+      }
+    }
+  }
+
+
   //-------- Rendering --------
   renderHeader() {
     return null;
@@ -96,6 +196,9 @@ export class KupTree {
 
   renderTree(treeData) {
 
+    if (treeData) {
+
+    }
 
     return null;
   }
