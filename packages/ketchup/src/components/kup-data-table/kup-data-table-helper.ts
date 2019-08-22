@@ -630,3 +630,12 @@ export function paginateRows(
 
     return rows.slice(start, start + rowsPerPage);
 }
+
+/**
+ * Given a cell object, determines if the style object has also a border radius
+ * @param cell - The cell to check
+ * @returns {boolean} - true if borderRadius is present, false otherwise.
+ */
+export function styleHasBorderRadius(cell: Cell): boolean {
+  return !!(cell && cell.style && cell.style.borderRadius);
+}
