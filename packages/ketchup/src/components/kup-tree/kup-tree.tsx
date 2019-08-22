@@ -142,7 +142,7 @@ export class KupTree {
     if (this.data) {
       // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion
       // the default value of the treeExpandedPropName is set to true
-      this.enrichWithIsExpanded(this.data, this.expanded && !this.useDynamicExpansion)
+      this.data.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion)})
     }
   }
 
@@ -150,7 +150,7 @@ export class KupTree {
   @Watch('data')
   enrichDataWhenChanged(newData, oldData) {
     if (newData !== oldData) {
-      this.enrichWithIsExpanded(newData);
+      newData.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode)});
     }
   }
 
@@ -297,9 +297,15 @@ export class KupTree {
     );
   }
 
-
-  private renderHeader() {
-    return null;
+  /**
+   * Renders the header of the tree when it must be displayed as a table.
+   * @returns An array of table header cells.
+   */
+  private renderHeader(): JSX.Element[] {
+    return this.visibleColumns.map(column => <th>
+        <span class="column-title">{column.title}</span>
+      </th>
+    );
   }
 
   /**
@@ -423,10 +429,17 @@ export class KupTree {
       );
     }
 
+    // Calculates if header must be shown or not
+    // TODO check if this method here is correct when there are columns but the header does not have all cells
+    const visibleHeader = this.showHeader && this.showColumns;
+
     return (
       <table>
-        <thead class={{'header--is-visible': this.showHeader}}>
-          {this.renderHeader()}
+        <thead class={{'header--is-visible': visibleHeader}}>
+          <tr>
+            <th/> /* Empty cell placeholder for the base TreeNodes. Used to align other cells correctly */
+            {visibleHeader ? this.renderHeader() : null}
+          </tr>
         </thead>
         <tbody>
           {treeNodes}

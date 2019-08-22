@@ -16,6 +16,7 @@ Work in progress
 4. Cosa succede quando la configurazione di un albero rimane la stessa ma vengono completamente cambiati i dati che ci stanno sotto (data).?
    * Mi viene da dire che se presente il flag `expanded` allora al cambiamento deve essere rianalizzato l'albero e i nodi devono essere aperti nuovamente.
 5. Decidere assieme se il parametro `data` deve essere una specie di root dell'albero con alcune informazioni aggiuntive o se è sufficiente mettere i primi figli dell'albero.
+   * A seconda di come viene impostato cambia come le funzioni di rendering devono essere eseguite.
 
 
 <!-- Auto Generated Below -->
