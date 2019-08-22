@@ -1,0 +1,41 @@
+:host {
+  --tre_node-expander_color: var(--kup-tre_node-expander_color, #{$mainTextColor});
+  --tre_node-icon_color: var(--kup-tre_node-icon_color, #{$mainTextColor});
+  --tre_node-icon_size: var(--kup-tre_node-icon_size, 16px);
+  --tre_node-indent_width: var(--kup-tre_node-indent_width, 16px);
+}
+
+
+//---- Base class for the tree and its components ----
+.kup-tree {
+
+  // Element used for the indentation of a tree node
+  &__indent {
+    display: inline-block;
+    width: calc(var(--tre_node-indent-width) * var(--tree-node__depth, 0));
+  }
+
+  // Default styles of the TreeNode icons
+  &__icon {
+    color: var(--tre_node-icon_color);
+    font-size: var(--tre_node-icon_size);
+    height: var(--tre_node-icon_size);
+    width: var(--tre_node-icon_size);
+  }
+
+  // The container of a whole node
+  &__node {
+    // The arrow which shows if a node is expandable and is expanded or not
+    &__expander {
+      color: var(--tre_node-expander_color);
+      transition: transform .6s;
+    }
+
+    // When the NodeTree is expanded
+    &[data-is-expanded] {
+      transform: rotate(180deg);
+    }
+  }
+
+
+}

@@ -28,5 +28,7 @@ export interface TreeNode {
 
   readOnly?: boolean;
 
+  value: string; // TODO check if this is here
+
   [treeExpandedPropName]: boolean;
 }

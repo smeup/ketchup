@@ -1,25 +1,12 @@
-import {
-  Component,
-  // Element,
-  Event,
-  EventEmitter,
-  // Method,
-  Prop,
-  // State,
-  Watch,
-  h,
-} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Prop, Watch, JSX} from '@stencil/core';
 
-import {
-  //Cell,
-  Column,
-  //RowAction,
-} from "./../kup-data-table/kup-data-table-declarations";
+import {Cell, Column,} from "./../kup-data-table/kup-data-table-declarations";
 
-import {
-  treeExpandedPropName,
-  TreeNode
-} from "./kup-tree-declarations";
+import {treeExpandedPropName, TreeNode} from "./kup-tree-declarations";
+
+import {isBar, isButton, isCheckbox, isIcon, isImage, isLink, isVoCodver,} from '../../utils/object-utils';
+
+import {styleHasBorderRadius,} from './../kup-data-table/kup-data-table-helper';
 
 /*import {
   ComboItem,
@@ -105,7 +92,7 @@ export class KupTree {
   // @Prop() draggableNodes: boolean = false;
 
   //-------- State --------
-
+  private visibleColumns: Column[] = [];
 
   //-------- Events --------
   /**
@@ -190,27 +177,259 @@ export class KupTree {
 
 
   //-------- Rendering --------
-  renderHeader() {
+  /**
+   * FActory function for cells.
+   * @param cell - cell object
+   * @param column - the cell's column name
+   * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
+   * @param cellData - Additional data for the current cell.
+   * @param cellData.column - The column object to which the cell belongs.
+   * @param cellData.row - The row object to which the cell belongs.
+   */
+  private renderCell(
+    cell: Cell,
+    column: string,
+    cellData: {
+      column: Column;
+      row: TreeNode;
+    },
+    previousRowCellValue?: string
+  ) {
+    // TODO missing a piece to create a complete rendering of a cell @see kup-data-table row 1145 (basically missing style={cellStyle} class={cellClass} and cellOptions)
+
+    // When the previous row value is different from the current value, we can show the current value.
+    const valueToDisplay =
+      previousRowCellValue !== cell.value ? cell.value : '';
+
+    // Sets the default value
+    let content: any = valueToDisplay;
+
+    if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+      content = <span class={valueToDisplay} />;
+    } else if (isImage(cell.obj)) {
+      content = (
+        <img src={valueToDisplay} alt="" width="64" height="64" />
+      );
+    } else if (isLink(cell.obj)) {
+      content = (
+        <a href={valueToDisplay} target="_blank">
+          {valueToDisplay}
+        </a>
+      );
+    } else if (isCheckbox(cell.obj)) {
+      content = (
+        <kup-checkbox
+          checked={!!cell.obj.k}
+          disabled={
+            cellData &&
+            cellData.row &&
+            cellData.row.hasOwnProperty('readOnly')
+              ? cellData.row.readOnly
+              : true
+          }
+        />
+      );
+    } else if (isButton(cell.obj)) {
+      /**
+       * Here either using .bind() or () => {} function would bring more or less the same result.
+       * Both those syntax would create at run time a new function for each cell on which they're rendered.
+       * (See references below.)
+       *
+       * Another solution would be to simply bind an event handler like this:
+       * onKupButtonClicked={this.onJ4btnClicked}
+       *
+       * The problem here is that, by using that syntax:
+       * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
+       *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
+       * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
+       * 3 - searches those column and row inside the current data for the table;
+       * 4 - once the data is found, creates the custom event with the data to be sent.
+       *
+       * Currently there is no reason to perform such a search, but it may arise if on large data tables
+       * there is a significant performance loss.
+       * @see https://reactjs.org/docs/handling-events.html
+       */
+
+       //TODO 2: check if this must be added to the cells parsing content
+       content = (
+        <kup-button
+          /*{...createJ4objButtonConfig(cell)}*/
+          onKupButtonClicked={ e => console.log("kup tree J4btn clicked event", e, column)
+            /*this.onJ4btnClicked.bind(
+            this,
+            cellData ? cellData.row : null,
+            cellData ? cellData.column : null,
+            cell
+          )*/}
+        />
+      );
+    } else if (isBar(cell.obj)) {
+      const props: { value: string; width?: number } = {
+        value: cell.value,
+      };
+
+      // TODO 2 check with Giovanni
+      // check if column has width
+      /*if (this.columnsWidth && this.columnsWidth[column]) {
+        props.width = this.columnsWidth[column];
+      }
+      */
+
+      // Controls if we should display this cell value
+      content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+    }
+
+    // TODO
+    // else if (isProgressBar(cell.obj)) {
+    //     content = <kup-progress-bar />;
+    // }
+
+    // if cell.style has border, apply style to cellcontent
+    let style = null;
+    if (styleHasBorderRadius(cell)) {
+      style = cell.style;
+    }
+
+    return (
+      <span class="cell-content" style={style}>
+        {content}
+      </span>
+    );
+  }
+
+
+  private renderHeader() {
     return null;
   }
 
-  renderTree(treeData) {
+  /**
+   * Given a TreeNode, reads through its data then composes and returns its JSX object.
+   * @param treeNodeData - The TreeNode object to parse.
+   * @param treeNodePath - A string containing the comma(,) separated indexes of the TreeNodes to use,
+   *    sorted from left to right, to access the current TreeNode starting from the data prop children object.
+   * @param treeNodeDepth - An integer to keep track of the depth level of the current TreeNode. Used for indentation.
+   * @returns The the JSX created from the current tree node.
+   */
+  private renderTreeNode(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element {
+    // Creates the indentation of the current element. Use a css variable to specify padding.
+    let indent = treeNodeDepth
+      ? <span
+          class="kup-tree__indent"
+          style={{ ["--tree-node__depth"]: treeNodeDepth.toString() }}/>
+      : null;
 
-    if (treeData) {
+    // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
+    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + treeNodeData.expandable ? " mdi mdi-menu-down" : ""}/>;
 
+    // When TreeNode icons are visible, creates the icon if one is specified
+    let treeNodeIcon = this.showIcons
+      ? <span class={"kup-tree__icon mdi mdi-" + treeNodeData.iconClass}/>
+      : null;
+
+    // Composes additional options for the tree node element
+    let treeNodeOptions = {};
+    if (treeNodeData.hasOwnProperty(treeExpandedPropName) && treeNodeData[treeExpandedPropName]) {
+      // If the node can be expanded it has this attribute set to if this node is expanded or not.
+      treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
     }
 
-    return null;
+    // When a tree node is displayed as a table
+    let treeNodeCells: JSX.Element[] | null = null;
+    if (this.showColumns && this.visibleColumns && this.visibleColumns.length) {
+      treeNodeCells = [];
+      // Renders all the cells
+      for (let j = 0; j < this.visibleColumns.length; j++) {
+        const column = this.visibleColumns[j];
+        treeNodeCells.push(
+          <td>{
+            this.renderCell(
+              treeNodeData.cells[column.name],
+              column.name,
+              {
+                column,
+                row: treeNodeData
+              }
+            )
+          }</td>
+        );
+      }
+    }
+
+    return (
+      <tr
+        class="kup-tree__node"
+        data-tree-path={treeNodePath}
+        {...treeNodeOptions}>
+        <td>
+          {indent}
+          {treeExpandIcon}
+          {treeNodeIcon}
+          <span>{treeNodeData.value}</span>
+        </td>
+        {treeNodeCells}
+      </tr>
+    );
+  }
+
+  /**
+   * Given a TreeNode, reads through its data to compose and return the TreeNodes of the root of this TreeNode
+   * and its children nodes, composing an array of JSX TreeNodes.
+   * @param treeNodeData - The TreeNode object to parse.
+   * @param treeNodePath - A string containing the comma(,) separated indexes of the TreeNodes to use,
+   *    sorted from left to right, to access the current TreeNode starting from the data prop children object.
+   * @param treeNodeDepth - An integer to keep track of the depth level of the current TreeNode. Used for indentation.
+   * @returns An array of JSX TreeNodes created from the given treeNodeData.
+   */
+  private renderTree(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element[] {
+    let treeNodes = [];
+
+    if (treeNodeData) {
+      // Creates and adds the root of the current tree
+      treeNodes.push(
+        this.renderTreeNode(treeNodeData, treeNodePath, treeNodeDepth)
+      );
+
+      // Checks if the current node can be expanded, has children and is expanded
+      if (treeNodeData.expandable && treeNodeData.children.length && treeNodeData[treeExpandedPropName]) {
+        for (let i = 0; i < treeNodeData.children.length; i++) {
+          treeNodes = treeNodes.concat(this.renderTree(
+            treeNodeData.children[i],
+            treeNodePath + ',' + i,
+            treeNodeDepth + 1)
+          );
+        }
+      }
+    }
+
+    return treeNodes;
   }
 
   render() {
+    // Computes the visible columns for later use
+    if (this.showColumns && this.columns) {
+      this.visibleColumns = this.columns.filter(column => column.hasOwnProperty('visible') ? column.visible : true);
+    }
+
+    // Composes TreeNodes
+    let treeNodes: JSX.Element[] = [];
+    if (this.data && this.data.children && this.data.children.length) {
+      this.data.children.forEach((zeroDepthNode, index) => {
+        treeNodes = treeNodes.concat(this.renderTree(zeroDepthNode, index.toString()));
+      });
+    } else {
+      // There are no TreeNodes, so we print a single cell with a caption
+      treeNodes.push(
+        <tr><td>Nessun elemento nell'albero</td></tr>
+      );
+    }
+
     return (
       <table>
         <thead class={{'header--is-visible': this.showHeader}}>
           {this.renderHeader()}
         </thead>
         <tbody>
-          {this.renderTree(this.data)}
+          {treeNodes}
         </tbody>
       </table>
     );

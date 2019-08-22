@@ -5,15 +5,17 @@
 
 Work in progress
 
-#### TODO
+#### TODO / Clarify
 
 1. Aggiornare il JSON del componente albero nella wiki di progettazione.
-2. 
-
-## To clarify
-
-Cosa succede quando la configurazione di un albero rimane la stessa ma vengono completamente cambiati i dati che ci stanno sotto (data).
-Mi viene da dire che se presente il flag `expanded` allora al cambiamento deve essere rianalizzato l'albero e i nodi devono essere aperti nuovamente.
+2. Controllare che i dati ed ogetti visibili nelle celle di un albero siano gli stessi che possono essere presenti all'interno di una matrice. In caso affermativo: 
+   1. estrarre funzione renderCell da kup-data-table e da kup-tree;
+   2. mettere quella funzione in un file esterno per il parsing delle celle;
+   3. richiamare la funzione e bindarla con il this nel caso serva utilizzare il this all'interno. (eviterei il binding, può generare incomprensione)
+3. La dimensione delle colonne quando il formato tabella è attivo può essere customizzata come per la matrice?  
+4. Cosa succede quando la configurazione di un albero rimane la stessa ma vengono completamente cambiati i dati che ci stanno sotto (data).?
+   * Mi viene da dire che se presente il flag `expanded` allora al cambiamento deve essere rianalizzato l'albero e i nodi devono essere aperti nuovamente.
+5. Decidere assieme se il parametro `data` deve essere una specie di root dell'albero con alcune informazioni aggiuntive o se è sufficiente mettere i primi figli dell'albero.
 
 
 <!-- Auto Generated Below -->
