@@ -8,8 +8,26 @@
             :data.prop="basicData.data"
         />
 
+        <h3>Tree Nodes icons are hidden</h3>
+        <kup-tree
+            :columns.prop="basicData.columns"
+            :data.prop="basicData.data"
+            :showIcons.prop="false"
+        />
 
+        <h3>With show objectNavigation active</h3>
+        <kup-tree
+            :columns.prop="basicData.columns"
+            :data.prop="basicData.data"
+            show-object-navigation
+        />
 
+        <h3>Automatically expanded tree</h3>
+        <kup-tree
+                :columns.prop="expandedData.columns"
+                :data.prop="expandedData.data"
+                expanded
+        />
     </div>
 </template>
 
@@ -23,6 +41,7 @@
         data() {
             return {
                 basicData: TreeFactory(),
+                expandedData: TreeFactory(),
             }
         }
     }

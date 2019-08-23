@@ -48,12 +48,12 @@ export class KupTree {
   /**
    * Show the icons of the various nodes of the tree.
    */
-  @Prop() showIcons: boolean = true;
+  @Prop({reflect: true}) showIcons: boolean = true;
   /**
    * An array of integers containing the path to a selected child.\
    * Groups up the properties SelFirst, SelItem, SelName.
    */
-  @Prop() selectedNode: Number[]= [];
+  @Prop() selectedNode: Number[] = [];
   /**
    * When a node has options in its data and is on mouse over state while this prop is true,
    * the node must shows the cog wheel to trigger object navigation upon click.
@@ -321,11 +321,12 @@ export class KupTree {
     let indent = treeNodeDepth
       ? <span
           class="kup-tree__indent"
-          style={{ ["--tree-node__depth"]: treeNodeDepth.toString() }}/>
+          style={{ ["--tree-node_depth"]: treeNodeDepth.toString() }}/>
       : null;
 
     // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
-    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (treeNodeData.expandable ? " mdi mdi-menu-down" : null)}/>;
+    const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
+    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : null)}/>;
 
     // When TreeNode icons are visible, creates the icon if one is specified
     let treeNodeIcon = this.showIcons
@@ -334,7 +335,7 @@ export class KupTree {
 
     // Composes additional options for the tree node element
     let treeNodeOptions = {};
-    if (treeNodeData.hasOwnProperty(treeExpandedPropName) && treeNodeData[treeExpandedPropName]) {
+    if (treeNodeData.hasOwnProperty(treeExpandedPropName) && treeNodeData[treeExpandedPropName] && hasExpandIcon) {
       // If the node can be expanded it has this attribute set to if this node is expanded or not.
       treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
     }
@@ -363,7 +364,10 @@ export class KupTree {
 
     return (
       <tr
-        class="kup-tree__node"
+        class={{
+          "kup-tree__node": true,
+          "kup-tree__node--disabled": treeNodeData.disabled,
+        }}
         data-tree-path={treeNodePath}
         {...treeNodeOptions}>
         <td>

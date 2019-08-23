@@ -1,3 +1,13 @@
+/**
+* @prop --tre_table-header_background-color, --kup-tre_table-header_background-color: Allows customization of the table header background color.
+* @prop --tre_node-expander_color, --kup-tre_node-expander_color: The TreeNode expander icon color.
+* @prop --tre_node_background-color--hover, --kup-tre_node_background-color--hover: TreeNode background color when TreeNode is hovered.
+* @prop --tre_node-icon_color, --kup-tre_node-icon_color: TreeNode icon color. Applied to all TreeNodes.
+* @prop --tre_node-icon_size, --kup-tre_node-icon_size: The TreeNode icon size (includes expand icon).
+* @prop --tre_node-indent_width, --kup-tre_node-indent_width: Width of each single indentation of the tree.
+* @prop --tre_node--disabled_opacity, --kup-tre_node--disabled_opacity: The opacity of a TreeNode when disabled.
+*/
+
 :host {
   --tre_table-header_background-color: var(--kup-tre_table-header_background-color, #{$mainTextColor});
   --tre_node-expander_color: var(--kup-tre_node-expander_color, #{$mainTextColor});
@@ -5,6 +15,7 @@
   --tre_node-icon_color: var(--kup-tre_node-icon_color, #{$mainTextColor});
   --tre_node-icon_size: var(--kup-tre_node-icon_size, 16px);
   --tre_node-indent_width: var(--kup-tre_node-indent_width, 16px);
+  --tre_node--disabled_opacity: var(--kup-tre_node--disabled_opacity, .7);
 
   // host style
   display: block;
@@ -27,7 +38,7 @@
   // Element used for the indentation of a tree node
   &__indent {
     display: inline-block;
-    width: calc(var(--tre_node-indent-width) * var(--tree-node__depth, 0));
+    width: calc(var(--tre_node-indent_width) * var(--tree-node_depth, 0));
   }
 
   // Default styles of the TreeNode icons
@@ -43,8 +54,14 @@
 
   // The container of a whole node
   &__node {
+    // All items
     > * {
       vertical-align: middle;
+    }
+
+    // When a TreeNode is disabled, we reduce its opacity
+    &--disabled {
+      opacity: var(--tre_node--disabled_opacity);
     }
 
     // The arrow which shows if a node is expandable and is expanded or not
@@ -54,7 +71,7 @@
     }
 
     // When the NodeTree is expanded
-    &[data-is-expanded] {
+    &[data-is-expanded] &__expander {
       transform: rotate(180deg);
     }
 
