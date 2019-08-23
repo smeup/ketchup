@@ -178,7 +178,7 @@ export class KupTree {
 
   //-------- Rendering --------
   /**
-   * FActory function for cells.
+   * Factory function for cells.
    * @param cell - cell object
    * @param column - the cell's column name
    * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
@@ -325,7 +325,7 @@ export class KupTree {
       : null;
 
     // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
-    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + treeNodeData.expandable ? " mdi mdi-menu-down" : ""}/>;
+    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (treeNodeData.expandable ? " mdi mdi-menu-down" : null)}/>;
 
     // When TreeNode icons are visible, creates the icon if one is specified
     let treeNodeIcon = this.showIcons
@@ -433,11 +433,12 @@ export class KupTree {
     // TODO check if this method here is correct when there are columns but the header does not have all cells
     const visibleHeader = this.showHeader && this.showColumns;
 
-    return (
-      <table>
+    return [
+      <link href='https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
+      <table class="kup-tree">
         <thead class={{'header--is-visible': visibleHeader}}>
           <tr>
-            <th/> /* Empty cell placeholder for the base TreeNodes. Used to align other cells correctly */
+            <th/>
             {visibleHeader ? this.renderHeader() : null}
           </tr>
         </thead>
@@ -445,6 +446,6 @@ export class KupTree {
           {treeNodes}
         </tbody>
       </table>
-    );
+    ];
   }
 }

@@ -5,11 +5,24 @@
   --tre_node-icon_color: var(--kup-tre_node-icon_color, #{$mainTextColor});
   --tre_node-icon_size: var(--kup-tre_node-icon_size, 16px);
   --tre_node-indent_width: var(--kup-tre_node-indent_width, 16px);
+
+  // host style
+  display: block;
 }
 
 
 //---- Base class for the tree and its components ----
 .kup-tree {
+  width: 100%; // The table takes all available space by default
+
+  // The header of the table
+  thead {
+    display: none; // By default the tree header is not displayed
+
+    &.header--is-visible {
+      display: unset;
+    }
+  }
 
   // Element used for the indentation of a tree node
   &__indent {
@@ -19,14 +32,21 @@
 
   // Default styles of the TreeNode icons
   &__icon {
+    align-items: center;
     color: var(--tre_node-icon_color);
+    display: inline-flex;
     font-size: var(--tre_node-icon_size);
     height: var(--tre_node-icon_size);
+    justify-content: center;
     width: var(--tre_node-icon_size);
   }
 
   // The container of a whole node
   &__node {
+    > * {
+      vertical-align: middle;
+    }
+
     // The arrow which shows if a node is expandable and is expanded or not
     &__expander {
       color: var(--tre_node-expander_color);

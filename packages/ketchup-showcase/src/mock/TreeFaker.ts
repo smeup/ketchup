@@ -58,8 +58,14 @@ function TreeNodeFactory(
         max: 5
     },
     index: number,
-    ) {
-    const childrenCount = getRandomInteger(5);
+    options: {
+        minimumChildCount: number,
+        maximumChildCount?: number,
+        propagate?: boolean,
+    } = {
+        minimumChildCount: 0,
+    }) {
+    const childrenCount = Math.max(getRandomInteger(options.maximumChildCount || 5), options.minimumChildCount);
     const children: any[] = [];
 
     // If it can have children, adds children to this node
@@ -71,7 +77,8 @@ function TreeNodeFactory(
                     current: depth.current + 1,
                     max: depth.max,
                 },
-                i
+                i,
+                options.propagate ? options : undefined
             )
         );
     }
@@ -123,7 +130,13 @@ export function TreeFactory(
     options: {
         forceColumnVisibility: boolean,
     } = {
-        forceColumnVisibility: false
+        forceColumnVisibility: false,
+    },
+    treeOptions: {
+        minimumChildCount: number,
+        propagate?: boolean,
+    } = {
+        minimumChildCount: 5,
     }
 ) {
     let tree = {},
@@ -141,7 +154,8 @@ export function TreeFactory(
                 current: -1,
                 max: 5
             },
-            -1
+            -1,
+            treeOptions,
         ),
     }
 }
