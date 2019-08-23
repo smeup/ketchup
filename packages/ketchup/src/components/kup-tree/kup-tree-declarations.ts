@@ -33,3 +33,5 @@ export interface TreeNode {
 
   [treeExpandedPropName]: boolean;
 }
+
+export type TreeNodePath = Number[];

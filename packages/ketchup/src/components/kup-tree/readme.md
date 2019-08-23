@@ -19,7 +19,20 @@ Work in progress
    * A seconda di come viene impostato cambia come le funzioni di rendering devono essere eseguite.
 6. Siccome script di mocking dei dati per i componenti sono usati sia all'interno del progetto Stencil sia all'interno dello showcase,
     può avere senso migrare questi script in un package a se stante all'interno del monorepo? Qualcosa tipo `ketchup-data-factory` che poi può essere importato da ambo i package.
-7. Quando un TreeNode è disabilitato può essere aperto o chiuso?
+7. Quando un TreeNode è disabilitato può essere aperto o chiuso dall'utente?
+   * Se un nodo è disabilitato e NON può essere aperto dall'utente, può essere aperto programmaticamente dall'albero invece.
+8. Nel caso in cui un nodo sia espandibile dinamicamente e debba essere espanso, sicuramente avviene lanciato un evento.
+    Per il momento questo evento è il kupTreeNodeExpand, che può essere rinominato per avere un nome più affine al dynamic.
+   * La vera domanda è: serve / è utile / è necessario che anche quando un nodo non abbia l'espansione dinamica
+        debba essere lanciato un evento quando il TreeNode viene espanso o chiuso?
+
+## Possible future development
+
+### Keyboard support
+Currently browsing, opening or closing items by using the keyboard controls is not supported.
+
+Ideally it can be achieved by using `tabindex` for navigation and a check on the `spacebar` and `enter` keys to
+open or close the TreeNodes. 
 
 <!-- Auto Generated Below -->
 
@@ -42,11 +55,11 @@ Work in progress
 
 ## Events
 
-| Event                      | Description                                       | Type                               |
-| -------------------------- | ------------------------------------------------- | ---------------------------------- |
-| `kupTreeNodeActionClicked` | When a cell option is clicked                     | `CustomEvent<{ column: string; }>` |
-| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered. | `CustomEvent<{ column: string; }>` |
-| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected   | `CustomEvent<{ column: string; }>` |
+| Event                      | Description                                       | Type                                                           |
+| -------------------------- | ------------------------------------------------- | -------------------------------------------------------------- |
+| `kupTreeNodeActionClicked` | When a cell option is clicked                     | `CustomEvent<{ column: string; }>`                             |
+| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered. | `CustomEvent<{ column: string; }>`                             |
+| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected   | `CustomEvent<{ treeNodePath: Number[]; treeNode: TreeNode; }>` |
 
 
 ## CSS Custom Properties

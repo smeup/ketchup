@@ -1,8 +1,8 @@
-import {Component, Event, EventEmitter, h, Prop, Watch, JSX} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Prop, State, Watch, JSX} from '@stencil/core';
 
 import {Cell, Column,} from "./../kup-data-table/kup-data-table-declarations";
 
-import {treeExpandedPropName, TreeNode} from "./kup-tree-declarations";
+import {treeExpandedPropName, TreeNode, TreeNodePath,} from "./kup-tree-declarations";
 
 import {isBar, isButton, isCheckbox, isIcon, isImage, isLink, isVoCodver,} from '../../utils/object-utils';
 
@@ -53,7 +53,7 @@ export class KupTree {
    * An array of integers containing the path to a selected child.\
    * Groups up the properties SelFirst, SelItem, SelName.
    */
-  @Prop() selectedNode: Number[] = [];
+  @Prop() selectedNode: TreeNodePath = [];
   /**
    * When a node has options in its data and is on mouse over state while this prop is true,
    * the node must shows the cog wheel to trigger object navigation upon click.
@@ -94,6 +94,8 @@ export class KupTree {
   //-------- State --------
   private visibleColumns: Column[] = [];
 
+  @State() stateSwitcher: boolean = false;
+
   //-------- Events --------
   /**
    * When a cell option is clicked
@@ -119,8 +121,8 @@ export class KupTree {
     bubbles: true,
   })
   kupTreeNodeSelected: EventEmitter<{
-    column: string;
-    // row: Row;
+    treeNodePath: TreeNodePath,
+    treeNode: TreeNode,
   }>;
 
   /**
@@ -172,6 +174,37 @@ export class KupTree {
           }
         }
       }
+    }
+  }
+
+  /**
+   * Forces component update with a simple trick.
+   * Should be avoided if possible.
+   * Thinking about a more clean and functional solution.
+   * @todo Find a better way to achieve this. And maybe also where to store the expanded flag.
+   * @author Francesco Bonacini f.bonacini@dreamonkey.com
+   */
+  forceUpdate() {
+    this.stateSwitcher = !this.stateSwitcher;
+  }
+
+  // When a TreeNode must be expanded or closed
+  hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
+    const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
+
+    // If this TreeNode is not disabled, then it can be selected and an event is emitted
+    if (!treeNodeData.disabled) {
+      this.kupTreeNodeSelected.emit({
+        treeNodePath: treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex)),
+        treeNode: treeNodeData
+      });
+    }
+
+    // if this element can be expanded or closed, it does so.
+    // TODO check the 8th todo in the readme
+    if (hasExpandIcon) {
+      treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+      this.forceUpdate();
     }
   }
 
@@ -338,6 +371,14 @@ export class KupTree {
     if (treeNodeData.hasOwnProperty(treeExpandedPropName) && treeNodeData[treeExpandedPropName] && hasExpandIcon) {
       // If the node can be expanded it has this attribute set to if this node is expanded or not.
       treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
+    }
+
+    // When can be expanded
+    if (hasExpandIcon) {
+      treeNodeOptions['onClick'] = () => {
+        console.log('Cliccato elemento', treeNodePath);
+        this.hdlTreeNodeClicked(treeNodeData, treeNodePath);
+      };
     }
 
     // When a tree node is displayed as a table

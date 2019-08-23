@@ -69,6 +69,7 @@ import {
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
   TreeNode,
+  TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
 
 export namespace Components {
@@ -565,7 +566,7 @@ export namespace Components {
     /**
     * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
     */
-    'selectedNode': Number[];
+    'selectedNode': TreeNodePath;
     /**
     * Shows the tree data as a table.
     */
@@ -1394,13 +1395,13 @@ declare namespace LocalJSX {
     * Fired when a node of the tree has been selected
     */
     'onKupTreeNodeSelected'?: (event: CustomEvent<{
-      column: string;
-      // row: Row;
+      treeNodePath: TreeNodePath,
+      treeNode: TreeNode,
     }>) => void;
     /**
     * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
     */
-    'selectedNode'?: Number[];
+    'selectedNode'?: TreeNodePath;
     /**
     * Shows the tree data as a table.
     */
