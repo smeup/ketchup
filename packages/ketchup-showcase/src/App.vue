@@ -334,6 +334,17 @@ export default {
           },
         ],
       },
+      {
+        title: 'Tree',
+        routes: [
+          {
+            title: `Tree basics`,
+            to: {
+              name: 'treeBasic',
+            },
+          },
+        ],
+      },
     ],
     simpleRoutes: [
       {

@@ -4,7 +4,6 @@ h3 {
 }
 </style>
 
-
 <template>
   <div>
     <h1>Data Table</h1>

@@ -1377,7 +1377,7 @@ declare namespace LocalJSX {
     */
     'expanded'?: boolean;
     /**
-    * Nodes of the tree are draggable and can be sorted. Currently this feature is not available. When a cell option is clicked
+    * When a cell option is clicked
     */
     'onKupTreeNodeActionClicked'?: (event: CustomEvent<{
       column: string;

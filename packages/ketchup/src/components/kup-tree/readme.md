@@ -17,6 +17,8 @@ Work in progress
    * Mi viene da dire che se presente il flag `expanded` allora al cambiamento deve essere rianalizzato l'albero e i nodi devono essere aperti nuovamente.
 5. Decidere assieme se il parametro `data` deve essere una specie di root dell'albero con alcune informazioni aggiuntive o se è sufficiente mettere i primi figli dell'albero.
    * A seconda di come viene impostato cambia come le funzioni di rendering devono essere eseguite.
+6. Siccome script di mocking dei dati per i componenti sono usati sia all'interno del progetto Stencil sia all'interno dello showcase,
+    può avere senso migrare questi script in un package a se stante all'interno del monorepo? Qualcosa tipo `ketchup-data-factory` che poi può essere importato da ambo i package.
 
 
 <!-- Auto Generated Below -->
@@ -40,12 +42,29 @@ Work in progress
 
 ## Events
 
-| Event                      | Description                                                                                                               | Type                               |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `kupTreeNodeActionClicked` | Nodes of the tree are draggable and can be sorted. Currently this feature is not available. When a cell option is clicked | `CustomEvent<{ column: string; }>` |
-| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered.                                                                         | `CustomEvent<{ column: string; }>` |
-| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                           | `CustomEvent<{ column: string; }>` |
+| Event                      | Description                                       | Type                               |
+| -------------------------- | ------------------------------------------------- | ---------------------------------- |
+| `kupTreeNodeActionClicked` | When a cell option is clicked                     | `CustomEvent<{ column: string; }>` |
+| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered. | `CustomEvent<{ column: string; }>` |
+| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected   | `CustomEvent<{ column: string; }>` |
 
+
+## Dependencies
+
+### Depends on
+
+- [kup-checkbox](..\kup-checkbox)
+- [kup-button](..\kup-button)
+- [kup-graphic-cell](..\kup-graphic-cell)
+
+### Graph
+```mermaid
+graph TD;
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-button
+  kup-tree --> kup-graphic-cell
+  style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

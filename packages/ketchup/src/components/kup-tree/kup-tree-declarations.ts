@@ -26,6 +26,7 @@ export interface TreeNode {
 
   id?: string;
 
+  // TODO what is this?
   readOnly?: boolean;
 
   value: string; // TODO check if this is here
