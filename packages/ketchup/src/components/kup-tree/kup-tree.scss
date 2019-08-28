@@ -57,6 +57,7 @@
   }
 
   // Default styles of the TreeNode icons
+  .options,
   &__icon {
     align-items: center;
     color: var(--tre_node-icon_color);
@@ -92,7 +93,17 @@
 
     // By default, options, even when rendered, are not visible
     .options {
+      cursor: pointer;
+      float: right; // IMPORTANT: this may cause overflow problems. If this happens, @see kupTree.renderCellOption
+      margin-left: 8px;
+      opacity: 0;
       visibility: hidden;
+      transition: opacity .6s, visibility .6s;
+
+      &:before {
+        height: inherit;
+        width: inherit;
+      }
     }
 
     // When an entire row is hovered
@@ -101,15 +112,24 @@
       > td {
         background-color: var(--tre_node_background-color--hover);
       }
-
-      // All options, if present, becomes visible
-      .options {
-        visibility: visible;
-      }
     }
   }
 
+  //-- When the columns must be visible --
   &[data-show-columns] &__node {
     border-bottom: solid 1px var(--tre_table_border-bottom-color);
+  }
+
+  //-- When object navigation must be visible --
+  &[data-show-object-navigation] &__node {
+    // All options, if present, becomes visible
+    &:hover .options {
+      opacity: 1;
+      visibility: visible;
+
+      &:hover {
+        opacity: .54;
+      }
+    }
   }
 }

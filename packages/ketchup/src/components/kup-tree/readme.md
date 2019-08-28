@@ -25,6 +25,7 @@ Work in progress
     Per il momento questo evento è il kupTreeNodeExpand, che può essere rinominato per avere un nome più affine al dynamic.
    * La vera domanda è: serve / è utile / è necessario che anche quando un nodo non abbia l'espansione dinamica
         debba essere lanciato un evento quando il TreeNode viene espanso o chiuso?
+9. Ha senso oppure no uniformare il nome degli eventi lanciati quando si clicca sulle opzioni (esempio: in kup-table è kupOptionClicked, in  kup-tree è )?
 
 ## Possible future development
 
@@ -55,11 +56,11 @@ open or close the TreeNodes.
 
 ## Events
 
-| Event                      | Description                                       | Type                                                           |
-| -------------------------- | ------------------------------------------------- | -------------------------------------------------------------- |
-| `kupTreeNodeActionClicked` | When a cell option is clicked                     | `CustomEvent<{ column: string; }>`                             |
-| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered. | `CustomEvent<{ column: string; }>`                             |
-| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected   | `CustomEvent<{ treeNodePath: Number[]; treeNode: TreeNode; }>` |
+| Event                      | Description                                       | Type                                                               |
+| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
+| `kupTreeNodeExpand`        | Fired when a dynamicExpansion has been triggered. | `CustomEvent<{ column: string; }>`                                 |
+| `kupTreeNodeOptionClicked` | When a cell option is clicked                     | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>` |
+| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected   | `CustomEvent<{ treeNodePath: Number[]; treeNode: TreeNode; }>`     |
 
 
 ## CSS Custom Properties

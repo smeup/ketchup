@@ -21,6 +21,17 @@
             :data.prop="basicData.data"
             show-header/>
 
+        <h3>With show objectNavigation active</h3>
+        <kup-tree
+            :columns.prop="basicData.columns"
+            :data.prop="basicData.data"
+            show-columns
+            show-header
+            show-object-navigation
+            @kupTreeNodeOptionClicked="hdlOptionClicked"
+        />
+        <code>Cell: {{ optionObj.cell }}<br>Column: {{ optionObj.column }}<br>TreeNode: {{ optionObj.treeNode }}</code>
+
         <h3>When expand flag is set to true</h3>
         <kup-tree
             :columns.prop="expandedData.columns"
@@ -32,21 +43,30 @@
 </template>
 
 <script>
-    import {
-        TreeFactory,
-    } from '@/mock/TreeFaker';
+import {
+    TreeFactory,
+} from '@/mock/TreeFaker';
 
-    export default {
-        name: "TTable",
-        data() {
-            return {
-                basicData: TreeFactory(),
-                expandedData: TreeFactory(2,3),
-            };
+export default {
+    name: "TTable",
+    data() {
+        return {
+            basicData: TreeFactory(),
+            expandedData: TreeFactory(2,3),
+            optionObj: {
+                cell: "",
+                column: "",
+                treeNode: "",
+            }
+        };
+    },
+    methods: {
+        hdlOptionClicked({detail}) {
+            console.log("zio appp", detail);
+            this.optionObj.cell = JSON.stringify(detail.cell);
+            this.optionObj.column = JSON.stringify(detail.column);
+            this.optionObj.treeNode = JSON.stringify(detail.treeNode).substr(0,300) + ' ...';
         }
     }
+}
 </script>
-
-<style scoped>
-
-</style>

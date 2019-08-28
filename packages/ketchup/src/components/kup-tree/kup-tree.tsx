@@ -101,14 +101,15 @@ export class KupTree {
    * When a cell option is clicked
    */
   @Event({
-    eventName: 'kupTreeNodeActionClicked',
+    eventName: 'kupTreeNodeOptionClicked',
     composed: true,
     cancelable: false,
     bubbles: true,
   })
   kupTreeNodeOptionClicked: EventEmitter<{
-    column: string;
-    // row: Row;
+    cell: Cell;
+    column: Column;
+    treeNode: TreeNode;
   }>;
 
   /**
@@ -157,7 +158,7 @@ export class KupTree {
   }
 
   //-------- Methods --------
-  enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
+  private enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
     // The node is expandable, which means there are sub trees
     if (treeNode.expandable) {
       // If the node does not already have the property to toggle expansion we add it
@@ -181,15 +182,26 @@ export class KupTree {
    * Forces component update with a simple trick.
    * Should be avoided if possible.
    * Thinking about a more clean and functional solution.
+   *
+   * A possible idea on where to store the expanded flag could be the following:
+   * 1. generate an unique id for each tree instance and add a common prefix to it (something like 'kupTree${uniqueId}');
+   * 2. store that new string and use it as a key to access the flag for showing if that TreeNode is expanded or not.
+   * However there is a problem with this approach.
+   * When the necessity of recreating the state of the components after browsing another page away will arise,
+   * the fact that each time a new id is generated will make the previously used id invalid and the whole tree will be rendered with its initial state.
+   * The only solution to this is to add a prop which will allow the user of the component to pass an id to be used as
+   * index for storing and retrieving the expanded state of the current node.
+   * Also, when the component will be destroyed, it should emit an event containing the above discussed key to be stored.
+   *
    * @todo Find a better way to achieve this. And maybe also where to store the expanded flag.
    * @author Francesco Bonacini f.bonacini@dreamonkey.com
    */
-  forceUpdate() {
+  private forceUpdate() {
     this.stateSwitcher = !this.stateSwitcher;
   }
 
   // When a TreeNode must be expanded or closed
-  hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
+  private hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
 
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
@@ -208,6 +220,17 @@ export class KupTree {
     }
   }
 
+  // Handler for clicking onto the cells option object
+  private hdlOptionClicked(e: UIEvent, cell: Cell, column: Column, treeNode: TreeNode) {
+    // We block propagation of this event to prevent tree node from being expanded or close.
+    e.stopPropagation();
+    // Emits custom event
+    this.kupTreeNodeOptionClicked.emit({
+      cell,
+      column,
+      treeNode,
+    });
+  }
 
   //-------- Rendering --------
   /**
@@ -228,7 +251,7 @@ export class KupTree {
     },
     previousRowCellValue?: string
   ) {
-    // TODO missing a piece to create a complete rendering of a cell @see kup-data-table row 1145 (basically missing style={cellStyle} class={cellClass} and cellOptions)
+    // TODO missing a piece to create a complete rendering of a cell @see kup-data-table row 1145 (basically missing style={cellStyle} class={cellClass})
 
     // When the previous row value is different from the current value, we can show the current value.
     const valueToDisplay =
@@ -323,11 +346,39 @@ export class KupTree {
       style = cell.style;
     }
 
-    return (
+    // Return variable
+    let toRet = [];
+
+    toRet.push(
       <span class="cell-content" style={style}>
         {content}
       </span>
     );
+
+    /**
+     * Renders option object if necessary.
+     *
+     * Currenty to align it on the right side of the cell, it uses the CSS float property.
+     * This can lead to some rendering errors. Se link.
+     * If this case happens, then the solution is to wrap the content returned by this function into an element with
+     * display flex, to use its content property.
+     *
+     * @namespace KupTree.renderCellOption
+     * @see https://www.w3schools.com/cssref/pr_class_float.asp
+     */
+    if (cell.options && this.showObjectNavigation) {
+      toRet.push(
+        <span
+          aria-label="Opzioni oggetto"
+          class="options mdi mdi-settings"
+          role="button"
+          title="Opzioni oggetto"
+          onClick={(e: UIEvent) => this.hdlOptionClicked(e, cell, cellData.column, cellData.row)}
+        />
+      );
+    }
+
+    return toRet;
   }
 
   /**
@@ -478,15 +529,12 @@ export class KupTree {
     // TODO check if this method here is correct when there are columns but the header does not have all cells
     const visibleHeader = this.showHeader && this.showColumns;
 
-    // Table classes
-    const tableClasses = {
-      'kup-tree': true,
-      'kup-tree--show-columns': this.showColumns,
-    };
-
     return [
       <link href='https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
-      <table class={tableClasses} data-show-columns={this.showColumns}>
+      <table
+        class="kup-tree"
+        data-show-columns={this.showColumns}
+        data-show-object-navigation={this.showObjectNavigation}>
         <thead class={{'header--is-visible': visibleHeader}}>
           <tr>
             <th/>

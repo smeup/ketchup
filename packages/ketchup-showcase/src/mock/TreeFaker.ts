@@ -100,7 +100,7 @@ function TreeNodeFactory(
                 },
                 value: cellValue,
                 style: getBooleanOnProbability(.2) ? TreeDataPool.cellStyles[getRandomInteger(TreeDataPool.cellStyles.length - 1)] : null,
-                options: getBooleanOnProbability(.2),
+                options: getBooleanOnProbability(.5),
                 //config: any,
             };
         }

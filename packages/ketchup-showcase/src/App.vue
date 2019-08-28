@@ -420,7 +420,9 @@ export default {
 // For code sources
 code {
   box-sizing: border-box;
+  overflow: auto;
   padding: 8px;
+  width: 100%;
 
   // When there is code which needs to be displayed inline
   &.inline {

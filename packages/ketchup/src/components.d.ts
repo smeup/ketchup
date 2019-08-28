@@ -10,6 +10,7 @@ import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
+  Cell,
   Column,
   DataTable,
   GenericMap,
@@ -1378,18 +1379,19 @@ declare namespace LocalJSX {
     */
     'expanded'?: boolean;
     /**
-    * When a cell option is clicked
-    */
-    'onKupTreeNodeActionClicked'?: (event: CustomEvent<{
-      column: string;
-      // row: Row;
-    }>) => void;
-    /**
     * Fired when a dynamicExpansion has been triggered.
     */
     'onKupTreeNodeExpand'?: (event: CustomEvent<{
       column: string;
       // row: Row;
+    }>) => void;
+    /**
+    * When a cell option is clicked
+    */
+    'onKupTreeNodeOptionClicked'?: (event: CustomEvent<{
+      cell: Cell;
+      column: Column;
+      treeNode: TreeNode;
     }>) => void;
     /**
     * Fired when a node of the tree has been selected

@@ -24,10 +24,12 @@
 
         <h3>Automatically expanded tree</h3>
         <kup-tree
-                :columns.prop="expandedData.columns"
-                :data.prop="expandedData.data"
-                expanded
+            :columns.prop="expandedData.columns"
+            :data.prop="expandedData.data"
+            expanded
         />
+
+
     </div>
 </template>
 
@@ -41,7 +43,7 @@
         data() {
             return {
                 basicData: TreeFactory(),
-                expandedData: TreeFactory(),
+                expandedData: TreeFactory(3,3),
             }
         }
     }
