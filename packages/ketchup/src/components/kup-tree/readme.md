@@ -64,15 +64,17 @@ open or close the TreeNodes.
 
 ## CSS Custom Properties
 
-| Name                                                                           | Description                                                |
-| ------------------------------------------------------------------------------ | ---------------------------------------------------------- |
-| `--tre_node--disabled_opacity, --kup-tre_node--disabled_opacity`               | The opacity of a TreeNode when disabled.                   |
-| `--tre_node-expander_color, --kup-tre_node-expander_color`                     | The TreeNode expander icon color.                          |
-| `--tre_node-icon_color, --kup-tre_node-icon_color`                             | TreeNode icon color. Applied to all TreeNodes.             |
-| `--tre_node-icon_size, --kup-tre_node-icon_size`                               | The TreeNode icon size (includes expand icon).             |
-| `--tre_node-indent_width, --kup-tre_node-indent_width`                         | Width of each single indentation of the tree.              |
-| `--tre_node_background-color--hover, --kup-tre_node_background-color--hover`   | TreeNode background color when TreeNode is hovered.        |
-| `--tre_table-header_background-color, --kup-tre_table-header_background-color` | Allows customization of the table header background color. |
+| Name                                                                           | Description                                                               |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| `--tre_node--disabled_opacity, --kup-tre_node--disabled_opacity`               | The opacity of a TreeNode when disabled.                                  |
+| `--tre_node-expander_color, --kup-tre_node-expander_color`                     | The TreeNode expander icon color.                                         |
+| `--tre_node-icon_color, --kup-tre_node-icon_color`                             | TreeNode icon color. Applied to all TreeNodes.                            |
+| `--tre_node-icon_size, --kup-tre_node-icon_size`                               | The TreeNode icon size (includes expand icon).                            |
+| `--tre_node-indent_width, --kup-tre_node-indent_width`                         | Width of each single indentation of the tree.                             |
+| `--tre_node_background-color--hover, --kup-tre_node_background-color--hover`   | TreeNode background color when TreeNode is hovered.                       |
+| `--tre_table-header_background-color, --kup-tre_table-header_background-color` | Table header common background color.                                     |
+| `--tre_table-header_color, --kup-tre_table-header_color`                       | Table header common text color.                                           |
+| `--tre_table_border-bottom-color, --kup-tre_table_border-bottom-color`         | When showColumns is active, specify the border bottom color of the table. |
 
 
 ## Dependencies

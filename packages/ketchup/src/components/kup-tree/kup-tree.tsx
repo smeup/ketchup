@@ -39,12 +39,12 @@ export class KupTree {
   /**
    * Shows the tree data as a table.
    */
-  @Prop() showColumns: boolean = false;
+  @Prop({reflect: true}) showColumns: boolean = false;
   /**
    * Flag: shows the header of the tree when the tree is displayed as a table.
    * @see showColumns
    */
-  @Prop() showHeader: boolean = false;
+  @Prop({reflect: true}) showHeader: boolean = false;
   /**
    * Show the icons of the various nodes of the tree.
    */
@@ -478,9 +478,15 @@ export class KupTree {
     // TODO check if this method here is correct when there are columns but the header does not have all cells
     const visibleHeader = this.showHeader && this.showColumns;
 
+    // Table classes
+    const tableClasses = {
+      'kup-tree': true,
+      'kup-tree--show-columns': this.showColumns,
+    };
+
     return [
       <link href='https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
-      <table class="kup-tree">
+      <table class={tableClasses} data-show-columns={this.showColumns}>
         <thead class={{'header--is-visible': visibleHeader}}>
           <tr>
             <th/>

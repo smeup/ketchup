@@ -343,6 +343,12 @@ export default {
               name: 'treeBasic',
             },
           },
+          {
+            title: `Tree table`,
+            to: {
+              name: 'treeTable',
+            },
+          },
         ],
       },
     ],

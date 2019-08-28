@@ -124,6 +124,14 @@ function TreeNodeFactory(
     };
 }
 
+/**
+ * Function returning the columns and the data to create and initialize a kup-tree component.
+ * @param treeDepth - How many subtree a tree can have.
+ * @param columnCount - How many columns the columns field must generate.
+ * @param options - Generic options
+ * @param treeOptions - Options bag to pass to the treeNodeFactory
+ * @returns {{columns: array, data: object}}*
+ */
 export function TreeFactory(
     treeDepth: number = 5,
     columnCount: number = 4,
@@ -152,7 +160,7 @@ export function TreeFactory(
             columns,
             {
                 current: -1,
-                max: 5
+                max: treeDepth
             },
             -1,
             treeOptions,
