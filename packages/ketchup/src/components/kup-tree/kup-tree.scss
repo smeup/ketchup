@@ -106,7 +106,8 @@
       }
     }
 
-    // When an entire row is hovered
+    // When an entire row is hovered or is selected
+    &--selected,
     &:hover {
       // All cells have a common background
       > td {

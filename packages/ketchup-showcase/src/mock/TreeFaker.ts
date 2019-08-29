@@ -38,7 +38,7 @@ function getBooleanOnProbability(probability: number = .5): boolean {
     return Math.random() < probability;
 }
 
-function getRandomInteger(maximum: number = 10): number {
+export default function getRandomInteger(maximum: number = 10): number {
     return Math.round(Math.random() * maximum);
 }
 

@@ -25,7 +25,13 @@ Work in progress
     Per il momento questo evento è il kupTreeNodeExpand, che può essere rinominato per avere un nome più affine al dynamic.
    * La vera domanda è: serve / è utile / è necessario che anche quando un nodo non abbia l'espansione dinamica
         debba essere lanciato un evento quando il TreeNode viene espanso o chiuso?
-9. Ha senso oppure no uniformare il nome degli eventi lanciati quando si clicca sulle opzioni (esempio: in kup-table è kupOptionClicked, in  kup-tree è )?
+9. Ha senso oppure no uniformare il nome degli eventi lanciati quando si clicca sulle opzioni (esempio: in kup-table è kupOptionClicked, in  kup-tree è kupTreeNodeOptionClicked)?
+10. Può avere senso prevedere una prop che permetta al componente di sovrascrivere le prop?\
+    (La risposta a questa domanda deve essere documentata sopra al readme del componente.)\
+    Questo serve per permettere il funzionamento in due modalità:
+    1. Modalità compatibile con la maggior parte dei framework js attuali dove un componente non ha potere di editing su di una prop a lui passata.
+    2. Modalità 'ricca', dove non è necessario aggiungere (ad esempio):
+       * un proprio handler all'evento che avverte del cambio di elemento selezionato: l'elemento viene selezionato dal webcomponent e l'evento è una mera notifica.  
 
 ## Possible future development
 

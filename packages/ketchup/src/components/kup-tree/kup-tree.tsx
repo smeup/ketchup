@@ -92,7 +92,8 @@ export class KupTree {
   // @Prop() draggableNodes: boolean = false;
 
   //-------- State --------
-  private visibleColumns: Column[] = [];
+  visibleColumns: Column[] = [];
+  selectedNodeString: string = '';
 
   @State() stateSwitcher: boolean = false;
 
@@ -147,6 +148,11 @@ export class KupTree {
       // the default value of the treeExpandedPropName is set to true
       this.data.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion)})
     }
+
+    // Initializes the selectedNodeString
+    if (Array.isArray(this.selectedNode)) {
+      this.selectedNodeString = this.selectedNode.toString();
+    }
   }
 
   //-------- Watchers --------
@@ -157,8 +163,15 @@ export class KupTree {
     }
   }
 
+  @Watch('selectedNode')
+  selectedNodeToStr(newData) {
+    if (Array.isArray(newData)) {
+      this.selectedNodeString = newData.toString();
+    }
+  }
+
   //-------- Methods --------
-  private enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
+  enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
     // The node is expandable, which means there are sub trees
     if (treeNode.expandable) {
       // If the node does not already have the property to toggle expansion we add it
@@ -196,12 +209,12 @@ export class KupTree {
    * @todo Find a better way to achieve this. And maybe also where to store the expanded flag.
    * @author Francesco Bonacini f.bonacini@dreamonkey.com
    */
-  private forceUpdate() {
+  forceUpdate() {
     this.stateSwitcher = !this.stateSwitcher;
   }
 
   // When a TreeNode must be expanded or closed
-  private hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
+  hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
 
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
@@ -221,7 +234,7 @@ export class KupTree {
   }
 
   // Handler for clicking onto the cells option object
-  private hdlOptionClicked(e: UIEvent, cell: Cell, column: Column, treeNode: TreeNode) {
+  hdlOptionClicked(e: UIEvent, cell: Cell, column: Column, treeNode: TreeNode) {
     // We block propagation of this event to prevent tree node from being expanded or close.
     e.stopPropagation();
     // Emits custom event
@@ -230,6 +243,21 @@ export class KupTree {
       column,
       treeNode,
     });
+  }
+
+  /**
+   * Given a nodePath, transform that array into
+   * @param nodePath
+   */
+  selectedNodeToString(nodePath: TreeNodePath) {
+    let strToRet = "";
+    if (nodePath && nodePath.length) {
+      strToRet = nodePath[0].toString();
+      for (let i = 1; i < nodePath.length; i++) {
+        strToRet += `,${nodePath[0]}`;
+      }
+    }
+    return strToRet;
   }
 
   //-------- Rendering --------
@@ -242,7 +270,7 @@ export class KupTree {
    * @param cellData.column - The column object to which the cell belongs.
    * @param cellData.row - The row object to which the cell belongs.
    */
-  private renderCell(
+  renderCell(
     cell: Cell,
     column: string,
     cellData: {
@@ -383,7 +411,7 @@ export class KupTree {
    * Renders the header of the tree when it must be displayed as a table.
    * @returns An array of table header cells.
    */
-  private renderHeader(): JSX.Element[] {
+  renderHeader(): JSX.Element[] {
     return this.visibleColumns.map(column => <th>
         <span class="column-title">{column.title}</span>
       </th>
@@ -398,7 +426,7 @@ export class KupTree {
    * @param treeNodeDepth - An integer to keep track of the depth level of the current TreeNode. Used for indentation.
    * @returns The the JSX created from the current tree node.
    */
-  private renderTreeNode(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element {
+  renderTreeNode(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element {
     // Creates the indentation of the current element. Use a css variable to specify padding.
     let indent = treeNodeDepth
       ? <span
@@ -455,6 +483,7 @@ export class KupTree {
         class={{
           "kup-tree__node": true,
           "kup-tree__node--disabled": treeNodeData.disabled,
+          "kup-tree__node--selected": !treeNodeData.disabled && treeNodePath === this.selectedNodeString,
         }}
         data-tree-path={treeNodePath}
         {...treeNodeOptions}>
@@ -478,7 +507,7 @@ export class KupTree {
    * @param treeNodeDepth - An integer to keep track of the depth level of the current TreeNode. Used for indentation.
    * @returns An array of JSX TreeNodes created from the given treeNodeData.
    */
-  private renderTree(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element[] {
+  renderTree(treeNodeData: TreeNode, treeNodePath: string, treeNodeDepth: number = 0): JSX.Element[] {
     let treeNodes = [];
 
     if (treeNodeData) {
