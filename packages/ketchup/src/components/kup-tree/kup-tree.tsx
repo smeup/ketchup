@@ -340,17 +340,13 @@ export class KupTree {
     //     content = <kup-progress-bar />;
     // }
 
-    // if cell.style has border, apply style to cellcontent
-    let style = null;
-    if (styleHasBorderRadius(cell)) {
-      style = cell.style;
-    }
+    // Elements of the cell
+    let cellElements = [];
 
-    // Return variable
-    let toRet = [];
-
-    toRet.push(
-      <span class="cell-content" style={style}>
+    cellElements.push(
+      <span
+        class="cell-content"
+        style={styleHasBorderRadius(cell) ? cell.style : null}>
         {content}
       </span>
     );
@@ -367,7 +363,7 @@ export class KupTree {
      * @see https://www.w3schools.com/cssref/pr_class_float.asp
      */
     if (cell.options && this.showObjectNavigation) {
-      toRet.push(
+      cellElements.push(
         <span
           aria-label="Opzioni oggetto"
           class="options mdi mdi-settings"
@@ -378,7 +374,9 @@ export class KupTree {
       );
     }
 
-    return toRet;
+    return <td style={!styleHasBorderRadius(cell) ? cell.style : null}>{
+      cellElements
+    }</td>;
   }
 
   /**
@@ -440,16 +438,14 @@ export class KupTree {
       for (let j = 0; j < this.visibleColumns.length; j++) {
         const column = this.visibleColumns[j];
         treeNodeCells.push(
-          <td>{
-            this.renderCell(
-              treeNodeData.cells[column.name],
-              column.name,
-              {
-                column,
-                row: treeNodeData
-              }
-            )
-          }</td>
+          this.renderCell(
+            treeNodeData.cells[column.name],
+            column.name,
+            {
+              column,
+              row: treeNodeData
+            }
+          )
         );
       }
     }

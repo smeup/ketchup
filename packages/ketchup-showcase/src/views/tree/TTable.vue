@@ -25,6 +25,7 @@
         <kup-tree
             :columns.prop="basicData.columns"
             :data.prop="basicData.data"
+            class="orange-icons"
             show-columns
             show-header
             show-object-navigation
@@ -70,3 +71,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .orange-icons {
+        --kup-tre_node-icon_color: #e65100;
+    }
+</style>

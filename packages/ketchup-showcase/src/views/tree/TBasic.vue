@@ -28,8 +28,6 @@
             :data.prop="expandedData.data"
             expanded
         />
-
-
     </div>
 </template>
 

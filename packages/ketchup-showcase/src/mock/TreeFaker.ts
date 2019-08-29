@@ -6,17 +6,23 @@ const TreeDataPool = {
     cellStyles: [
         {
             'background-color': '#545454',
-            color: 'rgba(0,50,80,.87)'
+            color: 'rgba(255,0,255,.87)'
         },
         {
             'background-color': 'rgba(0,255,0,.54)',
-            color: 'white',
+            color: '#ffffff',
             'font-size': '20px'
         },
         {
-            'background-color': 'brick',
+            'background-color': '#2e7d32',
             color: 'rgba(130,20,200,.54)',
             'text-decoration': 'underline',
+        },
+        {
+            backgroundColor: '#001064',
+            borderRadius: '4px',
+            color: 'rgba(30,130,225,.54)',
+            textDecoration: 'line-trough',
         },
     ],
     columnsName: ['Mat', 'Program', 'Attack', 'Defense'],
