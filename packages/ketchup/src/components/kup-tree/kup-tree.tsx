@@ -84,7 +84,7 @@ export class KupTree {
    *
    * @see useDynamicExpansion
    */
-  @Prop() dynamicExpansionCallback: Function | null = null;
+  @Prop() dynamicExpansionCallback: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined = undefined;
   /**
    * Nodes of the tree are draggable and can be sorted.
    * Currently this feature is not available.
@@ -137,8 +137,8 @@ export class KupTree {
     bubbles: true,
   })
   kupTreeNodeExpand: EventEmitter<{
-    column: string;
-    // row: Row;
+    treeNodePath: TreeNodePath,
+    treeNode: TreeNode,
   }>;
 
   //-------- Lifecycle hooks --------
@@ -215,7 +215,47 @@ export class KupTree {
 
   // When a TreeNode must be expanded or closed
   hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
-    const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
+    // If the node is expandable
+    if (treeNodeData.expandable) {
+      // There are already children set in this nodeTree -> expand and emit selected event
+      if (treeNodeData.children && treeNodeData.children.length) {
+        // TODO check the 8th todo in the readme
+        treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+        this.forceUpdate();
+      } else if (this.useDynamicExpansion && !this.expanded) {
+        // When the component must use the dynamic expansion feature
+        // Currently it does not support the expanded prop
+
+        // Composes the tree node path as an array
+        const arrayTreeNodePath: TreeNodePath = treeNodePath.split(',').map(index => parseInt(index));
+
+       // Checks if we have a dynamicExpansionCallback or not
+        if (this.dynamicExpansionCallback) {
+          // We have a callback: invokes it and after the result is returned updates the tree
+          this.dynamicExpansionCallback(
+            treeNodeData,
+            arrayTreeNodePath
+          )
+            .then(childrenTreeNodes => {
+              // Children returned successfully
+              treeNodeData.children = childrenTreeNodes;
+              // TODO check the 8th todo in the readme
+              treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+              this.forceUpdate();
+            })
+            .catch(err => {
+              console.error("An error occurred when trying to fetch dynamicExpansion nodes data", err);
+            });
+        } else {
+          // we do NOT have a callback set.
+          // Fires the expand request for the node
+          this.kupTreeNodeExpand.emit({
+            treeNode: treeNodeData,
+            treeNodePath: arrayTreeNodePath,
+          });
+        }
+      }
+    }
 
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
     if (!treeNodeData.disabled) {
@@ -225,12 +265,6 @@ export class KupTree {
       });
     }
 
-    // if this element can be expanded or closed, it does so.
-    // TODO check the 8th todo in the readme
-    if (hasExpandIcon) {
-      treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
-      this.forceUpdate();
-    }
   }
 
   // Handler for clicking onto the cells option object
@@ -435,7 +469,7 @@ export class KupTree {
       : null;
 
     // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
-    const hasExpandIcon: boolean = !!(treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length);
+    const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
     let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : null)}/>;
 
     // When TreeNode icons are visible, creates the icon if one is specified
@@ -450,10 +484,9 @@ export class KupTree {
       treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
     }
 
-    // When can be expanded
-    if (hasExpandIcon) {
+    // When can be expanded OR selected
+    if (!treeNodeData.disabled) {
       treeNodeOptions['onClick'] = () => {
-        console.log('Cliccato elemento', treeNodePath);
         this.hdlTreeNodeClicked(treeNodeData, treeNodePath);
       };
     }
@@ -516,8 +549,8 @@ export class KupTree {
         this.renderTreeNode(treeNodeData, treeNodePath, treeNodeDepth)
       );
 
-      // Checks if the current node can be expanded, has children and is expanded
-      if (treeNodeData.expandable && treeNodeData.children.length && treeNodeData[treeExpandedPropName]) {
+      // Checks if the current node can be expanded, has children object, has children and is expanded
+      if (treeNodeData.expandable && treeNodeData.children && treeNodeData.children.length && treeNodeData[treeExpandedPropName]) {
         for (let i = 0; i < treeNodeData.children.length; i++) {
           treeNodes = treeNodes.concat(this.renderTree(
             treeNodeData.children[i],

@@ -559,7 +559,7 @@ export namespace Components {
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */
-    'dynamicExpansionCallback': Function | null;
+    'dynamicExpansionCallback': (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
     /**
     * Flag: the nodes of the whole tree must be already expanded upon loading.
     */
@@ -1373,7 +1373,7 @@ declare namespace LocalJSX {
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */
-    'dynamicExpansionCallback'?: Function | null;
+    'dynamicExpansionCallback'?: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
     /**
     * Flag: the nodes of the whole tree must be already expanded upon loading.
     */
@@ -1382,8 +1382,8 @@ declare namespace LocalJSX {
     * Fired when a dynamicExpansion has been triggered.
     */
     'onKupTreeNodeExpand'?: (event: CustomEvent<{
-      column: string;
-      // row: Row;
+      treeNodePath: TreeNodePath,
+      treeNode: TreeNode,
     }>) => void;
     /**
     * When a cell option is clicked
