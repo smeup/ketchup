@@ -71,7 +71,7 @@ export class KupTree {
    * For more information:
    * @see dynamicExpansionCallback
    */
-  @Prop() useDynamicExpansion: boolean = false;
+  @Prop({reflect: true}) useDynamicExpansion: boolean = false;
   /**
    * Function that gets invoked when a new set of nodes must be loaded as children of a node.
    * Used in combination with showObjectNavigation.
@@ -253,6 +253,10 @@ export class KupTree {
             treeNode: treeNodeData,
             treeNodePath: arrayTreeNodePath,
           });
+
+          // Sets the flag for setting the TreeNode as opened, but does not force rerender,
+          // to allow application to execute the update of the tree
+          treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
         }
       }
     }

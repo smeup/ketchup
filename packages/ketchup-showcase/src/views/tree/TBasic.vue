@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="max-width-container">
         <h1>Basic Tree Features</h1>
 
         <h3>Without configuration</h3>

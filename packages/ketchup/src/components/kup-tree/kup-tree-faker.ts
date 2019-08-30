@@ -91,10 +91,10 @@ function TreeNodeFactory(
   } = {
     minimumChildCount: 0,
   }): TreeNode {
-  const childrenCount = Math.max(getRandomInteger(options.maximumChildCount || 5), options.minimumChildCount);
+  let childrenCount = Math.max(getRandomInteger(options.maximumChildCount || 5), options.minimumChildCount);
   const children: any[] = [];
 
-  // If it can have children, adds children to this node
+  // If it can have children, and the randomly extracted children are more than 1, adds children to this node
   if (depth.current < depth.max && childrenCount) {
     for (let i = 0; i < childrenCount; i++) children.push(
       TreeNodeFactory(
@@ -107,6 +107,10 @@ function TreeNodeFactory(
         options.propagate ? options : undefined
       )
     );
+  } else {
+    // IT can have no children, so we set them to 0
+    // Fixes an error of expand icon rendering even if the node is not expandable
+    childrenCount = 0;
   }
 
   // Defines a generated value to be used
@@ -254,10 +258,11 @@ export function DynamicExpansionFaker(
       const waitTime = options.dynamicExpansion && options.dynamicExpansion.useDelay? options.dynamicExpansion.useDelay : 0;
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          if (children) resolve();
-          else reject();
+          if (children) resolve(children);
+          else reject("404: The required children of the given treeNodePath could not be found.");
         }, waitTime);
       });
-    }
+    },
+    treeDataSource,
   };
 }
