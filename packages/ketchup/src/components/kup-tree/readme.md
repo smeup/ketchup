@@ -1,37 +1,8 @@
 # kup-tree
 
-
 ## Status
 
 Work in progress
-
-#### TODO / Clarify
-
-1. Aggiornare il JSON del componente albero nella wiki di progettazione.
-2. Controllare che i dati ed ogetti visibili nelle celle di un albero siano gli stessi che possono essere presenti all'interno di una matrice. In caso affermativo: 
-   1. estrarre funzione renderCell da kup-data-table e da kup-tree;
-   2. mettere quella funzione in un file esterno per il parsing delle celle;
-   3. richiamare la funzione e bindarla con il this nel caso serva utilizzare il this all'interno. (eviterei il binding, può generare incomprensione)
-3. La dimensione delle colonne quando il formato tabella è attivo può essere customizzata come per la matrice?  
-4. Cosa succede quando la configurazione di un albero rimane la stessa ma vengono completamente cambiati i dati che ci stanno sotto (data).?
-   * Mi viene da dire che se presente il flag `expanded` allora al cambiamento deve essere rianalizzato l'albero e i nodi devono essere aperti nuovamente.
-5. Decidere assieme se il parametro `data` deve essere una specie di root dell'albero con alcune informazioni aggiuntive o se è sufficiente mettere i primi figli dell'albero.
-   * A seconda di come viene impostato cambia come le funzioni di rendering devono essere eseguite.
-6. Siccome script di mocking dei dati per i componenti sono usati sia all'interno del progetto Stencil sia all'interno dello showcase,
-    può avere senso migrare questi script in un package a se stante all'interno del monorepo? Qualcosa tipo `ketchup-data-factory` che poi può essere importato da ambo i package.
-7. Quando un TreeNode è disabilitato può essere aperto o chiuso dall'utente?
-   * Se un nodo è disabilitato e NON può essere aperto dall'utente, può essere aperto programmaticamente dall'albero invece.
-8. Nel caso in cui un nodo sia espandibile dinamicamente e debba essere espanso, sicuramente avviene lanciato un evento.
-    Per il momento questo evento è il kupTreeNodeExpand, che può essere rinominato per avere un nome più affine al dynamic.
-   * La vera domanda è: serve / è utile / è necessario che anche quando un nodo non abbia l'espansione dinamica
-        debba essere lanciato un evento quando il TreeNode viene espanso o chiuso?
-9. Ha senso oppure no uniformare il nome degli eventi lanciati quando si clicca sulle opzioni (esempio: in kup-table è kupOptionClicked, in  kup-tree è kupTreeNodeOptionClicked)?
-10. Può avere senso prevedere una prop che permetta al componente di sovrascrivere le prop?\
-    (La risposta a questa domanda deve essere documentata sopra al readme del componente.)\
-    Questo serve per permettere il funzionamento in due modalità:
-    1. Modalità compatibile con la maggior parte dei framework js attuali dove un componente non ha potere di editing su di una prop a lui passata.
-    2. Modalità 'ricca', dove non è necessario aggiungere (ad esempio):
-       * un proprio handler all'evento che avverte del cambio di elemento selezionato: l'elemento viene selezionato dal webcomponent e l'evento è una mera notifica.  
 
 ## Possible future development
 
