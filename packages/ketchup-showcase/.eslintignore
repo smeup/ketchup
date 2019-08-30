@@ -2,4 +2,6 @@
 # @see https://github.com/webpack-contrib/eslint-loader/issues/202
 # By adding this line of ignore, ESLint will ignore all folders named dist.
 # Personallly I think this is not a great solution, but it seems to be better then the other one.
-**/dist/*
+# Before it was set to **/dist/*, bust since some parts of the code need to make requests also to other
+# folders of the ketchup package, the whole ketchup folder is ignored.
+**/ketchup/*

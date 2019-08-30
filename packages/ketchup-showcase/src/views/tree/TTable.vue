@@ -46,7 +46,7 @@
 <script>
 import {
     TreeFactory,
-} from '@/mock/TreeFaker';
+} from 'ketchup/src/components/kup-tree/kup-tree-faker';
 
 export default {
     name: "TTable",

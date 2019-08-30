@@ -3,6 +3,22 @@ export interface DataTable {
     rows?: Array<Row>;
 }
 
+export interface Cell {
+  obj: {
+    t: string;
+    p: string;
+    k: string;
+  };
+  value: string;
+  style?: GenericMap;
+  options?: boolean;
+  config?: any;
+}
+
+export interface CellsHolder {
+  [index: string]: Cell;
+}
+
 export interface Column {
     name: string;
     title: string;
@@ -12,9 +28,7 @@ export interface Column {
 }
 
 export interface Row {
-    cells: {
-        [index: string]: Cell;
-    };
+    cells: CellsHolder;
 
     actions?: Array<RowAction>;
 
@@ -36,18 +50,6 @@ export interface Row {
     };
 
     readOnly?: boolean;
-}
-
-export interface Cell {
-    obj: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    value: string;
-    style?: GenericMap;
-    options?: boolean;
-    config?: any;
 }
 
 export interface TableData {

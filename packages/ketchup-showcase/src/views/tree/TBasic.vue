@@ -23,7 +23,7 @@
         />
 
         <h3>With selection on first item</h3>
-        <h5>{{ labels.noSelectionOnDisabled }}</h5>
+        <h4>{{ labels.noSelectionOnDisabled }}</h4>
         <kup-tree
             :columns.prop="firstSelection.columns"
             :data.prop="firstSelection.data"
@@ -58,7 +58,7 @@
 <script>
     import {
         TreeFactory,
-    } from '@/mock/TreeFaker';
+    } from 'ketchup/src/components/kup-tree/kup-tree-faker';
 
     export default {
         name: "TBasic",

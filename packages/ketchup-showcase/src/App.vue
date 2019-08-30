@@ -349,6 +349,12 @@ export default {
               name: 'treeTable',
             },
           },
+          {
+            title: `Tree dynamic expansion`,
+            to: {
+              name: 'treeDynamic',
+            },
+          },
         ],
       },
     ],
@@ -429,6 +435,11 @@ code {
     padding: 2px;
     margin: 1px 2px;
   }
+}
+
+// For big titles
+h2 {
+  font-size: 1.75rem;
 }
 
 // For small titles

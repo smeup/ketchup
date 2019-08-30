@@ -1,5 +1,5 @@
 import {
-  Cell,
+  CellsHolder,
   RowAction,
 } from "./../kup-data-table/kup-data-table-declarations";
 
@@ -12,9 +12,7 @@ export const treeExpandedPropName = '_kupTreeIsExpanded';
 export interface TreeNode {
   actions?: Array<RowAction>;
 
-  cells: {
-    [index: string]: Cell;
-  };
+  cells: CellsHolder;
 
   children: Array<TreeNode>;
 
@@ -31,7 +29,7 @@ export interface TreeNode {
 
   value: string; // TODO check if this is here
 
-  [treeExpandedPropName]: boolean;
+  [treeExpandedPropName]?: boolean;
 }
 
-export type TreeNodePath = Number[];
+export type TreeNodePath = number[];
