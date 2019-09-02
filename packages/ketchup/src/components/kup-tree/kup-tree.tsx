@@ -474,7 +474,7 @@ export class KupTree {
 
     // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
-    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : null)}/>;
+    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : "")}/>;
 
     // When TreeNode icons are visible, creates the icon if one is specified
     let treeNodeIcon = this.showIcons

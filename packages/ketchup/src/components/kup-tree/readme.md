@@ -4,6 +4,15 @@
 
 Work in progress
 
+## Glossary
+
+A collection of terms used for this component.
+
+**TreeNode**: Any node of the tree data. When rendered, it corresponds to a table row.
+
+**TreeNodeCell**: The cell containing the indentation, open/close icon, TreeNode icon and TreeNode information
+(rendered both when the tree is hiding or showing the columns).
+
 ## Possible future development
 
 ### Keyboard support

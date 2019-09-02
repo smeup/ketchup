@@ -1,5 +1,5 @@
 //---- Types ----
-import {CellsHolder} from "./../kup-data-table/kup-data-table-declarations"
+import {CellsHolder, Column} from "./../kup-data-table/kup-data-table-declarations"
 import {TreeNode, TreeNodePath} from "./kup-tree-declarations"
 
 export interface FactoryTreeNodeOptions {
@@ -13,6 +13,11 @@ export interface FactoryTreeOptions {
 
 export interface DynamicExpansionFakerOptions {
   useDelay?: number;
+}
+
+export interface TreeConfigData {
+  columns: Column[],
+  data: TreeNode,
 }
 
 //---- Constants ----
@@ -171,7 +176,7 @@ export function TreeFactory(
   treeOptions: FactoryTreeNodeOptions = {
     minimumChildCount: 5,
   }
-) {
+): TreeConfigData {
   let columns = [];
 
   for (let i = 0; i < columnCount; i++) {
