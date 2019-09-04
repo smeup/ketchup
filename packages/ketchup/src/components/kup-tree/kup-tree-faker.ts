@@ -22,32 +22,48 @@ export interface TreeConfigData {
 
 //---- Constants ----
 
+/**
+ * The data pool usable to populate a fake TreeNode
+ * See {@link TreeDataPool.cellStyles}
+ * @namespace
+ */
 const TreeDataPool: {
     cellStyles: Array<{[index: string]: string}>,
     columnsName: string[],
     nameValues: string[],
     programValues: string[],
   } = {
+  /**
+   * IMPORTANT: colors here must always be specified as rgb or rgba()
+   * This is due to a browser method getComputedStyle which always computes the colors as rgb/rgba values
+   * So when using a HEX color (for example) to test these objects, the test will fail due to a different color format received.
+   *
+   * See [this issue]{@link https://www.npmjs.com/package/color} event if it's related to Cypress and not Jest.
+   * The concepts are identical.
+   *
+   * @memberOf! TreeDataPool
+   * @see https://www.npmjs.com/package/color
+   */
   cellStyles: [
     {
-      'background-color': '#545454',
-      color: 'rgba(255,0,255,.87)'
+      'background-color': 'rgb(84, 84, 84)',
+      color: 'rgba(255, 0, 255, 0.87)'
     },
     {
-      'background-color': 'rgba(0,255,0,.54)',
-      color: '#ffffff',
+      'background-color': 'rgba(0, 255, 0, 0.54)',
+      color: 'rgb(255, 255, 255)',
       'font-size': '20px'
     },
     {
-      'background-color': '#2e7d32',
-      color: 'rgba(130,20,200,.54)',
+      'background-color': 'rgb(46, 125, 50)',
+      color: 'rgba(130, 20, 200, 0.54)',
       'text-decoration': 'underline',
     },
     {
-      backgroundColor: '#001064',
+      backgroundColor: 'rgb(0, 16, 100)',
       borderRadius: '4px',
-      color: 'rgba(30,130,225,.54)',
-      textDecoration: 'line-trough',
+      color: 'rgba(0, 200, 225, 0.54)',
+      textDecoration: 'line-through',
     },
   ],
   columnsName: ['Mat', 'Program', 'Attack', 'Defense'],

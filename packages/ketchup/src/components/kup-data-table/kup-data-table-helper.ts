@@ -637,5 +637,5 @@ export function paginateRows(
  * @returns {boolean} - true if borderRadius is present, false otherwise.
  */
 export function styleHasBorderRadius(cell: Cell): boolean {
-  return !!(cell && cell.style && cell.style.borderRadius);
+  return !!(cell && cell.style && (cell.style.borderRadius || cell.style['border-radius']));
 }
