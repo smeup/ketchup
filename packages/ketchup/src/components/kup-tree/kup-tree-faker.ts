@@ -1,6 +1,6 @@
 //---- Types ----
 import {CellsHolder, Column} from "./../kup-data-table/kup-data-table-declarations"
-import {TreeNode, TreeNodePath} from "./kup-tree-declarations"
+import {TreeNode, TreeNodePath, treeExpandedPropName} from "./kup-tree-declarations"
 
 export interface FactoryTreeNodeOptions {
   minimumChildCount: number;
@@ -106,6 +106,7 @@ function TreeNodeFactory(
   },
   index: number,
   options: {
+    isExpandedProbability?: number,
     minimumChildCount: number,
     maximumChildCount?: number,
     propagate?: boolean,
@@ -157,6 +158,9 @@ function TreeNodeFactory(
     }
   }
 
+  // TreeNode value
+  const treeNodeValue = TreeDataPool.nameValues[getRandomInteger(TreeDataPool.nameValues.length - 1)] + depthAndIndex;
+
   return {
     // actions?: Array<RowAction>;
     cells,
@@ -171,7 +175,17 @@ function TreeNodeFactory(
 
     id: depthAndIndex + childrenCount.toString(),
 
-    value: TreeDataPool.nameValues[getRandomInteger(TreeDataPool.nameValues.length - 1)] + depthAndIndex, // TODO check if this is here
+    [treeExpandedPropName]: getBooleanOnProbability(options.isExpandedProbability || 0),
+
+    obj: {
+      t: 'TN', // TODO Stands for TreeNode -> Update with effective value
+      p: '',
+      k: treeNodeValue,
+    },
+
+    options: getBooleanOnProbability(.5),
+
+    value: treeNodeValue,
   };
 }
 

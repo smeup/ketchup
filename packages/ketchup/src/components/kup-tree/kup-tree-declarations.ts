@@ -24,10 +24,18 @@ export interface TreeNode {
 
   id?: string;
 
+  obj: {
+    t: string;
+    p: string;
+    k: string;
+  };
+
+  options?: boolean;
+
   // TODO what is this?
   readOnly?: boolean;
 
-  value: string; // TODO check if this is here
+  value: string;
 
   [treeExpandedPropName]?: boolean;
 }

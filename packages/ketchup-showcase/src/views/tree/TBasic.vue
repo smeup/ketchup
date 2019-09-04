@@ -20,7 +20,9 @@
             :columns.prop="basicData.columns"
             :data.prop="basicData.data"
             show-object-navigation
+            @kupOptionClicked="hdlOptionClicked"
         />
+        <code>Cell: {{ optionObj.cell }}<br>Column: {{ optionObj.column }}<br>TreeNode: {{ optionObj.treeNode }}</code>
 
         <h3>With selection on first item</h3>
         <h4>{{ labels.noSelectionOnDisabled }}</h4>
@@ -68,6 +70,11 @@
                 expandedData: TreeFactory(3,3),
                 firstSelection: TreeFactory(3,3),
                 complexSelection: TreeFactory(3,3),
+                optionObj: {
+                    cell: "",
+                    column: "",
+                    treeNode: "",
+                },
                 selectedNodes: {
                     first: [0],
                     complex: [3],
@@ -82,6 +89,11 @@
                 if (this.selectedNodes[selection]) {
                     this.selectedNodes[selection] = detail.treeNodePath;
                 }
+            },
+            hdlOptionClicked({detail}) {
+                this.optionObj.cell = JSON.stringify(detail.cell);
+                this.optionObj.column = JSON.stringify(detail.column);
+                this.optionObj.treeNode = JSON.stringify(detail.treeNode).substr(0,300) + ' ...';
             }
         }
     }

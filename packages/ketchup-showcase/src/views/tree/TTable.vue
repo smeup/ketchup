@@ -29,7 +29,7 @@
             show-columns
             show-header
             show-object-navigation
-            @kupTreeNodeOptionClicked="hdlOptionClicked"
+            @kupOptionClicked="hdlOptionClicked"
         />
         <code>Cell: {{ optionObj.cell }}<br>Column: {{ optionObj.column }}<br>TreeNode: {{ optionObj.treeNode }}</code>
 
@@ -63,7 +63,6 @@ export default {
     },
     methods: {
         hdlOptionClicked({detail}) {
-            console.log("zio appp", detail);
             this.optionObj.cell = JSON.stringify(detail.cell);
             this.optionObj.column = JSON.stringify(detail.column);
             this.optionObj.treeNode = JSON.stringify(detail.treeNode).substr(0,300) + ' ...';

@@ -561,7 +561,7 @@ export namespace Components {
     */
     'dynamicExpansionCallback': (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
     /**
-    * Flag: the nodes of the whole tree must be already expanded upon loading.
+    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
     */
     'expanded': boolean;
     /**
@@ -1375,23 +1375,23 @@ declare namespace LocalJSX {
     */
     'dynamicExpansionCallback'?: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
     /**
-    * Flag: the nodes of the whole tree must be already expanded upon loading.
+    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
     */
     'expanded'?: boolean;
+    /**
+    * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
+    */
+    'onKupOptionClicked'?: (event: CustomEvent<{
+      cell: Cell;
+      column: Column;
+      treeNode: TreeNode;
+    }>) => void;
     /**
     * Fired when a dynamicExpansion has been triggered.
     */
     'onKupTreeNodeExpand'?: (event: CustomEvent<{
       treeNodePath: TreeNodePath,
       treeNode: TreeNode,
-    }>) => void;
-    /**
-    * When a cell option is clicked
-    */
-    'onKupTreeNodeOptionClicked'?: (event: CustomEvent<{
-      cell: Cell;
-      column: Column;
-      treeNode: TreeNode;
     }>) => void;
     /**
     * Fired when a node of the tree has been selected

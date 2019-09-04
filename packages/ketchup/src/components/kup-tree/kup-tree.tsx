@@ -33,7 +33,7 @@ export class KupTree {
    */
   @Prop() data: TreeNode;
   /**
-   * Flag: the nodes of the whole tree must be already expanded upon loading.
+   * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
    */
   @Prop() expanded: boolean = false;
   /**
@@ -99,15 +99,17 @@ export class KupTree {
 
   //-------- Events --------
   /**
-   * When a cell option is clicked
+   * When a cell option is clicked.
+   * If the cell option is the one of the TreeNodeCell,
+   * then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
    */
   @Event({
-    eventName: 'kupTreeNodeOptionClicked',
+    eventName: 'kupOptionClicked',
     composed: true,
     cancelable: false,
     bubbles: true,
   })
-  kupTreeNodeOptionClicked: EventEmitter<{
+  kupOptionClicked: EventEmitter<{
     cell: Cell;
     column: Column;
     treeNode: TreeNode;
@@ -144,9 +146,9 @@ export class KupTree {
   //-------- Lifecycle hooks --------
   componentWillLoad() {
     if (this.data) {
-      // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion
+      // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
       // the default value of the treeExpandedPropName is set to true
-      this.data.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion)})
+      this.data.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion && !rootNode.disabled)})
     }
 
     // Initializes the selectedNodeString
@@ -175,16 +177,17 @@ export class KupTree {
     // The node is expandable, which means there are sub trees
     if (treeNode.expandable) {
       // If the node does not already have the property to toggle expansion we add it
-      if (!treeNode.hasOwnProperty(treeExpandedPropName)) {
-        treeNode[treeExpandedPropName] = expandNode;
-      }
+      // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
+      // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
+      // This is done to allow a TreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
+      treeNode[treeExpandedPropName] = treeNode.hasOwnProperty(treeExpandedPropName) ? (treeNode[treeExpandedPropName] || expandNode) : expandNode;
 
       // Enriches also direct subtrees recursively (if it has children)
       if (treeNode.children && treeNode.children.length) {
         // To save some function calls, only child elements which are expandable will be enriched
         for (let i = 0; i < treeNode.children.length; i ++) {
           if (treeNode.children[i].expandable) {
-            this.enrichWithIsExpanded(treeNode.children[i], expandNode);
+            this.enrichWithIsExpanded(treeNode.children[i], expandNode && !(treeNode.children[i].disabled));
           }
         }
       }
@@ -276,7 +279,7 @@ export class KupTree {
     // We block propagation of this event to prevent tree node from being expanded or close.
     e.stopPropagation();
     // Emits custom event
-    this.kupTreeNodeOptionClicked.emit({
+    this.kupOptionClicked.emit({
       cell,
       column,
       treeNode,
@@ -299,6 +302,16 @@ export class KupTree {
   }
 
   //-------- Rendering --------
+  renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
+    return (<span
+      aria-label="Opzioni oggetto"
+      class="options mdi mdi-settings"
+      role="button"
+      title="Opzioni oggetto"
+      onClick={(e: UIEvent) => this.hdlOptionClicked(e, cell, column, treeNode)}
+    />);
+  }
+
   /**
    * Factory function for cells.
    * @param cell - cell object
@@ -313,7 +326,7 @@ export class KupTree {
     column: string,
     cellData: {
       column: Column;
-      row: TreeNode;
+      treeNode: TreeNode;
     },
     previousRowCellValue?: string
   ) {
@@ -344,9 +357,9 @@ export class KupTree {
           checked={!!cell.obj.k}
           disabled={
             cellData &&
-            cellData.row &&
-            cellData.row.hasOwnProperty('readOnly')
-              ? cellData.row.readOnly
+            cellData.treeNode &&
+            cellData.treeNode.hasOwnProperty('readOnly')
+              ? cellData.treeNode.readOnly
               : true
           }
         />
@@ -379,7 +392,7 @@ export class KupTree {
           onKupButtonClicked={ e => console.log("kup tree J4btn clicked event", e, column)
             /*this.onJ4btnClicked.bind(
             this,
-            cellData ? cellData.row : null,
+            cellData ? cellData.treeNode : null,
             cellData ? cellData.column : null,
             cell
           )*/}
@@ -420,23 +433,17 @@ export class KupTree {
     /**
      * Renders option object if necessary.
      *
-     * Currenty to align it on the right side of the cell, it uses the CSS float property.
-     * This can lead to some rendering errors. Se link.
+     * Currently to align it on the right side of the cell, it uses the CSS float property.
+     * This can lead to some rendering errors.
+     * See [this page]{@link https://www.w3schools.com/cssref/pr_class_float.asp} for more details.
      * If this case happens, then the solution is to wrap the content returned by this function into an element with
      * display flex, to use its content property.
      *
      * @namespace KupTree.renderCellOption
-     * @see https://www.w3schools.com/cssref/pr_class_float.asp
      */
-    if (cell.options && this.showObjectNavigation) {
+    if (!cellData.treeNode.disabled && cell.options && this.showObjectNavigation) {
       cellElements.push(
-        <span
-          aria-label="Opzioni oggetto"
-          class="options mdi mdi-settings"
-          role="button"
-          title="Opzioni oggetto"
-          onClick={(e: UIEvent) => this.hdlOptionClicked(e, cell, cellData.column, cellData.row)}
-        />
+        this.renderOptionElement(cell, cellData.column, cellData.treeNode)
       );
     }
 
@@ -488,11 +495,28 @@ export class KupTree {
       treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
     }
 
-    // When can be expanded OR selected
+    // When can be expanded OR selected OR have option handler
+    let treeNodeOptionIcon: JSX.Element | null = null;
     if (!treeNodeData.disabled) {
       treeNodeOptions['onClick'] = () => {
         this.hdlTreeNodeClicked(treeNodeData, treeNodePath);
       };
+
+      // Controls if there is the necessity to print out options also for the TreeNodeCell
+      if (treeNodeData.options && this.showObjectNavigation) {
+        treeNodeOptionIcon = this.renderOptionElement(
+            {
+              obj: treeNodeData.obj,
+              value: treeNodeData.value,
+            },
+            // TODO for now creates a fictitious column standard for all TreeNodeCell
+            {
+              name: 'TreeNodeCell',
+              title: 'TreeNodeCell'
+            },
+            treeNodeData
+          );
+      }
     }
 
     // When a tree node is displayed as a table
@@ -508,7 +532,7 @@ export class KupTree {
             column.name,
             {
               column,
-              row: treeNodeData
+              treeNode: treeNodeData
             }
           )
         );
@@ -529,6 +553,7 @@ export class KupTree {
           {treeExpandIcon}
           {treeNodeIcon}
           <span>{treeNodeData.value}</span>
+          {treeNodeOptionIcon}
         </td>
         {treeNodeCells}
       </tr>
@@ -588,7 +613,6 @@ export class KupTree {
     }
 
     // Calculates if header must be shown or not
-    // TODO check if this method here is correct when there are columns but the header does not have all cells
     const visibleHeader = this.showHeader && this.showColumns;
 
     return [

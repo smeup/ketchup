@@ -59,6 +59,9 @@ describe('kup-tree with data', () => {
     expect(treeNodeCells).toHaveLength(data.children.length);
 
     treeNodeCells.forEach((tnc, index) => {
+      // Reference to the current node data from which the tnc was rendered
+      const currentNodeData = data.children[index];
+
       // Since icon is not hidden and showObjectNavigation is not set,
       // each TreeNodeCell must render 3 elements:
       // open/close icon, TreeNode icon and the cell content
@@ -66,7 +69,7 @@ describe('kup-tree with data', () => {
 
       // First child is menu down icon
       const nodeExpanderClasses = ['mdi', 'mdi-menu-down'];
-      if (data.children[index].expandable) {
+      if (currentNodeData.expandable) {
         // When TreeNode is expandable, it has the menu-down icon
         expect(tnc.childNodes[0]).toHaveClasses(nodeExpanderClasses);
       } else {
@@ -77,7 +80,7 @@ describe('kup-tree with data', () => {
       expect(tnc.childNodes[1]).toHaveClass('kup-tree__icon');
 
       // Third item is the NodeTree content
-      expect(tnc.childNodes[2]).toEqualText(data.children[index].value);
+      expect(tnc.childNodes[2]).toEqualText(currentNodeData.value);
     })
   });
 
