@@ -17,7 +17,7 @@ export interface DynamicExpansionFakerOptions {
 
 export interface TreeConfigData {
   columns: Column[],
-  data: TreeNode,
+  data: TreeNode[],
 }
 
 //---- Constants ----
@@ -213,17 +213,23 @@ export function TreeFactory(
     columns.push(ColumnFactory(i, options.forceColumnVisibility));
   }
 
-  return {
-    columns,
-    data: TreeNodeFactory(
+  const data: TreeNode[] = [];
+
+  for (let j = 0; j < treeOptions.minimumChildCount; j++) {
+    data.push(TreeNodeFactory(
       columns,
       {
-        current: -1,
+        current: 0,
         max: treeDepth
       },
-      -1,
+      0,
       treeOptions,
-    ),
+    ));
+  }
+
+  return {
+    columns,
+    data,
   }
 }
 
@@ -263,8 +269,8 @@ export function DynamicExpansionFaker(
     }
   }
 
-  function getTreeNodeChildren(treeRoot: TreeNode, nodePath: TreeNodePath = []) {
-    let children = treeRoot.children;
+  function getTreeNodeChildren(startTreeChildren: TreeNode[], nodePath: TreeNodePath = []) {
+    let children = startTreeChildren;
     if (nodePath.length) {
       for (let i = 0; i < nodePath.length && children && children.length; i++) {
         children = children[nodePath[i]].children;
@@ -281,9 +287,7 @@ export function DynamicExpansionFaker(
     options.treeNode,
   );
 
-  const data = copyTreeNodeWithoutChildren(treeDataSource.data);
-
-  data.children = getTreeNodeChildren(treeDataSource.data);
+  const data = treeDataSource.data.map(treeNode => copyTreeNodeWithoutChildren(treeNode));
 
   return {
     data,

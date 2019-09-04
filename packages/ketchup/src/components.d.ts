@@ -553,9 +553,9 @@ export namespace Components {
     */
     'columns'?: Column[];
     /**
-    * The json data used to populate the tree view.
+    * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
-    'data': TreeNode;
+    'data': TreeNode[];
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */
@@ -1367,9 +1367,9 @@ declare namespace LocalJSX {
     */
     'columns'?: Column[];
     /**
-    * The json data used to populate the tree view.
+    * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
-    'data'?: TreeNode;
+    'data'?: TreeNode[];
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */

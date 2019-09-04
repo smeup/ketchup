@@ -10,7 +10,7 @@ import { TreeConfigData, TreeFactory } from '../../../src/components/kup-tree/ku
 import { KupTreeSelectors } from './tree__selectors';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
 
-let data: TreeNode | undefined;
+let data: TreeNode[] | undefined;
 let columns: Column[] | undefined;
 let page, treeElement, treeHeader, visibleColumns;
 
@@ -42,7 +42,7 @@ describe('kup-tree with data', () => {
     const treeRows = await page.findAll(KupTreeSelectors.TableRows);
 
     // Must render only base nodes
-    expect(treeRows).toHaveLength(data.children.length);
+    expect(treeRows).toHaveLength(data.length);
 
     // Since it's a basic tree, must render only the TreeNodeCell
     treeRows.forEach(row => expect(row.childNodes).toHaveLength(1));
@@ -56,11 +56,11 @@ describe('kup-tree with data', () => {
     const treeNodeCells = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells);
 
     // Each TreeNode must have its TreeNodeCell
-    expect(treeNodeCells).toHaveLength(data.children.length);
+    expect(treeNodeCells).toHaveLength(data.length);
 
     treeNodeCells.forEach((tnc, index) => {
       // Reference to the current node data from which the tnc was rendered
-      const currentNodeData = data.children[index];
+      const currentNodeData = data[index];
 
       // Since icon is not hidden and showObjectNavigation is not set,
       // each TreeNodeCell must render 3 elements:
@@ -128,7 +128,7 @@ describe('kup-tree with data', () => {
 
         for (let j = 0; j < visibleColumns.length; j++) {
           const col = visibleColumns[j];
-          const currentCell = data.children[i].cells[col.name];
+          const currentCell = data[i].cells[col.name];
           const theStyle = currentCell.style;
 
           // Controls if we have a style to test against

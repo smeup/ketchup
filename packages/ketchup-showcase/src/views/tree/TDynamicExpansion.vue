@@ -105,7 +105,7 @@
               .then(children => {
                 detail.treeNode.children = children;
                 // Changes reference of the data element to allow
-                this.fakers[fakerIndex].data = {...this.fakers[fakerIndex].data};
+                this.fakers[fakerIndex].data = [...this.fakers[fakerIndex].data];
                 console.log("Succesful fetching", "\noriginal event detail:", detail, "\nfetched children:", children);
               })
               .catch(err => {

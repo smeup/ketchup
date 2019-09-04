@@ -29,9 +29,9 @@ export class KupTree {
    */
   @Prop() columns?: Column[];
   /**
-   * The json data used to populate the tree view.
+   * The json data used to populate the tree view: the basic, always visible tree nodes.
    */
-  @Prop() data: TreeNode;
+  @Prop() data: TreeNode[] = [];
   /**
    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
    */
@@ -148,7 +148,7 @@ export class KupTree {
     if (this.data) {
       // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
       // the default value of the treeExpandedPropName is set to true
-      this.data.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion && !rootNode.disabled)})
+      this.data.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion && !rootNode.disabled)})
     }
 
     // Initializes the selectedNodeString
@@ -161,7 +161,7 @@ export class KupTree {
   @Watch('data')
   enrichDataWhenChanged(newData, oldData) {
     if (newData !== oldData) {
-      newData.children.forEach(rootNode => {this.enrichWithIsExpanded(rootNode)});
+      newData.forEach(rootNode => {this.enrichWithIsExpanded(rootNode)});
     }
   }
 
@@ -601,8 +601,8 @@ export class KupTree {
 
     // Composes TreeNodes
     let treeNodes: JSX.Element[] = [];
-    if (this.data && this.data.children && this.data.children.length) {
-      this.data.children.forEach((zeroDepthNode, index) => {
+    if (this.data && this.data.length) {
+      this.data.forEach((zeroDepthNode, index) => {
         treeNodes = treeNodes.concat(this.renderTree(zeroDepthNode, index.toString()));
       });
     } else {
