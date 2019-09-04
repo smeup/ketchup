@@ -67,6 +67,9 @@ import {
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
+import {
+  TooltipData,
+} from './components/kup-tooltip/kup-tooltip-declarations';
 
 export namespace Components {
   interface KupBadge {
@@ -533,6 +536,10 @@ export namespace Components {
     'triggerFocus': () => Promise<void>;
   }
   interface KupTooltip {
+    /**
+    * Data for top section
+    */
+    'data': TooltipData;
     /**
     * Data for the detail
     */
@@ -1295,6 +1302,10 @@ declare namespace LocalJSX {
   }
   interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
     /**
+    * Data for top section
+    */
+    'data'?: TooltipData;
+    /**
     * Data for the detail
     */
     'detailData'?: DataTable;
@@ -1302,9 +1313,7 @@ declare namespace LocalJSX {
     * Layout used to display the items
     */
     'layout'?: string;
-    /**
-    * Triggered when a box is clicked
-    */
+    'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
 
