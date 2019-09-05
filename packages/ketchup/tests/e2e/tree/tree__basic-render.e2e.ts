@@ -2,9 +2,9 @@
  * NOTES:
  * In this test suites, TreeNodes are not expanded.
  */
-import { newE2EPage } from '@stencil/core/testing';
+import {E2EElement, newE2EPage} from '@stencil/core/testing';
 
-import { Column,  } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { TreeNode,  } from '../../../src/components/kup-tree/kup-tree-declarations';
 import { TreeConfigData, TreeFactory } from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
@@ -13,6 +13,33 @@ import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup
 let data: TreeNode[] | undefined;
 let columns: Column[] | undefined;
 let page, treeElement, treeHeader, visibleColumns;
+
+/**
+ * Given a E2EElement node and a style object, checks if all properties of the given style are present inside the
+ * getComputedStyle of the htmlNode element.
+ *
+ * There is [an issue]{@link TreeDataPool.cellStyles} with testing colors.
+ *
+ * Uses the match method to check if string is contained within the second argument.
+ * This is done because some computed style values (example: text-decoration) will return multiple values.
+ *
+ * @async
+ * @param htmlNode - Reference to the node to test.
+ * @param style - the style object the computeStyle of the htmlNode will be tested against.
+ * @see https://www.w3schools.com/cssref/pr_text_text-decoration.asp
+ */
+async function testElementStyle(htmlNode: E2EElement, style: GenericMap) {
+  const styleProps = Object.keys(style);
+  let cellComputedStyle = await htmlNode.getComputedStyle();
+
+  // Checks that each css prop is set
+  styleProps.forEach(prop => {
+    expect(
+      // Gets the CSS kebab-case properties and converts them into JS camelCase
+      cellComputedStyle[prop.replace(/-([a-z])/g, (a,b) => b.toUpperCase())]
+    ).toMatch(style[prop]);
+  });
+}
 
 describe('kup-tree with data', () => {
   //---- Creates a new batch of data and then cleans it ----
@@ -58,9 +85,10 @@ describe('kup-tree with data', () => {
     // Each TreeNode must have its TreeNodeCell
     expect(treeNodeCells).toHaveLength(data.length);
 
-    treeNodeCells.forEach((tnc, index) => {
+    for (let index = 0; index < treeNodeCells.length; index++) {
       // Reference to the current node data from which the tnc was rendered
       const currentNodeData = data[index];
+      const tnc = treeNodeCells[index];
 
       // Since icon is not hidden and showObjectNavigation is not set,
       // each TreeNodeCell must render 3 elements:
@@ -81,7 +109,14 @@ describe('kup-tree with data', () => {
 
       // Third item is the NodeTree content
       expect(tnc.childNodes[2]).toEqualText(currentNodeData.value);
-    })
+
+      // If a style is specified on the TreeNodeCell, it must be applied
+      if (currentNodeData.style) {
+        await testElementStyle(tnc, currentNodeData.style);
+      } else {
+        expect(tnc).not.toHaveAttribute('style');
+      }
+    }
   });
 
   describe('is displayed as table', () => {
@@ -133,30 +168,15 @@ describe('kup-tree with data', () => {
 
           // Controls if we have a style to test against
           if (theStyle) {
-            const styleProps = Object.keys(theStyle);
-            let cellComputedStyle;
+            // By default, style which does NOT have border radius is applied only to td element
+            let elementStyleCompare = rowCells[j + 1];
 
-            // Style does NOT have border radius -> is applied only to td element
-            if (!styleHasBorderRadius(currentCell)) {
-              cellComputedStyle = await rowCells[j + 1].getComputedStyle();
-            } else {
-              // Style DOES have border radius -> is applied only to .cell-content element
-              const cellContent = await rowCells[j + 1].find('.cell-content');
-              cellComputedStyle = await cellContent.getComputedStyle();
+            // Style DOES have border radius -> is applied only to .cell-content element
+            if (styleHasBorderRadius(currentCell)) {
+              elementStyleCompare = await rowCells[j + 1].find('.cell-content');
             }
 
-            // Checks that each css prop is set
-            styleProps.forEach(prop => {
-              /**
-               * There is an issue with testing colors.
-               * @name TreeBasicRender.cellStyle
-               * @see TreeDataPool.cellStyles
-               */
-              expect(
-                // Gets the CSS kebab-case properties and converts them into JS camelCase
-                cellComputedStyle[prop.replace(/-([a-z])/g, (a,b) => b.toUpperCase())]
-              ).toMatch(theStyle[prop]);
-            });
+            await testElementStyle(elementStyleCompare, theStyle);
           }
         }
       }
