@@ -7,7 +7,7 @@ import {
  * The name of the property used by the tree component to store whether a TreeNode is open or closed
  * @constant
  */
-export const treeExpandedPropName = '_kupTreeIsExpanded';
+export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
   actions?: Array<RowAction>;

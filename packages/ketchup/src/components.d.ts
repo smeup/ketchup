@@ -1387,11 +1387,20 @@ declare namespace LocalJSX {
       treeNode: TreeNode;
     }>) => void;
     /**
-    * Fired when a dynamicExpansion has been triggered.
+    * Fired when a TreeNode gets collapsed (closed).
+    */
+    'onKupTreeNodeCollapse'?: (event: CustomEvent<{
+      treeNodePath: TreeNodePath;
+      treeNode: TreeNode;
+    }>) => void;
+    /**
+    * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
     */
     'onKupTreeNodeExpand'?: (event: CustomEvent<{
-      treeNodePath: TreeNodePath,
-      treeNode: TreeNode,
+      treeNodePath: TreeNodePath;
+      treeNode: TreeNode;
+      usesDynamicExpansion?: boolean;
+      dynamicExpansionRequireChildren?: boolean;
     }>) => void;
     /**
     * Fired when a node of the tree has been selected

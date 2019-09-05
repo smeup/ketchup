@@ -1,4 +1,5 @@
 /**
+* @prop --tre_node-expander_background-color, --kup-tre_node-expander_background-color: the background color of the TreeNode expander when hovered.
 * @prop --tre_node-expander_color, --kup-tre_node-expander_color: The TreeNode expander icon color.
 * @prop --tre_node_background-color--hover, --kup-tre_node_background-color--hover: TreeNode background color when TreeNode is hovered.
 * @prop --tre_node-icon_color, --kup-tre_node-icon_color: TreeNode icon color. Applied to all TreeNodes.
@@ -11,6 +12,7 @@
 */
 
 :host {
+  --tre_node-expander_background-color: var(--kup-tre_node-expander_background-color, #{$gray-e0});
   --tre_node-expander_color: var(--kup-tre_node-expander_color, #{$mainTextColor});
   --tre_node_background-color--hover: var(--kup-tre_node_background-color--hover, #e6e6e6);
   --tre_node-icon_color: var(--kup-tre_node-icon_color, #{$mainTextColor});
@@ -75,20 +77,42 @@
       vertical-align: middle;
     }
 
+    $tree-node__base: &;
+
+    @debug "trovami: #{$tree-node__base}";
+
     // When a TreeNode is disabled, we reduce its opacity
     &--disabled {
       opacity: var(--tre_node--disabled_opacity);
+
+      // The expander has not a hover state.
+      #{$tree-node__base}__expander {
+        cursor: initial;
+        pointer-events: none;
+      }
     }
 
     // The arrow which shows if a node is expandable and is expanded or not
     &__expander {
+      border-radius: 50%;
       color: var(--tre_node-expander_color);
-      transition: transform .6s;
+      cursor: pointer;
+      transition: background-color .4s, box-shadow .4s, transform .4s;
+
+      // When item is hovered
+      &:hover {
+        background-color: var(--tre_node-expander_background-color);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      }
     }
 
     // When the NodeTree is expanded
     &[data-is-expanded] &__expander {
       transform: rotate(180deg);
+
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 3px, rgba(0, 0, 0, 0.24) 0px -1px 2px;
+      }
     }
 
     // By default, options, even when rendered, are not visible

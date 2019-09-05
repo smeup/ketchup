@@ -116,6 +116,47 @@ export class KupTree {
   }>;
 
   /**
+   * Fired when a TreeNode gets collapsed (closed).
+   */
+  @Event({
+    eventName: 'kupTreeNodeCollapse',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupTreeNodeCollapse: EventEmitter<{
+    treeNodePath: TreeNodePath;
+    treeNode: TreeNode;
+  }>;
+
+  /**
+   * Fired when a node expansion ion has been triggered.
+   * Contains additional data when the tree is using the dynamicExpansion feature.
+   * @event kupTreeNodeExpand
+   * @type {object}
+   * @property {TreeNodePath} treeNodePath - The array of indexes to retrieve the current treeNode inside the data prop.
+   * @property {TreeNode} treeNode - Reference to the TreeNode data object which is being expanded (passed through the data prop).
+   * @property {boolean} usesDynamicExpansion - Flag to notify that the component is running in dynamicExpansion mode.
+   * @property {boolean} dynamicExpansionRequireChildren - Flag to notify that the current dynamicExpansion event
+   *  requires the parent component to add TreeNode children to the given TreeNode.
+   * @see useDynamicExpansion
+   * @see dynamicExpansionCallback
+   * @since 1.0.0
+   */
+  @Event({
+    eventName: 'kupTreeNodeExpand',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupTreeNodeExpand: EventEmitter<{
+    treeNodePath: TreeNodePath;
+    treeNode: TreeNode;
+    usesDynamicExpansion?: boolean;
+    dynamicExpansionRequireChildren?: boolean;
+  }>;
+
+  /**
    * Fired when a node of the tree has been selected
    */
   @Event({
@@ -125,20 +166,6 @@ export class KupTree {
     bubbles: true,
   })
   kupTreeNodeSelected: EventEmitter<{
-    treeNodePath: TreeNodePath,
-    treeNode: TreeNode,
-  }>;
-
-  /**
-   * Fired when a dynamicExpansion has been triggered.
-   */
-  @Event({
-    eventName: 'kupTreeNodeExpand',
-    composed: true,
-    cancelable: false,
-    bubbles: true,
-  })
-  kupTreeNodeExpand: EventEmitter<{
     treeNodePath: TreeNodePath,
     treeNode: TreeNode,
   }>;
@@ -216,23 +243,49 @@ export class KupTree {
     this.stateSwitcher = !this.stateSwitcher;
   }
 
-  // When a TreeNode must be expanded or closed
+  // When a TreeNode can be selected
   hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
+    // If this TreeNode is not disabled, then it can be selected and an event is emitted
+    if (!treeNodeData.disabled) {
+      this.kupTreeNodeSelected.emit({
+        treeNodePath: treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex)),
+        treeNode: treeNodeData
+      });
+    }
+  }
+
+  // When a TreeNode must be expanded or closed.
+  hdlTreeNodeExpanderClicked(treeNodeData: TreeNode, treeNodePath: string) {
     // If the node is expandable
     if (treeNodeData.expandable) {
-      // There are already children set in this nodeTree -> expand and emit selected event
+      // Always composes the tree node path as an array
+      const arrayTreeNodePath: TreeNodePath = treeNodePath.split(',').map(index => parseInt(index));
+
+      // There are already children set in this TreeNode -> expand or collapse node and emit appropriate event
       if (treeNodeData.children && treeNodeData.children.length) {
-        // TODO check the 8th todo in the readme
+        // Updates expanded state and force rerender
         treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
         this.forceUpdate();
+
+        if (treeNodeData[treeExpandedPropName]) {
+          // TreeNode is now expanded -> Fires expanded event
+          this.kupTreeNodeExpand.emit({
+            treeNodePath: arrayTreeNodePath,
+            treeNode: treeNodeData,
+            usesDynamicExpansion: this.useDynamicExpansion,
+          });
+        } else {
+          // TreeNode is now collapsed -> Fires collapsed event
+          this.kupTreeNodeCollapse.emit({
+            treeNodePath: arrayTreeNodePath,
+            treeNode: treeNodeData,
+          });
+        }
       } else if (this.useDynamicExpansion && !this.expanded) {
         // When the component must use the dynamic expansion feature
         // Currently it does not support the expanded prop
 
-        // Composes the tree node path as an array
-        const arrayTreeNodePath: TreeNodePath = treeNodePath.split(',').map(index => parseInt(index));
-
-       // Checks if we have a dynamicExpansionCallback or not
+        // Checks if we have a dynamicExpansionCallback or not
         if (this.dynamicExpansionCallback) {
           // We have a callback: invokes it and after the result is returned updates the tree
           this.dynamicExpansionCallback(
@@ -242,36 +295,36 @@ export class KupTree {
             .then(childrenTreeNodes => {
               // Children returned successfully
               treeNodeData.children = childrenTreeNodes;
-              // TODO check the 8th todo in the readme
               treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
               this.forceUpdate();
+
+              // TreeNode is now expanded -> Fires expanded event
+              this.kupTreeNodeExpand.emit({
+                treeNodePath: arrayTreeNodePath,
+                treeNode: treeNodeData,
+                usesDynamicExpansion: true,
+              });
             })
             .catch(err => {
-              console.error("An error occurred when trying to fetch dynamicExpansion nodes data", err);
+              console.error("KupTree: An error occurred when trying to fetch dynamicExpansion nodes data", err, treeNodeData);
             });
         } else {
           // we do NOT have a callback set.
-          // Fires the expand request for the node
+          // Fires the expand request for the given TreeNode and set the appropriate flag
           this.kupTreeNodeExpand.emit({
             treeNode: treeNodeData,
             treeNodePath: arrayTreeNodePath,
+            usesDynamicExpansion: true,
+            dynamicExpansionRequireChildren: true,
           });
 
+          // TODO remove these comments if this behavior will be accepted
           // Sets the flag for setting the TreeNode as opened, but does not force rerender,
           // to allow application to execute the update of the tree
-          treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+          // treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
         }
       }
     }
-
-    // If this TreeNode is not disabled, then it can be selected and an event is emitted
-    if (!treeNodeData.disabled) {
-      this.kupTreeNodeSelected.emit({
-        treeNodePath: treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex)),
-        treeNode: treeNodeData
-      });
-    }
-
   }
 
   // Handler for clicking onto the cells option object
@@ -479,14 +532,17 @@ export class KupTree {
           style={{ ["--tree-node_depth"]: treeNodeDepth.toString() }}/>
       : null;
 
-    // If the tree node is expandable, adds the icon to show the expansion. If it is not expandable, we simply add a placeholder with no icons.
+    // If the tree node is expandable, adds the icon to show the expansion.
+    // If expandable, also add the callback on the click action.
+    // If it is not expandable, we simply add a placeholder with no icons.
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
-    let treeExpandIcon = <span class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : "")}/>;
+    let treeExpandIcon = <span
+      class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-down" : "")}
+      onClick={hasExpandIcon && !treeNodeData.disabled ? () => this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath) : null}
+    />;
 
     // When TreeNode icons are visible, creates the icon if one is specified
-    let treeNodeIcon = this.showIcons
-      ? <span class={"kup-tree__icon mdi mdi-" + treeNodeData.iconClass}/>
-      : null;
+    let treeNodeIcon = this.showIcons ? <span class={"kup-tree__icon mdi mdi-" + treeNodeData.iconClass}/> : null;
 
     // Composes additional options for the tree node element
     let treeNodeOptions = {};

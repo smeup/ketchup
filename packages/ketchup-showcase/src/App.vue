@@ -432,6 +432,7 @@ code {
 
   // When there is code which needs to be displayed inline
   &.inline {
+    display: inline;
     padding: 2px;
     margin: 1px 2px;
   }
