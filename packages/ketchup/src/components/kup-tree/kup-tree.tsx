@@ -407,7 +407,7 @@ export class KupTree {
       content = (
         <kup-checkbox
           checked={!!cell.obj.k}
-          disabled
+          disabled={cellData.treeNode.hasOwnProperty('readOnly') ? cellData.treeNode.readOnly : true}
         />
       );
     }  else if (isBar(cell.obj)) {
@@ -561,7 +561,7 @@ export class KupTree {
         }}
         data-tree-path={treeNodePath}
         {...treeNodeOptions}>
-        <td>
+        <td style={treeNodeData.style || null}>
           {indent}
           {treeExpandIcon}
           {treeNodeIcon}

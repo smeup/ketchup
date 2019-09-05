@@ -35,6 +35,8 @@ export interface TreeNode {
   // TODO what is this?
   readOnly?: boolean;
 
+  style?: {[index: string]: string;};
+
   value: string;
 
   [treeExpandedPropName]?: boolean;

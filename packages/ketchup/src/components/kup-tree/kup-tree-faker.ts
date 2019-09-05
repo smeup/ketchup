@@ -185,6 +185,8 @@ function TreeNodeFactory(
 
     options: getBooleanOnProbability(.5),
 
+    style: getBooleanOnProbability(.1) ? TreeDataPool.cellStyles[getRandomInteger(TreeDataPool.cellStyles.length - 1)] : undefined,
+
     value: treeNodeValue,
   };
 }
