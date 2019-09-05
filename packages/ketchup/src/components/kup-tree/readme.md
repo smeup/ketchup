@@ -71,14 +71,12 @@ open or close the TreeNodes.
 ### Depends on
 
 - [kup-checkbox](..\kup-checkbox)
-- [kup-button](..\kup-button)
 - [kup-graphic-cell](..\kup-graphic-cell)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tree --> kup-checkbox
-  kup-tree --> kup-button
   kup-tree --> kup-graphic-cell
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

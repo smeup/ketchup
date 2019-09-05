@@ -4,7 +4,7 @@ import {Cell, Column,} from "./../kup-data-table/kup-data-table-declarations";
 
 import {treeExpandedPropName, TreeNode, TreeNodePath,} from "./kup-tree-declarations";
 
-import {isBar, isButton, isCheckbox, isIcon, isImage, isLink, isVoCodver,} from '../../utils/object-utils';
+import {isBar, isCheckbox, isIcon, isImage, isLink, isVoCodver,} from '../../utils/object-utils';
 
 import {styleHasBorderRadius,} from './../kup-data-table/kup-data-table-helper';
 
@@ -368,7 +368,6 @@ export class KupTree {
   /**
    * Factory function for cells.
    * @param cell - cell object
-   * @param column - the cell's column name
    * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
    * @param cellData - Additional data for the current cell.
    * @param cellData.column - The column object to which the cell belongs.
@@ -376,7 +375,6 @@ export class KupTree {
    */
   renderCell(
     cell: Cell,
-    column: string,
     cellData: {
       column: Column;
       treeNode: TreeNode;
@@ -405,69 +403,29 @@ export class KupTree {
         </a>
       );
     } else if (isCheckbox(cell.obj)) {
+      // A tree currently is not editable. Checkbox are always disabled.
       content = (
         <kup-checkbox
           checked={!!cell.obj.k}
-          disabled={
-            cellData &&
-            cellData.treeNode &&
-            cellData.treeNode.hasOwnProperty('readOnly')
-              ? cellData.treeNode.readOnly
-              : true
-          }
+          disabled
         />
       );
-    } else if (isButton(cell.obj)) {
-      /**
-       * Here either using .bind() or () => {} function would bring more or less the same result.
-       * Both those syntax would create at run time a new function for each cell on which they're rendered.
-       * (See references below.)
-       *
-       * Another solution would be to simply bind an event handler like this:
-       * onKupButtonClicked={this.onJ4btnClicked}
-       *
-       * The problem here is that, by using that syntax:
-       * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
-       *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
-       * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
-       * 3 - searches those column and row inside the current data for the table;
-       * 4 - once the data is found, creates the custom event with the data to be sent.
-       *
-       * Currently there is no reason to perform such a search, but it may arise if on large data tables
-       * there is a significant performance loss.
-       * @see https://reactjs.org/docs/handling-events.html
-       */
-
-       //TODO 2: check if this must be added to the cells parsing content
-       content = (
-        <kup-button
-          /*{...createJ4objButtonConfig(cell)}*/
-          onKupButtonClicked={ e => console.log("kup tree J4btn clicked event", e, column)
-            /*this.onJ4btnClicked.bind(
-            this,
-            cellData ? cellData.treeNode : null,
-            cellData ? cellData.column : null,
-            cell
-          )*/}
-        />
-      );
-    } else if (isBar(cell.obj)) {
-      const props: { value: string; width?: number } = {
+    }  else if (isBar(cell.obj)) {
+      // KupTree cannot have the tree columns resized.
+      // This constant keeps the possible width type to keep a certain degree of compatibility with kup-data-table,
+      // From which this type of content was taken
+      const props: {
+        value: string;
+        width?: number
+      } = {
         value: cell.value,
       };
-
-      // TODO 2 check with Giovanni
-      // check if column has width
-      /*if (this.columnsWidth && this.columnsWidth[column]) {
-        props.width = this.columnsWidth[column];
-      }
-      */
 
       // Controls if we should display this cell value
       content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
     }
 
-    // TODO
+    // TODO add this once the progressbar has been implemented among the graphics forms.
     // else if (isProgressBar(cell.obj)) {
     //     content = <kup-progress-bar />;
     // }
@@ -585,7 +543,6 @@ export class KupTree {
         treeNodeCells.push(
           this.renderCell(
             treeNodeData.cells[column.name],
-            column.name,
             {
               column,
               treeNode: treeNodeData
