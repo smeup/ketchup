@@ -1,7 +1,7 @@
 const Tree = 'kup-tree >>> .kup-tree';
 const TreeHeader = Tree + ' thead';
 const TableRows = Tree + ' > tbody > tr';
-const TreeNodeCell = 'td:first-child';
+const TreeNodeCell = 'td:nth-of-type(1)';
 
 export const KupTreeSelectors = {
   TreeHeader,

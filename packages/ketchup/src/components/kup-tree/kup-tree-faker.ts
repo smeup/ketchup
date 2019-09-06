@@ -71,6 +71,9 @@ const TreeDataPool: {
   programValues: ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go']
 };
 
+
+//---- Helper methods ----
+
 /**
  * If the Math.random() value is equal lower than the given a threshold, return true. False otherwise.
  * @param probability - The probability that the returned boolean will be truthy.
@@ -82,6 +85,21 @@ function getBooleanOnProbability(probability: number = .5): boolean {
 export default function getRandomInteger(maximum: number = 10): number {
   return Math.round(Math.random() * maximum);
 }
+
+export function flattenTree(nodesToFlatten: TreeNode[], useIsExpandedFlag = true) {
+  let flattenedNodes: TreeNode[] = [];
+  if (nodesToFlatten && nodesToFlatten.length) {
+    for (let i = 0; i < nodesToFlatten.length ; i++) {
+      flattenedNodes.push(nodesToFlatten[i]);
+      if (!useIsExpandedFlag || (useIsExpandedFlag && nodesToFlatten[i][treeExpandedPropName])) {
+        flattenedNodes = flattenedNodes.concat(flattenTree(nodesToFlatten[i].children));
+      }
+    }
+  }
+  return flattenedNodes;
+}
+
+//---- Factory functions ----
 
 function ColumnFactory(index: number, forceVisibility: boolean = false) {
   let colName = TreeDataPool.columnsName[index]
@@ -224,7 +242,7 @@ export function TreeFactory(
         current: 0,
         max: treeDepth
       },
-      0,
+      j,
       treeOptions,
     ));
   }

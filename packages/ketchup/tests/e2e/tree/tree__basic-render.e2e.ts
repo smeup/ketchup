@@ -5,14 +5,14 @@
 import {E2EElement, newE2EPage} from '@stencil/core/testing';
 
 import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { TreeNode,  } from '../../../src/components/kup-tree/kup-tree-declarations';
-import { TreeConfigData, TreeFactory } from '../../../src/components/kup-tree/kup-tree-faker';
+import { TreeNode, treeExpandedPropName} from '../../../src/components/kup-tree/kup-tree-declarations';
+import {flattenTree, TreeConfigData, TreeFactory} from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
 
 let data: TreeNode[] | undefined;
 let columns: Column[] | undefined;
-let page, treeElement, treeHeader, visibleColumns;
+let page, treeElement, treeHeader, visibleColumns, expandedListener;
 
 /**
  * Given a E2EElement node and a style object, checks if all properties of the given style are present inside the
@@ -119,7 +119,7 @@ describe('kup-tree with data', () => {
     }
   });
 
-  describe('is displayed as table', () => {
+  describe('when is displayed as table', () => {
     beforeEach(async () => {
       visibleColumns = columns.filter(col => col.visible);
       treeElement.setAttribute('show-columns', 'true');
@@ -184,8 +184,93 @@ describe('kup-tree with data', () => {
 
   });
 
+
+  describe.each([['tree'],['table']])('in %s mode', (displayMode) => {
+    beforeEach(async () => {
+      expandedListener = await treeElement.spyOnEvent('kupTreeNodeExpand');
+
+      switch (displayMode) {
+        case 'tree':
+
+          break;
+        case 'table':
+          visibleColumns = columns.filter(col => col.visible);
+          treeElement.setAttribute('show-columns', 'true');
+          await page.waitForChanges();
+          break;
+      }
+    }, 30000);
+
+    afterEach(() => {
+      expandedListener = null;
+      visibleColumns = undefined;
+    });
+
+
+    it('can expand TreeNodes', async() => {
+      expect(true).toBeTruthy();
+
+      let expandedNodesCount: number = 0;
+
+      // Expand first layer of elements
+      let treeNodeCells: Array<E2EElement> = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].expandable && !data[i].disabled) {
+          expandedNodesCount++;
+          treeNodeCells = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells);
+
+          // IMPORTANT: Once data is set, there is no further link between this test file 'data' prop
+          // and the actual 'data' prop located on the treeElement.
+          // To avoid future errors, keep this in mind when you have to perform checks and operations on updated data.
+          // You have to fetch the updated data asynchronously like this
+          // await element.getProperty('propName')
+          const flatTree = flattenTree(await treeElement.getProperty('data'));
+
+          // Checks that currently rendered TreeNodes have the same length as its FlatTree
+          expect(treeNodeCells).toHaveLength(flatTree.length);
+
+          for (let j = 0; j < flatTree.length; j++) {
+            if (data[i].id === flatTree[j].id) {
+              // Should have Found the element -> controls its value
+              const cellContent = await treeNodeCells[j].find('.cell-content');
+              expect(cellContent).toEqualText(data[i].value);
+
+              // Searches expander and control it can expand -> triggers expansion
+              const expanderNode = await treeNodeCells[j].find('.kup-tree__node__expander');
+              expect(expanderNode).toHaveClass('mdi-menu-down');
+              await expanderNode.click();
+
+              // Checks if event was correctly registered
+              expect(expandedListener).toHaveLength(expandedNodesCount);
+
+              break;
+            }
+          }
+        }
+      }
+
+      // Checks that each event has the correct payload
+      for (let k = 0; k < expandedListener.events.length; k++) {
+        const { detail } = expandedListener.events[k];
+        expect(detail).toHaveProperty('treeNodePath');
+        expect(Array.isArray(detail.treeNodePath)).toBeTruthy();
+        expect(detail).toHaveProperty('treeNode');
+        if (detail.usesDynamicExpansion) {
+          expect(detail.usesDynamicExpansion).toBeFalsy();
+        }
+      }
+
+      // This is a long test, waits for almost a minute before dropping it
+    }, 60000);
+
+
+  });
+
   // console.log("tnc", tnc.childNodes.length);
   // console.log(KupTreeSelectors, treeNodeCells);
   // console.log("contenuto", Object.keys(treeRows[0]));
   // console.log("figli", treeRows[0].childNodes);
+  // console.log(data[i].value, flatTree[j].value, treeNodeCells.length);
+  // await page.screenshot({path: `screenshot_${displayMode}_${j}.png`});
+  // console.log("afterlunghezza", flattenTree(data).length, data.map((node) => node[treeExpandedPropName]));
 });

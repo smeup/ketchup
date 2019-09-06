@@ -505,7 +505,7 @@ export class KupTree {
     // Composes additional options for the tree node element
     let treeNodeOptions = {};
     if (treeNodeData.hasOwnProperty(treeExpandedPropName) && treeNodeData[treeExpandedPropName] && hasExpandIcon) {
-      // If the node can be expanded it has this attribute set to if this node is expanded or not.
+      // If the node is expanded it has this attribute set to if this node is expanded or not.
       treeNodeOptions['data-is-expanded'] = treeNodeData[treeExpandedPropName];
     }
 
@@ -565,7 +565,7 @@ export class KupTree {
           {indent}
           {treeExpandIcon}
           {treeNodeIcon}
-          <span>{treeNodeData.value}</span>
+          <span class="cell-content">{treeNodeData.value}</span>
           {treeNodeOptionIcon}
         </td>
         {treeNodeCells}
