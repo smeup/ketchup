@@ -8,6 +8,7 @@ import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-da
 import { TreeNode, treeExpandedPropName} from '../../../src/components/kup-tree/kup-tree-declarations';
 import {flattenTree, TreeConfigData, TreeFactory} from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
+import { testTreeNodeValue } from './tree__test__helpers';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
 
 let data: TreeNode[] | undefined;
@@ -207,7 +208,36 @@ describe('kup-tree with data', () => {
     });
 
 
-    it('can expand TreeNodes', async() => {
+    it('can expand automatically', async () => {
+      // Table nodes are not expanded automatically by default
+      // First we check that the treeElement is not expanded
+      let flatTree = flattenTree(await treeElement.getProperty('data'));
+      let treeNodeCells: Array<E2EElement> = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells);
+
+      expect(flatTree).toHaveLength(data.length);
+
+      for (let i = 0; i < flatTree.length; i++) {
+        await testTreeNodeValue(treeNodeCells[i], flatTree[i].value);
+      }
+
+      // Now sets automatic expansion and set again the data to trigger the expansion
+      treeElement.setAttribute('expanded', 'true');
+      treeElement.setProperty('data', [...data]);
+
+      await page.waitForChanges();
+
+      flatTree = flattenTree(await treeElement.getProperty('data'));
+      treeNodeCells = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells);
+
+      expect(flatTree).not.toHaveLength(data.length);
+      expect(flatTree).toHaveLength(treeNodeCells.length)
+
+      for (let i = 0; i < flatTree.length; i++) {
+        await testTreeNodeValue(treeNodeCells[i], flatTree[i].value)
+      }
+    }, 30000);
+
+    it('can expand TreeNodes', async () => {
       expect(true).toBeTruthy();
 
       let expandedNodesCount: number = 0;

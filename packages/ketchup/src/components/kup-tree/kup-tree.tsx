@@ -188,7 +188,7 @@ export class KupTree {
   @Watch('data')
   enrichDataWhenChanged(newData, oldData) {
     if (newData !== oldData) {
-      newData.forEach(rootNode => {this.enrichWithIsExpanded(rootNode)});
+      newData.forEach(rootNode => {this.enrichWithIsExpanded(rootNode, this.expanded && !this.useDynamicExpansion && !rootNode.disabled)});
     }
   }
 
