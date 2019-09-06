@@ -121,7 +121,7 @@
       float: right; // IMPORTANT: this may cause overflow problems. If this happens, @see kupTree.renderCellOption
       margin-left: 8px;
       opacity: 0;
-      visibility: hidden;
+      //visibility: hidden;
       transition: opacity .6s, visibility .6s;
 
       &:before {

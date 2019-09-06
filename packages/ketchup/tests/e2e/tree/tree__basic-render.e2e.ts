@@ -229,13 +229,92 @@ describe('kup-tree with data', () => {
       flatTree = flattenTree(await treeElement.getProperty('data'));
       treeNodeCells = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells);
 
+      // The elements are expanded automatically, they should not fire any event
+      expect(expandedListener).toHaveLength(0);
+
       expect(flatTree).not.toHaveLength(data.length);
-      expect(flatTree).toHaveLength(treeNodeCells.length)
+      expect(flatTree).toHaveLength(treeNodeCells.length);
 
       for (let i = 0; i < flatTree.length; i++) {
-        await testTreeNodeValue(treeNodeCells[i], flatTree[i].value)
+        await testTreeNodeValue(treeNodeCells[i], flatTree[i].value);
       }
-    }, 30000);
+    }, 60000);
+
+
+    it('fires kupOptionClicked when an option is clicked', async () => {
+      const checkOptionPayload = ({ detail }, cellDataValue: string, treeNode: TreeNode, columnName: string = "TreeNodeCell") => {
+        expect(detail.treeNode.id).toEqual(treeNode.id);
+        expect(detail.cell.value).toEqual(cellDataValue);
+        expect(detail.column.name).toEqual(columnName);
+      };
+
+      // Sets listener for the event
+      const optionClickedListener = await treeElement.spyOnEvent('kupOptionClicked');
+
+      treeElement.setAttribute('expanded', 'true');
+      treeElement.setAttribute('show-object-navigation', 'true');
+      treeElement.setProperty('data', [...data]);
+      await page.waitForChanges();
+
+      expect(optionClickedListener).toHaveLength(0);
+
+      let flatTree = flattenTree(await treeElement.getProperty('data'));
+      let treeNodeCells = await page.findAll(KupTreeSelectors.TableRows);
+      let eventsFired: number = 0;
+
+      for (let i = 0; i < flatTree.length; i++) {
+        const currentNodeData = flatTree[i];
+        const nodePosition = await treeNodeCells[i].getBoundingClientRect();
+        await page.mouse.move(nodePosition.top + 4, nodePosition.left + 4);
+
+        if (currentNodeData.options) {
+          const optionElement = await treeNodeCells[i].find(KupTreeSelectors.TreeNodeCell + ' ' + KupTreeSelectors.OptionElement);
+
+          if (!currentNodeData.disabled) {
+            await optionElement.click();
+
+            // Checks if the event was fired
+            eventsFired++;
+            expect(optionClickedListener).toHaveLength(eventsFired);
+            checkOptionPayload(
+              optionClickedListener.lastEvent,
+              currentNodeData.value,
+              currentNodeData
+            );
+          } else {
+            // When node is disabled it should not render option icon
+            expect(optionElement).toBe(null)
+          }
+        }
+
+        if (displayMode === 'table' && !currentNodeData.disabled) {
+          const visibleColumnsWithOptions = [];
+          visibleColumns.forEach((col, index) => {
+            if (currentNodeData.cells[col.name].options) {
+              visibleColumnsWithOptions.push(index);
+            }
+          });
+
+          for (let k = 0; k < visibleColumnsWithOptions.length; k++) {
+            const optionElement = await treeNodeCells[i].find('td:nth-of-type(' + (visibleColumnsWithOptions[k] + 2) + ') ' + KupTreeSelectors.OptionElement);
+            await optionElement.click();
+
+            // Checks if the event was fired
+            eventsFired++;
+            expect(optionClickedListener).toHaveLength(eventsFired);
+            checkOptionPayload(
+              optionClickedListener.lastEvent,
+              currentNodeData.cells[visibleColumns[visibleColumnsWithOptions[k]].name].value,
+              currentNodeData,
+              visibleColumns[visibleColumnsWithOptions[k]].name
+            );
+          }
+        }
+      }
+
+      // This test is truly monstrous. It needs a high time to be performed
+    }, 400000);
+
 
     it('can expand TreeNodes', async () => {
       expect(true).toBeTruthy();

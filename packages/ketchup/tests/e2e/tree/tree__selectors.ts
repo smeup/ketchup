@@ -9,4 +9,5 @@ export const KupTreeSelectors = {
   TableRows,
   TreeNodeCell,
   OnlyTreeNodeCells: TableRows + ' > ' + TreeNodeCell,
+  OptionElement: 'span.options'
 };
