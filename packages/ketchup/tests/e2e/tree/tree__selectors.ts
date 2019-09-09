@@ -9,5 +9,8 @@ export const KupTreeSelectors = {
   TableRows,
   TreeNodeCell,
   OnlyTreeNodeCells: TableRows + ' > ' + TreeNodeCell,
-  OptionElement: 'span.options'
+  OptionElement: 'span.options',
+  simple: {
+    CellIcon: '.kup-tree__icon',
+  }
 };

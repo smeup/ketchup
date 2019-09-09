@@ -254,6 +254,26 @@ describe('kup-tree with data', () => {
     }, 60000);
 
 
+    it.only('can hide TreeNodes icons', async () => {
+      treeElement.setAttribute('expanded', 'true');
+      treeElement.setProperty('data', [...data]);
+      await page.waitForChanges();
+
+      let treeNodes = await page.findAll(KupTreeSelectors.TableRows);
+      let allTreeNodeCellIcons = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells + ' ' + KupTreeSelectors.simple.CellIcon + ':not(.kup-tree__node__expander)');
+
+      expect(allTreeNodeCellIcons).toHaveLength(treeNodes.length);
+
+      treeElement.setProperty('showIcons', false);
+      await page.waitForChanges();
+
+      allTreeNodeCellIcons = await page.findAll(KupTreeSelectors.OnlyTreeNodeCells + ' ' + KupTreeSelectors.simple.CellIcon + ':not(.kup-tree__node__expander)');
+
+      expect(allTreeNodeCellIcons).not.toHaveLength(treeNodes.length);
+      expect(allTreeNodeCellIcons.length).toBe(0);
+    });
+
+
     describe('when show-object-navigation is set', () => {
       beforeEach(async () => {
         treeElement.setAttribute('expanded', 'true');
