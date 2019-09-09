@@ -2,6 +2,11 @@
 import {CellsHolder, Column} from "./../kup-data-table/kup-data-table-declarations"
 import {TreeNode, TreeNodePath, treeExpandedPropName} from "./kup-tree-declarations"
 
+interface TreeRndNodeGetter {
+  selectedTreeNode: TreeNode | null,
+  treeNodePath: TreeNodePath | null,
+}
+
 export interface FactoryTreeNodeOptions {
   minimumChildCount: number;
   propagate?: boolean;
@@ -99,6 +104,61 @@ export function flattenTree(nodesToFlatten: TreeNode[], useIsExpandedFlag = true
   return flattenedNodes;
 }
 
+/**
+ * Randomly selects a not disabled node.
+ * If all nodes are disabled, returns null.
+ * @param currentDepthTreeElements
+ * @param desiredTreeNodeDepth
+ * @param currentDepth
+ */
+function randomlyTraverseTree(
+  currentDepthTreeElements: TreeNode[],
+  desiredTreeNodeDepth: number,
+  currentDepth: number = 0): TreeRndNodeGetter {
+  let itemIndex = getRandomInteger(currentDepthTreeElements.length - 1);
+  let count = 0;
+
+  // Searches a non disabled node
+  while (count < currentDepthTreeElements.length && currentDepthTreeElements[itemIndex].disabled) {
+    itemIndex++;
+    count++;
+    if (itemIndex >= currentDepthTreeElements.length) {
+      itemIndex = 0;
+    }
+  }
+
+  // Element is still disabled -> all elements are disabled
+  if (currentDepthTreeElements[itemIndex].disabled) {
+    // Returns null value
+    return {
+      selectedTreeNode: null,
+      treeNodePath: null,
+    }
+  }
+
+  const selectedNode = currentDepthTreeElements[itemIndex];
+  if (!(selectedNode.children && selectedNode.children.length) || desiredTreeNodeDepth === currentDepth) {
+    return {
+      selectedTreeNode: selectedNode,
+      treeNodePath: [itemIndex]
+    };
+  } else {
+    const nextDepth = randomlyTraverseTree(
+      selectedNode.children,
+      desiredTreeNodeDepth,
+      currentDepth + 1,
+    );
+    return {
+      selectedTreeNode: nextDepth.selectedTreeNode ? nextDepth.selectedTreeNode : selectedNode,
+      treeNodePath: nextDepth.treeNodePath ? [itemIndex].concat(nextDepth.treeNodePath) : [itemIndex],
+    }
+  }
+}
+
+export function getRndTreeNode(currentDepthTreeElements: TreeNode[], treeDepth: number): TreeRndNodeGetter {
+  return randomlyTraverseTree(currentDepthTreeElements, getRandomInteger(treeDepth));
+}
+
 //---- Factory functions ----
 
 function ColumnFactory(index: number, forceVisibility: boolean = false) {
@@ -118,9 +178,11 @@ function TreeNodeFactory(
   depth: {
     current: number,
     max: number
+    path: string,
   } = {
     current: 0,
-    max: 5
+    max: 5,
+    path: "0"
   },
   index: number,
   options: {
@@ -142,6 +204,7 @@ function TreeNodeFactory(
         {
           current: depth.current + 1,
           max: depth.max,
+          path: depth.path + index.toString()
         },
         i,
         options.propagate ? options : undefined
@@ -191,7 +254,7 @@ function TreeNodeFactory(
 
     iconClass: 'account',
 
-    id: depthAndIndex + childrenCount.toString(),
+    id: depth.path + depthAndIndex + childrenCount.toString(),
 
     [treeExpandedPropName]: getBooleanOnProbability(options.isExpandedProbability || 0),
 
@@ -240,7 +303,8 @@ export function TreeFactory(
       columns,
       {
         current: 0,
-        max: treeDepth
+        max: treeDepth,
+        path: j.toString()
       },
       j,
       treeOptions,

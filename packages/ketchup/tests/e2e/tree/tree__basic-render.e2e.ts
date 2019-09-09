@@ -6,10 +6,16 @@ import {E2EElement, newE2EPage} from '@stencil/core/testing';
 
 import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { TreeNode, treeExpandedPropName} from '../../../src/components/kup-tree/kup-tree-declarations';
-import {flattenTree, TreeConfigData, TreeFactory} from '../../../src/components/kup-tree/kup-tree-faker';
+import {flattenTree, getRndTreeNode, TreeConfigData, TreeFactory} from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
+
+const dataTreeConfiguration: {
+  depth: number,
+} = {
+  depth: 4
+};
 
 let data: TreeNode[] | undefined;
 let columns: Column[] | undefined;
@@ -45,7 +51,7 @@ async function testElementStyle(htmlNode: E2EElement, style: GenericMap) {
 describe('kup-tree with data', () => {
   //---- Creates a new batch of data and then cleans it ----
   beforeEach(async () => {
-    const treeData: TreeConfigData = TreeFactory(4,4);
+    const treeData: TreeConfigData = TreeFactory(dataTreeConfiguration.depth,4);
     data = treeData.data;
     columns = treeData.columns;
 
@@ -289,7 +295,7 @@ describe('kup-tree with data', () => {
       }, 300000);
 
 
-      it('fires kupOptionClicked when an option is clicked', async () => {
+      it.skip('fires kupOptionClicked when an option is clicked', async () => {
         const checkOptionPayload = ({ detail }, cellDataValue: string, treeNode: TreeNode, columnName: string = "TreeNodeCell") => {
           expect(detail.treeNode.id).toEqual(treeNode.id);
           expect(detail.cell.value).toEqual(cellDataValue);
@@ -357,6 +363,62 @@ describe('kup-tree with data', () => {
 
        // This test is truly monstrous. It needs a high time to be performed
       }, 400000);
+    });
+
+
+    describe('can select a not disabled tree node', () => {
+      beforeEach(async () => {
+        // Since these test require at least a node to not be disabled, we programmatically set a node to not be disabled
+        data[0].disabled = false;
+        treeElement.setAttribute('expanded', 'true');
+        treeElement.setProperty('data', [...data]);
+        await page.waitForChanges();
+      });
+
+
+      test('programmatically, through prop selectedNode', async () => {
+        const selectedListener = await treeElement.spyOnEvent('kupTreeNodeSelected');
+        let updatedData = await treeElement.getProperty('data');
+        let flatTree = flattenTree(updatedData);
+
+        // Tests the selection of x elements
+        for (let i = 0; i < 5; i++) {
+          const {treeNodePath, selectedTreeNode} = getRndTreeNode(updatedData, dataTreeConfiguration.depth);
+
+          await treeElement.setProperty('selectedNode', treeNodePath);
+          await page.waitForChanges();
+
+          // Find element index
+          let flatIndex: number = -1;
+          for (let k = 0; k < flatTree.length; k++) {
+            if (flatTree[k].id === selectedTreeNode.id && flatTree[k].value === selectedTreeNode.value) {
+              flatIndex = k;
+              break;
+            }
+          }
+
+          // Must have found an element
+          expect(flatIndex).toBeGreaterThan(-1);
+
+          const selectedE2ENode = await page.find(KupTreeSelectors.TableRows + ':nth-of-type(' + (flatIndex + 1) + ')');
+          const treeNodeCellContent = await selectedE2ENode.find(KupTreeSelectors.TreeNodeCell + ' .cell-content');
+
+          expect(treeNodeCellContent).toEqualText(selectedTreeNode.value);
+          if (!selectedTreeNode.disabled) {
+            expect(selectedE2ENode).toHaveClass('kup-tree__node--selected');
+          } else {
+            expect(selectedE2ENode).not.toHaveClass('kup-tree__node--selected');
+          }
+        }
+
+        // Controls that no selection events were generated during this process
+        expect(selectedListener).toHaveLength(0);
+      });
+
+
+      test.skip('by user click interaction', async () => {
+
+      });
     });
 
 
