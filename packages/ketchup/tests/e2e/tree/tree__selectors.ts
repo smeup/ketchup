@@ -12,5 +12,6 @@ export const KupTreeSelectors = {
   OptionElement: 'span.options',
   simple: {
     CellIcon: '.kup-tree__icon',
+    TreeNodeExpander: '.kup-tree__node__expander',
   }
 };

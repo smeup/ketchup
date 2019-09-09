@@ -12,7 +12,8 @@ import {
   getRndTreeNode,
   getTreeNodeFromPath,
   TreeConfigData,
-  TreeFactory
+  TreeFactory,
+  DynamicExpansionFaker,
 } from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
@@ -27,6 +28,7 @@ const dataTreeConfiguration: {
 let data: TreeNode[] | undefined;
 let columns: Column[] | undefined;
 let page, treeElement, treeHeader, visibleColumns, expandedListener;
+let dynamicCallbackFaker;
 
 /**
  * Given a E2EElement node and a style object, checks if all properties of the given style are present inside the
@@ -254,7 +256,7 @@ describe('kup-tree with data', () => {
     }, 60000);
 
 
-    it.only('can hide TreeNodes icons', async () => {
+    it('can hide TreeNodes icons', async () => {
       treeElement.setAttribute('expanded', 'true');
       treeElement.setProperty('data', [...data]);
       await page.waitForChanges();
@@ -530,6 +532,76 @@ describe('kup-tree with data', () => {
       // This is a long test, waits for almost a minute before dropping it
     }, 60000);
 
+
+    describe('use-dynamic-expansion set', () => {
+      beforeEach(async () => {
+        // Creates data, and set half of the items to enabled and the rest to disabled
+        dynamicCallbackFaker = DynamicExpansionFaker(3, 5);
+        data = dynamicCallbackFaker.data;
+        columns = dynamicCallbackFaker.columns;
+
+        for (let k = 0; k < data.length; k++) {
+          data[k].disabled = Math.ceil(data.length / 2) < k;
+        }
+
+        expandedListener = await treeElement.spyOnEvent('kupTreeNodeExpand');
+
+        treeElement.setProperty('columns', columns);
+        treeElement.setProperty('data', data);
+        treeElement.setAttribute('use-dynamic-expansion', 'true');
+        await page.waitForChanges();
+
+        const updatedData = await treeElement.getProperty('data');
+
+        for (let k = 0; k < updatedData.length; k++) {
+          updatedData[k].disabled = Math.ceil(updatedData.length / 2) < k;
+        }
+      });
+
+      afterEach(() => {
+        expandedListener = null;
+        dynamicCallbackFaker = null;
+      });
+
+
+      it('can be used without a callback set', async () => {
+        const rows = await page.findAll(KupTreeSelectors.TableRows);
+        const expanderNode = await rows[0].find('td:first-of-type ' + KupTreeSelectors.simple.TreeNodeExpander);
+        await expanderNode.click();
+
+        expect(expandedListener).toHaveLength(1);
+
+        const { detail } = expandedListener.lastEvent;
+        expect(detail.treeNode.id).toEqual(data[0].id);
+        expect(detail.treeNodePath).toEqual([0]);
+        expect(detail.usesDynamicExpansion).toBeTruthy();
+        expect(detail.dynamicExpansionRequireChildren).toBeTruthy();
+      });
+
+      it('can be used by providing a callback', async () => {
+        function kupTreeDynamicCallbackFactory(currentFaker) {
+          return (treeNodeToExpand, treeNodePath) => currentFaker.getTreeNodeChildren(treeNodePath);
+        }
+
+        treeElement.setProperty('dynamicExpansionCallback', kupTreeDynamicCallbackFactory(dynamicCallbackFaker));
+        await page.waitForChanges();
+
+        const rows = await page.findAll(KupTreeSelectors.TableRows);
+        const expanderNode = await rows[0].find('td:first-of-type ' + KupTreeSelectors.simple.TreeNodeExpander);
+        await expanderNode.click();
+
+        expect(expandedListener).toHaveLength(1);
+
+        console.log(await treeElement.getProperty('dynamicExpansionCallback'));
+
+        const { detail } = expandedListener.lastEvent;
+        expect(detail.treeNode.id).toEqual(data[0].id);
+        expect(detail.treeNodePath).toEqual([0]);
+        expect(detail.usesDynamicExpansion).toBeTruthy();
+        expect(detail.dynamicExpansionRequireChildren).toBeTruthy();
+      });
+
+    });
 
   });
 
