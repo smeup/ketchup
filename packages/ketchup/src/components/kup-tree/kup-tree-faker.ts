@@ -87,8 +87,19 @@ function getBooleanOnProbability(probability: number = .5): boolean {
   return Math.random() < probability;
 }
 
-export default function getRandomInteger(maximum: number = 10): number {
+export function getRandomInteger(maximum: number = 10): number {
   return Math.round(Math.random() * maximum);
+}
+
+export function getTreeNodeFromPath(treeNodes: TreeNode[], path: TreeNodePath): TreeNode | null {
+  if (path.length) {
+    let supportTreeNode = treeNodes[path[0]];
+    for (let i = 1; i < path.length; i++) {
+      supportTreeNode = supportTreeNode.children[path[i]];
+    }
+    return supportTreeNode;
+  }
+  return null;
 }
 
 export function flattenTree(nodesToFlatten: TreeNode[], useIsExpandedFlag = true) {

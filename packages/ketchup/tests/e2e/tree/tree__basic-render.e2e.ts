@@ -6,7 +6,14 @@ import {E2EElement, newE2EPage} from '@stencil/core/testing';
 
 import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-data-table-declarations';
 import { TreeNode, treeExpandedPropName} from '../../../src/components/kup-tree/kup-tree-declarations';
-import {flattenTree, getRndTreeNode, TreeConfigData, TreeFactory} from '../../../src/components/kup-tree/kup-tree-faker';
+import {
+  flattenTree,
+  getRandomInteger,
+  getRndTreeNode,
+  getTreeNodeFromPath,
+  TreeConfigData,
+  TreeFactory
+} from '../../../src/components/kup-tree/kup-tree-faker';
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
@@ -366,7 +373,7 @@ describe('kup-tree with data', () => {
     });
 
 
-    describe('can select a not disabled tree node', () => {
+    describe('a not disabled tree node', () => {
       beforeEach(async () => {
         // Since these test require at least a node to not be disabled, we programmatically set a node to not be disabled
         data[0].disabled = false;
@@ -376,7 +383,7 @@ describe('kup-tree with data', () => {
       });
 
 
-      test('programmatically, through prop selectedNode', async () => {
+      test('can be selected programmatically, through prop selectedNode', async () => {
         const selectedListener = await treeElement.spyOnEvent('kupTreeNodeSelected');
         let updatedData = await treeElement.getProperty('data');
         let flatTree = flattenTree(updatedData);
@@ -416,8 +423,33 @@ describe('kup-tree with data', () => {
       });
 
 
-      test.skip('by user click interaction', async () => {
+      test('emits a selected event if clicked (not on the expand icon)', async () => {
+        const selectedListener = await treeElement.spyOnEvent('kupTreeNodeSelected');
+        let updatedData = await treeElement.getProperty('data');
+        let flatTree = flattenTree(updatedData);
 
+        let eventCount = 0;
+        const rowIndexesToTest = [0]; // Always test the first element because in the beforeAll it was set to enabled
+        for (let k = 0; k < 19; k++) {
+          rowIndexesToTest.push(getRandomInteger(flatTree.length - 1))
+        }
+
+        for (let i = 0; i < rowIndexesToTest.length; i++) {
+          const treeNodeCellContent = await page.find(KupTreeSelectors.TableRows + ':nth-of-type(' + (rowIndexesToTest[i] + 1) + ') td:nth-of-type(1) .cell-content');
+          await treeNodeCellContent.click();
+
+          if (!flatTree[rowIndexesToTest[i]].disabled) {
+            eventCount++;
+            expect(selectedListener.lastEvent).toBeTruthy();
+
+            const { detail } = selectedListener.lastEvent;
+            expect(detail.treeNode.id).toEqual(flatTree[rowIndexesToTest[i]].id);
+            expect(Array.isArray(detail.treeNodePath));
+            expect(detail.treeNode.id).toEqual(getTreeNodeFromPath(updatedData, detail.treeNodePath).id);
+          }
+
+          expect(selectedListener).toHaveLength(eventCount);
+        }
       });
     });
 
