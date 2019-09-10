@@ -1,7 +1,3 @@
-/**
- * NOTES:
- * In this test suites, TreeNodes are not expanded.
- */
 import {E2EElement, newE2EPage} from '@stencil/core/testing';
 
 import {Column, GenericMap,} from '../../../src/components/kup-data-table/kup-data-table-declarations';
@@ -324,7 +320,7 @@ describe('kup-tree with data', () => {
       }, 300000);
 
 
-      it.skip('fires kupOptionClicked when an option is clicked', async () => {
+      it('fires kupOptionClicked when an option is clicked', async () => {
         const checkOptionPayload = ({ detail }, cellDataValue: string, treeNode: TreeNode, columnName: string = "TreeNodeCell") => {
           expect(detail.treeNode.id).toEqual(treeNode.id);
           expect(detail.cell.value).toEqual(cellDataValue);
@@ -391,7 +387,7 @@ describe('kup-tree with data', () => {
         }
 
        // This test is truly monstrous. It needs a high time to be performed
-      }, 400000);
+      }, 500000);
     });
 
 
@@ -583,22 +579,38 @@ describe('kup-tree with data', () => {
           return (treeNodeToExpand, treeNodePath) => currentFaker.getTreeNodeChildren(treeNodePath);
         }
 
-        treeElement.setProperty('dynamicExpansionCallback', kupTreeDynamicCallbackFactory(dynamicCallbackFaker));
+        // Creates and expose functions to the browser instance to allow correct callback to be set
+        // https://github.com/ionic-team/stencil/issues/1174
+        const expansionCallback = kupTreeDynamicCallbackFactory(dynamicCallbackFaker);
+        await page.exposeFunction('toInject', expansionCallback);
+        await page.$eval('kup-tree', (tree: any) => {
+          tree.dynamicExpansionCallback = this.toInject;
+        });
         await page.waitForChanges();
 
+        // Controls that current data has no children element set
+        let updatedData: TreeNode[] = await treeElement.getProperty('data');
+        if (updatedData[0].children) {
+          expect(updatedData[0].children).toHaveLength(0);
+        }
+
+        // Triggers expansion
         const rows = await page.findAll(KupTreeSelectors.TableRows);
         const expanderNode = await rows[0].find('td:first-of-type ' + KupTreeSelectors.simple.TreeNodeExpander);
         await expanderNode.click();
 
         expect(expandedListener).toHaveLength(1);
 
-        console.log(await treeElement.getProperty('dynamicExpansionCallback'));
-
         const { detail } = expandedListener.lastEvent;
         expect(detail.treeNode.id).toEqual(data[0].id);
         expect(detail.treeNodePath).toEqual([0]);
         expect(detail.usesDynamicExpansion).toBeTruthy();
-        expect(detail.dynamicExpansionRequireChildren).toBeTruthy();
+        expect(detail).not.toHaveProperty('dynamicExpansionRequireChildren');
+
+        // Controls that elements have been correctly added to the node
+        updatedData = await treeElement.getProperty('data');
+        expect(updatedData[0].children).toBeTruthy();
+        expect(updatedData[0].children.length).toBeGreaterThan(0);
       });
 
     });

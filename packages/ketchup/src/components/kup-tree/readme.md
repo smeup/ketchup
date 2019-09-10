@@ -13,6 +13,42 @@ A collection of terms used for this component.
 **TreeNodeCell**: The cell containing the indentation, open/close icon, TreeNode icon and TreeNode information
 (rendered both when the tree is hiding or showing the columns).
 
+## About dynamic expansion feature
+
+Dynamic expansion feature allows children of a TreeNode to be dynamically fetched and added to the data.\
+There are two ways in which this feature can be achieved.
+
+### Without using callback
+
+The first way, the one people coming from frameworks (such as Vue, React and Angular) will be more accustomed with,
+is to use the the component without passing a callback to the prop described below.
+
+When using a dynamic expansion with no callback set, `kup-tree` will fire an expand event (see below) with a flag
+signaling that the TreeNode being expanded is requiring its children to the backend system.\
+In order to trigger the correct expansion upon receiving an expansion event, the parent component will need to:
+1. fetch the TreeNode children;
+2. update the tree data by:
+   1. adding the TreeNode children;
+   2. set the `isExpanded` flag to `true`;
+3. force the component to update by updating the reference of the `data` prop using ES6 spread operator (`...`).
+
+To see a working example of this, I suggest to have a look at the project showcase, under the section `tree > Tree dynamic expansion`,
+and `ketchup-showcase > src > views > tree > TDynamicExpansion.vue` file, inside the script section.
+
+### By using a callback function
+
+The other, slightly more powerful method to achieve this is by setting a callback on the component.\
+`kup-tree` expects the callback to return a JS `Promise` which:
+1. if successfully resolved, returns an array of child TreeNodes to be set as children to the expanded element.\
+   After the elements have been added, re-renders the component and fires expanded event.
+2. an error if the TreeNodes could not be fetched. The component will `console.error()` a message.
+
+In the failure case, it can be useful to notify the error to the parent.\
+We must decide if either an error event will be fired or a `throw` error will be executed.  
+
+You can find an example of this behavior inside the same resources linked in the previous paragraph.
+
+
 ## Possible future development
 
 ### Keyboard support
