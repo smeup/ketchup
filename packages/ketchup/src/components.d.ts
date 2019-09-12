@@ -52,8 +52,8 @@ import {
   Badge,
 } from './components/kup-image/kup-image-declarations';
 import {
-  PaginatorMode,
-} from './components/kup-paginator/kup-paginator-declarations';
+  Image,
+} from './components/fields/kup-image-button/kup-image-declarations';
 import {
   JSX,
 } from '@stencil/core';
@@ -406,6 +406,24 @@ export namespace Components {
     'src': string;
     'width': number;
   }
+  interface KupImageButton {
+    /**
+    * If enabled, can select one or more images
+    */
+    'allowMultiSelection': boolean;
+    /**
+    * urls of the images
+    */
+    'images': Image[];
+    /**
+    * If enabled, display the image description below the image
+    */
+    'showDescription': boolean;
+    /**
+    * image dimension
+    */
+    'size': number;
+  }
   interface KupPaginator {
     'currentPage': number;
     'max': number;
@@ -644,6 +662,12 @@ declare global {
     new (): HTMLKupImageElement;
   };
 
+  interface HTMLKupImageButtonElement extends Components.KupImageButton, HTMLStencilElement {}
+  var HTMLKupImageButtonElement: {
+    prototype: HTMLKupImageButtonElement;
+    new (): HTMLKupImageButtonElement;
+  };
+
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
   var HTMLKupPaginatorElement: {
     prototype: HTMLKupPaginatorElement;
@@ -701,6 +725,7 @@ declare global {
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-image': HTMLKupImageElement;
+    'kup-image-button': HTMLKupImageButtonElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
@@ -1151,6 +1176,27 @@ declare namespace LocalJSX {
     'src'?: string;
     'width'?: number;
   }
+  interface KupImageButton extends JSXBase.HTMLAttributes<HTMLKupImageButtonElement> {
+    /**
+    * If enabled, can select one or more images
+    */
+    'allowMultiSelection'?: boolean;
+    /**
+    * urls of the images
+    */
+    'images'?: Image[];
+    'onKupImageButtonSelected'?: (event: CustomEvent<{
+      selectedImages: Image[];
+    }>) => void;
+    /**
+    * If enabled, display the image description below the image
+    */
+    'showDescription'?: boolean;
+    /**
+    * image dimension
+    */
+    'size'?: number;
+  }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
@@ -1333,6 +1379,7 @@ declare namespace LocalJSX {
     'kup-graphic-cell': KupGraphicCell;
     'kup-html': KupHtml;
     'kup-image': KupImage;
+    'kup-image-button': KupImageButton;
     'kup-paginator': KupPaginator;
     'kup-portal': KupPortal;
     'kup-portal-instance': KupPortalInstance;
