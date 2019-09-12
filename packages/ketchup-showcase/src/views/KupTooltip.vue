@@ -7,28 +7,28 @@
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
       >
-        <img src="/images/lana-born-to-die.jpg" width="64" height="64" />
+        <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
       >
-        <img src="/images/lana-ultraviolence.jpg" width="64" height="64" />
+        <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
       >
-        <img src="/images/lana-honeymoon.jpg" width="64" height="64" />
+        <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
         @kupTooltipLoadData="onLoadData($event, 4)"
         @kupTooltipLoadDetail="loadLust"
       >
-        <img src="/images/lana-lust.jpg" width="64" height="64" />
+        <img :src="images.lust" width="64" height="64" />
       </kup-tooltip>
     </div>
 
@@ -39,7 +39,7 @@
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
       >
-        <img src="/images/lana-born-to-die.jpg" width="64" height="64" />
+        <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -47,7 +47,7 @@
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
       >
-        <img src="/images/lana-ultraviolence.jpg" width="64" height="64" />
+        <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -55,7 +55,7 @@
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
       >
-        <img src="/images/lana-honeymoon.jpg" width="64" height="64" />
+        <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -63,7 +63,7 @@
         @kupTooltipLoadData="onLoadData($event, 4)"
         @kupTooltipLoadDetail="loadLust"
       >
-        <img src="/images/lana-lust.jpg" width="64" height="64" />
+        <img :src="images.lust" width="64" height="64" />
       </kup-tooltip>
     </div>
 
@@ -74,7 +74,7 @@
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
       >
-        <img src="/images/lana-born-to-die.jpg" width="64" height="64" />
+        <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -82,7 +82,7 @@
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
       >
-        <img src="/images/lana-ultraviolence.jpg" width="64" height="64" />
+        <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -90,7 +90,7 @@
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
       >
-        <img src="/images/lana-honeymoon.jpg" width="64" height="64" />
+        <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip
@@ -98,7 +98,7 @@
         @kupTooltipLoadData="onLoadData($event, 4)"
         @kupTooltipLoadDetail="loadLust"
       >
-        <img src="/images/lana-lust.jpg" width="64" height="64" />
+        <img :src="images.lust" width="64" height="64" />
       </kup-tooltip>
     </div>
 
@@ -121,16 +121,25 @@ import {
   ultraviolence,
   honeymoon,
   lustForLife,
+  imageUrls,
 } from '@/mock/tooltip';
 
 export default {
+  data() {
+    return {
+      images: {
+        ...imageUrls,
+      },
+    };
+  },
+
   methods: {
     onLoadData(event, index) {
       let data;
       switch (index) {
         case 1:
           data = {
-            image: '/images/lana-born-to-die.jpg',
+            image: this.images.bornToDie,
             title: 'Born to die',
             content: {
               info1: {
@@ -147,7 +156,7 @@ export default {
 
         case 2:
           data = {
-            image: '/images/lana-ultraviolence.jpg',
+            image: this.images.ultra,
             title: 'Ultraviolence',
             content: {
               info1: {
@@ -164,7 +173,7 @@ export default {
 
         case 3:
           data = {
-            image: '/images/lana-honeymoon.jpg',
+            image: this.images.honey,
             title: 'Honeymoon',
             content: {
               info1: {
@@ -181,7 +190,7 @@ export default {
 
         case 4:
           data = {
-            image: '/images/lana-lust.jpg',
+            image: this.images.lust,
             title: 'Lust for life',
             content: {
               info1: {
