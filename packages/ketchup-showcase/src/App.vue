@@ -108,6 +108,12 @@ export default {
             },
           },
           {
+            title: 'Pagination',
+            to: {
+              name: 'boxPagination',
+            },
+          },
+          {
             title: 'Selection',
             to: {
               name: 'boxSel',

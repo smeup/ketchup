@@ -67,6 +67,9 @@ import {
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
+import {
+  TooltipData,
+} from './components/kup-tooltip/kup-tooltip-declarations';
 
 export namespace Components {
   interface KupBadge {
@@ -100,6 +103,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Number of boxes per page
+    */
+    'pageSize': number;
+    /**
+    * Enables pagination
+    */
+    'pagination': boolean;
     /**
     * Automatically selects the box at the specified index
     */
@@ -194,6 +205,10 @@ export namespace Components {
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable': boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
     /**
     * Items which can be selected
     */
@@ -412,6 +427,7 @@ export namespace Components {
   interface KupPaginator {
     'currentPage': number;
     'max': number;
+    'mode': PaginatorMode;
     'perPage': number;
     'selectedPerPage': number;
   }
@@ -538,6 +554,10 @@ export namespace Components {
     'triggerFocus': () => Promise<void>;
   }
   interface KupTooltip {
+    /**
+    * Data for top section
+    */
+    'data': TooltipData;
     /**
     * Data for the detail
     */
@@ -781,6 +801,14 @@ declare namespace LocalJSX {
       row: BoxRow;
     }>) => void;
     /**
+    * Number of boxes per page
+    */
+    'pageSize'?: number;
+    /**
+    * Enables pagination
+    */
+    'pagination'?: boolean;
+    /**
     * Automatically selects the box at the specified index
     */
     'selectBox'?: number;
@@ -896,6 +924,10 @@ declare namespace LocalJSX {
     * Marks the field as clearable, allowing an icon to delete its content
     */
     'isClearable'?: boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
     /**
     * Items which can be selected
     */
@@ -1168,6 +1200,7 @@ declare namespace LocalJSX {
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
+    'mode'?: PaginatorMode;
     /**
     * When the current page change
     */
@@ -1315,6 +1348,10 @@ declare namespace LocalJSX {
   }
   interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
     /**
+    * Data for top section
+    */
+    'data'?: TooltipData;
+    /**
     * Data for the detail
     */
     'detailData'?: DataTable;
@@ -1322,9 +1359,7 @@ declare namespace LocalJSX {
     * Layout used to display the items
     */
     'layout'?: string;
-    /**
-    * Triggered when a box is clicked
-    */
+    'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
 

@@ -8,7 +8,6 @@
 * @prop --cmb_menu-background, --kup-combo_menu_background: Specify menu background
 */
 
-
 // Padding of the input text
 $arrow-button-padding: 4px;
 $lateral-padding: 6px;
@@ -16,11 +15,17 @@ $lateral-padding: 6px;
 :host {
   // Variables
   --cmb_font-size: var(--kup-combo_input_font-size, 14px);
-  --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-80});
-  --cmb_border-color--selected: var(--kup-combo_input_border-color, #{darken($gray-80, 10)});
+  --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-bd});
+  --cmb_border-color--selected: var(
+    --kup-combo_input_border-color,
+    #{darken($gray-80, 10)}
+  );
   --cmb_tr-duration: var(--kup-combo_input_transition-duration, #{$trn-time});
   --cmb_icon-color: var(--kup-combo_icon_color, #{$gray-80});
-  --cmb_icon-color--hover: var(--kup-combo_icon_color--hover, #{darken($gray-80, 10)});
+  --cmb_icon-color--hover: var(
+    --kup-combo_icon_color--hover,
+    #{darken($gray-80, 10)}
+  );
   --cmb_menu-background: var(--kup-combo_menu_background, #ffffff);
 
   /* Root style
@@ -36,8 +41,7 @@ $lateral-padding: 6px;
   // The div containing the input element.
   &__container {
     background-color: #ffffff;
-    border: 1px solid var(--cmb_border-color);
-    border-radius: 2px;
+    border-bottom: 1px solid var(--cmb_border-color);
     box-sizing: border-box;
     display: inline-flex;
     outline: none;
@@ -51,9 +55,7 @@ $lateral-padding: 6px;
   // Common style for the icons
   &__icon {
     fill: var(--cmb_icon-color);
-    height: var(--cmb_font-size);
     transition: fill var(--cmb_tr-duration), transform var(--cmb_tr-duration);
-    width: var(--cmb_font-size);
   }
 
   // Style of the container of the currently selected value
@@ -63,7 +65,10 @@ $lateral-padding: 6px;
     display: inline-flex;
     font-size: var(--cmb_font-size);
     justify-content: center;
-    padding: 4px $lateral-padding;
+
+    svg {
+      fill: #{$gray-bd};
+    }
   }
 
   // Chevron icon
@@ -99,7 +104,7 @@ $lateral-padding: 6px;
   &__menu {
     background-color: var(--cmb_menu-background);
     border-radius: 2px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     display: inline-block;
     left: 0;
     opacity: 0;
@@ -145,18 +150,17 @@ $lateral-padding: 6px;
     display: block;
     list-style-type: none;
     padding: 0;
+    min-width: 80px;
     max-height: 400px;
     margin: 0;
     overflow: auto;
 
     // Each list item
     > li {
-      border-bottom: 1px solid #e8eae9;
       box-sizing: border-box;
       cursor: pointer;
       display: block;
       padding: 6px 8px 5px;
-      //width: 100%;
 
       &:hover,
       &.is-selected {

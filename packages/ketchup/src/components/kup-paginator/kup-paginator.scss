@@ -7,7 +7,7 @@
 
 :host {
   // variables
-  --int_text-color: var(--kup-paginator_text-color, $mainTextColor);
+  --int_text-color: var(--kup-paginator_text-color, #{$mainTextColor});
   --int_font-size: var(--kup-paginator_font-size, 1rem);
 }
 
@@ -18,6 +18,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   font-size: var(--int_font-size);
+
+  .align-left,
+  .align-right {
+    display: flex;
+    align-items: center;
+  }
 
   icon {
     cursor: pointer;
@@ -46,5 +52,29 @@
 
   .nextPageGroup {
     padding-right: 1.5rem;
+  }
+
+  .number-of-pages,
+  .rows-per-page {
+    color: #{$gray-bd};
+  }
+
+  kup-combo {
+    margin: 0 0.25rem;
+  }
+}
+
+:host([mode='simple']) {
+  #paginator {
+    .align-left {
+      .prev-page,
+      .next-page {
+        display: none;
+      }
+    }
+
+    .align-right {
+      display: none;
+    }
   }
 }
