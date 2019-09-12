@@ -6,10 +6,10 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
     shadow: true,
 })
 export class KupChip {
-    @Prop()
+    @Prop({ reflect: true })
     closable = false;
 
-    @Prop()
+    @Prop({ reflect: true })
     disabled = false;
 
     @Event()

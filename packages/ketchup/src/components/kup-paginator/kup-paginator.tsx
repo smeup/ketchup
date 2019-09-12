@@ -197,7 +197,8 @@ export class KupPaginator {
                         }}
                         onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
                     />
-                    righe per pagina
+                    <span class="rows-per-page">righe per pagina</span>
+                    <slot name="right" />
                 </div>
             </div>
         );

@@ -6,18 +6,24 @@ function getRandomArbitrary(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export function createDataForPagination(colSize: number, rowSize: number, useStepValues: boolean = false) {
+export function createDataForPagination(
+  colSize: number,
+  rowSize: number,
+  useStepValues: boolean = false
+) {
   const columns: any = [];
   let stepValue = -20;
   const stepIncrement = 10;
-  const stepValuesAlwaysFilteredRows = [0,1];
+  const stepValuesAlwaysFilteredRows = [0, 1];
 
   for (let i = 0; i < colSize; i++) {
     columns.push({
       name: 'FLD' + i,
       title: 'Column ' + i,
       size: 10,
-      hideValuesRepetitions: useStepValues && (Math.random() > .5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0)
+      hideValuesRepetitions:
+        useStepValues &&
+        (Math.random() > 0.5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0),
     });
   }
 
@@ -30,7 +36,8 @@ export function createDataForPagination(colSize: number, rowSize: number, useSte
     for (let j = 0; j < columns.length; j++) {
       const cell: any = {};
 
-      cell.value = (!useStepValues ? i.toString() : stepValue.toString()) + j.toString();
+      cell.value =
+        (!useStepValues ? i.toString() : stepValue.toString()) + j.toString();
 
       cell.obj = {
         t: 'NR',
@@ -688,9 +695,9 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '-2',
           },
-          value: '6',
+          value: '-2',
         },
         FLD3: {
           obj: {
@@ -981,1016 +988,1016 @@ export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);
 //---- Checkbox data table ----
 export function dataTableCheckboxFactory() {
   return {
-    "config": {
-      "rowsPerPage": 50
+    config: {
+      rowsPerPage: 50,
     },
-    "data": {
-      "columns": [
+    data: {
+      columns: [
         {
-          "name": "A",
-          "size": 0,
-          "title": "Numero"
+          name: 'A',
+          size: 0,
+          title: 'Numero',
         },
         {
-          "name": "B",
-          "size": 0,
-          "title": "BarCode"
+          name: 'B',
+          size: 0,
+          title: 'BarCode',
         },
         {
-          "name": "C",
-          "size": 0,
-          "title": "Si/No"
-        }
+          name: 'C',
+          size: 0,
+          title: 'Si/No',
+        },
       ],
-      "rows": [
+      rows: [
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "1",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '1',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "1"
+              options: false,
+              value: '1',
             },
-            "B": {
-              "obj": {
-                "k": "J;1111ffffffffff",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'J;1111ffffffffff',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "J;1111ffffffffff"
+              options: false,
+              value: 'J;1111ffffffffff',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "0",
-          "object": "",
-          "readOnly": true
+          id: '0',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "A;12345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'A;12345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "A;12345"
+              options: false,
+              value: 'A;12345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "1",
-          "object": "",
-          "readOnly": true
+          id: '1',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "B;987654321098",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'B;987654321098',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "B;987654321098"
+              options: false,
+              value: 'B;987654321098',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "2",
-          "object": "",
-          "readOnly": true
+          id: '2',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "C;123456789012",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'C;123456789012',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "C;123456789012"
+              options: false,
+              value: 'C;123456789012',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "3",
-          "object": "",
-          "readOnly": true
+          id: '3',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "5",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '5',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "5"
+              options: false,
+              value: '5',
             },
-            "B": {
-              "obj": {
-                "k": "D;1122334455667",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'D;1122334455667',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "D;1122334455667"
+              options: false,
+              value: 'D;1122334455667',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "4",
-          "object": "",
-          "readOnly": true
+          id: '4',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "6",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '6',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "6"
+              options: false,
+              value: '6',
             },
-            "B": {
-              "obj": {
-                "k": "E;9876543210123",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'E;9876543210123',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "E;9876543210123"
+              options: false,
+              value: 'E;9876543210123',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "5",
-          "object": "",
-          "readOnly": true
+          id: '5',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "7",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '7',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "7"
+              options: false,
+              value: '7',
             },
-            "B": {
-              "obj": {
-                "k": "F;0123987654456",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'F;0123987654456',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "F;0123987654456"
+              options: false,
+              value: 'F;0123987654456',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "6",
-          "object": "",
-          "readOnly": true
+          id: '6',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "8",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '8',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "8"
+              options: false,
+              value: '8',
             },
-            "B": {
-              "obj": {
-                "k": "G;1234567890123",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'G;1234567890123',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "G;1234567890123"
+              options: false,
+              value: 'G;1234567890123',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "7",
-          "object": "",
-          "readOnly": true
+          id: '7',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "9",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '9',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "9"
+              options: false,
+              value: '9',
             },
-            "B": {
-              "obj": {
-                "k": "H;51112345621",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'H;51112345621',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "H;51112345621"
+              options: false,
+              value: 'H;51112345621',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "8",
-          "object": "",
-          "readOnly": true
+          id: '8',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "0",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '0',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "0"
+              options: false,
+              value: '0',
             },
-            "B": {
-              "obj": {
-                "k": "I;12345678901",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: 'I;12345678901',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "I;12345678901"
+              options: false,
+              value: 'I;12345678901',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "9",
-          "object": "",
-          "readOnly": true
+          id: '9',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "2345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2345"
+              options: false,
+              value: '2345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "10",
-          "object": "",
-          "readOnly": true
+          id: '10',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "6789",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '6789',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "6789"
+              options: false,
+              value: '6789',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "11",
-          "object": "",
-          "readOnly": true
+          id: '11',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "2511",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2511',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2511"
+              options: false,
+              value: '2511',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "12",
-          "object": "",
-          "readOnly": true
+          id: '12',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "1",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '1',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "1"
+              options: false,
+              value: '1',
             },
-            "B": {
-              "obj": {
-                "k": "1111",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '1111',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "1111"
+              options: false,
+              value: '1111',
             },
-            "C": {
-              "obj": {
-                "k": "",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": ""
-            }
+              options: false,
+              value: '',
+            },
           },
-          "id": "13",
-          "object": "",
-          "readOnly": true
+          id: '13',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "2345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2345"
+              options: false,
+              value: '2345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "14",
-          "object": "",
-          "readOnly": true
+          id: '14',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "6789",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '6789',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "6789"
+              options: false,
+              value: '6789',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "15",
-          "object": "",
-          "readOnly": true
+          id: '15',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "2511",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2511',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2511"
+              options: false,
+              value: '2511',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "16",
-          "object": "",
-          "readOnly": true
+          id: '16',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "1",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '1',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "1"
+              options: false,
+              value: '1',
             },
-            "B": {
-              "obj": {
-                "k": "1111",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '1111',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "1111"
+              options: false,
+              value: '1111',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "17",
-          "object": "",
-          "readOnly": true
+          id: '17',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "2345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2345"
+              options: false,
+              value: '2345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "18",
-          "object": "",
-          "readOnly": true
+          id: '18',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "6789",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '6789',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "6789"
+              options: false,
+              value: '6789',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "19",
-          "object": "",
-          "readOnly": true
+          id: '19',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "2511",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2511',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2511"
+              options: false,
+              value: '2511',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "20",
-          "object": "",
-          "readOnly": true
+          id: '20',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "1",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '1',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "1"
+              options: false,
+              value: '1',
             },
-            "B": {
-              "obj": {
-                "k": "1111",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '1111',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "1111"
+              options: false,
+              value: '1111',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "21",
-          "object": "",
-          "readOnly": true
+          id: '21',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "2345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2345"
+              options: false,
+              value: '2345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "22",
-          "object": "",
-          "readOnly": true
+          id: '22',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "6789",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '6789',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "6789"
+              options: false,
+              value: '6789',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "23",
-          "object": "",
-          "readOnly": true
+          id: '23',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "2511",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2511',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2511"
+              options: false,
+              value: '2511',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "24",
-          "object": "",
-          "readOnly": true
+          id: '24',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "1",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '1',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "1"
+              options: false,
+              value: '1',
             },
-            "B": {
-              "obj": {
-                "k": "1111",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '1111',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "1111"
+              options: false,
+              value: '1111',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "25",
-          "object": "",
-          "readOnly": true
+          id: '25',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "2",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '2',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "2"
+              options: false,
+              value: '2',
             },
-            "B": {
-              "obj": {
-                "k": "2345",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2345',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2345"
+              options: false,
+              value: '2345',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "26",
-          "object": "",
-          "readOnly": true
+          id: '26',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "3",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '3',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "3"
+              options: false,
+              value: '3',
             },
-            "B": {
-              "obj": {
-                "k": "6789",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '6789',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "6789"
+              options: false,
+              value: '6789',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "27",
-          "object": "",
-          "readOnly": true
+          id: '27',
+          object: '',
+          readOnly: true,
         },
         {
-          "cells": {
-            "A": {
-              "obj": {
-                "k": "4",
-                "p": "",
-                "t": ""
+          cells: {
+            A: {
+              obj: {
+                k: '4',
+                p: '',
+                t: '',
               },
-              "options": false,
-              "value": "4"
+              options: false,
+              value: '4',
             },
-            "B": {
-              "obj": {
-                "k": "2511",
-                "p": "BRC",
-                "t": "J4"
+            B: {
+              obj: {
+                k: '2511',
+                p: 'BRC',
+                t: 'J4',
               },
-              "options": false,
-              "value": "2511"
+              options: false,
+              value: '2511',
             },
-            "C": {
-              "obj": {
-                "k": "1",
-                "p": "SI/NO",
-                "t": "V2"
+            C: {
+              obj: {
+                k: '1',
+                p: 'SI/NO',
+                t: 'V2',
               },
-              "options": false,
-              "value": "1"
-            }
+              options: false,
+              value: '1',
+            },
           },
-          "id": "28",
-          "object": "",
-          "readOnly": true
-        }
-      ]
+          id: '28',
+          object: '',
+          readOnly: true,
+        },
+      ],
     },
-    "key": "i146"
+    key: 'i146',
   };
 }

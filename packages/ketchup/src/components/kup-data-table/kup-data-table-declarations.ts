@@ -20,22 +20,24 @@ export interface Row {
 
     id?: string;
 
-    group?: {
-        id: string;
-        parent: Row;
-        column: string;
-        expanded: boolean; // not sure if this is needed
-        label: string;
-        children: Array<Row>;
-        obj: {
-            t: string;
-            p: string;
-            k: string;
-        };
-        totals: { [index: string]: number };
-    };
+    group?: RowGroup;
 
     readOnly?: boolean;
+}
+
+export interface RowGroup {
+    id: string;
+    parent: Row;
+    column: string;
+    expanded: boolean; // not sure if this is needed
+    label: string;
+    children: Array<Row>;
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+    totals: { [index: string]: number };
 }
 
 export interface Cell {
