@@ -59,13 +59,13 @@ Usually there are two variables which can be used for each customizable property
 
 The names of the variables must be composed like this:
 ```
---prefix_internal-component_component-property
+--prefix[_internal-component]_component-property
 ```
 
 Where:
-1. `prefix` is either: a 3 letters acronym of the component for internal defined variables, or `kup-` + `component-name`
+1. `prefix` is either: a 3 letters acronym of the component for internally defined variables, or `kup-` + `component-name`
 for external variables.
-2. `internal-component` is an optional kebab case prefix used to specify id a property specifically targets an
+2. `[_internal-component]` is an optional kebab case prefix used to specify id a property specifically targets an
 element which is part of the component.
 3.  `component-property` is a mandatory kebab case suffix describing the property the variable will change,
 and is referred as a global component change if no `internal-component` has been specified.

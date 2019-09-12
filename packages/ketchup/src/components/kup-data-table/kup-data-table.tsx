@@ -39,6 +39,7 @@ import {
     sortRows,
     getColumnByName,
     paginateRows,
+    styleHasBorderRadius,
 } from './kup-data-table-helper';
 
 import {
@@ -976,14 +977,6 @@ export class KupDataTable {
         }
     }
 
-    private styleHasBorderRadius(cell: Cell): boolean {
-        if (cell && cell.style && cell.style.borderRadius) {
-            return true;
-        }
-
-        return false;
-    }
-
     //==== Column sort order methods ====
     private handleColumnSort(receivingColumn: Column, sortedColumn: Column) {
         // Get receiving column position
@@ -1556,7 +1549,7 @@ export class KupDataTable {
                 };
 
                 let cellStyle = null;
-                if (!this.styleHasBorderRadius(cell)) {
+                if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
                 }
 
@@ -1790,7 +1783,7 @@ export class KupDataTable {
 
         // if cell.style has border, apply style to cellcontent
         let style = null;
-        if (this.styleHasBorderRadius(cell)) {
+        if (styleHasBorderRadius(cell)) {
             style = cell.style;
         }
 

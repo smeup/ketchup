@@ -10,6 +10,7 @@ import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
+  Cell,
   Column,
   DataTable,
   GenericMap,
@@ -67,6 +68,10 @@ import {
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
+import {
+  TreeNode,
+  TreeNodePath,
+} from './components/kup-tree/kup-tree-declarations';
 import {
   TooltipData,
 } from './components/kup-tooltip/kup-tooltip-declarations';
@@ -567,6 +572,48 @@ export namespace Components {
     */
     'layout': string;
   }
+  interface KupTree {
+    /**
+    * The columns of the tree when tree visualization is active
+    */
+    'columns'?: Column[];
+    /**
+    * The json data used to populate the tree view: the basic, always visible tree nodes.
+    */
+    'data': TreeNode[];
+    /**
+    * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+    */
+    'dynamicExpansionCallback': (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+    /**
+    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+    */
+    'expanded': boolean;
+    /**
+    * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
+    */
+    'selectedNode': TreeNodePath;
+    /**
+    * Shows the tree data as a table.
+    */
+    'showColumns': boolean;
+    /**
+    * Flag: shows the header of the tree when the tree is displayed as a table.
+    */
+    'showHeader': boolean;
+    /**
+    * Show the icons of the various nodes of the tree.
+    */
+    'showIcons': boolean;
+    /**
+    * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
+    */
+    'showObjectNavigation': boolean;
+    /**
+    * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
+    */
+    'useDynamicExpansion': boolean;
+  }
 }
 
 declare global {
@@ -709,6 +756,12 @@ declare global {
     prototype: HTMLKupTooltipElement;
     new (): HTMLKupTooltipElement;
   };
+
+  interface HTMLKupTreeElement extends Components.KupTree, HTMLStencilElement {}
+  var HTMLKupTreeElement: {
+    prototype: HTMLKupTreeElement;
+    new (): HTMLKupTreeElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
@@ -733,6 +786,7 @@ declare global {
     'kup-radio': HTMLKupRadioElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
+    'kup-tree': HTMLKupTreeElement;
   }
 }
 
@@ -1362,6 +1416,79 @@ declare namespace LocalJSX {
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
+  interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
+    /**
+    * The columns of the tree when tree visualization is active
+    */
+    'columns'?: Column[];
+    /**
+    * The json data used to populate the tree view: the basic, always visible tree nodes.
+    */
+    'data'?: TreeNode[];
+    /**
+    * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+    */
+    'dynamicExpansionCallback'?: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+    /**
+    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+    */
+    'expanded'?: boolean;
+    /**
+    * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
+    */
+    'onKupOptionClicked'?: (event: CustomEvent<{
+      cell: Cell;
+      column: Column;
+      treeNode: TreeNode;
+    }>) => void;
+    /**
+    * Fired when a TreeNode gets collapsed (closed).
+    */
+    'onKupTreeNodeCollapse'?: (event: CustomEvent<{
+      treeNodePath: TreeNodePath;
+      treeNode: TreeNode;
+    }>) => void;
+    /**
+    * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
+    */
+    'onKupTreeNodeExpand'?: (event: CustomEvent<{
+      treeNodePath: TreeNodePath;
+      treeNode: TreeNode;
+      usesDynamicExpansion?: boolean;
+      dynamicExpansionRequireChildren?: boolean;
+    }>) => void;
+    /**
+    * Fired when a node of the tree has been selected
+    */
+    'onKupTreeNodeSelected'?: (event: CustomEvent<{
+      treeNodePath: TreeNodePath,
+      treeNode: TreeNode,
+    }>) => void;
+    /**
+    * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
+    */
+    'selectedNode'?: TreeNodePath;
+    /**
+    * Shows the tree data as a table.
+    */
+    'showColumns'?: boolean;
+    /**
+    * Flag: shows the header of the tree when the tree is displayed as a table.
+    */
+    'showHeader'?: boolean;
+    /**
+    * Show the icons of the various nodes of the tree.
+    */
+    'showIcons'?: boolean;
+    /**
+    * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
+    */
+    'showObjectNavigation'?: boolean;
+    /**
+    * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
+    */
+    'useDynamicExpansion'?: boolean;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;
@@ -1387,6 +1514,7 @@ declare namespace LocalJSX {
     'kup-radio': KupRadio;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
+    'kup-tree': KupTree;
   }
 }
 

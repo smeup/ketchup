@@ -334,6 +334,29 @@ export default {
           },
         ],
       },
+      {
+        title: 'Tree',
+        routes: [
+          {
+            title: `Tree basics`,
+            to: {
+              name: 'treeBasic',
+            },
+          },
+          {
+            title: `Tree table`,
+            to: {
+              name: 'treeTable',
+            },
+          },
+          {
+            title: `Tree dynamic expansion`,
+            to: {
+              name: 'treeDynamic',
+            },
+          },
+        ],
+      },
     ],
     simpleRoutes: [
       {
@@ -409,13 +432,21 @@ export default {
 // For code sources
 code {
   box-sizing: border-box;
+  overflow: auto;
   padding: 8px;
+  width: 100%;
 
   // When there is code which needs to be displayed inline
   &.inline {
+    display: inline;
     padding: 2px;
     margin: 1px 2px;
   }
+}
+
+// For big titles
+h2 {
+  font-size: 1.75rem;
 }
 
 // For small titles
