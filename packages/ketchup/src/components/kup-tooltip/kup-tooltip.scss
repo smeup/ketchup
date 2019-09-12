@@ -48,6 +48,15 @@
             margin-bottom: 6px;
           }
         }
+
+        h3,
+        h4 {
+          margin: 0;
+        }
+
+        .label {
+          color: var(--tlt_detail-lbl-color);
+        }
       }
 
       #detail {

@@ -1,15 +1,16 @@
 import {
     Component,
     h,
-    State,
     Prop,
     Event,
     EventEmitter,
     Watch,
     Element,
+    State,
 } from '@stencil/core';
 
 import { DataTable, Row } from '../kup-data-table/kup-data-table-declarations';
+import { TooltipData } from './kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -24,6 +25,12 @@ export class KupTooltip {
     layout = '1';
 
     /**
+     * Data for top section
+     */
+    @Prop()
+    data: TooltipData;
+
+    /**
      * Data for the detail
      */
     @Prop()
@@ -32,15 +39,17 @@ export class KupTooltip {
     @State()
     visible = false;
 
-    @State()
-    detailVisible = false;
-
     @Element()
     tooltipEl: HTMLElement;
 
-    /**
-     * Triggered when a box is clicked
-     */
+    @Event({
+        eventName: 'kupTooltipLoadData',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTooltipLoadData: EventEmitter;
+
     @Event({
         eventName: 'kupTooltipLoadDetail',
         composed: true,
@@ -49,9 +58,32 @@ export class KupTooltip {
     })
     kupTooltipLoadDetail: EventEmitter;
 
-    @Watch('detailData')
+    @Watch('data')
     onDataChanged() {
-        this.detailVisible = true;
+        if (this.visible) {
+            // resetting position
+            this.tooltipPosition = {};
+
+            const rect = this.wrapperEl.getBoundingClientRect();
+
+            // vertical position
+            if (window.innerHeight - rect.bottom < 150) {
+                this.tooltipPosition.bottom = `${rect.height + 3}px`;
+            } else {
+                this.tooltipPosition.top = `${rect.height}px`;
+            }
+
+            // horizontal position
+            if (window.innerWidth - rect.left < 350) {
+                // 350 is the min-width of the tooltip
+                this.tooltipPosition.right = `0`;
+            } else {
+                this.tooltipPosition.left = `0`;
+            }
+
+            // loading detail
+            this.loadDetailTimeout = setTimeout(() => this.loadDetail(), 200);
+        }
     }
 
     // ---- Non reactive ----
@@ -62,16 +94,13 @@ export class KupTooltip {
         right?: string;
     } = {};
 
-    // check if the event kupTooltipLoadDetail was triggered
-    private kupTooltipLoadDetailTriggered = false;
-
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
 
     private wrapperEl: HTMLSpanElement;
 
     // ---- Private methods ----
-    private hasData(): boolean {
+    private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
     }
 
@@ -90,11 +119,30 @@ export class KupTooltip {
     private loadDetail() {
         this.loadDetailTimeout = null;
         this.kupTooltipLoadDetail.emit();
-        this.kupTooltipLoadDetailTriggered = true;
     }
 
     get rows(): Row[] {
-        return this.hasData() ? this.detailData.rows : [];
+        return this.hasDetailData() ? this.detailData.rows : [];
+    }
+
+    private getImage(): string {
+        if (this.data) {
+            return this.data.image;
+        }
+
+        return '';
+    }
+
+    private getTitle(): string {
+        if (this.data) {
+            return this.data.title;
+        }
+
+        return '';
+    }
+
+    private getContent() {
+        return this.data ? this.data.content : {};
     }
 
     // ---- Listeners ----
@@ -103,68 +151,34 @@ export class KupTooltip {
             this.tooltipTimeout = setTimeout(() => {
                 this.tooltipTimeout = null;
 
-                // resetting position
-                this.tooltipPosition = {};
-
-                const rect = this.wrapperEl.getBoundingClientRect();
-
-                // vertical position
-                if (window.innerHeight - rect.bottom < 150) {
-                    this.tooltipPosition.bottom = `${rect.height + 3}px`;
-                } else {
-                    this.tooltipPosition.top = `${rect.height}px`;
-                }
-
-                // horizontal position
-                if (window.innerWidth - rect.left < 350) {
-                    // 350 is the min-width of the tooltip
-                    this.tooltipPosition.right = `0`;
-                } else {
-                    this.tooltipPosition.left = `0`;
-                }
-
                 this.visible = true;
 
-                if (!this.kupTooltipLoadDetailTriggered) {
-                    // timeout to load detail
-                    this.loadDetailTimeout = setTimeout(
-                        () => this.loadDetail(),
-                        250
-                    );
-                } else {
-                    // timeout to set the detail visible
-                    this.loadDetailTimeout = setTimeout(
-                        () => (this.detailVisible = true),
-                        250
-                    );
-                }
-            }, 500);
+                this.kupTooltipLoadData.emit();
+            }, 200);
         }
     }
 
     private onMouseLeave() {
-        this.resetTimeouts();
+        // reset data
+        this.data = null;
+        this.detailData = null;
 
+        // reset visibility
         this.visible = false;
-        this.detailVisible = false;
+
+        // reset timeouts
+        this.resetTimeouts();
     }
 
     // ---- Render methods ----
     private getDefaultLayout() {
         return [
             <div class="left">
-                <slot name="slot1" />
+                <img src={this.getImage()} width="75" height="75" />
             </div>,
             <div class="right">
-                <div>
-                    <slot name="slot2" />
-                </div>
-                <div class="slot3">
-                    <slot name="slot3" />
-                </div>
-                <div>
-                    <slot name="slot4" />
-                </div>
+                <h3>{this.getTitle()}</h3>
+                {this.getInfos()}
             </div>,
         ];
     }
@@ -172,26 +186,49 @@ export class KupTooltip {
     private getLayout2() {
         return (
             <div>
-                <slot name="slot1" />
+                <h3>{this.getTitle()}</h3>
             </div>
         );
     }
 
     private getLayout3() {
         return [
-            <div class="slot1">
-                <slot name="slot1" />
+            <div>
+                <h4>{this.getTitle()}</h4>
             </div>,
-            <div class="slot2">
-                <slot name="slot2" />
-            </div>,
-            <div class="slot3">
-                <slot name="slot3" />
-            </div>,
+            this.getInfos(),
         ];
     }
 
+    private getInfos() {
+        let infos = null;
+
+        const content = this.getContent();
+        if (content) {
+            infos = [];
+
+            for (let i = 1; i <= 2; i++) {
+                const info = content[`info${i}`];
+
+                if (info && info.label && info.label) {
+                    infos.push(
+                        <div>
+                            <span class="label">{info.label}: </span>
+                            {' ' + info.value}
+                        </div>
+                    );
+                }
+            }
+        }
+
+        return infos;
+    }
+
     private createTooltip() {
+        if (!this.data) {
+            return null;
+        }
+
         let mainContent = null;
 
         const mainContentClass = {};
@@ -207,7 +244,7 @@ export class KupTooltip {
         }
 
         let detailContent = null;
-        if (this.hasData()) {
+        if (this.hasDetailData()) {
             detailContent = this.rows.map((row) => (
                 <div class="detail-row">
                     <div class="detail-row__label">
@@ -221,7 +258,7 @@ export class KupTooltip {
         }
 
         const detailClass = {
-            visible: this.detailVisible && this.hasData(),
+            visible: this.hasDetailData(),
         };
 
         const tooltipStyle = {
@@ -229,7 +266,11 @@ export class KupTooltip {
         };
 
         return (
-            <div id="tooltip" hidden={!this.visible} style={tooltipStyle}>
+            <div
+                id="tooltip"
+                hidden={!this.visible || !this.data}
+                style={tooltipStyle}
+            >
                 <div id="main-content" class={mainContentClass}>
                     {mainContent}
                 </div>
