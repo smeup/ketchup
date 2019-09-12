@@ -1,7 +1,8 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-const tooltipSelector = 'kup-tooltip >>> #wrapper #tooltip';
-const detailSelector = 'kup-tooltip >>> #wrapper #detail';
+const wrapperSelector = 'kup-tooltip >>> #wrapper';
+const tooltipSelector = wrapperSelector + ' #tooltip';
+const detailSelector = wrapperSelector + ' #detail';
 
 describe('kup-tooltip', () => {
     it('tooltip is hidden', async () => {
@@ -15,11 +16,11 @@ describe('kup-tooltip', () => {
 
         const tooltip = await page.find(tooltipSelector);
 
-        expect(tooltip).toHaveAttribute('hidden');
+        expect(tooltip).toBeNull();
 
         const detail = await page.find(detailSelector);
 
-        expect(detail).not.toHaveClass('visible');
+        expect(detail).toBeNull();
     });
 
     it('hover on wrapper', async () => {
@@ -31,6 +32,8 @@ describe('kup-tooltip', () => {
           </kup-tooltip>
         `);
 
+        const kupTooltipLoadData = await page.spyOnEvent('kupTooltipLoadData');
+
         const kupTooltipLoadDetail = await page.spyOnEvent(
             'kupTooltipLoadDetail'
         );
@@ -38,7 +41,29 @@ describe('kup-tooltip', () => {
         await page.hover('kup-tooltip');
 
         // waiting for settimeout to be done
-        await page.waitFor(550);
+        await page.waitFor(250);
+
+        expect(kupTooltipLoadData).toHaveLength(1);
+
+        // setting data
+        await page.$eval('kup-tooltip', (el: any) => {
+            el.data = {
+                image: '/images/lana-born-to-die.jpg',
+                title: 'Born to die',
+                content: {
+                    info1: {
+                        label: 'Author',
+                        value: 'Lana del Rey',
+                    },
+                    info2: {
+                        label: 'Year',
+                        value: 2012,
+                    },
+                },
+            };
+        });
+
+        await page.waitForChanges();
 
         const tooltip = await page.find(tooltipSelector);
 
@@ -49,7 +74,7 @@ describe('kup-tooltip', () => {
         expect(detail).not.toHaveClass('visible');
 
         // waiting for event
-        await page.waitFor(200);
+        await page.waitFor(250);
 
         expect(kupTooltipLoadDetail).toHaveLength(1);
 

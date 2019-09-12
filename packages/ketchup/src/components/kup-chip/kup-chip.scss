@@ -1,36 +1,63 @@
+/**
+* @prop --chi_color, --kup-chip_color: Text color
+* @prop --chi_icon-color, --kup-chip_icon-color: Icon color
+* @prop --chi_icon-color-hover, --kup-chip_icon-color-hover: Icon color on mouse hover
+* @prop --chi_background, --kup-chip_background: Background color
+* @prop --chi_background-hover, --kup-chip_background-hover: Background color on mouse hover
+* @prop --chi_disabled-color, --kup-chip_disabled-color: Text color when the chip is disabled
+*/
+
+:host {
+  --chi_color: var(--kup-chip_color, #{$gray-1a});
+  --chi_icon-color: var(--kup-chip_icon-color, #{$mainRed});
+  --chi_icon-color-hover: var(--kup-chip_icon-color-hover, #{$mainRedLight});
+  --chi_background: var(--kup-chip_background, #{$gray-f0});
+  --chi_background-hover: var(--kup-chip_background-hover, #{$gray-e5});
+  --chi_disabled-color: var(--kup-chip_disabled-color, #{$gray-88});
+}
+
 #chip {
-  background: $gray-e0;
-  color: $mainTextColor;
+  background: var(--chi_background);
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
   margin: 4px;
   padding: 4px;
-  border-radius: 10px;
   outline: none;
+  cursor: default;
+
+  &:not(.disabled):hover {
+    background: var(--chi_background-hover);
+  }
 
   #content {
-    height: 25px;
     margin: 0 3px;
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
     justify-content: space-between;
-    cursor: default;
+    color: var(--chi_color);
 
     svg {
       cursor: pointer;
-      fill: $mainTextColor;
-      margin-left: 2px;
+      fill: var(--chi_icon-color);
+      margin-left: 4px;
+
+      &:hover {
+        fill: var(--chi_icon-color-hover);
+      }
     }
   }
 
   &.disabled {
-    background: $gray-f5;
+    #content {
+      color: var(--chi_disabled-color);
+    }
 
     #content {
       svg {
         cursor: default;
+        fill: var(--chi_disabled-color);
       }
     }
   }

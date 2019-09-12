@@ -19,6 +19,12 @@
   justify-content: space-between;
   font-size: var(--int_font-size);
 
+  .align-left,
+  .align-right {
+    display: flex;
+    align-items: center;
+  }
+
   icon {
     cursor: pointer;
     opacity: 1;
@@ -48,7 +54,8 @@
     padding-right: 1.5rem;
   }
 
-  .number-of-pages {
+  .number-of-pages,
+  .rows-per-page {
     color: #{$gray-bd};
   }
 

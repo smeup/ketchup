@@ -396,6 +396,12 @@ export default {
         },
       },
       {
+        title: `Image button`,
+        to: {
+          name: 'image-button',
+        },
+      },
+      {
         title: `Portals`,
         to: {
           name: 'portals',

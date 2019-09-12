@@ -60,6 +60,11 @@ let simpleRoutes = [
     name: 'checkbox',
     component: () => import(`@/views/KupCheckboxExamples.vue`),
   },
+  {
+    path: `/kup-image-button`,
+    name: 'image-button',
+    component: () => import(`@/views/KupImageButton.vue`),
+  },
 ];
 
 const baseRoutes = [
