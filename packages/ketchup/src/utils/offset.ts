@@ -56,7 +56,7 @@ export function getElementOffset(
         ret.left = rect.left + scrollLeft;
     } else {
         // If right positioned
-        ret.right = offsetEl.scrollWidth - rect.left - rect.width;
+        ret.right = offsetEl.offsetWidth - rect.left - rect.width;
     }
 
     // If positioned on the bottom of the el element
