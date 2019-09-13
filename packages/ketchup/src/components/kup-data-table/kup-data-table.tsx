@@ -1275,9 +1275,7 @@ export class KupDataTable {
                     <input
                         type="checkbox"
                         onChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${
-                            this.selectedRows.length
-                        } - renderedRows: ${this.renderedRows.length}`}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
@@ -1813,7 +1811,7 @@ export class KupDataTable {
         return (
             <div class="paginator-wrapper">
                 <kup-paginator
-                    id="top-paginator"
+                    id={top ? 'top-paginator' : 'bottom-paginator'}
                     max={this.rows.length}
                     perPage={this.rowsPerPage}
                     selectedPerPage={this.currentRowsPerPage}

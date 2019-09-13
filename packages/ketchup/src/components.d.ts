@@ -56,6 +56,9 @@ import {
   Image,
 } from './components/fields/kup-image-button/kup-image-declarations';
 import {
+  PaginatorMode,
+} from './components/kup-paginator/kup-paginator-declarations';
+import {
   JSX,
 } from '@stencil/core';
 import {
@@ -69,12 +72,12 @@ import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
+  TooltipData,
+} from './components/kup-tooltip/kup-tooltip-declarations';
+import {
   TreeNode,
   TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
-import {
-  TooltipData,
-} from './components/kup-tooltip/kup-tooltip-declarations';
 
 export namespace Components {
   interface KupBadge {
