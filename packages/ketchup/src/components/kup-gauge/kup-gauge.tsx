@@ -196,10 +196,10 @@ export class KupGauge {
         // TODO these thresholds will be given to the component by a user prop
         const givenThresholds = [];
         if (!this.onlyValue) {
-            if (this.firstThreshold !== undefined) {
+            if (this.firstThreshold || 0 === this.firstThreshold) {
                 givenThresholds.push(this.firstThreshold);
             }
-            if (this.secondThreshold !== undefined) {
+            if (this.secondThreshold || 0 === this.secondThreshold) {
                 givenThresholds.push(this.secondThreshold);
             }
         } else {
