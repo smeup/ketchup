@@ -196,10 +196,10 @@ export class KupGauge {
         // TODO these thresholds will be given to the component by a user prop
         const givenThresholds = [];
         if (!this.onlyValue) {
-            if (this.firstThreshold) {
+            if (this.firstThreshold !== undefined) {
                 givenThresholds.push(this.firstThreshold);
             }
-            if (this.secondThreshold) {
+            if (this.secondThreshold !== undefined) {
                 givenThresholds.push(this.secondThreshold);
             }
         } else {
@@ -233,6 +233,8 @@ export class KupGauge {
             arcsColors = [valuecolor, 'var(--gau_empty-color)'];
         }
 
+        console.log(arcsThresholds.length);
+
         for (let i = 0; i < arcsThresholds.length - 1; i++) {
             const currentArcPath = this.arcGenerator({
                 innerRadius: halvedSize - this.arcThickness,
@@ -251,6 +253,8 @@ export class KupGauge {
                 />
             );
         }
+
+        console.log(arcsElements.length);
 
         // Composes the threshold label elements, if labels must be displayed
         const textElements =
