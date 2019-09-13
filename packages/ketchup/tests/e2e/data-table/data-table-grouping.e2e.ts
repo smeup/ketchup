@@ -2,11 +2,17 @@ import { newE2EPage } from '@stencil/core/testing';
 
 import { groupingData, d8Data } from './mocked-data';
 
-import { rowsSelector, headerCellsSelector } from './data-table-selectors';
+import {
+    rowsSelector,
+    headerCellsSelector,
+    expanderPathSelector,
+    rowExpanderSelector,
+} from './data-table-selectors';
 
-const rowExpanderSelector =
-    'kup-data-table >>> table > tbody > tr.group .row-expander';
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
+
+const collapseIcon = 'M19,13H5V11H19V13Z';
+const expandIcon = 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z';
 
 describe('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {
@@ -42,9 +48,9 @@ describe('kup-data-table with single grouping', () => {
 
             expect(cells[0]).toEqualAttribute('colspan', '3');
 
-            const expandIcon = await cells[0].find('span.mdi');
+            const path = await cells[0].find(expanderPathSelector);
 
-            expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+            expect(path).toEqualAttribute('d', expandIcon);
 
             // testing group order
             switch (i) {
@@ -79,15 +85,15 @@ describe('kup-data-table with single grouping', () => {
 
             const cells = await row.findAll('td');
 
-            if (i == 0) {
+            if (i === 0) {
                 // grouping
                 expect(cells).toHaveLength(1);
 
                 expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                const expandIcon = await cells[0].find('span.mdi');
+                const path = await cells[0].find(expanderPathSelector);
 
-                expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-right']);
+                expect(path).toEqualAttribute('d', collapseIcon);
             } else {
                 // normal row
                 expect(cells).toHaveLength(3);
@@ -141,9 +147,9 @@ describe('kup-data-table with single grouping', () => {
 
             expect(cells[0]).toEqualAttribute('colspan', '2');
 
-            const expandIcon = await cells[0].find('span.mdi');
+            const path = await cells[0].find(expanderPathSelector);
 
-            expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-down']);
+            expect(path).toEqualAttribute('d', expandIcon);
 
             // testing group order
             switch (i) {
@@ -184,9 +190,9 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '2');
 
-                const expandIcon = await cells[0].find('span.mdi');
+                const path = await cells[0].find(expanderPathSelector);
 
-                expect(expandIcon).toHaveClasses(['mdi', 'mdi-chevron-right']);
+                expect(path).toEqualAttribute('d', collapseIcon);
             } else {
                 // normal row
                 expect(cells).toHaveLength(2);
