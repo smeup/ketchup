@@ -598,6 +598,17 @@ export class KupDataTable {
         }
     }
 
+    private adjustPaginator() {
+        const numberOfRows = this.rows.length;
+
+        // check if current page is valid
+        const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
+        if (this.currentPage > numberOfPages) {
+            // reset page
+            this.currentPage = 1;
+        }
+    }
+
     // event listeners
     private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
@@ -669,6 +680,7 @@ export class KupDataTable {
 
     private handleRowsPerPageChanged({ detail }) {
         this.currentRowsPerPage = detail.newRowsPerPage;
+        this.adjustPaginator();
     }
 
     private onRowClick(event: MouseEvent, row: Row) {
@@ -1071,15 +1083,7 @@ export class KupDataTable {
             let sort = null;
             if (this.sortEnabled) {
                 sort = (
-                    <span
-                        class="column-sort"
-                        onMouseEnter={() =>
-                            this.onColumnMouseLeave(column.name)
-                        }
-                        onMouseLeave={() =>
-                            this.onColumnMouseEnter(column.name)
-                        }
-                    >
+                    <span class="column-sort">
                         <span
                             role="button"
                             aria-label="Sort column" // TODO

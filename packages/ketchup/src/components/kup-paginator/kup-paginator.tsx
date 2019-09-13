@@ -167,6 +167,7 @@ export class KupPaginator {
                         />
                     </span>
                     <kup-combo
+                        usePortal
                         items={goToPageItems}
                         isFilterable={false}
                         initialValue={{
@@ -190,6 +191,7 @@ export class KupPaginator {
                     <slot name="more-results" />
                     Mostra
                     <kup-combo
+                        usePortal
                         items={rowsPerPageItems}
                         isFilterable={false}
                         initialValue={{
