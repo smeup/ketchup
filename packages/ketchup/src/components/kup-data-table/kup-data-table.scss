@@ -441,31 +441,37 @@
     opacity: 0;
     z-index: 10;
     box-shadow: #{$mainShadow};
-    padding: 1rem;
+    width: 100px; // I.E. fallback
+    width: max-content;
 
     .wrapper {
       display: flex;
       align-items: center;
       outline: none;
-      color: #{$smeup-primary};
+      color: var(--dtt_color);
       cursor: pointer;
-      padding: 6px 8px 5px;
+      padding: 0.5rem 1rem;
+      transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
-      &:not(:last-child) {
-        margin-bottom: 0.5rem;
+      &:first-child {
+        padding-top: 0.75rem;
+      }
+
+      &:last-child {
+        padding-bottom: 0.75rem;
       }
 
       svg {
         margin-right: 0.5rem;
-        fill: #{$smeup-primary};
+        fill: var(--dtt_color);
       }
 
       &:hover,
       &.active {
-        color: #{$mainTextColor};
-
+        color: var(--dtt_hover-color);
+        background-color: var(--dtt_hover-background-color);
         svg {
-          fill: #{$mainTextColor};
+          fill: var(--dtt_hover-color);
         }
       }
     }

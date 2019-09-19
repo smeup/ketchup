@@ -1865,14 +1865,12 @@ export class KupDataTable {
                     <div
                         class={{
                             wrapper: true,
-                            active: this.density === 'small',
+                            active: this.density === 'big',
                         }}
-                        onClick={() => (this.density = 'small')}
+                        onClick={() => (this.density = 'big')}
                         role="button"
                         tabindex="0"
-                        aria-pressed={
-                            this.density === 'small' ? 'true' : 'false'
-                        }
+                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
                     >
                         <svg
                             version="1.1"
@@ -1880,7 +1878,7 @@ export class KupDataTable {
                             height="24"
                             viewBox="0 0 24 24"
                         >
-                            <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" />
+                            <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z" />
                         </svg>
                         Bassa
                     </div>
@@ -1907,16 +1905,17 @@ export class KupDataTable {
                         </svg>
                         Media
                     </div>
-
                     <div
                         class={{
                             wrapper: true,
-                            active: this.density === 'big',
+                            active: this.density === 'small',
                         }}
-                        onClick={() => (this.density = 'big')}
+                        onClick={() => (this.density = 'small')}
                         role="button"
                         tabindex="0"
-                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
+                        aria-pressed={
+                            this.density === 'small' ? 'true' : 'false'
+                        }
                     >
                         <svg
                             version="1.1"
@@ -1924,7 +1923,7 @@ export class KupDataTable {
                             height="24"
                             viewBox="0 0 24 24"
                         >
-                            <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z" />
+                            <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" />
                         </svg>
                         Alta
                     </div>

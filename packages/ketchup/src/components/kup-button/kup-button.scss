@@ -20,6 +20,7 @@
    * @prop --btn_opacity, --kup-button_opacity: Sets opacity of the button.
    * @prop --btn_box-shadow, --kup-button_box-shadow: Sets hover box shadow of the button.
    * @prop --btn_border, --kup-button_border: Sets border of the button.
+   * @prop --btn_border-radius, --kup-button_border-radius: Sets border radius of the button.
   */
   --btn_font-style: var(--kup-button_font-style, 'normal');
   --btn_font-size: var(--kup-button_font-size, 14px);
@@ -43,6 +44,7 @@
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
   );
   --btn_border: var(--kup-button_border, none);
+  --btn_border-radius: var(--kup-button_border-radius, 2px);
 
   @include stateVars('--btn');
 }
@@ -57,7 +59,7 @@ button {
   outline: none; //override browser
   opacity: var(--btn_opacity);
   background: var(--btn_main-color);
-  border-radius: 2px;
+  border-radius: var(--btn_border-radius);
   border: var(--btn_border);
   box-shadow: none;
   color: var(--btn_text-color);
