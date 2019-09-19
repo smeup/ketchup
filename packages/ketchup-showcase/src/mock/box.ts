@@ -360,6 +360,177 @@ export const j4btnData = {
   ],
 };
 
+export const iconData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Image',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Name',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Number',
+      size: 10,
+    },
+    {
+      name: 'FLD4',
+      title: 'Icon',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;CASFRA',
+          },
+          value: 'https://via.placeholder.com/64?text=CF',
+        },
+        FLD2: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
+          },
+          value: 'CASFRA',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '100.60',
+          },
+          value: '100.60',
+        },
+        FLD4: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'VO;COD_AGG;000115',
+          },
+          value: 'mdi mdi-magnify',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;PARFRA',
+          },
+          value: 'https://via.placeholder.com/64?text=PF',
+        },
+        FLD2: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
+          },
+          value: 'PARFRA',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '145.22',
+          },
+          value: '145.22',
+        },
+        FLD4: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'VO;COD_VER;000001',
+          },
+          value: 'mdi mdi-account',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;DELGIO',
+          },
+          value: 'https://via.placeholder.com/64?text=DG',
+        },
+        FLD2: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '221.23',
+          },
+          value: '221.23',
+        },
+        FLD4: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'VO;COD_VER;000001',
+          },
+          value: 'mdi mdi-plus',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;SANCOS',
+          },
+          value: 'https://via.placeholder.com/64?text=SC',
+        },
+        FLD2: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'SANCOS',
+          },
+          value: 'SANCOS',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '187.59',
+          },
+          value: '187.59',
+        },
+        FLD4: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'VO;COD_VER;000001',
+          },
+          value: 'mdi mdi-airplane',
+        },
+      },
+    },
+  ],
+};
+
 export const imgBadgeData = {
   columns: [
     {

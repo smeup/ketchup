@@ -8,7 +8,10 @@
     ></kup-box>
 
     <p v-if="clickedBtn">You clicked: {{ clickedBtn }}</p>
+    <hr />
 
+    <h3>Icons</h3>
+    <kup-box :data.prop="iconData" :layout.prop="btnLayout"></kup-box>
     <hr />
 
     <h3>Progress bar</h3>
@@ -17,13 +20,14 @@
 </template>
 
 <script>
-import { j4btnData, pgbData } from '@/mock/box';
+import { j4btnData, pgbData, iconData } from '@/mock/box';
 
 export default {
   data() {
     return {
-      btnData: j4btnData,
-      pgbData,
+      btnData: { ...j4btnData },
+      pgbData: { ...pgbData },
+      iconData: { ...iconData },
       btnLayout: {
         sections: [
           {
