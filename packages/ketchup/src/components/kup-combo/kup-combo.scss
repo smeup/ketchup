@@ -14,6 +14,7 @@
 * @prop --cmb_text-color, --kup-combo_text-color: Specify background
 * @prop --cmb_text-color--hover, --kup-combo_text-color--hover: Specify background on hover
 * @prop --cmb_border-radius, --kup-combo_border-radius: Specify border radius
+* @prop --cmb_box-shadow, --kup-combo_box-shadow: Specify menu box shadow
 */
 
 // Padding of the input text
@@ -52,6 +53,10 @@ $lateral-padding: 6px;
     #{darken($gray-80, 10)}
   );
   --cmb_border-radius: var(--kup-combo_border-radius, 2px);
+  --cmb_box-shadow: var(
+    --kup-combo_box-shadow,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  );
 
   /* Root style
    * [1] - By default, the root of this element must have a position != static to allow correct positioning of its list.
@@ -144,8 +149,8 @@ $lateral-padding: 6px;
   &__menu {
     background-color: var(--cmb_menu-background);
     color: var(--cmb_menu-text);
-    border-radius: 2px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+    box-shadow: var(--cmb_box-shadow);
     display: inline-block;
     left: 0;
     opacity: 0;

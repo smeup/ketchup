@@ -119,6 +119,7 @@ export class KupCombo {
         '--cmb_text-color',
         '--cmb_text-color--hover',
         '--cmb_border-radius',
+        '--cmb_box-shadow',
     ];
 
     //-- Constants --
