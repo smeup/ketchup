@@ -6,6 +6,14 @@
 * @prop --cmb_icon-color, --kup-combo_icon_color: Base icon color
 * @prop --cmb_icon-color--hover, --kup-combo_icon_color--hover: Icon color when hovered
 * @prop --cmb_menu-background, --kup-combo_menu_background: Specify menu background
+* @prop --cmb_menu-background--hover, --kup-combo_menu_background--hover: Specify menu background on hover
+* @prop --cmb_menu-text, --kup-combo_menu_text: Specify menu text color
+* @prop --cmb_menu-text--hover, --kup-combo_menu_text--hover: Specify menu text color on hover
+* @prop --cmb_background-color, --kup-combo_background: Specify background
+* @prop --cmb_background-color--hover, --kup-combo_background--hover: Specify background on hover
+* @prop --cmb_text-color, --kup-combo_text-color: Specify background
+* @prop --cmb_text-color--hover, --kup-combo_text-color--hover: Specify background on hover
+* @prop --cmb_border-radius, --kup-combo_border-radius: Specify border radius
 */
 
 // Padding of the input text
@@ -17,7 +25,7 @@ $lateral-padding: 6px;
   --cmb_font-size: var(--kup-combo_input_font-size, 14px);
   --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-bd});
   --cmb_border-color--selected: var(
-    --kup-combo_input_border-color,
+    --kup-combo_input_border-color--selected,
     #{darken($gray-80, 10)}
   );
   --cmb_tr-duration: var(--kup-combo_input_transition-duration, #{$trn-time});
@@ -27,6 +35,23 @@ $lateral-padding: 6px;
     #{darken($gray-80, 10)}
   );
   --cmb_menu-background: var(--kup-combo_menu_background, #ffffff);
+  --cmb_menu-background--hover: var(
+    --kup-combo_menu_background--hover,
+    #f0f0f0
+  );
+  --cmb_menu-text: var(--kup-combo_menu_text, #808080);
+  --cmb_menu-text--hover: var(--kup-combo_menu_text--hover, #555555);
+  --cmb_background-color: var(--kup-combo_background-color, #ffffff);
+  --cmb_background-color--hover: var(
+    --kup-combo_background-color--hover,
+    #f0f0f0
+  );
+  --cmb_text-color: var(--kup-combo_text-color, #{$gray-80});
+  --cmb_text-color--hover: var(
+    --kup-combo_text-color--hover,
+    #{darken($gray-80, 10)}
+  );
+  --cmb_border-radius: var(--kup-combo_border-radius, 2px);
 
   /* Root style
    * [1] - By default, the root of this element must have a position != static to allow correct positioning of its list.
@@ -40,15 +65,26 @@ $lateral-padding: 6px;
 .kup-combo {
   // The div containing the input element.
   &__container {
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--cmb_border-color);
+    background-color: var(--cmb_background-color);
+    color: var(--cmb_text-color);
+    border: 1px solid var(--cmb_border-color);
+    border-radius: var(--cmb_border-radius);
     box-sizing: border-box;
     display: inline-flex;
     outline: none;
+    transition: border-color 0.25s ease;
 
     &:hover,
     &:focus {
       border-color: var(--cmb_border-color--selected);
+
+      .value-text {
+        color: var(--cmb_text-color--hover);
+      }
+
+      svg {
+        fill: var(--cmb_icon-color--hover);
+      }
     }
   }
 
@@ -65,6 +101,10 @@ $lateral-padding: 6px;
     display: inline-flex;
     font-size: var(--cmb_font-size);
     justify-content: center;
+
+    .value-text {
+      padding: 0 0.75rem;
+    }
 
     svg {
       fill: #{$gray-bd};
@@ -103,6 +143,7 @@ $lateral-padding: 6px;
   // Absolute menu
   &__menu {
     background-color: var(--cmb_menu-background);
+    color: var(--cmb_menu-text);
     border-radius: 2px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     display: inline-block;
@@ -161,10 +202,13 @@ $lateral-padding: 6px;
       cursor: pointer;
       display: block;
       padding: 6px 8px 5px;
+      transition: color var(--cmb_tr-duration),
+        background-color var(--cmb_tr-duration);
 
       &:hover,
       &.is-selected {
-        background-color: #f0f0f0;
+        background-color: var(--cmb_menu-background--hover);
+        color: var(--cmb_menu-text--hover);
       }
 
       &:last-of-type {

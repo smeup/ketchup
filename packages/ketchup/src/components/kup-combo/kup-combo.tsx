@@ -111,6 +111,14 @@ export class KupCombo {
         '--cmb_icon-color',
         '--cmb_icon-color--hover',
         '--cmb_menu-background',
+        '--cmb_menu-background--hover',
+        '--kup-combo_menu_text',
+        '--kup-combo_menu_text--hover',
+        '--cmb_background-color',
+        '--cmb_background-color--hover',
+        '--cmb_text-color',
+        '--cmb_text-color--hover',
+        '--cmb_border-radius',
     ];
 
     //-- Constants --
@@ -354,7 +362,11 @@ export class KupCombo {
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
                 >
-                    {this.selected ? this.selected[this.displayedField] : ''}
+                    <span class="value-text">
+                        {this.selected
+                            ? this.selected[this.displayedField]
+                            : ''}
+                    </span>
                     <svg
                         class={
                             this.baseClass +
