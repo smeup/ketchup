@@ -31,6 +31,7 @@ import {
     isButton,
     createJ4objButtonConfig,
     isProgressBar,
+    isIcon,
 } from '../../utils/object-utils';
 
 import {
@@ -789,9 +790,9 @@ export class KupBox {
         }
 
         if (isGrid) {
-            sectionStyle['grid-template-columns'] = `repeat(${
-                section.columns
-            }, 1fr)`;
+            sectionStyle[
+                'grid-template-columns'
+            ] = `repeat(${section.columns}, 1fr)`;
         }
 
         let sectionContainer = null;
@@ -920,6 +921,8 @@ export class KupBox {
                             />
                         </div>
                     );
+                } else if (isIcon(cell.obj)) {
+                    boContent = <span class={`icon ${cell.value}`}></span>;
                 } else {
                     boContent = cell.value;
                 }
