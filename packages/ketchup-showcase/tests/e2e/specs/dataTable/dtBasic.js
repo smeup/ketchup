@@ -14,7 +14,7 @@ context('Data table without configuration', () => {
       .should('eq', 4);
 
     cy.shadowGet('kup-data-table')
-      .shadowFind('kup-paginator')
+      .shadowFind('#top-paginator')
       .shadowFind('.nextPageGroup')
       .shadowEq(0)
       .shadowContains('Numero risultati: 3');
@@ -25,8 +25,16 @@ context('Data table without configuration', () => {
       .should('eq', 1);
 
     cy.shadowGet('kup-data-table')
-      .shadowFind('kup-button')
-      .shadowFind('button')
+      .shadowFind('.above-wrapper')
+      .shadowFind('.density-panel')
+      .shadowFind('div[role="button"]')
+      .shadowTrigger('click');
+
+    cy.shadowGet('kup-data-table')
+      .shadowFind('.above-wrapper')
+      .shadowFind('.density-panel')
+      .shadowFind('.density-panel-overlay')
+      .shadowFind('.wrapper')
       .shadowTrigger('click');
 
     // cy.shadowFind don't seem to be repeated until a timeout like cy.get...  -> actually used a manual wait!
