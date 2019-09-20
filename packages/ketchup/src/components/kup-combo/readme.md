@@ -52,15 +52,24 @@ Type: `Promise<void>`
 
 ## CSS Custom Properties
 
-| Name                                                           | Description                                           |
-| -------------------------------------------------------------- | ----------------------------------------------------- |
-| `--cmb_border-color, --kup-combo_input_border-color`           | Specifies the border color                            |
-| `--cmb_border-color--selected, --kup-combo_input_border-color` | Specifies the border color when focused               |
-| `--cmb_font-size, --kup-combo_input_font-size`                 | Regulates sizes of the font and the icon              |
-| `--cmb_icon-color, --kup-combo_icon_color`                     | Base icon color                                       |
-| `--cmb_icon-color--hover, --kup-combo_icon_color--hover`       | Icon color when hovered                               |
-| `--cmb_menu-background, --kup-combo_menu_background`           | Specify menu background                               |
-| `--cmb_tr-duration, --kup-combo_input_transition-duration`     | Animation duration of all animations of the component |
+| Name                                                               | Description                                           |
+| ------------------------------------------------------------------ | ----------------------------------------------------- |
+| `--cmb_background-color, --kup-combo_background`                   | Specify background                                    |
+| `--cmb_background-color--hover, --kup-combo_background--hover`     | Specify background on hover                           |
+| `--cmb_border-color, --kup-combo_input_border-color`               | Specifies the border color                            |
+| `--cmb_border-color--selected, --kup-combo_input_border-color`     | Specifies the border color when focused               |
+| `--cmb_border-radius, --kup-combo_border-radius`                   | Specify border radius                                 |
+| `--cmb_box-shadow, --kup-combo_box-shadow`                         | Specify menu box shadow                               |
+| `--cmb_font-size, --kup-combo_input_font-size`                     | Regulates sizes of the font and the icon              |
+| `--cmb_icon-color, --kup-combo_icon_color`                         | Base icon color                                       |
+| `--cmb_icon-color--hover, --kup-combo_icon_color--hover`           | Icon color when hovered                               |
+| `--cmb_menu-background, --kup-combo_menu_background`               | Specify menu background                               |
+| `--cmb_menu-background--hover, --kup-combo_menu_background--hover` | Specify menu background on hover                      |
+| `--cmb_menu-text, --kup-combo_menu_text`                           | Specify menu text color                               |
+| `--cmb_menu-text--hover, --kup-combo_menu_text--hover`             | Specify menu text color on hover                      |
+| `--cmb_text-color, --kup-combo_text-color`                         | Specify background                                    |
+| `--cmb_text-color--hover, --kup-combo_text-color--hover`           | Specify background on hover                           |
+| `--cmb_tr-duration, --kup-combo_input_transition-duration`         | Animation duration of all animations of the component |
 
 
 ## Dependencies

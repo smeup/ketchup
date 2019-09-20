@@ -41,7 +41,7 @@ context('Data table without configuration', () => {
     cy.wait(500);
 
     cy.shadowGet('kup-data-table')
-      .shadowFind('.density-small')
+      .shadowFind('.density-big')
       .its('length')
       .should('eq', 1);
   });

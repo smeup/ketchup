@@ -37,6 +37,7 @@
 | `--btn_animation-duration, --kup-button_animation-duration`           | Sets duration of all transitions of the component.            |
 | `--btn_border, --kup-button_border`                                   | Sets border of the button.                                    |
 | `--btn_border-color, --kup-button_border-color`                       | Sets border color of the button only when it is transparent.  |
+| `--btn_border-radius, --kup-button_border-radius`                     | Sets border radius of the button.                             |
 | `--btn_box-shadow, --kup-button_box-shadow`                           | Sets hover box shadow of the button.                          |
 | `--btn_color-danger`                                                  | Background color of the button when danger state is set       |
 | `--btn_color-danger--hover`                                           | Background color of the button when danger:hover state is set |
