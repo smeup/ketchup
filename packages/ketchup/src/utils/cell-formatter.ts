@@ -1,5 +1,5 @@
 import numeral from 'numeral';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 
@@ -11,7 +11,7 @@ export function formatToNumber(cell: Cell): number {
     return numeral(cell.value).value();
 }
 
-export function formatToMomentDate(cell: Cell): Moment {
+export function formatToMomentDate(cell: Cell): any {
     let format = 'YYYYMMDD';
 
     if (cell.obj) {
