@@ -1,0 +1,28 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+
+/**
+* @prop --fup-background-color, --kup-upload_background-color: upload background color
+* @prop --fup-color,            --kup-upload_color:            upload text color
+* @prop --fup-dim,              --kup-upload_dimension:        upload dimension
+*/
+/*
+:host {
+  // variables
+  --fup_background-color: var(--kup-upload_background-color, #95a5a6);
+  --fup_color: var(--kup-upload_color, #fff);
+  --fup_dim: var(--kup-upload_dimension, 20px);
+
+  #upload {
+    background-color: var(--fup_background-color);
+    color: var(--fup_color);
+    padding: 0 3px;
+    font-size: 11px;
+    border-radius: 3px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+*/

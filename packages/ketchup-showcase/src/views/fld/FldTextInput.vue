@@ -46,10 +46,20 @@
         :config.prop="inputUsePassword"/>
     </div>
 
+    <h3>Input text: file upload</h3>
+    <div class="example-container">
+      <kup-fld
+        :config.prop="inputFileUpload" />
+    </div>    
+
   </div>
 </template>
 
 <script>
+
+  //import '@vaadin/vaadin-upload/vaadin-upload.js'
+  import '@vaadin/vaadin-upload';
+
   export default {
     name: "FldTextInput",
     data() {
@@ -60,7 +70,8 @@
         inputIsClearable: {},
         inputWithLabel: {},
         inputWithMaxLength: {},
-        inputUsePassword: {}
+        inputUsePassword: {},
+        inputFileUpload: {}
       };
     },
     mounted() {
@@ -103,6 +114,7 @@
               value: "password"
             }
           ]);
+          this.inputFileUpload = {'type':'fup'};
         })
         .catch(err => {
           console.log(err);
