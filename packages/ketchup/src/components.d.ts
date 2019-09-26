@@ -1059,8 +1059,22 @@ declare namespace LocalJSX {
     }>) => void;
     'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
     'onKupDataTableSortedColumn'?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
+    /**
+    * When a tooltip request detail data
+    */
+    'onKupDetailRequest'?: (event: CustomEvent<{
+      cell: Cell,
+      tooltip: EventTarget
+    }>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
+    }>) => void;
+    /**
+    * When a tooltip request initial data
+    */
+    'onKupLoadRequest'?: (event: CustomEvent<{
+      cell: Cell,
+      tooltip: EventTarget
     }>) => void;
     /**
     * When cell option is clicked

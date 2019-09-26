@@ -373,10 +373,40 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
+    /**
+    * When a tooltip request initial data
+    */
+    @Event({
+        eventName: 'kupLoadRequest',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoadRequest: EventEmitter<{
+        cell: Cell,
+        tooltip: EventTarget
+    }>;
+
+    /**
+    * When a tooltip request detail data
+    */
+    @Event({
+        eventName: 'kupDetailRequest',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDetailRequest: EventEmitter<{
+        cell: Cell,
+        tooltip: EventTarget
+    }>;
+
     onDocumentClick = () => {
         this.topDensityPanelVisible = false;
         this.botDensityPanelVisible = false;
     };
+
+    
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -426,6 +456,19 @@ export class KupDataTable {
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
+    }
+
+    private hasTooltip(cell: Cell) {
+        return cell.obj 
+            && cell.obj.t!=="" 
+            && !isBar(cell.obj) 
+            && !isButton(cell.obj)
+            && !isCheckbox(cell.obj)
+            && !isIcon(cell.obj)
+            && !isImage(cell.obj)
+            && !isLink(cell.obj)
+            && !isNumber(cell.obj)
+            && !isVoCodver(cell.obj);
     }
 
     private getColumns(): Array<Column> {
@@ -1788,7 +1831,19 @@ export class KupDataTable {
         if (styleHasBorderRadius(cell)) {
             style = cell.style;
         }
-
+        if (this.hasTooltip(cell)) {
+            content = <kup-tooltip onKupTooltipLoadData={(ev) => this.kupLoadRequest.emit(
+                {
+                    cell: cell,
+                    tooltip: ev.srcElement
+                }
+            )} onKupTooltipLoadDetail={(ev) => this.kupDetailRequest.emit(
+                {
+                    cell: cell,
+                    tooltip: ev.srcElement
+                }
+            )} >{content}</kup-tooltip>;
+        }
         return (
             <span class={clazz} style={style}>
                 {content}
