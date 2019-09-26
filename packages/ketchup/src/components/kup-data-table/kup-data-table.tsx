@@ -1836,27 +1836,25 @@ export class KupDataTable {
         let densityType;
         {
             this.density === 'medium'
-                ? (densityType = 'Spaziatura righe: Normale')
+                ? (densityType = 'Normale')
                 : this.density === 'big'
-                ? (densityType = 'Spaziatura righe: Ampia')
+                ? (densityType = 'Ampia')
                 : this.density === 'small'
-                ? (densityType = 'Spaziatura righe: Compatta')
+                ? (densityType = 'Compatta')
                 : (densityType = '');
         }
+        let densityTypeString = 'Spaziatura righe: ' + densityType;
         return (
             <div class="density-panel">
                 <span
-                    title={densityType}
+                    title={densityTypeString}
                     class="density-icon mdi mdi-format-line-spacing"
                 ></span>
-                <span class="density-label">
-                    {this.density === 'medium'
-                        ? 'Normale'
-                        : this.density === 'big'
-                        ? 'Ampia'
-                        : this.density === 'small'
-                        ? 'Compatta'
-                        : ''}
+                <span
+                    class="density-label"
+                    onClick={(e) => this.toggleDensityVisibility(e, top)}
+                >
+                    {densityType}
                 </span>
                 <div
                     role="button"
@@ -1926,7 +1924,7 @@ export class KupDataTable {
                         aria-pressed={this.density === 'big' ? 'true' : 'false'}
                     >
                         <span
-                            title="Spaziosa"
+                            title="Ampia"
                             class="density-icon-panel mdi mdi-view-sequential"
                         ></span>
                     </div>
