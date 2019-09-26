@@ -156,11 +156,17 @@ export class KupPaginator {
 
         const rowsPerPageItems = this.getRowsPerPageItems();
 
+        const maxNumberOfPageString = 'Totale pagine: ' + maxNumberOfPage;
+
+        const rowsTotalString = 'Totale risultati: ' + this.max;
+
+        const rowsPerPageString = 'Righe per pagina: ' + this.perPage;
+
         return (
             <div id="paginator">
                 <div class="align-left">
                     <span
-                        title={maxNumberOfPage}
+                        title={maxNumberOfPageString}
                         class="paging-icon mdi mdi-book-open-page-variant"
                     ></span>
                     <span class="prev-page">
@@ -187,7 +193,15 @@ export class KupPaginator {
                 </div>
 
                 <div class="align-right">
-                    <span class="nextPageGroup">{this.max} risultati</span>
+                    <span
+                        title={rowsTotalString}
+                        class="counter-icon mdi mdi-counter"
+                    ></span>
+                    <span class="nextPageGroup">{this.max}</span>
+                    <span
+                        title={rowsPerPageString}
+                        class="row-number-icon mdi mdi-format-list-numbered"
+                    ></span>
                     <slot name="more-results" />
                     <kup-combo
                         usePortal
@@ -198,7 +212,6 @@ export class KupPaginator {
                         }}
                         onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
                     />
-                    <span class="rows-per-page">righe per pagina</span>
                     <slot name="right" />
                 </div>
             </div>

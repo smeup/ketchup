@@ -17,7 +17,7 @@
   );
   --int_icon-background: var(
     --kup-paginator_icon-background,
-    #{lighten($smeup-primary, 30)}
+    #{lighten($smeup-primary, 50)}
   );
 }
 
@@ -29,14 +29,23 @@
   justify-content: space-between;
   font-size: var(--int_font-size);
 
+  .mdi:before {
+    font-size: 150%;
+  }
+
   .align-left,
   .align-right {
     display: flex;
     align-items: center;
     box-shadow: var(--int_box-shadow);
-    & .paging-icon {
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+
+    & .paging-icon,
+    & .counter-icon,
+    & .row-number-icon {
       background: var(--int_icon-background);
-      padding: 0.5rem;
+      padding: 0.25rem;
     }
   }
 
@@ -57,16 +66,12 @@
 
   select,
   .nextPageGroup {
-    margin: 0 0.5rem;
+    margin: 0 1rem;
   }
 
   .prev-page,
   .next-page {
     margin: 0 0.25rem;
-  }
-
-  .nextPageGroup {
-    padding-right: 1.5rem;
   }
 
   kup-combo {

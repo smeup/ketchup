@@ -1833,16 +1833,35 @@ export class KupDataTable {
     }
 
     private renderDensityPanel(top: boolean) {
+        let densityType;
+        {
+            this.density === 'medium'
+                ? (densityType = 'Spaziatura righe: Normale')
+                : this.density === 'big'
+                ? (densityType = 'Spaziatura righe: Ampia')
+                : this.density === 'small'
+                ? (densityType = 'Spaziatura righe: Compatta')
+                : (densityType = '');
+        }
         return (
             <div class="density-panel">
-                <svg version="1.1" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-                </svg>
-
+                <span
+                    title={densityType}
+                    class="density-icon mdi mdi-format-line-spacing"
+                ></span>
+                <span class="density-label">
+                    {this.density === 'medium'
+                        ? 'Normale'
+                        : this.density === 'big'
+                        ? 'Ampia'
+                        : this.density === 'small'
+                        ? 'Compatta'
+                        : ''}
+                </span>
                 <div
                     role="button"
-                    tabindex="0"
                     onClick={(e) => this.toggleDensityVisibility(e, top)}
+                    tabindex="0"
                 >
                     <svg
                         version="1.1"
@@ -1853,7 +1872,6 @@ export class KupDataTable {
                         <path d="M7,10L12,15L17,10H7Z" />
                     </svg>
                 </div>
-
                 <div
                     class={{
                         'density-panel-overlay': true,
@@ -1865,22 +1883,19 @@ export class KupDataTable {
                     <div
                         class={{
                             wrapper: true,
-                            active: this.density === 'big',
+                            active: this.density === 'small',
                         }}
-                        onClick={() => (this.density = 'big')}
+                        onClick={() => (this.density = 'small')}
                         role="button"
                         tabindex="0"
-                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
+                        aria-pressed={
+                            this.density === 'small' ? 'true' : 'false'
+                        }
                     >
-                        <svg
-                            version="1.1"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z" />
-                        </svg>
-                        Bassa
+                        <span
+                            title="Compatta"
+                            class="density-icon-panel mdi mdi-format-align-justify"
+                        ></span>
                     </div>
 
                     <div
@@ -1895,37 +1910,25 @@ export class KupDataTable {
                             this.density === 'medium' ? 'true' : 'false'
                         }
                     >
-                        <svg
-                            version="1.1"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-                        </svg>
-                        Media
+                        <span
+                            title="Normale"
+                            class="density-icon-panel mdi mdi-reorder-horizontal"
+                        ></span>
                     </div>
                     <div
                         class={{
                             wrapper: true,
-                            active: this.density === 'small',
+                            active: this.density === 'big',
                         }}
-                        onClick={() => (this.density = 'small')}
+                        onClick={() => (this.density = 'big')}
                         role="button"
                         tabindex="0"
-                        aria-pressed={
-                            this.density === 'small' ? 'true' : 'false'
-                        }
+                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
                     >
-                        <svg
-                            version="1.1"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" />
-                        </svg>
-                        Alta
+                        <span
+                            title="Spaziosa"
+                            class="density-icon-panel mdi mdi-view-sequential"
+                        ></span>
                     </div>
                 </div>
             </div>
