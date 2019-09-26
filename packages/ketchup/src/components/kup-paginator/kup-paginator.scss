@@ -3,12 +3,22 @@
 /**
 * @prop --int_text-color, --kup-paginator_text-color: Set color of text
 * @prop --int_font-size, --kup-paginator_font-size: Set size of the font
+* @prop --int_box-shadow, --kup-paginator_box-shadow: Set box shadow of groups
+* @prop --int_icon-background, --kup-paginator_icon-background: Set the background color of icons
 */
 
 :host {
   // variables
   --int_text-color: var(--kup-paginator_text-color, #{$mainTextColor});
   --int_font-size: var(--kup-paginator_font-size, 1rem);
+  --int_box-shadow: var(
+    --kup-paginator_box-shadow,
+    0 0 2px 0px rgba(128, 128, 128, 0.5)
+  );
+  --int_icon-background: var(
+    --kup-paginator_icon-background,
+    #{lighten($smeup-primary, 30)}
+  );
 }
 
 #paginator {
@@ -23,6 +33,11 @@
   .align-right {
     display: flex;
     align-items: center;
+    box-shadow: var(--int_box-shadow);
+    & .paging-icon {
+      background: var(--int_icon-background);
+      padding: 0.5rem;
+    }
   }
 
   icon {
@@ -54,13 +69,10 @@
     padding-right: 1.5rem;
   }
 
-  .number-of-pages,
-  .rows-per-page {
-    color: #{$gray-bd};
-  }
-
   kup-combo {
     margin: 0 0.25rem;
+    --kup-combo_input_border-color: transparent;
+    --kup-combo_input_border-color--selected: transparent;
   }
 }
 

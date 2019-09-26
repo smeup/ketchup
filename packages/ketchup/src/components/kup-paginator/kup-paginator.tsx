@@ -159,7 +159,10 @@ export class KupPaginator {
         return (
             <div id="paginator">
                 <div class="align-left">
-                    Pagina
+                    <span
+                        title={maxNumberOfPage}
+                        class="paging-icon mdi mdi-book-open-page-variant"
+                    ></span>
                     <span class="prev-page">
                         <icon
                             className={prevPageClassName}
@@ -181,15 +184,11 @@ export class KupPaginator {
                             onclick={() => this.onNextPage()}
                         />
                     </span>
-                    <span class="number-of-pages">di {maxNumberOfPage}</span>
                 </div>
 
                 <div class="align-right">
-                    <span class="nextPageGroup">
-                        Numero risultati: {this.max}
-                    </span>
+                    <span class="nextPageGroup">{this.max} risultati</span>
                     <slot name="more-results" />
-                    Mostra
                     <kup-combo
                         usePortal
                         items={rowsPerPageItems}

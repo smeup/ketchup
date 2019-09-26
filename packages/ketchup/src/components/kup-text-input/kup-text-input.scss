@@ -1,7 +1,3 @@
-// Padding of the input text
-$clear-button-padding: 4px;
-$lateral-padding: 6px;
-
 /**
 * @prop --itx_color, --kup-text-input_color: Set color of text
 * @prop --itx_font-size, --kup-text-input_font-size: Set height of the font and the svg icon
@@ -17,7 +13,7 @@ $lateral-padding: 6px;
 :host {
   // Variables
   --itx_color: var(--kup-text-input_color, #000);
-  --itx_font-size: var(--kup-text-input_font-size, 14px);
+  --itx_font-size: var(--kup-text-input_font-size, 1rem);
   --itx_border-color: var(--kup-text-input_border-color, #{$gray-80});
   --itx_border-color--selected: var(
     --kup-text-input_border-color--selected,
@@ -46,7 +42,6 @@ label {
   background-color: transparent;
   border: none;
   outline: none;
-  padding: 4px $lateral-padding;
   position: relative;
   transition: background-color var(--itx_tr-duration);
   z-index: 0;
@@ -54,11 +49,16 @@ label {
   &__input-wrapper {
     display: flex;
     align-items: center;
+    padding: 0.2rem 0.4rem;
 
     background-color: var(--itx_background-color);
     border: 1px solid var(--itx_border-color);
     border-radius: 2px;
     box-sizing: border-box;
+
+    & .kup-input-text {
+      font-size: var(--itx_font-size);
+    }
 
     &.focused {
       border-color: var(--itx_border-color--selected);
@@ -85,8 +85,8 @@ label {
     display: inline-flex;
     justify-content: center;
     outline: none;
-    padding: $clear-button-padding;
     z-index: 1;
+    padding: 0;
 
     // The true icon
     > svg {
