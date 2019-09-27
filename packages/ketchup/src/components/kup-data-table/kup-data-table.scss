@@ -374,10 +374,12 @@
         tbody > tr > td {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
+          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding-top: 0.75rem;
           padding-bottom: 0.75rem;
+          transition: padding 0.1s;
         }
       }
 
@@ -385,10 +387,12 @@
         tbody > tr > td {
           padding-top: 1rem;
           padding-bottom: 1rem;
+          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding-top: 1.25rem;
           padding-bottom: 1.25rem;
+          transition: padding 0.1s;
         }
       }
     }
