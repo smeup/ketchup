@@ -397,6 +397,7 @@
   .paginator-wrapper {
     display: flex;
     flex-flow: wrap;
+    min-width: max-content;
 
     kup-paginator {
       flex-grow: 1;
