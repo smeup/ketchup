@@ -232,6 +232,12 @@ export default {
             },
           },
           {
+            title: 'Tooltip',
+            to: {
+              name: 'dtTooltip',
+            },
+          },
+          {
             title: 'Filters',
             to: {
               name: 'dtFilters',

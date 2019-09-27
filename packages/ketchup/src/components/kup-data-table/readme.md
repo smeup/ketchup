@@ -82,7 +82,9 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `kupAutoRowSelect`         | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
+| `kupDetailRequest`         | When a tooltip request detail data             | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
 | `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupLoadRequest`           | When a tooltip request initial data            | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
 | `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupRowActionClicked`      | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
 | `kupRowSelected`           | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
@@ -133,6 +135,7 @@ Type: `Promise<Column[]>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
+- [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-chip](../kup-chip)
 
@@ -143,6 +146,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
   kup-paginator --> kup-combo
