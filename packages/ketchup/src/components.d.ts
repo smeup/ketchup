@@ -617,7 +617,24 @@ export namespace Components {
     */
     'useDynamicExpansion': boolean;
   }
-  interface KupUpload {}
+  interface KupUpload {
+    /**
+    * Ask authorization before upload
+    */
+    'fupAuth': boolean;
+    /**
+    * The label to set to browse
+    */
+    'fupLabel': string;
+    /**
+    * Max size of file (KB)
+    */
+    'fupMaxSize': number;
+    /**
+    * URL of service handling the upload post request made by this component
+    */
+    'fupService': string;
+  }
 }
 
 declare global {
@@ -1500,7 +1517,24 @@ declare namespace LocalJSX {
     */
     'useDynamicExpansion'?: boolean;
   }
-  interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {}
+  interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
+    /**
+    * Ask authorization before upload
+    */
+    'fupAuth'?: boolean;
+    /**
+    * The label to set to browse
+    */
+    'fupLabel'?: string;
+    /**
+    * Max size of file (KB)
+    */
+    'fupMaxSize'?: number;
+    /**
+    * URL of service handling the upload post request made by this component
+    */
+    'fupService'?: string;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;

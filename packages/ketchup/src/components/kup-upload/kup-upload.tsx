@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h , Prop} from '@stencil/core';
 
 /**
  * - senza FilePath nel setup 
@@ -17,10 +17,78 @@ import { Component, h } from '@stencil/core';
     shadow: true,
 })
 export class KupUpload {
+
+    /**
+     * The label to set to browse
+     */
+    @Prop() fupLabel: string = '';
+    /**
+     * Ask authorization before upload
+     */
+    @Prop() fupAuth: boolean = false;
+    /**
+     * Max size of file (KB)
+     */
+    @Prop() fupMaxSize: number = 0;
+    /**
+     * URL of service handling the upload post request made by this component
+     */
+    @Prop() fupService: string = '';
+
     render() {
+        const $DynamicComponent = 'vaadin-upload' as any;
+        let confObj: { [key: string]: any } = {}; 
+        confObj.maxFiles='1';
+        if (this.fupAuth) {
+            confObj.noAuto='true'; //manually confirm upload 
+        }
+        if (this.fupMaxSize && this.fupMaxSize > 0) {
+            confObj.maxFileSize= this.fupMaxSize * 1000; // KB -> Bytes
+        }
+        if (this.fupLabel && this.fupLabel.trim() != '') {
+            //confObj.i18n={"dropFiles":{"one":"Trascina qui","many":"Trascina qui"},"addFiles":{"one":"Sfoglia...","many":"Sfoglia..."},"cancel":"Annulla","error":{"tooManyFiles":"Too Many Files.","fileIsTooBig":"File is Too Big.","incorrectFileType":"Incorrect File Type."},"uploading":{"status":{"connecting":"Connecting...","stalled":"Bloccato.","processing":"Processing File...","held":"In coda"},"remainingTime":{"prefix":"remaining time: ","unknown":"unknown remaining time"},"error":{"serverUnavailable":"Server non raggiungibile","unexpectedServerError":"Errore nel caricamento","forbidden":"Permesso negato"}},"units":{"size":["B","kB","MB","GB","TB","PB","EB","ZB","YB"]}};
+            confObj.i18n = {
+                dropFiles: {
+                    one: 'Drop file here',
+                    many: 'Drop files here',
+                },
+                addFiles: {
+                    one: `${this.fupLabel}`,
+                    many: `${this.fupLabel}`,
+                },
+                cancel: 'Cancel',
+                error: {
+                    tooManyFiles: 'Too Many Files.',
+                    fileIsTooBig: 'File is Too Big.',
+                    incorrectFileType: 'Incorrect File Type.',
+                },
+                uploading: {
+                    status: {
+                        connecting: 'Connecting...',
+                        stalled: 'Stalled.',
+                        processing: 'Processing File...',
+                        held: 'Queued',
+                    },
+                    remainingTime: {
+                        prefix: 'remaining time: ',
+                        unknown: 'unknown remaining time',
+                    },
+                    error: {
+                        serverUnavailable: 'Server Unavailable',
+                        unexpectedServerError: 'Unexpected Server Error',
+                        forbidden: 'Forbidden',
+                    },
+                },
+                units: {
+                    size: ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                }
+            };
+        }
+        //
         return (
-                /* no-auto : manually confirm upload */
-                <vaadin-upload no-auto></vaadin-upload>
+            <$DynamicComponent
+                {...confObj}
+            />
         );
     }
 }

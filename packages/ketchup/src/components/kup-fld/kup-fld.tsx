@@ -279,6 +279,7 @@ export class KupFld {
             }
 
         const $DynamicComponent = (compPrefix + type) as any; // TODO check if there is a better typing
+        /** ... -> spread operator */
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}

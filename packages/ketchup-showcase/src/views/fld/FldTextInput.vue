@@ -51,7 +51,6 @@
       <kup-fld
         :config.prop="inputFileUpload" />
     </div>    
-
   </div>
 </template>
 
@@ -114,7 +113,7 @@
               value: "password"
             }
           ]);
-          this.inputFileUpload = {'type':'fup'};
+          this.inputFileUpload = {'type':'fup', 'fupAuth': 'true', 'fupMaxSize':'50', 'fupLabel':'Upload template file'};
         })
         .catch(err => {
           console.log(err);
