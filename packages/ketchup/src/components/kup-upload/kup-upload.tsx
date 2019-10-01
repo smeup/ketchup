@@ -34,16 +34,28 @@ export class KupUpload {
      * URL of service handling the upload post request made by this component
      */
     @Prop() fupService: string = '';
+    
+    /*
+    fileRejectedHandler(event: CustomEvent) {
+        //event.detail.file.name + ' error: ' + event.detail.error;
+        console.log('fileRejectedHandler' ,event);
+    } 
+    */   
 
     render() {
         const $DynamicComponent = 'vaadin-upload' as any;
         let confObj: { [key: string]: any } = {}; 
         confObj.maxFiles='1';
+        confObj.formDataName='WTX_FILE';
+        //confObj.uploadError='{(ev) => console.log('upload error', ev) }';
         if (this.fupAuth) {
             confObj.noAuto='true'; //manually confirm upload 
         }
         if (this.fupMaxSize && this.fupMaxSize > 0) {
             confObj.maxFileSize= this.fupMaxSize * 1000; // KB -> Bytes
+        }
+        if (this.fupService && this.fupService.trim() != '') {
+            confObj.target=this.fupService.trim(); 
         }
         if (this.fupLabel && this.fupLabel.trim() != '') {
             //confObj.i18n={"dropFiles":{"one":"Trascina qui","many":"Trascina qui"},"addFiles":{"one":"Sfoglia...","many":"Sfoglia..."},"cancel":"Annulla","error":{"tooManyFiles":"Too Many Files.","fileIsTooBig":"File is Too Big.","incorrectFileType":"Incorrect File Type."},"uploading":{"status":{"connecting":"Connecting...","stalled":"Bloccato.","processing":"Processing File...","held":"In coda"},"remainingTime":{"prefix":"remaining time: ","unknown":"unknown remaining time"},"error":{"serverUnavailable":"Server non raggiungibile","unexpectedServerError":"Errore nel caricamento","forbidden":"Permesso negato"}},"units":{"size":["B","kB","MB","GB","TB","PB","EB","ZB","YB"]}};
@@ -84,10 +96,18 @@ export class KupUpload {
                 }
             };
         }
-        //
+        //={(ev) => this.onFileRejected(ev) }                
+        
+        //onFocus={this.onCheckboxFocus.bind(this)}/>
+        //file-reject={this.onFileRejected.bind(this)}
+        //upload-error
+        //onUploadError={this.fileRejectedHandler.bind(this)}
+        //upload-error={(ev) => console.log('upload error', ev) }
+        /*
+*/
         return (
             <$DynamicComponent
-                {...confObj}
+            {...confObj}
             />
         );
     }

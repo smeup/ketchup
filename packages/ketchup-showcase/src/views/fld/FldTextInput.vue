@@ -113,7 +113,8 @@
               value: "password"
             }
           ]);
-          this.inputFileUpload = {'type':'fup', 'fupAuth': 'true', 'fupMaxSize':'50', 'fupLabel':'Upload template file'};
+          this.inputFileUpload = {'type':'fup', 'fupAuth': 'true', 'fupMaxSize':'500', 'fupLabel':'Upload template file',
+            'fupService':'https://webuptest.smeup.com/gtw/gtw-resource-manager/api/services/uploadTemplate'};
         })
         .catch(err => {
           console.log(err);
