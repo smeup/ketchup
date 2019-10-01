@@ -196,7 +196,16 @@ export class KupDataTable {
     private openedMenu: string = null;
 
     @State()
+    private topFontSizePanelVisible = false;
+
+    @State()
+    private botFontSizePanelVisible = false;
+
+    @State()
     private density: string = 'medium';
+
+    @State()
+    private fontsize: string = 'medium';
 
     @State()
     private topDensityPanelVisible = false;
@@ -374,6 +383,8 @@ export class KupDataTable {
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
     onDocumentClick = () => {
+        this.topFontSizePanelVisible = false;
+        this.botFontSizePanelVisible = false;
         this.topDensityPanelVisible = false;
         this.botDensityPanelVisible = false;
     };
@@ -1039,6 +1050,17 @@ export class KupDataTable {
         this.moveSortedColumns(toSort, receivingColumnIndex, sortedColumnIndex);
 
         return toSort;
+    }
+
+    private toggleFontSizeVisibility(event: MouseEvent, top: boolean) {
+        event.stopPropagation();
+        if (top) {
+            this.topFontSizePanelVisible = !this.topFontSizePanelVisible;
+            this.botFontSizePanelVisible = false;
+        } else {
+            this.topFontSizePanelVisible = false;
+            this.botFontSizePanelVisible = !this.botFontSizePanelVisible;
+        }
     }
 
     private toggleDensityVisibility(event: MouseEvent, top: boolean) {
@@ -1801,11 +1823,11 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = 'Carica altri dati';
+        const label = 'Mostra altri dati';
         return (
             <button
                 aria-label={label}
-                class="load-more-records mdi mdi-plus-circle"
+                class="loadmore-panel loadmore-icon mdi mdi-plus"
                 role="button"
                 slot={isSlotted ? 'more-results' : null}
                 tabindex="0"
@@ -1828,10 +1850,113 @@ export class KupDataTable {
                     onKupRowsPerPageChanged={(e) =>
                         this.handleRowsPerPageChanged(e)
                     }
-                >
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
-                </kup-paginator>
+                ></kup-paginator>
                 {this.renderDensityPanel(top)}
+                {this.renderFontSizePanel(top)}
+                {this.showLoadMore ? this.renderLoadMoreButton() : null}
+            </div>
+        );
+    }
+
+    private renderFontSizePanel(top: boolean) {
+        let fontSize;
+        {
+            this.fontsize === 'medium'
+                ? (fontSize = 'Medio')
+                : this.fontsize === 'big'
+                ? (fontSize = 'Grande')
+                : this.fontsize === 'small'
+                ? (fontSize = 'Piccolo')
+                : (fontSize = '');
+        }
+        let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
+        return (
+            <div class="fontsize-panel">
+                <span
+                    title={fontSizeTypeString}
+                    class="fontsize-icon mdi mdi-format-letter-case"
+                ></span>
+                <span
+                    class="fontsize-label"
+                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
+                >
+                    {fontSize}
+                </span>
+                <div
+                    role="button"
+                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
+                    tabindex="0"
+                >
+                    <svg
+                        version="1.1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M7,10L12,15L17,10H7Z" />
+                    </svg>
+                </div>
+                <div
+                    class={{
+                        'fontsize-panel-overlay': true,
+                        open: top
+                            ? this.topFontSizePanelVisible
+                            : this.botFontSizePanelVisible,
+                    }}
+                >
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.fontsize === 'small',
+                        }}
+                        onClick={() => (this.fontsize = 'small')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.fontsize === 'small' ? 'true' : 'false'
+                        }
+                    >
+                        <span
+                            title="Piccolo"
+                            class="fontsize-icon-panel mdi mdi-format-font-size-decrease"
+                        ></span>
+                    </div>
+
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.fontsize === 'medium',
+                        }}
+                        onClick={() => (this.fontsize = 'medium')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.fontsize === 'medium' ? 'true' : 'false'
+                        }
+                    >
+                        <span
+                            title="Normale"
+                            class="fontsize-icon-panel mdi mdi-format-color-text"
+                        ></span>
+                    </div>
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.fontsize === 'big',
+                        }}
+                        onClick={() => (this.fontsize = 'big')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.fontsize === 'big' ? 'true' : 'false'
+                        }
+                    >
+                        <span
+                            title="Grande"
+                            class="fontsize-icon-panel mdi mdi-format-font-size-increase"
+                        ></span>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -2041,6 +2166,7 @@ export class KupDataTable {
         };
 
         tableClass[`density-${this.density}`] = true;
+        tableClass[`fontsize-${this.fontsize}`] = true;
 
         return (
             <div id="data-table-wrapper">
