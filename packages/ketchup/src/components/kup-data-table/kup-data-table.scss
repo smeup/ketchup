@@ -179,18 +179,15 @@
               padding: 0.8rem;
               transition: color 0.2s ease-in-out;
               color: #{$mainTextColor};
-
-              &:not(:last-child) {
-                border-bottom: 1px solid var(--dtt_border-color);
-              }
+              transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
               &:hover {
                 cursor: pointer;
-                color: var(--dtt_main-color);
+                color: var(--dtt_hover-color);
+                background-color: var(--dtt_hover-background-color);
               }
 
               .mdi {
-                color: #{$smeup-primary};
                 margin-right: 0.5rem;
               }
             }
@@ -450,6 +447,7 @@
   .density-icon {
     background: var(--dtt_density-icon-background);
     padding: 0.25rem;
+    cursor: help;
   }
 
   .density-label {
