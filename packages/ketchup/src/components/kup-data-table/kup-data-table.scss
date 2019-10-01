@@ -18,6 +18,8 @@
 * @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
 * @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
 * @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
+* @prop --dtt_main-color-lighter, --kup-data-table_main-color: Set lighter text color. Has the precedence.
+* @prop --dtt_main-color-darker, --kup-data-table_main-color: Set darker text color. Has the precedence.
 * @prop --dtt_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
 * @prop --dtt_density-box-shadow, --kup-data-table_density-box-shadow: Box shadow of the density combo, to match paginator's.
 * @prop --dtt_density-icon-background, --kup-data-table_density-icon-background: Background of the density icon, to match paginator's.
@@ -70,6 +72,14 @@
   );
   --dtt_font-size: var(--kup-data-table_font-size, 0.9375rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
+  --dtt_main-color-lighter: var(
+    --kup-data-table_main-color-lighter,
+    #{lighten($smeup-primary, 10)}
+  );
+  --dtt_main-color-darker: var(
+    --kup-data-table_main-color-darker,
+    #{darken($smeup-primary, 10)}
+  );
   --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
   --dtt_negative-number-color: var(
     --kup-data-table_negative-number-color,
@@ -88,8 +98,6 @@
     #{$mainTextColor}
   );
 }
-
-$mainColor: var(--dtt_main-color);
 
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
@@ -469,22 +477,23 @@ $mainColor: var(--dtt_main-color);
   }
 
   &.loadmore-icon {
-    background: #{lighten($smeup-primary, 30)};
+    background: var(--dtt_main-color);
     border: none;
     height: auto;
     cursor: pointer;
     outline: none; //override browser
-    transition: color 0.25s, background-color 0.25s, opacity 0.25s;
+    transition: background-color 0.25s;
 
     &:before {
       color: var(--dtt_text-on-main-color);
     }
 
     &:hover {
-      background: #{lighten($smeup-primary, 40)};
+      background-color: var(--dtt_main-color-lighter);
     }
+
     &:active {
-      background: #{lighten($smeup-primary, 20)};
+      background-color: var(--dtt_main-color-darker);
     }
   }
 
