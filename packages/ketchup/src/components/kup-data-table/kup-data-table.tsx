@@ -1370,6 +1370,7 @@ export class KupDataTable {
                             <span
                                 role="button"
                                 aria-label="Row expander" // TODO change this label
+                                title="Expand/collapse group"
                                 tabindex="0"
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -1389,6 +1390,7 @@ export class KupDataTable {
                             <span
                                 role="button"
                                 aria-label="Remove group" // TODO change this label
+                                title="Remove group"
                                 tabindex="0"
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -1428,6 +1430,7 @@ export class KupDataTable {
                                 <span
                                     role="button"
                                     aria-label="Row expander" // TODO change this label
+                                    title="Expand/collapse group"
                                     tabindex="0"
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -1447,6 +1450,7 @@ export class KupDataTable {
                                 <span
                                     role="button"
                                     aria-label="Remove group" // TODO change this label
+                                    title="Remove group"
                                     tabindex="0"
                                     onClick={(e) => {
                                         e.stopPropagation();
