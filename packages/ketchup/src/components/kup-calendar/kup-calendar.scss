@@ -1,0 +1,33 @@
+@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+@import '~@fullcalendar/core/main.min.css';
+@import '~@fullcalendar/daygrid/main.min.css';
+@import '~@fullcalendar/timegrid/main.min.css';
+
+#kup-calendar {
+  &__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    kup-button {
+      margin: 0 0.5rem;
+    }
+  }
+
+  .icon-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .image-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
