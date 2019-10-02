@@ -23,7 +23,7 @@ $lateral-padding: 6px;
 
 :host {
   // Variables
-  --cmb_font-size: var(--kup-combo_input_font-size, 14px);
+  --cmb_font-size: var(--kup-combo_input_font-size, 1rem);
   --cmb_border-color: var(--kup-combo_input_border-color, #{$gray-bd});
   --cmb_border-color--selected: var(
     --kup-combo_input_border-color--selected,
@@ -118,7 +118,7 @@ $lateral-padding: 6px;
 
   // Chevron icon
   &__chevron {
-    margin-left: 16px;
+    margin-left: 0.25rem;
 
     // When is opened
     &--open {

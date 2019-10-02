@@ -156,10 +156,19 @@ export class KupPaginator {
 
         const rowsPerPageItems = this.getRowsPerPageItems();
 
+        const maxNumberOfPageString = 'Totale pagine: ' + maxNumberOfPage;
+
+        const rowsTotalString = 'Totale risultati: ' + this.max;
+
+        const rowsPerPageString = 'Righe per pagina: ' + this.perPage;
+
         return (
             <div id="paginator">
                 <div class="align-left">
-                    Pagina
+                    <span
+                        title={maxNumberOfPageString}
+                        class="paging-icon mdi mdi-book-open-page-variant"
+                    ></span>
                     <span class="prev-page">
                         <icon
                             className={prevPageClassName}
@@ -181,15 +190,19 @@ export class KupPaginator {
                             onclick={() => this.onNextPage()}
                         />
                     </span>
-                    <span class="number-of-pages">di {maxNumberOfPage}</span>
                 </div>
 
                 <div class="align-right">
-                    <span class="nextPageGroup">
-                        Numero risultati: {this.max}
-                    </span>
+                    <span
+                        title={rowsTotalString}
+                        class="counter-icon mdi mdi-counter"
+                    ></span>
+                    <span class="nextPageGroup">{this.max}</span>
+                    <span
+                        title={rowsPerPageString}
+                        class="row-number-icon mdi mdi-format-list-numbered"
+                    ></span>
                     <slot name="more-results" />
-                    Mostra
                     <kup-combo
                         usePortal
                         items={rowsPerPageItems}
@@ -199,7 +212,6 @@ export class KupPaginator {
                         }}
                         onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
                     />
-                    <span class="rows-per-page">righe per pagina</span>
                     <slot name="right" />
                 </div>
             </div>
