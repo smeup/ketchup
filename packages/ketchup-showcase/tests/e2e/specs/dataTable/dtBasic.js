@@ -17,7 +17,7 @@ context('Data table without configuration', () => {
       .shadowFind('#top-paginator')
       .shadowFind('.nextPageGroup')
       .shadowEq(0)
-      .shadowContains('Numero risultati: 3');
+      .shadowContains('3');
 
     cy.shadowGet('kup-data-table')
       .shadowFind('.density-medium')
