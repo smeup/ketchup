@@ -7,6 +7,8 @@ context('Data table without configuration', () => {
   it('test first table', () => {
     cy.visit('http://localhost:4000/#/dataTable/basic');
 
+    cy.wait(1500);
+
     cy.shadowGet('kup-data-table')
       .shadowFind('table')
       .shadowFind('tr')
@@ -15,8 +17,10 @@ context('Data table without configuration', () => {
 
     cy.shadowGet('kup-data-table')
       .shadowFind('#top-paginator')
+      .shadowFind('#paginator')
+      .shadowFind('.align-right')
       .shadowFind('.nextPageGroup')
-      .shadowEq(0)
+      .shadowFirst()
       .shadowContains('3');
 
     cy.shadowGet('kup-data-table')
@@ -35,13 +39,14 @@ context('Data table without configuration', () => {
       .shadowFind('.density-panel')
       .shadowFind('.density-panel-overlay')
       .shadowFind('.wrapper')
+      .shadowFirst()
       .shadowTrigger('click');
 
     // cy.shadowFind don't seem to be repeated until a timeout like cy.get...  -> actually used a manual wait!
-    cy.wait(500);
+    cy.wait(1500);
 
     cy.shadowGet('kup-data-table')
-      .shadowFind('.density-big')
+      .shadowFind('.density-small')
       .its('length')
       .should('eq', 1);
   });
