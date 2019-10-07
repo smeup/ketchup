@@ -1929,7 +1929,7 @@ export class KupDataTable {
             <div class="fontsize-panel">
                 <span
                     title={fontSizeTypeString}
-                    class="fontsize-icon mdi mdi-format-letter-case"
+                    class="fontsize-icon mdi mdi-format-size"
                 ></span>
                 <span
                     class="fontsize-label"

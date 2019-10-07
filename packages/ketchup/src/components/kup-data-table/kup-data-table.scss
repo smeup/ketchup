@@ -454,8 +454,7 @@
 .density-panel,
 .fontsize-panel,
 .loadmore-panel {
-  height: 34px; //I.E.
-  height: fit-content;
+  height: 28px;
   position: relative;
   margin: 0.5rem 0;
   display: flex;
@@ -472,7 +471,8 @@
   .fontsize-icon,
   &.loadmore-icon {
     background: var(--dtt_density-icon-background);
-    padding: 0.25rem;
+    padding: 0 0.25rem;
+    height: 28px;
     cursor: help;
   }
 

@@ -5,6 +5,7 @@
 * @prop --int_font-size, --kup-paginator_font-size: Set size of the font
 * @prop --int_box-shadow, --kup-paginator_box-shadow: Set box shadow of groups
 * @prop --int_icon-background, --kup-paginator_icon-background: Set the background color of icons
+* @prop --int_icon-color, --kup-paginator_icon-color: Set the color of icons
 */
 
 :host {
@@ -19,6 +20,7 @@
     --kup-paginator_icon-background,
     #{lighten($smeup-primary, 50)}
   );
+  --int_icon-color: var(--kup-paginator_icon-color, #{$mainTextColor});
 }
 
 #paginator {
@@ -39,12 +41,15 @@
     align-items: center;
     box-shadow: var(--int_box-shadow);
     margin-right: 0.5rem;
+    height: 28px;
 
     & .paging-icon,
     & .counter-icon,
     & .row-number-icon {
       background: var(--int_icon-background);
-      padding: 0.25rem;
+      color: var(--int_icon-color);
+      padding: 0 0.25rem;
+      height: 28px;
       cursor: help;
     }
   }
