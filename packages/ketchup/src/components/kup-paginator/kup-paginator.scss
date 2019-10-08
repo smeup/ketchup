@@ -28,11 +28,11 @@
   margin: 0.5rem 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   font-size: var(--int_font-size);
 
   .mdi:before {
     font-size: 150%;
+    line-height: 28px;
   }
 
   .align-left,

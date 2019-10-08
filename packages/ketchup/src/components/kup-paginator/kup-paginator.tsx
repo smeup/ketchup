@@ -192,12 +192,15 @@ export class KupPaginator {
                     </span>
                 </div>
 
-                <div class="align-right">
+                <div class="align-left">
                     <span
                         title={rowsTotalString}
                         class="counter-icon mdi mdi-counter"
                     ></span>
                     <span class="nextPageGroup">{this.max}</span>
+                </div>
+
+                <div class="align-left">
                     <span
                         title={rowsPerPageString}
                         class="row-number-icon mdi mdi-format-list-numbered"
