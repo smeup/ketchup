@@ -35,12 +35,19 @@
     line-height: 28px;
   }
 
+  .align-left {
+    margin-left: 0.5rem;
+  }
+
+  .align-right {
+    margin-right: 0.5rem;
+  }
+
   .align-left,
   .align-right {
     display: flex;
     align-items: center;
     box-shadow: var(--int_box-shadow);
-    margin-right: 0.5rem;
     height: 28px;
 
     & .paging-icon,

@@ -484,7 +484,8 @@
     cursor: pointer;
     outline: none; //override browser
     transition: background-color 0.25s;
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0;
 
     &:before {
       color: var(--dtt_text-on-main-color);
