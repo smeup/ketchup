@@ -1840,6 +1840,7 @@ export class KupDataTable {
     private renderPaginator(top: boolean) {
         return (
             <div class="paginator-wrapper">
+                {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 <kup-paginator
                     id={top ? 'top-paginator' : 'bottom-paginator'}
                     max={this.rows.length}
@@ -1853,7 +1854,6 @@ export class KupDataTable {
                 ></kup-paginator>
                 {this.renderDensityPanel(top)}
                 {this.renderFontSizePanel(top)}
-                {this.showLoadMore ? this.renderLoadMoreButton() : null}
             </div>
         );
     }
