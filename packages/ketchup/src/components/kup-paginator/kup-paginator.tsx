@@ -193,10 +193,9 @@ export class KupPaginator {
                 </div>
 
                 <div class="align-left">
-                    <span
-                        title={rowsTotalString}
-                        class="counter-icon mdi mdi-counter"
-                    ></span>
+                    <span title={rowsTotalString} class="counter-icon">
+                        Risultati:
+                    </span>
                     <span class="nextPageGroup">{this.max}</span>
                 </div>
 

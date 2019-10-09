@@ -12,14 +12,8 @@
   // variables
   --int_text-color: var(--kup-paginator_text-color, #{$mainTextColor});
   --int_font-size: var(--kup-paginator_font-size, 1rem);
-  --int_box-shadow: var(
-    --kup-paginator_box-shadow,
-    0 0 2px 0px rgba(128, 128, 128, 0.5)
-  );
-  --int_icon-background: var(
-    --kup-paginator_icon-background,
-    #{lighten($smeup-primary, 50)}
-  );
+  --int_box-shadow: var(--kup-paginator_box-shadow, none);
+  --int_icon-background: var(--kup-paginator_icon-background, transparent);
   --int_icon-color: var(--kup-paginator_icon-color, #{$mainTextColor});
 }
 
@@ -31,8 +25,7 @@
   font-size: var(--int_font-size);
 
   .mdi:before {
-    font-size: 150%;
-    line-height: 28px;
+    font-size: 120%;
   }
 
   .align-left {
@@ -48,7 +41,6 @@
     display: flex;
     align-items: center;
     box-shadow: var(--int_box-shadow);
-    height: 28px;
 
     & .paging-icon,
     & .counter-icon,
@@ -56,7 +48,6 @@
       background: var(--int_icon-background);
       color: var(--int_icon-color);
       padding: 0 0.25rem;
-      height: 28px;
       cursor: help;
     }
   }

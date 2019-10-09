@@ -1896,7 +1896,7 @@ export class KupDataTable {
                     </button>
                     <button
                         title="Mostra opzioni di personalizzazione"
-                        class="paginator-button mdi mdi-creation custom-settings"
+                        class="paginator-button mdi mdi-pencil custom-settings"
                         onClick={(e) => this.onCustomPaginatorClick(e)}
                     >
                         <span class="paginator-tab-text">Personalizza</span>

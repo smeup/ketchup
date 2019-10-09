@@ -85,13 +85,10 @@
     --kup-data-table_negative-number-color,
     #{$mainRed}
   );
-  --dtt_density-box-shadow: var(
-    --kup-data-table_density-box-shadow,
-    0 0 2px 0px rgba(128, 128, 128, 0.5)
-  );
+  --dtt_density-box-shadow: var(--kup-data-table_density-box-shadow, none);
   --dtt_density-icon-background: var(
     --kup-data-table_density-icon-background,
-    #{lighten($smeup-primary, 50)}
+    transparent
   );
   --dtt_density-icon-color: var(
     --kup-data-table_density-icon-color,
@@ -487,7 +484,7 @@ kup-paginator,
   }
 
   &:before {
-    font-size: 150%;
+    font-size: 120%;
   }
 
   & span {
@@ -506,7 +503,6 @@ kup-paginator,
 
 .density-panel,
 .fontsize-panel {
-  height: 28px;
   position: relative;
   margin: 0.5rem 0.5rem 0.5rem 0;
   display: flex;
@@ -516,8 +512,7 @@ kup-paginator,
   .mdi:before,
   &:before {
     color: var(--dtt_density-icon-color);
-    font-size: 150%;
-    line-height: 28px;
+    font-size: 120%;
   }
 
   .density-icon,
@@ -525,7 +520,6 @@ kup-paginator,
   &.loadmore-icon {
     background: var(--dtt_density-icon-background);
     padding: 0 0.25rem;
-    height: 28px;
     cursor: help;
   }
 
