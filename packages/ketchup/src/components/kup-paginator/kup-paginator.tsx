@@ -156,66 +156,52 @@ export class KupPaginator {
 
         const rowsPerPageItems = this.getRowsPerPageItems();
 
-        const maxNumberOfPageString = 'Totale pagine: ' + maxNumberOfPage;
-
-        const rowsTotalString = 'Totale risultati: ' + this.max;
-
-        const rowsPerPageString = 'Righe per pagina: ' + this.perPage;
-
         return (
             <div id="paginator">
                 <div class="align-left">
-                    <span
-                        title={maxNumberOfPageString}
-                        class="paging-icon mdi mdi-book-open-page-variant"
-                    ></span>
-                    <span class="prev-page">
-                        <icon
-                            className={prevPageClassName}
-                            onclick={() => this.onPrevPage()}
+                    <div class="nav-section">
+                        <span class="prev-page">
+                            <icon
+                                className={prevPageClassName}
+                                onclick={() => this.onPrevPage()}
+                            />
+                        </span>
+                        <kup-combo
+                            usePortal
+                            items={goToPageItems}
+                            isFilterable={false}
+                            initialValue={{
+                                id: this.currentPage,
+                            }}
+                            onKetchupComboSelected={(e) => this.onPageChange(e)}
                         />
-                    </span>
-                    <kup-combo
-                        usePortal
-                        items={goToPageItems}
-                        isFilterable={false}
-                        initialValue={{
-                            id: this.currentPage,
-                        }}
-                        onKetchupComboSelected={(e) => this.onPageChange(e)}
-                    />
-                    <span class="next-page">
-                        <icon
-                            className={nextPageClassName}
-                            onclick={() => this.onNextPage()}
+                        <span class="next-page">
+                            <icon
+                                className={nextPageClassName}
+                                onclick={() => this.onNextPage()}
+                            />
+                        </span>
+                    </div>
+                    <div class="tot-section">
+                        <span>Righe:</span>
+                        <slot name="more-results" />
+                        <kup-combo
+                            usePortal
+                            items={rowsPerPageItems}
+                            isFilterable={false}
+                            initialValue={{
+                                id: this.perPage,
+                            }}
+                            onKetchupComboSelected={(e) =>
+                                this.onRowsPerPage(e)
+                            }
                         />
-                    </span>
+                        <slot name="right" />
+                        <span class="nextPageGroup">di {this.max}</span>
+                    </div>
                 </div>
 
-                <div class="align-left">
-                    <span title={rowsTotalString} class="counter-icon">
-                        Risultati:
-                    </span>
-                    <span class="nextPageGroup">{this.max}</span>
-                </div>
-
-                <div class="align-left">
-                    <span
-                        title={rowsPerPageString}
-                        class="row-number-icon mdi mdi-format-list-numbered"
-                    ></span>
-                    <slot name="more-results" />
-                    <kup-combo
-                        usePortal
-                        items={rowsPerPageItems}
-                        isFilterable={false}
-                        initialValue={{
-                            id: this.perPage,
-                        }}
-                        onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
-                    />
-                    <slot name="right" />
-                </div>
+                <div class="align-left"></div>
             </div>
         );
     }

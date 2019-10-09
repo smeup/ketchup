@@ -1835,7 +1835,7 @@ export class KupDataTable {
         return (
             <button
                 aria-label={label}
-                class="loadmore-panel paginator-button  mdi mdi-plus"
+                class="loadmore-button mdi mdi-plus"
                 role="button"
                 slot={isSlotted ? 'more-results' : null}
                 tabindex="0"
@@ -1847,39 +1847,21 @@ export class KupDataTable {
         );
     }
 
-    private onPaginationPaginatorClick(event) {
+    private onCustomSettingsClick(event) {
         let t = event.target;
-        let el = t
+        let elPanel = t
             .closest('.paginator-wrapper')
-            .getElementsByTagName('kup-paginator')[0];
-        let elButton = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('page-settings')[0];
-
-        if (elButton.classList.contains('activated')) {
-            elButton.classList.remove('activated');
-            el.classList.remove('visible');
-        } else {
-            elButton.classList.add('activated');
-            el.classList.add('visible');
-        }
-    }
-
-    private onCustomPaginatorClick(event) {
-        let t = event.target;
-        let el = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('custom-options')[0];
+            .getElementsByClassName('customize-panel')[0];
         let elButton = t
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
 
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
-            el.classList.remove('visible');
+            elPanel.classList.remove('visible');
         } else {
             elButton.classList.add('activated');
-            el.classList.add('visible');
+            elPanel.classList.add('visible');
         }
     }
 
@@ -1887,23 +1869,6 @@ export class KupDataTable {
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
-                    <button
-                        title="Mostra opzioni di paginazione"
-                        class="paginator-button mdi mdi-settings page-settings"
-                        onClick={(e) => this.onPaginationPaginatorClick(e)}
-                    >
-                        <span class="paginator-tab-text">Opzioni</span>
-                    </button>
-                    <button
-                        title="Mostra opzioni di personalizzazione"
-                        class="paginator-button mdi mdi-pencil custom-settings"
-                        onClick={(e) => this.onCustomPaginatorClick(e)}
-                    >
-                        <span class="paginator-tab-text">Personalizza</span>
-                    </button>
-                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
-                </div>
-                <div class="paginator-options">
                     <kup-paginator
                         id={top ? 'top-paginator' : 'bottom-paginator'}
                         max={this.rows.length}
@@ -1915,10 +1880,17 @@ export class KupDataTable {
                             this.handleRowsPerPageChanged(e)
                         }
                     ></kup-paginator>
-                    <div class="custom-options">
-                        {this.renderDensityPanel(top)}
-                        {this.renderFontSizePanel(top)}
-                    </div>
+                    <button
+                        title="Mostra opzioni di personalizzazione"
+                        class="paginator-button mdi mdi-settings custom-settings"
+                        onClick={(e) => this.onCustomSettingsClick(e)}
+                    >
+                        <div class="customize-panel">
+                            {this.renderDensityPanel(top)}
+                            {this.renderFontSizePanel(top)}
+                        </div>
+                    </button>
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
         );
@@ -1928,7 +1900,7 @@ export class KupDataTable {
         let fontSize;
         {
             this.fontsize === 'medium'
-                ? (fontSize = 'Medio')
+                ? (fontSize = 'Media')
                 : this.fontsize === 'big'
                 ? (fontSize = 'Grande')
                 : this.fontsize === 'small'
@@ -1938,10 +1910,9 @@ export class KupDataTable {
         let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
         return (
             <div class="fontsize-panel">
-                <span
-                    title={fontSizeTypeString}
-                    class="fontsize-icon mdi mdi-format-size"
-                ></span>
+                <span title={fontSizeTypeString} class="panel-label">
+                    Dimensione carattere
+                </span>
                 <span
                     class="fontsize-label"
                     onClick={(e) => this.toggleFontSizeVisibility(e, top)}
@@ -2038,13 +2009,12 @@ export class KupDataTable {
                 ? (densityType = 'Compatta')
                 : (densityType = '');
         }
-        let densityTypeString = 'Spaziatura righe: ' + densityType;
+        let densityTypeString = 'Densità righe: ' + densityType;
         return (
             <div class="density-panel">
-                <span
-                    title={densityTypeString}
-                    class="density-icon mdi mdi-format-line-spacing"
-                ></span>
+                <span title={densityTypeString} class="panel-label">
+                    Densità righe
+                </span>
                 <span
                     class="density-label"
                     onClick={(e) => this.toggleDensityVisibility(e, top)}
