@@ -1275,8 +1275,16 @@ export class KupDataTable {
                 };
             }
 
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
             return (
                 <th
+                    class={columnClass}
                     style={thStyle}
                     onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
@@ -1827,33 +1835,91 @@ export class KupDataTable {
         return (
             <button
                 aria-label={label}
-                class="loadmore-panel loadmore-icon mdi mdi-plus"
+                class="loadmore-panel paginator-button  mdi mdi-plus"
                 role="button"
                 slot={isSlotted ? 'more-results' : null}
                 tabindex="0"
                 title={label}
                 onClick={() => this.onLoadMoreClick()}
-            />
+            >
+                <span class="paginator-tab-text">Più risultati</span>{' '}
+            </button>
         );
+    }
+
+    private onPaginationPaginatorClick(event) {
+        let t = event.target;
+        let el = t
+            .closest('.paginator-wrapper')
+            .getElementsByTagName('kup-paginator')[0];
+        let elButton = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('page-settings')[0];
+
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            el.classList.remove('visible');
+        } else {
+            elButton.classList.add('activated');
+            el.classList.add('visible');
+        }
+    }
+
+    private onCustomPaginatorClick(event) {
+        let t = event.target;
+        let el = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-options')[0];
+        let elButton = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            el.classList.remove('visible');
+        } else {
+            elButton.classList.add('activated');
+            el.classList.add('visible');
+        }
     }
 
     private renderPaginator(top: boolean) {
         return (
             <div class="paginator-wrapper">
-                {this.showLoadMore ? this.renderLoadMoreButton() : null}
-                <kup-paginator
-                    id={top ? 'top-paginator' : 'bottom-paginator'}
-                    max={this.rows.length}
-                    perPage={this.rowsPerPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    currentPage={this.currentPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
-                    }
-                ></kup-paginator>
-                {this.renderDensityPanel(top)}
-                {this.renderFontSizePanel(top)}
+                <div class="paginator-tabs">
+                    <button
+                        title="Mostra opzioni di paginazione"
+                        class="paginator-button mdi mdi-settings page-settings"
+                        onClick={(e) => this.onPaginationPaginatorClick(e)}
+                    >
+                        <span class="paginator-tab-text">Opzioni</span>
+                    </button>
+                    <button
+                        title="Mostra opzioni di personalizzazione"
+                        class="paginator-button mdi mdi-creation custom-settings"
+                        onClick={(e) => this.onCustomPaginatorClick(e)}
+                    >
+                        <span class="paginator-tab-text">Personalizza</span>
+                    </button>
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </div>
+                <div class="paginator-options">
+                    <kup-paginator
+                        id={top ? 'top-paginator' : 'bottom-paginator'}
+                        max={this.rows.length}
+                        perPage={this.rowsPerPage}
+                        selectedPerPage={this.currentRowsPerPage}
+                        currentPage={this.currentPage}
+                        onKupPageChanged={(e) => this.handlePageChanged(e)}
+                        onKupRowsPerPageChanged={(e) =>
+                            this.handleRowsPerPageChanged(e)
+                        }
+                    ></kup-paginator>
+                    <div class="custom-options">
+                        {this.renderDensityPanel(top)}
+                        {this.renderFontSizePanel(top)}
+                    </div>
+                </div>
             </div>
         );
     }

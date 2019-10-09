@@ -125,6 +125,10 @@
         position: sticky;
         top: 0;
 
+        &.number {
+          text-align: right;
+        }
+
         // filters
         kup-text-input.datatable-filter {
           --kup-text-input_border-color: var(--dtt_filter-border-color);
@@ -351,6 +355,9 @@
           position: sticky;
           top: var(--dtt_header-offset);
           will-change: transform; // For performance
+          &.number {
+            text-align: right;
+          }
         }
       }
 
@@ -418,10 +425,6 @@
     display: flex;
     flex-flow: wrap;
     min-width: max-content;
-
-    kup-paginator {
-      flex-grow: 1;
-    }
   }
 }
 
@@ -451,9 +454,58 @@
   }
 }
 
+.paginator-tabs {
+  width: 100%;
+}
+
+kup-paginator,
+.custom-options {
+  display: none;
+  &.visible {
+    display: inline-flex;
+  }
+}
+
+.custom-options {
+  margin-left: 0.5rem;
+}
+
+.paginator-button {
+  background: none;
+  border: none;
+  height: auto;
+  cursor: pointer;
+  outline: none;
+  margin-left: 0.25rem;
+  padding: 0.5rem 0.25rem;
+
+  &:before,
+  & span {
+    color: var(--dtt_density-icon-color);
+    vertical-align: middle;
+    transition: color 0.25s;
+  }
+
+  &:before {
+    font-size: 150%;
+  }
+
+  & span {
+    font-size: var(--dtt_font-size);
+    margin-left: 0.3rem;
+  }
+
+  &:hover,
+  &.activated {
+    &:before,
+    & span {
+      color: var(--dtt_main-color);
+    }
+  }
+}
+
 .density-panel,
-.fontsize-panel,
-.loadmore-panel {
+.fontsize-panel {
   height: 28px;
   position: relative;
   margin: 0.5rem 0.5rem 0.5rem 0;
@@ -475,29 +527,6 @@
     padding: 0 0.25rem;
     height: 28px;
     cursor: help;
-  }
-
-  &.loadmore-icon {
-    background: var(--dtt_main-color);
-    border: none;
-    height: auto;
-    cursor: pointer;
-    outline: none; //override browser
-    transition: background-color 0.25s;
-    margin-left: 0.5rem;
-    margin-right: 0;
-
-    &:before {
-      color: var(--dtt_text-on-main-color);
-    }
-
-    &:hover {
-      background-color: var(--dtt_main-color-lighter);
-    }
-
-    &:active {
-      background-color: var(--dtt_main-color-darker);
-    }
   }
 
   .density-label,

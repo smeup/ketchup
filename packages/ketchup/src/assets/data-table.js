@@ -8,11 +8,17 @@ const mockedColumns = [
         name: 'FLD2',
         title: 'Column B',
         size: 10,
+        obj: {
+            t: 'NR',
+        },
     },
     {
         name: 'FLD3',
         title: 'Column C',
         size: 10,
+        obj: {
+            t: 'NR',
+        },
     },
     {
         name: 'FLD4',
@@ -649,7 +655,7 @@ document.getElementById('graphic-cells').data = {
             },
         },
     ],
-}
+};
 
 // adding rowSelect event listener for all dataTable
 document.querySelectorAll('kup-data-table').forEach((dt) => {
