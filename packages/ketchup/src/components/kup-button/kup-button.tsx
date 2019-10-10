@@ -20,7 +20,7 @@ export class KupButton {
     @Prop() transparent = false;
     @Prop() align: string;
     @Prop() iconUrl =
-        'https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css';
+        'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
 
     @Event({
         eventName: 'kupButtonClicked',
