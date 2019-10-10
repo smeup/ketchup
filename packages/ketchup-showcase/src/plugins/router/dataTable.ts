@@ -5,6 +5,11 @@ export default [
     component: () => import('@/views/dataTable/DTBasic.vue'),
   },
   {
+    path: '/dataTable/tooltip',
+    name: 'dtTooltip',
+    component: () => import('@/views/dataTable/DTTooltip.vue'),
+  },
+  {
     path: '/dataTable/filters',
     name: 'dtFilters',
     component: () => import('@/views/dataTable/DTFilters.vue'),
