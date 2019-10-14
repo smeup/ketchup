@@ -78,6 +78,9 @@ import {
   TreeNode,
   TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
+import {
+  UploadProps,
+} from './components/kup-upload/kup-upload-declarations';
 
 export namespace Components {
   interface KupBadge {
@@ -618,22 +621,7 @@ export namespace Components {
     'useDynamicExpansion': boolean;
   }
   interface KupUpload {
-    /**
-    * Ask authorization before upload
-    */
-    'fupAuth': boolean;
-    /**
-    * The label to set to browse
-    */
-    'fupLabel': string;
-    /**
-    * Max size of file (KB)
-    */
-    'fupMaxSize': number;
-    /**
-    * URL of service handling the upload post request made by this component
-    */
-    'fupService': string;
+    'typeOptions': UploadProps;
   }
 }
 
@@ -1519,21 +1507,18 @@ declare namespace LocalJSX {
   }
   interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
     /**
-    * Ask authorization before upload
+    * Launched when file upload fail
     */
-    'fupAuth'?: boolean;
+    'onKetchupFileRejected'?: (event: CustomEvent<{
+      message: string;
+    }>) => void;
     /**
-    * The label to set to browse
+    * Launched when file upload succeed
     */
-    'fupLabel'?: string;
-    /**
-    * Max size of file (KB)
-    */
-    'fupMaxSize'?: number;
-    /**
-    * URL of service handling the upload post request made by this component
-    */
-    'fupService'?: string;
+    'onKetchupFileUploaded'?: (event: CustomEvent<{
+      message: string;
+    }>) => void;
+    'typeOptions'?: UploadProps;
   }
 
   interface IntrinsicElements {

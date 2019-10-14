@@ -266,6 +266,7 @@ export class KupFld {
                 /**/
             case 'fup':
                     type = 'upload';
+                   //TODO confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
                 type = 'vaadin-upload';

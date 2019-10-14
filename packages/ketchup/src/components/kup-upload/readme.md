@@ -7,12 +7,17 @@
 
 ## Properties
 
-| Property     | Attribute      | Description                                                            | Type      | Default |
-| ------------ | -------------- | ---------------------------------------------------------------------- | --------- | ------- |
-| `fupAuth`    | `fup-auth`     | Ask authorization before upload                                        | `boolean` | `false` |
-| `fupLabel`   | `fup-label`    | The label to set to browse                                             | `string`  | `''`    |
-| `fupMaxSize` | `fup-max-size` | Max size of file (KB)                                                  | `number`  | `0`     |
-| `fupService` | `fup-service`  | URL of service handling the upload post request made by this component | `string`  | `''`    |
+| Property      | Attribute | Description | Type          | Default     |
+| ------------- | --------- | ----------- | ------------- | ----------- |
+| `typeOptions` | --        |             | `UploadProps` | `undefined` |
+
+
+## Events
+
+| Event                 | Description                       | Type                                |
+| --------------------- | --------------------------------- | ----------------------------------- |
+| `ketchupFileRejected` | Launched when file upload fail    | `CustomEvent<{ message: string; }>` |
+| `ketchupFileUploaded` | Launched when file upload succeed | `CustomEvent<{ message: string; }>` |
 
 
 ## CSS Custom Properties

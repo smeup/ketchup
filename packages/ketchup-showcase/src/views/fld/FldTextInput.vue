@@ -49,7 +49,8 @@
     <h3>Input text: file upload</h3>
     <div class="example-container">
       <kup-fld
-        :config.prop="inputFileUpload" />
+        :config.prop="inputFileUpload" 
+        @ketchupFileUploaded="onFileUploaded"/>
     </div>    
   </div>
 </template>
@@ -112,9 +113,21 @@
               name: "inputType",
               value: "password"
             }
-          ]);
-          this.inputFileUpload = {'type':'fup', 'fupAuth': 'true', 'fupMaxSize':'500', 'fupLabel':'Upload template file',
-            'fupService':'https://webuptest.smeup.com/gtw/gtw-resource-manager/api/services/uploadTemplate'};
+          ]);       
+          this.inputFileUpload = {
+            'type':'fup', 
+            'typeOptions' : {
+              'maxSize':'5000', 
+              'multi':true,
+              'confirm':true,
+              'drop':true,
+              'accept':'pdf',
+              'label':'Upload template file',     
+              'service':'https://webuptest.smeup.com/gtw/gtw-resource-manager/api/services/uploadTemplate'
+            }
+            };
+            /*
+             */
         })
         .catch(err => {
           console.log(err);
@@ -124,6 +137,9 @@
       onUpdateMaxLength(e) {
         console.log(e);
         this.fieldMaxLength = e.detail.value;
+      },
+      onFileUploaded(e) {
+        console.log("onFileUploaded", e);
       }
     },
     watch: {
