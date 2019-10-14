@@ -14,7 +14,7 @@
 | `fillspace`   | `fillspace`    |             | `boolean` | `false`                                                                        |
 | `flat`        | `flat`         |             | `boolean` | `false`                                                                        |
 | `iconClass`   | `icon-class`   |             | `string`  | `undefined`                                                                    |
-| `iconUrl`     | `icon-url`     |             | `string`  | `'https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css'` |
+| `iconUrl`     | `icon-url`     |             | `string`  | `'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css'` |
 | `label`       | `label`        |             | `string`  | `undefined`                                                                    |
 | `rounded`     | `rounded`      |             | `boolean` | `false`                                                                        |
 | `showicon`    | `showicon`     |             | `boolean` | `true`                                                                         |

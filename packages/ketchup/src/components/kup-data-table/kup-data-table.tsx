@@ -1318,8 +1318,16 @@ export class KupDataTable {
                 };
             }
 
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
             return (
                 <th
+                    class={columnClass}
                     style={thStyle}
                     onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
@@ -1882,33 +1890,63 @@ export class KupDataTable {
         return (
             <button
                 aria-label={label}
-                class="loadmore-panel loadmore-icon mdi mdi-plus"
+                class="loadmore-button mdi mdi-plus"
                 role="button"
                 slot={isSlotted ? 'more-results' : null}
                 tabindex="0"
                 title={label}
                 onClick={() => this.onLoadMoreClick()}
-            />
+            >
+                <span class="paginator-tab-text">Più risultati</span>{' '}
+            </button>
         );
+    }
+
+    private onCustomSettingsClick(event) {
+        let t = event.target;
+        let elPanel = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('customize-panel')[0];
+        let elButton = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            elPanel.classList.remove('visible');
+        } else {
+            elButton.classList.add('activated');
+            elPanel.classList.add('visible');
+        }
     }
 
     private renderPaginator(top: boolean) {
         return (
             <div class="paginator-wrapper">
-                <kup-paginator
-                    id={top ? 'top-paginator' : 'bottom-paginator'}
-                    max={this.rows.length}
-                    perPage={this.rowsPerPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    currentPage={this.currentPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
-                    }
-                ></kup-paginator>
-                {this.renderDensityPanel(top)}
-                {this.renderFontSizePanel(top)}
-                {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                <div class="paginator-tabs">
+                    <kup-paginator
+                        id={top ? 'top-paginator' : 'bottom-paginator'}
+                        max={this.rows.length}
+                        perPage={this.rowsPerPage}
+                        selectedPerPage={this.currentRowsPerPage}
+                        currentPage={this.currentPage}
+                        onKupPageChanged={(e) => this.handlePageChanged(e)}
+                        onKupRowsPerPageChanged={(e) =>
+                            this.handleRowsPerPageChanged(e)
+                        }
+                    ></kup-paginator>
+                    <button
+                        title="Mostra opzioni di personalizzazione"
+                        class="paginator-button mdi mdi-settings custom-settings"
+                        onClick={(e) => this.onCustomSettingsClick(e)}
+                    >
+                        <div class="customize-panel">
+                            {this.renderDensityPanel(top)}
+                            {this.renderFontSizePanel(top)}
+                        </div>
+                    </button>
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </div>
             </div>
         );
     }
@@ -1917,7 +1955,7 @@ export class KupDataTable {
         let fontSize;
         {
             this.fontsize === 'medium'
-                ? (fontSize = 'Medio')
+                ? (fontSize = 'Media')
                 : this.fontsize === 'big'
                 ? (fontSize = 'Grande')
                 : this.fontsize === 'small'
@@ -1927,10 +1965,9 @@ export class KupDataTable {
         let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
         return (
             <div class="fontsize-panel">
-                <span
-                    title={fontSizeTypeString}
-                    class="fontsize-icon mdi mdi-format-size"
-                ></span>
+                <span title={fontSizeTypeString} class="panel-label">
+                    Dimensione carattere
+                </span>
                 <span
                     class="fontsize-label"
                     onClick={(e) => this.toggleFontSizeVisibility(e, top)}
@@ -2027,13 +2064,12 @@ export class KupDataTable {
                 ? (densityType = 'Compatta')
                 : (densityType = '');
         }
-        let densityTypeString = 'Spaziatura righe: ' + densityType;
+        let densityTypeString = 'Densità righe: ' + densityType;
         return (
             <div class="density-panel">
-                <span
-                    title={densityTypeString}
-                    class="density-icon mdi mdi-format-line-spacing"
-                ></span>
+                <span title={densityTypeString} class="panel-label">
+                    Densità righe
+                </span>
                 <span
                     class="density-label"
                     onClick={(e) => this.toggleDensityVisibility(e, top)}

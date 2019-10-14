@@ -1,4 +1,4 @@
-@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
 
 /**
 * @prop --dtt_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
@@ -85,13 +85,10 @@
     --kup-data-table_negative-number-color,
     #{$mainRed}
   );
-  --dtt_density-box-shadow: var(
-    --kup-data-table_density-box-shadow,
-    0 0 2px 0px rgba(128, 128, 128, 0.5)
-  );
+  --dtt_density-box-shadow: var(--kup-data-table_density-box-shadow, none);
   --dtt_density-icon-background: var(
     --kup-data-table_density-icon-background,
-    #{lighten($smeup-primary, 50)}
+    transparent
   );
   --dtt_density-icon-color: var(
     --kup-data-table_density-icon-color,
@@ -124,6 +121,10 @@
         border-right: 1px solid var(--dtt_border-color);
         position: sticky;
         top: 0;
+
+        &.number {
+          text-align: right;
+        }
 
         // filters
         kup-text-input.datatable-filter {
@@ -351,6 +352,9 @@
           position: sticky;
           top: var(--dtt_header-offset);
           will-change: transform; // For performance
+          &.number {
+            text-align: right;
+          }
         }
       }
 
@@ -418,10 +422,6 @@
     display: flex;
     flex-flow: wrap;
     min-width: max-content;
-
-    kup-paginator {
-      flex-grow: 1;
-    }
   }
 }
 
@@ -451,50 +451,134 @@
   }
 }
 
+.paginator-tabs {
+  width: 100%;
+
+  & kup-paginator {
+    display: inline-flex;
+  }
+
+  .loadmore-button {
+    position: relative;
+    background: none;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+    outline: none;
+    margin-left: 0.25rem;
+    padding: 0 0.25rem;
+    float: right;
+
+    .paginator-tab-text {
+      margin-left: 0.25rem;
+      transition: color 0.25s ease;
+    }
+
+    &:before {
+      transition: color 0.25s ease;
+    }
+
+    &:hover,
+    &.activated {
+      &:before,
+      & .paginator-tab-text {
+        color: var(--dtt_main-color);
+      }
+    }
+  }
+
+  .paginator-button {
+    position: relative;
+    background: none;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+    outline: none;
+    margin-left: 0.25rem;
+    padding: 0 0.25rem;
+    float: right;
+
+    .customize-panel {
+      cursor: default;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      bottom: -1.25rem;
+      left: 0;
+      padding: 1rem;
+      z-index: 1000;
+      width: 200px; //I.E.
+      width: fit-content;
+      background: var(--dtt_background-color);
+      box-shadow: var(--dtt_box-shadow);
+      transition: opacity 0.25s ease;
+      transform: translate(-100%, 0);
+
+      &.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      & .panel-label {
+        min-width: 150px;
+        text-align: left;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        overflow: hidden;
+      }
+    }
+
+    & span {
+      cursor: default;
+    }
+
+    &:before,
+    & span.density-label,
+    & span.fontsize-label {
+      color: var(--dtt_density-icon-color);
+      vertical-align: middle;
+      transition: color 0.25s;
+      cursor: pointer;
+    }
+
+    &:before {
+      font-size: 120%;
+    }
+
+    & span.density-label,
+    & span.fontsize-label {
+      font-size: var(--dtt_font-size);
+    }
+
+    &:hover,
+    &.activated {
+      &:before,
+      & span.density-label,
+      & span.fontsize-label {
+        color: var(--dtt_main-color);
+      }
+    }
+
+    .paginator-tab-text {
+      margin-left: 0.25rem;
+    }
+  }
+}
+
 .density-panel,
-.fontsize-panel,
-.loadmore-panel {
-  height: 28px;
+.fontsize-panel {
   position: relative;
-  margin: 0.5rem 0;
+  margin: 0;
   display: flex;
   align-items: center;
   box-shadow: var(--dtt_density-box-shadow);
+  width: 200px; //I.E.
+  width: max-content;
 
   .mdi:before,
   &:before {
     color: var(--dtt_density-icon-color);
-    font-size: 150%;
-  }
-
-  .density-icon,
-  .fontsize-icon,
-  &.loadmore-icon {
-    background: var(--dtt_density-icon-background);
-    padding: 0 0.25rem;
-    height: 28px;
-    cursor: help;
-  }
-
-  &.loadmore-icon {
-    background: var(--dtt_main-color);
-    border: none;
-    height: auto;
-    cursor: pointer;
-    outline: none; //override browser
-    transition: background-color 0.25s;
-
-    &:before {
-      color: var(--dtt_text-on-main-color);
-    }
-
-    &:hover {
-      background-color: var(--dtt_main-color-lighter);
-    }
-
-    &:active {
-      background-color: var(--dtt_main-color-darker);
-    }
+    font-size: 120%;
   }
 
   .density-label,

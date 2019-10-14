@@ -7,7 +7,7 @@ context('Data table without configuration', () => {
   it('test first table', () => {
     cy.visit('http://localhost:4000/#/dataTable/basic');
 
-    cy.wait(1500);
+    cy.wait(500);
 
     cy.shadowGet('kup-data-table')
       .shadowFind('table')
@@ -29,10 +29,17 @@ context('Data table without configuration', () => {
       .should('eq', 1);
 
     cy.shadowGet('kup-data-table')
-      .shadowFind('.above-wrapper')
-      .shadowFind('.density-panel')
-      .shadowFind('div[role="button"]')
+      .shadowFind('.custom-settings')
       .shadowTrigger('click');
+
+    cy.wait(500);
+
+    cy.shadowGet('kup-data-table')
+      .shadowFind('.density-panel')
+      .shadowFind('div[role=button]')
+      .shadowTrigger('click');
+
+    cy.wait(500);
 
     cy.shadowGet('kup-data-table')
       .shadowFind('.above-wrapper')
