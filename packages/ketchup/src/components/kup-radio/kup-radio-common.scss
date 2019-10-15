@@ -1,0 +1,59 @@
+$radio-button_scale: 1.4;
+
+@mixin radio-css-vars($internal-prefix, $external-prefix) {
+/**
+* @prop --#{$internal-prefix}_font-size, --kup-#{$external-prefix}_font-size: Sets font size and icon radio button size (size * #{$radio-button_scale})
+* @prop --#{$internal-prefix}_border-color, --kup-#{$external-prefix}_border-color: Set default color of external border of the radio element
+* @prop --#{$internal-prefix}_border-color--selected --kup-#{$external-prefix}_border-color: Set selected color of external border of the radio element
+* @prop --#{$internal-prefix}_color, --kup-#{$external-prefix}_color: Sets radio element color when selected radio appears
+* @prop --#{$internal-prefix}_tr-duration, --kup-#{$external-prefix}_transition-duration: Sets all components transitions duration
+*/
+}
+
+@mixin radio-graphics($css-vars-prefix) {
+  align-items: center;
+  display: inline-flex;
+  height: calc(var(--#{$css-vars-prefix}_font-size) * #{$radio-button_scale});
+  justify-content: center;
+  position: relative;
+  width: calc(var(--#{$css-vars-prefix}_font-size) * #{$radio-button_scale});
+  z-index: 0;
+
+  &::before,
+  &::after {
+    border-radius: 50%;
+    box-sizing: border-box;
+    content: '';
+  }
+
+  &::before {
+    border: 1px solid var(--#{$css-vars-prefix}_border-color);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: border-color var(--#{$css-vars-prefix}_tr-duration);
+    width: 100%;
+    z-index: 0;
+  }
+
+  &::after {
+    background-color: var(--#{$css-vars-prefix}_color);
+    height: calc(100% - 6px);
+    position: relative;
+    opacity: 0;
+    transition: opacity var(--#{$css-vars-prefix}_tr-duration);
+    width: calc(100% - 6px);
+    z-index: 1;
+  }
+}
+
+@mixin radio-graphics-selected($css-vars-prefix) {
+  &::before {
+    border-color: var(--#{$css-vars-prefix}_border-color--selected);
+  }
+
+  &::after {
+    opacity: 1;
+  }
+}

@@ -549,6 +549,7 @@ export namespace Components {
     */
     'valueField': string;
   }
+  interface KupRadioElement {}
   interface KupTextInput {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -780,6 +781,12 @@ declare global {
     new (): HTMLKupRadioElement;
   };
 
+  interface HTMLKupRadioElementElement extends Components.KupRadioElement, HTMLStencilElement {}
+  var HTMLKupRadioElementElement: {
+    prototype: HTMLKupRadioElementElement;
+    new (): HTMLKupRadioElementElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -820,6 +827,7 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
+    'kup-radio-element': HTMLKupRadioElementElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1454,6 +1462,7 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
+  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {}
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -1617,6 +1626,7 @@ declare namespace LocalJSX {
     'kup-portal-instance': KupPortalInstance;
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
+    'kup-radio-element': KupRadioElement;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

@@ -1,0 +1,13 @@
+@import '../kup-radio/kup-radio-common';
+
+$radio-element-prefix: rel;
+
+@include radio-css-vars($radio-element-prefix, $radio-element-prefix);
+
+:host {
+  @include radio-graphics-selected($radio-element-prefix);
+}
+
+:host([aria-selected]) {
+  @include radio-graphics-selected($radio-element-prefix)
+}

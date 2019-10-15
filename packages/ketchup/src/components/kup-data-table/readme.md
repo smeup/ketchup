@@ -111,6 +111,9 @@ Type: `Promise<Column[]>`
 | `--dtt_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
 | `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
 | `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
+| `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.                       |
+| `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.                        |
+| `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.                             |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.                  |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.                |
 | `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
@@ -124,6 +127,8 @@ Type: `Promise<Column[]>`
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
+| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                                   |
+| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                                  |
 | `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 
@@ -131,13 +136,14 @@ Type: `Promise<Column[]>`
 
 ### Depends on
 
-- [kup-text-input](../kup-text-input)
-- [kup-checkbox](../kup-checkbox)
-- [kup-button](../kup-button)
-- [kup-graphic-cell](../kup-graphic-cell)
-- [kup-tooltip](../kup-tooltip)
-- [kup-paginator](../kup-paginator)
-- [kup-chip](../kup-chip)
+- [kup-text-input](..\kup-text-input)
+- [kup-checkbox](..\kup-checkbox)
+- [kup-button](..\kup-button)
+- [kup-graphic-cell](..\kup-graphic-cell)
+- [kup-tooltip](..\kup-tooltip)
+- [kup-paginator](..\kup-paginator)
+- [kup-chip](..\kup-chip)
+- [kup-progress-bar](..\kup-progress-bar)
 
 ### Graph
 ```mermaid
@@ -149,6 +155,7 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-data-table --> kup-progress-bar
   kup-paginator --> kup-combo
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
