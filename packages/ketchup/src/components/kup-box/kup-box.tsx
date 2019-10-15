@@ -9,8 +9,6 @@ import {
     Method,
 } from '@stencil/core';
 
-import numeral from 'numeral';
-
 import {
     Column,
     SortObject,
@@ -42,6 +40,7 @@ import {
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
+import {progressbarFromCellHelper} from "../kup-progress-bar/kup-progress-bar-helper";
 
 @Component({
     tag: 'kup-box',
@@ -893,33 +892,11 @@ export class KupBox {
                         <kup-button {...createJ4objButtonConfig(cell)} />
                     );
                 } else if (isProgressBar(cell.obj)) {
-                    const value = numeral(cell.value).value();
 
-                    let hideLabel = false;
-                    let labelText: string = null;
-                    const wrapperStyle = {};
 
-                    if (cell.config) {
-                        hideLabel = !!cell.config.hideLabel;
-
-                        if (cell.config.hasOwnProperty('labelText')) {
-                            labelText = cell.config.labelText;
-                        }
-
-                        if (cell.config.foregroundColor) {
-                            wrapperStyle['--kup-pb_foreground-color'] =
-                                cell.config.foregroundColor;
-                        }
-                    }
-
-                    boContent = (
-                        <div style={wrapperStyle}>
-                            <kup-progress-bar
-                                value={value}
-                                labelText={labelText}
-                                hideLabel={hideLabel}
-                            />
-                        </div>
+                    boContent = progressbarFromCellHelper(
+                          cell,
+                          cell.value,
                     );
                 } else if (isIcon(cell.obj)) {
                     boContent = <span class={`icon ${cell.value}`}></span>;

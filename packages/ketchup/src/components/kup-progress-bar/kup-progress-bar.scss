@@ -35,12 +35,13 @@
 
     // The label
     span {
+      color: var(--pgb_text-color);
       display: inline-block;
-      position: absolute;
-      width: 100%;
+      font-size: 12px;
       left: 0;
       line-height: 18px;
-      font-size: 12px;
+      position: absolute;
+      width: 100%;
     }
   }
 

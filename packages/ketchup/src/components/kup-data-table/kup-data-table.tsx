@@ -43,6 +43,10 @@ import {
 } from './kup-data-table-helper';
 
 import {
+  progressbarFromCellHelper,
+} from "../kup-progress-bar/kup-progress-bar-helper";
+
+import {
     isBar,
     isButton,
     isCheckbox,
@@ -50,6 +54,7 @@ import {
     isImage,
     isLink,
     isNumber,
+    isProgressBar,
     isVoCodver,
     createJ4objButtonConfig,
 } from '../../utils/object-utils';
@@ -417,7 +422,7 @@ export class KupDataTable {
         this.botDensityPanelVisible = false;
     };
 
-    
+
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -470,16 +475,17 @@ export class KupDataTable {
     }
 
     private hasTooltip(cell: Cell) {
-        return cell.obj 
-            && cell.obj.t!=="" 
-            && !isBar(cell.obj) 
+        return cell.obj
+            && cell.obj.t!==""
+            && !isBar(cell.obj)
             && !isButton(cell.obj)
             && !isCheckbox(cell.obj)
             && !isIcon(cell.obj)
             && !isImage(cell.obj)
             && !isLink(cell.obj)
             && !isNumber(cell.obj)
-            && !isVoCodver(cell.obj);
+            && !isVoCodver(cell.obj)
+            && !isProgressBar(cell.obj);
     }
 
     private getColumns(): Array<Column> {
@@ -1845,12 +1851,17 @@ export class KupDataTable {
 
             // Controls if we should display this cell value
             content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+        } else if (isProgressBar(cell.obj)) {
+          if (valueToDisplay) {
+            content = progressbarFromCellHelper(
+              cell,
+              valueToDisplay,
+              true
+            );
+          } else {
+            content = null;
+          }
         }
-
-        // TODO
-        // else if (isProgressBar(cell.obj)) {
-        //     content = <kup-progress-bar />;
-        // }
 
         // if cell.style has border, apply style to cellcontent
         let style = null;
