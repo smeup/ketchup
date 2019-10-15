@@ -61,26 +61,7 @@ export class KupTooltip {
     @Watch('data')
     onDataChanged() {
         if (this.visible) {
-            // resetting position
-            this.tooltipPosition = {};
-
-            const rect = this.wrapperEl.getBoundingClientRect();
-
-            // vertical position
-            if (window.innerHeight - rect.bottom < 150) {
-                this.tooltipPosition.bottom = `${rect.height + 3}px`;
-            } else {
-                this.tooltipPosition.top = `${rect.height}px`;
-            }
-
-            // horizontal position
-            if (window.innerWidth - rect.left < 350) {
-                // 350 is the min-width of the tooltip
-                this.tooltipPosition.right = `0`;
-            } else {
-                this.tooltipPosition.left = `0`;
-            }
-
+            this.positionRecalc();
             // loading detail
             this.loadDetailTimeout = setTimeout(() => this.loadDetail(), 200);
         }
@@ -224,13 +205,35 @@ export class KupTooltip {
         return infos;
     }
 
+    private positionRecalc() {
+        // resetting position
+        this.tooltipPosition = {};
+
+        const rect = this.wrapperEl.getBoundingClientRect();
+        let threshold =  this.hasDetailData ? 300 : 150;
+
+        // vertical position
+        if (window.innerHeight - rect.bottom < threshold) {
+            this.tooltipPosition.bottom = `${window.innerHeight - rect.top + 3}px`;
+        } else {
+            this.tooltipPosition.top = `${rect.bottom + 3}px`;
+        }
+
+        // horizontal position
+        if (window.innerWidth - rect.left < 350) {
+            // 350 is the min-width of the tooltip
+            this.tooltipPosition.right = `${window.innerWidth - rect.right}px`;
+        } else {
+            this.tooltipPosition.left = `${rect.left}px`;
+        }
+    }
+
     private createTooltip() {
         if (!this.data) {
             return null;
         }
 
         let mainContent = null;
-
         const mainContentClass = {};
 
         if (this.layout === '2') {

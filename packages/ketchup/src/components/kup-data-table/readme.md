@@ -111,6 +111,9 @@ Type: `Promise<Column[]>`
 | `--dtt_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
 | `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
 | `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
+| `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.                       |
+| `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.                        |
+| `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.                             |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.                  |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.                |
 | `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
@@ -124,6 +127,10 @@ Type: `Promise<Column[]>`
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
+| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                                   |
+| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                                  |
+| `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                                              |
+| `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                                     |
 | `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 

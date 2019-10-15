@@ -52,6 +52,8 @@
 | `--btn_icon-color, --kup-button_icon-color`                           | Sets icon color.                                              |
 | `--btn_icon-size, --kup-button_icon-size`                             | Set icon size.                                                |
 | `--btn_main-color, --kup-button_main-color`                           | Sets the main color of the button.                            |
+| `--btn_main-color-active, --kup-button_main-color-hover`              | Sets the main color of the button when active.                |
+| `--btn_main-color-hover, --kup-button_main-color-hover`               | Sets the main color of the button at mouse over.              |
 | `--btn_opacity, --kup-button_opacity`                                 | Sets opacity of the button.                                   |
 | `--btn_text-color, --kup-button_text-color`                           | Sets color of the button text.                                |
 | `--btn_text-color--transparent, --kup-button_text-color--transparent` | Sets text color when button is transparent.                   |
