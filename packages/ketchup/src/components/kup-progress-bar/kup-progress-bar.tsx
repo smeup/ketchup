@@ -1,40 +1,56 @@
-import { Component, Prop, h } from '@stencil/core';
+import {Component, Prop, h} from '@stencil/core';
 
 @Component({
-    tag: 'kup-progress-bar',
-    styleUrl: 'kup-progress-bar.scss',
-    shadow: true,
+  tag: 'kup-progress-bar',
+  styleUrl: 'kup-progress-bar.scss',
+  shadow: true,
 })
 export class KupProgressBar {
-    @Prop()
-    value = 0;
+  /**
+   * FLag to show or hide the progress bar's label
+   */
+  @Prop()
+  hideLabel = false;
 
-    @Prop()
-    labelText: string;
+  /**
+   * Determines if the progress bar must be drawn in small mode
+   * For SmeUP users, this corresponds to V2fogog style.
+   */
+  @Prop({reflect: true})
+  isSmall = false;
 
-    @Prop()
-    hideLabel = false;
+  /**
+   * Specifies a text for the bar's label
+   */
+  @Prop()
+  labelText: string;
 
-    render() {
-        const valueStyle = {
-            width: `${this.value}%`,
-        };
+  /**
+   * The current value the progress bar must display.
+   */
+  @Prop()
+  value = 0;
 
-        let label = null;
-        if (!this.hideLabel) {
-            if (this.labelText) {
-                label = this.labelText;
-            } else {
-                label = this.value + '%';
-            }
-        }
+  render() {
+    const valueStyle = {
+      width: `${this.value}%`,
+    };
 
-        return (
-            <div id="progress-bar">
-                <div id="progress-bar-percentage" style={valueStyle}>
-                    <span>{label}</span>
-                </div>
-            </div>
-        );
+    let label = null;
+    if (!this.hideLabel) {
+      if (this.labelText) {
+        label = this.labelText;
+      } else {
+        label = this.value + '%';
+      }
     }
+
+    return (
+      <div class="progress-bar">
+        <div class="progress-bar-percentage" style={valueStyle}>
+          <span>{label}</span>
+        </div>
+      </div>
+    );
+  }
 }

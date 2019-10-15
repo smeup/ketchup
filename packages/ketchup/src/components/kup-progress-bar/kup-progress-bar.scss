@@ -1,5 +1,6 @@
-/*
+/**
 * @prop --pgb_background-color, --kup-pb_background-color: Background color of the progress bar.
+* @prop --pgb_border-radius, --kup-pb_border-radius: Border radius of the bars, 5px default, 9px when small.
 * @prop --pgb_foreground-color, --kup-pb_foreground-color: Foreground color of the progress bar.
 * @prop --pgb_text-color, --kup-pb_text-color: Text color.
 */
@@ -7,24 +8,32 @@
 :host {
   // variables
   --pgb_background-color: var(--kup-pb_background-color, #cccccc);
+  --pgb_border-radius: var(--kup-pb_border-radius, 5px);
   --pgb_foreground-color: var(--kup-pb_foreground-color, #3063a5);
   --pgb_text-color: var(--kup-pb_text-color, #ffffff);
+
+  display: inline-block;
+  width: 100%;
 }
 
-#progress-bar {
-  width: 100%;
+// The progress bar
+.progress-bar {
   background: var(--pgb_background-color);
+  border-radius: var(--pgb_border-radius);
+  overflow: hidden; // Mandatory, see "is-small" below
   position: relative;
-  border-radius: 5px;
+  width: 100%;
 
-  #progress-bar-percentage {
+  // The percentage bar
+  &-percentage {
     background: var(--pgb_foreground-color);
-    padding: 5px 0px;
+    border-radius: var(--pgb_border-radius);
     color: #fff;
-    text-align: center;
     height: 18px;
-    border-radius: 5px;
+    padding: 5px 0;
+    text-align: center;
 
+    // The label
     span {
       display: inline-block;
       position: absolute;
@@ -32,6 +41,18 @@
       left: 0;
       line-height: 18px;
       font-size: 12px;
+    }
+  }
+
+  // For small progress bar
+  :host([is-small]) & {
+    // Default border radius is meant to have border completely round
+    --pgb_border-radius: var(--kup-pb_border-radius, 9px);
+
+    // The internal bar is smaller and without border-radius
+    &-percentage {
+      border-radius: 0;
+      padding: 0;
     }
   }
 }

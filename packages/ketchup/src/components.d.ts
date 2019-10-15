@@ -502,8 +502,21 @@ export namespace Components {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar {
+    /**
+    * FLag to show or hide the progress bar's label
+    */
     'hideLabel': boolean;
+    /**
+    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    */
+    'isSmall': boolean;
+    /**
+    * Specifies a text for the bar's label
+    */
     'labelText': string;
+    /**
+    * The current value the progress bar must display.
+    */
     'value': number;
   }
   interface KupRadio {
@@ -1390,8 +1403,21 @@ declare namespace LocalJSX {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
+    /**
+    * FLag to show or hide the progress bar's label
+    */
     'hideLabel'?: boolean;
+    /**
+    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    */
+    'isSmall'?: boolean;
+    /**
+    * Specifies a text for the bar's label
+    */
     'labelText'?: string;
+    /**
+    * The current value the progress bar must display.
+    */
     'value'?: number;
   }
   interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
