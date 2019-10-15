@@ -338,6 +338,12 @@ export default {
               name: 'dtCheckboxCell',
             },
           },
+          {
+            title: 'Progressbar',
+            to: {
+              name: 'dtProgressbar',
+            },
+          },
         ],
       },
       {

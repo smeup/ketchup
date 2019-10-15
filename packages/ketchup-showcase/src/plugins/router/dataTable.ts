@@ -69,4 +69,9 @@ export default [
     name: 'dtCheckboxCell',
     component: () => import('@/views/dataTable/DTCheckbox.vue'),
   },
+  {
+    path: '/dataTable/progressbar',
+    name: 'dtProgressbar',
+    component: () => import('@/views/dataTable/DTProgressbar.vue'),
+  },
 ];
