@@ -22,6 +22,19 @@
 | `kupTooltipLoadDetail` |             | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-data-table --> kup-tooltip
+  style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

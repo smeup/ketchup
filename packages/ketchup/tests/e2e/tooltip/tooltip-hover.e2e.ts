@@ -4,7 +4,7 @@ const wrapperSelector = 'kup-tooltip >>> #wrapper';
 const tooltipSelector = wrapperSelector + ' #tooltip';
 const detailSelector = wrapperSelector + ' #detail';
 
-describe('kup-tooltip', () => {
+xdescribe('kup-tooltip', () => {
     it('tooltip is hidden', async () => {
         const page = await newE2EPage();
 
