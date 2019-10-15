@@ -68,17 +68,17 @@ export class KupTooltip {
 
             // vertical position
             if (window.innerHeight - rect.bottom < 150) {
-                this.tooltipPosition.bottom = `${rect.height + 3}px`;
+                this.tooltipPosition.bottom = `auto`;
             } else {
-                this.tooltipPosition.top = `${rect.height}px`;
+                this.tooltipPosition.top = `auto`;
             }
 
             // horizontal position
             if (window.innerWidth - rect.left < 350) {
                 // 350 is the min-width of the tooltip
-                this.tooltipPosition.right = `0`;
+                this.tooltipPosition.right = `auto`;
             } else {
-                this.tooltipPosition.left = `0`;
+                this.tooltipPosition.left = `auto`;
             }
 
             // loading detail
