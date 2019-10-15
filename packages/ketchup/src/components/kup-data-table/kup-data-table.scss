@@ -24,6 +24,8 @@
 * @prop --dtt_density-box-shadow, --kup-data-table_density-box-shadow: Box shadow of the density combo, to match paginator's.
 * @prop --dtt_density-icon-background, --kup-data-table_density-icon-background: Background of the density icon, to match paginator's.
 * @prop --dtt_density-icon-color, --kup-data-table_density-icon-color: Color of the density icon, to match paginator's.
+* @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
+* @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
 */
 
 :host {
@@ -93,6 +95,11 @@
   --dtt_density-icon-color: var(
     --kup-data-table_density-icon-color,
     #{$mainTextColor}
+  );
+  --dtt_remove-icon-color: var(--kup-data-table_remove-icon-color, #{$mainRed});
+  --dtt_remove-icon-color-hover: var(
+    --kup-data-table_remove-icon-color-hover,
+    #{lighten($mainRed, 10)}
   );
 }
 
@@ -189,7 +196,7 @@
             > li {
               padding: 0.8rem;
               transition: color 0.2s ease-in-out;
-              color: #{$mainTextColor};
+              color: var(--dtt_color);
               transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
               &:hover {
@@ -253,6 +260,7 @@
                 width: var(--dtt_font-size);
                 height: var(--dtt_font-size);
                 margin: 0 0.3rem;
+                fill: var(--dtt_color);
 
                 &.group-expander {
                   padding: 0.2rem;
@@ -261,7 +269,10 @@
                 }
 
                 &.group-remove {
-                  fill: #{$mainRed};
+                  fill: var(--dtt_remove-icon-color);
+                  &:hover {
+                    fill: var(--dtt_remove-icon-color-hover);
+                  }
                 }
               }
 
