@@ -18,7 +18,7 @@ context('Data table without configuration', () => {
     cy.shadowGet('kup-data-table')
       .shadowFind('#top-paginator')
       .shadowFind('#paginator')
-      .shadowFind('.align-right')
+      .shadowFind('.align-left')
       .shadowFind('.nextPageGroup')
       .shadowFirst()
       .shadowContains('3');
