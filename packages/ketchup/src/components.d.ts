@@ -1506,18 +1506,11 @@ declare namespace LocalJSX {
     'useDynamicExpansion'?: boolean;
   }
   interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
-    /**
-    * Launched when file upload fail
-    */
-    'onKetchupFileRejected'?: (event: CustomEvent<{
-      message: string;
-    }>) => void;
+    'onKetchupFileRejected'?: (event: CustomEvent<any>) => void;
     /**
     * Launched when file upload succeed
     */
-    'onKetchupFileUploaded'?: (event: CustomEvent<{
-      message: string;
-    }>) => void;
+    'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
     'typeOptions'?: UploadProps;
   }
 

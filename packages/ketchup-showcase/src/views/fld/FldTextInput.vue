@@ -50,7 +50,8 @@
     <div class="example-container">
       <kup-fld
         :config.prop="inputFileUpload" 
-        @ketchupFileUploaded="onFileUploaded"/>
+        @ketchupFileUploaded="onFileUploaded"
+        @ketchupFileRejected="onFileUploaded"/>
     </div>    
   </div>
 </template>
@@ -117,16 +118,16 @@
           this.inputFileUpload = {
             'type':'fup', 
             'typeOptions' : {
-              'maxSize':'5000', 
               'multi':true,
               'confirm':true,
               'drop':true,
-              'accept':'pdf',
               'label':'Upload template file',     
               'service':'https://webuptest.smeup.com/gtw/gtw-resource-manager/api/services/uploadTemplate'
             }
             };
             /*
+              'maxSize':'5000', 
+              'accept':'pdf',
              */
         })
         .catch(err => {
@@ -139,7 +140,9 @@
         this.fieldMaxLength = e.detail.value;
       },
       onFileUploaded(e) {
-        console.log("onFileUploaded", e);
+        console.log("onFileUploaded", e.detail);
+        const msgjson = JSON.parse(e.detail);
+        console.log("msgjson", msgjson.messages);
       }
     },
     watch: {

@@ -28,9 +28,12 @@ export class KupUpload {
         cancelable: true,		
         bubbles: true,		
     })		
-    ketchupFileUploaded: EventEmitter<{
-        message: string;
+    ketchupFileUploaded: EventEmitter;
+    /*
+    <{
+        message: any;
     }>;	  
+    *7
     /**
      * Launched when file upload fail
      */
@@ -40,9 +43,8 @@ export class KupUpload {
         cancelable: true,		
         bubbles: true,		
     })		
-    ketchupFileRejected: EventEmitter<{
-        message: string;
-    }>;	      
+    ketchupFileRejected: EventEmitter;	      
+
     /*
     fileRejectedHandler(event: CustomEvent) {
         //event.detail.file.name + ' error: ' + event.detail.error;
@@ -117,7 +119,7 @@ export class KupUpload {
                     error: {
                         serverUnavailable: 'Server Unavailable',
                         unexpectedServerError: 'Unexpected Server Error',
-                        forbidden: 'Forbidden',
+                        forbidden: 'Rejected',
                     },
                 },
                 units: {
@@ -155,22 +157,21 @@ export class KupUpload {
         */
        /*
        file-reject
+                    {
+                    message: ev.detail.xhr.response,
+                }
        */
         return (
             <$DynamicComponent
             {...confObj}
             onUpload-error={(ev) => {
-                //console.log('upload error', ev.detail.xhr.response);
-                this.ketchupFileRejected.emit({
-                    message: ev.detail.xhr.response,
-                });
+                //console.log('upload error', ev);
+                this.ketchupFileRejected.emit(ev.detail.xhr.response);
                 }
             }
             onUpload-success={(ev) => {
-                //console.log('upload success', ev.detail.xhr.response);
-                this.ketchupFileUploaded.emit({
-                    message: ev.detail.xhr.response,
-                });
+                //console.log('upload success', ev);
+                this.ketchupFileUploaded.emit(ev.detail.xhr.response);
                 }
             }
             />

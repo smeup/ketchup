@@ -266,6 +266,7 @@ export class KupFld {
                 /**/
             case 'fup':
                     type = 'upload';
+                    //TODO ???
                    //TODO confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
@@ -275,8 +276,8 @@ export class KupFld {
                 compPrefix = '';
                 type ='input';
                 confObj.type = 'file';
-                break;
                 */
+               break;
             }
 
         const $DynamicComponent = (compPrefix + type) as any; // TODO check if there is a better typing
