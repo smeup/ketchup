@@ -18,7 +18,7 @@
     display: inline-block;
 
     #tooltip {
-      position: fixed;
+      position: absolute;
       background: var(--tlt_background);
       z-index: 1000;
       box-shadow: var(--tlt_shadow);
