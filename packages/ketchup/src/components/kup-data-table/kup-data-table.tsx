@@ -1873,22 +1873,23 @@ export class KupDataTable {
         }
         if (this.hasTooltip(cell)) {
             content = (
-                <kup-tooltip
-                    onKupTooltipLoadData={(ev) =>
-                        this.kupLoadRequest.emit({
-                            cell: cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                    onKupTooltipLoadDetail={(ev) =>
-                        this.kupDetailRequest.emit({
-                            cell: cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                >
-                    {content}
-                </kup-tooltip>
+                <div>
+                    <span>{content}</span>
+                    <kup-tooltip
+                        onKupTooltipLoadData={(ev) =>
+                            this.kupLoadRequest.emit({
+                                cell: cell,
+                                tooltip: ev.srcElement,
+                            })
+                        }
+                        onKupTooltipLoadDetail={(ev) =>
+                            this.kupDetailRequest.emit({
+                                cell: cell,
+                                tooltip: ev.srcElement,
+                            })
+                        }
+                    ></kup-tooltip>
+                </div>
             );
         }
 
