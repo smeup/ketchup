@@ -103,12 +103,12 @@
   );
 }
 
+.hover-scrolling-el {
+  overflow: auto;
+}
+
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
-
-  .below-wrapper {
-    overflow: auto;
-  }
 
   table {
     color: var(--dtt_color);

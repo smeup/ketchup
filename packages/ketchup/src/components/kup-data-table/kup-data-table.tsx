@@ -2169,8 +2169,8 @@ export class KupDataTable {
 
     handleScroll = (event) => {
         let el = event.target
-            .closest('#data-table-wrapper')
-            .querySelectorAll('.below-wrapper')[0];
+            .closest('.hover-scrolling-parent')
+            .querySelectorAll('.hover-scrolling-el')[0];
         let arrowContainter = el.querySelectorAll(
             '#container-scrolling-arrow'
         )[0];
@@ -2422,13 +2422,13 @@ export class KupDataTable {
         tableClass[`fontsize-${this.fontsize}`] = true;
 
         return (
-            <div id="data-table-wrapper">
+            <div id="data-table-wrapper" class="hover-scrolling-parent">
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
                 </div>
                 <div
-                    class="below-wrapper"
+                    class="below-wrapper hover-scrolling-el"
                     onMouseMove={(e: MouseEvent) => this.handleScroll(e)}
                     onMouseLeave={(e: MouseEvent) => this.killScroll(e.target)}
                 >
