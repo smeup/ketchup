@@ -1874,6 +1874,7 @@ export class KupDataTable {
         if (this.hasTooltip(cell)) {
             content = (
                 <kup-tooltip
+                    class="datatable-tooltip"
                     onKupTooltipLoadData={(ev) =>
                         this.kupLoadRequest.emit({
                             cell: cell,

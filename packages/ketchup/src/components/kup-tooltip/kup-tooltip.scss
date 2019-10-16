@@ -4,6 +4,7 @@
 * @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail label color
 * @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail text color
 * @Prop --tlt_shadow, --kup-tlt_shadow: tooltip shadow
+* @Prop --tlt_display, --kup-tlt_display: tooltip display
 */
 
 :host {
@@ -12,10 +13,11 @@
   --tlt_detail-lbl-color: var(--kup-detail-lbl-color, #616161);
   --tlt_detail-txt-color: var(--kup-detail-txt-color, #888888);
   --tlt_shadow: var(--kup-tlt_shadow, #{$mainShadow});
+  --tlt_display: var(--kup-tlt_display, inline-block);
 
   #wrapper {
     position: relative;
-    display: inline-block;
+    display: var(--tlt_display);
 
     #tooltip {
       position: fixed;

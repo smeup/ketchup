@@ -196,6 +196,7 @@
             list-style-type: none;
             margin: 0; // override browser default
             padding: 0; // override browser default
+            text-align: left;
 
             > li {
               padding: 0.8rem;
@@ -296,6 +297,11 @@
 
         > td {
           padding: 0.5rem 0.3125rem;
+
+          // tooltip
+          kup-tooltip.datatable-tooltip {
+            --kup-tlt_display: table-row;
+          }
 
           &.number {
             text-align: right;
