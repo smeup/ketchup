@@ -2,12 +2,18 @@
 
 $radio-element-prefix: rel;
 
-@include radio-css-vars($radio-element-prefix, $radio-element-prefix);
+@include radio-css-vars-docs($radio-element-prefix, $radio-element-prefix);
 
 :host {
-  @include radio-graphics-selected($radio-element-prefix);
+  @include radio-css-vars($radio-element-prefix, $radio-element-prefix);
+  @include radio-graphics($radio-element-prefix);
+  transition: opacity var(--#{$radio-element-prefix}_tr-duration);
 }
 
-:host([aria-selected]) {
+:host([checked]) {
   @include radio-graphics-selected($radio-element-prefix)
+}
+
+:host([disabled]) {
+  opacity: .6;
 }

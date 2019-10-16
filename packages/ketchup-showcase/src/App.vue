@@ -344,6 +344,12 @@ export default {
               name: 'dtProgressbar',
             },
           },
+          {
+            title: 'Radio button',
+            to: {
+              name: 'dtRadio',
+            },
+          },
         ],
       },
       {

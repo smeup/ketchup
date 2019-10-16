@@ -5,6 +5,15 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute  | Description                                        | Type      | Default |
+| ---------- | ---------- | -------------------------------------------------- | --------- | ------- |
+| `checked`  | `checked`  | Specifies if the radio element is selected or not. | `boolean` | `false` |
+| `disabled` | `disabled` | Flag: the radio button is disabled.                | `boolean` | `false` |
+| `label`    | `label`    | Label to assign to the radio button.               | `string`  | `''`    |
+
+
 ## CSS Custom Properties
 
 | Name                                                  | Description                                                |

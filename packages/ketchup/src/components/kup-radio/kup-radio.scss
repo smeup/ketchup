@@ -1,13 +1,9 @@
 @import 'kup-radio-common';
 
-@include radio-css-vars(rad, radio);
+@include radio-css-vars-docs(rad, radio);
 
 :host {
-  --rad_font-size: var(--kup-radio_font-size, 14px);
-  --rad_border-color: var(--kup-radio_border-color, #{$gray-80});
-  --rad_border-color--selected: var(--kup-radio_border-color, #{darken($gray-80, 10)});
-  --rad_color: var(--kup-radio_color, #{$smeup-primary});
-  --rad_tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
+  @include radio-css-vars(rad, radio);
 }
 
 .kup-radio {

@@ -1,6 +1,6 @@
 $radio-button_scale: 1.4;
 
-@mixin radio-css-vars($internal-prefix, $external-prefix) {
+@mixin radio-css-vars-docs($internal-prefix, $external-prefix) {
 /**
 * @prop --#{$internal-prefix}_font-size, --kup-#{$external-prefix}_font-size: Sets font size and icon radio button size (size * #{$radio-button_scale})
 * @prop --#{$internal-prefix}_border-color, --kup-#{$external-prefix}_border-color: Set default color of external border of the radio element
@@ -8,6 +8,14 @@ $radio-button_scale: 1.4;
 * @prop --#{$internal-prefix}_color, --kup-#{$external-prefix}_color: Sets radio element color when selected radio appears
 * @prop --#{$internal-prefix}_tr-duration, --kup-#{$external-prefix}_transition-duration: Sets all components transitions duration
 */
+}
+
+@mixin radio-css-vars($internal-prefix, $external-prefix) {
+  --#{$internal-prefix}_font-size: var(--kup-#{$external-prefix}_font-size, 14px);
+  --#{$internal-prefix}_border-color: var(--kup-#{$external-prefix}_border-color, #{$gray-80});
+  --#{$internal-prefix}_border-color--selected: var(--kup-#{$external-prefix}_border-color, #{darken($gray-80, 10)});
+  --#{$internal-prefix}_color: var(--kup-#{$external-prefix}_color, #{$smeup-primary});
+  --#{$internal-prefix}_tr-duration: var(--kup-#{$external-prefix}_transition-duration, #{$trn-time});
 }
 
 @mixin radio-graphics($css-vars-prefix) {
@@ -32,7 +40,7 @@ $radio-button_scale: 1.4;
     left: 0;
     position: absolute;
     top: 0;
-    transition: border-color var(--#{$css-vars-prefix}_tr-duration);
+    transition: border-color var(--#{$css-vars-prefix}_tr-duration), opacity var(--#{$css-vars-prefix}_tr-duration);
     width: 100%;
     z-index: 0;
   }

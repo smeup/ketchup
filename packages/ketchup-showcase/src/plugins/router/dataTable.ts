@@ -74,4 +74,9 @@ export default [
     name: 'dtProgressbar',
     component: () => import('@/views/dataTable/DTProgressbar.vue'),
   },
+  {
+    path: '/dataTable/radio',
+    name: 'dtRadio',
+    component: () => import('@/views/dataTable/DTRadio.vue'),
+  },
 ];

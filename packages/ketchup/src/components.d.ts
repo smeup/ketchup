@@ -549,7 +549,20 @@ export namespace Components {
     */
     'valueField': string;
   }
-  interface KupRadioElement {}
+  interface KupRadioElement {
+    /**
+    * Specifies if the radio element is selected or not.
+    */
+    'checked': boolean;
+    /**
+    * Flag: the radio button is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Label to assign to the radio button.
+    */
+    'label': string;
+  }
   interface KupTextInput {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -1462,7 +1475,20 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
-  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {}
+  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {
+    /**
+    * Specifies if the radio element is selected or not.
+    */
+    'checked'?: boolean;
+    /**
+    * Flag: the radio button is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Label to assign to the radio button.
+    */
+    'label'?: string;
+  }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
