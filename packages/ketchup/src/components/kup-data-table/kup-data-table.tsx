@@ -2169,6 +2169,8 @@ export class KupDataTable {
     }
 
     handleScroll = (event) => {
+        this.scrollOnHoverX = event.clientX;
+        this.scrollOnHoverY = event.clientY;
         let el = event.target
             .closest('.hover-scrolling-parent')
             .querySelectorAll('.hover-scrolling-el')[0];
@@ -2176,8 +2178,6 @@ export class KupDataTable {
             '#container-scrolling-arrow'
         )[0];
         let trueWidth = el.clientWidth;
-        this.scrollOnHoverX = event.clientX;
-        this.scrollOnHoverY = event.clientY;
         arrowContainter.style.top = this.scrollOnHoverY + 'px';
         arrowContainter.style.left = this.scrollOnHoverX + 'px';
         if (trueWidth === 0) {
@@ -2208,9 +2208,10 @@ export class KupDataTable {
                                 arrowContainter,
                                 percRight,
                                 percLeft,
-                                event
+                                event,
+                                'left'
                             );
-                        }, 1200);
+                        }, 500);
                     }
                 } else if (elOffset > percRight) {
                     if (el.scrollLeft !== maxScrollLeft) {
@@ -2225,9 +2226,10 @@ export class KupDataTable {
                                 arrowContainter,
                                 percRight,
                                 percLeft,
-                                event
+                                event,
+                                'right'
                             );
-                        }, 1200);
+                        }, 500);
                     }
                 }
             }
@@ -2241,13 +2243,22 @@ export class KupDataTable {
         arrowContainter,
         percRight: number,
         percLeft: number,
-        event
+        event,
+        direction
     ) {
         let elOffset = this.scrollOnHoverX - el.offsetLeft;
         if (
             this.scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)
         ) {
+            this.killScroll(el);
+            return;
+        }
+        if (direction === 'right' && percRight > elOffset) {
+            this.killScroll(el);
+            return;
+        }
+        if (direction === 'left' && percLeft < elOffset) {
             this.killScroll(el);
             return;
         }
@@ -2280,7 +2291,8 @@ export class KupDataTable {
                 arrowContainter,
                 percRight,
                 percLeft,
-                event
+                event,
+                direction
             );
         }, 50);
         //Doppio lancio per aumentare la velocità ad ogni giro (in cascata)
@@ -2292,7 +2304,8 @@ export class KupDataTable {
                 arrowContainter,
                 percRight,
                 percLeft,
-                event
+                event,
+                direction
             );
         }, 250);
     }
