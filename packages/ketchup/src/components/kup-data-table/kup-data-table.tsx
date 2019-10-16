@@ -189,6 +189,13 @@ export class KupDataTable {
         };
     } = {};
 
+    @State() scrollOnHoverStatus: number = 0;
+
+    @State() scrollOnHoverX: number = 0;
+
+    @State() scrollOnHoverY: number = 0;
+
+    @State() scrollTimeout: any = 'off';
     /**
      * name of the column with an open menu
      */
@@ -383,8 +390,8 @@ export class KupDataTable {
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
     /**
-    * When a tooltip request initial data
-    */
+     * When a tooltip request initial data
+     */
     @Event({
         eventName: 'kupLoadRequest',
         composed: true,
@@ -392,13 +399,13 @@ export class KupDataTable {
         bubbles: true,
     })
     kupLoadRequest: EventEmitter<{
-        cell: Cell,
-        tooltip: EventTarget
+        cell: Cell;
+        tooltip: EventTarget;
     }>;
 
     /**
-    * When a tooltip request detail data
-    */
+     * When a tooltip request detail data
+     */
     @Event({
         eventName: 'kupDetailRequest',
         composed: true,
@@ -406,8 +413,8 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDetailRequest: EventEmitter<{
-        cell: Cell,
-        tooltip: EventTarget
+        cell: Cell;
+        tooltip: EventTarget;
     }>;
 
     onDocumentClick = () => {
@@ -416,8 +423,6 @@ export class KupDataTable {
         this.topDensityPanelVisible = false;
         this.botDensityPanelVisible = false;
     };
-
-    
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -449,7 +454,6 @@ export class KupDataTable {
 
     componentDidLoad() {
         document.addEventListener('click', this.onDocumentClick);
-
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -470,16 +474,18 @@ export class KupDataTable {
     }
 
     private hasTooltip(cell: Cell) {
-        return cell.obj 
-            && cell.obj.t!=="" 
-            && !isBar(cell.obj) 
-            && !isButton(cell.obj)
-            && !isCheckbox(cell.obj)
-            && !isIcon(cell.obj)
-            && !isImage(cell.obj)
-            && !isLink(cell.obj)
-            && !isNumber(cell.obj)
-            && !isVoCodver(cell.obj);
+        return (
+            cell.obj &&
+            cell.obj.t !== '' &&
+            !isBar(cell.obj) &&
+            !isButton(cell.obj) &&
+            !isCheckbox(cell.obj) &&
+            !isIcon(cell.obj) &&
+            !isImage(cell.obj) &&
+            !isLink(cell.obj) &&
+            !isNumber(cell.obj) &&
+            !isVoCodver(cell.obj)
+        );
     }
 
     private getColumns(): Array<Column> {
@@ -1866,18 +1872,26 @@ export class KupDataTable {
             style = cell.style;
         }
         if (this.hasTooltip(cell)) {
-            content = <kup-tooltip onKupTooltipLoadData={(ev) => this.kupLoadRequest.emit(
-                {
-                    cell: cell,
-                    tooltip: ev.srcElement
-                }
-            )} onKupTooltipLoadDetail={(ev) => this.kupDetailRequest.emit(
-                {
-                    cell: cell,
-                    tooltip: ev.srcElement
-                }
-            )} >{content}</kup-tooltip>;
+            content = (
+                <kup-tooltip
+                    onKupTooltipLoadData={(ev) =>
+                        this.kupLoadRequest.emit({
+                            cell: cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                    onKupTooltipLoadDetail={(ev) =>
+                        this.kupDetailRequest.emit({
+                            cell: cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                >
+                    {content}
+                </kup-tooltip>
+            );
         }
+
         return (
             <span class={clazz} style={style}>
                 {content}
@@ -2153,6 +2167,154 @@ export class KupDataTable {
         );
     }
 
+    handleScroll = (event) => {
+        let el = event.target
+            .closest('#data-table-wrapper')
+            .querySelectorAll('.below-wrapper')[0];
+        let arrowContainter = el.querySelectorAll(
+            '#container-scrolling-arrow'
+        )[0];
+        let trueWidth = el.clientWidth;
+        this.scrollOnHoverX = event.clientX;
+        this.scrollOnHoverY = event.clientY;
+        arrowContainter.style.top = this.scrollOnHoverY + 'px';
+        arrowContainter.style.left = this.scrollOnHoverX + 'px';
+        if (trueWidth === 0) {
+            trueWidth = el.offsetWidth;
+        }
+        if (el.scrollWidth > trueWidth + 10) {
+            if (trueWidth !== 0 && this.scrollTimeout === 'off') {
+                let percRight = trueWidth - trueWidth * 0.1;
+                let percLeft = trueWidth - trueWidth * 0.9;
+                let elOffset = this.scrollOnHoverX - el.offsetLeft;
+                let maxScrollLeft = el.scrollWidth - trueWidth;
+                var leftArrow = el.querySelectorAll(
+                    '#container-scrolling-arrow .left-scrolling-arrow'
+                );
+                var rightArrow = el.querySelectorAll(
+                    '#container-scrolling-arrow .right-scrolling-arrow'
+                );
+                if (elOffset < percLeft) {
+                    if (el.scrollLeft !== 0) {
+                        for (let i = 0; i < leftArrow.length; i++) {
+                            leftArrow[i].classList.add('activated');
+                        }
+                        this.scrollTimeout = setTimeout(() => {
+                            this.startScrollOnHover(
+                                el,
+                                leftArrow,
+                                maxScrollLeft,
+                                arrowContainter,
+                                percRight,
+                                percLeft,
+                                event
+                            );
+                        }, 1200);
+                    }
+                } else if (elOffset > percRight) {
+                    if (el.scrollLeft !== maxScrollLeft) {
+                        for (let i = 0; i < rightArrow.length; i++) {
+                            rightArrow[i].classList.add('activated');
+                        }
+                        this.scrollTimeout = setTimeout(() => {
+                            this.startScrollOnHover(
+                                el,
+                                rightArrow,
+                                maxScrollLeft,
+                                arrowContainter,
+                                percRight,
+                                percLeft,
+                                event
+                            );
+                        }, 1200);
+                    }
+                }
+            }
+        }
+    };
+
+    private startScrollOnHover(
+        el,
+        arrow,
+        maxScrollLeft: number,
+        arrowContainter,
+        percRight: number,
+        percLeft: number,
+        event
+    ) {
+        let elOffset = this.scrollOnHoverX - el.offsetLeft;
+        if (
+            this.scrollTimeout === 'off' ||
+            (elOffset > percLeft && elOffset < percRight)
+        ) {
+            this.killScroll(el);
+            return;
+        }
+        var step = el.scrollLeft;
+        arrowContainter.style.top = this.scrollOnHoverY + 'px';
+        arrowContainter.style.left = this.scrollOnHoverX + 'px';
+        for (let i = 0; i < arrow.length; i++) {
+            arrow[i].classList.add('animated');
+        }
+        var firstArrow = arrow[0];
+        if (firstArrow.classList.contains('left-scrolling-arrow')) {
+            if (step === 0) {
+                this.killScroll(el);
+                return;
+            }
+            step = step - parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1
+        } else {
+            if (step === maxScrollLeft) {
+                this.killScroll(el);
+                return;
+            }
+            step = step + parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1
+        }
+        el.scrollLeft = step;
+        setTimeout(() => {
+            this.startScrollOnHover(
+                el,
+                arrow,
+                maxScrollLeft,
+                arrowContainter,
+                percRight,
+                percLeft,
+                event
+            );
+        }, 50);
+        //Doppio lancio per aumentare la velocità ad ogni giro (in cascata)
+        setTimeout(() => {
+            this.startScrollOnHover(
+                el,
+                arrow,
+                maxScrollLeft,
+                arrowContainter,
+                percRight,
+                percLeft,
+                event
+            );
+        }, 250);
+    }
+
+    killScroll = (el) => {
+        this.scrollTimeout = 'off';
+        clearTimeout(this.scrollTimeout);
+        var leftArrow = el.querySelectorAll(
+            '#container-scrolling-arrow .left-scrolling-arrow'
+        );
+        var rightArrow = el.querySelectorAll(
+            '#container-scrolling-arrow .right-scrolling-arrow'
+        );
+        for (let i = 0; i < leftArrow.length; i++) {
+            leftArrow[i].classList.remove('activated');
+            leftArrow[i].classList.remove('animated');
+        }
+        for (let i = 0; i < rightArrow.length; i++) {
+            rightArrow[i].classList.remove('activated');
+            rightArrow[i].classList.remove('animated');
+        }
+    };
+
     render() {
         // resetting rows
         this.renderedRows = [];
@@ -2265,7 +2427,11 @@ export class KupDataTable {
                     {paginatorTop}
                     {globalFilter}
                 </div>
-                <div class="below-wrapper">
+                <div
+                    class="below-wrapper"
+                    onMouseMove={(e: MouseEvent) => this.handleScroll(e)}
+                    onMouseLeave={(e: MouseEvent) => this.killScroll(e.target)}
+                >
                     {groupChips}
                     <table class={tableClass}>
                         <thead
@@ -2279,6 +2445,14 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
+                    <div id="container-scrolling-arrow">
+                        <div class="left-scrolling-arrow arrow-3"></div>
+                        <div class="left-scrolling-arrow arrow-2"></div>
+                        <div class="left-scrolling-arrow arrow-1"></div>
+                        <div class="right-scrolling-arrow arrow-1"></div>
+                        <div class="right-scrolling-arrow arrow-2"></div>
+                        <div class="right-scrolling-arrow arrow-3"></div>
+                    </div>
                 </div>
                 {paginatorBottom}
             </div>
