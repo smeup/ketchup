@@ -1618,6 +1618,7 @@ export class KupDataTable {
                         row,
                         column: currentColumn,
                     },
+                    !!hideValuesRepetitions,
                     hideValuesRepetitions && previousRow
                         ? previousRow.cells[name].value
                         : null
@@ -1762,6 +1763,7 @@ export class KupDataTable {
             column: Column;
             row: Row;
         },
+        hideValuesRepetition: boolean = false,
         previousRowCellValue?: string
     ) {
         const clazz = {
@@ -1852,9 +1854,9 @@ export class KupDataTable {
             }
 
             // Controls if we should display this cell value
-            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+            content = !hideValuesRepetition || valueToDisplay ? <kup-graphic-cell {...props} /> : null;
         } else if (isProgressBar(cell.obj)) {
-          if (valueToDisplay) {
+          if (!hideValuesRepetition || valueToDisplay) {
             content = progressbarFromCellHelper(
               cell,
               valueToDisplay,
@@ -1864,7 +1866,7 @@ export class KupDataTable {
             content = null;
           }
         } else if (isRadio(cell.obj)) {
-          if (valueToDisplay) {
+          if (!hideValuesRepetition || valueToDisplay) {
             content = <kup-radio-element
               checked={!!cell.obj.k}
               disabled={
