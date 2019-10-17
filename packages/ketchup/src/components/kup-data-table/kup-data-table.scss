@@ -26,6 +26,7 @@
 * @prop --dtt_density-icon-color, --kup-data-table_density-icon-color: Color of the density icon, to match paginator's.
 * @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
 * @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
+* @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
 */
 
 :host {
@@ -100,6 +101,10 @@
   --dtt_remove-icon-color-hover: var(
     --kup-data-table_remove-icon-color-hover,
     #{lighten($mainRed, 10)}
+  );
+  --dtt_paginator-background: var(
+    --kup-data-table_paginator-background,
+    transparent
   );
 }
 
@@ -440,6 +445,7 @@
   }
 
   .paginator-wrapper {
+    background: var(--dtt_paginator-background);
     display: flex;
     flex-flow: wrap;
     min-width: max-content;
