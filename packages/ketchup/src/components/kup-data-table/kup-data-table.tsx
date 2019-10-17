@@ -85,6 +85,9 @@ export class KupDataTable {
     @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
 
+    @Prop()
+    hoverScroll: boolean = true; 
+
     /**
      * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
      * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
@@ -2168,7 +2171,7 @@ export class KupDataTable {
         );
     }
 
-    handleScroll = (event) => {
+    private handleScroll(event: any) {
         this.scrollOnHoverX = event.clientX;
         this.scrollOnHoverY = event.clientY;
         let el = event.target
@@ -2237,14 +2240,14 @@ export class KupDataTable {
     };
 
     private startScrollOnHover(
-        el,
-        arrow,
+        el: HTMLElement,
+        arrow:any,
         maxScrollLeft: number,
-        arrowContainter,
+        arrowContainter:HTMLElement,
         percRight: number,
         percLeft: number,
-        event,
-        direction
+        event:any,
+        direction: string
     ) {
         let elOffset = this.scrollOnHoverX - el.offsetLeft;
         if (
@@ -2310,7 +2313,7 @@ export class KupDataTable {
         }, 250);
     }
 
-    killScroll = (el) => {
+    private killScroll(el: any) {
         this.scrollTimeout = 'off';
         clearTimeout(this.scrollTimeout);
         var leftArrow = el.querySelectorAll(
