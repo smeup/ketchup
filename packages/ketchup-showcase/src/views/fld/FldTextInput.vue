@@ -49,6 +49,7 @@
     <h3>Input text: file upload</h3>
     <div class="example-container">
       <kup-fld
+        :style="vaadinStyle"
         :config.prop="inputFileUpload" 
         @ketchupFileUploaded="onFileUploaded"
         @ketchupFileRejected="onFileUploaded"/>
@@ -134,6 +135,13 @@
           console.log(err);
         })
     },
+    computed: {
+      vaadinStyle() {
+        return {
+          '--kup-test_background-color': 'green'
+        };
+      }
+    },
     methods: {
       onUpdateMaxLength(e) {
         console.log(e);
@@ -152,6 +160,6 @@
           "maxLength": this.fieldMaxLength
         };
       }
-    }
+    },
   }
 </script>
