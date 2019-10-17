@@ -51,6 +51,10 @@ export function isProgressBar({ t, p }: CellObject): boolean {
     return 'J4' === t && 'PGB' === p;
 }
 
+export function isRadio({ t, p }: CellObject): boolean {
+  return 'V2' === t && 'rad' === p.toLowerCase();
+}
+
 export function isVoCodver({ t, p }: CellObject): boolean {
     return 'VO' === t && 'COD_VER' === p;
 }

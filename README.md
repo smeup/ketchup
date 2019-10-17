@@ -6,7 +6,7 @@ Ketch.UP is a project that provides components to build web applications.
 
 Actually all the components are web components, built using [Stencil](https://stenciljs.com/). 
 
-Go to [Ketch.UP Showcase](https://webuptest.smeup.com/ketchup-showcase) to see our components live. 
+Go to [Ketch.UP Showcase](http://ketchup.smeup.com) to see our components live. 
 
 ## Repo architecture
 Ketch.UP is a monorepo managed with [Lerna](https://github.com/lerna/lerna).
