@@ -25,6 +25,19 @@
 | `--rel_tr-duration, --kup-rel_transition-duration`    | Sets all components transitions duration                   |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-data-table](..\kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-data-table --> kup-radio-element
+  style kup-radio-element fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

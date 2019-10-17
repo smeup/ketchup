@@ -55,6 +55,7 @@ import {
     isLink,
     isNumber,
     isProgressBar,
+    isRadio,
     isVoCodver,
     createJ4objButtonConfig,
 } from '../../utils/object-utils';
@@ -484,8 +485,9 @@ export class KupDataTable {
             && !isImage(cell.obj)
             && !isLink(cell.obj)
             && !isNumber(cell.obj)
-            && !isVoCodver(cell.obj)
-            && !isProgressBar(cell.obj);
+            && !isProgressBar(cell.obj)
+            && !isRadio(cell.obj)
+            && !isVoCodver(cell.obj);
     }
 
     private getColumns(): Array<Column> {
@@ -1858,6 +1860,21 @@ export class KupDataTable {
               valueToDisplay,
               true
             );
+          } else {
+            content = null;
+          }
+        } else if (isRadio(cell.obj)) {
+          if (valueToDisplay) {
+            content = <kup-radio-element
+              checked={!!cell.obj.k}
+              disabled={
+                cellData &&
+                cellData.row &&
+                cellData.row.hasOwnProperty('readOnly')
+                  ? cellData.row.readOnly
+                  : true
+              }
+            />;
           } else {
             content = null;
           }
