@@ -278,6 +278,7 @@ export namespace Components {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent': boolean;
+    'hoverScroll': boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -1095,6 +1096,7 @@ declare namespace LocalJSX {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent'?: boolean;
+    'hoverScroll'?: boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -1124,8 +1126,8 @@ declare namespace LocalJSX {
     * When a tooltip request detail data
     */
     'onKupDetailRequest'?: (event: CustomEvent<{
-      cell: Cell,
-      tooltip: EventTarget
+      cell: Cell;
+      tooltip: EventTarget;
     }>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
@@ -1134,8 +1136,8 @@ declare namespace LocalJSX {
     * When a tooltip request initial data
     */
     'onKupLoadRequest'?: (event: CustomEvent<{
-      cell: Cell,
-      tooltip: EventTarget
+      cell: Cell;
+      tooltip: EventTarget;
     }>) => void;
     /**
     * When cell option is clicked
