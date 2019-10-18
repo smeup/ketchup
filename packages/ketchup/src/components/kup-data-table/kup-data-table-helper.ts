@@ -130,16 +130,49 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 
 //-------- FILTER FUNCTIONS --------
 /**
- * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed if
- * both values are empty.
+ * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
+ * if the filter is matched.
+ *
+ * I filtri web prevedono delle espressioni. Racchiudento tra apici (' ) è possibile attivare le espressioni di filtro.
+ * Sintassi:
+ * 'filtro'=frase esatta,
+ * '' = value is empty.
+ * 'filtro%'= inizia per.
+ * '%filtro'=finisce per.
+ * '%filtro%'=contiene.
+ * E' anche possibile utilizzare la negazione, apponendo ! davanti all'espressione.
+ * Ad esempio: !''= campi non vuoti, !'%filtro'= non finisce per.
+ * Se non si usano le espessioni il filtro di default è '%filtro%'=contiene
+ *
  * @param cellValue - The value of the current cell.
  * @param currentFilter - The value of the current filter.
  * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
  */
-function matchEmptyFilter(cellValue: string, currentFilter: string): boolean {
-    const parsedFilter = currentFilter.trim();
+function matchSpecialFilter(cellValue: string, currentFilter: string): boolean {
+    /**
+     * This regular expressions returns a match like this one:
+     * if the string does not match is null, otherwise the indexes are equal to the object below:
+     *
+     * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
+     * @property {string} 1 - Either !' or ' it's the start of the regexp.
+     * @property {string} 2 - Either % or null: means the string must start with the given string.
+     * @property {string} 3 - Either "" or a string with a length.
+     * @property {string} 4 - Either % or null: means the string must finish with the given string.
+     * @property {string} 5 - Always equal to ': it's the end of the filter.
+     */
+    const parsedFilter: RegExpMatchArray = currentFilter.match(/^('|!')(%){0,1}(.*?)(%){0,1}(')$/);
     // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
-    return /* !parsedFilter ||*/ parsedFilter === "''" && !cellValue.trim();
+    if (parsedFilter) {
+        // endsWith and startWith are not supported by IE 11
+        // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
+        const toRet: boolean = (parsedFilter[3] === "" && !cellValue.trim()) ||
+          (parsedFilter[2] && !parsedFilter[4] && cellValue.startsWith(parsedFilter[3])) ||
+          (!parsedFilter[2] && parsedFilter[4] && cellValue.endsWith(parsedFilter[3])) ||
+          (!parsedFilter[2] && !parsedFilter[4] && cellValue === parsedFilter[3]) ||
+          (parsedFilter[2] && parsedFilter[4] && cellValue.indexOf(parsedFilter[3]) >= 0);
+        return parsedFilter[1].indexOf('!') < 0 ? toRet : !toRet;
+    }
+    return false;
 }
 
 export function filterRows(
@@ -156,48 +189,51 @@ export function filterRows(
         (filters && Object.keys(filters).length > 0) ||
         (globalFilter && columns)
     ) {
-        let keys: Array<string>;
-        if (filters) {
-            keys = Object.keys(filters);
-        } else {
-            keys = [];
-        }
-
         // filtering rows
         return rows.filter((r: Row) => {
             // check global filter
             if (globalFilter && columns) {
+                // There are no columns -> display element
                 if (columns.length === 0) {
                     return true;
                 }
 
+                // Search among all columns for the global filter
                 let found = false;
 
                 for (let i = 0; i < columns.length; i++) {
-                    const c = columns[i];
-                    const cellValue = r.cells[c].value;
+                    const cellValue = r.cells[columns[i]].value;
 
+                    // checks if the value of the filter is contained inside value of the object
+                    // Or is if the filter is a special filter to be matched.
                     if (
                         cellValue
                             .toLowerCase()
                             .includes(globalFilter.toLocaleLowerCase()) ||
-                        matchEmptyFilter(cellValue, globalFilter)
+                        matchSpecialFilter(cellValue, globalFilter)
                     ) {
+                        // the element matches the global filter -> it still must match filters on other columns
                         found = true;
                         break;
                     }
                 }
 
+                // Element does not match global filter -> it is filtered
                 if (!found) {
                     return false;
                 }
             }
 
+            // Controls if we have other filters and gets their scope
+            let keys: Array<string> = filters ? Object.keys(filters) : [];
+
+            // There are no filters to check -> the element is valid
             if (keys.length === 0) {
                 return true;
             }
 
             return (
+                // Filters
                 keys.filter((key) => {
                     const filterValue = filters[key];
 
@@ -206,12 +242,12 @@ export function filterRows(
                     if (!cellValue) {
                         return false;
                     }
-
+                    // Same as above
                     if (
                         cellValue.value
                             .toLowerCase()
                             .includes(filterValue.toLowerCase()) ||
-                        matchEmptyFilter(cellValue.value, filterValue)
+                        matchSpecialFilter(cellValue.value, filterValue)
                     ) {
                         return true;
                     }
