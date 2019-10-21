@@ -89,9 +89,10 @@ export class KupUpload {
           <template>
             <style>
               [part="upload-button"] {
-                background-color: var(--kup-test_background-color, red);
-                color: white;
-                border-radius: 9px;
+                background-color: var(--kup-upload_background-color);
+                color: var(--kup-upload_color);
+                border-radius: var(--kup-upload_border-radius);
+                font-size: var(--kup-upload_font-size);
               }}
             </style>
           </template>

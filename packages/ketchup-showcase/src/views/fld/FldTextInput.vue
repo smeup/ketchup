@@ -137,8 +137,13 @@
     },
     computed: {
       vaadinStyle() {
+        /*
+          '--kup-upload_background-color': 'green',
+          '--kup-upload_color': 'orange',
+          '--kup-upload_font-size': '1rem',
+          '--kup-upload_border-radius': '3px'
+         */
         return {
-          '--kup-test_background-color': 'green'
         };
       }
     },
