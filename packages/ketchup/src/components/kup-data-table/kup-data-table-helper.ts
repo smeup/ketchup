@@ -130,69 +130,100 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 
 //-------- FILTER FUNCTIONS --------
 /**
+ * This regular expressions returns a match like this one:
+ * if the string does not match is null, otherwise the indexes are equal to the object below:
+ *
+ * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
+ * @property {string} 1 - Either !' or ' it's the start of the regexp.
+ * @property {string} 2 - Either % or null: means the string must start with the given string.
+ * @property {string} 3 - Either "" or a string with a length.
+ * @property {string} 4 - Either % or null: means the string must finish with the given string.
+ * @property {string} 5 - Always equal to ': it's the end of the filter.
+ */
+const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
+
+/**
  * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
  * if the filter is matched.
  *
- * I filtri web prevedono delle espressioni. Racchiudento tra apici (' ) è possibile attivare le espressioni di filtro.
- * Sintassi:
- * 'filtro'=frase esatta,
- * '' = value is empty.
- * 'filtro%'= inizia per.
- * '%filtro'=finisce per.
- * '%filtro%'=contiene.
- * E' anche possibile utilizzare la negazione, apponendo ! davanti all'espressione.
- * Ad esempio: !''= campi non vuoti, !'%filtro'= non finisce per.
- * Se non si usano le espessioni il filtro di default è '%filtro%'=contiene
+ * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
+ * Valid syntax:
+ * 'filter' = search for exact phrase;
+ * '' = match when value is empty;
+ * 'filter%' = match when a string starts with "filter";
+ * '%filter' = match when a string ends with "filter";
+ * '%filter%' = match when a string contains "filter".
+ *
+ * It is also possible to negate the expression by prepending "!" in front of the expression.
+ * For example: !'' = value in the cell must not be empty.
+ *
+ * With no expression set, the filter is by default set to '%filter%'.
  *
  * @param cellValue - The value of the current cell.
- * @param currentFilter - The value of the current filter.
+ * @param parsedFilter - The value of the current filter.
+ * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
  * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
  */
-function matchSpecialFilter(cellValue: string, currentFilter: string): boolean {
-    /**
-     * This regular expressions returns a match like this one:
-     * if the string does not match is null, otherwise the indexes are equal to the object below:
-     *
-     * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
-     * @property {string} 1 - Either !' or ' it's the start of the regexp.
-     * @property {string} 2 - Either % or null: means the string must start with the given string.
-     * @property {string} 3 - Either "" or a string with a length.
-     * @property {string} 4 - Either % or null: means the string must finish with the given string.
-     * @property {string} 5 - Always equal to ': it's the end of the filter.
-     */
-    const parsedFilter: RegExpMatchArray = currentFilter.match(/^('|!')(%){0,1}(.*?)(%){0,1}(')$/);
+function matchSpecialFilter(cellValue: string, parsedFilter:  RegExpMatchArray | null, ignoreNegativeFlag: boolean = false): boolean {
     // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
     if (parsedFilter) {
         // endsWith and startWith are not supported by IE 11
         // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
         const toRet: boolean = (parsedFilter[3] === "" && !cellValue.trim()) ||
-          (parsedFilter[2] && !parsedFilter[4] && cellValue.startsWith(parsedFilter[3])) ||
-          (!parsedFilter[2] && parsedFilter[4] && cellValue.endsWith(parsedFilter[3])) ||
+          (!parsedFilter[2] && parsedFilter[4] && cellValue.startsWith(parsedFilter[3])) ||
+          (parsedFilter[2] && !parsedFilter[4] && cellValue.endsWith(parsedFilter[3])) ||
           (!parsedFilter[2] && !parsedFilter[4] && cellValue === parsedFilter[3]) ||
           (parsedFilter[2] && parsedFilter[4] && cellValue.indexOf(parsedFilter[3]) >= 0);
-        return parsedFilter[1].indexOf('!') < 0 ? toRet : !toRet;
+        return !ignoreNegativeFlag ?  (parsedFilter[1].indexOf('!') < 0 ? toRet : !toRet) : toRet;
     }
     return false;
 }
 
+/**
+ * Filters the rows data of a data-table component according to the parameters
+ *
+ * @param rows - The data of the rows to filter.
+ * @param filters - The the filters for each column.
+ * @param globalFilter - A global filter applied to all columns.
+ * @param columns - The colmns on which the filter will take effect.
+ * @todo This function can be improved in its speed by a refactor in which from two different cycles of execution for
+ *    single filters and global filter, all controls on a single column are done in a single cycle.
+ */
 export function filterRows(
     rows: Array<Row> = [],
     filters: GenericMap = {},
     globalFilter: string = '',
     columns: Array<string> = []
-) {
+): Array<Row> {
     if (!rows) {
         return [];
     }
 
+    // There are rows to filter
+    /**
+     *  Flag to check if current filter is using a global filter.
+     */
+    const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
+
     if (
         (filters && Object.keys(filters).length > 0) ||
-        (globalFilter && columns)
+        (isUsingGlobalFilter)
     ) {
+        // Before filtering the rows, we analyze the global filter
+        /**
+         * Holds the RegExp parsed data of the global filter, if an expression filter is set.
+         * @see filterAnalyzer
+         */
+        const analyzedGlobalFilter = isUsingGlobalFilter ? globalFilter.match(filterAnalyzer) : undefined;
+        /**
+         * When using an expression filter, this flag shows if the current global filter is negative.
+         * @see filterAnalyzer
+         */
+        const globalFilterIsNegative: boolean = analyzedGlobalFilter ? analyzedGlobalFilter[1].indexOf('!') >= 0 : false;
+
         // filtering rows
         return rows.filter((r: Row) => {
-            // check global filter
-            if (globalFilter && columns) {
+            if (isUsingGlobalFilter) {
                 // There are no columns -> display element
                 if (columns.length === 0) {
                     return true;
@@ -206,20 +237,23 @@ export function filterRows(
 
                     // checks if the value of the filter is contained inside value of the object
                     // Or is if the filter is a special filter to be matched.
+                    // Since it is a global filter, we do not take into consideration the negative modifier in this control.
                     if (
                         cellValue
                             .toLowerCase()
                             .includes(globalFilter.toLocaleLowerCase()) ||
-                        matchSpecialFilter(cellValue, globalFilter)
+                        matchSpecialFilter(cellValue, analyzedGlobalFilter, true)
                     ) {
-                        // the element matches the global filter -> it still must match filters on other columns
+                        // the element matches the global filter
                         found = true;
                         break;
                     }
                 }
 
-                // Element does not match global filter -> it is filtered
-                if (!found) {
+                // If no value matches the global filter and the global filter is not negative
+                // OR we have found a match and the global filter is negative
+                // the current element gets filtered.
+                if ((!found && !globalFilterIsNegative) || (found && globalFilterIsNegative)) {
                     return false;
                 }
             }
@@ -242,12 +276,12 @@ export function filterRows(
                     if (!cellValue) {
                         return false;
                     }
-                    // Same as above
+                    // Same as above with the difference that here we DO take into consideration the negative modifier
                     if (
                         cellValue.value
                             .toLowerCase()
                             .includes(filterValue.toLowerCase()) ||
-                        matchSpecialFilter(cellValue.value, filterValue)
+                        matchSpecialFilter(cellValue.value, filterValue.match(filterAnalyzer))
                     ) {
                         return true;
                     }
