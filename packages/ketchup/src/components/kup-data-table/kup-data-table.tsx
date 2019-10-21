@@ -86,7 +86,7 @@ export class KupDataTable {
     groups: Array<GroupObject> = [];
 
     @Prop()
-    hoverScroll: boolean = true; 
+    hoverScroll: boolean = true;
 
     /**
      * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
@@ -297,6 +297,8 @@ export class KupDataTable {
      * @private
      */
     private theadRef: HTMLTableSectionElement;
+    private tableRef: HTMLTableSectionElement;
+    private stickyTheadRef: HTMLTableSectionElement;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -427,6 +429,71 @@ export class KupDataTable {
         this.botDensityPanelVisible = false;
     };
 
+    stickyHeaderPosition = () => {
+        let tableBody: any = this.tableRef;
+        let el: any = this.stickyTheadRef;
+        let elTr: any = el.querySelectorAll('tr-sticky')[0];
+        let parent: any = tableBody.closest('.below-wrapper');
+        var headerHeight: number;
+        if (document.querySelectorAll('.header')[0]) {
+            headerHeight = document.querySelectorAll('.header')[0].clientHeight;
+        } else {
+            headerHeight = 0;
+        }
+        el.style.top = headerHeight + 'px';
+        if (this.isElementPartiallyInViewport(tableBody, headerHeight)) {
+            let widthTable: number = parent.offsetWidth;
+            el.style.maxWidth = widthTable + 'px';
+            elTr.style.maxWidth = widthTable + 'px';
+
+            if (
+                !this.isElementPartiallyInViewport(this.theadRef, headerHeight)
+            ) {
+                var thCollection: any = this.theadRef.querySelectorAll('th');
+                console.log(el);
+                var thStickyCollection: any = el.querySelectorAll('th-sticky');
+                for (let i = 0; i < thCollection.length; i++) {
+                    let widthTH = thCollection[i].offsetWidth;
+                    thStickyCollection[i].style.width = widthTH + 'px';
+                }
+                el.classList.add('activated');
+            } else {
+                el.classList.remove('activated');
+            }
+        } else {
+            el.classList.remove('activated');
+        }
+    };
+
+    isElementPartiallyInViewport = (el: any, offset: number) => {
+        var rect = el.getBoundingClientRect();
+        if (
+            rect.top === 0 &&
+            rect.left === 0 &&
+            rect.right === 0 &&
+            rect.bottom === 0 &&
+            rect.height === 0 &&
+            rect.width === 0 &&
+            rect.x === 0 &&
+            rect.y === 0
+        ) {
+            return false;
+        }
+
+        var windowHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+        var windowWidth =
+            window.innerWidth || document.documentElement.clientWidth;
+        windowHeight = windowHeight - offset;
+
+        var vertInView =
+            rect.top - offset <= windowHeight &&
+            rect.top - offset + rect.height >= 0;
+        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
+
+        return vertInView && horInView;
+    };
+
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
     //         entries.forEach((entry) => {
@@ -457,6 +524,8 @@ export class KupDataTable {
 
     componentDidLoad() {
         document.addEventListener('click', this.onDocumentClick);
+        document.addEventListener('scroll', this.stickyHeaderPosition);
+        document.addEventListener('resize', this.stickyHeaderPosition);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -474,6 +543,8 @@ export class KupDataTable {
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
+        document.removeEventListener('scroll', this.stickyHeaderPosition);
+        document.removeEventListener('resize', this.stickyHeaderPosition);
     }
 
     private hasTooltip(cell: Cell) {
@@ -1385,6 +1456,44 @@ export class KupDataTable {
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
+    private renderStickyHeader() {
+        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
+
+        const dataColumns = this.getVisibleColumns().map((column) => {
+            let thStyle = null;
+            if (hasCustomColumnsWidth) {
+                for (let i = 0; i < this.columnsWidth.length; i++) {
+                    const currentCol = this.columnsWidth[i];
+
+                    if (currentCol.column === column.name) {
+                        const width = currentCol.width.toString() + 'px';
+                        thStyle = {
+                            width,
+                            minWidth: width,
+                            maxWidth: width,
+                        };
+                        break;
+                    }
+                }
+            }
+
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
+            return (
+                <th-sticky class={columnClass} style={thStyle}>
+                    <span class="column-title">{column.title}</span>
+                </th-sticky>
+            );
+        });
+
+        return [...dataColumns];
+    }
+
     renderFooter() {
         if (!this.hasTotals()) {
             // no footer
@@ -2237,16 +2346,16 @@ export class KupDataTable {
                 }
             }
         }
-    };
+    }
 
     private startScrollOnHover(
         el: HTMLElement,
-        arrow:any,
+        arrow: any,
         maxScrollLeft: number,
-        arrowContainter:HTMLElement,
+        arrowContainter: HTMLElement,
         percRight: number,
         percLeft: number,
-        event:any,
+        event: any,
         direction: string
     ) {
         let elOffset = this.scrollOnHoverX - el.offsetLeft;
@@ -2330,7 +2439,7 @@ export class KupDataTable {
             rightArrow[i].classList.remove('activated');
             rightArrow[i].classList.remove('animated');
         }
-    };
+    }
 
     render() {
         // resetting rows
@@ -2367,6 +2476,7 @@ export class KupDataTable {
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
         const header = this.renderHeader();
+        const stickyHeader = this.renderStickyHeader();
 
         // footer
         const footer = this.renderFooter();
@@ -2450,7 +2560,12 @@ export class KupDataTable {
                     onMouseLeave={(e: MouseEvent) => this.killScroll(e.target)}
                 >
                     {groupChips}
-                    <table class={tableClass}>
+                    <table
+                        class={tableClass}
+                        ref={(el: HTMLTableElement) =>
+                            (this.tableRef = el as any)
+                        }
+                    >
                         <thead
                             hidden={!this.showHeader}
                             ref={(el) =>
@@ -2462,6 +2577,16 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
+                    <sticky-header
+                        hidden={!this.showHeader}
+                        ref={(el: HTMLTableSectionElement) =>
+                            (this.stickyTheadRef = el as any)
+                        }
+                    >
+                        <thead-sticky>
+                            <tr-sticky>{stickyHeader}</tr-sticky>
+                        </thead-sticky>
+                    </sticky-header>
                     <div id="container-scrolling-arrow">
                         <div class="left-scrolling-arrow arrow-3"></div>
                         <div class="left-scrolling-arrow arrow-2"></div>

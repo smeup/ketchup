@@ -880,3 +880,43 @@
     transform: translate(-10px, -10px);
   }
 }
+
+//Stile per sticky header
+sticky-header {
+  background: var(--dtt_head-background-color);
+  border-bottom: 2px solid var(--dtt_border-color);
+  box-shadow: var(--dtt_box-shadow);
+  color: var(--dtt_color);
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.25s ease-in-out;
+
+  &.activated {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  tr-sticky {
+    display: flex;
+  }
+
+  th-sticky {
+    padding: 0.5rem 0;
+
+    &.number {
+      text-align: right;
+    }
+  }
+
+  .column-title {
+    font-weight: bold;
+    margin: 0 0.3125rem;
+  }
+}
