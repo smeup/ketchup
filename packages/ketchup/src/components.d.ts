@@ -78,6 +78,9 @@ import {
   TreeNode,
   TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
+import {
+  UploadProps,
+} from './components/kup-upload/kup-upload-declarations';
 
 export namespace Components {
   interface KupBadge {
@@ -631,6 +634,9 @@ export namespace Components {
     */
     'useDynamicExpansion': boolean;
   }
+  interface KupUpload {
+    'typeOptions': UploadProps;
+  }
 }
 
 declare global {
@@ -785,6 +791,12 @@ declare global {
     prototype: HTMLKupTreeElement;
     new (): HTMLKupTreeElement;
   };
+
+  interface HTMLKupUploadElement extends Components.KupUpload, HTMLStencilElement {}
+  var HTMLKupUploadElement: {
+    prototype: HTMLKupUploadElement;
+    new (): HTMLKupUploadElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
@@ -811,6 +823,7 @@ declare global {
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
+    'kup-upload': HTMLKupUploadElement;
   }
 }
 
@@ -1569,6 +1582,14 @@ declare namespace LocalJSX {
     */
     'useDynamicExpansion'?: boolean;
   }
+  interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
+    'onKetchupFileRejected'?: (event: CustomEvent<any>) => void;
+    /**
+    * Launched when file upload succeed
+    */
+    'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
+    'typeOptions'?: UploadProps;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;
@@ -1596,6 +1617,7 @@ declare namespace LocalJSX {
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
+    'kup-upload': KupUpload;
   }
 }
 
