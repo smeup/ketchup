@@ -1,4 +1,4 @@
-@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
 
 /**
 * @prop --dtt_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
@@ -18,7 +18,15 @@
 * @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
 * @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
 * @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
+* @prop --dtt_main-color-lighter, --kup-data-table_main-color: Set lighter text color. Has the precedence.
+* @prop --dtt_main-color-darker, --kup-data-table_main-color: Set darker text color. Has the precedence.
 * @prop --dtt_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
+* @prop --dtt_density-box-shadow, --kup-data-table_density-box-shadow: Box shadow of the density combo, to match paginator's.
+* @prop --dtt_density-icon-background, --kup-data-table_density-icon-background: Background of the density icon, to match paginator's.
+* @prop --dtt_density-icon-color, --kup-data-table_density-icon-color: Color of the density icon, to match paginator's.
+* @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
+* @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
+* @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
 */
 
 :host {
@@ -53,7 +61,7 @@
   --dtt_hover-color: var(--kup-data-table_hover-color, #{$mainTextColor});
   --dtt_head-background-color: var(
     --kup-data-table_head-background-color,
-    #ffffff
+    #f4f4f4
   );
   --dtt_header-offset: var(--kup-data-table_header-offset, 50px);
   --dtt_hover-background-color: var(
@@ -67,11 +75,41 @@
   );
   --dtt_font-size: var(--kup-data-table_font-size, 0.9375rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
+  --dtt_main-color-lighter: var(
+    --kup-data-table_main-color-lighter,
+    #{lighten($smeup-primary, 10)}
+  );
+  --dtt_main-color-darker: var(
+    --kup-data-table_main-color-darker,
+    #{darken($smeup-primary, 10)}
+  );
   --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
   --dtt_negative-number-color: var(
     --kup-data-table_negative-number-color,
     #{$mainRed}
   );
+  --dtt_density-box-shadow: var(--kup-data-table_density-box-shadow, none);
+  --dtt_density-icon-background: var(
+    --kup-data-table_density-icon-background,
+    transparent
+  );
+  --dtt_density-icon-color: var(
+    --kup-data-table_density-icon-color,
+    #{$mainTextColor}
+  );
+  --dtt_remove-icon-color: var(--kup-data-table_remove-icon-color, #{$mainRed});
+  --dtt_remove-icon-color-hover: var(
+    --kup-data-table_remove-icon-color-hover,
+    #{lighten($mainRed, 10)}
+  );
+  --dtt_paginator-background: var(
+    --kup-data-table_paginator-background,
+    transparent
+  );
+}
+
+.hover-scrolling-el {
+  overflow: auto;
 }
 
 #data-table-wrapper {
@@ -91,11 +129,18 @@
       background: var(--dtt_head-background-color);
 
       th {
+        background: var(--dtt_head-background-color);
         position: relative;
         padding: 0.5rem 0.3125rem;
         white-space: nowrap;
         border-bottom: 2px solid var(--dtt_border-color);
         border-right: 1px solid var(--dtt_border-color);
+        position: sticky;
+        top: 0;
+
+        &.number {
+          text-align: right;
+        }
 
         // filters
         kup-text-input.datatable-filter {
@@ -156,23 +201,21 @@
             list-style-type: none;
             margin: 0; // override browser default
             padding: 0; // override browser default
+            text-align: left;
 
             > li {
               padding: 0.8rem;
               transition: color 0.2s ease-in-out;
-              color: #{$mainTextColor};
-
-              &:not(:last-child) {
-                border-bottom: 1px solid var(--dtt_border-color);
-              }
+              color: var(--dtt_color);
+              transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
               &:hover {
                 cursor: pointer;
-                color: var(--dtt_main-color);
+                color: var(--dtt_hover-color);
+                background-color: var(--dtt_hover-background-color);
               }
 
               .mdi {
-                color: #{$smeup-primary};
                 margin-right: 0.5rem;
               }
             }
@@ -227,17 +270,19 @@
                 width: var(--dtt_font-size);
                 height: var(--dtt_font-size);
                 margin: 0 0.3rem;
+                fill: var(--dtt_color);
 
                 &.group-expander {
                   padding: 0.2rem;
-                  border-radius: 50%;
-                  background: #{$gray-e5};
                   margin-right: 1rem;
                   margin-left: 0.5rem;
                 }
 
                 &.group-remove {
-                  fill: #{$mainRed};
+                  fill: var(--dtt_remove-icon-color);
+                  &:hover {
+                    fill: var(--dtt_remove-icon-color-hover);
+                  }
                 }
               }
 
@@ -257,6 +302,11 @@
 
         > td {
           padding: 0.5rem 0.3125rem;
+
+          // tooltip
+          kup-tooltip.datatable-tooltip {
+            --kup-tlt_display: table-row;
+          }
 
           &.number {
             text-align: right;
@@ -328,6 +378,9 @@
           position: sticky;
           top: var(--dtt_header-offset);
           will-change: transform; // For performance
+          &.number {
+            text-align: right;
+          }
         }
       }
 
@@ -352,36 +405,50 @@
     }
 
     &.density- {
-      &big {
+      &small {
         tbody > tr > td {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
+          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding-top: 0.75rem;
           padding-bottom: 0.75rem;
+          transition: padding 0.1s;
         }
       }
 
-      &small {
+      &big {
         tbody > tr > td {
           padding-top: 1rem;
           padding-bottom: 1rem;
+          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding-top: 1.25rem;
           padding-bottom: 1.25rem;
+          transition: padding 0.1s;
         }
+      }
+    }
+
+    &.fontsize- {
+      &small {
+        font-size: calc(var(--dtt_font-size) * 0.75);
+        transition: font-size 0.1s;
+      }
+      &big {
+        font-size: calc(var(--dtt_font-size) * 1.25);
+        transition: font-size 0.1s;
       }
     }
   }
 
   .paginator-wrapper {
+    background: var(--dtt_paginator-background);
     display: flex;
-
-    kup-paginator {
-      flex-grow: 1;
-    }
+    flex-flow: wrap;
+    min-width: max-content;
   }
 }
 
@@ -411,11 +478,141 @@
   }
 }
 
-.density-panel {
+.paginator-tabs {
+  width: 100%;
+
+  & kup-paginator {
+    display: inline-flex;
+  }
+
+  .loadmore-button {
+    position: relative;
+    background: none;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+    outline: none;
+    margin-left: 0.25rem;
+    padding: 0 0.25rem;
+    float: right;
+
+    .paginator-tab-text {
+      margin-left: 0.25rem;
+      transition: color 0.25s ease;
+    }
+
+    &:before {
+      transition: color 0.25s ease;
+    }
+
+    &:hover,
+    &.activated {
+      &:before,
+      & .paginator-tab-text {
+        color: var(--dtt_main-color);
+      }
+    }
+  }
+
+  .paginator-button {
+    position: relative;
+    background: none;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+    outline: none;
+    margin-left: 0.25rem;
+    padding: 0 0.25rem;
+    float: right;
+
+    .customize-panel {
+      cursor: default;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      bottom: -1.25rem;
+      left: 0;
+      padding: 1rem;
+      z-index: 1000;
+      width: 200px; //I.E.
+      width: fit-content;
+      background: var(--dtt_background-color);
+      box-shadow: var(--dtt_box-shadow);
+      transition: opacity 0.25s ease;
+      transform: translate(-100%, 0);
+
+      &.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      & .panel-label {
+        min-width: 150px;
+        text-align: left;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        overflow: hidden;
+      }
+    }
+
+    & span {
+      cursor: default;
+    }
+
+    &:before,
+    & span.density-label,
+    & span.fontsize-label {
+      color: var(--dtt_density-icon-color);
+      vertical-align: middle;
+      transition: color 0.25s;
+      cursor: pointer;
+    }
+
+    &:before {
+      font-size: 120%;
+    }
+
+    & span.density-label,
+    & span.fontsize-label {
+      font-size: var(--dtt_font-size);
+    }
+
+    &:hover,
+    &.activated {
+      &:before,
+      & span.density-label,
+      & span.fontsize-label {
+        color: var(--dtt_main-color);
+      }
+    }
+
+    .paginator-tab-text {
+      margin-left: 0.25rem;
+    }
+  }
+}
+
+.density-panel,
+.fontsize-panel {
   position: relative;
-  margin-left: 1rem;
+  margin: 0;
   display: flex;
   align-items: center;
+  box-shadow: var(--dtt_density-box-shadow);
+  width: 200px; //I.E.
+  width: max-content;
+
+  .mdi:before,
+  &:before {
+    color: var(--dtt_density-icon-color);
+    font-size: 120%;
+  }
+
+  .density-label,
+  .fontsize-label {
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+  }
 
   svg {
     height: 1.5rem;
@@ -432,7 +629,8 @@
     }
   }
 
-  .density-panel-overlay {
+  .density-panel-overlay,
+  .fontsize-panel-overlay {
     background: var(--dtt_background-color);
     position: absolute;
     top: 1.6rem;
@@ -521,5 +719,164 @@
   &::before {
     height: inherit;
     width: inherit;
+  }
+}
+
+//Scrolling on hover
+#container-scrolling-arrow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#container-scrolling-arrow {
+  & .left-scrolling-arrow,
+  & .right-scrolling-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  & .left-scrolling-arrow {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid var(--dtt_main-color);
+    transform: translate(30px, -10px);
+  }
+
+  & .right-scrolling-arrow {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid var(--dtt_main-color);
+    transform: translate(-30px, -10px);
+  }
+
+  & .left-scrolling-arrow.activated {
+    visibility: visible;
+    &.animated {
+      &.arrow-1 {
+        -webkit-animation: pulseleft 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseleft 1.2s infinite;
+        animation-delay: 0.4s;
+      }
+
+      &.arrow-2 {
+        -webkit-animation: pulseleft 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseleft 1.2s infinite;
+        animation-delay: 0.2s;
+      }
+
+      &.arrow-3 {
+        -webkit-animation: pulseleft 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseleft 1.2s infinite;
+      }
+    }
+  }
+
+  & .right-scrolling-arrow.activated {
+    visibility: visible;
+    &.animated {
+      &.arrow-1 {
+        -webkit-animation: pulseright 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseright 1.2s infinite;
+        animation-delay: 0.4s;
+      }
+
+      &.arrow-2 {
+        -webkit-animation: pulseright 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseright 1.2s infinite;
+        animation-delay: 0.2s;
+      }
+
+      &.arrow-3 {
+        -webkit-animation: pulseright 1.2s infinite; /* Chrome, Safari, Opera */
+        animation: pulseright 1.2s infinite;
+      }
+    }
+  }
+}
+
+@-moz-keyframes pulseleft {
+  0% {
+    opacity: 0.2;
+    transform: translate(30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(10px, -10px);
+  }
+}
+@-webkit-keyframes pulseleft {
+  0% {
+    opacity: 0.2;
+    transform: translate(30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(10px, -10px);
+  }
+}
+@-o-keyframes pulseleft {
+  0% {
+    opacity: 0.2;
+    transform: translate(30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(10px, -10px);
+  }
+}
+@keyframes pulseleft {
+  0% {
+    opacity: 0.2;
+    transform: translate(30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(10px, -10px);
+  }
+}
+
+@-moz-keyframes pulseright {
+  0% {
+    opacity: 0.2;
+    transform: translate(-30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-10px, -10px);
+  }
+}
+@-webkit-keyframes pulseright {
+  0% {
+    opacity: 0.2;
+    transform: translate(-30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-10px, -10px);
+  }
+}
+@-o-keyframes pulseright {
+  0% {
+    opacity: 0.2;
+    transform: translate(-30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-10px, -10px);
+  }
+}
+@keyframes pulseright {
+  0% {
+    opacity: 0.2;
+    transform: translate(-30px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-10px, -10px);
   }
 }

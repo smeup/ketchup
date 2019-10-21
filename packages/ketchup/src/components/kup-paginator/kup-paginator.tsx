@@ -159,49 +159,49 @@ export class KupPaginator {
         return (
             <div id="paginator">
                 <div class="align-left">
-                    Pagina
-                    <span class="prev-page">
-                        <icon
-                            className={prevPageClassName}
-                            onclick={() => this.onPrevPage()}
+                    <div class="nav-section">
+                        <span class="prev-page">
+                            <icon
+                                className={prevPageClassName}
+                                onclick={() => this.onPrevPage()}
+                            />
+                        </span>
+                        <kup-combo
+                            usePortal
+                            items={goToPageItems}
+                            isFilterable={false}
+                            initialValue={{
+                                id: this.currentPage,
+                            }}
+                            onKetchupComboSelected={(e) => this.onPageChange(e)}
                         />
-                    </span>
-                    <kup-combo
-                        usePortal
-                        items={goToPageItems}
-                        isFilterable={false}
-                        initialValue={{
-                            id: this.currentPage,
-                        }}
-                        onKetchupComboSelected={(e) => this.onPageChange(e)}
-                    />
-                    <span class="next-page">
-                        <icon
-                            className={nextPageClassName}
-                            onclick={() => this.onNextPage()}
+                        <span class="next-page">
+                            <icon
+                                className={nextPageClassName}
+                                onclick={() => this.onNextPage()}
+                            />
+                        </span>
+                    </div>
+                    <div class="tot-section">
+                        <span>Righe:</span>
+                        <slot name="more-results" />
+                        <kup-combo
+                            usePortal
+                            items={rowsPerPageItems}
+                            isFilterable={false}
+                            initialValue={{
+                                id: this.perPage,
+                            }}
+                            onKetchupComboSelected={(e) =>
+                                this.onRowsPerPage(e)
+                            }
                         />
-                    </span>
-                    <span class="number-of-pages">di {maxNumberOfPage}</span>
+                        <slot name="right" />
+                        <span class="nextPageGroup">di {this.max}</span>
+                    </div>
                 </div>
 
-                <div class="align-right">
-                    <span class="nextPageGroup">
-                        Numero risultati: {this.max}
-                    </span>
-                    <slot name="more-results" />
-                    Mostra
-                    <kup-combo
-                        usePortal
-                        items={rowsPerPageItems}
-                        isFilterable={false}
-                        initialValue={{
-                            id: this.perPage,
-                        }}
-                        onKetchupComboSelected={(e) => this.onRowsPerPage(e)}
-                    />
-                    <span class="rows-per-page">righe per pagina</span>
-                    <slot name="right" />
-                </div>
+                <div class="align-left"></div>
             </div>
         );
     }

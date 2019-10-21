@@ -157,6 +157,19 @@ export namespace Components {
     'textmode': string;
     'transparent': boolean;
   }
+  interface KupCalendar {
+    'data': DataTable;
+    'dateCol': string;
+    'descrCol': string;
+    'endCol': string;
+    'hideNavigation': boolean;
+    'iconCol': string;
+    'imageCol': string;
+    'initialDate': string;
+    'startCol': string;
+    'styleCol': string;
+    'weekView': boolean;
+  }
   interface KupChart {
     'asp': ChartAspect;
     'axis': string;
@@ -268,6 +281,7 @@ export namespace Components {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent': boolean;
+    'hoverScroll': boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -652,6 +666,12 @@ declare global {
     new (): HTMLKupButtonElement;
   };
 
+  interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {}
+  var HTMLKupCalendarElement: {
+    prototype: HTMLKupCalendarElement;
+    new (): HTMLKupCalendarElement;
+  };
+
   interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
   var HTMLKupChartElement: {
     prototype: HTMLKupChartElement;
@@ -782,6 +802,7 @@ declare global {
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
     'kup-button': HTMLKupButtonElement;
+    'kup-calendar': HTMLKupCalendarElement;
     'kup-chart': HTMLKupChartElement;
     'kup-checkbox': HTMLKupCheckboxElement;
     'kup-chip': HTMLKupChipElement;
@@ -916,6 +937,47 @@ declare namespace LocalJSX {
     'textmode'?: string;
     'transparent'?: boolean;
   }
+  interface KupCalendar extends JSXBase.HTMLAttributes<HTMLKupCalendarElement> {
+    'data'?: DataTable;
+    'dateCol'?: string;
+    'descrCol'?: string;
+    'endCol'?: string;
+    'hideNavigation'?: boolean;
+    'iconCol'?: string;
+    'imageCol'?: string;
+    'initialDate'?: string;
+    /**
+    * When a date is clicked
+    */
+    'onKupCalendarDateClicked'?: (event: CustomEvent<Date>) => void;
+    /**
+    * When an event is clicked
+    */
+    'onKupCalendarEventClicked'?: (event: CustomEvent<Row>) => void;
+    /**
+    * When a date is dropped
+    */
+    'onKupCalendarEventDropped'?: (event: CustomEvent<{
+      fromDate: {
+        start: Date;
+        end: Date;
+      };
+      toDate: {
+        start: Date;
+        end: Date;
+      };
+    }>) => void;
+    /**
+    * When the navigation change
+    */
+    'onKupCalendarViewChanged'?: (event: CustomEvent<{
+      from: Date;
+      to: Date;
+    }>) => void;
+    'startCol'?: string;
+    'styleCol'?: string;
+    'weekView'?: boolean;
+  }
   interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
     'asp'?: ChartAspect;
     'axis'?: string;
@@ -1047,6 +1109,7 @@ declare namespace LocalJSX {
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
     */
     'headerIsPersistent'?: boolean;
+    'hoverScroll'?: boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -1072,8 +1135,22 @@ declare namespace LocalJSX {
     }>) => void;
     'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
     'onKupDataTableSortedColumn'?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
+    /**
+    * When a tooltip request detail data
+    */
+    'onKupDetailRequest'?: (event: CustomEvent<{
+      cell: Cell;
+      tooltip: EventTarget;
+    }>) => void;
     'onKupLoadMoreClicked'?: (event: CustomEvent<{
       loadItems: number;
+    }>) => void;
+    /**
+    * When a tooltip request initial data
+    */
+    'onKupLoadRequest'?: (event: CustomEvent<{
+      cell: Cell;
+      tooltip: EventTarget;
     }>) => void;
     /**
     * When cell option is clicked
@@ -1519,6 +1596,7 @@ declare namespace LocalJSX {
     'kup-box': KupBox;
     'kup-btn': KupBtn;
     'kup-button': KupButton;
+    'kup-calendar': KupCalendar;
     'kup-chart': KupChart;
     'kup-checkbox': KupCheckbox;
     'kup-chip': KupChip;

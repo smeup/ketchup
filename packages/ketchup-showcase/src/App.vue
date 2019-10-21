@@ -134,6 +134,35 @@ export default {
         ],
       },
       {
+        title: 'Calendar',
+        routes: [
+          {
+            title: 'Basic',
+            to: {
+              name: 'calendarBasic',
+            },
+          },
+          {
+            title: 'Events',
+            to: {
+              name: 'calendarEvents',
+            },
+          },
+          {
+            title: 'Icons',
+            to: {
+              name: 'calendarIcons',
+            },
+          },
+          {
+            title: 'Style',
+            to: {
+              name: 'calendarStyle',
+            },
+          },
+        ],
+      },
+      {
         title: 'Chart',
         routes: [
           {
@@ -229,6 +258,12 @@ export default {
             title: 'Basic',
             to: {
               name: 'dtBasic',
+            },
+          },
+          {
+            title: 'Tooltip',
+            to: {
+              name: 'dtTooltip',
             },
           },
           {

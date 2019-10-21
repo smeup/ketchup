@@ -56,6 +56,7 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `globalFilter`              | `global-filter`                |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `groups`                    | --                             |                                                                                                                                                                                                                                                                 | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky. | `boolean`                                                                                        | `false`                              |
+| `hoverScroll`               | `hover-scroll`                 |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `true`                               |
 | `loadMoreLimit`             | `load-more-limit`              | Sets a maximum limit of new records which can be required by the load more functionality.                                                                                                                                                                       | `number`                                                                                         | `1000`                               |
 | `loadMoreMode`              | `load-more-mode`               | Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.                                                                                                                                            | `LoadMoreMode.CONSTANT \| LoadMoreMode.CONSTANT_INCREMENT \| LoadMoreMode.PROGRESSIVE_THRESHOLD` | `LoadMoreMode.PROGRESSIVE_THRESHOLD` |
 | `loadMoreStep`              | `load-more-step`               | The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.                                                                                                         | `number`                                                                                         | `60`                                 |
@@ -82,7 +83,9 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `kupAutoRowSelect`         | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
+| `kupDetailRequest`         | When a tooltip request detail data             | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
 | `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupLoadRequest`           | When a tooltip request initial data            | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
 | `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupRowActionClicked`      | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
 | `kupRowSelected`           | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
@@ -109,6 +112,9 @@ Type: `Promise<Column[]>`
 | `--dtt_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
 | `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
 | `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
+| `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.                       |
+| `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.                        |
+| `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.                             |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.                  |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.                |
 | `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows.      |
@@ -122,6 +128,11 @@ Type: `Promise<Column[]>`
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                       |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                     |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                          |
+| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                                   |
+| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                                  |
+| `--dtt_paginator-background, --kup-data-table_paginator-background`       | Color of the paginator's background.                                         |
+| `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                                              |
+| `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                                     |
 | `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                     |
 
 
@@ -133,6 +144,7 @@ Type: `Promise<Column[]>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
+- [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-chip](../kup-chip)
 
@@ -143,6 +155,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
   kup-paginator --> kup-combo

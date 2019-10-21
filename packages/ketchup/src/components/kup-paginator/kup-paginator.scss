@@ -1,14 +1,20 @@
-@import url(https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css);
+@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
 
 /**
 * @prop --int_text-color, --kup-paginator_text-color: Set color of text
 * @prop --int_font-size, --kup-paginator_font-size: Set size of the font
+* @prop --int_box-shadow, --kup-paginator_box-shadow: Set box shadow of groups
+* @prop --int_icon-background, --kup-paginator_icon-background: Set the background color of icons
+* @prop --int_icon-color, --kup-paginator_icon-color: Set the color of icons
 */
 
 :host {
   // variables
   --int_text-color: var(--kup-paginator_text-color, #{$mainTextColor});
   --int_font-size: var(--kup-paginator_font-size, 1rem);
+  --int_box-shadow: var(--kup-paginator_box-shadow, none);
+  --int_icon-background: var(--kup-paginator_icon-background, transparent);
+  --int_icon-color: var(--kup-paginator_icon-color, #{$mainTextColor});
 }
 
 #paginator {
@@ -16,13 +22,34 @@
   margin: 0.5rem 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   font-size: var(--int_font-size);
+
+  .mdi:before {
+    font-size: 120%;
+  }
+
+  .align-left {
+    margin-left: 0.5rem;
+  }
+
+  .align-right {
+    margin-right: 0.5rem;
+  }
 
   .align-left,
   .align-right {
     display: flex;
     align-items: center;
+    box-shadow: var(--int_box-shadow);
+
+    & .paging-icon,
+    & .counter-icon,
+    & .row-number-icon {
+      background: var(--int_icon-background);
+      color: var(--int_icon-color);
+      padding: 0 0.25rem;
+      cursor: help;
+    }
   }
 
   icon {
@@ -40,27 +67,15 @@
     }
   }
 
-  select,
-  .nextPageGroup {
-    margin: 0 0.5rem;
-  }
-
   .prev-page,
   .next-page {
     margin: 0 0.25rem;
   }
 
-  .nextPageGroup {
-    padding-right: 1.5rem;
-  }
-
-  .number-of-pages,
-  .rows-per-page {
-    color: #{$gray-bd};
-  }
-
   kup-combo {
     margin: 0 0.25rem;
+    --kup-combo_input_border-color: transparent;
+    --kup-combo_input_border-color--selected: transparent;
   }
 }
 
