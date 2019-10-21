@@ -1,18 +1,35 @@
-import { newE2EPage } from '@stencil/core/testing';
+import {E2EPage, newE2EPage, E2EElement} from '@stencil/core/testing';
 
 import { staticData } from './mocked-data';
 
-const globalFilterSelector =
-    'kup-data-table >>> #globalFilter >>> #ketchup-input';
+/**
+ * To Travel through two layers of shadow dom, Stencil 'piercing' selector is no more sufficient.
+ * The issue seems more related to Puppeteer than anything else.
+ * Take a look [here]{@link https://github.com/GoogleChrome/puppeteer/issues/858#issuecomment-438540596}and
+ * [here]{@link https://github.com/ionic-team/stencil/issues/1530} for current solutions.
+ *
+ * @param page - the current test page
+ * @return A promise whose payload is the E2EElement of the global filter
+ */
+async function globalFilterSelector(page: E2EPage): Promise<E2EElement> {
+  const temp = (await page.evaluateHandle(`document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-input").shadowRoot.querySelector("input")`)) as unknown as E2EElement;
+  return temp;
+}
 
-const filtersSelector = 'kup-data-table >>> table > thead kup-input-text';
+function delay(time) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, time)
+  });
+}
+
+const filtersSelector = 'kup-data-table >>> table > thead kup-text-input';
 
 describe('kup-data-table with global filter', () => {
-    it.skip('should have global filter', async () => {
+    it('should have global filter', async () => {
         const page = await newE2EPage();
 
         await page.setContent(
-            '<kup-data-table global-filter></kup-data-table>'
+            '<kup-data-table global-filter></kup-data-table><kup-text-input></kup-text-input>'
         );
         const element = await page.find('kup-data-table');
 
@@ -25,24 +42,22 @@ describe('kup-data-table with global filter', () => {
         expect(filters).toHaveLength(0);
 
         // getting global filter input and changing value
-        const globalFilterInput = await page.find(globalFilterSelector);
+        let globalFilterInput = await globalFilterSelector(page);
 
-        await globalFilterInput.press('F');
-        await globalFilterInput.press('R');
-        await globalFilterInput.press('A');
-
-        await page.waitForChanges();
+        // Read inside the read me for explanations on the different methods of typing characters with puppeteer API
+        await globalFilterInput.type('FRA', {delay: 200});
 
         // testing table rows
         const bodyRows = await page.findAll(
             'kup-data-table >>> table tbody > tr'
         );
+
         expect(bodyRows).toHaveLength(2);
-    });
+    }, 20000); // Raised default time out to allow computing of filtered table and user keypress
 });
 
 describe('kup-data-table with filters', () => {
-    it.skip('should have filters', async () => {
+    it('should have filters', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table show-filters></kup-data-table>');
@@ -52,9 +67,17 @@ describe('kup-data-table with filters', () => {
 
         await page.waitForChanges();
 
-        // no global filter
-        const globalFilterInput = await page.find(globalFilterSelector);
-        expect(globalFilterInput).toBeFalsy();
+        let globalFilterInput;
+        // no global filter -> we use the try catch statement since the promise must fail in order for the test to be correct.
+        try {
+           globalFilterInput = await globalFilterSelector(page);
+        }
+        catch (e) {
+          expect(globalFilterInput).toBeFalsy();
+        }
+        finally {
+          expect(globalFilterInput).toBeFalsy();
+        }
 
         // testing filters
         const filters = await page.findAll(filtersSelector);
@@ -63,7 +86,7 @@ describe('kup-data-table with filters', () => {
 });
 
 describe('kup-data-table with filters and global filter', () => {
-    it.skip('should have filters', async () => {
+    it('should have filters', async () => {
         const page = await newE2EPage();
 
         await page.setContent(
@@ -80,7 +103,7 @@ describe('kup-data-table with filters and global filter', () => {
         expect(filters).toHaveLength(3);
 
         // getting global filter input
-        const globalFilterInput = await page.find(globalFilterSelector);
+        const globalFilterInput = await globalFilterSelector(page);
         expect(globalFilterInput).toBeTruthy();
     });
 });
