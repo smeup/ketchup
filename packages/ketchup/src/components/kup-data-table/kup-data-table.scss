@@ -721,6 +721,7 @@ sticky-header {
   color: var(--dtt_color);
   display: block;
   opacity: 0;
+  overflow: hidden;
   pointer-events: none;
   position: fixed;
   top: 0;
@@ -736,7 +737,7 @@ sticky-header {
   }
 
   tr-sticky {
-    display: flex;
+    display: inline-flex;
   }
 
   th-sticky {

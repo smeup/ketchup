@@ -294,10 +294,10 @@ export class KupDataTable {
      * Reference for the thead element
      * @private
      */
-    private theadRef: HTMLTableSectionElement;
+    private theadRef: any;
     private tableRef: HTMLTableSectionElement;
     private tableAreaRef: HTMLTableSectionElement;
-    private stickyTheadRef: HTMLTableSectionElement;
+    private stickyTheadRef: any;
     private customizePanelRef: any;
 
     /**
@@ -441,16 +441,18 @@ export class KupDataTable {
             headerHeight = 0;
         }
         el.style.top = headerHeight + 'px';
-        if (this.isElementPartiallyInViewport(tableBody, headerHeight)) {
+        if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
             let widthTable: number = parent.offsetWidth;
             el.style.maxWidth = widthTable + 'px';
-            elTr.style.maxWidth = widthTable + 'px';
 
             if (
-                !this.isElementPartiallyInViewport(this.theadRef, headerHeight)
+                !this.isElementPartiallyInViewport(
+                    this.theadRef,
+                    headerHeight,
+                    el
+                )
             ) {
                 var thCollection: any = this.theadRef.querySelectorAll('th');
-                console.log(el);
                 var thStickyCollection: any = el.querySelectorAll('th-sticky');
                 for (let i = 0; i < thCollection.length; i++) {
                     let widthTH = thCollection[i].offsetWidth;
@@ -465,7 +467,7 @@ export class KupDataTable {
         }
     };
 
-    isElementPartiallyInViewport = (el: any, offset: number) => {
+    isElementPartiallyInViewport = (el: any, offset: number, row: any) => {
         var rect = el.getBoundingClientRect();
         if (
             rect.top === 0 &&
@@ -491,7 +493,15 @@ export class KupDataTable {
             rect.top - offset + rect.height >= 0;
         var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
 
-        return vertInView && horInView;
+        // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
+        if (
+            el.tagName !== 'THEAD' &&
+            (row.clientHeight * 2 > rect.bottom && vertInView && horInView)
+        ) {
+            return false && false;
+        } else {
+            return vertInView && horInView;
+        }
     };
 
     // private theadObserver = new IntersectionObserver(
@@ -2042,7 +2052,7 @@ export class KupDataTable {
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
 
-        this.positionRecalcInstance.setPosition(elPanel, elButton, 250, 2);
+        this.positionRecalcInstance.setPosition(elPanel, elButton, 3);
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
@@ -2414,9 +2424,7 @@ export class KupDataTable {
                     >
                         <thead
                             hidden={!this.showHeader}
-                            ref={(el) =>
-                                (this.theadRef = el as HTMLTableSectionElement)
-                            }
+                            ref={(el) => (this.theadRef = el as any)}
                         >
                             <tr>{header}</tr>
                         </thead>
@@ -2424,6 +2432,7 @@ export class KupDataTable {
                         {footer}
                     </table>
                     <sticky-header
+                        class="hover-scrolling-child"
                         hidden={!this.showHeader}
                         ref={(el: HTMLTableSectionElement) =>
                             (this.stickyTheadRef = el as any)

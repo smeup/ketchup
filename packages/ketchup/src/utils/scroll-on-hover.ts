@@ -37,6 +37,12 @@ export class scrollOnHover {
             rightArrow3
         );
         el.append(arrowsContainer);
+        el.addEventListener('click', (event: MouseEvent) =>
+            this.handleScroll(event)
+        );
+        el.addEventListener('scroll', (event: MouseEvent) =>
+            this.handleScroll(event)
+        );
         el.addEventListener('mousemove', (event: MouseEvent) =>
             this.handleScroll(event)
         );
@@ -51,6 +57,13 @@ export class scrollOnHover {
         let el = event.target
             .closest('.hover-scrolling-parent')
             .querySelectorAll('.hover-scrolling-el')[0];
+        let step = el.scrollLeft;
+        let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
+        if (childrenToScroll) {
+            for (let i = 0; i < childrenToScroll.length; i++) {
+                childrenToScroll[i].scrollLeft = step;
+            }
+        }
         let arrowContainter = el.querySelectorAll(
             '#container-scrolling-arrow'
         )[0];
@@ -124,6 +137,7 @@ export class scrollOnHover {
         direction: string
     ) {
         let elOffset = scrollOnHoverX - el.offsetLeft;
+        let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
         if (
             scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)
@@ -160,6 +174,11 @@ export class scrollOnHover {
             step = step + parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         }
         el.scrollLeft = step;
+        if (childrenToScroll) {
+            for (let i = 0; i < childrenToScroll.length; i++) {
+                childrenToScroll[i].scrollLeft = step;
+            }
+        }
         setTimeout(() => {
             this.startScrollOnHover(
                 el,

@@ -23,7 +23,6 @@ export class positionRecalc {
             el.style.top = `${rect.bottom + margin}px`;
         }
         if (window.innerWidth - rect.left < offsetW) {
-            // 350 is the min-width of the tooltip
             el.style.right = `${window.innerWidth - rect.right}px`;
         } else {
             el.style.left = `${rect.left}px`;
