@@ -151,60 +151,73 @@ describe('kup-data-table filters rows', () => {
     const columnToFilterOn = 'FLD1';
     const filterText = searchKey.replace(/%/g, '');
 
-    it('on column filter', () => {
-      const filtered = filterRows(
-        mockedRowsWithEmptyValues,
-        {[columnToFilterOn]: `'${searchKey}'`}
-      );
+    // [1] - It means that when the filter is negative (!) the expected result must be the contrary
+    describe.each([
+      [`affirmative`, true],
+      [`negative, with a prepended '!'`, false],
+    ])(`(%s), `, (testDescription, isAffirmative) => {
 
-      const filterProofRowsCount = mockedRowsWithEmptyValues.reduce(
-        (displayedRowsCount, {cells}) => displayedRowsCount += (compareFunction(cells[columnToFilterOn].value, filterText) ? 1 : 0),
-        0
-      );
-      expect(filtered).toHaveLength(filterProofRowsCount);
+      const completeFilter = `${isAffirmative ? '' : '!'}'${searchKey}'`;
 
-      console.log("acolonna", filtered.length, filterProofRowsCount);
+      console.log("negative positive",testDescription, isAffirmative, completeFilter);
 
-      filtered.forEach(row => {
-        console.log(row.cells[columnToFilterOn].value);
-        expect(compareFunction(row.cells[columnToFilterOn].value, filterText)).toBeTruthy();
-      })
+      it('on column filter', () => {
+        const filtered = filterRows(
+          mockedRowsWithEmptyValues,
+          {[columnToFilterOn]: completeFilter}
+        );
 
-    });
+        const filterProofRowsCount = mockedRowsWithEmptyValues.reduce(
+          (displayedRowsCount, {cells}) => {
+            const compareResult = compareFunction(cells[columnToFilterOn].value, filterText);
+            return displayedRowsCount += ((isAffirmative ? compareResult : !compareResult) ? 1 : 0); // [1]
+          },
+          0
+        );
+        expect(filtered).toHaveLength(filterProofRowsCount);
 
-    it('on global column filter', () => {
-      const filtered = filterRows(
-        mockedRowsWithEmptyValues,
-        {},
-        `'${searchKey}'`,
-        displayedColumnsNames
-      );
+        filtered.forEach(row => {
+          console.log(row.cells[columnToFilterOn].value);
 
-      const filterProofRowsCount = mockedRowsWithEmptyValues
-        .reduce((displayedRowsCount, {cells}) => {
+          const compareResult = compareFunction(row.cells[columnToFilterOn].value, filterText);
+          expect(isAffirmative ? compareResult : !compareResult).toBeTruthy(); // [1]
+        })
+
+      });
+
+      it('on global column filter', () => {
+        const filtered = filterRows(
+          mockedRowsWithEmptyValues,
+          {},
+          completeFilter,
+          displayedColumnsNames
+        );
+
+        const filterProofRowsCount = mockedRowsWithEmptyValues
+          .reduce((displayedRowsCount, {cells}) => {
+              let foundItem = false;
+              for (let i = 0; i < displayedColumnsNames.length && !foundItem; i++) {
+                foundItem = compareFunction(cells[displayedColumnsNames[i]].value, filterText);
+              }
+
+              return displayedRowsCount += ((foundItem && isAffirmative) || (!foundItem && !isAffirmative) ? 1 : 0); // [1]
+            },
+            0
+          );
+
+        // Expect to match the given number of items
+        expect(filtered).toHaveLength(filterProofRowsCount);
+
+        // Checks that each rendered row has at least one match with the filter.
+        filtered.forEach(({ cells }) => {
           let foundItem = false;
           for (let i = 0; i < displayedColumnsNames.length && !foundItem; i++) {
             foundItem = compareFunction(cells[displayedColumnsNames[i]].value, filterText);
           }
+          // Checks if there is at least a value in one of the displayed columns (when negative, there must be no values found)
+          expect(isAffirmative? foundItem : !foundItem).toBeTruthy(); // [1]
+        });
 
-          return displayedRowsCount += (foundItem ? 1 : 0);
-          },
-        0
-      );
-
-      // Expect to match the given number of items
-      expect(filtered).toHaveLength(filterProofRowsCount);
-
-      console.log("globali", filtered.length, filterProofRowsCount);
-
-      // Checks that each rendered row has at least one match with the filter.
-      filtered.forEach(({ cells }) => {
-        let foundItem = false;
-        for (let i = 0; i < displayedColumnsNames.length && !foundItem; i++) {
-          foundItem = compareFunction(cells[displayedColumnsNames[i]].value, filterText);
-        }
-        // Checks if there is at least a '' value in one of the displayed columns
-        expect(foundItem).toBeTruthy();
       });
 
     });
