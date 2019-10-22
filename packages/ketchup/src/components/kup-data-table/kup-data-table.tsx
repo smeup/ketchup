@@ -432,7 +432,6 @@ export class KupDataTable {
     stickyHeaderPosition = () => {
         let tableBody: any = this.tableRef;
         let el: any = this.stickyTheadRef;
-        let elTr: any = el.querySelectorAll('tr-sticky')[0];
         let parent: any = tableBody.closest('.below-wrapper');
         var headerHeight: number;
         if (document.querySelectorAll('.header')[0]) {
