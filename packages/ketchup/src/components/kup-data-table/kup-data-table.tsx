@@ -11,6 +11,8 @@ import {
 } from '@stencil/core';
 
 import numeral from 'numeral';
+import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { positionRecalc } from '../../utils/recalc-position';
 
 import {
     Cell,
@@ -86,7 +88,7 @@ export class KupDataTable {
     groups: Array<GroupObject> = [];
 
     @Prop()
-    hoverScroll: boolean = true; 
+    hoverScroll: boolean = true;
 
     /**
      * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
@@ -192,13 +194,6 @@ export class KupDataTable {
         };
     } = {};
 
-    @State() scrollOnHoverStatus: number = 0;
-
-    @State() scrollOnHoverX: number = 0;
-
-    @State() scrollOnHoverY: number = 0;
-
-    @State() scrollTimeout: any = 'off';
     /**
      * name of the column with an open menu
      */
@@ -262,6 +257,9 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
+    private scrollOnHoverInstance: scrollOnHover;
+    private positionRecalcInstance: positionRecalc;
+
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -296,7 +294,11 @@ export class KupDataTable {
      * Reference for the thead element
      * @private
      */
-    private theadRef: HTMLTableSectionElement;
+    private theadRef: any;
+    private tableRef: HTMLTableSectionElement;
+    private tableAreaRef: HTMLTableSectionElement;
+    private stickyTheadRef: any;
+    private customizePanelRef: any;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -427,6 +429,80 @@ export class KupDataTable {
         this.botDensityPanelVisible = false;
     };
 
+    stickyHeaderPosition = () => {
+        let tableBody: any = this.tableRef;
+        let el: any = this.stickyTheadRef;
+        let parent: any = tableBody.closest('.below-wrapper');
+        var headerHeight: number;
+        if (document.querySelectorAll('.header')[0]) {
+            headerHeight = document.querySelectorAll('.header')[0].clientHeight;
+        } else {
+            headerHeight = 0;
+        }
+        el.style.top = headerHeight + 'px';
+        if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
+            let widthTable: number = parent.offsetWidth;
+            el.style.maxWidth = widthTable + 'px';
+
+            if (
+                !this.isElementPartiallyInViewport(
+                    this.theadRef,
+                    headerHeight,
+                    el
+                )
+            ) {
+                var thCollection: any = this.theadRef.querySelectorAll('th');
+                var thStickyCollection: any = el.querySelectorAll('th-sticky');
+                for (let i = 0; i < thCollection.length; i++) {
+                    let widthTH = thCollection[i].offsetWidth;
+                    thStickyCollection[i].style.width = widthTH + 'px';
+                }
+                el.classList.add('activated');
+            } else {
+                el.classList.remove('activated');
+            }
+        } else {
+            el.classList.remove('activated');
+        }
+    };
+
+    isElementPartiallyInViewport = (el: any, offset: number, row: any) => {
+        var rect = el.getBoundingClientRect();
+        if (
+            rect.top === 0 &&
+            rect.left === 0 &&
+            rect.right === 0 &&
+            rect.bottom === 0 &&
+            rect.height === 0 &&
+            rect.width === 0 &&
+            rect.x === 0 &&
+            rect.y === 0
+        ) {
+            return false;
+        }
+
+        var windowHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+        var windowWidth =
+            window.innerWidth || document.documentElement.clientWidth;
+        windowHeight = windowHeight - offset;
+
+        var vertInView =
+            rect.top - offset <= windowHeight &&
+            rect.top - offset + rect.height >= 0;
+        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
+
+        // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
+        if (
+            el.tagName !== 'THEAD' &&
+            (row.clientHeight * 2 > rect.bottom && vertInView && horInView)
+        ) {
+            return false && false;
+        } else {
+            return vertInView && horInView;
+        }
+    };
+
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
     //         entries.forEach((entry) => {
@@ -457,6 +533,12 @@ export class KupDataTable {
 
     componentDidLoad() {
         document.addEventListener('click', this.onDocumentClick);
+        document.addEventListener('scroll', this.stickyHeaderPosition);
+        document.addEventListener('resize', this.stickyHeaderPosition);
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.positionRecalcInstance = new positionRecalc();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+        this.positionRecalcInstance.positionRecalcSetup(this.customizePanelRef);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -474,6 +556,8 @@ export class KupDataTable {
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
+        document.removeEventListener('scroll', this.stickyHeaderPosition);
+        document.removeEventListener('resize', this.stickyHeaderPosition);
     }
 
     private hasTooltip(cell: Cell) {
@@ -1385,6 +1469,44 @@ export class KupDataTable {
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
+    private renderStickyHeader() {
+        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
+
+        const dataColumns = this.getVisibleColumns().map((column) => {
+            let thStyle = null;
+            if (hasCustomColumnsWidth) {
+                for (let i = 0; i < this.columnsWidth.length; i++) {
+                    const currentCol = this.columnsWidth[i];
+
+                    if (currentCol.column === column.name) {
+                        const width = currentCol.width.toString() + 'px';
+                        thStyle = {
+                            width,
+                            minWidth: width,
+                            maxWidth: width,
+                        };
+                        break;
+                    }
+                }
+            }
+
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
+            return (
+                <th-sticky class={columnClass} style={thStyle}>
+                    <span class="column-title">{column.title}</span>
+                </th-sticky>
+            );
+        });
+
+        return [...dataColumns];
+    }
+
     renderFooter() {
         if (!this.hasTotals()) {
             // no footer
@@ -1929,6 +2051,7 @@ export class KupDataTable {
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
 
+        this.positionRecalcInstance.setPosition(elPanel, elButton, 3);
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
@@ -1958,7 +2081,10 @@ export class KupDataTable {
                         class="paginator-button mdi mdi-settings custom-settings"
                         onClick={(e) => this.onCustomSettingsClick(e)}
                     >
-                        <div class="customize-panel">
+                        <div
+                            class="customize-panel"
+                            ref={(el) => (this.customizePanelRef = el as any)}
+                        >
                             {this.renderDensityPanel(top)}
                             {this.renderFontSizePanel(top)}
                         </div>
@@ -2171,167 +2297,6 @@ export class KupDataTable {
         );
     }
 
-    private handleScroll(event: any) {
-        this.scrollOnHoverX = event.clientX;
-        this.scrollOnHoverY = event.clientY;
-        let el = event.target
-            .closest('.hover-scrolling-parent')
-            .querySelectorAll('.hover-scrolling-el')[0];
-        let arrowContainter = el.querySelectorAll(
-            '#container-scrolling-arrow'
-        )[0];
-        let trueWidth = el.clientWidth;
-        arrowContainter.style.top = this.scrollOnHoverY + 'px';
-        arrowContainter.style.left = this.scrollOnHoverX + 'px';
-        if (trueWidth === 0) {
-            trueWidth = el.offsetWidth;
-        }
-        if (el.scrollWidth > trueWidth + 10) {
-            if (trueWidth !== 0 && this.scrollTimeout === 'off') {
-                let percRight = trueWidth - trueWidth * 0.1;
-                let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset = this.scrollOnHoverX - el.offsetLeft;
-                let maxScrollLeft = el.scrollWidth - trueWidth;
-                var leftArrow = el.querySelectorAll(
-                    '#container-scrolling-arrow .left-scrolling-arrow'
-                );
-                var rightArrow = el.querySelectorAll(
-                    '#container-scrolling-arrow .right-scrolling-arrow'
-                );
-                if (elOffset < percLeft) {
-                    if (el.scrollLeft !== 0) {
-                        for (let i = 0; i < leftArrow.length; i++) {
-                            leftArrow[i].classList.add('activated');
-                        }
-                        this.scrollTimeout = setTimeout(() => {
-                            this.startScrollOnHover(
-                                el,
-                                leftArrow,
-                                maxScrollLeft,
-                                arrowContainter,
-                                percRight,
-                                percLeft,
-                                event,
-                                'left'
-                            );
-                        }, 500);
-                    }
-                } else if (elOffset > percRight) {
-                    if (el.scrollLeft !== maxScrollLeft) {
-                        for (let i = 0; i < rightArrow.length; i++) {
-                            rightArrow[i].classList.add('activated');
-                        }
-                        this.scrollTimeout = setTimeout(() => {
-                            this.startScrollOnHover(
-                                el,
-                                rightArrow,
-                                maxScrollLeft,
-                                arrowContainter,
-                                percRight,
-                                percLeft,
-                                event,
-                                'right'
-                            );
-                        }, 500);
-                    }
-                }
-            }
-        }
-    };
-
-    private startScrollOnHover(
-        el: HTMLElement,
-        arrow:any,
-        maxScrollLeft: number,
-        arrowContainter:HTMLElement,
-        percRight: number,
-        percLeft: number,
-        event:any,
-        direction: string
-    ) {
-        let elOffset = this.scrollOnHoverX - el.offsetLeft;
-        if (
-            this.scrollTimeout === 'off' ||
-            (elOffset > percLeft && elOffset < percRight)
-        ) {
-            this.killScroll(el);
-            return;
-        }
-        if (direction === 'right' && percRight > elOffset) {
-            this.killScroll(el);
-            return;
-        }
-        if (direction === 'left' && percLeft < elOffset) {
-            this.killScroll(el);
-            return;
-        }
-        var step = el.scrollLeft;
-        arrowContainter.style.top = this.scrollOnHoverY + 'px';
-        arrowContainter.style.left = this.scrollOnHoverX + 'px';
-        for (let i = 0; i < arrow.length; i++) {
-            arrow[i].classList.add('animated');
-        }
-        var firstArrow = arrow[0];
-        if (firstArrow.classList.contains('left-scrolling-arrow')) {
-            if (step === 0) {
-                this.killScroll(el);
-                return;
-            }
-            step = step - parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1
-        } else {
-            if (step === maxScrollLeft) {
-                this.killScroll(el);
-                return;
-            }
-            step = step + parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1
-        }
-        el.scrollLeft = step;
-        setTimeout(() => {
-            this.startScrollOnHover(
-                el,
-                arrow,
-                maxScrollLeft,
-                arrowContainter,
-                percRight,
-                percLeft,
-                event,
-                direction
-            );
-        }, 50);
-        //Doppio lancio per aumentare la velocità ad ogni giro (in cascata)
-        setTimeout(() => {
-            this.startScrollOnHover(
-                el,
-                arrow,
-                maxScrollLeft,
-                arrowContainter,
-                percRight,
-                percLeft,
-                event,
-                direction
-            );
-        }, 250);
-    }
-
-    private killScroll(el: any) {
-        this.scrollTimeout = 'off';
-        clearTimeout(this.scrollTimeout);
-        var leftArrow = el.querySelectorAll(
-            '#container-scrolling-arrow .left-scrolling-arrow'
-        );
-        var rightArrow = el.querySelectorAll(
-            '#container-scrolling-arrow .right-scrolling-arrow'
-        );
-        for (let i = 0; i < leftArrow.length; i++) {
-            leftArrow[i].classList.remove('activated');
-            leftArrow[i].classList.remove('animated');
-        }
-        for (let i = 0; i < rightArrow.length; i++) {
-            rightArrow[i].classList.remove('activated');
-            rightArrow[i].classList.remove('animated');
-        }
-    };
-
     render() {
         // resetting rows
         this.renderedRows = [];
@@ -2367,6 +2332,7 @@ export class KupDataTable {
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
         const header = this.renderHeader();
+        const stickyHeader = this.renderStickyHeader();
 
         // footer
         const footer = this.renderFooter();
@@ -2439,37 +2405,42 @@ export class KupDataTable {
         tableClass[`fontsize-${this.fontsize}`] = true;
 
         return (
-            <div id="data-table-wrapper" class="hover-scrolling-parent">
+            <div id="data-table-wrapper">
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
                 </div>
                 <div
-                    class="below-wrapper hover-scrolling-el"
-                    onMouseMove={(e: MouseEvent) => this.handleScroll(e)}
-                    onMouseLeave={(e: MouseEvent) => this.killScroll(e.target)}
+                    class="below-wrapper"
+                    ref={(el) => (this.tableAreaRef = el as any)}
                 >
                     {groupChips}
-                    <table class={tableClass}>
+                    <table
+                        class={tableClass}
+                        ref={(el: HTMLTableElement) =>
+                            (this.tableRef = el as any)
+                        }
+                    >
                         <thead
                             hidden={!this.showHeader}
-                            ref={(el) =>
-                                (this.theadRef = el as HTMLTableSectionElement)
-                            }
+                            ref={(el) => (this.theadRef = el as any)}
                         >
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
-                    <div id="container-scrolling-arrow">
-                        <div class="left-scrolling-arrow arrow-3"></div>
-                        <div class="left-scrolling-arrow arrow-2"></div>
-                        <div class="left-scrolling-arrow arrow-1"></div>
-                        <div class="right-scrolling-arrow arrow-1"></div>
-                        <div class="right-scrolling-arrow arrow-2"></div>
-                        <div class="right-scrolling-arrow arrow-3"></div>
-                    </div>
+                    <sticky-header
+                        class="hover-scrolling-child"
+                        hidden={!this.showHeader}
+                        ref={(el: HTMLTableSectionElement) =>
+                            (this.stickyTheadRef = el as any)
+                        }
+                    >
+                        <thead-sticky>
+                            <tr-sticky>{stickyHeader}</tr-sticky>
+                        </thead-sticky>
+                    </sticky-header>
                 </div>
                 {paginatorBottom}
             </div>
