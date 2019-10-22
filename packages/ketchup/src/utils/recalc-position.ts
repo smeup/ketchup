@@ -12,20 +12,17 @@ export class positionRecalc {
         el.classList.add('dynamic-position');
     }
 
-    setPosition(
-        el: HTMLElement,
-        anchorEl: HTMLElement,
-        offset: number,
-        margin: number
-    ) {
+    setPosition(el: HTMLElement, anchorEl: HTMLElement, margin: number) {
+        let offsetH: number = el.clientHeight;
+        let offsetW: number = el.clientWidth;
         const rect = anchorEl.getBoundingClientRect();
 
-        if (window.innerHeight - rect.bottom < offset) {
+        if (window.innerHeight - rect.bottom < offsetH) {
             el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
         } else {
             el.style.top = `${rect.bottom + margin}px`;
         }
-        if (window.innerWidth - rect.left < offset) {
+        if (window.innerWidth - rect.left < offsetW) {
             // 350 is the min-width of the tooltip
             el.style.right = `${window.innerWidth - rect.right}px`;
         } else {
