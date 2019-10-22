@@ -11,7 +11,10 @@
 
   #{$prefix}_color-info: var(--kup-color-info, #{$smeup-info});
   #{$prefix}_color-danger: var(--kup-danger-danger, #{$smeup-danger});
-  #{$prefix}_color-danger--hover: var(--kup-danger-color--hover, #{$smeup-danger--hover});
+  #{$prefix}_color-danger--hover: var(
+    --kup-danger-color--hover,
+    #{$smeup-danger--hover}
+  );
   #{$prefix}_color-warning: var(--kup-info-color, #{$smuup-warning});
   #{$prefix}_color-selected: var(--kup-info-color, #{$smeup-selected});
 }
