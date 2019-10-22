@@ -1,231 +1,13 @@
 import { filterRows } from '../../../src/components/kup-data-table/kup-data-table-helper';
-
-function MockedRowsFactory() {
-    return [
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '12',
-                    },
-                    value: '12',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
-                    },
-                    value: '100.60',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180101',
-                    },
-                    value: '01/01/2018',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
-                    },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '8',
-                    },
-                    value: '8',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180102',
-                    },
-                    value: '02/01/2018',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
-                    },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '7',
-                    },
-                    value: '7',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
-                    },
-                    value: '120.06',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180103',
-                    },
-                    value: '03/01/2018',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '10',
-                    },
-                    value: '10',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '100.60',
-                    },
-                    value: '100.60',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180101',
-                    },
-                    value: '01/01/2018',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'DELGIO',
-                    },
-                    value: 'DELGIO',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '6',
-                    },
-                    value: '6',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '67.8',
-                    },
-                    value: '67.8',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180102',
-                    },
-                    value: '02/01/2018',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'PARFRA',
-                    },
-                    value: 'PARFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '5',
-                    },
-                    value: '5',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '120.06',
-                    },
-                    value: '120.06',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180103',
-                    },
-                    value: '03/01/2018',
-                },
-            },
-        },
-    ];
-}
+import { MockedRowsFactory } from './mocked-data';
 
 const mockedRows = MockedRowsFactory();
 
 const mockedRowsWithEmptyValues = MockedRowsFactory();
 mockedRowsWithEmptyValues[0].cells.FLD1.value = '';
 mockedRowsWithEmptyValues[2].cells.FLD1.value = '';
+
+const displayedColumnsNames = ['FLD1', 'FLD2', 'FLD3', 'FLD4'];
 
 describe('it filters rows', () => {
     it('filter without parameters', () => {
@@ -269,7 +51,7 @@ describe('it filters rows', () => {
 
         expect(filtered).not.toEqual(mockedRows);
 
-        expect(filtered).toHaveLength(4);
+        expect(filtered).toHaveLength(5);
     });
 
     it('filter on FLD1 and FLD2', () => {
@@ -304,7 +86,7 @@ describe('it filters rows', () => {
 
         expect(filtered).not.toEqual(mockedRows);
 
-        expect(filtered).toHaveLength(4);
+        expect(filtered).toHaveLength(5);
     });
 
     it('global filter + column filter', () => {
@@ -312,7 +94,7 @@ describe('it filters rows', () => {
             mockedRows,
             { FLD1: 'cas', FLD2: '12' },
             'fra',
-            ['FLD1', 'FLD2', 'FLD3', 'FLD4']
+          displayedColumnsNames
         );
 
         expect(filtered).not.toEqual(mockedRows);
@@ -320,7 +102,7 @@ describe('it filters rows', () => {
         expect(filtered).toHaveLength(1);
     });
 
-    describe('with filter set to \'\'', () => {
+    describe(`with filter set to ''`, () => {
 
         const columnToFilterOn = 'FLD1';
 
@@ -330,7 +112,7 @@ describe('it filters rows', () => {
               {[columnToFilterOn]: "''"}
             );
 
-            expect(filtered).toHaveLength(2);
+            expect(filtered).toHaveLength(3);
             filtered.forEach(row => {
                 expect(row.cells[columnToFilterOn].value).toBe('');
             })
@@ -342,12 +124,15 @@ describe('it filters rows', () => {
               mockedRowsWithEmptyValues,
               {},
               "''",
-              ['FLD1', 'FLD2', 'FLD3', 'FLD4']
+              displayedColumnsNames
             );
 
-            expect(filtered).toHaveLength(2);
+            // Expect to match the given number of items
+            expect(filtered).toHaveLength(5);
             filtered.forEach(row => {
-                expect(row.cells[columnToFilterOn].value).toBe('');
+                // Checks if there is at least a '' value in one of the displayed columns
+                expect(displayedColumnsNames.reduce((whiteSpaceFound, col) => row.cells[col] && row.cells[col].value === '' ? true : whiteSpaceFound, false))
+                  .toBeTruthy();
             })
 
         });
