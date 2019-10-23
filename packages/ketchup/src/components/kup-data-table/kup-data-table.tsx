@@ -495,7 +495,9 @@ export class KupDataTable {
         // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
         if (
             el.tagName !== 'THEAD' &&
-            (row.clientHeight * 2 > rect.bottom && vertInView && horInView)
+            (row.clientHeight * 2 > rect.bottom - offset &&
+                vertInView &&
+                horInView)
         ) {
             return false && false;
         } else {
