@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <h1>Data Table column size</h1>
+    <p>In the following examples, to check the different behaviors of the tables when the size of the screen changes,
+      it can be useful to resize the browser window.<br>
+      To do so in a more comfortable way, you can open your browser inspection devtools by pressing F12 or right clicking
+      anywhere on an element and click "Inspect"<br>
+      If you're using Apple Safari browser, you will have to enable the debug mode in order to do so (just Google it).
+    </p>
+
+    <h3>Long text with no configuration</h3>
+    <kup-data-table :data.prop="longTextData"/>
+
+    <h3>All visible columns have a custom size</h3>
+    <p>When all visible columns have a custom size, the table width gets set to the sum of the columns.<br>
+      The table itself gains a margin auto attribute to eventually center it.
+    </p>
+    <kup-data-table
+      :columnsWidth.prop="progressbarColsize"
+      :data.prop="progressbarData"/>
+  </div>
+</template>
+
+<script>
+  import {
+    pgbData,
+  } from '@/mock/box';
+  import { LongTextDataFactory } from 'ketchup/tests/e2e/data-table/mocked-data';
+
+  export default {
+    name: "DTColumnsWidth",
+    data() {
+      return {
+        longTextData: LongTextDataFactory(5),
+        progressbarColsize: [
+          {
+            column: 'FLD1',
+            width: '50'
+          },
+          {
+            column: 'FLD2',
+            width: '50'
+          },
+          {
+            column: 'FLD3',
+            width: '50'
+          },
+          {
+            column: 'FLD4',
+            width: '50'
+          },
+        ],
+        progressbarData: pgbData
+      }
+    }
+  }
+</script>

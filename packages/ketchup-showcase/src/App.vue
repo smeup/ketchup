@@ -350,6 +350,12 @@ export default {
               name: 'dtRadio',
             },
           },
+          {
+            title: 'Columns width',
+            to: {
+              name: 'dtColumnsWidth',
+            },
+          },
         ],
       },
       {

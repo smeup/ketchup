@@ -1,4 +1,4 @@
-import {TableData} from "../../../src/components/kup-data-table/kup-data-table-declarations";
+import {Cell, Column, Row, TableData,} from "../../../src/components/kup-data-table/kup-data-table-declarations";
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
@@ -7,6 +7,63 @@ const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
 // function getRandomArbitrary(min: number, max: number): number {
 //     return Math.floor(Math.random() * (max - min) + min);
 // }
+
+function columnFactory(name: string, title: string, size: number): Column {
+  return {
+    name,
+    title,
+    size,
+  }
+}
+
+function cellFactory(value: string, t: string = 'nr', p: string = '', k: string = value): Cell {
+  return {
+    value,
+    obj: {
+      t,
+      p,
+      k
+    }
+  };
+}
+
+/**
+ * Creates kup-data-table with a long text data set to allow testing on width aspects.
+ * @param numberOfCols - The number of columns to generate.
+ * @param numberOfRows - The number of rows to generate.
+ * @returns The data to set to the table.
+ */
+export function LongTextDataFactory(numberOfCols: number = 4, numberOfRows: number = 20): TableData {
+  const longText = "Column's width defined by the matrix setup";
+  let i = 0;
+
+  // Composes columns
+  const columns: Column[] = [];
+  for (i = 0; i < numberOfCols; i++) {
+    columns.push(columnFactory('FLD' + (i + 1), 'Column ' + (i + 1), 10));
+  }
+
+  // Composes rows
+  const rows: Row[] = [];
+  for (i = 0; i < numberOfRows; i++) {
+    let row: Row = {
+      cells: {}
+    };
+
+    // Composes cells
+    for (let j = 0; j < numberOfCols; j++) {
+      row.cells[columns[j].name] = cellFactory(longText);
+    }
+
+    rows.push(row);
+  }
+
+  return {
+    columns,
+    rows
+  };
+}
+
 
 function createData(colSize: number, rowSize: number) {
   const columns: any = [];

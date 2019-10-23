@@ -79,4 +79,9 @@ export default [
     name: 'dtRadio',
     component: () => import('@/views/dataTable/DTRadio.vue'),
   },
+  {
+    path: '/dataTable/columns-width',
+    name: 'dtColumnsWidth',
+    component: () => import('@/views/dataTable/DTColumnsWidth.vue'),
+  },
 ];

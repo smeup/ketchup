@@ -53,7 +53,6 @@ h3 {
       @kupLoadMoreClicked="onLoadMoreClick"/>
 
     <kup-data-table :data.prop="progressbarData"/>
-
   </div>
 </template>
 

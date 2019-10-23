@@ -102,15 +102,26 @@
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
+  .below-wrapper {
+    overflow-x: auto;
+  }
+
   table {
+    border-collapse: collapse;
     color: var(--dtt_color);
-    width: 100%;
+    font-size: var(--dtt_font-size);
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
     min-width: -moz-max-content; /* Firefox/Gecko */
     min-width: -webkit-max-content; /* Chrome */
-    border-collapse: collapse;
     text-align: left;
-    font-size: var(--dtt_font-size);
+    width: 100%;
+
+    // Class to put the table in width auto mode: in this way, if all visible columns have a fixed size,
+    // the table automatically has a size equal to the sum of the sizes all columns.
+    &.auto-width {
+      margin: auto;
+      width: auto;
+    }
 
     > thead {
       background: var(--dtt_head-background-color);

@@ -627,6 +627,36 @@ export class KupDataTable {
         return this.totals && Object.keys(this.totals).length > 0;
     }
 
+    /**
+     * Returns if the current data table must have the with set to auto to make table as large as the sum
+     * of the table columns fixed width.
+     * Table margin gets set to auto to center it.
+     */
+    private tableHasAutoWidth(): boolean {
+        const visibleCols = this.getVisibleColumns();
+        // Before checking each column, simply control that visible columns are at maximum as many as the custom columnsWidth items.
+        // If there are more visible columns, it means that the width of the table will be set to auto.
+        if (visibleCols.length <= this.columnsWidth.length) {
+            let found = false;
+
+            // Each visible column must have its own width for the table to have a auto width
+            for (let i = 0; i < visibleCols.length; i++) {
+                found = false;
+                for (let j = 0; j < this.columnsWidth.length; j++) {
+                    if (visibleCols[i].name === this.columnsWidth[j].column) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    return false
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     private forceGroupExpansion() {
         this.rows.forEach((row) => this.forceRowGroupExpansion(row));
     }
@@ -2239,6 +2269,9 @@ export class KupDataTable {
         }
 
         const tableClass = {
+            // Class for specifying if the table should have width: auto.
+            // Mandatory to check with custom column size.
+            'auto-width': !!(this.columnsWidth && this.columnsWidth.length && this.tableHasAutoWidth()),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
