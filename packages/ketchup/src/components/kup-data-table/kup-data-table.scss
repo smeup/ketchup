@@ -751,5 +751,21 @@ sticky-header {
   .column-title {
     font-weight: bold;
     margin: 0 0.3125rem;
+    white-space: nowrap;
+  }
+
+  .column-sort {
+    cursor: pointer;
+
+    .mdi {
+      color: var(--dtt_icons-color);
+      transition: color 0.2s ease-in-out;
+    }
+
+    &:hover {
+      .mdi {
+        color: var(--dtt_icons-hover-color);
+      }
+    }
   }
 }

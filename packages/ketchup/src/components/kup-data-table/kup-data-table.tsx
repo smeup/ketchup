@@ -495,7 +495,9 @@ export class KupDataTable {
         // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
         if (
             el.tagName !== 'THEAD' &&
-            (row.clientHeight * 2 > rect.bottom && vertInView && horInView)
+            (row.clientHeight * 2 > rect.bottom - offset &&
+                vertInView &&
+                horInView)
         ) {
             return false && false;
         } else {
@@ -1473,6 +1475,23 @@ export class KupDataTable {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
+            // sort
+            let sort = null;
+            if (this.sortEnabled) {
+                sort = (
+                    <span class="column-sort">
+                        <span
+                            role="button"
+                            aria-label="Sort column" // TODO
+                            class={'mdi ' + this.getSortIcon(column.name)}
+                            onClick={(e: MouseEvent) =>
+                                this.onColumnSort(e, column.name)
+                            }
+                        />
+                    </span>
+                );
+            }
+
             let thStyle = null;
             if (hasCustomColumnsWidth) {
                 for (let i = 0; i < this.columnsWidth.length; i++) {
@@ -1500,11 +1519,44 @@ export class KupDataTable {
             return (
                 <th-sticky class={columnClass} style={thStyle}>
                     <span class="column-title">{column.title}</span>
+                    {sort}
                 </th-sticky>
             );
         });
 
-        return [...dataColumns];
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+            };
+            multiSelectColumn = (
+                <th-sticky style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length ===
+                                this.renderedRows.length
+                        }
+                    />
+                </th-sticky>
+            );
+        }
+
+        let groupColumn = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupColumn = <th-sticky />;
+        }
+
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            actionsColumn = <th-sticky />;
+        }
+
+        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderFooter() {

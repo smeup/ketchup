@@ -37,11 +37,11 @@ export class scrollOnHover {
             rightArrow3
         );
         el.append(arrowsContainer);
-        el.addEventListener('click', (event: MouseEvent) =>
-            this.handleScroll(event)
+        el.addEventListener('scroll', (event: any) =>
+            this.setChildrenScroll(event.target)
         );
-        el.addEventListener('scroll', (event: MouseEvent) =>
-            this.handleScroll(event)
+        el.addEventListener('click', (event: any) =>
+            this.setChildrenScroll(event.target)
         );
         el.addEventListener('mousemove', (event: MouseEvent) =>
             this.handleScroll(event)
@@ -57,13 +57,7 @@ export class scrollOnHover {
         let el = event.target
             .closest('.hover-scrolling-parent')
             .querySelectorAll('.hover-scrolling-el')[0];
-        let step = el.scrollLeft;
-        let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
-        if (childrenToScroll) {
-            for (let i = 0; i < childrenToScroll.length; i++) {
-                childrenToScroll[i].scrollLeft = step;
-            }
-        }
+        this.setChildrenScroll(el);
         let arrowContainter = el.querySelectorAll(
             '#container-scrolling-arrow'
         )[0];
@@ -77,7 +71,8 @@ export class scrollOnHover {
             if (trueWidth !== 0 && scrollTimeout === 'off') {
                 let percRight = trueWidth - trueWidth * 0.1;
                 let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset = scrollOnHoverX - el.offsetLeft;
+                let elOffset =
+                    scrollOnHoverX - el.offsetLeft - el.offsetParent.offsetLeft;
                 let maxScrollLeft = el.scrollWidth - trueWidth;
                 var leftArrow = el.querySelectorAll(
                     '#container-scrolling-arrow .left-scrolling-arrow'
@@ -136,8 +131,9 @@ export class scrollOnHover {
         event: any,
         direction: string
     ) {
-        let elOffset = scrollOnHoverX - el.offsetLeft;
-        let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
+        let elOffsetParent: any = el.offsetParent;
+        let elOffset =
+            scrollOnHoverX - el.offsetLeft - elOffsetParent.offsetLeft;
         if (
             scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)
@@ -154,6 +150,7 @@ export class scrollOnHover {
             return;
         }
         var step = el.scrollLeft;
+        this.setChildrenScroll(el);
         arrowContainter.style.top = scrollOnHoverY + 'px';
         arrowContainter.style.left = scrollOnHoverX + 'px';
         for (let i = 0; i < arrow.length; i++) {
@@ -174,11 +171,6 @@ export class scrollOnHover {
             step = step + parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         }
         el.scrollLeft = step;
-        if (childrenToScroll) {
-            for (let i = 0; i < childrenToScroll.length; i++) {
-                childrenToScroll[i].scrollLeft = step;
-            }
-        }
         setTimeout(() => {
             this.startScrollOnHover(
                 el,
@@ -204,6 +196,16 @@ export class scrollOnHover {
                 direction
             );
         }, 250);
+    }
+
+    setChildrenScroll(el: any) {
+        let step = el.scrollLeft;
+        let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
+        if (childrenToScroll) {
+            for (let i = 0; i < childrenToScroll.length; i++) {
+                childrenToScroll[i].scrollLeft = step;
+            }
+        }
     }
 
     killScroll(event: any) {
