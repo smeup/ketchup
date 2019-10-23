@@ -106,6 +106,10 @@
     overflow-x: auto;
   }
 
+  /*
+   * Tags legend:
+   * [column-width-related] Marks a comment which is related to the columns size issue when a custom size is specified.
+   */
   table {
     border-collapse: collapse;
     color: var(--dtt_color);
@@ -118,6 +122,7 @@
 
     // Class to put the table in width auto mode: in this way, if all visible columns have a fixed size,
     // the table automatically has a size equal to the sum of the sizes all columns.
+    // [column-width-related][mandatory]
     &.auto-width {
       margin: auto;
       width: auto;
@@ -128,23 +133,37 @@
 
       th {
         background: var(--dtt_head-background-color);
-        position: relative;
-        padding: 0.5rem 0.3125rem;
-        white-space: nowrap;
         border-bottom: 2px solid var(--dtt_border-color);
         border-right: 1px solid var(--dtt_border-color);
+        box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
+        padding: 0.5rem 0.3125rem;
+        position: relative;
         position: sticky;
+        text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
         top: 0;
+        white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
 
-        // filters
+        //---- Column name container ----
+        $column-sort-margin: 0.5rem;
+
+        .column-title {
+          // Mandatory to allow ellipsis of the the column title when column size is really small.
+          display: inline-block; // Mandatory to allow width related props to take effect
+          max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: bottom;
+        }
+
+        //---- Filters ----
         kup-text-input.datatable-filter {
           --kup-text-input_border-color: var(--dtt_filter-border-color);
           --kup-text-input_background-color: var(--dtt_filter-background-color);
         }
 
-        // sort
+        //---- Sort icon ----
         .column-sort {
-          margin-left: 0.5rem;
+          margin-left: $column-sort-margin;
           cursor: pointer;
 
           .mdi {
@@ -162,7 +181,7 @@
           }
         }
 
-        // column menu
+        //---- Column menu icon ----
         .column-menu {
           background-color: var(--dtt_background-color);
           box-shadow: var(--dtt_box-shadow);
@@ -216,6 +235,7 @@
         }
       }
 
+      //---- Columns drag style ----
       &[columns-dragging] {
         // When the drag is over a valid target
         [drag-over] {
@@ -290,7 +310,10 @@
         }
 
         > td {
+          box-sizing: border-box; // [column-width-related][mandatory] cells total width can is established by prop
           padding: 0.5rem 0.3125rem;
+          word-break: break-all; // [column-width-related][mandatory] Breaks text if it has to be wrapped
+          word-wrap: break-word; // [column-width-related][mandatory] Breaks text if it has to be wrapped
 
           &.number {
             text-align: right;

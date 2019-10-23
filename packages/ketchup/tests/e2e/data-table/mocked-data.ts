@@ -883,10 +883,12 @@ export const groupingData = GroupingDataFactory();
 // Placed here a forced type to allow a correct usage later
 let dataTableHideRepetitions = (GroupingDataFactory() as TableData);
 
+// @ts-ignore
 dataTableHideRepetitions.columns.forEach(column => {
   column.hideValuesRepetitions = true;
 });
 
+// @ts-ignore
 dataTableHideRepetitions.rows.forEach(row => {
   row.cells.FLD1.options = true;
 });
