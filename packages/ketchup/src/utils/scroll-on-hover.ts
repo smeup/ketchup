@@ -77,7 +77,8 @@ export class scrollOnHover {
             if (trueWidth !== 0 && scrollTimeout === 'off') {
                 let percRight = trueWidth - trueWidth * 0.1;
                 let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset = scrollOnHoverX - el.offsetLeft;
+                let elOffset =
+                    scrollOnHoverX - el.offsetLeft - el.offsetParent.offsetLeft;
                 let maxScrollLeft = el.scrollWidth - trueWidth;
                 var leftArrow = el.querySelectorAll(
                     '#container-scrolling-arrow .left-scrolling-arrow'
@@ -93,6 +94,7 @@ export class scrollOnHover {
                         scrollTimeout = setTimeout(() => {
                             this.startScrollOnHover(
                                 el,
+                                elOffset,
                                 leftArrow,
                                 maxScrollLeft,
                                 arrowContainter,
@@ -111,6 +113,7 @@ export class scrollOnHover {
                         scrollTimeout = setTimeout(() => {
                             this.startScrollOnHover(
                                 el,
+                                elOffset,
                                 rightArrow,
                                 maxScrollLeft,
                                 arrowContainter,
@@ -128,6 +131,7 @@ export class scrollOnHover {
 
     startScrollOnHover(
         el: HTMLElement,
+        elOffset: number,
         arrow: any,
         maxScrollLeft: number,
         arrowContainter: HTMLElement,
@@ -136,7 +140,6 @@ export class scrollOnHover {
         event: any,
         direction: string
     ) {
-        let elOffset = scrollOnHoverX - el.offsetLeft;
         let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
         if (
             scrollTimeout === 'off' ||
@@ -182,6 +185,7 @@ export class scrollOnHover {
         setTimeout(() => {
             this.startScrollOnHover(
                 el,
+                elOffset,
                 arrow,
                 maxScrollLeft,
                 arrowContainter,
@@ -195,6 +199,7 @@ export class scrollOnHover {
         setTimeout(() => {
             this.startScrollOnHover(
                 el,
+                elOffset,
                 arrow,
                 maxScrollLeft,
                 arrowContainter,
