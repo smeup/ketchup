@@ -120,12 +120,23 @@
     text-align: left;
     width: 100%;
 
-    // Class to put the table in width auto mode: in this way, if all visible columns have a fixed size,
-    // the table automatically has a size equal to the sum of the sizes all columns.
-    // [column-width-related][mandatory]
+    /* Class to put the table in "width auto" mode: in this way, if all visible columns have a fixed size,
+     * the table automatically has a size equal to the sum of the sizes all columns.
+     * Additionally it must remove the min width specification to allow a correct sizing.
+     * [column-width-related][mandatory]
+     *
+     * To notice
+     * [1] - If we do not place these properties in the correct order, on Firefox we will find that the
+     *     tables takes the whole available place, therefore fixed sizes are not respected.
+     * [2] - On the contrary, without using these properties, V8 browsers will not understand that the table must have
+     *     the width equal to the sum of all columns widths.
+     */
     &.auto-width {
+      table-layout: fixed; // [mandatory] See [2]
       margin: auto;
-      width: auto;
+      min-width: auto; // [mandatory] See [1] [2]
+      width: fit-content; // [mandatory] See [1] [2]
+      width: -moz-max-content; // [mandatory] See [1]
     }
 
     > thead {
