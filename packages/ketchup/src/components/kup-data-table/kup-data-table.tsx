@@ -1473,6 +1473,23 @@ export class KupDataTable {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
+            // sort
+            let sort = null;
+            if (this.sortEnabled) {
+                sort = (
+                    <span class="column-sort">
+                        <span
+                            role="button"
+                            aria-label="Sort column" // TODO
+                            class={'mdi ' + this.getSortIcon(column.name)}
+                            onClick={(e: MouseEvent) =>
+                                this.onColumnSort(e, column.name)
+                            }
+                        />
+                    </span>
+                );
+            }
+
             let thStyle = null;
             if (hasCustomColumnsWidth) {
                 for (let i = 0; i < this.columnsWidth.length; i++) {
@@ -1500,6 +1517,7 @@ export class KupDataTable {
             return (
                 <th-sticky class={columnClass} style={thStyle}>
                     <span class="column-title">{column.title}</span>
+                    {sort}
                 </th-sticky>
             );
         });
