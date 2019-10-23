@@ -1504,7 +1504,39 @@ export class KupDataTable {
             );
         });
 
-        return [...dataColumns];
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+            };
+            multiSelectColumn = (
+                <th-sticky style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length ===
+                                this.renderedRows.length
+                        }
+                    />
+                </th-sticky>
+            );
+        }
+
+        let groupColumn = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupColumn = <th-sticky />;
+        }
+
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            actionsColumn = <th-sticky />;
+        }
+
+        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     renderFooter() {
