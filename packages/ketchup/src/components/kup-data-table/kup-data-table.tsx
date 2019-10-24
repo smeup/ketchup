@@ -1851,9 +1851,7 @@ export class KupDataTable {
                 }
             }
         } else if (isImage(cell.obj)) {
-            content = (
-                <img src={valueToDisplay} alt="" width="64" height="64" />
-            );
+            content = <img src={valueToDisplay} alt="" class="cell-image"/>;
         } else if (isLink(cell.obj)) {
             content = (
                 <a href={valueToDisplay} target="_blank">

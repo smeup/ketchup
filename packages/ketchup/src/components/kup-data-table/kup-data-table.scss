@@ -5,6 +5,8 @@
 * @prop --dtt_border-color, --kup-data-table_border-color: border-color for the whole table.
 * @prop --dtt_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
+* @prop --dtt_cell-image_max-height, --kup-data-table_cell-image_max-height: The max height images object inside cells can have
+* @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
 * @prop --dtt_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
@@ -60,6 +62,8 @@
     --kup-data-table_head-background-color,
     #f4f4f4
   );
+  --dtt_cell-image_max-height: var(--kup-data-table_cell-image_max-height, 64px);
+  --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
   --dtt_header-offset: var(--kup-data-table_header-offset, 50px);
   --dtt_hover-background-color: var(
     --kup-data-table_hover-background-color,
@@ -102,6 +106,8 @@
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
+  //---- Below wrapper ----
+  // contains the table and other bottom elements of the matrix
   .below-wrapper {
     overflow-x: auto;
   }
@@ -378,6 +384,13 @@
             &.negative-number {
               color: var(--dtt_negative-number-color);
             }
+          }
+
+          // Class assigned to the image of a cell
+          // Allows regulation of sizes
+          .cell-image {
+            max-height: var(--dtt_cell-image_max-height);
+            min-height: var(--dtt_cell-image_min-height);
           }
         }
       }
