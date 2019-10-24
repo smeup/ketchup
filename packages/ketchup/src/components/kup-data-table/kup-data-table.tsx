@@ -85,6 +85,12 @@ export class KupDataTable {
     @Prop({ mutable: true })
     filters: GenericMap = {};
 
+    /**
+     * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
+     */
+    @Prop({reflect: true})
+    forceOneLine: boolean = true;
+
     @Prop()
     globalFilter = false;
 
@@ -174,7 +180,7 @@ export class KupDataTable {
     @Prop()
     totals: TotalsMap;
 
-    //---- State ----
+    //-------- State --------
 
     @State()
     private globalFilterValue = '';
@@ -1663,6 +1669,31 @@ export class KupDataTable {
                     cellStyle = cell.style;
                 }
 
+                // Controls if there are columns with a specified width
+                if (this.columnsWidth && this.columnsWidth.length) {
+                    let colWidth: string = '';
+
+                    // Search if this column has a specified width
+                    for (let j = 0; j < this.columnsWidth.length; j++) {
+                        if (name === this.columnsWidth[j].column) {
+                            colWidth = this.columnsWidth[j].width + 'px';
+                            break;
+                        }
+                    }
+
+                    // Specific width has been found
+                    if (colWidth) {
+                        if (!cellStyle) {
+                          cellStyle = {};
+                        }
+
+                        // Sets the width.
+                        // Search for "auto-width" class inside the scss file of this component for more details about this
+                        cellStyle['max-width'] = colWidth;
+                        cellStyle['min-width'] = colWidth;
+                    }
+                }
+
                 return (
                     <td data-column={name} style={cellStyle} class={cellClass}>
                         {indend}
@@ -1917,6 +1948,11 @@ export class KupDataTable {
         if (styleHasBorderRadius(cell)) {
             style = cell.style;
         }
+
+        /**
+         * Controls if current cell needs a tooltip and eventually adds it.
+         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+         */
         if (this.hasTooltip(cell)) {
             content = <kup-tooltip onKupTooltipLoadData={(ev) => this.kupLoadRequest.emit(
                 {
@@ -1930,6 +1966,7 @@ export class KupDataTable {
                 }
             )} >{content}</kup-tooltip>;
         }
+
         return (
             <span class={clazz} style={style}>
                 {content}
@@ -2275,7 +2312,7 @@ export class KupDataTable {
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
-
+            // When there are columns with a specified width, we must add table-layout: fixed to force the table to respect them
             'row-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.ROW === this.showGrid,

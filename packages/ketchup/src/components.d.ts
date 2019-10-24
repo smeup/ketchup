@@ -272,6 +272,10 @@ export namespace Components {
     'enableSortableColumns': boolean;
     'expandGroups': boolean;
     'filters': GenericMap;
+    /**
+    * Forces cells with long text to have an ellipsis set on them.
+    */
+    'forceOneLine': boolean;
     'globalFilter': boolean;
     'groups': Array<GroupObject>;
     /**
@@ -1123,6 +1127,10 @@ declare namespace LocalJSX {
     'enableSortableColumns'?: boolean;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
+    /**
+    * Forces cells with long text to have an ellipsis set on them.
+    */
+    'forceOneLine'?: boolean;
     'globalFilter'?: boolean;
     'groups'?: Array<GroupObject>;
     /**

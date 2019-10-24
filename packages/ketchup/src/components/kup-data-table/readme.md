@@ -53,6 +53,7 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables sorting of the columns by dragging them into different columns                                                                                                                                                                                          | `boolean`                                                                                        | `false`                              |
 | `expandGroups`              | `expand-groups`                |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `filters`                   | --                             |                                                                                                                                                                                                                                                                 | `GenericMap`                                                                                     | `{}`                                 |
+| `forceOneLine`              | `force-one-line`               | Forces cells with long text to have an ellipsis set on them.                                                                                                                                                                                                    | `boolean`                                                                                        | `true`                               |
 | `globalFilter`              | `global-filter`                |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `groups`                    | --                             |                                                                                                                                                                                                                                                                 | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky. | `boolean`                                                                                        | `false`                              |
@@ -140,6 +141,7 @@ Type: `Promise<Column[]>`
 - [kup-checkbox](..\kup-checkbox)
 - [kup-button](..\kup-button)
 - [kup-graphic-cell](..\kup-graphic-cell)
+- [kup-radio-element](..\kup-radio-element)
 - [kup-tooltip](..\kup-tooltip)
 - [kup-paginator](..\kup-paginator)
 - [kup-chip](..\kup-chip)
@@ -152,6 +154,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-radio-element
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
