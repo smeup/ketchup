@@ -101,6 +101,9 @@
     --kup-data-table_density-icon-color,
     #{$mainTextColor}
   );
+
+  position: relative;
+  z-index: 0;
 }
 
 #data-table-wrapper {

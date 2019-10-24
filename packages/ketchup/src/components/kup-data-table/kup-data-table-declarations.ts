@@ -43,6 +43,7 @@ export interface RowGroup {
     id: string;
     parent: Row;
     column: string;
+    columnLabel: string; // Saves the column label in case either LABEL or BOTH modes for the groupLabelDisplay are activated
     expanded: boolean; // not sure if this is needed
     label: string;
     children: Array<Row>;
@@ -130,4 +131,19 @@ export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
 export interface KupDataTableSortedColumnIndexes {
     receivingColumnIndex: number;
     sortedColumnIndex: number;
+}
+
+//---- Sortable Columns Functionality ----
+/**
+ * The possible values the display property can have.
+ * @enum
+ * @property {string} BOTH - Shows both the column label and the value. This is the default.
+ * @property {string} LABEL - Shows only the columns label.
+ * @property {string} VALUE - Shows only the value.
+ * @readonly
+ */
+export enum GroupLabelDisplayMode {
+  BOTH = 'both',
+  LABEL = 'label',
+  VALUE = 'value',
 }

@@ -14,6 +14,7 @@ import {
   Column,
   DataTable,
   GenericMap,
+  GroupLabelDisplayMode,
   GroupObject,
   KupDataTableCellButtonClick,
   KupDataTableSortedColumnIndexes,
@@ -277,6 +278,10 @@ export namespace Components {
     */
     'forceOneLine': boolean;
     'globalFilter': boolean;
+    /**
+    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+    */
+    'groupLabelDisplay': GroupLabelDisplayMode;
     'groups': Array<GroupObject>;
     /**
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
@@ -1132,6 +1137,10 @@ declare namespace LocalJSX {
     */
     'forceOneLine'?: boolean;
     'globalFilter'?: boolean;
+    /**
+    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+    */
+    'groupLabelDisplay'?: GroupLabelDisplayMode;
     'groups'?: Array<GroupObject>;
     /**
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.

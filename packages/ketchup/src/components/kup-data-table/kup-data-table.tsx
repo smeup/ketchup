@@ -1,63 +1,52 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    h,
-    JSX,
-    Method,
-    Prop,
-    State,
-    Watch,
-} from '@stencil/core';
+import {Component, Event, EventEmitter, h, JSX, Method, Prop, State, Watch,} from '@stencil/core';
 
 import numeral from 'numeral';
 
 import {
-    Cell,
-    Column,
-    KupDataTableCellButtonClick,
-    GenericMap,
-    GroupObject,
-    LoadMoreMode,
-    PaginatorPos,
-    Row,
-    RowAction,
-    ShowGrid,
-    SortMode,
-    SortObject,
-    TableData,
-    TotalsMap,
-    KupDataTableColumnDragType,
-    KupDataTableSortedColumnIndexes,
-    RowGroup,
+  Cell,
+  Column,
+  GenericMap,
+  GroupLabelDisplayMode,
+  GroupObject,
+  KupDataTableCellButtonClick,
+  KupDataTableColumnDragType,
+  KupDataTableSortedColumnIndexes,
+  LoadMoreMode,
+  PaginatorPos,
+  Row,
+  RowAction,
+  RowGroup,
+  ShowGrid,
+  SortMode,
+  SortObject,
+  TableData,
+  TotalsMap,
 } from './kup-data-table-declarations';
 
 import {
-    calcTotals,
-    filterRows,
-    groupRows,
-    sortRows,
-    getColumnByName,
-    paginateRows,
-    styleHasBorderRadius,
+  calcTotals,
+  filterRows,
+  getColumnByName,
+  groupRows,
+  paginateRows,
+  sortRows,
+  styleHasBorderRadius,
 } from './kup-data-table-helper';
 
-import {
-  progressbarFromCellHelper,
-} from "../kup-progress-bar/kup-progress-bar-helper";
+import {progressbarFromCellHelper,} from "../kup-progress-bar/kup-progress-bar-helper";
 
 import {
-    isBar,
-    isButton,
-    isCheckbox,
-    isIcon,
-    isImage,
-    isLink,
-    isNumber,
-    isProgressBar,
-    isRadio,
-    isVoCodver,
-    createJ4objButtonConfig,
+  createJ4objButtonConfig,
+  isBar,
+  isButton,
+  isCheckbox,
+  isIcon,
+  isImage,
+  isLink,
+  isNumber,
+  isProgressBar,
+  isRadio,
+  isVoCodver,
 } from '../../utils/object-utils';
 
 @Component({
@@ -93,6 +82,13 @@ export class KupDataTable {
 
     @Prop()
     globalFilter = false;
+
+    /**
+     * How the label of a group must be displayed.
+     * For available values [see here]{@link GroupLabelDisplayMode}
+     */
+    @Prop()
+    groupLabelDisplay: GroupLabelDisplayMode = GroupLabelDisplayMode.BOTH;
 
     @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
@@ -1449,6 +1445,21 @@ export class KupDataTable {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
+            // Composes the label the group must display
+            let composedGroupLabel: string;
+            switch (this.groupLabelDisplay) {
+                case GroupLabelDisplayMode.LABEL:
+                    composedGroupLabel = row.group.columnLabel;
+                    break;
+                case GroupLabelDisplayMode.VALUE:
+                    composedGroupLabel = row.group.label;
+                    break;
+                case GroupLabelDisplayMode.BOTH:
+                default:
+                    composedGroupLabel = row.group.columnLabel + ' = ' + row.group.label;
+                    break;
+            }
+
             if (row.group.children.length === 0) {
                 // empty group
                 return null;
@@ -1495,7 +1506,7 @@ export class KupDataTable {
                                     {icon}
                                 </svg>
                             </span>
-                            {row.group.label}
+                            <span class="text">{composedGroupLabel}</span>
                             <span
                                 role="button"
                                 aria-label="Remove group" // TODO change this label
@@ -1555,7 +1566,7 @@ export class KupDataTable {
                                         {icon}
                                     </svg>
                                 </span>
-                                <span class="text">{row.group.label}</span>
+                                <span class="text">{composedGroupLabel}</span>
                                 <span
                                     role="button"
                                     aria-label="Remove group" // TODO change this label

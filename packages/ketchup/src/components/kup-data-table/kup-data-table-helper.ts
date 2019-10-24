@@ -307,10 +307,15 @@ export function groupRows(
         return rows;
     }
 
-    // remove invalid groups
+    // Keeps label of the valid columns
+    const columnLabels: {[index: string]: string} = {};
+
+    // remove invalid groups and store column labels
     const validGroups = groups.filter(({ column }) => {
-        for (let { name } of columns) {
+        for (let { name, title } of columns) {
             if (name === column) {
+                // Store label of the columns
+                columnLabels[name] = title;
                 return true;
             }
         }
@@ -350,6 +355,7 @@ export function groupRows(
                     id: cellValue,
                     parent: null,
                     column: columnName,
+                    columnLabel: columnLabels[columnName],
                     expanded: false,
                     label: cellValue,
                     children: [],
@@ -389,6 +395,7 @@ export function groupRows(
                         id: tempCellValue,
                         parent: groupRow,
                         column: group.column,
+                        columnLabel: columnLabels[group.column],
                         children: [],
                         expanded: false,
                         label: tempCellValue,
