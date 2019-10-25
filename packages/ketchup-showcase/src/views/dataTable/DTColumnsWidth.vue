@@ -13,20 +13,41 @@
 
     <h3>Long text, some columns have specified length</h3>
     <p>Columns with a custom size are {{ columnNamesToString(someColumnsWidth, longTextData) }}</p>
+    <h4>forceOneLine = <code class="inline">false</code></h4>
     <kup-data-table
       :columnsWidth.prop="someColumnsWidth"
-      :data.prop="longTextData"/>
+      :data.prop="longTextData"
+      :forceOneLine.prop="false"/>
+    <h4>forceOneLine = <code class="inline">true</code></h4>
+    <kup-data-table
+      :columnsWidth.prop="someColumnsWidth"
+      :data.prop="longTextData"
+      :forceOneLine.prop="true"/>
 
     <h3>All visible columns have a custom size</h3>
     <p>When all visible columns have a custom size, the table width gets set to the sum of the columns.<br>
       The table itself gains a margin auto attribute to eventually center it.
     </p>
+
+    <h4>forceOneLine = <code class="inline">false</code></h4>
     <kup-data-table
       :columnsWidth.prop="allColumnsWidth"
-      :data.prop="longTextData"/>
+      :data.prop="longTextData"
+      :forceOneLine.prop="false"/>
     <kup-data-table
       :columnsWidth.prop="progressbarColsize"
-      :data.prop="progressbarData"/>
+      :data.prop="progressbarData"
+      :forceOneLine.prop="false"/>
+
+    <h4>forceOneLine = <code class="inline">true</code></h4>
+    <kup-data-table
+      :columnsWidth.prop="allColumnsWidth"
+      :data.prop="longTextData"
+      :forceOneLine.prop="true"/>
+    <kup-data-table
+      :columnsWidth.prop="progressbarColsize"
+      :data.prop="progressbarData"
+      :forceOneLine.prop="true"/>
   </div>
 </template>
 
@@ -113,3 +134,9 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  h4 {
+    margin-top: 20px;
+  }
+</style>
