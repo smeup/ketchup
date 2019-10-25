@@ -274,7 +274,7 @@ export namespace Components {
     'expandGroups': boolean;
     'filters': GenericMap;
     /**
-    * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
+    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
     'globalFilter': boolean;
@@ -1133,7 +1133,7 @@ declare namespace LocalJSX {
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
     /**
-    * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
+    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine'?: boolean;
     'globalFilter'?: boolean;

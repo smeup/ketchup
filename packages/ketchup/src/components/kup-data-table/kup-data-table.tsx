@@ -76,9 +76,10 @@ export class KupDataTable {
 
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
+     * The reflect attribute is mandatory to allow styling.
      */
     @Prop({reflect: true})
-    forceOneLine: boolean = true;
+    forceOneLine: boolean = false;
 
     @Prop()
     globalFilter = false;
@@ -1162,14 +1163,13 @@ export class KupDataTable {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
-            // filter
+            //---- Filter ----
             let filter = null;
-            if (this.showFilters) {
-                let filterValue = '';
-                if (this.filters && this.filters[column.name]) {
-                    filterValue = this.filters[column.name];
-                }
+            // If the current column has a filter, then we take its value
+            let filterValue = this.filters && this.filters[column.name] ? this.filters[column.name] : '';
 
+            if (this.showFilters) {
+                // When showing filters, displays input box to update them.
                 filter = (
                     <div>
                         <kup-text-input
@@ -1182,9 +1182,37 @@ export class KupDataTable {
                         />
                     </div>
                 );
+            } else if (filterValue) {
+                const svgLabel = `Rimuovi filtro: '${filterValue}'`;
+                /**
+                 * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
+                 * Upon click, the filter gets removed.
+                 * The payload event is simulated here.
+                 *
+                 * This SVG was created by Niccolò from Dreamonkey.
+                 * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
+                 */
+                filter = <svg
+                    aria-label={svgLabel}
+                    class="remove-filter"
+                    role="button"
+                    tab-index="0"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                    x="0px"
+                    y="0px"
+                    onClick={() => {
+                      this.onFilterChange({detail: {value: ''}}, column.name);
+                    }}>
+                  <title>{svgLabel}</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
+                    c0.042,0.3-0.06,0.62-0.289,0.828c-0.392,0.391-1.021,0.391-1.411,0l-2.008-2.008c-0.232-0.228-0.331-0.541-0.292-0.83v-5.871
+                    h-0.028l-5.25-6.726L2,2.943L2.943,2L8.82,7.877L14.667,13.726z M20.287,4.276c0.43,0.34,0.51,0.97,0.172,1.399l-5.242,6.713
+                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"/>
+                </svg>;
             }
 
-            // sort
+            //---- Sort ----
             let sort = null;
             if (this.sortEnabled) {
                 sort = (
@@ -1220,7 +1248,7 @@ export class KupDataTable {
 
             const columnMenuItems: JSX.Element[] = [];
 
-            // adding grouping
+            //---- adding grouping ----
             const group = this.getGroupByName(column.name);
             const groupLabel =
                 group != null
@@ -1623,7 +1651,7 @@ export class KupDataTable {
                 let indend = [];
                 if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
                     for (let i = 0; i < level; i++) {
-                        indend.push(<span class="indent" />);
+                        indend.push(<span class="indent"/>);
                     }
                 }
 
@@ -1672,6 +1700,7 @@ export class KupDataTable {
                 );
 
                 const cellClass = {
+                    'has-options': !!(options),
                     number: isNumber(cell.obj),
                 };
 
