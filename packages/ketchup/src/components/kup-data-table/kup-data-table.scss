@@ -533,6 +533,7 @@
       max-width: 150px;
       overflow: hidden;
       color: var(--dtt_color);
+      font-size: calc(var(--dtt_font-size) * 0.9);
     }
   }
 
@@ -566,7 +567,7 @@
 
     & span.density-label,
     & span.fontsize-label {
-      font-size: var(--dtt_font-size);
+      font-size: calc(var(--dtt_font-size) * 0.9);
     }
 
     &:hover,
