@@ -743,6 +743,7 @@ sticky-header {
 
   th-sticky {
     padding: 0.5rem 0;
+    display: inline-flex;
 
     &.number {
       text-align: right;
