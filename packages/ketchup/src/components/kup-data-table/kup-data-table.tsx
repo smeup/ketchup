@@ -2094,7 +2094,7 @@ export class KupDataTable {
         );
     }
 
-    private onCustomSettingsClick(event) {
+    private onCustomSettingsClick(event: any) {
         let t = event.target;
         let elPanel = t
             .closest('.paginator-wrapper')
@@ -2110,6 +2110,17 @@ export class KupDataTable {
         } else {
             elButton.classList.add('activated');
             elPanel.classList.add('visible');
+        }
+    }
+
+    private closeCustomSettings() {
+        let elPanel = this.customizePanelRef;
+        let elButton = elPanel
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            elPanel.classList.remove('visible');
         }
     }
 
@@ -2134,6 +2145,7 @@ export class KupDataTable {
                         onClick={(e) => this.onCustomSettingsClick(e)}
                     >
                         <div
+                            onMouseLeave={() => this.closeCustomSettings()}
                             class="customize-panel"
                             ref={(el) => (this.customizePanelRef = el as any)}
                         >
@@ -2148,7 +2160,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel(top: boolean) {
-        let fontSize;
+        let fontSize: string;
         {
             this.fontsize === 'medium'
                 ? (fontSize = 'Media')
@@ -2250,7 +2262,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel(top: boolean) {
-        let densityType;
+        let densityType: string;
         {
             this.density === 'medium'
                 ? (densityType = 'Normale')
