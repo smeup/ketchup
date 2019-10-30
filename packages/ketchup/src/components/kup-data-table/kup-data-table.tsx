@@ -1087,9 +1087,9 @@ export class KupDataTable {
             colSpan += 1;
         }
 
-        if (this.isGrouping() && this.hasTotals()) {
-            colSpan += 1;
-        }
+        // if (this.isGrouping() && this.hasTotals()) {
+        //     colSpan += 1;
+        // }
 
         if (this.hasRowActions()) {
             colSpan += 1;
@@ -1503,9 +1503,9 @@ export class KupDataTable {
         }
 
         let groupColumn = null;
-        if (this.isGrouping() && this.hasTotals()) {
-            groupColumn = <th-sticky />;
-        }
+        // if (this.isGrouping() && this.hasTotals()) {
+        //     groupColumn = <th-sticky />;
+        // }
 
         let actionsColumn = null;
         if (this.hasRowActions()) {
@@ -1531,9 +1531,9 @@ export class KupDataTable {
         }
 
         let groupingCell = null;
-        if (this.isGrouping() && this.hasTotals()) {
-            groupingCell = <td />;
-        }
+        // if (this.isGrouping() && this.hasTotals()) {
+        //     groupingCell = <td />;
+        // }
 
         const footer = (
             <tfoot>
@@ -1569,35 +1569,39 @@ export class KupDataTable {
             }
 
             if (this.hasTotals()) {
+                //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
-
                 // adding 'grouping' cell
-                const colSpan = this.multiSelection ? 2 : 1;
-                cells.push(
-                    <td colSpan={colSpan}>
-                        {indent}
-                        <span class="group-cell-content">
-                            <span
-                                class={icon}
-                                role="button"
-                                aria-label="Row expander" // TODO change this label
-                                title="Expand/collapse group"
-                                tabindex="0"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.onRowExpand(row);
-                                }}
-                            ></span>
-                            {row.group.label}
-                        </span>
-                    </td>
-                );
+                const grouplabelcell = <td colSpan={this.calculateColspan()}>
+                    {indent}
+                    <span class="group-cell-content">
+                        <span
+                            class={icon}
+                            role="button"
+                            aria-label="Row expander" // TODO change this label
+                            title="Expand/collapse group"
+                            tabindex="0"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onRowExpand(row);
+                            }}
+                        ></span>
+                        {row.group.label}
+                    </span>
+                </td>;
 
+                // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
                     cells.push(
                         <td class="total">{row.group.totals[column.name]}</td>
                     );
                 }
+
+                jsxRows.push(
+                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                        {grouplabelcell}
+                    </tr>
+                );
 
                 jsxRows.push(
                     <tr class="group" onClick={() => this.onRowExpand(row)}>
@@ -1657,7 +1661,7 @@ export class KupDataTable {
             const cells = visibleColumns.map((currentColumn, index) => {
                 const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
-                if (index === 0 && !(this.isGrouping() && this.hasTotals())) {
+                if (index === 0) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
@@ -1741,9 +1745,9 @@ export class KupDataTable {
             }
 
             let groupingCell = null;
-            if (this.isGrouping() && this.hasTotals()) {
-                groupingCell = <td />;
-            }
+            // if (this.isGrouping() && this.hasTotals()) {
+            //     groupingCell = <td />;
+            // }
 
             // adding row to rendered rows
             this.renderedRows.push(row);
