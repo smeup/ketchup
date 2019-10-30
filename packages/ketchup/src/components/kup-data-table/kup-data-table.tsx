@@ -1458,17 +1458,18 @@ export class KupDataTable {
             );
         }
 
-        let groupColumn = null;
-        if (this.isGrouping() && this.hasTotals()) {
-            groupColumn = <th />;
-        }
+        //  let groupColumn = null;
+        //  if (this.isGrouping() && this.hasTotals()) {
+        //      groupColumn = <th />;
+        //  }
 
         let actionsColumn = null;
         if (this.hasRowActions()) {
             actionsColumn = <th />;
         }
 
-        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+        return [multiSelectColumn, actionsColumn, ...dataColumns];
+        //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     private renderStickyHeader() {
