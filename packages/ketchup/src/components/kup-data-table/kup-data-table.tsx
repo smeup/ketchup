@@ -31,7 +31,6 @@ import {
     TotalsMap,
     KupDataTableColumnDragType,
     KupDataTableSortedColumnIndexes,
-    RowGroup,
 } from './kup-data-table-declarations';
 
 import {
