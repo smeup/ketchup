@@ -265,6 +265,7 @@
                 display: inline-flex;
                 vertical-align: bottom;
                 outline: none;
+                margin-left: 0.25rem;
 
                 &:before {
                   font-size: calc(var(--dtt_font-size) * 1.25);
