@@ -17,7 +17,6 @@ import {
   PaginatorPos,
   Row,
   RowAction,
-  RowGroup,
   ShowGrid,
   SortMode,
   SortObject,
@@ -1668,7 +1667,7 @@ export class KupDataTable {
                                 this.onRowExpand(row);
                             }}
                         ></span>
-                        {row.group.label}
+                        {composedGroupLabel}
                     </span>
                 </td>;
 
@@ -1707,7 +1706,7 @@ export class KupDataTable {
                                         this.onRowExpand(row);
                                     }}
                                 ></span>
-                                <span class="text">{row.group.label}</span>
+                                <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
                     </tr>
