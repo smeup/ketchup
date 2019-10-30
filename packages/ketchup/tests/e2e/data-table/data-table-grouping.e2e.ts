@@ -5,14 +5,16 @@ import { groupingData, d8Data } from './mocked-data';
 import {
     rowsSelector,
     headerCellsSelector,
-    expanderPathSelector,
+    expanderSelector,
     rowExpanderSelector,
 } from './data-table-selectors';
 
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
-const collapseIcon = 'M19,13H5V11H19V13Z';
-const expandIcon = 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z';
+//const collapseIcon = 'M19,13H5V11H19V13Z';
+//const expandIcon = 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z';
+const expandClass = 'mdi-menu-down';
+const collapseClass = 'mdi-menu-up';
 
 describe('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {
@@ -48,9 +50,9 @@ describe('kup-data-table with single grouping', () => {
 
             expect(cells[0]).toEqualAttribute('colspan', '3');
 
-            const path = await cells[0].find(expanderPathSelector);
+            const path = await cells[0].find(expanderSelector);
 
-            expect(path).toEqualAttribute('d', expandIcon);
+            expect(path).toHaveClass(expandClass);
 
             // testing group order
             switch (i) {
@@ -91,9 +93,9 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '3');
 
-                const path = await cells[0].find(expanderPathSelector);
+                const path = await cells[0].find(expanderSelector);
 
-                expect(path).toEqualAttribute('d', collapseIcon);
+                expect(path).toHaveClass(collapseClass);
             } else {
                 // normal row
                 expect(cells).toHaveLength(3);
@@ -147,9 +149,9 @@ describe('kup-data-table with single grouping', () => {
 
             expect(cells[0]).toEqualAttribute('colspan', '2');
 
-            const path = await cells[0].find(expanderPathSelector);
+            const path = await cells[0].find(expanderSelector);
 
-            expect(path).toEqualAttribute('d', expandIcon);
+            expect(path).toHaveClass(expandClass);
 
             // testing group order
             switch (i) {
@@ -190,9 +192,9 @@ describe('kup-data-table with single grouping', () => {
 
                 expect(cells[0]).toEqualAttribute('colspan', '2');
 
-                const path = await cells[0].find(expanderPathSelector);
+                const path = await cells[0].find(expanderSelector);
 
-                expect(path).toEqualAttribute('d', collapseIcon);
+                expect(path).toHaveClass(collapseClass);
             } else {
                 // normal row
                 expect(cells).toHaveLength(2);
