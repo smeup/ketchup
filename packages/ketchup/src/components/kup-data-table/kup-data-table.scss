@@ -261,31 +261,15 @@
             padding: 0.5rem 0;
 
             .group-cell-content {
-              svg {
-                cursor: pointer;
-                width: var(--dtt_font-size);
-                height: var(--dtt_font-size);
-                margin: 0 0.3rem;
-                fill: var(--dtt_color);
-
-                &.group-expander {
-                  padding: 0.2rem;
-                  margin-right: 1rem;
-                  margin-left: 0.5rem;
-                }
-
-                &.group-remove {
-                  fill: var(--dtt_remove-icon-color);
-                  &:hover {
-                    fill: var(--dtt_remove-icon-color-hover);
-                  }
-                }
-              }
-
               > span {
                 display: inline-flex;
-                vertical-align: middle;
+                vertical-align: bottom;
                 outline: none;
+
+                &:before {
+                  font-size: calc(var(--dtt_font-size) * 1.25);
+                  vertical-align: middle;
+                }
               }
             }
 
@@ -430,10 +414,26 @@
       &small {
         font-size: calc(var(--dtt_font-size) * 0.75);
         transition: font-size 0.1s;
+
+        .group-cell-content {
+          > span {
+            &:before {
+              font-size: calc(var(--dtt_font-size) * 1) !important;
+            }
+          }
+        }
       }
       &big {
         font-size: calc(var(--dtt_font-size) * 1.25);
         transition: font-size 0.1s;
+
+        .group-cell-content {
+          > span {
+            &:before {
+              font-size: calc(var(--dtt_font-size) * 1.5) !important;
+            }
+          }
+        }
       }
     }
   }

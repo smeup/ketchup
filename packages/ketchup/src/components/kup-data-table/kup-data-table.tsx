@@ -684,32 +684,6 @@ export class KupDataTable {
         }
     }
 
-    private removeGroupFromRow(group: RowGroup) {
-        if (!group) {
-            return;
-        }
-
-        // resetting group state
-        this.groupState = {};
-
-        // search group
-        let index = -1;
-        for (let i = 0; i < this.groups.length; i++) {
-            const g = this.groups[i];
-
-            if (g.column === group.column) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index >= 0) {
-            // removing group from prop
-            this.groups.splice(index, 1);
-            this.groups = [...this.groups];
-        }
-    }
-
     private hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
     }
@@ -1584,11 +1558,9 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded ? (
-                <path d="M19,13H5V11H19V13Z" />
-            ) : (
-                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-            );
+            const icon = row.group.expanded
+                ? 'mdi mdi-menu-up'
+                : 'mdi mdi-menu-down';
 
             const jsxRows = [];
 
@@ -1607,6 +1579,7 @@ export class KupDataTable {
                         {indent}
                         <span class="group-cell-content">
                             <span
+                                class={icon}
                                 role="button"
                                 aria-label="Row expander" // TODO change this label
                                 title="Expand/collapse group"
@@ -1615,36 +1588,8 @@ export class KupDataTable {
                                     e.stopPropagation();
                                     this.onRowExpand(row);
                                 }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-expander"
-                                >
-                                    {icon}
-                                </svg>
-                            </span>
+                            ></span>
                             {row.group.label}
-                            <span
-                                role="button"
-                                aria-label="Remove group" // TODO change this label
-                                title="Remove group"
-                                tabindex="0"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.removeGroupFromRow(row.group);
-                                }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-remove"
-                                >
-                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                </svg>
-                            </span>
                         </span>
                     </td>
                 );
@@ -1667,6 +1612,7 @@ export class KupDataTable {
                             {indent}
                             <span class="group-cell-content">
                                 <span
+                                    class={icon}
                                     role="button"
                                     aria-label="Row expander" // TODO change this label
                                     title="Expand/collapse group"
@@ -1675,36 +1621,8 @@ export class KupDataTable {
                                         e.stopPropagation();
                                         this.onRowExpand(row);
                                     }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-expander"
-                                    >
-                                        {icon}
-                                    </svg>
-                                </span>
+                                ></span>
                                 <span class="text">{row.group.label}</span>
-                                <span
-                                    role="button"
-                                    aria-label="Remove group" // TODO change this label
-                                    title="Remove group"
-                                    tabindex="0"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        this.removeGroupFromRow(row.group);
-                                    }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-remove"
-                                    >
-                                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                    </svg>
-                                </span>
                             </span>
                         </td>
                     </tr>
