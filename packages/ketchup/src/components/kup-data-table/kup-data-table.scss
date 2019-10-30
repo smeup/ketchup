@@ -258,7 +258,7 @@
           border-top: 1px solid var(--dtt_border-color);
 
           > td {
-            padding: 0.25rem 0;
+            padding: 0.5rem 0;
 
             .group-cell-content {
               svg {
@@ -408,7 +408,7 @@
           transition: padding 0.1s;
         }
         tbody > tr.group > td {
-          padding: 0.2rem 0;
+          padding: 0.25rem 0;
           transition: padding 0.1s;
         }
       }
@@ -420,7 +420,7 @@
           transition: padding 0.1s;
         }
         tbody > tr.group > td {
-          padding: 0.3rem 0;
+          padding: 0.75rem 0;
           transition: padding 0.1s;
         }
       }
