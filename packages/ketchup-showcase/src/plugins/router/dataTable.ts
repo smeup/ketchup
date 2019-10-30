@@ -69,4 +69,19 @@ export default [
     name: 'dtCheckboxCell',
     component: () => import('@/views/dataTable/DTCheckbox.vue'),
   },
+  {
+    path: '/dataTable/progressbar',
+    name: 'dtProgressbar',
+    component: () => import('@/views/dataTable/DTProgressbar.vue'),
+  },
+  {
+    path: '/dataTable/radio',
+    name: 'dtRadio',
+    component: () => import('@/views/dataTable/DTRadio.vue'),
+  },
+  {
+    path: '/dataTable/columns-width',
+    name: 'dtColumnsWidth',
+    component: () => import('@/views/dataTable/DTColumnsWidth.vue'),
+  },
 ];

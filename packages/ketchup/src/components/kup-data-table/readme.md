@@ -53,7 +53,9 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables sorting of the columns by dragging them into different columns                                                                                                                                                                                          | `boolean`                                                                                        | `false`                              |
 | `expandGroups`              | `expand-groups`                |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `filters`                   | --                             |                                                                                                                                                                                                                                                                 | `GenericMap`                                                                                     | `{}`                                 |
+| `forceOneLine`              | `force-one-line`               | Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `globalFilter`              | `global-filter`                |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
+| `groupLabelDisplay`         | `group-label-display`          | How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}                                                                                                                                                        | `GroupLabelDisplayMode.BOTH \| GroupLabelDisplayMode.LABEL \| GroupLabelDisplayMode.VALUE`       | `GroupLabelDisplayMode.BOTH`         |
 | `groups`                    | --                             |                                                                                                                                                                                                                                                                 | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky. | `boolean`                                                                                        | `false`                              |
 | `hoverScroll`               | `hover-scroll`                 |                                                                                                                                                                                                                                                                 | `boolean`                                                                                        | `true`                               |
@@ -111,6 +113,8 @@ Type: `Promise<Column[]>`
 | `--dtt_background-color, --kup-data-table_background-color`               | background-color of the whole component (paginator and table).               |
 | `--dtt_border-color, --kup-data-table_border-color`                       | border-color for the whole table.                                            |
 | `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                         |
+| `--dtt_cell-image_max-height, --kup-data-table_cell-image_max-height`     | The max height images object inside cells can have                           |
+| `--dtt_cell-image_min-height, --kup-data-table_cell-image_min-height`     | The minimum height images object inside cells can have                       |
 | `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.                   |
 | `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.                       |
 | `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.                        |
@@ -140,13 +144,15 @@ Type: `Promise<Column[]>`
 
 ### Depends on
 
-- [kup-text-input](../kup-text-input)
-- [kup-checkbox](../kup-checkbox)
-- [kup-button](../kup-button)
-- [kup-graphic-cell](../kup-graphic-cell)
-- [kup-tooltip](../kup-tooltip)
-- [kup-paginator](../kup-paginator)
-- [kup-chip](../kup-chip)
+- [kup-text-input](..\kup-text-input)
+- [kup-checkbox](..\kup-checkbox)
+- [kup-button](..\kup-button)
+- [kup-graphic-cell](..\kup-graphic-cell)
+- [kup-radio-element](..\kup-radio-element)
+- [kup-tooltip](..\kup-tooltip)
+- [kup-paginator](..\kup-paginator)
+- [kup-chip](..\kup-chip)
+- [kup-progress-bar](..\kup-progress-bar)
 
 ### Graph
 ```mermaid
@@ -155,9 +161,11 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-radio-element
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-data-table --> kup-progress-bar
   kup-paginator --> kup-combo
   kup-combo --> kup-text-input
   kup-combo --> kup-portal

@@ -338,6 +338,24 @@ export default {
               name: 'dtCheckboxCell',
             },
           },
+          {
+            title: 'Progressbar',
+            to: {
+              name: 'dtProgressbar',
+            },
+          },
+          {
+            title: 'Radio button',
+            to: {
+              name: 'dtRadio',
+            },
+          },
+          {
+            title: 'Columns width',
+            to: {
+              name: 'dtColumnsWidth',
+            },
+          },
         ],
       },
       {

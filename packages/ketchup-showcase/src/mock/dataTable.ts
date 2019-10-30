@@ -985,8 +985,8 @@ export const groupDataTable = createDataForPagination(10, 3000);
 
 export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);
 
-//---- Checkbox data table ----
-export function dataTableCheckboxFactory() {
+//---- Checkbox and radio data table ----
+export function dataTableCheckboxFactory(inputType: string = 'SI/NO', hideValuesRepetitions: boolean = false) {
   return {
     config: {
       rowsPerPage: 50,
@@ -1004,6 +1004,7 @@ export function dataTableCheckboxFactory() {
           title: 'BarCode',
         },
         {
+          hideValuesRepetitions,
           name: 'C',
           size: 0,
           title: 'Si/No',
@@ -1033,7 +1034,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1067,7 +1068,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1101,7 +1102,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1135,7 +1136,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1169,7 +1170,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1203,7 +1204,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1237,7 +1238,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1271,7 +1272,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1305,7 +1306,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1339,7 +1340,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1373,7 +1374,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1407,7 +1408,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1441,7 +1442,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1475,7 +1476,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1509,7 +1510,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1543,7 +1544,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1577,7 +1578,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1611,7 +1612,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1645,7 +1646,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1679,7 +1680,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1713,7 +1714,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1747,7 +1748,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1781,7 +1782,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1815,7 +1816,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1849,7 +1850,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1883,7 +1884,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1917,7 +1918,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1951,7 +1952,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,
@@ -1985,7 +1986,7 @@ export function dataTableCheckboxFactory() {
             C: {
               obj: {
                 k: '1',
-                p: 'SI/NO',
+                p: inputType,
                 t: 'V2',
               },
               options: false,

@@ -882,6 +882,71 @@ export const pgbData = {
         },
       },
     },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;PARFRA',
+          },
+          value: 'https://via.placeholder.com/64?text=PF',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Todo #5',
+          },
+          value: 'Todo #5',
+        },
+        FLD3: {
+          obj: {
+            t: 'J4',
+            p: 'PGB',
+            k: '#C01BAF;45',
+          },
+          value: '45',
+          config: {
+            backgroundColor: 'yellow',
+            foregroundColor: 'magenta',
+            borderRadius: '9px',
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'CN;COL;PARFRA',
+          },
+          value: 'https://via.placeholder.com/64?text=PF',
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Todo #6',
+          },
+          value: 'Todo #6',
+        },
+        FLD3: {
+          obj: {
+            t: 'J4',
+            p: 'PGB',
+            k: '#C01BAF;70'
+          },
+          value: '70',
+          config: {
+            foregroundColor: '#e0e0e0',
+            textColor: 'black'
+          },
+        },
+      },
+    },
   ],
 };
 

@@ -14,6 +14,7 @@ import {
   Column,
   DataTable,
   GenericMap,
+  GroupLabelDisplayMode,
   GroupObject,
   KupDataTableCellButtonClick,
   KupDataTableSortedColumnIndexes,
@@ -275,7 +276,15 @@ export namespace Components {
     'enableSortableColumns': boolean;
     'expandGroups': boolean;
     'filters': GenericMap;
+    /**
+    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
+    */
+    'forceOneLine': boolean;
     'globalFilter': boolean;
+    /**
+    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+    */
+    'groupLabelDisplay': GroupLabelDisplayMode;
     'groups': Array<GroupObject>;
     /**
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
@@ -506,8 +515,21 @@ export namespace Components {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar {
+    /**
+    * FLag to show or hide the progress bar's label
+    */
     'hideLabel': boolean;
+    /**
+    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    */
+    'isSmall': boolean;
+    /**
+    * Specifies a text for the bar's label
+    */
     'labelText': string;
+    /**
+    * The current value the progress bar must display.
+    */
     'value': number;
   }
   interface KupRadio {
@@ -539,6 +561,20 @@ export namespace Components {
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'valueField': string;
+  }
+  interface KupRadioElement {
+    /**
+    * Specifies if the radio element is selected or not.
+    */
+    'checked': boolean;
+    /**
+    * Flag: the radio button is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Label to assign to the radio button.
+    */
+    'label': string;
   }
   interface KupTextInput {
     /**
@@ -774,6 +810,12 @@ declare global {
     new (): HTMLKupRadioElement;
   };
 
+  interface HTMLKupRadioElementElement extends Components.KupRadioElement, HTMLStencilElement {}
+  var HTMLKupRadioElementElement: {
+    prototype: HTMLKupRadioElementElement;
+    new (): HTMLKupRadioElementElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -820,6 +862,7 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
+    'kup-radio-element': HTMLKupRadioElementElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1103,7 +1146,15 @@ declare namespace LocalJSX {
     'enableSortableColumns'?: boolean;
     'expandGroups'?: boolean;
     'filters'?: GenericMap;
+    /**
+    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
+    */
+    'forceOneLine'?: boolean;
     'globalFilter'?: boolean;
+    /**
+    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+    */
+    'groupLabelDisplay'?: GroupLabelDisplayMode;
     'groups'?: Array<GroupObject>;
     /**
     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
@@ -1405,8 +1456,21 @@ declare namespace LocalJSX {
     'vNodes'?: JSX.Element[] | JSX.Element;
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
+    /**
+    * FLag to show or hide the progress bar's label
+    */
     'hideLabel'?: boolean;
+    /**
+    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    */
+    'isSmall'?: boolean;
+    /**
+    * Specifies a text for the bar's label
+    */
     'labelText'?: string;
+    /**
+    * The current value the progress bar must display.
+    */
     'value'?: number;
   }
   interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
@@ -1442,6 +1506,20 @@ declare namespace LocalJSX {
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'valueField'?: string;
+  }
+  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {
+    /**
+    * Specifies if the radio element is selected or not.
+    */
+    'checked'?: boolean;
+    /**
+    * Flag: the radio button is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Label to assign to the radio button.
+    */
+    'label'?: string;
   }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
@@ -1614,6 +1692,7 @@ declare namespace LocalJSX {
     'kup-portal-instance': KupPortalInstance;
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
+    'kup-radio-element': KupRadioElement;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

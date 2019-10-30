@@ -1,19 +1,9 @@
-$radio-button_scale: 1.4;
+@import 'kup-radio-common';
 
-/**
-* @prop --rad_font-size, --kup-radio_font-size: Sets font size and icon radio button size (size * #{$radio-button_scale})
-* @prop --rad_border-color, --kup-radio_border-color: Set default color of external border of the radio element
-* @prop --rad_border-color--selected --kup-radio_border-color: Set selected color of external border of the radio element
-* @prop --rad_color, --kup-radio_color: Sets radio element color when selected radio appears
-* @prop --rad_tr-duration, --kup-radio_transition-duration: Sets all components transitions duration
-*/
+@include radio-css-vars-docs(rad, radio);
 
 :host {
-  --rad_font-size: var(--kup-radio_font-size, 14px);
-  --rad_border-color: var(--kup-radio_border-color, #{$gray-80});
-  --rad_border-color--selected: var(--kup-radio_border-color, #{darken($gray-80, 10)});
-  --rad_color: var(--kup-radio_color, #{$smeup-primary});
-  --rad_tr-duration: var(--kup-radio_transition-duration, #{$trn-time});
+  @include radio-css-vars(rad, radio);
 }
 
 .kup-radio {
@@ -43,41 +33,7 @@ $radio-button_scale: 1.4;
 
     // Container of the icon
     > div {
-      align-items: center;
-      display: inline-flex;
-      height: calc(var(--rad_font-size) * #{$radio-button_scale});
-      justify-content: center;
-      position: relative;
-      width: calc(var(--rad_font-size) * #{$radio-button_scale});
-      z-index: 0;
-
-      &::before,
-      &::after {
-        border-radius: 50%;
-        box-sizing: border-box;
-        content: '';
-      }
-
-      &::before {
-        border: 1px solid var(--rad_border-color);
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transition: border-color var(--rad_tr-duration);
-        width: 100%;
-        z-index: 0;
-      }
-
-      &::after {
-        background-color: var(--rad_color);
-        height: calc(100% - 6px);
-        position: relative;
-        opacity: 0;
-        transition: opacity var(--rad_tr-duration);
-        width: calc(100% - 6px);
-        z-index: 1;
-      }
+      @include radio-graphics(rad);
 
       // Real radio button
       > input {
@@ -95,13 +51,7 @@ $radio-button_scale: 1.4;
 
     &--selected {
       div {
-        &::before {
-          border-color: var(--rad_border-color--selected);
-        }
-
-        &::after {
-          opacity: 1;
-        }
+        @include radio-graphics-selected(rad);
       }
     }
 

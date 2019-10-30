@@ -79,8 +79,6 @@
 
     $tree-node__base: &;
 
-    @debug "trovami: #{$tree-node__base}";
-
     // When a TreeNode is disabled, we reduce its opacity
     &--disabled {
       opacity: var(--tre_node--disabled_opacity);

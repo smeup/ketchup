@@ -16,3 +16,12 @@ export function eventFromElement(element: HTMLElement, eventSource) {
     }
     return false;
 }
+
+/**
+ * Given a camelCase formatted string, returns the same string in kebab-case.
+ * @param str - the string to convert.
+ * @return the converted string.
+ */
+export function toKebabCase (str: string): string {
+  return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}

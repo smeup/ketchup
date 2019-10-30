@@ -9,6 +9,8 @@ import {
     rowExpanderSelector,
 } from './data-table-selectors';
 
+import { GroupLabelDisplayMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
 //const collapseIcon = 'M19,13H5V11H19V13Z';
@@ -25,6 +27,7 @@ describe('kup-data-table with single grouping', () => {
         );
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD1', visible: true }]);
 
@@ -124,6 +127,7 @@ describe('kup-data-table with single grouping', () => {
         );
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD1', visible: false }]);
 
@@ -210,6 +214,7 @@ describe('kup-data-table with single grouping', () => {
         );
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD1', visible: false }]);
 
@@ -272,6 +277,7 @@ describe('kup-data-table with multiple grouping', () => {
         );
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', groupingData);
         element.setProperty('groups', [
             { column: 'FLD1', visible: true },
@@ -449,6 +455,7 @@ describe('grouping on complex objects', () => {
         await page.setContent('<kup-data-table></kup-data-table>');
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', d8Data);
         element.setProperty('groups', [{ column: 'FLD2', visible: true }]);
 
@@ -469,6 +476,7 @@ describe('grouping on complex objects', () => {
         await page.setContent('<kup-data-table></kup-data-table>');
         const element = await page.find('kup-data-table');
 
+        element.setProperty('groupLabelDisplay', GroupLabelDisplayMode.VALUE);
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD3', visible: true }]);
 

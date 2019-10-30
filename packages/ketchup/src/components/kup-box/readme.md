@@ -66,13 +66,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-badge](../kup-badge)
-- [kup-image](../kup-image)
-- [kup-button](../kup-button)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-combo](../kup-combo)
-- [kup-text-input](../kup-text-input)
-- [kup-paginator](../kup-paginator)
+- [kup-badge](..\kup-badge)
+- [kup-image](..\kup-image)
+- [kup-button](..\kup-button)
+- [kup-combo](..\kup-combo)
+- [kup-text-input](..\kup-text-input)
+- [kup-paginator](..\kup-paginator)
+- [kup-progress-bar](..\kup-progress-bar)
 
 ### Graph
 ```mermaid
@@ -80,10 +80,10 @@ graph TD;
   kup-box --> kup-badge
   kup-box --> kup-image
   kup-box --> kup-button
-  kup-box --> kup-progress-bar
   kup-box --> kup-combo
   kup-box --> kup-text-input
   kup-box --> kup-paginator
+  kup-box --> kup-progress-bar
   kup-image --> kup-badge
   kup-combo --> kup-text-input
   kup-combo --> kup-portal

@@ -1,58 +1,54 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    h,
-    JSX,
-    Method,
-    Prop,
-    State,
-    Watch,
-} from '@stencil/core';
+import {Component, Event, EventEmitter, h, JSX, Method, Prop, State, Watch,} from '@stencil/core';
 
 import numeral from 'numeral';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { positionRecalc } from '../../utils/recalc-position';
 
 import {
-    Cell,
-    Column,
-    KupDataTableCellButtonClick,
-    GenericMap,
-    GroupObject,
-    LoadMoreMode,
-    PaginatorPos,
-    Row,
-    RowAction,
-    ShowGrid,
-    SortMode,
-    SortObject,
-    TableData,
-    TotalsMap,
-    KupDataTableColumnDragType,
-    KupDataTableSortedColumnIndexes,
+  Cell,
+  Column,
+  GenericMap,
+  GroupLabelDisplayMode,
+  GroupObject,
+  KupDataTableCellButtonClick,
+  KupDataTableColumnDragType,
+  KupDataTableSortedColumnIndexes,
+  LoadMoreMode,
+  PaginatorPos,
+  Row,
+  RowAction,
+  RowGroup,
+  ShowGrid,
+  SortMode,
+  SortObject,
+  TableData,
+  TotalsMap,
 } from './kup-data-table-declarations';
 
 import {
-    calcTotals,
-    filterRows,
-    groupRows,
-    sortRows,
-    getColumnByName,
-    paginateRows,
-    styleHasBorderRadius,
+  calcTotals,
+  filterRows,
+  getColumnByName,
+  groupRows,
+  paginateRows,
+  sortRows,
+  styleHasBorderRadius,
 } from './kup-data-table-helper';
 
+import {progressbarFromCellHelper,} from "../kup-progress-bar/kup-progress-bar-helper";
+
 import {
-    isBar,
-    isButton,
-    isCheckbox,
-    isIcon,
-    isImage,
-    isLink,
-    isNumber,
-    isVoCodver,
-    createJ4objButtonConfig,
+  createJ4objButtonConfig,
+  isBar,
+  isButton,
+  isCheckbox,
+  isIcon,
+  isImage,
+  isLink,
+  isNumber,
+  isProgressBar,
+  isRadio,
+  isVoCodver,
 } from '../../utils/object-utils';
 
 @Component({
@@ -80,8 +76,22 @@ export class KupDataTable {
     @Prop({ mutable: true })
     filters: GenericMap = {};
 
+    /**
+     * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
+     * The reflect attribute is mandatory to allow styling.
+     */
+    @Prop({reflect: true})
+    forceOneLine: boolean = false;
+
     @Prop()
     globalFilter = false;
+
+    /**
+     * How the label of a group must be displayed.
+     * For available values [see here]{@link GroupLabelDisplayMode}
+     */
+    @Prop()
+    groupLabelDisplay: GroupLabelDisplayMode = GroupLabelDisplayMode.BOTH;
 
     @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
@@ -172,7 +182,7 @@ export class KupDataTable {
     @Prop()
     totals: TotalsMap;
 
-    //---- State ----
+    //-------- State --------
 
     @State()
     private globalFilterValue = '';
@@ -562,18 +572,18 @@ export class KupDataTable {
     }
 
     private hasTooltip(cell: Cell) {
-        return (
-            cell.obj &&
-            cell.obj.t !== '' &&
-            !isBar(cell.obj) &&
-            !isButton(cell.obj) &&
-            !isCheckbox(cell.obj) &&
-            !isIcon(cell.obj) &&
-            !isImage(cell.obj) &&
-            !isLink(cell.obj) &&
-            !isNumber(cell.obj) &&
-            !isVoCodver(cell.obj)
-        );
+        return cell.obj
+            && cell.obj.t!==""
+            && !isBar(cell.obj)
+            && !isButton(cell.obj)
+            && !isCheckbox(cell.obj)
+            && !isIcon(cell.obj)
+            && !isImage(cell.obj)
+            && !isLink(cell.obj)
+            && !isNumber(cell.obj)
+            && !isProgressBar(cell.obj)
+            && !isRadio(cell.obj)
+            && !isVoCodver(cell.obj);
     }
 
     private getColumns(): Array<Column> {
@@ -685,6 +695,36 @@ export class KupDataTable {
 
     private hasTotals() {
         return this.totals && Object.keys(this.totals).length > 0;
+    }
+
+    /**
+     * Returns if the current data table must have the with set to auto to make table as large as the sum
+     * of the table columns fixed width.
+     * Table margin gets set to auto to center it.
+     */
+    private tableHasAutoWidth(): boolean {
+        const visibleCols = this.getVisibleColumns();
+        // Before checking each column, simply control that visible columns are at maximum as many as the custom columnsWidth items.
+        // If there are more visible columns, it means that the width of the table will be set to auto.
+        if (visibleCols.length <= this.columnsWidth.length) {
+            let found = false;
+
+            // Each visible column must have its own width for the table to have a auto width
+            for (let i = 0; i < visibleCols.length; i++) {
+                found = false;
+                for (let j = 0; j < this.columnsWidth.length; j++) {
+                    if (visibleCols[i].name === this.columnsWidth[j].column) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    return false
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     private forceGroupExpansion() {
@@ -1190,14 +1230,13 @@ export class KupDataTable {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
-            // filter
+            //---- Filter ----
             let filter = null;
-            if (this.showFilters) {
-                let filterValue = '';
-                if (this.filters && this.filters[column.name]) {
-                    filterValue = this.filters[column.name];
-                }
+            // If the current column has a filter, then we take its value
+            let filterValue = this.filters && this.filters[column.name] ? this.filters[column.name] : '';
 
+            if (this.showFilters) {
+                // When showing filters, displays input box to update them.
                 filter = (
                     <div>
                         <kup-text-input
@@ -1210,9 +1249,37 @@ export class KupDataTable {
                         />
                     </div>
                 );
+            } else if (filterValue) {
+                const svgLabel = `Rimuovi filtro: '${filterValue}'`;
+                /**
+                 * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
+                 * Upon click, the filter gets removed.
+                 * The payload event is simulated here.
+                 *
+                 * This SVG was created by Niccolò from Dreamonkey.
+                 * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
+                 */
+                filter = <svg
+                    aria-label={svgLabel}
+                    class="remove-filter"
+                    role="button"
+                    tab-index="0"
+                    version="1.1"
+                    viewBox="0 0 24 24"
+                    x="0px"
+                    y="0px"
+                    onClick={() => {
+                      this.onFilterChange({detail: {value: ''}}, column.name);
+                    }}>
+                  <title>{svgLabel}</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
+                    c0.042,0.3-0.06,0.62-0.289,0.828c-0.392,0.391-1.021,0.391-1.411,0l-2.008-2.008c-0.232-0.228-0.331-0.541-0.292-0.83v-5.871
+                    h-0.028l-5.25-6.726L2,2.943L2.943,2L8.82,7.877L14.667,13.726z M20.287,4.276c0.43,0.34,0.51,0.97,0.172,1.399l-5.242,6.713
+                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"/>
+                </svg>;
             }
 
-            // sort
+            //---- Sort ----
             let sort = null;
             if (this.sortEnabled) {
                 sort = (
@@ -1248,7 +1315,7 @@ export class KupDataTable {
 
             const columnMenuItems: JSX.Element[] = [];
 
-            // adding grouping
+            //---- adding grouping ----
             const group = this.getGroupByName(column.name);
             const groupLabel =
                 group != null
@@ -1552,6 +1619,21 @@ export class KupDataTable {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
+            // Composes the label the group must display
+            let composedGroupLabel: string;
+            switch (this.groupLabelDisplay) {
+                case GroupLabelDisplayMode.LABEL:
+                    composedGroupLabel = row.group.columnLabel;
+                    break;
+                case GroupLabelDisplayMode.VALUE:
+                    composedGroupLabel = row.group.label;
+                    break;
+                case GroupLabelDisplayMode.BOTH:
+                default:
+                    composedGroupLabel = row.group.columnLabel + ' = ' + row.group.label;
+                    break;
+            }
+
             if (row.group.children.length === 0) {
                 // empty group
                 return null;
@@ -1663,7 +1745,7 @@ export class KupDataTable {
                 let indend = [];
                 if (index === 0) {
                     for (let i = 0; i < level; i++) {
-                        indend.push(<span class="indent" />);
+                        indend.push(<span class="indent"/>);
                     }
                 }
 
@@ -1705,18 +1787,45 @@ export class KupDataTable {
                         row,
                         column: currentColumn,
                     },
+                    !!hideValuesRepetitions,
                     hideValuesRepetitions && previousRow
                         ? previousRow.cells[name].value
                         : null
                 );
 
                 const cellClass = {
+                    'has-options': !!(options),
                     number: isNumber(cell.obj),
                 };
 
                 let cellStyle = null;
                 if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
+                }
+
+                // Controls if there are columns with a specified width
+                if (this.columnsWidth && this.columnsWidth.length) {
+                    let colWidth: string = '';
+
+                    // Search if this column has a specified width
+                    for (let j = 0; j < this.columnsWidth.length; j++) {
+                        if (name === this.columnsWidth[j].column) {
+                            colWidth = this.columnsWidth[j].width + 'px';
+                            break;
+                        }
+                    }
+
+                    // Specific width has been found
+                    if (colWidth) {
+                        if (!cellStyle) {
+                          cellStyle = {};
+                        }
+
+                        // Sets the width.
+                        // Search for "auto-width" class inside the scss file of this component for more details about this
+                        cellStyle['max-width'] = colWidth;
+                        cellStyle['min-width'] = colWidth;
+                    }
                 }
 
                 return (
@@ -1849,6 +1958,7 @@ export class KupDataTable {
             column: Column;
             row: Row;
         },
+        hideValuesRepetition: boolean = false,
         previousRowCellValue?: string
     ) {
         const clazz = {
@@ -1875,9 +1985,7 @@ export class KupDataTable {
                 }
             }
         } else if (isImage(cell.obj)) {
-            content = (
-                <img src={valueToDisplay} alt="" width="64" height="64" />
-            );
+            content = <img src={valueToDisplay} alt="" class="cell-image"/>;
         } else if (isLink(cell.obj)) {
             content = (
                 <a href={valueToDisplay} target="_blank">
@@ -1939,19 +2047,44 @@ export class KupDataTable {
             }
 
             // Controls if we should display this cell value
-            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+            content = !hideValuesRepetition || valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+        } else if (isProgressBar(cell.obj)) {
+          if (!hideValuesRepetition || valueToDisplay) {
+            content = progressbarFromCellHelper(
+              cell,
+              valueToDisplay,
+              true
+            );
+          } else {
+            content = null;
+          }
+        } else if (isRadio(cell.obj)) {
+          if (!hideValuesRepetition || valueToDisplay) {
+            content = <kup-radio-element
+              checked={!!cell.obj.k}
+              disabled={
+                cellData &&
+                cellData.row &&
+                cellData.row.hasOwnProperty('readOnly')
+                  ? cellData.row.readOnly
+                  : true
+              }
+            />;
+          } else {
+            content = null;
+          }
         }
-
-        // TODO
-        // else if (isProgressBar(cell.obj)) {
-        //     content = <kup-progress-bar />;
-        // }
 
         // if cell.style has border, apply style to cellcontent
         let style = null;
         if (styleHasBorderRadius(cell)) {
             style = cell.style;
         }
+
+        /**
+         * Controls if current cell needs a tooltip and eventually adds it.
+         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+         */
         if (this.hasTooltip(cell)) {
             content = (
                 <kup-tooltip
@@ -2029,7 +2162,8 @@ export class KupDataTable {
     }
 
     private renderPaginator(top: boolean) {
-        return (
+
+        return this.rows.length >= this.rowsPerPage ? (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
                     <kup-paginator
@@ -2060,7 +2194,7 @@ export class KupDataTable {
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
-        );
+        ) : null;
     }
 
     private renderFontSizePanel(top: boolean) {
@@ -2358,10 +2492,13 @@ export class KupDataTable {
         }
 
         const tableClass = {
+            // Class for specifying if the table should have width: auto.
+            // Mandatory to check with custom column size.
+            'auto-width': !!(this.columnsWidth && this.columnsWidth.length && this.tableHasAutoWidth()),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
-
+            // When there are columns with a specified width, we must add table-layout: fixed to force the table to respect them
             'row-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.ROW === this.showGrid,

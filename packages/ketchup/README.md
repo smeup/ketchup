@@ -106,6 +106,14 @@ If you want to test the showcase inside a browser which do not fully support web
 you can run `npm run start--es5` to compile components into an ECMAScript 5 compatible version.
 
 
+## About testing
+
+To have more info about automatic testing for this repository, go to the dedicated readme's.\
+Each file contains some tips, tricks and links to further documentation.
+
+* [E2ETesting](/test/e2e/testing_e2e.md)
+
+
 ## Issues to check
 
 ##### Problem with classes on older browsers

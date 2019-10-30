@@ -52,6 +52,7 @@ h3 {
       show-load-more
       @kupLoadMoreClicked="onLoadMoreClick"/>
 
+    <kup-data-table :data.prop="progressbarData"/>
   </div>
 </template>
 
@@ -62,7 +63,10 @@ import {
   hiddenColumnsData,
   iconImagesDataTable,
 } from '@/mock/dataTable';
-import { j4btnData } from '@/mock/box';
+import {
+  j4btnData,
+  pgbData,
+} from '@/mock/box';
 
 export default {
   name: 'dataTableBasic',
@@ -86,7 +90,8 @@ export default {
           width: 300,
         },
       ],
-      loadQuantity: ''
+      loadQuantity: '',
+      progressbarData: pgbData
     };
   },
 
