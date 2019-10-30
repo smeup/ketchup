@@ -22,7 +22,7 @@ describe('kup-button', () => {
         expect(btn.showicon).toBeTruthy();
 
         expect(btn.iconUrl).toEqual(
-            'https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css'
+            'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css'
         );
 
         // testing methods

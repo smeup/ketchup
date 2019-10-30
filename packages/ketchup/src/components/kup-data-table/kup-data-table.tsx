@@ -1,6 +1,8 @@
 import {Component, Event, EventEmitter, h, JSX, Method, Prop, State, Watch,} from '@stencil/core';
 
 import numeral from 'numeral';
+import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { positionRecalc } from '../../utils/recalc-position';
 
 import {
   Cell,
@@ -93,6 +95,9 @@ export class KupDataTable {
 
     @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
+
+    @Prop()
+    hoverScroll: boolean = true;
 
     /**
      * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
@@ -261,6 +266,9 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
+    private scrollOnHoverInstance: scrollOnHover;
+    private positionRecalcInstance: positionRecalc;
+
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -295,7 +303,11 @@ export class KupDataTable {
      * Reference for the thead element
      * @private
      */
-    private theadRef: HTMLTableSectionElement;
+    private theadRef: any;
+    private tableRef: HTMLTableSectionElement;
+    private tableAreaRef: HTMLTableSectionElement;
+    private stickyTheadRef: any;
+    private customizePanelRef: any;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -392,8 +404,8 @@ export class KupDataTable {
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
     /**
-    * When a tooltip request initial data
-    */
+     * When a tooltip request initial data
+     */
     @Event({
         eventName: 'kupLoadRequest',
         composed: true,
@@ -401,13 +413,13 @@ export class KupDataTable {
         bubbles: true,
     })
     kupLoadRequest: EventEmitter<{
-        cell: Cell,
-        tooltip: EventTarget
+        cell: Cell;
+        tooltip: EventTarget;
     }>;
 
     /**
-    * When a tooltip request detail data
-    */
+     * When a tooltip request detail data
+     */
     @Event({
         eventName: 'kupDetailRequest',
         composed: true,
@@ -415,8 +427,8 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDetailRequest: EventEmitter<{
-        cell: Cell,
-        tooltip: EventTarget
+        cell: Cell;
+        tooltip: EventTarget;
     }>;
 
     onDocumentClick = () => {
@@ -426,7 +438,81 @@ export class KupDataTable {
         this.botDensityPanelVisible = false;
     };
 
+    stickyHeaderPosition = () => {
+        let tableBody: any = this.tableRef;
+        let el: any = this.stickyTheadRef;
+        let parent: any = tableBody.closest('.below-wrapper');
+        var headerHeight: number;
+        if (document.querySelectorAll('.header')[0]) {
+            headerHeight = document.querySelectorAll('.header')[0].clientHeight;
+        } else {
+            headerHeight = 0;
+        }
+        el.style.top = headerHeight + 'px';
+        if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
+            let widthTable: number = parent.offsetWidth;
+            el.style.maxWidth = widthTable + 'px';
 
+            if (
+                !this.isElementPartiallyInViewport(
+                    this.theadRef,
+                    headerHeight,
+                    el
+                )
+            ) {
+                var thCollection: any = this.theadRef.querySelectorAll('th');
+                var thStickyCollection: any = el.querySelectorAll('th-sticky');
+                for (let i = 0; i < thCollection.length; i++) {
+                    let widthTH = thCollection[i].offsetWidth;
+                    thStickyCollection[i].style.width = widthTH + 'px';
+                }
+                el.classList.add('activated');
+            } else {
+                el.classList.remove('activated');
+            }
+        } else {
+            el.classList.remove('activated');
+        }
+    };
+
+    isElementPartiallyInViewport = (el: any, offset: number, row: any) => {
+        var rect = el.getBoundingClientRect();
+        if (
+            rect.top === 0 &&
+            rect.left === 0 &&
+            rect.right === 0 &&
+            rect.bottom === 0 &&
+            rect.height === 0 &&
+            rect.width === 0 &&
+            rect.x === 0 &&
+            rect.y === 0
+        ) {
+            return false;
+        }
+
+        var windowHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+        var windowWidth =
+            window.innerWidth || document.documentElement.clientWidth;
+        windowHeight = windowHeight - offset;
+
+        var vertInView =
+            rect.top - offset <= windowHeight &&
+            rect.top - offset + rect.height >= 0;
+        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
+
+        // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
+        if (
+            el.tagName !== 'THEAD' &&
+            (row.clientHeight * 2 > rect.bottom - offset &&
+                vertInView &&
+                horInView)
+        ) {
+            return false && false;
+        } else {
+            return vertInView && horInView;
+        }
+    };
 
     // private theadObserver = new IntersectionObserver(
     //     (entries) => {
@@ -458,7 +544,12 @@ export class KupDataTable {
 
     componentDidLoad() {
         document.addEventListener('click', this.onDocumentClick);
-
+        document.addEventListener('scroll', this.stickyHeaderPosition);
+        document.addEventListener('resize', this.stickyHeaderPosition);
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.positionRecalcInstance = new positionRecalc();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+        this.positionRecalcInstance.positionRecalcSetup(this.customizePanelRef);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -476,6 +567,8 @@ export class KupDataTable {
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
+        document.removeEventListener('scroll', this.stickyHeaderPosition);
+        document.removeEventListener('resize', this.stickyHeaderPosition);
     }
 
     private hasTooltip(cell: Cell) {
@@ -592,32 +685,6 @@ export class KupDataTable {
         this.groupState = {};
 
         const index = this.groups.indexOf(group);
-
-        if (index >= 0) {
-            // removing group from prop
-            this.groups.splice(index, 1);
-            this.groups = [...this.groups];
-        }
-    }
-
-    private removeGroupFromRow(group: RowGroup) {
-        if (!group) {
-            return;
-        }
-
-        // resetting group state
-        this.groupState = {};
-
-        // search group
-        let index = -1;
-        for (let i = 0; i < this.groups.length; i++) {
-            const g = this.groups[i];
-
-            if (g.column === group.column) {
-                index = i;
-                break;
-            }
-        }
 
         if (index >= 0) {
             // removing group from prop
@@ -1386,8 +1453,16 @@ export class KupDataTable {
                 };
             }
 
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
             return (
                 <th
+                    class={columnClass}
                     style={thStyle}
                     onMouseEnter={() => this.onColumnMouseEnter(column.name)}
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
@@ -1423,14 +1498,85 @@ export class KupDataTable {
             );
         }
 
-        let groupColumn = null;
-        if (this.isGrouping() && this.hasTotals()) {
-            groupColumn = <th />;
-        }
+        //  let groupColumn = null;
+        //  if (this.isGrouping() && this.hasTotals()) {
+        //      groupColumn = <th />;
+        //  }
 
         let actionsColumn = null;
         if (this.hasRowActions()) {
             actionsColumn = <th />;
+        }
+
+        return [multiSelectColumn, actionsColumn, ...dataColumns];
+        //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+    }
+
+    private renderStickyHeader() {
+        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
+
+        const dataColumns = this.getVisibleColumns().map((column) => {
+            let thStyle = null;
+            if (hasCustomColumnsWidth) {
+                for (let i = 0; i < this.columnsWidth.length; i++) {
+                    const currentCol = this.columnsWidth[i];
+
+                    if (currentCol.column === column.name) {
+                        const width = currentCol.width.toString() + 'px';
+                        thStyle = {
+                            width,
+                            minWidth: width,
+                            maxWidth: width,
+                        };
+                        break;
+                    }
+                }
+            }
+
+            let columnClass = {};
+            if (column.obj) {
+                columnClass = {
+                    number: isNumber(column.obj),
+                };
+            }
+
+            return (
+                <th-sticky class={columnClass} style={thStyle}>
+                    <span class="column-title">{column.title}</span>
+                </th-sticky>
+            );
+        });
+
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+            };
+            multiSelectColumn = (
+                <th-sticky style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length ===
+                                this.renderedRows.length
+                        }
+                    />
+                </th-sticky>
+            );
+        }
+
+        let groupColumn = null;
+        if (this.isGrouping() && this.hasTotals()) {
+            groupColumn = <th-sticky />;
+        }
+
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            actionsColumn = <th-sticky />;
         }
 
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
@@ -1493,11 +1639,9 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded ? (
-                <path d="M19,13H5V11H19V13Z" />
-            ) : (
-                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-            );
+            const icon = row.group.expanded
+                ? 'mdi mdi-menu-up'
+                : 'mdi mdi-menu-down';
 
             const jsxRows = [];
 
@@ -1516,6 +1660,7 @@ export class KupDataTable {
                         {indent}
                         <span class="group-cell-content">
                             <span
+                                class={icon}
                                 role="button"
                                 aria-label="Row expander" // TODO change this label
                                 title="Expand/collapse group"
@@ -1524,36 +1669,8 @@ export class KupDataTable {
                                     e.stopPropagation();
                                     this.onRowExpand(row);
                                 }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-expander"
-                                >
-                                    {icon}
-                                </svg>
-                            </span>
-                            <span class="text">{composedGroupLabel}</span>
-                            <span
-                                role="button"
-                                aria-label="Remove group" // TODO change this label
-                                title="Remove group"
-                                tabindex="0"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.removeGroupFromRow(row.group);
-                                }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-remove"
-                                >
-                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                </svg>
-                            </span>
+                            ></span>
+                            {row.group.label}
                         </span>
                     </td>
                 );
@@ -1576,6 +1693,7 @@ export class KupDataTable {
                             {indent}
                             <span class="group-cell-content">
                                 <span
+                                    class={icon}
                                     role="button"
                                     aria-label="Row expander" // TODO change this label
                                     title="Expand/collapse group"
@@ -1584,36 +1702,8 @@ export class KupDataTable {
                                         e.stopPropagation();
                                         this.onRowExpand(row);
                                     }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-expander"
-                                    >
-                                        {icon}
-                                    </svg>
-                                </span>
-                                <span class="text">{composedGroupLabel}</span>
-                                <span
-                                    role="button"
-                                    aria-label="Remove group" // TODO change this label
-                                    title="Remove group"
-                                    tabindex="0"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        this.removeGroupFromRow(row.group);
-                                    }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-remove"
-                                    >
-                                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                    </svg>
-                                </span>
+                                ></span>
+                                <span class="text">{row.group.label}</span>
                             </span>
                         </td>
                     </tr>
@@ -1992,17 +2082,25 @@ export class KupDataTable {
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
         if (this.hasTooltip(cell)) {
-            content = <kup-tooltip onKupTooltipLoadData={(ev) => this.kupLoadRequest.emit(
-                {
-                    cell: cell,
-                    tooltip: ev.srcElement
-                }
-            )} onKupTooltipLoadDetail={(ev) => this.kupDetailRequest.emit(
-                {
-                    cell: cell,
-                    tooltip: ev.srcElement
-                }
-            )} >{content}</kup-tooltip>;
+            content = (
+                <kup-tooltip
+                    class="datatable-tooltip"
+                    onKupTooltipLoadData={(ev) =>
+                        this.kupLoadRequest.emit({
+                            cell: cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                    onKupTooltipLoadDetail={(ev) =>
+                        this.kupDetailRequest.emit({
+                            cell: cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                >
+                    {content}
+                </kup-tooltip>
+            );
         }
 
         return (
@@ -2017,43 +2115,89 @@ export class KupDataTable {
         return (
             <button
                 aria-label={label}
-                class="loadmore-panel loadmore-icon mdi mdi-plus"
+                class="loadmore-button mdi mdi-plus"
                 role="button"
                 slot={isSlotted ? 'more-results' : null}
                 tabindex="0"
                 title={label}
                 onClick={() => this.onLoadMoreClick()}
-            />
+            >
+                <span class="paginator-tab-text">Più risultati</span>{' '}
+            </button>
         );
+    }
+
+    private onCustomSettingsClick(event: any) {
+        let t = event.target;
+        let elPanel = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('customize-panel')[0];
+        let elButton = t
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+
+        this.positionRecalcInstance.setPosition(elPanel, elButton, 3);
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            elPanel.classList.remove('visible');
+        } else {
+            elButton.classList.add('activated');
+            elPanel.classList.add('visible');
+        }
+    }
+
+    private closeCustomSettings() {
+        let elPanel = this.customizePanelRef;
+        let elButton = elPanel
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            elPanel.classList.remove('visible');
+        }
     }
 
     private renderPaginator(top: boolean) {
 
         return this.rows.length >= this.rowsPerPage ? (
             <div class="paginator-wrapper">
-                <kup-paginator
-                    id={top ? 'top-paginator' : 'bottom-paginator'}
-                    max={this.rows.length}
-                    perPage={this.rowsPerPage}
-                    selectedPerPage={this.currentRowsPerPage}
-                    currentPage={this.currentPage}
-                    onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) =>
-                        this.handleRowsPerPageChanged(e)
-                    }
-                ></kup-paginator>
-                {this.renderDensityPanel(top)}
-                {this.renderFontSizePanel(top)}
-                {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                <div class="paginator-tabs">
+                    <kup-paginator
+                        id={top ? 'top-paginator' : 'bottom-paginator'}
+                        max={this.rows.length}
+                        perPage={this.rowsPerPage}
+                        selectedPerPage={this.currentRowsPerPage}
+                        currentPage={this.currentPage}
+                        onKupPageChanged={(e) => this.handlePageChanged(e)}
+                        onKupRowsPerPageChanged={(e) =>
+                            this.handleRowsPerPageChanged(e)
+                        }
+                    ></kup-paginator>
+                    <button
+                        title="Mostra opzioni di personalizzazione"
+                        class="paginator-button mdi mdi-settings custom-settings"
+                        onClick={(e) => this.onCustomSettingsClick(e)}
+                    >
+                        <div
+                            onMouseLeave={() => this.closeCustomSettings()}
+                            class="customize-panel"
+                            ref={(el) => (this.customizePanelRef = el as any)}
+                        >
+                            {this.renderDensityPanel(top)}
+                            {this.renderFontSizePanel(top)}
+                        </div>
+                    </button>
+                    {this.showLoadMore ? this.renderLoadMoreButton() : null}
+                </div>
             </div>
         ) : null;
     }
 
     private renderFontSizePanel(top: boolean) {
-        let fontSize;
+        let fontSize: string;
         {
             this.fontsize === 'medium'
-                ? (fontSize = 'Medio')
+                ? (fontSize = 'Media')
                 : this.fontsize === 'big'
                 ? (fontSize = 'Grande')
                 : this.fontsize === 'small'
@@ -2063,10 +2207,9 @@ export class KupDataTable {
         let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
         return (
             <div class="fontsize-panel">
-                <span
-                    title={fontSizeTypeString}
-                    class="fontsize-icon mdi mdi-format-size"
-                ></span>
+                <span title={fontSizeTypeString} class="panel-label">
+                    Dimensione carattere
+                </span>
                 <span
                     class="fontsize-label"
                     onClick={(e) => this.toggleFontSizeVisibility(e, top)}
@@ -2153,7 +2296,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel(top: boolean) {
-        let densityType;
+        let densityType: string;
         {
             this.density === 'medium'
                 ? (densityType = 'Normale')
@@ -2163,13 +2306,12 @@ export class KupDataTable {
                 ? (densityType = 'Compatta')
                 : (densityType = '');
         }
-        let densityTypeString = 'Spaziatura righe: ' + densityType;
+        let densityTypeString = 'Densità righe: ' + densityType;
         return (
             <div class="density-panel">
-                <span
-                    title={densityTypeString}
-                    class="density-icon mdi mdi-format-line-spacing"
-                ></span>
+                <span title={densityTypeString} class="panel-label">
+                    Densità righe
+                </span>
                 <span
                     class="density-label"
                     onClick={(e) => this.toggleDensityVisibility(e, top)}
@@ -2288,6 +2430,7 @@ export class KupDataTable {
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
         const header = this.renderHeader();
+        const stickyHeader = this.renderStickyHeader();
 
         // footer
         const footer = this.renderFooter();
@@ -2368,20 +2511,37 @@ export class KupDataTable {
                     {paginatorTop}
                     {globalFilter}
                 </div>
-                <div class="below-wrapper">
+                <div
+                    class="below-wrapper"
+                    ref={(el) => (this.tableAreaRef = el as any)}
+                >
                     {groupChips}
-                    <table class={tableClass}>
+                    <table
+                        class={tableClass}
+                        ref={(el: HTMLTableElement) =>
+                            (this.tableRef = el as any)
+                        }
+                    >
                         <thead
                             hidden={!this.showHeader}
-                            ref={(el) =>
-                                (this.theadRef = el as HTMLTableSectionElement)
-                            }
+                            ref={(el) => (this.theadRef = el as any)}
                         >
                             <tr>{header}</tr>
                         </thead>
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
+                    <sticky-header
+                        class="hover-scrolling-child"
+                        hidden={!this.showHeader}
+                        ref={(el: HTMLTableSectionElement) =>
+                            (this.stickyTheadRef = el as any)
+                        }
+                    >
+                        <thead-sticky>
+                            <tr-sticky>{stickyHeader}</tr-sticky>
+                        </thead-sticky>
+                    </sticky-header>
                 </div>
                 {paginatorBottom}
             </div>

@@ -629,7 +629,7 @@ export class KupTree {
     const visibleHeader = this.showHeader && this.showColumns;
 
     return [
-      <link href='https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
+      <link href='https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
       <table
         class="kup-tree"
         data-show-columns={this.showColumns}

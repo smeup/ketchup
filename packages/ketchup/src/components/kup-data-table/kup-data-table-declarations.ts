@@ -4,19 +4,19 @@ export interface DataTable {
 }
 
 export interface Cell {
-  obj: {
-    t: string;
-    p: string;
-    k: string;
-  };
-  value: string;
-  style?: GenericMap;
-  options?: boolean;
-  config?: any;
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+    value: string;
+    style?: GenericMap;
+    options?: boolean;
+    config?: any;
 }
 
 export interface CellsHolder {
-  [index: string]: Cell;
+    [index: string]: Cell;
 }
 
 export interface Column {
@@ -25,6 +25,11 @@ export interface Column {
     size?: number;
     visible?: boolean;
     hideValuesRepetitions?: boolean;
+    obj?: {
+        t: string;
+        p: string;
+        k: string;
+    };
 }
 
 export interface Row {

@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@mdi/font": "^2.8.94",
+    "@vaadin/vaadin-upload": "^4.2.2",
     "element-ui": "^2.4.8",
     "ketchup": "^0.0.1",
     "ketchup-vue": "^0.0.1",
@@ -54,12 +55,13 @@
     "cypress-shadow-dom": "^1.0.0",
     "jest-html-reporter": "^2.4.2",
     "jest-junit": "^5.2.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.12.0",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "start-server-and-test": "^1.7.10",
     "ts-jest": "^23.0.0",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "vaadin": { "disableUsageStatistics": true }
 }

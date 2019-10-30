@@ -46,10 +46,22 @@
         :config.prop="inputUsePassword"/>
     </div>
 
+    <h3>Input text: file upload</h3>
+    <div class="example-container">
+      <kup-fld
+        :style="vaadinStyle"
+        :config.prop="inputFileUpload" 
+        @ketchupFileUploaded="onFileUploaded"
+        @ketchupFileRejected="onFileUploaded"/>
+    </div>    
   </div>
 </template>
 
 <script>
+
+  //import '@vaadin/vaadin-upload/vaadin-upload.js'
+  import '@vaadin/vaadin-upload';
+
   export default {
     name: "FldTextInput",
     data() {
@@ -60,7 +72,8 @@
         inputIsClearable: {},
         inputWithLabel: {},
         inputWithMaxLength: {},
-        inputUsePassword: {}
+        inputUsePassword: {},
+        inputFileUpload: {}
       };
     },
     mounted() {
@@ -102,16 +115,47 @@
               name: "inputType",
               value: "password"
             }
-          ]);
+          ]);       
+          this.inputFileUpload = {
+            'type':'fup', 
+            'typeOptions' : {
+              'multi':true,
+              'confirm':true,
+              'drop':true,
+              'label':'Upload template file',     
+              'service':'https://webuptest.smeup.com/gtw/gtw-resource-manager/api/services/uploadTemplate'
+            }
+            };
+            /*
+              'maxSize':'5000', 
+              'accept':'pdf',
+             */
         })
         .catch(err => {
           console.log(err);
         })
     },
+    computed: {
+      vaadinStyle() {
+        /*
+          '--kup-upload_background-color': 'green',
+          '--kup-upload_color': 'orange',
+          '--kup-upload_font-size': '1rem',
+          '--kup-upload_border-radius': '3px'
+         */
+        return {
+        };
+      }
+    },
     methods: {
       onUpdateMaxLength(e) {
         console.log(e);
         this.fieldMaxLength = e.detail.value;
+      },
+      onFileUploaded(e) {
+        console.log("onFileUploaded", e.detail);
+        const msgjson = JSON.parse(e.detail);
+        console.log("msgjson", msgjson.messages);
       }
     },
     watch: {
@@ -121,6 +165,6 @@
           "maxLength": this.fieldMaxLength
         };
       }
-    }
+    },
   }
 </script>
