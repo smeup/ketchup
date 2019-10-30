@@ -64,6 +64,24 @@ export class scrollOnHover {
         let trueWidth = el.clientWidth;
         arrowContainter.style.top = scrollOnHoverY + 'px';
         arrowContainter.style.left = scrollOnHoverX + 'px';
+        let offsetSum: number = 0;
+        let offsetStep: number = 0;
+        for (let current = el; current !== document; ) {
+            if (current.offsetLeft) {
+                if (offsetStep !== current.offsetLeft) {
+                    offsetSum += current.offsetLeft;
+                    offsetStep = current.offsetLeft;
+                }
+            }
+            if (current.parentElement) {
+                current = current.parentElement;
+            } else if (current.parentNode) {
+                current = current.parentNode;
+            } else {
+                current = current.host;
+            }
+        }
+
         if (trueWidth === 0) {
             trueWidth = el.offsetWidth;
         }
@@ -71,8 +89,7 @@ export class scrollOnHover {
             if (trueWidth !== 0 && scrollTimeout === 'off') {
                 let percRight = trueWidth - trueWidth * 0.1;
                 let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset =
-                    scrollOnHoverX - el.offsetLeft - el.offsetParent.offsetLeft;
+                let elOffset = scrollOnHoverX - offsetSum;
                 let maxScrollLeft = el.scrollWidth - trueWidth;
                 var leftArrow = el.querySelectorAll(
                     '#container-scrolling-arrow .left-scrolling-arrow'
@@ -122,7 +139,7 @@ export class scrollOnHover {
     }
 
     startScrollOnHover(
-        el: HTMLElement,
+        el: any,
         arrow: any,
         maxScrollLeft: number,
         arrowContainter: HTMLElement,
@@ -131,9 +148,25 @@ export class scrollOnHover {
         event: any,
         direction: string
     ) {
-        let elOffsetParent: any = el.offsetParent;
-        let elOffset =
-            scrollOnHoverX - el.offsetLeft - elOffsetParent.offsetLeft;
+        let offsetSum: number = 0;
+        let offsetStep: number = 0;
+        for (let current = el; current !== document; ) {
+            if (current.offsetLeft) {
+                if (offsetStep !== current.offsetLeft) {
+                    offsetSum += current.offsetLeft;
+                    offsetStep = current.offsetLeft;
+                }
+            }
+            if (current.parentElement) {
+                current = current.parentElement;
+            } else if (current.parentNode) {
+                current = current.parentNode;
+            } else {
+                current = current.host;
+            }
+        }
+
+        let elOffset = scrollOnHoverX - offsetSum;
         if (
             scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)

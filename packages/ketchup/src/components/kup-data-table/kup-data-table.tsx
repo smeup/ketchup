@@ -31,7 +31,6 @@ import {
     TotalsMap,
     KupDataTableColumnDragType,
     KupDataTableSortedColumnIndexes,
-    RowGroup,
 } from './kup-data-table-declarations';
 
 import {
@@ -676,32 +675,6 @@ export class KupDataTable {
         this.groupState = {};
 
         const index = this.groups.indexOf(group);
-
-        if (index >= 0) {
-            // removing group from prop
-            this.groups.splice(index, 1);
-            this.groups = [...this.groups];
-        }
-    }
-
-    private removeGroupFromRow(group: RowGroup) {
-        if (!group) {
-            return;
-        }
-
-        // resetting group state
-        this.groupState = {};
-
-        // search group
-        let index = -1;
-        for (let i = 0; i < this.groups.length; i++) {
-            const g = this.groups[i];
-
-            if (g.column === group.column) {
-                index = i;
-                break;
-            }
-        }
 
         if (index >= 0) {
             // removing group from prop
@@ -1458,40 +1431,24 @@ export class KupDataTable {
             );
         }
 
-        let groupColumn = null;
-        if (this.isGrouping() && this.hasTotals()) {
-            groupColumn = <th />;
-        }
+        //  let groupColumn = null;
+        //  if (this.isGrouping() && this.hasTotals()) {
+        //      groupColumn = <th />;
+        //  }
 
         let actionsColumn = null;
         if (this.hasRowActions()) {
             actionsColumn = <th />;
         }
 
-        return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+        return [multiSelectColumn, actionsColumn, ...dataColumns];
+        //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     private renderStickyHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
-            // sort
-            let sort = null;
-            if (this.sortEnabled) {
-                sort = (
-                    <span class="column-sort">
-                        <span
-                            role="button"
-                            aria-label="Sort column" // TODO
-                            class={'mdi ' + this.getSortIcon(column.name)}
-                            onClick={(e: MouseEvent) =>
-                                this.onColumnSort(e, column.name)
-                            }
-                        />
-                    </span>
-                );
-            }
-
             let thStyle = null;
             if (hasCustomColumnsWidth) {
                 for (let i = 0; i < this.columnsWidth.length; i++) {
@@ -1519,7 +1476,6 @@ export class KupDataTable {
             return (
                 <th-sticky class={columnClass} style={thStyle}>
                     <span class="column-title">{column.title}</span>
-                    {sort}
                 </th-sticky>
             );
         });
@@ -1601,11 +1557,9 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded ? (
-                <path d="M19,13H5V11H19V13Z" />
-            ) : (
-                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-            );
+            const icon = row.group.expanded
+                ? 'mdi mdi-menu-up'
+                : 'mdi mdi-menu-down';
 
             const jsxRows = [];
 
@@ -1624,6 +1578,7 @@ export class KupDataTable {
                         {indent}
                         <span class="group-cell-content">
                             <span
+                                class={icon}
                                 role="button"
                                 aria-label="Row expander" // TODO change this label
                                 title="Expand/collapse group"
@@ -1632,36 +1587,8 @@ export class KupDataTable {
                                     e.stopPropagation();
                                     this.onRowExpand(row);
                                 }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-expander"
-                                >
-                                    {icon}
-                                </svg>
-                            </span>
+                            ></span>
                             {row.group.label}
-                            <span
-                                role="button"
-                                aria-label="Remove group" // TODO change this label
-                                title="Remove group"
-                                tabindex="0"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.removeGroupFromRow(row.group);
-                                }}
-                            >
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    class="group-remove"
-                                >
-                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                </svg>
-                            </span>
                         </span>
                     </td>
                 );
@@ -1684,6 +1611,7 @@ export class KupDataTable {
                             {indent}
                             <span class="group-cell-content">
                                 <span
+                                    class={icon}
                                     role="button"
                                     aria-label="Row expander" // TODO change this label
                                     title="Expand/collapse group"
@@ -1692,36 +1620,8 @@ export class KupDataTable {
                                         e.stopPropagation();
                                         this.onRowExpand(row);
                                     }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-expander"
-                                    >
-                                        {icon}
-                                    </svg>
-                                </span>
+                                ></span>
                                 <span class="text">{row.group.label}</span>
-                                <span
-                                    role="button"
-                                    aria-label="Remove group" // TODO change this label
-                                    title="Remove group"
-                                    tabindex="0"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        this.removeGroupFromRow(row.group);
-                                    }}
-                                >
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        class="group-remove"
-                                    >
-                                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                                    </svg>
-                                </span>
                             </span>
                         </td>
                     </tr>
@@ -2094,7 +1994,7 @@ export class KupDataTable {
         );
     }
 
-    private onCustomSettingsClick(event) {
+    private onCustomSettingsClick(event: any) {
         let t = event.target;
         let elPanel = t
             .closest('.paginator-wrapper')
@@ -2110,6 +2010,17 @@ export class KupDataTable {
         } else {
             elButton.classList.add('activated');
             elPanel.classList.add('visible');
+        }
+    }
+
+    private closeCustomSettings() {
+        let elPanel = this.customizePanelRef;
+        let elButton = elPanel
+            .closest('.paginator-wrapper')
+            .getElementsByClassName('custom-settings')[0];
+        if (elButton.classList.contains('activated')) {
+            elButton.classList.remove('activated');
+            elPanel.classList.remove('visible');
         }
     }
 
@@ -2134,6 +2045,7 @@ export class KupDataTable {
                         onClick={(e) => this.onCustomSettingsClick(e)}
                     >
                         <div
+                            onMouseLeave={() => this.closeCustomSettings()}
                             class="customize-panel"
                             ref={(el) => (this.customizePanelRef = el as any)}
                         >
@@ -2148,7 +2060,7 @@ export class KupDataTable {
     }
 
     private renderFontSizePanel(top: boolean) {
-        let fontSize;
+        let fontSize: string;
         {
             this.fontsize === 'medium'
                 ? (fontSize = 'Media')
@@ -2250,7 +2162,7 @@ export class KupDataTable {
     }
 
     private renderDensityPanel(top: boolean) {
-        let densityType;
+        let densityType: string;
         {
             this.density === 'medium'
                 ? (densityType = 'Normale')
