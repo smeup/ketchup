@@ -57,6 +57,7 @@ export class scrollOnHover {
         let el = event.target
             .closest('.hover-scrolling-parent')
             .querySelectorAll('.hover-scrolling-el')[0];
+        const elPos = el.getBoundingClientRect();
         this.setChildrenScroll(el);
         let arrowContainter = el.querySelectorAll(
             '#container-scrolling-arrow'
@@ -64,23 +65,6 @@ export class scrollOnHover {
         let trueWidth = el.clientWidth;
         arrowContainter.style.top = scrollOnHoverY + 'px';
         arrowContainter.style.left = scrollOnHoverX + 'px';
-        let offsetSum: number = 0;
-        let offsetStep: number = 0;
-        for (let current = el; current !== document; ) {
-            if (current.offsetLeft) {
-                if (offsetStep !== current.offsetLeft) {
-                    offsetSum += current.offsetLeft;
-                    offsetStep = current.offsetLeft;
-                }
-            }
-            if (current.parentElement) {
-                current = current.parentElement;
-            } else if (current.parentNode) {
-                current = current.parentNode;
-            } else {
-                current = current.host;
-            }
-        }
 
         if (trueWidth === 0) {
             trueWidth = el.offsetWidth;
@@ -89,7 +73,7 @@ export class scrollOnHover {
             if (trueWidth !== 0 && scrollTimeout === 'off') {
                 let percRight = trueWidth - trueWidth * 0.1;
                 let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset = scrollOnHoverX - offsetSum;
+                let elOffset = scrollOnHoverX - elPos.left;
                 let maxScrollLeft = el.scrollWidth - trueWidth;
                 var leftArrow = el.querySelectorAll(
                     '#container-scrolling-arrow .left-scrolling-arrow'
@@ -148,25 +132,9 @@ export class scrollOnHover {
         event: any,
         direction: string
     ) {
-        let offsetSum: number = 0;
-        let offsetStep: number = 0;
-        for (let current = el; current !== document; ) {
-            if (current.offsetLeft) {
-                if (offsetStep !== current.offsetLeft) {
-                    offsetSum += current.offsetLeft;
-                    offsetStep = current.offsetLeft;
-                }
-            }
-            if (current.parentElement) {
-                current = current.parentElement;
-            } else if (current.parentNode) {
-                current = current.parentNode;
-            } else {
-                current = current.host;
-            }
-        }
+        const elPos = el.getBoundingClientRect();
 
-        let elOffset = scrollOnHoverX - offsetSum;
+        let elOffset = scrollOnHoverX - elPos.left;
         if (
             scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)
