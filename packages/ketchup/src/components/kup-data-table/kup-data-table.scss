@@ -65,7 +65,10 @@
     --kup-data-table_head-background-color,
     #f4f4f4
   );
-  --dtt_cell-image_max-height: var(--kup-data-table_cell-image_max-height, 64px);
+  --dtt_cell-image_max-height: var(
+    --kup-data-table_cell-image_max-height,
+    64px
+  );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
   --dtt_header-offset: var(--kup-data-table_header-offset, 50px);
   --dtt_hover-background-color: var(
@@ -346,11 +349,13 @@
                   vertical-align: middle;
                 }
               }
+              > span.text {
+                vertical-align: text-bottom;
+              }
             }
 
             &.total {
               text-align: right;
-              padding-right: 1rem;
             }
           }
         }
@@ -398,7 +403,6 @@
 
           // The container of the effective cell content
           .cell-content {
-
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]
@@ -555,6 +559,7 @@
     display: flex;
     flex-flow: wrap;
     min-width: max-content;
+    min-height: 2rem;
   }
 }
 
@@ -599,6 +604,7 @@
     cursor: pointer;
     outline: none;
     margin-left: 0.25rem;
+    margin-right: 2rem; //For WebUP Toolbar
     padding: 0 0.25rem;
     float: right;
 
