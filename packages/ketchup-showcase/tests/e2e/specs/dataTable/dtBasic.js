@@ -13,7 +13,7 @@ context('Data table without configuration', () => {
       .shadowFind('table')
       .shadowFind('tr')
       .its('length')
-      .should('eq', 4);
+      .should('eq', 11);
 
     cy.shadowGet('kup-data-table')
       .shadowFind('#top-paginator')
@@ -21,7 +21,7 @@ context('Data table without configuration', () => {
       .shadowFind('.align-left')
       .shadowFind('.nextPageGroup')
       .shadowFirst()
-      .shadowContains('3');
+      .shadowContains('15');
 
     cy.shadowGet('kup-data-table')
       .shadowFind('.density-medium')
