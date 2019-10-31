@@ -1707,13 +1707,19 @@ export class KupDataTable {
                 }
 
                 jsxRows.push(
-                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                    <tr
+                        class="group group-label"
+                        onClick={() => this.onRowExpand(row)}
+                    >
                         {grouplabelcell}
                     </tr>
                 );
 
                 jsxRows.push(
-                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                    <tr
+                        class="group group-total"
+                        onClick={() => this.onRowExpand(row)}
+                    >
                         {cells}
                     </tr>
                 );

@@ -319,7 +319,8 @@
       cursor: pointer;
 
       > tr {
-        &:hover,
+        &:not(.group-total):hover,
+        &:hover + .group-total,
         &.selected {
           > td {
             color: var(--dtt_hover-color);
@@ -334,19 +335,27 @@
           font-weight: bold;
           border-top: 1px solid var(--dtt_border-color);
 
+          &.group-label {
+            border-bottom: none;
+            line-height: 0.75rem;
+          }
+
+          &.group-total {
+            border-top: none;
+            line-height: 0.5rem;
+          }
+
           > td {
             padding: 0.5rem 0;
 
             .group-cell-content {
               > span {
                 display: inline-flex;
-                vertical-align: bottom;
                 outline: none;
                 margin-left: 0.25rem;
 
                 &:before {
                   font-size: calc(var(--dtt_font-size) * 1.25);
-                  vertical-align: middle;
                 }
               }
               > span.text {
@@ -356,6 +365,7 @@
 
             &.total {
               text-align: right;
+              padding: 0.5rem 0.3125rem;
             }
           }
         }
