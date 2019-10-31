@@ -66,13 +66,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-badge](..\kup-badge)
-- [kup-image](..\kup-image)
-- [kup-button](..\kup-button)
-- [kup-combo](..\kup-combo)
-- [kup-text-input](..\kup-text-input)
-- [kup-paginator](..\kup-paginator)
-- [kup-progress-bar](..\kup-progress-bar)
+- [kup-badge](../kup-badge)
+- [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-combo](../kup-combo)
+- [kup-text-input](../kup-text-input)
+- [kup-paginator](../kup-paginator)
+- [kup-progress-bar](../kup-progress-bar)
 
 ### Graph
 ```mermaid

@@ -171,6 +171,450 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'DELGIO',
+          },
+          value: 'DELGIO',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '6',
+          },
+          value: '6',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20180102',
+          },
+          value: '02/01/2018',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
             k: 'PARFRA',
           },
           value: 'PARFRA',
