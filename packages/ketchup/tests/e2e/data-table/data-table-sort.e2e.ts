@@ -25,7 +25,7 @@ describe('sorting disabled', () => {
 });
 
 // TODO there is an error here: the column does not paint the icon
-describe.skip('sort rows', () => {
+describe('sort rows', () => {
     it('single sort', async () => {
         const page = await newE2EPage();
 

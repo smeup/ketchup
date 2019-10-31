@@ -1,53 +1,63 @@
-import {Component, Event, EventEmitter, h, JSX, Method, Prop, State, Watch,} from '@stencil/core';
+import {
+    Component,
+    Event,
+    EventEmitter,
+    h,
+    JSX,
+    Method,
+    Prop,
+    State,
+    Watch,
+} from '@stencil/core';
 
 import numeral from 'numeral';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { positionRecalc } from '../../utils/recalc-position';
 
 import {
-  Cell,
-  Column,
-  GenericMap,
-  GroupLabelDisplayMode,
-  GroupObject,
-  KupDataTableCellButtonClick,
-  KupDataTableColumnDragType,
-  KupDataTableSortedColumnIndexes,
-  LoadMoreMode,
-  PaginatorPos,
-  Row,
-  RowAction,
-  ShowGrid,
-  SortMode,
-  SortObject,
-  TableData,
-  TotalsMap,
+    Cell,
+    Column,
+    GenericMap,
+    GroupLabelDisplayMode,
+    GroupObject,
+    KupDataTableCellButtonClick,
+    KupDataTableColumnDragType,
+    KupDataTableSortedColumnIndexes,
+    LoadMoreMode,
+    PaginatorPos,
+    Row,
+    RowAction,
+    ShowGrid,
+    SortMode,
+    SortObject,
+    TableData,
+    TotalsMap,
 } from './kup-data-table-declarations';
 
 import {
-  calcTotals,
-  filterRows,
-  getColumnByName,
-  groupRows,
-  paginateRows,
-  sortRows,
-  styleHasBorderRadius,
+    calcTotals,
+    filterRows,
+    getColumnByName,
+    groupRows,
+    paginateRows,
+    sortRows,
+    styleHasBorderRadius,
 } from './kup-data-table-helper';
 
-import {progressbarFromCellHelper,} from "../kup-progress-bar/kup-progress-bar-helper";
+import { progressbarFromCellHelper } from '../kup-progress-bar/kup-progress-bar-helper';
 
 import {
-  createJ4objButtonConfig,
-  isBar,
-  isButton,
-  isCheckbox,
-  isIcon,
-  isImage,
-  isLink,
-  isNumber,
-  isProgressBar,
-  isRadio,
-  isVoCodver,
+    createJ4objButtonConfig,
+    isBar,
+    isButton,
+    isCheckbox,
+    isIcon,
+    isImage,
+    isLink,
+    isNumber,
+    isProgressBar,
+    isRadio,
+    isVoCodver,
 } from '../../utils/object-utils';
 
 @Component({
@@ -79,7 +89,7 @@ export class KupDataTable {
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
      * The reflect attribute is mandatory to allow styling.
      */
-    @Prop({reflect: true})
+    @Prop({ reflect: true })
     forceOneLine: boolean = false;
 
     @Prop()
@@ -571,18 +581,20 @@ export class KupDataTable {
     }
 
     private hasTooltip(cell: Cell) {
-        return cell.obj
-            && cell.obj.t!==""
-            && !isBar(cell.obj)
-            && !isButton(cell.obj)
-            && !isCheckbox(cell.obj)
-            && !isIcon(cell.obj)
-            && !isImage(cell.obj)
-            && !isLink(cell.obj)
-            && !isNumber(cell.obj)
-            && !isProgressBar(cell.obj)
-            && !isRadio(cell.obj)
-            && !isVoCodver(cell.obj);
+        return (
+            cell.obj &&
+            cell.obj.t !== '' &&
+            !isBar(cell.obj) &&
+            !isButton(cell.obj) &&
+            !isCheckbox(cell.obj) &&
+            !isIcon(cell.obj) &&
+            !isImage(cell.obj) &&
+            !isLink(cell.obj) &&
+            !isNumber(cell.obj) &&
+            !isProgressBar(cell.obj) &&
+            !isRadio(cell.obj) &&
+            !isVoCodver(cell.obj)
+        );
     }
 
     private getColumns(): Array<Column> {
@@ -718,7 +730,7 @@ export class KupDataTable {
                     }
                 }
                 if (!found) {
-                    return false
+                    return false;
                 }
             }
             return true;
@@ -1232,7 +1244,10 @@ export class KupDataTable {
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
-            let filterValue = this.filters && this.filters[column.name] ? this.filters[column.name] : '';
+            let filterValue =
+                this.filters && this.filters[column.name]
+                    ? this.filters[column.name]
+                    : '';
 
             if (this.showFilters) {
                 // When showing filters, displays input box to update them.
@@ -1258,24 +1273,34 @@ export class KupDataTable {
                  * This SVG was created by Niccolò from Dreamonkey.
                  * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                  */
-                filter = <svg
-                    aria-label={svgLabel}
-                    class="remove-filter"
-                    role="button"
-                    tab-index="0"
-                    version="1.1"
-                    viewBox="0 0 24 24"
-                    x="0px"
-                    y="0px"
-                    onClick={() => {
-                      this.onFilterChange({detail: {value: ''}}, column.name);
-                    }}>
-                  <title>{svgLabel}</title>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
+                filter = (
+                    <svg
+                        aria-label={svgLabel}
+                        class="remove-filter"
+                        role="button"
+                        tab-index="0"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0px"
+                        y="0px"
+                        onClick={() => {
+                            this.onFilterChange(
+                                { detail: { value: '' } },
+                                column.name
+                            );
+                        }}
+                    >
+                        <title>{svgLabel}</title>
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
                     c0.042,0.3-0.06,0.62-0.289,0.828c-0.392,0.391-1.021,0.391-1.411,0l-2.008-2.008c-0.232-0.228-0.331-0.541-0.292-0.83v-5.871
                     h-0.028l-5.25-6.726L2,2.943L2.943,2L8.82,7.877L14.667,13.726z M20.287,4.276c0.43,0.34,0.51,0.97,0.172,1.399l-5.242,6.713
-                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"/>
-                </svg>;
+                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"
+                        />
+                    </svg>
+                );
             }
 
             //---- Sort ----
@@ -1629,7 +1654,8 @@ export class KupDataTable {
                     break;
                 case GroupLabelDisplayMode.BOTH:
                 default:
-                    composedGroupLabel = row.group.columnLabel + ' = ' + row.group.label;
+                    composedGroupLabel =
+                        row.group.columnLabel + ' = ' + row.group.label;
                     break;
             }
 
@@ -1653,23 +1679,25 @@ export class KupDataTable {
                 //const colSpan = this.multiSelection ? 2 : 1;
                 const cells = [];
                 // adding 'grouping' cell
-                const grouplabelcell = <td colSpan={this.calculateColspan()}>
-                    {indent}
-                    <span class="group-cell-content">
-                        <span
-                            class={icon}
-                            role="button"
-                            aria-label="Row expander" // TODO change this label
-                            title="Expand/collapse group"
-                            tabindex="0"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                this.onRowExpand(row);
-                            }}
-                        ></span>
-                        {composedGroupLabel}
-                    </span>
-                </td>;
+                const grouplabelcell = (
+                    <td colSpan={this.calculateColspan()}>
+                        {indent}
+                        <span class="group-cell-content">
+                            <span
+                                class={icon}
+                                role="button"
+                                aria-label="Row expander" // TODO change this label
+                                title="Expand/collapse group"
+                                tabindex="0"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.onRowExpand(row);
+                                }}
+                            ></span>
+                            {composedGroupLabel}
+                        </span>
+                    </td>
+                );
 
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
@@ -1679,13 +1707,19 @@ export class KupDataTable {
                 }
 
                 jsxRows.push(
-                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                    <tr
+                        class="group group-label"
+                        onClick={() => this.onRowExpand(row)}
+                    >
                         {grouplabelcell}
                     </tr>
                 );
 
                 jsxRows.push(
-                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                    <tr
+                        class="group group-total"
+                        onClick={() => this.onRowExpand(row)}
+                    >
                         {cells}
                     </tr>
                 );
@@ -1744,7 +1778,7 @@ export class KupDataTable {
                 let indend = [];
                 if (index === 0) {
                     for (let i = 0; i < level; i++) {
-                        indend.push(<span class="indent"/>);
+                        indend.push(<span class="indent" />);
                     }
                 }
 
@@ -1793,7 +1827,7 @@ export class KupDataTable {
                 );
 
                 const cellClass = {
-                    'has-options': !!(options),
+                    'has-options': !!options,
                     number: isNumber(cell.obj),
                 };
 
@@ -1817,7 +1851,7 @@ export class KupDataTable {
                     // Specific width has been found
                     if (colWidth) {
                         if (!cellStyle) {
-                          cellStyle = {};
+                            cellStyle = {};
                         }
 
                         // Sets the width.
@@ -1984,7 +2018,7 @@ export class KupDataTable {
                 }
             }
         } else if (isImage(cell.obj)) {
-            content = <img src={valueToDisplay} alt="" class="cell-image"/>;
+            content = <img src={valueToDisplay} alt="" class="cell-image" />;
         } else if (isLink(cell.obj)) {
             content = (
                 <a href={valueToDisplay} target="_blank">
@@ -2046,32 +2080,33 @@ export class KupDataTable {
             }
 
             // Controls if we should display this cell value
-            content = !hideValuesRepetition || valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+            content =
+                !hideValuesRepetition || valueToDisplay ? (
+                    <kup-graphic-cell {...props} />
+                ) : null;
         } else if (isProgressBar(cell.obj)) {
-          if (!hideValuesRepetition || valueToDisplay) {
-            content = progressbarFromCellHelper(
-              cell,
-              valueToDisplay,
-              true
-            );
-          } else {
-            content = null;
-          }
+            if (!hideValuesRepetition || valueToDisplay) {
+                content = progressbarFromCellHelper(cell, valueToDisplay, true);
+            } else {
+                content = null;
+            }
         } else if (isRadio(cell.obj)) {
-          if (!hideValuesRepetition || valueToDisplay) {
-            content = <kup-radio-element
-              checked={!!cell.obj.k}
-              disabled={
-                cellData &&
-                cellData.row &&
-                cellData.row.hasOwnProperty('readOnly')
-                  ? cellData.row.readOnly
-                  : true
-              }
-            />;
-          } else {
-            content = null;
-          }
+            if (!hideValuesRepetition || valueToDisplay) {
+                content = (
+                    <kup-radio-element
+                        checked={!!cell.obj.k}
+                        disabled={
+                            cellData &&
+                            cellData.row &&
+                            cellData.row.hasOwnProperty('readOnly')
+                                ? cellData.row.readOnly
+                                : true
+                        }
+                    />
+                );
+            } else {
+                content = null;
+            }
         }
 
         // if cell.style has border, apply style to cellcontent
@@ -2161,21 +2196,22 @@ export class KupDataTable {
     }
 
     private renderPaginator(top: boolean) {
-
-        return this.rows.length >= this.rowsPerPage ? (
+        return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
-                    <kup-paginator
-                        id={top ? 'top-paginator' : 'bottom-paginator'}
-                        max={this.rows.length}
-                        perPage={this.rowsPerPage}
-                        selectedPerPage={this.currentRowsPerPage}
-                        currentPage={this.currentPage}
-                        onKupPageChanged={(e) => this.handlePageChanged(e)}
-                        onKupRowsPerPageChanged={(e) =>
-                            this.handleRowsPerPageChanged(e)
-                        }
-                    ></kup-paginator>
+                    {this.rows.length >= this.rowsPerPage ? (
+                        <kup-paginator
+                            id={top ? 'top-paginator' : 'bottom-paginator'}
+                            max={this.rows.length}
+                            perPage={this.rowsPerPage}
+                            selectedPerPage={this.currentRowsPerPage}
+                            currentPage={this.currentPage}
+                            onKupPageChanged={(e) => this.handlePageChanged(e)}
+                            onKupRowsPerPageChanged={(e) =>
+                                this.handleRowsPerPageChanged(e)
+                            }
+                        />
+                    ) : null}
                     <button
                         title="Mostra opzioni di personalizzazione"
                         class="paginator-button mdi mdi-settings custom-settings"
@@ -2193,7 +2229,7 @@ export class KupDataTable {
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
-        ) : null;
+        );
     }
 
     private renderFontSizePanel(top: boolean) {
@@ -2493,7 +2529,11 @@ export class KupDataTable {
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
-            'auto-width': !!(this.columnsWidth && this.columnsWidth.length && this.tableHasAutoWidth()),
+            'auto-width': !!(
+                this.columnsWidth &&
+                this.columnsWidth.length &&
+                this.tableHasAutoWidth()
+            ),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,

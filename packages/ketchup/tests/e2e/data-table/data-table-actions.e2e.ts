@@ -59,7 +59,7 @@ function createActionData() {
 const actionsData = createActionData();
 
 // TODO there is an error here: the column does not paint the icon
-describe.skip('renders actions', () => {
+describe('renders actions', () => {
     it('without grouping', async () => {
         const page = await newE2EPage();
 
