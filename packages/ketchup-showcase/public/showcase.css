@@ -69,11 +69,18 @@ span.company-text {
   width: 100%;
 }
 
-/* Navigation menu */
+/* Navigation menu and content */
 aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer,
 main.v-content {
-  background: var(--main-background-color) !important;
   color: var(--main-text-color) !important;
+}
+
+main.v-content {
+  background: var(--main-background-color) !important;
+}
+
+aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
+  background: var(--body-background-color) !important;
 }
 
 div.v-list {

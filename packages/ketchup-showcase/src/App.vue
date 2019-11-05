@@ -565,14 +565,4 @@ kup-fld {
   display: inline-flex;
   padding: 12px;
 }
-
-// For tables
-kup-data-table {
-  // These pixels measurement are taken from the height of the toolbar of the vuetify webapp.
-  --kup-data-table_header-offset: 64px;
-
-  @media only screen and (max-width: 959px) {
-    --kup-data-table_header-offset: 55px;
-  }
-}
 </style>
