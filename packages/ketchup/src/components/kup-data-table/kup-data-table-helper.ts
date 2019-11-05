@@ -441,7 +441,7 @@ function updateGroupTotal(
 
         const cell = addedRow.cells[key];
 
-        const isNumber = cell.obj.t === 'NR';
+        const isNumber = cell.obj && cell.obj.t === 'NR';
 
         const totalMode = totals[key];
 
@@ -550,16 +550,22 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
 
 export function calcTotals(
     rows: Array<Row> = [],
-    totals: { [index: string]: TotalMode } = {}
+    origtotals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
+    let totals = origtotals;
+
     if (!rows || !totals) {
         return {};
     }
 
     const keys = Object.keys(totals);
-
     const footerRow: { [index: string]: number } = {};
 
+    if (keys.length === 1 && keys[0] === "*ALL") {
+        //I have to explode totals for each row.
+        totals={};
+        rows[0].cells.every((c) => totals.add({[c.]:}));
+    }
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
