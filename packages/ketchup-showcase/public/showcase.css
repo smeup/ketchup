@@ -55,8 +55,25 @@ footer.v-footer {
   color: var(--header-icons-color) !important;
 }
 
-nav.v-toolbar i.v-icon.material-icons.theme--light {
+nav.v-toolbar i.v-icon.material-icons,
+.v-input--selection-controls.v-input .v-label {
   color: var(--header-icons-color) !important;
+}
+
+.v-input.v-input--selection-controls.v-input--switch {
+  min-width: max-content;
+}
+
+.v-input__slot {
+  flex-direction: row-reverse;
+}
+
+nav .v-messages {
+  display: none;
+}
+
+nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
+  margin-bottom: 0;
 }
 
 span.company-text {
@@ -67,6 +84,11 @@ span.company-text {
 
 .v-toolbar__title {
   width: 100%;
+}
+
+.v-input .accent--text {
+  color: var(--main-color) !important;
+  caret-color: var(--main-color) !important;
 }
 
 /* Navigation menu and content */
@@ -98,7 +120,7 @@ a.primary--text {
   color: var(--main-text-color);
 }
 
-v-logo img {
+div.logo img {
   margin: 1rem auto 2rem auto;
   display: block;
   cursor: pointer;

@@ -1,11 +1,11 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" :dark="darkTheme">
     <v-navigation-drawer v-model="drawer" fixed app>
-      <v-logo>
+      <div class="logo">
         <a target="_blank" href="https://www.smeup.com/">
           <img src="/header_logo.png" />
         </a>
-      </v-logo>
+      </div>
       <v-list dense>
         <v-list-group v-for="(section, index) in navigationSections" :key="index">
           <template v-slot:activator>
@@ -34,6 +34,7 @@
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Ketch.UP showcase</v-toolbar-title>
+      <v-switch v-model="darkTheme" :label="`Dark Mode`"></v-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -56,6 +57,7 @@
 <script>
 export default {
   data: () => ({
+    darkTheme: false,
     drawer: null,
     navigationSections: [
       {

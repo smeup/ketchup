@@ -32,7 +32,7 @@
   --second-color-dark: #4b4b4b;
 
   /* Finestre e pannelli */
-  --body-background-color: #141414; /* Colore di sfondo della pagina di WebUP e dello sfondo dei titoli (dialog, ecc.) */
+  --body-background-color: #202020; /* Colore di sfondo della pagina di WebUP e dello sfondo dei titoli (dialog, ecc.) */
   --title-background-color: #111111; /* Colore di sfondo dei titoli delle finestre */
   --main-background-color: #2d2d2d; /* Colore di sfondo per schede, pannelli, ecc. */
   --right-click-panel-background-color: var(
@@ -46,7 +46,7 @@
 
   /* Testi e icone */
   --main-font-size: 1rem; /* Solo per Ketchup attualmente */
-  --main-font-family: 'Lato', sans-serif; /* Font dei caratteri */
+  --main-font-family: 'Roboto', sans-serif; /* Font dei caratteri */
   --main-border-radius: 0px; /* Border radius principale dei campi */
   --main-icon-color: #f5f5f5; /* Colore delle icone */
   --main-icon-color-hover: #d0d0d0; /* Colore delle icone all'hover */
@@ -73,7 +73,7 @@
   /*  H E A D E R  */
 
   /* Principali */
-  --header-background-color: var(--main-background-color); /* Colore sfondo */
+  --header-background-color: #000000; /* Colore sfondo */
   --header-color: #ffffff; /* Colore testo */
   --header-box-shadow: 0 1px 2px rgba(150, 150, 150, 0.5); /* Ombreggiatura */
 
