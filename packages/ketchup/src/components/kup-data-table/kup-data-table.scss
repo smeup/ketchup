@@ -14,7 +14,6 @@
 * @prop --dtt_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
 * @prop --dtt_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
 * @prop --dtt_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
-* @prop --dtt_header-offset, --kup-data-table_header-offset: Top offset of the thead when table header must be persistent. Default: 50px;
 * @prop --dtt_hover-background-color, --kup-data-table_hover-background-color: background-color of a row when it's selected or hovered.
 * @prop --dtt_icons-color, --kup-data-table_icons-color: Color of a table icon.
 * @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
@@ -70,7 +69,6 @@
     64px
   );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
-  --dtt_header-offset: var(--kup-data-table_header-offset, 50px);
   --dtt_hover-background-color: var(
     --kup-data-table_hover-background-color,
     #{$gray-f0}
@@ -459,39 +457,67 @@
       border-right: 1px solid var(--dtt_border-color);
     }
 
-    /**
-     * When the header must be persistent (sticky)
-     * There is an issue with borders not being moved alongside the content.
-     * To prevent horrible renders we move border declarations on other elements
-     * Border top gets set on the table itself.
-     * thead hosts the lateral borders.
-     * tbody sets border-top.
-     * Header cells get set to sticky positioning.
-     */
+    & sticky-header {
+      display: none;
+    }
+
     &.persistent-header {
-      border-top: 1px solid var(--dtt_border-color);
-      position: relative;
+      & ~ sticky-header {
+        background: var(--dtt_head-background-color);
+        border-bottom: 2px solid var(--dtt_border-color);
+        box-shadow: var(--dtt_box-shadow);
+        color: var(--dtt_color);
+        display: block;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        transition: opacity 0.25s ease-in-out;
 
-      > thead {
-        border-color: var(--dtt_border-color);
-        border-style: solid;
-        border-width: 0 1px 0;
+        &.activated {
+          opacity: 1;
+          pointer-events: all;
+        }
 
-        > th {
-          background-color: var(--dtt_head-background-color);
-          box-shadow: var(--dtt_box-shadow);
-          position: -webkit-sticky; // For Safari
-          position: sticky;
-          top: var(--dtt_header-offset);
-          will-change: transform; // For performance
+        &[hidden] {
+          display: none;
+        }
+
+        tr-sticky {
+          display: inline-flex;
+        }
+
+        th-sticky {
+          padding: 0.5rem 0;
+          display: inline-flex;
+
           &.number {
             text-align: right;
           }
         }
-      }
 
-      > tbody {
-        border-top: 3px solid var(--dtt_border-color);
+        .column-title {
+          width: 100%;
+          font-weight: bold;
+          margin: 0 0.3125rem;
+          white-space: nowrap;
+        }
+
+        .column-sort {
+          cursor: pointer;
+
+          .mdi {
+            color: var(--dtt_icons-color);
+            transition: color 0.2s ease-in-out;
+          }
+
+          &:hover {
+            .mdi {
+              color: var(--dtt_icons-hover-color);
+            }
+          }
+        }
       }
     }
 
@@ -838,64 +864,5 @@
   &::before {
     height: inherit;
     width: inherit;
-  }
-}
-
-//Stile per sticky header
-sticky-header {
-  background: var(--dtt_head-background-color);
-  border-bottom: 2px solid var(--dtt_border-color);
-  box-shadow: var(--dtt_box-shadow);
-  color: var(--dtt_color);
-  display: block;
-  opacity: 0;
-  overflow: hidden;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  transition: opacity 0.25s ease-in-out;
-
-  &.activated {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  &[hidden] {
-    display: none;
-  }
-
-  tr-sticky {
-    display: inline-flex;
-  }
-
-  th-sticky {
-    padding: 0.5rem 0;
-    display: inline-flex;
-
-    &.number {
-      text-align: right;
-    }
-  }
-
-  .column-title {
-    width: 100%;
-    font-weight: bold;
-    margin: 0 0.3125rem;
-    white-space: nowrap;
-  }
-
-  .column-sort {
-    cursor: pointer;
-
-    .mdi {
-      color: var(--dtt_icons-color);
-      transition: color 0.2s ease-in-out;
-    }
-
-    &:hover {
-      .mdi {
-        color: var(--dtt_icons-hover-color);
-      }
-    }
   }
 }
