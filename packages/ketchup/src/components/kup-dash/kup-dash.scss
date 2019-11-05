@@ -20,6 +20,9 @@
   text-align: center;
   position: relative;
   word-break: normal;
+  &.with-dyn {
+    cursor: pointer;
+  }
 
   #content {
     .icon {

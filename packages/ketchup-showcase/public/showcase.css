@@ -1,0 +1,131 @@
+/* Global */
+html {
+  overflow: auto !important;
+}
+
+#inspire {
+  font-family: var(--main-font-family) !important;
+  font-size: var(--main-font-size) !important;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem !important;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin: 3rem 0 1rem !important;
+}
+
+h3 {
+  margin: 3rem 0 1rem !important;
+}
+
+.max-width-container {
+  max-width: 80% !important;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888888;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaaaaa;
+}
+
+i.v-icon.material-icons {
+  color: var(--main-text-color);
+}
+
+/* Navigation bar and footer */
+nav.v-toolbar,
+footer.v-footer {
+  background: var(--header-background-color) !important;
+  color: var(--header-icons-color) !important;
+}
+
+nav.v-toolbar i.v-icon.material-icons,
+.v-input--selection-controls.v-input .v-label {
+  color: var(--header-icons-color) !important;
+}
+
+.v-input.v-input--selection-controls.v-input--switch {
+  min-width: max-content;
+}
+
+.v-input__slot {
+  flex-direction: row-reverse;
+}
+
+nav .v-messages {
+  display: none;
+}
+
+nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
+  margin-bottom: 0;
+}
+
+span.company-text {
+  text-align: center;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.v-toolbar__title {
+  width: 100%;
+}
+
+.v-input .accent--text {
+  color: var(--main-color) !important;
+  caret-color: var(--main-color) !important;
+}
+
+/* Navigation menu and content */
+aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer,
+main.v-content {
+  color: var(--main-text-color) !important;
+}
+
+main.v-content {
+  background: var(--main-background-color) !important;
+}
+
+aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
+  background: var(--body-background-color) !important;
+}
+
+div.v-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+a.primary--text {
+  color: var(--hover-color) !important;
+  background: var(--hover-background-color);
+  text-align: center;
+}
+
+.v-list__tile__title {
+  color: var(--main-text-color);
+}
+
+div.logo img {
+  margin: 1rem auto 2rem auto;
+  display: block;
+  cursor: pointer;
+}
+
+div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
+  height: 50px;
+}

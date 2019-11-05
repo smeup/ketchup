@@ -39,7 +39,7 @@
           </div>
           <div slot="value-int" style="color: red;">15,</div>
           <div slot="value-dec" style="color: red;">86</div>
-          <div slot="unit"  style="color: red;" >%</div>
+          <div slot="unit" style="color: red;">%</div>
           <div slot="descr">Admissions Count</div>
         </kup-dash>
       </div>
@@ -87,33 +87,40 @@
           <div slot="descr">TASKS DONE</div>
         </kup-dash>
       </div>
+
+      <div>
+        <h3>With dynamism</h3>
+        <kup-dash id="layoutdyn" layout="8" active>
+          <div slot="icon">
+            <i class="mdi mdi-facebook" style="color: blue;" />
+          </div>
+          <div slot="value">35</div>
+          <div slot="descr">Users</div>
+        </kup-dash>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "DashExamples"
-  }
+export default {
+  name: 'DashExamples',
+};
 </script>
 
 <style scoped lang="scss">
-  #container {
-    display: grid;
-    grid-template-columns: 1fr 5% 1fr;
+#container {
+  display: grid;
+  grid-template-columns: 1fr 5% 1fr;
 
-    > div:nth-of-type(odd) {
-      grid-column-start: 1;
-      grid-column-end: 1;
-    }
-
-    > div:nth-of-type(even) {
-      grid-column-start: 3;
-      grid-column-end: 3;
-    }
+  > div:nth-of-type(odd) {
+    grid-column-start: 1;
+    grid-column-end: 1;
   }
 
-  kup-dash {
-    --dash_bkg-color: rgba(0,0,0,.12);
+  > div:nth-of-type(even) {
+    grid-column-start: 3;
+    grid-column-end: 3;
   }
+}
 </style>

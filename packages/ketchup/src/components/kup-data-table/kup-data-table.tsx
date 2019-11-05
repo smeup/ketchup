@@ -108,17 +108,8 @@ export class KupDataTable {
     @Prop()
     hoverScroll: boolean = true;
 
-    /**
-     * If table header is visible and this prop is set to true, the header will be visible while scrolling the table.
-     * To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset.
-     * It uses CSS position: sticky.
-     * @version 1.0
-     * @namespace KupDataTable.headerIsPersistent
-     * @see KupDataTable.showHeader
-     * @see https://caniuse.com/#feat=css-sticky
-     */
     @Prop({ reflect: true })
-    headerIsPersistent = false;
+    headerIsPersistent = true;
 
     @Prop()
     multiSelection = false;
@@ -1666,7 +1657,7 @@ export class KupDataTable {
 
             const icon = row.group.expanded
                 ? 'mdi mdi-menu-up'
-                : 'mdi mdi-menu-down';
+                : 'mdi mdi-menu-right';
 
             const jsxRows = [];
 
