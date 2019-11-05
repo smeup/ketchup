@@ -1657,7 +1657,7 @@ export class KupDataTable {
 
             const icon = row.group.expanded
                 ? 'mdi mdi-menu-up'
-                : 'mdi mdi-menu-down';
+                : 'mdi mdi-menu-right';
 
             const jsxRows = [];
 
