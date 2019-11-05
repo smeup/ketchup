@@ -10,19 +10,21 @@ export class KupDash {
     layout = '1';
 
     @Prop()
-    fontsize ='';
+    fontsize = '';
 
-    @Event({		
-        eventName: 'ketchupDashClicked',		
-        composed: true,		
-        cancelable: true,		
-        bubbles: true,		
-    })		
-    ketchupDashClicked: EventEmitter<{		
-    }>;		
+    @Prop()
+    active = false;
 
-     onDshClickedHandler() {		
-        this.ketchupDashClicked.emit();		
+    @Event({
+        eventName: 'ketchupDashClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    ketchupDashClicked: EventEmitter<{}>;
+
+    onDshClickedHandler() {
+        this.ketchupDashClicked.emit();
     }
 
     render() {
@@ -180,11 +182,16 @@ export class KupDash {
                 );
                 break;
         }
-        const style = {fontSize: this.fontsize};
+        const style = { fontSize: this.fontsize };
 
         return (
-            <div id="dash" style={style} onClick={() => this.onDshClickedHandler()}>
-                <div id="content" class={`layout-${this.layout}`}>
+            <div
+                id="dash"
+                class={`${this.active ? 'with-dyn' : ''}`}
+                style={style}
+                onClick={() => this.onDshClickedHandler()}
+            >
+                <div id="content" class={`layout-${this.layout} `}>
                     {content}
                 </div>
             </div>

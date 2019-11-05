@@ -403,7 +403,7 @@ export default {
     ],
     simpleRoutes: [
       {
-        title: `Btn - Bottoniera`,
+        title: `Buttons`,
         to: {
           name: 'btn',
         },
