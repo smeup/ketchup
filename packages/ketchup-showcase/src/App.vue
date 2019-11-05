@@ -1,20 +1,13 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" fixed app>
+      <v-logo>
+        <a target="_blank" href="https://www.smeup.com/">
+          <img src="/header_logo.png" />
+        </a>
+      </v-logo>
       <v-list dense>
-        <v-list-tile :to="{ path: '/' }">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-
-        <v-list-group
-          v-for="(section, index) in navigationSections"
-          :key="index"
-        >
+        <v-list-group v-for="(section, index) in navigationSections" :key="index">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
@@ -23,22 +16,14 @@
             </v-list-tile>
           </template>
 
-          <v-list-tile
-            v-for="route in section.routes"
-            :key="route.to.name"
-            :to="route.to"
-          >
+          <v-list-tile v-for="route in section.routes" :key="route.to.name" :to="route.to">
             <v-list-tile-content>
               <v-list-tile-title>{{ route.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list-group>
 
-        <v-list-tile
-          v-for="route in simpleRoutes"
-          :key="route.to.name"
-          :to="route.to"
-        >
+        <v-list-tile v-for="route in simpleRoutes" :key="route.to.name" :to="route.to">
           <v-list-tile-content>
             <v-list-tile-title>{{ route.title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -46,9 +31,12 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Ketch.UP showcase</v-toolbar-title>
+      <v-toolbar-side-icon :to="{ path: '/' }">
+        <v-icon>home</v-icon>
+      </v-toolbar-side-icon>
     </v-toolbar>
 
     <v-content>
@@ -59,7 +47,9 @@
       </v-container>
     </v-content>
 
-    <v-footer color="indigo" app></v-footer>
+    <v-footer app>
+      <span class="company-text">© Copyright 2019 - SME UP Spa</span>
+    </v-footer>
   </v-app>
 </template>
 

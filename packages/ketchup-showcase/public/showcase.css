@@ -1,0 +1,76 @@
+/* Global */
+#inspire {
+  font-family: var(--main-font-family) !important;
+  font-size: var(--main-font-size) !important;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem !important;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin: 3rem 0 1rem !important;
+}
+
+h3 {
+  margin: 3rem 0 1rem !important;
+}
+
+.max-width-container {
+  max-width: 80% !important;
+}
+
+/* Navigation bar and footer */
+nav.v-toolbar,
+footer.v-footer {
+  background: var(--header-background-color) !important;
+  color: var(--header-icons-color) !important;
+}
+
+nav.v-toolbar i.v-icon.material-icons.theme--light {
+  color: var(--header-icons-color) !important;
+}
+
+span.company-text {
+  text-align: center;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.v-toolbar__title {
+  width: 100%;
+}
+
+/* Navigation menu */
+aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer,
+main.v-content {
+  background: var(--main-background-color) !important;
+  color: var(--main-text-color) !important;
+}
+
+div.v-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+a.primary--text {
+  color: var(--hover-color) !important;
+  background: var(--hover-background-color);
+  text-align: center;
+}
+
+.v-list__tile__title {
+  color: var(--main-text-color);
+}
+
+v-logo img {
+  margin: 1rem auto 2rem auto;
+  display: block;
+  cursor: pointer;
+}
+
+div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
+  height: 50px;
+}
