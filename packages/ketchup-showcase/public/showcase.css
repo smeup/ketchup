@@ -1,4 +1,8 @@
 /* Global */
+html {
+  overflow: auto !important;
+}
+
 #inspire {
   font-family: var(--main-font-family) !important;
   font-size: var(--main-font-size) !important;
@@ -20,6 +24,28 @@ h3 {
 
 .max-width-container {
   max-width: 80% !important;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888888;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaaaaa;
+}
+
+i.v-icon.material-icons {
+  color: var(--main-text-color);
 }
 
 /* Navigation bar and footer */
