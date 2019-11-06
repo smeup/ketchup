@@ -19,6 +19,7 @@
 | Name                                                   | Description            |
 | ------------------------------------------------------ | ---------------------- |
 | `--bdg-background-color, --kup-badge_background-color` | badge background color |
+| `--bdg-border-radius, --kup-badge_border-radius`       | badge border radius    |
 | `--bdg-color, --kup-badge_color`                       | badge text color       |
 | `--bdg-dim, --kup-badge_dimension`                     | badge dimension        |
 
@@ -27,8 +28,8 @@
 
 ### Used by
 
- - [kup-box](../kup-box)
- - [kup-image](../kup-image)
+ - [kup-box](..\kup-box)
+ - [kup-image](..\kup-image)
 
 ### Graph
 ```mermaid

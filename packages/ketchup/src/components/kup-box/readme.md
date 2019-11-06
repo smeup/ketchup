@@ -51,6 +51,10 @@ Type: `Promise<void>`
 
 | Name                                                                 | Description                          |
 | -------------------------------------------------------------------- | ------------------------------------ |
+| `--box_badge-background, --kup-box_badge-background`                 | badge background color               |
+| `--box_badge-border-radius, --kup-box_badge-border-radius`           | badge border radius                  |
+| `--box_badge-dimension, --kup-box_badge-dimension`                   | badge dimension                      |
+| `--box_badge-text, --kup-box_badge-text`                             | badge text color                     |
 | `--box_border-color, --kup-box_border-color`                         | single box border color              |
 | `--box_border-radius, --kup-box_border-radius`                       | single box border radius             |
 | `--box_color, --kup-box_color`                                       | text color                           |
@@ -66,13 +70,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-badge](../kup-badge)
-- [kup-image](../kup-image)
-- [kup-button](../kup-button)
-- [kup-combo](../kup-combo)
-- [kup-text-input](../kup-text-input)
-- [kup-paginator](../kup-paginator)
-- [kup-progress-bar](../kup-progress-bar)
+- [kup-badge](..\kup-badge)
+- [kup-image](..\kup-image)
+- [kup-button](..\kup-button)
+- [kup-combo](..\kup-combo)
+- [kup-text-input](..\kup-text-input)
+- [kup-paginator](..\kup-paginator)
+- [kup-progress-bar](..\kup-progress-bar)
 
 ### Graph
 ```mermaid

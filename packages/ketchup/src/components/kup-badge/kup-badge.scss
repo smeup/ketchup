@@ -2,6 +2,7 @@
 
 /**
 * @prop --bdg-background-color, --kup-badge_background-color: badge background color
+* @prop --bdg-border-radius,    --kup-badge_border-radius:    badge border radius
 * @prop --bdg-color,            --kup-badge_color:            badge text color
 * @prop --bdg-dim,              --kup-badge_dimension:        badge dimension
 */
@@ -9,8 +10,9 @@
 :host {
   // variables
   --bdg_background-color: var(--kup-badge_background-color, #95a5a6);
+  --bdg_border-radius: var(--kup-badge_background-color, 15px);
   --bdg_color: var(--kup-badge_color, #fff);
-  --bdg_dim: var(--kup-badge_dimension, 20px);
+  --bdg_dim: var(--kup-badge_dimension, 25px);
 
   position: absolute;
   max-width: 70%;
@@ -19,12 +21,15 @@
     background-color: var(--bdg_background-color);
     color: var(--bdg_color);
     padding: 0 3px;
-    font-size: 11px;
-    border-radius: 3px;
-
+    font-size: 1rem;
+    border-radius: var(--bdg_border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
+    &:before {
+      vertical-align: middle;
+      margin: auto;
+    }
   }
 }
 
@@ -53,7 +58,6 @@
     box-sizing: border-box;
     min-width: var(--bdg_dim);
     height: var(--bdg_dim);
-    border-radius: calc(var(--bdg_dim) / 2);
   }
 }
 
@@ -76,23 +80,3 @@
   bottom: -10px;
   left: -10px;
 }
-
-// :host(.centered.top-right) {
-//   top: calc((var(--bdg_dim) + 5px) / 2 * -1);
-//   right: calc((var(--bdg_dim) + 5px) / 2 * -1);
-// }
-
-// :host(.centered.top-left) {
-//   top: calc((var(--bdg_dim) + 5px) / 2 * -1);
-//   left: calc((var(--bdg_dim) + 5px) / 2 * -1);
-// }
-
-// :host(.centered.bottom-right) {
-//   bottom: calc((var(--bdg_dim) + 5px) / 2 * -1);
-//   right: calc((var(--bdg_dim) + 5px) / 2 * -1);
-// }
-
-// :host(.centered.bottom-left) {
-//   bottom: calc((var(--bdg_dim) + 5px) / 2 * -1);
-//   left: calc((var(--bdg_dim) + 5px) / 2 * -1);
-// }

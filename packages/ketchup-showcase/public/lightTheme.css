@@ -175,6 +175,36 @@
 
   /*  K E T C H U P   W E B C O M P O N E N T S  */
 
+  /* Badge */
+  --kup-badge_background-color: var(--header-icons-badge-background-color);
+  --kup-badge_border-radius: 15px;
+  --kup-badge_color: var(--header-icons-badge-color);
+  --kup-badge_dimension: 30px;
+
+  /* Box */
+  --kup-box_color: var(--main-text-color);
+  --kup-box_border-color: var(--main-border-color);
+  --kup-box_border-radius: var(--main-border-radius);
+  --kup-box_img-border-radius: var(--main-border-radius);
+  --kup-box_expand-panel-color: var(--main-text-stronger-color);
+  --kup-box_hover-box-shadow: var(--main-box-shadow);
+  --kup-box_titled-section-font-size: 1.2rem;
+  --kup-box_titled-section-bg-color: transparent;
+  --kup-box_titled-section-top: -9px;
+  --kup-box_badge-background: var(--kup-badge_background-color);
+  --kup-box_badge-border-radius: var(--kup-badge_border-radius);
+  --kup-box_badge-text: var(--kup-badge_color);
+  --kup-box_badge-dimension: var(--kup-badge_dimension);
+
+  /* Chips */
+  --kup-chip_color: var(--main-text-color);
+  --kup-chip_icon-color: var(--main-icon-color);
+  --kup-chip_icon-color-hover: var(--main-icon-color-hover);
+  --kup-chip_background: var(--tags-background-color);
+  --kup-chip_background-hover: var(--tags-background-color);
+  --kup-chip_disabled-color: var(--disabled-text-color);
+  --kup-chip_disabled-background-color: var(--disabled-background-color);
+
   /* Dash */
   --kup-dash_background-color: transparent;
   --kup-dash_color: var(--main-text-color);
@@ -265,12 +295,4 @@
   --kup-detail-lbl-color: var(--main-text-lighter-color);
   --kup-detail-txt-color: var(--main-text-color);
   --kup-tlt_shadow: var(--main-box-shadow);
-
-  /* Chips */
-  --kup-chip_color: var(--main-text-color);
-  --kup-chip_icon-color: var(--main-icon-color);
-  --kup-chip_icon-color-hover: var(--main-icon-color-hover);
-  --kup-chip_background: var(--tags-background-color);
-  --kup-chip_background-hover: var(--tags-background-color);
-  --kup-chip_disabled-color: var(--main-background-color);
 }

@@ -107,10 +107,10 @@ describe('kup-tree with data', () => {
       // open/close icon, TreeNode icon and the cell content
       expect(tnc.childNodes).toHaveLength(3);
 
-      // First child is menu down icon
-      const nodeExpanderClasses = ['mdi', 'mdi-menu-down'];
+      // First child is expand icon
+      const nodeExpanderClasses = ['expand-icon'];
       if (currentNodeData.expandable) {
-        // When TreeNode is expandable, it has the menu-down icon
+        // When TreeNode is expandable, it has the expand icon
         expect(tnc.childNodes[0]).toHaveClasses(nodeExpanderClasses);
       } else {
         expect(tnc.childNodes[0]).not.toHaveClasses(nodeExpanderClasses);
@@ -502,7 +502,7 @@ describe('kup-tree with data', () => {
 
               // Searches expander and control it can expand -> triggers expansion
               const expanderNode = await treeNodeCells[j].find('.kup-tree__node__expander');
-              expect(expanderNode).toHaveClass('mdi-menu-down');
+              expect(expanderNode).toHaveClass('expand-icon');
               await expanderNode.click();
 
               // Checks if event was correctly registered

@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type     | Default |
-| ---------- | ---------- | ----------- | -------- | ------- |
-| `fontsize` | `fontsize` |             | `string` | `''`    |
-| `layout`   | `layout`   |             | `string` | `'1'`   |
+| Property   | Attribute  | Description | Type      | Default |
+| ---------- | ---------- | ----------- | --------- | ------- |
+| `active`   | `active`   |             | `boolean` | `false` |
+| `fontsize` | `fontsize` |             | `string`  | `''`    |
+| `layout`   | `layout`   |             | `string`  | `'1'`   |
 
 
 ## Events
