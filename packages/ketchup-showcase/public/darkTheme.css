@@ -196,6 +196,27 @@
   --kup-box_badge-text: var(--kup-badge_color);
   --kup-box_badge-dimension: var(--kup-badge_dimension);
 
+  /* Button */
+  --kup-button_font-style: normal;
+  --kup-button_font-size: var(--main-font-size);
+  --kup-button_font-weight: 400;
+  --kup-button_font-family: var(--main-font-family);
+  --kup-button_icon-size: var(--main-font-size);
+  --kup-button_main-color: var(--main-color);
+  --kup-button_main-color-hover: var(--main-color-light);
+  --kup-button_main-color-active: var(--main-color-dark);
+  --kup-button_text-color: var(--text-on-main);
+  --kup-button_text-color--transparent: var(--main-color);
+  --kup-button_text-decoration: none;
+  --kup-button_icon-color: var(--text-on-main);
+  --kup-button_icon-color--transparent: var(--main-color);
+  --kup-button_animation-duration: 0.2s;
+  --kup-button_border-color: var(--main-color);
+  --kup-button_opacity: 1;
+  --kup-button_box-shadow: var(--main-box-shadow);
+  --kup-button_border: none;
+  --kup-button_border-radius: var(--main-border-radius);
+
   /* Chips */
   --kup-chip_color: var(--main-text-color);
   --kup-chip_icon-color: var(--main-icon-color);
@@ -260,17 +281,6 @@
   --kup-gauge_first-color: var(--main-red);
   --kup-gauge_second-color: var(--main-yellow);
   --kup-gauge_third-color: var(--main-green);
-
-  /* Button */
-  --kup-button_font-size: var(--main-font-size);
-  --kup-button_icon-size: var(--main-font-size);
-  --kup-button_main-color: var(--main-color);
-  --kup-button_main-color-hover: var(--main-color-light);
-  --kup-button_main-color-active: var(--main-color-dark);
-  --kup-button_text-color: var(--text-on-main);
-  --kup-button_icon-color: var(--text-on-main);
-  --kup-button_box-shadow: var(--main-box-shadow);
-  --kup-button_border-radius: var(--main-border-radius);
 
   /* Combo */
   --kup-combo_input_font-size: var(--main-font-size);
