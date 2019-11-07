@@ -30,4 +30,11 @@
       height: 20px;
     }
   }
+
+  .fc-ltr .fc-dayGrid-view .fc-day-top {
+    text-align: center;
+    .fc-day-number {
+      float: none;
+    }
+  }
 }

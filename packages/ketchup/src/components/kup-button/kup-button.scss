@@ -101,7 +101,9 @@ button {
     fill: var(--btn_icon-color);
     float: left;
     width: var(--btn_icon-size);
-    margin-right: 0.5rem;
+    & + .button-text {
+      margin-left: 0.5rem;
+    }
   }
 
   //-- The button text --
