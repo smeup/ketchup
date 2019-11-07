@@ -217,6 +217,13 @@
   --kup-button_border: none;
   --kup-button_border-radius: var(--main-border-radius);
 
+  /* Calendar */
+  --kup-cal_border-color: var(--main-border-color);
+  --kup-cal_header-background-color: var(--main-color);
+  --kup-cal_header-color: var(--text-on-main);
+  --kup-cal_event-background-color: var(--main-color-lightest);
+  --kup-cal_event-color: var(--text-on-main-light);
+
   /* Chips */
   --kup-chip_color: var(--main-text-color);
   --kup-chip_icon-color: var(--main-icon-color);

@@ -3,6 +3,25 @@
 @import '~@fullcalendar/daygrid/main.min.css';
 @import '~@fullcalendar/timegrid/main.min.css';
 
+/**
+* @prop --cal_border-color, --kup-cal_background-color: Set border color
+* @prop --cal_header-background-color, --kup-cal_header-background-color: Set background color of header
+* @prop --cal_header-color, --kup-cal_header-color: Set text color of header
+* @prop --cal_event-background-color, --kup-cal_event-background-color: Set background color of events
+* @prop --cal_event-color, --kup-cal_event-color: Set text color of events
+*/
+
+:host {
+  --cal_border-color: var(--kup-cal_border-color, grey);
+  --cal_header-background-color: var(
+    --kup-cal_header-background-color,
+    #1fbe7c
+  );
+  --cal_header-color: var(--kup-cal_header-color, white);
+  --cal_event-background-color: var(--kup-cal_event-background-color, #25e092);
+  --cal_event-color: var(--kup-cal_event-color, rgb(32, 32, 32));
+}
+
 #kup-calendar {
   &__menu {
     display: flex;
@@ -30,11 +49,38 @@
       height: 20px;
     }
   }
-
+  .fc-toolbar.fc-header-toolbar {
+    margin-top: 1.5rem;
+  }
   .fc-ltr .fc-dayGrid-view .fc-day-top {
     text-align: center;
     .fc-day-number {
       float: none;
     }
+  }
+
+  .fc-unthemed .fc-content,
+  .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-list-heading td,
+  .fc-unthemed .fc-list-view,
+  .fc-unthemed .fc-popover,
+  .fc-unthemed .fc-row,
+  .fc-unthemed tbody,
+  .fc-unthemed td {
+    border-color: var(--cal_border-color);
+  }
+
+  .fc-head th,
+  .fc-head thead {
+    background: var(--cal_header-background-color);
+    color: var(--cal_header-color);
+    border: none;
+  }
+
+  .fc-event,
+  .fc-event-dot {
+    background: var(--cal_event-background-color);
+    color: var(--cal_event-color);
+    border: none;
   }
 }
