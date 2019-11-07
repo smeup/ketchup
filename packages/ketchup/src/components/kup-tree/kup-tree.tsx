@@ -97,6 +97,8 @@ export class KupTree {
 
   @State() stateSwitcher: boolean = false;
 
+  private treeRef: any;
+
   //-------- Events --------
   /**
    * When a cell option is clicked.
@@ -266,16 +268,21 @@ export class KupTree {
         // Updates expanded state and force rerender
         treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
         this.forceUpdate();
-
+        let expandIcon: any;
+        expandIcon = this.treeRef.querySelectorAll("[data-tree-path='" + treeNodePath + "'] .expand-icon")[0];
         if (treeNodeData[treeExpandedPropName]) {
           // TreeNode is now expanded -> Fires expanded event
+          expandIcon.classList.remove("collapsed");
+          expandIcon.classList.add("expanded");
           this.kupTreeNodeExpand.emit({
             treeNodePath: arrayTreeNodePath,
-            treeNode: treeNodeData,
+            treeNode: treeNodeData, 
             usesDynamicExpansion: this.useDynamicExpansion,
           });
         } else {
           // TreeNode is now collapsed -> Fires collapsed event
+          expandIcon.classList.remove("expanded");
+          expandIcon.classList.add("collapsed");
           this.kupTreeNodeCollapse.emit({
             treeNodePath: arrayTreeNodePath,
             treeNode: treeNodeData,
@@ -495,7 +502,7 @@ export class KupTree {
     // If it is not expandable, we simply add a placeholder with no icons.
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
     let treeExpandIcon = <span
-      class={"kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-right" : "")}
+      class={"expand-icon kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-right" : "")}
       onClick={hasExpandIcon && !treeNodeData.disabled ? () => this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath) : null}
     />;
 
@@ -632,6 +639,7 @@ export class KupTree {
       <link href='https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css' rel="stylesheet" type="text/css" />,
       <table
         class="kup-tree"
+        ref={(el) => (this.treeRef = el as any)}
         data-show-columns={this.showColumns}
         data-show-object-navigation={this.showObjectNavigation}>
         <thead class={{'header--is-visible': visibleHeader}}>

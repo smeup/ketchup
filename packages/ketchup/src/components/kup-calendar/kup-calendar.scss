@@ -3,6 +3,36 @@
 @import '~@fullcalendar/daygrid/main.min.css';
 @import '~@fullcalendar/timegrid/main.min.css';
 
+/**
+* @prop --cal_border-color, --kup-cal_background-color: Set border color
+* @prop --cal_header-background-color, --kup-cal_header-background-color: Set background color of header
+* @prop --cal_header-color, --kup-cal_header-color: Set text color of header
+* @prop --cal_event-background-color, --kup-cal_event-background-color: Set background color of events
+* @prop --cal_event-color, --kup-cal_event-color: Set text color of events
+* @prop --cal_today-background-color, --kup-cal_today-background-color: Set background color of today's cell
+* @prop --cal_today-color, --kup-cal_today-color: Set text color of today's cell
+* @prop --cal_no-work-day-background-color, --kup-cal_no-work-day-background-color: Set background color of days off of work's cells 
+* @prop --cal_no-work-day-color, --kup-cal_no-work-day-color: Set text color of days off of work's cells 
+*/
+
+:host {
+  --cal_border-color: var(--kup-cal_border-color, grey);
+  --cal_header-background-color: var(
+    --kup-cal_header-background-color,
+    #1fbe7c
+  );
+  --cal_header-color: var(--kup-cal_header-color, white);
+  --cal_event-background-color: var(--kup-cal_event-background-color, #25e092);
+  --cal_event-color: var(--kup-cal_event-color, #202020);
+  --cal_today-background-color: var(--kup-cal_today-background-color, #9fffd7);
+  --cal_today-color: var(--kup-cal_today-color, grey);
+  --cal_no-work-day-background-color: var(
+    --kup-cal_no-work-day-background-color,
+    #d4d4d4
+  );
+  --cal_no-work-day-color: var(--kup-cal_no-work-day-color, white);
+}
+
 #kup-calendar {
   &__menu {
     display: flex;
@@ -29,5 +59,64 @@
       width: 20px;
       height: 20px;
     }
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    margin-top: 1.5rem;
+  }
+  .fc-ltr .fc-dayGrid-view .fc-day-top {
+    text-align: center;
+    padding: 0.5rem;
+    .fc-day-number {
+      float: none;
+    }
+  }
+
+  .fc-unthemed .fc-content {
+    padding: 0.25rem;
+  }
+
+  .fc-unthemed .fc-content,
+  .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-list-heading td,
+  .fc-unthemed .fc-list-view,
+  .fc-unthemed .fc-popover,
+  .fc-unthemed .fc-row,
+  .fc-unthemed tbody,
+  .fc-unthemed td {
+    border-color: var(--cal_border-color);
+  }
+
+  .fc-head th,
+  .fc-head thead {
+    background: var(--cal_header-background-color);
+    color: var(--cal_header-color);
+    border: none;
+    border-color: var(--cal_header-background-color);
+  }
+
+  .fc-event,
+  .fc-event-dot {
+    background: var(--cal_event-background-color);
+    color: var(--cal_event-color);
+    border: none;
+    border-color: var(--cal_event-background-color);
+  }
+
+  .fc-unthemed td.fc-today {
+    background: none;
+
+    .fc-day-number {
+      background-color: var(--cal_today-background-color);
+      color: var(--cal_today-color);
+      padding: 5px 10px;
+      border-radius: 50%;
+    }
+  }
+
+  .fc-unthemed td.fc-sun,
+  .fc-unthemed td.fc-sat {
+    background-color: var(--cal_no-work-day-background-color);
+    color: var(--cal_no-work-day-color);
   }
 }

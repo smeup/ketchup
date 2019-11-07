@@ -5,6 +5,7 @@
 * @prop --chi_background, --kup-chip_background: Background color
 * @prop --chi_background-hover, --kup-chip_background-hover: Background color on mouse hover
 * @prop --chi_disabled-color, --kup-chip_disabled-color: Text color when the chip is disabled
+* @prop --chi_disabled-background-color, --kup-chip_disabled-background-color: Background color when the chip is disabled
 */
 
 :host {
@@ -14,6 +15,10 @@
   --chi_background: var(--kup-chip_background, #{$gray-f0});
   --chi_background-hover: var(--kup-chip_background-hover, #{$gray-e5});
   --chi_disabled-color: var(--kup-chip_disabled-color, #{$gray-88});
+  --chi_disabled-background-color: var(
+    --kup-chip_disabled-background-color,
+    #{$gray-f0}
+  );
 }
 
 #chip {
@@ -50,6 +55,8 @@
   }
 
   &.disabled {
+    background: var(--chi_disabled-background-color);
+
     #content {
       color: var(--chi_disabled-color);
     }

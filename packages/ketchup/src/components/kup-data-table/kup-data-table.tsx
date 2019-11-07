@@ -1656,8 +1656,8 @@ export class KupDataTable {
             }
 
             const icon = row.group.expanded
-                ? 'mdi mdi-menu-up'
-                : 'mdi mdi-menu-right';
+                ? 'mdi mdi-menu-up expanded'
+                : 'mdi mdi-menu-right collapsed';
 
             const jsxRows = [];
 

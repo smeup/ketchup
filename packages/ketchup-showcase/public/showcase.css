@@ -62,6 +62,7 @@ nav.v-toolbar i.v-icon.material-icons,
 
 .v-input.v-input--selection-controls.v-input--switch {
   min-width: max-content;
+  padding-top: 0;
 }
 
 .v-input__slot {
@@ -122,8 +123,16 @@ a.primary--text {
 
 div.logo img {
   margin: 1rem auto 2rem auto;
-  display: block;
+  display: none;
   cursor: pointer;
+}
+
+#inspire.theme--light div.logo img.light {
+  display: block;
+}
+
+#inspire.theme--dark div.logo img.dark {
+  display: block;
 }
 
 div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {

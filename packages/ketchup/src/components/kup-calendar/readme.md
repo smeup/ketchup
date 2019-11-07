@@ -32,11 +32,26 @@
 | `kupCalendarViewChanged`  | When the navigation change | `CustomEvent<{ from: Date; to: Date; }>`                                                       |
 
 
+## CSS Custom Properties
+
+| Name                                                                         | Description                                      |
+| ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--cal_border-color, --kup-cal_background-color`                             | Set border color                                 |
+| `--cal_event-background-color, --kup-cal_event-background-color`             | Set background color of events                   |
+| `--cal_event-color, --kup-cal_event-color`                                   | Set text color of events                         |
+| `--cal_header-background-color, --kup-cal_header-background-color`           | Set background color of header                   |
+| `--cal_header-color, --kup-cal_header-color`                                 | Set text color of header                         |
+| `--cal_no-work-day-background-color, --kup-cal_no-work-day-background-color` | Set background color of days off of work's cells |
+| `--cal_no-work-day-color, --kup-cal_no-work-day-color`                       | Set text color of days off of work's cells       |
+| `--cal_today-background-color, --kup-cal_today-background-color`             | Set background color of today's cell             |
+| `--cal_today-color, --kup-cal_today-color`                                   | Set text color of today's cell                   |
+
+
 ## Dependencies
 
 ### Depends on
 
-- [kup-button](../kup-button)
+- [kup-button](..\kup-button)
 
 ### Graph
 ```mermaid

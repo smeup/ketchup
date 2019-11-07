@@ -40,7 +40,7 @@ import {
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import {progressbarFromCellHelper} from "../kup-progress-bar/kup-progress-bar-helper";
+import { progressbarFromCellHelper } from '../kup-progress-bar/kup-progress-bar-helper';
 
 @Component({
     tag: 'kup-box',
@@ -807,7 +807,7 @@ export class KupBox {
             if (section.title) {
                 headerTitle = section.title;
             } else if (sectionExpanded) {
-                headerTitle = 'Collassa';
+                headerTitle = 'Chiudi';
             } else {
                 headerTitle = 'Espandi';
             }
@@ -892,12 +892,7 @@ export class KupBox {
                         <kup-button {...createJ4objButtonConfig(cell)} />
                     );
                 } else if (isProgressBar(cell.obj)) {
-
-
-                    boContent = progressbarFromCellHelper(
-                          cell,
-                          cell.value,
-                    );
+                    boContent = progressbarFromCellHelper(cell, cell.value);
                 } else if (isIcon(cell.obj)) {
                     boContent = <span class={`icon ${cell.value}`}></span>;
                 } else {

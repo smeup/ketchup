@@ -10,6 +10,10 @@
 * @prop --box_titled-section-font-size, --kup-box_titled-section-font-size: font size for section title
 * @prop --box_titled-section-bg-color, --kup-box_titled-section-bg-color: background color for section title
 * @prop --box_titled-section-top, --kup-box_titled-section-top: top position for section title
+* @prop --box_badge-background, --kup-box_badge-background: badge background color
+* @prop --box_badge-border-radius, --kup-box_badge-border-radius: badge border radius
+* @prop --box_badge-text, --kup-box_badge-text: badge text color
+* @prop --box_badge-dimension, --kup-box_badge-dimension: badge dimension
 */
 
 :host {
@@ -29,6 +33,10 @@
     #ffffff
   );
   --box_titled-section-top: var(--kup-box_titled-section-top, -9px);
+  --box_badge-background: var(--kup-box_badge-background, #eb9901);
+  --box_badge-border-radius: var(--kup-box_badge-border-radius, 15px);
+  --box_badge-text: var(--kup-box_badge-text, white);
+  --box_badge-dimension: var(--kup-box_badge-dimension, 30px);
 }
 
 #box-container {
@@ -160,8 +168,10 @@
       }
 
       kup-badge {
-        --bdg_background-color: #{$mainOrange};
-        --kup-badge_dimension: 24px;
+        --bdg_background-color: var(--box_badge-background);
+        --bdg_border-radius: var(--box_badge-border-radius);
+        --bdg_color: var(--box_badge-text);
+        --bdg_dim: var(--box_badge-dimension);
       }
     }
 

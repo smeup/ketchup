@@ -260,6 +260,7 @@ export namespace Components {
     'valueField': string;
   }
   interface KupDash {
+    'active': boolean;
     'fontsize': string;
     'layout': string;
   }
@@ -286,9 +287,6 @@ export namespace Components {
     */
     'groupLabelDisplay': GroupLabelDisplayMode;
     'groups': Array<GroupObject>;
-    /**
-    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
-    */
     'headerIsPersistent': boolean;
     'hoverScroll': boolean;
     /**
@@ -1129,10 +1127,10 @@ declare namespace LocalJSX {
     'valueField'?: string;
   }
   interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
+    'active'?: boolean;
     'fontsize'?: string;
     'layout'?: string;
-    'onKetchupDashClicked'?: (event: CustomEvent<{
-    }>) => void;
+    'onKetchupDashClicked'?: (event: CustomEvent<{}>) => void;
   }
   interface KupDataTable extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
     'columnsWidth'?: Array<{
@@ -1156,9 +1154,6 @@ declare namespace LocalJSX {
     */
     'groupLabelDisplay'?: GroupLabelDisplayMode;
     'groups'?: Array<GroupObject>;
-    /**
-    * If table header is visible and this prop is set to true, the header will be visible while scrolling the table. To make this work, it must be configured together with the data-table CSS property --kup-data-table_header-offset. It uses CSS position: sticky.
-    */
     'headerIsPersistent'?: boolean;
     'hoverScroll'?: boolean;
     /**

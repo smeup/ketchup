@@ -101,14 +101,15 @@ button {
     fill: var(--btn_icon-color);
     float: left;
     width: var(--btn_icon-size);
-    margin-right: 0.5rem;
+    & + .button-text {
+      margin-left: 0.5rem;
+    }
   }
 
   //-- The button text --
   > .button-text {
     font-style: var(--btn_font-style);
     text-decoration: var(--btn_text-decoration);
-    vertical-align: 15%;
   }
 
   //-- Rounded --
