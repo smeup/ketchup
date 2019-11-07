@@ -223,6 +223,10 @@
   --kup-cal_header-color: var(--text-on-main);
   --kup-cal_event-background-color: var(--main-color-lightest);
   --kup-cal_event-color: var(--text-on-main-light);
+  --kup-cal_today-background-color: var(--main-color-lightest);
+  --kup-cal_today-color: var(--text-on-main-light);
+  --kup-cal_no-work-day-background-color: var(--disabled-background-color);
+  --kup-cal_no-work-day-color: var(--disabled-text-color);
 
   /* Chips */
   --kup-chip_color: var(--main-text-color);

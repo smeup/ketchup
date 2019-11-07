@@ -278,16 +278,19 @@ export class KupCalendar {
                 {this.hideNavigation ? null : (
                     <div id="kup-calendar__menu">
                         <kup-button
+                            flat
                             iconClass="mdi mdi-chevron-left"
                             onKupButtonClicked={() => this.onPrev()}
                         ></kup-button>
                         <kup-button
-                            iconClass="mdi mdi-chevron-right"
-                            onKupButtonClicked={() => this.onNext()}
-                        ></kup-button>
-                        <kup-button
+                            flat
                             iconClass="mdi mdi-calendar-today"
                             onKupButtonClicked={() => this.onToday()}
+                        ></kup-button>
+                        <kup-button
+                            flat
+                            iconClass="mdi mdi-chevron-right"
+                            onKupButtonClicked={() => this.onNext()}
                         ></kup-button>
                     </div>
                 )}
