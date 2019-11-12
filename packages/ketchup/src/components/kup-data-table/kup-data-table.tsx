@@ -1240,7 +1240,9 @@ export class KupDataTable {
                     ? this.filters[column.name]
                     : '';
 
-            if (this.showFilters) {
+            if (this.showFilters && !isVoCodver(column.obj) 
+                && !isIcon(column.obj) && !isImage(column.obj)
+                && !isCheckbox(column.obj) && !isRadio(column.obj)) {
                 // When showing filters, displays input box to update them.
                 filter = (
                     <div>
