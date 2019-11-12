@@ -58,6 +58,7 @@ import {
     isProgressBar,
     isRadio,
     isVoCodver,
+    isStringObject
 } from '../../utils/object-utils';
 
 @Component({
@@ -1240,7 +1241,7 @@ export class KupDataTable {
                     ? this.filters[column.name]
                     : '';
 
-            if (this.showFilters) {
+            if (this.showFilters && isStringObject(column.obj)) {
                 // When showing filters, displays input box to update them.
                 filter = (
                     <div>
@@ -1296,7 +1297,7 @@ export class KupDataTable {
 
             //---- Sort ----
             let sort = null;
-            if (this.sortEnabled) {
+            if (this.sortEnabled && isStringObject(column.obj)) {
                 sort = (
                     <span class="column-sort">
                         <span

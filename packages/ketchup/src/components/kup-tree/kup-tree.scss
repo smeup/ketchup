@@ -46,7 +46,7 @@
 //---- Base class for the tree and its components ----
 .kup-tree {
   border-collapse: collapse;
-  width: 100%; // The table takes all available space by default
+  width: max-content; // The table takes all available space by default
 
   // The header of the table
   thead {

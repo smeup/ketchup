@@ -59,6 +59,14 @@ export function isVoCodver({ t, p }: CellObject): boolean {
     return 'VO' === t && 'COD_VER' === p;
 }
 
+export function isStringObject(obj: any): boolean {
+    if (!obj) return true;
+
+    return !isVoCodver(obj) 
+    && !isIcon(obj) && !isImage(obj)
+    && !isCheckbox(obj) && !isRadio(obj);
+}
+
 export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
     let label = cell.value;
     let textMode = 'Hint';
