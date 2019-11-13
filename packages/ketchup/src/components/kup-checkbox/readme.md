@@ -43,8 +43,8 @@
 
 ### Used by
 
- - [kup-data-table](../kup-data-table)
- - [kup-tree](../kup-tree)
+ - [kup-data-table](..\kup-data-table)
+ - [kup-tree](..\kup-tree)
 
 ### Graph
 ```mermaid
