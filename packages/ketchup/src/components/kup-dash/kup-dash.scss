@@ -63,7 +63,11 @@
         .unit {
           font-size: 130%;
           margin-top: auto;
-          margin-bottom: 4%;
+          margin-bottom: 7%;
+        }
+
+        .value-dec {
+          margin-left: 2%;
         }
 
         .unit {
@@ -94,7 +98,11 @@
           .unit {
             font-size: 130%;
             margin-top: auto;
-            margin-bottom: 4%;
+            margin-bottom: 7%;
+          }
+
+          .value-dec {
+            margin-left: 2%;
           }
 
           .unit {
@@ -169,14 +177,13 @@
         }
 
         .value {
-          margin-right: 4%;
+          margin: 0 10%;
           font-size: 250%;
         }
 
         .descr {
           font-size: 60%;
           text-align: left;
-          word-spacing: 10000px;
         }
       }
     }
