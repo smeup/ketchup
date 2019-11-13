@@ -83,6 +83,12 @@ export default {
             },
           },
           {
+            title: 'Shapes',
+            to: {
+              name: 'boxShapes',
+            },
+          },
+          {
             title: 'Classes',
             to: {
               name: 'boxClasses',

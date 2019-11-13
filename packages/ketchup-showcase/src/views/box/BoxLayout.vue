@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h3>Shape in layout</h3>
-    <kup-box :data.prop="shapeData" :layout.prop="layout5"></kup-box>
-    <hr />
+    <h3>Horizontal</h3>
     <kup-box :data.prop="basicData" :layout.prop="horizontalLayout"></kup-box>
     <hr />
+    <h3>Section size</h3>
     <kup-box :data.prop="basicData" :layout.prop="layout1"></kup-box>
     <hr />
     <h3>Layout with fixed values</h3>
@@ -23,7 +22,7 @@
 
 
 <script>
-import { defaultData, shapeData } from '@/mock/box';
+import { defaultData } from '@/mock/box';
 
 const colors = ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd'];
 
@@ -69,7 +68,6 @@ export default {
 
     return {
       basicData: defaultData,
-      shapeData: shapeData,
       dataTableWithLayout,
       horizontalLayout: {
         sections: [
@@ -137,34 +135,6 @@ export default {
           {
             title: 'User informations',
             sections: [{}, {}, {}],
-          },
-        ],
-      },
-      layout5: {
-        sections: [
-          {
-            horizontal: true,
-            sections: [
-              {
-                dim: '20%',
-                content: [
-                  {
-                    column: 'FLD1',
-                    shape: 'IMG',
-                    config: {
-                      srcTemplate:
-                        'https://via.placeholder.com/64?text={{obj.k}}',
-                    },
-                  },
-                ],
-              },
-              {
-                sections: [
-                  { content: [{ column: 'FLD2' }] },
-                  { content: [{ column: 'FLD3', shape: 'PGB' }] },
-                ],
-              },
-            ],
           },
         ],
       },
