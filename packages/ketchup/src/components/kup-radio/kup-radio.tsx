@@ -5,15 +5,19 @@ import {
     Prop,
     State,
     Watch,
-    h
-} from '@stencil/core'
-import { generateUniqueId } from "../../utils/utils";
-import { KetchupRadioElement, KetchupRadioChangeEvent, KetchupRadioElementFactory } from "./kup-radio-declarations";
+    h,
+} from '@stencil/core';
+import { generateUniqueId } from '../../utils/utils';
+import {
+    KetchupRadioElement,
+    KetchupRadioChangeEvent,
+    KetchupRadioElementFactory,
+} from './kup-radio-declarations';
 
 @Component({
     tag: 'kup-radio',
     styleUrl: 'kup-radio.scss',
-    shadow: true
+    shadow: true,
 })
 export class KupRadio {
     /**
@@ -44,18 +48,23 @@ export class KupRadio {
      * Chooses which field of an item object should be used to create the list and be filtered.
      */
     @Prop() valueField: string = 'id';
+    /**
+     * Sets the radio to be disabled
+     */
+    @Prop({ reflect: true }) disabled: boolean = false;
 
     //---- Validating props ----
     @Watch('direction')
     checkDirection(newVal: string) {
         if (!/horizontal|vertical/.test(newVal)) {
-            throw new Error('kup-radio: direction must be horizontal or vertical.');
+            throw new Error(
+                'kup-radio: direction must be horizontal or vertical.'
+            );
         }
     }
 
     //---- Internal state ----
     @State() selectedRadio: KetchupRadioElement | null = null;
-
 
     //---- Lifecycle Hooks ----
     componentWillLoad() {
@@ -67,9 +76,15 @@ export class KupRadio {
     //---- Private methods ----
     // Always reflect changes of initialValue to value element
     @Watch('initialValue')
-    reflectInitialValue(newValue: KetchupRadioElement, oldValue?: KetchupRadioElement) {
+    reflectInitialValue(
+        newValue: KetchupRadioElement,
+        oldValue?: KetchupRadioElement
+    ) {
         // When a new initial value is passed, we control that the new item is different from the old one before updating the state
-        if (!oldValue || newValue[this.valueField] !== oldValue[this.valueField]) {
+        if (
+            !oldValue ||
+            newValue[this.valueField] !== oldValue[this.valueField]
+        ) {
             this.onRadioChanged(newValue);
         }
     }
@@ -82,7 +97,7 @@ export class KupRadio {
         eventName: 'ketchupRadioChanged',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupRadioChanged: EventEmitter<KetchupRadioChangeEvent>;
 
@@ -91,7 +106,7 @@ export class KupRadio {
         this.ketchupRadioChanged.emit({
             value: radio,
             oldValue: this.selectedRadio,
-            info: {}
+            info: {},
         });
         this.selectedRadio = radio;
     }
@@ -102,12 +117,30 @@ export class KupRadio {
             // The id is necessary for the label to be associated with the input
             // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
             const uId = generateUniqueId(radio[this.valueField]);
-            return <li class={'kup-radio__item' + (this.selectedRadio && this.selectedRadio[this.valueField] === radio[this.valueField] ? ' kup-radio__item--selected' : '')}>
-                <div>
-                    <input id={uId} type="radio" name={this.radioName} value={radio[this.valueField]} onChange={this.onRadioChanged.bind(this, radio)}/>
-                </div>
-                <label htmlFor={uId}>{radio[this.displayedField]}</label>
-            </li>
+            return (
+                <li
+                    class={
+                        'kup-radio__item' +
+                        (this.selectedRadio &&
+                        this.selectedRadio[this.valueField] ===
+                            radio[this.valueField]
+                            ? ' kup-radio__item--selected'
+                            : '')
+                    }
+                >
+                    <div>
+                        <input
+                            id={uId}
+                            disabled={this.disabled}
+                            type="radio"
+                            name={this.radioName}
+                            value={radio[this.valueField]}
+                            onChange={this.onRadioChanged.bind(this, radio)}
+                        />
+                    </div>
+                    <label htmlFor={uId}>{radio[this.displayedField]}</label>
+                </li>
+            );
         });
     }
 
@@ -122,12 +155,8 @@ export class KupRadio {
         return (
             <div>
                 {this.label ? <p>{this.label}</p> : null}
-                <ul
-                    class={classRadioGroup}
-                >
-                    {this.radioElementsComposer()}
-                </ul>
+                <ul class={classRadioGroup}>{this.radioElementsComposer()}</ul>
             </div>
-        )
+        );
     }
 }

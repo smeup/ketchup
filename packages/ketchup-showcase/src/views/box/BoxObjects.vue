@@ -1,13 +1,21 @@
 <template>
   <div>
     <h3>Buttons</h3>
-    <kup-box
-      :data.prop="btnData"
-      :layout.prop="btnLayout"
-      @kupBoxClicked="onBoxClicked"
-    ></kup-box>
+    <kup-box :data.prop="btnData" :layout.prop="btnLayout" @kupBoxClicked="onBoxClicked"></kup-box>
 
     <p v-if="clickedBtn">You clicked: {{ clickedBtn }}</p>
+    <hr />
+
+    <h3>Yes/No</h3>
+    <kup-box :data.prop="sinoData" :layout.prop="btnLayout"></kup-box>
+    <hr />
+
+    <h3>Radio</h3>
+    <kup-box :data.prop="radioData" :layout.prop="btnLayout"></kup-box>
+    <hr />
+
+    <h3>Password</h3>
+    <kup-box :data.prop="pwdData" :layout.prop="btnLayout"></kup-box>
     <hr />
 
     <h3>Icons</h3>
@@ -20,12 +28,22 @@
 </template>
 
 <script>
-import { j4btnData, pgbData, iconData } from '@/mock/box';
+import {
+  j4btnData,
+  v2sinoData,
+  v2radioData,
+  j1pwdData,
+  pgbData,
+  iconData,
+} from '@/mock/box';
 
 export default {
   data() {
     return {
       btnData: { ...j4btnData },
+      sinoData: { ...v2sinoData },
+      radioData: { ...v2radioData },
+      pwdData: { ...j1pwdData },
       pgbData: { ...pgbData },
       iconData: { ...iconData },
       btnLayout: {

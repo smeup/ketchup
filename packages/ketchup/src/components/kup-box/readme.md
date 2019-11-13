@@ -73,10 +73,12 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
-- [kup-combo](../kup-combo)
+- [kup-checkbox](../kup-checkbox)
+- [kup-radio](../kup-radio)
 - [kup-text-input](../kup-text-input)
-- [kup-paginator](../kup-paginator)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-combo](../kup-combo)
+- [kup-paginator](../kup-paginator)
 
 ### Graph
 ```mermaid
@@ -84,10 +86,12 @@ graph TD;
   kup-box --> kup-badge
   kup-box --> kup-image
   kup-box --> kup-button
-  kup-box --> kup-combo
+  kup-box --> kup-checkbox
+  kup-box --> kup-radio
   kup-box --> kup-text-input
-  kup-box --> kup-paginator
   kup-box --> kup-progress-bar
+  kup-box --> kup-combo
+  kup-box --> kup-paginator
   kup-image --> kup-badge
   kup-combo --> kup-text-input
   kup-combo --> kup-portal

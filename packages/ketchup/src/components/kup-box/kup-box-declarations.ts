@@ -36,6 +36,8 @@ export interface Section {
 export interface BoxObject {
     column?: string;
     value?: string;
+    shape?: string;
+    config?: any;
 }
 
 export interface CollapsedSectionsState {

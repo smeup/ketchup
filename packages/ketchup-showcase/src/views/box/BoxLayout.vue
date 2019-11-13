@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h3>Shape in layout</h3>
+    <kup-box :data.prop="shapeData" :layout.prop="layout5"></kup-box>
+    <hr />
     <kup-box :data.prop="basicData" :layout.prop="horizontalLayout"></kup-box>
     <hr />
     <kup-box :data.prop="basicData" :layout.prop="layout1"></kup-box>
@@ -20,7 +23,7 @@
 
 
 <script>
-import { defaultData } from '@/mock/box';
+import { defaultData, shapeData } from '@/mock/box';
 
 const colors = ['#247ba0', '#70c1b3', '#b2dbbf', '#f3ffbd'];
 
@@ -66,6 +69,7 @@ export default {
 
     return {
       basicData: defaultData,
+      shapeData: shapeData,
       dataTableWithLayout,
       horizontalLayout: {
         sections: [
@@ -133,6 +137,34 @@ export default {
           {
             title: 'User informations',
             sections: [{}, {}, {}],
+          },
+        ],
+      },
+      layout5: {
+        sections: [
+          {
+            horizontal: true,
+            sections: [
+              {
+                dim: '20%',
+                content: [
+                  {
+                    column: 'FLD1',
+                    shape: 'IMG',
+                    config: {
+                      srcTemplate:
+                        'https://via.placeholder.com/64?text={{obj.k}}',
+                    },
+                  },
+                ],
+              },
+              {
+                sections: [
+                  { content: [{ column: 'FLD2' }] },
+                  { content: [{ column: 'FLD3', shape: 'PGB' }] },
+                ],
+              },
+            ],
           },
         ],
       },

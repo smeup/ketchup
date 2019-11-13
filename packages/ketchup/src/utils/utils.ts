@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 export function format(first: string, middle: string, last: string): string {
     return (
         (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '')
@@ -24,4 +26,21 @@ export function eventFromElement(element: HTMLElement, eventSource) {
  */
 export function toKebabCase (str: string): string {
   return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+  
+export function replacePlaceHolders(template: any, data: any) {
+    template = typeof template === 'function' ? template() : template;
+    if (['string', 'number'].indexOf(typeof template) === -1)
+        throw 'please provide a valid template';
+
+    if (!data) return template;
+
+    template = template.replace(/\{\{([^}]+)\}\}/g, function(match) {
+        match = match.slice(2, -2);
+        var val = get(data, match, match);
+        if (!val) return '{{' + match + '}}';
+        return val;
+    });
+
+    return template;
 }

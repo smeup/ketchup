@@ -536,6 +536,10 @@ export namespace Components {
     */
     'direction': string;
     /**
+    * Sets the radio to be disabled
+    */
+    'disabled': boolean;
+    /**
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField': string;
@@ -579,6 +583,10 @@ export namespace Components {
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
     */
     'debounce': number;
+    /**
+    * Sets the input to be disabled
+    */
+    'disabled': boolean;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */
@@ -1474,6 +1482,10 @@ declare namespace LocalJSX {
     */
     'direction'?: string;
     /**
+    * Sets the radio to be disabled
+    */
+    'disabled'?: boolean;
+    /**
     * Chooses which field of an item object should be used to create the list and be filtered.
     */
     'displayedField'?: string;
@@ -1521,6 +1533,10 @@ declare namespace LocalJSX {
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
     */
     'debounce'?: number;
+    /**
+    * Sets the input to be disabled
+    */
+    'disabled'?: boolean;
     /**
     * Marks the field as clearable, allowing an icon to delete its content
     */

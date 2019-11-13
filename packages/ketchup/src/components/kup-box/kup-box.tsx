@@ -1,3 +1,5 @@
+import numeral from 'numeral';
+
 import {
     Component,
     Event,
@@ -25,12 +27,22 @@ import {
 } from './kup-box-declarations';
 
 import {
-    isImage,
     isButton,
+    isYesNo,
+    isRadio,
+    isPassword,
     createJ4objButtonConfig,
-    isProgressBar,
     isIcon,
 } from '../../utils/object-utils';
+
+import {
+    isImage,
+    isProgressBar,
+    getFromConfig,
+    getValue,
+} from '../../utils/shape-utils';
+
+import { replacePlaceHolders } from '../../utils/utils';
 
 import {
     filterRows,
@@ -40,7 +52,6 @@ import {
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { progressbarFromCellHelper } from '../kup-progress-bar/kup-progress-bar-helper';
 
 @Component({
     tag: 'kup-box',
@@ -747,7 +758,11 @@ export class KupBox {
 
             while (size-- > 0) {
                 sectionContent.push(
-                    this.renderBoxObject(content[cnt++], row, visibleColumns)
+                    this.renderBoxObject({
+                        boxObject: content[cnt++],
+                        row,
+                        visibleColumns,
+                    })
                 );
             }
         } else if (visibleColumns.length > 0) {
@@ -757,11 +772,11 @@ export class KupBox {
             // removing first column
             visibleColumns.splice(0, 1);
 
-            sectionContent = this.renderBoxObject(
-                { column: column.name },
+            sectionContent = this.renderBoxObject({
+                boxObject: { column: column.name },
                 row,
-                visibleColumns
-            );
+                visibleColumns,
+            });
         }
 
         const sectionExpanded = this.isSectionExpanded(row, section);
@@ -844,19 +859,20 @@ export class KupBox {
         return sectionContainer;
     }
 
-    private renderBoxObject(
-        boxObject: BoxObject,
-        row: BoxRow,
-        visibleColumns: Column[]
-    ) {
+    private renderBoxObject({
+        boxObject,
+        row,
+        visibleColumns,
+    }: {
+        boxObject: BoxObject;
+        row: BoxRow;
+        visibleColumns: Column[];
+    }) {
         let boContent = null;
 
         let boStyle = {};
 
-        // check if fixed value
-        if (boxObject.value) {
-            boContent = boxObject.value;
-        } else if (boxObject.column) {
+        if (boxObject.column) {
             const cell = row.cells[boxObject.column];
 
             if (cell) {
@@ -880,25 +896,133 @@ export class KupBox {
                     boStyle = { ...cell.style };
                 }
 
-                if (isImage(cell.obj)) {
-                    let badges = null;
-                    if (cell.config && cell.config.badges) {
-                        badges = cell.config.badges;
+                if (isImage(cell, boxObject)) {
+                    let badges = getFromConfig(cell, boxObject, 'badges');
+                    let src = getValue(cell, boxObject);
+                    if (!src) {
+                        let srcTemplate = getFromConfig(
+                            cell,
+                            boxObject,
+                            'srcTemplate'
+                        );
+                        if (srcTemplate) {
+                            src = replacePlaceHolders(srcTemplate, cell);
+                        }
                     }
-
-                    boContent = <kup-image src={cell.value} badges={badges} />;
+                    let height = getFromConfig(cell, boxObject, 'height');
+                    let width = getFromConfig(cell, boxObject, 'width');
+                    boContent = (
+                        <kup-image
+                            src={src}
+                            badges={badges}
+                            {...(width ? { width: width } : {})}
+                            {...(height ? { height: height } : {})}
+                        />
+                    );
                 } else if (isButton(cell.obj)) {
                     boContent = (
                         <kup-button {...createJ4objButtonConfig(cell)} />
                     );
-                } else if (isProgressBar(cell.obj)) {
-                    boContent = progressbarFromCellHelper(cell, cell.value);
+                } else if (isYesNo(cell.obj)) {
+                    let checked = cell.value == '1';
+                    boContent = (
+                        <kup-checkbox
+                            checked={checked}
+                            disabled={true}
+                        ></kup-checkbox>
+                    );
+                } else if (isRadio(cell.obj)) {
+                    let initialValue = {
+                        label: '',
+                        value: '1',
+                    };
+                    let items = [
+                        {
+                            label: '',
+                            value: cell.value,
+                        },
+                    ];
+
+                    boContent = (
+                        <kup-radio
+                            disabled={true}
+                            items={items}
+                            initialValue={initialValue}
+                            value-field="value"
+                        />
+                    );
+                } else if (isPassword(cell.obj)) {
+                    boContent = (
+                        <kup-text-input
+                            input-type="password"
+                            initial-value={cell.value}
+                            disabled={true}
+                        ></kup-text-input>
+                    );
+                } else if (isProgressBar(cell, boxObject)) {
+                    // TODO: improve and generalize using progressbarFromCellHelper
+                    const value = numeral(getValue(cell, boxObject)).value();
+
+                    let hideLabel = getFromConfig(cell, boxObject, 'hideLabel');
+
+                    let labelText = getFromConfig(cell, boxObject, 'labelText');
+                    let foregroundColor = getFromConfig(
+                        cell,
+                        boxObject,
+                        'foregroundColor'
+                    );
+                    let backgroundColor = getFromConfig(
+                        cell,
+                        boxObject,
+                        'backgroundColor'
+                    );
+                    let borderRadius = getFromConfig(
+                        cell,
+                        boxObject,
+                        'borderRadius'
+                    );
+                    let textColor = getFromConfig(cell, boxObject, 'textColor');
+
+                    const wrapperStyle = {};
+
+                    if (foregroundColor) {
+                        wrapperStyle[
+                            '--kup-pb_foreground-color'
+                        ] = foregroundColor;
+                    }
+
+                    if (backgroundColor) {
+                        wrapperStyle[
+                            '--kup-pb_background-color'
+                        ] = backgroundColor;
+                    }
+
+                    if (borderRadius) {
+                        wrapperStyle['--kup-pb_border-radius'] = borderRadius;
+                    }
+
+                    if (textColor) {
+                        wrapperStyle['--kup-pb_text-color'] = textColor;
+                    }
+
+                    boContent = (
+                        <div style={wrapperStyle}>
+                            <kup-progress-bar
+                                value={value}
+                                labelText={labelText}
+                                hideLabel={!!hideLabel}
+                            />
+                        </div>
+                    );
                 } else if (isIcon(cell.obj)) {
                     boContent = <span class={`icon ${cell.value}`}></span>;
                 } else {
                     boContent = cell.value;
                 }
             }
+        } else if (boxObject.value) {
+            // fixed value
+            boContent = boxObject.value;
         }
 
         return (

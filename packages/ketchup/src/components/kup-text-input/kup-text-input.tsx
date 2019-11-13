@@ -57,6 +57,11 @@ export class KupTextInput {
      */
     @Prop() placeholder = '';
 
+    /**
+     * Sets the input to be disabled
+     */
+    @Prop({ reflect: true }) disabled: boolean = false;
+
     @Watch('debounce')
     protected debounceChanged() {
         this.ketchupTextInputUpdated = debounceEvent(
@@ -252,6 +257,7 @@ export class KupTextInput {
 
                     <input
                         id={this.elementId}
+                        disabled={this.disabled}
                         class={this.classInputText}
                         maxlength={this.maxLength}
                         ref={(el) => (this.textInput = el as HTMLInputElement)}
