@@ -360,6 +360,177 @@ export const j4btnData = {
   ],
 };
 
+export const v2sinoData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Description',
+      size: 10,
+    },
+    {
+      name: 'FLD2',
+      title: 'SiNo',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Not selected',
+          },
+          value: 'Not selected',
+        },
+        FLD2: {
+          obj: {
+            t: 'V2',
+            p: 'SINO',
+            k: '',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Selected',
+          },
+          value: 'Selected',
+        },
+        FLD2: {
+          obj: {
+            t: 'V2',
+            p: 'SINO',
+            k: '1',
+          },
+          value: '1',
+        },
+      },
+    },
+  ],
+};
+
+export const v2radioData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Description',
+      size: 10,
+    },
+    {
+      name: 'FLD2',
+      title: 'Radio',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Not selected',
+          },
+          value: 'Not selected',
+        },
+        FLD2: {
+          obj: {
+            t: 'V2',
+            p: 'RADIO',
+            k: '',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Selected',
+          },
+          value: 'Selected',
+        },
+        FLD2: {
+          obj: {
+            t: 'V2',
+            p: 'RADIO',
+            k: '1',
+          },
+          value: '1',
+        },
+      },
+    },
+  ],
+};
+
+export const j1pwdData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Description',
+      size: 10,
+    },
+    {
+      name: 'FLD2',
+      title: 'Password',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Empty password',
+          },
+          value: 'Empty password',
+        },
+        FLD2: {
+          obj: {
+            t: 'J1',
+            p: 'PWD',
+            k: '',
+          },
+          value: '',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'A password',
+          },
+          value: 'A password',
+        },
+        FLD2: {
+          obj: {
+            t: 'J1',
+            p: 'PWD',
+            k: 'sample password',
+          },
+          value: 'sample password',
+        },
+      },
+    },
+  ],
+};
+
 export const iconData = {
   columns: [
     {
@@ -877,7 +1048,8 @@ export const pgbData = {
           },
           value: '33',
           config: {
-            foregroundColor: 'green',
+            foregroundColor: 'rgb(251, 223, 000)',
+            backgroundColor: 'black',
           },
         },
       },
@@ -1100,6 +1272,106 @@ export const boxBadgeData = {
           text: 'long teeeeeeeeeeeeext',
         },
       ],
+    },
+  ],
+};
+
+export const shapeData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Image',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Todo',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Progress',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
+      id: '1',
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'PARFRA',
+          },
+          value: 'https://via.placeholder.com/64?text=CUSTOM',
+          config: {
+            badges: [
+              {
+                icon: 'mdi mdi-account',
+                position: 'BR',
+              },
+            ],
+          },
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Todo #1',
+          },
+          value: 'Todo #1',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: 'R200G100B002;89\\*LAB;Done',
+          },
+          value: '89',
+          config: {
+            labelText: 'Done',
+            foregroundColor: 'rgb(200, 100, 002)',
+          },
+        },
+      },
+    },
+    {
+      id: '2',
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'CASFRA',
+          },
+          value: '',
+          config: {
+            badges: [
+              {
+                icon: 'mdi mdi-account',
+                position: 'TL',
+              },
+            ],
+          },
+        },
+        FLD2: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Todo #2',
+          },
+          value: 'Todo #2',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '50',
+          },
+          value: '50',
+        },
+      },
     },
   ],
 };

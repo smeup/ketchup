@@ -10,6 +10,7 @@
 | Property         | Attribute         | Description                                                                              | Type                    | Default                        |
 | ---------------- | ----------------- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------------ |
 | `direction`      | `direction`       | Direction in which the radio elements must be placed                                     | `string`                | `'horizontal'`                 |
+| `disabled`       | `disabled`        | Sets the radio to be disabled                                                            | `boolean`               | `false`                        |
 | `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`                         |
 | `initialValue`   | --                | Allows to pass an initial selected item for the Radio group                              | `KetchupRadioElement`   | `KetchupRadioElementFactory()` |
 | `items`          | --                | Radio elements to display                                                                | `KetchupRadioElement[]` | `[]`                           |
@@ -35,6 +36,19 @@
 | `--rad_font-size, --kup-radio_font-size`                | Sets font size and icon radio button size (size * 1.4)     |
 | `--rad_tr-duration, --kup-radio_transition-duration`    | Sets all components transitions duration                   |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-box](../kup-box)
+
+### Graph
+```mermaid
+graph TD;
+  kup-box --> kup-radio
+  style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

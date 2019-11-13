@@ -1,5 +1,5 @@
 // dont know how to call this interface
-import { Cell } from "../components/kup-data-table/kup-data-table-declarations";
+import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 
 interface CellObject {
     t: string;
@@ -21,6 +21,18 @@ export function isBar({ t, p }: CellObject): boolean {
 
 export function isButton({ t, p }: CellObject): boolean {
     return 'J4' === t && 'BTN' === p;
+}
+
+export function isYesNo({ t, p }: CellObject): boolean {
+    return 'V2' === t && 'SINO' === p;
+}
+
+export function isRadio({ t, p }: CellObject): boolean {
+    return 'V2' === t && 'RADIO' === p;
+}
+
+export function isPassword({ t, p }: CellObject): boolean {
+    return 'J1' === t && 'PWD' === p;
 }
 
 export function isCheckbox({ t, p }: CellObject): boolean {
@@ -51,10 +63,6 @@ export function isProgressBar({ t, p }: CellObject): boolean {
     return 'J4' === t && 'PGB' === p;
 }
 
-export function isRadio({ t, p }: CellObject): boolean {
-  return 'V2' === t && 'rad' === p.toLowerCase();
-}
-
 export function isVoCodver({ t, p }: CellObject): boolean {
     return 'VO' === t && 'COD_VER' === p;
 }
@@ -62,9 +70,13 @@ export function isVoCodver({ t, p }: CellObject): boolean {
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 
-    return !isVoCodver(obj) 
-    && !isIcon(obj) && !isImage(obj)
-    && !isCheckbox(obj) && !isRadio(obj);
+    return (
+        !isVoCodver(obj) &&
+        !isIcon(obj) &&
+        !isImage(obj) &&
+        !isCheckbox(obj) &&
+        !isRadio(obj)
+    );
 }
 
 export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
@@ -107,6 +119,6 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
         iconClass: icon,
         flat,
         showtext,
-        fillspace
+        fillspace,
     };
 }

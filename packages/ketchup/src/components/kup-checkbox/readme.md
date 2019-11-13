@@ -43,12 +43,14 @@
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-checkbox
   kup-data-table --> kup-checkbox
   kup-tree --> kup-checkbox
   style kup-checkbox fill:#f9f,stroke:#333,stroke-width:4px

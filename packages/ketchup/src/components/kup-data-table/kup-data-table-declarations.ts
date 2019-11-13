@@ -12,6 +12,7 @@ export interface Cell {
     value: string;
     style?: GenericMap;
     options?: boolean;
+    shape?: string;
     config?: any;
 }
 
