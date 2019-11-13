@@ -1,11 +1,11 @@
-// Funzione per riposizionare una tendina.
+// Element repositioning function
 //
-// Parametri:
+// Arguments:
 //
-// - el       = l'elemento che deve essere riposizionato
-// - anchorEl = l'elemento a cui dev'essere agganciato "el" (può essere passato event.target per agganciare al puntatore del mouse)
-// - offset   = la dimensione dell'elemento
-// - margin   = la distanza tra "el" e "parentEl"
+// - el       = element to reposition
+// - anchorEl = "el" position will be anchored to this element
+// - offset   = "el" dimension
+// - margin   = "el" distance from its parent in pixels
 //
 export class positionRecalc {
     positionRecalcSetup(el: HTMLElement) {

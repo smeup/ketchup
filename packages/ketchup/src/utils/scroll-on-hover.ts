@@ -1,8 +1,8 @@
-// Funzione per abilitare lo scroll on-hover.
+// Scroll-on-hover function
 //
-// Parametri:
+// Arguments:
 //
-// - el       = l'elemento che deve scrollare
+// - el       = element that needs to scroll on mouse over
 //
 
 var scrollOnHoverX: number = 0;
