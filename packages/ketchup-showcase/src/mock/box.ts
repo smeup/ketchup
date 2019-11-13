@@ -1109,12 +1109,12 @@ export const pgbData = {
           obj: {
             t: 'J4',
             p: 'PGB',
-            k: '#C01BAF;70'
+            k: '#C01BAF;70',
           },
           value: '70',
           config: {
             foregroundColor: '#e0e0e0',
-            textColor: 'black'
+            textColor: 'black',
           },
         },
       },
@@ -1312,6 +1312,8 @@ export const shapeData = {
                 position: 'BR',
               },
             ],
+            width: 200,
+            height: 200,
           },
         },
         FLD2: {

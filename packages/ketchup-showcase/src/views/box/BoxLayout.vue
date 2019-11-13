@@ -146,7 +146,7 @@ export default {
             horizontal: true,
             sections: [
               {
-                dim: '100px',
+                dim: '20%',
                 content: [
                   {
                     column: 'FLD1',

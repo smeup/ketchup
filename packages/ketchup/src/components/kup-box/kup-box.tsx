@@ -899,7 +899,6 @@ export class KupBox {
                 if (isImage(cell, boxObject)) {
                     let badges = getFromConfig(cell, boxObject, 'badges');
                     let src = getValue(cell, boxObject);
-
                     if (!src) {
                         let srcTemplate = getFromConfig(
                             cell,
@@ -910,7 +909,16 @@ export class KupBox {
                             src = replacePlaceHolders(srcTemplate, cell);
                         }
                     }
-                    boContent = <kup-image src={src} badges={badges} />;
+                    let height = getFromConfig(cell, boxObject, 'height');
+                    let width = getFromConfig(cell, boxObject, 'width');
+                    boContent = (
+                        <kup-image
+                            src={src}
+                            badges={badges}
+                            {...(width ? { width: width } : {})}
+                            {...(height ? { height: height } : {})}
+                        />
+                    );
                 } else if (isButton(cell.obj)) {
                     boContent = (
                         <kup-button {...createJ4objButtonConfig(cell)} />
