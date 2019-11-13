@@ -20,11 +20,11 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
+ - [kup-box](../kup-box)
 
 ### Depends on
 
-- [kup-badge](..\kup-badge)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
