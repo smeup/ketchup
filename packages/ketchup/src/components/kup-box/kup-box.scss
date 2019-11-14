@@ -59,7 +59,6 @@
       border-radius: var(--box_border-radius);
       border: 1px solid var(--box_border-color);
       display: flex;
-      padding: 3px;
 
       &.column {
         flex-direction: column;
@@ -76,10 +75,6 @@
         flex: 1 1 1%;
         flex-wrap: wrap;
 
-        &.last-child {
-          margin: 3px 4px;
-        }
-
         &.column {
           flex-direction: column;
           justify-content: center;
@@ -94,8 +89,35 @@
           display: grid;
         }
 
+        &.center-aligned {
+          text-align: center;
+          kup-image,
+          kup-checkbox {
+            justify-content: center;
+          }
+        }
+
+        &.left-aligned {
+          text-align: left;
+          kup-image,
+          kup-checkbox {
+            justify-content: flex-start;
+          }
+        }
+
+        &.right-aligned {
+          text-align: right;
+          kup-image,
+          kup-checkbox {
+            justify-content: flex-end;
+          }
+        }
+
         .box-object {
-          padding: 1px 4px;
+          kup-image,
+          kup-checkbox {
+            display: flex;
+          }
 
           img {
             border-radius: var(--box_img-border-radius);
@@ -251,6 +273,24 @@
       &:hover,
       &.selected {
         box-shadow: none;
+      }
+    }
+  }
+}
+
+:host(.with-padding) {
+  #box-container {
+    .box {
+      padding: 3px;
+
+      .box-section {
+        .box-object {
+          padding: 1px 4px;
+        }
+
+        &.last-child {
+          margin: 3px 4px;
+        }
       }
     }
   }
