@@ -59,7 +59,6 @@
       border-radius: var(--box_border-radius);
       border: 1px solid var(--box_border-color);
       display: flex;
-      padding: 3px;
 
       &.column {
         flex-direction: column;
@@ -76,10 +75,6 @@
         flex: 1 1 1%;
         flex-wrap: wrap;
 
-        &.last-child {
-          margin: 3px 4px;
-        }
-
         &.column {
           flex-direction: column;
           justify-content: center;
@@ -95,8 +90,6 @@
         }
 
         .box-object {
-          padding: 1px 4px;
-
           img {
             border-radius: var(--box_img-border-radius);
             height: auto;

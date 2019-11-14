@@ -45,7 +45,7 @@ Type: `Promise<string | object>`
 
 ### Depends on
 
-- [kup-button](../kup-button)
+- [kup-button](..\kup-button)
 
 ### Graph
 ```mermaid
