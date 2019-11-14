@@ -60,6 +60,20 @@
       border: 1px solid var(--box_border-color);
       display: flex;
 
+      &.with-padding {
+        padding: 3px;
+
+        .box-section {
+          .box-object {
+            padding: 1px 4px;
+          }
+
+          &.last-child {
+            margin: 3px 4px;
+          }
+        }
+      }
+
       &.column {
         flex-direction: column;
       }
@@ -89,7 +103,36 @@
           display: grid;
         }
 
+        &.center-aligned {
+          text-align: center;
+          kup-image,
+          kup-checkbox {
+            justify-content: center;
+          }
+        }
+
+        &.left-aligned {
+          text-align: left;
+          kup-image,
+          kup-checkbox {
+            justify-content: flex-start;
+          }
+        }
+
+        &.right-aligned {
+          text-align: right;
+          kup-image,
+          kup-checkbox {
+            justify-content: flex-end;
+          }
+        }
+
         .box-object {
+          kup-image,
+          kup-checkbox {
+            display: flex;
+          }
+
           img {
             border-radius: var(--box_img-border-radius);
             height: auto;
