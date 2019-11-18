@@ -7,39 +7,22 @@
 
     <div>
       <h3>Custom width and height</h3>
-      <kup-image
-        :src.prop="urlCustomSize"
-        :alt.prop="alt"
-        :width.prop="128"
-        :height.prop="64"
-      ></kup-image>
+      <kup-image :src.prop="urlCustomSize" :alt.prop="alt" :width.prop="128" :height.prop="96"></kup-image>
     </div>
 
     <div>
       <h3>Single text badge</h3>
-      <kup-image
-        :src.prop="url"
-        :alt.prop="alt"
-        :badges.prop="textBadge"
-      ></kup-image>
+      <kup-image :src.prop="url" :alt.prop="alt" :badges.prop="textBadge"></kup-image>
     </div>
 
     <div>
       <h3>Single icon badge</h3>
-      <kup-image
-        :src.prop="url"
-        :alt.prop="alt"
-        :badges.prop="iconBadge"
-      ></kup-image>
+      <kup-image :src.prop="url" :alt.prop="alt" :badges.prop="iconBadge"></kup-image>
     </div>
 
     <div>
       <h3>Multiple mixed badge</h3>
-      <kup-image
-        :src.prop="url"
-        :alt.prop="alt"
-        :badges.prop="mixedBadges"
-      ></kup-image>
+      <kup-image :src.prop="url" :alt.prop="alt" :badges.prop="mixedBadges"></kup-image>
     </div>
   </div>
 </template>

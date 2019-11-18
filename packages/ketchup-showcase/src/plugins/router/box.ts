@@ -40,6 +40,11 @@ export default [
     component: () => import('@/views/box/BoxObjects.vue'),
   },
   {
+    path: '/box/shapes',
+    name: 'boxShapes',
+    component: () => import('@/views/box/BoxShapes.vue'),
+  },
+  {
     path: '/box/sort',
     name: 'boxSort',
     component: () => import('@/views/box/BoxSort.vue'),

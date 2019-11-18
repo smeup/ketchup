@@ -1,5 +1,6 @@
 import { Component, Prop, h } from '@stencil/core';
 import { Badge } from './kup-image-declarations';
+import { formatSize } from '../../utils/utils';
 
 @Component({
     tag: 'kup-image',
@@ -7,6 +8,9 @@ import { Badge } from './kup-image-declarations';
     shadow: true,
 })
 export class KupImage {
+    public static readonly DEFAULT_WIDTH = '64px';
+    public static readonly DEFAULT_HEIGHT = '64px';
+
     @Prop()
     src = '';
 
@@ -14,10 +18,16 @@ export class KupImage {
     alt = '';
 
     @Prop()
-    width = 64;
+    width = KupImage.DEFAULT_WIDTH;
 
     @Prop()
-    height = 64;
+    height = KupImage.DEFAULT_HEIGHT;
+
+    @Prop()
+    maxWidth = '';
+
+    @Prop()
+    maxHeight = '';
 
     @Prop()
     badges: Badge[];
@@ -37,9 +47,16 @@ export class KupImage {
             });
         }
 
+        let width = formatSize(`${this.width}`);
+        let height = formatSize(`${this.height}`);
+        let maxWidth = formatSize(`${this.maxWidth}`);
+        let maxHeight = formatSize(`${this.maxHeight}`);
+
         const wrapperStyle = {
-            width: `${this.width}px`,
-            height: `${this.height}px`,
+            width: width,
+            height: height,
+            ...(maxWidth ? { maxWidth: maxWidth } : {}),
+            ...(maxHeight ? { maxHeight: maxHeight } : {}),
         };
 
         return (

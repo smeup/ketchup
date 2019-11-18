@@ -434,9 +434,11 @@ export namespace Components {
   interface KupImage {
     'alt': string;
     'badges': Badge[];
-    'height': number;
+    'height': string;
+    'maxHeight': string;
+    'maxWidth': string;
     'src': string;
-    'width': number;
+    'width': string;
   }
   interface KupImageButton {
     /**
@@ -1373,9 +1375,11 @@ declare namespace LocalJSX {
   interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
     'alt'?: string;
     'badges'?: Badge[];
-    'height'?: number;
+    'height'?: string;
+    'maxHeight'?: string;
+    'maxWidth'?: string;
     'src'?: string;
-    'width'?: number;
+    'width'?: string;
   }
   interface KupImageButton extends JSXBase.HTMLAttributes<HTMLKupImageButtonElement> {
     /**

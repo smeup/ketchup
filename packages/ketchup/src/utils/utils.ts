@@ -24,10 +24,10 @@ export function eventFromElement(element: HTMLElement, eventSource) {
  * @param str - the string to convert.
  * @return the converted string.
  */
-export function toKebabCase (str: string): string {
-  return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+export function toKebabCase(str: string): string {
+    return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
-  
+
 export function replacePlaceHolders(template: any, data: any) {
     template = typeof template === 'function' ? template() : template;
     if (['string', 'number'].indexOf(typeof template) === -1)
@@ -43,4 +43,12 @@ export function replacePlaceHolders(template: any, data: any) {
     });
 
     return template;
+}
+
+export function formatSize(size: any) {
+    if (isNaN(size)) {
+        return size;
+    } else {
+        return size + 'px';
+    }
 }

@@ -52,6 +52,7 @@ import {
 
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
+import { KupImage } from '../kup-image/kup-image';
 
 @Component({
     tag: 'kup-box',
@@ -915,8 +916,12 @@ export class KupBox {
                         <kup-image
                             src={src}
                             badges={badges}
-                            {...(width ? { width: width } : {})}
-                            {...(height ? { height: height } : {})}
+                            width="auto"
+                            height="auto"
+                            maxWidth={width ? width : KupImage.DEFAULT_WIDTH}
+                            maxHeight={
+                                height ? height : KupImage.DEFAULT_HEIGHT
+                            }
                         />
                     );
                 } else if (isButton(cell.obj)) {
