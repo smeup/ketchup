@@ -24,10 +24,15 @@ describe('box selection', () => {
 
         const kupBoxClicked = await page.spyOnEvent('kupBoxClicked');
 
-        // testing first object
-        let obj = objects[0];
-
-        await obj.click();
+        // testing first object (patch with document.querySelector to avoid Node is either not visible or not an HTMLElement)
+        await page.evaluate(() => {
+            document
+                .querySelector('kup-box:nth-child(1)')
+                .shadowRoot.querySelector(
+                    '#box-container .box-wrapper .box .box-object:nth-child(1) '
+                )
+                .click();
+        });
 
         let event = kupBoxClicked.events[kupBoxClicked.events.length - 1];
 
@@ -147,9 +152,15 @@ describe('box selection', () => {
 
         const firstBox = await page.find(boxSelector);
 
-        const obj = await firstBox.find('.box-object');
-
-        await obj.click();
+        // testing first object (patch with document.querySelector to avoid Node is either not visible or not an HTMLElement)
+        await page.evaluate(() => {
+            document
+                .querySelector('kup-box:nth-child(1)')
+                .shadowRoot.querySelector(
+                    '#box-container .box-wrapper .box .box-object:nth-child(1) '
+                )
+                .click();
+        });
 
         // testing selected class
         const boxes = await page.findAll(boxSelector + '.selected');
