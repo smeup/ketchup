@@ -20,7 +20,7 @@ export default {
             horizontal: true,
             sections: [
               {
-                dim: '20%',
+                dim: '10%',
                 content: [
                   {
                     column: 'FLD1',

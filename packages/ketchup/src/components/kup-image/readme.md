@@ -7,13 +7,15 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default     |
-| -------- | --------- | ----------- | --------- | ----------- |
-| `alt`    | `alt`     |             | `string`  | `''`        |
-| `badges` | --        |             | `Badge[]` | `undefined` |
-| `height` | `height`  |             | `number`  | `64`        |
-| `src`    | `src`     |             | `string`  | `''`        |
-| `width`  | `width`   |             | `number`  | `64`        |
+| Property    | Attribute    | Description | Type      | Default                   |
+| ----------- | ------------ | ----------- | --------- | ------------------------- |
+| `alt`       | `alt`        |             | `string`  | `''`                      |
+| `badges`    | --           |             | `Badge[]` | `undefined`               |
+| `height`    | `height`     |             | `string`  | `KupImage.DEFAULT_HEIGHT` |
+| `maxHeight` | `max-height` |             | `string`  | `''`                      |
+| `maxWidth`  | `max-width`  |             | `string`  | `''`                      |
+| `src`       | `src`        |             | `string`  | `''`                      |
+| `width`     | `width`      |             | `string`  | `KupImage.DEFAULT_WIDTH`  |
 
 
 ## Dependencies
