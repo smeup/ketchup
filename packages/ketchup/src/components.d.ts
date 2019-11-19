@@ -147,10 +147,12 @@ export namespace Components {
   interface KupButton {
     'align': string;
     'buttonClass': string;
+    'buttonStyle': {};
     'fillspace': boolean;
     'flat': boolean;
     'iconClass': string;
     'iconUrl': string;
+    'imageSrc': string;
     'label': string;
     'rounded': boolean;
     'showicon': boolean;
@@ -974,10 +976,12 @@ declare namespace LocalJSX {
   interface KupButton extends JSXBase.HTMLAttributes<HTMLKupButtonElement> {
     'align'?: string;
     'buttonClass'?: string;
+    'buttonStyle'?: {};
     'fillspace'?: boolean;
     'flat'?: boolean;
     'iconClass'?: string;
     'iconUrl'?: string;
+    'imageSrc'?: string;
     'label'?: string;
     'onKupButtonClicked'?: (event: CustomEvent<{
       id: string;

@@ -8,6 +8,8 @@ interface CellObject {
 
 export interface J4objKupButtonConfig {
     flat: boolean;
+    buttonStyle: {};
+    imageSrc: string;
     iconClass: string;
     label: string;
     textmode: string;
@@ -82,7 +84,9 @@ export function isStringObject(obj: any): boolean {
 export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
     let label = cell.value;
     let textMode = 'Hint';
+    let buttonStyle = null;
     let icon = null;
+    let imageSrc = null;
     let flat = true;
     let showtext = false;
     let fillspace = false;
@@ -91,6 +95,8 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
         const config = cell.config;
 
         icon = config.icon;
+
+        imageSrc = config.imageSrc;
 
         if (config.hasOwnProperty('showtext')) {
             showtext = config.showtext;
@@ -108,14 +114,16 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
             }
         }
 
-        if (config.hasOwnProperty('fillspace')) {
-            fillspace = config.fillspace;
+        if (config.hasOwnProperty('buttonStyle')) {
+            buttonStyle = config.buttonStyle;
         }
     }
 
     return {
+        buttonStyle: buttonStyle,
         label,
         textmode: textMode,
+        imageSrc: imageSrc,
         iconClass: icon,
         flat,
         showtext,
