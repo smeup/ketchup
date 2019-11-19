@@ -1,4 +1,11 @@
-import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    h,
+} from '@stencil/core';
 
 @Component({
     tag: 'kup-button',
@@ -10,7 +17,9 @@ export class KupButton {
 
     @Prop() flat = false;
     @Prop() label: string;
+    @Prop() buttonStyle: {};
     @Prop() buttonClass: string;
+    @Prop() imageSrc: string;
     @Prop() iconClass: string;
     @Prop() fillspace = false;
     @Prop() showtext = true;
@@ -50,10 +59,17 @@ export class KupButton {
             btnLabel = <span class="button-text">{this.label}</span>;
         }
 
+        let image = null;
+        if (this.imageSrc) {
+            image = <img class="button-image" src={this.imageSrc} />;
+        }
+
         let icon = null;
         if (this.showicon && this.iconClass) {
             icon = <span class={'button-icon ' + this.iconClass} />;
         }
+
+        let btnStyle = this.buttonStyle;
 
         let btnClass = '';
         if (this.flat) {
@@ -95,10 +111,12 @@ export class KupButton {
             <link href={this.iconUrl} rel="stylesheet" type="text/css" />,
             <button
                 type="button"
+                style={btnStyle}
                 class={btnClass}
                 title={title}
                 onClick={() => this.onBtnClickedHandler()}
             >
+                {image}
                 {icon}
                 {btnLabel}
             </button>,

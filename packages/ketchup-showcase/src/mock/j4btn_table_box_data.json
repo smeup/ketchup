@@ -101,17 +101,19 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)",
+            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)"
+          "value": "M(J1;URL;https://via.placeholder.com/64?text=img)"
         },
         "BTN": {
-          "config": {},
+          "config": {
+            "imageSrc": "https://via.placeholder.com/64?text=img"
+          },
           "obj": {
-            "k": "M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)",
+            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
             "p": "BTN",
             "t": "J4"
           },
@@ -252,7 +254,8 @@
         },
         "BTN": {
           "config": {
-            "showtext": true
+            "showtext": true,
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
           },
           "obj": {
             "k": "M(CN;COL;CASFRA) T(bellicapelli)",
@@ -394,7 +397,9 @@
           "value": "M(CN;COL;CASFRA) H(Bellicapelli)"
         },
         "BTN": {
-          "config": {},
+          "config": {
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          },
           "obj": {
             "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
             "p": "BTN",
@@ -536,7 +541,9 @@
           "value": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))"
         },
         "BTN": {
-          "config": {},
+          "config": {
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          },
           "obj": {
             "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
@@ -606,7 +613,11 @@
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "mdi mdi-pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -678,7 +689,11 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "mdi mdi-pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -751,7 +766,11 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "mdi mdi-pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -895,7 +914,8 @@
         },
         "BTN": {
           "config": {
-            "flat": false
+            "flat": false,
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA)",
@@ -1041,7 +1061,8 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "flat": false
+            "flat": false,
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)",
@@ -1185,7 +1206,8 @@
         },
         "BTN": {
           "config": {
-            "flat": false
+            "flat": false,
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",
@@ -1328,7 +1350,8 @@
         },
         "BTN": {
           "config": {
-            "flat": false
+            "flat": false,
+            "imageSrc": "https://via.placeholder.com/64?text=CF"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
@@ -1400,7 +1423,8 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "flat": false
+            "flat": false,
+            "imageSrc": "https://via.placeholder.com/64?text=SC"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
