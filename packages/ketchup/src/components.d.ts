@@ -640,6 +640,10 @@ export namespace Components {
   }
   interface KupTree {
     /**
+    * auto select programmatic selectic node
+    */
+    'autoSelectionNodeMode': boolean;
+    /**
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
@@ -1607,6 +1611,10 @@ declare namespace LocalJSX {
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
   interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
+    /**
+    * auto select programmatic selectic node
+    */
+    'autoSelectionNodeMode'?: boolean;
     /**
     * The columns of the tree when tree visualization is active
     */

@@ -11,10 +11,12 @@
 | ------------- | -------------- | ----------- | --------- | ------------------------------------------------------------------------------ |
 | `align`       | `align`        |             | `string`  | `undefined`                                                                    |
 | `buttonClass` | `button-class` |             | `string`  | `undefined`                                                                    |
+| `buttonStyle` | --             |             | `{}`      | `undefined`                                                                    |
 | `fillspace`   | `fillspace`    |             | `boolean` | `false`                                                                        |
 | `flat`        | `flat`         |             | `boolean` | `false`                                                                        |
 | `iconClass`   | `icon-class`   |             | `string`  | `undefined`                                                                    |
 | `iconUrl`     | `icon-url`     |             | `string`  | `'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css'` |
+| `imageSrc`    | `image-src`    |             | `string`  | `undefined`                                                                    |
 | `label`       | `label`        |             | `string`  | `undefined`                                                                    |
 | `rounded`     | `rounded`      |             | `boolean` | `false`                                                                        |
 | `showicon`    | `showicon`     |             | `boolean` | `true`                                                                         |
