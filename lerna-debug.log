@@ -1,0 +1,19 @@
+0 silly argv { _: [ 'clean' ],
+0 silly argv   lernaVersion: '3.17.0',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js' }
+1 notice cli v3.17.0
+2 verbose rootPath C:\Users\fraverze\Documents\NetBeansProjects\ketchup
+3 info versioning independent
+4 info Removing the following directories:
+5 info clean packages\ketchup-showcase\node_modules
+5 info clean packages\ketchup-vue\node_modules
+5 info clean packages\ketchup\node_modules
+6 info clean removing C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup-showcase\node_modules
+7 silly rimrafDir C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup-showcase\node_modules
+8 info clean removing C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup-vue\node_modules
+9 silly rimrafDir C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup-vue\node_modules
+10 info clean removing C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup\node_modules
+11 silly rimrafDir C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup\node_modules
+12 error Error: Command failed: C:\Program Files\nodejs\node.exe C:\Users\fraverze\Documents\NetBeansProjects\ketchup\node_modules\rimraf\bin.js --no-glob C:\Users\fraverze\Documents\NetBeansProjects\ketchup\packages\ketchup\node_modules\
+12 error     at makeError (C:\Users\fraverze\Documents\NetBeansProjects\ketchup\node_modules\execa\index.js:174:9)
+12 error     at Promise.all.then.arr (C:\Users\fraverze\Documents\NetBeansProjects\ketchup\node_modules\execa\index.js:278:16)

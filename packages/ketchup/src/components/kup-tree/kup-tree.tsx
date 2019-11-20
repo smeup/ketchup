@@ -237,14 +237,19 @@ export class KupTree {
   /*
   *For launch the event when selected node
   */
-  launchNodeEvent(treeNodePath: TreeNodePath, treeNode: TreeNode){
+  launchNodeEvent(treeNodePath: TreeNodePath, treeNode: TreeNode){  
     if(treeNodePath && treeNodePath.length > 0){
-      var tn = treeNode.children[treeNodePath[0]];
-      if(treeNodePath.length > 1){
-        var path = treeNodePath.slice(1);
-        this.launchNodeEvent(path, tn);
-      }else{
-        this.hdlTreeNodeClicked(tn, this.selectedNodeString);
+      if(treeNodePath[0] != -1){
+        var tn = treeNode.children[treeNodePath[0]];
+        if(!tn){
+          tn = treeNode;
+        }
+        if(treeNodePath.length > 1){
+          treeNodePath = treeNodePath.slice(1);
+          this.launchNodeEvent(treeNodePath, tn);
+        }else{
+          this.hdlTreeNodeClicked(tn, this.selectedNodeString);
+        }
       }
     }
  } 
