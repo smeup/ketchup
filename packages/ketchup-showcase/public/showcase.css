@@ -138,3 +138,13 @@ div.logo img {
 div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
   height: 50px;
 }
+
+.v-list__group__items .v-list__tile__content .v-list__tile__title {
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+html a {
+  color: var(--main-color);
+}
