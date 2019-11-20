@@ -32,6 +32,9 @@ h3 {
     <h3>Cell style</h3>
     <kup-data-table :data.prop="cellStyleData"></kup-data-table>
 
+    <h3>Border radius and writing mode</h3>
+    <kup-data-table :data.prop="cellStyleData2"></kup-data-table>
+
     <h3>Icons and images</h3>
     <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
 
