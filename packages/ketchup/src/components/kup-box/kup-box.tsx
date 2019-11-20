@@ -358,9 +358,6 @@ export class KupBox {
         const section: Section = {
             horizontal: false,
             sections: [],
-            style: {
-                textAlign: 'center',
-            },
         };
 
         // adding box objects to section
@@ -785,7 +782,7 @@ export class KupBox {
         const isGrid = !!section.columns;
 
         const sectionClass: { [index: string]: boolean } = {
-            'box-section': true,
+            'box-section center-aligned': true, //TODO: Manage 'center-aligned' as prop to give the chance to use 'left-aligned' or 'right-aligned' when needed
             open: sectionExpanded,
             column: !isGrid && !section.horizontal,
             grid: isGrid,
