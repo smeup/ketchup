@@ -53,6 +53,7 @@
     align-items: center;
 
     .box {
+      padding: 3px;
       flex-grow: 1;
       cursor: pointer;
       position: relative;
@@ -114,6 +115,7 @@
         }
 
         .box-object {
+          padding: 1px 4px;
           kup-image,
           kup-checkbox {
             display: flex;
@@ -123,6 +125,10 @@
             border-radius: var(--box_img-border-radius);
             height: auto;
           }
+        }
+
+        &.last-child {
+          margin: 3px 4px;
         }
 
         // collapsible sections
@@ -278,18 +284,18 @@
   }
 }
 
-:host(.with-padding) {
+:host(.without-padding) {
   #box-container {
     .box {
-      padding: 3px;
+      padding: 0;
 
       .box-section {
         .box-object {
-          padding: 1px 4px;
+          padding: 0;
         }
 
         &.last-child {
-          margin: 3px 4px;
+          margin: 0;
         }
       }
     }
