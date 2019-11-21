@@ -72,7 +72,7 @@ export default {
       },
       dataTableWithEmptyValues,
       filters: {
-        FLD1: 'FRA',
+        FLD1: 'Marketing',
       },
       filtersEmpty: {
         FLD1: "''",

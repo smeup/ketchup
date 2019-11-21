@@ -1,4 +1,4 @@
-const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
+const fld1Values = ['Customers module', 'Sales module', 'Marketing module', 'Commerce module', 'Service module'];
 
 const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
 
@@ -71,22 +71,22 @@ export const defaultDataTable = {
   columns: [
     {
       name: 'FLD1',
-      title: 'Column A',
+      title: 'Software',
       size: '',
     },
     {
       name: 'FLD2',
-      title: 'Column B',
+      title: 'Working License',
       size: 10,
     },
     {
       name: 'FLD3',
-      title: 'Column C',
+      title: 'Price',
       size: 10,
     },
     {
       name: 'FLD4',
-      title: 'Column D',
+      title: 'Expiring Date',
       size: 10,
     },
   ],
@@ -97,9 +97,9 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
-          value: 'CASFRA',
+          value: 'Customers module',
           options: true,
         },
         FLD2: {
@@ -122,9 +122,9 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
         },
       },
     },
@@ -134,9 +134,83 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '39.5',
+          },
+          value: '39.5',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2020',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '67.8',
+          },
+          value: '67.8',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2020',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
           options: true,
         },
         FLD2: {
@@ -151,17 +225,17 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '98.7',
           },
-          value: '67.8',
+          value: '98.7',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
         },
       },
     },
@@ -171,9 +245,120 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '12',
+          },
+          value: '12',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '156.7',
+          },
+          value: '156.7',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2020',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '78.9',
+          },
+          value: '78.9',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2021',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '145.6',
+          },
+          value: '145.6',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2021',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
           options: true,
         },
         FLD2: {
@@ -188,17 +373,17 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '278.9',
           },
-          value: '67.8',
+          value: '278.9',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2021',
         },
       },
     },
@@ -208,9 +393,120 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '12',
+          },
+          value: '12',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '498.7',
+          },
+          value: '498.7',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2021',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '1',
+          },
+          value: '1',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '99.9',
+          },
+          value: '99.9',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2022',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
+          options: true,
+        },
+        FLD2: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '3',
+          },
+          value: '3',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '178.9',
+          },
+          value: '178.9',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200102',
+          },
+          value: '02/01/2022',
+        },
+      },
+    },
+    {
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'CN',
+            p: 'COL',
+            k: 'Sales module',
+          },
+          value: 'Sales module',
           options: true,
         },
         FLD2: {
@@ -225,17 +521,17 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '345.6',
           },
-          value: '67.8',
+          value: '345.6',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2022',
         },
       },
     },
@@ -245,34 +541,34 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '12',
           },
-          value: '6',
+          value: '12',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '654.3',
           },
-          value: '67.8',
+          value: '654.3',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2022',
         },
       },
     },
@@ -282,34 +578,34 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '1',
           },
-          value: '6',
+          value: '1',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '67.8',
+            k: '154.3',
           },
-          value: '67.8',
+          value: '154.3',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2025',
         },
       },
     },
@@ -319,305 +615,9 @@ export const defaultDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Marketing module',
           },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-          options: true,
-        },
-        FLD2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-        FLD4: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
-          },
-          value: '02/01/2018',
-        },
-      },
-    },
-    {
-      cells: {
-        FLD1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
-          },
-          value: 'PARFRA',
+          value: 'Marketing module',
           options: true,
         },
         FLD2: {
@@ -640,9 +640,9 @@ export const defaultDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -653,24 +653,24 @@ export const hiddenColumnsData = {
   columns: [
     {
       name: 'FLD1',
-      title: 'Column A',
+      title: 'Software',
       size: '',
       visible: false,
     },
     {
       name: 'FLD2',
-      title: 'Column B',
+      title: 'Working License',
       size: 10,
     },
     {
       name: 'FLD3',
-      title: 'Column C',
+      title: 'Price',
       size: 10,
       visible: false,
     },
     {
       name: 'FLD4',
-      title: 'Column D',
+      title: 'Expiring Date',
       size: 10,
     },
   ],
@@ -681,9 +681,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
-          value: 'CASFRA',
+          value: 'Customers module',
         },
         FLD2: {
           obj: {
@@ -705,9 +705,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
         },
       },
     },
@@ -717,9 +717,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
         },
         FLD2: {
           obj: {
@@ -741,9 +741,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
         },
       },
     },
@@ -753,9 +753,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
-          value: 'PARFRA',
+          value: 'Marketing module',
         },
         FLD2: {
           obj: {
@@ -777,9 +777,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -811,7 +811,7 @@ export const iconImagesDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
           value: 'John Doe',
         },
@@ -819,7 +819,7 @@ export const iconImagesDataTable = {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'CN;COL;CASFRA',
+            k: 'CN;COL;Customers module',
           },
           value: 'mdi mdi-account',
         },
@@ -827,7 +827,7 @@ export const iconImagesDataTable = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
+            k: 'CN;COL;Customers module',
           },
           value:
             'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BCN%253BCOL.jsf?ln=smeupImages',
@@ -840,7 +840,7 @@ export const iconImagesDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
           value: 'Jonnie Doe',
         },
@@ -869,7 +869,7 @@ export const iconImagesDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
           value: 'Baby Doe',
         },
@@ -899,22 +899,22 @@ export const cellStyleDataTable = {
   columns: [
     {
       name: 'FLD1',
-      title: 'Column A',
+      title: 'Software',
       size: '',
     },
     {
       name: 'FLD2',
-      title: 'Column B',
+      title: 'Working License',
       size: 10,
     },
     {
       name: 'FLD3',
-      title: 'Column C',
+      title: 'Price',
       size: 10,
     },
     {
       name: 'FLD4',
-      title: 'Column D',
+      title: 'Expiring Date',
       size: 10,
     },
   ],
@@ -925,9 +925,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
-          value: 'CASFRA',
+          value: 'Customers module',
           style: {
             backgroundColor: 'blue',
             color: '#FFF',
@@ -963,9 +963,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
           style: {
             backgroundColor: 'blue',
             color: 'yellow',
@@ -980,9 +980,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
-          value: 'DELGIO',
+          value: 'Sales module',
           style: {
             fontWeight: 'bold',
           },
@@ -1015,9 +1015,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
           style: {
             fontSize: '30px',
           },
@@ -1030,9 +1030,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
-          value: 'PARFRA',
+          value: 'Marketing module',
         },
         FLD2: {
           obj: {
@@ -1054,9 +1054,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -1067,22 +1067,22 @@ export const sortDataTable = {
   columns: [
     {
       name: 'FLD1',
-      title: 'Column A',
+      title: 'Software',
       size: '',
     },
     {
       name: 'FLD2',
-      title: 'Column B',
+      title: 'Working License',
       size: 10,
     },
     {
       name: 'FLD3',
-      title: 'Column C',
+      title: 'Price',
       size: 10,
     },
     {
       name: 'FLD4',
-      title: 'Column D',
+      title: 'Expiring Date',
       size: 10,
     },
   ],
@@ -1093,10 +1093,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
           options: true,
-          value: 'CASFRA',
+          value: 'Customers module',
         },
         FLD2: {
           obj: {
@@ -1118,9 +1118,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
         },
       },
     },
@@ -1130,10 +1130,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
           options: true,
-          value: 'DELGIO',
+          value: 'Sales module',
         },
         FLD2: {
           obj: {
@@ -1155,9 +1155,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
         },
       },
     },
@@ -1167,10 +1167,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
           options: true,
-          value: 'PARFRA',
+          value: 'Marketing module',
         },
         FLD2: {
           obj: {
@@ -1192,9 +1192,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -1204,10 +1204,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
           options: true,
-          value: 'CASFRA',
+          value: 'Customers module',
         },
         FLD2: {
           obj: {
@@ -1229,9 +1229,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
         },
       },
     },
@@ -1241,10 +1241,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
           options: true,
-          value: 'DELGIO',
+          value: 'Sales module',
         },
         FLD2: {
           obj: {
@@ -1266,9 +1266,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
         },
       },
     },
@@ -1278,10 +1278,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
           options: true,
-          value: 'PARFRA',
+          value: 'Marketing module',
         },
         FLD2: {
           obj: {
@@ -1303,9 +1303,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -1315,10 +1315,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'CASFRA',
+            k: 'Customers module',
           },
           options: true,
-          value: 'CASFRA',
+          value: 'Customers module',
         },
         FLD2: {
           obj: {
@@ -1340,9 +1340,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200101',
           },
-          value: '01/01/2018',
+          value: '01/01/2020',
         },
       },
     },
@@ -1352,10 +1352,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'DELGIO',
+            k: 'Sales module',
           },
           options: true,
-          value: 'DELGIO',
+          value: 'Sales module',
         },
         FLD2: {
           obj: {
@@ -1377,9 +1377,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200102',
           },
-          value: '02/01/2018',
+          value: '02/01/2020',
         },
       },
     },
@@ -1389,10 +1389,10 @@ export const sortDataTable = {
           obj: {
             t: 'CN',
             p: 'COL',
-            k: 'PARFRA',
+            k: 'Marketing module',
           },
           options: true,
-          value: 'PARFRA',
+          value: 'Marketing module',
         },
         FLD2: {
           obj: {
@@ -1414,9 +1414,9 @@ export const sortDataTable = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20200103',
           },
-          value: '03/01/2018',
+          value: '03/01/2020',
         },
       },
     },
