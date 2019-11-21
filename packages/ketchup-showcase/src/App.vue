@@ -76,77 +76,6 @@ export default {
         title: 'Components',
         items: [
           {
-            title: 'Box',
-            routes: [
-              {
-                title: 'Basic',
-                to: {
-                  name: 'boxBasic',
-                },
-              },
-              {
-                title: 'Badges',
-                to: {
-                  name: 'boxBadge',
-                },
-              },
-              {
-                title: 'Objects',
-                to: {
-                  name: 'boxObjects',
-                },
-              },
-              {
-                title: 'Shapes',
-                to: {
-                  name: 'boxShapes',
-                },
-              },
-              {
-                title: 'Classes',
-                to: {
-                  name: 'boxClasses',
-                },
-              },
-              {
-                title: 'Filters',
-                to: {
-                  name: 'boxFilter',
-                },
-              },
-              {
-                title: 'Layout',
-                to: {
-                  name: 'boxLayout',
-                },
-              },
-              {
-                title: 'Pagination',
-                to: {
-                  name: 'boxPagination',
-                },
-              },
-              {
-                title: 'Selection',
-                to: {
-                  name: 'boxSel',
-                },
-              },
-              {
-                title: 'Row actions',
-                to: {
-                  name: 'boxRowActions',
-                },
-              },
-              {
-                title: 'Sort',
-                to: {
-                  name: 'boxSort',
-                },
-              },
-            ],
-          },
-          {
             title: 'Calendar',
             routes: [
               {
@@ -425,6 +354,12 @@ export default {
           },
         ],
         simpleitems: [
+          {
+            title: 'Box',
+            to: {
+              name: 'box',
+            },
+          },
           {
             title: `Buttons`,
             to: {

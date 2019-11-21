@@ -58,7 +58,7 @@ import {
     isProgressBar,
     isRadio,
     isVoCodver,
-    isStringObject
+    isStringObject,
 } from '../../utils/object-utils';
 
 @Component({
@@ -505,9 +505,9 @@ export class KupDataTable {
         // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
         if (
             el.tagName !== 'THEAD' &&
-            (row.clientHeight * 2 > rect.bottom - offset &&
+            row.clientHeight * 2 > rect.bottom - offset &&
                 vertInView &&
-                horInView)
+                horInView
         ) {
             return false && false;
         } else {
