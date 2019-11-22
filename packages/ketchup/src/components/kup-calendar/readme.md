@@ -51,7 +51,7 @@
 
 ### Depends on
 
-- [kup-button](..\kup-button)
+- [kup-button](../kup-button)
 
 ### Graph
 ```mermaid

@@ -11,10 +11,12 @@
 | ------------- | -------------- | ----------- | --------- | ------------------------------------------------------------------------------ |
 | `align`       | `align`        |             | `string`  | `undefined`                                                                    |
 | `buttonClass` | `button-class` |             | `string`  | `undefined`                                                                    |
+| `buttonStyle` | --             |             | `{}`      | `undefined`                                                                    |
 | `fillspace`   | `fillspace`    |             | `boolean` | `false`                                                                        |
 | `flat`        | `flat`         |             | `boolean` | `false`                                                                        |
 | `iconClass`   | `icon-class`   |             | `string`  | `undefined`                                                                    |
 | `iconUrl`     | `icon-url`     |             | `string`  | `'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css'` |
+| `imageSrc`    | `image-src`    |             | `string`  | `undefined`                                                                    |
 | `label`       | `label`        |             | `string`  | `undefined`                                                                    |
 | `rounded`     | `rounded`      |             | `boolean` | `false`                                                                        |
 | `showicon`    | `showicon`     |             | `boolean` | `true`                                                                         |
@@ -63,12 +65,12 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-btn](..\kup-btn)
- - [kup-calendar](..\kup-calendar)
- - [kup-data-table](..\kup-data-table)
- - [kup-fld](..\kup-fld)
- - [kup-html](..\kup-html)
+ - [kup-box](../kup-box)
+ - [kup-btn](../kup-btn)
+ - [kup-calendar](../kup-calendar)
+ - [kup-data-table](../kup-data-table)
+ - [kup-fld](../kup-fld)
+ - [kup-html](../kup-html)
 
 ### Graph
 ```mermaid

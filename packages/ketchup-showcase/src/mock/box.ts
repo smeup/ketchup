@@ -534,54 +534,42 @@ export const j1pwdData = {
 export const iconData = {
   columns: [
     {
-      name: 'FLD1',
-      title: 'Image',
-      size: '',
-    },
-    {
-      name: 'FLD2',
-      title: 'Name',
+      name: 'DES',
+      title: 'Descrizione',
       size: 10,
     },
     {
-      name: 'FLD3',
-      title: 'Number',
+      name: 'RAW',
+      title: 'Valore raw',
       size: 10,
     },
     {
-      name: 'FLD4',
-      title: 'Icon',
+      name: 'ICON',
+      title: 'Icona',
       size: 10,
     },
   ],
   rows: [
     {
       cells: {
-        FLD1: {
+        DES: {
           obj: {
-            t: 'J4',
-            p: 'IMG',
-            k: 'CN;COL;CASFRA',
-          },
-          value: 'https://via.placeholder.com/64?text=CF',
-        },
-        FLD2: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'CASFRA',
-          },
-          value: 'CASFRA',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
+            k: 'Icona material',
             p: '',
-            k: '100.60',
+            t: '',
           },
-          value: '100.60',
+          options: false,
+          value: 'Icona material',
         },
-        FLD4: {
+        RAW: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'VO;COD_AGG;000115',
+          },
+          value: 'VO;COD_AGG;000115',
+        },
+        ICON: {
           obj: {
             t: 'J4',
             p: 'ICO',
@@ -593,109 +581,136 @@ export const iconData = {
     },
     {
       cells: {
-        FLD1: {
+        DES: {
           obj: {
-            t: 'J4',
-            p: 'IMG',
-            k: 'CN;COL;PARFRA',
-          },
-          value: 'https://via.placeholder.com/64?text=PF',
-        },
-        FLD2: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
-          },
-          value: 'PARFRA',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
+            k: 'Icona material con style custom',
             p: '',
-            k: '145.22',
+            t: '',
           },
-          value: '145.22',
+          options: false,
+          value: 'Icona material con style custom',
         },
-        FLD4: {
+        RAW: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'VO;COD_AGG;000011',
+          },
+          value: 'VO;COD_AGG;000011',
+        },
+        ICON: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'VO;COD_VER;000001',
+            k: 'VO;COD_AGG;000011',
           },
-          value: 'mdi mdi-account',
+          value: 'mdi mdi-brightness-1',
+          config: {
+            iconStyle: {
+              color: '#B71817',
+            },
+          },
         },
       },
     },
     {
       cells: {
-        FLD1: {
+        DES: {
           obj: {
-            t: 'J4',
-            p: 'IMG',
-            k: 'CN;COL;DELGIO',
-          },
-          value: 'https://via.placeholder.com/64?text=DG',
-        },
-        FLD2: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
+            k: 'Icona material colorata con bootstrap',
             p: '',
-            k: '221.23',
+            t: '',
           },
-          value: '221.23',
+          options: false,
+          value: 'Icona material colorata con bootstrap',
         },
-        FLD4: {
+        RAW: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'VO;COD_AGG;000011',
+          },
+          value: 'VO;COD_AGG;000011',
+        },
+        ICON: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'VO;COD_VER;000001',
+            k: 'VO;COD_AGG;000011',
           },
-          value: 'mdi mdi-plus',
+          value: 'mdi mdi-brightness-1 text-primary',
+          config: {
+            iconStylesheets: [
+              'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css',
+              'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css',
+            ],
+          },
         },
       },
     },
     {
       cells: {
-        FLD1: {
+        DES: {
           obj: {
-            t: 'J4',
-            p: 'IMG',
-            k: 'CN;COL;SANCOS',
-          },
-          value: 'https://via.placeholder.com/64?text=SC',
-        },
-        FLD2: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'SANCOS',
-          },
-          value: 'SANCOS',
-        },
-        FLD3: {
-          obj: {
-            t: 'NR',
+            k: 'Icona fontawesome',
             p: '',
-            k: '187.59',
+            t: '',
           },
-          value: '187.59',
+          options: false,
+          value: 'Icona fontawesome',
         },
-        FLD4: {
+        RAW: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'VO;COD_AGG;000012',
+          },
+          value: 'VO;COD_AGG;000012',
+        },
+        ICON: {
           obj: {
             t: 'J4',
             p: 'ICO',
-            k: 'VO;COD_VER;000001',
+            k: 'VO;COD_AGG;000012',
           },
-          value: 'mdi mdi-airplane',
+          value: 'fa fa-car',
+          config: {
+            iconStylesheets: [
+              'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+            ],
+          },
+        },
+      },
+    },
+    {
+      cells: {
+        DES: {
+          obj: {
+            k: 'Icona con immagine custom',
+            p: '',
+            t: '',
+          },
+          options: false,
+          value: 'Icona con immagine custom',
+        },
+        RAW: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'VO;COD_AGG;000012',
+          },
+          value: 'VO;COD_AGG;000012',
+        },
+        ICON: {
+          obj: {
+            t: 'J4',
+            p: 'ICO',
+            k: 'VO;COD_AGG;000012',
+          },
+          value: 'whatever',
+          config: {
+            imageSrc: 'https://via.placeholder.com/128?text=CF',
+          },
         },
       },
     },

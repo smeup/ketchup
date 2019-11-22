@@ -1,9 +1,29 @@
 <template>
   <div>
     <h3>Buttons</h3>
-    <kup-box :data.prop="btnData" :layout.prop="btnLayout" @kupBoxClicked="onBoxClicked"></kup-box>
+    <h4>Small dataset</h4>
+    <kup-box
+      :data.prop="btnData"
+      :layout.prop="btnLayout"
+      @kupBoxClicked="onBoxClicked"
+      data-code="small"
+    ></kup-box>
+    <code ref="small" />
 
-    <p v-if="clickedBtn">You clicked: {{ clickedBtn }}</p>
+    <p />
+    <h4>Larger dataset (all button types)</h4>
+    <kup-box
+      :data.prop="largeBtnData"
+      :layout.prop="btnLayout"
+      @kupBoxClicked="onBoxClicked"
+      :columns.prop="3"
+      data-code="large"
+    ></kup-box>
+    <code ref="large" />
+    <hr />
+
+    <h3>Icons</h3>
+    <kup-box :data.prop="iconData" :layout.prop="iconLayout" :columns.prop="3"></kup-box>
     <hr />
 
     <h3>Yes/No</h3>
@@ -16,10 +36,6 @@
 
     <h3>Password</h3>
     <kup-box :data.prop="pwdData" :layout.prop="btnLayout"></kup-box>
-    <hr />
-
-    <h3>Icons</h3>
-    <kup-box :data.prop="iconData" :layout.prop="btnLayout"></kup-box>
     <hr />
 
     <h3>Progress bar</h3>
@@ -36,11 +52,13 @@ import {
   pgbData,
   iconData,
 } from '@/mock/box';
+import j4btnLargeData from '@/mock/j4btn_table_box_data.json';
 
 export default {
   data() {
     return {
       btnData: { ...j4btnData },
+      largeBtnData: { ...j4btnLargeData },
       sinoData: { ...v2sinoData },
       radioData: { ...v2radioData },
       pwdData: { ...j1pwdData },
@@ -64,6 +82,14 @@ export default {
               },
               {},
             ],
+          },
+        ],
+      },
+      iconLayout: {
+        sections: [
+          {
+            horizontal: false,
+            sections: [{}, {}, {}],
           },
         ],
       },
@@ -95,10 +121,13 @@ export default {
   },
 
   methods: {
-    onBoxClicked({ detail }) {
-      if ('FLD4' === detail.column) {
-        this.clickedBtn = detail.row.cells[detail.column];
-      }
+    onBoxClicked(e) {
+      const cell = JSON.stringify(e.detail.row.cells[e.detail.column]),
+        row = JSON.stringify(e.detail.row),
+        column = JSON.stringify(e.detail.column);
+      this.$refs[
+        e.target.dataset.code
+      ].innerHTML = `<br>You clicked on: <br>Cell:<br>${cell}<br>Column:<br>${column}<br>Row:<br>${row}<br>`;
     },
   },
 };

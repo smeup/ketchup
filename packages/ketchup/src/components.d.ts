@@ -147,10 +147,12 @@ export namespace Components {
   interface KupButton {
     'align': string;
     'buttonClass': string;
+    'buttonStyle': {};
     'fillspace': boolean;
     'flat': boolean;
     'iconClass': string;
     'iconUrl': string;
+    'imageSrc': string;
     'label': string;
     'rounded': boolean;
     'showicon': boolean;
@@ -431,6 +433,12 @@ export namespace Components {
     */
     'src': string;
   }
+  interface KupIcon {
+    'iconClass': string;
+    'iconStyle': {};
+    'iconStylesheets': string[];
+    'imageSrc': string;
+  }
   interface KupImage {
     'alt': string;
     'badges': Badge[];
@@ -638,6 +646,10 @@ export namespace Components {
   }
   interface KupTree {
     /**
+    * auto select programmatic selectic node
+    */
+    'autoSelectionNodeMode': boolean;
+    /**
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
@@ -776,6 +788,12 @@ declare global {
     new (): HTMLKupHtmlElement;
   };
 
+  interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {}
+  var HTMLKupIconElement: {
+    prototype: HTMLKupIconElement;
+    new (): HTMLKupIconElement;
+  };
+
   interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {}
   var HTMLKupImageElement: {
     prototype: HTMLKupImageElement;
@@ -863,6 +881,7 @@ declare global {
     'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
+    'kup-icon': HTMLKupIconElement;
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-paginator': HTMLKupPaginatorElement;
@@ -974,10 +993,12 @@ declare namespace LocalJSX {
   interface KupButton extends JSXBase.HTMLAttributes<HTMLKupButtonElement> {
     'align'?: string;
     'buttonClass'?: string;
+    'buttonStyle'?: {};
     'fillspace'?: boolean;
     'flat'?: boolean;
     'iconClass'?: string;
     'iconUrl'?: string;
+    'imageSrc'?: string;
     'label'?: string;
     'onKupButtonClicked'?: (event: CustomEvent<{
       id: string;
@@ -1372,6 +1393,12 @@ declare namespace LocalJSX {
     */
     'src'?: string;
   }
+  interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
+    'iconClass'?: string;
+    'iconStyle'?: {};
+    'iconStylesheets'?: string[];
+    'imageSrc'?: string;
+  }
   interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
     'alt'?: string;
     'badges'?: Badge[];
@@ -1604,6 +1631,10 @@ declare namespace LocalJSX {
   }
   interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
     /**
+    * auto select programmatic selectic node
+    */
+    'autoSelectionNodeMode'?: boolean;
+    /**
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
@@ -1700,6 +1731,7 @@ declare namespace LocalJSX {
     'kup-gauge': KupGauge;
     'kup-graphic-cell': KupGraphicCell;
     'kup-html': KupHtml;
+    'kup-icon': KupIcon;
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
     'kup-paginator': KupPaginator;

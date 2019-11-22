@@ -53,7 +53,12 @@ export class KupTree {
    * An array of integers containing the path to a selected child.\
    * Groups up the properties SelFirst, SelItem, SelName.
    */
-  @Prop() selectedNode: TreeNodePath = [];
+  @Prop({mutable: true}) selectedNode: TreeNodePath = [];
+
+  /** 
+   * auto select programmatic selectic node
+  */
+  @Prop() autoSelectionNodeMode: boolean = true;   
   /**
    * When a node has options in its data and is on mouse over state while this prop is true,
    * the node must shows the cog wheel to trigger object navigation upon click.
@@ -186,6 +191,12 @@ export class KupTree {
     }
   }
 
+  componentDidLoad() {
+    if (this.selectedNode && this.selectedNode.length>0) {
+      this.data.forEach(rootNode => {this.launchNodeEvent(this.selectedNode, rootNode )})
+    }
+  }
+
   //-------- Watchers --------
   @Watch('data')
   enrichDataWhenChanged(newData, oldData) {
@@ -223,6 +234,26 @@ export class KupTree {
     }
   }
 
+  /*
+  *For launch the event when selected node
+  */
+  launchNodeEvent(treeNodePath: TreeNodePath, treeNode: TreeNode){  
+    if(treeNodePath && treeNodePath.length > 0){
+      if(treeNodePath[0] != -1){
+        var tn = treeNode.children[treeNodePath[0]];
+        if(!tn){
+          tn = treeNode;
+        }
+        if(treeNodePath.length > 1){
+          treeNodePath = treeNodePath.slice(1);
+          this.launchNodeEvent(treeNodePath, tn);
+        }else{
+          this.hdlTreeNodeClicked(tn, this.selectedNodeString);
+        }
+      }
+    }
+ } 
+
   /**
    * Forces component update with a simple trick.
    * Should be avoided if possible.
@@ -249,6 +280,9 @@ export class KupTree {
   hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
     if (!treeNodeData.disabled) {
+      if (this.autoSelectionNodeMode) 
+        this.selectedNode = treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex));
+
       this.kupTreeNodeSelected.emit({
         treeNodePath: treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex)),
         treeNode: treeNodeData

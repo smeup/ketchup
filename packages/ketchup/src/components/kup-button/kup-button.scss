@@ -106,6 +106,13 @@ button {
     }
   }
 
+  //-- The button image --
+  > .button-image {
+    cursor: pointer;
+    max-width: 24px;
+    max-height: 24px;
+  }
+
   //-- The button text --
   > .button-text {
     font-style: var(--btn_font-style);
