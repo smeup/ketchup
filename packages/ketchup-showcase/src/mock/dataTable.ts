@@ -95,8 +95,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           value: 'Customers module',
@@ -132,8 +132,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -169,8 +169,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -206,8 +206,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -243,8 +243,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -280,8 +280,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -317,8 +317,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -354,8 +354,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -391,8 +391,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -428,8 +428,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -465,8 +465,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -502,8 +502,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -539,8 +539,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -576,8 +576,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -613,8 +613,8 @@ export const defaultDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           value: 'Marketing module',
@@ -679,8 +679,8 @@ export const hiddenColumnsData = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           value: 'Customers module',
@@ -715,8 +715,8 @@ export const hiddenColumnsData = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -751,8 +751,8 @@ export const hiddenColumnsData = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           value: 'Marketing module',
@@ -809,8 +809,8 @@ export const iconImagesDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           value: 'John Doe',
@@ -838,8 +838,8 @@ export const iconImagesDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           value: 'Jonnie Doe',
@@ -867,8 +867,8 @@ export const iconImagesDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Baby Doe',
@@ -923,8 +923,8 @@ export const cellStyleDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           value: 'Customers module',
@@ -978,8 +978,8 @@ export const cellStyleDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           value: 'Sales module',
@@ -1028,8 +1028,8 @@ export const cellStyleDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           value: 'Marketing module',
@@ -1091,8 +1091,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           options: true,
@@ -1128,8 +1128,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           options: true,
@@ -1165,8 +1165,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           options: true,
@@ -1202,8 +1202,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           options: true,
@@ -1239,8 +1239,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           options: true,
@@ -1276,8 +1276,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           options: true,
@@ -1313,8 +1313,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Customers module',
           },
           options: true,
@@ -1350,8 +1350,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Sales module',
           },
           options: true,
@@ -1387,8 +1387,8 @@ export const sortDataTable = {
       cells: {
         FLD1: {
           obj: {
-            t: 'CN',
-            p: 'COL',
+            t: 'TA',
+            p: 'B£AMO',
             k: 'Marketing module',
           },
           options: true,
