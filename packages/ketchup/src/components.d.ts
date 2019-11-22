@@ -433,6 +433,12 @@ export namespace Components {
     */
     'src': string;
   }
+  interface KupIcon {
+    'iconClass': string;
+    'iconStyle': {};
+    'iconStylesheets': string[];
+    'imageSrc': string;
+  }
   interface KupImage {
     'alt': string;
     'badges': Badge[];
@@ -782,6 +788,12 @@ declare global {
     new (): HTMLKupHtmlElement;
   };
 
+  interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {}
+  var HTMLKupIconElement: {
+    prototype: HTMLKupIconElement;
+    new (): HTMLKupIconElement;
+  };
+
   interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {}
   var HTMLKupImageElement: {
     prototype: HTMLKupImageElement;
@@ -869,6 +881,7 @@ declare global {
     'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
+    'kup-icon': HTMLKupIconElement;
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-paginator': HTMLKupPaginatorElement;
@@ -1380,6 +1393,12 @@ declare namespace LocalJSX {
     */
     'src'?: string;
   }
+  interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
+    'iconClass'?: string;
+    'iconStyle'?: {};
+    'iconStylesheets'?: string[];
+    'imageSrc'?: string;
+  }
   interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
     'alt'?: string;
     'badges'?: Badge[];
@@ -1712,6 +1731,7 @@ declare namespace LocalJSX {
     'kup-gauge': KupGauge;
     'kup-graphic-cell': KupGraphicCell;
     'kup-html': KupHtml;
+    'kup-icon': KupIcon;
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
     'kup-paginator': KupPaginator;

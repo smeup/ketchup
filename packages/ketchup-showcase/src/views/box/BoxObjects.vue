@@ -22,6 +22,10 @@
     <code ref="large" />
     <hr />
 
+    <h3>Icons</h3>
+    <kup-box :data.prop="iconData" :layout.prop="iconLayout" :columns.prop="3"></kup-box>
+    <hr />
+
     <h3>Yes/No</h3>
     <kup-box :data.prop="sinoData" :layout.prop="btnLayout"></kup-box>
     <hr />
@@ -32,10 +36,6 @@
 
     <h3>Password</h3>
     <kup-box :data.prop="pwdData" :layout.prop="btnLayout"></kup-box>
-    <hr />
-
-    <h3>Icons</h3>
-    <kup-box :data.prop="iconData" :layout.prop="btnLayout"></kup-box>
     <hr />
 
     <h3>Progress bar</h3>
@@ -82,6 +82,14 @@ export default {
               },
               {},
             ],
+          },
+        ],
+      },
+      iconLayout: {
+        sections: [
+          {
+            horizontal: false,
+            sections: [{}, {}, {}],
           },
         ],
       },

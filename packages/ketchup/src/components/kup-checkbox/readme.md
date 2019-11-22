@@ -43,9 +43,9 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-data-table](..\kup-data-table)
- - [kup-tree](..\kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid

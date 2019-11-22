@@ -62,9 +62,9 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-combo](..\kup-combo)
- - [kup-data-table](..\kup-data-table)
+ - [kup-box](../kup-box)
+ - [kup-combo](../kup-combo)
+ - [kup-data-table](../kup-data-table)
 
 ### Graph
 ```mermaid

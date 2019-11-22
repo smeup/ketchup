@@ -1017,7 +1017,27 @@ export class KupBox {
                         </div>
                     );
                 } else if (isIcon(cell.obj)) {
-                    boContent = <span class={`icon ${cell.value}`}></span>;
+                    let iconStylesheets = null;
+                    let iconStyle = null;
+                    let imageSrc = null;
+
+                    if (cell.config) {
+                        const config = cell.config;
+                        iconStylesheets = config.iconStylesheets;
+                        iconStyle = config.iconStyle;
+                        imageSrc = config.imageSrc;
+                    }
+
+                    boContent = (
+                        <kup-icon
+                            iconClass={cell.value}
+                            iconStyle={iconStyle}
+                            {...(iconStylesheets
+                                ? { iconStylesheets: iconStylesheets }
+                                : {})}
+                            {...(imageSrc ? { imageSrc: imageSrc } : {})}
+                        ></kup-icon>
+                    );
                 } else {
                     boContent = cell.value;
                 }

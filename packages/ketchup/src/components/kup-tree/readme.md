@@ -107,8 +107,8 @@ open or close the TreeNodes.
 
 ### Depends on
 
-- [kup-checkbox](..\kup-checkbox)
-- [kup-graphic-cell](..\kup-graphic-cell)
+- [kup-checkbox](../kup-checkbox)
+- [kup-graphic-cell](../kup-graphic-cell)
 
 ### Graph
 ```mermaid
