@@ -2019,9 +2019,10 @@ export class KupDataTable {
                 </a>
             );
         } else if (isCheckbox(cell.obj)) {
+            let checked = cell.obj.k == '1';
             content = (
                 <kup-checkbox
-                    checked={!!cell.obj.k}
+                    checked={checked}
                     disabled={
                         cellData &&
                         cellData.row &&
