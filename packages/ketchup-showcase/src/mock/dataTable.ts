@@ -106,9 +106,9 @@ export const defaultDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
+            k: '5',
           },
-          value: '10',
+          value: '5',
         },
         FLD3: {
           obj: {
@@ -208,26 +208,26 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Commerce module',
           },
-          value: 'Sales module',
+          value: 'Commerce module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '2',
           },
-          value: '6',
+          value: '2',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '98.7',
+            k: '156.7',
           },
-          value: '98.7',
+          value: '156.7',
         },
         FLD4: {
           obj: {
@@ -245,26 +245,26 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Service module',
           },
-          value: 'Sales module',
+          value: 'Service module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
+            k: '4',
           },
-          value: '12',
+          value: '4',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '156.7',
+            k: '256.7',
           },
-          value: '156.7',
+          value: '256.7',
         },
         FLD4: {
           obj: {
@@ -356,18 +356,18 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Commerce module',
           },
-          value: 'Sales module',
+          value: 'Commerce module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '2',
           },
-          value: '6',
+          value: '2',
         },
         FLD3: {
           obj: {
@@ -393,18 +393,18 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Service module',
           },
-          value: 'Sales module',
+          value: 'Service module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
+            k: '4',
           },
-          value: '12',
+          value: '4',
         },
         FLD3: {
           obj: {
@@ -504,18 +504,18 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Commerce module',
           },
-          value: 'Sales module',
+          value: 'Commerce module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '2',
           },
-          value: '6',
+          value: '2',
         },
         FLD3: {
           obj: {
@@ -541,18 +541,18 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Service module',
           },
-          value: 'Sales module',
+          value: 'Service module',
           options: true,
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '12',
+            k: '4',
           },
-          value: '12',
+          value: '4',
         },
         FLD3: {
           obj: {
@@ -689,9 +689,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
+            k: '5',
           },
-          value: '10',
+          value: '5',
         },
         FLD3: {
           obj: {
@@ -717,17 +717,17 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Commerce module',
           },
-          value: 'Sales module',
+          value: 'Commerce module',
         },
         FLD2: {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '2',
           },
-          value: '6',
+          value: '2',
         },
         FLD3: {
           obj: {
@@ -937,9 +937,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
+            k: '5',
           },
-          value: '10',
+          value: '5',
           style: {
             backgroundColor: 'blue',
             color: '#FFF',
@@ -980,9 +980,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Sales module',
+            k: 'Commerce module',
           },
-          value: 'Sales module',
+          value: 'Commerce module',
           style: {
             fontWeight: 'bold',
           },
@@ -991,9 +991,9 @@ export const cellStyleDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '2',
           },
-          value: '6',
+          value: '2',
           style: {
             fontStyle: 'italic',
             textAlign: 'center',
@@ -1102,9 +1102,9 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '10',
+            k: '5',
           },
-          value: '10',
+          value: '5',
         },
         FLD3: {
           obj: {
@@ -1287,9 +1287,9 @@ export const sortDataTable = {
           obj: {
             t: 'NR',
             p: '',
-            k: '6',
+            k: '5',
           },
-          value: '6',
+          value: '5',
         },
         FLD3: {
           obj: {
