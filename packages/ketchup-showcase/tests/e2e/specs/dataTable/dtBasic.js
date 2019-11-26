@@ -21,7 +21,7 @@ context('Data table without configuration', () => {
       .shadowFind('.align-left')
       .shadowFind('.nextPageGroup')
       .shadowFirst()
-      .shadowContains('15');
+      .shadowContains('12');
 
     cy.shadowGet('kup-data-table')
       .shadowFind('.density-medium')
