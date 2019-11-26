@@ -175,6 +175,7 @@ export class KupTree {
   kupTreeNodeSelected: EventEmitter<{
     treeNodePath: TreeNodePath,
     treeNode: TreeNode,
+    auto: boolean
   }>;
 
   //-------- Lifecycle hooks --------
@@ -248,7 +249,7 @@ export class KupTree {
           treeNodePath = treeNodePath.slice(1);
           this.launchNodeEvent(treeNodePath, tn);
         }else{
-          this.hdlTreeNodeClicked(tn, this.selectedNodeString);
+          this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
         }
       }
     }
@@ -277,7 +278,7 @@ export class KupTree {
   }
 
   // When a TreeNode can be selected
-  hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string) {
+  hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string, auto: boolean) {
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
     if (!treeNodeData.disabled) {
       if (this.autoSelectionNodeMode) 
@@ -285,7 +286,8 @@ export class KupTree {
 
       this.kupTreeNodeSelected.emit({
         treeNodePath: treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex)),
-        treeNode: treeNodeData
+        treeNode: treeNodeData,
+        auto:auto
       });
     }
   }
@@ -554,7 +556,7 @@ export class KupTree {
     let treeNodeOptionIcon: JSX.Element | null = null;
     if (!treeNodeData.disabled) {
       treeNodeOptions['onClick'] = () => {
-        this.hdlTreeNodeClicked(treeNodeData, treeNodePath);
+        this.hdlTreeNodeClicked(treeNodeData, treeNodePath, false);
       };
 
       // Controls if there is the necessity to print out options also for the TreeNodeCell
