@@ -53,6 +53,7 @@ h3 {
 import {
   defaultDataTable,
   cellStyleDataTable,
+  cellStyleDataTable2,
   hiddenColumnsData,
   iconImagesDataTable,
 } from '@/mock/dataTable';
@@ -72,6 +73,7 @@ export default {
       j4btnData,
       hiddenColumnsData: { ...hiddenColumnsData },
       cellStyleData: { ...cellStyleDataTable },
+      cellStyleData2: { ...cellStyleDataTable2 },
       iconImagesDataTable: { ...iconImagesDataTable },
       columnsWidth: [
         {
