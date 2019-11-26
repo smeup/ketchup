@@ -84,7 +84,7 @@ open or close the TreeNodes.
 | `kupOptionClicked`    | When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}. | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>`                                                                        |
 | `kupTreeNodeCollapse` | Fired when a TreeNode gets collapsed (closed).                                                                                                                              | `CustomEvent<{ treeNodePath: number[]; treeNode: TreeNode; }>`                                                                            |
 | `kupTreeNodeExpand`   | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.                                           | `CustomEvent<{ treeNodePath: number[]; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; }>` |
-| `kupTreeNodeSelected` | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: number[]; treeNode: TreeNode; }>`                                                                            |
+| `kupTreeNodeSelected` | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: number[]; treeNode: TreeNode; auto: boolean; }>`                                                             |
 
 
 ## CSS Custom Properties
@@ -107,8 +107,8 @@ open or close the TreeNodes.
 
 ### Depends on
 
-- [kup-checkbox](../kup-checkbox)
-- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-checkbox](..\kup-checkbox)
+- [kup-graphic-cell](..\kup-graphic-cell)
 
 ### Graph
 ```mermaid
