@@ -1680,6 +1680,7 @@ declare namespace LocalJSX {
     'onKupTreeNodeSelected'?: (event: CustomEvent<{
       treeNodePath: TreeNodePath,
       treeNode: TreeNode,
+      auto: boolean
     }>) => void;
     /**
     * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
