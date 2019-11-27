@@ -50,6 +50,11 @@ export default [
     component: () => import('@/views/box/BoxSort.vue'),
   },
   {
+    path: '/box/dnd',
+    name: 'boxDnd',
+    component: () => import('@/views/box/BoxDnd.vue'),
+  },
+  {
     path: '/box/pagination',
     name: 'boxPagination',
     component: () => import('@/views/box/BoxPagination.vue'),

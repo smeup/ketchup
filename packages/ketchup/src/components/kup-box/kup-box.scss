@@ -68,6 +68,30 @@
       &:hover,
       &.selected {
         box-shadow: var(--box_hover-box-shadow);
+        .box-drag-handler {
+          display: inline;
+        }
+      }
+
+      &.item-dragged {
+        opacity: 0.5;
+      }
+
+      &.item-dropover {
+        position: relative;
+        z-index: 2;
+
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.05);
+
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1.05);
+
+        -moz-transition: all 200ms ease-in;
+        -moz-transform: scale(1.05);
+
+        transition: all 200ms ease-in;
+        transform: scale(1.05);
       }
 
       .box-section {
@@ -197,6 +221,14 @@
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
+      }
+
+      .box-drag-handler {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        cursor: grab;
+        display: none;
       }
 
       kup-badge {

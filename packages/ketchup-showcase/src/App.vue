@@ -130,6 +130,12 @@ export default {
               name: 'boxSort',
             },
           },
+          {
+            title: 'Drag and Drop',
+            to: {
+              name: 'boxDnd',
+            },
+          },
         ],
       },
       {

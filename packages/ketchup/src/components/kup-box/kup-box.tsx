@@ -9,6 +9,7 @@ import {
     EventEmitter,
     h,
     Method,
+    Element,
 } from '@stencil/core';
 
 import {
@@ -60,6 +61,7 @@ import { KupImage } from '../kup-image/kup-image';
     shadow: true,
 })
 export class KupBox {
+    @Element() el: HTMLElement;
     /**
      * Data
      */
@@ -129,6 +131,18 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     pageSize = 10;
+
+    /**
+     * Enable dragging
+     */
+    @Prop()
+    dragEnabled = false;
+
+    /**
+     * Enable dropping
+     */
+    @Prop()
+    dropEnabled = false;
 
     @State()
     private globalFilterValue = '';
@@ -214,6 +228,50 @@ export class KupBox {
         row: BoxRow;
         action: RowAction;
         index: number;
+    }>;
+
+    /**
+     * Triggered when a box dragging is started
+     */
+    @Event({
+        eventName: 'kupBoxDragStarted',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDragStarted: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+    }>;
+
+    /**
+     * Triggered when a box dragging is ended
+     */
+    @Event({
+        eventName: 'kupBoxDragEnded',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDragEnded: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+    }>;
+
+    /**
+     * Triggered when a box is dropped
+     */
+    @Event({
+        eventName: 'kupBoxDropped',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDropped: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+        toId: string;
+        toRow: BoxRow;
     }>;
 
     private boxLayout: Layout;
@@ -555,6 +613,94 @@ export class KupBox {
         });
     }
 
+    // when the user starts to drag an element (fired on the draggable target)
+    private onBoxDragStart(event: DragEvent, row: BoxRow) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchBox(target).classList.add('item-dragged');
+
+        var transferData = {};
+        transferData['fromId'] = this.el.id;
+        transferData['fromRow'] = row;
+        event.dataTransfer.setData('text', JSON.stringify(transferData));
+
+        event.dataTransfer.dropEffect = 'move';
+
+        this.kupBoxDragStarted.emit({ fromId: this.el.id, fromRow: row });
+    }
+
+    // when the user finishes to drag an element (fired on the draggable target)
+    private onBoxDragEnd(event: DragEvent, row: BoxRow) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchBox(target).classList.remove('item-dragged');
+
+        this.kupBoxDragEnded.emit({ fromId: this.el.id, fromRow: row });
+    }
+
+    // when the dragged element is over the drop target (fired on the drop target)
+    private onBoxDragOver(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchBox(target).classList.add('item-dropover');
+    }
+
+    // when the dragged element leaves the drop target (fired on the drop target)
+    private onBoxDragLeave(event: DragEvent) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchBox(target).classList.remove('item-dropover');
+    }
+
+    //  when the dragged element is dropped (fired on the drop target)
+    private onBoxDrop(event: DragEvent, row: BoxRow) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchBox(target).classList.remove('item-dropover');
+
+        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
+
+        this.kupBoxDropped.emit({
+            fromId: jsonData['fromId'],
+            fromRow: jsonData['fromRow'],
+            toId: this.el.id,
+            toRow: row,
+        });
+    }
+
+    private searchBox(target: any) {
+        // searching parent until box
+        let element = target;
+        let classList = element.classList;
+        while (!classList.contains('box')) {
+            element = element.parentElement;
+            if (element === null) {
+                break;
+            }
+            classList = element.classList;
+        }
+        return element;
+    }
+
     /**
      * see onDocumentClick in kup-combo
      */
@@ -698,18 +844,48 @@ export class KupBox {
             ));
         }
 
+        let dragHandler = null;
+        if (this.dragEnabled) {
+            dragHandler = <span class="box-drag-handler mdi mdi-drag"></span>;
+        }
+
         const boxClass = {
             box: true,
+            draggable: this.dragEnabled,
             selected: this.showSelection && isSelected,
             column: !horizontal,
         };
 
         return (
             <div class="box-wrapper">
-                <div class={boxClass} onClick={(e) => this.onBoxClick(e, row)}>
+                <div
+                    class={boxClass}
+                    draggable={this.dragEnabled}
+                    onClick={(e) => this.onBoxClick(e, row)}
+                    onDragStart={
+                        this.dragEnabled
+                            ? (e) => this.onBoxDragStart(e, row)
+                            : null
+                    }
+                    onDragEnd={
+                        this.dragEnabled
+                            ? (e) => this.onBoxDragEnd(e, row)
+                            : null
+                    }
+                    onDragOver={
+                        this.dropEnabled ? (e) => this.onBoxDragOver(e) : null
+                    }
+                    onDragLeave={
+                        this.dropEnabled ? (e) => this.onBoxDragLeave(e) : null
+                    }
+                    onDrop={
+                        this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
+                    }
+                >
                     {multiSel}
                     {boxContent}
                     {badges}
+                    {dragHandler}
                 </div>
                 {rowObject}
             </div>
