@@ -1,6 +1,7 @@
 window.onload = function() {
   document.addEventListener('scroll', checkNav);
   document.addEventListener('resize', checkNav);
+  document.addEventListener('readystatechange', checkNav);
 };
 
 function checkNav() {

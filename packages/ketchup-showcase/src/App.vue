@@ -25,15 +25,9 @@
                   </v-list-tile-content>
                 </v-list-tile>
               </template>
-
-              <v-list-tile v-for="route in section.routes" :key="route.to.name" :to="route.to">
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.simpleitems" :key="route.to.name" :to="route.to">
+            <v-list-tile v-for="route in group.componentsItems" :key="route.to.name" :to="route.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -74,286 +68,7 @@ export default {
     groupNavigationSections: [
       {
         title: 'Components',
-        items: [
-          {
-            title: 'Calendar',
-            routes: [
-              {
-                title: 'Basic',
-                to: {
-                  name: 'calendarBasic',
-                },
-              },
-              {
-                title: 'Events',
-                to: {
-                  name: 'calendarEvents',
-                },
-              },
-              {
-                title: 'Icons',
-                to: {
-                  name: 'calendarIcons',
-                },
-              },
-              {
-                title: 'Style',
-                to: {
-                  name: 'calendarStyle',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Chart',
-            routes: [
-              {
-                title: 'Playground',
-                to: {
-                  name: 'chartPlayground',
-                },
-              },
-              {
-                title: 'Events',
-                to: {
-                  name: 'chartEvents',
-                },
-              },
-              {
-                title: 'Area',
-                to: {
-                  name: 'chartArea',
-                },
-              },
-              {
-                title: 'Bar',
-                to: {
-                  name: 'chartBar',
-                },
-              },
-              {
-                title: 'Bubble',
-                to: {
-                  name: 'chartBubble',
-                },
-              },
-              {
-                title: 'Calendar',
-                to: {
-                  name: 'chartCalendar',
-                },
-              },
-              {
-                title: 'Candlestick',
-                to: {
-                  name: 'chartCandlestick',
-                },
-              },
-              {
-                title: 'Column',
-                to: {
-                  name: 'chartColumn',
-                },
-              },
-              {
-                title: 'Combo',
-                to: {
-                  name: 'chartCombo',
-                },
-              },
-              {
-                title: 'Geo',
-                to: {
-                  name: 'chartGeo',
-                },
-              },
-              {
-                title: 'Line',
-                to: {
-                  name: 'chartLine',
-                },
-              },
-              {
-                title: 'Pie',
-                to: {
-                  name: 'chartPie',
-                },
-              },
-              {
-                title: 'Sankey',
-                to: {
-                  name: 'chartSankey',
-                },
-              },
-              {
-                title: 'Scatter',
-                to: {
-                  name: 'chartScatter',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Data Table',
-            routes: [
-              {
-                title: 'Basic',
-                to: {
-                  name: 'dtBasic',
-                },
-              },
-              {
-                title: 'Tooltip',
-                to: {
-                  name: 'dtTooltip',
-                },
-              },
-              {
-                title: 'Filters',
-                to: {
-                  name: 'dtFilters',
-                },
-              },
-              {
-                title: 'Graphic cells',
-                to: {
-                  name: 'dtGraphicCells',
-                },
-              },
-              {
-                title: 'Grouping',
-                to: {
-                  name: 'dtGroups',
-                },
-              },
-              {
-                title: 'Pagination',
-                to: {
-                  name: 'dtPag',
-                },
-              },
-              {
-                title: 'Row actions',
-                to: {
-                  name: 'dtRowActions',
-                },
-              },
-              {
-                title: 'Row selection',
-                to: {
-                  name: 'dtRowSel',
-                },
-              },
-              {
-                title: 'Sort',
-                to: {
-                  name: 'dtSort',
-                },
-              },
-              {
-                title: 'Sortable columns',
-                to: {
-                  name: 'dtSortableColumns',
-                },
-              },
-              {
-                title: 'Totals',
-                to: {
-                  name: 'dtTotals',
-                },
-              },
-              {
-                title: 'Hide repetitions',
-                to: {
-                  name: 'dtRowsRepetition',
-                },
-              },
-              {
-                title: 'Button Cell (J4btn)',
-                to: {
-                  name: 'dtButtonCell',
-                },
-              },
-              {
-                title: 'Checkbox Cell',
-                to: {
-                  name: 'dtCheckboxCell',
-                },
-              },
-              {
-                title: 'Progressbar',
-                to: {
-                  name: 'dtProgressbar',
-                },
-              },
-              {
-                title: 'Radio button',
-                to: {
-                  name: 'dtRadio',
-                },
-              },
-              {
-                title: 'Columns width',
-                to: {
-                  name: 'dtColumnsWidth',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Field',
-            routes: [
-              {
-                title: `Combo form`,
-                to: {
-                  name: 'fldCombo',
-                },
-              },
-              {
-                title: `Radio form`,
-                to: {
-                  name: 'fldRadio',
-                },
-              },
-              {
-                title: `Text Input form`,
-                to: {
-                  name: 'fldText',
-                },
-              },
-              {
-                title: `Custom graphic`,
-                to: {
-                  name: 'fldGraphic',
-                },
-              },
-            ],
-          },
-          {
-            title: 'Tree',
-            routes: [
-              {
-                title: `Tree basics`,
-                to: {
-                  name: 'treeBasic',
-                },
-              },
-              {
-                title: `Tree table`,
-                to: {
-                  name: 'treeTable',
-                },
-              },
-              {
-                title: `Tree dynamic expansion`,
-                to: {
-                  name: 'treeDynamic',
-                },
-              },
-            ],
-          },
-        ],
-        simpleitems: [
+        componentsItems: [
           {
             title: 'Box',
             to: {
@@ -361,15 +76,21 @@ export default {
             },
           },
           {
-            title: `Buttons`,
+            title: `Button`,
             to: {
-              name: 'btn',
+              name: 'button',
             },
           },
           {
-            title: `Chips`,
+            title: `Calendar`,
             to: {
-              name: 'chips',
+              name: 'calendar',
+            },
+          },
+          {
+            title: `Chart`,
+            to: {
+              name: 'chart',
             },
           },
           {
@@ -379,9 +100,27 @@ export default {
             },
           },
           {
+            title: `Chips`,
+            to: {
+              name: 'chips',
+            },
+          },
+          {
             title: `Dash`,
             to: {
               name: 'dash',
+            },
+          },
+          {
+            title: `Data Table`,
+            to: {
+              name: 'datatable',
+            },
+          },
+          {
+            title: `Field`,
+            to: {
+              name: 'field',
             },
           },
           {
@@ -399,13 +138,13 @@ export default {
           {
             title: `Image button`,
             to: {
-              name: 'image-button',
+              name: 'imagebutton',
             },
           },
           {
-            title: `Portals`,
+            title: `Portal`,
             to: {
-              name: 'portals',
+              name: 'portal',
             },
           },
           {
@@ -418,6 +157,12 @@ export default {
             title: 'Tooltip',
             to: {
               name: 'tooltip',
+            },
+          },
+          {
+            title: 'Tree',
+            to: {
+              name: 'tree',
             },
           },
         ],

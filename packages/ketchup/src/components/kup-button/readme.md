@@ -65,12 +65,12 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-btn](..\kup-btn)
- - [kup-calendar](..\kup-calendar)
- - [kup-data-table](..\kup-data-table)
- - [kup-fld](..\kup-fld)
- - [kup-html](..\kup-html)
+ - [kup-box](../kup-box)
+ - [kup-btn](../kup-btn)
+ - [kup-calendar](../kup-calendar)
+ - [kup-data-table](../kup-data-table)
+ - [kup-fld](../kup-fld)
+ - [kup-html](../kup-html)
 
 ### Graph
 ```mermaid
