@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Btn (Bottoniera)</h1>
     <p>The Btn component purpose is to provide a simple and powerful way to manage many button components</p>
 
     <h3>Playground</h3>
