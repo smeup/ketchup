@@ -111,7 +111,10 @@ button {
     cursor: pointer;
     max-width: 24px;
     max-height: 24px;
-    margin-right: 5px;
+
+    & + .button-text {
+      margin-left: 5px;
+    }
   }
 
   //-- The button text --
