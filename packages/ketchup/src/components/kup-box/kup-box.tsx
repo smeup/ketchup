@@ -1,5 +1,7 @@
 import numeral from 'numeral';
 
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
+
 import {
     Component,
     Event,
@@ -242,6 +244,7 @@ export class KupBox {
     kupBoxDragStarted: EventEmitter<{
         fromId: string;
         fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
     }>;
 
     /**
@@ -256,6 +259,7 @@ export class KupBox {
     kupBoxDragEnded: EventEmitter<{
         fromId: string;
         fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
     }>;
 
     /**
@@ -270,8 +274,10 @@ export class KupBox {
     kupBoxDropped: EventEmitter<{
         fromId: string;
         fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
         toId: string;
         toRow: BoxRow;
+        toSelectedRows?: BoxRow[];
     }>;
 
     private boxLayout: Layout;
@@ -620,16 +626,27 @@ export class KupBox {
             return;
         }
 
+        if (this.multiSelection) {
+            this.addMultiSelectDragImageToEvent(event);
+        }
+
         this.searchBox(target).classList.add('item-dragged');
 
         var transferData = {};
         transferData['fromId'] = this.el.id;
         transferData['fromRow'] = row;
+        transferData['fromSelectedRows'] = this.selectedRows;
         event.dataTransfer.setData('text', JSON.stringify(transferData));
 
         event.dataTransfer.dropEffect = 'move';
 
-        this.kupBoxDragStarted.emit({ fromId: this.el.id, fromRow: row });
+        this.kupBoxDragStarted.emit({
+            fromId: this.el.id,
+            fromRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { fromSelectedRows: this.selectedRows }
+                : {}),
+        });
     }
 
     // when the user finishes to drag an element (fired on the draggable target)
@@ -641,7 +658,13 @@ export class KupBox {
 
         this.searchBox(target).classList.remove('item-dragged');
 
-        this.kupBoxDragEnded.emit({ fromId: this.el.id, fromRow: row });
+        this.kupBoxDragEnded.emit({
+            fromId: this.el.id,
+            fromRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { fromSelectedRows: this.selectedRows }
+                : {}),
+        });
     }
 
     // when the dragged element is over the drop target (fired on the drop target)
@@ -682,9 +705,22 @@ export class KupBox {
         this.kupBoxDropped.emit({
             fromId: jsonData['fromId'],
             fromRow: jsonData['fromRow'],
+            ...(jsonData['fromSelectedRows'] &&
+            jsonData['fromSelectedRows'].length
+                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
+                : {}),
             toId: this.el.id,
             toRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { toSelectedRows: this.selectedRows }
+                : {}),
         });
+    }
+
+    private addMultiSelectDragImageToEvent(event: DragEvent) {
+        var dragImage = document.createElement('img');
+        dragImage.src = dragMultipleImg;
+        event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
 
     private searchBox(target: any) {

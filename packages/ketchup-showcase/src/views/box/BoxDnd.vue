@@ -4,9 +4,17 @@
     <p>Drag a box over another from left to right</p>
     <div class="row">
       <div class="column">
+        <div class="multi">
+          <label>enable multiselect:</label>
+          <kup-checkbox :checked.prop="multi1" @kupCheckboxChange="changeMulti1" />
+        </div>
         <kup-box
           id="box1"
           :data.prop="basicData"
+          :sortEnabled.prop="true"
+          :multiSelection.prop="multi1"
+          pagination
+          pageSize="10"
           :layout.prop="horizontalLayout"
           drag-enabled="true"
           @kupBoxDragStarted="onBoxDragStarted"
@@ -14,9 +22,17 @@
         ></kup-box>
       </div>
       <div class="column">
+        <div class="multi">
+          <label>enable multiselect:</label>
+          <kup-checkbox :checked.prop="multi2" @kupCheckboxChange="changeMulti2" />
+        </div>
         <kup-box
           id="box2"
           :data.prop="basicData"
+          :sortEnabled.prop="true"
+          :multiSelection.prop="multi2"
+          pagination
+          pageSize="10"
           :layout.prop="horizontalLayout"
           :dropEnabled.prop="true"
           @kupBoxDropped="onBoxDropped"
@@ -36,8 +52,10 @@
         </p>
         <p v-if="fromId">From box id: {{ fromId }}</p>
         <p v-if="fromRow">From box row: {{ fromRow }}</p>
+        <p v-if="fromSelectedRows">From selected rows: {{ fromSelectedRows }}</p>
         <p v-if="toId">To box id: {{ toId }}</p>
         <p v-if="toRow">To box row: {{ toRow }}</p>
+        <p v-if="toSelectedRows">To selected rows: {{ toSelectedRows }}</p>
       </div>
     </div>
   </div>
@@ -58,14 +76,24 @@ export default {
           },
         ],
       },
+      multi1: false,
+      multi2: false,
       eventType: null,
       fromId: null,
       fromRow: null,
+      fromSelectedRows: null,
       toId: null,
       toRow: null,
+      toSelectedRows: null,
     };
   },
   methods: {
+    changeMulti1(e) {
+      this.multi1 = e.detail.checked;
+    },
+    changeMulti2(e) {
+      this.multi2 = e.detail.checked;
+    },
     onBoxDragStarted(event) {
       console.log(event);
       this.appendEventToHistory('Drag started event', event);
@@ -79,8 +107,10 @@ export default {
       this.appendEventToHistory('Dropped event', event);
       this.fromId = event.detail.fromId;
       this.fromRow = event.detail.fromRow;
+      this.fromSelectedRows = event.detail.fromSelectedRows;
       this.toId = event.detail.toId;
       this.toRow = event.detail.toRow;
+      this.toSelectedRows = event.detail.toSelectedRows;
     },
     appendEventToHistory(eventType, event) {
       var node = document.createElement('LI');
@@ -105,6 +135,11 @@ export default {
   content: '';
   display: table;
   clear: both;
+}
+
+.multi {
+  display: flex;
+  align-items: center;
 }
 </style>
 

@@ -963,6 +963,7 @@ declare namespace LocalJSX {
     'onKupBoxDragEnded'?: (event: CustomEvent<{
       fromId: string;
       fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
     }>) => void;
     /**
     * Triggered when a box dragging is started
@@ -970,6 +971,7 @@ declare namespace LocalJSX {
     'onKupBoxDragStarted'?: (event: CustomEvent<{
       fromId: string;
       fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
     }>) => void;
     /**
     * Triggered when a box is dropped
@@ -977,8 +979,10 @@ declare namespace LocalJSX {
     'onKupBoxDropped'?: (event: CustomEvent<{
       fromId: string;
       fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
       toId: string;
       toRow: BoxRow;
+      toSelectedRows?: BoxRow[];
     }>) => void;
     /**
     * Triggered when the multi selection checkbox changes value
