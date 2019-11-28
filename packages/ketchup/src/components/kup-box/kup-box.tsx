@@ -1,5 +1,7 @@
 import numeral from 'numeral';
 
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
+
 import {
     Component,
     Event,
@@ -9,6 +11,7 @@ import {
     EventEmitter,
     h,
     Method,
+    Element,
 } from '@stencil/core';
 
 import {
@@ -60,6 +63,7 @@ import { KupImage } from '../kup-image/kup-image';
     shadow: true,
 })
 export class KupBox {
+    @Element() el: HTMLElement;
     /**
      * Data
      */
@@ -129,6 +133,24 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     pageSize = 10;
+
+    /**
+     * Enable dragging
+     */
+    @Prop()
+    dragEnabled = false;
+
+    /**
+     * Enable dropping
+     */
+    @Prop()
+    dropEnabled = false;
+
+    /**
+     * Drop can be done in section
+     */
+    @Prop()
+    dropOnSection: false;
 
     @State()
     private globalFilterValue = '';
@@ -214,6 +236,54 @@ export class KupBox {
         row: BoxRow;
         action: RowAction;
         index: number;
+    }>;
+
+    /**
+     * Triggered when a box dragging is started
+     */
+    @Event({
+        eventName: 'kupBoxDragStarted',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDragStarted: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+    }>;
+
+    /**
+     * Triggered when a box dragging is ended
+     */
+    @Event({
+        eventName: 'kupBoxDragEnded',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDragEnded: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+    }>;
+
+    /**
+     * Triggered when a box is dropped
+     */
+    @Event({
+        eventName: 'kupBoxDropped',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxDropped: EventEmitter<{
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+        toId: string;
+        toRow: BoxRow;
+        toSelectedRows?: BoxRow[];
     }>;
 
     private boxLayout: Layout;
@@ -555,6 +625,185 @@ export class KupBox {
         });
     }
 
+    // when the user starts to drag a box (fired on the draggable target)
+    private onBoxDragStart(event: DragEvent, row: BoxRow) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        if (this.multiSelection) {
+            this.addMultiSelectDragImageToEvent(event);
+        }
+
+        this.searchParentWithClass(target, 'box').classList.add('item-dragged');
+
+        var transferData = {};
+        transferData['fromId'] = this.el.id;
+        transferData['fromRow'] = row;
+        transferData['fromSelectedRows'] = this.selectedRows;
+        event.dataTransfer.setData('text', JSON.stringify(transferData));
+
+        event.dataTransfer.dropEffect = 'move';
+
+        this.kupBoxDragStarted.emit({
+            fromId: this.el.id,
+            fromRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { fromSelectedRows: this.selectedRows }
+                : {}),
+        });
+    }
+
+    // when the user finishes to drag a box (fired on the draggable target)
+    private onBoxDragEnd(event: DragEvent, row: BoxRow) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dragged'
+        );
+
+        this.kupBoxDragEnded.emit({
+            fromId: this.el.id,
+            fromRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { fromSelectedRows: this.selectedRows }
+                : {}),
+        });
+    }
+
+    // when the dragged box is over the drop box (fired on the drop target)
+    private onBoxDragOver(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box').classList.add(
+            'item-dropover'
+        );
+    }
+
+    // when the dragged box leaves the drop box (fired on the drop target)
+    private onBoxDragLeave(event: DragEvent) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dropover'
+        );
+    }
+
+    //  when the dragged box is dropped on another box (fired on the drop target)
+    private onBoxDrop(event: DragEvent, row: BoxRow) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dropover'
+        );
+
+        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
+
+        this.kupBoxDropped.emit({
+            fromId: jsonData['fromId'],
+            fromRow: jsonData['fromRow'],
+            ...(jsonData['fromSelectedRows'] &&
+            jsonData['fromSelectedRows'].length
+                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
+                : {}),
+            toId: this.el.id,
+            toRow: row,
+            ...(this.selectedRows && this.selectedRows.length
+                ? { toSelectedRows: this.selectedRows }
+                : {}),
+        });
+    }
+
+    // when the dragged box is over the drop section (fired on the drop target)
+    private onSectionDragOver(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.add(
+            'component-dropover'
+        );
+    }
+
+    // when the dragged box leaves the drop section (fired on the drop target)
+    private onSectionDragLeave(event: DragEvent) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.remove(
+            'component-dropover'
+        );
+    }
+
+    //  when the dragged box is dropped on a section (fired on the drop target)
+    private onSectionDrop(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.remove(
+            'component-dropover'
+        );
+
+        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
+
+        this.kupBoxDropped.emit({
+            fromId: jsonData['fromId'],
+            fromRow: jsonData['fromRow'],
+            ...(jsonData['fromSelectedRows'] &&
+            jsonData['fromSelectedRows'].length
+                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
+                : {}),
+            toId: this.el.id,
+            toRow: null,
+        });
+    }
+
+    private addMultiSelectDragImageToEvent(event: DragEvent) {
+        var dragImage = document.createElement('img');
+        dragImage.src = dragMultipleImg;
+        event.dataTransfer.setDragImage(dragImage, 0, 0);
+    }
+
+    private searchParentWithClass(target: any, cssClass: string) {
+        // searching parent until class is reached
+        let element = target;
+        let classList = element.classList;
+        while (!classList.contains(cssClass)) {
+            element = element.parentElement;
+            if (element === null) {
+                break;
+            }
+            classList = element.classList;
+        }
+        return element;
+    }
+
     /**
      * see onDocumentClick in kup-combo
      */
@@ -698,18 +947,48 @@ export class KupBox {
             ));
         }
 
+        let dragHandler = null;
+        if (this.dragEnabled) {
+            dragHandler = <span class="box-drag-handler mdi mdi-drag"></span>;
+        }
+
         const boxClass = {
             box: true,
+            draggable: this.dragEnabled,
             selected: this.showSelection && isSelected,
             column: !horizontal,
         };
 
         return (
             <div class="box-wrapper">
-                <div class={boxClass} onClick={(e) => this.onBoxClick(e, row)}>
+                <div
+                    class={boxClass}
+                    draggable={this.dragEnabled}
+                    onClick={(e) => this.onBoxClick(e, row)}
+                    onDragStart={
+                        this.dragEnabled
+                            ? (e) => this.onBoxDragStart(e, row)
+                            : null
+                    }
+                    onDragEnd={
+                        this.dragEnabled
+                            ? (e) => this.onBoxDragEnd(e, row)
+                            : null
+                    }
+                    onDragOver={
+                        this.dropEnabled ? (e) => this.onBoxDragOver(e) : null
+                    }
+                    onDragLeave={
+                        this.dropEnabled ? (e) => this.onBoxDragLeave(e) : null
+                    }
+                    onDrop={
+                        this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
+                    }
+                >
                     {multiSel}
                     {boxContent}
                     {badges}
+                    {dragHandler}
                 </div>
                 {rowObject}
             </div>
@@ -1152,7 +1431,27 @@ export class KupBox {
         };
 
         return (
-            <div>
+            <div
+                class="box-component"
+                onDragOver={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDragOver(e)
+                        : null
+                }
+                onDragLeave={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDragLeave(e)
+                        : null
+                }
+                onDrop={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDrop(e)
+                        : null
+                }
+            >
                 {sortPanel}
                 {filterPanel}
                 {paginator}
