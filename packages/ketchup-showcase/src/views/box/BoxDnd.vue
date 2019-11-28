@@ -25,16 +25,21 @@
         <div class="multi">
           <label>enable multiselect:</label>
           <kup-checkbox :checked.prop="multi2" @kupCheckboxChange="changeMulti2" />
+          <label>empty data:</label>
+          <kup-checkbox :checked.prop="empty2" @kupCheckboxChange="changeEmpty2" />
+          <label>enable drop on section:</label>
+          <kup-checkbox :checked.prop="dropOnSection2" @kupCheckboxChange="changeDropOnSection2" />
         </div>
         <kup-box
           id="box2"
-          :data.prop="basicData"
+          :data.prop="data2"
           :sortEnabled.prop="true"
           :multiSelection.prop="multi2"
           pagination
           pageSize="10"
           :layout.prop="horizontalLayout"
           :dropEnabled.prop="true"
+          :dropOnSection.prop="dropOnSection2"
           @kupBoxDropped="onBoxDropped"
         ></kup-box>
       </div>
@@ -68,6 +73,7 @@ export default {
   data() {
     return {
       basicData: defaultData,
+      data2: defaultData,
       horizontalLayout: {
         sections: [
           {
@@ -78,6 +84,8 @@ export default {
       },
       multi1: false,
       multi2: false,
+      empty2: false,
+      dropOnSection2: false,
       eventType: null,
       fromId: null,
       fromRow: null,
@@ -93,6 +101,17 @@ export default {
     },
     changeMulti2(e) {
       this.multi2 = e.detail.checked;
+    },
+    changeEmpty2(e) {
+      this.empty2 = e.detail.checked;
+      if (this.empty2) {
+        this.data2 = {};
+      } else {
+        this.data2 = defaultData;
+      }
+    },
+    changeDropOnSection2(e) {
+      this.dropOnSection2 = e.detail.checked;
     },
     onBoxDragStarted(event) {
       console.log(event);
@@ -140,6 +159,10 @@ export default {
 .multi {
   display: flex;
   align-items: center;
+}
+
+kup-checkbox {
+  margin-right: 15px;
 }
 </style>
 

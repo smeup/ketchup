@@ -107,6 +107,10 @@ export namespace Components {
     */
     'dropEnabled': boolean;
     /**
+    * Drop can be done in section
+    */
+    'dropOnSection': false;
+    /**
     * If enabled, a button to load / display the row actions will be displayed on the right of every box
     */
     'enableRowActions': boolean;
@@ -928,6 +932,10 @@ declare namespace LocalJSX {
     * Enable dropping
     */
     'dropEnabled'?: boolean;
+    /**
+    * Drop can be done in section
+    */
+    'dropOnSection'?: false;
     /**
     * If enabled, a button to load / display the row actions will be displayed on the right of every box
     */

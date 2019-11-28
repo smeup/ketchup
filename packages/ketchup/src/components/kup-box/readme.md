@@ -13,6 +13,7 @@
 | `data`             | --                   | Data                                                                                               | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
 | `dragEnabled`      | `drag-enabled`       | Enable dragging                                                                                    | `boolean`                                  | `false`     |
 | `dropEnabled`      | `drop-enabled`       | Enable dropping                                                                                    | `boolean`                                  | `false`     |
+| `dropOnSection`    | `drop-on-section`    | Drop can be done in section                                                                        | `boolean`                                  | `undefined` |
 | `enableRowActions` | `enable-row-actions` | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`                                  | `false`     |
 | `filterEnabled`    | `filter-enabled`     | Enable filtering                                                                                   | `boolean`                                  | `false`     |
 | `layout`           | --                   | How the field will be displayed. If not present, a default one will be created.                    | `Layout`                                   | `undefined` |

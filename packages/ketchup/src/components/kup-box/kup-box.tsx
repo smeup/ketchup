@@ -146,6 +146,12 @@ export class KupBox {
     @Prop()
     dropEnabled = false;
 
+    /**
+     * Drop can be done in section
+     */
+    @Prop()
+    dropOnSection: false;
+
     @State()
     private globalFilterValue = '';
 
@@ -619,7 +625,7 @@ export class KupBox {
         });
     }
 
-    // when the user starts to drag an element (fired on the draggable target)
+    // when the user starts to drag a box (fired on the draggable target)
     private onBoxDragStart(event: DragEvent, row: BoxRow) {
         let target = event.target;
         if (!(target instanceof HTMLElement)) {
@@ -630,7 +636,7 @@ export class KupBox {
             this.addMultiSelectDragImageToEvent(event);
         }
 
-        this.searchBox(target).classList.add('item-dragged');
+        this.searchParentWithClass(target, 'box').classList.add('item-dragged');
 
         var transferData = {};
         transferData['fromId'] = this.el.id;
@@ -649,14 +655,16 @@ export class KupBox {
         });
     }
 
-    // when the user finishes to drag an element (fired on the draggable target)
+    // when the user finishes to drag a box (fired on the draggable target)
     private onBoxDragEnd(event: DragEvent, row: BoxRow) {
         let target = event.target;
         if (!(target instanceof HTMLElement)) {
             return;
         }
 
-        this.searchBox(target).classList.remove('item-dragged');
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dragged'
+        );
 
         this.kupBoxDragEnded.emit({
             fromId: this.el.id,
@@ -667,7 +675,7 @@ export class KupBox {
         });
     }
 
-    // when the dragged element is over the drop target (fired on the drop target)
+    // when the dragged box is over the drop box (fired on the drop target)
     private onBoxDragOver(event: DragEvent) {
         event.preventDefault();
 
@@ -676,20 +684,24 @@ export class KupBox {
             return;
         }
 
-        this.searchBox(target).classList.add('item-dropover');
+        this.searchParentWithClass(target, 'box').classList.add(
+            'item-dropover'
+        );
     }
 
-    // when the dragged element leaves the drop target (fired on the drop target)
+    // when the dragged box leaves the drop box (fired on the drop target)
     private onBoxDragLeave(event: DragEvent) {
         let target = event.target;
         if (!(target instanceof HTMLElement)) {
             return;
         }
 
-        this.searchBox(target).classList.remove('item-dropover');
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dropover'
+        );
     }
 
-    //  when the dragged element is dropped (fired on the drop target)
+    //  when the dragged box is dropped on another box (fired on the drop target)
     private onBoxDrop(event: DragEvent, row: BoxRow) {
         event.preventDefault();
 
@@ -698,7 +710,9 @@ export class KupBox {
             return;
         }
 
-        this.searchBox(target).classList.remove('item-dropover');
+        this.searchParentWithClass(target, 'box').classList.remove(
+            'item-dropover'
+        );
 
         var jsonData = JSON.parse(event.dataTransfer.getData('text'));
 
@@ -717,17 +731,70 @@ export class KupBox {
         });
     }
 
+    // when the dragged box is over the drop section (fired on the drop target)
+    private onSectionDragOver(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.add(
+            'component-dropover'
+        );
+    }
+
+    // when the dragged box leaves the drop section (fired on the drop target)
+    private onSectionDragLeave(event: DragEvent) {
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.remove(
+            'component-dropover'
+        );
+    }
+
+    //  when the dragged box is dropped on a section (fired on the drop target)
+    private onSectionDrop(event: DragEvent) {
+        event.preventDefault();
+
+        let target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return;
+        }
+
+        this.searchParentWithClass(target, 'box-component').classList.remove(
+            'component-dropover'
+        );
+
+        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
+
+        this.kupBoxDropped.emit({
+            fromId: jsonData['fromId'],
+            fromRow: jsonData['fromRow'],
+            ...(jsonData['fromSelectedRows'] &&
+            jsonData['fromSelectedRows'].length
+                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
+                : {}),
+            toId: this.el.id,
+            toRow: null,
+        });
+    }
+
     private addMultiSelectDragImageToEvent(event: DragEvent) {
         var dragImage = document.createElement('img');
         dragImage.src = dragMultipleImg;
         event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
 
-    private searchBox(target: any) {
-        // searching parent until box
+    private searchParentWithClass(target: any, cssClass: string) {
+        // searching parent until class is reached
         let element = target;
         let classList = element.classList;
-        while (!classList.contains('box')) {
+        while (!classList.contains(cssClass)) {
             element = element.parentElement;
             if (element === null) {
                 break;
@@ -1364,7 +1431,27 @@ export class KupBox {
         };
 
         return (
-            <div>
+            <div
+                class="box-component"
+                onDragOver={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDragOver(e)
+                        : null
+                }
+                onDragLeave={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDragLeave(e)
+                        : null
+                }
+                onDrop={
+                    this.dropEnabled &&
+                    (this.dropOnSection || !this.getRows().length)
+                        ? (e) => this.onSectionDrop(e)
+                        : null
+                }
+            >
                 {sortPanel}
                 {filterPanel}
                 {paginator}
