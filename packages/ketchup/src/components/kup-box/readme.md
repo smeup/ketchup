@@ -11,6 +11,9 @@
 | ------------------ | -------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
 | `columns`          | `columns`            | Number of columns                                                                                  | `number`                                   | `1`         |
 | `data`             | --                   | Data                                                                                               | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
+| `dragEnabled`      | `drag-enabled`       | Enable dragging                                                                                    | `boolean`                                  | `false`     |
+| `dropEnabled`      | `drop-enabled`       | Enable dropping                                                                                    | `boolean`                                  | `false`     |
+| `dropOnSection`    | `drop-on-section`    | Drop can be done in section                                                                        | `boolean`                                  | `undefined` |
 | `enableRowActions` | `enable-row-actions` | If enabled, a button to load / display the row actions will be displayed on the right of every box | `boolean`                                  | `false`     |
 | `filterEnabled`    | `filter-enabled`     | Enable filtering                                                                                   | `boolean`                                  | `false`     |
 | `layout`           | --                   | How the field will be displayed. If not present, a default one will be created.                    | `Layout`                                   | `undefined` |
@@ -25,13 +28,16 @@
 
 ## Events
 
-| Event                     | Description                                               | Type                                                              |
-| ------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------- |
-| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                   |
-| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                  |
-| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                |
-| `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>` |
-| `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                   |
+| Event                     | Description                                               | Type                                                                                                                                     |
+| ------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
+| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                                                                         |
+| `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
+| `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
+| `kupBoxDropped`           | Triggered when a box is dropped                           | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; toId: string; toRow: BoxRow; toSelectedRows?: BoxRow[]; }>` |
+| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                                                                                       |
+| `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                                                                        |
+| `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
 
 
 ## Methods

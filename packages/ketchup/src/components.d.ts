@@ -99,6 +99,18 @@ export namespace Components {
     */
     'data': { columns?: Column[]; rows?: BoxRow[] };
     /**
+    * Enable dragging
+    */
+    'dragEnabled': boolean;
+    /**
+    * Enable dropping
+    */
+    'dropEnabled': boolean;
+    /**
+    * Drop can be done in section
+    */
+    'dropOnSection': false;
+    /**
     * If enabled, a button to load / display the row actions will be displayed on the right of every box
     */
     'enableRowActions': boolean;
@@ -913,6 +925,18 @@ declare namespace LocalJSX {
     */
     'data'?: { columns?: Column[]; rows?: BoxRow[] };
     /**
+    * Enable dragging
+    */
+    'dragEnabled'?: boolean;
+    /**
+    * Enable dropping
+    */
+    'dropEnabled'?: boolean;
+    /**
+    * Drop can be done in section
+    */
+    'dropOnSection'?: false;
+    /**
     * If enabled, a button to load / display the row actions will be displayed on the right of every box
     */
     'enableRowActions'?: boolean;
@@ -940,6 +964,33 @@ declare namespace LocalJSX {
     'onKupBoxClicked'?: (event: CustomEvent<{
       row: BoxRow;
       column?: string;
+    }>) => void;
+    /**
+    * Triggered when a box dragging is ended
+    */
+    'onKupBoxDragEnded'?: (event: CustomEvent<{
+      fromId: string;
+      fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
+    }>) => void;
+    /**
+    * Triggered when a box dragging is started
+    */
+    'onKupBoxDragStarted'?: (event: CustomEvent<{
+      fromId: string;
+      fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
+    }>) => void;
+    /**
+    * Triggered when a box is dropped
+    */
+    'onKupBoxDropped'?: (event: CustomEvent<{
+      fromId: string;
+      fromRow: BoxRow;
+      fromSelectedRows?: BoxRow[];
+      toId: string;
+      toRow: BoxRow;
+      toSelectedRows?: BoxRow[];
     }>) => void;
     /**
     * Triggered when the multi selection checkbox changes value
