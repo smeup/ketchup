@@ -194,7 +194,14 @@ export class KupTree {
 
   componentDidLoad() {
     if (this.selectedNode && this.selectedNode.length>0) {
-      this.data.forEach(rootNode => {this.launchNodeEvent(this.selectedNode, rootNode )})
+      let path = this.selectedNode;
+      let tn = this.data[path[0]];
+      if(path.length > 1){
+        path = path.slice(1);
+        this.launchNodeEvent(path, tn);
+      } else {
+        this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
+      }
     }
   }
 
