@@ -33,6 +33,9 @@
     <template v-slot:10>
       <box-sort></box-sort>
     </template>
+    <template v-slot:11>
+      <box-dnd></box-dnd>
+    </template>
   </comp>
 </template>
 
@@ -48,6 +51,7 @@ import BoxRowActions from '@/views/box/examples/BoxRowActions';
 import BoxSel from '@/views/box/examples/BoxSel';
 import BoxShapes from '@/views/box/examples/BoxShapes';
 import BoxSort from '@/views/box/examples/BoxSort';
+import BoxDnd from '@/views/box/examples/BoxDnd';
 import Comp from '@/views/page/templates/Comp';
 
 export default {
@@ -63,6 +67,7 @@ export default {
     BoxSel,
     BoxShapes,
     BoxSort,
+    BoxDnd,
     Comp,
   },
   data() {
@@ -79,6 +84,7 @@ export default {
         'Selectable',
         'Shapes',
         'Sortable',
+        'Drag and drop',
       ],
     };
   },
