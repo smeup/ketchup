@@ -12,6 +12,7 @@ export interface J4objKupButtonConfig {
     imageSrc: string;
     iconClass: string;
     label: string;
+    tooltip: string;
     textmode: string;
     showtext: boolean;
     fillspace: boolean;
@@ -87,6 +88,7 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
     let buttonStyle = null;
     let icon = null;
     let imageSrc = null;
+    let tooltip = null;
     let flat = true;
     let showtext = false;
     let fillspace = false;
@@ -97,6 +99,8 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
         icon = config.icon;
 
         imageSrc = config.imageSrc;
+
+        tooltip = config.tooltip;
 
         if (config.hasOwnProperty('showtext')) {
             showtext = config.showtext;
@@ -124,6 +128,7 @@ export function createJ4objButtonConfig(cell: Cell): J4objKupButtonConfig {
         label,
         textmode: textMode,
         imageSrc: imageSrc,
+        tooltip: tooltip,
         iconClass: icon,
         flat,
         showtext,

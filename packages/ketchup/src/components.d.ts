@@ -170,6 +170,7 @@ export namespace Components {
     'showicon': boolean;
     'showtext': boolean;
     'textmode': string;
+    'tooltip': string;
     'transparent': boolean;
   }
   interface KupCalendar {
@@ -1058,6 +1059,7 @@ declare namespace LocalJSX {
     'showicon'?: boolean;
     'showtext'?: boolean;
     'textmode'?: string;
+    'tooltip'?: string;
     'transparent'?: boolean;
   }
   interface KupCalendar extends JSXBase.HTMLAttributes<HTMLKupCalendarElement> {
