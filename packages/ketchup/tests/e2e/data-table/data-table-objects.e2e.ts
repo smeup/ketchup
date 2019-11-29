@@ -119,8 +119,7 @@ it('render objects', async () => {
 
             case 3:
                 // vo;cod_ver
-                expect(child.tagName).toBe('SPAN');
-                expect(child).toHaveClasses(['mdi', 'mdi-pencil']);
+                expect(child.tagName).toBe('KUP-ICON');
                 break;
 
             case 4:
@@ -130,8 +129,7 @@ it('render objects', async () => {
 
             default:
                 // icon
-                expect(child.tagName).toBe('SPAN');
-                expect(child).toHaveClasses(['mdi', 'mdi-account']);
+                expect(child.tagName).toBe('KUP-ICON');
                 break;
         }
     }
