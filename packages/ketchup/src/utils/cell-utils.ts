@@ -146,8 +146,8 @@ const progressbarCssVars = [
 export function buildProgressBarConfig(
     cell: Cell,
     boxObject: BoxObject,
-    value: string,
-    isSmall: boolean = false
+    isSmall: boolean = false,
+    value: string
 ) {
     const wrapperStyle = {};
 
@@ -184,4 +184,28 @@ export function buildProgressBarConfig(
 export function isImage(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'IMG' === shape || (!shape && cell.obj && isImageObj(cell.obj));
+}
+
+// -------------
+// ICON
+// -------------
+
+export function buildIconConfig(cell: Cell, value: string) {
+    let iconStylesheets = null;
+    let iconStyle = null;
+    let imageSrc = null;
+
+    if (cell.config) {
+        const config = cell.config;
+        iconStylesheets = config.iconStylesheets;
+        iconStyle = config.iconStyle;
+        imageSrc = config.imageSrc;
+    }
+
+    return {
+        iconClass: value,
+        iconStyle: iconStyle,
+        ...(iconStylesheets ? { iconStylesheets: iconStylesheets } : {}),
+        ...(imageSrc ? { imageSrc: imageSrc } : {}),
+    };
 }

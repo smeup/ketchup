@@ -42,6 +42,7 @@ import {
     getValue,
     buildButtonConfig,
     buildProgressBarConfig,
+    buildIconConfig,
 } from '../../utils/cell-utils';
 
 import { replacePlaceHolders } from '../../utils/utils';
@@ -1244,32 +1245,14 @@ export class KupBox {
                             {...buildProgressBarConfig(
                                 cell,
                                 boxObject,
-                                value,
-                                false
+                                false,
+                                value
                             )}
                         />
                     );
                 } else if (isIcon(cell.obj)) {
-                    let iconStylesheets = null;
-                    let iconStyle = null;
-                    let imageSrc = null;
-
-                    if (cell.config) {
-                        const config = cell.config;
-                        iconStylesheets = config.iconStylesheets;
-                        iconStyle = config.iconStyle;
-                        imageSrc = config.imageSrc;
-                    }
-
                     boContent = (
-                        <kup-icon
-                            iconClass={cell.value}
-                            iconStyle={iconStyle}
-                            {...(iconStylesheets
-                                ? { iconStylesheets: iconStylesheets }
-                                : {})}
-                            {...(imageSrc ? { imageSrc: imageSrc } : {})}
-                        ></kup-icon>
+                        <kup-icon {...buildIconConfig(cell, cell.value)} />
                     );
                 } else {
                     boContent = cell.value;

@@ -144,6 +144,7 @@ Type: `Promise<Column[]>`
 ### Depends on
 
 - [kup-text-input](../kup-text-input)
+- [kup-icon](../kup-icon)
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
@@ -157,6 +158,7 @@ Type: `Promise<Column[]>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-text-input
+  kup-data-table --> kup-icon
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
