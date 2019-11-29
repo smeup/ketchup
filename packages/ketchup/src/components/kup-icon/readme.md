@@ -20,11 +20,13 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-box --> kup-icon
+  kup-data-table --> kup-icon
   style kup-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

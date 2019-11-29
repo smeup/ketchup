@@ -50,9 +50,9 @@ import {
   v2radioData,
   j1pwdData,
   pgbData,
-  iconData,
 } from '@/mock/box';
 import j4btnLargeData from '@/mock/j4btn_table_box_data.json';
+import j4icoData from '@/mock/j4ico_table_box_data.json';
 
 export default {
   data() {
@@ -63,7 +63,7 @@ export default {
       radioData: { ...v2radioData },
       pwdData: { ...j1pwdData },
       pgbData: { ...pgbData },
-      iconData: { ...iconData },
+      iconData: { ...j4icoData },
       btnLayout: {
         sections: [
           {

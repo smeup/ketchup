@@ -51,6 +51,9 @@
     <template v-slot:16>
       <datatable-total></datatable-total>
     </template>
+    <template v-slot:17>
+      <datatable-j4ico></datatable-j4ico>
+    </template>
   </comp>
 </template>
 
@@ -62,6 +65,7 @@ import DatatableFilters from '@/views/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/datatable/examples/DatatableGraphicCell';
 import DatatableGroups from '@/views/datatable/examples/DatatableGroups';
 import DatatableJ4btn from '@/views/datatable/examples/DatatableJ4btn';
+import DatatableJ4ico from '@/views/datatable/examples/DatatableJ4ico';
 import DatatablePagination from '@/views/datatable/examples/DatatablePagination';
 import DatatableProgressbar from '@/views/datatable/examples/DatatableProgressbar';
 import DatatableRadio from '@/views/datatable/examples/DatatableRadio';
@@ -93,6 +97,7 @@ export default {
     DatatableSortableColumns,
     DatatableTooltip,
     DatatableTotal,
+    DatatableJ4ico,
     Comp,
   },
   data() {
@@ -115,6 +120,7 @@ export default {
         'Sortable columns',
         'With tooltip',
         'With totals',
+        'With J4Ico',
       ],
     };
   },

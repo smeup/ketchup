@@ -28,6 +28,7 @@ export class KupButton {
     @Prop() textmode: string;
     @Prop() transparent = false;
     @Prop() align: string;
+    @Prop() tooltip: string;
     @Prop() iconUrl =
         'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
 
@@ -103,7 +104,9 @@ export class KupButton {
         btnClass = btnClass.trim();
 
         let title = '';
-        if (this._isHint()) {
+        if (this.tooltip) {
+            title = this.tooltip;
+        } else if (this._isHint) {
             title = this.label;
         }
 

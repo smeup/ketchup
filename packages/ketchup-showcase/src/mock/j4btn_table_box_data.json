@@ -327,7 +327,8 @@
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "mdi mdi-pencil",
+            "tooltip": "Edit"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) H(Edit)",
@@ -398,7 +399,8 @@
         },
         "BTN": {
           "config": {
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+            "imageSrc": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Bellicapelli"
           },
           "obj": {
             "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
@@ -1135,7 +1137,8 @@
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "mdi mdi-pencil",
+            "tooltip": "Edit"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
@@ -1207,7 +1210,8 @@
         "BTN": {
           "config": {
             "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+            "imageSrc": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Bellicapelli"
           },
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",

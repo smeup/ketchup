@@ -22,6 +22,7 @@
 | `showicon`    | `showicon`     |             | `boolean` | `true`                                                                         |
 | `showtext`    | `showtext`     |             | `boolean` | `true`                                                                         |
 | `textmode`    | `textmode`     |             | `string`  | `undefined`                                                                    |
+| `tooltip`     | `tooltip`      |             | `string`  | `undefined`                                                                    |
 | `transparent` | `transparent`  |             | `boolean` | `false`                                                                        |
 
 
