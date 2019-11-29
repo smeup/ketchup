@@ -106,7 +106,7 @@ export class KupButton {
         let title = '';
         if (this.tooltip) {
             title = this.tooltip;
-        } else if (this._isHint) {
+        } else if (this._isHint()) {
             title = this.label;
         }
 
