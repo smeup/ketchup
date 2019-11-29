@@ -28,8 +28,8 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-image](..\kup-image)
+ - [kup-box](../kup-box)
+ - [kup-image](../kup-image)
 
 ### Graph
 ```mermaid

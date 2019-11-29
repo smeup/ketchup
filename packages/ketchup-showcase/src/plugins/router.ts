@@ -1,69 +1,92 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import boxRoutes from './router/box';
-import dataTableRoutes from './router/dataTable';
-import chartRoutes from './router/chart';
-import fldRoutes from './router/fldRoutes';
-import easterRoutes from './router/easterRoutes';
-import treeRoutes from './router/treeRoutes';
-import calendarRoutes from './router/calendar';
-
 import Home from '@/views/Home.vue';
+import About from '@/views/About.vue';
 
 Vue.use(Router);
 
 // TODO when these simple routes gets too many, move them to their own file inside the router folder.
 let simpleRoutes = [
   {
-    path: `/kup-btn`,
-    name: 'btn',
-    component: () => import(`@/views/KupBottoniera.vue`),
+    path: `/box`,
+    name: 'box',
+    component: () => import(`@/views/box/Box.vue`),
   },
   {
-    path: `/kup-dash`,
-    name: 'dash',
-    component: () => import(`@/views/DashExamples.vue`),
+    path: `/button`,
+    name: 'button',
+    component: () => import(`@/views/button/Button.vue`),
   },
   {
-    path: `/kup-image`,
-    name: 'image',
-    component: () => import(`@/views/KupImage.vue`),
+    path: `/calendar`,
+    name: 'calendar',
+    component: () => import(`@/views/calendar/Calendar.vue`),
   },
   {
-    path: `/portals`,
-    name: 'portals',
-    component: () => import(`@/views/KupPortals.vue`),
+    path: `/chart`,
+    name: 'chart',
+    component: () => import(`@/views/chart/Chart.vue`),
   },
   {
-    path: `/kup-html`,
-    name: 'html',
-    component: () => import(`@/views/KupHtmlExamples.vue`),
+    path: `/checkbox`,
+    name: 'checkbox',
+    component: () => import(`@/views/checkbox/Checkbox.vue`),
   },
   {
-    path: `/kup-progress-bar`,
-    name: 'progressbar',
-    component: () => import(`@/views/KupProgressBar.vue`),
-  },
-  {
-    path: `/kup-chips`,
+    path: `/chips`,
     name: 'chips',
-    component: () => import(`@/views/KupChips.vue`),
+    component: () => import(`@/views/chips/Chips.vue`),
+  },
+  {
+    path: `/dash`,
+    name: 'dash',
+    component: () => import(`@/views/dash/Dash.vue`),
+  },
+  {
+    path: `/datatable`,
+    name: 'datatable',
+    component: () => import(`@/views/datatable/Datatable.vue`),
+  },
+  {
+    path: `/field`,
+    name: 'field',
+    component: () => import(`@/views/field/Field.vue`),
+  },
+  {
+    path: `/html`,
+    name: 'html',
+    component: () => import(`@/views/html/Html.vue`),
+  },
+  {
+    path: `/image`,
+    name: 'image',
+    component: () => import(`@/views/image/Image.vue`),
+  },
+  {
+    path: `/imagebutton`,
+    name: 'imagebutton',
+    component: () => import(`@/views/imagebutton/Imagebutton.vue`),
+  },
+  {
+    path: `/portal`,
+    name: 'portal',
+    component: () => import(`@/views/portal/Portal.vue`),
+  },
+  {
+    path: `/progressbar`,
+    name: 'progressbar',
+    component: () => import(`@/views/progressbar/Progressbar.vue`),
   },
   {
     path: `/tooltip`,
     name: 'tooltip',
-    component: () => import(`@/views/KupTooltip.vue`),
+    component: () => import(`@/views/tooltip/Tooltip.vue`),
   },
   {
-    path: `/kup-checkbox`,
-    name: 'checkbox',
-    component: () => import(`@/views/KupCheckboxExamples.vue`),
-  },
-  {
-    path: `/kup-image-button`,
-    name: 'image-button',
-    component: () => import(`@/views/KupImageButton.vue`),
+    path: `/tree`,
+    name: 'tree',
+    component: () => import(`@/views/tree/Tree.vue`),
   },
 ];
 
@@ -73,19 +96,14 @@ const baseRoutes = [
     name: 'home',
     component: Home,
   },
+  {
+    path: '/about',
+    name: 'about',
+    component: About,
+  },
 ];
 
-const routes = [
-  ...baseRoutes,
-  ...boxRoutes,
-  ...chartRoutes,
-  ...dataTableRoutes,
-  ...fldRoutes,
-  ...easterRoutes,
-  ...simpleRoutes,
-  ...treeRoutes,
-  ...calendarRoutes,
-];
+const routes = [...baseRoutes, ...simpleRoutes];
 
 export default new Router({
   // If you want to activate the history mode, remember to follow the instructions regarding publicPath prop

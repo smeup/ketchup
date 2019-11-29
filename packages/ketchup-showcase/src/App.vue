@@ -8,27 +8,32 @@
         </a>
       </div>
       <v-list dense>
-        <v-list-group v-for="(section, index) in navigationSections" :key="index">
+        <v-list-group v-for="(group, i) in groupNavigationSections" :key="i">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
-                <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                <v-list-tile-title>{{ group.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </template>
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
 
-          <v-list-tile v-for="route in section.routes" :key="route.to.name" :to="route.to">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-tile v-for="route in group.componentsItems" :key="route.to.name" :to="route.to">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
         </v-list-group>
-
-        <v-list-tile v-for="route in simpleRoutes" :key="route.to.name" :to="route.to">
-          <v-list-tile-content>
-            <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
@@ -60,422 +65,107 @@ export default {
   data: () => ({
     darkTheme: false,
     drawer: null,
-    navigationSections: [
+    groupNavigationSections: [
       {
-        title: 'Box',
-        routes: [
+        title: 'Components',
+        componentsItems: [
           {
-            title: 'Basic',
+            title: 'Box',
             to: {
-              name: 'boxBasic',
+              name: 'box',
             },
           },
           {
-            title: 'Badges',
+            title: `Button`,
             to: {
-              name: 'boxBadge',
+              name: 'button',
             },
           },
           {
-            title: 'Objects',
+            title: `Calendar`,
             to: {
-              name: 'boxObjects',
+              name: 'calendar',
             },
           },
           {
-            title: 'Shapes',
+            title: `Chart`,
             to: {
-              name: 'boxShapes',
+              name: 'chart',
             },
           },
           {
-            title: 'Classes',
+            title: `Checkbox`,
             to: {
-              name: 'boxClasses',
+              name: 'checkbox',
             },
           },
           {
-            title: 'Filters',
+            title: `Chips`,
             to: {
-              name: 'boxFilter',
+              name: 'chips',
             },
           },
           {
-            title: 'Layout',
+            title: `Dash`,
             to: {
-              name: 'boxLayout',
+              name: 'dash',
             },
           },
           {
-            title: 'Pagination',
+            title: `Data Table`,
             to: {
-              name: 'boxPagination',
+              name: 'datatable',
             },
           },
           {
-            title: 'Selection',
+            title: `Field`,
             to: {
-              name: 'boxSel',
+              name: 'field',
             },
           },
           {
-            title: 'Row actions',
+            title: `Html`,
             to: {
-              name: 'boxRowActions',
+              name: 'html',
             },
           },
           {
-            title: 'Sort',
+            title: `Image`,
             to: {
-              name: 'boxSort',
+              name: 'image',
             },
           },
           {
-            title: 'Drag and Drop',
+            title: `Image button`,
             to: {
-              name: 'boxDnd',
-            },
-          },
-        ],
-      },
-      {
-        title: 'Calendar',
-        routes: [
-          {
-            title: 'Basic',
-            to: {
-              name: 'calendarBasic',
+              name: 'imagebutton',
             },
           },
           {
-            title: 'Events',
+            title: `Portal`,
             to: {
-              name: 'calendarEvents',
+              name: 'portal',
             },
           },
           {
-            title: 'Icons',
+            title: 'Progress bar',
             to: {
-              name: 'calendarIcons',
-            },
-          },
-          {
-            title: 'Style',
-            to: {
-              name: 'calendarStyle',
-            },
-          },
-        ],
-      },
-      {
-        title: 'Chart',
-        routes: [
-          {
-            title: 'Playground',
-            to: {
-              name: 'chartPlayground',
-            },
-          },
-          {
-            title: 'Events',
-            to: {
-              name: 'chartEvents',
-            },
-          },
-          {
-            title: 'Area',
-            to: {
-              name: 'chartArea',
-            },
-          },
-          {
-            title: 'Bar',
-            to: {
-              name: 'chartBar',
-            },
-          },
-          {
-            title: 'Bubble',
-            to: {
-              name: 'chartBubble',
-            },
-          },
-          {
-            title: 'Calendar',
-            to: {
-              name: 'chartCalendar',
-            },
-          },
-          {
-            title: 'Candlestick',
-            to: {
-              name: 'chartCandlestick',
-            },
-          },
-          {
-            title: 'Column',
-            to: {
-              name: 'chartColumn',
-            },
-          },
-          {
-            title: 'Combo',
-            to: {
-              name: 'chartCombo',
-            },
-          },
-          {
-            title: 'Geo',
-            to: {
-              name: 'chartGeo',
-            },
-          },
-          {
-            title: 'Line',
-            to: {
-              name: 'chartLine',
-            },
-          },
-          {
-            title: 'Pie',
-            to: {
-              name: 'chartPie',
-            },
-          },
-          {
-            title: 'Sankey',
-            to: {
-              name: 'chartSankey',
-            },
-          },
-          {
-            title: 'Scatter',
-            to: {
-              name: 'chartScatter',
-            },
-          },
-        ],
-      },
-      {
-        title: 'Data Table',
-        routes: [
-          {
-            title: 'Basic',
-            to: {
-              name: 'dtBasic',
+              name: 'progressbar',
             },
           },
           {
             title: 'Tooltip',
             to: {
-              name: 'dtTooltip',
+              name: 'tooltip',
             },
           },
           {
-            title: 'Filters',
+            title: 'Tree',
             to: {
-              name: 'dtFilters',
-            },
-          },
-          {
-            title: 'Graphic cells',
-            to: {
-              name: 'dtGraphicCells',
-            },
-          },
-          {
-            title: 'Grouping',
-            to: {
-              name: 'dtGroups',
-            },
-          },
-          {
-            title: 'Pagination',
-            to: {
-              name: 'dtPag',
-            },
-          },
-          {
-            title: 'Row actions',
-            to: {
-              name: 'dtRowActions',
-            },
-          },
-          {
-            title: 'Row selection',
-            to: {
-              name: 'dtRowSel',
-            },
-          },
-          {
-            title: 'Sort',
-            to: {
-              name: 'dtSort',
-            },
-          },
-          {
-            title: 'Sortable columns',
-            to: {
-              name: 'dtSortableColumns',
-            },
-          },
-          {
-            title: 'Totals',
-            to: {
-              name: 'dtTotals',
-            },
-          },
-          {
-            title: 'Hide repetitions',
-            to: {
-              name: 'dtRowsRepetition',
-            },
-          },
-          {
-            title: 'Button Cell (J4btn)',
-            to: {
-              name: 'dtButtonCell',
-            },
-          },
-          {
-            title: 'Checkbox Cell',
-            to: {
-              name: 'dtCheckboxCell',
-            },
-          },
-          {
-            title: 'Progressbar',
-            to: {
-              name: 'dtProgressbar',
-            },
-          },
-          {
-            title: 'Radio button',
-            to: {
-              name: 'dtRadio',
-            },
-          },
-          {
-            title: 'Columns width',
-            to: {
-              name: 'dtColumnsWidth',
+              name: 'tree',
             },
           },
         ],
-      },
-      {
-        title: 'Field',
-        routes: [
-          {
-            title: `Combo form`,
-            to: {
-              name: 'fldCombo',
-            },
-          },
-          {
-            title: `Radio form`,
-            to: {
-              name: 'fldRadio',
-            },
-          },
-          {
-            title: `Text Input form`,
-            to: {
-              name: 'fldText',
-            },
-          },
-          {
-            title: `Custom graphic`,
-            to: {
-              name: 'fldGraphic',
-            },
-          },
-        ],
-      },
-      {
-        title: 'Tree',
-        routes: [
-          {
-            title: `Tree basics`,
-            to: {
-              name: 'treeBasic',
-            },
-          },
-          {
-            title: `Tree table`,
-            to: {
-              name: 'treeTable',
-            },
-          },
-          {
-            title: `Tree dynamic expansion`,
-            to: {
-              name: 'treeDynamic',
-            },
-          },
-        ],
-      },
-    ],
-    simpleRoutes: [
-      {
-        title: `Buttons`,
-        to: {
-          name: 'btn',
-        },
-      },
-      {
-        title: `Chips`,
-        to: {
-          name: 'chips',
-        },
-      },
-      {
-        title: `Checkbox`,
-        to: {
-          name: 'checkbox',
-        },
-      },
-      {
-        title: `Dash`,
-        to: {
-          name: 'dash',
-        },
-      },
-      {
-        title: `Html`,
-        to: {
-          name: 'html',
-        },
-      },
-      {
-        title: `Image`,
-        to: {
-          name: 'image',
-        },
-      },
-      {
-        title: `Image button`,
-        to: {
-          name: 'image-button',
-        },
-      },
-      {
-        title: `Portals`,
-        to: {
-          name: 'portals',
-        },
-      },
-      {
-        title: 'Progress bar',
-        to: {
-          name: 'progressbar',
-        },
-      },
-      {
-        title: 'Tooltip',
-        to: {
-          name: 'tooltip',
-        },
       },
     ],
   }),

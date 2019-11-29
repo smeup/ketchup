@@ -76,13 +76,13 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-paginator](..\kup-paginator)
+ - [kup-box](../kup-box)
+ - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-portal](..\kup-portal)
+- [kup-text-input](../kup-text-input)
+- [kup-portal](../kup-portal)
 
 ### Graph
 ```mermaid
