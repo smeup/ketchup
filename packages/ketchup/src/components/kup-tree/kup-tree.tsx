@@ -193,7 +193,7 @@ export class KupTree {
   }
 
   componentDidLoad() {
-    if (this.selectedNode && this.selectedNode.length>0) {
+    if (this.selectedNode && this.selectedNode.length>0 && this.selectedNode[0]>=0) {
       let path = this.selectedNode;
       let tn = this.data[path[0]];
       if(path.length > 1){
@@ -287,7 +287,7 @@ export class KupTree {
   // When a TreeNode can be selected
   hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string, auto: boolean) {
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
-    if (!treeNodeData.disabled) {
+    if (treeNodeData && !treeNodeData.disabled) {
       if (this.autoSelectionNodeMode) 
         this.selectedNode = treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex));
 
@@ -331,7 +331,7 @@ export class KupTree {
             treeNode: treeNodeData,
           });
         }
-      } else if (this.useDynamicExpansion && !this.expanded) {
+      } else if (this.useDynamicExpansion) {
         // When the component must use the dynamic expansion feature
         // Currently it does not support the expanded prop
 
@@ -546,7 +546,10 @@ export class KupTree {
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
     let treeExpandIcon = <span
       class={"expand-icon kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-right" : "")}
-      onClick={hasExpandIcon && !treeNodeData.disabled ? () => this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath) : null}
+      onClick={hasExpandIcon && !treeNodeData.disabled ? (event) => {
+        event.stopPropagation();
+        this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath);
+      } : null}
     />;
 
     // When TreeNode icons are visible, creates the icon if one is specified
