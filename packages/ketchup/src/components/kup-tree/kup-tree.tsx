@@ -331,7 +331,7 @@ export class KupTree {
             treeNode: treeNodeData,
           });
         }
-      } else if (this.useDynamicExpansion && !this.expanded) {
+      } else if (this.useDynamicExpansion) {
         // When the component must use the dynamic expansion feature
         // Currently it does not support the expanded prop
 
