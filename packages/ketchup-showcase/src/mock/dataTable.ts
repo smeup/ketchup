@@ -1482,9 +1482,9 @@ export const sortDataTable = {
   ],
 };
 
-export const paginateDataTable = createDataForPagination(20, 10000);
+export const paginateDataTable = createDataForPagination(20, 500);
 
-export const groupDataTable = createDataForPagination(10, 3000);
+export const groupDataTable = createDataForPagination(10, 10);
 
 export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);
 
