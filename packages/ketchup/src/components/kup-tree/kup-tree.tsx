@@ -193,7 +193,7 @@ export class KupTree {
   }
 
   componentDidLoad() {
-    if (this.selectedNode && this.selectedNode.length>0) {
+    if (this.selectedNode && this.selectedNode.length>0 && this.selectedNode[0]>=0) {
       let path = this.selectedNode;
       let tn = this.data[path[0]];
       if(path.length > 1){
@@ -287,7 +287,7 @@ export class KupTree {
   // When a TreeNode can be selected
   hdlTreeNodeClicked(treeNodeData: TreeNode, treeNodePath: string, auto: boolean) {
     // If this TreeNode is not disabled, then it can be selected and an event is emitted
-    if (!treeNodeData.disabled) {
+    if (treeNodeData && !treeNodeData.disabled) {
       if (this.autoSelectionNodeMode) 
         this.selectedNode = treeNodePath.split(',').map(treeNodeIndex => parseInt(treeNodeIndex));
 
