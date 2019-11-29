@@ -1346,11 +1346,42 @@ export const shapeData = {
             k: 'R200G100B002;89\\*LAB;Done',
           },
           value: '89',
-          config: {
-            labelText: 'Done',
-            foregroundColor: 'rgb(200, 100, 002)',
-          },
         },
+      },
+      layout: {
+        sections: [
+          {
+            horizontal: true,
+            sections: [
+              {
+                dim: '10%',
+                content: [
+                  {
+                    column: 'FLD1',
+                    shape: 'IMG',
+                  },
+                ],
+              },
+              {
+                sections: [
+                  { content: [{ column: 'FLD2' }] },
+                  {
+                    content: [
+                      {
+                        column: 'FLD3',
+                        shape: 'PGB',
+                        config: {
+                          labelText: 'Done',
+                          foregroundColor: 'rgb(200, 100, 002)',
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     },
     {

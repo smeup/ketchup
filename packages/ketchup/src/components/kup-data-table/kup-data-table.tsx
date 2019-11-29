@@ -2084,7 +2084,7 @@ export class KupDataTable {
             if (!hideValuesRepetition || valueToDisplay) {
                 content = (
                     <kup-progress-bar
-                        {...buildProgressBarConfig(cell, valueToDisplay, true)}
+                        {...buildProgressBarConfig(cell, null, valueToDisplay, true)}
                     />
                 );
             } else {

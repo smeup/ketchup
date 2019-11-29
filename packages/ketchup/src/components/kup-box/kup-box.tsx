@@ -1,5 +1,3 @@
-import numeral from 'numeral';
-
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
 
 import {
@@ -43,6 +41,7 @@ import {
     getFromConfig,
     getValue,
     buildButtonConfig,
+    buildProgressBarConfig,
 } from '../../utils/cell-utils';
 
 import { replacePlaceHolders } from '../../utils/utils';
@@ -1239,59 +1238,16 @@ export class KupBox {
                         ></kup-text-input>
                     );
                 } else if (isProgressBar(cell, boxObject)) {
-                    // TODO: improve and generalize using progressbarFromCellHelper
-                    const value = numeral(getValue(cell, boxObject)).value();
-
-                    let hideLabel = getFromConfig(cell, boxObject, 'hideLabel');
-
-                    let labelText = getFromConfig(cell, boxObject, 'labelText');
-                    let foregroundColor = getFromConfig(
-                        cell,
-                        boxObject,
-                        'foregroundColor'
-                    );
-                    let backgroundColor = getFromConfig(
-                        cell,
-                        boxObject,
-                        'backgroundColor'
-                    );
-                    let borderRadius = getFromConfig(
-                        cell,
-                        boxObject,
-                        'borderRadius'
-                    );
-                    let textColor = getFromConfig(cell, boxObject, 'textColor');
-
-                    const wrapperStyle = {};
-
-                    if (foregroundColor) {
-                        wrapperStyle[
-                            '--kup-pb_foreground-color'
-                        ] = foregroundColor;
-                    }
-
-                    if (backgroundColor) {
-                        wrapperStyle[
-                            '--kup-pb_background-color'
-                        ] = backgroundColor;
-                    }
-
-                    if (borderRadius) {
-                        wrapperStyle['--kup-pb_border-radius'] = borderRadius;
-                    }
-
-                    if (textColor) {
-                        wrapperStyle['--kup-pb_text-color'] = textColor;
-                    }
-
+                    const value = getValue(cell, boxObject);
                     boContent = (
-                        <div style={wrapperStyle}>
-                            <kup-progress-bar
-                                value={value}
-                                labelText={labelText}
-                                hideLabel={!!hideLabel}
-                            />
-                        </div>
+                        <kup-progress-bar
+                            {...buildProgressBarConfig(
+                                cell,
+                                boxObject,
+                                value,
+                                false
+                            )}
+                        />
                     );
                 } else if (isIcon(cell.obj)) {
                     let iconStylesheets = null;

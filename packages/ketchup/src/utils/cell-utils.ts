@@ -37,7 +37,7 @@ export function getFromConfig(
     if (cell.config) {
         prop = get(cell.config, propName, null);
     }
-    if (!prop && boxObject.config) {
+    if (!prop && boxObject && boxObject.config) {
         prop = get(boxObject.config, propName, null);
     }
     return prop;
@@ -145,28 +145,33 @@ const progressbarCssVars = [
  */
 export function buildProgressBarConfig(
     cell: Cell,
+    boxObject: BoxObject,
     value: string,
     isSmall: boolean = false
 ) {
     const wrapperStyle = {};
 
-    if (cell.config) {
-        for (let i = 0; i < progressbarCssVars.length; i++) {
-            if (cell.config[progressbarCssVars[i]]) {
-                wrapperStyle['--kup-pb_' + toKebabCase(progressbarCssVars[i])] =
-                    cell.config[progressbarCssVars[i]];
-            }
+    for (let i = 0; i < progressbarCssVars.length; i++) {
+        let progressbarCssVar = getFromConfig(
+            cell,
+            boxObject,
+            progressbarCssVars[i]
+        );
+
+        if (progressbarCssVar) {
+            wrapperStyle[
+                '--kup-pb_' + toKebabCase(progressbarCssVars[i])
+            ] = progressbarCssVar;
         }
     }
 
+    let hideLabel = getFromConfig(cell, boxObject, 'hideLabel');
+    let labelText = getFromConfig(cell, boxObject, 'labelText');
+
     return {
         isSmall: isSmall,
-        labelText:
-            cell.config && cell.config.hasOwnProperty('labelText')
-                ? cell.config.labelText
-                : null,
-
-        hideLabel: cell.config ? !!cell.config.hideLabel : false,
+        labelText: labelText,
+        hideLabel: !!hideLabel,
         style: wrapperStyle,
         value: numeral(value).value(),
     };
