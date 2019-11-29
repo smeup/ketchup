@@ -34,7 +34,6 @@ import {
     isYesNo,
     isRadio,
     isPassword,
-    createJ4objButtonConfig,
     isIcon,
 } from '../../utils/object-utils';
 
@@ -43,7 +42,8 @@ import {
     isProgressBar,
     getFromConfig,
     getValue,
-} from '../../utils/shape-utils';
+    buildButtonConfig,
+} from '../../utils/cell-utils';
 
 import { replacePlaceHolders } from '../../utils/utils';
 
@@ -1201,9 +1201,7 @@ export class KupBox {
                         />
                     );
                 } else if (isButton(cell.obj)) {
-                    boContent = (
-                        <kup-button {...createJ4objButtonConfig(cell)} />
-                    );
+                    boContent = <kup-button {...buildButtonConfig(cell)} />;
                 } else if (isYesNo(cell.obj)) {
                     let checked = cell.value == '1';
                     boContent = (

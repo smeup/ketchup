@@ -1,7 +1,7 @@
 // dont know how to call this interface
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 
-interface CellObject {
+interface Object {
     t: string;
     p: string;
 }
@@ -18,55 +18,55 @@ export interface J4objKupButtonConfig {
     fillspace: boolean;
 }
 
-export function isBar({ t, p }: CellObject): boolean {
+export function isBar({ t, p }: Object): boolean {
     return 'J4' === t && 'BAR' === p;
 }
 
-export function isButton({ t, p }: CellObject): boolean {
+export function isButton({ t, p }: Object): boolean {
     return 'J4' === t && 'BTN' === p;
 }
 
-export function isYesNo({ t, p }: CellObject): boolean {
+export function isYesNo({ t, p }: Object): boolean {
     return 'V2' === t && 'SINO' === p;
 }
 
-export function isRadio({ t, p }: CellObject): boolean {
+export function isRadio({ t, p }: Object): boolean {
     return 'V2' === t && 'RADIO' === p;
 }
 
-export function isPassword({ t, p }: CellObject): boolean {
+export function isPassword({ t, p }: Object): boolean {
     return 'J1' === t && 'PWD' === p;
 }
 
-export function isCheckbox({ t, p }: CellObject): boolean {
+export function isCheckbox({ t, p }: Object): boolean {
     return 'V2' === t && 'SI/NO' === p.toUpperCase();
 }
 
-export function isDate({ t }: CellObject): boolean {
+export function isDate({ t }: Object): boolean {
     return 'D8' === t;
 }
 
-export function isIcon({ t, p }: CellObject): boolean {
+export function isIcon({ t, p }: Object): boolean {
     return 'J4' === t && 'ICO' === p;
 }
 
-export function isImage({ t, p }: CellObject): boolean {
+export function isImage({ t, p }: Object): boolean {
     return 'J4' === t && 'IMG' === p;
 }
 
-export function isLink({ t, p }: CellObject): boolean {
+export function isLink({ t, p }: Object): boolean {
     return 'J1' === t && 'URL' === p;
 }
 
-export function isNumber({ t }: CellObject): boolean {
+export function isNumber({ t }: Object): boolean {
     return 'NR' === t;
 }
 
-export function isProgressBar({ t, p }: CellObject): boolean {
+export function isProgressBar({ t, p }: Object): boolean {
     return 'J4' === t && 'PGB' === p;
 }
 
-export function isVoCodver({ t, p }: CellObject): boolean {
+export function isVoCodver({ t, p }: Object): boolean {
     return 'VO' === t && 'COD_VER' === p;
 }
 

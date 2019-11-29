@@ -42,13 +42,15 @@ import {
     paginateRows,
     sortRows,
     styleHasBorderRadius,
-    styleHasWritingMode
+    styleHasWritingMode,
 } from './kup-data-table-helper';
 
-import { progressbarFromCellHelper } from '../kup-progress-bar/kup-progress-bar-helper';
+import {
+    buildProgressBarConfig,
+    buildButtonConfig,
+} from '../../utils/cell-utils';
 
 import {
-    createJ4objButtonConfig,
     isBar,
     isButton,
     isCheckbox,
@@ -507,8 +509,8 @@ export class KupDataTable {
         if (
             el.tagName !== 'THEAD' &&
             row.clientHeight * 2 > rect.bottom - offset &&
-                vertInView &&
-                horInView
+            vertInView &&
+            horInView
         ) {
             return false && false;
         } else {
@@ -2054,7 +2056,7 @@ export class KupDataTable {
              */
             content = (
                 <kup-button
-                    {...createJ4objButtonConfig(cell)}
+                    {...buildButtonConfig(cell)}
                     onKupButtonClicked={this.onJ4btnClicked.bind(
                         this,
                         cellData ? cellData.row : null,
@@ -2080,7 +2082,11 @@ export class KupDataTable {
                 ) : null;
         } else if (isProgressBar(cell.obj)) {
             if (!hideValuesRepetition || valueToDisplay) {
-                content = progressbarFromCellHelper(cell, valueToDisplay, true);
+                content = (
+                    <kup-progress-bar
+                        {...buildProgressBarConfig(cell, valueToDisplay, true)}
+                    />
+                );
             } else {
                 content = null;
             }
