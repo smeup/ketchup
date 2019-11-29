@@ -546,7 +546,10 @@ export class KupTree {
     const hasExpandIcon: boolean = !!(treeNodeData.expandable && ((treeNodeData.children && treeNodeData.children.length) || this.useDynamicExpansion));
     let treeExpandIcon = <span
       class={"expand-icon kup-tree__icon kup-tree__node__expander" + (hasExpandIcon ? " mdi mdi-menu-right" : "")}
-      onClick={hasExpandIcon && !treeNodeData.disabled ? () => this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath) : null}
+      onClick={hasExpandIcon && !treeNodeData.disabled ? (event) => {
+        event.preventDefault();
+        this.hdlTreeNodeExpanderClicked(treeNodeData, treeNodePath);
+      } : null}
     />;
 
     // When TreeNode icons are visible, creates the icon if one is specified
