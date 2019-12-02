@@ -13,6 +13,11 @@ import {
     Column,
 } from './kup-data-table-declarations';
 
+import {
+    isNumber
+} from '../../utils/object-utils';
+
+
 export function sortRows(
     rows: Array<Row> = [],
     sort: Array<SortObject> = []
@@ -548,6 +553,33 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     return numberOfLeaf;
 }
 
+export function normalizeTotals(
+    columns: Array<Column>,
+    totals: TotalsMap
+    ) : TotalsMap {
+    
+    if (!columns || !totals) {
+        return {};
+    }
+    
+    let rettotals: TotalsMap = {};
+    const k = Object.keys(totals);
+
+    k.forEach((key) => {
+        if (key==="*ALL") { 
+            columns.forEach((c) => {
+                if (c.obj && isNumber(c.obj)) {
+                    rettotals[c.name] = totals[key];   
+                }
+            })
+        } else {
+            rettotals[key] = totals[key];
+        }
+    });
+
+    return rettotals;
+}
+
 export function calcTotals(
     rows: Array<Row> = [],
     totals: { [index: string]: TotalMode } = {}
@@ -555,7 +587,6 @@ export function calcTotals(
     if (!rows || !totals) {
         return {};
     }
-
     const keys = Object.keys(totals);
 
     const footerRow: { [index: string]: number } = {};
