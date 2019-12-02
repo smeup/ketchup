@@ -1,6 +1,7 @@
 /**
 * @prop --tre_node-expander_background-color, --kup-tre_node-expander_background-color: the background color of the TreeNode expander when hovered.
 * @prop --tre_node-expander_color, --kup-tre_node-expander_color: The TreeNode expander icon color.
+* @prop --tre_node_color--hover, --kup-tre_node_color--hover: TreeNode color when TreeNode is hovered.
 * @prop --tre_node_background-color--hover, --kup-tre_node_background-color--hover: TreeNode background color when TreeNode is hovered.
 * @prop --tre_node-icon_color, --kup-tre_node-icon_color: TreeNode icon color. Applied to all TreeNodes.
 * @prop --tre_node-icon_size, --kup-tre_node-icon_size: The TreeNode icon size (includes expand icon).
@@ -22,8 +23,9 @@
   );
   --tre_node_background-color--hover: var(
     --kup-tre_node_background-color--hover,
-    #e6e6e6
+    #f0f0f0
   );
+  --tre_node_color--hover: var(--kup-tre_node_background-color--hover, #545454);
   --tre_node-icon_color: var(--kup-tre_node-icon_color, #{$mainTextColor});
   --tre_node-icon_size: var(--kup-tre_node-icon_size, 16px);
   --tre_node-indent_width: var(--kup-tre_node-indent_width, 16px);
@@ -66,6 +68,17 @@
     }
   }
 
+  tr,
+  td {
+    line-height: 1;
+  }
+
+  td,
+  th {
+    transition: color 0.25s, background-color 0.25s;
+    padding: 0.4rem 0.5rem;
+  }
+
   // Element used for the indentation of a tree node
   &__indent {
     display: inline-block;
@@ -83,7 +96,6 @@
     justify-content: center;
     width: var(--tre_node-icon_size);
     margin-right: 5px;
-  
   }
 
   // The container of a whole node
@@ -111,23 +123,12 @@
       border-radius: 50%;
       color: var(--tre_node-expander_color);
       cursor: pointer;
-      transition: background-color 0.4s, box-shadow 0.4s, transform 0.4s;
-
-      // When item is hovered
-      &:hover {
-        background-color: var(--tre_node-expander_background-color);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
+      transition: transform 0.25s;
     }
 
     // When the NodeTree is expanded
     &[data-is-expanded] &__expander {
       transform: rotate(90deg);
-
-      &:hover {
-        box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 3px,
-          rgba(0, 0, 0, 0.24) 0px -1px 2px;
-      }
     }
 
     // By default, options, even when rendered, are not visible
@@ -145,11 +146,12 @@
       }
     }
 
-    // When an entire row is hovered or is selected
-    &--selected,
-    &:hover {
+    // When an entire row is hovered or is selected and is not disabled
+    &--selected:not(.kup-tree__node--disabled),
+    &:hover:not(.kup-tree__node--disabled) {
       // All cells have a common background
       > td {
+        color: var(--tre_node_color--hover);
         background-color: var(--tre_node_background-color--hover);
       }
     }
