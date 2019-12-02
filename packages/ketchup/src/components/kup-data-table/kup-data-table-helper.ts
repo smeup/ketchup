@@ -562,7 +562,7 @@ export function normalizeTotals(
         return {};
     }
     
-    let rettotals: TotalsMap;
+    let rettotals: TotalsMap = {};
     const k = Object.keys(totals);
 
     k.forEach((key) => {

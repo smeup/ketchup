@@ -443,38 +443,40 @@ export class KupDataTable {
 
     stickyHeaderPosition = () => {
         let tableBody: any = this.tableRef;
-        let el: any = this.stickyTheadRef;
-        let parent: any = tableBody.closest('.below-wrapper');
-        var headerHeight: number;
-        if (document.querySelectorAll('.header')[0]) {
-            headerHeight = document.querySelectorAll('.header')[0].clientHeight;
-        } else {
-            headerHeight = 0;
-        }
-        el.style.top = headerHeight + 'px';
-        if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
-            let widthTable: number = parent.offsetWidth;
-            el.style.maxWidth = widthTable + 'px';
+        if (tableBody) {
+            let el: any = this.stickyTheadRef;
+            let parent: any = tableBody.closest('.below-wrapper');
+            var headerHeight: number;
+            if (document.querySelectorAll('.header')[0]) {
+                headerHeight = document.querySelectorAll('.header')[0].clientHeight;
+            } else {
+                headerHeight = 0;
+            }
+            el.style.top = headerHeight + 'px';
+            if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
+                let widthTable: number = parent.offsetWidth;
+                el.style.maxWidth = widthTable + 'px';
 
-            if (
-                !this.isElementPartiallyInViewport(
-                    this.theadRef,
-                    headerHeight,
-                    el
-                )
-            ) {
-                var thCollection: any = this.theadRef.querySelectorAll('th');
-                var thStickyCollection: any = el.querySelectorAll('th-sticky');
-                for (let i = 0; i < thCollection.length; i++) {
-                    let widthTH = thCollection[i].offsetWidth;
-                    thStickyCollection[i].style.width = widthTH + 'px';
+                if (
+                    !this.isElementPartiallyInViewport(
+                        this.theadRef,
+                        headerHeight,
+                        el
+                    )
+                ) {
+                    var thCollection: any = this.theadRef.querySelectorAll('th');
+                    var thStickyCollection: any = el.querySelectorAll('th-sticky');
+                    for (let i = 0; i < thCollection.length; i++) {
+                        let widthTH = thCollection[i].offsetWidth;
+                        thStickyCollection[i].style.width = widthTH + 'px';
+                    }
+                    el.classList.add('activated');
+                } else {
+                    el.classList.remove('activated');
                 }
-                el.classList.add('activated');
             } else {
                 el.classList.remove('activated');
             }
-        } else {
-            el.classList.remove('activated');
         }
     };
 
