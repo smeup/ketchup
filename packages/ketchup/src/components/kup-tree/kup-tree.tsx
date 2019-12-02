@@ -618,7 +618,7 @@ export class KupTree {
           {indent}
           {treeExpandIcon}
           {treeNodeIcon}
-          <span class="cell-content" onClick = {()=> {this.hdlTreeNodeClicked(treeNodeData, treeNodePath, false)}} >{treeNodeData.value}</span>
+          <span class="cell-content">{treeNodeData.value}</span>
           {treeNodeOptionIcon}
         </td>
         {treeNodeCells}
