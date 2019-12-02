@@ -22,6 +22,8 @@ export interface TreeNode {
 
   iconClass?: string;
 
+  iconSrc?:string;
+
   id?: string;
 
   obj: {
