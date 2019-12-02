@@ -36,6 +36,7 @@ import {
 
 import {
     calcTotals,
+    normalizeTotals,
     filterRows,
     getColumnByName,
     groupRows,
@@ -654,7 +655,7 @@ export class KupDataTable {
     private initRows(): void {
         this.filterRows();
 
-        this.footer = calcTotals(this.rows, this.totals);
+        this.footer = calcTotals(this.rows, normalizeTotals(this.getColumns(), this.totals));
 
         this.groupRows();
 
