@@ -69,7 +69,7 @@ function scrollToSmoothly() {
   var currentPos = window.scrollY || window.screenTop;
   if (currentPos < pos) {
     var t = 2;
-    for (let i = currentPos; i <= pos; i += 10) {
+    for (let i = currentPos; i <= pos; i += 30) {
       t += 2;
       setTimeout(function() {
         window.scrollTo(0, i);
@@ -80,7 +80,7 @@ function scrollToSmoothly() {
     var x;
     x = setInterval(function() {
       window.scrollTo(0, i);
-      i -= 30;
+      i -= 100;
       if (i <= pos) {
         clearInterval(x);
       }
