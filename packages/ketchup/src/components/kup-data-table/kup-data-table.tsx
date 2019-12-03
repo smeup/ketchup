@@ -54,6 +54,7 @@ import {
 
 import {
     isBar,
+    isChart,
     isButton,
     isCheckbox,
     isIcon,
@@ -451,12 +452,15 @@ export class KupDataTable {
             let parent: any = tableBody.closest('.below-wrapper');
             var headerHeight: number;
             if (document.querySelectorAll('.header')[0]) {
-                headerHeight = document.querySelectorAll('.header')[0].clientHeight;
+                headerHeight = document.querySelectorAll('.header')[0]
+                    .clientHeight;
             } else {
                 headerHeight = 0;
             }
             el.style.top = headerHeight + 'px';
-            if (this.isElementPartiallyInViewport(tableBody, headerHeight, el)) {
+            if (
+                this.isElementPartiallyInViewport(tableBody, headerHeight, el)
+            ) {
                 let widthTable: number = parent.offsetWidth;
                 el.style.maxWidth = widthTable + 'px';
 
@@ -467,8 +471,12 @@ export class KupDataTable {
                         el
                     )
                 ) {
-                    var thCollection: any = this.theadRef.querySelectorAll('th');
-                    var thStickyCollection: any = el.querySelectorAll('th-sticky');
+                    var thCollection: any = this.theadRef.querySelectorAll(
+                        'th'
+                    );
+                    var thStickyCollection: any = el.querySelectorAll(
+                        'th-sticky'
+                    );
                     for (let i = 0; i < thCollection.length; i++) {
                         let widthTH = thCollection[i].offsetWidth;
                         thStickyCollection[i].style.width = widthTH + 'px';
@@ -592,7 +600,8 @@ export class KupDataTable {
             !isNumber(cell.obj) &&
             !isProgressBar(cell.obj) &&
             !isRadio(cell.obj) &&
-            !isVoCodver(cell.obj)
+            !isVoCodver(cell.obj) &&
+            !isChart(cell.obj)
         );
     }
 
@@ -660,7 +669,10 @@ export class KupDataTable {
     private initRows(): void {
         this.filterRows();
 
-        this.footer = calcTotals(this.rows, normalizeTotals(this.getColumns(), this.totals));
+        this.footer = calcTotals(
+            this.rows,
+            normalizeTotals(this.getColumns(), this.totals)
+        );
 
         this.groupRows();
 
@@ -2084,11 +2096,32 @@ export class KupDataTable {
                 !hideValuesRepetition || valueToDisplay ? (
                     <kup-graphic-cell {...props} />
                 ) : null;
+        } else if (isChart(cell.obj)) {
+            const props: {
+                value: string;
+                width?: number;
+                cellConfig: any;
+            } = {
+                value: cell.value,
+                cellConfig: cell.config,
+            };
+
+            // check if column has width
+            if (this.columnsWidth && this.columnsWidth[column]) {
+                props.width = this.columnsWidth[column];
+            }
+
+            content = <kup-chart-cell {...props} />;
         } else if (isProgressBar(cell.obj)) {
             if (!hideValuesRepetition || valueToDisplay) {
                 content = (
                     <kup-progress-bar
-                        {...buildProgressBarConfig(cell, null, true, valueToDisplay)}
+                        {...buildProgressBarConfig(
+                            cell,
+                            null,
+                            true,
+                            valueToDisplay
+                        )}
                     />
                 );
             } else {

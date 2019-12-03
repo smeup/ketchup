@@ -7,6 +7,10 @@ export function isBar({ t, p }: Object): boolean {
     return 'J4' === t && 'BAR' === p;
 }
 
+export function isChart({ t, p }: Object): boolean {
+    return 'J4' === t && 'CHART' === p;
+}
+
 export function isButton({ t, p }: Object): boolean {
     return 'J4' === t && 'BTN' === p;
 }

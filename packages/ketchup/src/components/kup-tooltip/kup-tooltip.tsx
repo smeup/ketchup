@@ -191,13 +191,15 @@ export class KupTooltip {
             for (let i = 1; i <= 2; i++) {
                 const info = content[`info${i}`];
 
-                if (info && info.label && info.label) {
-                    infos.push(
-                        <div>
-                            <span class="label">{info.label}: </span>
-                            {' ' + info.value}
-                        </div>
-                    );
+                if (info && info.label && info.value) {
+                    if (info.label != '' && info.value != '') {
+                        infos.push(
+                            <div>
+                                <span class="label">{info.label}: </span>
+                                {' ' + info.value}
+                            </div>
+                        );
+                    }
                 }
             }
         }
@@ -210,11 +212,13 @@ export class KupTooltip {
         this.tooltipPosition = {};
 
         const rect = this.wrapperEl.getBoundingClientRect();
-        let threshold =  this.hasDetailData ? 300 : 150;
+        let threshold = this.hasDetailData ? 300 : 150;
 
         // vertical position
         if (window.innerHeight - rect.bottom < threshold) {
-            this.tooltipPosition.bottom = `${window.innerHeight - rect.top + 3}px`;
+            this.tooltipPosition.bottom = `${window.innerHeight -
+                rect.top +
+                3}px`;
         } else {
             this.tooltipPosition.top = `${rect.bottom + 3}px`;
         }
@@ -248,16 +252,21 @@ export class KupTooltip {
 
         let detailContent = null;
         if (this.hasDetailData()) {
-            detailContent = this.rows.map((row) => (
-                <div class="detail-row">
-                    <div class="detail-row__label">
-                        {row.cells['label'].value}
+            detailContent = this.rows.map((row) =>
+                row.cells['label'].value === '' ||
+                row.cells['value'].value === '' ? (
+                    <span></span>
+                ) : (
+                    <div class="detail-row">
+                        <div class="detail-row__label">
+                            {row.cells['label'].value}
+                        </div>
+                        <div class="detail-row__value">
+                            {row.cells['value'].value}
+                        </div>
                     </div>
-                    <div class="detail-row__value">
-                        {row.cells['value'].value}
-                    </div>
-                </div>
-            ));
+                )
+            );
         }
 
         const detailClass = {
