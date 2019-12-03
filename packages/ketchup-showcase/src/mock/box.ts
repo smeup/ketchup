@@ -2,7 +2,7 @@ export const defaultData = {
   columns: [
     {
       name: 'FLD1',
-      title: 'Image',
+      title: 'Photo',
       size: '',
     },
     {
@@ -12,12 +12,12 @@ export const defaultData = {
     },
     {
       name: 'FLD3',
-      title: 'Number',
+      title: 'Ordered quantity',
       size: 10,
     },
     {
       name: 'FLD4',
-      title: 'Date',
+      title: 'Delivery date',
       size: 10,
     },
   ],
@@ -29,33 +29,33 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
+            k: 'AR;ART;Blue Flowers',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: '/images/blueflowers.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'CASFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Blue Flowers',
           },
-          value: 'CASFRA',
+          value: 'Blue flowers',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
+            k: '3',
           },
-          value: '100.60',
+          value: '300',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20200301',
           },
-          value: '01/01/2018',
+          value: '03/01/2020',
         },
       },
     },
@@ -66,33 +66,33 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
+            k: 'AR;ART;Wooden heart',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: '/images/woodheart.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Wooden heart',
           },
-          value: 'PARFRA',
+          value: 'Wooden heart',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '145.22',
+            k: '800',
           },
-          value: '145.22',
+          value: '800',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180102',
+            k: '20200205',
           },
-          value: '02/01/2018',
+          value: '02/05/2020',
         },
       },
     },
@@ -103,33 +103,33 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
+            k: 'AR;ART;Purple flowers',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: '/images/purpleflowers.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
+            t: 'AR',
+            p: 'ART',
+            k: 'Purple flowers',
           },
-          value: 'DELGIO',
+          value: 'Purple flowers',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '221.23',
+            k: '12',
           },
-          value: '221.23',
+          value: '12',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180103',
+            k: '20211231',
           },
-          value: '03/01/2018',
+          value: '12/31/2021',
         },
       },
     },
@@ -140,33 +140,33 @@ export const defaultData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;SANCOS',
+            k: 'AR;ART;Red flowers',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
+          value: '/images/redflowers.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'SANCOS',
+            t: 'AR',
+            p: 'ART',
+            k: 'Red flowers',
           },
-          value: 'SANCOS',
+          value: 'Red flowers',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '187.59',
+            k: '521',
           },
-          value: '187.59',
+          value: '521',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180104',
+            k: '20200606',
           },
-          value: '04/01/2018',
+          value: '06/06/2020',
         },
       },
     },
@@ -203,35 +203,35 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
+            k: 'AR;ART;Florence',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: '/images/Florence.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'CASFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Florence',
           },
-          value: 'CASFRA',
+          value: 'Florence',
         },
         FLD3: {
           obj: {
-            t: 'NR',
-            p: '',
-            k: '100.60',
+            t: 'AR',
+            p: 'ART',
+            k: 'Hotel Red',
           },
-          value: '100.60',
+          value: 'Hotel Red',
         },
         FLD4: {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;CASFRA)',
+            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Florence)',
           },
-          value: 'View',
+          value: 'Book',
           config: {
-            icon: 'mdi mdi-magnify',
+            icon: 'mdi mdi-lead-pencil',
             showtext: true,
           },
         },
@@ -243,35 +243,35 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
+            k: 'AR;ART;Parme',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: '/images/Parme.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Parme',
           },
-          value: 'PARFRA',
+          value: 'Parme',
         },
         FLD3: {
           obj: {
-            t: 'NR',
-            p: '',
-            k: '145.22',
+            t: 'AR',
+            p: 'ART',
+            k: 'Hotel Blue',
           },
-          value: '145.22',
+          value: 'Hotel Blue',
         },
         FLD4: {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;PARFRA)',
+            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Parme)',
           },
-          value: 'View',
+          value: 'Book',
           config: {
-            icon: 'mdi mdi-magnify',
+            icon: 'mdi mdi-lead-pencil',
             showtext: true,
           },
         },
@@ -283,35 +283,35 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
+            k: 'AR;ART;Milan',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: '/images/Milan.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
+            t: 'AR',
+            p: 'ART',
+            k: 'Milan',
           },
-          value: 'DELGIO',
+          value: 'Milan',
         },
         FLD3: {
           obj: {
-            t: 'NR',
-            p: '',
-            k: '221.23',
+            t: 'AR',
+            p: 'ART',
+            k: 'Hotel Green',
           },
-          value: '221.23',
+          value: 'Hotel Green',
         },
         FLD4: {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;DELGIO)',
+            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Milan)',
           },
-          value: 'View',
+          value: 'Book',
           config: {
-            icon: 'mdi mdi-magnify',
+            icon: 'mdi mdi-lead-pencil',
             showtext: true,
           },
         },
@@ -323,35 +323,35 @@ export const j4btnData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;SANCOS',
+            k: 'AR;ART;Rome',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
+          value: '/images/Rome.jpg',
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'SANCOS',
+            t: 'AR',
+            p: 'ART',
+            k: 'Rome',
           },
-          value: 'SANCOS',
+          value: 'Rome',
         },
         FLD3: {
           obj: {
-            t: 'NR',
-            p: '',
-            k: '187.59',
+            t: 'AR',
+            p: 'ART',
+            k: 'Hotel Yellow',
           },
-          value: '187.59',
+          value: 'Hotel Yellow',
         },
         FLD4: {
           obj: {
             t: 'J4',
             p: 'BTN',
-            k: 'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;PARFRA)',
+            k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Rome)',
           },
-          value: 'View',
+          value: 'Book',
           config: {
-            icon: 'mdi mdi-magnify',
+            icon: 'mdi mdi-lead-pencil',
             showtext: true,
           },
         },
@@ -561,9 +561,9 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;CASFRA',
+            k: 'AR;ART;Purple Flowers',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
+          value: '/images/purpleflowers.jpg',
           config: {
             badges: [
               {
@@ -575,27 +575,27 @@ export const imgBadgeData = {
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'CASFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Purple Flowers',
           },
-          value: 'CASFRA',
+          value: 'Purple Flowers',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '100.60',
+            k: '12',
           },
-          value: '100.60',
+          value: '12',
         },
         FLD4: {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180101',
+            k: '20201231',
           },
-          value: '01/01/2018',
+          value: '12/31/2020',
         },
       },
     },
@@ -605,9 +605,9 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;PARFRA',
+            k: 'AR;ART;Milan',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
+          value: '/images/milan.jpg',
           config: {
             badges: [
               {
@@ -619,27 +619,27 @@ export const imgBadgeData = {
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
+            t: 'AR',
+            p: 'ART',
+            k: 'Milan',
           },
-          value: 'PARFRA',
+          value: 'Milan',
         },
         FLD3: {
           obj: {
             t: 'NR',
             p: '',
-            k: '145.22',
+            k: '1',
           },
-          value: '145.22',
+          value: '1',
         },
         FLD4: {
           obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180102',
+            t: 'AR',
+            p: 'ART',
+            k: 'Guest',
           },
-          value: '02/01/2018',
+          value: 'Guest',
         },
       },
     },
@@ -649,9 +649,9 @@ export const imgBadgeData = {
           obj: {
             t: 'J4',
             p: 'IMG',
-            k: 'CN;COL;DELGIO',
+            k: 'AR;ART;Parme',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
+          value: '/images/Parme.jpg',
           config: {
             badges: [
               {
@@ -659,7 +659,7 @@ export const imgBadgeData = {
                 position: 'TR',
               },
               {
-                icon: 'mdi mdi-close',
+                icon: 'mdi mdi-pin',
                 position: 'BR',
               },
             ],
@@ -667,27 +667,27 @@ export const imgBadgeData = {
         },
         FLD2: {
           obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
+            t: 'AR',
+            p: 'ART',
+            k: 'Shopping center',
           },
-          value: 'DELGIO',
+          value: 'Shopping center',
         },
         FLD3: {
           obj: {
-            t: 'NR',
-            p: '',
-            k: '221.23',
+            t: 'AR',
+            p: 'ART',
+            k: 'Via Nazionale, 2',
           },
-          value: '221.23',
+          value: 'Via Nazionale, 2',
         },
         FLD4: {
           obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '20180103',
+            t: 'N',
+            p: '',
+            k: '43100',
           },
-          value: '03/01/2018',
+          value: '43100',
         },
       },
     },
@@ -1415,7 +1415,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180104',
           },
-          value: '04/01/2018',
+          value: '04/01/2022',
         },
       },
     });
