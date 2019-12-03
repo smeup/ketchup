@@ -31,7 +31,7 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Blue Flowers',
           },
-          value: '/images/blueflowers.jpg',
+          value: 'images/blueflowers.jpg',
         },
         FLD2: {
           obj: {
@@ -68,7 +68,7 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Wooden heart',
           },
-          value: '/images/woodheart.jpg',
+          value: 'images/woodheart.jpg',
         },
         FLD2: {
           obj: {
@@ -105,7 +105,7 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Purple flowers',
           },
-          value: '/images/purpleflowers.jpg',
+          value: 'images/purpleflowers.jpg',
         },
         FLD2: {
           obj: {
@@ -142,7 +142,7 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Red flowers',
           },
-          value: '/images/redflowers.jpg',
+          value: 'images/redflowers.jpg',
         },
         FLD2: {
           obj: {
@@ -205,7 +205,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Florence',
           },
-          value: '/images/Florence.jpg',
+          value: 'images/Florence.jpg',
         },
         FLD2: {
           obj: {
@@ -245,7 +245,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: '/images/Parme.jpg',
+          value: 'images/Parme.jpg',
         },
         FLD2: {
           obj: {
@@ -285,7 +285,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: '/images/Milan.jpg',
+          value: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
@@ -325,7 +325,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Rome',
           },
-          value: '/images/Rome.jpg',
+          value: 'images/Rome.jpg',
         },
         FLD2: {
           obj: {
@@ -563,7 +563,7 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Purple Flowers',
           },
-          value: '/images/purpleflowers.jpg',
+          value: 'images/purpleflowers.jpg',
           config: {
             badges: [
               {
@@ -607,7 +607,7 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: '/images/milan.jpg',
+          value: 'images/milan.jpg',
           config: {
             badges: [
               {
@@ -651,7 +651,7 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: '/images/Parme.jpg',
+          value: 'images/Parme.jpg',
           config: {
             badges: [
               {

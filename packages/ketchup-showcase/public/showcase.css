@@ -249,11 +249,6 @@ h1.team-title {
   transition: all 0.25s;
 }
 
-.member-image img:hover {
-  max-height: 280px;
-  max-width: 280px;
-}
-
 .member-image-description {
   text-align: center;
   font-size: 1.5rem;
@@ -263,7 +258,6 @@ h1.team-title {
 
 .member-description {
   width: 80%;
-  max-width: calc(100% - 280px);
   margin: auto;
   padding: 5%;
   font-size: 1.1rem;
@@ -314,7 +308,23 @@ h1.team-title {
   h1.team-title {
     text-align: center;
   }
+
+  .member-description {
+    width: 100%;
+  }
+
   .team-member {
     display: block;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  .member-description {
+    max-width: calc(100% - 280px);
+  }
+
+  .member-image img:hover {
+    max-height: 280px;
+    max-width: 280px;
   }
 }
