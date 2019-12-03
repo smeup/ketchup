@@ -127,14 +127,77 @@ export const defaultData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20191231',
+            k: '20211231',
           },
-          value: '12/31/2019',
+          value: '12/31/2021',
         },
       },
     },
     {
       id: '4',
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'J4',
+            p: 'IMG',
+            k: 'AR;ART;Red flowers',
+          },
+          value: '/images/redflowers.jpg',
+        },
+        FLD2: {
+          obj: {
+            t: 'AR',
+            p: 'ART',
+            k: 'Red flowers',
+          },
+          value: 'Red flowers',
+        },
+        FLD3: {
+          obj: {
+            t: 'NR',
+            p: '',
+            k: '521',
+          },
+          value: '521',
+        },
+        FLD4: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '20200606',
+          },
+          value: '06/06/2020',
+        },
+      },
+    },
+  ],
+};
+
+export const j4btnData = {
+  columns: [
+    {
+      name: 'FLD1',
+      title: 'Image',
+      size: '',
+    },
+    {
+      name: 'FLD2',
+      title: 'Name',
+      size: 10,
+    },
+    {
+      name: 'FLD3',
+      title: 'Number',
+      size: 10,
+    },
+    {
+      name: 'FLD4',
+      title: 'Button',
+      size: 10,
+    },
+  ],
+  rows: [
+    {
       cells: {
         FLD1: {
           obj: {
@@ -530,9 +593,9 @@ export const imgBadgeData = {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20191231',
+            k: '20201231',
           },
-          value: '12/31/2019',
+          value: '12/31/2020',
         },
       },
     },
@@ -1352,7 +1415,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180104',
           },
-          value: '04/01/2019',
+          value: '04/01/2022',
         },
       },
     });
