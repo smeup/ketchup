@@ -553,7 +553,25 @@ export class KupTree {
     />;
 
     // When TreeNode icons are visible, creates the icon if one is specified
-    let treeNodeIcon = this.showIcons ? <span class={"kup-tree__icon mdi mdi-" + treeNodeData.iconClass}/> : null;
+    let treeNodeIcon: any = null;
+    if (this.showIcons) { 
+      if (treeNodeData.iconSrc)
+      {
+        if (treeNodeData.iconSrc==="") {
+          treeNodeIcon = <span class="kup-tree__icon"/>;
+        } else {
+          treeNodeIcon = <img class="kup-tree__icon" src={treeNodeData.iconSrc}/>;
+        } 
+      } else if (treeNodeData.iconClass) {
+        if (treeNodeData.iconClass==="") {
+          treeNodeIcon = <span class="kup-tree__icon"/>;
+        } else {
+          treeNodeIcon = <span class={"kup-tree__icon mdi mdi-" + treeNodeData.iconClass}/>;
+        }
+      } else {
+        treeNodeIcon = null;  
+      }   
+    }
 
     // Composes additional options for the tree node element
     let treeNodeOptions = {};
