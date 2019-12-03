@@ -119,9 +119,9 @@ export const defaultData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25',
+            k: '12',
           },
-          value: '25',
+          value: '12',
         },
         FLD4: {
           obj: {
@@ -585,9 +585,9 @@ export const imgBadgeData = {
           obj: {
             t: 'NR',
             p: '',
-            k: '25',
+            k: '12',
           },
-          value: '25',
+          value: '12',
         },
         FLD4: {
           obj: {

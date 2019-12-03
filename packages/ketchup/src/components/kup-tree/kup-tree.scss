@@ -100,6 +100,12 @@
 
   // The container of a whole node
   &__node {
+    cursor: default;
+
+    &.with-dyn {
+      cursor: pointer;
+    }
+
     // All items
     > * {
       vertical-align: middle;
@@ -113,7 +119,6 @@
 
       // The expander has not a hover state.
       #{$tree-node__base}__expander {
-        cursor: initial;
         pointer-events: none;
       }
     }
