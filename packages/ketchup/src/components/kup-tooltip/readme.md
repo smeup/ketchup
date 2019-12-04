@@ -26,7 +26,7 @@
 
 ### Used by
 
- - [kup-data-table](../kup-data-table)
+ - [kup-data-table](..\kup-data-table)
 
 ### Graph
 ```mermaid

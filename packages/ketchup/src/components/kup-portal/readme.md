@@ -123,11 +123,11 @@ Type: `Promise<HTMLElement>`
 
 ### Used by
 
- - [kup-combo](../kup-combo)
+ - [kup-combo](..\kup-combo)
 
 ### Depends on
 
-- [kup-portal-instance](../kup-portal-instance)
+- [kup-portal-instance](..\kup-portal-instance)
 
 ### Graph
 ```mermaid
