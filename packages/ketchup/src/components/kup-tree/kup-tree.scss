@@ -45,6 +45,10 @@
   display: block;
 }
 
+.wrapper {
+  overflow-x: auto;
+}
+
 //---- Base class for the tree and its components ----
 .kup-tree {
   border-collapse: collapse;

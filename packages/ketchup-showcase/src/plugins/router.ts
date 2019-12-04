@@ -6,90 +6,6 @@ import About from '@/views/About.vue';
 
 Vue.use(Router);
 
-// TODO when these simple routes gets too many, move them to their own file inside the router folder.
-let simpleRoutes = [
-  {
-    path: `/box`,
-    name: 'box',
-    component: () => import(`@/views/box/Box.vue`),
-  },
-  {
-    path: `/button`,
-    name: 'button',
-    component: () => import(`@/views/button/Button.vue`),
-  },
-  {
-    path: `/calendar`,
-    name: 'calendar',
-    component: () => import(`@/views/calendar/Calendar.vue`),
-  },
-  {
-    path: `/chart`,
-    name: 'chart',
-    component: () => import(`@/views/chart/Chart.vue`),
-  },
-  {
-    path: `/checkbox`,
-    name: 'checkbox',
-    component: () => import(`@/views/checkbox/Checkbox.vue`),
-  },
-  {
-    path: `/chips`,
-    name: 'chips',
-    component: () => import(`@/views/chips/Chips.vue`),
-  },
-  {
-    path: `/dash`,
-    name: 'dash',
-    component: () => import(`@/views/dash/Dash.vue`),
-  },
-  {
-    path: `/datatable`,
-    name: 'datatable',
-    component: () => import(`@/views/datatable/Datatable.vue`),
-  },
-  {
-    path: `/field`,
-    name: 'field',
-    component: () => import(`@/views/field/Field.vue`),
-  },
-  {
-    path: `/html`,
-    name: 'html',
-    component: () => import(`@/views/html/Html.vue`),
-  },
-  {
-    path: `/image`,
-    name: 'image',
-    component: () => import(`@/views/image/Image.vue`),
-  },
-  {
-    path: `/imagebutton`,
-    name: 'imagebutton',
-    component: () => import(`@/views/imagebutton/Imagebutton.vue`),
-  },
-  {
-    path: `/portal`,
-    name: 'portal',
-    component: () => import(`@/views/portal/Portal.vue`),
-  },
-  {
-    path: `/progressbar`,
-    name: 'progressbar',
-    component: () => import(`@/views/progressbar/Progressbar.vue`),
-  },
-  {
-    path: `/tooltip`,
-    name: 'tooltip',
-    component: () => import(`@/views/tooltip/Tooltip.vue`),
-  },
-  {
-    path: `/tree`,
-    name: 'tree',
-    component: () => import(`@/views/tree/Tree.vue`),
-  },
-];
-
 const baseRoutes = [
   {
     path: '/',
@@ -103,7 +19,105 @@ const baseRoutes = [
   },
 ];
 
-const routes = [...baseRoutes, ...simpleRoutes];
+let componentsRoutes = [
+  {
+    path: `/box`,
+    name: 'box',
+    component: () => import(`@/views/components/box/Box.vue`),
+  },
+  {
+    path: `/button`,
+    name: 'button',
+    component: () => import(`@/views/components/button/Button.vue`),
+  },
+  {
+    path: `/calendar`,
+    name: 'calendar',
+    component: () => import(`@/views/components/calendar/Calendar.vue`),
+  },
+  {
+    path: `/chart`,
+    name: 'chart',
+    component: () => import(`@/views/components/chart/Chart.vue`),
+  },
+  {
+    path: `/checkbox`,
+    name: 'checkbox',
+    component: () => import(`@/views/components/checkbox/Checkbox.vue`),
+  },
+  {
+    path: `/chips`,
+    name: 'chips',
+    component: () => import(`@/views/components/chips/Chips.vue`),
+  },
+  {
+    path: `/dash`,
+    name: 'dash',
+    component: () => import(`@/views/components/dash/Dash.vue`),
+  },
+  {
+    path: `/datatable`,
+    name: 'datatable',
+    component: () => import(`@/views/components/datatable/Datatable.vue`),
+  },
+  {
+    path: `/field`,
+    name: 'field',
+    component: () => import(`@/views/components/field/Field.vue`),
+  },
+  {
+    path: `/html`,
+    name: 'html',
+    component: () => import(`@/views/components/html/Html.vue`),
+  },
+  {
+    path: `/image`,
+    name: 'image',
+    component: () => import(`@/views/components/image/Image.vue`),
+  },
+  {
+    path: `/imagebutton`,
+    name: 'imagebutton',
+    component: () => import(`@/views/components/imagebutton/Imagebutton.vue`),
+  },
+  {
+    path: `/portal`,
+    name: 'portal',
+    component: () => import(`@/views/components/portal/Portal.vue`),
+  },
+  {
+    path: `/progressbar`,
+    name: 'progressbar',
+    component: () => import(`@/views/components/progressbar/Progressbar.vue`),
+  },
+  {
+    path: `/tooltip`,
+    name: 'tooltip',
+    component: () => import(`@/views/components/tooltip/Tooltip.vue`),
+  },
+  {
+    path: `/tree`,
+    name: 'tree',
+    component: () => import(`@/views/components/tree/Tree.vue`),
+  },
+];
+
+let javascriptRoutes = [
+  {
+    path: `/scrollonhover`,
+    name: 'scrollonhover',
+    component: () =>
+      import(`@/views/javascript/scrollonhover/Scrollonhover.vue`),
+  },
+  {
+    path: `/tippositioning`,
+    name: 'tippositioning',
+    component: () =>
+      import(`@/views/javascript/tippositioning/Tippositioning.vue`),
+  },
+];
+
+const routes = [...baseRoutes, ...componentsRoutes, ...javascriptRoutes];
 
 export default new Router({
   // If you want to activate the history mode, remember to follow the instructions regarding publicPath prop
