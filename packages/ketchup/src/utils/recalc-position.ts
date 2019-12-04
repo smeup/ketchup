@@ -4,7 +4,6 @@
 //
 // - el       = element to reposition
 // - anchorEl = "el" position will be anchored to this element
-// - offset   = "el" dimension
 // - margin   = "el" distance from its parent in pixels
 //
 export class positionRecalc {

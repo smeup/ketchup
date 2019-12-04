@@ -33,6 +33,23 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
+
+            <v-list-tile v-for="route in group.javascriptItems" :key="route.to.name" :to="route.to">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
@@ -163,6 +180,23 @@ export default {
             title: 'Tree',
             to: {
               name: 'tree',
+            },
+          },
+        ],
+      },
+      {
+        title: 'Javascript',
+        javascriptItems: [
+          {
+            title: 'Scroll on hover',
+            to: {
+              name: 'scrollonhover',
+            },
+          },
+          {
+            title: 'Tip positioning',
+            to: {
+              name: 'tippositioning',
             },
           },
         ],
