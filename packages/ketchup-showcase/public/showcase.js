@@ -58,7 +58,6 @@ function scrollToSmoothly() {
       var pos = elements[i].offsetTop;
     }
   }
-  /*Time is only applicable for scrolling upwards*/
   /*pos is the y-position to scroll to (in pixels)*/
   if (isNaN(pos)) {
     throw 'Position must be a number';
@@ -68,22 +67,16 @@ function scrollToSmoothly() {
   }
   var currentPos = window.scrollY || window.screenTop;
   if (currentPos < pos) {
-    var t = 2;
-    for (let i = currentPos; i <= pos; i += 10) {
-      t += 2;
+    for (let i = currentPos; i <= pos; i += 1) {
       setTimeout(function() {
         window.scrollTo(0, i);
-      }, t / 2);
+      }, 1);
     }
   } else {
-    var i = currentPos;
-    var x;
-    x = setInterval(function() {
-      window.scrollTo(0, i);
-      i -= 30;
-      if (i <= pos) {
-        clearInterval(x);
-      }
-    }, 2);
+    for (let i = currentPos; i >= pos; i -= 1) {
+      setTimeout(function() {
+        window.scrollTo(0, i);
+      }, 1);
+    }
   }
 }

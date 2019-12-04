@@ -53,22 +53,21 @@ h3 {
 }
 
 .page-nav-list {
-  border-left: 3px solid var(--main-color-lighter);
+  border-left: 1px solid var(--main-color-lighter);
   min-height: 45px;
 }
 
-.page-nav-element {
-  max-height: 30px;
+.page-nav-element  {
+  max-height: 22px;
+  margin-top: 8px;
   display: block;
-  font-size: 120%;
-  padding-left: 20px;
+  padding-left: 15px;
   padding-top: 7.5px;
-  color: var(--main-color-lighter);
   transition: all 0.2s ease-in;
 }
 
 .page-nav-element.active {
-  color: var(--main-color);
+  color: #D41124;
   opacity: 1;
 }
 
@@ -218,4 +217,113 @@ div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
 
 html a {
   color: var(--main-color);
+}
+
+/* About page */
+
+h1.team-title {
+  margin-bottom: 3rem !important;
+}
+
+.team-member {
+  width: 100%;
+  display: inline-flex;
+  margin-bottom: 5rem;
+}
+
+.team-member.odd {
+  flex-direction: row-reverse;
+}
+
+.member-image {
+  margin: auto;
+  text-align: center;
+}
+
+.member-image img {
+  max-height: 256px;
+  max-width: 256px;
+  padding: 10%;
+  border-radius: 50%;
+  transition: all 0.25s;
+}
+
+.member-image-description {
+  text-align: center;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.member-description {
+  width: 80%;
+  margin: auto;
+  padding: 5%;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.member-contact {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.member-contact.mdi-email {
+  color: #fbc01c;
+}
+
+.member-contact.mdi-telegram {
+  color: #53abde;
+}
+
+.member-contact:hover {
+  opacity: 1;
+}
+
+.member-focus {
+  margin: 20px 20px 20px 0;
+  padding-top: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+  border-top: 1px solid #8888883b;
+  font-size: 1.1rem;
+}
+
+.member-focus-label {
+  margin-right: 10px;
+}
+
+.member-focus-content {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1260px) {
+  h1.team-title {
+    text-align: center;
+  }
+
+  .member-description {
+    width: 100%;
+  }
+
+  .team-member {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  .member-description {
+    max-width: calc(100% - 280px);
+  }
+
+  .member-image img:hover {
+    max-height: 280px;
+    max-width: 280px;
+  }
 }
