@@ -627,6 +627,7 @@ export class KupTree {
       <tr
         class={{
           "kup-tree__node": true,
+          "with-dyn": !treeNodeData.disabled, 
           "kup-tree__node--disabled": treeNodeData.disabled,
           "kup-tree__node--selected": !treeNodeData.disabled && treeNodePath === this.selectedNodeString,
         }}

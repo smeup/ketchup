@@ -41,7 +41,7 @@
 
 ### Used by
 
- - [kup-box](../kup-box)
+ - [kup-box](..\kup-box)
 
 ### Graph
 ```mermaid
