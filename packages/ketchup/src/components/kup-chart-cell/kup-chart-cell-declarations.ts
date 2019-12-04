@@ -14,9 +14,7 @@ export class ChartElement {
     }
 
     initChart(shape: string, configInfo: string) {
-        shape = shape.toLocaleUpperCase().substring('CHART;'.length);
         this.chartUltInfo = configInfo;
-
         let vChartUltInfoArray = this.getChartUltInfoAsArray();
 
         console.log(

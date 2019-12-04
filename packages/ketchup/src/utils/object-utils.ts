@@ -8,7 +8,7 @@ export function isBar({ t, p }: Object): boolean {
 }
 
 export function isChart({ t, p }: Object): boolean {
-    return 'J4' === t && 'CHART' === p;
+    return 'J4' === t && p.toLocaleUpperCase().startsWith('GRA_');
 }
 
 export function isButton({ t, p }: Object): boolean {
@@ -67,6 +67,7 @@ export function isStringObject(obj: any): boolean {
         !isIcon(obj) &&
         !isImage(obj) &&
         !isCheckbox(obj) &&
-        !isRadio(obj)
+        !isRadio(obj) &&
+        !isChart(obj)
     );
 }

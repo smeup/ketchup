@@ -15,7 +15,6 @@ export class KupChartCell {
     value: string;
 
     span: HTMLSpanElement;
-    chart_element_marker_splitter = '\\\\';
     cellId: string = 'noId';
     defaultColor: 'R000G000B255';
 
@@ -51,25 +50,8 @@ export class KupChartCell {
             'kup-chart-cell.draw() this.cellId = [' + this.cellId + ']'
         );
 
-        const chartElem = this.value;
-        let vShapeMarker = '';
-
-        const vMarkersArray = chartElem.split(
-            this.chart_element_marker_splitter
-        );
-
-        let shapesInfo = '';
-
-        vMarkersArray.forEach((vString) => {
-            if (this.isChartMarker(vString)) {
-                vShapeMarker = vString;
-            } else {
-                if (vString != '') shapesInfo = vString;
-            }
-        });
-
         const elem = new ChartElement();
-        elem.initChart(vShapeMarker, shapesInfo);
+        elem.initChart(this.cellConfig.type, this.value);
 
         if (this.cellConfig.width) {
             elem.setWidth(this.cellConfig.width);
@@ -86,10 +68,6 @@ export class KupChartCell {
         this.renderGra(this.cellId, elem);
     }
 
-    isChartMarker(value: string): boolean {
-        return value && value.toUpperCase().startsWith('CHART;');
-    }
-
     private renderGra(containerID: string, config: ChartElement) {
         var opts = {
             type: config.getShape(),
@@ -101,7 +79,7 @@ export class KupChartCell {
             /** per il momento disabilitati i tooltip dato che non funzionano correttamente */
             //disableTooltips: true,
             //tooltipContainer: window.document.body,
-            tooltipContainer: this.span,
+            //tooltipContainer: this.span,
         };
 
         console.log(

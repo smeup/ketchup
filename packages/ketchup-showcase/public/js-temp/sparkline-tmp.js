@@ -433,6 +433,8 @@
       'padding: 5px;' +
       'border: 1px solid white;' +
       'z-index: 10000;' +
+      'width: auto !important;' +
+      'height: auto !important;' +
       '}' +
       '.jqsfield { ' +
       'color: white;' +
@@ -1123,6 +1125,7 @@
             mhandler.registerSparkline(sp);
           }
         };
+        // modificato rispetto alla release ufficiale, eliminata ultimo test, il body non è accessibile da un shadow-root
         //if (($(this).html() && !options.get('disableHiddenCheck') && $(this).is(':hidden')) || !$(this).parents('body').length) {
         if (
           $(this).html() &&
