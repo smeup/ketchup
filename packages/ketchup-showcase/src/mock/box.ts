@@ -205,7 +205,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Florence',
           },
-          value: 'images/Florence.jpg',
+          value: 'images/florence.jpg',
         },
         FLD2: {
           obj: {
@@ -245,7 +245,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/Parme.jpg',
+          value: 'images/parme.jpg',
         },
         FLD2: {
           obj: {
@@ -285,7 +285,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: 'images/Milan.jpg',
+          value: 'images/milan.jpg',
         },
         FLD2: {
           obj: {
@@ -325,7 +325,7 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Rome',
           },
-          value: 'images/Rome.jpg',
+          value: 'images/rome.jpg',
         },
         FLD2: {
           obj: {
@@ -651,7 +651,7 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/Parme.jpg',
+          value: 'images/parme.jpg',
           config: {
             badges: [
               {
