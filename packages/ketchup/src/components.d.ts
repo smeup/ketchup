@@ -206,6 +206,10 @@ export namespace Components {
     'version': string;
     'width': number;
   }
+  interface KupChartCell {
+    'cellConfig'?: any;
+    'value': string;
+  }
   interface KupCheckbox {
     /**
     * Sets the checkbox to be disabled
@@ -227,6 +231,13 @@ export namespace Components {
   interface KupChip {
     'closable': boolean;
     'disabled': boolean;
+  }
+  interface KupChipKnowledge {
+    'closeable'?: boolean;
+    'disabled'?: boolean;
+    'imgUrl': string;
+    'label': string;
+    'name': string;
   }
   interface KupCombo {
     /**
@@ -747,6 +758,12 @@ declare global {
     new (): HTMLKupChartElement;
   };
 
+  interface HTMLKupChartCellElement extends Components.KupChartCell, HTMLStencilElement {}
+  var HTMLKupChartCellElement: {
+    prototype: HTMLKupChartCellElement;
+    new (): HTMLKupChartCellElement;
+  };
+
   interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {}
   var HTMLKupCheckboxElement: {
     prototype: HTMLKupCheckboxElement;
@@ -757,6 +774,12 @@ declare global {
   var HTMLKupChipElement: {
     prototype: HTMLKupChipElement;
     new (): HTMLKupChipElement;
+  };
+
+  interface HTMLKupChipKnowledgeElement extends Components.KupChipKnowledge, HTMLStencilElement {}
+  var HTMLKupChipKnowledgeElement: {
+    prototype: HTMLKupChipKnowledgeElement;
+    new (): HTMLKupChipKnowledgeElement;
   };
 
   interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
@@ -885,8 +908,10 @@ declare global {
     'kup-button': HTMLKupButtonElement;
     'kup-calendar': HTMLKupCalendarElement;
     'kup-chart': HTMLKupChartElement;
+    'kup-chart-cell': HTMLKupChartCellElement;
     'kup-checkbox': HTMLKupCheckboxElement;
     'kup-chip': HTMLKupChipElement;
+    'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combo': HTMLKupComboElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -1127,6 +1152,10 @@ declare namespace LocalJSX {
     'version'?: string;
     'width'?: number;
   }
+  interface KupChartCell extends JSXBase.HTMLAttributes<HTMLKupChartCellElement> {
+    'cellConfig'?: any;
+    'value'?: string;
+  }
   interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
     /**
     * Sets the checkbox to be disabled
@@ -1167,6 +1196,15 @@ declare namespace LocalJSX {
     'closable'?: boolean;
     'disabled'?: boolean;
     'onClose'?: (event: CustomEvent<any>) => void;
+  }
+  interface KupChipKnowledge extends JSXBase.HTMLAttributes<HTMLKupChipKnowledgeElement> {
+    'closeable'?: boolean;
+    'disabled'?: boolean;
+    'imgUrl'?: string;
+    'label'?: string;
+    'name'?: string;
+    'onKupChipKnowledgeClick'?: (event: CustomEvent<any>) => void;
+    'onKupChipKnowledgeClose'?: (event: CustomEvent<any>) => void;
   }
   interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
     /**
@@ -1776,8 +1814,10 @@ declare namespace LocalJSX {
     'kup-button': KupButton;
     'kup-calendar': KupCalendar;
     'kup-chart': KupChart;
+    'kup-chart-cell': KupChartCell;
     'kup-checkbox': KupCheckbox;
     'kup-chip': KupChip;
+    'kup-chip-knowledge': KupChipKnowledge;
     'kup-combo': KupCombo;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;

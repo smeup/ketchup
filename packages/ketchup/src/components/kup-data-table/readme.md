@@ -148,6 +148,7 @@ Type: `Promise<Column[]>`
 - [kup-checkbox](..\kup-checkbox)
 - [kup-button](..\kup-button)
 - [kup-graphic-cell](..\kup-graphic-cell)
+- [kup-chart-cell](..\kup-chart-cell)
 - [kup-progress-bar](..\kup-progress-bar)
 - [kup-radio-element](..\kup-radio-element)
 - [kup-tooltip](..\kup-tooltip)
@@ -162,6 +163,7 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio-element
   kup-data-table --> kup-tooltip

@@ -16,42 +16,45 @@
       <datatable-graphic-cell></datatable-graphic-cell>
     </template>
     <template v-slot:5>
-      <datatable-groups></datatable-groups>
+      <datatable-chart-cell></datatable-chart-cell>
     </template>
     <template v-slot:6>
-      <datatable-j4btn></datatable-j4btn>
+      <datatable-groups></datatable-groups>
     </template>
     <template v-slot:7>
-      <datatable-pagination></datatable-pagination>
+      <datatable-j4btn></datatable-j4btn>
     </template>
     <template v-slot:8>
-      <datatable-progressbar></datatable-progressbar>
+      <datatable-pagination></datatable-pagination>
     </template>
     <template v-slot:9>
-      <datatable-radio></datatable-radio>
+      <datatable-progressbar></datatable-progressbar>
     </template>
     <template v-slot:10>
-      <datatable-row-actions></datatable-row-actions>
+      <datatable-radio></datatable-radio>
     </template>
     <template v-slot:11>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:12>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:13>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:14>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:15>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:16>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:17>
+      <datatable-total></datatable-total>
+    </template>
+    <template v-slot:18>
       <datatable-j4ico></datatable-j4ico>
     </template>
   </comp>
@@ -63,6 +66,7 @@ import DatatableCheckbox from '@/views/datatable/examples/DatatableCheckbox';
 import DatatableColumnsWidth from '@/views/datatable/examples/DatatableColumnsWidth';
 import DatatableFilters from '@/views/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/datatable/examples/DatatableGraphicCell';
+import DatatableChartCell from '@/views/datatable/examples/DatatableChartCell';
 import DatatableGroups from '@/views/datatable/examples/DatatableGroups';
 import DatatableJ4btn from '@/views/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/datatable/examples/DatatableJ4ico';
@@ -85,6 +89,7 @@ export default {
     DatatableColumnsWidth,
     DatatableFilters,
     DatatableGraphicCell,
+    DatatableChartCell,
     DatatableGroups,
     DatatableJ4btn,
     DatatablePagination,
@@ -108,6 +113,7 @@ export default {
         'Custom column width',
         'With filters',
         'Graphic cells',
+        'Chart cells',
         'Groups',
         'With J4BTN',
         'Pagination',
