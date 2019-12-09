@@ -32,6 +32,12 @@ export interface ChartOptions {
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
     series?: any;
+    hAxis?: ChartAxis;
+    vAxis?: ChartAxis;
+}
+
+export interface ChartAxis {
+    ticks?: string[];
 }
 
 export interface ChartClickedEvent {

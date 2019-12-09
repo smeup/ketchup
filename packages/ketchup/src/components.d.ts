@@ -36,6 +36,7 @@ import {
 } from './components/kup-btn/kup-btn-declarations';
 import {
   ChartAspect,
+  ChartAxis,
   ChartClickedEvent,
   ChartType,
 } from './components/kup-chart/kup-chart-declarations';
@@ -194,12 +195,14 @@ export namespace Components {
     'graphTitle': string;
     'graphTitleColor': string;
     'graphTitleSize': number;
+    'hAxis': ChartAxis;
     'height': number;
     'legend': boolean;
     'series': string[];
     'showMarks': boolean;
     'stacked': boolean;
     'types': ChartType[];
+    'vAxis': ChartAxis;
     /**
     * Google chart version to load
     */
@@ -684,11 +687,18 @@ export namespace Components {
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */
-    'dynamicExpansionCallback': (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+    'dynamicExpansionCallback': (
+    treeNodeToExpand: TreeNode,
+    treeNodePath: TreeNodePath
+    ) => Promise<TreeNode[]> | undefined;
     /**
     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
     */
     'expanded': boolean;
+    /**
+    * Scroll on hover
+    */
+    'hoverScroll': boolean;
     /**
     * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
     */
@@ -1136,6 +1146,7 @@ declare namespace LocalJSX {
     'graphTitle'?: string;
     'graphTitleColor'?: string;
     'graphTitleSize'?: number;
+    'hAxis'?: ChartAxis;
     'height'?: number;
     'legend'?: boolean;
     /**
@@ -1146,6 +1157,7 @@ declare namespace LocalJSX {
     'showMarks'?: boolean;
     'stacked'?: boolean;
     'types'?: ChartType[];
+    'vAxis'?: ChartAxis;
     /**
     * Google chart version to load
     */
@@ -1736,11 +1748,18 @@ declare namespace LocalJSX {
     /**
     * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
     */
-    'dynamicExpansionCallback'?: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+    'dynamicExpansionCallback'?: (
+    treeNodeToExpand: TreeNode,
+    treeNodePath: TreeNodePath
+    ) => Promise<TreeNode[]> | undefined;
     /**
     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
     */
     'expanded'?: boolean;
+    /**
+    * Scroll on hover
+    */
+    'hoverScroll'?: boolean;
     /**
     * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
     */
@@ -1769,9 +1788,9 @@ declare namespace LocalJSX {
     * Fired when a node of the tree has been selected
     */
     'onKupTreeNodeSelected'?: (event: CustomEvent<{
-      treeNodePath: TreeNodePath,
-      treeNode: TreeNode,
-      auto: boolean
+      treeNodePath: TreeNodePath;
+      treeNode: TreeNode;
+      auto: boolean;
     }>) => void;
     /**
     * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
