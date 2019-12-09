@@ -16,12 +16,14 @@
 | `graphTitle`      | `graph-title`       |                              | `string`                           | `undefined`        |
 | `graphTitleColor` | `graph-title-color` |                              | `string`                           | `undefined`        |
 | `graphTitleSize`  | `graph-title-size`  |                              | `number`                           | `undefined`        |
+| `hAxis`           | --                  |                              | `ChartAxis`                        | `undefined`        |
 | `height`          | `height`            |                              | `number`                           | `undefined`        |
 | `legend`          | `legend`            |                              | `boolean`                          | `true`             |
 | `series`          | --                  |                              | `string[]`                         | `undefined`        |
 | `showMarks`       | `show-marks`        |                              | `boolean`                          | `false`            |
 | `stacked`         | `stacked`           |                              | `boolean`                          | `false`            |
 | `types`           | --                  |                              | `ChartType[]`                      | `[ChartType.Hbar]` |
+| `vAxis`           | --                  |                              | `ChartAxis`                        | `undefined`        |
 | `version`         | `version`           | Google chart version to load | `string`                           | `'45.2'`           |
 | `width`           | `width`             |                              | `number`                           | `undefined`        |
 

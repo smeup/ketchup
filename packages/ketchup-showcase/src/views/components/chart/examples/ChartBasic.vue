@@ -1,7 +1,29 @@
 <template>
   <div>
+    <p>
+      This web component is a wrapper of
+      <a
+        href="https://developers.google.com/chart/"
+        target="_blank"
+        rel="noopener"
+      >Google Charts</a>
+      library.
+    </p>
+
+    <h3>Playground</h3>
+
     <div class="config-panel">
-      <div class="field">
+      <div>
+        <label for="chart-type">Chart type</label>
+        <select name="chart-type" id="chart-type" @change="onChartTypeChange">
+          <option value="Vbar">Vbar</option>
+          <option value="Hbar">Hbar</option>
+          <option value="Pie">Pie</option>
+          <option value="Line">Line</option>
+        </select>
+      </div>
+
+      <div>
         <label for="colors">Custom colors</label>
         <input id="colors" type="checkbox" @change="onCustomColorsChange" />
       </div>
@@ -35,108 +57,106 @@
         <label for="title-size">Title size</label>
         <input id="title-size" type="number" value v-model="titleSize" />
       </div>
-    </div>
-    <hr />
 
-    <h3>Horizontal bars</h3>
+      <div>
+        <label for="vbar-stacked">Stacked</label>
+        <input id="vbar-stacked" type="checkbox" @change="onStackedChange" />
+      </div>
+
+      <div>
+        <label for="aspect">3D</label>
+        <input id="aspect" type="checkbox" @change="onAspectChange" />
+      </div>
+    </div>
+
+    <div class="group-title">Horizontal axis</div>
+
+    <div class="group">
+      <div class="config-panel">
+        <div>
+          <label for="ticks">Ticks (comma separated)</label>
+          <input id="ticks" type="text" @change="onHAxisTicksChange" />
+        </div>
+      </div>
+    </div>
+
+    <div class="group-title">Vertical axis</div>
+
+    <div class="group">
+      <div class="config-panel">
+        <div>
+          <label for="ticks">Ticks (comma separated)</label>
+          <input id="ticks" type="text" @change="onVAxisTicksChange" />
+        </div>
+      </div>
+    </div>
+
+    <br />
+
     <kup-chart
-      id="hbar"
-      :data.prop="baseData"
+      id="chart"
+      :data.prop="chartData"
+      :types.prop="types"
       :axis.prop="'Col1'"
       :series.prop="series"
+      :asp.prop="asp"
       :colors.prop="colors"
       :width.prop="width"
       :height.prop="height"
       :legend.prop="legend"
+      :stacked.prop="stacked"
       :graphTitle.prop="title"
       :graphTitleColor.prop="titleColor"
       :graphTitleSize.prop="titleSize"
       :showMarks.prop="marks"
+      :hAxis.prop="hAxis"
+      :vAxis.prop="vAxis"
     />
-    <hr />
-
-    <h3>Vertical bars</h3>
-    <label for="vbar-stacked">Stacked</label>
-    <input id="vbar-stacked" type="checkbox" @change="onStackedChange" />
-    <kup-chart
-      id="vbar"
-      :data.prop="baseData"
-      :types.prop="['Vbar']"
-      :axis.prop="'Col1'"
-      :series.prop="series"
-      :colors.prop="colors"
-      :width.prop="width"
-      :height.prop="height"
-      :legend.prop="legend"
-      :title.prop="title"
-      :titleColor.prop="titleColor"
-      :titleSize.prop="titleSize"
-      :showMarks.prop="marks"
-    />
-    <hr />
-
-    <h3>Pie</h3>
-    <label for="pie-aspect">3D</label>
-    <input id="pie-aspect" type="checkbox" @change="onPieAspectChange" />
-    <kup-chart
-      id="pie"
-      :data.prop="baseData"
-      :types.prop="['Pie']"
-      :axis.prop="'Col1'"
-      :series.prop="pieSeries"
-      :colors.prop="colors"
-      :width.prop="width"
-      :height.prop="height"
-      :legend.prop="legend"
-      :title.prop="title"
-      :titleColor.prop="titleColor"
-      :titleSize.prop="titleSize"
-      :showMarks.prop="marks"
-    />
-
-    <h3>Credits</h3>
-    <p>
-      This web component is a wrapper of
-      <a
-        href="https://developers.google.com/chart/"
-        target="_blank"
-        rel="noopener"
-      >Google Charts</a>
-      library.
-    </p>
   </div>
 </template>
 
 <script>
+import { baseData } from '@/mock/chart';
+import { ageWeightData } from '@/mock/chart';
+
 export default {
   data() {
     return {
       baseData,
+      ageWeightData,
+      chartData: baseData,
       series: ['Col2', 'Col3'],
-      pieSeries: ['Col2'],
+      asp: '2D',
+      types: ['VBar'],
       colors: null,
       width: null,
       height: null,
       legend: true,
+      stacked: false,
       title: '',
       titleColor: '#000000',
       titleSize: 12,
       marks: false,
+      hAxis: {},
+      vAxis: {},
     };
   },
   methods: {
-    onStackedChange({ target }) {
-      this.vbarConfig = {
-        ...this.vbarConfig,
-        stacked: target.checked,
-      };
+    onChartTypeChange(e) {
+      this.types = [e.target.value];
+      if ('Line' === e.target.value) {
+        this.chartData = ageWeightData;
+      } else {
+        this.chartData = baseData;
+      }
     },
 
-    onPieAspectChange(e) {
-      this.pieConfig = {
-        ...this.pieConfig,
-        asp: e.target.checked ? '3D' : '',
-      };
+    onStackedChange({ target }) {
+      this.stacked = target.checked;
+    },
+
+    onAspectChange(e) {
+      this.asp = e.target.checked ? '3D' : '';
     },
 
     onCustomColorsChange({ target }) {
@@ -156,119 +176,21 @@ export default {
         this.height = null;
       }
     },
+
+    onHAxisTicksChange({ target }) {
+      this.hAxis = {
+        ...this.hAxis,
+        ticks: target.value.split(',').map((item) => item.trim()),
+      };
+    },
+
+    onVAxisTicksChange({ target }) {
+      this.vAxis = {
+        ...this.vAxis,
+        ticks: target.value.split(',').map((item) => item.trim()),
+      };
+    },
   },
-};
-
-const baseData = {
-  columns: [
-    {
-      name: 'Col1',
-      title: 'Person',
-      size: '10',
-    },
-    {
-      name: 'Col2',
-      title: 'Value',
-      size: '10',
-    },
-    {
-      name: 'Col3',
-      title: 'Value2',
-      size: '10',
-    },
-  ],
-  rows: [
-    {
-      cells: {
-        Col1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'CASFRA',
-          },
-          value: 'CASFRA',
-        },
-        Col2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '10',
-          },
-          value: '10',
-        },
-        Col3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '100.60',
-          },
-          value: '100.60',
-        },
-      },
-    },
-    {
-      cells: {
-        Col1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'DELGIO',
-          },
-          value: 'DELGIO',
-        },
-        Col2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '6',
-          },
-          value: '6',
-        },
-        Col3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '67.8',
-          },
-          value: '67.8',
-        },
-      },
-    },
-    {
-      cells: {
-        Col1: {
-          obj: {
-            t: 'CN',
-            p: 'COL',
-            k: 'PARFRA',
-          },
-          value: 'PARFRA',
-        },
-        Col2: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '5',
-          },
-          value: '5',
-        },
-        Col3: {
-          obj: {
-            t: 'NR',
-            p: '',
-            k: '120.06',
-          },
-          value: '120.06',
-        },
-      },
-    },
-  ],
-};
-
-const baseConfig = {
-  types: ['Hbar'],
-  axis: 'Col1',
-  series: ['Col2', 'Col3'],
 };
 </script>
 
@@ -277,5 +199,19 @@ const baseConfig = {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+}
+.group-title {
+  font-weight: bold;
+  display: block;
+  margin-top: 5px;
+}
+
+.group {
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  border-radius: 4px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 12px;
 }
 </style>

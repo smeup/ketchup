@@ -12,6 +12,7 @@ import {
     ChartAspect,
     ChartOptions,
     ChartClickedEvent,
+    ChartAxis,
 } from './kup-chart-declarations';
 
 import { convertColumns, convertRows } from './kup-chart-builder';
@@ -68,6 +69,12 @@ export class KupChart {
     @Prop()
     showMarks = false;
 
+    @Prop()
+    hAxis: ChartAxis;
+
+    @Prop()
+    vAxis: ChartAxis;
+
     /**
      * Google chart version to load
      */
@@ -106,9 +113,7 @@ export class KupChart {
             // getting google charts css from main document
             document
                 .querySelectorAll(
-                    `link[href^="https://www.gstatic.com/charts/${
-                        this.version
-                    }/css"]`
+                    `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
                 )
                 .forEach((node) =>
                     this.el.shadowRoot.appendChild(node.cloneNode())
@@ -270,6 +275,14 @@ export class KupChart {
                     type: serieType,
                 };
             });
+        }
+
+        if (this.vAxis) {
+            opts.vAxis = this.vAxis;
+        }
+
+        if (this.hAxis) {
+            opts.hAxis = this.hAxis;
         }
 
         return opts;
