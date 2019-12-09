@@ -34,6 +34,10 @@ describe.skip('KetchUP autocomplete', () => {
     await page.waitForChanges();
   });
 
+  afterEach(() => {
+    page = undefined;
+  });
+
   it('has a title', async () => {
 
   });
