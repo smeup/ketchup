@@ -1,39 +1,70 @@
 //---- Basic form of the layout ----
 
+// Variables keeping the attributes and classes used multiple times
 $fill-space-attribute: fill-space;
 $horizontal-attribute: horizontal;
 $multiple-column-class: lyo-multiple-columns;
 
+/**
+* @prop --lyo__column-number, --kup-lyo__column-number: Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations.
+* @prop --lyo__grid-gap, --kup-lyo__grid-gap: Space between two adjacent cells (on columns and rows).
+*/
 
 // When no options are set
 :host {
   --lyo__column-number: var(--kup-lyo__column-number, 1);
+  --lyo__grid-gap: var(--kup-lyo__grid-gap, 2px);
 
   //-- Basic style --
   display: inline-grid;
   grid-auto-flow: row;
   grid-column: 1;
+  grid-gap: var(--lyo__grid-gap) var(--lyo__grid-gap); // Old name of the property
+  gap: var(--lyo__grid-gap) var(--lyo__grid-gap); // New name of the property
   grid-row: auto;
+  // Basic usage for the width of the cells is to have equal width if possible
+  grid-template-columns: repeat(var(--lyo__column-number), 1fr);
+}
+
+// When columns size must be decided by the column content.
+:host([content-based-columns-width]) {
   grid-template-columns: repeat(var(--lyo__column-number), minmax(min-content, auto));
 }
 
+// WHen there are multiple columns, elements are placed one cell after the other and going on to rows.
 :host(.#{$multiple-column-class}) {
   grid-auto-flow: row;
 }
 
+//-- Filling space in a normal situation make the container take all available width --
 :host([#{$fill-space-attribute}]) {
   display: grid;
   width: 100%;
 }
 
+//---- In horizontal mode ----
+// IMPORTANT: The horizontal mode is not activated when more than one column is specified
+
+//-- Basic horizontal mode --
+// [1] - Mandatory to allow items to be placed on the same line and be contained inside a scrollable div
+// [F1] - Currently this is set to 'visible' due to a bug on MacOS:
+//    on other web browsers, using 'auto' would make the content of the div
+//    be scrollable, but only on MacOS this behavior is not respected and the div is not scrollable at all.
+//    However, putting this property to 'visible' will make elements go outside their container boundary box.
 :host([#{$horizontal-attribute}]:not(.#{$multiple-column-class})) {
   display: inline-block;
   max-width: 100%;
-  overflow: auto;
-  white-space: nowrap;
+  overflow: visible; // [1][F1]
+  white-space: nowrap; // [1]
 }
 
+//-- When there is also the fill-space attribute set --
+// This declaration takes advantage of style declared inside [1]
+// [2] - Mandatory to override the rule in base host member -> in this way all columns will try to take the available space
 :host([#{$horizontal-attribute}][#{$fill-space-attribute}]:not(.#{$multiple-column-class})) {
-  display: block;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-columns: 0; // [2]
   width: 100%;
 }
