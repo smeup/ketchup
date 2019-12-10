@@ -491,8 +491,21 @@ export namespace Components {
     'size': number;
   }
   interface KupLayout {
+    /**
+    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+    */
     'columnsNumber': number;
+    /**
+    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+    */
+    'contentBasedColumnsWidth': boolean;
+    /**
+    * When true, the layout and its contents will try to take all the available horizontal space.
+    */
     'fillSpace': boolean;
+    /**
+    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+    */
     'horizontal': boolean;
   }
   interface KupPaginator {
@@ -1540,8 +1553,21 @@ declare namespace LocalJSX {
     'size'?: number;
   }
   interface KupLayout extends JSXBase.HTMLAttributes<HTMLKupLayoutElement> {
+    /**
+    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+    */
     'columnsNumber'?: number;
+    /**
+    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+    */
+    'contentBasedColumnsWidth'?: boolean;
+    /**
+    * When true, the layout and its contents will try to take all the available horizontal space.
+    */
     'fillSpace'?: boolean;
+    /**
+    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+    */
     'horizontal'?: boolean;
   }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
