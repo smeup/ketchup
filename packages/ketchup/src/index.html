@@ -78,6 +78,20 @@
             is-clearable
             initial-value="ciao"
         ></kup-text-input>
+
+        <h1>Layout component</h1>
+        <kup-layout>
+          <button>Test 1: dim</button>
+          <button>Test 1: dimensione</button>
+          <button>Test 1: dimensione più lunga di tutte</button>
+          <button>Test 1: dim media tra tutte</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+        </kup-layout>
+
         <h4>Combo using portal</h4>
         <kup-combo is-clearable use-portal="true"></kup-combo>
         <h4>FLD 1</h4>
@@ -120,7 +134,7 @@
         <kup-gauge only-value=true value="220" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
         <h5>OnlyValue reverted colors</h5>
         <kup-gauge reverse-colors=true only-value=true value="100" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
- 
+
         <h4>The Checkbox</h4>
         <kup-checkbox></kup-checkbox>
         <kup-checkbox checked></kup-checkbox>
@@ -397,7 +411,7 @@
                     textFld_6_upload.config = {
                         "type": "fup"
                     };
-                    /**/                                     
+                    /**/
 
                     // For the password field
                     const inPassword = document.querySelector('kup-text-input[input-type="password"]');
