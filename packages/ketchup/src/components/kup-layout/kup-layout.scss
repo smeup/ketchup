@@ -1,0 +1,39 @@
+//---- Basic form of the layout ----
+
+$fill-space-attribute: fill-space;
+$horizontal-attribute: horizontal;
+$multiple-column-class: lyo-multiple-columns;
+
+
+// When no options are set
+:host {
+  --lyo__column-number: var(--kup-lyo__column-number, 1);
+
+  //-- Basic style --
+  display: inline-grid;
+  grid-auto-flow: row;
+  grid-column: 1;
+  grid-row: auto;
+  grid-template-columns: repeat(var(--lyo__column-number), minmax(min-content, auto));
+}
+
+:host(.#{$multiple-column-class}) {
+  grid-auto-flow: row;
+}
+
+:host([#{$fill-space-attribute}]) {
+  display: grid;
+  width: 100%;
+}
+
+:host([#{$horizontal-attribute}]:not(.#{$multiple-column-class})) {
+  display: inline-block;
+  max-width: 100%;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+:host([#{$horizontal-attribute}][#{$fill-space-attribute}]:not(.#{$multiple-column-class})) {
+  display: block;
+  width: 100%;
+}

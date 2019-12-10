@@ -513,6 +513,11 @@ export namespace Components {
     */
     'size': number;
   }
+  interface KupLayout {
+    'columnsNumber': number;
+    'fillSpace': boolean;
+    'horizontal': boolean;
+  }
   interface KupPaginator {
     'currentPage': number;
     'max': number;
@@ -1068,6 +1073,12 @@ declare global {
     new (): HTMLKupImageButtonElement;
   };
 
+  interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {}
+  var HTMLKupLayoutElement: {
+    prototype: HTMLKupLayoutElement;
+    new (): HTMLKupLayoutElement;
+  };
+
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
   var HTMLKupPaginatorElement: {
     prototype: HTMLKupPaginatorElement;
@@ -1191,6 +1202,7 @@ declare global {
     'kup-icon': HTMLKupIconElement;
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
+    'kup-layout': HTMLKupLayoutElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
@@ -1809,6 +1821,11 @@ declare namespace LocalJSX {
     */
     'size'?: number;
   }
+  interface KupLayout extends JSXBase.HTMLAttributes<HTMLKupLayoutElement> {
+    'columnsNumber'?: number;
+    'fillSpace'?: boolean;
+    'horizontal'?: boolean;
+  }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
@@ -2330,6 +2347,7 @@ declare namespace LocalJSX {
     'kup-icon': KupIcon;
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
+    'kup-layout': KupLayout;
     'kup-paginator': KupPaginator;
     'kup-portal': KupPortal;
     'kup-portal-instance': KupPortalInstance;

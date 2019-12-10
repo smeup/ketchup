@@ -82,6 +82,20 @@
             is-clearable
             initial-value="ciao"
         ></kup-text-input>
+
+        <h1>Layout component</h1>
+        <kup-layout>
+          <button>Test 1: dim</button>
+          <button>Test 1: dimensione</button>
+          <button>Test 1: dimensione più lunga di tutte</button>
+          <button>Test 1: dim media tra tutte</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+          <button>Test 2: filler</button>
+        </kup-layout>
+
         <h4>Combo using portal</h4>
         <kup-combo is-clearable use-portal="true"></kup-combo>
         <h4>FLD 1</h4>
@@ -252,7 +266,7 @@
         <script>
             let gaucolor = document.getElementById('gaucolor');
             gaucolor.colors = ['red', 'yellow', 'green'];
-            
+
             let tabBar = document.getElementsByTagName('wup-tab-bar')[0];
             tabBar.items = [
                     {
