@@ -1,11 +1,5 @@
 import {newE2EPage, E2EPage, E2EElement} from '@stencil/core/testing';
-
-import {
-  AutocompleteDisplayMode,
-  AutocompleteSortBy,
-  AutocompleteSortOrder
-} from '../../../src/components/kup-autocomplete/kup-autocomplete-declarations';
-
+import { getElementClientRect } from '../E2eTestUtilities';
 
 /**
  * The number of elements added to the layout
@@ -35,10 +29,7 @@ async function fetchClientRects(currentPage: E2EPage, howManyElements: number = 
 
   // Gets all buttons and forces the page to get their client rect coordinates.
   for (let i = 0; i < howManyElements; i++) {
-    const temp = await currentPage.evaluate((element): ClientRect => {
-      const {top, left, bottom, right, width, height} = document.querySelector('button:nth-of-type(' + element + ')').getBoundingClientRect();
-      return {top, left, bottom, right, width, height};
-    }, i + 1);
+    const temp = await getElementClientRect(currentPage,'button:nth-of-type(' + (i + 1) + ')');
     clientRects.push(temp);
   }
 
@@ -60,6 +51,7 @@ describe('KetchUP layout element', () => {
 
   afterEach(() => {
     page = undefined;
+    kupLayout = undefined;
   });
 
 
@@ -129,7 +121,32 @@ describe('KetchUP layout element', () => {
   });
 
 
-  it.skip('supports the fillspace attribute, so element takes all available space on block level', async () => {
+  it('supports the fillspace attribute, so element takes all available space on block level', async () => {
+    // IMPORTANT: here we are using the single column layout with buttons which are not so large
 
+    // First we check that the, without fillSpace set, the elements does NOT take all available space
+    const bodyRect = await getElementClientRect(page, 'body');
+    const layoutClientRectBeforeFillSpace = await getElementClientRect(page, 'kup-layout');
+    const firstButtonBeforeFillSpace = await getElementClientRect(page, 'button:nth-of-type(1)');
+
+    expect(bodyRect.width).toBeGreaterThan(layoutClientRectBeforeFillSpace.width);
+    expect(bodyRect.left).toEqual(layoutClientRectBeforeFillSpace.left);
+    expect(bodyRect.right).toBeGreaterThan(layoutClientRectBeforeFillSpace.right);
+
+    // Then we control the status with the fillSpace prop set to true
+    kupLayout.setProperty('fillSpace', true);
+    await page.waitForChanges();
+    const layoutClientRect = await getElementClientRect(page, 'kup-layout');
+    const firstButton = await getElementClientRect(page, 'button:nth-of-type(1)');
+
+    expect(bodyRect.width).toEqual(layoutClientRect.width);
+    expect(bodyRect.left).toEqual(layoutClientRect.left);
+    expect(bodyRect.right).toEqual(layoutClientRect.right);
+
+    // Checks the button sizes before and after
+    // IMPORTANT: notice that since there is only a column, there is no need to worry about the gap (grid-gap) property
+    // For other kind of test, that gap must be taken into account
+    expect(firstButton.width).toEqual(layoutClientRect.width);
+    expect(firstButtonBeforeFillSpace.width).toBeLessThan(firstButton.width);
   });
 });
