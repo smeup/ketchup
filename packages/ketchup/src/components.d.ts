@@ -57,6 +57,9 @@ import {
   Image,
 } from './components/fields/kup-image-button/kup-image-declarations';
 import {
+  KupMenuAllowedPositions,
+} from './components/kup-menu/kup-menu-declarations';
+import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
 import {
@@ -508,6 +511,28 @@ export namespace Components {
     */
     'horizontal': boolean;
   }
+  interface KupMenu {
+    /**
+    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+    */
+    'closeOnOuterClick': boolean;
+    /**
+    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'deactivationRelativeTo': HTMLElement;
+    /**
+    * Open or closes the menu. The menu itself can edit this prop.
+    */
+    'isActive': boolean;
+    /**
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation.
+    */
+    'position': KupMenuAllowedPositions;
+    /**
+    * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'positionRelativeTo': HTMLElement;
+  }
   interface KupPaginator {
     'currentPage': number;
     'max': number;
@@ -873,6 +898,12 @@ declare global {
     new (): HTMLKupLayoutElement;
   };
 
+  interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {}
+  var HTMLKupMenuElement: {
+    prototype: HTMLKupMenuElement;
+    new (): HTMLKupMenuElement;
+  };
+
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
   var HTMLKupPaginatorElement: {
     prototype: HTMLKupPaginatorElement;
@@ -954,6 +985,7 @@ declare global {
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-layout': HTMLKupLayoutElement;
+    'kup-menu': HTMLKupMenuElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
@@ -1570,6 +1602,28 @@ declare namespace LocalJSX {
     */
     'horizontal'?: boolean;
   }
+  interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
+    /**
+    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+    */
+    'closeOnOuterClick'?: boolean;
+    /**
+    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'deactivationRelativeTo'?: HTMLElement;
+    /**
+    * Open or closes the menu. The menu itself can edit this prop.
+    */
+    'isActive'?: boolean;
+    /**
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation.
+    */
+    'position'?: KupMenuAllowedPositions;
+    /**
+    * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'positionRelativeTo'?: HTMLElement;
+  }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
@@ -1886,6 +1940,7 @@ declare namespace LocalJSX {
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
     'kup-layout': KupLayout;
+    'kup-menu': KupMenu;
     'kup-paginator': KupPaginator;
     'kup-portal': KupPortal;
     'kup-portal-instance': KupPortalInstance;

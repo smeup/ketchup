@@ -57,7 +57,7 @@ export class KupLayout {
 
     if (this.columnsNumber >= 1) {
       layoutStyle = {
-        ['--lyo__column-number']: this.columnsNumber,
+        ['--lyo_column-number']: this.columnsNumber,
       };
     }
 

@@ -6,29 +6,29 @@ $horizontal-attribute: horizontal;
 $multiple-column-class: lyo-multiple-columns;
 
 /**
-* @prop --lyo__column-number, --kup-lyo__column-number: Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations.
-* @prop --lyo__grid-gap, --kup-lyo__grid-gap: Space between two adjacent cells (on columns and rows).
+* @prop --lyo_column-number, --kup-layout_column-number: Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations.
+* @prop --lyo_grid-gap, --kup-layout_grid-gap: Space between two adjacent cells (on columns and rows).
 */
 
 // When no options are set
 :host {
-  --lyo__column-number: var(--kup-lyo__column-number, 1);
-  --lyo__grid-gap: var(--kup-lyo__grid-gap, 2px);
+  --lyo_column-number: var(--kup-layout_column-number, 1);
+  --lyo_grid-gap: var(--kup-layout_grid-gap, 2px);
 
   //-- Basic style --
   display: inline-grid;
   grid-auto-flow: row;
   grid-column: 1;
-  grid-gap: var(--lyo__grid-gap) var(--lyo__grid-gap); // Old name of the property
-  gap: var(--lyo__grid-gap) var(--lyo__grid-gap); // New name of the property
+  grid-gap: var(--lyo_grid-gap) var(--lyo_grid-gap); // Old name of the property
+  gap: var(--lyo_grid-gap) var(--lyo_grid-gap); // New name of the property
   grid-row: auto;
   // Basic usage for the width of the cells is to have equal width if possible
-  grid-template-columns: repeat(var(--lyo__column-number), 1fr);
+  grid-template-columns: repeat(var(--lyo_column-number), 1fr);
 }
 
 // When columns size must be decided by the column content.
 :host([content-based-columns-width]) {
-  grid-template-columns: repeat(var(--lyo__column-number), minmax(min-content, auto));
+  grid-template-columns: repeat(var(--lyo_column-number), minmax(min-content, auto));
 }
 
 // WHen there are multiple columns, elements are placed one cell after the other and going on to rows.
