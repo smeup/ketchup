@@ -7,6 +7,18 @@ This is a component used to improve some common layout necessities.
 Basically is just a wrapper for a CSS Grid layout, therefore you can also customize it with other Grid properties
 by simply declaring them on the component.
 
+## Known issues
+
+### Elements on a same line with overflow auto
+
+On MacOs browsers, there is an issue involving the `horizontal` prop.
+
+Basically, after having set that prop, if the single line elements would overflow the boundary of their parents
+while forcing the the CSS property `overflow: auto;` on the container, the browser does not add the scrollbars,
+making it impossible to horizontally scroll the container.
+
+More about this issue inside the SCSS file of this component.
+
 <!-- Auto Generated Below -->
 
 
