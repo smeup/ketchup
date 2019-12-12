@@ -44,4 +44,6 @@ export interface ChartClickedEvent {
     datetime?: string;
     column?: Column;
     row?: Row;
+    rowindex?: number;
+    colindex?: number;
 }

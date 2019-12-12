@@ -349,8 +349,8 @@ export class KupChart {
                     const rowIndex = this.gChartView.getTableRowIndex(
                         selectedItem.row
                     );
-
                     event.row = this.data.rows[rowIndex];
+                    event.rowindex = rowIndex;
                 } else {
                     return;
                 }
@@ -364,6 +364,7 @@ export class KupChart {
                 );
 
                 event.row = this.data.rows[originalRowIndex];
+                event.rowindex = originalRowIndex;
 
                 if (this.series.length > 1) {
                     let originalColIndex = this.gChartView.getTableColumnIndex(
@@ -385,11 +386,14 @@ export class KupChart {
                         this.data.columns,
                         this.series[originalColIndex - 1]
                     );
+
+                    event.colindex = originalColIndex;
                 } else {
                     event.column = getColumnByName(
                         this.data.columns,
                         this.series[0]
                     );
+                    event.colindex = 0;
                 }
             }
 
