@@ -39,14 +39,14 @@ export class ChartElement {
                 this.shape = 'discrete';
                 this.fillColor = false;
                 this.height = 50;
-                this.width = vChartUltInfoArray.length * 50;
+                this.width = vChartUltInfoArray.length * 10;
                 break;
 
             case 'lin':
                 this.shape = 'line';
                 this.fillColor = false;
                 this.height = 50;
-                this.width = vChartUltInfoArray.length * 50;
+                this.width = vChartUltInfoArray.length * 10;
                 break;
 
             case 'pie':
@@ -61,7 +61,7 @@ export class ChartElement {
                 this.fillColor = false;
                 this.height = 50;
                 this.width = 50;
-                this.barWidth = 5;
+                this.barWidth = 4;
                 break;
 
             default:
@@ -181,7 +181,9 @@ export class ChartElement {
     }
 
     setHeight(h: number) {
-        this.height = h;
+        if (h > 0) {
+            this.height = h;
+        }
     }
 
     getWidth(): number {
@@ -189,7 +191,9 @@ export class ChartElement {
     }
 
     setWidth(w: number) {
-        this.width = w;
+        if (w > 0) {
+            this.width = w;
+        }
     }
 
     getShape(): string {
@@ -207,7 +211,9 @@ export class ChartElement {
     }
 
     setColor(c: Color) {
-        this.color = c;
+        if (c) {
+            this.color = c;
+        }
     }
 
     isFillColor(): boolean {
