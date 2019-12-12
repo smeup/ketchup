@@ -68,9 +68,6 @@ import {
   Image,
 } from './components/fields/kup-image-button/kup-image-declarations';
 import {
-  KupMenuAllowedPositions,
-} from './components/kup-menu/kup-menu-declarations';
-import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
 import {
@@ -540,7 +537,7 @@ export namespace Components {
     */
     'closeOnOuterClick': boolean;
     /**
-    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop.
     */
     'deactivationRelativeTo': HTMLElement;
     /**
@@ -548,11 +545,11 @@ export namespace Components {
     */
     'isActive': boolean;
     /**
-    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation.
+    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
     */
-    'position': KupMenuAllowedPositions;
+    'margin': number;
     /**
-    * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
     */
     'positionRelativeTo': HTMLElement;
   }
@@ -1890,7 +1887,7 @@ declare namespace LocalJSX {
     */
     'closeOnOuterClick'?: boolean;
     /**
-    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop.
     */
     'deactivationRelativeTo'?: HTMLElement;
     /**
@@ -1898,11 +1895,12 @@ declare namespace LocalJSX {
     */
     'isActive'?: boolean;
     /**
-    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation.
+    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
     */
-    'position'?: KupMenuAllowedPositions;
+    'margin'?: number;
+    'onKetchupMenuClose'?: (event: CustomEvent<void>) => void;
     /**
-    * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
     */
     'positionRelativeTo'?: HTMLElement;
   }

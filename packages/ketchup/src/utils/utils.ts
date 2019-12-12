@@ -10,13 +10,30 @@ export function generateUniqueId(field: string = 'def'): string {
     return new Date().getTime() + field.trim().replace(/\s/g, '_');
 }
 
-export function eventFromElement(element: HTMLElement, eventSource) {
+export function eventFromElement(element: HTMLElement, eventSource: HTMLElement) {
     while (eventSource) {
-        console.log(eventSource);
         if (eventSource === element) return true;
         eventSource = eventSource.parentElement;
     }
     return false;
+}
+
+/**
+ * Given an event and an element, returns if that event was generated within that element or one of its children.
+ * @param event
+ * @param element
+ */
+export function isEventFromElement(event: Event, element: HTMLElement):boolean {
+  try {
+    if (event.composedPath().indexOf(element) >= 0) {
+      return true;
+    }
+  } catch (e) {
+    if (eventFromElement(element, event.target as HTMLElement)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

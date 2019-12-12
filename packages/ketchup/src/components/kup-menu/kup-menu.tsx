@@ -1,6 +1,7 @@
-import {Component, Element, h, Host, Prop,} from '@stencil/core';
-
-import {KupMenuAllowedPositions} from './kup-menu-declarations';
+import {Component, Element, Event, EventEmitter, h, Host, Listen, Prop, Watch,} from '@stencil/core';
+//import {KupMenuAllowedPositions} from './kup-menu-declarations';
+import {isEventFromElement} from '../../utils/utils';
+import {positionRecalc} from '../../utils/recalc-position';
 import {NODE_TYPES} from "@stencil/core/mock-doc";
 
 @Component({
@@ -19,8 +20,9 @@ export class KupMenu {
   /**
    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true,
    * the menu will search for this element inside the event path: if found, then the menu will not be closed.
-   * If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+   * If left to null, the component will automatically use the element provided by positionRelativeTo prop.
    * @see closeOnOuterClick
+   * @see positionRelativeTo
    */
   @Prop({mutable: true})
   deactivationRelativeTo: HTMLElement = null;
@@ -37,9 +39,10 @@ export class KupMenu {
    * Forces the menu to open on a given position.
    * The default value allows the menu to open itself in the best position according to its calculation.
    * @see positionRelativeTo
+   * @todo implement this feature
    */
-  @Prop({reflect: true})
-  position: KupMenuAllowedPositions = KupMenuAllowedPositions.AUTO;
+  // @Prop({reflect: true})
+  // position: KupMenuAllowedPositions = KupMenuAllowedPositions.AUTO;
 
   /**
    * The element relative to which the menu will be opened in a given position.
@@ -49,8 +52,18 @@ export class KupMenu {
   @Prop({mutable: true})
   positionRelativeTo: HTMLElement = null;
 
+  /**
+   * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
+   */
+  @Prop({reflect: true})
+  margin: number = 0;
+
   //-------- Internal State --------
   @Element() menuElement: HTMLElement;
+
+  //---- Not reactive ----
+  positioner = new positionRecalc();
+  clickOutsideMenuFunction = this.onDocumentClick.bind(this);
 
   //-------- Lifecycle hooks --------
 
@@ -58,16 +71,56 @@ export class KupMenu {
 
     // If there are no positionRelativeTo or deactivationRelativeTo elements set, we set them to the parent component
     const parentElement = this.getMenuParentNode();
-
     if (!this.positionRelativeTo) {
       this.positionRelativeTo = parentElement;
     }
-    if (!this.deactivationRelativeTo) {
-      this.deactivationRelativeTo = parentElement;
+
+    // When component is created, then the listener is set.
+    document.addEventListener('click', this.clickOutsideMenuFunction);
+  }
+
+  componentDidUnload() {
+    // When component is destroyed, then the listener is removed.
+    document.removeEventListener('click', this.clickOutsideMenuFunction);
+  }
+
+  //-------- Watchers --------
+
+  @Watch('isActive')
+  menuReposition(newValue: boolean) {
+    // When the new value is true so the menu is visible, we calculate the new position
+    if (newValue && this.positionRelativeTo) {
+      this.positioner.setPosition(
+        this.menuElement,
+        this.positionRelativeTo || this.getMenuParentNode(), // There must always be an element to which the position will be calculated relatively to,
+        this.margin
+      );
     }
   }
 
+  //-------- Events --------
+  @Event({
+    eventName: 'ketchupMenuClose',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  ketchupMenuClose: EventEmitter<void>;
+
+
   //-------- Methods --------
+
+  closeMenu() {
+    this.isActive = false;
+    this.ketchupMenuClose.emit();
+  }
+
+  @Listen('scroll', {target: 'document'})
+  closeMenuOnWindowScroll() {
+    if (this.closeOnOuterClick && this.isActive) {
+      this.closeMenu();
+    }
+  }
 
   getMenuParentNode(): HTMLElement {
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
@@ -86,9 +139,23 @@ export class KupMenu {
     }
   }
 
+  // When the click is outside of one of the
+  onDocumentClick(event: UIEvent) {
+    // When is not active there is no need to emit the event
+    if (this.closeOnOuterClick && this.isActive &&
+      !(
+        isEventFromElement(event, this.menuElement) ||
+        isEventFromElement(event, this.deactivationRelativeTo || this.positionRelativeTo || this.getMenuParentNode()) // The object to be searched for has this kind of priority
+      )
+    ) {
+      this.closeMenu();
+    }
+  }
+
 
   render() {
-    return <Host>
+    // Stop propagation is mandatory to avoid closing the menu when there is a click within the menu.
+    return <Host onClick={(e: UIEvent) => {e.stopPropagation();}}>
       <div class="menu-optional-container menu-optional-container--top">
         <slot name="top-container"/>
       </div>

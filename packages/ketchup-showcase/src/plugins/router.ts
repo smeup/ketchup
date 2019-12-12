@@ -76,6 +76,11 @@ let componentsRoutes = [
     component: () => import(`@/views/components/imagebutton/Imagebutton.vue`),
   },
   {
+    path: `/menu`,
+    name: 'menu',
+    component: () => import(`@/views/components/menu/Menu.vue`),
+  },
+  {
     path: `/portal`,
     name: 'portal',
     component: () => import(`@/views/components/portal/Portal.vue`),
