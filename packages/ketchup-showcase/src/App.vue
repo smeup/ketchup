@@ -159,6 +159,12 @@ export default {
             },
           },
           {
+            title: `Menu`,
+            to: {
+              name: 'menu',
+            },
+          },
+          {
             title: `Portal`,
             to: {
               name: 'portal',
@@ -260,6 +266,13 @@ select,
 // Basic spacer
 .basic-spacer {
   margin: 8px 12px;
+}
+
+// For examples where slot has a border
+.name-slotted {
+  border: 1px solid rgba(0,0,0,.12);
+  box-sizing: border-box;
+  padding: 4px;
 }
 
 // Max with for a more readable text

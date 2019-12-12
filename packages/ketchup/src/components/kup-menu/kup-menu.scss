@@ -19,14 +19,22 @@
   --mnu_z-index: var(--kup-menu_z-index, 1000);
 
   //-- Basic style of the container --
-  background-color: var(mnu_background);
+  background-color: var(--mnu_background);
   border-radius: var(--mnu_border-radius);
   box-shadow: var(--mnu_shadow);
   display: inline-block;
   position: fixed;
-  transition: opacity var(--mnu_tr-duration);
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--mnu_tr-duration), visibility var(--mnu_tr-duration);
+  visibility: hidden !important;
   z-index: var(--mnu_z-index);
+}
+
+// When the menu is active
+:host([is-active]) {
+  opacity: 1;
+  visibility: visible !important;
+  //display: inline-block;
 }
 
 //-- The effective scrollable menu content --
@@ -42,7 +50,6 @@
 .menu-optional-container {
   box-sizing: border-box;
   display: block;
-  padding: 4px;
   width: 100%;
 
   // When one of the optional containers is empty, then it's hidden
