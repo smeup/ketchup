@@ -18,9 +18,11 @@ export class KupMenu {
   closeOnOuterClick: boolean = true;
 
   /**
-   * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true,
+   * When closeOnOuterClick is set to true,
    * the menu will search for this element inside the event path: if found, then the menu will not be closed.
+   * Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed.
    * If left to null, the component will automatically use the element provided by positionRelativeTo prop.
+   * If positionRelativeTo is not defined, it will default to the menu parent element.
    * @see closeOnOuterClick
    * @see positionRelativeTo
    */
@@ -76,12 +78,12 @@ export class KupMenu {
     }
 
     // When component is created, then the listener is set.
-    document.addEventListener('click', this.clickOutsideMenuFunction);
+    //document.addEventListener('click', this.clickOutsideMenuFunction);
   }
 
   componentDidUnload() {
     // When component is destroyed, then the listener is removed.
-    document.removeEventListener('click', this.clickOutsideMenuFunction);
+    //document.removeEventListener('click', this.clickOutsideMenuFunction);
   }
 
   //-------- Watchers --------
@@ -99,6 +101,9 @@ export class KupMenu {
   }
 
   //-------- Events --------
+  /**
+   * When the menu gets closed.
+   */
   @Event({
     eventName: 'ketchupMenuClose',
     composed: true,
@@ -109,10 +114,16 @@ export class KupMenu {
 
 
   //-------- Methods --------
-
   closeMenu() {
     this.isActive = false;
     this.ketchupMenuClose.emit();
+  }
+
+  @Listen('keyup', {target: 'document'})
+  closeMenuOnEscapeKeyup(e: KeyboardEvent) {
+    if (this.closeOnOuterClick && this.isActive && e.key === 'Escape') {
+      this.closeMenu();
+    }
   }
 
   @Listen('scroll', {target: 'document'})
@@ -140,6 +151,7 @@ export class KupMenu {
   }
 
   // When the click is outside of one of the
+  @Listen('click', {target: 'document'})
   onDocumentClick(event: UIEvent) {
     // When is not active there is no need to emit the event
     if (this.closeOnOuterClick && this.isActive &&

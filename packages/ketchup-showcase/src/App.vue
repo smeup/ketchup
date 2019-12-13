@@ -376,6 +376,11 @@ select,
   }
 }
 
+// General class for no margin
+.no-margin {
+  margin: 0;
+}
+
 // A scrollable container which can be used to perform test on some components.
 .scrollable-container {
   height: 400px;
