@@ -4,7 +4,8 @@
     <p>A lot is happening under to hood to configure everything.</p>
 
     <h3>With no configuration</h3>
-    <p>Since there is no configuration, the menu will use as a reference to be opened its parent element, which in this case is the content of the button, not the whole button, So the element is slightly out of position</p>
+    <p>Since there is no configuration, the menu will use its parent element as a reference for when it needs to be opened,
+      which in this case is the content of the button, not the whole button, So the element is slightly out of position</p>
     <v-btn @click="plainButtonClick">
       A plain Vuetify button
       <kup-menu :is-active="plainButtonMenu"
@@ -69,6 +70,9 @@
     </v-btn>
 
     <h3>Activator separated from menu</h3>
+    <p>Pay attention: since the menu is attached somewhere else, you have to specify the <code class="inline">deactivationRelativeTo</code>
+      prop in order to tell the menu which html element is used as reference.
+    </p>
     <div class="example-container">
       <v-btn
         ref="remoteButtonRef"
@@ -138,9 +142,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .no-margin {
-    margin: 0;
-  }
-</style>

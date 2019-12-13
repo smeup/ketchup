@@ -514,7 +514,7 @@ export namespace Components {
     */
     'closeOnOuterClick': boolean;
     /**
-    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop.
+    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
     */
     'deactivationRelativeTo': HTMLElement;
     /**
@@ -1605,7 +1605,7 @@ declare namespace LocalJSX {
     */
     'closeOnOuterClick'?: boolean;
     /**
-    * HTML element ancestor of the current kup-menu instance. When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop.
+    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
     */
     'deactivationRelativeTo'?: HTMLElement;
     /**
@@ -1616,6 +1616,9 @@ declare namespace LocalJSX {
     * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
     */
     'margin'?: number;
+    /**
+    * When the menu gets closed.
+    */
     'onKetchupMenuClose'?: (event: CustomEvent<void>) => void;
     /**
     * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
