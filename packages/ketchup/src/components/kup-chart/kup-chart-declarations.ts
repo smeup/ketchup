@@ -38,6 +38,17 @@ export interface ChartOptions {
 
 export interface ChartAxis {
     ticks?: string[];
+    gridlines?: ChartAxisGridlines;
+    viewWindow?: ChartAxisViewWindow;
+}
+
+export interface ChartAxisGridlines {
+    count?: number;
+}
+
+export interface ChartAxisViewWindow {
+    min?: number;
+    max?: number;
 }
 
 export interface ChartClickedEvent {
