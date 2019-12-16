@@ -77,6 +77,10 @@
           <label for="ticks">Ticks (comma separated)</label>
           <input id="ticks" type="text" @change="onHAxisTicksChange" />
         </div>
+        <div>
+          <label for="grid-count">Grid count</label>
+          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
+        </div>
       </div>
     </div>
 
@@ -87,6 +91,10 @@
         <div>
           <label for="ticks">Ticks (comma separated)</label>
           <input id="ticks" type="text" @change="onVAxisTicksChange" />
+        </div>
+        <div>
+          <label for="grid-count">Grid count</label>
+          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
         </div>
       </div>
     </div>
@@ -184,10 +192,28 @@ export default {
       };
     },
 
+    onHAxisGridCountChange({ target }) {
+      this.hAxis = {
+        ...this.hAxis,
+        gridlines: {
+          count: target.value,
+        },
+      };
+    },
+
     onVAxisTicksChange({ target }) {
       this.vAxis = {
         ...this.vAxis,
         ticks: target.value.split(',').map((item) => item.trim()),
+      };
+    },
+
+    onVAxisGridCountChange({ target }) {
+      this.vAxis = {
+        ...this.vAxis,
+        gridlines: {
+          count: target.value,
+        },
       };
     },
   },
