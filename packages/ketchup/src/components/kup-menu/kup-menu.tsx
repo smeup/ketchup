@@ -126,7 +126,7 @@ export class KupMenu {
     }
   }
 
-  @Listen('scroll', {target: 'document'})
+  @Listen('scroll', {target: 'window'})
   closeMenuOnWindowScroll() {
     if (this.closeOnOuterClick && this.isActive) {
       this.closeMenu();

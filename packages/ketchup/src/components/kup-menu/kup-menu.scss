@@ -53,7 +53,8 @@
   width: 100%;
 
   // When one of the optional containers is empty, then it's hidden
-  &:empty {
+  // The default display of a slot element is contents so this property should not be necessary
+  /*& slot:empty {
     display: none;
-  }
+  }*/
 }
