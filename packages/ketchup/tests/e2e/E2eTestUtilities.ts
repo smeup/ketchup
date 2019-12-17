@@ -21,3 +21,22 @@ export async function getElementClientRect(
     return {top, left, bottom, right, width, height};
   }, elementCssSelector);
 }
+
+/**
+ * Given a E2E page and a CSS selector, triggers a click on that element
+ *
+ * IMPORTANT: this function can only fetch the ClientRect of an element in the light DOM.
+ * @param currentPage
+ * @param elementSelector
+ * @returns Boolean true if the element was found and clicked, false otherwise.
+ */
+export function triggerClick(currentPage: E2EPage, elementSelector: string): Promise<boolean> {
+  return currentPage.evaluate((selector: string): boolean => {
+    try {
+      ((document.querySelector(selector)) as HTMLElement).click();
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }, elementSelector);
+}
