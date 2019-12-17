@@ -168,12 +168,17 @@ main.v-content {
   color: var(--main-text-color) !important;
 }
 
+
 main.v-content {
   background: var(--main-background-color) !important;
 }
 
 aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
-  background: var(--body-background-color) !important;
+  background: #ffffff
+}
+
+#inspire.theme--dark aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
+  background: #2e2e2e
 }
 
 div.v-list {

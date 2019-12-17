@@ -1,5 +1,8 @@
 <template>
   <div>
+    <p>BoxList (also called cards) is a list of surfaces that display content and actions. The elements like text, images and 
+      actions must be positioned according to the hierarchy of the content. 
+
     <h3>Without data</h3>
     <kup-box></kup-box>
     <hr />
