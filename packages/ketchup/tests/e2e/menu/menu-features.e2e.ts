@@ -1,50 +1,123 @@
-import {newE2EPage} from '@stencil/core/testing';
+import {E2EElement, newE2EPage} from '@stencil/core/testing';
+import {Components} from "../../../src/components";
+import {getElementClientRect,triggerClick} from '../E2eTestUtilities';
 
-import {
-  AutocompleteDisplayMode,
-  AutocompleteSortBy,
-  AutocompleteSortOrder
-} from '../../../src/components/kup-autocomplete/kup-autocomplete-declarations';
+//---- Define menu contents ----
+const contentItemsNumber = 20;
+const activatorId = '#activator';
+let menuContentItems = '<ul>';
+for (let j = 0; j < contentItemsNumber; j++ ) {
+  menuContentItems += `<li>Item number ${j}</li>`;
+}
+menuContentItems += '</ul>';
 
+//---- Define control functions ----
 
-describe.skip('KetchUP menu component', () => {
+async function menuIsOpen(menuItem: E2EElement): Promise<boolean> {
+  const menuStyle = await menuItem.getComputedStyle();
+  return (menuStyle.position === 'fixed') && (menuStyle.visibility === 'visible');
+}
 
-  let page;
+async function menuIsClosed(menuItem: E2EElement): Promise<boolean> {
+  const menuStyle = await menuItem.getComputedStyle();
+  return menuStyle.visibility === 'hidden';
+}
 
-  // Setup environment for each test
-  beforeEach(async () => {
-    const page = await newE2EPage();
+let page;
+let element;
+let triggerButton;
 
-    await page.setContent('<kup-menu></kup-menu>');
-    const element = await page.find('kup-menu');
+describe('KetchUP menu component', () => {
 
-    await page.waitForChanges();
-  });
+  describe('basic features', () => {
 
-  afterEach(() => {
-    page = undefined;
-  });
+    beforeEach(async () => {
+      page = await newE2EPage();
 
-  it('must be hidden when inactive', async () => {
+      // Creates content
+      await page.setContent('<button id="' + (activatorId.replace('#', '')) + '">Click me to trigger the menu<kup-menu>' + menuContentItems + '</kup-menu></button>');
+      element = await page.find('kup-menu');
+      await page.waitForChanges();
 
-  });
+      // Sets up the handlers
+      await page.evaluate((buttonSelector) => {
+        document.querySelector(buttonSelector).addEventListener('click', function() {
+          // TODO find a way to remove this as any declaration
+          const menu = (document.querySelector('kup-menu')) as Components.KupMenu;
+          menu.isActive = !menu.isActive;
+        });
+      }, activatorId);
 
-  it('must have position fixed when active', async () => {
-
-  });
-
-  it('when active, it must be always fully visible', async () => {
-
-  });
-
-  describe('must close when',() => {
-    it ('user clicks outside of the menu', async () => {
-
+      triggerButton = await page.find(activatorId);
     });
 
-    it ('user scrolls up or down', async () => {
-
+    afterEach(() => {
+      page = undefined;
+      element = undefined;
+      triggerButton = undefined;
     });
 
+
+    it('must be hidden when inactive', async () => {
+      const isClosed = await menuIsClosed(element);
+
+      expect(isClosed).toBeTruthy();
+    });
+
+
+    it('must be visible and have position fixed when active', async () => {
+      await triggerClick(page, activatorId);
+      await page.waitForChanges();
+      const isOpen = await menuIsOpen(element);
+
+      expect(isOpen).toBeTruthy();
+    }, 10000);
+
+
+    it.skip('when active, it must be always fully visible', async () => {
+      /*
+      * I've tried to get a grasp on how to do this test.
+      * The answer is that this feature probably does not need to be tested, for a bunch of different motivations:
+      * 1 - there is no way to simulate all the things a menu user can do which will interfere with the visibility of the component.
+      * 2 - Testing if any element of a web page is covering this element is quite impossible:
+      *     it would probably mean to create a bunch of random elements and check if they hover or cover, partially or totally,
+      *     the menu. But the uer can always find a way to place an element on top of it.
+      * 3 - Other libraries do not run a test of this type for their similar component.
+      * */
+    });
+
+    describe('must close when closeOnOuterClick is true and',() => {
+      it('user clicks outside of the menu', async () => {
+        // Opens the menu
+        await triggerClick(page, activatorId);
+        await page.waitForChanges();
+        const menuRect = await getElementClientRect(page,'kup-menu');
+
+        // Moves mouse
+        await page.mouse.click(Math.round(menuRect.right) + 20, Math.round(menuRect.bottom) + 20);
+        // Necessary to wwait for the transition of the element to be completed.
+        await page.waitFor(1000);
+
+        const isClosed = await menuIsClosed(element);
+
+        expect(isClosed).toBeTruthy();
+      });
+
+
+      it.skip('user scrolls the main document', async () => {
+
+      });
+
+
+      it.skip('user presses the "Escape" button', async () => {
+
+      });
+    });
   });
+
+
+  it.skip('can render additional slots',  () => {
+
+  });
+
 });
