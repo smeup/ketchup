@@ -35,7 +35,7 @@ describe('KetchUP menu component', () => {
       page = await newE2EPage();
 
       // Creates content
-      await page.setContent('<button id="' + (activatorId.replace('#', '')) + '">Click me to trigger the menu<kup-menu>' + menuContentItems + '</kup-menu></button>');
+      await page.setContent('<button id="' + (activatorId.replace('#', '')) + '">Click me to trigger the menu<kup-menu>' + menuContentItems + '</kup-menu></button><div id="scroller"></div>');
       element = await page.find('kup-menu');
       await page.waitForChanges();
 
@@ -104,20 +104,53 @@ describe('KetchUP menu component', () => {
       });
 
 
-      it.skip('user scrolls the main document', async () => {
+      it('user scrolls the main document', async () => {
+        // Styles the div to make it big enough to enable a page scroll
+        await page.addStyleTag({
+          content: `
+            #scroller {
+              background-color: red;
+              display: block;
+              height: 1500px;
+              width: 200px;
+            }
+          `
+        });
+        await page.waitForChanges();
 
-      });
+        // Opens the menu
+        await triggerClick(page, activatorId);
+        await page.waitForChanges();
+        await page.waitFor(1000);
+
+        // Scrolls page
+        // https://github.com/puppeteer/puppeteer/issues/305
+        // Using the scroll on the document element does not work
+        await page.evaluate(() => {
+          window.scrollBy(0, window.innerHeight);
+        });
+        await page.waitFor(1000);
+
+        // Checks if closed
+        const isClosed = await menuIsClosed(element);
+        expect(isClosed).toBeTruthy();
+      }, 10000);
 
 
-      it.skip('user presses the "Escape" button', async () => {
+      it('user presses the "Escape" button', async () => {
+        // Opens the menu
+        await triggerClick(page, activatorId);
+        await page.waitForChanges();
+        await page.waitFor(1000);
 
-      });
+        // Closes the menu by pressing escape
+        await page.keyboard.press('Escape');
+        await page.waitFor(1000);
+
+        // Checks if closed
+        const isClosed = await menuIsClosed(element);
+        expect(isClosed).toBeTruthy();
+      }, 10000);
     });
   });
-
-
-  it.skip('can render additional slots',  () => {
-
-  });
-
 });
