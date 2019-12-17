@@ -3,7 +3,7 @@
     <h1 class="team-title">Meet the team</h1>
     <div class="team-member even">
       <div class="member-image">
-        <img src="images/lucafoscili.jpg" />
+        <img src="images/lucafoscili.JPG" />
         <div class="member-image-description">Luca Foscili</div>
         <a
           title="Reach out on Telegram"
@@ -33,7 +33,7 @@
     </div>
     <div class="team-member odd">
       <div class="member-image">
-        <img src="images/arthas.jpg" />
+        <img src="images/arthas.JPG" />
         <div class="member-image-description">The Lich King</div>
         <a
           href="mailto:lichking@smeup.com"
@@ -91,7 +91,7 @@
     </div>
     <div class="team-member odd">
       <div class="member-image">
-        <img src="images/sylvanas.jpg" />
+        <img src="images/sylvanas.JPG" />
         <div class="member-image-description">The Banshee Queen</div>
         <a
           href="mailto:bansheequeen@smeup.com"

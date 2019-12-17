@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <html-basic></html-basic>
     </template>
@@ -17,7 +17,8 @@ export default {
   },
   data() {
     return {
-      titles: ['Html'],
+      headtitle: 'Html',
+      titles: ['Basic usage'],
     };
   },
 };

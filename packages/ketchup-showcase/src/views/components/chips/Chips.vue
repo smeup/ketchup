@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <chips-basic></chips-basic>
     </template>
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      titles: ['Chips', 'Chips knowledge'],
+      headtitle: 'Chips',
+      titles: ['Basic usage', 'Chips knowledge'],
     };
   },
 };

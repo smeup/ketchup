@@ -16,8 +16,19 @@ function checkNav() {
   }
   for (let i = 0; i < elements.length; i++) {
     if (isElementPartiallyInViewport(elements[i], offset)) {
-      listLabels[i].classList.add('active');
-      return; // After the first match is found we go back, we want only one element highlighted
+      var lastEl = elements.length - 1;
+      var currentPos = window.scrollY || window.screenTop;
+      var maxPos =
+        window.scrollMaxY ||
+        document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+      if (maxPos - currentPos < 10) {
+        listLabels[lastEl].classList.add('active');
+        return; // After the first match is found we go back, we want only one element highlighted
+      } else {
+        listLabels[i].classList.add('active');
+        return; // After the first match is found we go back, we want only one element highlighted
+      }
     }
   }
 }
@@ -51,7 +62,7 @@ function isElementPartiallyInViewport(el, offset) {
 
 function scrollToSmoothly() {
   var listLabels = document.querySelectorAll('.page-nav-element');
-  var elements = document.querySelectorAll('.section h1');
+  var elements = document.querySelectorAll('.section .nav-title');
 
   for (let i = 0; i < listLabels.length; i++) {
     if (event.target.textContent === listLabels[i].textContent) {
@@ -67,16 +78,24 @@ function scrollToSmoothly() {
   }
   var currentPos = window.scrollY || window.screenTop;
   if (currentPos < pos) {
-    for (let i = currentPos; i <= pos; i += 1) {
-      setTimeout(function() {
-        window.scrollTo(0, i);
-      }, 1);
+    if (pos - currentPos < 3000) {
+      for (let i = currentPos; i <= pos; i += 1) {
+        setTimeout(function() {
+          window.scrollTo(0, i);
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, pos);
     }
   } else {
-    for (let i = currentPos; i >= pos; i -= 1) {
-      setTimeout(function() {
-        window.scrollTo(0, i);
-      }, 1);
+    if (currentPos - pos < 3000) {
+      for (let i = currentPos; i >= pos; i -= 1) {
+        setTimeout(function() {
+          window.scrollTo(0, i);
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, pos);
     }
   }
 }

@@ -27,6 +27,7 @@ export const config: Config = {
     ],
     plugins: [
         sass({
+            includePaths: ['./node_modules'],
             injectGlobalPaths: [
                 'src/style/_variables.scss',
                 'src/style/_generic-style.scss',

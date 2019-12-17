@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <box-basic></box-basic>
     </template>
@@ -72,8 +72,9 @@ export default {
   },
   data() {
     return {
+      headtitle: 'Box',
       titles: [
-        'Box',
+        'Basic usage',
         'CSS Classes',
         'With badges',
         'With filters',

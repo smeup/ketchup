@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <datatable-basic></datatable-basic>
     </template>
@@ -107,8 +107,9 @@ export default {
   },
   data() {
     return {
+      headtitle: 'Data table',
       titles: [
-        'Data Table',
+        'Basic usage',
         'With checkboxes',
         'Custom column width',
         'With filters',

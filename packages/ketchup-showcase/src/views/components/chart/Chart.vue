@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <chart-basic></chart-basic>
     </template>
@@ -82,8 +82,9 @@ export default {
   },
   data() {
     return {
+      headtitle: 'Chart',
       titles: [
-        'Chart',
+        'Basic usage',
         'Area',
         'Bar',
         'Bubble',

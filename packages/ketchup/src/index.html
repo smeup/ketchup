@@ -96,40 +96,105 @@
         <kup-fld id="fld-6-upload"></kup-fld>
 
         <h4>Input text type password</h4>
-        <kup-text-input input-type="password" initial-value="pippo" debounce="100" is-clearable></kup-text-input>
+        <kup-text-input
+            input-type="password"
+            initial-value="pippo"
+            debounce="100"
+            is-clearable
+        ></kup-text-input>
 
         <h4>The gauge</h4>
         <h5>Valori positivi e negativi con uno o più thresholds</h5>
         <kup-gauge value="-50" size="300"></kup-gauge>
         <kup-gauge value="0" size="300" first-threshold="-25"></kup-gauge>
-        <kup-gauge value="50" size="300" first-threshold="-25" second-threshold="50"></kup-gauge>
+        <kup-gauge
+            value="50"
+            size="300"
+            first-threshold="-25"
+            second-threshold="50"
+        ></kup-gauge>
         <h5>Valori positivi</h5>
-        <kup-gauge value="150" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+        <kup-gauge
+            value="150"
+            min-value="80"
+            max-value="350"
+            first-threshold="150"
+            second-threshold="275"
+            value-size="3"
+        ></kup-gauge>
         <h5>Valori negativi</h5>
-        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit="°F"></kup-gauge>
+        <kup-gauge
+            value="-257"
+            min-value="-500"
+            max-value="-100"
+            first-threshold="-300"
+            second-threshold="-200"
+            measurement-unit="°F"
+        ></kup-gauge>
         <h5>Casi di errore</h5>
-        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit=""></kup-gauge>
+        <kup-gauge
+            value="-257"
+            min-value="-500"
+            max-value="-100"
+            first-threshold="-300"
+            second-threshold="-200"
+            measurement-unit=""
+        ></kup-gauge>
         <h5>Valori negativi e colori invertiti</h5>
-        <kup-gauge value="-257" min-value="-500" max-value="-100" first-threshold="-300" second-threshold="-200" measurement-unit="°F" reverse-colors></kup-gauge>
+        <kup-gauge
+            value="-257"
+            min-value="-500"
+            max-value="-100"
+            first-threshold="-300"
+            second-threshold="-200"
+            measurement-unit="°F"
+            reverse-colors
+        ></kup-gauge>
         <h5>Arc thickness</h5>
         <kup-gauge value="50" arc-thickness="40"></kup-gauge>
         <kup-gauge value="50" arc-thickness="20"></kup-gauge>
         <h5>Colors</h5>
-        <kup-gauge id="gaucolor" value="150" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+        <kup-gauge
+            id="gaucolor"
+            value="150"
+            min-value="80"
+            max-value="350"
+            first-threshold="150"
+            second-threshold="275"
+            value-size="3"
+        ></kup-gauge>
         <h5>OnlyValue</h5>
-        <kup-gauge only-value=true value="220" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
+        <kup-gauge
+            only-value="true"
+            value="220"
+            min-value="80"
+            max-value="350"
+            first-threshold="150"
+            second-threshold="275"
+            value-size="3"
+        ></kup-gauge>
         <h5>OnlyValue reverted colors</h5>
-        <kup-gauge reverse-colors=true only-value=true value="100" min-value="80" max-value="350" first-threshold="150" second-threshold="275" value-size="3"></kup-gauge>
- 
+        <kup-gauge
+            reverse-colors="true"
+            only-value="true"
+            value="100"
+            min-value="80"
+            max-value="350"
+            first-threshold="150"
+            second-threshold="275"
+            value-size="3"
+        ></kup-gauge>
+
         <h4>The Checkbox</h4>
         <kup-checkbox></kup-checkbox>
         <kup-checkbox checked></kup-checkbox>
         <kup-checkbox disabled></kup-checkbox>
+        <h4>Material Checkbox (widget)</h4>
+        <wup-checkbox></wup-checkbox>
 
         <script>
-
             let gaucolor = document.getElementById('gaucolor');
-            gaucolor.colors=['red','yellow','green'];
+            gaucolor.colors = ['red', 'yellow', 'green'];
 
             let once = true;
             // This is a script for testing these elements
@@ -273,7 +338,7 @@
                         },
                         showSubmit: true,
                         submitLabel: 'Conferma 1',
-                        valueField: 'obj'
+                        valueField: 'obj',
                     };
                     fld_2.data = [
                         {
@@ -350,22 +415,27 @@
                     });
 
                     // Radio FLD
-                    const fldRadioInitial = document.querySelector('#fld-radio-initialValue');
-                    fldRadioInitial.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Radio FLD change', payload);
-                    });
-                    fldRadioInitial.config = {
-                        "type": "rad",
-                        "showSubmit": false,
-                        "valueField": "value",
-                        "displayedField": "value",
-                        "extensions": {
-                            "minQueryLength": 4,
-                            "forceSelection": true
-                        },
-                        "initialValue": {
-                            "value": "PRVSHO"
+                    const fldRadioInitial = document.querySelector(
+                        '#fld-radio-initialValue'
+                    );
+                    fldRadioInitial.addEventListener(
+                        'ketchupFldChanged',
+                        (payload) => {
+                            console.log('Radio FLD change', payload);
                         }
+                    );
+                    fldRadioInitial.config = {
+                        type: 'rad',
+                        showSubmit: false,
+                        valueField: 'value',
+                        displayedField: 'value',
+                        extensions: {
+                            minQueryLength: 4,
+                            forceSelection: true,
+                        },
+                        initialValue: {
+                            value: 'PRVSHO',
+                        },
                     };
                     fldRadioInitial.data = [
                         { value: 'PRVSHO' },
@@ -374,17 +444,17 @@
                     ];
 
                     // Text FLD
-                    const textFld = document.querySelector("#fld-5-text");
+                    const textFld = document.querySelector('#fld-5-text');
                     textFld.config = {
-                        "type": "itx",
-                        "showSubmit": true,
-                        "valueField": "value",
-                        "displayedField": "value",
-                        "extensions": {
-                            "minQueryLength": 4,
-                            "forceSelection": true
+                        type: 'itx',
+                        showSubmit: true,
+                        valueField: 'value',
+                        displayedField: 'value',
+                        extensions: {
+                            minQueryLength: 4,
+                            forceSelection: true,
                         },
-                        "submitLabel": "Prova submit"
+                        submitLabel: 'Prova submit',
                     };
                     textFld.addEventListener('ketchupFldChanged', (payload) => {
                         console.log('Text FLD change', payload);
@@ -393,23 +463,36 @@
                         console.log('Text FLD submit', payload);
                     });
                     /**/
-                    const textFld_6_upload = document.querySelector("#fld-6-upload");
+                    const textFld_6_upload = document.querySelector(
+                        '#fld-6-upload'
+                    );
                     textFld_6_upload.config = {
-                        "type": "fup"
+                        type: 'fup',
                     };
-                    /**/                                     
+                    /**/
 
                     // For the password field
-                    const inPassword = document.querySelector('kup-text-input[input-type="password"]');
-                    inPassword.addEventListener('ketchupTextInputFocused', (e) => {
-                        console.log('Password has been FOCUSED', e);
-                    });
-                    inPassword.addEventListener('ketchupTextInputBlurred', (e) => {
-                        console.log('#Password has been BLURRED', e);
-                    });
-                    inPassword.addEventListener('ketchupTextInputUpdated', (e) => {
-                        console.log('Password has been UPDATED', e);
-                    });
+                    const inPassword = document.querySelector(
+                        'kup-text-input[input-type="password"]'
+                    );
+                    inPassword.addEventListener(
+                        'ketchupTextInputFocused',
+                        (e) => {
+                            console.log('Password has been FOCUSED', e);
+                        }
+                    );
+                    inPassword.addEventListener(
+                        'ketchupTextInputBlurred',
+                        (e) => {
+                            console.log('#Password has been BLURRED', e);
+                        }
+                    );
+                    inPassword.addEventListener(
+                        'ketchupTextInputUpdated',
+                        (e) => {
+                            console.log('Password has been UPDATED', e);
+                        }
+                    );
                 }
             }, 5000);
         </script>
@@ -640,16 +723,8 @@
         </div>
 
         <h1>html frame component</h1>
-        <kup-html
-            id="htm-2"
-            src="https://www.google.it/"
-            is-button
-        ></kup-html>
-        <kup-html
-            id="htm-1"
-            src="https://stenciljs.com/"
-            is-button
-        ></kup-html>
+        <kup-html id="htm-2" src="https://www.google.it/" is-button></kup-html>
+        <kup-html id="htm-1" src="https://stenciljs.com/" is-button></kup-html>
 
         <script>
             const firstHtm = document.querySelector('#htm-1');

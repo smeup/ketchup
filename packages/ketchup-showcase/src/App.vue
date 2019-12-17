@@ -27,7 +27,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.componentsItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.componentsItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -44,7 +48,33 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.javascriptItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.javascriptItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
+
+            <v-list-tile
+              v-for="route in group.widgetsItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -111,12 +141,6 @@ export default {
             },
           },
           {
-            title: `Checkbox`,
-            to: {
-              name: 'checkbox',
-            },
-          },
-          {
             title: `Chips`,
             to: {
               name: 'chips',
@@ -180,6 +204,17 @@ export default {
             title: 'Tree',
             to: {
               name: 'tree',
+            },
+          },
+        ],
+      },
+      {
+        title: 'Widgets',
+        widgetsItems: [
+          {
+            title: `Checkbox`,
+            to: {
+              name: 'checkbox',
             },
           },
         ],

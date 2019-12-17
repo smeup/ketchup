@@ -33,3 +33,24 @@ $mainShadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 
 //---- Transitions ----
 $trn-time: 0.6s;
+
+//---- M A T E R I A L   D E S I G N   C O M P O N E N T S ----
+//
+//---- Theming and global settings ----
+$mdc-theme-primary: #4e908f;
+$mdc-theme-secondary: #5db8b6;
+$mdc-theme-on-primary: #ffffff;
+$mdc-theme-on-secondary: #f0f0f0;
+$mdc-ripple-color: rgb(255, 165, 0);
+$mdc-density: -3;
+//---- Checkbox ----
+$mdc-checkbox-border-unmarked: rgb(255, 255, 0);
+$mdc-checkbox-fill-unmarked: rgb(0, 0, 255);
+$mdc-checkbox-border-marked: rgb(255, 192, 203);
+$mdc-checkbox-fill-marked: rgb(128, 0, 128);
+$mdc-checkbox-ink: rgb(0, 128, 0);
+$mdc-checkbox-border-disabled-unmarked: rgb(255, 255, 0, 0.5);
+$mdc-checkbox-fill-disabled-unmarked: rgb(0, 0, 255, 0.5);
+$mdc-checkbox-border-disabled-marked: rgb(255, 192, 203, 0.5);
+$mdc-checkbox-fill-disabled-marked: rgb(128, 0, 128, 0.5);
+$mdc-checkbox-ink-disabled: rgb(0, 128, 0, 0.5);

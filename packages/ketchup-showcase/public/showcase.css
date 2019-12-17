@@ -8,8 +8,13 @@ html {
   font-size: var(--main-font-size) !important;
 }
 
+.container {
+  padding: 20px 40px;
+}
+
 h1 {
   font-size: 2.5rem;
+  font-weight: 400;
   margin: 0 0 1rem !important;
 }
 
@@ -19,6 +24,11 @@ h2 {
 }
 
 h3 {
+  border-bottom: 1px solid;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  line-height: 2rem;
   margin: 3rem 0 1rem !important;
 }
 
@@ -41,7 +51,7 @@ h3 {
 }
 
 .section {
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
 }
 
 #page-nav {
@@ -57,7 +67,7 @@ h3 {
   min-height: 45px;
 }
 
-.page-nav-element  {
+.page-nav-element {
   max-height: 22px;
   margin-top: 8px;
   display: block;
@@ -67,7 +77,7 @@ h3 {
 }
 
 .page-nav-element.active {
-  color: #D41124;
+  color: #d41124;
   opacity: 1;
 }
 
@@ -89,6 +99,7 @@ h3 {
     right: unset;
     top: unset;
     width: 100%;
+    margin-bottom: 4rem;
   }
 
   .page-nav-list {
@@ -96,7 +107,9 @@ h3 {
   }
 
   .page-nav-element {
+    max-height: unset;
     text-align: center;
+    padding-top: 15px;
   }
 }
 
@@ -116,6 +129,54 @@ h3 {
 
 i.v-icon.material-icons {
   color: var(--main-text-color);
+}
+
+.demo-container {
+  max-width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+.demo-container code.flat {
+  margin-bottom: 30px;
+}
+
+.kup-container {
+  display: inline-flex;
+  margin: 30px 0;
+}
+
+.demo-wrapper {
+  margin-bottom: 60px;
+}
+
+code.flat {
+  background: none;
+  border-radius: 0;
+  box-shadow: 0 0 2px 0px rgb(128, 128, 128);
+  color: #d41124;
+  display: flex;
+  font-family: Roboto Mono, consolas, monospace;
+  font-size: 16px;
+  font-weight: 500;
+  margin: auto;
+  max-width: 100%;
+  padding: 20px 10px;
+  width: max-content;
+}
+
+.code-word {
+  color: #3a3a3a;
+  font-family: Roboto Mono, consolas, monospace;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.centered {
+  margin: auto;
+  width: max-content;
+  display: flex;
+  margin-bottom: 10px;
 }
 
 /* Navigation bar and footer */
@@ -168,17 +229,17 @@ main.v-content {
   color: var(--main-text-color) !important;
 }
 
-
 main.v-content {
   background: var(--main-background-color) !important;
 }
 
 aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
-  background: #ffffff
+  background: #ffffff;
 }
 
-#inspire.theme--dark aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
-  background: #2e2e2e
+#inspire.theme--dark
+  aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
+  background: #2e2e2e;
 }
 
 div.v-list {
