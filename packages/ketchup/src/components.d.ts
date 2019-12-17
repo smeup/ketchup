@@ -727,6 +727,32 @@ export namespace Components {
   interface KupUpload {
     'typeOptions': UploadProps;
   }
+  interface WupCheckbox {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked': boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate': boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft': string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright': string;
+  }
 }
 
 declare global {
@@ -911,6 +937,12 @@ declare global {
     prototype: HTMLKupUploadElement;
     new (): HTMLKupUploadElement;
   };
+
+  interface HTMLWupCheckboxElement extends Components.WupCheckbox, HTMLStencilElement {}
+  var HTMLWupCheckboxElement: {
+    prototype: HTMLWupCheckboxElement;
+    new (): HTMLWupCheckboxElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
@@ -942,6 +974,7 @@ declare global {
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
+    'wup-checkbox': HTMLWupCheckboxElement;
   }
 }
 
@@ -1825,6 +1858,35 @@ declare namespace LocalJSX {
     'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
     'typeOptions'?: UploadProps;
   }
+  interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked'?: boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate'?: boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft'?: string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright'?: string;
+    'onComponentChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;
@@ -1857,6 +1919,7 @@ declare namespace LocalJSX {
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
+    'wup-checkbox': WupCheckbox;
   }
 }
 
