@@ -17,7 +17,7 @@ import {
 })
 export class KupCheckbox {
     /**
-     * Sets the checkbox to be disabled
+     * Sets the checkbox to be checked
      */
     @Prop({ mutable: true, reflect: true}) checked: boolean = false;
     /**
