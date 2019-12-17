@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <checkbox-basic></checkbox-basic>
     </template>
@@ -18,7 +18,8 @@ export default {
 
   data() {
     return {
-      titles: ['Checkbox'],
+      headtitle: 'Checkbox',
+      titles: ['Basic usage'],
     };
   },
 };

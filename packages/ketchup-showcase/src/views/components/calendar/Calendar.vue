@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <calendar-basic></calendar-basic>
     </template>
@@ -32,7 +32,8 @@ export default {
   },
   data() {
     return {
-      titles: ['Calendar', 'With events', 'With icons', 'Style'],
+      headtitle: 'Button',
+      titles: ['Basic usage', 'With events', 'With icons', 'Style'],
     };
   },
 };

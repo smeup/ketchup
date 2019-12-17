@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <tree-basic></tree-basic>
     </template>
@@ -27,7 +27,8 @@ export default {
   },
   data() {
     return {
-      titles: ['Tree', 'Dynamic expansion', 'Table format'],
+      headtitle: 'Tree',
+      titles: ['Basic usage', 'Dynamic expansion', 'Table format'],
     };
   },
 };

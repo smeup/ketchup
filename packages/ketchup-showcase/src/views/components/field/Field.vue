@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :titles="titles" :headtitle="headtitle">
     <template v-slot:0>
       <field-basic></field-basic>
     </template>
@@ -32,7 +32,8 @@ export default {
   },
   data() {
     return {
-      titles: ['Field', 'Combo', 'Graphic', 'Radio'],
+      headtitle: 'Field',
+      titles: ['Basic usage', 'Combo', 'Graphic', 'Radio'],
     };
   },
 };
