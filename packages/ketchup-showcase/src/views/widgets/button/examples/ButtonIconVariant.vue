@@ -18,12 +18,14 @@
 
     <div class="demo-wrapper">
       <p
-        >The icon button can also work as a toggle between on and off. To use it
-        in this way, you need to specify the attribute
-        <span class="code-word">toggable</span>.</p
+        >The icon button can also work as a toggler switching between ON and
+        OFF. To use it in this way, you need to specify the attribute
+        <span class="code-word">toggable</span>. To render an icon toggled ON,
+        use the attribute <span class="code-word">checked</span>.</p
       ><div class="demo-container">
         <div class="kup-container">
           <wup-button toggable icon="favorite"></wup-button>
+          <wup-button toggable checked icon="favorite"></wup-button>
         </div>
         <p class="centered">Toggable icon button sample markup</p>
         <code class="flat">{{ markupIconButtonToggable }}</code>

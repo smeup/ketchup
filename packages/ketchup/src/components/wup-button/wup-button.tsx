@@ -33,6 +33,10 @@ export class WupButton {
      */
     @Prop() toggable: boolean = false;
     /**
+     * Defaults at false. When set to true, the icon button state will be on.
+     */
+    @Prop() checked: boolean = false;
+    /**
      * Defaults at null. When set, the button will show this icon.
      */
     @Prop() icon: string = null;
@@ -153,10 +157,21 @@ export class WupButton {
             );
             if (this.toggable) {
                 componentClass += ' toggable';
+                trailingEl = (
+                    <i
+                        class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
+                        aria-hidden="true"
+                    >
+                        {this.icon}
+                    </i>
+                );
+                if (this.checked) {
+                    componentClass += ' mdc-icon-button--on';
+                }
                 let iconOff = this.icon + '_border';
                 leadingEl = (
                     <i
-                        class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on"
+                        class="material-icons mdc-icon-button__icon"
                         aria-hidden="true"
                     >
                         {iconOff}

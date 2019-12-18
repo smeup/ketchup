@@ -9,6 +9,7 @@
 
 | Property       | Attribute      | Description                                                                              | Type      | Default |
 | -------------- | -------------- | ---------------------------------------------------------------------------------------- | --------- | ------- |
+| `checked`      | `checked`      | Defaults at false. When set to true, the icon button state will be on.                   | `boolean` | `false` |
 | `custom`       | `custom`       | Defaults at false. When set to true, mixins and classes of customization are enabled.    | `boolean` | `false` |
 | `disabled`     | `disabled`     | Defaults at false. When set to true, the component is disabled.                          | `boolean` | `false` |
 | `flat`         | `flat`         | Defaults at false. When set to true, the button will be rendered flat.                   | `boolean` | `false` |

@@ -729,6 +729,10 @@ export namespace Components {
   }
   interface WupButton {
     /**
+    * Defaults at false. When set to true, the icon button state will be on.
+    */
+    'checked': boolean;
+    /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
     */
     'custom': boolean;
@@ -1962,6 +1966,10 @@ declare namespace LocalJSX {
     'typeOptions'?: UploadProps;
   }
   interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
+    /**
+    * Defaults at false. When set to true, the icon button state will be on.
+    */
+    'checked'?: boolean;
     /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
     */
