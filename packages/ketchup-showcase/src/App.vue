@@ -217,6 +217,18 @@ export default {
               name: 'checkbox',
             },
           },
+          {
+            title: `Radio`,
+            to: {
+              name: 'radio',
+            },
+          },
+          {
+            title: `Switch`,
+            to: {
+              name: 'switch',
+            },
+          },
         ],
       },
       {

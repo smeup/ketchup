@@ -41,11 +41,6 @@ let componentsRoutes = [
     component: () => import(`@/views/components/chart/Chart.vue`),
   },
   {
-    path: `/checkbox`,
-    name: 'checkbox',
-    component: () => import(`@/views/components/checkbox/Checkbox.vue`),
-  },
-  {
     path: `/chips`,
     name: 'chips',
     component: () => import(`@/views/components/chips/Chips.vue`),
@@ -117,7 +112,30 @@ let javascriptRoutes = [
   },
 ];
 
-const routes = [...baseRoutes, ...componentsRoutes, ...javascriptRoutes];
+let widgetRoutes = [
+  {
+    path: `/checkbox`,
+    name: 'checkbox',
+    component: () => import(`@/views/widgets/checkbox/Checkbox.vue`),
+  },
+  {
+    path: `/radio`,
+    name: 'radio',
+    component: () => import(`@/views/widgets/radio/Radio.vue`),
+  },
+  {
+    path: `/switch`,
+    name: 'switch',
+    component: () => import(`@/views/widgets/switch/Switch.vue`),
+  },
+];
+
+const routes = [
+  ...baseRoutes,
+  ...componentsRoutes,
+  ...javascriptRoutes,
+  ...widgetRoutes,
+];
 
 export default new Router({
   // If you want to activate the history mode, remember to follow the instructions regarding publicPath prop

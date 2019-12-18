@@ -753,6 +753,50 @@ export namespace Components {
     */
     'labelright': string;
   }
+  interface WupRadio {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked': boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft': string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright': string;
+  }
+  interface WupSwitch {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked': boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft': string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright': string;
+  }
 }
 
 declare global {
@@ -943,6 +987,18 @@ declare global {
     prototype: HTMLWupCheckboxElement;
     new (): HTMLWupCheckboxElement;
   };
+
+  interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
+  var HTMLWupRadioElement: {
+    prototype: HTMLWupRadioElement;
+    new (): HTMLWupRadioElement;
+  };
+
+  interface HTMLWupSwitchElement extends Components.WupSwitch, HTMLStencilElement {}
+  var HTMLWupSwitchElement: {
+    prototype: HTMLWupSwitchElement;
+    new (): HTMLWupSwitchElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
@@ -975,6 +1031,8 @@ declare global {
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
     'wup-checkbox': HTMLWupCheckboxElement;
+    'wup-radio': HTMLWupRadioElement;
+    'wup-switch': HTMLWupSwitchElement;
   }
 }
 
@@ -1887,6 +1945,56 @@ declare namespace LocalJSX {
       checked: boolean;
     }>) => void;
   }
+  interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked'?: boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft'?: string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright'?: string;
+    'onComponentChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+  }
+  interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked'?: boolean;
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    */
+    'labelleft'?: string;
+    /**
+    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    */
+    'labelright'?: string;
+    'onComponentChange'?: (event: CustomEvent<{
+      checked: boolean;
+    }>) => void;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;
@@ -1920,6 +2028,8 @@ declare namespace LocalJSX {
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
     'wup-checkbox': WupCheckbox;
+    'wup-radio': WupRadio;
+    'wup-switch': WupSwitch;
   }
 }
 
