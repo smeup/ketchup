@@ -16,7 +16,8 @@
   --checkbox_tick-color: var(--kup-checkbox_tick-color, #{$smeup-primary});
   --checkbox_tick-color-disabled: var(--kup-checkbox_tick-color-disabled, #{lighten($smeup-primary, 20)});
 
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 
 /**
@@ -84,5 +85,12 @@
         border-right-color: var(--checkbox_tick-color-disabled);
       }
     }
+  }
+
+  // The label of the button
+  &__label {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8px; // TODO if necessary add css variable
   }
 }
