@@ -125,7 +125,7 @@ export default {
           {
             title: `Button`,
             to: {
-              name: 'button',
+              name: 'btn',
             },
           },
           {
@@ -211,6 +211,12 @@ export default {
       {
         title: 'Widgets',
         widgetsItems: [
+          {
+            title: `Button`,
+            to: {
+              name: 'button',
+            },
+          },
           {
             title: `Checkbox`,
             to: {

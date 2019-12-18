@@ -727,6 +727,44 @@ export namespace Components {
   interface KupUpload {
     'typeOptions': UploadProps;
   }
+  interface WupButton {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered flat.
+    */
+    'flat': boolean;
+    /**
+    * Defaults at null. When set, the button will show this icon.
+    */
+    'icon': string;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'rounded': boolean;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'text': string;
+    /**
+    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    */
+    'toggable': boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingicon': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'transparent': boolean;
+  }
   interface WupCheckbox {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -982,6 +1020,12 @@ declare global {
     new (): HTMLKupUploadElement;
   };
 
+  interface HTMLWupButtonElement extends Components.WupButton, HTMLStencilElement {}
+  var HTMLWupButtonElement: {
+    prototype: HTMLWupButtonElement;
+    new (): HTMLWupButtonElement;
+  };
+
   interface HTMLWupCheckboxElement extends Components.WupCheckbox, HTMLStencilElement {}
   var HTMLWupCheckboxElement: {
     prototype: HTMLWupCheckboxElement;
@@ -1030,6 +1074,7 @@ declare global {
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
+    'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
@@ -1916,6 +1961,44 @@ declare namespace LocalJSX {
     'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
     'typeOptions'?: UploadProps;
   }
+  interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered flat.
+    */
+    'flat'?: boolean;
+    /**
+    * Defaults at null. When set, the button will show this icon.
+    */
+    'icon'?: string;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'rounded'?: boolean;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'text'?: string;
+    /**
+    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    */
+    'toggable'?: boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingicon'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'transparent'?: boolean;
+  }
   interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -2027,6 +2110,7 @@ declare namespace LocalJSX {
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
+    'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;

@@ -44,6 +44,11 @@ $mdc-theme-on-primary: #ffffff;
 $mdc-theme-on-secondary: #f0f0f0;
 $mdc-ripple-color: rgb(255, 165, 0);
 $mdc-density: -3;
+//---- Button ----
+$mdc-button-fill: rgb(128, 0, 128);
+$mdc-button-ink: rgb(0, 128, 0);
+$mdc-button-height-in-px: 50px;
+$mdc-button-border-radius: 0px;
 //---- Checkbox ----
 $mdc-checkbox-border-unmarked: rgb(255, 255, 0);
 $mdc-checkbox-fill-unmarked: rgb(0, 0, 255);
