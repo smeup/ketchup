@@ -15,15 +15,15 @@ import {
     Host,
     h,
 } from '@stencil/core';
-import { MDCCheckbox } from '@material/checkbox';
+import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 
 @Component({
-    tag: 'wup-checkbox',
-    styleUrl: 'wup-checkbox.scss',
+    tag: 'wup-radio',
+    styleUrl: 'wup-radio.scss',
     shadow: true,
 })
-export class WupCheckbox {
+export class WupRadio {
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
@@ -36,10 +36,6 @@ export class WupCheckbox {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
-    /**
-     * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-     */
-    @Prop() indeterminate: boolean = false;
     /**
      * Defaults at null. When specified, its content is shown to the left of the component as a label.
      */
@@ -79,8 +75,8 @@ export class WupCheckbox {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
-            const component = MDCCheckbox.attachTo(
-                root.querySelector('.mdc-checkbox')
+            const component = MDCRadio.attachTo(
+                root.querySelector('.mdc-radio')
             );
             const formField = MDCFormField.attachTo(
                 root.querySelector('.mdc-form-field')
@@ -93,7 +89,7 @@ export class WupCheckbox {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-checkbox';
+        let componentClass: string = 'mdc-radio';
         let componentLabel: string = '';
 
         if (this.custom) {
@@ -101,11 +97,11 @@ export class WupCheckbox {
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-checkbox--disabled';
+            componentClass += ' mdc-radio--disabled';
         }
 
         if (this.checked) {
-            componentClass += ' mdc-checkbox--checked';
+            componentClass += ' mdc-radio--checked';
         }
 
         if (this.labelleft) {
@@ -118,33 +114,22 @@ export class WupCheckbox {
         return (
             <Host checked={this.checked}>
                 <div class={formClass}>
-                    <div id="checkbox-wrapper" class={componentClass}>
-                        {/* 
-                            // @ts-ignore */}
+                    <div class={componentClass}>
                         <input
-                            type="checkbox"
-                            class="mdc-checkbox__native-control"
+                            class="mdc-radio__native-control"
+                            type="radio"
+                            id="radio-id"
                             checked={this.checked}
                             disabled={this.disabled}
-                            indeterminate={this.indeterminate}
                             onChange={this.onComponentChange.bind(this)}
-                        />
-                        <div class="mdc-checkbox__background">
-                            <svg
-                                class="mdc-checkbox__checkmark"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    class="mdc-checkbox__checkmark-path"
-                                    fill="none"
-                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                                />
-                            </svg>
-                            <div class="mdc-checkbox__mixedmark"></div>
+                        ></input>
+                        <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
                         </div>
-                        <div class="mdc-checkbox__ripple"></div>
+                        <div class="mdc-radio__ripple"></div>
                     </div>
-                    <label htmlFor="checkbox-wrapper">{componentLabel}</label>
+                    <label htmlFor="radio-id">{componentLabel}</label>
                 </div>
             </Host>
         );

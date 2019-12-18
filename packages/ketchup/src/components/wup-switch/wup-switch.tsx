@@ -15,15 +15,15 @@ import {
     Host,
     h,
 } from '@stencil/core';
-import { MDCCheckbox } from '@material/checkbox';
+import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
 
 @Component({
-    tag: 'wup-checkbox',
-    styleUrl: 'wup-checkbox.scss',
+    tag: 'wup-switch',
+    styleUrl: 'wup-switch.scss',
     shadow: true,
 })
-export class WupCheckbox {
+export class WupSwitch {
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
@@ -36,10 +36,6 @@ export class WupCheckbox {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
-    /**
-     * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-     */
-    @Prop() indeterminate: boolean = false;
     /**
      * Defaults at null. When specified, its content is shown to the left of the component as a label.
      */
@@ -79,8 +75,8 @@ export class WupCheckbox {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
-            const component = MDCCheckbox.attachTo(
-                root.querySelector('.mdc-checkbox')
+            const component = MDCSwitch.attachTo(
+                root.querySelector('.mdc-switch')
             );
             const formField = MDCFormField.attachTo(
                 root.querySelector('.mdc-form-field')
@@ -93,7 +89,7 @@ export class WupCheckbox {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-checkbox';
+        let componentClass: string = 'mdc-switch';
         let componentLabel: string = '';
 
         if (this.custom) {
@@ -101,11 +97,11 @@ export class WupCheckbox {
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-checkbox--disabled';
+            componentClass += ' mdc-switch--disabled';
         }
 
         if (this.checked) {
-            componentClass += ' mdc-checkbox--checked';
+            componentClass += ' mdc-switch--checked';
         }
 
         if (this.labelleft) {
@@ -118,33 +114,23 @@ export class WupCheckbox {
         return (
             <Host checked={this.checked}>
                 <div class={formClass}>
-                    <div id="checkbox-wrapper" class={componentClass}>
-                        {/* 
-                            // @ts-ignore */}
-                        <input
-                            type="checkbox"
-                            class="mdc-checkbox__native-control"
-                            checked={this.checked}
-                            disabled={this.disabled}
-                            indeterminate={this.indeterminate}
-                            onChange={this.onComponentChange.bind(this)}
-                        />
-                        <div class="mdc-checkbox__background">
-                            <svg
-                                class="mdc-checkbox__checkmark"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    class="mdc-checkbox__checkmark-path"
-                                    fill="none"
-                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                                />
-                            </svg>
-                            <div class="mdc-checkbox__mixedmark"></div>
+                    <div class={componentClass}>
+                        <div class="mdc-switch__track"></div>
+                        <div class="mdc-switch__thumb-underlay">
+                            <div class="mdc-switch__thumb">
+                                <input
+                                    type="checkbox"
+                                    id="switch-id"
+                                    class="mdc-switch__native-control"
+                                    role="switch"
+                                    checked={this.checked}
+                                    disabled={this.disabled}
+                                    onChange={this.onComponentChange.bind(this)}
+                                ></input>
+                            </div>
                         </div>
-                        <div class="mdc-checkbox__ripple"></div>
                     </div>
-                    <label htmlFor="checkbox-wrapper">{componentLabel}</label>
+                    <label htmlFor="switch-id">{componentLabel}</label>
                 </div>
             </Host>
         );

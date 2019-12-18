@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import CheckboxBasic from '@/views/components/checkbox/examples/CheckboxBasic';
-import CheckboxLabels from '@/views/components/checkbox/examples/CheckboxLabels';
-import CheckboxDisabled from '@/views/components/checkbox/examples/CheckboxDisabled';
-import CheckboxCustomization from '@/views/components/checkbox/examples/CheckboxCustomization';
+import CheckboxBasic from '@/views/widgets/checkbox/examples/CheckboxBasic';
+import CheckboxLabels from '@/views/widgets/checkbox/examples/CheckboxLabels';
+import CheckboxDisabled from '@/views/widgets/checkbox/examples/CheckboxDisabled';
+import CheckboxCustomization from '@/views/widgets/checkbox/examples/CheckboxCustomization';
 import Comp from '@/views/components/page/templates/Comp';
 export default {
   components: {
