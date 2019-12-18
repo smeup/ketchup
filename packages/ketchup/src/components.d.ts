@@ -41,6 +41,9 @@ import {
   ChartType,
 } from './components/kup-chart/kup-chart-declarations';
 import {
+  KupCheckboxMenuItem,
+} from './components/kup-checkbox-menu/kup-checkbox-menu-declarations';
+import {
   ComboItem,
   KetchupComboEvent,
 } from './components/kup-combo/kup-combo-declarations';
@@ -228,7 +231,7 @@ export namespace Components {
   }
   interface KupCheckbox {
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be checked
     */
     'checked': boolean;
     /**
@@ -243,6 +246,40 @@ export namespace Components {
     * Sets the tabindex of the checkbox
     */
     'setTabIndex': number;
+    /**
+    * If true, shows the label by using a label tag
+    */
+    'showLabel': boolean;
+  }
+  interface KupCheckboxMenu {
+    /**
+    * Sets if the checkbox menu should be disabled
+    */
+    'disabled': boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * The label to show as a placeholder inside the filter input
+    */
+    'filterLabel': string;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items': KupCheckboxMenuItem[];
+    /**
+    * The label to set to the component
+    */
+    'label': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KupChip {
     'closable': boolean;
@@ -1030,6 +1067,12 @@ declare global {
     new (): HTMLKupCheckboxElement;
   };
 
+  interface HTMLKupCheckboxMenuElement extends Components.KupCheckboxMenu, HTMLStencilElement {}
+  var HTMLKupCheckboxMenuElement: {
+    prototype: HTMLKupCheckboxMenuElement;
+    new (): HTMLKupCheckboxMenuElement;
+  };
+
   interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
   var HTMLKupChipElement: {
     prototype: HTMLKupChipElement;
@@ -1230,6 +1273,7 @@ declare global {
     'kup-chart': HTMLKupChartElement;
     'kup-chart-cell': HTMLKupChartCellElement;
     'kup-checkbox': HTMLKupCheckboxElement;
+    'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
     'kup-chip': HTMLKupChipElement;
     'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combo': HTMLKupComboElement;
@@ -1490,7 +1534,7 @@ declare namespace LocalJSX {
   }
   interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be checked
     */
     'checked'?: boolean;
     /**
@@ -1523,6 +1567,44 @@ declare namespace LocalJSX {
     * Sets the tabindex of the checkbox
     */
     'setTabIndex'?: number;
+    /**
+    * If true, shows the label by using a label tag
+    */
+    'showLabel'?: boolean;
+  }
+  interface KupCheckboxMenu extends JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement> {
+    /**
+    * Sets if the checkbox menu should be disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * The label to show as a placeholder inside the filter input
+    */
+    'filterLabel'?: string;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items'?: KupCheckboxMenuItem[];
+    /**
+    * The label to set to the component
+    */
+    'label'?: string;
+    /**
+    * Fired when the checkbox input changes its value
+    */
+    'onKupCheckboxMenuSelected'?: (event: CustomEvent<KupCheckboxMenuItem[]>) => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
     'closable'?: boolean;
@@ -2415,6 +2497,7 @@ declare namespace LocalJSX {
     'kup-chart': KupChart;
     'kup-chart-cell': KupChartCell;
     'kup-checkbox': KupCheckbox;
+    'kup-checkbox-menu': KupCheckboxMenu;
     'kup-chip': KupChip;
     'kup-chip-knowledge': KupChipKnowledge;
     'kup-combo': KupCombo;
