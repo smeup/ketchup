@@ -7,6 +7,10 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
         <title>Stencil Component Starter</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        ></link>
         <script src="https://d3js.org/d3-path.v1.min.js"></script>
         <script src="https://d3js.org/d3-shape.v1.min.js"></script>
         <script type="module" src="/build/mycomponent.esm.js"></script>
@@ -195,6 +199,30 @@
         <wup-radio></wup-radio>
         <h4>Material Switch (widget)</h4>
         <wup-switch></wup-switch>
+        <h4>Material Buttons (widget)</h4>
+        <wup-button></wup-button>
+        <wup-button icon="favorite"></wup-button>
+        <wup-button toggable icon="favorite"></wup-button>
+        <wup-button toggable checked icon="favorite"></wup-button>
+        <wup-button disabled icon="favorite"></wup-button>
+        <wup-button text="Default (flat)"></wup-button>
+        <wup-button raised text="Raised"></wup-button>
+        <wup-button raised disabled text="Raised & disabled"></wup-button>
+        <wup-button raised icon="favorite" text="Raised favorite"></wup-button>
+        <wup-button
+            raised
+            trailingicon
+            icon="favorite"
+            text="Raised trailing favorite"
+        ></wup-button>
+        <wup-button transparent text="Transparent"></wup-button>
+        <wup-button rounded text="Shaped"></wup-button>
+        <wup-button rounded raised text="Shaped & raised"></wup-button>
+        <wup-button
+            rounded
+            transparent
+            text="Shaped & transparent"
+        ></wup-button>
 
         <script>
             let gaucolor = document.getElementById('gaucolor');

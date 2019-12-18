@@ -1,0 +1,62 @@
+/**
+* @prop --btn_border-radius, --kup-button_border-radius: Sets border radius of the button.
+* @prop --btn_font-family, --kup-button_font-family: sets the font family of the button
+* @prop --btn_font-size, --kup-button_font-size: Sets button font size.
+* @prop --btn_font-style, --kup-button_font-style: Sets button font style.
+* @prop --btn_font-weight, --kup-button_font-weight: Sets the font weight of the button
+* @prop --btn_height, --kup-button_height: Sets height of the button.
+* @prop --btn_icon-color, --kup-button_icon-color: Sets icon color.
+* @prop --btn_icon-size, --kup-button_icon-size: Set icon size.
+* @prop --btn_main-color, --kup-button_main-color: Sets the main color of the button.
+* @prop --btn_text-color, --kup-button_text-color: Sets color of the button text.
+* @prop --btn_text-decoration, --kup-button_text-decoration: Sets decoration of the button text.
+*/
+
+@import '@material/button/mdc-button';
+@import '@material/icon-button/mdc-icon-button';
+
+:host {
+  display: block;
+}
+
+.mdc-button {
+  @include mdc-states(#fff);
+
+  &.button-shaped,
+  &.button-shaped .mdc-button__ripple {
+    border-radius: 18px;
+  }
+
+  &.fillspace {
+    width: 100%;
+  }
+
+  &.custom {
+    @include mdc-button-container-fill-color($mdc-button-fill);
+    @include mdc-button-ink-color($mdc-button-ink);
+    @include mdc-button-height($mdc-button-height-in-px, structure);
+    @include mdc-button-shape-radius($mdc-button-border-radius);
+  }
+}
+
+.mdc-icon-button {
+  &.custom {
+    @include mdc-icon-button-ink-color($mdc-button-ink);
+  }
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

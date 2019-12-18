@@ -26,8 +26,8 @@ let componentsRoutes = [
     component: () => import(`@/views/components/box/Box.vue`),
   },
   {
-    path: `/button`,
-    name: 'button',
+    path: `/btn`,
+    name: 'btn',
     component: () => import(`@/views/components/button/Button.vue`),
   },
   {
@@ -113,6 +113,11 @@ let javascriptRoutes = [
 ];
 
 let widgetRoutes = [
+  {
+    path: `/button`,
+    name: 'button',
+    component: () => import(`@/views/widgets/button/Button.vue`),
+  },
   {
     path: `/checkbox`,
     name: 'checkbox',
