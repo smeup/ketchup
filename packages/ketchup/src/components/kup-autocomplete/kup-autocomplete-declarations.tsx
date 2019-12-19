@@ -14,3 +14,7 @@ export enum AutocompleteSortOrder {
   INCREASING = 'increasing',
 }
 
+export interface KupAutocompleteOption {
+  code: string;
+  description: string;
+}
