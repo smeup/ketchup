@@ -21,6 +21,11 @@ const baseRoutes = [
 
 let componentsRoutes = [
   {
+    path: `/autocomplete`,
+    name: 'autocomplete',
+    component: () => import(`@/views/components/autocomplete/Autocomplete.vue`),
+  },
+  {
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/components/box/Box.vue`),

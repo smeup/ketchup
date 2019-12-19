@@ -9,7 +9,7 @@
     <v-btn @click="plainButtonClick">
       A plain Vuetify button
       <kup-menu :is-active="plainButtonMenu"
-        @ketchupMenuClose="plainButtonMenu = false">
+        @kupMenuClose="plainButtonMenu = false">
         <p>First menu item</p>
         <p>second menu item</p>
       </kup-menu>
@@ -24,7 +24,7 @@
       <kup-menu
         :is-active="plainBetterButtonMenu"
         :positionRelativeTo.prop="plainBetterButtonReference"
-        @ketchupMenuClose="plainBetterButtonMenu = false">
+        @kupMenuClose="plainBetterButtonMenu = false">
         <p>First menu item</p>
         <p>second menu item</p>
       </kup-menu>
@@ -54,7 +54,7 @@
       <kup-menu
         :isActive.prop="betterWithAllSlots"
         :positionRelativeTo.prop="betterWithAllSlotsReference"
-        @ketchupMenuClose="betterWithAllSlots = false">
+        @kupMenuClose="betterWithAllSlots = false">
         <p
           class="name-slotted no-margin"
           slot="top-container">Top slot</p>
@@ -84,7 +84,7 @@
       :isActive.prop="remoteActivation"
       :positionRelativeTo.prop="remoteActivationReference"
       :deactivationRelativeTo.prop="remoteButtonRef"
-      @ketchupMenuClose="remoteActivation = false">
+      @kupMenuClose="remoteActivation = false">
       <p
         v-for="(item, key) in menuTestItems"
         :key="key"

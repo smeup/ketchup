@@ -203,7 +203,7 @@ export class KupCheckboxMenu {
 
         <kup-menu
           isActive={this.menuIsOpen}
-          onKetchupMenuClose={this.closeMenu.bind(this)}>
+          onKupMenuClose={this.closeMenu.bind(this)}>
           <div
             class="checkbox-menu-header"
             slot="top-container">
