@@ -77,8 +77,18 @@ h3 {
 }
 
 .page-nav-element.active {
-  color: #d41124;
-  opacity: 1;
+  color: #d41124; 
+}
+
+#inspire.theme--dark
+.page-nav-element {
+  color: #9a9a9a; 
+}
+
+#inspire.theme--dark
+.page-nav-element.active {
+  color: var(--main-color);
+  
 }
 
 .page-nav-element:hover {
@@ -172,10 +182,9 @@ code.flat {
   font-weight: 600;
 }
 
-#inspire.theme--dark .code-word {
+#inspire.theme--dark .code-word, #inspire.theme--dark code.flat {
   color: var(--main-color);
 }
-
 
 .centered {
   margin: auto;
