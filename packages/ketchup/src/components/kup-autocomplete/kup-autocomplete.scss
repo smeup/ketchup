@@ -9,4 +9,20 @@
   &-multiple-selection-container {
 
   }
+
+  &__item-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: background-color .4s;
+
+      &:hover {
+        background-color: $gray-a0;
+      }
+    }
+  }
 }

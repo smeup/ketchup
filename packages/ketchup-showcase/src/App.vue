@@ -87,6 +87,12 @@ export default {
         title: 'Components',
         componentsItems: [
           {
+            title: 'Autocomplete',
+            to: {
+              name: 'autocomplete',
+            },
+          },
+          {
             title: 'Box',
             to: {
               name: 'box',

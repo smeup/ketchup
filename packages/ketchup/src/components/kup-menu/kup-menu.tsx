@@ -105,18 +105,18 @@ export class KupMenu {
    * When the menu gets closed.
    */
   @Event({
-    eventName: 'ketchupMenuClose',
+    eventName: 'kupMenuClose',
     composed: true,
     cancelable: false,
     bubbles: true,
   })
-  ketchupMenuClose: EventEmitter<void>;
+  kupMenuClose: EventEmitter<void>;
 
 
   //-------- Methods --------
   closeMenu() {
     this.isActive = false;
-    this.ketchupMenuClose.emit();
+    this.kupMenuClose.emit();
   }
 
   @Listen('keyup', {target: 'document'})

@@ -7,6 +7,10 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  AutocompleteDisplayMode,
+  KupAutocompleteOption,
+} from './components/kup-autocomplete/kup-autocomplete-declarations';
+import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
@@ -87,6 +91,40 @@ import {
 } from './components/kup-upload/kup-upload-declarations';
 
 export namespace Components {
+  interface KupAutocomplete {
+    /**
+    * Sets if the autocomplete should be enabled or not
+    */
+    'disabled': boolean;
+    /**
+    * Selects how the autocomplete items must display their label and how they can be filtered for
+    */
+    'displayMode': AutocompleteDisplayMode;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items': KupAutocompleteOption[];
+    /**
+    * The minimum number of chars to trigger the autocomplete
+    */
+    'minimumChars': number;
+    /**
+    * Allows more than one option to be selected at the same time.
+    */
+    'multipleSelection': boolean;
+    /**
+    * The placeholder string to set to the input for the autocomplete
+    */
+    'placeholder': string;
+    /**
+    * Shows the icon to clear the input
+    */
+    'showClearIcon': boolean;
+    /**
+    * Shows icon to force the dropdown menu to be opened
+    */
+    'showDropdownIcon': boolean;
+  }
   interface KupBadge {
     'icon': string;
     'position': BadgePosition;
@@ -806,6 +844,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {}
+  var HTMLKupAutocompleteElement: {
+    prototype: HTMLKupAutocompleteElement;
+    new (): HTMLKupAutocompleteElement;
+  };
+
   interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {}
   var HTMLKupBadgeElement: {
     prototype: HTMLKupBadgeElement;
@@ -1004,6 +1048,7 @@ declare global {
     new (): HTMLKupUploadElement;
   };
   interface HTMLElementTagNameMap {
+    'kup-autocomplete': HTMLKupAutocompleteElement;
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
@@ -1041,6 +1086,44 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface KupAutocomplete extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
+    /**
+    * Sets if the autocomplete should be enabled or not
+    */
+    'disabled'?: boolean;
+    /**
+    * Selects how the autocomplete items must display their label and how they can be filtered for
+    */
+    'displayMode'?: AutocompleteDisplayMode;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items'?: KupAutocompleteOption[];
+    /**
+    * The minimum number of chars to trigger the autocomplete
+    */
+    'minimumChars'?: number;
+    /**
+    * Allows more than one option to be selected at the same time.
+    */
+    'multipleSelection'?: boolean;
+    /**
+    * Fired when the checkbox input changes its value
+    */
+    'onKupAutocompleteSelectionUpdate'?: (event: CustomEvent<KupAutocompleteOption[]>) => void;
+    /**
+    * The placeholder string to set to the input for the autocomplete
+    */
+    'placeholder'?: string;
+    /**
+    * Shows the icon to clear the input
+    */
+    'showClearIcon'?: boolean;
+    /**
+    * Shows icon to force the dropdown menu to be opened
+    */
+    'showDropdownIcon'?: boolean;
+  }
   interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
     'icon'?: string;
     'position'?: BadgePosition;
@@ -1701,7 +1784,7 @@ declare namespace LocalJSX {
     /**
     * When the menu gets closed.
     */
-    'onKetchupMenuClose'?: (event: CustomEvent<void>) => void;
+    'onKupMenuClose'?: (event: CustomEvent<void>) => void;
     /**
     * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
     */
@@ -2002,6 +2085,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'kup-autocomplete': KupAutocomplete;
     'kup-badge': KupBadge;
     'kup-box': KupBox;
     'kup-btn': KupBtn;

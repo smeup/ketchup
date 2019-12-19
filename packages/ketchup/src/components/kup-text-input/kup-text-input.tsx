@@ -271,6 +271,8 @@ export class KupTextInput {
                         placeholder={this.placeholder}
                     />
 
+                  <slot name="right"/>
+
                     {this.isClearable ? (
                         <button
                             aria-label="Close"
