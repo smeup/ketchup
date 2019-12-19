@@ -839,6 +839,64 @@ export namespace Components {
     */
     'labelright': string;
   }
+  interface WupTextField {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full width.
+    */
+    'fullwidth': boolean;
+    /**
+    * Defaults at null. When set, its content will be shown as a help text below the field.
+    */
+    'helper': string;
+    /**
+    * Defaults at false. When set, the helper will be shown only when the field is focused.
+    */
+    'helperwhenfocus': boolean;
+    /**
+    * Defaults at null. When set, the text-field will show this icon.
+    */
+    'icon': string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label.
+    */
+    'label': string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    */
+    'labelleft': string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label to the right in a form.
+    */
+    'labelright': string;
+    /**
+    * Defaults at null. When set, the helper will display a character counter.
+    */
+    'maxlength': number;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as an outlined field.
+    */
+    'outlined': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'rounded': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as a textarea.
+    */
+    'textarea': boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingicon': boolean;
+  }
 }
 
 declare global {
@@ -1047,6 +1105,12 @@ declare global {
     prototype: HTMLWupSwitchElement;
     new (): HTMLWupSwitchElement;
   };
+
+  interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
+  var HTMLWupTextFieldElement: {
+    prototype: HTMLWupTextFieldElement;
+    new (): HTMLWupTextFieldElement;
+  };
   interface HTMLElementTagNameMap {
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
@@ -1082,6 +1146,7 @@ declare global {
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
+    'wup-text-field': HTMLWupTextFieldElement;
   }
 }
 
@@ -2086,6 +2151,64 @@ declare namespace LocalJSX {
       checked: boolean;
     }>) => void;
   }
+  interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full width.
+    */
+    'fullwidth'?: boolean;
+    /**
+    * Defaults at null. When set, its content will be shown as a help text below the field.
+    */
+    'helper'?: string;
+    /**
+    * Defaults at false. When set, the helper will be shown only when the field is focused.
+    */
+    'helperwhenfocus'?: boolean;
+    /**
+    * Defaults at null. When set, the text-field will show this icon.
+    */
+    'icon'?: string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label.
+    */
+    'label'?: string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    */
+    'labelleft'?: string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label to the right in a form.
+    */
+    'labelright'?: string;
+    /**
+    * Defaults at null. When set, the helper will display a character counter.
+    */
+    'maxlength'?: number;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as an outlined field.
+    */
+    'outlined'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'rounded'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as a textarea.
+    */
+    'textarea'?: boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingicon'?: boolean;
+  }
 
   interface IntrinsicElements {
     'kup-badge': KupBadge;
@@ -2122,6 +2245,7 @@ declare namespace LocalJSX {
     'wup-checkbox': WupCheckbox;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
+    'wup-text-field': WupTextField;
   }
 }
 
