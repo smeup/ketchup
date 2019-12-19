@@ -172,6 +172,11 @@ code.flat {
   font-weight: 600;
 }
 
+#inspire.theme--dark .code-word {
+  color: var(--main-color);
+}
+
+
 .centered {
   margin: auto;
   width: max-content;
