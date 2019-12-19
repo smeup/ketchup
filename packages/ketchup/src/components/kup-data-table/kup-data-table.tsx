@@ -716,7 +716,8 @@ export class KupDataTable {
     }
 
     private hasTotals() {
-        return this.totals && Object.keys(this.totals).length > 0;
+        const realtotals = normalizeTotals(this.getColumns(), this.totals);
+        return realtotals && Object.keys(realtotals).length > 0;
     }
 
     /**
@@ -1051,7 +1052,7 @@ export class KupDataTable {
             this.getColumns(),
             this.rows,
             this.groups,
-            this.totals
+            normalizeTotals(this.getColumns(), this.totals)
         );
 
         this.adjustGroupState();
