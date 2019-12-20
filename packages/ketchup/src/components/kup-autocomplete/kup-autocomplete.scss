@@ -18,8 +18,9 @@
     > li {
       cursor: pointer;
       padding: 4px 8px;
-      transition: background-color .4s;
+      transition: background-color .2s;
 
+      &.keyboard-selected,
       &:hover {
         background-color: $gray-a0;
       }
