@@ -1,6 +1,9 @@
-import {Component, Event, EventEmitter, h, Prop, State, Watch,} from '@stencil/core';
+import {Component, Element, Event, EventEmitter, h, Listen, Prop, State, Watch,} from '@stencil/core';
 
 import {AutocompleteDisplayMode, KupAutocompleteOption,} from './kup-autocomplete-declarations';
+
+import {isEventFromElement} from '../../utils/utils';
+import {GenericObject} from "../../types/GenericTypes";
 
 @Component({
   tag: 'kup-autocomplete',
@@ -45,6 +48,9 @@ export class KupAutocomplete {
 
 
   //---- Internal state ----
+  @Element()
+  hostEl: HTMLKupAutocompleteElement;
+
   @State()
   currentFilter: string = '';
 
@@ -53,6 +59,13 @@ export class KupAutocomplete {
 
   @State()
   selectedItems: KupAutocompleteOption[] = [];
+
+  @State()
+  keyboardSelectedItem: KupAutocompleteOption | undefined;
+
+  currentlyFilteredItems: KupAutocompleteOption[] = [];
+  listRef: HTMLUListElement;
+  scrollIntoViewFlag: boolean = false;
 
   //---- Public events ----
 
@@ -67,7 +80,36 @@ export class KupAutocomplete {
   })
   kupAutocompleteSelectionUpdate: EventEmitter<KupAutocompleteOption[]>;
 
+  //---- Lifecycle hooks ----
+  componentDidRender() {
+    if (this.listRef && this.keyboardSelectedItem && this.scrollIntoViewFlag) {
+      const toMakeVisible: HTMLElement = this.listRef.querySelector('[data-code="' + this.keyboardSelectedItem.code + '"]');
+      if (toMakeVisible && toMakeVisible.scrollIntoView) {
+        toMakeVisible.scrollIntoView();
+      }
+      this.scrollIntoViewFlag = false;
+    }
+  }
+
   //-------- Methods --------
+
+  addItemToSelection(toAdd: KupAutocompleteOption) {
+    if (!this.multipleSelection) {
+      this.selectedItems = [toAdd];
+      this.emitAutocompleteSelectionUpdate();
+      this.closeMenu();
+      //TODO update the value of the text input
+    } else {
+      if (!this.itemIsSelected(toAdd)) {
+        this.selectedItems = [
+          ...this.selectedItems,
+          toAdd
+        ];
+        this.emitAutocompleteSelectionUpdate();
+        this.closeMenu();
+      }
+    }
+  }
 
   closeMenu() {
     this.menuIsOpen = false;
@@ -75,6 +117,15 @@ export class KupAutocomplete {
 
   emitAutocompleteSelectionUpdate() {
     this.kupAutocompleteSelectionUpdate.emit(this.selectedItems);
+  }
+
+  findItemIndexInCollection({code}: KupAutocompleteOption, collectionToSearchFor: KupAutocompleteOption[] = this.currentlyFilteredItems): number {
+    for (let i = 0; i < collectionToSearchFor.length; i++) {
+      if (collectionToSearchFor[i].code === code) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   /**
@@ -111,39 +162,11 @@ export class KupAutocomplete {
    * @param checkFilterLength - If set to true, also checks if the minimum length of the filter is respected before opening the menu
    */
   openMenu(checkFilterLength: boolean = false) {
-    console.log(this.currentFilter);
     if (
       !this.disabled && !this.menuIsOpen &&
       (!checkFilterLength || (checkFilterLength && this.currentFilter && this.currentFilter.length >= this.minimumChars))
     ) {
       this.menuIsOpen = true;
-    }
-  }
-
-  //---- Watchers ----
-  @Watch('disabled')
-  closeOnDisabledTrue(newValue: boolean) {
-    if (newValue) {
-      this.closeMenu();
-    }
-  }
-
-  //-- Events handlers --
-  addItemToSelection(toAdd: KupAutocompleteOption) {
-    if (!this.multipleSelection) {
-      this.selectedItems = [toAdd];
-      this.emitAutocompleteSelectionUpdate();
-      this.closeMenu();
-      //TODO update the value of the text input
-    } else {
-      if (!this.itemIsSelected(toAdd)) {
-        this.selectedItems = [
-          ...this.selectedItems,
-          toAdd
-        ];
-        this.emitAutocompleteSelectionUpdate();
-        this.closeMenu();
-      }
     }
   }
 
@@ -171,20 +194,110 @@ export class KupAutocomplete {
     this.currentFilter = newFilter;
   }
 
-  //---- Lifecycle hooks ----
+  //---- Watchers ----
+  @Watch('disabled')
+  closeOnDisabledTrue(newValue: boolean) {
+    if (newValue) {
+      this.closeMenu();
+    }
+  }
+
+  //-- Events handlers --
+  handleArrowDown() {
+    // If there are no selected items or the selected item is the last of the list, we set it to the first element
+    if (!this.keyboardSelectedItem || this.keyboardSelectedItem.code === this.currentlyFilteredItems[this.currentlyFilteredItems.length - 1].code) {
+      this.keyboardSelectedItem = this.currentlyFilteredItems[0];
+    } else {
+      // We have a selected item which is not the last one, we move it to the next
+      const itemIndex = this.findItemIndexInCollection(this.keyboardSelectedItem);
+      this.keyboardSelectedItem = itemIndex >= 0 ? this.currentlyFilteredItems[itemIndex + 1] : undefined;
+    }
+
+    this.scrollIntoViewFlag = true;
+    this.openMenu();
+  }
+
+  handleArrowUp() {
+    // If there are no selected items or the selected item is the last of the list, we set it to the last
+    if (!this.keyboardSelectedItem || this.keyboardSelectedItem.code === this.currentlyFilteredItems[0].code) {
+      this.keyboardSelectedItem = this.currentlyFilteredItems[this.currentlyFilteredItems.length - 1];
+    } else {
+      // We have a selected item which is not the first one, we move it to the previous
+      const itemIndex = this.findItemIndexInCollection(this.keyboardSelectedItem);
+      this.keyboardSelectedItem = itemIndex >= 0 ? this.currentlyFilteredItems[itemIndex - 1] : undefined;
+    }
+
+    this.scrollIntoViewFlag = true;
+    this.openMenu();
+  }
+
+  handleEnter() {
+    if (this.keyboardSelectedItem) {
+      this.addItemToSelection(this.keyboardSelectedItem);
+      this.keyboardSelectedItem = undefined;
+    }
+  }
+
+  @Listen('keyup', {target: 'document'})
+  keyupListener(e: KeyboardEvent) {
+
+    // We execute the handlers only if there are some displayed items AND (the menu is open OR the current filter is long enough)
+    if (
+      (this.menuIsOpen || (isEventFromElement(e,this.hostEl) && this.currentFilter && this.currentFilter.length >= this.minimumChars))
+      && (this.currentlyFilteredItems && this.currentlyFilteredItems.length)
+    ) {
+      switch (e.key) {
+        case "Down": // IE/Edge specific value
+        case "ArrowDown":
+          this.handleArrowDown();
+          break;
+        case "Up": // IE/Edge specific value
+        case "ArrowUp":
+          this.handleArrowUp();
+          break;
+        case "Enter":
+          this.handleEnter();
+          break;
+        default:
+          return; // Quit when this doesn't handle the key event.
+      }
+    }
+  }
 
   //---- Render ----
   composeAutocompleteItemList() {
     const lowercaseFilter = this.currentFilter.toLowerCase();
+    let foundKeyboardSelectedItem: boolean = false;
 
-    return this.items.filter(item => {
+    // Stores the filtered items for keyboard interaction use
+    this.currentlyFilteredItems = this.items.filter(item => {
       return this.getItemLabel(item, ' - ').toLowerCase().indexOf(lowercaseFilter) >= 0;
-    })
-      .map(item => {
+    });
+
+    // Creates elements to render
+    const itemsToReturn = this.currentlyFilteredItems.map(item => {
+        let classes: GenericObject = {};
+
+        if (!foundKeyboardSelectedItem && this.keyboardSelectedItem && this.keyboardSelectedItem.code === item.code) {
+          this.keyboardSelectedItem = item;
+          foundKeyboardSelectedItem = true;
+          classes['keyboard-selected'] = true;
+        }
+
         return <li
+          class={classes}
+          data-code={item.code}
           onClick={() => this.addItemToSelection(item)}
         >{this.getItemLabel(item)}</li>
       });
+
+    // When, among the filtered items to render there is no keyboardSelectedItem,
+    // then it means it was filtered so we remove it from selection.
+    if (!foundKeyboardSelectedItem) {
+      this.keyboardSelectedItem = undefined;
+    }
+
+    return itemsToReturn;
   }
 
   composeMultipleSelectionContainer() {
@@ -218,7 +331,9 @@ export class KupAutocomplete {
             isActive={this.menuIsOpen}
             slot="left"
             onKupMenuClose={() => {this.closeMenu()}}>
-            <ul class="autocomplete__item-list">
+            <ul
+              class="autocomplete__item-list"
+              ref={(el) => this.listRef = el as HTMLUListElement}>
               {this.composeAutocompleteItemList()}
             </ul>
           </kup-menu>
