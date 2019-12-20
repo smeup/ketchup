@@ -8,6 +8,8 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   AutocompleteDisplayMode,
+  AutocompleteSortBy,
+  AutocompleteSortOrder,
   KupAutocompleteOption,
 } from './components/kup-autocomplete/kup-autocomplete-declarations';
 import {
@@ -104,6 +106,7 @@ export namespace Components {
     * Sets the checkbox to be disabled  Must have reflect into the attribute
     */
     'items': KupAutocompleteOption[];
+    'limitResults': number;
     /**
     * The minimum number of chars to trigger the autocomplete
     */
@@ -128,6 +131,14 @@ export namespace Components {
     * Shows icon to force the dropdown menu to be opened
     */
     'showDropdownIcon': boolean;
+    /**
+    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+    */
+    'sortBy': AutocompleteSortBy;
+    /**
+    * Decides which type of sort must be applied to the list of rendered items.
+    */
+    'sortOrder': AutocompleteSortOrder;
   }
   interface KupBadge {
     'icon': string;
@@ -1107,6 +1118,7 @@ declare namespace LocalJSX {
     * Sets the checkbox to be disabled  Must have reflect into the attribute
     */
     'items'?: KupAutocompleteOption[];
+    'limitResults'?: number;
     /**
     * The minimum number of chars to trigger the autocomplete
     */
@@ -1135,6 +1147,14 @@ declare namespace LocalJSX {
     * Shows icon to force the dropdown menu to be opened
     */
     'showDropdownIcon'?: boolean;
+    /**
+    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+    */
+    'sortBy'?: AutocompleteSortBy;
+    /**
+    * Decides which type of sort must be applied to the list of rendered items.
+    */
+    'sortOrder'?: AutocompleteSortOrder;
   }
   interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
     'icon'?: string;

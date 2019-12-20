@@ -19,7 +19,7 @@
         @kupAutocompleteSelectionUpdate="logEvent"/>
       <kup-autocomplete
         :items.prop="items"
-        display-mode="label"
+        display-mode="description"
         @kupAutocompleteSelectionUpdate="logEvent"/>
     </div>
 
@@ -42,7 +42,7 @@
       show-dropdown-icon
       @kupAutocompleteSelectionUpdate="logEvent"/>
 
-    <h3>Change number of chars necessary to trigger the autocomplete</h3>
+    <h3>Change number of filter chars necessary to trigger the autocomplete</h3>
     <div class="example-container">
       <kup-autocomplete
         :items.prop="items"
@@ -55,6 +55,30 @@
         show-clear-icon
         @kupAutocompleteSelectionUpdate="logEvent"/>
     </div>
+
+    <h3>With sorting by code or sorting by description (decreasing order)</h3>
+    <div class="example-container">
+      <kup-autocomplete
+        :items.prop="items"
+        :sortOrder.prop="'decreasing'"
+        display-mode="code"
+        sort-by="code"
+        show-dropdown-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+      <kup-autocomplete
+        :items.prop="items"
+        :sortOrder.prop="'decreasing'"
+        display-mode="description"
+        sort-by="description"
+        show-dropdown-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+    </div>
+
+    <h3>Limit results to: {{ limitResultsTo }} items</h3>
+    <kup-autocomplete
+      :items.prop="items"
+      :limit-results.prop="limitResultsTo"
+      @kupAutocompleteSelectionUpdate="logEvent"/>
 
     <h3>Autocomplete with multiple selection</h3>
     <kup-autocomplete
@@ -83,7 +107,8 @@ export default {
   data() {
     return {
       items: AutocompleteItemFactory(),
-      itemsMultiple: AutocompleteItemFactory(30, 'MUL', 'MulDes')
+      itemsMultiple: AutocompleteItemFactory(30, 'MUL', 'MulDes'),
+      limitResultsTo: 5,
     };
   },
   methods: {
