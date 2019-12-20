@@ -234,6 +234,11 @@ export default {
             to: {
               name: 'switch',
             },
+          },    {	
+            title: `Text field`,	
+            to: {	
+              name: 'textfield',	
+            },	
           },
         ],
       },
