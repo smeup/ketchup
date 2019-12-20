@@ -1,9 +1,62 @@
 <template>
-  <div>
+  <div class="max-width-container">
+    <h3>Basic autocomplete</h3>
     <kup-autocomplete
       :items.prop="items"
       @kupAutocompleteSelectionUpdate="logEvent"/>
 
+    <h3>Autocomplete disabled</h3>
+    <kup-autocomplete
+      :items.prop="items"
+      disabled
+      @kupAutocompleteSelectionUpdate="logEvent"/>
+
+    <h3>Display mode code and mode description</h3>
+    <div class="example-container">
+      <kup-autocomplete
+        :items.prop="items"
+        display-mode="code"
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+      <kup-autocomplete
+        :items.prop="items"
+        display-mode="label"
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+    </div>
+
+    <h3>Show clear icon or dropdown icon</h3>
+    <div class="example-container">
+      <kup-autocomplete
+        :items.prop="items"
+        show-clear-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+      <kup-autocomplete
+        :items.prop="items"
+        show-dropdown-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+    </div>
+
+    <h3>Show clear icon and dropdown icon</h3>
+    <kup-autocomplete
+      :items.prop="items"
+      show-clear-icon
+      show-dropdown-icon
+      @kupAutocompleteSelectionUpdate="logEvent"/>
+
+    <h3>Change number of chars necessary to trigger the autocomplete</h3>
+    <div class="example-container">
+      <kup-autocomplete
+        :items.prop="items"
+        minimum-chars="2"
+        show-clear-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+      <kup-autocomplete
+        :items.prop="items"
+        minimum-chars="5"
+        show-clear-icon
+        @kupAutocompleteSelectionUpdate="logEvent"/>
+    </div>
+
+    <h3>Autocomplete with multiple selection</h3>
     <kup-autocomplete
       :items.prop="itemsMultiple"
       multiple-selection

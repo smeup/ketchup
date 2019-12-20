@@ -113,6 +113,10 @@ export namespace Components {
     */
     'multipleSelection': boolean;
     /**
+    * Label shown when there are no items found with a given filter
+    */
+    'noItemsLabel': string;
+    /**
     * The placeholder string to set to the input for the autocomplete
     */
     'placeholder': string;
@@ -729,6 +733,10 @@ export namespace Components {
   }
   interface KupTextInput {
     /**
+    * Imperatively sets a new value of the input.
+    */
+    'changeValue': (newValue: string, emitEvent?: boolean) => Promise<boolean>;
+    /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
     */
     'debounce': number;
@@ -1107,6 +1115,10 @@ declare namespace LocalJSX {
     * Allows more than one option to be selected at the same time.
     */
     'multipleSelection'?: boolean;
+    /**
+    * Label shown when there are no items found with a given filter
+    */
+    'noItemsLabel'?: string;
     /**
     * Fired when the checkbox input changes its value
     */

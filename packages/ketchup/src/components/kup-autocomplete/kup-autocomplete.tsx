@@ -26,6 +26,10 @@ export class KupAutocomplete {
    */
   @Prop() items: KupAutocompleteOption[] = [];
   /**
+   * Label shown when there are no items found with a given filter
+   */
+  @Prop() noItemsLabel: string = 'There are no items which\nmatch with the given filter.';
+  /**
    * The minimum number of chars to trigger the autocomplete
    */
   @Prop({reflect: true}) minimumChars: number = 3;
@@ -64,6 +68,7 @@ export class KupAutocomplete {
   keyboardSelectedItem: KupAutocompleteOption | undefined;
 
   currentlyFilteredItems: KupAutocompleteOption[] = [];
+  filterInputRef: HTMLKupTextInputElement;
   listRef: HTMLUListElement;
   scrollIntoViewFlag: boolean = false;
 
@@ -98,7 +103,9 @@ export class KupAutocomplete {
       this.selectedItems = [toAdd];
       this.emitAutocompleteSelectionUpdate();
       this.closeMenu();
-      //TODO update the value of the text input
+      if (this.filterInputRef) {
+        this.filterInputRef.changeValue(this.getItemLabel(toAdd), true);
+      }
     } else {
       if (!this.itemIsSelected(toAdd)) {
         this.selectedItems = [
@@ -107,6 +114,7 @@ export class KupAutocomplete {
         ];
         this.emitAutocompleteSelectionUpdate();
         this.closeMenu();
+        this.filterInputRef.changeValue('', true);
       }
     }
   }
@@ -164,7 +172,7 @@ export class KupAutocomplete {
   openMenu(checkFilterLength: boolean = false) {
     if (
       !this.disabled && !this.menuIsOpen &&
-      (!checkFilterLength || (checkFilterLength && this.currentFilter && this.currentFilter.length >= this.minimumChars))
+      (!checkFilterLength || (checkFilterLength && this.currentFilter && this.currentFilter.length >= this.minimumChars) || (this.currentlyFilteredItems && this.currentlyFilteredItems.length < 1))
     ) {
       this.menuIsOpen = true;
     }
@@ -313,28 +321,38 @@ export class KupAutocomplete {
     }</div>;
   }
 
-
   render() {
+    const autocompleteItems = this.composeAutocompleteItemList();
+
     return (
-      <div class="autocomplete">
+      <div class={'autocomplete' + (this.menuIsOpen ? ' is-active' : '')}>
         {
           this.multipleSelection ?
             this.composeMultipleSelectionContainer() :
             null
         }
         <kup-text-input
+          disabled={this.disabled}
           isClearable={this.showClearIcon}
           placeholder={this.placeholder}
-          onKetchupTextInputUpdated={(e: CustomEvent) => this.updatePartialFilter(e.detail.value)}
-          onKetchupTextInputFocused={() => {this.openMenu(true)}}>
+          ref={(el) => this.filterInputRef = el as HTMLKupTextInputElement}
+          onKetchupTextInputFocused={() => {this.openMenu(true)}}
+          onKetchupTextInputUpdated={(e: CustomEvent) => this.updatePartialFilter(e.detail.value)}>
           <kup-menu
             isActive={this.menuIsOpen}
             slot="left"
             onKupMenuClose={() => {this.closeMenu()}}>
+            {
+              !autocompleteItems || !autocompleteItems.length ?
+                <div
+                  class="autocomplete__no-items"
+                  slot="top-container">{this.noItemsLabel}</div>:
+                null
+            }
             <ul
               class="autocomplete__item-list"
               ref={(el) => this.listRef = el as HTMLUListElement}>
-              {this.composeAutocompleteItemList()}
+              {autocompleteItems}
             </ul>
           </kup-menu>
           {
@@ -343,7 +361,8 @@ export class KupAutocomplete {
                 class="autocomplete__menu-toggle-icon"
                 iconClass={"mdi mdi-menu-down"}
                 role="button"
-                slot="right"/> :
+                slot="right"
+                onClick={this.menuStateToggle.bind(this)}/> :
               null
           }
         </kup-text-input>

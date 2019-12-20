@@ -4,13 +4,39 @@
 
 // Autocomplete container
 .autocomplete {
+  position: relative;
+  z-index: 1; // Must be greater then 0 otherwise the strange calculation of the browser rendering will place the menu below the other items.
+
+  // Necessay to avoid unwanted other elemets to overlap the menu.
+  &.is-active {
+    z-index: 1000;
+  }
 
   // The selection container when multiple elements are selected.
   &-multiple-selection-container {
 
   }
 
+  // Change color of the force dropdown icon
+  &__menu-toggle-icon {
+    color: $gray-80;
+    cursor: pointer;
+    transition: color .3s;
+
+    &:hover {
+      color: #{darken($gray-80, 10)};
+    }
+  }
+
+  // When there are no items to display
+  &__no-items {
+    padding: 16px 20px;
+    white-space: pre-wrap;
+  }
+
+  // The list of items to display
   &__item-list {
+    background-color: #ffffff;
     list-style-type: none;
     margin: 0;
     padding: 0;
