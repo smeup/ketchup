@@ -114,6 +114,30 @@ export class KupTextInput {
         this.textInput.focus();
     }
 
+    /**
+     * Imperatively sets a new value of the input.
+     * @method changeValue
+     * @param newValue - the new value to be set inside the input
+     * @param emitEvent - If true, then also forces the component to emit an updated event
+     */
+    @Method()
+    async changeValue(newValue: string, emitEvent: boolean = false) {
+        if (typeof newValue === 'string') {
+            if (emitEvent) {
+                this.ketchupTextInputUpdated.emit({
+                    value: newValue,
+                    oldValue: this.value,
+                    info: {
+                      obj: this.obj,
+                    },
+                });
+            }
+            this.value = newValue;
+            return true;
+        }
+        throw new Error(`The value ${newValue} is not a valid string.`);
+    }
+
     //---- Events and handlers ----
     /**
      * Clear the current content inside the the text input
