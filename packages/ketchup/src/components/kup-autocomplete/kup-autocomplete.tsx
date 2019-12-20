@@ -47,7 +47,7 @@ export class KupAutocomplete {
   /**
    * The placeholder string to set to the input for the autocomplete
    */
-  @Prop() placeholder: string = 'Scegli';
+  @Prop() placeholder: string = 'Choose';
   /**
    * Shows the icon to clear the input
    */
