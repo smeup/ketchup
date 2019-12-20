@@ -286,10 +286,18 @@ div.logo img {
 
 #inspire.theme--light div.logo img.light {
   display: block;
+  height: 70px;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 #inspire.theme--dark div.logo img.dark {
   display: block;
+  height: 70px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
 }
 
 div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
