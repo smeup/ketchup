@@ -133,6 +133,11 @@ let widgetRoutes = [
     name: 'switch',
     component: () => import(`@/views/widgets/switch/Switch.vue`),
   },
+  {
+    path: `/textfield`,
+    name: 'textfield',
+    component: () => import(`@/views/widgets/textfield/Textfield.vue`),
+  },
 ];
 
 const routes = [
