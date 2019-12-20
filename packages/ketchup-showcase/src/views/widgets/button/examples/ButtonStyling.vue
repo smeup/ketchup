@@ -46,7 +46,7 @@
         the
         <a href="https://material.io/resources/icons/?style=baseline"
           >Material Design library</a
-        >. rounded. It's important to specify both
+        >. It's important to specify both
         <span class="code-word">text</span> and
         <span class="code-word">icon</span> attributes in this case, because
         specifying only <span class="code-word">icon</span> will render the

@@ -1,14 +1,3 @@
-// >   R  E  A  D  M  E <
-//
-// --> M A T E R I A L    D E S I G N
-//
-//     Guidelines.
-//     "fullwidth" shouldn't be used with labels
-//     "textarea" will always be rendered as an outlined field
-//
-//     For more info: https://material.io/develop/web/components/input-controls/text-field/
-//
-
 import { Component, Prop, Element, Host, h } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
@@ -123,6 +112,7 @@ export class WupTextField {
         let labelEl: HTMLElement = null;
         let helperEl: HTMLElement = null;
         let iconEl: HTMLElement = null;
+        let charEl: HTMLElement = null;
         let componentEl: HTMLElement = null;
         let placeholderLabel: string = null;
 
@@ -177,7 +167,6 @@ export class WupTextField {
 
         if (this.helper) {
             let helperClass: string = 'mdc-text-field-helper-text';
-            let charEl: HTMLElement = null;
 
             if (!this.helperwhenfocus) {
                 helperClass += ' mdc-text-field-helper-text--persistent';
@@ -198,6 +187,18 @@ export class WupTextField {
                     {charEl}
                 </div>
             );
+        } else {
+            if (this.maxlength && !this.textarea) {
+                let charString = '0 / ' + this.maxlength;
+                charEl = (
+                    <div class="mdc-text-field-character-counter">
+                        {charString}
+                    </div>
+                );
+                helperEl = (
+                    <div class="mdc-text-field-helper-line">{charEl}</div>
+                );
+            }
         }
 
         if (this.textarea || this.outlined) {

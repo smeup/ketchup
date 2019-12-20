@@ -28,6 +28,10 @@
   }
 
   &.custom {
+    @include mdc-text-field-ink-color($mdc-textfield-ink);
+    @include mdc-text-field-label-color($mdc-textfield-label);
+    @include mdc-text-field-caret-color($mdc-textfield-caret);
+    @include mdc-text-field-fill-color($mdc-textfield-fill);
   }
 }
 
