@@ -1,6 +1,11 @@
 import {Component, Element, Event, EventEmitter, h, Listen, Prop, State, Watch,} from '@stencil/core';
 
-import {AutocompleteDisplayMode, KupAutocompleteOption,} from './kup-autocomplete-declarations';
+import {
+  AutocompleteDisplayMode,
+  AutocompleteSortBy,
+  AutocompleteSortOrder,
+  KupAutocompleteOption
+} from './kup-autocomplete-declarations';
 
 import {isEventFromElement} from '../../utils/utils';
 import {GenericObject} from "../../types/GenericTypes";
@@ -25,6 +30,8 @@ export class KupAutocomplete {
    * Must have reflect into the attribute
    */
   @Prop() items: KupAutocompleteOption[] = [];
+
+  @Prop({reflect: true}) limitResults: number = 0;
   /**
    * Label shown when there are no items found with a given filter
    */
@@ -49,7 +56,18 @@ export class KupAutocomplete {
    * Shows icon to force the dropdown menu to be opened
    */
   @Prop({reflect: true}) showDropdownIcon: boolean = false;
-
+  /**
+   * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+   * @namespace KupAutocomplete.sortBy
+   * @see KupAutocomplete.sortOrder
+   */
+  @Prop({reflect: true}) sortBy: AutocompleteSortBy = AutocompleteSortBy.NONE;
+  /**
+   * Decides which type of sort must be applied to the list of rendered items.
+   * @namespace KupAutocomplete.sortOrder
+   * @see KupAutocompleteOption.sortBy
+   */
+  @Prop() sortOrder: AutocompleteSortOrder = AutocompleteSortOrder.INCREASING;
 
   //---- Internal state ----
   @Element()
@@ -277,10 +295,28 @@ export class KupAutocomplete {
     const lowercaseFilter = this.currentFilter.toLowerCase();
     let foundKeyboardSelectedItem: boolean = false;
 
-    // Stores the filtered items for keyboard interaction use
-    this.currentlyFilteredItems = this.items.filter(item => {
+    // Filters items accordingly to the currentFilter
+    let filteredItems: KupAutocompleteOption[] = this.items.filter(item => {
       return this.getItemLabel(item, ' - ').toLowerCase().indexOf(lowercaseFilter) >= 0;
     });
+
+    // If items must be sorted
+    if (this.sortBy !== AutocompleteSortBy.NONE) {
+      switch (this.sortBy) {
+        case AutocompleteSortBy.CODE:
+          filteredItems.sort((item1: KupAutocompleteOption, item2: KupAutocompleteOption) => (this.sortOrder === AutocompleteSortOrder.INCREASING ? 1 : -1) * (item1.code > item2.code ? 1 : -1));
+          break;
+        case AutocompleteSortBy.DESCRIPTION:
+          filteredItems.sort((item1: KupAutocompleteOption, item2: KupAutocompleteOption) => (this.sortOrder === AutocompleteSortOrder.INCREASING ? 1 : -1) * (item1.description > item2.description ? 1 : -1));
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Stores the filtered items for keyboard interaction use
+    // Checks also if items must be cut down to an arbitrary number
+    this.currentlyFilteredItems = typeof this.limitResults === 'number' && this.limitResults > 0 ? filteredItems.slice(0,this.limitResults) : filteredItems;
 
     // Creates elements to render
     const itemsToReturn = this.currentlyFilteredItems.map(item => {

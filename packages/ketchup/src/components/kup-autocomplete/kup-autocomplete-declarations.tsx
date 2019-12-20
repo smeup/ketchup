@@ -1,16 +1,17 @@
 export enum AutocompleteDisplayMode {
   CODE = 'code',
-  DESCRIPTION = 'label',
+  DESCRIPTION = 'description',
   DESCRIPTION_AND_CODE = 'both',
 }
 
 export enum AutocompleteSortBy {
   CODE = 'code',
   DESCRIPTION = 'description',
+  NONE = 'none',
 }
 
 export enum AutocompleteSortOrder {
-  DESCENDING = 'descending',
+  DECREASING = 'decreasing',
   INCREASING = 'increasing',
 }
 
