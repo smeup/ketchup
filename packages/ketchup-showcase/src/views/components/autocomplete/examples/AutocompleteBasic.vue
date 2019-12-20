@@ -79,35 +79,17 @@
       :items.prop="items"
       :limit-results.prop="limitResultsTo"
       @kupAutocompleteSelectionUpdate="logEvent"/>
-
-    <h3>Autocomplete with multiple selection</h3>
-    <kup-autocomplete
-      :items.prop="itemsMultiple"
-      multiple-selection
-      @kupAutocompleteSelectionUpdate="logEvent"/>
   </div>
 </template>
 
 <script>
-function AutocompleteItemFactory(itemsCount = 20, baseCode = 'CD', baseDescription = 'Item ') {
-  const toRet = [];
-
-  for (let i = 0; i < itemsCount; i++) {
-    toRet.push({
-      code: baseCode + i,
-      description: baseDescription + i
-    });
-  }
-
-  return toRet;
-}
+import {AutocompleteItemFactory} from '@/mock/autocomplete';
 
 export default {
   name: "AutocompleteBasic",
   data() {
     return {
       items: AutocompleteItemFactory(),
-      itemsMultiple: AutocompleteItemFactory(30, 'MUL', 'MulDes'),
       limitResultsTo: 5,
     };
   },
@@ -118,7 +100,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
