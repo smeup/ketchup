@@ -3,8 +3,8 @@
     <v-navigation-drawer v-model="drawer" fixed app>
       <div class="logo">
         <a target="_blank" href="https://www.smeup.com/">
-          <img class="light" src="header_logo.png" />
-          <img class="dark" src="header_logo_dark.png" />
+          <img class="light" src="header_logo.svg" />
+          <img class="dark" src="header_logo_dark.svg" />
         </a>
       </div>
       <v-list dense>
@@ -233,12 +233,6 @@ export default {
             title: `Switch`,
             to: {
               name: 'switch',
-            },
-          },
-          {
-            title: `Text field`,
-            to: {
-              name: 'textfield',
             },
           },
         ],
