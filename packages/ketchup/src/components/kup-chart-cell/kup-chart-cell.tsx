@@ -20,13 +20,11 @@ export class KupChartCell {
 
     @Watch('value')
     onValueChange(): void {
-        console.log('kup-chart-cell.onValueChange()');
         this.draw();
     }
 
     // lifecycle
     componentDidLoad(): void {
-        console.log('kup-chart-cell.componentDidLoad()');
         this.draw();
     }
 
@@ -46,9 +44,6 @@ export class KupChartCell {
         }
 
         this.cellId = this.cellConfig.cellId;
-        console.log(
-            'kup-chart-cell.draw() this.cellId = [' + this.cellId + ']'
-        );
 
         const elem = new ChartElement();
         elem.initChart(this.cellConfig.type, this.value);
@@ -65,30 +60,19 @@ export class KupChartCell {
             elem.setStrColor(this.defaultColor);
         }
 
-        this.renderGra(this.cellId, elem);
+        this.renderGra(elem);
     }
 
-    private renderGra(containerID: string, config: ChartElement) {
+    private renderGra(config: ChartElement) {
         var opts = {
             type: config.getShape(),
             fillColor: config.isFillColor(),
-            height: config.getHeight(),
-            width: config.getWidth(),
-            barWidth: config.getBarWidth(),
+            height: config.getHeight() > 0 ? config.getHeight() : null,
+            width: config.getWidth() > 0 ? config.getWidth() : null,
+            barWidth: config.getBarWidth() > 0 ? config.getBarWidth() : null,
             lineColor: config.getColor(),
-            /** per il momento disabilitati i tooltip dato che non funzionano correttamente */
-            //disableTooltips: true,
-            //tooltipContainer: window.document.body,
-            //tooltipContainer: this.span,
         };
 
-        console.log(
-            'kup-chart-cell.renderGra() cellId: ' +
-                containerID +
-                ' config.getChartUltInfoAsArray(): ' +
-                JSON.stringify(config.getChartUltInfoAsArray())
-        );
-        console.log('kup-chart-cell.renderGra() opts: ' + JSON.stringify(opts));
         $(this.span).sparkline(config.getChartUltInfoAsArray(), opts);
     }
 
@@ -96,13 +80,6 @@ export class KupChartCell {
         if (this.cellConfig) {
             this.cellId = this.cellConfig.cellId;
         }
-        console.log(
-            'kup-chart-cell.render() id:[' +
-                this.cellId +
-                '] value:[' +
-                this.value +
-                ']'
-        );
 
         return [<span ref={(el) => (this.span = el)} id={this.cellId}></span>];
     }

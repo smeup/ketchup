@@ -1,11 +1,11 @@
 import { getColorFromString } from './kup-chart-cell-helper';
 
 export class ChartElement {
-    private width = 100.0;
-    private height = 100.0;
+    private width = 0;
+    private height = 50;
     private color: Color = null;
     private shape = 'bar';
-    private fillColor = true;
+    private fillColor = false;
     private barWidth = 0;
     private chartUltInfo = '';
 
@@ -17,57 +17,37 @@ export class ChartElement {
         this.chartUltInfo = configInfo;
         let vChartUltInfoArray = this.getChartUltInfoAsArray();
 
-        console.log(
-            'kup-chart-cell-declarations.initChart() vChartUltInfoArray.length = [' +
-                vChartUltInfoArray.length +
-                ']'
-        );
         let vShapeTypeString = shape.toLocaleLowerCase();
+        this.shape = vShapeTypeString;
         switch (vShapeTypeString) {
             case 'box':
-                this.shape = vShapeTypeString;
-                this.fillColor = false;
-                this.height = 50;
                 break;
 
             case 'bul':
                 this.shape = 'bullet';
-                this.fillColor = false;
                 break;
 
             case 'dis':
                 this.shape = 'discrete';
-                this.fillColor = false;
-                this.height = 50;
                 this.width = vChartUltInfoArray.length * 10;
                 break;
 
             case 'lin':
                 this.shape = 'line';
-                this.fillColor = false;
-                this.height = 50;
                 this.width = vChartUltInfoArray.length * 10;
                 break;
 
             case 'pie':
-                this.shape = vShapeTypeString;
-                this.fillColor = false;
-                this.height = 50;
-                this.width = 50;
+                this.width = this.height;
                 break;
 
             case 'tri':
                 this.shape = 'tristate';
-                this.fillColor = false;
-                this.height = 50;
-                this.width = 50;
                 this.barWidth = 4;
                 break;
 
             default:
                 this.shape = 'bar';
-                this.fillColor = false;
-                this.height = 50;
                 this.barWidth = 4;
         }
     }
