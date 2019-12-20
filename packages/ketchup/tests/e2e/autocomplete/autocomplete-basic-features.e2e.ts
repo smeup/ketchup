@@ -6,6 +6,9 @@ import {
   AutocompleteSortOrder
 } from '../../../src/components/kup-autocomplete/kup-autocomplete-declarations';
 
+import {AutocompleteItemFactory} from './autocomplete__mock-data';
+
+const basicAutocompleteData = AutocompleteItemFactory(50, '011', 'Desc');
 
 describe.skip('KetchUP autocomplete', () => {
 
@@ -15,7 +18,7 @@ describe.skip('KetchUP autocomplete', () => {
   beforeEach(async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<kup-autoomplete></kup-autoomplete>');
+    await page.setContent('<kup-autocomplete></kup-autocomplete>');
     const element = await page.find('kup-autocomplete');
 
     // element.setProperty('data', actionsData);
@@ -54,11 +57,11 @@ describe.skip('KetchUP autocomplete', () => {
 
   });
 
-  it('has an icon button to open menu', async () => {
+  it('can have an icon button to force opening the menu', async () => {
 
   });
 
-  it('can have bot clear and menu icon buttons', async () => {
+  it('can have both the clear and the menu icon buttons', async () => {
 
   });
 
@@ -83,7 +86,7 @@ describe.skip('KetchUP autocomplete', () => {
     ['description', AutocompleteSortBy.DESCRIPTION]
   ])('can sort items by %i', (describeDescription: string, sortBy: string) => {
     it.each([
-      ['descending', AutocompleteSortOrder.DESCENDING],
+      ['descending', AutocompleteSortOrder.DECREASING],
       ['increasing', AutocompleteSortOrder.INCREASING],
     ])('in %i order', async (testDescription: string, sortOrder: string) => {
 
