@@ -8,7 +8,11 @@ import {
 
 import {AutocompleteItemFactory} from './autocomplete__mock-data';
 
-import {getAutocompleteInputField, getAutocompleteMenuInstance} from './autocomplete__utilities';
+import {
+  getAutocompleteClearIcon,
+  getAutocompleteInputField,
+  getAutocompleteMenuInstance
+} from './autocomplete__utilities';
 
 const baseItemsCount = 50;
 const baseCode = '01132';
@@ -29,18 +33,6 @@ describe('KetchUP autocomplete', () => {
 
     await autocompleteEl.setProperty('items', basicAutocompleteData);
     await page.waitForChanges();
-
-    /*element.setProperty('rowActions', [
-      {
-        text: 'Action #1',
-        icon: 'mdi mdi-account',
-      },
-      {
-        text: 'Action #2',
-        icon: 'mdi mdi-plus',
-      },
-    ]);
-    */
   });
 
   afterEach(() => {
@@ -98,23 +90,82 @@ describe('KetchUP autocomplete', () => {
     expect(renderedOptions).toHaveLength(limitResults);
   });
 
-  it.skip('can have a clear icon button to remove elements', async () => {
+  it('can have a clear icon button to remove selected elements', async () => {
+    await autocompleteEl.setProperty('showClearIcon', true);
+    await page.waitForChanges();
+    // Gets the clear button
+    const clearIcon = await getAutocompleteClearIcon(page);
 
+    // The clear icon button should be rendered
+    expect(clearIcon).toBeDefined();
+
+    const inputField = await getAutocompleteInputField(page);
+    await inputField.type(baseCode.substr(0,4), {delay: 150}); // Types as a user would
+
+    await page.waitFor(800); // Waits for menu and debounce to do their job
+
+    // Checks that the menu is open
+    const menu = await getAutocompleteMenuInstance(page);
+    let menuStatus = await menu.getProperty('isActive');
+    await page.waitForChanges();
+    expect(menuStatus).toBeTruthy();
+
+    // Triggers the removing of the current filter
+    await clearIcon.click();
+    await page.waitFor(800);
+
+    // Since the filter should be gone, we check that the menu is now closed
+    menuStatus = await menu.getProperty('isActive');
+    await page.waitForChanges();
+    expect(menuStatus).toBeFalsy();
+  }, 10000);
+
+  it('can have an icon button to toggle the menu state (open / closed)', async () => {
+    await autocompleteEl.setProperty('showDropdownIcon', true);
+    await page.waitForChanges();
+
+    // Controls that the icon has been rendered
+    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
+    expect(toggleMenuIcon).toBeDefined();
+
+    // Controls that initially the menu is closed
+    const menu = await getAutocompleteMenuInstance(page);
+    let menuStatus = await menu.getProperty('isActive');
+    await page.waitForChanges();
+    expect(menuStatus).toBeFalsy();
+
+    // After one click, the menu should be open
+    await toggleMenuIcon.click();
+    await page.waitForChanges();
+    menuStatus = await menu.getProperty('isActive');
+    await page.waitForChanges();
+    expect(menuStatus).toBeTruthy();
+
+    // After another click the menu should be closed
+    await toggleMenuIcon.click();
+    await page.waitForChanges();
+    menuStatus = await menu.getProperty('isActive');
+    await page.waitForChanges();
+    expect(menuStatus).toBeFalsy();
   });
 
-  it.skip('can have an icon button to force opening the menu', async () => {
+  it('can have both the clear and the menu icon buttons', async () => {
+    await autocompleteEl.setProperty('showDropdownIcon', true);
+    await autocompleteEl.setProperty('showClearIcon', true);
+    await page.waitForChanges();
 
-  });
+    const clearIcon = await getAutocompleteClearIcon(page);
+    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
 
-  it.skip('can have both the clear and the menu icon buttons', async () => {
-
+    expect(clearIcon).toBeDefined();
+    expect(toggleMenuIcon).toBeDefined();
   });
 
   it.skip.each([
     ['only the description', AutocompleteDisplayMode.DESCRIPTION],
     ['only the code', AutocompleteDisplayMode.CODE],
     ['both the code and description', AutocompleteDisplayMode.DESCRIPTION_AND_CODE],
-  ])('can display %i of an item', async (testDescription: string, displayMode: string) => {
+  ])('menu items can be displayed %i of an item', async (testDescription: string, displayMode: string) => {
 
   });
 
