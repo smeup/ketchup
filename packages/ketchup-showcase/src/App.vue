@@ -206,6 +206,12 @@ export default {
               name: 'tree',
             },
           },
+          {
+            title: 'Form',
+            to: {
+              name: 'form',
+            },
+          },
         ],
       },
       {

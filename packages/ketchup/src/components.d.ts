@@ -52,6 +52,11 @@ import {
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
+  FormFields,
+  FormSection,
+  FormSubmitDetail,
+} from './components/kup-form/kup-form-declarations';
+import {
   Badge,
 } from './components/kup-image/kup-image-declarations';
 import {
@@ -366,6 +371,10 @@ export namespace Components {
     * Provides an interface to get the current value programmatically
     */
     'getCurrentValue': () => Promise<string | object>;
+  }
+  interface KupForm {
+    'fields': FormFields;
+    'sections': FormSection;
   }
   interface KupGauge {
     /**
@@ -986,6 +995,12 @@ declare global {
     new (): HTMLKupFldElement;
   };
 
+  interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {}
+  var HTMLKupFormElement: {
+    prototype: HTMLKupFormElement;
+    new (): HTMLKupFormElement;
+  };
+
   interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {}
   var HTMLKupGaugeElement: {
     prototype: HTMLKupGaugeElement;
@@ -1126,6 +1141,7 @@ declare global {
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
+    'kup-form': HTMLKupFormElement;
     'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
@@ -1599,6 +1615,13 @@ declare namespace LocalJSX {
     * Launched when the FLD values are confirmed and a submit event is triggered.
     */
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
+  }
+  interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
+    'fields'?: FormFields;
+    'onKupFormSubmitted'?: (event: CustomEvent<{
+      formSubmitDetail: FormSubmitDetail;
+    }>) => void;
+    'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
     /**
@@ -2225,6 +2248,7 @@ declare namespace LocalJSX {
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
     'kup-fld': KupFld;
+    'kup-form': KupForm;
     'kup-gauge': KupGauge;
     'kup-graphic-cell': KupGraphicCell;
     'kup-html': KupHtml;

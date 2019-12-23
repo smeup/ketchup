@@ -87,6 +87,11 @@ export class KupTextInput {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
+        this.onInitialValueChanged();
+    }
+
+    @Watch('initialValue')
+    onInitialValueChanged() {
         // Sets initial value inside the element
         this.value = this.initialValue;
     }

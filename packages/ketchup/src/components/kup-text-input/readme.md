@@ -62,9 +62,10 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-combo](..\kup-combo)
- - [kup-data-table](..\kup-data-table)
+ - [kup-box](../kup-box)
+ - [kup-combo](../kup-combo)
+ - [kup-data-table](../kup-data-table)
+ - [kup-form](../kup-form)
 
 ### Graph
 ```mermaid
@@ -72,6 +73,7 @@ graph TD;
   kup-box --> kup-text-input
   kup-combo --> kup-text-input
   kup-data-table --> kup-text-input
+  kup-form --> kup-text-input
   style kup-text-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

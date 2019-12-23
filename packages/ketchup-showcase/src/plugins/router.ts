@@ -95,6 +95,11 @@ let componentsRoutes = [
     name: 'tree',
     component: () => import(`@/views/components/tree/Tree.vue`),
   },
+  {
+    path: `/form`,
+    name: 'form',
+    component: () => import(`@/views/components/form/Form.vue`),
+  },
 ];
 
 let javascriptRoutes = [

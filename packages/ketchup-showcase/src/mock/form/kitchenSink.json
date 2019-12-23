@@ -1,0 +1,138 @@
+{
+  "fields": {
+    "FLD1": {
+      "key": "FLD1",
+      "title": "Image",
+      "hidden": true,
+      "titlePosition": "Top",
+      "description": "Smeup Logo",
+      "shape": "IMG",
+      "tooltip": "its a good logo",
+      "config": {
+        "badges": [
+          {
+            "icon": "mdi mdi-account",
+            "position": "BR"
+          }
+        ],
+        "width": "20",
+        "height": "20"
+      },
+      "obj": {
+        "t": "CN",
+        "p": "COL",
+        "k": "PARFRA"
+      },
+      "value": "https://via.placeholder.com/64?text=CUSTOM"
+    },
+    "FLD2": {
+      "key": "FLD2",
+      "title": "Input A",
+      "titlePosition": "None",
+      "description": "Input A description",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
+        "minLength": 5
+      },
+      "config": {
+        "isClearable": true,
+        "maxLenght": 5
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "Input A value"
+      },
+      "value": "Input A value"
+    },
+    "FLD3": {
+      "key": "FLD3",
+      "title": "Combo A",
+      "titlePosition": "Left",
+      "description": "Combo A description",
+      "shape": "CMB",
+      "data": [
+        {
+          "value": "DELGIO",
+          "programs": "Java",
+          "id": "sme001"
+        },
+        {
+          "value": "SANCOS",
+          "programs": "Kotlin",
+          "id": "sme002"
+        },
+        {
+          "value": "CASFRA",
+          "programs": "Javascript",
+          "id": "sme003"
+        },
+        {
+          "value": "PARFRA",
+          "programs": "Delphi",
+          "id": "sme004"
+        },
+        {
+          "value": "FIOGIA",
+          "programs": "Kotlin",
+          "id": "sme005"
+        },
+        {
+          "value": "ZAMCHI",
+          "programs": "Go",
+          "id": "sme006"
+        }
+      ],
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "smeu006"
+      },
+      "value": "smeu006"
+    }
+  },
+
+  "sections": {
+    "horizontal": true,
+    "sections": [
+      {
+        "dim": "30%",
+        "fields": ["FLD1"]
+      },
+      {
+        "sections": [{ "fields": ["FLD2"] }, { "fields": ["FLD3"] }]
+      }
+    ]
+  },
+
+  "rules": {
+    "RULE1": {
+      "conditions": {
+        "any": [
+          {
+            "fact": "gameDuration",
+            "operator": "equal",
+            "value": 40
+          },
+          {
+            "fact": "personalFoulCount",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "changeSchema",
+        "params": {
+          "FLD2": {
+            "validate": {
+              "required": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
