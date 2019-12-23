@@ -1,0 +1,127 @@
+/**
+* @prop --form_color, --kup-form_color: text color
+* @prop --form_border-color, --kup-form_border-color: form border color
+* @prop --form_border-radius, --kup-form_border-radius: form border radius
+* @prop --form_titled-section-font-size, --kup-form_titled-section-font-size: font size for section title
+* @prop --form_titled-section-bg-color, --kup-form_titled-section-bg-color: background color for section title
+* @prop --form_titled-section-top, --kup-form_titled-section-top: top position for section title
+*/
+
+:host {
+  --form_color: var(--kup-form_color, black);
+  --form_border-color: var(--kup-form_border-color, black);
+  --form_border-radius: var(--kup-form_border-radius, 3px);
+  --form_titled-section-font-size: var(
+    --kup-form_titled-section-font-size,
+    12px
+  );
+  --form_titled-section-bg-color: var(
+    --kup-form_titled-section-bg-color,
+    #ffffff
+  );
+  --form_titled-section-top: var(--kup-form_titled-section-top, -9px);
+}
+
+.form-component {
+  border: 1px groove var(--form_border-color);
+  border-radius: var(--form_border-radius);
+  padding: 5px;
+}
+
+.form-buttons {
+  margin-top: 10px;
+}
+
+.form-sections-container {
+  display: grid;
+  grid-gap: 1rem;
+  color: var(--form_color);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .form-sections-wrapper {
+    display: flex;
+    align-items: center;
+
+    .form-sections {
+      padding: 3px;
+      flex-grow: 1;
+      position: relative;
+      border-radius: var(--form_border-radius);
+      border: 1px dotted var(--form_border-color);
+      display: flex;
+
+      &.column {
+        flex-direction: column;
+      }
+
+      .form-section {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 1%;
+        flex-wrap: wrap;
+        border-style: ridge;
+
+        &.column {
+          flex-direction: column;
+          justify-content: center;
+          flex-wrap: unset;
+
+          > .form-section {
+            flex: 0 0 auto;
+          }
+        }
+
+        &.grid {
+          display: grid;
+        }
+
+        &.left-aligned {
+          text-align: left;
+          kup-image,
+          kup-checkbox,
+          kup-icon {
+            justify-content: flex-start;
+          }
+        }
+
+        .form-field {
+          padding: 1px 4px;
+          kup-image,
+          kup-checkbox,
+          kup-icon {
+            display: flex;
+          }
+
+          label {
+            margin-right: 5px;
+            font-weight: bold;
+          }
+        }
+
+        &.last-child {
+          margin: 3px 4px;
+        }
+
+        &.titled {
+          border: 1px solid var(--form_border-color);
+          padding-top: 5px;
+          position: relative;
+          margin: 10px;
+
+          > h3 {
+            position: absolute;
+            margin: 0;
+            padding: 0 3px;
+            top: var(--form_titled-section-top);
+            left: 5px;
+            font-size: var(--form_titled-section-font-size);
+            background: var(--form_titled-section-bg-color);
+          }
+        }
+      }
+    }
+  }
+}
