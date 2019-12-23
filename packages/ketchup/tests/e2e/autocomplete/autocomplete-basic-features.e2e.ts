@@ -1,4 +1,4 @@
-import {newE2EPage} from '@stencil/core/testing';
+import {newE2EPage, E2EElement, E2EPage} from '@stencil/core/testing';
 
 import {
   AutocompleteDisplayMode,
@@ -8,20 +8,28 @@ import {
 
 import {AutocompleteItemFactory} from './autocomplete__mock-data';
 
-const basicAutocompleteData = AutocompleteItemFactory(50, '011', 'Desc');
+import {getAutocompleteInputField, getAutocompleteMenuInstance} from './autocomplete__utilities';
 
-describe.skip('KetchUP autocomplete', () => {
+const baseItemsCount = 50;
+const baseCode = '01132';
+const baseDescription = 'Description';
+const basicAutocompleteData = AutocompleteItemFactory(baseItemsCount, baseCode, baseDescription);
 
-  let page;
+let page: E2EPage | undefined;
+let autocompleteEl: E2EElement | undefined;
+
+describe('KetchUP autocomplete', () => {
 
   // Setup environment for each test
   beforeEach(async () => {
-    const page = await newE2EPage();
+    page = await newE2EPage();
 
     await page.setContent('<kup-autocomplete></kup-autocomplete>');
-    const element = await page.find('kup-autocomplete');
+    autocompleteEl = await page.find('kup-autocomplete');
 
-    // element.setProperty('data', actionsData);
+    await autocompleteEl.setProperty('items', basicAutocompleteData);
+    await page.waitForChanges();
+
     /*element.setProperty('rowActions', [
       {
         text: 'Action #1',
@@ -33,39 +41,76 @@ describe.skip('KetchUP autocomplete', () => {
       },
     ]);
     */
-
-    await page.waitForChanges();
   });
 
   afterEach(() => {
     page = undefined;
+    autocompleteEl = undefined;
   });
 
-  it('has a title', async () => {
+  it('menu is activated only after a given amount of typed chars', async () => {
+    const charsToType = 4;
+    await autocompleteEl.setProperty('minimumChars', charsToType);
 
-  });
+    const inputField = await getAutocompleteInputField(page);
 
-  it('menu can be activated only after a given amount of characters', async () => {
+    let menu: E2EElement;
+    let menuStatus: boolean;
+    await page.waitForChanges();
 
-  });
+    for (let i = 0; i < baseCode.length; i++) {
+      await inputField.press(baseCode[i]);
+      await page.waitFor(800); // Gives the menu the necessary time to open itself. Check kup-menu docs to control the default time a menu takes to open.
+      menu = await getAutocompleteMenuInstance(page);
+      menuStatus = await menu.getProperty('isActive');
+
+      // Should be true only when menu is open, that means that it must be open only when typed chars are
+      // greater or equal to charsToType
+      if (charsToType > i + 1) {
+        expect(menuStatus).toBeFalsy();
+      } else {
+        expect(menuStatus).toBeTruthy();
+      }
+    }
+  }, 15000);
 
   it('can limit displayed results', async () => {
+    const charsToType = 3;
+    const limitResults = 5;
+    await autocompleteEl.setProperty('minimumChars', charsToType);
+    const inputField = await getAutocompleteInputField(page);
+    await page.waitForChanges();
+
+    // Types as a normal human would
+    for (let i = 0; i < baseCode.length; i++) {
+      await inputField.press(baseCode[i]);
+      await page.waitFor(200); // Gives the menu the necessary time to open itself. Check kup-menu docs to control the default time a menu takes to open.
+    }
+
+    let renderedOptions = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    expect(renderedOptions).toHaveLength(baseItemsCount);
+
+    // Sets the limit of displayed elements
+    await autocompleteEl.setProperty('limitResults', limitResults);
+    await page.waitForChanges();
+
+    renderedOptions = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    expect(renderedOptions).toHaveLength(limitResults);
+  });
+
+  it.skip('can have a clear icon button to remove elements', async () => {
 
   });
 
-  it('can have a clear icon button to remove elements', async () => {
+  it.skip('can have an icon button to force opening the menu', async () => {
 
   });
 
-  it('can have an icon button to force opening the menu', async () => {
+  it.skip('can have both the clear and the menu icon buttons', async () => {
 
   });
 
-  it('can have both the clear and the menu icon buttons', async () => {
-
-  });
-
-  it.each([
+  it.skip.each([
     ['only the description', AutocompleteDisplayMode.DESCRIPTION],
     ['only the code', AutocompleteDisplayMode.CODE],
     ['both the code and description', AutocompleteDisplayMode.DESCRIPTION_AND_CODE],
@@ -73,15 +118,15 @@ describe.skip('KetchUP autocomplete', () => {
 
   });
 
-  it('can be disabled', async () => {
+  it.skip('can be disabled', async () => {
 
   });
 
-  it('can customize placeholder', async () => {
+  it.skip('can customize placeholder', async () => {
 
   });
 
-  describe.each([
+  describe.skip.each([
     ['code', AutocompleteSortBy.CODE],
     ['description', AutocompleteSortBy.DESCRIPTION]
   ])('can sort items by %i', (describeDescription: string, sortBy: string) => {
@@ -93,11 +138,11 @@ describe.skip('KetchUP autocomplete', () => {
     });
   });
 
-  it('can force selection of non existent items', async () => {
+  it.skip('can force selection of non existent items', async () => {
 
   });
 
-  describe('with multiple selection activated', () => {
+  describe.skip('with multiple selection activated', () => {
     it('can select more then one result', async () => {
 
     });
