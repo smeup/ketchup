@@ -894,7 +894,7 @@
         var splist = this.splist,
           spcount = splist.length,
           needsRefresh = false,
-          offset = this.$canvas.offset(),
+          offset = jQuery3_4_1_Offset(this.$canvas),
           localX = this.currentPageX - offset.left,
           localY = this.currentPageY - offset.top,
           tooltiphtml,
@@ -961,7 +961,7 @@
           class: tooltipClassname,
         }).appendTo(this.container);
         // account for the container's location
-        offset = this.tooltip.offset();
+        offset = jQuery3_4_1_Offset(this.tooltip);
         this.offsetLeft = offset.left;
         this.offsetTop = offset.top;
         this.hidden = true;
@@ -1111,7 +1111,7 @@
             return;
           }
 
-          sp = new $.fn.sparkline[(options.get('type'))](
+          sp = new $.fn.sparkline[options.get('type')](
             this,
             values,
             options,
@@ -3189,7 +3189,14 @@
       },
 
       drawLine: function(x1, y1, x2, y2, lineColor, lineWidth) {
-        return this.drawShape([[x1, y1], [x2, y2]], lineColor, lineWidth);
+        return this.drawShape(
+          [
+            [x1, y1],
+            [x2, y2],
+          ],
+          lineColor,
+          lineWidth
+        );
       },
 
       drawShape: function(path, lineColor, fillColor, lineWidth) {
@@ -3874,3 +3881,33 @@
     });
   });
 })(document, Math);
+
+/**************************************************************************************** */
+function jQuery3_4_1_Offset(elem) {
+  var rect, win;
+
+  if (!elem) {
+    return { top: 0, left: 0 };
+  }
+  elem = elem.get(0);
+
+  if (!elem) {
+    return { top: 0, left: 0 };
+  }
+
+  // Return zeros for disconnected and hidden (display: none) elements (gh-2310)
+  // Support: IE <=11 only
+  // Running getBoundingClientRect on a
+  // disconnected node in IE throws an error
+  if (!elem.getClientRects().length) {
+    return { top: 0, left: 0 };
+  }
+
+  // Get document-relative position by adding viewport scroll to viewport-relative gBCR
+  rect = elem.getBoundingClientRect();
+  win = elem.ownerDocument.defaultView;
+  return {
+    top: rect.top + win.pageYOffset,
+    left: rect.left + win.pageXOffset,
+  };
+}
