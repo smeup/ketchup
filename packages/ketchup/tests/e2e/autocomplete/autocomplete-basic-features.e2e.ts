@@ -3,24 +3,31 @@ import {newE2EPage, E2EElement, E2EPage} from '@stencil/core/testing';
 import {
   AutocompleteDisplayMode,
   AutocompleteSortBy,
-  AutocompleteSortOrder, KupAutocompleteOption
+  AutocompleteSortOrder,
+  KupAutocompleteOption,
 } from '../../../src/components/kup-autocomplete/kup-autocomplete-declarations';
 
 import {AutocompleteItemFactory} from './autocomplete__mock-data';
 
 import {
+  checkAutocompleteSelectedPayloadDetail,
+  createAutocompleteSelectedSpy,
   getAutocompleteClearIcon,
   getAutocompleteInputField,
-  getAutocompleteMenuInstance
+  getAutocompleteMenuInstance,
+  kupAutocompleteAllItemsSelector,
+  kupAutocompleteDropdownIconSelector,
 } from './autocomplete__utilities';
 
 const baseItemsCount = 50;
 const baseCode = '01132';
 const baseDescription = 'Description';
 const basicAutocompleteData = AutocompleteItemFactory(baseItemsCount, baseCode, baseDescription);
+const multipleSelectedItems: number[] = [0,3];
 
 let page: E2EPage | undefined;
 let autocompleteEl: E2EElement | undefined;
+let autocompleteSelectEventSpy;
 
 describe('KetchUP autocomplete', () => {
 
@@ -38,6 +45,7 @@ describe('KetchUP autocomplete', () => {
   afterEach(() => {
     page = undefined;
     autocompleteEl = undefined;
+    autocompleteSelectEventSpy = undefined
   });
 
   it('menu is activated only after a given amount of typed chars', async () => {
@@ -79,14 +87,14 @@ describe('KetchUP autocomplete', () => {
       await page.waitFor(200); // Gives the menu the necessary time to open itself. Check kup-menu docs to control the default time a menu takes to open.
     }
 
-    let renderedOptions = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    let renderedOptions = await page.findAll(kupAutocompleteAllItemsSelector);
     expect(renderedOptions).toHaveLength(baseItemsCount);
 
     // Sets the limit of displayed elements
     await autocompleteEl.setProperty('limitResults', limitResults);
     await page.waitForChanges();
 
-    renderedOptions = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    renderedOptions = await page.findAll(kupAutocompleteAllItemsSelector);
     expect(renderedOptions).toHaveLength(limitResults);
   });
 
@@ -124,7 +132,7 @@ describe('KetchUP autocomplete', () => {
     await page.waitForChanges();
 
     // Controls that the icon has been rendered
-    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
+    const toggleMenuIcon = await page.find(kupAutocompleteDropdownIconSelector);
     expect(toggleMenuIcon).toBeDefined();
 
     // Controls that initially the menu is closed
@@ -154,7 +162,7 @@ describe('KetchUP autocomplete', () => {
     await page.waitForChanges();
 
     const clearIcon = await getAutocompleteClearIcon(page);
-    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
+    const toggleMenuIcon = await page.find(kupAutocompleteDropdownIconSelector);
 
     expect(clearIcon).toBeDefined();
     expect(toggleMenuIcon).toBeDefined();
@@ -176,7 +184,7 @@ describe('KetchUP autocomplete', () => {
 
     // The menu now should be open
     // We look for all elements
-    const menuElements = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    const menuElements = await page.findAll(kupAutocompleteAllItemsSelector);
     for (let i = 0; i < baseItemsCount; i++) {
       expect(menuElements[i]).toEqualText(computeItemLabel(basicAutocompleteData[i]));
     }
@@ -186,7 +194,7 @@ describe('KetchUP autocomplete', () => {
     // Sets and gets the clear button
     await autocompleteEl.setProperty('showDropdownIcon', true);
     await page.waitForChanges();
-    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
+    const toggleMenuIcon = await page.find(kupAutocompleteDropdownIconSelector);
 
     // The autocomplete is not disabled and it can be opened
     await toggleMenuIcon.click();
@@ -220,29 +228,108 @@ describe('KetchUP autocomplete', () => {
     expect(inputPlaceholder).toEqual(placeholderText);
   });
 
-  describe.skip.each([
+  describe.each([
     ['code', AutocompleteSortBy.CODE],
     ['description', AutocompleteSortBy.DESCRIPTION]
-  ])('can sort items by $s', (describeDescription: string, sortBy: string) => {
+  ])('can sort items by %s', (describeDescription: string, sortBy: string) => {
     it.each([
       ['descending', AutocompleteSortOrder.DECREASING],
       ['increasing', AutocompleteSortOrder.INCREASING],
-    ])('in $s order', async (testDescription: string, sortOrder: string) => {
+    ])('in %s order', async (testDescription: string, sortOrder: string) => {
+      // Gets a copy the data items and then sorts them accordingly
+      const sortField = sortBy === AutocompleteSortBy.CODE ? 'code' : 'description';
+      const sortedItems = basicAutocompleteData.slice().sort(
+        (item1: KupAutocompleteOption, item2: KupAutocompleteOption) => (sortOrder === AutocompleteSortOrder.INCREASING ? 1 : -1) * (item1[sortField] > item2[sortField] ? 1 : -1)
+      );
 
-    });
+      // Sets order
+      await autocompleteEl.setProperty('sortBy', sortBy);
+      await autocompleteEl.setProperty('sortOrder', sortOrder);
+      await autocompleteEl.setProperty('showDropdownIcon', true);
+
+      // Opens menu
+      await page.waitForChanges();
+      const toggleMenuIcon = await page.find(kupAutocompleteDropdownIconSelector);
+      await toggleMenuIcon.click();
+      await page.waitFor(800);
+
+      // Gets rendered elements
+      const allItems = await page.findAll(kupAutocompleteAllItemsSelector);
+
+      // Compares results
+      for (let i = 0; i < sortedItems.length; i++) {
+        expect(allItems[i]).toEqualText(sortedItems[i].code + ' - ' + sortedItems[i].description);
+      }
+    }, 30000);
   });
 
   it.skip('can force selection of non existent items', async () => {
 
   });
 
-  describe.skip('with multiple selection activated', () => {
-    it('can select more then one result', async () => {
+  describe('with multiple selection activated', () => {
+    beforeEach(async () => {
+      // Enables multiple selection and adds the icon to trigger opening of the menu
+      await autocompleteEl.setProperty('multipleSelection', true);
+      await autocompleteEl.setProperty('showDropdownIcon', true);
+      await page.waitForChanges();
+      const toggleMenuIcon = await page.find(kupAutocompleteDropdownIconSelector);
 
+      // Types a filter and makes the menu open
+      await page.waitForChanges();
+      const inputField = await getAutocompleteInputField(page);
+      await inputField.type(baseCode.substr(0,4), {delay: 150});
+      await page.waitFor(800);
+
+      autocompleteSelectEventSpy = await createAutocompleteSelectedSpy(page);
+
+      // Selects the first item of the menu
+      // [1] - Mandatory to allow a correct selection
+      const allItems = await page.findAll(kupAutocompleteAllItemsSelector);
+      await allItems[multipleSelectedItems[0]].click();
+      await page.waitFor(800); // [1]
+
+      // Reopens the menu
+      await toggleMenuIcon.click();
+      await page.waitFor(800); // [1]
+
+      // Selects the third item of the menu
+      await allItems[multipleSelectedItems[1]].click();
+    });
+
+    it('can select more then one result', async () => {
+      const itemsToCheck: KupAutocompleteOption[] = multipleSelectedItems.map(index => basicAutocompleteData[index]);
+
+      // Controls that the given elements have been selected.
+      expect(autocompleteSelectEventSpy).toHaveLength(itemsToCheck.length);
+
+      // Controls the payload of the event has all selected items
+      expect(checkAutocompleteSelectedPayloadDetail(
+          autocompleteSelectEventSpy.lastEvent.detail,
+          itemsToCheck
+        ))
+        .toBeTruthy();
     });
 
     it('can remove selected values', async () => {
+      // Gets all chips containing selected items
+      let removedAllSelected = false;
+      let currentPayloadSelectedItemsCount = multipleSelectedItems.length;
 
+      // For each element to remove
+      while (!removedAllSelected) {
+        // Gets the icon which can trigger the remove of the item from among the selected ones
+        const svg = await (page.evaluateHandle('document.querySelector("kup-autocomplete").shadowRoot.querySelector("kup-chip").shadowRoot.querySelector("svg")')) as unknown as HTMLElement;
+        svg.click();
+        await page.waitForChanges();
+        currentPayloadSelectedItemsCount--;
+
+        expect(autocompleteSelectEventSpy.lastEvent.detail.length).toEqual(currentPayloadSelectedItemsCount);
+
+        // Gets the remaining chips and removes and controls if the same operation of removing selected items must be executed once again
+        const allSelected = await page.findAll('kup-autocomplete >>> kup-chip');
+        removedAllSelected = allSelected.length === 0;
+      }
     });
   });
 
