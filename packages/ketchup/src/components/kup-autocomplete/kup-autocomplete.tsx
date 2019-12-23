@@ -25,12 +25,12 @@ export class KupAutocomplete {
    */
   @Prop({reflect: true}) displayMode: AutocompleteDisplayMode = AutocompleteDisplayMode.DESCRIPTION_AND_CODE;
   /**
-   * Sets the checkbox to be disabled
-   *
-   * Must have reflect into the attribute
+   * Sets the autocomplete items data
    */
   @Prop() items: KupAutocompleteOption[] = [];
-
+  /**
+   * When greater than 0, limits the results of the filter to the specified number of elements.
+   */
   @Prop({reflect: true}) limitResults: number = 0;
   /**
    * Label shown when there are no items found with a given filter

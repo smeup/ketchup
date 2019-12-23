@@ -3,7 +3,7 @@ import {newE2EPage, E2EElement, E2EPage} from '@stencil/core/testing';
 import {
   AutocompleteDisplayMode,
   AutocompleteSortBy,
-  AutocompleteSortOrder
+  AutocompleteSortOrder, KupAutocompleteOption
 } from '../../../src/components/kup-autocomplete/kup-autocomplete-declarations';
 
 import {AutocompleteItemFactory} from './autocomplete__mock-data';
@@ -101,7 +101,6 @@ describe('KetchUP autocomplete', () => {
 
     const inputField = await getAutocompleteInputField(page);
     await inputField.type(baseCode.substr(0,4), {delay: 150}); // Types as a user would
-
     await page.waitFor(800); // Waits for menu and debounce to do their job
 
     // Checks that the menu is open
@@ -161,30 +160,74 @@ describe('KetchUP autocomplete', () => {
     expect(toggleMenuIcon).toBeDefined();
   });
 
-  it.skip.each([
-    ['only the description', AutocompleteDisplayMode.DESCRIPTION],
-    ['only the code', AutocompleteDisplayMode.CODE],
-    ['both the code and description', AutocompleteDisplayMode.DESCRIPTION_AND_CODE],
-  ])('menu items can be displayed %i of an item', async (testDescription: string, displayMode: string) => {
+  it.each([
+    ['only the description', AutocompleteDisplayMode.DESCRIPTION, baseDescription.substr(0,4), (item: KupAutocompleteOption) => item.description],
+    ['only the code', AutocompleteDisplayMode.CODE, baseCode.substr(0,4), (item: KupAutocompleteOption) => item.code],
+    ['both the code and description', AutocompleteDisplayMode.DESCRIPTION_AND_CODE, baseCode.substr(0,4), (item: KupAutocompleteOption) => item.code + ' - ' + item.description],
+  ])('menu items can be displayed with %s of an item', async (testDescription: string, displayMode: string, typeToFilter: string, computeItemLabel: (item: KupAutocompleteOption) => string) => {
+    // Remember that for these tests there is no sorting enabled
+    // The text to filter for MUST be different between cases where displayMode is set to description,
+    // since there is no code to filter for in there.
+    await autocompleteEl.setProperty('displayMode', displayMode);
+    await page.waitForChanges();
+    const inputField = await getAutocompleteInputField(page);
+    await inputField.type(typeToFilter, {delay: 150}); // Types as a user would.
+    await page.waitFor(800); // Waits for menu and debounce to do their job
 
+    // The menu now should be open
+    // We look for all elements
+    const menuElements = await page.findAll('kup-autocomplete >>> .autocomplete__item-list li');
+    for (let i = 0; i < baseItemsCount; i++) {
+      expect(menuElements[i]).toEqualText(computeItemLabel(basicAutocompleteData[i]));
+    }
+  }, 30000);
+
+  it('can be disabled', async () => {
+    // Sets and gets the clear button
+    await autocompleteEl.setProperty('showDropdownIcon', true);
+    await page.waitForChanges();
+    const toggleMenuIcon = await page.find('kup-autocomplete >>> .autocomplete__menu-toggle-icon');
+
+    // The autocomplete is not disabled and it can be opened
+    await toggleMenuIcon.click();
+    await page.waitFor(800);
+    const menu = await getAutocompleteMenuInstance(page);
+    let menuStatus = await menu.getProperty('isActive');
+
+    expect(menuStatus).toBeTruthy();
+
+    // By disabling the autocomplete, the menu must automatically be closed
+    await autocompleteEl.setProperty('disabled', true);
+    await page.waitForChanges();
+    menuStatus = await menu.getProperty('isActive');
+    expect(menuStatus).toBeFalsy();
+
+    // Even by clicking onto the toggle icon, the menu must still remain closed
+    await toggleMenuIcon.click();
+    await page.waitFor(800);
+    menuStatus = await menu.getProperty('isActive');
+    expect(menuStatus).toBeFalsy();
   });
 
-  it.skip('can be disabled', async () => {
+  it('can customize placeholder', async () => {
+    const placeholderText: string = 'Automatic testing';
+    await autocompleteEl.setProperty('placeholder', placeholderText);
+    await page.waitForChanges();
 
-  });
-
-  it.skip('can customize placeholder', async () => {
-
+    // Checks if the kup-text-input has received the new placeholder
+    const inputField = await page.find('kup-autocomplete >>> kup-text-input');
+    const inputPlaceholder = await inputField.getProperty('placeholder');
+    expect(inputPlaceholder).toEqual(placeholderText);
   });
 
   describe.skip.each([
     ['code', AutocompleteSortBy.CODE],
     ['description', AutocompleteSortBy.DESCRIPTION]
-  ])('can sort items by %i', (describeDescription: string, sortBy: string) => {
+  ])('can sort items by $s', (describeDescription: string, sortBy: string) => {
     it.each([
       ['descending', AutocompleteSortOrder.DECREASING],
       ['increasing', AutocompleteSortOrder.INCREASING],
-    ])('in %i order', async (testDescription: string, sortOrder: string) => {
+    ])('in $s order', async (testDescription: string, sortOrder: string) => {
 
     });
   });
