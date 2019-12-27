@@ -79,6 +79,13 @@
       :items.prop="items"
       :limit-results.prop="limitResultsTo"
       @kupAutocompleteSelectionUpdate="logEvent"/>
+
+    <h3>Allow custom items</h3>
+    <kup-autocomplete
+      :items.prop="items"
+      :limit-results.prop="limitResultsTo"
+      allow-custom-items
+      @kupAutocompleteSelectionUpdate="logEvent"/>
   </div>
 </template>
 

@@ -110,6 +110,10 @@ import {
 export namespace Components {
   interface KupAutocomplete {
     /**
+    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    */
+    'allowCustomItems': boolean;
+    /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled': boolean;
@@ -1387,6 +1391,10 @@ declare global {
 
 declare namespace LocalJSX {
   interface KupAutocomplete extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
+    /**
+    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    */
+    'allowCustomItems'?: boolean;
     /**
     * Sets if the autocomplete should be enabled or not
     */
