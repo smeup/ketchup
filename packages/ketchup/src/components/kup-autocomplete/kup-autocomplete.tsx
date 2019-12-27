@@ -1,10 +1,11 @@
-import {Component, Element, Event, EventEmitter, h, Listen, Prop, State, Watch,} from '@stencil/core';
+import {Component, Element, Event, EventEmitter, h, Listen, Method, Prop, State, Watch,} from '@stencil/core';
 
 import {
   AutocompleteDisplayMode,
   AutocompleteSortBy,
   AutocompleteSortOrder,
-  KupAutocompleteOption
+  KupAutocompleteFilterUpdatePayload,
+  KupAutocompleteOption,
 } from './kup-autocomplete-declarations';
 
 import {isEventFromElement} from '../../utils/utils';
@@ -48,6 +49,12 @@ export class KupAutocomplete {
    * The placeholder string to set to the input for the autocomplete
    */
   @Prop() placeholder: string = 'Choose';
+  /**
+   * When true, it will emit events to inform the listener of the change of the current filter value.
+   * Also the component builtin filter will be disabled.
+   * @namespace KupAutocomplete.serverHandledFilter
+   */
+  @Prop({reflect: true}) serverHandledFilter: boolean = false;
   /**
    * Shows the icon to clear the input
    */
@@ -93,7 +100,7 @@ export class KupAutocomplete {
   //---- Public events ----
 
   /**
-   * Fired when the checkbox input changes its value
+   * Fired when the autocomplete selected items are changed (both in single and multiple mode).
    */
   @Event({
     eventName: 'kupAutocompleteSelectionUpdate',
@@ -102,6 +109,19 @@ export class KupAutocomplete {
     bubbles: true,
   })
   kupAutocompleteSelectionUpdate: EventEmitter<KupAutocompleteOption[]>;
+
+  /**
+   * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
+   * @namespace KupAutocomplete.kupAutocompleteSelectionUpdate
+   * @see KupAutocomplete.serverHandledFilter
+   */
+  @Event({
+    eventName: 'kupAutocompleteFilterUpdate',
+    composed: true,
+    cancelable: false,
+    bubbles: true,
+  })
+  kupAutocompleteFilterUpdate: EventEmitter<KupAutocompleteFilterUpdatePayload>;
 
   //---- Lifecycle hooks ----
   componentDidRender() {
@@ -115,6 +135,19 @@ export class KupAutocomplete {
   }
 
   //-------- Methods --------
+
+  //---- Public ----
+  /**
+   * Programmatically removes all of the selected items and returns them before they are removed.
+   */
+  @Method()
+  async removeAllSelectedItems() {
+    let currentlySelectedItems = this.selectedItems;
+    this.selectedItems = [];
+    return currentlySelectedItems;
+  }
+
+  //---- Private ----
 
   addItemToSelection(toAdd: KupAutocompleteOption) {
     if (!this.multipleSelection) {
@@ -208,16 +241,24 @@ export class KupAutocomplete {
   }
 
   /**
-   * Updates the currentFilter, but only if the given new filter is longer than the minimum amount of chars required to trigger the search action.
+   * Updates the currentFilter.
+   * If {@link KupAutocomplete.serverHandledFilter} is true, then it also emits a {@link KupAutocomplete.kupAutocompleteSelectionUpdate}.
    * @param newFilter - The new filter value.
    */
-  updatePartialFilter(newFilter: string) {
+  handleFilterChange(newFilter: string) {
     if (newFilter && newFilter.length >= this.minimumChars) {
       this.openMenu();
     } else {
       this.closeMenu();
     }
     this.currentFilter = newFilter;
+
+    if (this.serverHandledFilter) {
+      this.kupAutocompleteFilterUpdate.emit({
+        filter: newFilter,
+        matchesMinimumCharsRequired: newFilter && newFilter.length >= this.minimumChars,
+      });
+    }
   }
 
   //---- Watchers ----
@@ -295,10 +336,12 @@ export class KupAutocomplete {
     const lowercaseFilter = this.currentFilter.toLowerCase();
     let foundKeyboardSelectedItem: boolean = false;
 
-    // Filters items accordingly to the currentFilter
-    let filteredItems: KupAutocompleteOption[] = this.items.filter(item => {
-      return this.getItemLabel(item, ' - ').toLowerCase().indexOf(lowercaseFilter) >= 0;
-    });
+    // Filters items accordingly to the currentFilter, but ONLY if not in serverHandledFilter mode.
+    let filteredItems: KupAutocompleteOption[] = !this.serverHandledFilter ?
+      this.items.filter(item => {
+        return this.getItemLabel(item, ' - ').toLowerCase().indexOf(lowercaseFilter) >= 0;
+      }) :
+      this.items;
 
     // If items must be sorted
     if (this.sortBy !== AutocompleteSortBy.NONE) {
@@ -373,7 +416,7 @@ export class KupAutocomplete {
           placeholder={this.placeholder}
           ref={(el) => this.filterInputRef = el as HTMLKupTextInputElement}
           onKetchupTextInputFocused={() => {this.openMenu(true)}}
-          onKetchupTextInputUpdated={(e: CustomEvent) => this.updatePartialFilter(e.detail.value)}>
+          onKetchupTextInputUpdated={(e: CustomEvent) => this.handleFilterChange(e.detail.value)}>
           <kup-menu
             isActive={this.menuIsOpen}
             slot="left"

@@ -10,6 +10,7 @@ import {
   AutocompleteDisplayMode,
   AutocompleteSortBy,
   AutocompleteSortOrder,
+  KupAutocompleteFilterUpdatePayload,
   KupAutocompleteOption,
 } from './components/kup-autocomplete/kup-autocomplete-declarations';
 import {
@@ -117,9 +118,12 @@ export namespace Components {
     */
     'displayMode': AutocompleteDisplayMode;
     /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    * Sets the autocomplete items data
     */
     'items': KupAutocompleteOption[];
+    /**
+    * When greater than 0, limits the results of the filter to the specified number of elements.
+    */
     'limitResults': number;
     /**
     * The minimum number of chars to trigger the autocomplete
@@ -137,6 +141,14 @@ export namespace Components {
     * The placeholder string to set to the input for the autocomplete
     */
     'placeholder': string;
+    /**
+    * Programmatically removes all of the selected items and returns them before they are removed.
+    */
+    'removeAllSelectedItems': () => Promise<KupAutocompleteOption[]>;
+    /**
+    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+    */
+    'serverHandledFilter': boolean;
     /**
     * Shows the icon to clear the input
     */
@@ -1384,9 +1396,12 @@ declare namespace LocalJSX {
     */
     'displayMode'?: AutocompleteDisplayMode;
     /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    * Sets the autocomplete items data
     */
     'items'?: KupAutocompleteOption[];
+    /**
+    * When greater than 0, limits the results of the filter to the specified number of elements.
+    */
     'limitResults'?: number;
     /**
     * The minimum number of chars to trigger the autocomplete
@@ -1401,13 +1416,21 @@ declare namespace LocalJSX {
     */
     'noItemsLabel'?: string;
     /**
-    * Fired when the checkbox input changes its value
+    * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
+    */
+    'onKupAutocompleteFilterUpdate'?: (event: CustomEvent<KupAutocompleteFilterUpdatePayload>) => void;
+    /**
+    * Fired when the autocomplete selected items are changed (both in single and multiple mode).
     */
     'onKupAutocompleteSelectionUpdate'?: (event: CustomEvent<KupAutocompleteOption[]>) => void;
     /**
     * The placeholder string to set to the input for the autocomplete
     */
     'placeholder'?: string;
+    /**
+    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+    */
+    'serverHandledFilter'?: boolean;
     /**
     * Shows the icon to clear the input
     */
