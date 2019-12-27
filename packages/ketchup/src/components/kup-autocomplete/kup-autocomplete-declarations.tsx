@@ -19,3 +19,8 @@ export interface KupAutocompleteOption {
   code: string;
   description: string;
 }
+
+export interface KupAutocompleteFilterUpdatePayload {
+  filter: string;
+  matchesMinimumCharsRequired: boolean;
+}
