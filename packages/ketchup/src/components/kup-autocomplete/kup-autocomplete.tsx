@@ -8,6 +8,8 @@ import {
   KupAutocompleteOption,
 } from './kup-autocomplete-declarations';
 
+import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+
 import {isEventFromElement} from '../../utils/utils';
 import {GenericObject} from "../../types/GenericTypes";
 
@@ -17,6 +19,10 @@ import {GenericObject} from "../../types/GenericTypes";
   shadow: true,
 })
 export class KupAutocomplete {
+  /**
+   * When true, the user can select custom values by pressing the enter button when the input is focused.
+   */
+  @Prop() allowCustomItems: boolean = false;
   /**
    * Sets if the autocomplete should be enabled or not
    */
@@ -149,6 +155,21 @@ export class KupAutocomplete {
 
   //---- Private ----
 
+  addCustomItemToSelection(toAdd: KupAutocompleteOption) {
+    let foundItem: KupAutocompleteOption | undefined = undefined;
+
+    // Searches if among the current items there is an item with the same current label as the inserted value.
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.getItemLabel(this.items[i]) === toAdd.description) {
+        foundItem = this.items[i];
+        break;
+      }
+    }
+
+    // If a similar item was found, we add that items instead of the custom one
+    this.addItemToSelection(foundItem ? foundItem : toAdd);
+  }
+
   addItemToSelection(toAdd: KupAutocompleteOption) {
     if (!this.multipleSelection) {
       this.selectedItems = [toAdd];
@@ -200,7 +221,7 @@ export class KupAutocomplete {
         return item.description;
       case AutocompleteDisplayMode.DESCRIPTION_AND_CODE:
       default:
-        return  item.code + separator + item.description;
+        return item.code + separator + item.description;
     }
   }
 
@@ -302,6 +323,17 @@ export class KupAutocomplete {
     if (this.keyboardSelectedItem) {
       this.addItemToSelection(this.keyboardSelectedItem);
       this.keyboardSelectedItem = undefined;
+    }
+  }
+
+  handleCustomItemInsertion(payload: KetchupTextInputEvent) {
+    const parsedValue: string = payload.value.trim().replace(/\s/g, '_');
+    // A custom item con be added only if the given value has a length and there are currently no keyboard selected items
+    if (parsedValue && parsedValue.length && !this.keyboardSelectedItem) {
+      this.addCustomItemToSelection({
+        code: 'custom:' + parsedValue,
+        description: payload.value
+      });
     }
   }
 
@@ -416,7 +448,8 @@ export class KupAutocomplete {
           placeholder={this.placeholder}
           ref={(el) => this.filterInputRef = el as HTMLKupTextInputElement}
           onKetchupTextInputFocused={() => {this.openMenu(true)}}
-          onKetchupTextInputUpdated={(e: CustomEvent) => this.handleFilterChange(e.detail.value)}>
+          onKetchupTextInputUpdated={(e: CustomEvent) => this.handleFilterChange(e.detail.value)}
+          onKetchupTextInputSubmit={this.allowCustomItems ? (e: CustomEvent) => this.handleCustomItemInsertion(e.detail) : null}>
           <kup-menu
             isActive={this.menuIsOpen}
             slot="left"

@@ -15,6 +15,13 @@
       show-clear-icon
       show-dropdown-icon
       @kupAutocompleteSelectionUpdate="logEvent"/>
+
+    <h3>Allow custom items</h3>
+    <kup-autocomplete
+      :items.prop="itemsMultiple"
+      allow-custom-items
+      multiple-selection
+      @kupAutocompleteSelectionUpdate="logEvent"/>
   </div>
 </template>
 
