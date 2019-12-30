@@ -185,10 +185,7 @@
         </div>
       </div>
 
-      <kup-btn
-        :buttons.prop="btnlist"
-        @kupButtonClicked="onKupBtnClicked"
-      />
+      <kup-btn :buttons.prop="btnlist" @kupButtonClicked="onKupBtnClicked" />
 
       <code id="btn-label" v-text="labelText" />
     </div>
