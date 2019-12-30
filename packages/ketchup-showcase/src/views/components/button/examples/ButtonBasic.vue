@@ -176,11 +176,19 @@
 
         <div>
           <label for="btn-fontsize">Font size</label>
-          <input id="btn-fontsize" type="number" @change="toggleBtnStyle" value="14" />
+          <input
+            id="btn-fontsize"
+            type="number"
+            @change="toggleBtnStyle"
+            value="14"
+          />
         </div>
       </div>
 
-      <kup-btn :buttons.prop="btnlist" @ketchupButtonClicked="onKupBtnClicked" />
+      <kup-btn
+        :buttons.prop="btnlist"
+        @kupButtonClicked="onKupBtnClicked"
+      />
 
       <code id="btn-label" v-text="labelText" />
     </div>
