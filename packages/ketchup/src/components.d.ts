@@ -52,9 +52,10 @@ import {
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
+  FormFieldFocusedDetail,
   FormFields,
   FormSection,
-  FormSubmitDetail,
+  FormSubmittedDetail,
 } from './components/kup-form/kup-form-declarations';
 import {
   Badge,
@@ -1618,9 +1619,8 @@ declare namespace LocalJSX {
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'fields'?: FormFields;
-    'onKupFormSubmitted'?: (event: CustomEvent<{
-      formSubmitDetail: FormSubmitDetail;
-    }>) => void;
+    'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldFocusedDetail>) => void;
+    'onKupFormSubmitted'?: (event: CustomEvent<FormSubmittedDetail>) => void;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {

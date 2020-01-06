@@ -37,14 +37,20 @@ export interface FormFieldCalcs {
     oldValue: string;
 }
 
-export interface FormSubmitDetail {
+export interface FormSubmittedDetail {
     fields: {
-        [index: string]: FormSubmitFieldDetail;
+        [index: string]: FormSubmittedFieldDetail;
     };
 }
 
-export interface FormSubmitFieldDetail {
+export interface FormSubmittedFieldDetail {
+    key: string;
     hidden?: boolean;
     value: string;
     oldValue: string;
+}
+
+export interface FormFieldFocusedDetail {
+    key: string;
+    value: string;
 }

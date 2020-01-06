@@ -1,13 +1,13 @@
 {
   "fields": {
-    "FLD1": {
-      "key": "FLD1",
-      "title": "Image",
+    "avatar": {
+      "key": "avatar",
+      "title": "Avatar",
       "hidden": true,
       "titlePosition": "Top",
-      "description": "Smeup Logo",
+      "description": "Avatar",
       "shape": "IMG",
-      "tooltip": "its a good logo",
+      "tooltip": "avatar",
       "config": {
         "badges": [
           {
@@ -25,11 +25,11 @@
       },
       "value": "https://via.placeholder.com/64?text=CUSTOM"
     },
-    "FLD2": {
-      "key": "FLD2",
-      "title": "Input A",
+    "firstName": {
+      "key": "firstName",
+      "title": "First name",
       "titlePosition": "None",
-      "description": "Input A description",
+      "description": "First name",
       "shape": "ITX",
       "validate": {
         "required": true,
@@ -43,15 +43,36 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Input A value"
+        "k": "Marco"
       },
-      "value": "Input A value"
+      "value": "Marco"
     },
-    "FLD3": {
-      "key": "FLD3",
-      "title": "Combo A",
+    "lastName": {
+      "key": "lastName",
+      "title": "Last name",
+      "titlePosition": "None",
+      "description": "Last name",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 5
+      },
+      "config": {
+        "isClearable": true,
+        "maxLenght": 5
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "Aurelio"
+      },
+      "value": "Aurelio"
+    },
+    "country": {
+      "key": "country",
+      "title": "Country",
       "titlePosition": "Left",
-      "description": "Combo A description",
+      "description": "Country",
       "shape": "CMB",
       "data": [
         {
@@ -99,10 +120,14 @@
     "sections": [
       {
         "dim": "30%",
-        "fields": ["FLD1"]
+        "fields": ["avatar"]
       },
       {
-        "sections": [{ "fields": ["FLD2"] }, { "fields": ["FLD3"] }]
+        "sections": [
+          { "fields": ["firstName"] },
+          { "fields": ["lastName"] },
+          { "fields": ["country"] }
+        ]
       }
     ]
   },

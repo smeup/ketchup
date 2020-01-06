@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event              | Description | Type                                                   |
-| ------------------ | ----------- | ------------------------------------------------------ |
-| `kupFormSubmitted` |             | `CustomEvent<{ formSubmitDetail: FormSubmitDetail; }>` |
+| Event                 | Description | Type                                  |
+| --------------------- | ----------- | ------------------------------------- |
+| `kupFormFieldFocused` |             | `CustomEvent<FormFieldFocusedDetail>` |
+| `kupFormSubmitted`    |             | `CustomEvent<FormSubmittedDetail>`    |
 
 
 ## CSS Custom Properties

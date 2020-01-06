@@ -19,8 +19,9 @@
           :fields.prop="fields"
           :sections.prop="sections"
           @kupFormSubmitted="onFormSubmitted"
+          @kupFormFieldFocused="onFormFieldFocused"
         />
-        <div class="log" v-if="formSubmitDetail">{{ formSubmitDetail }}</div>
+        <div class="log" v-if="kupFormEvent">{{ kupFormEvent }}</div>
       </div>
     </div>
   </div>
@@ -38,7 +39,7 @@ export default {
       json: '',
       jsonText: '',
       sampleType: '',
-      formSubmitDetail: null,
+      kupFormEvent: null,
     };
   },
   mounted() {
@@ -74,7 +75,12 @@ export default {
       this.jsonText = JSON.stringify(this.json, null, 4);
     },
     onFormSubmitted({ detail }) {
-      this.formSubmitDetail = detail.formSubmitDetail;
+      this.kupFormEvent =
+        'FormSubmitted event with detail: ' + JSON.stringify(detail);
+    },
+    onFormFieldFocused({ detail }) {
+      this.kupFormEvent =
+        'FormFieldFocused event with detail: ' + JSON.stringify(detail);
     },
   },
 };

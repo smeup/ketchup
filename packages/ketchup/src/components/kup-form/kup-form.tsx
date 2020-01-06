@@ -7,7 +7,8 @@ import {
     FormFields,
     FormField,
     FormSection,
-    FormSubmitDetail,
+    FormSubmittedDetail,
+    FormFieldFocusedDetail,
     FormFieldsCalcs,
 } from './kup-form-declarations';
 
@@ -51,9 +52,15 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormSubmitted: EventEmitter<{
-        formSubmitDetail: FormSubmitDetail;
-    }>;
+    kupFormSubmitted: EventEmitter<FormSubmittedDetail>;
+
+    @Event({
+        eventName: 'kupFormFieldFocused',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFormFieldFocused: EventEmitter<FormFieldFocusedDetail>;
 
     private getFields(): FormField[] {
         if (this.fields) {
@@ -68,16 +75,17 @@ export class KupForm {
         }
     }
 
-    private buildFormSubmitDetail(): FormSubmitDetail {
-        let formSubmitDetail = {} as FormSubmitDetail;
-        formSubmitDetail.fields = {};
+    private buildFormSubmittedDetail(): FormSubmittedDetail {
+        let formSubmittedDetail = {} as FormSubmittedDetail;
+        formSubmittedDetail.fields = {};
         this.getFields().forEach((field) => {
-            formSubmitDetail.fields[field.key] = {
+            formSubmittedDetail.fields[field.key] = {
+                key: field.key,
                 value: field.value,
                 oldValue: this.fieldsCalcs[field.key].oldValue,
             };
         });
-        return formSubmitDetail;
+        return formSubmittedDetail;
     }
 
     private initVisibleFields(): void {
@@ -128,12 +136,20 @@ export class KupForm {
     }
 
     private onFormSubmit() {
-        this.kupFormSubmitted.emit({
-            formSubmitDetail: this.buildFormSubmitDetail(),
+        this.kupFormSubmitted.emit(this.buildFormSubmittedDetail());
+    }
+
+    private onFieldFocus(
+        event: CustomEvent<KetchupTextInputEvent>,
+        fieldKey: string
+    ) {
+        this.kupFormFieldFocused.emit({
+            key: fieldKey,
+            value: event.detail.value,
         });
     }
 
-    private onChange(
+    private onFieldChange(
         event: CustomEvent<KetchupTextInputEvent>,
         keyField: string
     ) {
@@ -250,12 +266,20 @@ export class KupForm {
                     (isStringObject(field.obj) && !field.shape) ||
                     field.shape == 'ITX'
                 ) {
+                    const wrapperStyle = {};
+                    wrapperStyle['--kup-text-input_border-color--selected'] =
+                        '#66D3FA';
+
                     fieldContent = (
                         <kup-text-input
+                            style={wrapperStyle}
                             input-type="text"
                             initial-value={field.value}
                             onKetchupTextInputUpdated={(e) =>
-                                this.onChange(e, field.key)
+                                this.onFieldChange(e, field.key)
+                            }
+                            onKetchupTextInputFocused={(e) =>
+                                this.onFieldFocus(e, field.key)
                             }
                         ></kup-text-input>
                     );
