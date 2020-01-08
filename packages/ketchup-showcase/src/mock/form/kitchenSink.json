@@ -1,4 +1,8 @@
 {
+  "config": {
+    "liveValidation": true
+  },
+
   "fields": {
     "avatar": {
       "key": "avatar",
@@ -34,11 +38,11 @@
       "validate": {
         "required": true,
         "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
-        "minLength": 5
+        "minLength": 3
       },
       "config": {
         "isClearable": true,
-        "maxLenght": 5
+        "maxLenght": 10
       },
       "obj": {
         "t": "",
@@ -55,7 +59,7 @@
       "shape": "ITX",
       "validate": {
         "required": true,
-        "minLength": 5
+        "minLength": 3
       },
       "config": {
         "isClearable": true,
@@ -151,7 +155,7 @@
       "event": {
         "type": "changeSchema",
         "params": {
-          "FLD2": {
+          "firstName": {
             "validate": {
               "required": false
             }
@@ -159,5 +163,21 @@
         }
       }
     }
-  }
+  },
+
+  "extraMessages": [
+    {
+      "fieldKey": "firstName",
+      "text": "warning message from server for field firstName",
+      "level": "WARNING"
+    },
+    {
+      "text": "info global message from server",
+      "level": "INFO"
+    },
+    {
+      "text": "error global message from server",
+      "level": "ERROR"
+    }
+  ]
 }

@@ -52,8 +52,11 @@ import {
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
+  FormConfig,
+  FormFieldBlurredDetail,
   FormFieldFocusedDetail,
   FormFields,
+  FormMessage,
   FormSection,
   FormSubmittedDetail,
 } from './components/kup-form/kup-form-declarations';
@@ -374,6 +377,8 @@ export namespace Components {
     'getCurrentValue': () => Promise<string | object>;
   }
   interface KupForm {
+    'config': FormConfig;
+    'extraMessages': FormMessage[];
     'fields': FormFields;
     'sections': FormSection;
   }
@@ -1618,7 +1623,10 @@ declare namespace LocalJSX {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
+    'config'?: FormConfig;
+    'extraMessages'?: FormMessage[];
     'fields'?: FormFields;
+    'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldBlurredDetail>) => void;
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldFocusedDetail>) => void;
     'onKupFormSubmitted'?: (event: CustomEvent<FormSubmittedDetail>) => void;
     'sections'?: FormSection;

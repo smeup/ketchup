@@ -32,6 +32,25 @@
   margin-top: 10px;
 }
 
+.global-messages {
+  .global-message {
+    background-color: #f0f0f0;
+    padding: 7px;
+
+    &.error {
+      border-bottom: 7px solid red;
+    }
+
+    &.warning {
+      border-bottom: 7px solid orange;
+    }
+
+    &.info {
+      border-bottom: 7px solid blue;
+    }
+  }
+}
+
 .form-sections-container {
   display: grid;
   grid-gap: 1rem;
@@ -98,6 +117,18 @@
           label {
             margin-right: 5px;
             font-weight: bold;
+          }
+
+          .form-field-message {
+            &.error {
+              color: red;
+            }
+            &.warning {
+              color: orange;
+            }
+            &.info {
+              color: blue;
+            }
           }
         }
 
