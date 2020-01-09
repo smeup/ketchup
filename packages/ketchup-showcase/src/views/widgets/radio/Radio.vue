@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles" :headtitle="headtitle">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <radio-basic></radio-basic>
     </template>
@@ -31,6 +31,8 @@ export default {
   },
   data() {
     return {
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-radio',
       headtitle: 'Radio',
       titles: ['Basic usage', 'Adding labels', 'Disabled', 'Customization'],
     };

@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles" :headtitle="headtitle">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <button-basic></button-basic>
     </template>
@@ -36,6 +36,8 @@ export default {
   },
   data() {
     return {
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-button',
       headtitle: 'Button',
       titles: [
         'Basic usage',

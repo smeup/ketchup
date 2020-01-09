@@ -853,6 +853,10 @@ export namespace Components {
   }
   interface WupTabBar {
     /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
     * List of elements.
     */
     'items': WidgetTabBarElement[];
@@ -2191,6 +2195,10 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
     /**
     * List of elements.
     */

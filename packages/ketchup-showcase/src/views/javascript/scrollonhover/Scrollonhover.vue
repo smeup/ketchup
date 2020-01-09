@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <scrollonhover-basic></scrollonhover-basic>
     </template>
@@ -27,7 +27,10 @@ export default {
   },
   data() {
     return {
-      titles: ['Scroll on hover', 'Data Table integration', 'Tree integration'],
+      giturl:
+        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/scroll-on-hover.ts',
+      headtitle: 'Scroll on hover',
+      titles: ['Basic usage', 'Data Table integration', 'Tree integration'],
     };
   },
 };

@@ -109,7 +109,7 @@
     </v-content>
 
     <v-footer app>
-      <span class="company-text">© Copyright 2019 - SME UP Spa</span>
+      <span class="company-text">© Copyright 2020 - SME UP Spa</span>
     </v-footer>
   </v-app>
 </template>

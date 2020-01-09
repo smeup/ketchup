@@ -10,6 +10,10 @@ import { WidgetTabBarElement } from './wup-tab-bar-declarations';
 })
 export class WupTabBar {
     /**
+     * Defaults at false. When set to true, mixins and classes of customization are enabled.
+     */
+    @Prop() custom: boolean = false;
+    /**
      * List of elements.
      */
     @Prop() items: WidgetTabBarElement[] = [];
@@ -33,30 +37,42 @@ export class WupTabBar {
     render() {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
+        let componentClass: string = 'mdc-tab-bar';
+
+        if (this.custom) {
+            componentClass += ' custom';
+        }
 
         for (let i = 0; i < this.items.length; i++) {
-            let componentClass: string = 'mdc-tab';
+            let tabClass: string = 'mdc-tab';
             let indicatorClass: string = 'mdc-tab-indicator';
+            let iconEl: HTMLElement = null;
 
             if (this.items[i].status === 'Active') {
-                componentClass += ' mdc-tab--active';
+                tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
+            }
+
+            if (this.items[i].icon !== '') {
+                iconEl = (
+                    <span
+                        class="mdc-tab__icon material-icons"
+                        aria-hidden="true"
+                    >
+                        {this.items[i].icon}
+                    </span>
+                );
             }
 
             tabEl = (
                 <button
-                    class={componentClass}
+                    class={tabClass}
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
                 >
                     <span class="mdc-tab__content">
-                        <span
-                            class="mdc-tab__icon material-icons"
-                            aria-hidden="true"
-                        >
-                            {this.items[i].icon}
-                        </span>
+                        {iconEl}
                         <span class="mdc-tab__text-label">
                             {this.items[i].text}
                         </span>
@@ -72,7 +88,7 @@ export class WupTabBar {
 
         return (
             <Host>
-                <div class="mdc-tab-bar" role="tablist">
+                <div class={componentClass} role="tablist">
                     <div class="mdc-tab-scroller">
                         <div class="mdc-tab-scroller__scroll-area">
                             <div class="mdc-tab-scroller__scroll-content">

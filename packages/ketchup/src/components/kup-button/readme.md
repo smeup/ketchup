@@ -66,12 +66,13 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-btn](..\kup-btn)
- - [kup-calendar](..\kup-calendar)
- - [kup-data-table](..\kup-data-table)
- - [kup-fld](..\kup-fld)
- - [kup-html](..\kup-html)
+ - [kup-box](../kup-box)
+ - [kup-btn](../kup-btn)
+ - [kup-calendar](../kup-calendar)
+ - [kup-data-table](../kup-data-table)
+ - [kup-fld](../kup-fld)
+ - [kup-form](../kup-form)
+ - [kup-html](../kup-html)
 
 ### Graph
 ```mermaid
@@ -81,6 +82,7 @@ graph TD;
   kup-calendar --> kup-button
   kup-data-table --> kup-button
   kup-fld --> kup-button
+  kup-form --> kup-button
   kup-html --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

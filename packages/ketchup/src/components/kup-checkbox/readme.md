@@ -27,25 +27,13 @@
 | `kupCheckboxFocus`  | Fired when the checkbox input receive focus     | `CustomEvent<{ checked: boolean; }>` |
 
 
-## CSS Custom Properties
-
-| Name                                                                     | Description                                                        |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `--checkbox_background-color, --kup-checkbox_background-color`           | Sets the background color of the checkbox                          |
-| `--checkbox_border-color, --kup-checkbox_border-color`                   | Sets color of the border when checkbox is NOT disabled.            |
-| `--checkbox_border-color-disabled, --kup-checkbox_border-color-disabled` | Sets color of the border when checkbox IS disabled.                |
-| `--checkbox_size, --kup-checkbox_size`                                   | Sets the component size; all other sizes are scaled automatically. |
-| `--checkbox_tick-color, --kup-checkbox_tick-color`                       | Sets color of the tick of the checkbox.                            |
-| `--checkbox_tick-color-disabled, --kup-checkbox_tick-color-disabled`     | Sets color of the tick of the checkbox when checkbox is disabled.  |
-
-
 ## Dependencies
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-data-table](..\kup-data-table)
- - [kup-tree](..\kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid

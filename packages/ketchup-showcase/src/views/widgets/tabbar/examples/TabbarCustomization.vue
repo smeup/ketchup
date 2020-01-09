@@ -10,7 +10,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-tab-bar custom></wup-tab-bar>
+          <wup-tab-bar :items.prop="items" custom></wup-tab-bar>
         </div>
         <p class="centered">Custom sample markup</p>
         <code class="flat">{{ markupCustom }}</code>
@@ -24,6 +24,28 @@ export default {
   name: 'TabbarCustomization',
   data() {
     return {
+      items: [
+        {
+          text: 'Favorites',
+          icon: 'favorites',
+          status: 'Active',
+        },
+        {
+          text: 'Set alarm clock',
+          icon: 'alarm_on',
+          status: '',
+        },
+        {
+          text: 'Settings',
+          icon: 'build',
+          status: '',
+        },
+        {
+          text: 'Iconless',
+          icon: '',
+          status: '',
+        },
+      ],
       markupCustom: '<wup-tab-bar custom></wup-tab-bar>',
     };
   },
