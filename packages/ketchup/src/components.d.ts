@@ -88,6 +88,9 @@ import {
 import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
+import {
+  WidgetTabBarElement,
+} from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
   interface KupBadge {
@@ -848,6 +851,16 @@ export namespace Components {
     */
     'labelright': string;
   }
+  interface WupTabBar {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * List of elements.
+    */
+    'items': WidgetTabBarElement[];
+  }
   interface WupTextField {
     /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
@@ -1121,6 +1134,12 @@ declare global {
     new (): HTMLWupSwitchElement;
   };
 
+  interface HTMLWupTabBarElement extends Components.WupTabBar, HTMLStencilElement {}
+  var HTMLWupTabBarElement: {
+    prototype: HTMLWupTabBarElement;
+    new (): HTMLWupTabBarElement;
+  };
+
   interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
   var HTMLWupTextFieldElement: {
     prototype: HTMLWupTextFieldElement;
@@ -1162,6 +1181,7 @@ declare global {
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
+    'wup-tab-bar': HTMLWupTabBarElement;
     'wup-text-field': HTMLWupTextFieldElement;
   }
 }
@@ -2174,6 +2194,16 @@ declare namespace LocalJSX {
       checked: boolean;
     }>) => void;
   }
+  interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * List of elements.
+    */
+    'items'?: WidgetTabBarElement[];
+  }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
     /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
@@ -2269,6 +2299,7 @@ declare namespace LocalJSX {
     'wup-checkbox': WupCheckbox;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
+    'wup-tab-bar': WupTabBar;
     'wup-text-field': WupTextField;
   }
 }

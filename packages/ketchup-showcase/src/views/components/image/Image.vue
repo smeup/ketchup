@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles" :headtitle="headtitle">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <image-basic></image-basic>
     </template>
@@ -17,6 +17,8 @@ export default {
   },
   data() {
     return {
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-image',
       headtitle: 'Image',
       titles: ['Basic usage'],
     };

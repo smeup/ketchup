@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <tippositioning-basic></tippositioning-basic>
     </template>
@@ -22,7 +22,10 @@ export default {
   },
   data() {
     return {
-      titles: ['Tip positioning', 'On an image'],
+      giturl:
+        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/recalc-position.ts',
+      headtitle: 'Tip positioning',
+      titles: ['Basic usage', 'On an image'],
     };
   },
 };

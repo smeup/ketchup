@@ -143,17 +143,17 @@ Type: `Promise<Column[]>`
 
 ### Depends on
 
-- [kup-text-input](..\kup-text-input)
-- [kup-icon](..\kup-icon)
-- [kup-checkbox](..\kup-checkbox)
-- [kup-button](..\kup-button)
-- [kup-graphic-cell](..\kup-graphic-cell)
-- [kup-chart-cell](..\kup-chart-cell)
-- [kup-progress-bar](..\kup-progress-bar)
-- [kup-radio-element](..\kup-radio-element)
-- [kup-tooltip](..\kup-tooltip)
-- [kup-paginator](..\kup-paginator)
-- [kup-chip](..\kup-chip)
+- [kup-text-input](../kup-text-input)
+- [kup-icon](../kup-icon)
+- [kup-checkbox](../kup-checkbox)
+- [kup-button](../kup-button)
+- [kup-graphic-cell](../kup-graphic-cell)
+- [kup-chart-cell](../kup-chart-cell)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio-element](../kup-radio-element)
+- [kup-tooltip](../kup-tooltip)
+- [kup-paginator](../kup-paginator)
+- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid

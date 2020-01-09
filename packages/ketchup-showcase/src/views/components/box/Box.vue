@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles" :headtitle="headtitle">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <box-basic></box-basic>
     </template>
@@ -72,6 +72,8 @@ export default {
   },
   data() {
     return {
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-box',
       headtitle: 'Box',
       titles: [
         'Basic usage',

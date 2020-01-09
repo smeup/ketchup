@@ -139,6 +139,11 @@ let widgetRoutes = [
     component: () => import(`@/views/widgets/switch/Switch.vue`),
   },
   {
+    path: `/tabbar`,
+    name: 'tabbar',
+    component: () => import(`@/views/widgets/tabbar/Tabbar.vue`),
+  },
+  {
     path: `/textfield`,
     name: 'textfield',
     component: () => import(`@/views/widgets/textfield/Textfield.vue`),

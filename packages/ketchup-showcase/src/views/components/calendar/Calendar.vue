@@ -1,5 +1,5 @@
 <template>
-  <comp :titles="titles" :headtitle="headtitle">
+  <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
       <calendar-basic></calendar-basic>
     </template>
@@ -32,7 +32,9 @@ export default {
   },
   data() {
     return {
-      headtitle: 'Button',
+      giturl:
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-calendar',
+      headtitle: 'Calendar',
       titles: ['Basic usage', 'With events', 'With icons', 'Style'],
     };
   },
