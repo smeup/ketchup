@@ -190,6 +190,7 @@
         ></kup-gauge>
 
         <h4>The Checkbox</h4>
+        <wup-tab-bar></wup-tab-bar>
         <kup-checkbox></kup-checkbox>
         <kup-checkbox checked></kup-checkbox>
         <kup-checkbox disabled></kup-checkbox>
@@ -250,6 +251,30 @@
         <script>
             let gaucolor = document.getElementById('gaucolor');
             gaucolor.colors = ['red', 'yellow', 'green'];
+            
+            let tabBar = document.getElementsByTagName('wup-tab-bar');
+            tabBar.items = [
+                    {
+                        text: 'Favorites',
+                        icon: 'favorites',
+                        status: 'Active'
+                    },
+                    {
+                        text: 'Set alarm clock',
+                        icon: 'alarm_on',
+                        status: ''
+                    },
+                    {
+                        text: 'Settings',
+                        icon: 'build',
+                        status: ''
+                    },
+                    {
+                        text: 'Iconless',
+                        icon: '',
+                        status: ''
+                    },
+                ];
 
             let once = true;
             // This is a script for testing these elements

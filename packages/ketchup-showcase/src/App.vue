@@ -87,7 +87,11 @@
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <div class="logo_header">
-      <img src="ketchup_logo_header.svg" class="light" style="height: 40px;">
+        <img
+          src="ketchup_logo_header.svg"
+          class="light"
+          style="height: 40px;"
+        />
       </div>
       <v-toolbar-title>Ketch.UP showcase</v-toolbar-title>
       <v-switch v-model="darkTheme" :label="`Dark Mode`"></v-switch>
@@ -242,6 +246,12 @@ export default {
             title: `Switch`,
             to: {
               name: 'switch',
+            },
+          },
+          {
+            title: `Tab bar`,
+            to: {
+              name: 'tabbar',
             },
           },
           {
