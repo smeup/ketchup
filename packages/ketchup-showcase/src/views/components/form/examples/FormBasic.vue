@@ -1,31 +1,45 @@
 <template>
   <div>
     <div class="try">
-      <label>Try with</label>
-      <select name="sample-type" id="sample-type" @change="onSampleTypeChange">
-        <option value="simple">Simple</option>
-        <option value="kitchenSink" selected>Kitchen Sink</option>
-      </select>
-      <div class="desc">{{ desc }}</div>
+      <div>
+        <label>Try with</label>
+        <select name="sample-type" id="sample-type" @change="onSampleTypeChange">
+          <option value="simple">Simple</option>
+          <option value="kitchenSink" selected>Kitchen Sink</option>
+        </select>
+      </div>
+      <div>
+        <details>
+          <summary class="button">Read more...</summary>
+          <div>
+            <p>Sample of almost all of the features of kup-form.</p>
+            <p>On submit some backend fake logic is performed:</p>
+            <p>1) if you write in a field:</p>
+            <ul>
+              <li>GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or Field Error, Warning or Info Message</li>
+              <li>GVM, FVM -> you will obtain Global or Field backend Value Modified</li>
+              <li>GTM, FTM -> you will obtain Global or Field backend Title Modify</li>
+            </ul>
+            <p></p>
+            <p>2) if the form is valid (no errors) your playground schema will be updated.</p>
+            <p>If you want to activate backend fake logic also after a particular field has blurred you can put liveBackend=true to the specific field you want. The sample backend function associated to kupFieldBlurred event will read liveBackend prop and if true it will perform the logic.</p>
+          </div>
+        </details>
+      </div>
     </div>
     <div class="container">
       <div class="json">
-        <label>Json</label>
-        <textarea
-          cols="50"
-          rows="25"
-          id="json"
-          @change="onJsonTextChange"
-          v-model="jsonText"
-        ></textarea>
+        <label>Schema</label>
+        <textarea cols="50" rows="25" id="json" @change="onJsonTextChange" v-model="jsonText"></textarea>
       </div>
       <div class="form">
         <label>Form</label>
         <kup-form
-          :config.prop="config"
-          :fields.prop="fields"
-          :sections.prop="sections"
-          :extraMessages.prop="extraMessages"
+          ref="form"
+          :config.prop="jsonConfig"
+          :fields.prop="jsonFields"
+          :sections.prop="jsonSections"
+          :extraMessages.prop="jsonExtraMessages"
           @kupFormSubmitted="onFormSubmitted"
           @kupFormFieldFocused="onFormFieldFocused"
           @kupFormFieldBlurred="onFormFieldBlurred"
@@ -51,7 +65,6 @@ export default {
       simpleText: JSON.stringify(simple),
       simpleDesc: 'very simple sample',
       json: '',
-      jsonText: '',
       sampleType: '',
       desc: '',
       count: 0,
@@ -61,23 +74,26 @@ export default {
     this.sampleType = 'kitchenSink';
     this.desc = this.kitchenSinkDesc;
     this.json = JSON.parse(this.kitchenSinkText);
-    this.jsonText = JSON.stringify(this.json, null, 4);
   },
 
   computed: {
-    config() {
-      return this.json.config;
+    jsonText() {
+      return JSON.stringify(this.json, null, 4);
     },
-    fields() {
+    jsonFields() {
       return this.json.fields;
     },
-    sections() {
+    jsonConfig() {
+      return this.json.config;
+    },
+    jsonSections() {
       return this.json.sections;
     },
-    extraMessages() {
+    jsonExtraMessages() {
       return this.json.extraMessages;
     },
   },
+
   methods: {
     onJsonTextChange(e) {
       let jsonText = e.target.value;
@@ -96,16 +112,17 @@ export default {
         this.json = JSON.parse(this.simpleText);
         this.desc = this.simpleDesc;
       }
-      this.jsonText = JSON.stringify(this.json, null, 4);
     },
     onFormSubmitted(event) {
       this.appendEventToHistory('FormSubmitted', event);
+      this.fakeBackendLogicOnEvent('FormSubmitted', event);
     },
     onFormFieldFocused(event) {
       this.appendEventToHistory('FormFieldFocused', event);
     },
     onFormFieldBlurred(event) {
       this.appendEventToHistory('FormFieldBlurred', event);
+      this.fakeBackendLogicOnEvent('FormFieldBlurred', event);
     },
     appendEventToHistory(eventType, event) {
       this.count++;
@@ -119,6 +136,148 @@ export default {
       );
       node.appendChild(textnode);
       document.getElementById('stack').prepend(node);
+    },
+    fakeBackendLogicOnEvent(eventType, event) {
+      if (eventType === 'FormSubmitted') {
+        this.fakeBackendLogicOnFields(
+          eventType,
+          event.detail.isValid,
+          event.detail.fields,
+          this.$refs.form.fields
+        );
+      }
+      if (eventType === 'FormFieldBlurred') {
+        // logic only if field.liveBackend
+        if (!this.$refs.form.fields[event.detail.field.key].liveBackend) {
+          return;
+        }
+
+        this.fakeBackendLogicOnFields(
+          eventType,
+          event.detail.isValid,
+          this.$refs.form.fields,
+          this.$refs.form.fields
+        );
+      }
+    },
+    fakeBackendLogicOnFields(
+      eventType,
+      isValid,
+      allFields,
+      allFieldswithAllProps
+    ) {
+      let newFields = { ...allFieldswithAllProps };
+      let extraMessages = [];
+
+      if (allFields) {
+        const keys = Object.keys(allFields);
+        let fields = [];
+        keys.forEach((key) => {
+          fields.push(allFieldswithAllProps[key]);
+        });
+        fields.forEach((field) => {
+          // messages
+          let level = null;
+          let fieldKey = null;
+
+          if (field.value.startsWith('FEM')) {
+            level = 'ERROR';
+            fieldKey = field.key;
+          } else if (field.value.startsWith('FWM')) {
+            level = 'WARNING';
+            fieldKey = field.key;
+          } else if (field.value.startsWith('FIM')) {
+            level = 'INFO';
+            fieldKey = field.key;
+          } else if (field.value.startsWith('GEM')) {
+            level = 'ERROR';
+          } else if (field.value.startsWith('GWM')) {
+            level = 'WARNING';
+          } else if (field.value.startsWith('GIM')) {
+            level = 'INFO';
+          }
+
+          if (level) {
+            if (level == 'ERROR') {
+              isValid = false;
+            }
+            console.log(
+              'Adding backend message for fieldKey' +
+                fieldKey +
+                ' and level ' +
+                level
+            );
+
+            extraMessages = [
+              ...extraMessages,
+              {
+                ...(fieldKey ? { fieldKey: fieldKey } : {}),
+                text:
+                  level +
+                  ' message from server (' +
+                  new Date().toISOString() +
+                  ')',
+                level: level,
+              },
+            ];
+          }
+
+          // other
+          if (field.value.startsWith('FVM')) {
+            console.log('FVM backend modify of field with key ' + field.key);
+            newFields[field.key].value =
+              'XXX' + field.value.substring(3, field.value.lenght);
+          }
+          if (field.value.startsWith('FTM')) {
+            console.log('FTM backend modify of field with key ' + field.key);
+            newFields[field.key].title =
+              'XXX' + allFieldswithAllProps[field.key].title;
+          }
+          if (field.value.startsWith('GVM')) {
+            console.log('GVM backend modify of field with key ' + field.key);
+            keys.forEach((key) => {
+              newFields[key].value =
+                'XXX' +
+                allFieldswithAllProps[key].value.substring(
+                  3,
+                  field.value.lenght
+                );
+            });
+          }
+          if (field.value.startsWith('GTM')) {
+            console.log('GTM backend modify of all fields');
+            keys.forEach((key) => {
+              newFields[key].title = 'XXX' + allFieldswithAllProps[key].title;
+            });
+          }
+        });
+      }
+
+      if (isValid) {
+        console.log('Valid form');
+        extraMessages = [
+          ...extraMessages,
+          {
+            text:
+              'All your backend data updated with success! (' +
+              new Date().toISOString() +
+              ')',
+            level: 'INFO',
+          },
+        ];
+
+        this.json = {
+          ...this.json,
+          fields: newFields,
+          extraMessages: extraMessages,
+        };
+      } else {
+        console.log('Not valid form');
+        this.json = {
+          ...this.json,
+          extraMessages: extraMessages,
+        };
+      }
     },
   },
 };
@@ -138,6 +297,7 @@ textarea {
   border: solid 1px black;
   width: 100%;
 }
+
 .container {
   display: grid;
   grid-template-columns: 20% auto 20%;
@@ -172,6 +332,9 @@ textarea {
 
 .try {
   margin-bottom: 5px;
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
 }
 
 .try label {
@@ -188,5 +351,12 @@ textarea {
   display: inline;
   margin-left: 5px;
   font-style: italic;
+}
+
+.button {
+  font-weight: bold;
+  font-style: italic;
+  outline: none;
+  cursor: pointer;
 }
 </style>

@@ -22,6 +22,12 @@ When a form is submitted or when another form event is performed some backend lo
 
 You can show these kind of messages using the extraMessages prop.
 
+## State
+
+The props: config, fields, sections, extraMessages are mutable (they can be updated by the component) and they are syncronized with the actual state of that entities. So if you want to obtain the actual state of fields (for example actual fields values) you can use fields props from the component (using for example: this.\$refs.form.fields).
+
+During events is not sent all the state of the component. So if you need some state info in a event callback use props. During events are sent all field values and old values (oldValue is the field value calculated when fields prop is changed).
+
 ---
 
 <!-- Auto Generated Below -->

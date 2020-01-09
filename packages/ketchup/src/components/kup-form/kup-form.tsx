@@ -32,12 +32,16 @@ import { isStringObject } from '../../utils/object-utils';
     shadow: true,
 })
 export class KupForm {
+    // mutable because is object
     @Prop() config: FormConfig = {};
 
+    // mutable because is object
     @Prop() fields: FormFields;
 
+    // mutable because is object
     @Prop() sections: FormSection;
 
+    // mutable because is object
     @Prop() extraMessages: FormMessage[] = [];
 
     @State() messages: FormMessage[] = [];
@@ -128,7 +132,16 @@ export class KupForm {
         formFieldBlurredDetail.field = {
             key: field.key,
             value: event.detail.value,
+            oldValue: this.fieldsCalcs[field.key].oldValue,
         };
+        formFieldBlurredDetail.fields = {};
+        this.getFields().forEach((field) => {
+            formFieldBlurredDetail.fields[field.key] = {
+                key: field.key,
+                value: field.value,
+                oldValue: this.fieldsCalcs[field.key].oldValue,
+            };
+        });
         if (this.config.liveValidation) {
             formFieldBlurredDetail.isValid = this.hasErrorMessages();
         }
@@ -160,6 +173,7 @@ export class KupForm {
     }
 
     private initFieldsCalcs(): void {
+        console.log('Init fields calc');
         this.fieldsCalcs = {} as FormFieldsCalcs;
         this.getFields().forEach((field) => {
             this.fieldsCalcs[field.key] = {
@@ -197,7 +211,7 @@ export class KupForm {
     }
 
     private validate(): FormMessage[] {
-        console.log('Validate...');
+        console.log('Validate');
         let messages = [];
         this.getFields().forEach((field) => {
             let fieldMessages = this.validateField(field);
@@ -245,6 +259,7 @@ export class KupForm {
     }
 
     private onFormSubmit() {
+        console.log('On form submit');
         this.messages = this.validate();
         this.kupFormSubmitted.emit(this.buildFormSubmittedDetail());
     }
@@ -262,6 +277,11 @@ export class KupForm {
         event: CustomEvent<KetchupTextInputEvent>,
         field: FormField
     ) {
+        console.log('On field blur');
+
+        const { value } = event.detail;
+        this.fields[field.key].value = value;
+
         if (this.config.liveValidation) {
             this.messages = this.validate();
         }

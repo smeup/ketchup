@@ -67,6 +67,15 @@ export interface FormFieldBlurredDetail {
     field: {
         key: string;
         value: string;
+        oldValue: string;
+    };
+    fields: {
+        [index: string]: {
+            key: string;
+            hidden?: boolean;
+            value: string;
+            oldValue: string;
+        };
     };
 }
 

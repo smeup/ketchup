@@ -116,6 +116,27 @@
         "k": "smeu006"
       },
       "value": "smeu006"
+    },
+    "address": {
+      "key": "address",
+      "title": "Address",
+      "titlePosition": "None",
+      "description": "Address",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "Roma"
+      },
+      "value": "Roma",
+      "liveBackend": true
     }
   },
 
@@ -130,7 +151,8 @@
         "sections": [
           { "fields": ["firstName"] },
           { "fields": ["lastName"] },
-          { "fields": ["country"] }
+          { "fields": ["country"] },
+          { "fields": ["address"] }
         ]
       }
     ]
@@ -168,16 +190,12 @@
   "extraMessages": [
     {
       "fieldKey": "firstName",
-      "text": "warning message from server for field firstName",
+      "text": "WARNING message from server for field firstName",
       "level": "WARNING"
     },
     {
-      "text": "info global message from server",
+      "text": "INFO global message from server",
       "level": "INFO"
-    },
-    {
-      "text": "error global message from server",
-      "level": "ERROR"
     }
   ]
 }
