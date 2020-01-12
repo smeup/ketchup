@@ -197,5 +197,80 @@
       "text": "INFO global message from server",
       "level": "INFO"
     }
-  ]
+  ],
+
+  "actions": {
+    "fields": {
+      "submit": {
+        "key": "submit",
+        "value": "Confirm",
+        "config": {
+          "showtext": true,
+          "flat": false
+        }
+      },
+      "action1": {
+        "key": "action1",
+        "hidden": false,
+        "tooltip": "action 1",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-settings"
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "value": "Action 1"
+      },
+      "action2": {
+        "key": "action2",
+        "hidden": false,
+        "tooltip": "action 2",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-delete",
+          "buttonStyle": {
+            "backgroundColor": "#8B0000",
+            "color": "#FFF"
+          }
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "value": "Action 2"
+      },
+      "action3": {
+        "key": "action2",
+        "hidden": false,
+        "tooltip": "action 3",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "imageSrc": "https://via.placeholder.com/64?text=A3"
+        },
+        "obj": {
+          "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "options": false,
+        "value": "Action 3"
+      }
+    },
+    "sections": [
+      { "position": "BR", "fields": ["action2"] },
+      { "position": "BL", "fields": ["submit"] },
+      { "position": "TL", "fields": ["submit"] },
+      { "position": "TR", "fields": ["action3", "action1"] }
+    ]
+  }
 }

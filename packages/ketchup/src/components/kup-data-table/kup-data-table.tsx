@@ -48,9 +48,10 @@ import {
 
 import {
     buildProgressBarConfig,
-    buildButtonConfig,
     buildIconConfig,
 } from '../../utils/cell-utils';
+
+import { buildButtonConfig } from '../../utils/widget-utils';
 
 import {
     isBar,
@@ -2073,7 +2074,7 @@ export class KupDataTable {
              */
             content = (
                 <kup-button
-                    {...buildButtonConfig(cell)}
+                    {...buildButtonConfig(cell.value, cell.config)}
                     onKupButtonClicked={this.onJ4btnClicked.bind(
                         this,
                         cellData ? cellData.row : null,

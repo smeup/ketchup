@@ -16,13 +16,31 @@
             <p>On submit some backend fake logic is performed:</p>
             <p>1) if you write in a field:</p>
             <ul>
-              <li>GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or Field Error, Warning or Info Message</li>
-              <li>GVM, FVM -> you will obtain Global or Field backend Value Modified</li>
-              <li>GTM, FTM -> you will obtain Global or Field backend Title Modify</li>
+              <li>
+                GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or
+                Field Error, Warning or Info Message
+              </li>
+              <li>
+                GVM, FVM -> you will obtain Global or Field backend Value
+                Modified
+              </li>
+              <li>
+                GTM, FTM -> you will obtain Global or Field backend Title
+                Modify
+              </li>
             </ul>
             <p></p>
-            <p>2) if the form is valid (no errors) your playground schema will be updated.</p>
-            <p>If you want to activate backend fake logic also after a particular field has blurred you can put liveBackend=true to the specific field you want. The sample backend function associated to kupFieldBlurred event will read liveBackend prop and if true it will perform the logic.</p>
+            <p>
+              2) if the form is valid (no errors) your playground schema will be
+              updated.
+            </p>
+            <p>
+              If you want to activate backend fake logic also after a particular
+              field has blurred you can put liveBackend=true to the specific
+              field you want. The sample backend function associated to
+              kupFieldBlurred event will read liveBackend prop and if true it
+              will perform the logic.
+            </p>
           </div>
         </details>
       </div>
@@ -40,7 +58,9 @@
           :fields.prop="jsonFields"
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
+          :actions.prop="jsonActions"
           @kupFormSubmitted="onFormSubmitted"
+          @kupFormActionSubmitted="onFormActionSubmitted"
           @kupFormFieldFocused="onFormFieldFocused"
           @kupFormFieldBlurred="onFormFieldBlurred"
         />
@@ -92,6 +112,9 @@ export default {
     jsonExtraMessages() {
       return this.json.extraMessages;
     },
+    jsonActions() {
+      return this.json.actions;
+    },
   },
 
   methods: {
@@ -116,6 +139,9 @@ export default {
     onFormSubmitted(event) {
       this.appendEventToHistory('FormSubmitted', event);
       this.fakeBackendLogicOnEvent('FormSubmitted', event);
+    },
+    onFormActionSubmitted(event) {
+      this.appendEventToHistory('FormActionSubmitted', event);
     },
     onFormFieldFocused(event) {
       this.appendEventToHistory('FormFieldFocused', event);

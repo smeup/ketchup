@@ -28,8 +28,25 @@
   padding: 5px;
 }
 
-.form-buttons {
+.form-actions {
   margin-top: 10px;
+  display: inline-block;
+  width: 100%;
+  border: 1px dotted var(--form_border-color);
+
+  .form-actions-section {
+    &.left {
+      float: left;
+    }
+    &.right {
+      float: right;
+    }
+
+    .form-action {
+      display: inline-block;
+      margin: 2px;
+    }
+  }
 }
 
 .global-messages {

@@ -15,14 +15,18 @@ import {
     FormFields,
     FormField,
     FormSection,
-    FormSubmittedDetail,
+    FormActionSubmittedDetail,
     FormFieldFocusedDetail,
     FormFieldBlurredDetail,
     FormFieldsCalcs,
     FormMessage,
     FormMessageLevel,
     FormConfig,
+    FormActions,
+    FormActionField,
 } from './kup-form-declarations';
+
+import { buildButtonConfig } from '../../utils/widget-utils';
 
 import { isStringObject } from '../../utils/object-utils';
 
@@ -44,6 +48,9 @@ export class KupForm {
     // mutable because is object
     @Prop() extraMessages: FormMessage[] = [];
 
+    // mutable because is object
+    @Prop() actions: FormActions;
+
     @State() messages: FormMessage[] = [];
 
     private fieldsCalcs: FormFieldsCalcs;
@@ -51,6 +58,8 @@ export class KupForm {
     private visibleFields: FormField[] = [];
 
     private sectionsCalcs: FormSection;
+
+    private actionsCalcs: FormActions;
 
     @Watch('sections')
     onSectionsChanged() {
@@ -63,9 +72,15 @@ export class KupForm {
         this.initVisibleFields();
     }
 
+    @Watch('actions')
+    onActionsChanged() {
+        this.initActionsCalcs();
+    }
+
     componentWillLoad() {
         this.onFieldsChanged();
         this.onSectionsChanged();
+        this.onActionsChanged();
     }
 
     @Event({
@@ -74,7 +89,15 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormSubmitted: EventEmitter<FormSubmittedDetail>;
+    kupFormSubmitted: EventEmitter<FormActionSubmittedDetail>;
+
+    @Event({
+        eventName: 'kupFormActionSubmitted',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFormActionSubmitted: EventEmitter<FormActionSubmittedDetail>;
 
     @Event({
         eventName: 'kupFormFieldFocused',
@@ -128,38 +151,46 @@ export class KupForm {
         event: CustomEvent<KetchupTextInputEvent>,
         field: FormField
     ): FormFieldBlurredDetail {
-        let formFieldBlurredDetail = {} as FormFieldBlurredDetail;
-        formFieldBlurredDetail.field = {
+        let detail = {} as FormFieldBlurredDetail;
+        detail.field = {
             key: field.key,
             value: event.detail.value,
             oldValue: this.fieldsCalcs[field.key].oldValue,
         };
-        formFieldBlurredDetail.fields = {};
+        detail.fields = {};
         this.getFields().forEach((field) => {
-            formFieldBlurredDetail.fields[field.key] = {
+            detail.fields[field.key] = {
                 key: field.key,
                 value: field.value,
                 oldValue: this.fieldsCalcs[field.key].oldValue,
             };
         });
         if (this.config.liveValidation) {
-            formFieldBlurredDetail.isValid = this.hasErrorMessages();
+            detail.isValid = this.hasErrorMessages();
         }
-        return formFieldBlurredDetail;
+        return detail;
     }
 
-    private buildFormSubmittedDetail(): FormSubmittedDetail {
-        let formSubmittedDetail = {} as FormSubmittedDetail;
-        formSubmittedDetail.fields = {};
+    private buildFormSubmittedDetail(): FormActionSubmittedDetail {
+        let detail = {} as FormActionSubmittedDetail;
+        detail.fields = {};
         this.getFields().forEach((field) => {
-            formSubmittedDetail.fields[field.key] = {
+            detail.fields[field.key] = {
                 key: field.key,
                 value: field.value,
                 oldValue: this.fieldsCalcs[field.key].oldValue,
             };
         });
-        formSubmittedDetail.isValid = this.hasErrorMessages();
-        return formSubmittedDetail;
+        detail.isValid = this.hasErrorMessages();
+        return detail;
+    }
+
+    private buildFormActionSubmittedDetail(
+        actionField: FormActionField
+    ): FormActionSubmittedDetail {
+        let detail = this.buildFormSubmittedDetail();
+        detail.action = { key: actionField.key };
+        return detail;
     }
 
     private initVisibleFields(): void {
@@ -180,6 +211,28 @@ export class KupForm {
                 oldValue: this.fields[field.key].value,
             };
         });
+    }
+
+    private initActionsCalcs(): void {
+        // check if there are actions, if not, create a default actions schema with submit in bottom right
+        if (isEmpty(this.actions)) {
+            let submit = {
+                key: 'submit',
+                value: 'Submit',
+                config: {
+                    showtext: true,
+                    flat: false,
+                },
+            } as FormActionField;
+
+            let brSection = { position: 'BR', fields: ['submit'] };
+            this.actionsCalcs = {
+                fields: { submit: submit },
+                sections: [brSection],
+            };
+        } else {
+            this.actionsCalcs = this.actions;
+        }
     }
 
     private initSectionsCalcs(): void {
@@ -262,6 +315,14 @@ export class KupForm {
         console.log('On form submit');
         this.messages = this.validate();
         this.kupFormSubmitted.emit(this.buildFormSubmittedDetail());
+    }
+
+    private onFormActionSubmit(actionField: FormActionField) {
+        console.log('On form action submit');
+        this.messages = this.validate();
+        this.kupFormActionSubmitted.emit(
+            this.buildFormActionSubmittedDetail(actionField)
+        );
     }
 
     private onFieldFocus(
@@ -481,6 +542,45 @@ export class KupForm {
         );
     }
 
+    renderActionFields(position: string) {
+        let actionsContent = [];
+        this.actionsCalcs.sections &&
+            this.actionsCalcs.sections
+                .filter((section) => section.position === position)
+                .forEach((section) => {
+                    section.fields &&
+                        section.fields.forEach((actionField) => {
+                            actionsContent.push(
+                                this.renderActionField(
+                                    this.actionsCalcs.fields &&
+                                        this.actionsCalcs.fields[actionField]
+                                )
+                            );
+                        });
+                });
+        return actionsContent;
+    }
+
+    renderActionField(actionField: FormActionField) {
+        let actionContent = (
+            <div class="form-action">
+                <kup-button
+                    {...buildButtonConfig(
+                        actionField.value,
+                        actionField.config
+                    )}
+                    onKupButtonClicked={() =>
+                        actionField.key == 'submit'
+                            ? this.onFormSubmit()
+                            : this.onFormActionSubmit(actionField)
+                    }
+                />
+            </div>
+        );
+
+        return actionContent;
+    }
+
     render() {
         const visibleFields = [...this.visibleFields];
         let sectionsContent = null;
@@ -515,14 +615,6 @@ export class KupForm {
             column: !horizontal,
         };
 
-        let submitLabel = 'Submit';
-        let submit = (
-            <kup-button
-                label={submitLabel}
-                onKupButtonClicked={() => this.onFormSubmit()}
-            />
-        );
-
         let globalMessagesContent = null;
 
         let globalMessages = [...this.messages, ...this.extraMessages];
@@ -552,15 +644,38 @@ export class KupForm {
             );
         }
 
+        let topActions = (
+            <div class="form-actions top">
+                <div class="form-actions-section left">
+                    {this.renderActionFields('TL')}
+                </div>
+                <div class="form-actions-section right">
+                    {this.renderActionFields('TR')}
+                </div>
+            </div>
+        );
+
+        let bottomActions = (
+            <div class="form-actions top">
+                <div class="form-actions-section left">
+                    {this.renderActionFields('BL')}
+                </div>
+                <div class="form-actions-section right">
+                    {this.renderActionFields('BR')}
+                </div>
+            </div>
+        );
+
         return (
             <div class="form-component">
                 {globalMessagesContent}
+                {topActions}
                 <div class="form-sections-container">
                     <div class="form-sections-wrapper">
                         <div class={sectionsClass}>{sectionsContent}</div>
                     </div>
                 </div>
-                <div class="form-buttons">{submit}</div>
+                {bottomActions}
             </div>
         );
     }

@@ -4,10 +4,10 @@ export interface FormFields {
 
 export interface FormField {
     key: string;
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     hidden?: boolean;
-    obj: {
+    obj?: {
         t: string;
         p: string;
         k: string;
@@ -17,6 +17,8 @@ export interface FormField {
     config?: any;
     validate?: FormFieldValidate;
 }
+
+export interface FormField {}
 
 export interface FormFieldValidate {
     required?: boolean;
@@ -43,8 +45,11 @@ export interface FormFieldCalcs {
     oldValue: string;
 }
 
-export interface FormSubmittedDetail {
+export interface FormActionSubmittedDetail {
     isValid?: boolean;
+    action?: {
+        key: string;
+    };
     fields: {
         [index: string]: {
             key: string;
@@ -93,4 +98,17 @@ export enum FormMessageLevel {
 
 export interface FormConfig {
     liveValidation?: boolean;
+}
+
+export interface FormActions {
+    fields: {
+        [index: string]: FormActionField;
+    };
+    sections: FormActionSection[];
+}
+
+export interface FormActionField extends FormField {}
+
+export interface FormActionSection extends FormSection {
+    position?: string;
 }
