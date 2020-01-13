@@ -1,13 +1,17 @@
 {
+  "config": {
+    "liveValidation": true
+  },
+
   "fields": {
-    "FLD1": {
-      "key": "FLD1",
-      "title": "Image",
+    "avatar": {
+      "key": "avatar",
+      "title": "Avatar",
       "hidden": true,
       "titlePosition": "Top",
-      "description": "Smeup Logo",
+      "description": "Avatar",
       "shape": "IMG",
-      "tooltip": "its a good logo",
+      "tooltip": "avatar",
       "config": {
         "badges": [
           {
@@ -25,16 +29,37 @@
       },
       "value": "https://via.placeholder.com/64?text=CUSTOM"
     },
-    "FLD2": {
-      "key": "FLD2",
-      "title": "Input A",
+    "firstName": {
+      "key": "firstName",
+      "title": "First name",
       "titlePosition": "None",
-      "description": "Input A description",
+      "description": "First name",
       "shape": "ITX",
       "validate": {
         "required": true,
         "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
-        "minLength": 5
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true,
+        "maxLenght": 10
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "Marco"
+      },
+      "value": "Marco"
+    },
+    "lastName": {
+      "key": "lastName",
+      "title": "Last name",
+      "titlePosition": "None",
+      "description": "Last name",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 3
       },
       "config": {
         "isClearable": true,
@@ -43,15 +68,15 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Input A value"
+        "k": "Aurelio"
       },
-      "value": "Input A value"
+      "value": "Aurelio"
     },
-    "FLD3": {
-      "key": "FLD3",
-      "title": "Combo A",
+    "country": {
+      "key": "country",
+      "title": "Country",
       "titlePosition": "Left",
-      "description": "Combo A description",
+      "description": "Country",
       "shape": "CMB",
       "data": [
         {
@@ -91,6 +116,27 @@
         "k": "smeu006"
       },
       "value": "smeu006"
+    },
+    "address": {
+      "key": "address",
+      "title": "Address",
+      "titlePosition": "None",
+      "description": "Address",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": "Roma"
+      },
+      "value": "Roma",
+      "liveBackend": true
     }
   },
 
@@ -99,10 +145,15 @@
     "sections": [
       {
         "dim": "30%",
-        "fields": ["FLD1"]
+        "fields": ["avatar"]
       },
       {
-        "sections": [{ "fields": ["FLD2"] }, { "fields": ["FLD3"] }]
+        "sections": [
+          { "fields": ["firstName"] },
+          { "fields": ["lastName"] },
+          { "fields": ["country"] },
+          { "fields": ["address"] }
+        ]
       }
     ]
   },
@@ -126,7 +177,7 @@
       "event": {
         "type": "changeSchema",
         "params": {
-          "FLD2": {
+          "firstName": {
             "validate": {
               "required": false
             }
@@ -134,5 +185,92 @@
         }
       }
     }
+  },
+
+  "extraMessages": [
+    {
+      "fieldKey": "firstName",
+      "text": "WARNING message from server for field firstName",
+      "level": "WARNING"
+    },
+    {
+      "text": "INFO global message from server",
+      "level": "INFO"
+    }
+  ],
+
+  "actions": {
+    "fields": {
+      "submit": {
+        "key": "submit",
+        "value": "Confirm",
+        "config": {
+          "showtext": true,
+          "flat": false
+        }
+      },
+      "action1": {
+        "key": "action1",
+        "hidden": false,
+        "tooltip": "action 1",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-settings"
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "value": "Action 1"
+      },
+      "action2": {
+        "key": "action2",
+        "hidden": false,
+        "tooltip": "action 2",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-delete",
+          "buttonStyle": {
+            "backgroundColor": "#8B0000",
+            "color": "#FFF"
+          }
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "value": "Action 2"
+      },
+      "action3": {
+        "key": "action2",
+        "hidden": false,
+        "tooltip": "action 3",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "imageSrc": "https://via.placeholder.com/64?text=A3"
+        },
+        "obj": {
+          "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "options": false,
+        "value": "Action 3"
+      }
+    },
+    "sections": [
+      { "position": "BR", "fields": ["action2"] },
+      { "position": "BL", "fields": ["submit"] },
+      { "position": "TL", "fields": ["submit"] },
+      { "position": "TR", "fields": ["action3", "action1"] }
+    ]
   }
 }

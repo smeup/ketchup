@@ -40,10 +40,11 @@ import {
     isProgressBar,
     getFromConfig,
     getValue,
-    buildButtonConfig,
     buildProgressBarConfig,
     buildIconConfig,
 } from '../../utils/cell-utils';
+
+import { buildButtonConfig } from '../../utils/widget-utils';
 
 import { replacePlaceHolders } from '../../utils/utils';
 
@@ -1201,7 +1202,11 @@ export class KupBox {
                         />
                     );
                 } else if (isButton(cell.obj)) {
-                    boContent = <kup-button {...buildButtonConfig(cell)} />;
+                    boContent = (
+                        <kup-button
+                            {...buildButtonConfig(cell.value, cell.config)}
+                        />
+                    );
                 } else if (isYesNo(cell.obj)) {
                     let checked = cell.value == '1';
                     boContent = (

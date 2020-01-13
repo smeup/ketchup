@@ -52,9 +52,14 @@ import {
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
+  FormActions,
+  FormActionSubmittedDetail,
+  FormConfig,
+  FormFieldBlurredDetail,
+  FormFieldFocusedDetail,
   FormFields,
+  FormMessage,
   FormSection,
-  FormSubmitDetail,
 } from './components/kup-form/kup-form-declarations';
 import {
   Badge,
@@ -376,6 +381,9 @@ export namespace Components {
     'getCurrentValue': () => Promise<string | object>;
   }
   interface KupForm {
+    'actions': FormActions;
+    'config': FormConfig;
+    'extraMessages': FormMessage[];
     'fields': FormFields;
     'sections': FormSection;
   }
@@ -1637,10 +1645,14 @@ declare namespace LocalJSX {
     'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
+    'actions'?: FormActions;
+    'config'?: FormConfig;
+    'extraMessages'?: FormMessage[];
     'fields'?: FormFields;
-    'onKupFormSubmitted'?: (event: CustomEvent<{
-      formSubmitDetail: FormSubmitDetail;
-    }>) => void;
+    'onKupFormActionSubmitted'?: (event: CustomEvent<FormActionSubmittedDetail>) => void;
+    'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldBlurredDetail>) => void;
+    'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldFocusedDetail>) => void;
+    'onKupFormSubmitted'?: (event: CustomEvent<FormActionSubmittedDetail>) => void;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {

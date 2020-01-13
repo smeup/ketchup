@@ -4,10 +4,10 @@ export interface FormFields {
 
 export interface FormField {
     key: string;
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     hidden?: boolean;
-    obj: {
+    obj?: {
         t: string;
         p: string;
         k: string;
@@ -15,6 +15,14 @@ export interface FormField {
     value: string;
     shape?: string;
     config?: any;
+    validate?: FormFieldValidate;
+}
+
+export interface FormField {}
+
+export interface FormFieldValidate {
+    required?: boolean;
+    minLength?: number;
 }
 
 export interface FormSection {
@@ -37,14 +45,70 @@ export interface FormFieldCalcs {
     oldValue: string;
 }
 
-export interface FormSubmitDetail {
+export interface FormActionSubmittedDetail {
+    isValid?: boolean;
+    action?: {
+        key: string;
+    };
     fields: {
-        [index: string]: FormSubmitFieldDetail;
+        [index: string]: {
+            key: string;
+            hidden?: boolean;
+            value: string;
+            oldValue: string;
+        };
     };
 }
 
-export interface FormSubmitFieldDetail {
-    hidden?: boolean;
-    value: string;
-    oldValue: string;
+export interface FormFieldFocusedDetail {
+    field: {
+        key: string;
+        value: string;
+    };
+}
+
+export interface FormFieldBlurredDetail {
+    isValid?: boolean;
+    field: {
+        key: string;
+        value: string;
+        oldValue: string;
+    };
+    fields: {
+        [index: string]: {
+            key: string;
+            hidden?: boolean;
+            value: string;
+            oldValue: string;
+        };
+    };
+}
+
+export interface FormMessage {
+    fieldKey?: string;
+    text: string;
+    level: FormMessageLevel;
+}
+
+export enum FormMessageLevel {
+    INFO = 'INFO',
+    WARNING = 'WARNING',
+    ERROR = 'ERROR',
+}
+
+export interface FormConfig {
+    liveValidation?: boolean;
+}
+
+export interface FormActions {
+    fields: {
+        [index: string]: FormActionField;
+    };
+    sections: FormActionSection[];
+}
+
+export interface FormActionField extends FormField {}
+
+export interface FormActionSection extends FormSection {
+    position?: string;
 }
