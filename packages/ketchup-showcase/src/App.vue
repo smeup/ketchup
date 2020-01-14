@@ -93,7 +93,7 @@
           style="height: 40px;"
         />
       </div>
-      <v-toolbar-title>Ketch.UP showcase</v-toolbar-title>
+      <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <v-switch v-model="darkTheme" :label="`Dark Mode`"></v-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
