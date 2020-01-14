@@ -19,7 +19,6 @@
       );
       @include mdc-radio-disabled-ink-color($mdc-radio-ink-disabled);
       @include mdc-radio-focus-indicator-color($mdc-ripple-color);
-      @include mdc-radio-density($mdc-density);
     }
   }
 }

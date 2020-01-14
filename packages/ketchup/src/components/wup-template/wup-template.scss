@@ -2,7 +2,7 @@
 @import '@material/checkbox/mdc-checkbox';
 @import '@material/form-field/mdc-form-field';
 
-// host represent widget DOM element 
+// host represent widget DOM element
 :host {
   display: block;
 }
@@ -12,21 +12,5 @@
 // Mixins documentation can be viewed at https://material.io/develop/web/components/<component>/
 .mdc-checkbox {
   &.custom {
-    @include mdc-checkbox-container-colors(
-      $mdc-checkbox-fill-unmarked,
-      $mdc-checkbox-border-unmarked,
-      $mdc-checkbox-fill-marked,
-      $mdc-checkbox-border-marked
-    );
-    @include mdc-checkbox-disabled-container-colors(
-      $mdc-checkbox-fill-disabled-unmarked,
-      $mdc-checkbox-border-disabled-unmarked,
-      $mdc-checkbox-fill-disabled-marked,
-      $mdc-checkbox-border-disabled-marked
-    );
-    @include mdc-checkbox-ink-color($mdc-checkbox-ink);
-    @include mdc-checkbox-disabled-ink-color($mdc-checkbox-ink-disabled);
-    @include mdc-checkbox-focus-indicator-color($mdc-ripple-color);
-    @include mdc-checkbox-density($mdc-density);
   }
 }

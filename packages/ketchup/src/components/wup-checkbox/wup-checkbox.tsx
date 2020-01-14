@@ -1,11 +1,3 @@
-// >   R  E  A  D  M  E <
-//
-// --> M A T E R I A L    D E S I G N
-//
-//     This component is a form field, it should be managed as such.
-//     For more info: https://material.io/develop/web/components/input-controls/form-fields/
-//
-
 import {
     Component,
     Event,
@@ -25,10 +17,6 @@ import { MDCFormField } from '@material/form-field';
 })
 export class WupCheckbox {
     /**
-     * Defaults at false. When set to true, the component will be set to 'checked'.
-     */
-    @Prop() checked: boolean = false;
-    /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
     @Prop() custom: boolean = false;
@@ -36,6 +24,10 @@ export class WupCheckbox {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
+    /**
+     * Defaults at false. When set to true, the component will be set to 'checked'.
+     */
+    @Prop() checked: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'indeterminate'.
      */
@@ -52,22 +44,22 @@ export class WupCheckbox {
     @Element() rootElement: HTMLElement;
 
     @Event({
-        eventName: 'componentChange',
+        eventName: 'widgetChange',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    componentChange: EventEmitter<{
+    widgetChange: EventEmitter<{
         checked: boolean;
     }>;
 
     //---- Methods ----
 
-    onComponentChange(e: UIEvent) {
+    onWidgetChange(e: UIEvent) {
         const newValue = !!(e.target as HTMLInputElement).checked;
         if (newValue !== this.checked) {
             this.checked = newValue;
-            this.componentChange.emit({
+            this.widgetChange.emit({
                 checked: newValue,
             });
         }
@@ -89,36 +81,34 @@ export class WupCheckbox {
         }
     }
 
-    //---- Rendering ----
-
     render() {
         let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-checkbox';
-        let componentLabel: string = '';
+        let widgetClass: string = 'mdc-checkbox';
+        let widgetLabel: string = '';
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-checkbox--disabled';
+            widgetClass += ' mdc-checkbox--disabled';
         }
 
         if (this.checked) {
-            componentClass += ' mdc-checkbox--checked';
+            widgetClass += ' mdc-checkbox--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            componentLabel = this.labelleft;
+            widgetLabel = this.labelleft;
         } else if (this.labelright) {
-            componentLabel = this.labelright;
+            widgetLabel = this.labelright;
         }
 
         return (
             <Host checked={this.checked}>
                 <div class={formClass}>
-                    <div id="checkbox-wrapper" class={componentClass}>
+                    <div id="checkbox-wrapper" class={widgetClass}>
                         {/* 
                             // @ts-ignore */}
                         <input
@@ -127,7 +117,7 @@ export class WupCheckbox {
                             checked={this.checked}
                             disabled={this.disabled}
                             indeterminate={this.indeterminate}
-                            onChange={this.onComponentChange.bind(this)}
+                            onChange={this.onWidgetChange.bind(this)}
                         />
                         <div class="mdc-checkbox__background">
                             <svg
@@ -144,7 +134,7 @@ export class WupCheckbox {
                         </div>
                         <div class="mdc-checkbox__ripple"></div>
                     </div>
-                    <label htmlFor="checkbox-wrapper">{componentLabel}</label>
+                    <label htmlFor="checkbox-wrapper">{widgetLabel}</label>
                 </div>
             </Host>
         );

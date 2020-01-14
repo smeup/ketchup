@@ -1,11 +1,3 @@
-// >   R  E  A  D  M  E <
-//
-// --> M A T E R I A L    D E S I G N
-//
-//     This component is a form field, it should be managed as such.
-//     For more info: https://material.io/develop/web/components/input-controls/form-fields/
-//
-
 import {
     Component,
     Event,
@@ -25,10 +17,6 @@ import { MDCFormField } from '@material/form-field';
 })
 export class WupRadio {
     /**
-     * Defaults at false. When set to true, the component will be set to 'checked'.
-     */
-    @Prop() checked: boolean = false;
-    /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
     @Prop() custom: boolean = false;
@@ -36,6 +24,10 @@ export class WupRadio {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
+    /**
+     * Defaults at false. When set to true, the component will be set to 'checked'.
+     */
+    @Prop() checked: boolean = false;
     /**
      * Defaults at null. When specified, its content is shown to the left of the component as a label.
      */
@@ -48,22 +40,22 @@ export class WupRadio {
     @Element() rootElement: HTMLElement;
 
     @Event({
-        eventName: 'componentChange',
+        eventName: 'widgetChange',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    componentChange: EventEmitter<{
+    widgetChange: EventEmitter<{
         checked: boolean;
     }>;
 
     //---- Methods ----
 
-    onComponentChange(e: UIEvent) {
+    onWidgetChange(e: UIEvent) {
         const newValue = !!(e.target as HTMLInputElement).checked;
         if (newValue !== this.checked) {
             this.checked = newValue;
-            this.componentChange.emit({
+            this.widgetChange.emit({
                 checked: newValue,
             });
         }
@@ -85,43 +77,41 @@ export class WupRadio {
         }
     }
 
-    //---- Rendering ----
-
     render() {
         let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-radio';
-        let componentLabel: string = '';
+        let widgetClass: string = 'mdc-radio';
+        let widgetLabel: string = '';
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-radio--disabled';
+            widgetClass += ' mdc-radio--disabled';
         }
 
         if (this.checked) {
-            componentClass += ' mdc-radio--checked';
+            widgetClass += ' mdc-radio--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            componentLabel = this.labelleft;
+            widgetLabel = this.labelleft;
         } else if (this.labelright) {
-            componentLabel = this.labelright;
+            widgetLabel = this.labelright;
         }
 
         return (
             <Host checked={this.checked}>
                 <div class={formClass}>
-                    <div class={componentClass}>
+                    <div class={widgetClass}>
                         <input
                             class="mdc-radio__native-control"
                             type="radio"
                             id="radio-id"
                             checked={this.checked}
                             disabled={this.disabled}
-                            onChange={this.onComponentChange.bind(this)}
+                            onChange={this.onWidgetChange.bind(this)}
                         ></input>
                         <div class="mdc-radio__background">
                             <div class="mdc-radio__outer-circle"></div>
@@ -129,7 +119,7 @@ export class WupRadio {
                         </div>
                         <div class="mdc-radio__ripple"></div>
                     </div>
-                    <label htmlFor="radio-id">{componentLabel}</label>
+                    <label htmlFor="radio-id">{widgetLabel}</label>
                 </div>
             </Host>
         );
