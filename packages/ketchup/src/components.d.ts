@@ -52,11 +52,10 @@ import {
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
+  FormActionEventDetail,
   FormActions,
-  FormActionSubmittedDetail,
   FormConfig,
-  FormFieldBlurredDetail,
-  FormFieldFocusedDetail,
+  FormFieldEventDetail,
   FormFields,
   FormMessage,
   FormSection,
@@ -1497,6 +1496,14 @@ declare namespace LocalJSX {
     */
     'obj'?: GenericObject;
     /**
+    * When combo is blurred
+    */
+    'onKetchupComboBlurred'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
+    * When combo is focused
+    */
+    'onKetchupComboFocused'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
     * When an element has been selected
     */
     'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
@@ -1649,10 +1656,11 @@ declare namespace LocalJSX {
     'config'?: FormConfig;
     'extraMessages'?: FormMessage[];
     'fields'?: FormFields;
-    'onKupFormActionSubmitted'?: (event: CustomEvent<FormActionSubmittedDetail>) => void;
-    'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldBlurredDetail>) => void;
-    'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldFocusedDetail>) => void;
-    'onKupFormSubmitted'?: (event: CustomEvent<FormActionSubmittedDetail>) => void;
+    'onKupFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
+    'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldEventDetail>) => void;
+    'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
+    'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
+    'onKupFormSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {

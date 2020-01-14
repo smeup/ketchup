@@ -4,7 +4,7 @@ Kup-form is a web component that allows to generate forms.
 
 ## Fields
 
-Fields config, layout and values are defined in fields prop. Each field must have a unique key prop.
+Fields config, layout and values are defined in fields prop. Each field must have a unique key prop. Field value can be a string or a object.
 
 ## Sections
 
@@ -52,12 +52,13 @@ During events is not sent all the state of the component. So if you need some st
 
 ## Events
 
-| Event                    | Description | Type                                     |
-| ------------------------ | ----------- | ---------------------------------------- |
-| `kupFormActionSubmitted` |             | `CustomEvent<FormActionSubmittedDetail>` |
-| `kupFormFieldBlurred`    |             | `CustomEvent<FormFieldBlurredDetail>`    |
-| `kupFormFieldFocused`    |             | `CustomEvent<FormFieldFocusedDetail>`    |
-| `kupFormSubmitted`       |             | `CustomEvent<FormActionSubmittedDetail>` |
+| Event                    | Description | Type                                 |
+| ------------------------ | ----------- | ------------------------------------ |
+| `kupFormActionSubmitted` |             | `CustomEvent<FormActionEventDetail>` |
+| `kupFormFieldBlurred`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupFormFieldChanged`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupFormFieldFocused`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupFormSubmitted`       |             | `CustomEvent<FormActionEventDetail>` |
 
 
 ## CSS Custom Properties
@@ -77,13 +78,18 @@ During events is not sent all the state of the component. So if you need some st
 ### Depends on
 
 - [kup-text-input](../kup-text-input)
+- [kup-combo](../kup-combo)
 - [kup-button](../kup-button)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-form --> kup-text-input
+  kup-form --> kup-combo
   kup-form --> kup-button
+  kup-combo --> kup-text-input
+  kup-combo --> kup-portal
+  kup-portal --> kup-portal-instance
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

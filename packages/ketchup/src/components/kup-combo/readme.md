@@ -24,6 +24,8 @@
 
 | Event                  | Description                       | Type                                                     |
 | ---------------------- | --------------------------------- | -------------------------------------------------------- |
+| `ketchupComboBlurred`  | When combo is blurred             | `CustomEvent<KupPayloadEvent<ComboItem, GenericObject>>` |
+| `ketchupComboFocused`  | When combo is focused             | `CustomEvent<KupPayloadEvent<ComboItem, GenericObject>>` |
 | `ketchupComboSelected` | When an element has been selected | `CustomEvent<KupPayloadEvent<ComboItem, GenericObject>>` |
 
 
@@ -77,6 +79,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
 
 ### Depends on
@@ -91,6 +94,7 @@ graph TD;
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
   kup-box --> kup-combo
+  kup-form --> kup-combo
   kup-paginator --> kup-combo
   style kup-combo fill:#f9f,stroke:#333,stroke-width:4px
 ```

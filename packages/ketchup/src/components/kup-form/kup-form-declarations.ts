@@ -12,7 +12,8 @@ export interface FormField {
         p: string;
         k: string;
     };
-    value: string;
+    data?: {};
+    value: any;
     shape?: string;
     config?: any;
     validate?: FormFieldValidate;
@@ -42,10 +43,10 @@ export interface FormFieldsCalcs {
 }
 
 export interface FormFieldCalcs {
-    oldValue: string;
+    oldValue: any;
 }
 
-export interface FormActionSubmittedDetail {
+export interface FormActionEventDetail {
     isValid?: boolean;
     action?: {
         key: string;
@@ -54,32 +55,25 @@ export interface FormActionSubmittedDetail {
         [index: string]: {
             key: string;
             hidden?: boolean;
-            value: string;
-            oldValue: string;
+            value: any;
+            oldValue: any;
         };
     };
 }
 
-export interface FormFieldFocusedDetail {
-    field: {
-        key: string;
-        value: string;
-    };
-}
-
-export interface FormFieldBlurredDetail {
+export interface FormFieldEventDetail {
     isValid?: boolean;
     field: {
         key: string;
-        value: string;
-        oldValue: string;
+        value: any;
+        oldValue: any;
     };
     fields: {
         [index: string]: {
             key: string;
             hidden?: boolean;
-            value: string;
-            oldValue: string;
+            value: any;
+            oldValue: any;
         };
     };
 }
