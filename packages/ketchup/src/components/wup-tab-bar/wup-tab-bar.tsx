@@ -32,15 +32,13 @@ export class WupTabBar {
         }
     }
 
-    //---- Rendering ----
-
     render() {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
-        let componentClass: string = 'mdc-tab-bar';
+        let widgetClass: string = 'mdc-tab-bar';
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         for (let i = 0; i < this.items.length; i++) {
@@ -88,7 +86,7 @@ export class WupTabBar {
 
         return (
             <Host>
-                <div class={componentClass} role="tablist">
+                <div class={widgetClass} role="tablist">
                     <div class="mdc-tab-scroller">
                         <div class="mdc-tab-scroller__scroll-area">
                             <div class="mdc-tab-scroller__scroll-content">

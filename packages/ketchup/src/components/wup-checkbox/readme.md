@@ -19,9 +19,9 @@
 
 ## Events
 
-| Event             | Description | Type                                 |
-| ----------------- | ----------- | ------------------------------------ |
-| `componentChange` |             | `CustomEvent<{ checked: boolean; }>` |
+| Event          | Description | Type                                 |
+| -------------- | ----------- | ------------------------------------ |
+| `widgetChange` |             | `CustomEvent<{ checked: boolean; }>` |
 
 
 ----------------------------------------------

@@ -14,6 +14,7 @@
   }
   .mdc-switch {
     margin: 0 1.5rem 0 1rem;
+
     &.custom {
       @include mdc-switch-toggled-on-color($mdc-switch-marked);
       @include mdc-switch-toggled-off-color($mdc-switch-unmarked);
@@ -22,7 +23,6 @@
       @include mdc-switch-toggled-on-thumb-color($mdc-switch-thumb-marked);
       @include mdc-switch-toggled-off-thumb-color($mdc-switch-thumb-unmarked);
       @include mdc-switch-toggled-on-ripple-color($mdc-ripple-color);
-      @include mdc-switch-density($mdc-density);
     }
   }
 }

@@ -869,6 +869,16 @@ export namespace Components {
     */
     'items': WidgetTabBarElement[];
   }
+  interface WupTemplate {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+  }
   interface WupTextField {
     /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
@@ -1148,6 +1158,12 @@ declare global {
     new (): HTMLWupTabBarElement;
   };
 
+  interface HTMLWupTemplateElement extends Components.WupTemplate, HTMLStencilElement {}
+  var HTMLWupTemplateElement: {
+    prototype: HTMLWupTemplateElement;
+    new (): HTMLWupTemplateElement;
+  };
+
   interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
   var HTMLWupTextFieldElement: {
     prototype: HTMLWupTextFieldElement;
@@ -1190,6 +1206,7 @@ declare global {
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
+    'wup-template': HTMLWupTemplateElement;
     'wup-text-field': HTMLWupTextFieldElement;
   }
 }
@@ -2152,7 +2169,7 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
+    'onWidgetChange'?: (event: CustomEvent<{
       checked: boolean;
     }>) => void;
   }
@@ -2177,7 +2194,7 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
+    'onWidgetChange'?: (event: CustomEvent<{
       checked: boolean;
     }>) => void;
   }
@@ -2202,7 +2219,7 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
+    'onWidgetChange'?: (event: CustomEvent<{
       checked: boolean;
     }>) => void;
   }
@@ -2215,6 +2232,22 @@ declare namespace LocalJSX {
     * List of elements.
     */
     'items'?: WidgetTabBarElement[];
+  }
+  interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Event example.
+    */
+    'onWupClick'?: (event: CustomEvent<{
+      payload: any;
+    }>) => void;
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
     /**
@@ -2312,6 +2345,7 @@ declare namespace LocalJSX {
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;
+    'wup-template': WupTemplate;
     'wup-text-field': WupTextField;
   }
 }

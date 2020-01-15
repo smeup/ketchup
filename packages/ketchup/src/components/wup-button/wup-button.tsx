@@ -1,11 +1,3 @@
-// >   R  E  A  D  M  E <
-//
-// --> M A T E R I A L    D E S I G N
-//
-//     This component is a form field, it should be managed as such.
-//     For more info: https://material.io/develop/web/components/input-controls/form-fields/
-//
-
 import { Component, Prop, Element, Host, h } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
@@ -16,6 +8,15 @@ import { MDCIconButtonToggle } from '@material/icon-button';
     shadow: true,
 })
 export class WupButton {
+    @Element() rootElement: HTMLElement;
+    /**
+     * Defaults at false. When set to true, mixins and classes of customization are enabled.
+     */
+    @Prop() custom: boolean = false;
+    /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with a colored outline.
      */
@@ -48,16 +49,6 @@ export class WupButton {
      * Defaults at null. When set, the button will show this text.
      */
     @Prop() text: string = null;
-    /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop() disabled: boolean = false;
-
-    @Element() rootElement: HTMLElement;
 
     //---- Methods ----
 
@@ -80,29 +71,25 @@ export class WupButton {
         }
     }
 
-    //---- Rendering ----
-    //
-    // It renders in two different ways because two different Material layouts are used.
-    // If only the icon is present, with no text, an "icon button" will be rendered.
-    //
-
     render() {
-        let componentClass: string = 'kup-button';
+        // It renders in two different ways because two different Material layouts are used.
+        // If only the icon is present, with no text, an "icon button" will be rendered.
+        let widgetClass: string = 'kup-button';
         let iconEl: HTMLElement = null;
         let textEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-button--disabled';
+            widgetClass += ' mdc-button--disabled';
         }
 
         if (this.text) {
-            componentClass += ' mdc-button';
+            widgetClass += ' mdc-button';
             textEl = <span class="mdc-button__label">{this.text}</span>;
             if (this.icon) {
                 iconEl = (
@@ -116,13 +103,13 @@ export class WupButton {
             }
 
             if (this.transparent) {
-                componentClass += ' mdc-button--outlined';
+                widgetClass += ' mdc-button--outlined';
             } else if (!this.flat) {
-                componentClass += ' mdc-button--raised';
+                widgetClass += ' mdc-button--raised';
             }
 
             if (this.rounded) {
-                componentClass += ' button-shaped';
+                widgetClass += ' button-shaped';
             }
 
             if (this.trailingicon && this.icon) {
@@ -136,7 +123,7 @@ export class WupButton {
                 <Host>
                     <button
                         type="button"
-                        class={componentClass}
+                        class={widgetClass}
                         disabled={this.disabled}
                     >
                         <div class="mdc-button__ripple"></div>
@@ -146,7 +133,7 @@ export class WupButton {
                 </Host>
             );
         } else if (this.icon) {
-            componentClass += ' mdc-icon-button';
+            widgetClass += ' mdc-icon-button';
             trailingEl = (
                 <i
                     class="material-icons mdc-icon-button__icon"
@@ -156,7 +143,7 @@ export class WupButton {
                 </i>
             );
             if (this.toggable) {
-                componentClass += ' toggable';
+                widgetClass += ' toggable';
                 trailingEl = (
                     <i
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
@@ -166,7 +153,7 @@ export class WupButton {
                     </i>
                 );
                 if (this.checked) {
-                    componentClass += ' mdc-icon-button--on';
+                    widgetClass += ' mdc-icon-button--on';
                 }
                 let iconOff = this.icon + '_border';
                 leadingEl = (
@@ -182,7 +169,7 @@ export class WupButton {
                 <Host>
                     <button
                         type="button"
-                        class={componentClass}
+                        class={widgetClass}
                         disabled={this.disabled}
                     >
                         <div class="mdc-button__ripple"></div>

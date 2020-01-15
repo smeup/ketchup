@@ -9,6 +9,14 @@
 }
 
 .mdc-text-field {
+  &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+    @include mdc-text-field-density(-4);
+  }
+
+  &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
+    @include mdc-text-field-outlined-density(-4);
+  }
+
   &.shaped {
     border-radius: 16px 16px 0 0;
   }
