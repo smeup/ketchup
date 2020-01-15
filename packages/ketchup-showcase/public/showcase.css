@@ -103,6 +103,7 @@ h3 {
 
   #page-content {
     width: 100%;
+    padding: 0 30px;
   }
 
   #page-nav {
@@ -467,6 +468,10 @@ h1.team-title {
 @media screen and (min-width: 1260px) {
   .member-description {
     max-width: calc(100% - 280px);
+  }
+
+  #page-content {
+    padding: 25px 50px;
   }
 
   .member-image img:hover {
