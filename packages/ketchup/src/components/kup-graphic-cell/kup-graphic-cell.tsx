@@ -11,7 +11,7 @@ export class KupGraphicCell {
     value: string;
 
     @Prop()
-    height = 30;
+    height = 35;
 
     @Prop()
     width = 300;
