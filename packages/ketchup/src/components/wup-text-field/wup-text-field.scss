@@ -15,6 +15,11 @@
 
   &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
     @include mdc-text-field-outlined-density(-4);
+
+    //Fixed floating label position when outlined field has a leading icon
+    &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
+      transform: translateY(-26px) scale(0.75) translateX(-40px);
+    }
   }
 
   &.shaped {
