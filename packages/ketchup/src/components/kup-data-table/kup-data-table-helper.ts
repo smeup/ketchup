@@ -553,6 +553,28 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     return numberOfLeaf;
 }
 
+export function normalizeRows(columns: Array<Column>, rows: Array<Row>) : Array<Row>
+{
+    if (rows) {
+        const normalizedrows = Object.assign(rows);
+        rows.forEach((row: Row) => {
+            columns.forEach((column) => {
+                const cell = row.cells[column.name];
+                if ((cell && column.obj) && (!cell.obj)) {
+                    // cell.obj = Object.assign(column.obj);
+                    cell.obj = { 
+                                  t: column.obj.t,
+                                  p: column.obj.p,
+                                  k: cell.value                                  }                
+                }    
+            })
+        })
+        return normalizedrows;
+    } else {
+        return undefined
+    }
+}
+
 export function normalizeTotals(
     columns: Array<Column>,
     totals: TotalsMap
@@ -606,7 +628,7 @@ export function calcTotals(
                     const cell = r.cells[key];
 
                     // check if number
-                    if (cell.obj.t === 'NR') {
+                    if ((cell) && (cell.obj.t === 'NR')) {
                         const cellValue = numeral(cell.obj.k);
 
                         const currentFooterValue = footerRow[key] || 0;

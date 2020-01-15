@@ -37,6 +37,7 @@ import {
 import {
     calcTotals,
     normalizeTotals,
+    normalizeRows,
     filterRows,
     getColumnByName,
     groupRows,
@@ -671,7 +672,7 @@ export class KupDataTable {
         this.filterRows();
 
         this.footer = calcTotals(
-            this.rows,
+            normalizeRows(this.getColumns(), this.rows),
             normalizeTotals(this.getColumns(), this.totals)
         );
 
@@ -1841,6 +1842,7 @@ export class KupDataTable {
 
                 const cellClass = {
                     'has-options': !!options,
+                    'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
 

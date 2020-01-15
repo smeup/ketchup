@@ -442,6 +442,14 @@
             }
           }
 
+          &.is-graphic {
+            padding: 0 1px;
+            & kup-graphic-cell {
+              display: flex;
+            }
+          }
+
+
           // Class assigned to the image of a cell
           // Allows regulation of sizes
           .cell-image {
