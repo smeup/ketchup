@@ -361,6 +361,11 @@ export class WupTextField {
                     disabled={this.disabled}
                     maxlength={this.maxlength}
                     value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></textarea>
             );
         } else {

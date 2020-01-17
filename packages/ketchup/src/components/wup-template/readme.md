@@ -15,9 +15,13 @@
 
 ## Events
 
-| Event      | Description    | Type                             |
-| ---------- | -------------- | -------------------------------- |
-| `wupClick` | Event example. | `CustomEvent<{ payload: any; }>` |
+| Event                | Description    | Type                           |
+| -------------------- | -------------- | ------------------------------ |
+| `kupCOMP_NAMEBlur`   | Event example. | `CustomEvent<{ value: any; }>` |
+| `kupCOMP_NAMEChange` |                | `CustomEvent<{ value: any; }>` |
+| `kupCOMP_NAMEClick`  |                | `CustomEvent<{ value: any; }>` |
+| `kupCOMP_NAMEFocus`  |                | `CustomEvent<{ value: any; }>` |
+| `kupCOMP_NAMEInput`  |                | `CustomEvent<{ value: any; }>` |
 
 
 ----------------------------------------------

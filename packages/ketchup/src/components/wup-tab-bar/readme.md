@@ -13,6 +13,17 @@
 | `items`  | --        | List of elements.                                                                     | `WidgetTabBarElement[]` | `[]`    |
 
 
+## Events
+
+| Event             | Description | Type                           |
+| ----------------- | ----------- | ------------------------------ |
+| `kupTabBarBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupTabBarChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupTabBarClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupTabBarFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupTabBarInput`  |             | `CustomEvent<{ value: any; }>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

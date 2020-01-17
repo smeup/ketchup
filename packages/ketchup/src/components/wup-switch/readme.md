@@ -18,9 +18,13 @@
 
 ## Events
 
-| Event          | Description | Type                                 |
-| -------------- | ----------- | ------------------------------------ |
-| `widgetChange` |             | `CustomEvent<{ checked: boolean; }>` |
+| Event             | Description | Type                           |
+| ----------------- | ----------- | ------------------------------ |
+| `kupSwitchBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupSwitchChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupSwitchClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupSwitchFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupSwitchInput`  |             | `CustomEvent<{ value: any; }>` |
 
 
 ----------------------------------------------
