@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    State,
+    Host,
+    h,
+} from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
@@ -11,6 +20,8 @@ import { MDCTextFieldIcon } from '@material/textfield/icon';
     shadow: true,
 })
 export class WupTextField {
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -68,9 +79,97 @@ export class WupTextField {
      */
     @Prop() trailingicon: boolean = false;
 
-    @Element() rootElement: HTMLElement;
+    @Event({
+        eventName: 'kupTextFieldBlur',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
+    }>;
 
     //---- Methods ----
+
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -261,6 +360,7 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     maxlength={this.maxlength}
+                    value={this.value}
                 ></textarea>
             );
         } else {
@@ -272,6 +372,12 @@ export class WupTextField {
                     placeholder={placeholderLabel}
                     disabled={this.disabled}
                     maxlength={this.maxlength}
+                    value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></input>
             );
         }
@@ -318,6 +424,12 @@ export class WupTextField {
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
                     maxlength={this.maxlength}
+                    value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></input>
                 {trailingIconEl}
                 {labelEl}

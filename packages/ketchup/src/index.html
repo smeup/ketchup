@@ -190,7 +190,6 @@
         ></kup-gauge>
 
         <h4>The Checkbox</h4>
-        <wup-tab-bar></wup-tab-bar>
         <kup-checkbox></kup-checkbox>
         <kup-checkbox checked></kup-checkbox>
         <kup-checkbox disabled></kup-checkbox>
@@ -248,8 +247,118 @@
             transparent
             text="Shaped & transparent"
         ></wup-button>
+        
+        <h4>Events testing</h4>
+        <wup-tab-bar id="event-tabbar"></wup-tab-bar>
+        <wup-text-field id="event-textfield" custom label="I am a label"></wup-text-field>
+        <wup-checkbox id="event-checkbox"></wup-checkbox>
+        <wup-button id="event-button" raised text="Click me"></wup-button>
+        <wup-radio id="event-radio"></wup-radio>
+        <wup-switch id="event-switch"></wup-switch>
 
         <script>
+            let eTabbar = document.getElementById('event-tabbar');
+            let eTextfield = document.getElementById('event-textfield');
+            let eCheckbox = document.getElementById('event-checkbox');
+            let eButton = document.getElementById('event-button');
+            let eRadio = document.getElementById('event-radio');
+            let eSwitch = document.getElementById('event-switch');
+            eTabbar.addEventListener('kupTabBarBlur', (e) => {
+                        console.log('event-tabbar has been BLURRED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarChange', (e) => {
+                        console.log('event-tabbar has been CHANGED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarClick', (e) => {
+                        console.log('event-tabbar has been CLICKED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarFocus', (e) => {
+                        console.log('event-tabbar has been FOCUSED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarInput', (e) => {
+                        console.log('event-tabbar has been INPUTTED, KEK', e);
+                    });
+                    
+                    eTextfield.addEventListener('kupTextFieldBlur', (e) => {
+                        console.log('event-textfield has been BLURRED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldChange', (e) => {
+                        console.log('event-textfield has been CHANGED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldClick', (e) => {
+                        console.log('event-textfield has been CLICKED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldFocus', (e) => {
+                        console.log('event-textfield has been FOCUSED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldInput', (e) => {
+                        console.log('event-textfield has been INPUTTED, KEK', e);
+                    });
+
+                    eCheckbox.addEventListener('kupCheckboxBlur', (e) => {
+                        console.log('event-checkbox has been BLURRED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxChange', (e) => {
+                        console.log('event-checkbox has been CHANGED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxClick', (e) => {
+                        console.log('event-checkbox has been CLICKED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxFocus', (e) => {
+                        console.log('event-checkbox has been FOCUSED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxInput', (e) => {
+                        console.log('event-checkbox has been INPUTTED, KEK', e);
+                    });
+
+                    eButton.addEventListener('kupButtonBlur', (e) => {
+                        console.log('event-button has been BLURRED', e);
+                    });
+                    eButton.addEventListener('kupButtonChange', (e) => {
+                        console.log('event-button has been CHANGED', e);
+                    });
+                    eButton.addEventListener('kupButtonClick', (e) => {
+                        console.log('event-button has been CLICKED', e);
+                    });
+                    eButton.addEventListener('kupButtonFocus', (e) => {
+                        console.log('event-button has been FOCUSED', e);
+                    });
+                    eButton.addEventListener('kupButtonInput', (e) => {
+                        console.log('event-button has been INPUTTED, KEK', e);
+                    });
+
+                    eRadio.addEventListener('kupRadioBlur', (e) => {
+                        console.log('event-radio has been BLURRED', e);
+                    });
+                    eRadio.addEventListener('kupRadioChange', (e) => {
+                        console.log('event-radio has been CHANGED', e);
+                    });
+                    eRadio.addEventListener('kupRadioClick', (e) => {
+                        console.log('event-radio has been CLICKED', e);
+                    });
+                    eRadio.addEventListener('kupRadioFocus', (e) => {
+                        console.log('event-radio has been FOCUSED', e);
+                    });
+                    eRadio.addEventListener('kupRadioInput', (e) => {
+                        console.log('event-radio has been INPUTTED, KEK', e);
+                    });
+
+                    eSwitch.addEventListener('kupSwitchBlur', (e) => {
+                        console.log('event-switch has been BLURRED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchChange', (e) => {
+                        console.log('event-switch has been CHANGED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchClick', (e) => {
+                        console.log('event-switch has been CLICKED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchFocus', (e) => {
+                        console.log('event-switch has been FOCUSED', e);
+                    });
+                    eSwitch.addEventListener('kupSwtichInput', (e) => {
+                        console.log('event-switch has been INPUTTED, KEK', e);
+                    });
+
             let gaucolor = document.getElementById('gaucolor');
             gaucolor.colors = ['red', 'yellow', 'green'];
             

@@ -2123,6 +2123,21 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the button will show this icon.
     */
     'icon'?: string;
+    'onKupButtonBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
@@ -2169,8 +2184,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onWidgetChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupCheckboxBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
@@ -2194,8 +2221,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onWidgetChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupRadioBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
@@ -2219,8 +2258,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onWidgetChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupSwitchBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
@@ -2232,6 +2283,21 @@ declare namespace LocalJSX {
     * List of elements.
     */
     'items'?: WidgetTabBarElement[];
+    'onKupTabBarBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
   }
   interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
     /**
@@ -2245,8 +2311,20 @@ declare namespace LocalJSX {
     /**
     * Event example.
     */
-    'onWupClick'?: (event: CustomEvent<{
-      payload: any;
+    'onKupCOMP_NAMEBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
@@ -2290,6 +2368,21 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the helper will display a character counter.
     */
     'maxlength'?: number;
+    'onKupTextFieldBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */

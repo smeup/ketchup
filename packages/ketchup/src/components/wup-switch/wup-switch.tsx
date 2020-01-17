@@ -4,6 +4,7 @@ import {
     EventEmitter,
     Prop,
     Element,
+    State,
     Host,
     h,
 } from '@stencil/core';
@@ -16,6 +17,8 @@ import { MDCFormField } from '@material/form-field';
     shadow: true,
 })
 export class WupSwitch {
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -37,28 +40,96 @@ export class WupSwitch {
      */
     @Prop() labelright: string = null;
 
-    @Element() rootElement: HTMLElement;
-
     @Event({
-        eventName: 'widgetChange',
+        eventName: 'kupSwitchBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    widgetChange: EventEmitter<{
-        checked: boolean;
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
     }>;
 
     //---- Methods ----
 
-    onWidgetChange(e: UIEvent) {
-        const newValue = !!(e.target as HTMLInputElement).checked;
-        if (newValue !== this.checked) {
-            this.checked = newValue;
-            this.widgetChange.emit({
-                checked: newValue,
-            });
-        }
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -102,7 +173,7 @@ export class WupSwitch {
         }
 
         return (
-            <Host checked={this.checked}>
+            <Host>
                 <div class={formClass}>
                     <div class={widgetClass}>
                         <div class="mdc-switch__track"></div>
@@ -115,7 +186,11 @@ export class WupSwitch {
                                     role="switch"
                                     checked={this.checked}
                                     disabled={this.disabled}
-                                    onChange={this.onWidgetChange.bind(this)}
+                                    onBlur={this.onKupBlur.bind(this)}
+                                    onChange={this.onKupChange.bind(this)}
+                                    onClick={this.onKupClick.bind(this)}
+                                    onFocus={this.onKupFocus.bind(this)}
+                                    onInput={this.onKupInput.bind(this)}
                                 ></input>
                             </div>
                         </div>

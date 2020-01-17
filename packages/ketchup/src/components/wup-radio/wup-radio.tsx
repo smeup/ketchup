@@ -4,6 +4,7 @@ import {
     EventEmitter,
     Prop,
     Element,
+    State,
     Host,
     h,
 } from '@stencil/core';
@@ -16,6 +17,8 @@ import { MDCFormField } from '@material/form-field';
     shadow: true,
 })
 export class WupRadio {
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -37,28 +40,96 @@ export class WupRadio {
      */
     @Prop() labelright: string = null;
 
-    @Element() rootElement: HTMLElement;
-
     @Event({
-        eventName: 'widgetChange',
+        eventName: 'kupRadioBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    widgetChange: EventEmitter<{
-        checked: boolean;
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
     }>;
 
     //---- Methods ----
 
-    onWidgetChange(e: UIEvent) {
-        const newValue = !!(e.target as HTMLInputElement).checked;
-        if (newValue !== this.checked) {
-            this.checked = newValue;
-            this.widgetChange.emit({
-                checked: newValue,
-            });
-        }
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -102,7 +173,7 @@ export class WupRadio {
         }
 
         return (
-            <Host checked={this.checked}>
+            <Host>
                 <div class={formClass}>
                     <div class={widgetClass}>
                         <input
@@ -111,7 +182,11 @@ export class WupRadio {
                             id="radio-id"
                             checked={this.checked}
                             disabled={this.disabled}
-                            onChange={this.onWidgetChange.bind(this)}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onChange={this.onKupChange.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                            onInput={this.onKupInput.bind(this)}
                         ></input>
                         <div class="mdc-radio__background">
                             <div class="mdc-radio__outer-circle"></div>
