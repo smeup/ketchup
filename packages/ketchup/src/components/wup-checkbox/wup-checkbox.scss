@@ -2,25 +2,22 @@
 @import '@material/form-field/mdc-form-field';
 
 :host {
-  display: block;
-}
+  display: var(--main-display);
 
-.mdc-checkbox {
-  &.custom {
+  & .mdc-checkbox {
     @include mdc-checkbox-container-colors(
-      $mdc-checkbox-fill-unmarked,
-      $mdc-checkbox-border-unmarked,
-      $mdc-checkbox-fill-marked,
-      $mdc-checkbox-border-marked
+      var(--main-border-color),
+      transparent,
+      var(--main-color),
+      var(--main-color)
     );
+    @include mdc-checkbox-ink-color(var(--mdc-theme-on-primary));
     @include mdc-checkbox-disabled-container-colors(
-      $mdc-checkbox-fill-disabled-unmarked,
-      $mdc-checkbox-border-disabled-unmarked,
-      $mdc-checkbox-fill-disabled-marked,
-      $mdc-checkbox-border-disabled-marked
+      var(--main-border-color),
+      var(--disabled-background-color),
+      var(--main-border-color),
+      var(--disabled-background-color)
     );
-    @include mdc-checkbox-ink-color($mdc-checkbox-ink);
-    @include mdc-checkbox-disabled-ink-color($mdc-checkbox-ink-disabled);
-    @include mdc-checkbox-focus-indicator-color($mdc-ripple-color);
+    @include mdc-checkbox-disabled-ink-color(var(--disabled-text-color));
   }
 }
