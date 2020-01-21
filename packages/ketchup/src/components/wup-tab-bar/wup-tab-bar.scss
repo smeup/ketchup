@@ -4,31 +4,35 @@
 @import '@material/tab/mdc-tab';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-tab-bar {
-  @include mdc-tab-bar-density(-3);
+  .mdc-tab-bar {
+    @include mdc-tab-bar-density(-3);
 
-  &.custom {
-    @include mdc-tab-text-label-color($mdc-tabbar-text-ink);
-    @include mdc-tab-icon-color($mdc-tabbar-icon-ink);
-    @include mdc-tab-states-color($mdc-ripple-color);
+    &.custom {
+      @include mdc-tab-text-label-color($mdc-tabbar-text-ink);
+      @include mdc-tab-icon-color($mdc-tabbar-icon-ink);
+      @include mdc-tab-states-color($mdc-ripple-color);
+    }
+
+    & button {
+      font-family: var(--kup-font-family);
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
   }
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
 }
