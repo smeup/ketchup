@@ -2,7 +2,7 @@
 @import '@material/form-field/mdc-form-field';
 
 :host {
-  display: var(--main-display);
+  display: var(--kup-display-mode);
 
   & .mdc-form-field {
     line-height: 2rem;
@@ -16,6 +16,10 @@
 
   & .mdc-switch {
     margin: 0 1.5rem 0 1rem;
-    @include mdc-switch-toggled-off-thumb-color(var(--main-border-color));
+    @include mdc-switch-toggled-off-thumb-color(var(--kup-border-color));
+  }
+
+  & label {
+    font-family: var(--kup-font-family);
   }
 }
