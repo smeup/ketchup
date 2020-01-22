@@ -10,6 +10,8 @@ import {
     //Method,
 } from '@stencil/core';
 
+import {generateUniqueId} from '../../utils/utils';
+
 @Component({
     tag: 'kup-checkbox',
     styleUrl: 'kup-checkbox.scss',
@@ -17,7 +19,7 @@ import {
 })
 export class KupCheckbox {
     /**
-     * Sets the checkbox to be disabled
+     * Sets the checkbox to be checked
      */
     @Prop({ mutable: true, reflect: true}) checked: boolean = false;
     /**
@@ -31,12 +33,17 @@ export class KupCheckbox {
      */
     @Prop() label: string = '';
     /**
+     * If true, shows the label by using a label tag
+     */
+    @Prop() showLabel: boolean = false;
+    /**
      * Sets the tabindex of the checkbox
      */
     @Prop() setTabIndex: number = 0;
 
     //---- Internal state ----
     checkbox: HTMLInputElement;
+    uId: string = generateUniqueId('lbl' + Math.floor(Math.random() * 10000).toString());
 
     //---- Public events ----
     /**
@@ -111,11 +118,13 @@ export class KupCheckbox {
     render() {
         return(
             <Host
+                role={"checkbox"}
                 onFocus={this.onHostFocus.bind(this)}>
                 <div class="kup-checkbox">
                     <input
+                        id={this.uId}
                         ref={(el) => this.checkbox = el as HTMLInputElement}
-                        aria-label={this.label ? this.label : null}
+                        aria-label={this.label && !this.showLabel ? this.label : null}
                         checked={this.checked}
                         disabled={this.disabled}
                         tabindex={this.setTabIndex}
@@ -125,6 +134,13 @@ export class KupCheckbox {
                         onFocus={this.onCheckboxFocus.bind(this)}/>
                     <span class="kup-checkbox__check"/>
                 </div>
+                {
+                    this.showLabel && this.label ?
+                      <label
+                        class="kup-checkbox__label"
+                        htmlFor={this.uId}>{this.label}</label> :
+                      null
+                }
             </Host>
         );
     }

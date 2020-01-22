@@ -124,6 +124,12 @@ export default {
         title: 'Components',
         componentsItems: [
           {
+            title: 'Autocomplete',
+            to: {
+              name: 'autocomplete',
+            },
+          },
+          {
             title: 'Box',
             to: {
               name: 'box',
@@ -187,6 +193,12 @@ export default {
             title: `Image button`,
             to: {
               name: 'imagebutton',
+            },
+          },
+          {
+            title: `Menu`,
+            to: {
+              name: 'menu',
             },
           },
           {
@@ -340,6 +352,13 @@ select,
   margin: 8px 12px;
 }
 
+// For examples where slot has a border
+.name-slotted {
+  border: 1px solid rgba(0,0,0,.12);
+  box-sizing: border-box;
+  padding: 4px;
+}
+
 // Max with for a more readable text
 .max-width-container {
   display: block;
@@ -361,6 +380,11 @@ select,
       margin-bottom: 10px;
     }
   }
+}
+
+// General class for no margin
+.no-margin {
+  margin: 0;
 }
 
 // A scrollable container which can be used to perform test on some components.

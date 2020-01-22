@@ -11,7 +11,7 @@ export class positionRecalc {
         el.classList.add('dynamic-position');
     }
 
-    setPosition(el: HTMLElement, anchorEl: HTMLElement, margin: number) {
+    setPosition(el: HTMLElement, anchorEl: HTMLElement, margin: number = 0) {
         let offsetH: number = el.clientHeight;
         let offsetW: number = el.clientWidth;
         const rect = anchorEl.getBoundingClientRect();

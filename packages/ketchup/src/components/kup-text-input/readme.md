@@ -32,6 +32,16 @@
 
 ## Methods
 
+### `changeValue(newValue: string, emitEvent?: boolean) => Promise<boolean>`
+
+Imperatively sets a new value of the input.
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
 ### `triggerFocus() => Promise<void>`
 
 Triggers the focus event on the input text
@@ -62,7 +72,9 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-autocomplete](..\kup-autocomplete)
  - [kup-box](../kup-box)
+ - [kup-checkbox-menu](..\kup-checkbox-menu)
  - [kup-combo](../kup-combo)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
@@ -70,7 +82,9 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-autocomplete --> kup-text-input
   kup-box --> kup-text-input
+  kup-checkbox-menu --> kup-text-input
   kup-combo --> kup-text-input
   kup-data-table --> kup-text-input
   kup-form --> kup-text-input

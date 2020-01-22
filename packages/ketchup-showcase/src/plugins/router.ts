@@ -21,6 +21,11 @@ const baseRoutes = [
 
 let componentsRoutes = [
   {
+    path: `/autocomplete`,
+    name: 'autocomplete',
+    component: () => import(`@/views/components/autocomplete/Autocomplete.vue`),
+  },
+  {
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/components/box/Box.vue`),
@@ -74,6 +79,11 @@ let componentsRoutes = [
     path: `/imagebutton`,
     name: 'imagebutton',
     component: () => import(`@/views/components/imagebutton/Imagebutton.vue`),
+  },
+  {
+    path: `/menu`,
+    name: 'menu',
+    component: () => import(`@/views/components/menu/Menu.vue`),
   },
   {
     path: `/portal`,
