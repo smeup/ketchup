@@ -28,6 +28,7 @@
 
   // Container of the elements to put inside the menu top header
   &-header {
+    align-items: center;
     border-bottom: 1px solid rgba(0,0,0,.12);
     display: inline-flex;
     padding: $menu-lateral-padding;

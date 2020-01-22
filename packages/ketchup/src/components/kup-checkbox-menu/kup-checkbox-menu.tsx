@@ -176,11 +176,10 @@ export class KupCheckboxMenu {
       {
         itemsToRender.map((item) => {
           return <li>
-            <kup-checkbox
+            <wup-checkbox
               checked={this.selectedItems.indexOf(item[this.valueField]) >= 0}
-              label={item[this.displayedField]}
-              showLabel={true}
-              onKupCheckboxChange={(e: CustomEvent) => {this.handleCheckboxItemStateChange(item, e)}}
+              labelright={item[this.displayedField]}
+              onWidgetChange={(e: CustomEvent) => {this.handleCheckboxItemStateChange(item, e)}}
             />
           </li>
         })
@@ -207,8 +206,8 @@ export class KupCheckboxMenu {
           <div
             class="checkbox-menu-header"
             slot="top-container">
-            <kup-checkbox
-              onKupCheckboxChange={(e: CustomEvent) => {this.toggleAllCheckboxesSelection(e)}}/>
+            <wup-checkbox
+              onWidgetChange={(e: CustomEvent) => {this.toggleAllCheckboxesSelection(e)}}/>
             {
               this.isFilterable ?
                 <kup-text-input

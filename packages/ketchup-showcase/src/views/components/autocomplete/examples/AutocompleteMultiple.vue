@@ -1,5 +1,7 @@
 <template>
   <div class="max-width-container">
+    <p>In this section, items populating the autocomplete are like the following one: <code class="inline">MUL1 - MulDes1</code></p>
+
     <h3>Basic autocomplete with multiple selection</h3>
     <kup-autocomplete
       :items.prop="itemsMultiple"

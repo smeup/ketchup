@@ -44,19 +44,26 @@
 
     <h3>Change number of filter chars necessary to trigger the autocomplete</h3>
     <div class="example-container">
-      <kup-autocomplete
-        :items.prop="items"
-        minimum-chars="2"
-        show-clear-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+      <div>
+        <p>2 characters necessary</p>
+        <kup-autocomplete
+          :items.prop="items"
+          minimum-chars="2"
+          show-clear-icon
+          @kupAutocompleteSelectionUpdate="logEvent"/>
+      </div>
+      <div>
+        <p>5 characters necessary</p>
       <kup-autocomplete
         :items.prop="items"
         minimum-chars="5"
         show-clear-icon
         @kupAutocompleteSelectionUpdate="logEvent"/>
+      </div>
     </div>
 
     <h3>With sorting by code or sorting by description (decreasing order)</h3>
+    <p>Use the arrows of the autocomplete to force the opening of the menu</p>
     <div class="example-container">
       <kup-autocomplete
         :items.prop="items"
