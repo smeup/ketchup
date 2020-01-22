@@ -21,6 +21,17 @@
 | `transparent`  | `transparent`  | Defaults at false. When set to true, the button will be rendered with a colored outline. | `boolean` | `false` |
 
 
+## Events
+
+| Event             | Description | Type                           |
+| ----------------- | ----------- | ------------------------------ |
+| `kupButtonBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupButtonChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupButtonClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupButtonFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupButtonInput`  |             | `CustomEvent<{ value: any; }>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

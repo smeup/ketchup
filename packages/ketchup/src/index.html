@@ -35,15 +35,19 @@
         <style>
             * {
                 box-sizing: border-box;
+                transition: all .125s ease;
             }
 
             :focus {
                 outline: none;
             }
 
-            body {
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
                 padding: 1rem;
-                font-family: 'Lato', sans-serif;
             }
 
             .options {
@@ -64,9 +68,22 @@
             .BTN {
                 display: block;
             }
+
+            #theme-tester {
+                position: fixed;
+                right: 0;
+                top: 0;
+                margin: 5px;
+                padding: 20px 10px 20px 10px;
+                box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+                z-index: 100;
+            }
         </style>
     </head>
     <body>
+        <div id="theme-tester">
+            <wup-switch labelleft="Theme tester" id="theme-switch"></wup-switch>
+        </div>
         <a href="chart.html">Ketchup charts</a>
         <br />
         <a href="data-table.html">Ketchup data table</a>
@@ -204,7 +221,6 @@
         ></kup-gauge>
 
         <h4>The Checkbox</h4>
-        <wup-tab-bar></wup-tab-bar>
         <kup-checkbox></kup-checkbox>
         <kup-checkbox checked></kup-checkbox>
         <kup-checkbox disabled></kup-checkbox>
@@ -234,6 +250,8 @@
         <wup-text-field disabled label="I am a label"></wup-text-field>
         <h4>Material Checkbox (widget)</h4>
         <wup-checkbox></wup-checkbox>
+        <wup-checkbox disabled></wup-checkbox>
+        <wup-checkbox disabled checked></wup-checkbox>
         <h4>Material Radio (widget)</h4>
         <wup-radio></wup-radio>
         <h4>Material Switch (widget)</h4>
@@ -244,7 +262,7 @@
         <wup-button toggable icon="favorite"></wup-button>
         <wup-button toggable checked icon="favorite"></wup-button>
         <wup-button disabled icon="favorite"></wup-button>
-        <wup-button text="Default (flat)"></wup-button>
+        <wup-button text="Flat" flat></wup-button>
         <wup-button raised text="Raised"></wup-button>
         <wup-button raised disabled text="Raised & disabled"></wup-button>
         <wup-button raised icon="favorite" text="Raised favorite"></wup-button>
@@ -262,8 +280,211 @@
             transparent
             text="Shaped & transparent"
         ></wup-button>
+        
+        <h4>Events testing</h4>
+        <wup-tab-bar id="event-tabbar"></wup-tab-bar>
+        <wup-text-field id="event-textfield" custom label="I am a label"></wup-text-field>
+        <wup-checkbox id="event-checkbox"></wup-checkbox>
+        <wup-button id="event-button" raised text="Click me"></wup-button>
+        <wup-radio id="event-radio"></wup-radio>
+        <wup-switch id="event-switch"></wup-switch>
 
         <script>
+            function changeTheme () {
+                var DOMEl = document.documentElement;
+                var themeArray = DOMEl.themeJSON;
+                if (DOMEl.hasAttribute("style")) {
+                   DOMEl.removeAttribute("style");
+                } else {
+                   for (let i = 0; i < themeArray.length; i++ ){
+                       DOMEl.style.setProperty(themeArray[i].name, themeArray[i].value);
+                    }
+                }
+            }
+
+            document.documentElement.themeJSON = [
+                {
+                    name: '--kup-background-color',
+                    value: '#2d2d2d'
+                },
+                {
+                    name: '--kup-main-color',
+                    value: '#82f0e2'
+                },
+                {
+                    name: '--kup-display-mode',
+                    value: 'block'
+                },
+                {
+                    name: '--kup-font-family',
+                    value: 'Roboto, sans-serif'
+                },
+                {
+                    name: '--kup-font-size',
+                    value: '14px'
+                },
+                {
+                    name: '--kup-text-color',
+                    value: '#f5f5f5'
+                },
+                {
+                    name: '--kup-text-on-main-color',
+                    value: '#555555'
+                },
+                {
+                    name: '--kup-border-color',
+                    value: '#535353'
+                },
+                {
+                    name: '--kup-disabled-text-color',
+                    value: '#7e7e7e'
+                },
+                {
+                    name: '--kup-disabled-background-color',
+                    value: '#3c3c3c'
+                },
+                {
+                    name: '--mdc-theme-primary',
+                    value: 'var(--kup-main-color)'
+                },
+                {
+                    name: '--mdc-theme-on-primary',
+                    value: 'var(--kup-text-on-main-color)'
+                },
+                {
+                    name: '--mdc-theme-secondary',
+                    value: 'var(--kup-main-color)'
+                },
+                {
+                    name: '--mdc-theme-on-secondary',
+                    value: 'var(--kup-text-on-main-color)'
+                },
+                {
+                    name: '--mdc-theme-surface',
+                    value: 'var(--kup-background-color)'
+                },
+                {
+                    name: '--mdc-theme-on-surface',
+                    value: 'var(--kup-text-color)'
+                },
+                {
+                    name: '--mdc-theme-background',
+                    value: 'var(--kup-background-color)'
+                },
+                {
+                    name: '--mdc-theme-text-primary-on-background',
+                    value: 'var(--kup-text-color)'
+                },
+            ];
+
+            let themeSwitch = document.getElementById('theme-switch');
+            themeSwitch.addEventListener('kupSwitchChange', (e) => {
+                        console.log('theme-switch has been CHANGED', e);
+                        changeTheme();
+                    });
+
+            let eTabbar = document.getElementById('event-tabbar');
+            let eTextfield = document.getElementById('event-textfield');
+            let eCheckbox = document.getElementById('event-checkbox');
+            let eButton = document.getElementById('event-button');
+            let eRadio = document.getElementById('event-radio');
+            let eSwitch = document.getElementById('event-switch');
+            eTabbar.addEventListener('kupTabBarBlur', (e) => {
+                        console.log('event-tabbar has been BLURRED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarChange', (e) => {
+                        console.log('event-tabbar has been CHANGED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarClick', (e) => {
+                        console.log('event-tabbar has been CLICKED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarFocus', (e) => {
+                        console.log('event-tabbar has been FOCUSED', e);
+                    });
+            eTabbar.addEventListener('kupTabBarInput', (e) => {
+                        console.log('event-tabbar has been INPUTTED, KEK', e);
+                    });
+                    
+                    eTextfield.addEventListener('kupTextFieldBlur', (e) => {
+                        console.log('event-textfield has been BLURRED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldChange', (e) => {
+                        console.log('event-textfield has been CHANGED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldClick', (e) => {
+                        console.log('event-textfield has been CLICKED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldFocus', (e) => {
+                        console.log('event-textfield has been FOCUSED', e);
+                    });
+                    eTextfield.addEventListener('kupTextFieldInput', (e) => {
+                        console.log('event-textfield has been INPUTTED, KEK', e);
+                    });
+
+                    eCheckbox.addEventListener('kupCheckboxBlur', (e) => {
+                        console.log('event-checkbox has been BLURRED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxChange', (e) => {
+                        console.log('event-checkbox has been CHANGED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxClick', (e) => {
+                        console.log('event-checkbox has been CLICKED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxFocus', (e) => {
+                        console.log('event-checkbox has been FOCUSED', e);
+                    });
+                    eCheckbox.addEventListener('kupCheckboxInput', (e) => {
+                        console.log('event-checkbox has been INPUTTED, KEK', e);
+                    });
+
+                    eButton.addEventListener('kupButtonBlur', (e) => {
+                        console.log('event-button has been BLURRED', e);
+                    });
+                    eButton.addEventListener('kupButtonChange', (e) => {
+                        console.log('event-button has been CHANGED', e);
+                    });
+                    eButton.addEventListener('kupButtonClick', (e) => {
+                        console.log('event-button has been CLICKED', e);
+                    });
+                    eButton.addEventListener('kupButtonFocus', (e) => {
+                        console.log('event-button has been FOCUSED', e);
+                    });
+                    eButton.addEventListener('kupButtonInput', (e) => {
+                        console.log('event-button has been INPUTTED, KEK', e);
+                    });
+
+                    eRadio.addEventListener('kupRadioBlur', (e) => {
+                        console.log('event-radio has been BLURRED', e);
+                    });
+                    eRadio.addEventListener('kupRadioChange', (e) => {
+                        console.log('event-radio has been CHANGED', e);
+                    });
+                    eRadio.addEventListener('kupRadioClick', (e) => {
+                        console.log('event-radio has been CLICKED', e);
+                    });
+                    eRadio.addEventListener('kupRadioFocus', (e) => {
+                        console.log('event-radio has been FOCUSED', e);
+                    });
+                    eRadio.addEventListener('kupRadioInput', (e) => {
+                        console.log('event-radio has been INPUTTED, KEK', e);
+                    });
+
+                    eSwitch.addEventListener('kupSwitchBlur', (e) => {
+                        console.log('event-switch has been BLURRED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchChange', (e) => {
+                        console.log('event-switch has been CHANGED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchClick', (e) => {
+                        console.log('event-switch has been CLICKED', e);
+                    });
+                    eSwitch.addEventListener('kupSwitchFocus', (e) => {
+                        console.log('event-switch has been FOCUSED', e);
+                    });
+                    eSwitch.addEventListener('kupSwtichInput', (e) => {
+                        console.log('event-switch has been INPUTTED, KEK', e);
+                    });
+
             let gaucolor = document.getElementById('gaucolor');
             gaucolor.colors = ['red', 'yellow', 'green'];
 
@@ -829,5 +1050,28 @@
         </script>
 
         <script src="/assets/index.js"></script>
+        <style>
+        :root {    
+            --kup-background-color: #ffffff;
+            --kup-main-color: #00a0a0;
+            --kup-display-mode: block;
+            --kup-font-family: "Oswald", sans-serif;
+            --kup-font-size: 16px;
+            --kup-text-on-main-color: #ffffff;
+            --kup-text-color: #2e2e2e;
+            --kup-border-color: #e0e0e0;
+            --kup-disabled-text-color: #5c5c5c;
+            --kup-disabled-background-color: #eaeaea;
+
+            --mdc-theme-primary: var(--main-color);
+            --mdc-theme-on-primary: var(--kup-text-on-main-color);
+            --mdc-theme-secondary: var(--main-color);
+            --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+            --mdc-theme-surface: var(--kup-background-color);
+            --mdc-theme-on-surface: var(--main-text-color);
+            --mdc-theme-background: var(--main-background-color);
+            --mdc-theme-text-primary-on-background: var(--main-text-color);
+        }
+        </style>
     </body>
 </html>

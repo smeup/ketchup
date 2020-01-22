@@ -19,9 +19,13 @@
 
 ## Events
 
-| Event          | Description | Type                                 |
-| -------------- | ----------- | ------------------------------------ |
-| `widgetChange` |             | `CustomEvent<{ checked: boolean; }>` |
+| Event               | Description | Type                           |
+| ------------------- | ----------- | ------------------------------ |
+| `kupCheckboxBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxInput`  |             | `CustomEvent<{ value: any; }>` |
 
 
 ----------------------------------------------

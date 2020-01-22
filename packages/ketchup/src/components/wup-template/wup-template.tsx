@@ -14,6 +14,7 @@ import {
     Prop,
     Element,
     Host,
+    State,
     h,
 } from '@stencil/core';
 
@@ -33,6 +34,7 @@ export class WupTemplate {
      * Following default props and elements common to all widgets
      */
     @Element() rootElement: HTMLElement;
+    @State() value: string = '';
 
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
@@ -46,14 +48,55 @@ export class WupTemplate {
     /**
      * Event example.
      */
+
     @Event({
-        eventName: 'wupClick',
+        eventName: 'kupCOMP_NAMEBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    widgetClick: EventEmitter<{
-        payload: any;
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupCOMP_NAMEChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupCOMP_NAMEClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupCOMP_NAMEFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupCOMP_NAMEInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
     }>;
 
     /**
@@ -61,13 +104,44 @@ export class WupTemplate {
      * What you want and what you need
      */
 
-    onWidgetClick() {
-        // Do what you want
-        this.widgetClick.emit({
-            payload: {
-                // .. your payload object
-            },
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
         });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -144,8 +218,10 @@ export class WupTemplate {
         // Copy your material design markup from https://material.io/develop/web/components/
         return (
             <Host>
-                <div class={formClass}>
-                    <div class={widgetClass}>... your template here ..</div>
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div class={widgetClass}>... your template here ..</div>
+                    </div>
                 </div>
             </Host>
         );

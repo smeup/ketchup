@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    Event,
+    EventEmitter,
+    State,
+    h,
+} from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
 
@@ -9,6 +18,7 @@ import { MDCIconButtonToggle } from '@material/icon-button';
 })
 export class WupButton {
     @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -50,7 +60,97 @@ export class WupButton {
      */
     @Prop() text: string = null;
 
+    @Event({
+        eventName: 'kupButtonBlur',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupButtonChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupButtonClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupButtonFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupButtonInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
+    }>;
+
     //---- Methods ----
+
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -121,15 +221,22 @@ export class WupButton {
             }
             return (
                 <Host>
-                    <button
-                        type="button"
-                        class={widgetClass}
-                        disabled={this.disabled}
-                    >
-                        <div class="mdc-button__ripple"></div>
-                        {leadingEl}
-                        {trailingEl}
-                    </button>
+                    <div id="kup-component">
+                        <button
+                            type="button"
+                            class={widgetClass}
+                            disabled={this.disabled}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onChange={this.onKupChange.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                            onInput={this.onKupInput.bind(this)}
+                        >
+                            <div class="mdc-button__ripple"></div>
+                            {leadingEl}
+                            {trailingEl}
+                        </button>
+                    </div>
                 </Host>
             );
         } else if (this.icon) {
@@ -167,15 +274,22 @@ export class WupButton {
             }
             return (
                 <Host>
-                    <button
-                        type="button"
-                        class={widgetClass}
-                        disabled={this.disabled}
-                    >
-                        <div class="mdc-button__ripple"></div>
-                        {leadingEl}
-                        {trailingEl}
-                    </button>
+                    <div id="kup-component">
+                        <button
+                            type="button"
+                            class={widgetClass}
+                            disabled={this.disabled}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onChange={this.onKupChange.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                            onInput={this.onKupInput.bind(this)}
+                        >
+                            <div class="mdc-button__ripple"></div>
+                            {leadingEl}
+                            {trailingEl}
+                        </button>
+                    </div>
                 </Host>
             );
         }

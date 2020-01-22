@@ -25,6 +25,17 @@
 | `trailingicon`    | `trailingicon`    | Defaults at null. When set, the icon will be shown after the text.                        | `boolean` | `false` |
 
 
+## Events
+
+| Event                | Description | Type                           |
+| -------------------- | ----------- | ------------------------------ |
+| `kupTextFieldBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupTextFieldChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupTextFieldClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupTextFieldFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupTextFieldInput`  |             | `CustomEvent<{ value: any; }>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

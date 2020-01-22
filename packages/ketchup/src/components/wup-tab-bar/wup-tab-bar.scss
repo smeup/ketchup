@@ -4,16 +4,22 @@
 @import '@material/tab/mdc-tab';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-tab-bar {
-  @include mdc-tab-bar-density(-3);
+  #kup-component {
+    .mdc-tab-bar {
+      @include mdc-tab-bar-density(-3);
 
-  &.custom {
-    @include mdc-tab-text-label-color($mdc-tabbar-text-ink);
-    @include mdc-tab-icon-color($mdc-tabbar-icon-ink);
-    @include mdc-tab-states-color($mdc-ripple-color);
+      &.custom {
+        @include mdc-tab-text-label-color($mdc-tabbar-text-ink);
+        @include mdc-tab-icon-color($mdc-tabbar-icon-ink);
+        @include mdc-tab-states-color($mdc-ripple-color);
+      }
+
+      & button {
+        font-family: var(--kup-font-family);
+      }
+    }
   }
 }
 

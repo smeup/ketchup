@@ -18,9 +18,13 @@
 
 ## Events
 
-| Event          | Description | Type                                 |
-| -------------- | ----------- | ------------------------------------ |
-| `widgetChange` |             | `CustomEvent<{ checked: boolean; }>` |
+| Event            | Description | Type                           |
+| ---------------- | ----------- | ------------------------------ |
+| `kupRadioBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupRadioChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupRadioClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupRadioFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupRadioInput`  |             | `CustomEvent<{ value: any; }>` |
 
 
 ----------------------------------------------

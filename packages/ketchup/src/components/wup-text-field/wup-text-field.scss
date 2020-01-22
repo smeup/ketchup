@@ -5,67 +5,67 @@
 @import '@material/textfield/icon/mdc-text-field-icon';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-text-field {
-  &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
-    @include mdc-text-field-density(-4);
-  }
+  #kup-component {
+    & .mdc-form-field {
+      & label {
+        margin: auto;
+      }
+    }
 
-  &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
-    @include mdc-text-field-outlined-density(-4);
+    & .mdc-text-field {
+      &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+        @include mdc-text-field-density(-4);
+      }
 
-    //Fixed floating label position when outlined field has a leading icon
-    &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
-      transform: translateY(-26px) scale(0.75) translateX(-40px);
+      &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
+        @include mdc-text-field-outlined-density(-4);
+
+        //Fixed floating label position when outlined field has a leading icon
+        &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
+          transform: translateY(-26px) scale(0.75) translateX(-42px);
+        }
+      }
+
+      &.shaped {
+        border-radius: 16px 16px 0 0;
+      }
+
+      &.mdc-text-field--outlined.shaped
+        .mdc-notched-outline
+        .mdc-notched-outline__leading {
+        border-radius: 28px 0 0 28px;
+        width: 28px;
+      }
+
+      &.mdc-text-field--outlined.shaped
+        .mdc-notched-outline
+        .mdc-notched-outline__trailing {
+        border-radius: 0 28px 28px 0;
+        width: 28px;
+      }
+
+      & label,
+      & input {
+        font-family: var(--kup-font-family);
+      }
+    }
+
+    & .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
     }
   }
-
-  &.shaped {
-    border-radius: 16px 16px 0 0;
-  }
-
-  &.mdc-text-field--outlined.shaped
-    .mdc-notched-outline
-    .mdc-notched-outline__leading {
-    border-radius: 28px 0 0 28px;
-    width: 28px;
-  }
-
-  &.mdc-text-field--outlined.shaped
-    .mdc-notched-outline
-    .mdc-notched-outline__trailing {
-    border-radius: 0 28px 28px 0;
-    width: 28px;
-  }
-
-  &.custom {
-    @include mdc-text-field-ink-color($mdc-textfield-ink);
-    @include mdc-text-field-label-color($mdc-textfield-label);
-    @include mdc-text-field-caret-color($mdc-textfield-caret);
-    @include mdc-text-field-fill-color($mdc-textfield-fill);
-  }
-}
-
-.mdc-form-field {
-  & label {
-    margin: auto;
-  }
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
 }
