@@ -16,7 +16,6 @@ import {
 import {
     isNumber
 } from '../../utils/object-utils';
-import { computeFallbackHeaderFormat } from '@fullcalendar/core';
 
 
 export function sortRows(
