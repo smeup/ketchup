@@ -174,27 +174,29 @@ export class WupRadio {
 
         return (
             <Host>
-                <div class={formClass}>
-                    <div class={widgetClass}>
-                        <input
-                            class="mdc-radio__native-control"
-                            type="radio"
-                            id="radio-id"
-                            checked={this.checked}
-                            disabled={this.disabled}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
-                        ></input>
-                        <div class="mdc-radio__background">
-                            <div class="mdc-radio__outer-circle"></div>
-                            <div class="mdc-radio__inner-circle"></div>
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div class={widgetClass}>
+                            <input
+                                class="mdc-radio__native-control"
+                                type="radio"
+                                id="radio-id"
+                                checked={this.checked}
+                                disabled={this.disabled}
+                                onBlur={this.onKupBlur.bind(this)}
+                                onChange={this.onKupChange.bind(this)}
+                                onClick={this.onKupClick.bind(this)}
+                                onFocus={this.onKupFocus.bind(this)}
+                                onInput={this.onKupInput.bind(this)}
+                            ></input>
+                            <div class="mdc-radio__background">
+                                <div class="mdc-radio__outer-circle"></div>
+                                <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                            <div class="mdc-radio__ripple"></div>
                         </div>
-                        <div class="mdc-radio__ripple"></div>
+                        <label htmlFor="radio-id">{widgetLabel}</label>
                     </div>
-                    <label htmlFor="radio-id">{widgetLabel}</label>
                 </div>
             </Host>
         );

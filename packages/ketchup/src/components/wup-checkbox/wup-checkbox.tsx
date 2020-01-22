@@ -178,38 +178,40 @@ export class WupCheckbox {
 
         return (
             <Host>
-                <div class={formClass}>
-                    <div id="checkbox-wrapper" class={widgetClass}>
-                        {/* 
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div id="checkbox-wrapper" class={widgetClass}>
+                            {/* 
                             // @ts-ignore */}
-                        <input
-                            type="checkbox"
-                            class="mdc-checkbox__native-control"
-                            checked={this.checked}
-                            disabled={this.disabled}
-                            indeterminate={this.indeterminate}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
-                        />
-                        <div class="mdc-checkbox__background">
-                            <svg
-                                class="mdc-checkbox__checkmark"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    class="mdc-checkbox__checkmark-path"
-                                    fill="none"
-                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                                />
-                            </svg>
-                            <div class="mdc-checkbox__mixedmark"></div>
+                            <input
+                                type="checkbox"
+                                class="mdc-checkbox__native-control"
+                                checked={this.checked}
+                                disabled={this.disabled}
+                                indeterminate={this.indeterminate}
+                                onBlur={this.onKupBlur.bind(this)}
+                                onChange={this.onKupChange.bind(this)}
+                                onClick={this.onKupClick.bind(this)}
+                                onFocus={this.onKupFocus.bind(this)}
+                                onInput={this.onKupInput.bind(this)}
+                            />
+                            <div class="mdc-checkbox__background">
+                                <svg
+                                    class="mdc-checkbox__checkmark"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        class="mdc-checkbox__checkmark-path"
+                                        fill="none"
+                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"
+                                    />
+                                </svg>
+                                <div class="mdc-checkbox__mixedmark"></div>
+                            </div>
+                            <div class="mdc-checkbox__ripple"></div>
                         </div>
-                        <div class="mdc-checkbox__ripple"></div>
+                        <label htmlFor="checkbox-wrapper">{widgetLabel}</label>
                     </div>
-                    <label htmlFor="checkbox-wrapper">{widgetLabel}</label>
                 </div>
             </Host>
         );

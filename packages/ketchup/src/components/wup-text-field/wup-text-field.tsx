@@ -456,10 +456,12 @@ export class WupTextField {
 
         return (
             <Host>
-                <div class={formClass}>
-                    {widgetEl}
-                    {helperEl}
-                    {labelEl}
+                <div id="kup-component">
+                    <div class={formClass}>
+                        {widgetEl}
+                        {helperEl}
+                        {labelEl}
+                    </div>
                 </div>
             </Host>
         );
@@ -468,8 +470,10 @@ export class WupTextField {
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         return (
             <Host>
-                {widgetEl}
-                {helperEl}
+                <div id="kup-component">
+                    {widgetEl}
+                    {helperEl}
+                </div>
             </Host>
         );
     }

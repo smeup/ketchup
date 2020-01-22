@@ -2,32 +2,34 @@
 @import '@material/icon-button/mdc-icon-button';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-button {
-  @include mdc-states(#fff);
+  #kup-component {
+    & .mdc-button {
+      @include mdc-states(#fff);
 
-  &.button-shaped,
-  &.button-shaped .mdc-button__ripple {
-    border-radius: 18px;
-  }
+      &.button-shaped,
+      &.button-shaped .mdc-button__ripple {
+        border-radius: 18px;
+      }
 
-  &.fillspace {
-    width: 100%;
-  }
+      &.fillspace {
+        width: 100%;
+      }
 
-  &.custom {
-    @include mdc-button-container-fill-color($mdc-button-fill);
-    @include mdc-button-ink-color($mdc-button-ink);
-    @include mdc-button-height($mdc-button-height-in-px, structure);
-    @include mdc-button-shape-radius($mdc-button-border-radius);
-  }
-}
+      &.custom {
+        @include mdc-button-container-fill-color($mdc-button-fill);
+        @include mdc-button-ink-color($mdc-button-ink);
+        @include mdc-button-height($mdc-button-height-in-px, structure);
+        @include mdc-button-shape-radius($mdc-button-border-radius);
+      }
+    }
 
-.mdc-icon-button {
-  &.custom {
-    @include mdc-icon-button-ink-color($mdc-button-ink);
+    & .mdc-icon-button {
+      &.custom {
+        @include mdc-icon-button-ink-color($mdc-button-ink);
+      }
+    }
   }
 }
 

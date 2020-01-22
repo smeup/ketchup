@@ -191,11 +191,13 @@ export class WupTabBar {
 
         return (
             <Host>
-                <div class={widgetClass} role="tablist">
-                    <div class="mdc-tab-scroller">
-                        <div class="mdc-tab-scroller__scroll-area">
-                            <div class="mdc-tab-scroller__scroll-content">
-                                {tabBar}
+                <div id="kup-component">
+                    <div class={widgetClass} role="tablist">
+                        <div class="mdc-tab-scroller">
+                            <div class="mdc-tab-scroller__scroll-area">
+                                <div class="mdc-tab-scroller__scroll-content">
+                                    {tabBar}
+                                </div>
                             </div>
                         </div>
                     </div>

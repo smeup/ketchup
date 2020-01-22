@@ -174,28 +174,30 @@ export class WupSwitch {
 
         return (
             <Host>
-                <div class={formClass}>
-                    <div class={widgetClass}>
-                        <div class="mdc-switch__track"></div>
-                        <div class="mdc-switch__thumb-underlay">
-                            <div class="mdc-switch__thumb">
-                                <input
-                                    type="checkbox"
-                                    id="switch-id"
-                                    class="mdc-switch__native-control"
-                                    role="switch"
-                                    checked={this.checked}
-                                    disabled={this.disabled}
-                                    onBlur={this.onKupBlur.bind(this)}
-                                    onChange={this.onKupChange.bind(this)}
-                                    onClick={this.onKupClick.bind(this)}
-                                    onFocus={this.onKupFocus.bind(this)}
-                                    onInput={this.onKupInput.bind(this)}
-                                ></input>
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div class={widgetClass}>
+                            <div class="mdc-switch__track"></div>
+                            <div class="mdc-switch__thumb-underlay">
+                                <div class="mdc-switch__thumb">
+                                    <input
+                                        type="checkbox"
+                                        id="switch-id"
+                                        class="mdc-switch__native-control"
+                                        role="switch"
+                                        checked={this.checked}
+                                        disabled={this.disabled}
+                                        onBlur={this.onKupBlur.bind(this)}
+                                        onChange={this.onKupChange.bind(this)}
+                                        onClick={this.onKupClick.bind(this)}
+                                        onFocus={this.onKupFocus.bind(this)}
+                                        onInput={this.onKupInput.bind(this)}
+                                    ></input>
+                                </div>
                             </div>
                         </div>
+                        <label htmlFor="switch-id">{widgetLabel}</label>
                     </div>
-                    <label htmlFor="switch-id">{widgetLabel}</label>
                 </div>
             </Host>
         );

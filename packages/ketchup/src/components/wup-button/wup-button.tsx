@@ -221,15 +221,22 @@ export class WupButton {
             }
             return (
                 <Host>
-                    <button
-                        type="button"
-                        class={widgetClass}
-                        disabled={this.disabled}
-                    >
-                        <div class="mdc-button__ripple"></div>
-                        {leadingEl}
-                        {trailingEl}
-                    </button>
+                    <div id="kup-component">
+                        <button
+                            type="button"
+                            class={widgetClass}
+                            disabled={this.disabled}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onChange={this.onKupChange.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                            onInput={this.onKupInput.bind(this)}
+                        >
+                            <div class="mdc-button__ripple"></div>
+                            {leadingEl}
+                            {trailingEl}
+                        </button>
+                    </div>
                 </Host>
             );
         } else if (this.icon) {
@@ -267,20 +274,22 @@ export class WupButton {
             }
             return (
                 <Host>
-                    <button
-                        type="button"
-                        class={widgetClass}
-                        disabled={this.disabled}
-                        onBlur={this.onKupBlur.bind(this)}
-                        onChange={this.onKupChange.bind(this)}
-                        onClick={this.onKupClick.bind(this)}
-                        onFocus={this.onKupFocus.bind(this)}
-                        onInput={this.onKupInput.bind(this)}
-                    >
-                        <div class="mdc-button__ripple"></div>
-                        {leadingEl}
-                        {trailingEl}
-                    </button>
+                    <div id="kup-component">
+                        <button
+                            type="button"
+                            class={widgetClass}
+                            disabled={this.disabled}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onChange={this.onKupChange.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                            onInput={this.onKupInput.bind(this)}
+                        >
+                            <div class="mdc-button__ripple"></div>
+                            {leadingEl}
+                            {trailingEl}
+                        </button>
+                    </div>
                 </Host>
             );
         }

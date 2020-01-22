@@ -218,8 +218,10 @@ export class WupTemplate {
         // Copy your material design markup from https://material.io/develop/web/components/
         return (
             <Host>
-                <div class={formClass}>
-                    <div class={widgetClass}>... your template here ..</div>
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div class={widgetClass}>... your template here ..</div>
+                    </div>
                 </div>
             </Host>
         );
