@@ -80,42 +80,154 @@
       "shape": "CMB",
       "data": [
         {
-          "value": "DELGIO",
-          "programs": "Java",
-          "id": "sme001"
+          "value": "CH",
+          "description": "Switzerland"
         },
         {
-          "value": "SANCOS",
-          "programs": "Kotlin",
-          "id": "sme002"
+          "value": "ES",
+          "description": "Spain"
         },
         {
-          "value": "CASFRA",
-          "programs": "Javascript",
-          "id": "sme003"
+          "value": "IT",
+          "description": "Italy"
         },
         {
-          "value": "PARFRA",
-          "programs": "Delphi",
-          "id": "sme004"
+          "value": "UK",
+          "description": "United Kingdom"
         },
         {
-          "value": "FIOGIA",
-          "programs": "Kotlin",
-          "id": "sme005"
+          "value": "GEM",
+          "description": "Global error message"
         },
         {
-          "value": "ZAMCHI",
-          "programs": "Go",
-          "id": "sme006"
+          "value": "GWM",
+          "description": "Global warning message"
+        },
+        {
+          "value": "GIM",
+          "description": "Global info message"
+        },
+        {
+          "value": "FEM",
+          "description": "Field error message"
+        },
+        {
+          "value": "FWM",
+          "description": "Field warning message"
+        },
+        {
+          "value": "FIM",
+          "description": "Field info message"
+        },
+        {
+          "value": "GVM",
+          "description": "Global values modify"
+        },
+        {
+          "value": "FVM",
+          "description": "Field value modify"
+        },
+        {
+          "value": "GTM",
+          "description": "Global titles modify"
+        },
+        {
+          "value": "FTM",
+          "description": "Field title modify"
         }
       ],
+      "config": {
+        "displayedField": "description",
+        "valueField": "value"
+      },
+      "obj": {
+        "t": "TA",
+        "p": "V§N",
+        "k": "IT"
+      },
+      "value": {
+        "value": "IT",
+        "description": "Italy"
+      }
+    },
+    "region": {
+      "key": "region",
+      "title": "Region",
+      "titlePosition": "Left",
+      "description": "Region",
+      "shape": "CMB",
+      "data": [
+        {
+          "value": "01",
+          "description": "Val d'Aosta"
+        },
+        {
+          "value": "02",
+          "description": "Piemonte"
+        },
+        {
+          "value": "03",
+          "description": "Lombardia"
+        },
+        {
+          "value": "08",
+          "description": "Lazio"
+        },
+        {
+          "value": "GEM",
+          "description": "Global error message"
+        },
+        {
+          "value": "GWM",
+          "description": "Global warning message"
+        },
+        {
+          "value": "GIM",
+          "description": "Global info message"
+        },
+        {
+          "value": "FEM",
+          "description": "Field error message"
+        },
+        {
+          "value": "FWM",
+          "description": "Field warning message"
+        },
+        {
+          "value": "FIM",
+          "description": "Field info message"
+        },
+        {
+          "value": "GVM",
+          "description": "Global values modify"
+        },
+        {
+          "value": "FVM",
+          "description": "Field value modify"
+        },
+        {
+          "value": "GTM",
+          "description": "Global titles modify"
+        },
+        {
+          "value": "FTM",
+          "description": "Field title modify"
+        }
+      ],
+      "config": {
+        "displayedField": "description",
+        "valueField": "value"
+      },
       "obj": {
         "t": "",
-        "p": "",
-        "k": "smeu006"
+        "p": "V§R",
+        "k": "08"
       },
-      "value": "smeu006"
+      "value": {
+        "value": "08",
+        "description": "Lazio"
+      },
+      "liveBackend": true
     },
     "address": {
       "key": "address",
@@ -152,6 +264,7 @@
           { "fields": ["firstName"] },
           { "fields": ["lastName"] },
           { "fields": ["country"] },
+          { "fields": ["region"] },
           { "fields": ["address"] }
         ]
       }

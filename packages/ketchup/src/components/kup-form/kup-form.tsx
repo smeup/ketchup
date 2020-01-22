@@ -8,6 +8,7 @@ import {
     State,
 } from '@stencil/core';
 import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -15,9 +16,8 @@ import {
     FormFields,
     FormField,
     FormSection,
-    FormActionSubmittedDetail,
-    FormFieldFocusedDetail,
-    FormFieldBlurredDetail,
+    FormActionEventDetail,
+    FormFieldEventDetail,
     FormFieldsCalcs,
     FormMessage,
     FormMessageLevel,
@@ -89,7 +89,7 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormSubmitted: EventEmitter<FormActionSubmittedDetail>;
+    kupFormSubmitted: EventEmitter<FormActionEventDetail>;
 
     @Event({
         eventName: 'kupFormActionSubmitted',
@@ -97,7 +97,7 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormActionSubmitted: EventEmitter<FormActionSubmittedDetail>;
+    kupFormActionSubmitted: EventEmitter<FormActionEventDetail>;
 
     @Event({
         eventName: 'kupFormFieldFocused',
@@ -105,7 +105,7 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormFieldFocused: EventEmitter<FormFieldFocusedDetail>;
+    kupFormFieldFocused: EventEmitter<FormFieldEventDetail>;
 
     @Event({
         eventName: 'kupFormFieldBlurred',
@@ -113,7 +113,15 @@ export class KupForm {
         cancelable: false,
         bubbles: true,
     })
-    kupFormFieldBlurred: EventEmitter<FormFieldBlurredDetail>;
+    kupFormFieldBlurred: EventEmitter<FormFieldEventDetail>;
+
+    @Event({
+        eventName: 'kupFormFieldChanged',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFormFieldChanged: EventEmitter<FormFieldEventDetail>;
 
     private getFields(): FormField[] {
         if (this.fields) {
@@ -135,23 +143,13 @@ export class KupForm {
         return errorMessages.length == 0;
     }
 
-    private buildFormFieldFocusedDetail(
-        event: CustomEvent<KetchupTextInputEvent>,
+    private buildFormFieldEventDetail(
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
         field: FormField
-    ): FormFieldFocusedDetail {
-        let formFieldFocusedDetail = {} as FormFieldFocusedDetail;
-        formFieldFocusedDetail.field = {
-            key: field.key,
-            value: event.detail.value,
-        };
-        return formFieldFocusedDetail;
-    }
-
-    private buildFormFieldBlurredDetail(
-        event: CustomEvent<KetchupTextInputEvent>,
-        field: FormField
-    ): FormFieldBlurredDetail {
-        let detail = {} as FormFieldBlurredDetail;
+    ): FormFieldEventDetail {
+        let detail = {} as FormFieldEventDetail;
         detail.field = {
             key: field.key,
             value: event.detail.value,
@@ -171,8 +169,35 @@ export class KupForm {
         return detail;
     }
 
-    private buildFormSubmittedDetail(): FormActionSubmittedDetail {
-        let detail = {} as FormActionSubmittedDetail;
+    private buildFormFieldFocusedDetail(
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(event, field);
+    }
+
+    private buildFormFieldBlurredDetail(
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(event, field);
+    }
+
+    private buildFormFieldChangedDetail(
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(event, field);
+    }
+
+    private buildFormSubmittedDetail(): FormActionEventDetail {
+        let detail = {} as FormActionEventDetail;
         detail.fields = {};
         this.getFields().forEach((field) => {
             detail.fields[field.key] = {
@@ -187,7 +212,7 @@ export class KupForm {
 
     private buildFormActionSubmittedDetail(
         actionField: FormActionField
-    ): FormActionSubmittedDetail {
+    ): FormActionEventDetail {
         let detail = this.buildFormSubmittedDetail();
         detail.action = { key: actionField.key };
         return detail;
@@ -326,19 +351,24 @@ export class KupForm {
     }
 
     private onFieldFocus(
-        event: CustomEvent<KetchupTextInputEvent>,
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
         field: FormField
     ) {
+        console.log('On field ' + field.key + ' focus');
         this.kupFormFieldFocused.emit(
             this.buildFormFieldFocusedDetail(event, field)
         );
     }
 
     private onFieldBlur(
-        event: CustomEvent<KetchupTextInputEvent>,
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
         field: FormField
     ) {
-        console.log('On field blur');
+        console.log('On field ' + field.key + ' blur ');
 
         const { value } = event.detail;
         this.fields[field.key].value = value;
@@ -353,11 +383,17 @@ export class KupForm {
     }
 
     private onFieldChange(
-        event: CustomEvent<KetchupTextInputEvent>,
+        event:
+            | CustomEvent<KetchupTextInputEvent>
+            | CustomEvent<KetchupComboEvent>,
         field: FormField
     ) {
+        console.log('On field ' + field.key + ' change ');
         const { value } = event.detail;
         this.fields[field.key].value = value;
+        this.kupFormFieldChanged.emit(
+            this.buildFormFieldChangedDetail(event, field)
+        );
     }
 
     private renderSection(
@@ -478,7 +514,7 @@ export class KupForm {
                         <kup-text-input
                             style={wrapperStyle}
                             input-type="text"
-                            initial-value={field.value}
+                            initialValue={field.value}
                             onKetchupTextInputUpdated={(e) =>
                                 this.onFieldChange(e, field)
                             }
@@ -489,6 +525,23 @@ export class KupForm {
                                 this.onFieldBlur(e, field)
                             }
                         ></kup-text-input>
+                    );
+                } else if (field.shape == 'CMB') {
+                    fieldContent = (
+                        <kup-combo
+                            items={field.data}
+                            {...field.config}
+                            initialValue={field.value}
+                            onKetchupComboSelected={(e) =>
+                                this.onFieldChange(e, field)
+                            }
+                            onKetchupComboFocused={(e) =>
+                                this.onFieldFocus(e, field)
+                            }
+                            onKetchupComboBlurred={(e) =>
+                                this.onFieldBlur(e, field)
+                            }
+                        ></kup-combo>
                     );
                 } else {
                     fieldContent =

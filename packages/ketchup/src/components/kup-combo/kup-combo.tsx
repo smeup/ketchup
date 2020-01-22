@@ -84,6 +84,7 @@ export class KupCombo {
     @Element() comboEl: HTMLElement;
     selected: ComboItem | null = null;
     portalRef?: HTMLKupPortalElement = null;
+    isOnComboClick = false;
     /**
      * Creates a variable with an instance of the handler for the click event and binds this instance of the combo box to it.
      * This is used to add and more importantly remove events listeners attached to the body.
@@ -211,7 +212,60 @@ export class KupCombo {
      * @method onComboClick
      */
     onComboClick() {
+        this.isOnComboClick = true;
         this.openCombo();
+    }
+
+    /**
+     * When combo is focused
+     */
+    @Event({
+        eventName: 'ketchupComboFocused',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    ketchupComboFocused: EventEmitter<KetchupComboEvent>;
+
+    /**
+     * OnFocus method
+     * @method onFocus
+     */
+    onFocus() {
+        this.ketchupComboFocused.emit({
+            value: this.selected,
+            oldValue: this.selected,
+            info: {
+                obj: this.obj,
+            },
+        });
+    }
+
+    /**
+     * When combo is blurred
+     */
+    @Event({
+        eventName: 'ketchupComboBlurred',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    ketchupComboBlurred: EventEmitter<KetchupComboEvent>;
+
+    /**
+     *OnBlur method
+     * @method onBlur
+     */
+    onBlur() {
+        if (!this.isOnComboClick) {
+            this.ketchupComboBlurred.emit({
+                value: this.selected,
+                oldValue: this.selected,
+                info: {
+                    obj: this.obj,
+                },
+            });
+        }
     }
 
     /**
@@ -271,6 +325,8 @@ export class KupCombo {
             this.onComboSelected(item, this.selected);
         }
         this.closeCombo();
+        this.isOnComboClick = false;
+        this.onBlur();
     }
 
     //-- Emitted --
@@ -360,8 +416,11 @@ export class KupCombo {
                 ref={(el) => (this.comboText = el as HTMLInputElement)}
             >
                 <span
+                    tabindex="0"
                     class={this.baseClass + '__current-value'}
                     onClick={this.onComboClick.bind(this)}
+                    onFocus={this.onFocus.bind(this)}
+                    onBlur={this.onBlur.bind(this)}
                 >
                     <span class="value-text">
                         {this.selected
