@@ -1819,7 +1819,10 @@ export class KupDataTable {
                             role="button"
                             aria-label="Opzioni oggetto"
                             title="Opzioni oggetto"
-                            onClick={() => this.onOptionClicked(name, row)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onOptionClicked(name, row);
+                            }}
                         >
                             <i class="mdi mdi-settings" />
                         </span>
