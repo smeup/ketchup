@@ -16,6 +16,7 @@ import {
 import {
     isNumber
 } from '../../utils/object-utils';
+import { computeFallbackHeaderFormat } from '@fullcalendar/core';
 
 
 export function sortRows(
@@ -238,12 +239,16 @@ export function filterRows(
                 let found = false;
 
                 for (let i = 0; i < columns.length; i++) {
-                    const cellValue = r.cells[columns[i]].value;
+                    let cellValue;
+                    const cell = r.cells[columns[i]];
+                    
+                    if (cell)
+                        cellValue = cell.value;
 
                     // checks if the value of the filter is contained inside value of the object
                     // Or is if the filter is a special filter to be matched.
                     // Since it is a global filter, we do not take into consideration the negative modifier in this control.
-                    if (
+                    if (cellValue && 
                         cellValue
                             .toLowerCase()
                             .includes(globalFilter.toLocaleLowerCase()) ||
@@ -342,83 +347,86 @@ export function groupRows(
 
         // getting row value
         const cell = row.cells[columnName];
-        const cellValue = cell.value;
+        if (cell) {
+            const cellValue = cell.value;
+            let groupRow: Row = null;
 
-        // check in already in groupedRow
-        let groupRow: Row = null;
-        for (let currentGroupRow of groupRows) {
-            if (currentGroupRow.group.label === cellValue) {
-                groupRow = currentGroupRow;
-                break;
-            }
-        }
-
-        if (groupRow === null) {
-            // create group row
-            groupRow = {
-                group: {
-                    id: cellValue,
-                    parent: null,
-                    column: columnName,
-                    columnLabel: columnLabels[columnName],
-                    expanded: false,
-                    label: cellValue,
-                    children: [],
-                    obj: cell.obj,
-                    totals: {},
-                },
-                cells: {},
-            };
-
-            // add group to list
-            groupRows.push(groupRow);
-        }
-
-        for (let i = 1; i < validGroups.length; i++) {
-            const group = validGroups[i];
-
-            // getting cell value
-            const tempCell = row.cells[group.column];
-            const tempCellValue = tempCell.value;
-
-            // check if group already exists
-            let tempGroupingRow: Row = null;
-            for (let j = 0; j < groupRow.group.children.length; j++) {
-                const childGroup = groupRow.group.children[j];
-                const groupLabel = childGroup.group.label;
-
-                if (groupLabel === tempCellValue) {
-                    tempGroupingRow = childGroup;
+            // check in already in groupedRow
+            for (let currentGroupRow of groupRows) {
+                if (currentGroupRow.group.label === cellValue) {
+                    groupRow = currentGroupRow;
                     break;
                 }
             }
 
-            if (!tempGroupingRow) {
-                tempGroupingRow = {
-                    cells: {},
+            if (groupRow === null) {
+                // create group row
+                groupRow = {
                     group: {
-                        id: tempCellValue,
-                        parent: groupRow,
-                        column: group.column,
-                        columnLabel: columnLabels[group.column],
-                        children: [],
+                        id: cellValue,
+                        parent: null,
+                        column: columnName,
+                        columnLabel: columnLabels[columnName],
                         expanded: false,
-                        label: tempCellValue,
+                        label: cellValue,
+                        children: [],
+                        obj: cell.obj,
                         totals: {},
-                        obj: tempCell.obj,
                     },
+                    cells: {},
                 };
-                adjustGroupId(tempGroupingRow);
-                groupRow.group.children.push(tempGroupingRow);
+
+                // add group to list
+                groupRows.push(groupRow);
             }
 
-            groupRow = tempGroupingRow;
+            for (let i = 1; i < validGroups.length; i++) {
+                const group = validGroups[i];
+
+                // getting cell value
+                const tempCell = row.cells[group.column];
+                if (tempCell) {
+                    const tempCellValue = tempCell.value;
+
+                    // check if group already exists
+                    let tempGroupingRow: Row = null;
+                    for (let j = 0; j < groupRow.group.children.length; j++) {
+                        const childGroup = groupRow.group.children[j];
+                        const groupLabel = childGroup.group.label;
+
+                        if (groupLabel === tempCellValue) {
+                            tempGroupingRow = childGroup;
+                            break;
+                        }
+                    }
+
+                    if (!tempGroupingRow) {
+                        tempGroupingRow = {
+                            cells: {},
+                            group: {
+                                id: tempCellValue,
+                                parent: groupRow,
+                                column: group.column,
+                                columnLabel: columnLabels[group.column],
+                                children: [],
+                                expanded: false,
+                                label: tempCellValue,
+                                totals: {},
+                                obj: tempCell.obj,
+                            },
+                        };
+                        adjustGroupId(tempGroupingRow);
+                        groupRow.group.children.push(tempGroupingRow);
+                    }
+                    groupRow = tempGroupingRow;
+                } 
+            }
+
+            // adding row
+            groupRow.group.children.push(row);
+
+            updateGroupTotal(groupRow, totals, row);
         }
-
-        // adding row
-        groupRow.group.children.push(row);
-
-        updateGroupTotal(groupRow, totals, row);
     });
 
     adjustGroupsAvarage(groupRows, totals);
@@ -446,51 +454,56 @@ function updateGroupTotal(
 
         const cell = addedRow.cells[key];
 
-        const isNumber = cell.obj.t === 'NR';
+        if (cell) {
+            let isNumber = false;
 
-        const totalMode = totals[key];
+            if (cell && cell.obj)
+                isNumber = cell.obj.t === 'NR';
 
-        switch (totalMode) {
-            case TotalMode.COUNT:
-                groupRow.group.totals[key] = currentTotalValue + 1;
+            const totalMode = totals[key];
 
-                // updating parents
-                let parent = groupRow.group.parent;
-                while (parent != null) {
-                    const currentParentCount = parent.group.totals[key] || 0;
-
-                    parent.group.totals[key] = currentParentCount + 1;
-
-                    parent = parent.group.parent;
-                }
-                break;
-
-            case TotalMode.SUM:
-            case TotalMode.AVARAGE:
-                if (isNumber) {
-                    const cellValue = numeral(cell.obj.k);
-
-                    groupRow.group.totals[key] = cellValue
-                        .add(currentTotalValue)
-                        .value();
+            switch (totalMode) {
+                case TotalMode.COUNT:
+                    groupRow.group.totals[key] = currentTotalValue + 1;
 
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
-                        const currentParentSum = parent.group.totals[key] || 0;
+                        const currentParentCount = parent.group.totals[key] || 0;
 
-                        parent.group.totals[key] = cellValue
-                            .add(currentParentSum)
-                            .value();
+                        parent.group.totals[key] = currentParentCount + 1;
 
                         parent = parent.group.parent;
                     }
-                }
-                break;
+                    break;
 
-            default:
-                console.warn(`invalid total mode: ${totalMode}`);
-                break;
+                case TotalMode.SUM:
+                case TotalMode.AVARAGE:
+                    if (isNumber) {
+                        const cellValue = numeral(cell.obj.k);
+
+                        groupRow.group.totals[key] = cellValue
+                            .add(currentTotalValue)
+                            .value();
+
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentSum = parent.group.totals[key] || 0;
+
+                            parent.group.totals[key] = cellValue
+                                .add(currentParentSum)
+                                .value();
+
+                            parent = parent.group.parent;
+                        }
+                    }
+                    break;
+
+                default:
+                    console.warn(`invalid total mode: ${totalMode}`);
+                    break;
+            }
         }
     });
 }
@@ -628,7 +641,7 @@ export function calcTotals(
                     const cell = r.cells[key];
 
                     // check if number
-                    if ((cell) && (cell.obj.t === 'NR')) {
+                    if ((cell) && (cell.obj) && (cell.obj.t === 'NR')) {
                         const cellValue = numeral(cell.obj.k);
 
                         const currentFooterValue = footerRow[key] || 0;
