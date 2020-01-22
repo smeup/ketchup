@@ -8,6 +8,12 @@
   display: var(--kup-display-mode);
 
   #kup-component {
+    & .mdc-form-field {
+      & label {
+        margin: auto;
+      }
+    }
+
     & .mdc-text-field {
       &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
         @include mdc-text-field-density(-4);
@@ -19,12 +25,6 @@
         //Fixed floating label position when outlined field has a leading icon
         &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
           transform: translateY(-26px) scale(0.75) translateX(-42px);
-        }
-      }
-
-      & .mdc-form-field {
-        & label {
-          margin: auto;
         }
       }
 
