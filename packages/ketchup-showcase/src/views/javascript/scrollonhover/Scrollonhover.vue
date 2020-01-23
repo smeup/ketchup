@@ -16,7 +16,7 @@
 import ScrollonhoverBasic from '@/views/javascript/scrollonhover/examples/ScrollonhoverBasic';
 import ScrollonhoverDatatable from '@/views/javascript/scrollonhover/examples/ScrollonhoverDatatable';
 import ScrollonhoverTree from '@/views/javascript/scrollonhover/examples/ScrollonhoverTree';
-import Comp from '@/views/components/page/templates/Comp';
+import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {

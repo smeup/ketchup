@@ -34,10 +34,10 @@ More about this issue inside the SCSS file of this component.
 
 ## CSS Custom Properties
 
-| Name                                             | Description                                                                                                                    |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `--lyo__column-number, --kup-lyo__column-number` | Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations. |
-| `--lyo__grid-gap, --kup-lyo__grid-gap`           | Space between two adjacent cells (on columns and rows).                                                                        |
+| Name                                              | Description                                                                                                                    |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `--lyo_column-number, --kup-layout_column-number` | Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations. |
+| `--lyo_grid-gap, --kup-layout_grid-gap`           | Space between two adjacent cells (on columns and rows).                                                                        |
 
 
 ----------------------------------------------

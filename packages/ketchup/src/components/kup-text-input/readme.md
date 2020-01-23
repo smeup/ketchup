@@ -72,9 +72,9 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-autocomplete](..\kup-autocomplete)
+ - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
- - [kup-checkbox-menu](..\kup-checkbox-menu)
+ - [kup-checkbox-menu](../kup-checkbox-menu)
  - [kup-combo](../kup-combo)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
