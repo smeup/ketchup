@@ -28,7 +28,7 @@
             </v-list-group>
 
             <v-list-tile
-              v-for="route in group.componentsItems"
+              v-for="route in group.advancedItems"
               :key="route.to.name"
               :to="route.to"
             >
@@ -71,7 +71,7 @@
             </v-list-group>
 
             <v-list-tile
-              v-for="route in group.widgetsItems"
+              v-for="route in group.basicItems"
               :key="route.to.name"
               :to="route.to"
             >
@@ -94,7 +94,12 @@
         />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
-      <v-switch v-model="darkTheme" :label="`Dark Mode`"></v-switch>
+      <wup-switch
+        onclick="changeTheme();"
+        style="min-width: 150px; --kup-text-color: #f5f5f5;"
+        labelleft="Dark Mode"
+        id="theme-switch"
+      ></wup-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -121,8 +126,8 @@ export default {
     drawer: null,
     groupNavigationSections: [
       {
-        title: 'Components',
-        componentsItems: [
+        title: 'Advanced',
+        advancedItems: [
           {
             title: 'Autocomplete',
             to: {
@@ -234,8 +239,8 @@ export default {
         ],
       },
       {
-        title: 'Widgets',
-        widgetsItems: [
+        title: 'Basic',
+        basicItems: [
           {
             title: `Button`,
             to: {
@@ -354,7 +359,7 @@ select,
 
 // For examples where slot has a border
 .name-slotted {
-  border: 1px solid rgba(0,0,0,.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   padding: 4px;
 }

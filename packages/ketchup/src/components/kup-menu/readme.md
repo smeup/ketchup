@@ -18,9 +18,9 @@
 
 ## Events
 
-| Event              | Description                | Type                |
-| ------------------ | -------------------------- | ------------------- |
-| `ketchupMenuClose` | When the menu gets closed. | `CustomEvent<void>` |
+| Event          | Description                | Type                |
+| -------------- | -------------------------- | ------------------- |
+| `kupMenuClose` | When the menu gets closed. | `CustomEvent<void>` |
 
 
 ## CSS Custom Properties
@@ -35,6 +35,21 @@
 | `--mnu_tr-duration, --kup-menu_transition-duration`       | The duration of all menu transitions. Does not influence its slots. |
 | `--mnu_z-index, --kup-menu_z-index`                       | the z-index of the menu.                                            |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-autocomplete](../kup-autocomplete)
+ - [kup-checkbox-menu](../kup-checkbox-menu)
+
+### Graph
+```mermaid
+graph TD;
+  kup-autocomplete --> kup-menu
+  kup-checkbox-menu --> kup-menu
+  style kup-menu fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

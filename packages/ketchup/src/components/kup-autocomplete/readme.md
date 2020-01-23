@@ -50,10 +50,10 @@ Type: `Promise<KupAutocompleteOption[]>`
 
 ### Depends on
 
-- [kup-chip](..\kup-chip)
-- [kup-text-input](..\kup-text-input)
-- [kup-menu](..\kup-menu)
-- [kup-icon](..\kup-icon)
+- [kup-chip](../kup-chip)
+- [kup-text-input](../kup-text-input)
+- [kup-menu](../kup-menu)
+- [kup-icon](../kup-icon)
 
 ### Graph
 ```mermaid

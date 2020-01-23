@@ -37,11 +37,13 @@
 
 ### Used by
 
+ - [kup-autocomplete](../kup-autocomplete)
  - [kup-data-table](../kup-data-table)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-autocomplete --> kup-chip
   kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -12,10 +12,11 @@
 
 | Property      | Attribute       | Description                                                            | Type      | Default |
 | ------------- | --------------- | ---------------------------------------------------------------------- | --------- | ------- |
-| `checked`     | `checked`       | Sets the checkbox to be disabled                                       | `boolean` | `false` |
+| `checked`     | `checked`       | Sets the checkbox to be checked                                        | `boolean` | `false` |
 | `disabled`    | `disabled`      | Sets the checkbox to be disabled  Must have reflect into the attribute | `boolean` | `false` |
 | `label`       | `label`         | The label to set to the component                                      | `string`  | `''`    |
 | `setTabIndex` | `set-tab-index` | Sets the tabindex of the checkbox                                      | `number`  | `0`     |
+| `showLabel`   | `show-label`    | If true, shows the label by using a label tag                          | `boolean` | `false` |
 
 
 ## Events

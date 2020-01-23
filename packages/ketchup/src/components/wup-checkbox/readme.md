@@ -28,6 +28,19 @@
 | `kupCheckboxInput`  |             | `CustomEvent<{ value: any; }>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-checkbox-menu](../kup-checkbox-menu)
+
+### Graph
+```mermaid
+graph TD;
+  kup-checkbox-menu --> wup-checkbox
+  style wup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

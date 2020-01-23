@@ -9,12 +9,8 @@
   #kup-component {
     .mdc-tab-bar {
       @include mdc-tab-bar-density(-3);
-
-      &.custom {
-        @include mdc-tab-text-label-color($mdc-tabbar-text-ink);
-        @include mdc-tab-icon-color($mdc-tabbar-icon-ink);
-        @include mdc-tab-states-color($mdc-ripple-color);
-      }
+      @include mdc-tab-text-label-color(var(--kup-main-color));
+      @include mdc-tab-icon-color(var(--kup-main-color));
 
       & button {
         font-family: var(--kup-font-family);

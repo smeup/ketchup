@@ -12,7 +12,7 @@
 <script>
 import TippositioningBasic from '@/views/javascript/tippositioning/examples/TippositioningBasic';
 import TippositioningImage from '@/views/javascript/tippositioning/examples/TippositioningImage';
-import Comp from '@/views/components/page/templates/Comp';
+import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
