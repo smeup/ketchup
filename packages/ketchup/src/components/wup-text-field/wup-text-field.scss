@@ -15,12 +15,21 @@
     }
 
     & .mdc-text-field {
+      @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
+      @include mdc-text-field-fullwidth-bottom-line-color(
+        var(--kup-text-color)
+      );
+
       &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
         @include mdc-text-field-density(-4);
+        @include mdc-text-field-fill-color(var(--kup-field-background-color));
+        @include mdc-text-field-bottom-line-color(var(--kup-text-color));
       }
 
       &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
         @include mdc-text-field-outlined-density(-4);
+        @include mdc-text-field-outline-color(var(--kup-border-color));
+        @include mdc-text-field-focused-outline-color(var(--kup-main-color));
 
         //Fixed floating label position when outlined field has a leading icon
         &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
@@ -49,10 +58,30 @@
       & label,
       & input {
         font-family: var(--kup-font-family);
+        color: var(--kup-text-color);
+
+        &.mdc-floating-label--float-above {
+          color: var(--kup-main-color);
+        }
+
+        &::placeholder {
+          color: var(--kup-text-color);
+        }
+      }
+
+      &.mdc-text-field--disabled {
+        color: var(--kup-disabled-text-color);
+        background: var(--kup-disabled-background-color);
       }
     }
 
+    & .mdc-text-field-character-counter,
+    & .mdc-text-field-helper-text {
+      color: var(--kup-text-color);
+    }
+
     & .material-icons {
+      color: var(--kup-icon-color);
       font-family: 'Material Icons';
       font-weight: normal;
       font-style: normal;
