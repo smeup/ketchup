@@ -9,9 +9,6 @@
     <template v-slot:2>
       <checkbox-disabled></checkbox-disabled>
     </template>
-    <template v-slot:3>
-      <checkbox-customization></checkbox-customization>
-    </template>
   </comp>
 </template>
 
@@ -19,14 +16,12 @@
 import CheckboxBasic from '@/views/basic/checkbox/examples/CheckboxBasic';
 import CheckboxLabels from '@/views/basic/checkbox/examples/CheckboxLabels';
 import CheckboxDisabled from '@/views/basic/checkbox/examples/CheckboxDisabled';
-import CheckboxCustomization from '@/views/basic/checkbox/examples/CheckboxCustomization';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     CheckboxBasic,
     CheckboxLabels,
     CheckboxDisabled,
-    CheckboxCustomization,
     Comp,
   },
   data() {
@@ -34,7 +29,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-checkbox',
       headtitle: 'Checkbox',
-      titles: ['Basic usage', 'Adding labels', 'Disabled', 'Customization'],
+      titles: ['Basic usage', 'Adding labels', 'Disabled'],
     };
   },
 };

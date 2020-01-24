@@ -254,6 +254,9 @@
         <wup-checkbox disabled checked></wup-checkbox>
         <h4>Material Radio (widget)</h4>
         <wup-radio></wup-radio>
+        <wup-radio disabled></wup-radio>
+        <wup-radio disabled checked></wup-radio>
+        <wup-radio checked></wup-radio>
         <h4>Material Switch (widget)</h4>
         <wup-switch></wup-switch>
         <h4>Material Buttons (widget)</h4>
@@ -264,6 +267,8 @@
         <wup-button disabled icon="favorite"></wup-button>
         <wup-button text="Flat" flat></wup-button>
         <wup-button raised text="Raised"></wup-button>
+        <wup-button text="Flat & disabled" flat disabled></wup-button>
+        <wup-button text="Transparent & disabled" disabled transparent></wup-button>
         <wup-button raised disabled text="Raised & disabled"></wup-button>
         <wup-button raised icon="favorite" text="Raised favorite"></wup-button>
         <wup-button
@@ -362,6 +367,10 @@
       {
         name: '--kup-disabled-background-color',
         value: '#3c3c3c',
+      },
+      {
+        name: '--kup-field-background-color',
+        value: '#2a2a2a',
       },
       {
         name: '--mdc-theme-primary',
@@ -1087,6 +1096,7 @@
             --kup-border-color: #e0e0e0;
             --kup-disabled-text-color: #5c5c5c;
             --kup-disabled-background-color: #eaeaea;
+            --kup-field-background-color: #fafafa;
 
             --mdc-theme-primary: var(--kup-main-color);
             --mdc-theme-on-primary: var(--kup-text-on-main-color);

@@ -6,29 +6,32 @@
 
   #kup-component {
     & .mdc-button {
-      @include mdc-states(#fff);
+      font-family: var(--kup-font-family);
 
       &.button-shaped,
       &.button-shaped .mdc-button__ripple {
         border-radius: 18px;
       }
 
-      &.fillspace {
-        width: 100%;
+      &:disabled {
+        color: var(--kup-disabled-text-color);
       }
 
-      &.custom {
-        @include mdc-button-container-fill-color($mdc-button-fill);
-        @include mdc-button-ink-color($mdc-button-ink);
-        @include mdc-button-height($mdc-button-height-in-px, structure);
-        @include mdc-button-shape-radius($mdc-button-border-radius);
+      &.mdc-button--outlined:disabled {
+        border-color: var(--kup-disabled-text-color);
+      }
+
+      &.mdc-button--raised:disabled {
+        background: var(--kup-disabled-background-color);
+      }
+
+      &.fillspace {
+        width: 100%;
       }
     }
 
     & .mdc-icon-button {
-      &.custom {
-        @include mdc-icon-button-ink-color($mdc-button-ink);
-      }
+      color: var(--kup-main-color);
     }
   }
 }

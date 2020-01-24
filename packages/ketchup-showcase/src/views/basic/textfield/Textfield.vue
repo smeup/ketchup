@@ -15,9 +15,6 @@
     <template v-slot:4>
       <textfield-disabled></textfield-disabled>
     </template>
-    <template v-slot:5>
-      <textfield-customization></textfield-customization>
-    </template>
   </comp>
 </template>
 
@@ -27,7 +24,6 @@ import TextfieldStyling from '@/views/basic/textfield/examples/TextfieldStyling'
 import TextfieldLabels from '@/views/basic/textfield/examples/TextfieldLabels';
 import TextfieldDisabled from '@/views/basic/textfield/examples/TextfieldDisabled';
 import TextfieldTextareaVariant from '@/views/basic/textfield/examples/TextfieldTextareaVariant';
-import TextfieldCustomization from '@/views/basic/textfield/examples/TextfieldCustomization';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
@@ -36,7 +32,6 @@ export default {
     TextfieldLabels,
     TextfieldDisabled,
     TextfieldTextareaVariant,
-    TextfieldCustomization,
     Comp,
   },
   data() {
@@ -50,7 +45,6 @@ export default {
         'Adding labels',
         'Text area variant',
         'Disabled',
-        'Customization',
       ],
     };
   },
