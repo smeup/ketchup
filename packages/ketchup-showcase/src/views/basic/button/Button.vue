@@ -12,9 +12,6 @@
     <template v-slot:3>
       <button-disabled></button-disabled>
     </template>
-    <template v-slot:4>
-      <button-customization></button-customization>
-    </template>
   </comp>
 </template>
 
@@ -23,7 +20,6 @@ import ButtonBasic from '@/views/basic/button/examples/ButtonBasic';
 import ButtonStyling from '@/views/basic/button/examples/ButtonStyling';
 import ButtonDisabled from '@/views/basic/button/examples/ButtonDisabled';
 import ButtonIconVariant from '@/views/basic/button/examples/ButtonIconVariant';
-import ButtonCustomization from '@/views/basic/button/examples/ButtonCustomization';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
@@ -31,7 +27,6 @@ export default {
     ButtonStyling,
     ButtonDisabled,
     ButtonIconVariant,
-    ButtonCustomization,
     Comp,
   },
   data() {
@@ -44,7 +39,6 @@ export default {
         'Styling',
         'Icon button variant',
         'Disabled',
-        'Customization',
       ],
     };
   },

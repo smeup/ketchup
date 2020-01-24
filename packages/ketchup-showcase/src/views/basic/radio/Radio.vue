@@ -9,9 +9,6 @@
     <template v-slot:2>
       <radio-disabled></radio-disabled>
     </template>
-    <template v-slot:3>
-      <radio-customization></radio-customization>
-    </template>
   </comp>
 </template>
 
@@ -19,14 +16,12 @@
 import RadioBasic from '@/views/basic/radio/examples/RadioBasic';
 import RadioLabels from '@/views/basic/radio/examples/RadioLabels';
 import RadioDisabled from '@/views/basic/radio/examples/RadioDisabled';
-import RadioCustomization from '@/views/basic/radio/examples/RadioCustomization';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     RadioBasic,
     RadioLabels,
     RadioDisabled,
-    RadioCustomization,
     Comp,
   },
   data() {
@@ -34,7 +29,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-radio',
       headtitle: 'Radio',
-      titles: ['Basic usage', 'Adding labels', 'Disabled', 'Customization'],
+      titles: ['Basic usage', 'Adding labels', 'Disabled'],
     };
   },
 };
