@@ -100,6 +100,11 @@ let componentsRoutes = [
     name: 'form',
     component: () => import(`@/views/components/form/Form.vue`),
   },
+  {
+    path: `/crud`,
+    name: 'crud',
+    component: () => import(`@/views/components/crud/Crud.vue`),
+  },
 ];
 
 let javascriptRoutes = [

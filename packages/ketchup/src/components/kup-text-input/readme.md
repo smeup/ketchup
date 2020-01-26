@@ -22,12 +22,13 @@
 
 ## Events
 
-| Event                     | Description                                    | Type                                                  |
-| ------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
-| `ketchupTextInputBlurred` | When text field loses focus (blur)             | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
-| `ketchupTextInputFocused` | When the text input gains focus                | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
-| `ketchupTextInputSubmit`  | When a keydown enter event occurs it generates | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
-| `ketchupTextInputUpdated` | When the input text value gets updated         | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| Event                     | Description                                                                                                                                             | Type                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `ketchupTextInputBlurred` | When text field loses focus (blur)                                                                                                                      | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputChanged` | When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput) | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputFocused` | When the text input gains focus                                                                                                                         | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputSubmit`  | When a keydown enter event occurs it generates                                                                                                          | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
+| `ketchupTextInputUpdated` | When the input text value gets updated                                                                                                                  | `CustomEvent<KupPayloadEvent<string, GenericObject>>` |
 
 
 ## Methods

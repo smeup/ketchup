@@ -233,6 +233,28 @@ export class KupTextInput {
         this.value = target.value;
     }
 
+    /**
+     * When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput)
+     */
+    @Event({
+        eventName: 'ketchupTextInputChanged',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    ketchupTextInputChanged: EventEmitter<KetchupTextInputEvent>;
+
+    onInputChanged(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.ketchupTextInputChanged.emit({
+            value: target.value,
+            oldValue: this.value,
+            info: {
+                obj: this.obj,
+            },
+        });
+    }
+
     //---- Rendering functions ----
     render() {
         const containerClass = this.classInputText + '__container';
@@ -273,6 +295,7 @@ export class KupTextInput {
                         onInput={this.onInputUpdated.bind(this)}
                         onFocus={this.onInputFocused.bind(this)}
                         onKeyDown={this.onKeyDown.bind(this)}
+                        onChange={this.onInputChanged.bind(this)}
                         placeholder={this.placeholder}
                     />
 

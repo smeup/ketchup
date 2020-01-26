@@ -1,7 +1,25 @@
 {
-  "layout": {
+  "fields": {
+    "aTextField": {
+      "key": "aTextField",
+      "title": "A text field",
+      "titlePosition": "None",
+      "description": "A text field",
+      "shape": "ITX"
+    }
   },
 
-  "schema": {
-  }
+  "sections": {},
+
+  "records": [
+    {
+      "id": 1,
+      "fields": {
+        "aTextField": {
+          "key": "aTextField",
+          "value": "Hello"
+        }
+      }
+    }
+  ]
 }

@@ -55,6 +55,10 @@
   );
   --btn_border: var(--kup-button_border, none);
   --btn_border-radius: var(--kup-button_border-radius, 2px);
+  --btn_border-color-focused: var(
+    --kup-button_border-color-focused,
+    transparent
+  );
 
   @include stateVars('--btn');
 }
@@ -160,6 +164,10 @@ button {
 
   &.btn-selected {
     background: var(--btn_color-selected);
+  }
+
+  &.focused {
+    border: 1px solid var(--btn_border-color-focused);
   }
 
   //-- Flat button --
