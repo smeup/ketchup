@@ -19,91 +19,101 @@ const baseRoutes = [
   },
 ];
 
-let componentsRoutes = [
+let advancedRoutes = [
+  {
+    path: `/autocomplete`,
+    name: 'autocomplete',
+    component: () => import(`@/views/advanced/autocomplete/Autocomplete.vue`),
+  },
   {
     path: `/box`,
     name: 'box',
-    component: () => import(`@/views/components/box/Box.vue`),
+    component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
     path: `/btn`,
     name: 'btn',
-    component: () => import(`@/views/components/button/Button.vue`),
+    component: () => import(`@/views/advanced/button/Button.vue`),
   },
   {
     path: `/calendar`,
     name: 'calendar',
-    component: () => import(`@/views/components/calendar/Calendar.vue`),
+    component: () => import(`@/views/advanced/calendar/Calendar.vue`),
   },
   {
     path: `/chart`,
     name: 'chart',
-    component: () => import(`@/views/components/chart/Chart.vue`),
+    component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
     path: `/chips`,
     name: 'chips',
-    component: () => import(`@/views/components/chips/Chips.vue`),
+    component: () => import(`@/views/advanced/chips/Chips.vue`),
   },
   {
     path: `/dash`,
     name: 'dash',
-    component: () => import(`@/views/components/dash/Dash.vue`),
+    component: () => import(`@/views/advanced/dash/Dash.vue`),
   },
   {
     path: `/datatable`,
     name: 'datatable',
-    component: () => import(`@/views/components/datatable/Datatable.vue`),
+    component: () => import(`@/views/advanced/datatable/Datatable.vue`),
   },
   {
     path: `/field`,
     name: 'field',
-    component: () => import(`@/views/components/field/Field.vue`),
+    component: () => import(`@/views/advanced/field/Field.vue`),
   },
   {
     path: `/html`,
     name: 'html',
-    component: () => import(`@/views/components/html/Html.vue`),
+    component: () => import(`@/views/advanced/html/Html.vue`),
   },
   {
     path: `/image`,
     name: 'image',
-    component: () => import(`@/views/components/image/Image.vue`),
+    component: () => import(`@/views/advanced/image/Image.vue`),
   },
   {
     path: `/imagebutton`,
     name: 'imagebutton',
-    component: () => import(`@/views/components/imagebutton/Imagebutton.vue`),
+    component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
+  },
+  {
+    path: `/menu`,
+    name: 'menu',
+    component: () => import(`@/views/advanced/menu/Menu.vue`),
   },
   {
     path: `/portal`,
     name: 'portal',
-    component: () => import(`@/views/components/portal/Portal.vue`),
+    component: () => import(`@/views/advanced/portal/Portal.vue`),
   },
   {
     path: `/progressbar`,
     name: 'progressbar',
-    component: () => import(`@/views/components/progressbar/Progressbar.vue`),
+    component: () => import(`@/views/advanced/progressbar/Progressbar.vue`),
   },
   {
     path: `/tooltip`,
     name: 'tooltip',
-    component: () => import(`@/views/components/tooltip/Tooltip.vue`),
+    component: () => import(`@/views/advanced/tooltip/Tooltip.vue`),
   },
   {
     path: `/tree`,
     name: 'tree',
-    component: () => import(`@/views/components/tree/Tree.vue`),
+    component: () => import(`@/views/advanced/tree/Tree.vue`),
   },
   {
     path: `/form`,
     name: 'form',
-    component: () => import(`@/views/components/form/Form.vue`),
+    component: () => import(`@/views/advanced/form/Form.vue`),
   },
   {
     path: `/crud`,
     name: 'crud',
-    component: () => import(`@/views/components/crud/Crud.vue`),
+    component: () => import(`@/views/advanced/crud/Crud.vue`),
   },
 ];
 
@@ -122,44 +132,44 @@ let javascriptRoutes = [
   },
 ];
 
-let widgetRoutes = [
+let basicRoutes = [
   {
     path: `/button`,
     name: 'button',
-    component: () => import(`@/views/widgets/button/Button.vue`),
+    component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
     path: `/checkbox`,
     name: 'checkbox',
-    component: () => import(`@/views/widgets/checkbox/Checkbox.vue`),
+    component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
   },
   {
     path: `/radio`,
     name: 'radio',
-    component: () => import(`@/views/widgets/radio/Radio.vue`),
+    component: () => import(`@/views/basic/radio/Radio.vue`),
   },
   {
     path: `/switch`,
     name: 'switch',
-    component: () => import(`@/views/widgets/switch/Switch.vue`),
+    component: () => import(`@/views/basic/switch/Switch.vue`),
   },
   {
     path: `/tabbar`,
     name: 'tabbar',
-    component: () => import(`@/views/widgets/tabbar/Tabbar.vue`),
+    component: () => import(`@/views/basic/tabbar/Tabbar.vue`),
   },
   {
     path: `/textfield`,
     name: 'textfield',
-    component: () => import(`@/views/widgets/textfield/Textfield.vue`),
+    component: () => import(`@/views/basic/textfield/Textfield.vue`),
   },
 ];
 
 const routes = [
   ...baseRoutes,
-  ...componentsRoutes,
+  ...advancedRoutes,
   ...javascriptRoutes,
-  ...widgetRoutes,
+  ...basicRoutes,
 ];
 
 export default new Router({

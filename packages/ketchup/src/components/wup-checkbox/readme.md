@@ -19,10 +19,27 @@
 
 ## Events
 
-| Event             | Description | Type                                 |
-| ----------------- | ----------- | ------------------------------------ |
-| `componentChange` |             | `CustomEvent<{ checked: boolean; }>` |
+| Event               | Description | Type                           |
+| ------------------- | ----------- | ------------------------------ |
+| `kupCheckboxBlur`   |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxChange` |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxClick`  |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxFocus`  |             | `CustomEvent<{ value: any; }>` |
+| `kupCheckboxInput`  |             | `CustomEvent<{ value: any; }>` |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-checkbox-menu](../kup-checkbox-menu)
+
+### Graph
+```mermaid
+graph TD;
+  kup-checkbox-menu --> wup-checkbox
+  style wup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

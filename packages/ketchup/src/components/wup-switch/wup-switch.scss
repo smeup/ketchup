@@ -2,27 +2,27 @@
 @import '@material/form-field/mdc-form-field';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-form-field {
-  line-height: 2rem;
-  &.mdc-form-field--align-end {
-    .mdc-switch {
-      margin: 0 1rem 0 1.5rem;
+  #kup-component {
+    & .mdc-form-field {
+      line-height: 2rem;
+
+      &.mdc-form-field--align-end {
+        & .mdc-switch {
+          margin: 0 1rem 0 1.5rem;
+        }
+      }
     }
-  }
-  .mdc-switch {
-    margin: 0 1.5rem 0 1rem;
-    &.custom {
-      @include mdc-switch-toggled-on-color($mdc-switch-marked);
-      @include mdc-switch-toggled-off-color($mdc-switch-unmarked);
-      @include mdc-switch-toggled-on-track-color($mdc-switch-track-marked);
-      @include mdc-switch-toggled-off-track-color($mdc-switch-track-unmarked);
-      @include mdc-switch-toggled-on-thumb-color($mdc-switch-thumb-marked);
-      @include mdc-switch-toggled-off-thumb-color($mdc-switch-thumb-unmarked);
-      @include mdc-switch-toggled-on-ripple-color($mdc-ripple-color);
-      @include mdc-switch-density($mdc-density);
+
+    & .mdc-switch {
+      margin: 0 1.5rem 0 1rem;
+      @include mdc-switch-toggled-off-thumb-color(var(--kup-border-color));
+    }
+
+    & label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
     }
   }
 }

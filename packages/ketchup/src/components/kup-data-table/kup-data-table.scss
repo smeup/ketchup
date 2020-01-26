@@ -411,6 +411,9 @@
 
           // The container of the effective cell content
           .cell-content {
+            & kup-icon {
+              display: inline-block;
+            }
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]
@@ -438,6 +441,14 @@
               }
             }
           }
+
+          &.is-graphic {
+            padding: 0 1px;
+            & kup-graphic-cell {
+              display: flex;
+            }
+          }
+
 
           // Class assigned to the image of a cell
           // Allows regulation of sizes

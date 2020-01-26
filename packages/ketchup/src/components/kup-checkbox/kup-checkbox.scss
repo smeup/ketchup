@@ -23,7 +23,6 @@
       @include mdc-checkbox-ink-color($mdc-checkbox-ink);
       @include mdc-checkbox-disabled-ink-color($mdc-checkbox-ink-disabled);
       @include mdc-checkbox-focus-indicator-color($mdc-ripple-color);
-      @include mdc-checkbox-density($mdc-density);
     }
   }
 }

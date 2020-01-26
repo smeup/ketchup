@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    State,
+    Host,
+    h,
+} from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
@@ -11,6 +20,8 @@ import { MDCTextFieldIcon } from '@material/textfield/icon';
     shadow: true,
 })
 export class WupTextField {
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -68,9 +79,97 @@ export class WupTextField {
      */
     @Prop() trailingicon: boolean = false;
 
-    @Element() rootElement: HTMLElement;
+    @Event({
+        eventName: 'kupTextFieldBlur',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
+    }>;
 
     //---- Methods ----
+
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -108,12 +207,12 @@ export class WupTextField {
     //---- Rendering ----
 
     render() {
-        let componentClass: string = 'mdc-text-field';
+        let widgetClass: string = 'mdc-text-field';
         let labelEl: HTMLElement = null;
         let helperEl: HTMLElement = null;
         let iconEl: HTMLElement = null;
         let charEl: HTMLElement = null;
-        let componentEl: HTMLElement = null;
+        let widgetEl: HTMLElement = null;
         let placeholderLabel: string = null;
 
         //If there is a form, "label" attribute doesn't make sense and it should be empty, so we override its content with null
@@ -122,23 +221,23 @@ export class WupTextField {
         }
 
         if (!this.label) {
-            componentClass += ' mdc-text-field--no-label';
+            widgetClass += ' mdc-text-field--no-label';
         }
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-text-field--disabled';
+            widgetClass += ' mdc-text-field--disabled';
         }
 
         if (this.rounded) {
-            componentClass += ' shaped';
+            widgetClass += ' shaped';
         }
 
         if (this.fullwidth) {
-            componentClass += ' mdc-text-field--fullwidth';
+            widgetClass += ' mdc-text-field--fullwidth';
             placeholderLabel = this.label;
         } else if (this.label) {
             labelEl = (
@@ -159,9 +258,9 @@ export class WupTextField {
                 </i>
             );
             if (this.trailingicon) {
-                componentClass += ' mdc-text-field--with-trailing-icon';
+                widgetClass += ' mdc-text-field--with-trailing-icon';
             } else {
-                componentClass += ' mdc-text-field--with-leading-icon';
+                widgetClass += ' mdc-text-field--with-leading-icon';
             }
         }
 
@@ -202,15 +301,15 @@ export class WupTextField {
         }
 
         if (this.textarea || this.outlined) {
-            componentEl = this.outlinedStyling(
-                componentClass,
+            widgetEl = this.outlinedStyling(
+                widgetClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
             );
         } else {
-            componentEl = this.defaultStyling(
-                componentClass,
+            widgetEl = this.defaultStyling(
+                widgetClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
@@ -218,15 +317,15 @@ export class WupTextField {
         }
 
         if (this.labelleft || this.labelright) {
-            componentEl = this.renderForm(componentEl, helperEl);
+            widgetEl = this.renderForm(widgetEl, helperEl);
         } else {
-            componentEl = this.renderTextField(componentEl, helperEl);
+            widgetEl = this.renderTextField(widgetEl, helperEl);
         }
-        return componentEl;
+        return widgetEl;
     }
 
     outlinedStyling(
-        componentClass: string,
+        widgetClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -235,7 +334,7 @@ export class WupTextField {
         let inputEl: HTMLElement = null;
         let leadingIconEl: HTMLElement = null;
         let trailingIconEl: HTMLElement = null;
-        componentClass += '  mdc-text-field--outlined';
+        widgetClass += '  mdc-text-field--outlined';
 
         if (this.icon) {
             if (this.trailingicon) {
@@ -246,7 +345,7 @@ export class WupTextField {
         }
 
         if (this.textarea) {
-            componentClass += ' mdc-text-field--textarea';
+            widgetClass += ' mdc-text-field--textarea';
             if (this.maxlength) {
                 let charString = '0 / ' + this.maxlength;
                 charEl = (
@@ -261,6 +360,12 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     maxlength={this.maxlength}
+                    value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></textarea>
             );
         } else {
@@ -272,12 +377,18 @@ export class WupTextField {
                     placeholder={placeholderLabel}
                     disabled={this.disabled}
                     maxlength={this.maxlength}
+                    value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></input>
             );
         }
 
         return (
-            <div class={componentClass}>
+            <div class={widgetClass}>
                 {charEl}
                 {leadingIconEl}
                 {inputEl}
@@ -292,7 +403,7 @@ export class WupTextField {
     }
 
     defaultStyling(
-        componentClass: string,
+        widgetClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -309,7 +420,7 @@ export class WupTextField {
         }
 
         return (
-            <div class={componentClass}>
+            <div class={widgetClass}>
                 {leadingIconEl}
                 <input
                     type="text"
@@ -318,6 +429,12 @@ export class WupTextField {
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
                     maxlength={this.maxlength}
+                    value={this.value}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 ></input>
                 {trailingIconEl}
                 {labelEl}
@@ -326,7 +443,7 @@ export class WupTextField {
         );
     }
 
-    renderForm(componentEl: HTMLElement, helperEl: HTMLElement) {
+    renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
         let labelEl: HTMLElement = null;
 
@@ -339,20 +456,24 @@ export class WupTextField {
 
         return (
             <Host>
-                <div class={formClass}>
-                    {componentEl}
-                    {helperEl}
-                    {labelEl}
+                <div id="kup-component">
+                    <div class={formClass}>
+                        {widgetEl}
+                        {helperEl}
+                        {labelEl}
+                    </div>
                 </div>
             </Host>
         );
     }
 
-    renderTextField(componentEl: HTMLElement, helperEl: HTMLElement) {
+    renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         return (
             <Host>
-                {componentEl}
-                {helperEl}
+                <div id="kup-component">
+                    {widgetEl}
+                    {helperEl}
+                </div>
             </Host>
         );
     }

@@ -7,6 +7,13 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  AutocompleteDisplayMode,
+  AutocompleteSortBy,
+  AutocompleteSortOrder,
+  KupAutocompleteFilterUpdatePayload,
+  KupAutocompleteOption,
+} from './components/kup-autocomplete/kup-autocomplete-declarations';
+import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
@@ -40,6 +47,9 @@ import {
   ChartClickedEvent,
   ChartType,
 } from './components/kup-chart/kup-chart-declarations';
+import {
+  KupCheckboxMenuItem,
+} from './components/kup-checkbox-menu/kup-checkbox-menu-declarations';
 import {
   ComboItem,
   KetchupComboEvent,
@@ -103,6 +113,68 @@ import {
 } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
+  interface KupAutocomplete {
+    /**
+    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    */
+    'allowCustomItems': boolean;
+    /**
+    * Sets if the autocomplete should be enabled or not
+    */
+    'disabled': boolean;
+    /**
+    * Selects how the autocomplete items must display their label and how they can be filtered for
+    */
+    'displayMode': AutocompleteDisplayMode;
+    /**
+    * Sets the autocomplete items data
+    */
+    'items': KupAutocompleteOption[];
+    /**
+    * When greater than 0, limits the results of the filter to the specified number of elements.
+    */
+    'limitResults': number;
+    /**
+    * The minimum number of chars to trigger the autocomplete
+    */
+    'minimumChars': number;
+    /**
+    * Allows more than one option to be selected at the same time.
+    */
+    'multipleSelection': boolean;
+    /**
+    * Label shown when there are no items found with a given filter
+    */
+    'noItemsLabel': string;
+    /**
+    * The placeholder string to set to the input for the autocomplete
+    */
+    'placeholder': string;
+    /**
+    * Programmatically removes all of the selected items and returns them before they are removed.
+    */
+    'removeAllSelectedItems': () => Promise<KupAutocompleteOption[]>;
+    /**
+    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+    */
+    'serverHandledFilter': boolean;
+    /**
+    * Shows the icon to clear the input
+    */
+    'showClearIcon': boolean;
+    /**
+    * Shows icon to force the dropdown menu to be opened
+    */
+    'showDropdownIcon': boolean;
+    /**
+    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+    */
+    'sortBy': AutocompleteSortBy;
+    /**
+    * Decides which type of sort must be applied to the list of rendered items.
+    */
+    'sortOrder': AutocompleteSortOrder;
+  }
   interface KupBadge {
     'icon': string;
     'position': BadgePosition;
@@ -233,7 +305,7 @@ export namespace Components {
   }
   interface KupCheckbox {
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be checked
     */
     'checked': boolean;
     /**
@@ -248,6 +320,40 @@ export namespace Components {
     * Sets the tabindex of the checkbox
     */
     'setTabIndex': number;
+    /**
+    * If true, shows the label by using a label tag
+    */
+    'showLabel': boolean;
+  }
+  interface KupCheckboxMenu {
+    /**
+    * Sets if the checkbox menu should be disabled
+    */
+    'disabled': boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * The label to show as a placeholder inside the filter input
+    */
+    'filterLabel': string;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items': KupCheckboxMenuItem[];
+    /**
+    * The label to set to the component
+    */
+    'label': string;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
   }
   interface KupChip {
     'closable': boolean;
@@ -547,8 +653,48 @@ export namespace Components {
     */
     'size': number;
   }
+  interface KupLayout {
+    /**
+    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+    */
+    'columnsNumber': number;
+    /**
+    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+    */
+    'contentBasedColumnsWidth': boolean;
+    /**
+    * When true, the layout and its contents will try to take all the available horizontal space.
+    */
+    'fillSpace': boolean;
+    /**
+    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+    */
+    'horizontal': boolean;
+  }
+  interface KupMenu {
+    /**
+    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+    */
+    'closeOnOuterClick': boolean;
+    /**
+    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
+    */
+    'deactivationRelativeTo': HTMLElement;
+    /**
+    * Open or closes the menu. The menu itself can edit this prop.
+    */
+    'isActive': boolean;
+    /**
+    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
+    */
+    'margin': number;
+    /**
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'positionRelativeTo': HTMLElement;
+  }
   interface KupModal {
-    'title1': string;
+    'header': string;
     'visible': boolean;
   }
   interface KupPaginator {
@@ -674,6 +820,10 @@ export namespace Components {
     'label': string;
   }
   interface KupTextInput {
+    /**
+    * Imperatively sets a new value of the input.
+    */
+    'changeValue': (newValue: string, emitEvent?: boolean) => Promise<boolean>;
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
     */
@@ -907,6 +1057,16 @@ export namespace Components {
     */
     'items': WidgetTabBarElement[];
   }
+  interface WupTemplate {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom': boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+  }
   interface WupTextField {
     /**
     * Defaults at false. When set to true, mixins and classes of customization are enabled.
@@ -970,6 +1130,12 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {}
+  var HTMLKupAutocompleteElement: {
+    prototype: HTMLKupAutocompleteElement;
+    new (): HTMLKupAutocompleteElement;
+  };
+
   interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {}
   var HTMLKupBadgeElement: {
     prototype: HTMLKupBadgeElement;
@@ -1016,6 +1182,12 @@ declare global {
   var HTMLKupCheckboxElement: {
     prototype: HTMLKupCheckboxElement;
     new (): HTMLKupCheckboxElement;
+  };
+
+  interface HTMLKupCheckboxMenuElement extends Components.KupCheckboxMenu, HTMLStencilElement {}
+  var HTMLKupCheckboxMenuElement: {
+    prototype: HTMLKupCheckboxMenuElement;
+    new (): HTMLKupCheckboxMenuElement;
   };
 
   interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
@@ -1100,6 +1272,18 @@ declare global {
   var HTMLKupImageButtonElement: {
     prototype: HTMLKupImageButtonElement;
     new (): HTMLKupImageButtonElement;
+  };
+
+  interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {}
+  var HTMLKupLayoutElement: {
+    prototype: HTMLKupLayoutElement;
+    new (): HTMLKupLayoutElement;
+  };
+
+  interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {}
+  var HTMLKupMenuElement: {
+    prototype: HTMLKupMenuElement;
+    new (): HTMLKupMenuElement;
   };
 
   interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {}
@@ -1198,12 +1382,19 @@ declare global {
     new (): HTMLWupTabBarElement;
   };
 
+  interface HTMLWupTemplateElement extends Components.WupTemplate, HTMLStencilElement {}
+  var HTMLWupTemplateElement: {
+    prototype: HTMLWupTemplateElement;
+    new (): HTMLWupTemplateElement;
+  };
+
   interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
   var HTMLWupTextFieldElement: {
     prototype: HTMLWupTextFieldElement;
     new (): HTMLWupTextFieldElement;
   };
   interface HTMLElementTagNameMap {
+    'kup-autocomplete': HTMLKupAutocompleteElement;
     'kup-badge': HTMLKupBadgeElement;
     'kup-box': HTMLKupBoxElement;
     'kup-btn': HTMLKupBtnElement;
@@ -1212,6 +1403,7 @@ declare global {
     'kup-chart': HTMLKupChartElement;
     'kup-chart-cell': HTMLKupChartCellElement;
     'kup-checkbox': HTMLKupCheckboxElement;
+    'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
     'kup-chip': HTMLKupChipElement;
     'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combo': HTMLKupComboElement;
@@ -1226,6 +1418,8 @@ declare global {
     'kup-icon': HTMLKupIconElement;
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
+    'kup-layout': HTMLKupLayoutElement;
+    'kup-menu': HTMLKupMenuElement;
     'kup-modal': HTMLKupModalElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal': HTMLKupPortalElement;
@@ -1242,11 +1436,78 @@ declare global {
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
+    'wup-template': HTMLWupTemplateElement;
     'wup-text-field': HTMLWupTextFieldElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface KupAutocomplete extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
+    /**
+    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    */
+    'allowCustomItems'?: boolean;
+    /**
+    * Sets if the autocomplete should be enabled or not
+    */
+    'disabled'?: boolean;
+    /**
+    * Selects how the autocomplete items must display their label and how they can be filtered for
+    */
+    'displayMode'?: AutocompleteDisplayMode;
+    /**
+    * Sets the autocomplete items data
+    */
+    'items'?: KupAutocompleteOption[];
+    /**
+    * When greater than 0, limits the results of the filter to the specified number of elements.
+    */
+    'limitResults'?: number;
+    /**
+    * The minimum number of chars to trigger the autocomplete
+    */
+    'minimumChars'?: number;
+    /**
+    * Allows more than one option to be selected at the same time.
+    */
+    'multipleSelection'?: boolean;
+    /**
+    * Label shown when there are no items found with a given filter
+    */
+    'noItemsLabel'?: string;
+    /**
+    * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
+    */
+    'onKupAutocompleteFilterUpdate'?: (event: CustomEvent<KupAutocompleteFilterUpdatePayload>) => void;
+    /**
+    * Fired when the autocomplete selected items are changed (both in single and multiple mode).
+    */
+    'onKupAutocompleteSelectionUpdate'?: (event: CustomEvent<KupAutocompleteOption[]>) => void;
+    /**
+    * The placeholder string to set to the input for the autocomplete
+    */
+    'placeholder'?: string;
+    /**
+    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+    */
+    'serverHandledFilter'?: boolean;
+    /**
+    * Shows the icon to clear the input
+    */
+    'showClearIcon'?: boolean;
+    /**
+    * Shows icon to force the dropdown menu to be opened
+    */
+    'showDropdownIcon'?: boolean;
+    /**
+    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+    */
+    'sortBy'?: AutocompleteSortBy;
+    /**
+    * Decides which type of sort must be applied to the list of rendered items.
+    */
+    'sortOrder'?: AutocompleteSortOrder;
+  }
   interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
     'icon'?: string;
     'position'?: BadgePosition;
@@ -1471,7 +1732,7 @@ declare namespace LocalJSX {
   }
   interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
     /**
-    * Sets the checkbox to be disabled
+    * Sets the checkbox to be checked
     */
     'checked'?: boolean;
     /**
@@ -1504,6 +1765,44 @@ declare namespace LocalJSX {
     * Sets the tabindex of the checkbox
     */
     'setTabIndex'?: number;
+    /**
+    * If true, shows the label by using a label tag
+    */
+    'showLabel'?: boolean;
+  }
+  interface KupCheckboxMenu extends JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement> {
+    /**
+    * Sets if the checkbox menu should be disabled
+    */
+    'disabled'?: boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * The label to show as a placeholder inside the filter input
+    */
+    'filterLabel'?: string;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    /**
+    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    */
+    'items'?: KupCheckboxMenuItem[];
+    /**
+    * The label to set to the component
+    */
+    'label'?: string;
+    /**
+    * Fired when the checkbox input changes its value
+    */
+    'onKupCheckboxMenuSelected'?: (event: CustomEvent<KupCheckboxMenuItem[]>) => void;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
     'closable'?: boolean;
@@ -1881,9 +2180,53 @@ declare namespace LocalJSX {
     */
     'size'?: number;
   }
+  interface KupLayout extends JSXBase.HTMLAttributes<HTMLKupLayoutElement> {
+    /**
+    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+    */
+    'columnsNumber'?: number;
+    /**
+    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+    */
+    'contentBasedColumnsWidth'?: boolean;
+    /**
+    * When true, the layout and its contents will try to take all the available horizontal space.
+    */
+    'fillSpace'?: boolean;
+    /**
+    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+    */
+    'horizontal'?: boolean;
+  }
+  interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
+    /**
+    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+    */
+    'closeOnOuterClick'?: boolean;
+    /**
+    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
+    */
+    'deactivationRelativeTo'?: HTMLElement;
+    /**
+    * Open or closes the menu. The menu itself can edit this prop.
+    */
+    'isActive'?: boolean;
+    /**
+    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
+    */
+    'margin'?: number;
+    /**
+    * When the menu gets closed.
+    */
+    'onKupMenuClose'?: (event: CustomEvent<void>) => void;
+    /**
+    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+    */
+    'positionRelativeTo'?: HTMLElement;
+  }
   interface KupModal extends JSXBase.HTMLAttributes<HTMLKupModalElement> {
+    'header'?: string;
     'onKupModalCancel'?: (event: CustomEvent<any>) => void;
-    'title1'?: string;
     'visible'?: boolean;
   }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
@@ -2204,6 +2547,21 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the button will show this icon.
     */
     'icon'?: string;
+    'onKupButtonBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
@@ -2250,8 +2608,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupCheckboxBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCheckboxInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
@@ -2275,8 +2645,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupRadioBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupRadioInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
@@ -2300,8 +2682,20 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
-    'onComponentChange'?: (event: CustomEvent<{
-      checked: boolean;
+    'onKupSwitchBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSwitchInput'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
@@ -2313,6 +2707,49 @@ declare namespace LocalJSX {
     * List of elements.
     */
     'items'?: WidgetTabBarElement[];
+    'onKupTabBarBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTabBarInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+  }
+  interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
+    /**
+    * Defaults at false. When set to true, mixins and classes of customization are enabled.
+    */
+    'custom'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Event example.
+    */
+    'onKupCOMP_NAMEBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupCOMP_NAMEInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
     /**
@@ -2355,6 +2792,21 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the helper will display a character counter.
     */
     'maxlength'?: number;
+    'onKupTextFieldBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupTextFieldInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
@@ -2374,6 +2826,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'kup-autocomplete': KupAutocomplete;
     'kup-badge': KupBadge;
     'kup-box': KupBox;
     'kup-btn': KupBtn;
@@ -2382,6 +2835,7 @@ declare namespace LocalJSX {
     'kup-chart': KupChart;
     'kup-chart-cell': KupChartCell;
     'kup-checkbox': KupCheckbox;
+    'kup-checkbox-menu': KupCheckboxMenu;
     'kup-chip': KupChip;
     'kup-chip-knowledge': KupChipKnowledge;
     'kup-combo': KupCombo;
@@ -2396,6 +2850,8 @@ declare namespace LocalJSX {
     'kup-icon': KupIcon;
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
+    'kup-layout': KupLayout;
+    'kup-menu': KupMenu;
     'kup-modal': KupModal;
     'kup-paginator': KupPaginator;
     'kup-portal': KupPortal;
@@ -2412,6 +2868,7 @@ declare namespace LocalJSX {
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;
+    'wup-template': WupTemplate;
     'wup-text-field': WupTextField;
   }
 }

@@ -27,7 +27,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.componentsItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.advancedItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -62,7 +66,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.widgetsItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.basicItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -77,8 +85,13 @@
       <div class="logo_header">
         <img src="ketchup_logo_header.svg" class="light" style="height: 40px;" />
       </div>
-      <v-toolbar-title>Ketch.UP showcase</v-toolbar-title>
-      <v-switch v-model="darkTheme" :label="`Dark Mode`"></v-switch>
+      <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
+      <wup-switch
+        onclick="changeTheme();"
+        style="min-width: 150px; --kup-text-color: #f5f5f5;"
+        labelleft="Dark Mode"
+        id="theme-switch"
+      ></wup-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -105,8 +118,14 @@ export default {
     drawer: null,
     groupNavigationSections: [
       {
-        title: 'Components',
-        componentsItems: [
+        title: 'Advanced',
+        advancedItems: [
+          {
+            title: 'Autocomplete',
+            to: {
+              name: 'autocomplete',
+            },
+          },
           {
             title: 'Box',
             to: {
@@ -174,6 +193,12 @@ export default {
             },
           },
           {
+            title: `Menu`,
+            to: {
+              name: 'menu',
+            },
+          },
+          {
             title: `Portal`,
             to: {
               name: 'portal',
@@ -212,8 +237,8 @@ export default {
         ],
       },
       {
-        title: 'Widgets',
-        widgetsItems: [
+        title: 'Basic',
+        basicItems: [
           {
             title: `Button`,
             to: {
@@ -330,6 +355,13 @@ select,
   margin: 8px 12px;
 }
 
+// For examples where slot has a border
+.name-slotted {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  padding: 4px;
+}
+
 // Max with for a more readable text
 .max-width-container {
   display: block;
@@ -351,6 +383,11 @@ select,
       margin-bottom: 10px;
     }
   }
+}
+
+// General class for no margin
+.no-margin {
+  margin: 0;
 }
 
 // A scrollable container which can be used to perform test on some components.

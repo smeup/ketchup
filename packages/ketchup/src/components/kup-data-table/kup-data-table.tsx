@@ -37,6 +37,7 @@ import {
 import {
     calcTotals,
     normalizeTotals,
+    normalizeRows,
     filterRows,
     getColumnByName,
     groupRows,
@@ -671,7 +672,7 @@ export class KupDataTable {
         this.filterRows();
 
         this.footer = calcTotals(
-            this.rows,
+            normalizeRows(this.getColumns(), this.rows),
             normalizeTotals(this.getColumns(), this.totals)
         );
 
@@ -1818,7 +1819,10 @@ export class KupDataTable {
                             role="button"
                             aria-label="Opzioni oggetto"
                             title="Opzioni oggetto"
-                            onClick={() => this.onOptionClicked(name, row)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.onOptionClicked(name, row);
+                            }}
                         >
                             <i class="mdi mdi-settings" />
                         </span>
@@ -1841,6 +1845,7 @@ export class KupDataTable {
 
                 const cellClass = {
                     'has-options': !!options,
+                    'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
 

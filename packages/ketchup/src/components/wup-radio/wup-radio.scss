@@ -2,24 +2,27 @@
 @import '@material/form-field/mdc-form-field';
 
 :host {
-  display: block;
-}
+  display: var(--kup-display-mode);
 
-.mdc-form-field {
-  .mdc-radio {
-    &.custom {
-      @include mdc-radio-unchecked-stroke-color($mdc-radio-border-unmarked);
-      @include mdc-radio-checked-stroke-color($mdc-radio-border-marked);
-      @include mdc-radio-ink-color($mdc-radio-ink);
+  #kup-component {
+    & .mdc-radio {
+      @include mdc-radio-unchecked-stroke-color(var(--kup-border-color));
+      @include mdc-radio-checked-stroke-color(var(--kup-main-color));
+      @include mdc-radio-ink-color(var(--kup-main-color));
       @include mdc-radio-disabled-unchecked-stroke-color(
-        $mdc-radio-border-disabled-unmarked
+        var(--kup-disabled-background-color)
       );
       @include mdc-radio-disabled-checked-stroke-color(
-        $mdc-radio-border-disabled-marked
+        var(--kup-disabled-background-color)
       );
-      @include mdc-radio-disabled-ink-color($mdc-radio-ink-disabled);
-      @include mdc-radio-focus-indicator-color($mdc-ripple-color);
-      @include mdc-radio-density($mdc-density);
+      @include mdc-radio-disabled-ink-color(
+        var(--kup-disabled-background-color)
+      );
+    }
+
+    & label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
     }
   }
 }

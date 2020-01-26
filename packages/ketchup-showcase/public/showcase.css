@@ -1,15 +1,11 @@
 /* Global */
 html {
-  overflow: auto !important;
-}
-
-#inspire {
-  font-family: var(--main-font-family) !important;
-  font-size: var(--main-font-size) !important;
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size);
 }
 
 .container {
-  padding: 20px 40px;
+  padding: 1.2rem 2.4rem;
 }
 
 h1 {
@@ -67,7 +63,7 @@ h3 {
 }
 
 .page-nav-list {
-  border-left: 1px solid var(--main-color-lighter);
+  border-left: 1px solid var(--kup-main-color);
   min-height: 45px;
 }
 
@@ -78,18 +74,11 @@ h3 {
   padding-left: 15px;
   padding-top: 7.5px;
   transition: all 0.2s ease-in;
+  color: var(--kup-text-color);
 }
 
 .page-nav-element.active {
-  color: #d41124;
-}
-
-#inspire.theme--dark .page-nav-element {
-  color: #9a9a9a;
-}
-
-#inspire.theme--dark .page-nav-element.active {
-  color: var(--main-color);
+  color: var(--kup-main-color);
 }
 
 .page-nav-element:hover {
@@ -103,6 +92,7 @@ h3 {
 
   #page-content {
     width: 100%;
+    padding: 0 30px;
   }
 
   #page-nav {
@@ -174,7 +164,7 @@ code.flat {
   background: none;
   border-radius: 0;
   box-shadow: 0 0 2px 0px rgb(128, 128, 128);
-  color: #d41124;
+  color: var(--kup-main-color);
   display: flex;
   font-family: Roboto Mono, consolas, monospace;
   font-size: 16px;
@@ -186,7 +176,7 @@ code.flat {
 }
 
 .code-word {
-  color: #3a3a3a;
+  color: var(--kup-main-color);
   font-family: Roboto Mono, consolas, monospace;
   font-size: 16px;
   font-weight: 600;
@@ -221,12 +211,12 @@ code.flat {
 
 .github-link-area svg,
 .github-link-area .mdi-open-in-new:before {
-  fill: #4e908f;
-  color: #4e908f;
+  fill: var(--kup-main-color);
+  color: var(--kup-main-color);
 }
 
 .github-link-area .github-text {
-  color: #4e908f;
+  color: var(--kup-main-color);
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 0.875rem;
@@ -257,13 +247,15 @@ code.flat {
 /* Navigation bar and footer */
 nav.v-toolbar,
 footer.v-footer {
-  background: var(--header-background-color) !important;
-  color: var(--header-icons-color) !important;
+  background: var(--kup-header-background-color) !important;
+  color: #ffffff !important;
+  box-shadow: 0px -1px 4px -1px rgba(0, 0, 0, 0.2),
+    0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 nav.v-toolbar i.v-icon.material-icons,
 .v-input--selection-controls.v-input .v-label {
-  color: var(--header-icons-color) !important;
+  color: #ffffff !important;
 }
 
 .v-input.v-input--selection-controls.v-input--switch {
@@ -294,27 +286,22 @@ span.company-text {
 }
 
 .v-input .accent--text {
-  color: var(--main-color) !important;
-  caret-color: var(--main-color) !important;
+  color: var(--kup-main-color) !important;
+  caret-color: var(--kup-main-color) !important;
 }
 
 /* Navigation menu and content */
 aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer,
 main.v-content {
-  color: var(--main-text-color) !important;
+  color: var(--kup-text-color) !important;
 }
 
 main.v-content {
-  background: var(--main-background-color) !important;
+  background: var(--kup-background-color) !important;
 }
 
 aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
-  background: #ffffff;
-}
-
-#inspire.theme--dark
-  aside.v-navigation-drawer.v-navigation-drawer--fixed.v-navigation-drawer {
-  background: #1f1f1f;
+  background: var(--kup-drawer-background-color);
 }
 
 div.v-list {
@@ -323,13 +310,13 @@ div.v-list {
 }
 
 a.primary--text {
-  color: var(--hover-color) !important;
-  background: var(--hover-background-color);
+  color: var(--kup-hover-color) !important;
+  background: var(--kup-hover-background-color);
   text-align: center;
 }
 
 .v-list__tile__title {
-  color: var(--main-text-color);
+  color: var(--kup-text-color);
 }
 
 div.logo img {
@@ -362,8 +349,13 @@ div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
   font-weight: bold;
 }
 
+a.v-list__tile.v-list__tile--link:hover {
+  background-color: var(--kup-hover-background-color) !important;
+  color: var(--kup-hover-color) !important;
+}
+
 html a {
-  color: var(--main-color);
+  color: var(--kup-main-color);
 }
 
 /* About page */
@@ -467,6 +459,10 @@ h1.team-title {
 @media screen and (min-width: 1260px) {
   .member-description {
     max-width: calc(100% - 280px);
+  }
+
+  #page-content {
+    padding: 25px 50px;
   }
 
   .member-image img:hover {

@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    State,
+    Host,
+    h,
+} from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
 import { WidgetTabBarElement } from './wup-tab-bar-declarations';
@@ -9,6 +18,8 @@ import { WidgetTabBarElement } from './wup-tab-bar-declarations';
     shadow: true,
 })
 export class WupTabBar {
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -18,9 +29,97 @@ export class WupTabBar {
      */
     @Prop() items: WidgetTabBarElement[] = [];
 
-    @Element() rootElement: HTMLElement;
+    @Event({
+        eventName: 'kupTabBarBlur',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTabBarChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTabBarClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTabBarFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupTabBarInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
+    }>;
 
     //---- Methods ----
+
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -32,15 +131,13 @@ export class WupTabBar {
         }
     }
 
-    //---- Rendering ----
-
     render() {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
-        let componentClass: string = 'mdc-tab-bar';
+        let widgetClass: string = 'mdc-tab-bar';
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         for (let i = 0; i < this.items.length; i++) {
@@ -70,6 +167,12 @@ export class WupTabBar {
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
+                    value={this.items[i].text}
+                    onBlur={this.onKupBlur.bind(this)}
+                    onChange={this.onKupChange.bind(this)}
+                    onClick={this.onKupClick.bind(this)}
+                    onFocus={this.onKupFocus.bind(this)}
+                    onInput={this.onKupInput.bind(this)}
                 >
                     <span class="mdc-tab__content">
                         {iconEl}
@@ -88,11 +191,13 @@ export class WupTabBar {
 
         return (
             <Host>
-                <div class={componentClass} role="tablist">
-                    <div class="mdc-tab-scroller">
-                        <div class="mdc-tab-scroller__scroll-area">
-                            <div class="mdc-tab-scroller__scroll-content">
-                                {tabBar}
+                <div id="kup-component">
+                    <div class={widgetClass} role="tablist">
+                        <div class="mdc-tab-scroller">
+                            <div class="mdc-tab-scroller__scroll-area">
+                                <div class="mdc-tab-scroller__scroll-content">
+                                    {tabBar}
+                                </div>
                             </div>
                         </div>
                     </div>

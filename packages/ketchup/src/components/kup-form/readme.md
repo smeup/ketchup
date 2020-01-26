@@ -40,56 +40,59 @@ During events all the state of the component isn't sent. So if you need some sta
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `actions` | -- |  | `FormActions` | `undefined` |
-| `config` | -- |  | `FormConfig` | `{}` |
-| `crudCallBackOnFormActionSubmitted` | -- |  | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `crudCallBackOnFormFieldChanged` | -- |  | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `extra` | `extra` |  | `any` | `undefined` |
-| `extraMessages` | -- |  | `FormMessage[]` | `[]` |
-| `fields` | -- |  | `FormFields` | `undefined` |
-| `refid` | `refid` |  | `string` | `undefined` |
-| `sections` | -- |  | `FormSection` | `undefined` |
+| Property                            | Attribute | Description | Type                                                                        | Default     |
+| ----------------------------------- | --------- | ----------- | --------------------------------------------------------------------------- | ----------- |
+| `actions`                           | --        |             | `FormActions`                                                               | `undefined` |
+| `config`                            | --        |             | `FormConfig`                                                                | `{}`        |
+| `crudCallBackOnFormActionSubmitted` | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
+| `crudCallBackOnFormFieldChanged`    | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`  | `undefined` |
+| `extra`                             | `extra`   |             | `any`                                                                       | `undefined` |
+| `extraMessages`                     | --        |             | `FormMessage[]`                                                             | `[]`        |
+| `fields`                            | --        |             | `FormFields`                                                                | `undefined` |
+| `refid`                             | `refid`   |             | `string`                                                                    | `undefined` |
+| `sections`                          | --        |             | `FormSection`                                                               | `undefined` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kupFormActionSubmitted` |  | `CustomEvent<FormActionEventDetail>` |
-| `kupFormFieldBlurred` |  | `CustomEvent<FormFieldEventDetail>` |
-| `kupFormFieldChanged` |  | `CustomEvent<FormFieldEventDetail>` |
-| `kupFormFieldFocused` |  | `CustomEvent<FormFieldEventDetail>` |
+| Event                    | Description | Type                                 |
+| ------------------------ | ----------- | ------------------------------------ |
+| `kupFormActionSubmitted` |             | `CustomEvent<FormActionEventDetail>` |
+| `kupFormFieldBlurred`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupFormFieldChanged`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupFormFieldFocused`    |             | `CustomEvent<FormFieldEventDetail>`  |
+
 
 ## CSS Custom Properties
 
-| Name | Description |
-| --- | --- |
-| `--form_border-color, --kup-form_border-color` | form border color |
-| `--form_border-radius, --kup-form_border-radius` | form border radius |
-| `--form_color, --kup-form_color` | text color |
-| `--form_titled-section-bg-color, --kup-form_titled-section-bg-color` | background color for section title |
-| `--form_titled-section-font-size, --kup-form_titled-section-font-size` | font size for section title |
-| `--form_titled-section-top, --kup-form_titled-section-top` | top position for section title |
+| Name                                                                   | Description                        |
+| ---------------------------------------------------------------------- | ---------------------------------- |
+| `--form_border-color, --kup-form_border-color`                         | form border color                  |
+| `--form_border-radius, --kup-form_border-radius`                       | form border radius                 |
+| `--form_color, --kup-form_color`                                       | text color                         |
+| `--form_titled-section-bg-color, --kup-form_titled-section-bg-color`   | background color for section title |
+| `--form_titled-section-font-size, --kup-form_titled-section-font-size` | font size for section title        |
+| `--form_titled-section-top, --kup-form_titled-section-top`             | top position for section title     |
+
 
 ## Dependencies
 
 ### Used by
 
--   [kup-crud](../kup-crud)
+ - [kup-crud](../kup-crud)
 
 ### Depends on
 
--   [kup-text-input](../kup-text-input)
--   [kup-combo](../kup-combo)
--   [kup-crud](../kup-crud)
--   [kup-button](../kup-button)
--   [kup-crud](../kup-crud)
+- [kup-text-input](../kup-text-input)
+- [kup-combo](../kup-combo)
+- [kup-crud](../kup-crud)
+- [kup-button](../kup-button)
+- [kup-crud](../kup-crud)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-form --> kup-text-input
@@ -107,6 +110,6 @@ graph TD;
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

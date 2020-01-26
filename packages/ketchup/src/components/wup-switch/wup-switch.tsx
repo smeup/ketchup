@@ -1,17 +1,10 @@
-// >   R  E  A  D  M  E <
-//
-// --> M A T E R I A L    D E S I G N
-//
-//     This component is a form field, it should be managed as such.
-//     For more info: https://material.io/develop/web/components/input-controls/form-fields/
-//
-
 import {
     Component,
     Event,
     EventEmitter,
     Prop,
     Element,
+    State,
     Host,
     h,
 } from '@stencil/core';
@@ -24,10 +17,8 @@ import { MDCFormField } from '@material/form-field';
     shadow: true,
 })
 export class WupSwitch {
-    /**
-     * Defaults at false. When set to true, the component will be set to 'checked'.
-     */
-    @Prop() checked: boolean = false;
+    @Element() rootElement: HTMLElement;
+    @State() value: string = '';
     /**
      * Defaults at false. When set to true, mixins and classes of customization are enabled.
      */
@@ -37,6 +28,10 @@ export class WupSwitch {
      */
     @Prop() disabled: boolean = false;
     /**
+     * Defaults at false. When set to true, the component will be set to 'checked'.
+     */
+    @Prop() checked: boolean = false;
+    /**
      * Defaults at null. When specified, its content is shown to the left of the component as a label.
      */
     @Prop() labelleft: string = null;
@@ -45,28 +40,96 @@ export class WupSwitch {
      */
     @Prop() labelright: string = null;
 
-    @Element() rootElement: HTMLElement;
-
     @Event({
-        eventName: 'componentChange',
+        eventName: 'kupSwitchBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    componentChange: EventEmitter<{
-        checked: boolean;
+    kupBlur: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupSwitchInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: any;
     }>;
 
     //---- Methods ----
 
-    onComponentChange(e: UIEvent) {
-        const newValue = !!(e.target as HTMLInputElement).checked;
-        if (newValue !== this.checked) {
-            this.checked = newValue;
-            this.componentChange.emit({
-                checked: newValue,
-            });
-        }
+    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupBlur.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupChange.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupClick.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupFocus.emit({
+            value: target.value,
+        });
+        this.value = target.value;
+    }
+
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        const { target } = e;
+        this.kupInput.emit({
+            value: target.value,
+        });
+        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -85,52 +148,56 @@ export class WupSwitch {
         }
     }
 
-    //---- Rendering ----
-
     render() {
         let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-switch';
-        let componentLabel: string = '';
+        let widgetClass: string = 'mdc-switch';
+        let widgetLabel: string = '';
 
         if (this.custom) {
-            componentClass += ' custom';
+            widgetClass += ' custom';
         }
 
         if (this.disabled) {
-            componentClass += ' mdc-switch--disabled';
+            widgetClass += ' mdc-switch--disabled';
         }
 
         if (this.checked) {
-            componentClass += ' mdc-switch--checked';
+            widgetClass += ' mdc-switch--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            componentLabel = this.labelleft;
+            widgetLabel = this.labelleft;
         } else if (this.labelright) {
-            componentLabel = this.labelright;
+            widgetLabel = this.labelright;
         }
 
         return (
-            <Host checked={this.checked}>
-                <div class={formClass}>
-                    <div class={componentClass}>
-                        <div class="mdc-switch__track"></div>
-                        <div class="mdc-switch__thumb-underlay">
-                            <div class="mdc-switch__thumb">
-                                <input
-                                    type="checkbox"
-                                    id="switch-id"
-                                    class="mdc-switch__native-control"
-                                    role="switch"
-                                    checked={this.checked}
-                                    disabled={this.disabled}
-                                    onChange={this.onComponentChange.bind(this)}
-                                ></input>
+            <Host>
+                <div id="kup-component">
+                    <div class={formClass}>
+                        <div class={widgetClass}>
+                            <div class="mdc-switch__track"></div>
+                            <div class="mdc-switch__thumb-underlay">
+                                <div class="mdc-switch__thumb">
+                                    <input
+                                        type="checkbox"
+                                        id="switch-id"
+                                        class="mdc-switch__native-control"
+                                        role="switch"
+                                        checked={this.checked}
+                                        disabled={this.disabled}
+                                        onBlur={this.onKupBlur.bind(this)}
+                                        onChange={this.onKupChange.bind(this)}
+                                        onClick={this.onKupClick.bind(this)}
+                                        onFocus={this.onKupFocus.bind(this)}
+                                        onInput={this.onKupInput.bind(this)}
+                                    ></input>
+                                </div>
                             </div>
                         </div>
+                        <label htmlFor="switch-id">{widgetLabel}</label>
                     </div>
-                    <label htmlFor="switch-id">{componentLabel}</label>
                 </div>
             </Host>
         );

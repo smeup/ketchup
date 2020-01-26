@@ -10,66 +10,73 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
-| Property | Attribute | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| `actions` | -- |  | `FormActions` | `undefined` |
-| `config` | -- |  | `CrudConfig` | `{}` |
-| `crudCallBackOnFormActionSubmitted` | -- |  | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `crudCallBackOnFormFieldChanged` | -- |  | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `extra` | `extra` |  | `any` | `undefined` |
-| `extraMessages` | -- |  | `FormMessage[]` | `[]` |
-| `fields` | -- |  | `FormFields` | `undefined` |
-| `records` | -- |  | `FormRecord[]` | `undefined` |
-| `refid` | `refid` |  | `string` | `undefined` |
-| `sections` | -- |  | `FormSection` | `undefined` |
+| Property                            | Attribute | Description | Type                                                                        | Default     |
+| ----------------------------------- | --------- | ----------- | --------------------------------------------------------------------------- | ----------- |
+| `actions`                           | --        |             | `FormActions`                                                               | `undefined` |
+| `config`                            | --        |             | `CrudConfig`                                                                | `{}`        |
+| `crudCallBackOnFormActionSubmitted` | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
+| `crudCallBackOnFormFieldChanged`    | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`  | `undefined` |
+| `extra`                             | `extra`   |             | `any`                                                                       | `undefined` |
+| `extraMessages`                     | --        |             | `FormMessage[]`                                                             | `[]`        |
+| `fields`                            | --        |             | `FormFields`                                                                | `undefined` |
+| `records`                           | --        |             | `FormRecord[]`                                                              | `undefined` |
+| `refid`                             | `refid`   |             | `string`                                                                    | `undefined` |
+| `sections`                          | --        |             | `FormSection`                                                               | `undefined` |
+
 
 ## Events
 
-| Event | Description | Type |
-| --- | --- | --- |
-| `kupCrudBlurred` |  | `CustomEvent<any>` |
-| `kupCrudFocused` |  | `CustomEvent<any>` |
-| `kupCrudFormActionSubmitted` |  | `CustomEvent<FormActionEventDetail>` |
-| `kupCrudFormFieldChanged` |  | `CustomEvent<FormFieldEventDetail>` |
-| `kupCrudRecordsChanged` |  | `CustomEvent<CrudRecordsChanged>` |
+| Event                        | Description | Type                                 |
+| ---------------------------- | ----------- | ------------------------------------ |
+| `kupCrudBlurred`             |             | `CustomEvent<any>`                   |
+| `kupCrudFocused`             |             | `CustomEvent<any>`                   |
+| `kupCrudFormActionSubmitted` |             | `CustomEvent<FormActionEventDetail>` |
+| `kupCrudFormFieldChanged`    |             | `CustomEvent<FormFieldEventDetail>`  |
+| `kupCrudRecordsChanged`      |             | `CustomEvent<CrudRecordsChanged>`    |
+
 
 ## Methods
 
 ### `closeForm() => Promise<void>`
 
----
-
-PUBLIC METHODS \*
-
----
+**************************************************************
+PUBLIC METHODS                                              *
+**************************************************************
 
 #### Returns
 
 Type: `Promise<void>`
+
+
 
 ### `openForm() => Promise<void>`
 
+
+
 #### Returns
 
 Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
 ### Used by
 
--   [kup-form](../kup-form)
+ - [kup-form](../kup-form)
 
 ### Depends on
 
--   [kup-button](../kup-button)
--   [kup-modal](../kup-modal)
--   [kup-form](../kup-form)
--   [kup-form](../kup-form)
+- [kup-button](../kup-button)
+- [kup-modal](../kup-modal)
+- [kup-form](../kup-form)
+- [kup-form](../kup-form)
 
 ### Graph
-
 ```mermaid
 graph TD;
   kup-crud --> kup-button
@@ -87,6 +94,6 @@ graph TD;
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
