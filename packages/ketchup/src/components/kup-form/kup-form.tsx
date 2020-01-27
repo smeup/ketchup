@@ -15,6 +15,11 @@ import {
     CrudCallBackOnFormEventResult,
 } from '../kup-crud/kup-crud-declarations';
 
+import {
+    KupAutocompleteOption,
+    KupAutocompleteFilterUpdatePayload,
+} from '../kup-autocomplete/kup-autocomplete-declarations';
+
 import isEmpty from 'lodash/isEmpty';
 
 import {
@@ -68,6 +73,10 @@ export class KupForm {
     @Prop() crudCallBackOnFormFieldChanged: (
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
+
+    @Prop() autocompleteCallBackOnFilterUpdate: (
+        detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
 
     @State() messages: FormMessage[] = [];
 
@@ -160,6 +169,15 @@ export class KupForm {
         // records are here saved with a zipped format but can be saved as preferred, also as are
         let zippedRecords = zipRecords(event.detail.actual.records);
         let value = zippedRecords;
+        this.changeFieldValue(field, value);
+    }
+
+    private onAutocompleteFieldChange(
+        event: CustomEvent<KupAutocompleteOption[]>,
+        field: FormField
+    ) {
+        event.stopPropagation();
+        let value = event.detail;
         this.changeFieldValue(field, value);
     }
 
@@ -363,7 +381,31 @@ export class KupForm {
                             crudCallBackOnFormFieldChanged={
                                 this.crudCallBackOnFormFieldChanged
                             }
+                            autocompleteCallBackOnFilterUpdate={
+                                this.autocompleteCallBackOnFilterUpdate
+                            }
                         ></kup-crud>
+                    );
+                } else if (field.shape == 'ACP') {
+                    fieldContent = (
+                        <kup-autocomplete
+                            extra={field.extra}
+                            initialSelectedItems={field.value}
+                            items={field.config.items}
+                            minimumChars={field.config.minimumChars}
+                            showClearIcon={field.config.showClearIcon}
+                            serverHandledFilter={
+                                field.config.serverHandledFilter
+                            }
+                            displayMode={field.config.displayMode}
+                            showDropdownIcon={field.config.showDropdownIcon}
+                            onKupAutocompleteSelectionUpdate={(e) =>
+                                this.onAutocompleteFieldChange(e, field)
+                            }
+                            autocompleteCallBackOnFilterUpdate={
+                                this.autocompleteCallBackOnFilterUpdate
+                            }
+                        ></kup-autocomplete>
                     );
                 } else {
                     fieldContent =

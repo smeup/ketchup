@@ -1,26 +1,27 @@
 export enum AutocompleteDisplayMode {
-  CODE = 'code',
-  DESCRIPTION = 'description',
-  DESCRIPTION_AND_CODE = 'both',
+    CODE = 'code',
+    DESCRIPTION = 'description',
+    DESCRIPTION_AND_CODE = 'both',
 }
 
 export enum AutocompleteSortBy {
-  CODE = 'code',
-  DESCRIPTION = 'description',
-  NONE = 'none',
+    CODE = 'code',
+    DESCRIPTION = 'description',
+    NONE = 'none',
 }
 
 export enum AutocompleteSortOrder {
-  DECREASING = 'decreasing',
-  INCREASING = 'increasing',
+    DECREASING = 'decreasing',
+    INCREASING = 'increasing',
 }
 
 export interface KupAutocompleteOption {
-  code: string;
-  description: string;
+    code: string;
+    description: string;
 }
 
 export interface KupAutocompleteFilterUpdatePayload {
-  filter: string;
-  matchesMinimumCharsRequired: boolean;
+    extra?: any;
+    filter: string;
+    matchesMinimumCharsRequired: boolean;
 }
