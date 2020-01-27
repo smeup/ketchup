@@ -130,6 +130,9 @@
       var themeArray = DOMEl.themeJSON;
       if (DOMEl.hasAttribute('style')) {
         DOMEl.removeAttribute('style');
+      }
+
+      if (DOMEl.querySelector('#inspire').classList.contains('theme--dark')) {
         DOMEl.querySelector('#inspire').classList.add('theme--light');
         DOMEl.querySelector('#inspire').classList.remove('theme--dark');
       } else {

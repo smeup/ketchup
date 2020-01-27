@@ -27,11 +27,7 @@
               </template>
             </v-list-group>
 
-            <v-list-tile
-              v-for="route in group.advancedItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
+            <v-list-tile v-for="route in group.advancedItems" :key="route.to.name" :to="route.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -66,17 +62,22 @@
               </template>
             </v-list-group>
 
-            <v-list-tile
-              v-for="route in group.basicItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
+            <v-list-tile v-for="route in group.basicItems" :key="route.to.name" :to="route.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
         </v-list-group>
+        <v-list>
+          <v-list-tile :to="{
+              name: 'theming',
+            }">
+            <v-list-tile-content>
+              <v-list-tile-title>Theming</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-list>
     </v-navigation-drawer>
 

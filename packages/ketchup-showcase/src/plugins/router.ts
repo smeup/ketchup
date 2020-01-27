@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
+import Theming from '@/views/Theming.vue';
 
 Vue.use(Router);
 
@@ -16,6 +17,11 @@ const baseRoutes = [
     path: '/about',
     name: 'about',
     component: About,
+  },
+  {
+    path: '/theming',
+    name: 'theming',
+    component: Theming,
   },
 ];
 
