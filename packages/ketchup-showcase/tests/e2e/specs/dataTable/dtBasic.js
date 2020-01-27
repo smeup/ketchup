@@ -7,7 +7,7 @@ context('Data table without configuration', () => {
   it('test first table', () => {
     cy.visit('http://localhost:4000/#/datatable');
 
-    cy.wait(1000);
+    cy.wait(5000);
 
     cy.shadowGet('kup-data-table')
       .shadowFind('table')
