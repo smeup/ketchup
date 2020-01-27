@@ -36,6 +36,10 @@
           @kupFormFieldFocused="onFormFieldFocused"
           @kupFormFieldBlurred="onFormFieldBlurred"
           @kupFormFieldChanged="onFormFieldChanged"
+          @kupAutocompleteFilterUpdate="onAutocompleteFilterUpdate"
+          :autocompleteCallBackOnFilterUpdate.prop="
+            autocompleteCallBackOnFilterUpdate
+          "
           @kupCrudFormActionSubmitted="onCrudFormActionSubmitted"
           @kupCrudFormFieldChanged="onCrudFormFieldChanged"
           :crudCallBackOnFormActionSubmitted.prop="
@@ -95,6 +99,7 @@ import {
   buildFormEventCallback,
   chooseAndApplyFakeBackendLogic,
 } from '@/mock/form/form-utils';
+import { buildAutocompleteFilterUpdateCallback } from '@/mock/autocomplete';
 
 export default {
   data() {
@@ -109,6 +114,9 @@ export default {
       ),
       crudCallBackOnFormFieldChanged: buildFormEventCallback(
         'FormFieldChanged'
+      ),
+      autocompleteCallBackOnFilterUpdate: buildAutocompleteFilterUpdateCallback(
+        10
       ),
     };
   },
@@ -196,6 +204,9 @@ export default {
     },
     onFormFieldChanged(event) {
       this.appendEventToHistory('FormFieldChanged', event);
+    },
+    onAutocompleteFilterUpdate(event) {
+      this.appendEventToHistory('AutocompleteFilterUpdate', event);
     },
     onCrudFormActionSubmitted(event) {
       this.appendEventToHistory('CrudFormActionSubmitted', event);

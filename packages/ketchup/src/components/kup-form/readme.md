@@ -43,17 +43,18 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ## Properties
 
-| Property                            | Attribute | Description | Type                                                                        | Default     |
-| ----------------------------------- | --------- | ----------- | --------------------------------------------------------------------------- | ----------- |
-| `actions`                           | --        |             | `FormActions`                                                               | `undefined` |
-| `config`                            | --        |             | `FormConfig`                                                                | `{}`        |
-| `crudCallBackOnFormActionSubmitted` | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `crudCallBackOnFormFieldChanged`    | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`  | `undefined` |
-| `extra`                             | `extra`   |             | `any`                                                                       | `undefined` |
-| `extraMessages`                     | --        |             | `FormMessage[]`                                                             | `[]`        |
-| `fields`                            | --        |             | `FormFields`                                                                | `undefined` |
-| `refid`                             | `refid`   |             | `string`                                                                    | `undefined` |
-| `sections`                          | --        |             | `FormSection`                                                               | `undefined` |
+| Property                             | Attribute | Description | Type                                                                               | Default     |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                       | `{}`        |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
@@ -89,6 +90,7 @@ During events all the state of the component isn't sent. So if you need some sta
 - [kup-text-input](../kup-text-input)
 - [kup-combo](../kup-combo)
 - [kup-crud](../kup-crud)
+- [kup-autocomplete](../kup-autocomplete)
 - [kup-button](../kup-button)
 - [kup-crud](../kup-crud)
 
@@ -98,6 +100,7 @@ graph TD;
   kup-form --> kup-text-input
   kup-form --> kup-combo
   kup-form --> kup-crud
+  kup-form --> kup-autocomplete
   kup-form --> kup-button
   kup-form --> kup-crud
   kup-combo --> kup-text-input
@@ -107,6 +110,10 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-crud --> kup-form
+  kup-autocomplete --> kup-chip
+  kup-autocomplete --> kup-text-input
+  kup-autocomplete --> kup-menu
+  kup-autocomplete --> kup-icon
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

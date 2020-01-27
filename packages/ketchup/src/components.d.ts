@@ -119,6 +119,12 @@ export namespace Components {
     */
     'allowCustomItems': boolean;
     /**
+    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled': boolean;
@@ -126,6 +132,14 @@ export namespace Components {
     * Selects how the autocomplete items must display their label and how they can be filtered for
     */
     'displayMode': AutocompleteDisplayMode;
+    /**
+    * Any extra info. It will be sent in events payload
+    */
+    'extra': any;
+    /**
+    * The initial selected items set inside component
+    */
+    'initialSelectedItems': KupAutocompleteOption[];
     /**
     * Sets the autocomplete items data
     */
@@ -414,6 +428,9 @@ export namespace Components {
   }
   interface KupCrud {
     'actions': FormActions;
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     /**
     * ************************************************************** PUBLIC METHODS                                              * **************************************************************
     */
@@ -514,6 +531,9 @@ export namespace Components {
   }
   interface KupForm {
     'actions': FormActions;
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     'config': FormConfig;
     'crudCallBackOnFormActionSubmitted': (
     detail: FormActionEventDetail
@@ -1448,6 +1468,12 @@ declare namespace LocalJSX {
     */
     'allowCustomItems'?: boolean;
     /**
+    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled'?: boolean;
@@ -1455,6 +1481,14 @@ declare namespace LocalJSX {
     * Selects how the autocomplete items must display their label and how they can be filtered for
     */
     'displayMode'?: AutocompleteDisplayMode;
+    /**
+    * Any extra info. It will be sent in events payload
+    */
+    'extra'?: any;
+    /**
+    * The initial selected items set inside component
+    */
+    'initialSelectedItems'?: KupAutocompleteOption[];
     /**
     * Sets the autocomplete items data
     */
@@ -1870,6 +1904,9 @@ declare namespace LocalJSX {
   }
   interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
     'actions'?: FormActions;
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     'config'?: CrudConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail
@@ -2026,6 +2063,9 @@ declare namespace LocalJSX {
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     'config'?: FormConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail

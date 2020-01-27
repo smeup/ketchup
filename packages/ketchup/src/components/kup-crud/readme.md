@@ -13,18 +13,19 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 
 ## Properties
 
-| Property                            | Attribute | Description | Type                                                                        | Default     |
-| ----------------------------------- | --------- | ----------- | --------------------------------------------------------------------------- | ----------- |
-| `actions`                           | --        |             | `FormActions`                                                               | `undefined` |
-| `config`                            | --        |             | `CrudConfig`                                                                | `{}`        |
-| `crudCallBackOnFormActionSubmitted` | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `crudCallBackOnFormFieldChanged`    | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`  | `undefined` |
-| `extra`                             | `extra`   |             | `any`                                                                       | `undefined` |
-| `extraMessages`                     | --        |             | `FormMessage[]`                                                             | `[]`        |
-| `fields`                            | --        |             | `FormFields`                                                                | `undefined` |
-| `records`                           | --        |             | `FormRecord[]`                                                              | `undefined` |
-| `refid`                             | `refid`   |             | `string`                                                                    | `undefined` |
-| `sections`                          | --        |             | `FormSection`                                                               | `undefined` |
+| Property                             | Attribute | Description | Type                                                                               | Default     |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `config`                             | --        |             | `CrudConfig`                                                                       | `{}`        |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
+| `records`                            | --        |             | `FormRecord[]`                                                                     | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
@@ -86,11 +87,16 @@ graph TD;
   kup-form --> kup-text-input
   kup-form --> kup-combo
   kup-form --> kup-crud
+  kup-form --> kup-autocomplete
   kup-form --> kup-button
   kup-form --> kup-crud
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
+  kup-autocomplete --> kup-chip
+  kup-autocomplete --> kup-text-input
+  kup-autocomplete --> kup-menu
+  kup-autocomplete --> kup-icon
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

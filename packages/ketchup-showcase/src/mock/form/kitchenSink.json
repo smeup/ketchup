@@ -244,6 +244,58 @@
         "liveBackendCheck": true
       }
     },
+    "occupation": {
+      "key": "occupation",
+      "title": "Occupation",
+      "titlePosition": "None",
+      "description": "Occupation",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Occupation"
+      },
+      "outputValueFunction": "description",
+      "config": {
+        "items": [
+          {
+            "code": "OCC01",
+            "description": "Occupation 1"
+          },
+          {
+            "code": "OCC02",
+            "description": "Occupation 2"
+          },
+          {
+            "code": "OCC03",
+            "description": "Occupation 3"
+          },
+          {
+            "code": "OCC04",
+            "description": "Occupation 4"
+          }
+        ],
+        "serverHandledFilter": true,
+        "minimumChars": 2,
+        "showClearIcon": true,
+        "showDropdownIcon": true,
+        "displayMode": "description_and_code"
+      }
+    },
+    "company": {
+      "key": "company",
+      "title": "Company",
+      "titlePosition": "None",
+      "description": "Company",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Company"
+      },
+      "config": {
+        "serverHandledFilter": true,
+        "minimumChars": 3,
+        "showClearIcon": true,
+        "displayMode": "description"
+      }
+    },
     "father": {
       "key": "father",
       "title": "Father",
@@ -495,6 +547,42 @@
               "liveBackendCheck": true
             }
           },
+          "occupation": {
+            "key": "occupation",
+            "title": "Occupation",
+            "titlePosition": "None",
+            "description": "Occupation",
+            "shape": "ACP",
+            "extra": {
+              "aParamForBackend": "Occupation"
+            },
+            "outputValueFunction": "description",
+            "config": {
+              "items": [
+                {
+                  "code": "OCC01",
+                  "description": "Occupation 1"
+                },
+                {
+                  "code": "OCC02",
+                  "description": "Occupation 2"
+                },
+                {
+                  "code": "OCC03",
+                  "description": "Occupation 3"
+                },
+                {
+                  "code": "OCC04",
+                  "description": "Occupation 4"
+                }
+              ],
+              "serverHandledFilter": true,
+              "minimumChars": 2,
+              "showClearIcon": true,
+              "showDropdownIcon": true,
+              "displayMode": "description_and_code"
+            }
+          },
           "father": {
             "key": "father",
             "title": "Father",
@@ -526,6 +614,7 @@
                 { "fields": ["country"] },
                 { "fields": ["region"] },
                 { "fields": ["address"] },
+                { "fields": ["occupation"] },
                 { "fields": ["father"] }
               ]
             }
@@ -631,6 +720,8 @@
           { "fields": ["country"] },
           { "fields": ["region"] },
           { "fields": ["address"] },
+          { "fields": ["occupation"] },
+          { "fields": ["company"] },
           { "fields": ["father"] }
         ]
       }
@@ -775,6 +866,14 @@
           "key": "address",
           "value": "Roma"
         },
+        "occupation": {
+          "key": "occupation",
+          "value": [{ "code": "OCC02", "description": "Occupation 2" }]
+        },
+        "company": {
+          "key": "company",
+          "value": [{ "code": "COM3", "description": "Company 3" }]
+        },
         "father": {
           "key": "father",
           "value": [
@@ -785,6 +884,9 @@
               "country": { "value": "IT", "description": "Italy" },
               "region": { "value": "08", "description": "Lazio" },
               "address": "Lanuvio",
+              "occupation": [
+                { "code": "OCC03", "description": "Occupation 3" }
+              ],
               "father": [
                 {
                   "avatar": "https://via.placeholder.com/64?text=CUSTOM",

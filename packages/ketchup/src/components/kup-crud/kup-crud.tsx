@@ -10,6 +10,11 @@ import {
 } from '@stencil/core';
 
 import {
+    KupAutocompleteOption,
+    KupAutocompleteFilterUpdatePayload,
+} from '../kup-autocomplete/kup-autocomplete-declarations';
+
+import {
     FormFields,
     FormRecord,
     FormField,
@@ -63,6 +68,10 @@ export class KupCrud {
     @Prop() crudCallBackOnFormFieldChanged: (
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
+
+    @Prop() autocompleteCallBackOnFilterUpdate: (
+        detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
 
     private visibleFields: FormField[] = [];
 
@@ -291,6 +300,9 @@ export class KupCrud {
                             }
                             onKupFormFieldBlurred={(e) =>
                                 this.onFormFieldBlurred(e)
+                            }
+                            autocompleteCallBackOnFilterUpdate={
+                                this.autocompleteCallBackOnFilterUpdate
                             }
                             crudCallBackOnFormActionSubmitted={
                                 this.crudCallBackOnFormActionSubmitted
