@@ -1,7 +1,7 @@
 /* Global */
 html {
   font-family: var(--kup-font-family);
-  font-size: var(--kup-font-size);
+  font-size: var(--kup-font-size) !important;
 }
 
 .container {
@@ -178,7 +178,7 @@ code.flat {
 .code-word {
   color: var(--kup-main-color);
   font-family: Roboto Mono, consolas, monospace;
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
@@ -440,6 +440,31 @@ h1.team-title {
 .member-focus-content {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+table.instruction-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 3rem auto;
+}
+
+table.instruction-table td.prevent-cr {
+  white-space: pre;
+}
+
+table.instruction-table td.text-cell {
+  min-width: 150px;
+  padding: 0;
+}
+
+table.instruction-table td,
+table.instruction-table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+table.instruction-table th {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1260px) {
