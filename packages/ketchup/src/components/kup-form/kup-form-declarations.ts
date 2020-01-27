@@ -3,23 +3,43 @@ export interface FormFields {
 }
 
 export interface FormField {
+    refid?: string;
     key: string;
     title?: string;
     description?: string;
     hidden?: boolean;
-    obj?: {
-        t: string;
-        p: string;
-        k: string;
-    };
-    data?: {};
-    value: any;
     shape?: string;
-    config?: any;
     validate?: FormFieldValidate;
+    outputValueFunction?: string;
+
+    config?: any;
+    extra?: any;
+    obj?: {
+        t?: string;
+        p?: string;
+        k?: string;
+    };
+    value: any;
 }
 
-export interface FormField {}
+export interface FormRecord {
+    id?: string;
+    fields: {
+        [index: string]: {
+            key: string;
+            value: any;
+
+            //TODO
+            config?: any;
+            extra?: any;
+            obj?: {
+                t?: string;
+                p?: string;
+                k?: string;
+            };
+        };
+    };
+}
 
 export interface FormFieldValidate {
     required?: boolean;
@@ -46,38 +66,6 @@ export interface FormFieldCalcs {
     oldValue: any;
 }
 
-export interface FormActionEventDetail {
-    isValid?: boolean;
-    action?: {
-        key: string;
-    };
-    fields: {
-        [index: string]: {
-            key: string;
-            hidden?: boolean;
-            value: any;
-            oldValue: any;
-        };
-    };
-}
-
-export interface FormFieldEventDetail {
-    isValid?: boolean;
-    field: {
-        key: string;
-        value: any;
-        oldValue: any;
-    };
-    fields: {
-        [index: string]: {
-            key: string;
-            hidden?: boolean;
-            value: any;
-            oldValue: any;
-        };
-    };
-}
-
 export interface FormMessage {
     fieldKey?: string;
     text: string;
@@ -91,7 +79,7 @@ export enum FormMessageLevel {
 }
 
 export interface FormConfig {
-    liveValidation?: boolean;
+    liveCheck?: boolean;
 }
 
 export interface FormActions {
@@ -105,4 +93,62 @@ export interface FormActionField extends FormField {}
 
 export interface FormActionSection extends FormSection {
     position?: string;
+}
+
+/*****************************************************************/
+/** EVENTS                                                      **/
+/*****************************************************************/
+
+export interface FormActionEventDetail {
+    refid?: string;
+    extra?: any;
+    isValid?: boolean;
+    action?: {
+        key: string;
+    };
+    actual?: {
+        fields: {
+            [index: string]: {
+                key: string;
+                value: any;
+                extra?: any;
+            };
+        };
+    };
+    old?: {
+        fields: {
+            [index: string]: {
+                key: string;
+                value: any;
+                extra?: any;
+            };
+        };
+    };
+}
+
+export interface FormFieldEventDetail {
+    refid?: string;
+    extra?: any;
+    isValid?: boolean;
+    field: {
+        key: string;
+    };
+    actual?: {
+        fields: {
+            [index: string]: {
+                key: string;
+                value: any;
+                extra?: any;
+            };
+        };
+    };
+    old?: {
+        fields: {
+            [index: string]: {
+                key: string;
+                value: any;
+                extra?: any;
+            };
+        };
+    };
 }

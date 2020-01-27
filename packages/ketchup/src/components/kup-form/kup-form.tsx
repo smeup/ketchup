@@ -7,8 +7,13 @@ import {
     EventEmitter,
     State,
 } from '@stencil/core';
+
 import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
 import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
+import {
+    CrudRecordsChanged,
+    CrudCallBackOnFormEventResult,
+} from '../kup-crud/kup-crud-declarations';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -26,7 +31,13 @@ import {
     FormActionField,
 } from './kup-form-declarations';
 
-import { buildButtonConfig } from '../../utils/widget-utils';
+import {
+    buildButtonConfig,
+    getFields,
+    getVisibleFields,
+    zipRecords,
+    unzipRecords,
+} from '../../utils/widget-utils';
 
 import { isStringObject } from '../../utils/object-utils';
 
@@ -36,20 +47,27 @@ import { isStringObject } from '../../utils/object-utils';
     shadow: true,
 })
 export class KupForm {
-    // mutable because is object
-    @Prop() config: FormConfig = {};
+    @Prop() refid: string;
 
-    // mutable because is object
-    @Prop() fields: FormFields;
+    @Prop() extra: any;
 
-    // mutable because is object
-    @Prop() sections: FormSection;
+    @Prop({ mutable: true }) config: FormConfig = {};
 
-    // mutable because is object
-    @Prop() extraMessages: FormMessage[] = [];
+    @Prop({ mutable: true }) fields: FormFields;
 
-    // mutable because is object
-    @Prop() actions: FormActions;
+    @Prop({ mutable: true }) sections: FormSection;
+
+    @Prop({ mutable: true }) extraMessages: FormMessage[] = [];
+
+    @Prop({ mutable: true }) actions: FormActions;
+
+    @Prop() crudCallBackOnFormActionSubmitted: (
+        detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
+
+    @Prop() crudCallBackOnFormFieldChanged: (
+        detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
 
     @State() messages: FormMessage[] = [];
 
@@ -60,36 +78,6 @@ export class KupForm {
     private sectionsCalcs: FormSection;
 
     private actionsCalcs: FormActions;
-
-    @Watch('sections')
-    onSectionsChanged() {
-        this.initSectionsCalcs();
-    }
-
-    @Watch('fields')
-    onFieldsChanged() {
-        this.initFieldsCalcs();
-        this.initVisibleFields();
-    }
-
-    @Watch('actions')
-    onActionsChanged() {
-        this.initActionsCalcs();
-    }
-
-    componentWillLoad() {
-        this.onFieldsChanged();
-        this.onSectionsChanged();
-        this.onActionsChanged();
-    }
-
-    @Event({
-        eventName: 'kupFormSubmitted',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupFormSubmitted: EventEmitter<FormActionEventDetail>;
 
     @Event({
         eventName: 'kupFormActionSubmitted',
@@ -123,278 +111,84 @@ export class KupForm {
     })
     kupFormFieldChanged: EventEmitter<FormFieldEventDetail>;
 
-    private getFields(): FormField[] {
-        if (this.fields) {
-            const keys = Object.keys(this.fields);
-            let fields = [];
-            keys.forEach((key) => {
-                fields.push(this.fields[key]);
-            });
-            return fields;
-        } else {
-            return [];
-        }
+    /*****************************************************************/
+    /** ON SOMETHING                                                **/
+    /*****************************************************************/
+
+    componentWillLoad() {
+        this.onFieldsChanged();
+        this.onSectionsChanged();
+        this.onActionsChanged();
     }
 
-    private hasErrorMessages(): boolean {
-        let errorMessages = this.messages.filter(
-            (elem) => elem.level == FormMessageLevel.ERROR
-        );
-        return errorMessages.length == 0;
+    @Watch('sections')
+    private onSectionsChanged() {
+        this.initSectionsCalcs();
     }
 
-    private buildFormFieldEventDetail(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ): FormFieldEventDetail {
-        let detail = {} as FormFieldEventDetail;
-        detail.field = {
-            key: field.key,
-            value: event.detail.value,
-            oldValue: this.fieldsCalcs[field.key].oldValue,
-        };
-        detail.fields = {};
-        this.getFields().forEach((field) => {
-            detail.fields[field.key] = {
-                key: field.key,
-                value: field.value,
-                oldValue: this.fieldsCalcs[field.key].oldValue,
-            };
-        });
-        if (this.config.liveValidation) {
-            detail.isValid = this.hasErrorMessages();
-        }
-        return detail;
+    @Watch('fields')
+    private onFieldsChanged() {
+        this.initFieldsCalcs();
+        this.initVisibleFields();
     }
 
-    private buildFormFieldFocusedDetail(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(event, field);
+    @Watch('actions')
+    private onActionsChanged() {
+        this.initActionsCalcs();
     }
 
-    private buildFormFieldBlurredDetail(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(event, field);
-    }
-
-    private buildFormFieldChangedDetail(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(event, field);
-    }
-
-    private buildFormSubmittedDetail(): FormActionEventDetail {
-        let detail = {} as FormActionEventDetail;
-        detail.fields = {};
-        this.getFields().forEach((field) => {
-            detail.fields[field.key] = {
-                key: field.key,
-                value: field.value,
-                oldValue: this.fieldsCalcs[field.key].oldValue,
-            };
-        });
-        detail.isValid = this.hasErrorMessages();
-        return detail;
-    }
-
-    private buildFormActionSubmittedDetail(
-        actionField: FormActionField
-    ): FormActionEventDetail {
-        let detail = this.buildFormSubmittedDetail();
-        detail.action = { key: actionField.key };
-        return detail;
-    }
-
-    private initVisibleFields(): void {
-        this.visibleFields = this.getFields().filter((field) => {
-            if (field.hasOwnProperty('hidden')) {
-                return !field.hidden;
-            }
-
-            return true;
-        });
-    }
-
-    private initFieldsCalcs(): void {
-        console.log('Init fields calc');
-        this.fieldsCalcs = {} as FormFieldsCalcs;
-        this.getFields().forEach((field) => {
-            this.fieldsCalcs[field.key] = {
-                oldValue: this.fields[field.key].value,
-            };
-        });
-    }
-
-    private initActionsCalcs(): void {
-        // check if there are actions, if not, create a default actions schema with submit in bottom right
-        if (isEmpty(this.actions)) {
-            let submit = {
-                key: 'submit',
-                value: 'Submit',
-                config: {
-                    showtext: true,
-                    flat: false,
-                },
-            } as FormActionField;
-
-            let brSection = { position: 'BR', fields: ['submit'] };
-            this.actionsCalcs = {
-                fields: { submit: submit },
-                sections: [brSection],
-            };
-        } else {
-            this.actionsCalcs = this.actions;
-        }
-    }
-
-    private initSectionsCalcs(): void {
-        // check if there are sections, if not, create a default sections schema with only one section containing all visible fields
-        if (!isEmpty(this.sections)) {
-            this.sectionsCalcs = this.sections;
-            return;
-        }
-
-        const section: FormSection = {
-            horizontal: false,
-            sections: [],
-        };
-
-        const visibleFields = this.visibleFields;
-        let size = visibleFields.length;
-        let content = [];
-
-        let cnt = 0;
-        while (size-- > 0) {
-            content.push(visibleFields[cnt++].key);
-        }
-
-        section.fields = content;
-
-        this.sectionsCalcs = {
-            sections: [section],
-        };
-    }
-
-    private validate(): FormMessage[] {
-        console.log('Validate');
-        let messages = [];
-        this.getFields().forEach((field) => {
-            let fieldMessages = this.validateField(field);
-            messages = [...messages, ...fieldMessages];
-        });
-        return messages;
-    }
-
-    private validateField(field: FormField): FormMessage[] {
-        let messages = [];
-
-        // required
-        if (field.validate && field.validate.required && isEmpty(field.value)) {
-            messages = [
-                ...messages,
-                {
-                    fieldKey: field.key,
-                    text: 'cannot be empty',
-                    level: FormMessageLevel.ERROR,
-                },
-            ];
-        }
-
-        // min lenght
-        if (
-            field.validate &&
-            field.validate.minLength &&
-            (isEmpty(field.value) ||
-                field.value.length < field.validate.minLength)
-        ) {
-            messages = [
-                ...messages,
-                {
-                    fieldKey: field.key,
-                    text:
-                        'should NOT be shorter than ' +
-                        field.validate.minLength +
-                        ' characters',
-                    level: FormMessageLevel.ERROR,
-                },
-            ];
-        }
-
-        return messages;
-    }
-
-    private onFormSubmit() {
-        console.log('On form submit');
-        this.messages = this.validate();
-        this.kupFormSubmitted.emit(this.buildFormSubmittedDetail());
-    }
-
-    private onFormActionSubmit(actionField: FormActionField) {
-        console.log('On form action submit');
-        this.messages = this.validate();
+    private onFormActionSubmitted(actionField: FormActionField) {
+        this.checkAll();
         this.kupFormActionSubmitted.emit(
             this.buildFormActionSubmittedDetail(actionField)
         );
     }
 
-    private onFieldFocus(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ) {
-        console.log('On field ' + field.key + ' focus');
-        this.kupFormFieldFocused.emit(
-            this.buildFormFieldFocusedDetail(event, field)
-        );
+    private onFieldFocused(field: FormField) {
+        this.kupFormFieldFocused.emit(this.buildFormFieldFocusedDetail(field));
     }
 
-    private onFieldBlur(
+    private onFieldBlurred(field: FormField) {
+        this.kupFormFieldBlurred.emit(this.buildFormFieldBlurredDetail(field));
+    }
+
+    private onCrudFieldChange(
+        event: CustomEvent<CrudRecordsChanged>,
+        field: FormField
+    ) {
+        event.stopPropagation();
+        // records are here saved with a zipped format but can be saved as preferred, also as are
+        let zippedRecords = zipRecords(event.detail.actual.records);
+        let value = zippedRecords;
+        this.changeFieldValue(field, value);
+    }
+
+    private onSimpleValueFieldChange(
         event:
             | CustomEvent<KetchupTextInputEvent>
             | CustomEvent<KetchupComboEvent>,
         field: FormField
     ) {
-        console.log('On field ' + field.key + ' blur ');
-
+        event.stopPropagation();
         const { value } = event.detail;
-        this.fields[field.key].value = value;
+        this.changeFieldValue(field, value);
+    }
 
-        if (this.config.liveValidation) {
-            this.messages = this.validate();
+    private changeFieldValue(field, value) {
+        console.log('Change value for field ' + field.key);
+        this.fields[field.key].value = value;
+        this.fields = { ...this.fields };
+
+        if (this.config.liveCheck) {
+            this.checkField(field);
         }
 
-        this.kupFormFieldBlurred.emit(
-            this.buildFormFieldBlurredDetail(event, field)
-        );
+        this.kupFormFieldChanged.emit(this.buildFormFieldChangedDetail(field));
     }
 
-    private onFieldChange(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
-        field: FormField
-    ) {
-        console.log('On field ' + field.key + ' change ');
-        const { value } = event.detail;
-        this.fields[field.key].value = value;
-        this.kupFormFieldChanged.emit(
-            this.buildFormFieldChangedDetail(event, field)
-        );
-    }
+    /*****************************************************************/
+    /** RENDERING                                                   **/
+    /*****************************************************************/
 
     private renderSection(
         section: FormSection,
@@ -484,6 +278,7 @@ export class KupForm {
         let fieldLabelContent = null;
         let fieldContent = null;
         let fieldMessagesContent = null;
+        let fieldDebugContent = null;
         let fieldStyle = {};
 
         if (fieldKey) {
@@ -510,38 +305,65 @@ export class KupForm {
                     wrapperStyle['--kup-text-input_border-color--selected'] =
                         '#66D3FA';
 
+                    // NB: not updated field value using onInput() event, but using onChange().
+                    // The onChange of an input text fires when the element loses focus, not immediately after the modification
                     fieldContent = (
                         <kup-text-input
                             style={wrapperStyle}
                             input-type="text"
                             initialValue={field.value}
-                            onKetchupTextInputUpdated={(e) =>
-                                this.onFieldChange(e, field)
+                            onKetchupTextInputChanged={(e) =>
+                                this.onSimpleValueFieldChange(e, field)
                             }
-                            onKetchupTextInputFocused={(e) =>
-                                this.onFieldFocus(e, field)
+                            onKetchupTextInputFocused={() =>
+                                this.onFieldFocused(field)
                             }
-                            onKetchupTextInputBlurred={(e) =>
-                                this.onFieldBlur(e, field)
+                            onKetchupTextInputBlurred={() =>
+                                this.onFieldBlurred(field)
                             }
                         ></kup-text-input>
                     );
                 } else if (field.shape == 'CMB') {
                     fieldContent = (
                         <kup-combo
-                            items={field.data}
+                            items={field.config.data}
                             {...field.config}
                             initialValue={field.value}
                             onKetchupComboSelected={(e) =>
-                                this.onFieldChange(e, field)
+                                this.onSimpleValueFieldChange(e, field)
                             }
-                            onKetchupComboFocused={(e) =>
-                                this.onFieldFocus(e, field)
+                            onKetchupComboFocused={() =>
+                                this.onFieldFocused(field)
                             }
-                            onKetchupComboBlurred={(e) =>
-                                this.onFieldBlur(e, field)
+                            onKetchupComboBlurred={() =>
+                                this.onFieldBlurred(field)
                             }
                         ></kup-combo>
+                    );
+                } else if (field.shape == 'CFG') {
+                    let records = unzipRecords(field.value);
+                    fieldContent = (
+                        <kup-crud
+                            refid={field.refid}
+                            extra={field.extra}
+                            config={field.config.config}
+                            fields={field.config.fields}
+                            records={records}
+                            sections={field.config.sections}
+                            extraMessages={field.config.extraMessages}
+                            actions={field.config.actions}
+                            onKupCrudRecordsChanged={(e) =>
+                                this.onCrudFieldChange(e, field)
+                            }
+                            onKupCrudFocused={() => this.onFieldFocused(field)}
+                            onKupCrudBlurred={() => this.onFieldBlurred(field)}
+                            crudCallBackOnFormActionSubmitted={
+                                this.crudCallBackOnFormActionSubmitted
+                            }
+                            crudCallBackOnFormFieldChanged={
+                                this.crudCallBackOnFormFieldChanged
+                            }
+                        ></kup-crud>
                     );
                 } else {
                     fieldContent =
@@ -584,6 +406,12 @@ export class KupForm {
                     </div>
                 );
             }
+
+            fieldDebugContent = (
+                <div class="form-field-debug">
+                    {'debug value: ' + JSON.stringify(field.value)}
+                </div>
+            );
         }
 
         return (
@@ -591,6 +419,7 @@ export class KupForm {
                 {fieldLabelContent}
                 {fieldContent}
                 {fieldMessagesContent}
+                {fieldDebugContent}
             </div>
         );
     }
@@ -623,9 +452,7 @@ export class KupForm {
                         actionField.config
                     )}
                     onKupButtonClicked={() =>
-                        actionField.key == 'submit'
-                            ? this.onFormSubmit()
-                            : this.onFormActionSubmit(actionField)
+                        this.onFormActionSubmitted(actionField)
                     }
                 />
             </div>
@@ -731,5 +558,217 @@ export class KupForm {
                 {bottomActions}
             </div>
         );
+    }
+
+    /*****************************************************************/
+    /** UTIL METHODS                                                **/
+    /*****************************************************************/
+
+    private hasErrorMessages(): boolean {
+        let errorMessages = this.messages.filter(
+            (elem) => elem.level == FormMessageLevel.ERROR
+        );
+        return errorMessages.length == 0;
+    }
+
+    private buildFormFieldFocusedDetail(
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(field);
+    }
+
+    private buildFormFieldBlurredDetail(
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(field);
+    }
+
+    private buildFormFieldChangedDetail(
+        field: FormField
+    ): FormFieldEventDetail {
+        return this.buildFormFieldEventDetail(field);
+    }
+
+    private buildFormFieldEventDetail(field: FormField): FormFieldEventDetail {
+        let detail = {
+            ...(this.refid ? { refid: this.refid } : {}),
+            ...(this.extra ? { extra: this.extra } : {}),
+            actual: { fields: {} },
+            old: { fields: {} },
+        } as FormFieldEventDetail;
+        detail.field = {
+            key: field.key,
+        };
+
+        getFields(this.fields).forEach((field) => {
+            detail.actual.fields[field.key] = {
+                key: field.key,
+                value: field.value,
+                extra: field.extra,
+            };
+            detail.old.fields[field.key] = {
+                key: field.key,
+                value: this.fieldsCalcs[field.key].oldValue,
+            };
+        });
+        if (this.config.liveCheck) {
+            detail.isValid = this.hasErrorMessages();
+        }
+        return detail;
+    }
+
+    private buildFormActionSubmittedDetail(
+        actionField: FormActionField
+    ): FormActionEventDetail {
+        let detail = {
+            ...(this.refid ? { refid: this.refid } : {}),
+            ...(this.extra ? { extra: this.extra } : {}),
+            actual: { fields: {} },
+            old: { fields: {} },
+        } as FormActionEventDetail;
+        getFields(this.fields).forEach((field) => {
+            detail.actual.fields[field.key] = {
+                key: field.key,
+                value: field.value,
+                extra: field.extra,
+            };
+            detail.old.fields[field.key] = {
+                key: field.key,
+                value: this.fieldsCalcs[field.key].oldValue,
+            };
+        });
+        detail.action = { key: actionField.key };
+        detail.isValid = this.hasErrorMessages();
+        return detail;
+    }
+
+    private initVisibleFields(): void {
+        this.visibleFields = getVisibleFields(getFields(this.fields));
+    }
+
+    private initFieldsCalcs(): void {
+        this.fieldsCalcs = {} as FormFieldsCalcs;
+        getFields(this.fields).forEach((field) => {
+            this.fieldsCalcs[field.key] = {
+                oldValue: this.fields[field.key].value,
+            };
+        });
+    }
+
+    private initSectionsCalcs(): void {
+        // check if there are sections, if not, create a default sections schema with only one section containing all visible fields
+        if (!isEmpty(this.sections)) {
+            this.sectionsCalcs = this.sections;
+            return;
+        }
+
+        const section: FormSection = {
+            horizontal: false,
+            sections: [],
+        };
+
+        const visibleFields = this.visibleFields;
+        let size = visibleFields.length;
+        let content = [];
+
+        let cnt = 0;
+        while (size-- > 0) {
+            content.push(visibleFields[cnt++].key);
+        }
+
+        section.fields = content;
+
+        this.sectionsCalcs = {
+            sections: [section],
+        };
+    }
+
+    private initActionsCalcs(): void {
+        // check if there are actions, if not, create a default actions schema with submit in bottom right
+        if (isEmpty(this.actions)) {
+            let submit = {
+                key: 'submit',
+                value: 'Submit',
+                config: {
+                    showtext: true,
+                    flat: false,
+                },
+            } as FormActionField;
+
+            let brSection = { position: 'BR', fields: ['submit'] };
+            this.actionsCalcs = {
+                fields: { submit: submit },
+                sections: [brSection],
+            };
+        } else {
+            this.actionsCalcs = this.actions;
+        }
+    }
+
+    private checkAll() {
+        this.messages = this.validateAll(getFields(this.fields));
+        console.log(
+            'Check all executed with messages: ' + JSON.stringify(this.messages)
+        );
+    }
+
+    private checkField(field: FormField) {
+        this.messages = this.messages.filter(function(message) {
+            return message.fieldKey != field.key;
+        });
+        this.messages = [...this.messages, ...this.validateField(field)];
+        console.log(
+            'Check field  ' +
+                field.key +
+                ' executed with all messages: ' +
+                JSON.stringify(this.messages)
+        );
+    }
+
+    private validateAll(fields: FormField[]): FormMessage[] {
+        let messages = [];
+        fields.forEach((field) => {
+            let fieldMessages = this.validateField(field);
+            messages = [...messages, ...fieldMessages];
+        });
+        return messages;
+    }
+
+    private validateField(field: FormField): FormMessage[] {
+        let messages = [];
+
+        // required
+        if (field.validate && field.validate.required && isEmpty(field.value)) {
+            messages = [
+                ...messages,
+                {
+                    fieldKey: field.key,
+                    text: 'cannot be empty',
+                    level: FormMessageLevel.ERROR,
+                },
+            ];
+        }
+
+        // min lenght
+        if (
+            field.validate &&
+            field.validate.minLength &&
+            (isEmpty(field.value) ||
+                field.value.length < field.validate.minLength)
+        ) {
+            messages = [
+                ...messages,
+                {
+                    fieldKey: field.key,
+                    text:
+                        'should NOT be shorter than ' +
+                        field.validate.minLength +
+                        ' characters',
+                    level: FormMessageLevel.ERROR,
+                },
+            ];
+        }
+
+        return messages;
     }
 }

@@ -42,8 +42,18 @@ export class KupButton {
         id: string;
     }>;
 
+    buttonEl: HTMLButtonElement;
+
     onBtnClickedHandler() {
         this.kupButtonClicked.emit({ id: this.ketchupButtonEl.dataset.id });
+    }
+
+    onFocused() {
+        this.buttonEl.classList.add('focused');
+    }
+
+    onBlurred() {
+        this.buttonEl.classList.remove('focused');
     }
 
     _isHint() {
@@ -113,11 +123,14 @@ export class KupButton {
         return [
             <link href={this.iconUrl} rel="stylesheet" type="text/css" />,
             <button
+                ref={(el) => (this.buttonEl = el)}
                 type="button"
                 style={btnStyle}
                 class={btnClass}
                 title={title}
                 onClick={() => this.onBtnClickedHandler()}
+                onFocus={() => this.onFocused()}
+                onBlur={() => this.onBlurred()}
             >
                 {image}
                 {icon}

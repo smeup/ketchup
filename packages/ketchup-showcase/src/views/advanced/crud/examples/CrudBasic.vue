@@ -21,8 +21,8 @@
         <textarea cols="50" rows="25" id="json" @change="onJsonTextChange" v-model="jsonText"></textarea>
       </div>
       <div class="form">
-        <label>FORM</label>
-        <kup-form
+        <label>CRUD</label>
+        <kup-crud
           ref="form"
           :refid.prop="jsonRefid"
           :extra.prop="jsonExtra"
@@ -32,10 +32,6 @@
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
           :actions.prop="jsonActions"
-          @kupFormActionSubmitted="onFormActionSubmitted"
-          @kupFormFieldFocused="onFormFieldFocused"
-          @kupFormFieldBlurred="onFormFieldBlurred"
-          @kupFormFieldChanged="onFormFieldChanged"
           @kupCrudFormActionSubmitted="onCrudFormActionSubmitted"
           @kupCrudFormFieldChanged="onCrudFormFieldChanged"
           :crudCallBackOnFormActionSubmitted.prop="
@@ -51,32 +47,8 @@
       </div>
       <div id="hidden" class="hidden">
         <div id="kitchenSinkMore">
-          <p>Sample of almost all of the features of kup-form.</p>
-          <p>On submit actions some backend fake logic is performed:</p>
-          <p>1) if you put in a field value:</p>
-          <ul>
-            <li>
-              GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or Field
-              Error, Warning or Info Message
-            </li>
-            <li>
-              GVM, FVM -> you will obtain a Global or a Field backend Value
-              Modified
-            </li>
-          </ul>
-          <p></p>
-          <p>
-            2) if the form is valid (no errors) your playground schema will be
-            updated.
-          </p>
-          <p>
-            If you want to activate backend fake logic also after a particular
-            field has changed (for example for a backend check) you can put
-            liveBackendCheck=true to the specific field you want. The sample
-            backend function associated to kupFieldBlurred event will read
-            liveBackendCheck prop and if true it will perform the logic but will
-            no update your schema.
-          </p>
+          <p>Sample of almost all of the features of kup-crud.</p>
+          <p>Fake backend logic is the same applied into kup-form.</p>
         </div>
         <div id="simpleMore">
           <p>A very simple sample...</p>
@@ -87,14 +59,10 @@
 </template>
 
 <script>
-import isEmpty from 'lodash/isEmpty';
 import kitchenSink from '@/mock/form/kitchenSink.json';
 import simpleUserSchema from '@/mock/form/simpleUserSchema.json';
 import simple from '@/mock/form/simple.json';
-import {
-  buildFormEventCallback,
-  chooseAndApplyFakeBackendLogic,
-} from '@/mock/form/form-utils';
+import { buildFormEventCallback } from '@/mock/form/form-utils';
 
 export default {
   data() {
@@ -154,9 +122,6 @@ export default {
       this.json.fields['father'].config.fields['father'].config = JSON.parse(
         JSON.stringify(simpleUserSchema)
       );
-      Object.keys(this.json.records[0].fields).forEach((key) => {
-        this.json.fields[key].value = this.json.records[0].fields[key].value;
-      });
     },
     onJsonTextChange(e) {
       let jsonText = e.target.value;
@@ -174,28 +139,6 @@ export default {
         this.json = JSON.parse(this.simpleText);
       }
       this.appendMore(this.sampleType);
-    },
-    onFormActionSubmitted(event) {
-      this.appendEventToHistory('FormActionSubmitted', event);
-      let result = chooseAndApplyFakeBackendLogic(
-        'FormActionSubmitted',
-        event.detail
-      );
-      this.updateForm(result);
-    },
-    onFormFieldFocused(event) {
-      this.appendEventToHistory('FormFieldFocused', event);
-    },
-    onFormFieldBlurred(event) {
-      this.appendEventToHistory('FormFieldBlurred', event);
-      let result = chooseAndApplyFakeBackendLogic(
-        'FormFieldChanged',
-        event.detail
-      );
-      this.updateForm(result);
-    },
-    onFormFieldChanged(event) {
-      this.appendEventToHistory('FormFieldChanged', event);
     },
     onCrudFormActionSubmitted(event) {
       this.appendEventToHistory('CrudFormActionSubmitted', event);
@@ -222,28 +165,6 @@ export default {
       let moreChild = more.firstChild;
       hidden.append(moreChild);
       more.append(document.getElementById(sampleType + 'More'));
-    },
-    updateForm(result) {
-      console.log('FORM component update...');
-
-      if (isEmpty(result)) {
-        console.log('Nothing to update...');
-      }
-
-      if (result.extraMessages) {
-        this.$refs.form.extraMessages = result.extraMessages;
-      }
-      // TODO: actually updating only values -> update all existing props...
-      if (result.fields) {
-        const keys = Object.keys(result.fields);
-        keys.forEach((key) => {
-          if (this.$refs.form.fields[key].hasOwnProperty('value')) {
-            this.$refs.form.fields[key].value = result.fields[key].value;
-          }
-        });
-      }
-
-      // todo: config, sections, actions
     },
   },
 };

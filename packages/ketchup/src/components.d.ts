@@ -58,9 +58,10 @@ import {
   GenericObject,
 } from './types/GenericTypes';
 import {
-  KetchupFldChangeEvent,
-  KetchupFldSubmitEvent,
-} from './components/kup-fld/kup-fld-declarations';
+  CrudCallBackOnFormEventResult,
+  CrudConfig,
+  CrudRecordsChanged,
+} from './components/kup-crud/kup-crud-declarations';
 import {
   FormActionEventDetail,
   FormActions,
@@ -68,8 +69,13 @@ import {
   FormFieldEventDetail,
   FormFields,
   FormMessage,
+  FormRecord,
   FormSection,
 } from './components/kup-form/kup-form-declarations';
+import {
+  KetchupFldChangeEvent,
+  KetchupFldSubmitEvent,
+} from './components/kup-fld/kup-fld-declarations';
 import {
   Badge,
 } from './components/kup-image/kup-image-declarations';
@@ -406,6 +412,27 @@ export namespace Components {
     */
     'valueField': string;
   }
+  interface KupCrud {
+    'actions': FormActions;
+    /**
+    * ************************************************************** PUBLIC METHODS                                              * **************************************************************
+    */
+    'closeForm': () => Promise<void>;
+    'config': CrudConfig;
+    'crudCallBackOnFormActionSubmitted': (
+    detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'crudCallBackOnFormFieldChanged': (
+    detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'extra': any;
+    'extraMessages': FormMessage[];
+    'fields': FormFields;
+    'openForm': () => Promise<void>;
+    'records': FormRecord[];
+    'refid': string;
+    'sections': FormSection;
+  }
   interface KupDash {
     'active': boolean;
     'fontsize': string;
@@ -488,8 +515,16 @@ export namespace Components {
   interface KupForm {
     'actions': FormActions;
     'config': FormConfig;
+    'crudCallBackOnFormActionSubmitted': (
+    detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'crudCallBackOnFormFieldChanged': (
+    detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
+    'refid': string;
     'sections': FormSection;
   }
   interface KupGauge {
@@ -657,6 +692,10 @@ export namespace Components {
     * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
     */
     'positionRelativeTo': HTMLElement;
+  }
+  interface KupModal {
+    'header': string;
+    'visible': boolean;
   }
   interface KupPaginator {
     'currentPage': number;
@@ -1169,6 +1208,12 @@ declare global {
     new (): HTMLKupComboElement;
   };
 
+  interface HTMLKupCrudElement extends Components.KupCrud, HTMLStencilElement {}
+  var HTMLKupCrudElement: {
+    prototype: HTMLKupCrudElement;
+    new (): HTMLKupCrudElement;
+  };
+
   interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
   var HTMLKupDashElement: {
     prototype: HTMLKupDashElement;
@@ -1239,6 +1284,12 @@ declare global {
   var HTMLKupMenuElement: {
     prototype: HTMLKupMenuElement;
     new (): HTMLKupMenuElement;
+  };
+
+  interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {}
+  var HTMLKupModalElement: {
+    prototype: HTMLKupModalElement;
+    new (): HTMLKupModalElement;
   };
 
   interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
@@ -1356,6 +1407,7 @@ declare global {
     'kup-chip': HTMLKupChipElement;
     'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combo': HTMLKupComboElement;
+    'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-fld': HTMLKupFldElement;
@@ -1368,6 +1420,7 @@ declare global {
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-layout': HTMLKupLayoutElement;
     'kup-menu': HTMLKupMenuElement;
+    'kup-modal': HTMLKupModalElement;
     'kup-paginator': HTMLKupPaginatorElement;
     'kup-portal': HTMLKupPortalElement;
     'kup-portal-instance': HTMLKupPortalInstanceElement;
@@ -1815,6 +1868,27 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
+  interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
+    'actions'?: FormActions;
+    'config'?: CrudConfig;
+    'crudCallBackOnFormActionSubmitted'?: (
+    detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'crudCallBackOnFormFieldChanged'?: (
+    detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'extra'?: any;
+    'extraMessages'?: FormMessage[];
+    'fields'?: FormFields;
+    'onKupCrudBlurred'?: (event: CustomEvent<any>) => void;
+    'onKupCrudFocused'?: (event: CustomEvent<any>) => void;
+    'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
+    'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
+    'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
+    'records'?: FormRecord[];
+    'refid'?: string;
+    'sections'?: FormSection;
+  }
   interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
     'active'?: boolean;
     'fontsize'?: string;
@@ -1953,13 +2027,20 @@ declare namespace LocalJSX {
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
     'config'?: FormConfig;
+    'crudCallBackOnFormActionSubmitted'?: (
+    detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'crudCallBackOnFormFieldChanged'?: (
+    detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'extra'?: any;
     'extraMessages'?: FormMessage[];
     'fields'?: FormFields;
     'onKupFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'onKupFormSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
+    'refid'?: string;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
@@ -2143,6 +2224,11 @@ declare namespace LocalJSX {
     */
     'positionRelativeTo'?: HTMLElement;
   }
+  interface KupModal extends JSXBase.HTMLAttributes<HTMLKupModalElement> {
+    'header'?: string;
+    'onKupModalCancel'?: (event: CustomEvent<any>) => void;
+    'visible'?: boolean;
+  }
   interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
@@ -2310,6 +2396,10 @@ declare namespace LocalJSX {
     * When text field loses focus (blur)
     */
     'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
+    /**
+    * When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput)
+    */
+    'onKetchupTextInputChanged'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
     /**
     * When the text input gains focus
     */
@@ -2749,6 +2839,7 @@ declare namespace LocalJSX {
     'kup-chip': KupChip;
     'kup-chip-knowledge': KupChipKnowledge;
     'kup-combo': KupCombo;
+    'kup-crud': KupCrud;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
     'kup-fld': KupFld;
@@ -2761,6 +2852,7 @@ declare namespace LocalJSX {
     'kup-image-button': KupImageButton;
     'kup-layout': KupLayout;
     'kup-menu': KupMenu;
+    'kup-modal': KupModal;
     'kup-paginator': KupPaginator;
     'kup-portal': KupPortal;
     'kup-portal-instance': KupPortalInstance;

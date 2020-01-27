@@ -1,13 +1,21 @@
 {
+  "refid": "user-xxx",
+
+  "extra": {
+    "aParamForBackend": "AAA"
+  },
+
+  "formOpened": false,
+
   "config": {
-    "liveValidation": true
+    "liveCheck": true
   },
 
   "fields": {
     "avatar": {
       "key": "avatar",
       "title": "Avatar",
-      "hidden": true,
+      "hidden": false,
       "titlePosition": "Top",
       "description": "Avatar",
       "shape": "IMG",
@@ -26,8 +34,7 @@
         "t": "CN",
         "p": "COL",
         "k": "PARFRA"
-      },
-      "value": "https://via.placeholder.com/64?text=CUSTOM"
+      }
     },
     "firstName": {
       "key": "firstName",
@@ -48,8 +55,7 @@
         "t": "",
         "p": "",
         "k": "Marco"
-      },
-      "value": "Marco"
+      }
     },
     "lastName": {
       "key": "lastName",
@@ -69,8 +75,7 @@
         "t": "",
         "p": "",
         "k": "Aurelio"
-      },
-      "value": "Aurelio"
+      }
     },
     "country": {
       "key": "country",
@@ -78,77 +83,70 @@
       "titlePosition": "Left",
       "description": "Country",
       "shape": "CMB",
-      "data": [
-        {
-          "value": "CH",
-          "description": "Switzerland"
-        },
-        {
-          "value": "ES",
-          "description": "Spain"
-        },
-        {
-          "value": "IT",
-          "description": "Italy"
-        },
-        {
-          "value": "UK",
-          "description": "United Kingdom"
-        },
-        {
-          "value": "GEM",
-          "description": "Global error message"
-        },
-        {
-          "value": "GWM",
-          "description": "Global warning message"
-        },
-        {
-          "value": "GIM",
-          "description": "Global info message"
-        },
-        {
-          "value": "FEM",
-          "description": "Field error message"
-        },
-        {
-          "value": "FWM",
-          "description": "Field warning message"
-        },
-        {
-          "value": "FIM",
-          "description": "Field info message"
-        },
-        {
-          "value": "GVM",
-          "description": "Global values modify"
-        },
-        {
-          "value": "FVM",
-          "description": "Field value modify"
-        },
-        {
-          "value": "GTM",
-          "description": "Global titles modify"
-        },
-        {
-          "value": "FTM",
-          "description": "Field title modify"
-        }
-      ],
       "config": {
         "displayedField": "description",
-        "valueField": "value"
+        "valueField": "value",
+        "data": [
+          {
+            "value": "CH",
+            "description": "Switzerland"
+          },
+          {
+            "value": "ES",
+            "description": "Spain"
+          },
+          {
+            "value": "IT",
+            "description": "Italy"
+          },
+          {
+            "value": "UK",
+            "description": "United Kingdom"
+          },
+          {
+            "value": "GEM",
+            "description": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "description": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "description": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "description": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "description": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "description": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "description": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "description": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "description": "Field value updated"
+          }
+        ]
       },
       "obj": {
         "t": "TA",
         "p": "V§N",
         "k": "IT"
       },
-      "value": {
-        "value": "IT",
-        "description": "Italy"
-      }
+      "outputValueFunction": "description"
     },
     "region": {
       "key": "region",
@@ -156,78 +154,73 @@
       "titlePosition": "Left",
       "description": "Region",
       "shape": "CMB",
-      "data": [
-        {
-          "value": "01",
-          "description": "Val d'Aosta"
-        },
-        {
-          "value": "02",
-          "description": "Piemonte"
-        },
-        {
-          "value": "03",
-          "description": "Lombardia"
-        },
-        {
-          "value": "08",
-          "description": "Lazio"
-        },
-        {
-          "value": "GEM",
-          "description": "Global error message"
-        },
-        {
-          "value": "GWM",
-          "description": "Global warning message"
-        },
-        {
-          "value": "GIM",
-          "description": "Global info message"
-        },
-        {
-          "value": "FEM",
-          "description": "Field error message"
-        },
-        {
-          "value": "FWM",
-          "description": "Field warning message"
-        },
-        {
-          "value": "FIM",
-          "description": "Field info message"
-        },
-        {
-          "value": "GVM",
-          "description": "Global values modify"
-        },
-        {
-          "value": "FVM",
-          "description": "Field value modify"
-        },
-        {
-          "value": "GTM",
-          "description": "Global titles modify"
-        },
-        {
-          "value": "FTM",
-          "description": "Field title modify"
-        }
-      ],
       "config": {
         "displayedField": "description",
-        "valueField": "value"
+        "valueField": "value",
+        "data": [
+          {
+            "value": "01",
+            "description": "Val d'Aosta"
+          },
+          {
+            "value": "02",
+            "description": "Piemonte"
+          },
+          {
+            "value": "03",
+            "description": "Lombardia"
+          },
+          {
+            "value": "08",
+            "description": "Lazio"
+          },
+          {
+            "value": "GEM",
+            "description": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "description": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "description": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "description": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "description": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "description": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "description": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "description": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "description": "Field value updated"
+          }
+        ]
       },
       "obj": {
         "t": "",
         "p": "V§R",
         "k": "08"
       },
-      "value": {
-        "value": "08",
-        "description": "Lazio"
-      },
-      "liveBackend": true
+      "outputValueFunction": "description",
+      "extra": {
+        "liveBackendCheck": true
+      }
     },
     "address": {
       "key": "address",
@@ -247,8 +240,381 @@
         "p": "",
         "k": "Roma"
       },
-      "value": "Roma",
-      "liveBackend": true
+      "extra": {
+        "liveBackendCheck": true
+      }
+    },
+    "father": {
+      "key": "father",
+      "title": "Father",
+      "titlePosition": "None",
+      "description": "Father",
+      "shape": "CFG",
+      "validate": {
+        "required": true
+      },
+      "refid": "father-xxx",
+      "extra": {
+        "aParamForBackend": "BBB",
+        "liveBackendCheck": true
+      },
+      "config": {
+        "config": {
+          "liveCheck": true
+        },
+        "fields": {
+          "avatar": {
+            "key": "avatar",
+            "title": "Avatar",
+            "hidden": false,
+            "titlePosition": "Top",
+            "description": "Avatar",
+            "shape": "IMG",
+            "tooltip": "avatar",
+            "config": {
+              "badges": [
+                {
+                  "icon": "mdi mdi-account",
+                  "position": "BR"
+                }
+              ],
+              "width": "20",
+              "height": "20"
+            },
+            "obj": {
+              "t": "CN",
+              "p": "COL",
+              "k": "PARFRA"
+            }
+          },
+          "firstName": {
+            "key": "firstName",
+            "title": "First name",
+            "titlePosition": "None",
+            "description": "First name",
+            "shape": "ITX",
+            "validate": {
+              "required": true,
+              "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
+              "minLength": 3
+            },
+            "config": {
+              "isClearable": true,
+              "maxLenght": 10
+            },
+            "obj": {
+              "t": "",
+              "p": "",
+              "k": "Antonino"
+            }
+          },
+          "lastName": {
+            "key": "lastName",
+            "title": "Last name",
+            "titlePosition": "None",
+            "description": "Last name",
+            "shape": "ITX",
+            "validate": {
+              "required": true,
+              "minLength": 3
+            },
+            "config": {
+              "isClearable": true,
+              "maxLenght": 5
+            },
+            "obj": {
+              "t": "",
+              "p": "",
+              "k": "Pio"
+            }
+          },
+          "country": {
+            "key": "country",
+            "title": "Country",
+            "titlePosition": "Left",
+            "description": "Country",
+            "shape": "CMB",
+            "config": {
+              "displayedField": "description",
+              "valueField": "value",
+              "data": [
+                {
+                  "value": "CH",
+                  "description": "Switzerland"
+                },
+                {
+                  "value": "ES",
+                  "description": "Spain"
+                },
+                {
+                  "value": "IT",
+                  "description": "Italy"
+                },
+                {
+                  "value": "UK",
+                  "description": "United Kingdom"
+                },
+                {
+                  "value": "GEM",
+                  "description": "Global error message"
+                },
+                {
+                  "value": "GWM",
+                  "description": "Global warning message"
+                },
+                {
+                  "value": "GIM",
+                  "description": "Global info message"
+                },
+                {
+                  "value": "FEM",
+                  "description": "Field error message"
+                },
+                {
+                  "value": "FWM",
+                  "description": "Field warning message"
+                },
+                {
+                  "value": "FIM",
+                  "description": "Field info message"
+                },
+                {
+                  "value": "GVM",
+                  "description": "Global values modify"
+                },
+                {
+                  "value": "FVM",
+                  "description": "Field value modify"
+                },
+                {
+                  "value": "FVU",
+                  "description": "Field value updated"
+                }
+              ]
+            },
+            "obj": {
+              "t": "TA",
+              "p": "V§N",
+              "k": "IT"
+            },
+            "outputValueFunction": "description"
+          },
+          "region": {
+            "key": "region",
+            "title": "Region",
+            "titlePosition": "Left",
+            "description": "Region",
+            "shape": "CMB",
+            "config": {
+              "displayedField": "description",
+              "valueField": "value",
+              "data": [
+                {
+                  "value": "01",
+                  "description": "Val d'Aosta"
+                },
+                {
+                  "value": "02",
+                  "description": "Piemonte"
+                },
+                {
+                  "value": "03",
+                  "description": "Lombardia"
+                },
+                {
+                  "value": "08",
+                  "description": "Lazio"
+                },
+                {
+                  "value": "GEM",
+                  "description": "Global error message"
+                },
+                {
+                  "value": "GWM",
+                  "description": "Global warning message"
+                },
+                {
+                  "value": "GIM",
+                  "description": "Global info message"
+                },
+                {
+                  "value": "FEM",
+                  "description": "Field error message"
+                },
+                {
+                  "value": "FWM",
+                  "description": "Field warning message"
+                },
+                {
+                  "value": "FIM",
+                  "description": "Field info message"
+                },
+                {
+                  "value": "GVM",
+                  "description": "Global values modify"
+                },
+                {
+                  "value": "FVM",
+                  "description": "Field value modify"
+                },
+                {
+                  "value": "FVU",
+                  "description": "Field value updated"
+                }
+              ]
+            },
+            "obj": {
+              "t": "",
+              "p": "V§R",
+              "k": "08"
+            },
+            "outputValueFunction": "description",
+            "extra": {
+              "liveBackendCheck": true
+            }
+          },
+          "address": {
+            "key": "address",
+            "title": "Address",
+            "titlePosition": "None",
+            "description": "Address",
+            "shape": "ITX",
+            "validate": {
+              "required": true,
+              "minLength": 3
+            },
+            "config": {
+              "isClearable": true
+            },
+            "obj": {
+              "t": "",
+              "p": "",
+              "k": "Lanuvio"
+            },
+            "extra": {
+              "liveBackendCheck": true
+            }
+          },
+          "father": {
+            "key": "father",
+            "title": "Father",
+            "titlePosition": "None",
+            "description": "Father",
+            "shape": "CFG",
+            "validate": {
+              "required": true
+            },
+            "refid": "father-father-xxx",
+            "extra": {
+              "aParamForBackend": "CCC"
+            },
+            "config": {},
+            "outputValueFunction": "firstName"
+          }
+        },
+
+        "sections": {
+          "horizontal": true,
+          "sections": [
+            {
+              "fields": ["avatar"]
+            },
+            {
+              "sections": [
+                { "fields": ["firstName"] },
+                { "fields": ["lastName"] },
+                { "fields": ["country"] },
+                { "fields": ["region"] },
+                { "fields": ["address"] },
+                { "fields": ["father"] }
+              ]
+            }
+          ]
+        },
+
+        "extraMessages": [],
+
+        "actions": {
+          "fields": {
+            "submit": {
+              "key": "submit",
+              "value": "Confirm",
+              "config": {
+                "showtext": true,
+                "flat": false
+              }
+            },
+            "action1": {
+              "key": "action1",
+              "hidden": false,
+              "tooltip": "action 1",
+              "shape": "BTN",
+              "config": {
+                "showtext": true,
+                "flat": false,
+                "icon": "mdi mdi-settings"
+              },
+              "obj": {
+                "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+                "p": "BTN",
+                "t": "J4"
+              },
+              "value": "Action 1"
+            },
+            "action2": {
+              "key": "action2",
+              "hidden": false,
+              "tooltip": "action 2",
+              "shape": "BTN",
+              "config": {
+                "showtext": true,
+                "flat": false,
+                "icon": "mdi mdi-delete",
+                "buttonStyle": {
+                  "backgroundColor": "#8B0000",
+                  "color": "#FFF"
+                }
+              },
+              "obj": {
+                "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
+                "p": "BTN",
+                "t": "J4"
+              },
+              "value": "Action 2"
+            },
+            "action3": {
+              "key": "action3",
+              "hidden": false,
+              "tooltip": "action 3",
+              "shape": "BTN",
+              "config": {
+                "showtext": true,
+                "flat": false,
+                "imageSrc": "https://via.placeholder.com/64?text=A3"
+              },
+              "obj": {
+                "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
+                "p": "BTN",
+                "t": "J4"
+              },
+              "options": false,
+              "value": "Action 3"
+            }
+          },
+          "sections": [
+            { "position": "BR", "fields": ["action2"] },
+            { "position": "BL", "fields": ["submit"] },
+            { "position": "TL", "fields": ["submit"] },
+            { "position": "TR", "fields": ["action3", "action1"] }
+          ]
+        }
+      },
+      "obj": {
+        "t": "J5",
+        "p": "BRARTI",
+        "k": "avatar() firstName(Antonino) country(IT)"
+      },
+      "outputValueFunction": "firstName"
     }
   },
 
@@ -256,7 +622,6 @@
     "horizontal": true,
     "sections": [
       {
-        "dim": "30%",
         "fields": ["avatar"]
       },
       {
@@ -265,7 +630,8 @@
           { "fields": ["lastName"] },
           { "fields": ["country"] },
           { "fields": ["region"] },
-          { "fields": ["address"] }
+          { "fields": ["address"] },
+          { "fields": ["father"] }
         ]
       }
     ]
@@ -299,18 +665,6 @@
       }
     }
   },
-
-  "extraMessages": [
-    {
-      "fieldKey": "firstName",
-      "text": "WARNING message from server for field firstName",
-      "level": "WARNING"
-    },
-    {
-      "text": "INFO global message from server",
-      "level": "INFO"
-    }
-  ],
 
   "actions": {
     "fields": {
@@ -361,7 +715,7 @@
         "value": "Action 2"
       },
       "action3": {
-        "key": "action2",
+        "key": "action3",
         "hidden": false,
         "tooltip": "action 3",
         "shape": "BTN",
@@ -385,5 +739,66 @@
       { "position": "TL", "fields": ["submit"] },
       { "position": "TR", "fields": ["action3", "action1"] }
     ]
-  }
+  },
+
+  "records": [
+    {
+      "id": 1,
+      "fields": {
+        "avatar": {
+          "key": "avatar",
+          "value": "https://via.placeholder.com/64?text=CUSTOM"
+        },
+        "firstName": {
+          "key": "firstName",
+          "value": "Marco"
+        },
+        "lastName": {
+          "key": "lastName",
+          "value": "Aurelio"
+        },
+        "country": {
+          "key": "country",
+          "value": {
+            "value": "IT",
+            "description": "Italy"
+          }
+        },
+        "region": {
+          "key": "region",
+          "value": {
+            "value": "08",
+            "description": "Lazio"
+          }
+        },
+        "address": {
+          "key": "address",
+          "value": "Roma"
+        },
+        "father": {
+          "key": "father",
+          "value": [
+            {
+              "avatar": "https://via.placeholder.com/64?text=CUSTOM",
+              "firstName": "Antonino",
+              "lastName": "Pio",
+              "country": { "value": "IT", "description": "Italy" },
+              "region": { "value": "08", "description": "Lazio" },
+              "address": "Lanuvio",
+              "father": [
+                {
+                  "avatar": "https://via.placeholder.com/64?text=CUSTOM",
+                  "firstName": "Tito",
+                  "lastName": "Flavio",
+                  "country": { "value": "IT", "description": "Italy" },
+                  "region": { "value": "08", "description": "Lazio" },
+                  "address": "Ostia"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

@@ -110,6 +110,11 @@ let advancedRoutes = [
     name: 'form',
     component: () => import(`@/views/advanced/form/Form.vue`),
   },
+  {
+    path: `/crud`,
+    name: 'crud',
+    component: () => import(`@/views/advanced/crud/Crud.vue`),
+  },
 ];
 
 let javascriptRoutes = [
