@@ -330,6 +330,7 @@ export class KupForm {
                             style={wrapperStyle}
                             input-type="text"
                             initialValue={field.value}
+                            disabled={field.readonly}
                             onKetchupTextInputChanged={(e) =>
                                 this.onSimpleValueFieldChange(e, field)
                             }
@@ -347,6 +348,7 @@ export class KupForm {
                             items={field.config.data}
                             {...field.config}
                             initialValue={field.value}
+                            disabled={field.readonly}
                             onKetchupComboSelected={(e) =>
                                 this.onSimpleValueFieldChange(e, field)
                             }
@@ -364,6 +366,7 @@ export class KupForm {
                         <kup-crud
                             refid={field.refid}
                             extra={field.extra}
+                            disabled={field.readonly}
                             config={field.config.config}
                             fields={field.config.fields}
                             records={records}
@@ -391,6 +394,7 @@ export class KupForm {
                         <kup-autocomplete
                             extra={field.extra}
                             initialSelectedItems={field.value}
+                            disabled={field.readonly}
                             items={field.config.items}
                             minimumChars={field.config.minimumChars}
                             showClearIcon={field.config.showClearIcon}

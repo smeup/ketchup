@@ -100,4 +100,8 @@ label {
       fill: var(--itx_icon-color--hover);
     }
   }
+
+  &:disabled {
+    background-color: #f0f0f0;
+  }
 }

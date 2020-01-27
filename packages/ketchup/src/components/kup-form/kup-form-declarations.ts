@@ -8,6 +8,7 @@ export interface FormField {
     title?: string;
     description?: string;
     hidden?: boolean;
+    readonly?: boolean;
     shape?: string;
     validate?: FormFieldValidate;
     outputValueFunction?: string;
@@ -105,6 +106,7 @@ export interface FormActionEventDetail {
     isValid?: boolean;
     action?: {
         key: string;
+        extra?: string;
     };
     actual?: {
         fields: {

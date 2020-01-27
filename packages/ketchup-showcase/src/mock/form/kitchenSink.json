@@ -62,6 +62,7 @@
       "title": "Last name",
       "titlePosition": "None",
       "description": "Last name",
+      "readonly": true,
       "shape": "ITX",
       "validate": {
         "required": true,
@@ -138,6 +139,14 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global readonly unset"
           }
         ]
       },
@@ -209,6 +218,14 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global reaonly unset"
           }
         ]
       },
@@ -289,6 +306,7 @@
       "extra": {
         "aParamForBackend": "Company"
       },
+      "outputValueFunction": "description",
       "config": {
         "serverHandledFilter": true,
         "minimumChars": 3,
@@ -365,6 +383,7 @@
             "title": "Last name",
             "titlePosition": "None",
             "description": "Last name",
+            "readonly": true,
             "shape": "ITX",
             "validate": {
               "required": true,
@@ -441,6 +460,14 @@
                 {
                   "value": "FVU",
                   "description": "Field value updated"
+                },
+                {
+                  "value": "GRS",
+                  "description": "Global readonly set"
+                },
+                {
+                  "value": "GRU",
+                  "description": "Global readonly unset"
                 }
               ]
             },
@@ -512,6 +539,14 @@
                 {
                   "value": "FVU",
                   "description": "Field value updated"
+                },
+                {
+                  "value": "GRS",
+                  "description": "Global readonly set"
+                },
+                {
+                  "value": "GRU",
+                  "description": "Global readonly unset"
                 }
               ]
             },

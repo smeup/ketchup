@@ -13,19 +13,20 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default     |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `config`                             | --        |             | `CrudConfig`                                                                       | `{}`        |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
-| `records`                            | --        |             | `FormRecord[]`                                                                     | `undefined` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
+| Property                             | Attribute  | Description | Type                                                                               | Default     |
+| ------------------------------------ | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --         |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --         |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `config`                             | --         |             | `CrudConfig`                                                                       | `{}`        |
+| `crudCallBackOnFormActionSubmitted`  | --         |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --         |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `disabled`                           | `disabled` |             | `boolean`                                                                          | `false`     |
+| `extra`                              | `extra`    |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --         |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --         |             | `FormFields`                                                                       | `undefined` |
+| `records`                            | --         |             | `FormRecord[]`                                                                     | `undefined` |
+| `refid`                              | `refid`    |             | `string`                                                                           | `undefined` |
+| `sections`                           | --         |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
