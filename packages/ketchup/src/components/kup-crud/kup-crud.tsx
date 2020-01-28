@@ -61,6 +61,8 @@ export class KupCrud {
 
     @Prop({ mutable: true }) actions: FormActions;
 
+    @Prop({ reflect: true }) disabled: boolean = false;
+
     @Prop() crudCallBackOnFormActionSubmitted: (
         detail: FormActionEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
@@ -256,6 +258,23 @@ export class KupCrud {
         const btnStyle = {};
         btnStyle['--kup-button_border-color-focused'] = '#66D3FA';
 
+        let configureButtonContent = !this.disabled ? (
+            <kup-button
+                style={btnStyle}
+                id="open-modal"
+                label="Configure"
+                showtext={true}
+                flat={false}
+                onClick={(e) => this.onOpenFormClicked(e)}
+                onBlur={(e) => this.onCrudBlurred(e)}
+                onFocus={(e) => this.onCrudFocused(e)}
+            >
+                Configure
+            </kup-button>
+        ) : (
+            ''
+        );
+
         return (
             <Host refid={this.refid}>
                 <div class="crud-component ">
@@ -267,20 +286,8 @@ export class KupCrud {
                             <tr>{tableRows}</tr>
                         </tbody>
                     </table>
-
+                    {configureButtonContent}
                     <p>{this.refid}</p>
-                    <kup-button
-                        style={btnStyle}
-                        id="open-modal"
-                        label="Configure"
-                        showtext={true}
-                        flat={false}
-                        onClick={(e) => this.onOpenFormClicked(e)}
-                        onBlur={(e) => this.onCrudBlurred(e)}
-                        onFocus={(e) => this.onCrudFocused(e)}
-                    >
-                        Configure
-                    </kup-button>
 
                     <kup-modal
                         id="modal"
@@ -344,8 +351,11 @@ export class KupCrud {
         if (result.fields) {
             const keys = Object.keys(result.fields);
             keys.forEach((key) => {
-                if (this.fields[key].hasOwnProperty('value')) {
+                if (result.fields[key].hasOwnProperty('value')) {
                     this.fields[key].value = result.fields[key].value;
+                }
+                if (result.fields[key].hasOwnProperty('readonly')) {
+                    this.fields[key].readonly = result.fields[key].readonly;
                 }
             });
         }

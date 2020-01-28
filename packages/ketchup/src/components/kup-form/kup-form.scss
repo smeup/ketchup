@@ -124,7 +124,10 @@
         }
 
         .form-field {
+          border: 1px dotted var(--form_border-color);
+          margin: 3px;
           padding: 1px 4px;
+
           kup-image,
           kup-checkbox,
           kup-icon {

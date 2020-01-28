@@ -442,6 +442,7 @@ export namespace Components {
     'crudCallBackOnFormFieldChanged': (
     detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'disabled': boolean;
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
@@ -1914,6 +1915,7 @@ declare namespace LocalJSX {
     'crudCallBackOnFormFieldChanged'?: (
     detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'disabled'?: boolean;
     'extra'?: any;
     'extraMessages'?: FormMessage[];
     'fields'?: FormFields;

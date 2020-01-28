@@ -36,6 +36,22 @@
         "k": "PARFRA"
       }
     },
+    "score": {
+      "key": "score",
+      "title": "Score",
+      "titlePosition": "Top",
+      "description": "Score",
+      "tooltip": "score",
+      "obj": {
+        "t": "J4",
+        "p": "PGB",
+        "k": "#C01BAF;70"
+      },
+      "config": {
+        "foregroundColor": "#e0e0e0",
+        "textColor": "black"
+      }
+    },
     "firstName": {
       "key": "firstName",
       "title": "First name",
@@ -62,6 +78,7 @@
       "title": "Last name",
       "titlePosition": "None",
       "description": "Last name",
+      "readonly": true,
       "shape": "ITX",
       "validate": {
         "required": true,
@@ -138,6 +155,14 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global readonly unset"
           }
         ]
       },
@@ -209,6 +234,14 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global reaonly unset"
           }
         ]
       },
@@ -289,6 +322,7 @@
       "extra": {
         "aParamForBackend": "Company"
       },
+      "outputValueFunction": "description",
       "config": {
         "serverHandledFilter": true,
         "minimumChars": 3,
@@ -365,6 +399,7 @@
             "title": "Last name",
             "titlePosition": "None",
             "description": "Last name",
+            "readonly": true,
             "shape": "ITX",
             "validate": {
               "required": true,
@@ -441,6 +476,14 @@
                 {
                   "value": "FVU",
                   "description": "Field value updated"
+                },
+                {
+                  "value": "GRS",
+                  "description": "Global readonly set"
+                },
+                {
+                  "value": "GRU",
+                  "description": "Global readonly unset"
                 }
               ]
             },
@@ -512,6 +555,14 @@
                 {
                   "value": "FVU",
                   "description": "Field value updated"
+                },
+                {
+                  "value": "GRS",
+                  "description": "Global readonly set"
+                },
+                {
+                  "value": "GRU",
+                  "description": "Global readonly unset"
                 }
               ]
             },
@@ -708,21 +759,29 @@
   },
 
   "sections": {
-    "horizontal": true,
+    "horizontal": false,
     "sections": [
       {
-        "fields": ["avatar"]
+        "horizontal": true,
+        "sections": [
+          { "dim": "40%", "fields": ["avatar"] },
+          { "fields": ["score"] }
+        ]
       },
       {
         "sections": [
-          { "fields": ["firstName"] },
-          { "fields": ["lastName"] },
-          { "fields": ["country"] },
-          { "fields": ["region"] },
-          { "fields": ["address"] },
-          { "fields": ["occupation"] },
-          { "fields": ["company"] },
-          { "fields": ["father"] }
+          {
+            "fields": [
+              "firstName",
+              "lastName",
+              "country",
+              "region",
+              "address",
+              "occupation",
+              "company",
+              "father"
+            ]
+          }
         ]
       }
     ]
@@ -839,6 +898,10 @@
         "avatar": {
           "key": "avatar",
           "value": "https://via.placeholder.com/64?text=CUSTOM"
+        },
+        "score": {
+          "key": "score",
+          "value": "70"
         },
         "firstName": {
           "key": "firstName",

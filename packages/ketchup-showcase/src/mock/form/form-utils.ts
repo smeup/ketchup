@@ -144,8 +144,31 @@ export function fakeBackendLogic(
       if (fieldValueIsOfType(field, 'GVM')) {
         console.log('GVM backend modify of field with key ' + field.key);
         keys.forEach((key) => {
-          console.log('Modify ' + key);
           newFields = fieldValueModify(aParamForBackend, newFields, key);
+        });
+      }
+      if (fieldValueIsOfType(field, 'GRS')) {
+        console.log('GVM backend set readonly for field with key ' + field.key);
+        keys.forEach((key) => {
+          newFields = fieldReadonlyModify(
+            aParamForBackend,
+            newFields,
+            key,
+            true
+          );
+        });
+      }
+      if (fieldValueIsOfType(field, 'GRU')) {
+        console.log(
+          'GVM backend unset readonly for field with key ' + field.key
+        );
+        keys.forEach((key) => {
+          newFields = fieldReadonlyModify(
+            aParamForBackend,
+            newFields,
+            key,
+            false
+          );
         });
       }
     });
@@ -211,6 +234,18 @@ export function fieldValueModify(
         : '');
   } else {
     // do nothing
+  }
+  return newFields;
+}
+
+export function fieldReadonlyModify(
+  aParamForBackend: string,
+  newFields: any,
+  key: string,
+  readonly: boolean
+) {
+  if (key != 'country' && key != 'region') {
+    newFields[key].readonly = readonly;
   }
   return newFields;
 }

@@ -67,6 +67,10 @@
               GVM, FVM -> you will obtain a Global or a Field backend Value
               Modified
             </li>
+            <li>
+              GRS, GRU -> you will obtain a Set / Unset of Readonly prop for
+              some fields
+            </li>
           </ul>
           <p></p>
           <p>
@@ -248,8 +252,11 @@ export default {
       if (result.fields) {
         const keys = Object.keys(result.fields);
         keys.forEach((key) => {
-          if (this.$refs.form.fields[key].hasOwnProperty('value')) {
+          if (result.fields[key].hasOwnProperty('value')) {
             this.$refs.form.fields[key].value = result.fields[key].value;
+          }
+          if (result.fields[key].hasOwnProperty('readonly')) {
+            this.$refs.form.fields[key].readonly = result.fields[key].readonly;
           }
         });
       }
