@@ -46,6 +46,10 @@ h3 {
   width: calc(100% - 250px);
 }
 
+#page-content.no-nav {
+  width: 100%;
+}
+
 .section {
   margin-bottom: 6rem;
 }
