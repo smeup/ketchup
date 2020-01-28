@@ -9,12 +9,12 @@
 
 | Property          | Attribute         | Description                                                                               | Type      | Default |
 | ----------------- | ----------------- | ----------------------------------------------------------------------------------------- | --------- | ------- |
-| `custom`          | `custom`          | Defaults at false. When set to true, mixins and classes of customization are enabled.     | `boolean` | `false` |
 | `disabled`        | `disabled`        | Defaults at false. When set to true, the component is disabled.                           | `boolean` | `false` |
 | `fullwidth`       | `fullwidth`       | Defaults at false. When set to true, the component will be rendered at full width.        | `boolean` | `false` |
 | `helper`          | `helper`          | Defaults at null. When set, its content will be shown as a help text below the field.     | `string`  | `null`  |
 | `helperwhenfocus` | `helperwhenfocus` | Defaults at false. When set, the helper will be shown only when the field is focused.     | `boolean` | `false` |
 | `icon`            | `icon`            | Defaults at null. When set, the text-field will show this icon.                           | `string`  | `null`  |
+| `initialvalue`    | `initialvalue`    | Sets the initial value of the component                                                   | `string`  | `''`    |
 | `label`           | `label`           | Defaults at null. When set, its content will be shown as a label.                         | `string`  | `null`  |
 | `labelleft`       | `labelleft`       | Defaults at null. When set, its content will be shown as a label to the left in a form.   | `string`  | `null`  |
 | `labelright`      | `labelright`      | Defaults at null. When set, its content will be shown as a label to the right in a form.  | `string`  | `null`  |
@@ -27,13 +27,13 @@
 
 ## Events
 
-| Event                | Description | Type                           |
-| -------------------- | ----------- | ------------------------------ |
-| `kupTextFieldBlur`   |             | `CustomEvent<{ value: any; }>` |
-| `kupTextFieldChange` |             | `CustomEvent<{ value: any; }>` |
-| `kupTextFieldClick`  |             | `CustomEvent<{ value: any; }>` |
-| `kupTextFieldFocus`  |             | `CustomEvent<{ value: any; }>` |
-| `kupTextFieldInput`  |             | `CustomEvent<{ value: any; }>` |
+| Event                | Description | Type                              |
+| -------------------- | ----------- | --------------------------------- |
+| `kupTextFieldBlur`   |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldChange` |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldClick`  |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldFocus`  |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldInput`  |             | `CustomEvent<{ value: string; }>` |
 
 
 ----------------------------------------------

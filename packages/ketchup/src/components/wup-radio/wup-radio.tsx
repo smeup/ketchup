@@ -20,10 +20,6 @@ export class WupRadio {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
@@ -47,7 +43,7 @@ export class WupRadio {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -57,7 +53,7 @@ export class WupRadio {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -67,7 +63,7 @@ export class WupRadio {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -77,7 +73,7 @@ export class WupRadio {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -87,49 +83,44 @@ export class WupRadio {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupBlur.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupChange.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupClick.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupFocus.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupInput.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -152,10 +143,6 @@ export class WupRadio {
         let formClass: string = 'mdc-form-field';
         let widgetClass: string = 'mdc-radio';
         let widgetLabel: string = '';
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
 
         if (this.disabled) {
             widgetClass += ' mdc-radio--disabled';
@@ -183,11 +170,11 @@ export class WupRadio {
                                 id="radio-id"
                                 checked={this.checked}
                                 disabled={this.disabled}
-                                onBlur={this.onKupBlur.bind(this)}
-                                onChange={this.onKupChange.bind(this)}
-                                onClick={this.onKupClick.bind(this)}
-                                onFocus={this.onKupFocus.bind(this)}
-                                onInput={this.onKupInput.bind(this)}
+                                onBlur={(e: any) => this.onKupBlur(e)}
+                                onChange={(e: any) => this.onKupChange(e)}
+                                onClick={(e: any) => this.onKupClick(e)}
+                                onFocus={(e: any) => this.onKupFocus(e)}
+                                onInput={(e: any) => this.onKupInput(e)}
                             ></input>
                             <div class="mdc-radio__background">
                                 <div class="mdc-radio__outer-circle"></div>

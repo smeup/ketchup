@@ -962,10 +962,6 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1004,10 +1000,6 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1030,10 +1022,6 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1052,10 +1040,6 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1070,29 +1054,17 @@ export namespace Components {
   }
   interface WupTabBar {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * List of elements.
     */
     'items': WidgetTabBarElement[];
   }
   interface WupTemplate {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
   }
   interface WupTextField {
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1113,6 +1085,10 @@ export namespace Components {
     * Defaults at null. When set, the text-field will show this icon.
     */
     'icon': string;
+    /**
+    * Sets the initial value of the component
+    */
+    'initialvalue': string;
     /**
     * Defaults at null. When set, its content will be shown as a label.
     */
@@ -2574,10 +2550,6 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2631,10 +2603,6 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2651,19 +2619,19 @@ declare namespace LocalJSX {
     */
     'labelright'?: string;
     'onKupCheckboxBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
@@ -2671,10 +2639,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2688,19 +2652,19 @@ declare namespace LocalJSX {
     */
     'labelright'?: string;
     'onKupRadioBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
@@ -2708,10 +2672,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2725,51 +2685,48 @@ declare namespace LocalJSX {
     */
     'labelright'?: string;
     'onKupSwitchBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * List of elements.
     */
     'items'?: WidgetTabBarElement[];
     'onKupTabBarBlur'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarChange'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarClick'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarFocus'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarInput'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
   }
   interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2795,10 +2752,6 @@ declare namespace LocalJSX {
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2819,6 +2772,10 @@ declare namespace LocalJSX {
     */
     'icon'?: string;
     /**
+    * Sets the initial value of the component
+    */
+    'initialvalue'?: string;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label'?: string;
@@ -2835,19 +2792,19 @@ declare namespace LocalJSX {
     */
     'maxlength'?: number;
     'onKupTextFieldBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.

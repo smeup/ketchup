@@ -20,10 +20,6 @@ export class WupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
@@ -112,47 +108,52 @@ export class WupButton {
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur() {
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
-        this.kupChange.emit({
-            value: target.value,
-        });
-        this.value = target.value;
-    }
-
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange() {
         this.kupClick.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick() {
+        if (this.checked) {
+            this.checked = false;
+            this.value = 'off';
+        } else {
+            this.checked = true;
+            this.value = 'on';
+        }
+        this.kupChange.emit({
+            value: this.value,
+        });
+    }
+
+    onKupFocus() {
         this.kupFocus.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput() {
         this.kupInput.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        if (this.checked && this.text === null && this.icon !== null) {
+            this.value = 'on';
+        } else {
+            this.value = 'off';
+        }
+    }
 
     componentDidLoad() {
         const root = this.rootElement.shadowRoot;
@@ -179,10 +180,6 @@ export class WupButton {
         let textEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
 
         if (this.disabled) {
             widgetClass += ' mdc-button--disabled';
@@ -226,11 +223,11 @@ export class WupButton {
                             type="button"
                             class={widgetClass}
                             disabled={this.disabled}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
+                            onBlur={() => this.onKupBlur()}
+                            onChange={() => this.onKupChange()}
+                            onClick={() => this.onKupClick()}
+                            onFocus={() => this.onKupFocus()}
+                            onInput={() => this.onKupInput()}
                         >
                             <div class="mdc-button__ripple"></div>
                             {leadingEl}
@@ -275,15 +272,19 @@ export class WupButton {
             return (
                 <Host>
                     <div id="kup-component">
+                        {/* 
+                            // @ts-ignore */}
                         <button
                             type="button"
                             class={widgetClass}
+                            checked={this.checked}
                             disabled={this.disabled}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
+                            value={this.value}
+                            onBlur={() => this.onKupBlur()}
+                            onChange={() => this.onKupChange()}
+                            onClick={() => this.onKupClick()}
+                            onFocus={() => this.onKupFocus()}
+                            onInput={() => this.onKupInput()}
                         >
                             <div class="mdc-button__ripple"></div>
                             {leadingEl}

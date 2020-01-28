@@ -21,10 +21,6 @@ export class WupTabBar {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * List of elements.
      */
     @Prop() items: WidgetTabBarElement[] = [];
@@ -36,7 +32,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -46,7 +43,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -56,7 +54,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -66,7 +65,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -76,49 +76,45 @@ export class WupTabBar {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange(i: number, e: Event) {
         this.kupChange.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick(i: number, e: Event) {
         this.kupClick.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput(i: number, e: Event) {
         this.kupInput.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
@@ -135,10 +131,6 @@ export class WupTabBar {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
         let widgetClass: string = 'mdc-tab-bar';
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
 
         for (let i = 0; i < this.items.length; i++) {
             let tabClass: string = 'mdc-tab';
@@ -168,11 +160,11 @@ export class WupTabBar {
                     aria-selected="true"
                     tabindex={i}
                     value={this.items[i].text}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e) => this.onKupBlur(i, e)}
+                    onChange={(e) => this.onKupChange(i, e)}
+                    onClick={(e) => this.onKupClick(i, e)}
+                    onFocus={(e) => this.onKupFocus(i, e)}
+                    onInput={(e) => this.onKupInput(i, e)}
                 >
                     <span class="mdc-tab__content">
                         {iconEl}
