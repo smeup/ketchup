@@ -20,10 +20,6 @@ export class WupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
@@ -47,7 +43,7 @@ export class WupSwitch {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -57,7 +53,7 @@ export class WupSwitch {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -67,7 +63,7 @@ export class WupSwitch {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -77,7 +73,7 @@ export class WupSwitch {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -87,52 +83,57 @@ export class WupSwitch {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur() {
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange() {
+        if (this.checked) {
+            this.checked = false;
+            this.value = 'off';
+        } else {
+            this.checked = true;
+            this.value = 'on';
+        }
         this.kupChange.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick() {
         this.kupClick.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus() {
         this.kupFocus.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput() {
         this.kupInput.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        if (this.checked) {
+            this.value = 'on';
+        } else {
+            this.value = 'off';
+        }
+    }
 
     componentDidLoad() {
         const root = this.rootElement.shadowRoot;
@@ -152,10 +153,6 @@ export class WupSwitch {
         let formClass: string = 'mdc-form-field';
         let widgetClass: string = 'mdc-switch';
         let widgetLabel: string = '';
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
 
         if (this.disabled) {
             widgetClass += ' mdc-switch--disabled';
@@ -187,11 +184,12 @@ export class WupSwitch {
                                         role="switch"
                                         checked={this.checked}
                                         disabled={this.disabled}
-                                        onBlur={this.onKupBlur.bind(this)}
-                                        onChange={this.onKupChange.bind(this)}
-                                        onClick={this.onKupClick.bind(this)}
-                                        onFocus={this.onKupFocus.bind(this)}
-                                        onInput={this.onKupInput.bind(this)}
+                                        value={this.value}
+                                        onBlur={() => this.onKupBlur()}
+                                        onChange={() => this.onKupChange()}
+                                        onClick={() => this.onKupClick()}
+                                        onFocus={() => this.onKupFocus()}
+                                        onInput={() => this.onKupInput()}
                                     ></input>
                                 </div>
                             </div>

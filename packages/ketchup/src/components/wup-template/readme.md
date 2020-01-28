@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                           | Type      | Default |
-| ---------- | ---------- | ------------------------------------------------------------------------------------- | --------- | ------- |
-| `custom`   | `custom`   | Defaults at false. When set to true, mixins and classes of customization are enabled. | `boolean` | `false` |
-| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled.                       | `boolean` | `false` |
+| Property   | Attribute  | Description                                                     | Type      | Default |
+| ---------- | ---------- | --------------------------------------------------------------- | --------- | ------- |
+| `disabled` | `disabled` | Defaults at false. When set to true, the component is disabled. | `boolean` | `false` |
 
 
 ## Events

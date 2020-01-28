@@ -6,6 +6,7 @@ import {
     EventEmitter,
     State,
     Host,
+    Watch,
     h,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
@@ -23,9 +24,9 @@ export class WupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
+     * Sets the initial value of the component
      */
-    @Prop() custom: boolean = false;
+    @Prop() initialvalue: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -86,7 +87,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -96,7 +97,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -106,7 +107,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -116,7 +117,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -126,52 +127,56 @@ export class WupTextField {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupBlur.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupChange.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupClick.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupFocus.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupInput.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.onInitialValueChanged();
+    }
+
+    @Watch('initialvalue')
+    onInitialValueChanged() {
+        this.value = this.initialvalue;
+    }
 
     componentDidLoad() {
         const root = this.rootElement.shadowRoot;
@@ -222,10 +227,6 @@ export class WupTextField {
 
         if (!this.label) {
             widgetClass += ' mdc-text-field--no-label';
-        }
-
-        if (this.custom) {
-            widgetClass += ' custom';
         }
 
         if (this.disabled) {
@@ -361,11 +362,11 @@ export class WupTextField {
                     disabled={this.disabled}
                     maxlength={this.maxlength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></textarea>
             );
         } else {
@@ -378,11 +379,11 @@ export class WupTextField {
                     disabled={this.disabled}
                     maxlength={this.maxlength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></input>
             );
         }
@@ -430,11 +431,11 @@ export class WupTextField {
                     placeholder={placeholderLabel}
                     maxlength={this.maxlength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></input>
                 {trailingIconEl}
                 {labelEl}

@@ -37,10 +37,6 @@ export class WupTemplate {
     @State() value: string = '';
 
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
@@ -206,10 +202,6 @@ export class WupTemplate {
         //---- Rendering ----
         let formClass: string = 'mdc-form-field';
         let widgetClass: string = 'mdc-checkbox';
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
 
         if (this.disabled) {
             widgetClass += ' mdc-checkbox--disabled';

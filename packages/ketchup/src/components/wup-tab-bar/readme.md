@@ -7,21 +7,20 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                           | Type                    | Default |
-| -------- | --------- | ------------------------------------------------------------------------------------- | ----------------------- | ------- |
-| `custom` | `custom`  | Defaults at false. When set to true, mixins and classes of customization are enabled. | `boolean`               | `false` |
-| `items`  | --        | List of elements.                                                                     | `WidgetTabBarElement[]` | `[]`    |
+| Property | Attribute | Description       | Type                    | Default |
+| -------- | --------- | ----------------- | ----------------------- | ------- |
+| `items`  | --        | List of elements. | `WidgetTabBarElement[]` | `[]`    |
 
 
 ## Events
 
-| Event             | Description | Type                           |
-| ----------------- | ----------- | ------------------------------ |
-| `kupTabBarBlur`   |             | `CustomEvent<{ value: any; }>` |
-| `kupTabBarChange` |             | `CustomEvent<{ value: any; }>` |
-| `kupTabBarClick`  |             | `CustomEvent<{ value: any; }>` |
-| `kupTabBarFocus`  |             | `CustomEvent<{ value: any; }>` |
-| `kupTabBarInput`  |             | `CustomEvent<{ value: any; }>` |
+| Event             | Description | Type                                               |
+| ----------------- | ----------- | -------------------------------------------------- |
+| `kupTabBarBlur`   |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| `kupTabBarChange` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| `kupTabBarClick`  |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| `kupTabBarFocus`  |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| `kupTabBarInput`  |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 
 
 ----------------------------------------------
