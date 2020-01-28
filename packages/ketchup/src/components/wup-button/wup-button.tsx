@@ -115,20 +115,24 @@ export class WupButton {
     }
 
     onKupChange() {
-        this.kupClick.emit({
+        this.kupChange.emit({
             value: this.value,
         });
     }
 
     onKupClick() {
-        if (this.checked) {
-            this.checked = false;
-            this.value = 'off';
+        if (this.text === null && this.icon !== null) {
+            if (this.checked) {
+                this.checked = false;
+                this.value = 'off';
+            } else {
+                this.checked = true;
+                this.value = 'on';
+            }
         } else {
-            this.checked = true;
-            this.value = 'on';
+            this.value = 'N/A';
         }
-        this.kupChange.emit({
+        this.kupClick.emit({
             value: this.value,
         });
     }
@@ -148,10 +152,14 @@ export class WupButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        if (this.checked && this.text === null && this.icon !== null) {
-            this.value = 'on';
+        if (this.text === null && this.icon !== null) {
+            if (this.checked) {
+                this.value = 'on';
+            } else {
+                this.value = 'off';
+            }
         } else {
-            this.value = 'off';
+            this.value = 'N/A';
         }
     }
 
