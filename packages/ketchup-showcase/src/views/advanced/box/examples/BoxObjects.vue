@@ -26,6 +26,10 @@
     <kup-box :data.prop="iconData" :layout.prop="iconLayout" :columns.prop="3"></kup-box>
     <hr />
 
+    <h3>With sparkline charts</h3>
+    <kup-box :data.prop="sparkData" :layout.prop="sparkLayout"></kup-box>
+    <hr />
+
     <h3>Yes/No</h3>
     <kup-box :data.prop="sinoData" :layout.prop="btnLayout"></kup-box>
     <hr />
@@ -53,6 +57,7 @@ import {
 } from '@/mock/box';
 import j4btnLargeData from '@/mock/j4btn_table_box_data.json';
 import j4icoData from '@/mock/j4ico_table_box_data.json';
+import j4graData from '@/mock/j4gra_table_box_data.json';
 
 export default {
   data() {
@@ -64,6 +69,7 @@ export default {
       pwdData: { ...j1pwdData },
       pgbData: { ...pgbData },
       iconData: { ...j4icoData },
+      sparkData: { ...j4graData },
       btnLayout: {
         sections: [
           {
@@ -86,6 +92,14 @@ export default {
         ],
       },
       iconLayout: {
+        sections: [
+          {
+            horizontal: false,
+            sections: [{}, {}, {}],
+          },
+        ],
+      },
+      sparkLayout: {
         sections: [
           {
             horizontal: false,
