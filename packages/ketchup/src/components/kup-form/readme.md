@@ -87,20 +87,24 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ### Depends on
 
-- [kup-text-input](../kup-text-input)
 - [kup-combo](../kup-combo)
 - [kup-crud](../kup-crud)
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-image](../kup-image)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-text-input](../kup-text-input)
 - [kup-button](../kup-button)
 - [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form --> kup-text-input
   kup-form --> kup-combo
   kup-form --> kup-crud
   kup-form --> kup-autocomplete
+  kup-form --> kup-image
+  kup-form --> kup-progress-bar
+  kup-form --> kup-text-input
   kup-form --> kup-button
   kup-form --> kup-crud
   kup-combo --> kup-text-input
@@ -114,6 +118,7 @@ graph TD;
   kup-autocomplete --> kup-text-input
   kup-autocomplete --> kup-menu
   kup-autocomplete --> kup-icon
+  kup-image --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

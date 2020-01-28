@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
+
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
 import { toKebabCase } from './utils';
@@ -138,4 +139,40 @@ export function buildIconConfig(cell: Cell, value: string) {
         ...(iconStylesheets ? { iconStylesheets: iconStylesheets } : {}),
         ...(imageSrc ? { imageSrc: imageSrc } : {}),
     };
+}
+
+// -------------
+// COMBO
+// -------------
+
+export function isCombo(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CMB' === shape;
+}
+
+// -------------
+// AUTOCOMPLETE
+// -------------
+
+export function isAutocomplete(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'ACP' === shape;
+}
+
+// -------------
+// CRUD
+// -------------
+
+export function isConfigurator(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CFG' === shape;
+}
+
+// -------------
+// INPUT TEXT
+// -------------
+
+export function isInputText(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'ITX' === shape || !shape;
 }

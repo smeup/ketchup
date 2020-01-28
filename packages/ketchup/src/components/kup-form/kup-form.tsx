@@ -44,7 +44,19 @@ import {
     unzipRecords,
 } from '../../utils/widget-utils';
 
-import { isStringObject } from '../../utils/object-utils';
+import {
+    getFromConfigInForm,
+    getValueInForm,
+    buildProgressBarConfigInForm,
+    isProgressBarInForm,
+    isInputTextInForm,
+    isImageInForm,
+    isComboInForm,
+    isAutocompleteInForm,
+    isConfiguratorInForm,
+} from '../../utils/form-cell-utils';
+
+import { KupImage } from '../kup-image/kup-image';
 
 @Component({
     tag: 'kup-form',
@@ -301,6 +313,7 @@ export class KupForm {
 
         if (fieldKey) {
             const field = this.fields[fieldKey];
+            let cell = { key: field.key, value: field.value };
 
             if (field) {
                 let index = -1;
@@ -315,34 +328,7 @@ export class KupForm {
                     visibleFields.splice(index, 1);
                 }
 
-                if (
-                    (isStringObject(field.obj) && !field.shape) ||
-                    field.shape == 'ITX'
-                ) {
-                    const wrapperStyle = {};
-                    wrapperStyle['--kup-text-input_border-color--selected'] =
-                        '#66D3FA';
-
-                    // NB: not updated field value using onInput() event, but using onChange().
-                    // The onChange of an input text fires when the element loses focus, not immediately after the modification
-                    fieldContent = (
-                        <kup-text-input
-                            style={wrapperStyle}
-                            input-type="text"
-                            initialValue={field.value}
-                            disabled={field.readonly}
-                            onKetchupTextInputChanged={(e) =>
-                                this.onSimpleValueFieldChange(e, field)
-                            }
-                            onKetchupTextInputFocused={() =>
-                                this.onFieldFocused(field)
-                            }
-                            onKetchupTextInputBlurred={() =>
-                                this.onFieldBlurred(field)
-                            }
-                        ></kup-text-input>
-                    );
-                } else if (field.shape == 'CMB') {
+                if (isComboInForm(cell, field)) {
                     fieldContent = (
                         <kup-combo
                             items={field.config.data}
@@ -360,7 +346,7 @@ export class KupForm {
                             }
                         ></kup-combo>
                     );
-                } else if (field.shape == 'CFG') {
+                } else if (isConfiguratorInForm(cell, field)) {
                     let records = unzipRecords(field.value);
                     fieldContent = (
                         <kup-crud
@@ -389,7 +375,7 @@ export class KupForm {
                             }
                         ></kup-crud>
                     );
-                } else if (field.shape == 'ACP') {
+                } else if (isAutocompleteInForm(cell, field)) {
                     fieldContent = (
                         <kup-autocomplete
                             extra={field.extra}
@@ -410,6 +396,60 @@ export class KupForm {
                                 this.autocompleteCallBackOnFilterUpdate
                             }
                         ></kup-autocomplete>
+                    );
+                } else if (isImageInForm(cell, field)) {
+                    let badges = getFromConfigInForm(cell, field, 'badges');
+                    let src = getValueInForm(cell);
+                    // TODO: srcTemplate case
+                    let height = getFromConfigInForm(cell, field, 'height');
+                    let width = getFromConfigInForm(cell, field, 'width');
+                    fieldContent = (
+                        <kup-image
+                            src={src}
+                            badges={badges}
+                            width="auto"
+                            height="auto"
+                            maxWidth={width ? width : KupImage.DEFAULT_WIDTH}
+                            maxHeight={
+                                height ? height : KupImage.DEFAULT_HEIGHT
+                            }
+                        />
+                    );
+                } else if (isProgressBarInForm(cell, field)) {
+                    let value = getValueInForm(cell);
+                    fieldContent = (
+                        <kup-progress-bar
+                            {...buildProgressBarConfigInForm(
+                                cell,
+                                field,
+                                false,
+                                value
+                            )}
+                        />
+                    );
+                } else if (isInputTextInForm(cell, field)) {
+                    const wrapperStyle = {};
+                    wrapperStyle['--kup-text-input_border-color--selected'] =
+                        '#66D3FA';
+
+                    // NB: not updated field value using onInput() event, but using onChange().
+                    // The onChange of an input text fires when the element loses focus, not immediately after the modification
+                    fieldContent = (
+                        <kup-text-input
+                            style={wrapperStyle}
+                            input-type="text"
+                            initialValue={field.value}
+                            disabled={field.readonly}
+                            onKetchupTextInputChanged={(e) =>
+                                this.onSimpleValueFieldChange(e, field)
+                            }
+                            onKetchupTextInputFocused={() =>
+                                this.onFieldFocused(field)
+                            }
+                            onKetchupTextInputBlurred={() =>
+                                this.onFieldBlurred(field)
+                            }
+                        ></kup-text-input>
                     );
                 } else {
                     fieldContent =

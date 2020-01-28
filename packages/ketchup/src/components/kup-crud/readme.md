@@ -85,10 +85,12 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-crud --> kup-form
-  kup-form --> kup-text-input
   kup-form --> kup-combo
   kup-form --> kup-crud
   kup-form --> kup-autocomplete
+  kup-form --> kup-image
+  kup-form --> kup-progress-bar
+  kup-form --> kup-text-input
   kup-form --> kup-button
   kup-form --> kup-crud
   kup-combo --> kup-text-input
@@ -98,6 +100,7 @@ graph TD;
   kup-autocomplete --> kup-text-input
   kup-autocomplete --> kup-menu
   kup-autocomplete --> kup-icon
+  kup-image --> kup-badge
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -13,32 +13,33 @@ export interface FormField {
     validate?: FormFieldValidate;
     outputValueFunction?: string;
 
-    config?: any;
     extra?: any;
     obj?: {
-        t?: string;
-        p?: string;
-        k?: string;
+        t: string;
+        p: string;
+        k: string;
     };
+    config?: any;
     value: any;
 }
 
 export interface FormRecord {
     id?: string;
     fields: {
-        [index: string]: {
-            key: string;
-            value: any;
+        [index: string]: FormCell;
+    };
+}
 
-            //TODO
-            config?: any;
-            extra?: any;
-            obj?: {
-                t?: string;
-                p?: string;
-                k?: string;
-            };
-        };
+export interface FormCell {
+    key: string;
+    value: any;
+    shape?: string;
+    config?: any;
+    extra?: any;
+    obj?: {
+        t: string;
+        p: string;
+        k: string;
     };
 }
 
