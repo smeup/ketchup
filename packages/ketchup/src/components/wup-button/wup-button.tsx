@@ -108,42 +108,52 @@ export class WupButton {
 
     //---- Methods ----
 
-    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupBlur() {
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
-    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupChange.emit({
-            value: target.value,
-        });
-    }
-
-    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupChange() {
         this.kupClick.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
-    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupClick() {
+        if (this.checked) {
+            this.checked = false;
+            this.value = 'off';
+        } else {
+            this.checked = true;
+            this.value = 'on';
+        }
+        this.kupChange.emit({
+            value: this.value,
+        });
+    }
+
+    onKupFocus() {
         this.kupFocus.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
-    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupInput() {
         this.kupInput.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        if (this.checked && this.text === null && this.icon !== null) {
+            this.value = 'on';
+        } else {
+            this.value = 'off';
+        }
+    }
 
     componentDidLoad() {
         const root = this.rootElement.shadowRoot;
@@ -213,11 +223,11 @@ export class WupButton {
                             type="button"
                             class={widgetClass}
                             disabled={this.disabled}
-                            onBlur={(e: any) => this.onKupBlur(e)}
-                            onChange={(e: any) => this.onKupChange(e)}
-                            onClick={(e: any) => this.onKupClick(e)}
-                            onFocus={(e: any) => this.onKupFocus(e)}
-                            onInput={(e: any) => this.onKupInput(e)}
+                            onBlur={() => this.onKupBlur()}
+                            onChange={() => this.onKupChange()}
+                            onClick={() => this.onKupClick()}
+                            onFocus={() => this.onKupFocus()}
+                            onInput={() => this.onKupInput()}
                         >
                             <div class="mdc-button__ripple"></div>
                             {leadingEl}
@@ -262,15 +272,19 @@ export class WupButton {
             return (
                 <Host>
                     <div id="kup-component">
+                        {/* 
+                            // @ts-ignore */}
                         <button
                             type="button"
                             class={widgetClass}
+                            checked={this.checked}
                             disabled={this.disabled}
-                            onBlur={(e: any) => this.onKupBlur(e)}
-                            onChange={(e: any) => this.onKupChange(e)}
-                            onClick={(e: any) => this.onKupClick(e)}
-                            onFocus={(e: any) => this.onKupFocus(e)}
-                            onInput={(e: any) => this.onKupInput(e)}
+                            value={this.value}
+                            onBlur={() => this.onKupBlur()}
+                            onChange={() => this.onKupChange()}
+                            onClick={() => this.onKupClick()}
+                            onFocus={() => this.onKupFocus()}
+                            onInput={() => this.onKupInput()}
                         >
                             <div class="mdc-button__ripple"></div>
                             {leadingEl}
