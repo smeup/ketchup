@@ -502,6 +502,13 @@ table.instruction-table th {
 #view-swapper {
   position: absolute;
   bottom: 0;
+  left: 0;
+}
+
+#menu-trigger {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 #copy-html {
@@ -522,6 +529,10 @@ table.instruction-table th {
   width: 80%;
 }
 
+#sample-comp.full {
+  width: 100%;
+}
+
 #sample-comp-wrapper {
   width: fit-content;
   margin: auto;
@@ -535,6 +546,10 @@ table.instruction-table th {
 
 #sample-specs.smaller {
   width: 20%;
+}
+
+#sample-specs.closed {
+  width: 0;
 }
 
 #sample-specs wup-tab-bar {
