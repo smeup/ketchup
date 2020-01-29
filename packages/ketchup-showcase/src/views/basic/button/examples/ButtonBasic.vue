@@ -19,6 +19,7 @@
           toggable
           icon="fullscreen_exit"
           iconoff="fullscreen"
+          title="Increase/decrease demo size"
         ></wup-button>
       </div>
       <div id="sample-specs">
