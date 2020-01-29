@@ -23,95 +23,105 @@
 :host {
   display: var(--kup-display-mode);
 
-  & .mdc-form-field {
-    & label {
-      margin: auto;
-    }
-  }
-
-  & .mdc-text-field {
-    @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
-    @include mdc-text-field-fullwidth-bottom-line-color(var(--kup-text-color));
-
-    &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
-      @include mdc-text-field-density(-4);
-      @include mdc-text-field-fill-color(var(--kup-field-background-color));
-      @include mdc-text-field-bottom-line-color(var(--kup-text-color));
-    }
-
-    &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
-      @include mdc-text-field-outlined-density(-4);
-      @include mdc-text-field-outline-color(var(--kup-border-color));
-      @include mdc-text-field-focused-outline-color(var(--kup-main-color));
-
-      //Fixed floating label position when outlined field has a leading icon
-      &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
-        transform: translateY(-26px) scale(0.75) translateX(-42px);
+  #kup-component {
+    & .mdc-form-field {
+      & label {
+        margin: auto;
       }
     }
 
-    &.shaped {
-      border-radius: 16px 16px 0 0;
-    }
+    & .mdc-text-field {
+      @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
+      @include mdc-text-field-fullwidth-bottom-line-color(
+        var(--kup-text-color)
+      );
 
-    &.mdc-text-field--outlined.shaped
-      .mdc-notched-outline
-      .mdc-notched-outline__leading {
-      border-radius: 28px 0 0 28px;
-      width: 28px;
-    }
-
-    &.mdc-text-field--outlined.shaped
-      .mdc-notched-outline
-      .mdc-notched-outline__trailing {
-      border-radius: 0 28px 28px 0;
-      width: 28px;
-    }
-
-    & label,
-    & input {
-      font-family: var(--kup-font-family);
-      color: var(--kup-text-color);
-
-      &.mdc-floating-label--float-above {
-        color: var(--kup-main-color);
+      &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+        @include mdc-text-field-density(-4);
+        @include mdc-text-field-fill-color(var(--kup-field-background-color));
+        @include mdc-text-field-bottom-line-color(var(--kup-text-color));
       }
 
-      &::placeholder {
-        color: var(--kup-text-color);
+      &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
+        @include mdc-text-field-outlined-density(-4);
+        @include mdc-text-field-outline-color(var(--kup-border-color));
+        @include mdc-text-field-focused-outline-color(var(--kup-main-color));
+
+        //Fixed floating label position when outlined field has a leading icon
+        &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
+          transform: translateY(-26px) scale(0.75) translateX(-42px);
+        }
       }
-    }
 
-    &.mdc-text-field--disabled {
-      color: var(--kup-disabled-text-color);
-      background: var(--kup-disabled-background-color);
+      &.shaped {
+        border-radius: 16px 16px 0 0;
+      }
 
+      &.mdc-text-field--outlined.shaped
+        .mdc-notched-outline
+        .mdc-notched-outline__leading {
+        border-radius: 28px 0 0 28px;
+        width: 28px;
+      }
+
+      &.mdc-text-field--outlined.shaped
+        .mdc-notched-outline
+        .mdc-notched-outline__trailing {
+        border-radius: 0 28px 28px 0;
+        width: 28px;
+      }
+
+      & label,
+      & input,
       & .mdc-text-field__input {
+        font-family: var(--kup-font-family);
+        color: var(--kup-text-color);
+
+        &.mdc-floating-label--float-above {
+          color: var(--kup-main-color);
+        }
+
+        &::placeholder {
+          color: var(--kup-text-color);
+        }
+      }
+
+      &.mdc-text-field--disabled {
         color: var(--kup-disabled-text-color);
         background: var(--kup-disabled-background-color);
+
+        & .mdc-text-field__input {
+          color: var(--kup-disabled-text-color);
+          background: var(--kup-disabled-background-color);
+        }
+
+        & label {
+          color: var(--kup-disabled-text-color);
+          background: var(--kup-disabled-background-color);
+        }
       }
     }
-  }
 
-  & .mdc-text-field-character-counter,
-  & .mdc-text-field-helper-text {
-    color: var(--kup-text-color);
-  }
+    & .mdc-text-field-character-counter,
+    & .mdc-text-field-helper-text {
+      color: var(--kup-text-color);
+    }
 
-  & .material-icons {
-    color: var(--kup-icon-color);
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
+    & .material-icons {
+      color: var(--kup-icon-color);
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
   }
 }
