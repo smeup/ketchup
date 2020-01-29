@@ -316,7 +316,13 @@
             </tbody>
           </table>
           <div class="sample-section" style="display: none;">
-            <div class="code-word"></div>
+            <div class="code-word sample-html"></div>
+            <wup-button
+              @kupButtonClick="copyHtml"
+              id="copy-html"
+              icon="file_copy"
+              title="Copy HTML markup"
+            ></wup-button>
           </div>
           <div class="sample-section" style="display: none;">
             <wup-text-field
@@ -351,6 +357,10 @@
 export default {
   name: 'ButtonBasic',
   methods: {
+    copyHtml(e) {
+      let text = document.querySelector('.code-word.sample-html').innerText;
+      navigator.clipboard.writeText(text);
+    },
     swapView(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-comp').classList.add('bigger');
@@ -442,6 +452,11 @@ export default {
             ).innerText = tabCollection[i]
               .querySelector('.code-word')
               .innerText.replace('class="hydrated"', '');
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
+              .innerText.replace(/=""/g, '');
           }
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');

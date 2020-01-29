@@ -500,6 +500,12 @@ table.instruction-table th {
   bottom: 0;
 }
 
+#copy-html {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 #sample-comp {
   width: 20%;
   display: inline-flex;
