@@ -28,12 +28,13 @@ import {
     FormSection,
     FormActionEventDetail,
     FormFieldEventDetail,
-    FormFieldsCalcs,
     FormMessage,
     FormMessageLevel,
     FormConfig,
     FormActions,
     FormActionField,
+    FormRecord,
+    FormCell,
 } from './kup-form-declarations';
 
 import {
@@ -78,6 +79,8 @@ export class KupForm {
 
     @Prop({ mutable: true }) actions: FormActions;
 
+    @Prop({ mutable: true }) record: FormRecord = { fields: {} };
+
     @Prop() crudCallBackOnFormActionSubmitted: (
         detail: FormActionEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
@@ -91,8 +94,6 @@ export class KupForm {
     ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
 
     @State() messages: FormMessage[] = [];
-
-    private fieldsCalcs: FormFieldsCalcs;
 
     private visibleFields: FormField[] = [];
 
@@ -149,7 +150,6 @@ export class KupForm {
 
     @Watch('fields')
     private onFieldsChanged() {
-        this.initFieldsCalcs();
         this.initVisibleFields();
     }
 
@@ -165,55 +165,67 @@ export class KupForm {
         );
     }
 
-    private onFieldFocused(field: FormField) {
-        this.kupFormFieldFocused.emit(this.buildFormFieldFocusedDetail(field));
+    private onFieldFocused(fieldKey: string) {
+        this.kupFormFieldFocused.emit(
+            this.buildFormFieldFocusedDetail(fieldKey)
+        );
     }
 
-    private onFieldBlurred(field: FormField) {
-        this.kupFormFieldBlurred.emit(this.buildFormFieldBlurredDetail(field));
+    private onFieldBlurred(fieldKey: string) {
+        this.kupFormFieldBlurred.emit(
+            this.buildFormFieldBlurredDetail(fieldKey)
+        );
     }
 
     private onCrudFieldChange(
         event: CustomEvent<CrudRecordsChanged>,
-        field: FormField
+        fieldKey: string
     ) {
         event.stopPropagation();
         // records are here saved with a zipped format but can be saved as preferred, also as are
         let zippedRecords = zipRecords(event.detail.actual.records);
         let value = zippedRecords;
-        this.changeFieldValue(field, value);
+        this.changeFieldValue(fieldKey, value);
     }
 
     private onAutocompleteFieldChange(
         event: CustomEvent<KupAutocompleteOption[]>,
-        field: FormField
+        fieldKey: string
     ) {
         event.stopPropagation();
         let value = event.detail;
-        this.changeFieldValue(field, value);
+        this.changeFieldValue(fieldKey, value);
     }
 
     private onSimpleValueFieldChange(
         event:
             | CustomEvent<KetchupTextInputEvent>
             | CustomEvent<KetchupComboEvent>,
-        field: FormField
+        fieldKey: string
     ) {
         event.stopPropagation();
         const { value } = event.detail;
-        this.changeFieldValue(field, value);
+        this.changeFieldValue(fieldKey, value);
     }
 
-    private changeFieldValue(field, value) {
-        console.log('Change value for field ' + field.key);
-        this.fields[field.key].value = value;
-        this.fields = { ...this.fields };
-
-        if (this.config.liveCheck) {
-            this.checkField(field);
+    private changeFieldValue(fieldKey: string, value: any) {
+        console.log('Change value for field key ' + fieldKey);
+        if (!this.record.fields.hasOwnProperty(fieldKey)) {
+            this.record.fields[fieldKey] = { key: fieldKey, value: value };
+        } else {
+            this.record.fields[fieldKey].value = value;
         }
 
-        this.kupFormFieldChanged.emit(this.buildFormFieldChangedDetail(field));
+        if (this.config.liveCheck) {
+            this.checkField(
+                this.fields[fieldKey],
+                this.record.fields[fieldKey]
+            );
+        }
+
+        this.kupFormFieldChanged.emit(
+            this.buildFormFieldChangedDetail(fieldKey)
+        );
     }
 
     /*****************************************************************/
@@ -313,7 +325,11 @@ export class KupForm {
 
         if (fieldKey) {
             const field = this.fields[fieldKey];
-            let cell = { key: field.key, value: field.value };
+
+            let cell =
+                this.record &&
+                this.record.fields &&
+                this.record.fields[fieldKey];
 
             if (field) {
                 let index = -1;
@@ -333,21 +349,21 @@ export class KupForm {
                         <kup-combo
                             items={field.config.data}
                             {...field.config}
-                            initialValue={field.value}
+                            initialValue={cell && cell.value}
                             disabled={field.readonly}
                             onKetchupComboSelected={(e) =>
-                                this.onSimpleValueFieldChange(e, field)
+                                this.onSimpleValueFieldChange(e, field.key)
                             }
                             onKetchupComboFocused={() =>
-                                this.onFieldFocused(field)
+                                this.onFieldFocused(field.key)
                             }
                             onKetchupComboBlurred={() =>
-                                this.onFieldBlurred(field)
+                                this.onFieldBlurred(field.key)
                             }
                         ></kup-combo>
                     );
                 } else if (isConfiguratorInForm(cell, field)) {
-                    let records = unzipRecords(field.value);
+                    let records = unzipRecords(cell && cell.value);
                     fieldContent = (
                         <kup-crud
                             refid={field.refid}
@@ -360,10 +376,14 @@ export class KupForm {
                             extraMessages={field.config.extraMessages}
                             actions={field.config.actions}
                             onKupCrudRecordsChanged={(e) =>
-                                this.onCrudFieldChange(e, field)
+                                this.onCrudFieldChange(e, field.key)
                             }
-                            onKupCrudFocused={() => this.onFieldFocused(field)}
-                            onKupCrudBlurred={() => this.onFieldBlurred(field)}
+                            onKupCrudFocused={() =>
+                                this.onFieldFocused(field.key)
+                            }
+                            onKupCrudBlurred={() =>
+                                this.onFieldBlurred(field.key)
+                            }
                             crudCallBackOnFormActionSubmitted={
                                 this.crudCallBackOnFormActionSubmitted
                             }
@@ -379,7 +399,7 @@ export class KupForm {
                     fieldContent = (
                         <kup-autocomplete
                             extra={field.extra}
-                            initialSelectedItems={field.value}
+                            initialSelectedItems={cell && cell.value}
                             disabled={field.readonly}
                             items={field.config.items}
                             minimumChars={field.config.minimumChars}
@@ -390,7 +410,7 @@ export class KupForm {
                             displayMode={field.config.displayMode}
                             showDropdownIcon={field.config.showDropdownIcon}
                             onKupAutocompleteSelectionUpdate={(e) =>
-                                this.onAutocompleteFieldChange(e, field)
+                                this.onAutocompleteFieldChange(e, field.key)
                             }
                             autocompleteCallBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
@@ -438,16 +458,16 @@ export class KupForm {
                         <kup-text-input
                             style={wrapperStyle}
                             input-type="text"
-                            initialValue={field.value}
+                            initialValue={cell && cell.value}
                             disabled={field.readonly}
                             onKetchupTextInputChanged={(e) =>
-                                this.onSimpleValueFieldChange(e, field)
+                                this.onSimpleValueFieldChange(e, field.key)
                             }
                             onKetchupTextInputFocused={() =>
-                                this.onFieldFocused(field)
+                                this.onFieldFocused(field.key)
                             }
                             onKetchupTextInputBlurred={() =>
-                                this.onFieldBlurred(field)
+                                this.onFieldBlurred(field.key)
                             }
                         ></kup-text-input>
                     );
@@ -495,7 +515,7 @@ export class KupForm {
 
             fieldDebugContent = (
                 <div class="form-field-debug">
-                    {'debug value: ' + JSON.stringify(field.value)}
+                    {'debug value: ' + JSON.stringify(cell && cell.value)}
                 </div>
             );
         }
@@ -534,7 +554,7 @@ export class KupForm {
             <div class="form-action">
                 <kup-button
                     {...buildButtonConfig(
-                        actionField.value,
+                        actionField.title,
                         actionField.config
                     )}
                     onKupButtonClicked={() =>
@@ -658,45 +678,34 @@ export class KupForm {
     }
 
     private buildFormFieldFocusedDetail(
-        field: FormField
+        fieldKey: string
     ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(field);
+        return this.buildFormFieldEventDetail(fieldKey);
     }
 
     private buildFormFieldBlurredDetail(
-        field: FormField
+        fieldKey: string
     ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(field);
+        return this.buildFormFieldEventDetail(fieldKey);
     }
 
     private buildFormFieldChangedDetail(
-        field: FormField
+        fieldKey: string
     ): FormFieldEventDetail {
-        return this.buildFormFieldEventDetail(field);
+        return this.buildFormFieldEventDetail(fieldKey);
     }
 
-    private buildFormFieldEventDetail(field: FormField): FormFieldEventDetail {
+    private buildFormFieldEventDetail(fieldKey: string): FormFieldEventDetail {
         let detail = {
             ...(this.refid ? { refid: this.refid } : {}),
             ...(this.extra ? { extra: this.extra } : {}),
-            actual: { fields: {} },
-            old: { fields: {} },
+            field: { key: fieldKey },
+            actual: { record: this.record },
         } as FormFieldEventDetail;
-        detail.field = {
-            key: field.key,
-        };
-
-        getFields(this.fields).forEach((field) => {
-            detail.actual.fields[field.key] = {
-                key: field.key,
-                value: field.value,
-                extra: field.extra,
-            };
-            detail.old.fields[field.key] = {
-                key: field.key,
-                value: this.fieldsCalcs[field.key].oldValue,
-            };
-        });
+        let fields = this.filterFieldsExtraAndObj(this.fields);
+        if (!isEmpty(fields)) {
+            detail.actual.fields = fields;
+        }
         if (this.config.liveCheck) {
             detail.isValid = this.hasErrorMessages();
         }
@@ -709,36 +718,37 @@ export class KupForm {
         let detail = {
             ...(this.refid ? { refid: this.refid } : {}),
             ...(this.extra ? { extra: this.extra } : {}),
-            actual: { fields: {} },
-            old: { fields: {} },
+            action: {
+                key: actionField.key,
+                ...(actionField.extra ? { extra: actionField.extra } : {}),
+                ...(actionField.obj ? { obj: actionField.obj } : {}),
+            },
+            actual: { record: this.record },
+            isValid: this.hasErrorMessages(),
         } as FormActionEventDetail;
-        getFields(this.fields).forEach((field) => {
-            detail.actual.fields[field.key] = {
-                key: field.key,
-                value: field.value,
-                extra: field.extra,
-            };
-            detail.old.fields[field.key] = {
-                key: field.key,
-                value: this.fieldsCalcs[field.key].oldValue,
-            };
-        });
-        detail.action = { key: actionField.key };
-        detail.isValid = this.hasErrorMessages();
+        let fields = this.filterFieldsExtraAndObj(this.fields);
+        if (!isEmpty(fields)) {
+            detail.actual.fields = fields;
+        }
         return detail;
+    }
+
+    private filterFieldsExtraAndObj(fields: FormFields) {
+        let fieldsFiltered = {} as FormFields;
+        getFields(fields).forEach((field) => {
+            if (field.extra || field.obj) {
+                fieldsFiltered[field.key] = {
+                    key: field.key,
+                    ...(field.extra ? { extra: field.extra } : {}),
+                    ...(field.obj ? { obj: field.obj } : {}),
+                };
+            }
+        });
+        return fieldsFiltered;
     }
 
     private initVisibleFields(): void {
         this.visibleFields = getVisibleFields(getFields(this.fields));
-    }
-
-    private initFieldsCalcs(): void {
-        this.fieldsCalcs = {} as FormFieldsCalcs;
-        getFields(this.fields).forEach((field) => {
-            this.fieldsCalcs[field.key] = {
-                oldValue: this.fields[field.key].value,
-            };
-        });
     }
 
     private initSectionsCalcs(): void {
@@ -798,11 +808,11 @@ export class KupForm {
         );
     }
 
-    private checkField(field: FormField) {
+    private checkField(field: FormField, cell: FormCell) {
         this.messages = this.messages.filter(function(message) {
             return message.fieldKey != field.key;
         });
-        this.messages = [...this.messages, ...this.validateField(field)];
+        this.messages = [...this.messages, ...this.validateField(field, cell)];
         console.log(
             'Check field  ' +
                 field.key +
@@ -814,17 +824,25 @@ export class KupForm {
     private validateAll(fields: FormField[]): FormMessage[] {
         let messages = [];
         fields.forEach((field) => {
-            let fieldMessages = this.validateField(field);
+            let fieldMessages = this.validateField(
+                this.fields[field.key],
+                this.record.fields[field.key]
+            );
             messages = [...messages, ...fieldMessages];
         });
         return messages;
     }
 
-    private validateField(field: FormField): FormMessage[] {
+    private validateField(field: FormField, cell: FormCell): FormMessage[] {
         let messages = [];
 
         // required
-        if (field.validate && field.validate.required && isEmpty(field.value)) {
+        if (
+            field.validate &&
+            field.validate.required &&
+            cell &&
+            isEmpty(cell.value)
+        ) {
             messages = [
                 ...messages,
                 {
@@ -839,8 +857,9 @@ export class KupForm {
         if (
             field.validate &&
             field.validate.minLength &&
-            (isEmpty(field.value) ||
-                field.value.length < field.validate.minLength)
+            cell &&
+            (isEmpty(cell.value) ||
+                cell.value.length < field.validate.minLength)
         ) {
             messages = [
                 ...messages,

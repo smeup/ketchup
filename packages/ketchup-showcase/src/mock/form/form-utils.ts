@@ -20,9 +20,21 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
   } else {
     let isToCheck = false;
     if (detail.field && detail.field.key) {
-      let actualField = detail.actual.fields[detail.field.key];
-      if (actualField.extra && actualField.extra.liveBackendCheck) {
+      let cell =
+        detail.actual &&
+        detail.actual.record &&
+        detail.actual.record.fields &&
+        detail.actual.record.fields[detail.field.key];
+      if (cell.extra && cell.extra.liveBackendCheck) {
         isToCheck = true;
+      } else {
+        let field =
+          detail.actual &&
+          detail.actual.fields &&
+          detail.actual.fields[detail.field.key];
+        if (field.extra && field.extra.liveBackendCheck) {
+          isToCheck = true;
+        }
       }
     }
     if (isToCheck) {
@@ -40,7 +52,7 @@ export function fakeUpdateBackendLogic(detail: any) {
     false,
     detail.isValid,
     detail.field,
-    detail.actual.fields,
+    detail.actual.record.fields,
     detail.action
   );
 }
@@ -51,7 +63,7 @@ export function fakeCheckBackendLogic(detail: any) {
     true,
     detail.isValid,
     detail.field,
-    detail.actual.fields,
+    detail.actual.record.fields,
     detail.action
   );
 }
@@ -61,7 +73,7 @@ export function fakeBackendLogic(
   isCheck: boolean,
   isFormValid: boolean,
   field: any,
-  actualFields: any,
+  cells: any,
   action: any
 ) {
   console.log(
@@ -78,18 +90,18 @@ export function fakeBackendLogic(
   aParamForBackend = aParamForBackend || 'NON';
 
   // deep copy
-  let newFields = JSON.parse(JSON.stringify(actualFields));
-  // shallow copy
-  //let newFields = { ...actualFields};
+  let newCells = JSON.parse(JSON.stringify(cells));
+  let newFields = {};
 
   let isRecordValid = !(isFormValid == false); // also undefined is ok
   let extraMessages: any = [];
 
-  if (newFields) {
-    const keys = Object.keys(newFields);
+  if (newCells) {
+    const keys = Object.keys(newCells);
     let fields: any = [];
     keys.forEach((key) => {
-      fields.push(newFields[key]);
+      newCells[key].key = key;
+      fields.push(newCells[key]);
     });
 
     fields.forEach((field: any) => {
@@ -139,12 +151,12 @@ export function fakeBackendLogic(
       // values
       if (fieldValueIsOfType(field, 'FVM')) {
         console.log('FVM backend modify of field with key ' + field.key);
-        newFields = fieldValueModify(aParamForBackend, newFields, field.key);
+        newCells = fieldValueModify(aParamForBackend, newCells, field.key);
       }
       if (fieldValueIsOfType(field, 'GVM')) {
         console.log('GVM backend modify of field with key ' + field.key);
         keys.forEach((key) => {
-          newFields = fieldValueModify(aParamForBackend, newFields, key);
+          newCells = fieldValueModify(aParamForBackend, newCells, key);
         });
       }
       if (fieldValueIsOfType(field, 'GRS')) {
@@ -191,9 +203,10 @@ export function fakeBackendLogic(
     ];
 
     let records = [];
-    records[0] = { fields: newFields };
+    records[0] = { fields: newCells };
 
     return {
+      record: { fields: newCells },
       fields: newFields,
       ...(isCheck ? {} : { records: records }),
       extraMessages: extraMessages,
@@ -245,6 +258,7 @@ export function fieldReadonlyModify(
   readonly: boolean
 ) {
   if (key != 'country' && key != 'region') {
+    newFields[key] = {};
     newFields[key].readonly = readonly;
   }
   return newFields;

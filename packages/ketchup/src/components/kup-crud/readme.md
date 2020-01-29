@@ -24,6 +24,7 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 | `extra`                              | `extra`    |             | `any`                                                                              | `undefined` |
 | `extraMessages`                      | --         |             | `FormMessage[]`                                                                    | `[]`        |
 | `fields`                             | --         |             | `FormFields`                                                                       | `undefined` |
+| `record`                             | --         |             | `FormRecord`                                                                       | `undefined` |
 | `records`                            | --         |             | `FormRecord[]`                                                                     | `undefined` |
 | `refid`                              | `refid`    |             | `string`                                                                           | `undefined` |
 | `sections`                           | --         |             | `FormSection`                                                                      | `undefined` |

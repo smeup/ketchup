@@ -4,7 +4,15 @@ Kup-form is a web component that allows to generate forms.
 
 ## Fields
 
-Fields config, layout and values are defined in fields prop. Each field must have a unique key prop. Field value can be a string or a object.
+Fields config and layout are defined in a prop called field. Each field must have a unique key prop.
+
+## Cells
+
+Fields values are in a prop called record, filled with cells. In a cell you can put also some specific cell data, like a specific shape config or extra or obj props.
+
+# Extra and obj
+
+Extra is a any attribute that can contain all you want to be transferred during events (for example some backed useful params). Obj is a more specific type of info that will be always transferred during events, like extra. Obj contains a type, a parameter and a code. You can put extra and obj at field level, at cell level, at actions level, at component level, and they will always be transferred during events.
 
 ## Sections
 
@@ -18,17 +26,17 @@ If you set a liveCheck=true inside config prop, everytime a field value is chang
 
 If you want to add a server side check everytime a field value is changed you can put a param in the 'extra' prop of a field (for example liveBackendCheck=true) and read it on the FormFieldChanged event.
 
+## Actions
+
+As default, if actions prop is empty, a submit button and a reset button (not yet implemented) will be rendered in the bottom right of the form. The reset will empty all fields when clicked.
+
+If you want to add actions or customize submit and/or reset buttons (or hide them) you have to set actions prop. You have to define both actions fields (they are button widget so you can add all the attributes of a BTN shape or J4BTN object field while the value will be the title) and actions sections. There are only four possibile sections with position: TL (top left), TR (top right), BL (bottom left), BR (bottom right). As a form field an action field must have a unique key. Submit action has "submit" key, reset action has "reset" key. Performing an action will generate a kupFormActionSubmitted event.
+
 ## Extra messages
 
 When a form is submitted or when another form event is performed some backend logic can be executed. In this case you can have the need to show some backend messages (for example backend check messages) inside the form.
 
 You can show these kind of messages using the extraMessages prop.
-
-## Actions
-
-As default, if actions prop is empty, a submit button and a reset button (not yet implemented) will be rendered in the bottom right of the form. The reset will empty all fields when clicked.
-
-If you want to add actions or customize submit and/or reset buttons (or hide them) you have to set actions prop. You have to define both actions fields (they are button widget so you can add all the attributes of a BTN shape or J4BTN object) and actions sections. There are only four possibile sections with position: TL (top left), TR (top right), BL (bottom left), BR (bottom right). As a form field an action field must have a unique key. Submit action has "submit" key, reset action has "reset" key. Performing an action will generate a kupFormActionSubmitted event.
 
 ## State
 
@@ -43,18 +51,19 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default     |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `config`                             | --        |             | `FormConfig`                                                                       | `{}`        |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
+| Property                             | Attribute | Description | Type                                                                               | Default          |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ---------------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined`      |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined`      |
+| `config`                             | --        |             | `FormConfig`                                                                       | `{}`             |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined`      |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined`      |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined`      |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`             |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined`      |
+| `record`                             | --        |             | `FormRecord`                                                                       | `{ fields: {} }` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined`      |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined`      |
 
 
 ## Events
