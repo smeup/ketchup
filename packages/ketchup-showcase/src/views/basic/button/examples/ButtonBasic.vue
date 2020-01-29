@@ -35,11 +35,11 @@
                 <td class="prevent-cr">
                   <span class="code-word">text</span>
                 </td>
-                <td
-                  >The button's text. If no value is specified, the button will
+                <td>
+                  The button's text. If no value is specified, the button will
                   render as an icon button, in this variant specifying an icon
-                  is mandatory.</td
-                >
+                  is mandatory.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">string</span>
                 </td>
@@ -153,9 +153,10 @@
                 <td class="prevent-cr">
                   <span class="code-word">trailingicon</span>
                 </td>
-                <td>
-                  The button will display its associated icon after the text.
-                </td>
+                <td
+                  >The button will display its associated icon after the
+                  text.</td
+                >
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -194,10 +195,10 @@
                 <td class="prevent-cr">
                   <span class="code-word">checked</span>
                 </td>
-                <td
-                  >Icon button variant only. The toggable icon button state will
-                  be initialized to ON.</td
-                >
+                <td>
+                  Icon button variant only. The toggable icon button state will
+                  be initialized to ON.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -286,9 +287,12 @@
             <div class="code-word"></div>
           </div>
           <div class="sample-section" style="display: none;">
-            <div class="code-word"
-              >This component does not require a JSON to work.</div
-            >
+            <wup-text-field
+              fullwidth
+              textarea
+              disabled
+              initialvalue="This component does not require a JSON to work."
+            ></wup-text-field>
           </div>
         </div>
       </div>

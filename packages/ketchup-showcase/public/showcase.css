@@ -497,7 +497,6 @@ table.instruction-table th {
 
 #sample-comp {
   width: 20%;
-  min-width: 200px;
   display: inline-flex;
   height: 100%;
   position: relative;
@@ -511,7 +510,6 @@ table.instruction-table th {
 
 #sample-specs {
   width: 80%;
-  min-width: 200px;
   height: 100%;
   position: relative;
 }
