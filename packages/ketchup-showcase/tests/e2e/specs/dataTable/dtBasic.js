@@ -4,7 +4,7 @@ context('Data table without configuration', () => {
   //
   // });
 
-  it('test first table', () => {
+  it.skip('test first table', () => {
     cy.visit('http://localhost:4000/#/datatable');
 
     cy.wait(1000);
