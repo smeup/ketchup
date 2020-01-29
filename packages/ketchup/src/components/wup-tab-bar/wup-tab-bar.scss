@@ -7,10 +7,14 @@
   display: var(--kup-display-mode);
 
   #kup-component {
-    .mdc-tab-bar {
+    & .mdc-tab-bar {
       @include mdc-tab-bar-density(-3);
       @include mdc-tab-text-label-color(var(--kup-main-color));
       @include mdc-tab-icon-color(var(--kup-main-color));
+
+      & .mdc-tab-scroller__scroll-area--scroll {
+        overflow: auto;
+      }
 
       & button {
         font-family: var(--kup-font-family);
