@@ -201,10 +201,10 @@ export class WupTemplate {
     render() {
         //---- Rendering ----
         let formClass: string = 'mdc-form-field';
-        let widgetClass: string = 'mdc-checkbox';
+        let componentClass: string = 'mdc-checkbox';
 
         if (this.disabled) {
-            widgetClass += ' mdc-checkbox--disabled';
+            componentClass += ' mdc-checkbox--disabled';
         }
         // Host refers to container DOM element - wup-template
         // Copy your material design markup from https://material.io/develop/web/components/
@@ -212,7 +212,9 @@ export class WupTemplate {
             <Host>
                 <div id="kup-component">
                     <div class={formClass}>
-                        <div class={widgetClass}>... your template here ..</div>
+                        <div class={componentClass}>
+                            ... your template here ..
+                        </div>
                     </div>
                 </div>
             </Host>

@@ -2,6 +2,7 @@
 html {
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size) !important;
+  transition: all 0.25s ease 0s;
 }
 
 .container {
