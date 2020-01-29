@@ -74,7 +74,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="disabled"
                     @kupSwitchChange="updateDemoSwitch"
@@ -92,7 +92,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="transparent"
                     @kupSwitchChange="updateDemoSwitch"
@@ -110,7 +110,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="flat"
                     @kupSwitchChange="updateDemoSwitch"
@@ -128,7 +128,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="rounded"
                     @kupSwitchChange="updateDemoSwitch"
@@ -171,7 +171,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="trailingicon"
                     @kupSwitchChange="updateDemoSwitch"
@@ -192,7 +192,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="toggable"
                     @kupSwitchChange="updateDemoSwitch"
@@ -213,7 +213,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="checked"
                     @kupSwitchChange="updateDemoSwitch"

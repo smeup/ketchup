@@ -482,13 +482,17 @@ table.instruction-table th {
   border: 1px solid #dfe2e5;
 }
 
+table.instruction-table td.switch-cell {
+  padding: 14px 13px;
+}
+
 table.instruction-table th {
   font-weight: 600;
 }
 
 #sample-wrapper {
   width: 100%;
-  height: 30vh;
+  height: 50vh;
   margin: 5rem 0;
   position: relative;
   display: flex;
