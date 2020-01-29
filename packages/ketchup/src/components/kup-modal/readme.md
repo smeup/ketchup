@@ -25,11 +25,13 @@
 ### Used by
 
  - [kup-crud](../kup-crud)
+ - [kup-search](../kup-search)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-crud --> kup-modal
+  kup-search --> kup-modal
   style kup-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -20,7 +20,13 @@ import {
     KupAutocompleteFilterUpdatePayload,
 } from '../kup-autocomplete/kup-autocomplete-declarations';
 
+import { SearchSelectionUpdatedEventDetail } from '../kup-search/kup-search-declarations';
+
 import isEmpty from 'lodash/isEmpty';
+
+import { TableData } from '../kup-data-table/kup-data-table-declarations';
+
+import { SearchFilterSubmittedEventDetail } from '../kup-search/kup-search-declarations';
 
 import {
     FormFields,
@@ -54,6 +60,7 @@ import {
     isImageInForm,
     isComboInForm,
     isAutocompleteInForm,
+    isSearchInForm,
     isConfiguratorInForm,
 } from '../../utils/form-cell-utils';
 
@@ -92,6 +99,10 @@ export class KupForm {
     @Prop() autocompleteCallBackOnFilterUpdate: (
         detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+
+    @Prop() searchCallBackOnFilterSubmitted: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined = undefined;
 
     @State() messages: FormMessage[] = [];
 
@@ -200,7 +211,8 @@ export class KupForm {
     private onSimpleValueFieldChange(
         event:
             | CustomEvent<KetchupTextInputEvent>
-            | CustomEvent<KetchupComboEvent>,
+            | CustomEvent<KetchupComboEvent>
+            | CustomEvent<SearchSelectionUpdatedEventDetail>,
         fieldKey: string
     ) {
         event.stopPropagation();
@@ -393,6 +405,9 @@ export class KupForm {
                             autocompleteCallBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
                             }
+                            searchCallBackOnFilterSubmitted={
+                                this.searchCallBackOnFilterSubmitted
+                            }
                         ></kup-crud>
                     );
                 } else if (isAutocompleteInForm(cell, field)) {
@@ -402,13 +417,7 @@ export class KupForm {
                             initialSelectedItems={cell && cell.value}
                             disabled={field.readonly}
                             items={field.config.items}
-                            minimumChars={field.config.minimumChars}
-                            showClearIcon={field.config.showClearIcon}
-                            serverHandledFilter={
-                                field.config.serverHandledFilter
-                            }
-                            displayMode={field.config.displayMode}
-                            showDropdownIcon={field.config.showDropdownIcon}
+                            {...field.config}
                             onKupAutocompleteSelectionUpdate={(e) =>
                                 this.onAutocompleteFieldChange(e, field.key)
                             }
@@ -416,6 +425,21 @@ export class KupForm {
                                 this.autocompleteCallBackOnFilterUpdate
                             }
                         ></kup-autocomplete>
+                    );
+                } else if (isSearchInForm(cell, field)) {
+                    fieldContent = (
+                        <kup-search
+                            extra={field.extra}
+                            disabled={field.readonly}
+                            initialValue={cell && cell.value}
+                            {...field.config}
+                            onKupSearchSelectionUpdated={(e) =>
+                                this.onSimpleValueFieldChange(e, field.key)
+                            }
+                            searchCallBackOnFilterSubmitted={
+                                this.searchCallBackOnFilterSubmitted
+                            }
+                        ></kup-search>
                     );
                 } else if (isImageInForm(cell, field)) {
                     let badges = getFromConfigInForm(cell, field, 'badges');

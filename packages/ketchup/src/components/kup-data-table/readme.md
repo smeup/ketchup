@@ -55,6 +55,7 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `filters`                   | --                             |                                                                                                                                                         | `GenericMap`                                                                                     | `{}`                                 |
 | `forceOneLine`              | `force-one-line`               | Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.         | `boolean`                                                                                        | `false`                              |
 | `globalFilter`              | `global-filter`                |                                                                                                                                                         | `boolean`                                                                                        | `false`                              |
+| `globalFilterValue`         | `global-filter-value`          |                                                                                                                                                         | `string`                                                                                         | `''`                                 |
 | `groupLabelDisplay`         | `group-label-display`          | How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}                                                | `GroupLabelDisplayMode.BOTH \| GroupLabelDisplayMode.LABEL \| GroupLabelDisplayMode.VALUE`       | `GroupLabelDisplayMode.BOTH`         |
 | `groups`                    | --                             |                                                                                                                                                         | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         |                                                                                                                                                         | `boolean`                                                                                        | `true`                               |
@@ -141,6 +142,10 @@ Type: `Promise<Column[]>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-search](../kup-search)
+
 ### Depends on
 
 - [kup-text-input](../kup-text-input)
@@ -173,6 +178,7 @@ graph TD;
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
+  kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

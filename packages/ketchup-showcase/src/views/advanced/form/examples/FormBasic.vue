@@ -40,6 +40,10 @@
           :autocompleteCallBackOnFilterUpdate.prop="
             autocompleteCallBackOnFilterUpdate
           "
+          @kupSearchFilterSubmitted="onSearchFilterSubmitted"
+          :searchCallBackOnFilterSubmitted.prop="
+            searchCallBackOnFilterSubmitted
+          "
           @kupCrudFormActionSubmitted="onCrudFormActionSubmitted"
           @kupCrudFormFieldChanged="onCrudFormFieldChanged"
           :crudCallBackOnFormActionSubmitted.prop="
@@ -104,6 +108,7 @@ import {
   chooseAndApplyFakeBackendLogic,
 } from '@/mock/form/form-utils';
 import { buildAutocompleteFilterUpdateCallback } from '@/mock/autocomplete';
+import { buildSearchFilterSubmittedCallback } from '@/mock/search/search-utils';
 
 export default {
   data() {
@@ -122,6 +127,7 @@ export default {
       autocompleteCallBackOnFilterUpdate: buildAutocompleteFilterUpdateCallback(
         10
       ),
+      searchCallBackOnFilterSubmitted: buildSearchFilterSubmittedCallback(),
     };
   },
   mounted() {
@@ -211,6 +217,9 @@ export default {
     },
     onAutocompleteFilterUpdate(event) {
       this.appendEventToHistory('AutocompleteFilterUpdate', event);
+    },
+    onSearchFilterSubmitted(event) {
+      this.appendEventToHistory('SearchFilterSubmitted', event);
     },
     onCrudFormActionSubmitted(event) {
       this.appendEventToHistory('CrudFormActionSubmitted', event);

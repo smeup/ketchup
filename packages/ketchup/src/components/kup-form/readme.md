@@ -63,6 +63,7 @@ During events all the state of the component isn't sent. So if you need some sta
 | `fields`                             | --        |             | `FormFields`                                                                       | `undefined`      |
 | `record`                             | --        |             | `FormRecord`                                                                       | `{ fields: {} }` |
 | `refid`                              | `refid`   |             | `string`                                                                           | `undefined`      |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined`      |
 | `sections`                           | --        |             | `FormSection`                                                                      | `undefined`      |
 
 
@@ -99,6 +100,7 @@ During events all the state of the component isn't sent. So if you need some sta
 - [kup-combo](../kup-combo)
 - [kup-crud](../kup-crud)
 - [kup-autocomplete](../kup-autocomplete)
+- [kup-search](../kup-search)
 - [kup-image](../kup-image)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-text-input](../kup-text-input)
@@ -111,6 +113,7 @@ graph TD;
   kup-form --> kup-combo
   kup-form --> kup-crud
   kup-form --> kup-autocomplete
+  kup-form --> kup-search
   kup-form --> kup-image
   kup-form --> kup-progress-bar
   kup-form --> kup-text-input
@@ -127,6 +130,22 @@ graph TD;
   kup-autocomplete --> kup-text-input
   kup-autocomplete --> kup-menu
   kup-autocomplete --> kup-icon
+  kup-search --> kup-text-input
+  kup-search --> kup-button
+  kup-search --> kup-modal
+  kup-search --> kup-data-table
+  kup-data-table --> kup-text-input
+  kup-data-table --> kup-icon
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-button
+  kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-chart-cell
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-tooltip
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-chip
+  kup-paginator --> kup-combo
   kup-image --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
