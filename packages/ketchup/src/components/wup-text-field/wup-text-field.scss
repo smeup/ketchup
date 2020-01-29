@@ -12,6 +12,9 @@
       height: 100%;
       & .mdc-text-field {
         height: 100%;
+        &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
+          height: 100%;
+        }
         & .mdc-text-field__input {
           height: 100%;
         }
