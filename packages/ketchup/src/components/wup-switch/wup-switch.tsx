@@ -127,7 +127,7 @@ export class WupSwitch {
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {
+    componentWillRender() {
         if (this.checked) {
             this.value = 'on';
         } else {

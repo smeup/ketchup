@@ -13,6 +13,14 @@
             text="Demo"
           ></wup-button>
         </div>
+        <wup-button
+          @kupButtonClick="swapView"
+          id="view-swapper"
+          toggable
+          icon="fullscreen_exit"
+          iconoff="fullscreen"
+          title="Increase/decrease demo size"
+        ></wup-button>
       </div>
       <div id="sample-specs">
         <wup-tab-bar
@@ -35,11 +43,11 @@
                 <td class="prevent-cr">
                   <span class="code-word">text</span>
                 </td>
-                <td
-                  >The button's text. If no value is specified, the button will
+                <td>
+                  The button's text. If no value is specified, the button will
                   render as an icon button, in this variant specifying an icon
-                  is mandatory.</td
-                >
+                  is mandatory.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">string</span>
                 </td>
@@ -153,9 +161,10 @@
                 <td class="prevent-cr">
                   <span class="code-word">trailingicon</span>
                 </td>
-                <td>
-                  The button will display its associated icon after the text.
-                </td>
+                <td
+                  >The button will display its associated icon after the
+                  text.</td
+                >
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -194,10 +203,10 @@
                 <td class="prevent-cr">
                   <span class="code-word">checked</span>
                 </td>
-                <td
-                  >Icon button variant only. The toggable icon button state will
-                  be initialized to ON.</td
-                >
+                <td>
+                  Icon button variant only. The toggable icon button state will
+                  be initialized to ON.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -209,6 +218,30 @@
                     id="checked"
                     @kupSwitchChange="updateDemoSwitch"
                   ></wup-switch>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">iconoff</span>
+                </td>
+                <td>
+                  Toggable icon button variant only. By default, the off state
+                  will be displayed as an outlined version of the icon prop. By
+                  setting this prop with a Material Design icon, the off state
+                  will show this icon instead.
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">null</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    icon="edit"
+                    id="iconoff"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
                 </td>
               </tr>
             </tbody>
@@ -283,12 +316,21 @@
             </tbody>
           </table>
           <div class="sample-section" style="display: none;">
-            <div class="code-word"></div>
+            <div class="code-word sample-html"></div>
+            <wup-button
+              @kupButtonClick="copyHtml"
+              id="copy-html"
+              icon="file_copy"
+              title="Copy HTML markup"
+            ></wup-button>
           </div>
           <div class="sample-section" style="display: none;">
-            <div class="code-word"
-              >This component does not require a JSON to work.</div
-            >
+            <wup-text-field
+              fullwidth
+              textarea
+              disabled
+              initialvalue="This component does not require a JSON to work."
+            ></wup-text-field>
           </div>
         </div>
       </div>
@@ -315,6 +357,19 @@
 export default {
   name: 'ButtonBasic',
   methods: {
+    copyHtml(e) {
+      let text = document.querySelector('.code-word.sample-html').innerText;
+      navigator.clipboard.writeText(text);
+    },
+    swapView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-comp').classList.add('bigger');
+        document.querySelector('#sample-specs').classList.add('smaller');
+      } else {
+        document.querySelector('#sample-comp').classList.remove('bigger');
+        document.querySelector('#sample-specs').classList.remove('smaller');
+      }
+    },
     logClick(e) {
       var d = new Date();
       document.querySelector('#onclick').innerText =
@@ -397,6 +452,11 @@ export default {
             ).innerText = tabCollection[i]
               .querySelector('.code-word')
               .innerText.replace('class="hydrated"', '');
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
+              .innerText.replace(/=""/g, '');
           }
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');

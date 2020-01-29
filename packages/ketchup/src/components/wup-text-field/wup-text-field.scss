@@ -72,6 +72,11 @@
       &.mdc-text-field--disabled {
         color: var(--kup-disabled-text-color);
         background: var(--kup-disabled-background-color);
+
+        & .mdc-text-field__input {
+          color: var(--kup-disabled-text-color);
+          background: var(--kup-disabled-background-color);
+        }
       }
     }
 
