@@ -21,6 +21,14 @@
           iconoff="fullscreen"
           title="Increase/decrease demo size"
         ></wup-button>
+        <wup-button
+          @kupButtonClick="menuTrigger"
+          id="menu-trigger"
+          toggable
+          icon="menu_open"
+          iconoff="last_page"
+          title="Open/close side panel"
+        ></wup-button>
       </div>
       <div id="sample-specs">
         <wup-tab-bar
@@ -74,7 +82,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="disabled"
                     @kupSwitchChange="updateDemoSwitch"
@@ -92,7 +100,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="transparent"
                     @kupSwitchChange="updateDemoSwitch"
@@ -110,7 +118,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="flat"
                     @kupSwitchChange="updateDemoSwitch"
@@ -128,7 +136,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="rounded"
                     @kupSwitchChange="updateDemoSwitch"
@@ -171,7 +179,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="trailingicon"
                     @kupSwitchChange="updateDemoSwitch"
@@ -192,7 +200,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="toggable"
                     @kupSwitchChange="updateDemoSwitch"
@@ -213,7 +221,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
+                <td class="switch-cell">
                   <wup-switch
                     id="checked"
                     @kupSwitchChange="updateDemoSwitch"
@@ -368,6 +376,15 @@ export default {
       } else {
         document.querySelector('#sample-comp').classList.remove('bigger');
         document.querySelector('#sample-specs').classList.remove('smaller');
+      }
+    },
+    menuTrigger(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-comp').classList.add('full');
+        document.querySelector('#sample-specs').classList.add('closed');
+      } else {
+        document.querySelector('#sample-comp').classList.remove('full');
+        document.querySelector('#sample-specs').classList.remove('closed');
       }
     },
     logClick(e) {
