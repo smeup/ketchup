@@ -22,11 +22,12 @@ export interface CrudRecordsChanged {
 }
 
 export interface CrudCallBackOnFormEventResult {
-    config: CrudConfig;
-    fields: FormFields;
-    sections: FormSection;
-    extraMessages: FormMessage[];
-    actions: FormActions;
-    records: FormRecord[];
-    formOpened: boolean;
+    config?: CrudConfig;
+    fields?: FormFields;
+    sections?: FormSection;
+    extraMessages?: FormMessage[];
+    actions?: FormActions;
+    record?: FormRecord;
+    records?: FormRecord[];
+    formOpened?: boolean;
 }

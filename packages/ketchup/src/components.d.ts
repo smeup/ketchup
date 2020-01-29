@@ -447,6 +447,7 @@ export namespace Components {
     'extraMessages': FormMessage[];
     'fields': FormFields;
     'openForm': () => Promise<void>;
+    'record': FormRecord;
     'records': FormRecord[];
     'refid': string;
     'sections': FormSection;
@@ -545,6 +546,7 @@ export namespace Components {
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
+    'record': FormRecord;
     'refid': string;
     'sections': FormSection;
   }
@@ -1924,6 +1926,7 @@ declare namespace LocalJSX {
     'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
+    'record'?: FormRecord;
     'records'?: FormRecord[];
     'refid'?: string;
     'sections'?: FormSection;
@@ -2082,6 +2085,7 @@ declare namespace LocalJSX {
     'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
+    'record'?: FormRecord;
     'refid'?: string;
     'sections'?: FormSection;
   }

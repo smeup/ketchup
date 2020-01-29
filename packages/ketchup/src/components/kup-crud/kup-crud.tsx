@@ -53,6 +53,8 @@ export class KupCrud {
 
     @Prop({ mutable: true }) records: FormRecord[];
 
+    @Prop({ mutable: true }) record: FormRecord;
+
     @Prop({ mutable: true }) fields: FormFields;
 
     @Prop({ mutable: true }) sections: FormSection;
@@ -161,13 +163,9 @@ export class KupCrud {
         event.stopPropagation();
 
         // clean form with selected record data
-        this.records[0] &&
-            this.visibleFields.forEach((field) => {
-                this.fields[field.key].value = this.records[0].fields[
-                    field.key
-                ].value;
-            });
-        this.fields = { ...this.fields };
+        if (this.records[0]) {
+            this.record = this.records[0];
+        }
         this.extraMessages = [];
 
         // open modal
@@ -287,7 +285,6 @@ export class KupCrud {
                         </tbody>
                     </table>
                     {configureButtonContent}
-                    <p>{this.refid}</p>
 
                     <kup-modal
                         id="modal"
@@ -299,6 +296,7 @@ export class KupCrud {
                             extra={this.extra}
                             config={this.config}
                             fields={this.fields}
+                            record={this.record}
                             sections={this.sections}
                             extraMessages={this.extraMessages}
                             actions={this.actions}
@@ -347,17 +345,19 @@ export class KupCrud {
         if (result.extraMessages) {
             this.extraMessages = result.extraMessages;
         }
-        // TODO: actually updating only values -> update all existing props...
+
+        // TODO: actually updating only readonly -> update all existing props...
         if (result.fields) {
             const keys = Object.keys(result.fields);
             keys.forEach((key) => {
-                if (result.fields[key].hasOwnProperty('value')) {
-                    this.fields[key].value = result.fields[key].value;
-                }
                 if (result.fields[key].hasOwnProperty('readonly')) {
                     this.fields[key].readonly = result.fields[key].readonly;
                 }
             });
+        }
+
+        if (result.record) {
+            this.record = result.record;
         }
 
         if (result.records) {

@@ -28,7 +28,7 @@
           :extra.prop="jsonExtra"
           :config.prop="jsonConfig"
           :fields.prop="jsonFields"
-          :records.prop="jsonRecords"
+          :record.prop="jsonRecord"
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
           :actions.prop="jsonActions"
@@ -143,8 +143,8 @@ export default {
     jsonConfig() {
       return this.json.config;
     },
-    jsonRecords() {
-      return this.json.records;
+    jsonRecord() {
+      return this.json.record;
     },
     jsonFields() {
       return this.json.fields;
@@ -162,13 +162,13 @@ export default {
 
   methods: {
     loadKitchenSink() {
-      this.json = JSON.parse(this.kitchenSinkText);
-      this.json.fields['father'].config.fields['father'].config = JSON.parse(
+      let json = JSON.parse(this.kitchenSinkText);
+      json.fields['father'].config.fields['father'].config = JSON.parse(
         JSON.stringify(simpleUserSchema)
       );
-      Object.keys(this.json.records[0].fields).forEach((key) => {
-        this.json.fields[key].value = this.json.records[0].fields[key].value;
-      });
+      // build record from first of records
+      json.record = json.records[0];
+      this.json = json;
     },
     onJsonTextChange(e) {
       let jsonText = e.target.value;
@@ -248,17 +248,19 @@ export default {
       if (result.extraMessages) {
         this.$refs.form.extraMessages = result.extraMessages;
       }
-      // TODO: actually updating only values -> update all existing props...
+
+      // TODO: actually updating only readonly -> update all existing props...
       if (result.fields) {
         const keys = Object.keys(result.fields);
         keys.forEach((key) => {
-          if (result.fields[key].hasOwnProperty('value')) {
-            this.$refs.form.fields[key].value = result.fields[key].value;
-          }
           if (result.fields[key].hasOwnProperty('readonly')) {
             this.$refs.form.fields[key].readonly = result.fields[key].readonly;
           }
         });
+      }
+
+      if (result.record) {
+        this.$refs.form.record = result.record;
       }
 
       // todo: config, sections, actions

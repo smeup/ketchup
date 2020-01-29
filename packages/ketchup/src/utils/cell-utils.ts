@@ -35,7 +35,7 @@ export function getFromConfig(
     propName: string
 ): any {
     let prop = null;
-    if (cell.config) {
+    if (cell && cell.config) {
         prop = get(cell.config, propName, null);
     }
     if (!prop && boxObject && boxObject.config) {
@@ -51,7 +51,8 @@ export function getFromConfig(
 export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'PGB' === shape || (!shape && cell.obj && isProgressBarObj(cell.obj))
+        'PGB' === shape ||
+        (!shape && cell && cell.obj && isProgressBarObj(cell.obj))
     );
 }
 
@@ -114,7 +115,9 @@ export function buildProgressBarConfig(
 
 export function isImage(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
-    return 'IMG' === shape || (!shape && cell.obj && isImageObj(cell.obj));
+    return (
+        'IMG' === shape || (!shape && cell && cell.obj && isImageObj(cell.obj))
+    );
 }
 
 // -------------
@@ -126,7 +129,7 @@ export function buildIconConfig(cell: Cell, value: string) {
     let iconStyle = null;
     let imageSrc = null;
 
-    if (cell.config) {
+    if (cell && cell.config) {
         const config = cell.config;
         iconStylesheets = config.iconStylesheets;
         iconStyle = config.iconStyle;

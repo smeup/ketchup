@@ -19,38 +19,14 @@
       "titlePosition": "Top",
       "description": "Avatar",
       "shape": "IMG",
-      "tooltip": "avatar",
-      "config": {
-        "badges": [
-          {
-            "icon": "mdi mdi-account",
-            "position": "BR"
-          }
-        ],
-        "width": "20",
-        "height": "20"
-      },
-      "obj": {
-        "t": "CN",
-        "p": "COL",
-        "k": "PARFRA"
-      }
+      "tooltip": "avatar"
     },
     "score": {
       "key": "score",
       "title": "Score",
       "titlePosition": "Top",
       "description": "Score",
-      "tooltip": "score",
-      "obj": {
-        "t": "J4",
-        "p": "PGB",
-        "k": "#C01BAF;70"
-      },
-      "config": {
-        "foregroundColor": "#e0e0e0",
-        "textColor": "black"
-      }
+      "tooltip": "score"
     },
     "firstName": {
       "key": "firstName",
@@ -70,7 +46,7 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Marco"
+        "k": ""
       }
     },
     "lastName": {
@@ -91,7 +67,7 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Aurelio"
+        "k": ""
       }
     },
     "country": {
@@ -169,7 +145,7 @@
       "obj": {
         "t": "TA",
         "p": "V§N",
-        "k": "IT"
+        "k": ""
       },
       "outputValueFunction": "description"
     },
@@ -241,14 +217,13 @@
           },
           {
             "value": "GRU",
-            "description": "Global reaonly unset"
+            "description": "Global readonly unset"
           }
         ]
       },
       "obj": {
         "t": "",
-        "p": "V§R",
-        "k": "08"
+        "p": "V§R"
       },
       "outputValueFunction": "description",
       "extra": {
@@ -271,7 +246,7 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Roma"
+        "k": ""
       },
       "extra": {
         "liveBackendCheck": true
@@ -349,30 +324,6 @@
           "liveCheck": true
         },
         "fields": {
-          "avatar": {
-            "key": "avatar",
-            "title": "Avatar",
-            "hidden": false,
-            "titlePosition": "Top",
-            "description": "Avatar",
-            "shape": "IMG",
-            "tooltip": "avatar",
-            "config": {
-              "badges": [
-                {
-                  "icon": "mdi mdi-account",
-                  "position": "BR"
-                }
-              ],
-              "width": "20",
-              "height": "20"
-            },
-            "obj": {
-              "t": "CN",
-              "p": "COL",
-              "k": "PARFRA"
-            }
-          },
           "firstName": {
             "key": "firstName",
             "title": "First name",
@@ -391,7 +342,7 @@
             "obj": {
               "t": "",
               "p": "",
-              "k": "Antonino"
+              "k": ""
             }
           },
           "lastName": {
@@ -412,7 +363,7 @@
             "obj": {
               "t": "",
               "p": "",
-              "k": "Pio"
+              "k": ""
             }
           },
           "country": {
@@ -490,7 +441,7 @@
             "obj": {
               "t": "TA",
               "p": "V§N",
-              "k": "IT"
+              "k": ""
             },
             "outputValueFunction": "description"
           },
@@ -569,7 +520,7 @@
             "obj": {
               "t": "",
               "p": "V§R",
-              "k": "08"
+              "k": ""
             },
             "outputValueFunction": "description",
             "extra": {
@@ -592,7 +543,7 @@
             "obj": {
               "t": "",
               "p": "",
-              "k": "Lanuvio"
+              "k": ""
             },
             "extra": {
               "liveBackendCheck": true
@@ -653,20 +604,21 @@
         },
 
         "sections": {
-          "horizontal": true,
+          "horizontal": false,
           "sections": [
             {
-              "fields": ["avatar"]
-            },
-            {
               "sections": [
-                { "fields": ["firstName"] },
-                { "fields": ["lastName"] },
-                { "fields": ["country"] },
-                { "fields": ["region"] },
-                { "fields": ["address"] },
-                { "fields": ["occupation"] },
-                { "fields": ["father"] }
+                {
+                  "fields": [
+                    "firstName",
+                    "lastName",
+                    "country",
+                    "region",
+                    "address",
+                    "occupation",
+                    "father"
+                  ]
+                }
               ]
             }
           ]
@@ -678,7 +630,7 @@
           "fields": {
             "submit": {
               "key": "submit",
-              "value": "Confirm",
+              "title": "Confirm",
               "config": {
                 "showtext": true,
                 "flat": false
@@ -687,6 +639,7 @@
             "action1": {
               "key": "action1",
               "hidden": false,
+              "title": "Action 1",
               "tooltip": "action 1",
               "shape": "BTN",
               "config": {
@@ -698,12 +651,12 @@
                 "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
                 "p": "BTN",
                 "t": "J4"
-              },
-              "value": "Action 1"
+              }
             },
             "action2": {
               "key": "action2",
               "hidden": false,
+              "title": "Action 2",
               "tooltip": "action 2",
               "shape": "BTN",
               "config": {
@@ -719,12 +672,12 @@
                 "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
                 "p": "BTN",
                 "t": "J4"
-              },
-              "value": "Action 2"
+              }
             },
             "action3": {
               "key": "action3",
               "hidden": false,
+              "title": "Action 3",
               "tooltip": "action 3",
               "shape": "BTN",
               "config": {
@@ -737,8 +690,7 @@
                 "p": "BTN",
                 "t": "J4"
               },
-              "options": false,
-              "value": "Action 3"
+              "options": false
             }
           },
           "sections": [
@@ -752,7 +704,7 @@
       "obj": {
         "t": "J5",
         "p": "BRARTI",
-        "k": "avatar() firstName(Antonino) country(IT)"
+        "k": ""
       },
       "outputValueFunction": "firstName"
     }
@@ -820,7 +772,7 @@
     "fields": {
       "submit": {
         "key": "submit",
-        "value": "Confirm",
+        "title": "Confirm",
         "config": {
           "showtext": true,
           "flat": false
@@ -829,6 +781,7 @@
       "action1": {
         "key": "action1",
         "hidden": false,
+        "title": "Action 1",
         "tooltip": "action 1",
         "shape": "BTN",
         "config": {
@@ -840,12 +793,12 @@
           "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
           "p": "BTN",
           "t": "J4"
-        },
-        "value": "Action 1"
+        }
       },
       "action2": {
         "key": "action2",
         "hidden": false,
+        "title": "Action 2",
         "tooltip": "action 2",
         "shape": "BTN",
         "config": {
@@ -861,11 +814,11 @@
           "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
           "p": "BTN",
           "t": "J4"
-        },
-        "value": "Action 2"
+        }
       },
       "action3": {
         "key": "action3",
+        "title": "Action 3",
         "hidden": false,
         "tooltip": "action 3",
         "shape": "BTN",
@@ -879,8 +832,7 @@
           "p": "BTN",
           "t": "J4"
         },
-        "options": false,
-        "value": "Action 3"
+        "options": false
       }
     },
     "sections": [
@@ -897,11 +849,35 @@
       "fields": {
         "avatar": {
           "key": "avatar",
-          "value": "https://via.placeholder.com/64?text=CUSTOM"
+          "value": "https://via.placeholder.com/64?text=CUSTOM",
+          "config": {
+            "badges": [
+              {
+                "icon": "mdi mdi-account",
+                "position": "BR"
+              }
+            ],
+            "width": "20",
+            "height": "20"
+          },
+          "obj": {
+            "t": "CN",
+            "p": "COL",
+            "k": "PARFRA"
+          }
         },
         "score": {
           "key": "score",
-          "value": "70"
+          "value": "70",
+          "obj": {
+            "t": "J4",
+            "p": "PGB",
+            "k": "#C01BAF;70"
+          },
+          "config": {
+            "foregroundColor": "#e0e0e0",
+            "textColor": "black"
+          }
         },
         "firstName": {
           "key": "firstName",
@@ -941,7 +917,6 @@
           "key": "father",
           "value": [
             {
-              "avatar": "https://via.placeholder.com/64?text=CUSTOM",
               "firstName": "Antonino",
               "lastName": "Pio",
               "country": { "value": "IT", "description": "Italy" },
@@ -952,7 +927,6 @@
               ],
               "father": [
                 {
-                  "avatar": "https://via.placeholder.com/64?text=CUSTOM",
                   "firstName": "Tito",
                   "lastName": "Flavio",
                   "country": { "value": "IT", "description": "Italy" },

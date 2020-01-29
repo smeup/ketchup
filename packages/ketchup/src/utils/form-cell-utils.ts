@@ -48,7 +48,7 @@ export function isProgressBarInForm(cell: FormCell, field: FormField) {
     let shape = getShape(cell, field);
     return (
         'PGB' === shape ||
-        (!shape && cell.obj && isProgressBarObj(cell.obj)) ||
+        (!shape && cell && cell.obj && isProgressBarObj(cell.obj)) ||
         (!shape && field.obj && isProgressBarObj(field.obj))
     );
 }
@@ -65,12 +65,12 @@ export function buildProgressBarConfigInForm(
 // -------------
 // IMAGE
 // -------------
-
+// NB: wrapping of isImage not enough
 export function isImageInForm(cell: FormCell, field: FormField) {
     let shape = getShape(cell, field);
     return (
         'IMG' === shape ||
-        (!shape && cell.obj && isImageObj(cell.obj)) ||
+        (!shape && cell && cell.obj && isImageObj(cell.obj)) ||
         (!shape && field.obj && isImageObj(field.obj))
     );
 }

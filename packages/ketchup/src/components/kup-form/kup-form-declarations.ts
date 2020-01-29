@@ -3,24 +3,23 @@ export interface FormFields {
 }
 
 export interface FormField {
-    refid?: string;
     key: string;
+    refid?: string;
     title?: string;
     description?: string;
     hidden?: boolean;
     readonly?: boolean;
-    shape?: string;
     validate?: FormFieldValidate;
     outputValueFunction?: string;
-
+    // can be present in form cell
+    shape?: string;
+    config?: any;
     extra?: any;
     obj?: {
         t: string;
         p: string;
         k: string;
     };
-    config?: any;
-    value: any;
 }
 
 export interface FormRecord {
@@ -33,6 +32,7 @@ export interface FormRecord {
 export interface FormCell {
     key: string;
     value: any;
+    // can be present in form field
     shape?: string;
     config?: any;
     extra?: any;
@@ -105,27 +105,17 @@ export interface FormActionEventDetail {
     refid?: string;
     extra?: any;
     isValid?: boolean;
-    action?: {
+    action: {
         key: string;
         extra?: string;
+        obj?: string;
     };
     actual?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        fields?: FormFields;
+        record?: FormRecord;
     };
     old?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        record?: FormRecord;
     };
 }
 
@@ -137,21 +127,10 @@ export interface FormFieldEventDetail {
         key: string;
     };
     actual?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        fields?: FormFields;
+        record?: FormRecord;
     };
     old?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        record?: FormRecord;
     };
 }
