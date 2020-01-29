@@ -25,7 +25,7 @@
             <wup-radio></wup-radio>
             <wup-checkbox></wup-checkbox>
             <wup-text-field label="Demo"></wup-text-field>
-            <wup-button text="Demo"></wup-button>
+            <wup-button label="Demo"></wup-button>
             <wup-switch></wup-switch>
           </div>
         </div>
@@ -59,6 +59,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="edit"
                   id="display-mode"
                   @kupTextFieldInput="updateCSS"
@@ -80,6 +81,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="edit"
                   id="font-family"
                   @kupTextFieldInput="updateCSS"
@@ -100,6 +102,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="edit"
                   id="font-size"
                   @kupTextFieldInput="updateCSS"
@@ -116,6 +119,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="background-color"
                   @kupTextFieldInput="updateCSS"
@@ -132,6 +136,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="header-background-color"
                   @kupTextFieldInput="updateCSS"
@@ -148,6 +153,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="drawer-background-color"
                   @kupTextFieldInput="updateCSS"
@@ -167,6 +173,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="main-color"
                   @kupTextFieldInput="updateCSS"
@@ -186,6 +193,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="text-on-main-color"
                   @kupTextFieldInput="updateCSS"
@@ -202,6 +210,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="text-color"
                   @kupTextFieldInput="updateCSS"
@@ -221,6 +230,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="icon-color"
                   @kupTextFieldInput="updateCSS"
@@ -237,6 +247,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="hover-background-color"
                   @kupTextFieldInput="updateCSS"
@@ -257,6 +268,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="hover-color"
                   @kupTextFieldInput="updateCSS"
@@ -273,6 +285,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="border-color"
                   @kupTextFieldInput="updateCSS"
@@ -289,6 +302,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="disabled-text-color"
                   @kupTextFieldInput="updateCSS"
@@ -309,6 +323,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="disabled-background-color"
                   @kupTextFieldInput="updateCSS"
@@ -325,6 +340,7 @@
               </td>
               <td class="text-cell">
                 <wup-text-field
+                  fullheight
                   icon="brush"
                   id="field-background-color"
                   @kupTextFieldInput="updateCSS"

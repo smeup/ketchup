@@ -155,29 +155,29 @@ export class WupCheckbox {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let widgetClass: string = 'mdc-checkbox';
-        let widgetLabel: string = '';
+        let componentClass: string = 'mdc-checkbox';
+        let componentLabel: string = '';
 
         if (this.disabled) {
-            widgetClass += ' mdc-checkbox--disabled';
+            componentClass += ' mdc-checkbox--disabled';
         }
 
         if (this.checked) {
-            widgetClass += ' mdc-checkbox--checked';
+            componentClass += ' mdc-checkbox--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            widgetLabel = this.labelleft;
+            componentLabel = this.labelleft;
         } else if (this.labelright) {
-            widgetLabel = this.labelright;
+            componentLabel = this.labelright;
         }
 
         return (
             <Host>
                 <div id="kup-component">
                     <div class={formClass}>
-                        <div id="checkbox-wrapper" class={widgetClass}>
+                        <div id="checkbox-wrapper" class={componentClass}>
                             {/* 
                             // @ts-ignore */}
                             <input
@@ -208,7 +208,9 @@ export class WupCheckbox {
                             </div>
                             <div class="mdc-checkbox__ripple"></div>
                         </div>
-                        <label htmlFor="checkbox-wrapper">{widgetLabel}</label>
+                        <label htmlFor="checkbox-wrapper">
+                            {componentLabel}
+                        </label>
                     </div>
                 </div>
             </Host>

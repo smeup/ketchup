@@ -12,8 +12,8 @@
       >
       <div class="demo-container">
         <div class="kup-container">
-          <wup-button flat text="Flat"></wup-button>
-          <wup-button transparent text="Transparent"></wup-button>
+          <wup-button flat label="Flat"></wup-button>
+          <wup-button transparent label="Transparent"></wup-button>
         </div>
         <p class="centered">Flat sample markup</p>
         <code class="flat">{{ markupFlat }}</code>
@@ -29,9 +29,9 @@
         be rounded.</p
       ><div class="demo-container">
         <div class="kup-container">
-          <wup-button rounded text="Raised"></wup-button>
-          <wup-button flat rounded text="Flat"></wup-button>
-          <wup-button transparent rounded text="Transparent"></wup-button>
+          <wup-button rounded label="Raised"></wup-button>
+          <wup-button flat rounded label="Flat"></wup-button>
+          <wup-button transparent rounded label="Transparent"></wup-button>
         </div>
         <p class="centered">Rounded sample markup</p>
         <code class="flat">{{ markupRounded }}</code>
@@ -47,15 +47,15 @@
         <a href="https://material.io/resources/icons/?style=baseline"
           >Material Design library</a
         >. It's important to specify both
-        <span class="code-word">text</span> and
+        <span class="code-word">label</span> and
         <span class="code-word">icon</span> attributes in this case, because
         specifying only <span class="code-word">icon</span> will render the
         <span class="code-word">icon button variant</span>.</p
       ><div class="demo-container">
         <div class="kup-container">
-          <wup-button icon="favorite" text="Favorite"></wup-button>
-          <wup-button flat icon="play_arrow" text="Play"></wup-button>
-          <wup-button transparent icon="done" text="Submit"></wup-button>
+          <wup-button icon="favorite" label="Favorite"></wup-button>
+          <wup-button flat icon="play_arrow" label="Play"></wup-button>
+          <wup-button transparent icon="done" label="Submit"></wup-button>
         </div>
         <p class="centered">Icon sample markup</p>
         <code class="flat">{{ markupIcon }}</code>
@@ -69,11 +69,11 @@ export default {
   name: 'ButtonStyling',
   data() {
     return {
-      markupFlat: '<wup-button flat text="Flat"></wup-button>',
+      markupFlat: '<wup-button flat label="Flat"></wup-button>',
       markupTransparent:
-        '<wup-button transparent text="Transparent"></wup-button>',
-      markupRounded: '<wup-button rounded text="Rounded"></wup-button>',
-      markupIcon: '<wup-button icon="Favorite" text="Favorite"></wup-button>',
+        '<wup-button transparent label="Transparent"></wup-button>',
+      markupRounded: '<wup-button rounded label="Rounded"></wup-button>',
+      markupIcon: '<wup-button icon="Favorite" label="Favorite"></wup-button>',
     };
   },
 };

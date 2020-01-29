@@ -141,29 +141,29 @@ export class WupRadio {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let widgetClass: string = 'mdc-radio';
-        let widgetLabel: string = '';
+        let componentClass: string = 'mdc-radio';
+        let componentLabel: string = '';
 
         if (this.disabled) {
-            widgetClass += ' mdc-radio--disabled';
+            componentClass += ' mdc-radio--disabled';
         }
 
         if (this.checked) {
-            widgetClass += ' mdc-radio--checked';
+            componentClass += ' mdc-radio--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            widgetLabel = this.labelleft;
+            componentLabel = this.labelleft;
         } else if (this.labelright) {
-            widgetLabel = this.labelright;
+            componentLabel = this.labelright;
         }
 
         return (
             <Host>
                 <div id="kup-component">
                     <div class={formClass}>
-                        <div class={widgetClass}>
+                        <div class={componentClass}>
                             <input
                                 class="mdc-radio__native-control"
                                 type="radio"
@@ -182,7 +182,7 @@ export class WupRadio {
                             </div>
                             <div class="mdc-radio__ripple"></div>
                         </div>
-                        <label htmlFor="radio-id">{widgetLabel}</label>
+                        <label htmlFor="radio-id">{componentLabel}</label>
                     </div>
                 </div>
             </Host>

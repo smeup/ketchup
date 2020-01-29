@@ -10,7 +10,7 @@
             @kupButtonBlur="logBlur"
             @kupButtonInput="logInput"
             id="demo-component"
-            text="Demo"
+            label="Demo"
           ></wup-button>
         </div>
         <wup-button
@@ -49,7 +49,7 @@
             <tbody>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">text</span>
+                  <span class="code-word">label</span>
                 </td>
                 <td>
                   The button's text. If no value is specified, the button will
@@ -65,7 +65,8 @@
                 <td class="text-cell">
                   <wup-text-field
                     icon="edit"
-                    id="text"
+                    id="label"
+                    fullheight
                     initialvalue="Demo"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -159,6 +160,7 @@
                 </td>
                 <td class="text-cell">
                   <wup-text-field
+                    fullheight
                     icon="edit"
                     id="icon"
                     @kupTextFieldInput="updateDemoField"
@@ -169,10 +171,9 @@
                 <td class="prevent-cr">
                   <span class="code-word">trailingicon</span>
                 </td>
-                <td
-                  >The button will display its associated icon after the
-                  text.</td
-                >
+                <td>
+                  The button will display its associated icon after the text.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -247,6 +248,7 @@
                 <td class="text-cell">
                   <wup-text-field
                     icon="edit"
+                    fullheight
                     id="iconoff"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -335,6 +337,7 @@
           <div class="sample-section" style="display: none;">
             <wup-text-field
               fullwidth
+              fullheight
               textarea
               disabled
               initialvalue="This component does not require a JSON to work."
@@ -355,7 +358,7 @@
       <p>
         The most basic button is a plain text one. In order to render it, you
         need to specify the
-        <span class="code-word">text</span> attribute followed by its value.
+        <span class="code-word">label</span> attribute followed by its value.
       </p>
     </div>
   </div>

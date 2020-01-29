@@ -980,13 +980,13 @@ export namespace Components {
     */
     'iconoff': string;
     /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'label': string;
+    /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'rounded': boolean;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'text': string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -1075,6 +1075,10 @@ export namespace Components {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullheight': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
@@ -2573,6 +2577,10 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'iconoff'?: string;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'label'?: string;
     'onKupButtonBlur'?: (event: CustomEvent<{
       value: any;
     }>) => void;
@@ -2592,10 +2600,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'rounded'?: boolean;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'text'?: string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -2767,6 +2771,10 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullheight'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */

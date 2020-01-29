@@ -36,6 +36,10 @@ export class WupTextField {
      */
     @Prop() fullwidth: boolean = false;
     /**
+     * Defaults at false. When set to true, the component will be rendered at full height.
+     */
+    @Prop() fullheight: boolean = false;
+    /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
     @Prop() textarea: boolean = false;
@@ -212,7 +216,7 @@ export class WupTextField {
     //---- Rendering ----
 
     render() {
-        let widgetClass: string = 'mdc-text-field';
+        let componentClass: string = 'mdc-text-field';
         let labelEl: HTMLElement = null;
         let helperEl: HTMLElement = null;
         let iconEl: HTMLElement = null;
@@ -226,19 +230,19 @@ export class WupTextField {
         }
 
         if (!this.label) {
-            widgetClass += ' mdc-text-field--no-label';
+            componentClass += ' mdc-text-field--no-label';
         }
 
         if (this.disabled) {
-            widgetClass += ' mdc-text-field--disabled';
+            componentClass += ' mdc-text-field--disabled';
         }
 
         if (this.rounded) {
-            widgetClass += ' shaped';
+            componentClass += ' shaped';
         }
 
         if (this.fullwidth) {
-            widgetClass += ' mdc-text-field--fullwidth';
+            componentClass += ' mdc-text-field--fullwidth';
             placeholderLabel = this.label;
         } else if (this.label) {
             labelEl = (
@@ -259,9 +263,9 @@ export class WupTextField {
                 </i>
             );
             if (this.trailingicon) {
-                widgetClass += ' mdc-text-field--with-trailing-icon';
+                componentClass += ' mdc-text-field--with-trailing-icon';
             } else {
-                widgetClass += ' mdc-text-field--with-leading-icon';
+                componentClass += ' mdc-text-field--with-leading-icon';
             }
         }
 
@@ -303,14 +307,14 @@ export class WupTextField {
 
         if (this.textarea || this.outlined) {
             widgetEl = this.outlinedStyling(
-                widgetClass,
+                componentClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
             );
         } else {
             widgetEl = this.defaultStyling(
-                widgetClass,
+                componentClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
@@ -326,7 +330,7 @@ export class WupTextField {
     }
 
     outlinedStyling(
-        widgetClass: string,
+        componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -335,7 +339,7 @@ export class WupTextField {
         let inputEl: HTMLElement = null;
         let leadingIconEl: HTMLElement = null;
         let trailingIconEl: HTMLElement = null;
-        widgetClass += '  mdc-text-field--outlined';
+        componentClass += '  mdc-text-field--outlined';
 
         if (this.icon) {
             if (this.trailingicon) {
@@ -346,7 +350,7 @@ export class WupTextField {
         }
 
         if (this.textarea) {
-            widgetClass += ' mdc-text-field--textarea';
+            componentClass += ' mdc-text-field--textarea';
             if (this.maxlength) {
                 let charString = '0 / ' + this.maxlength;
                 charEl = (
@@ -389,7 +393,7 @@ export class WupTextField {
         }
 
         return (
-            <div class={widgetClass}>
+            <div class={componentClass}>
                 {charEl}
                 {leadingIconEl}
                 {inputEl}
@@ -404,7 +408,7 @@ export class WupTextField {
     }
 
     defaultStyling(
-        widgetClass: string,
+        componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -421,7 +425,7 @@ export class WupTextField {
         }
 
         return (
-            <div class={widgetClass}>
+            <div class={componentClass}>
                 {leadingIconEl}
                 <input
                     type="text"
@@ -447,6 +451,11 @@ export class WupTextField {
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
         let labelEl: HTMLElement = null;
+        let wrapperClass: string = '';
+
+        if (this.fullheight) {
+            wrapperClass += ' fullheight';
+        }
 
         if (this.labelright) {
             labelEl = <label htmlFor="wup-input">{this.labelright}</label>;
@@ -457,7 +466,7 @@ export class WupTextField {
 
         return (
             <Host>
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
@@ -469,9 +478,14 @@ export class WupTextField {
     }
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
+        let wrapperClass: string = '';
+
+        if (this.fullheight) {
+            wrapperClass += ' fullheight';
+        }
         return (
             <Host>
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     {widgetEl}
                     {helperEl}
                 </div>

@@ -58,7 +58,7 @@ export class WupButton {
     /**
      * Defaults at null. When set, the button will show this text.
      */
-    @Prop() text: string = null;
+    @Prop() label: string = null;
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -125,7 +125,7 @@ export class WupButton {
     }
 
     onKupClick() {
-        if (this.text === null && this.icon !== null) {
+        if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.checked = false;
                 this.value = 'off';
@@ -156,7 +156,7 @@ export class WupButton {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.text === null && this.icon !== null) {
+        if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
             } else {
@@ -187,19 +187,19 @@ export class WupButton {
     render() {
         // It renders in two different ways because two different Material layouts are used.
         // If only the icon is present, with no text, an "icon button" will be rendered.
-        let widgetClass: string = 'kup-button';
+        let componentClass: string = 'kup-button';
         let iconEl: HTMLElement = null;
-        let textEl: HTMLElement = null;
+        let labelEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
 
         if (this.disabled) {
-            widgetClass += ' mdc-button--disabled';
+            componentClass += ' mdc-button--disabled';
         }
 
-        if (this.text) {
-            widgetClass += ' mdc-button';
-            textEl = <span class="mdc-button__label">{this.text}</span>;
+        if (this.label) {
+            componentClass += ' mdc-button';
+            labelEl = <span class="mdc-button__label">{this.label}</span>;
             if (this.icon) {
                 iconEl = (
                     <i
@@ -212,28 +212,28 @@ export class WupButton {
             }
 
             if (this.transparent) {
-                widgetClass += ' mdc-button--outlined';
+                componentClass += ' mdc-button--outlined';
             } else if (!this.flat) {
-                widgetClass += ' mdc-button--raised';
+                componentClass += ' mdc-button--raised';
             }
 
             if (this.rounded) {
-                widgetClass += ' button-shaped';
+                componentClass += ' button-shaped';
             }
 
             if (this.trailingicon && this.icon) {
-                leadingEl = textEl;
+                leadingEl = labelEl;
                 trailingEl = iconEl;
             } else {
                 leadingEl = iconEl;
-                trailingEl = textEl;
+                trailingEl = labelEl;
             }
             return (
                 <Host>
                     <div id="kup-component">
                         <button
                             type="button"
-                            class={widgetClass}
+                            class={componentClass}
                             disabled={this.disabled}
                             onBlur={() => this.onKupBlur()}
                             onChange={() => this.onKupChange()}
@@ -249,7 +249,7 @@ export class WupButton {
                 </Host>
             );
         } else if (this.icon) {
-            widgetClass += ' mdc-icon-button';
+            componentClass += ' mdc-icon-button';
             trailingEl = (
                 <i
                     class="material-icons mdc-icon-button__icon"
@@ -259,7 +259,7 @@ export class WupButton {
                 </i>
             );
             if (this.toggable) {
-                widgetClass += ' toggable';
+                componentClass += ' toggable';
                 trailingEl = (
                     <i
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
@@ -269,7 +269,7 @@ export class WupButton {
                     </i>
                 );
                 if (this.checked) {
-                    widgetClass += ' mdc-icon-button--on';
+                    componentClass += ' mdc-icon-button--on';
                 }
                 let iconOff: string;
 
@@ -295,7 +295,7 @@ export class WupButton {
                             // @ts-ignore */}
                         <button
                             type="button"
-                            class={widgetClass}
+                            class={componentClass}
                             checked={this.checked}
                             disabled={this.disabled}
                             value={this.value}

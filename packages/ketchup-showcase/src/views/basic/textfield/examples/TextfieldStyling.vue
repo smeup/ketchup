@@ -58,6 +58,24 @@
 
     <div class="demo-wrapper">
       <p
+        >To render a text field which occupies all the available vertical space,
+        you can use the attribute <span class="code-word">fullheight</span>.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container-fw" style="height: 75px;">
+          <wup-text-field
+            fullheight
+            label="I am a full height field"
+          ></wup-text-field>
+        </div>
+        <p class="centered">Full height sample markup</p>
+        <code class="flat">{{ markupFullheight }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p
         >You can use icons to help the user understand the nature of the field
         he is filling in. To do so, use the
         <span class="code-word">icon</span> attribute. You can use any value
@@ -165,6 +183,7 @@ export default {
       markupOutlined: '<wup-text-field outlined></wup-text-field>',
       markupShaped: '<wup-text-field rounded></wup-text-field>',
       markupFullwidth: '<wup-text-field fullwidth></wup-text-field>',
+      markupFullheight: '<wup-text-field fullheight></wup-text-field>',
       markupIcon: '<wup-text-field icon="your_icon"></wup-text-field>',
       markupTrailingIcon:
         '<wup-text-field trailingicon icon="your_icon"></wup-text-field>',
