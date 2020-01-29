@@ -13,6 +13,13 @@
             text="Demo"
           ></wup-button>
         </div>
+        <wup-button
+          @kupButtonClick="swapView"
+          id="view-swapper"
+          toggable
+          icon="fullscreen_exit"
+          iconoff="fullscreen"
+        ></wup-button>
       </div>
       <div id="sample-specs">
         <wup-tab-bar
@@ -212,6 +219,30 @@
                   ></wup-switch>
                 </td>
               </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">iconoff</span>
+                </td>
+                <td>
+                  Toggable icon button variant only. By default, the off state
+                  will be displayed as an outlined version of the icon prop. By
+                  setting this prop with a Material Design icon, the off state
+                  will show this icon instead.
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">null</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    icon="edit"
+                    id="iconoff"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
             </tbody>
           </table>
           <table
@@ -319,6 +350,15 @@
 export default {
   name: 'ButtonBasic',
   methods: {
+    swapView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-comp').classList.add('bigger');
+        document.querySelector('#sample-specs').classList.add('smaller');
+      } else {
+        document.querySelector('#sample-comp').classList.remove('bigger');
+        document.querySelector('#sample-specs').classList.remove('smaller');
+      }
+    },
     logClick(e) {
       var d = new Date();
       document.querySelector('#onclick').innerText =

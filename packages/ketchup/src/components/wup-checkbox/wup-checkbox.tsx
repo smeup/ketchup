@@ -131,7 +131,7 @@ export class WupCheckbox {
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {
+    componentWillRender() {
         if (this.checked) {
             this.value = 'on';
         } else {

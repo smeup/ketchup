@@ -495,12 +495,21 @@ table.instruction-table th {
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 }
 
+#view-swapper {
+  position: absolute;
+  bottom: 0;
+}
+
 #sample-comp {
   width: 20%;
   display: inline-flex;
   height: 100%;
   position: relative;
   overflow: auto;
+}
+
+#sample-comp.bigger {
+  width: 80%;
 }
 
 #sample-comp-wrapper {
@@ -512,6 +521,10 @@ table.instruction-table th {
   width: 80%;
   height: 100%;
   position: relative;
+}
+
+#sample-specs.smaller {
+  width: 20%;
 }
 
 #sample-specs wup-tab-bar {

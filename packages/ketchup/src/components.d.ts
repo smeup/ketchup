@@ -914,6 +914,10 @@ export namespace Components {
     */
     'icon': string;
     /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconoff': string;
+    /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'rounded': boolean;
@@ -2429,6 +2433,10 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the button will show this icon.
     */
     'icon'?: string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconoff'?: string;
     'onKupButtonBlur'?: (event: CustomEvent<{
       value: any;
     }>) => void;

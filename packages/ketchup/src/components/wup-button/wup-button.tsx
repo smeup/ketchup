@@ -48,6 +48,10 @@ export class WupButton {
      */
     @Prop() icon: string = null;
     /**
+     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+     */
+    @Prop() iconoff: string = null;
+    /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop() trailingicon: boolean = false;
@@ -151,7 +155,7 @@ export class WupButton {
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {
+    componentWillRender() {
         if (this.text === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
@@ -267,7 +271,14 @@ export class WupButton {
                 if (this.checked) {
                     widgetClass += ' mdc-icon-button--on';
                 }
-                let iconOff = this.icon + '_border';
+                let iconOff: string;
+
+                if (this.iconoff) {
+                    iconOff = this.iconoff;
+                } else {
+                    iconOff = this.icon + '_border';
+                }
+
                 leadingEl = (
                     <i
                         class="material-icons mdc-icon-button__icon"
