@@ -523,6 +523,7 @@ table.instruction-table th {
   height: 100%;
   position: relative;
   overflow: auto;
+  transition: width 0.25s;
 }
 
 #sample-comp.bigger {
@@ -542,6 +543,7 @@ table.instruction-table th {
   width: 80%;
   height: 100%;
   position: relative;
+  transition: width 0.25s;
 }
 
 #sample-specs.smaller {
