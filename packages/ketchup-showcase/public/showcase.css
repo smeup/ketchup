@@ -500,22 +500,60 @@ table.instruction-table th {
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 }
 
-#view-swapper {
+#sample-wrapper.detached {
+  height: 80vh;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-specs {
+  height: 40vh;
+  width: 100%;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-comp {
+  height: 40vh;
+  width: 100%;
+  display: flex;
+}
+
+#split-container {
+  width: 100%;
+  background: var(--kup-main-color);
+  height: 50px;
   position: absolute;
   bottom: 0;
-  left: 0;
+  box-shadow: 0px -1px 4px -1px rgba(0, 0, 0, 0.2),
+    0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#sample-wrapper.detached #split-container {
+  top: 0;
+  box-shadow: -2px 3px 4px -1px rgba(0, 0, 0, 0.2),
+    0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px 7px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#view-swapper {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 #menu-trigger {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: 0;
+  left: 0;
+}
+
+#sample-wrapper.detached #menu-trigger,
+#sample-wrapper.detached #view-swapper {
+  display: none;
 }
 
 #copy-html {
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
 }
 
 #sample-comp {
@@ -538,6 +576,12 @@ table.instruction-table th {
 #sample-comp-wrapper {
   width: fit-content;
   margin: auto;
+  padding-bottom: 50px;
+}
+
+#sample-wrapper.detached #sample-comp-wrapper {
+  padding-top: 50px;
+  padding-bottom: 0;
 }
 
 #sample-specs {
@@ -577,7 +621,15 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-@media screen and (max-width: 1260px) {
+@media screen and (max-width: 767px) {
+  #view-swapper {
+    display: none;
+  }
+
+  #menu-trigger {
+    right: 0;
+  }
+
   h1.team-title {
     text-align: center;
   }
