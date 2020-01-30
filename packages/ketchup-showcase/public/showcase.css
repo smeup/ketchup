@@ -577,6 +577,7 @@ table.instruction-table th {
 
 #sample-wrapper.detached #sample-comp-wrapper {
   padding-top: 50px;
+  padding-bottom: 0;
 }
 
 #sample-specs {
