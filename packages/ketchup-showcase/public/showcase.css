@@ -500,16 +500,50 @@ table.instruction-table th {
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 }
 
-#view-swapper {
+#sample-wrapper.detached {
+  height: 80vh;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-specs {
+  height: 40vh;
+  width: 100%;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-comp {
+  height: 40vh;
+  width: 100%;
+  display: flex;
+}
+
+#split-container {
+  width: 100%;
+  background: var(--kup-main-color);
+  height: 50px;
   position: absolute;
   bottom: 0;
+}
+
+#sample-wrapper.detached #split-container {
+  top: 0;
+}
+
+#view-swapper {
+  position: absolute;
+  top: 0;
   right: 0;
 }
 
 #menu-trigger {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
+}
+
+#sample-wrapper.detached #menu-trigger,
+#sample-wrapper.detached #view-swapper {
+  display: none;
 }
 
 #copy-html {
@@ -538,6 +572,11 @@ table.instruction-table th {
 #sample-comp-wrapper {
   width: fit-content;
   margin: auto;
+  padding-bottom: 50px;
+}
+
+#sample-wrapper.detached #sample-comp-wrapper {
+  padding-top: 50px;
 }
 
 #sample-specs {

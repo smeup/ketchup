@@ -299,22 +299,35 @@
             label="Demo"
           ></wup-button>
         </div>
-        <wup-button
-          @kupButtonClick="menuTrigger"
-          id="menu-trigger"
-          toggable
-          icon="last_page"
-          iconoff="menu_open"
-          title="Open/close side panel"
-        ></wup-button>
-        <wup-button
-          @kupButtonClick="swapView"
-          id="view-swapper"
-          toggable
-          icon="fullscreen_exit"
-          iconoff="fullscreen"
-          title="Increase/decrease demo size"
-        ></wup-button>
+        <div id="split-container">
+          <wup-button
+            @kupButtonClick="menuTrigger"
+            id="menu-trigger"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="last_page"
+            iconoff="menu_open"
+            title="Open/close side panel"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="swapView"
+            id="view-swapper"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="fullscreen_exit"
+            iconoff="fullscreen"
+            title="Increase/decrease demo size"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="splitView"
+            id="view-splitter"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+            icon="flip"
+            iconoff="view_agenda"
+            title="Split/detach view"
+          ></wup-button>
+        </div>
       </div>
     </div>
     <div class="demo-wrapper">
@@ -352,6 +365,13 @@ export default {
       } else {
         document.querySelector('#sample-comp').classList.remove('bigger');
         document.querySelector('#sample-specs').classList.remove('smaller');
+      }
+    },
+    splitView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-wrapper').classList.add('detached');
+      } else {
+        document.querySelector('#sample-wrapper').classList.remove('detached');
       }
     },
     menuTrigger(e) {
