@@ -32,6 +32,14 @@
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
           :actions.prop="jsonActions"
+          @kupAutocompleteFilterUpdate="onAutocompleteFilterUpdate"
+          :autocompleteCallBackOnFilterUpdate.prop="
+            autocompleteCallBackOnFilterUpdate
+          "
+          @kupSearchFilterSubmitted="onSearchFilterSubmitted"
+          :searchCallBackOnFilterSubmitted.prop="
+            searchCallBackOnFilterSubmitted
+          "
           @kupCrudFormActionSubmitted="onCrudFormActionSubmitted"
           @kupCrudFormFieldChanged="onCrudFormFieldChanged"
           :crudCallBackOnFormActionSubmitted.prop="
@@ -63,6 +71,8 @@ import kitchenSink from '@/mock/form/kitchenSink.json';
 import simpleUserSchema from '@/mock/form/simpleUserSchema.json';
 import simple from '@/mock/form/simple.json';
 import { buildFormEventCallback } from '@/mock/form/form-utils';
+import { buildAutocompleteFilterUpdateCallback } from '@/mock/autocomplete';
+import { buildSearchFilterSubmittedCallback } from '@/mock/search/search-utils';
 
 export default {
   data() {
@@ -78,6 +88,10 @@ export default {
       crudCallBackOnFormFieldChanged: buildFormEventCallback(
         'FormFieldChanged'
       ),
+      autocompleteCallBackOnFilterUpdate: buildAutocompleteFilterUpdateCallback(
+        10
+      ),
+      searchCallBackOnFilterSubmitted: buildSearchFilterSubmittedCallback(),
     };
   },
   mounted() {
@@ -139,6 +153,12 @@ export default {
         this.json = JSON.parse(this.simpleText);
       }
       this.appendMore(this.sampleType);
+    },
+    onAutocompleteFilterUpdate(event) {
+      this.appendEventToHistory('AutocompleteFilterUpdate', event);
+    },
+    onSearchFilterSubmitted(event) {
+      this.appendEventToHistory('SearchFilterSubmitted', event);
     },
     onCrudFormActionSubmitted(event) {
       this.appendEventToHistory('CrudFormActionSubmitted', event);

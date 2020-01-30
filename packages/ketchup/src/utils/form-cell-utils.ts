@@ -10,6 +10,7 @@ import {
     buildProgressBarConfig,
     isCombo,
     isAutocomplete,
+    isSearch,
     isConfigurator,
     isInputText,
 } from './cell-utils';
@@ -89,6 +90,14 @@ export function isComboInForm(cell: FormCell, field: FormField) {
 
 export function isAutocompleteInForm(cell: FormCell, field: FormField) {
     return isAutocomplete(cell, field);
+}
+
+// -------------
+// SEARCH
+// -------------
+
+export function isSearchInForm(cell: FormCell, field: FormField) {
+    return isSearch(cell, field);
 }
 
 // -------------

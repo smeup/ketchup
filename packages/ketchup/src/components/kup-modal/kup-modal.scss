@@ -37,9 +37,7 @@
   background-color: var(--header-bg-color, #fff);
   color: var(--header-color, #4c4b4b);
 }
-.modal-content {
-  padding: 0px 10px 5px 10px;
-}
+
 .modal-top {
   padding: 5px 10px 10px 10px;
   text-align: right;
@@ -49,7 +47,22 @@
   cursor: pointer;
 }
 
+.modal-bottom {
+  padding: 5px 10px 10px 10px;
+  text-align: right;
+  background: #a8a8a8;
+}
+
 .modal-cancel:hover {
   background-color: var(--cancel-hover-bg-color, #6c757d);
   border-color: var(--cancel-hover-bg-color, #6c757d);
+}
+
+.modal-content {
+  position: relative;
+  top: 0;
+  left: 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 0px 10px 5px 10px;
 }

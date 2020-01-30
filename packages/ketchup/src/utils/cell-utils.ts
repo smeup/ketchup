@@ -163,6 +163,15 @@ export function isAutocomplete(cell: Cell, boxObject: BoxObject) {
 }
 
 // -------------
+// SEARCH
+// -------------
+
+export function isSearch(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'SRC' === shape;
+}
+
+// -------------
 // CRUD
 // -------------
 

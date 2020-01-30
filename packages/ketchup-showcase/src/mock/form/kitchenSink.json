@@ -263,24 +263,6 @@
       },
       "outputValueFunction": "description",
       "config": {
-        "items": [
-          {
-            "code": "OCC01",
-            "description": "Occupation 1"
-          },
-          {
-            "code": "OCC02",
-            "description": "Occupation 2"
-          },
-          {
-            "code": "OCC03",
-            "description": "Occupation 3"
-          },
-          {
-            "code": "OCC04",
-            "description": "Occupation 4"
-          }
-        ],
         "serverHandledFilter": true,
         "minimumChars": 2,
         "showClearIcon": true,
@@ -303,6 +285,20 @@
         "minimumChars": 3,
         "showClearIcon": true,
         "displayMode": "description"
+      }
+    },
+    "department": {
+      "key": "department",
+      "title": "Department",
+      "titlePosition": "None",
+      "description": "Department",
+      "shape": "SRC",
+      "extra": {
+        "aParamForBackend": "XYZ"
+      },
+      "config": {
+        "serverHandledFilter": true,
+        "valueField": "code"
       }
     },
     "father": {
@@ -560,29 +556,25 @@
             },
             "outputValueFunction": "description",
             "config": {
-              "items": [
-                {
-                  "code": "OCC01",
-                  "description": "Occupation 1"
-                },
-                {
-                  "code": "OCC02",
-                  "description": "Occupation 2"
-                },
-                {
-                  "code": "OCC03",
-                  "description": "Occupation 3"
-                },
-                {
-                  "code": "OCC04",
-                  "description": "Occupation 4"
-                }
-              ],
               "serverHandledFilter": true,
               "minimumChars": 2,
               "showClearIcon": true,
               "showDropdownIcon": true,
               "displayMode": "description_and_code"
+            }
+          },
+          "department": {
+            "key": "department",
+            "title": "Department",
+            "titlePosition": "None",
+            "description": "Department",
+            "shape": "SRC",
+            "extra": {
+              "aParamForBackend": "ZYX"
+            },
+            "config": {
+              "serverHandledFilter": true,
+              "valueField": "code"
             }
           },
           "father": {
@@ -616,6 +608,7 @@
                     "region",
                     "address",
                     "occupation",
+                    "department",
                     "father"
                   ]
                 }
@@ -731,6 +724,7 @@
               "address",
               "occupation",
               "company",
+              "department",
               "father"
             ]
           }
@@ -913,6 +907,10 @@
           "key": "company",
           "value": [{ "code": "COM3", "description": "Company 3" }]
         },
+        "department": {
+          "key": "department",
+          "value": "SALXYZ"
+        },
         "father": {
           "key": "father",
           "value": [
@@ -925,6 +923,7 @@
               "occupation": [
                 { "code": "OCC03", "description": "Occupation 3" }
               ],
+              "department": "MARZYX",
               "father": [
                 {
                   "firstName": "Tito",

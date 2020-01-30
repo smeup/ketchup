@@ -73,6 +73,10 @@ import {
   FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
+  SearchFilterSubmittedEventDetail,
+  SearchSelectionUpdatedEventDetail,
+} from './components/kup-search/kup-search-declarations';
+import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -450,6 +454,9 @@ export namespace Components {
     'record': FormRecord;
     'records': FormRecord[];
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupDash {
@@ -475,6 +482,7 @@ export namespace Components {
     */
     'forceOneLine': boolean;
     'globalFilter': boolean;
+    'globalFilterValue': string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
@@ -548,6 +556,9 @@ export namespace Components {
     'fields': FormFields;
     'record': FormRecord;
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupGauge {
@@ -841,6 +852,26 @@ export namespace Components {
     * Label to assign to the radio button.
     */
     'label': string;
+  }
+  interface KupSearch {
+    'data': TableData;
+    'disabled': boolean;
+    'extra': any;
+    'initialValue': string;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter': boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField': string;
   }
   interface KupTextInput {
     /**
@@ -1335,6 +1366,12 @@ declare global {
     new (): HTMLKupRadioElementElement;
   };
 
+  interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {}
+  var HTMLKupSearchElement: {
+    prototype: HTMLKupSearchElement;
+    new (): HTMLKupSearchElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1434,6 +1471,7 @@ declare global {
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-radio-element': HTMLKupRadioElementElement;
+    'kup-search': HTMLKupSearchElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1913,6 +1951,9 @@ declare namespace LocalJSX {
     'record'?: FormRecord;
     'records'?: FormRecord[];
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
@@ -1938,6 +1979,7 @@ declare namespace LocalJSX {
     */
     'forceOneLine'?: boolean;
     'globalFilter'?: boolean;
+    'globalFilterValue'?: string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
@@ -2071,6 +2113,9 @@ declare namespace LocalJSX {
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'record'?: FormRecord;
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
@@ -2388,6 +2433,31 @@ declare namespace LocalJSX {
     * Label to assign to the radio button.
     */
     'label'?: string;
+  }
+  interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
+    'data'?: TableData;
+    'disabled'?: boolean;
+    'extra'?: any;
+    'initialValue'?: string;
+    /**
+    * Fired when the filter is submitted but only if in serverHandledFilter mode.
+    */
+    'onKupSearchFilterSubmitted'?: (event: CustomEvent<SearchFilterSubmittedEventDetail>) => void;
+    'onKupSearchSelectionUpdated'?: (event: CustomEvent<SearchSelectionUpdatedEventDetail>) => void;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter'?: boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField'?: string;
   }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
@@ -2878,6 +2948,7 @@ declare namespace LocalJSX {
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
     'kup-radio-element': KupRadioElement;
+    'kup-search': KupSearch;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

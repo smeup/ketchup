@@ -104,6 +104,9 @@ export class KupDataTable {
     @Prop()
     globalFilter = false;
 
+    @Prop({ mutable: true })
+    globalFilterValue = '';
+
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
@@ -192,9 +195,6 @@ export class KupDataTable {
     totals: TotalsMap;
 
     //-------- State --------
-
-    @State()
-    private globalFilterValue = '';
 
     @State()
     private currentPage = 1;
@@ -2523,6 +2523,7 @@ export class KupDataTable {
             globalFilter = (
                 <div id="globalFilter">
                     <kup-text-input
+                        initialValue={this.globalFilterValue}
                         label="Global filter"
                         onKetchupTextInputUpdated={(event) =>
                             this.onGlobalFilterChange(event)
