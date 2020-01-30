@@ -503,19 +503,19 @@ table.instruction-table th {
 #view-swapper {
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
 }
 
 #menu-trigger {
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
 }
 
 #copy-html {
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
 }
 
 #sample-comp {
@@ -577,7 +577,15 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-@media screen and (max-width: 1260px) {
+@media screen and (max-width: 767px) {
+  #view-swapper {
+    display: none;
+  }
+
+  #menu-trigger {
+    right: 0;
+  }
+
   h1.team-title {
     text-align: center;
   }
