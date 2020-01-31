@@ -39,6 +39,10 @@ import {
 
 import isEmpty from 'lodash/isEmpty';
 
+import { SearchFilterSubmittedEventDetail } from '../kup-search/kup-search-declarations';
+
+import { TableData } from '../kup-data-table/kup-data-table-declarations';
+
 @Component({
     tag: 'kup-crud',
     styleUrl: 'kup-crud.scss',
@@ -76,6 +80,10 @@ export class KupCrud {
     @Prop() autocompleteCallBackOnFilterUpdate: (
         detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+
+    @Prop() searchCallBackOnFilterSubmitted: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined = undefined;
 
     private visibleFields: FormField[] = [];
 
@@ -308,6 +316,9 @@ export class KupCrud {
                             }
                             autocompleteCallBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
+                            }
+                            searchCallBackOnFilterSubmitted={
+                                this.searchCallBackOnFilterSubmitted
                             }
                             crudCallBackOnFormActionSubmitted={
                                 this.crudCallBackOnFormActionSubmitted

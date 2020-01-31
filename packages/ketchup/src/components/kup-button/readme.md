@@ -74,6 +74,7 @@
  - [kup-fld](../kup-fld)
  - [kup-form](../kup-form)
  - [kup-html](../kup-html)
+ - [kup-search](../kup-search)
 
 ### Graph
 ```mermaid
@@ -86,6 +87,7 @@ graph TD;
   kup-fld --> kup-button
   kup-form --> kup-button
   kup-html --> kup-button
+  kup-search --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

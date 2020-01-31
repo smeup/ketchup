@@ -1,6 +1,21 @@
-const fld1Values = ['Customers module', 'Sales module', 'Marketing module', 'Commerce module', 'Service module'];
+const fld1Values = [
+  'Customers module',
+  'Sales module',
+  'Marketing module',
+  'Commerce module',
+  'Service module',
+];
 
 const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
+
+const fld3Values = [
+  'Marketing',
+  'Information Technology',
+  'Sales',
+  'Customers',
+  'Accounting',
+  'Logistic',
+];
 
 function getRandomArbitrary(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
@@ -61,6 +76,72 @@ export function createDataForPagination(
     rows.push(currentRow);
   }
 
+  return {
+    columns,
+    rows,
+  };
+}
+
+export function filterFakeDepartmentData(filter: string, dataSuffix: string) {
+  let data = createFakeDepartmentData(dataSuffix);
+  let rowsFiltered = data.rows;
+  if (filter) {
+    rowsFiltered = data.rows.filter((row: any) => {
+      let includes =
+        row.cells['code'].value +
+        ' ' +
+        row.cells['desc'].value +
+        ' ' +
+        row.cells['size'].value;
+      return includes.toUpperCase().includes(filter.toUpperCase());
+    });
+  }
+  return {
+    columns: data.columns,
+    rows: rowsFiltered,
+  };
+}
+
+export function createFakeDepartmentData(dataSuffix: string) {
+  const columns: any = [];
+  columns.push({
+    name: 'code',
+    title: 'Code',
+    size: 10,
+  });
+  columns.push({
+    name: 'desc',
+    title: 'Description',
+    size: 10,
+  });
+  columns.push({
+    name: 'size',
+    title: 'Size',
+    size: 10,
+  });
+  const rows = [];
+  for (let i = 0; i < fld3Values.length; i++) {
+    const currentRow: {
+      cells: any;
+    } = { cells: {} };
+    currentRow.cells['code'] = {
+      value: (fld3Values[i].substring(0, 3) + dataSuffix).toUpperCase(),
+    };
+    currentRow.cells['desc'] = {
+      value: fld3Values[i] + dataSuffix,
+    };
+    currentRow.cells['size'] = {
+      value: '' + fld3Values[i].length + i,
+    };
+    for (let j = 0; j < columns.length; j++) {
+      currentRow.cells[columns[j].name].obj = {
+        t: '',
+        p: '',
+        k: '',
+      };
+    }
+    rows.push(currentRow);
+  }
   return {
     columns,
     rows,
@@ -989,7 +1070,7 @@ export const cellStyleDataTable2 = {
             backgroundColor: 'blue',
             color: '#FFF',
             borderRadius: '50px',
-            writingMode: 'vertical-lr'
+            writingMode: 'vertical-lr',
           },
         },
         FLD2: {
@@ -1489,7 +1570,10 @@ export const groupDataTable = createDataForPagination(10, 10);
 export const repetitionsGroupDataTable = createDataForPagination(8, 1000, true);
 
 //---- Checkbox and radio data table ----
-export function dataTableCheckboxFactory(inputType: string = 'SI/NO', hideValuesRepetitions: boolean = false) {
+export function dataTableCheckboxFactory(
+  inputType: string = 'SI/NO',
+  hideValuesRepetitions: boolean = false
+) {
   return {
     config: {
       rowsPerPage: 50,

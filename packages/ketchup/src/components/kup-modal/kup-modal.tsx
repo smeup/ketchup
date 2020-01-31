@@ -43,6 +43,7 @@ export class KupModal {
                     <div class="modal-content">
                         <slot />
                     </div>
+                    <div class="modal-bottom"></div>
                 </div>
             </div>
         );

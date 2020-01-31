@@ -57,6 +57,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chips/Chips.vue`),
   },
   {
+    path: `/crud`,
+    name: 'crud',
+    component: () => import(`@/views/advanced/crud/Crud.vue`),
+  },
+  {
     path: `/dash`,
     name: 'dash',
     component: () => import(`@/views/advanced/dash/Dash.vue`),
@@ -70,6 +75,11 @@ let advancedRoutes = [
     path: `/field`,
     name: 'field',
     component: () => import(`@/views/advanced/field/Field.vue`),
+  },
+  {
+    path: `/form`,
+    name: 'form',
+    component: () => import(`@/views/advanced/form/Form.vue`),
   },
   {
     path: `/html`,
@@ -102,6 +112,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/progressbar/Progressbar.vue`),
   },
   {
+    path: `/search`,
+    name: 'search',
+    component: () => import(`@/views/advanced/search/Search.vue`),
+  },
+  {
     path: `/tooltip`,
     name: 'tooltip',
     component: () => import(`@/views/advanced/tooltip/Tooltip.vue`),
@@ -110,16 +125,6 @@ let advancedRoutes = [
     path: `/tree`,
     name: 'tree',
     component: () => import(`@/views/advanced/tree/Tree.vue`),
-  },
-  {
-    path: `/form`,
-    name: 'form',
-    component: () => import(`@/views/advanced/form/Form.vue`),
-  },
-  {
-    path: `/crud`,
-    name: 'crud',
-    component: () => import(`@/views/advanced/crud/Crud.vue`),
   },
 ];
 

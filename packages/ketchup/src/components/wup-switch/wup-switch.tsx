@@ -151,29 +151,29 @@ export class WupSwitch {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let widgetClass: string = 'mdc-switch';
-        let widgetLabel: string = '';
+        let componentClass: string = 'mdc-switch';
+        let componentLabel: string = '';
 
         if (this.disabled) {
-            widgetClass += ' mdc-switch--disabled';
+            componentClass += ' mdc-switch--disabled';
         }
 
         if (this.checked) {
-            widgetClass += ' mdc-switch--checked';
+            componentClass += ' mdc-switch--checked';
         }
 
         if (this.labelleft) {
             formClass += ' mdc-form-field--align-end';
-            widgetLabel = this.labelleft;
+            componentLabel = this.labelleft;
         } else if (this.labelright) {
-            widgetLabel = this.labelright;
+            componentLabel = this.labelright;
         }
 
         return (
             <Host>
                 <div id="kup-component">
                     <div class={formClass}>
-                        <div class={widgetClass}>
+                        <div class={componentClass}>
                             <div class="mdc-switch__track"></div>
                             <div class="mdc-switch__thumb-underlay">
                                 <div class="mdc-switch__thumb">
@@ -194,7 +194,7 @@ export class WupSwitch {
                                 </div>
                             </div>
                         </div>
-                        <label htmlFor="switch-id">{widgetLabel}</label>
+                        <label htmlFor="switch-id">{componentLabel}</label>
                     </div>
                 </div>
             </Host>

@@ -2,6 +2,7 @@
 html {
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size) !important;
+  transition: all 0.25s ease 0s;
 }
 
 .container {
@@ -482,28 +483,77 @@ table.instruction-table th {
   border: 1px solid #dfe2e5;
 }
 
+table.instruction-table td.switch-cell {
+  padding: 14px 13px;
+}
+
 table.instruction-table th {
   font-weight: 600;
 }
 
 #sample-wrapper {
   width: 100%;
-  height: 30vh;
+  height: 50vh;
   margin: 5rem 0;
   position: relative;
   display: flex;
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 }
 
-#view-swapper {
+#sample-wrapper.detached {
+  height: 80vh;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-specs {
+  height: 40vh;
+  width: 100%;
+  display: block;
+}
+
+#sample-wrapper.detached #sample-comp {
+  height: 40vh;
+  width: 100%;
+  display: flex;
+}
+
+#split-container {
+  width: 100%;
+  background: var(--kup-main-color);
+  height: 50px;
   position: absolute;
   bottom: 0;
+  box-shadow: 0px -1px 4px -1px rgba(0, 0, 0, 0.2),
+    0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#sample-wrapper.detached #split-container {
+  top: 0;
+  box-shadow: -2px 3px 4px -1px rgba(0, 0, 0, 0.2),
+    0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px 7px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#view-swapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#menu-trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#sample-wrapper.detached #menu-trigger,
+#sample-wrapper.detached #view-swapper {
+  display: none;
 }
 
 #copy-html {
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
 }
 
 #sample-comp {
@@ -512,25 +562,41 @@ table.instruction-table th {
   height: 100%;
   position: relative;
   overflow: auto;
+  transition: width 0.25s;
 }
 
 #sample-comp.bigger {
   width: 80%;
 }
 
+#sample-comp.full {
+  width: 100%;
+}
+
 #sample-comp-wrapper {
   width: fit-content;
   margin: auto;
+  padding-bottom: 50px;
+}
+
+#sample-wrapper.detached #sample-comp-wrapper {
+  padding-top: 50px;
+  padding-bottom: 0;
 }
 
 #sample-specs {
   width: 80%;
   height: 100%;
   position: relative;
+  transition: width 0.25s;
 }
 
 #sample-specs.smaller {
   width: 20%;
+}
+
+#sample-specs.closed {
+  width: 0;
 }
 
 #sample-specs wup-tab-bar {
@@ -549,9 +615,21 @@ table.instruction-table th {
   height: 100%;
   position: relative;
   padding: 1rem 0.5rem;
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
 }
 
-@media screen and (max-width: 1260px) {
+@media screen and (max-width: 767px) {
+  #view-swapper {
+    display: none;
+  }
+
+  #menu-trigger {
+    right: 0;
+  }
+
   h1.team-title {
     text-align: center;
   }
@@ -586,5 +664,73 @@ table.instruction-table th {
   .member-image img:hover {
     max-height: 280px;
     max-width: 280px;
+  }
+}
+
+@-webkit-keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

@@ -5,7 +5,7 @@
         >The button widget can be rendered in an alternate way: as an icon
         button. In order to do so, you need to specify the
         <span class="code-word">icon</span> attribute without the
-        <span class="code-word">text</span> attribute. The styling options are
+        <span class="code-word">label</span> attribute. The styling options are
         not supported for this variant and they shouldn't be used.</p
       ><div class="demo-container">
         <div class="kup-container">

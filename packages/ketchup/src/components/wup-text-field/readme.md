@@ -10,6 +10,7 @@
 | Property          | Attribute         | Description                                                                               | Type      | Default |
 | ----------------- | ----------------- | ----------------------------------------------------------------------------------------- | --------- | ------- |
 | `disabled`        | `disabled`        | Defaults at false. When set to true, the component is disabled.                           | `boolean` | `false` |
+| `fullheight`      | `fullheight`      | Defaults at false. When set to true, the component will be rendered at full height.       | `boolean` | `false` |
 | `fullwidth`       | `fullwidth`       | Defaults at false. When set to true, the component will be rendered at full width.        | `boolean` | `false` |
 | `helper`          | `helper`          | Defaults at null. When set, its content will be shown as a help text below the field.     | `string`  | `null`  |
 | `helperwhenfocus` | `helperwhenfocus` | Defaults at false. When set, the helper will be shown only when the field is focused.     | `boolean` | `false` |

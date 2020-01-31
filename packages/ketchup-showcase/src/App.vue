@@ -158,6 +158,12 @@ export default {
             },
           },
           {
+            title: 'Crud',
+            to: {
+              name: 'crud',
+            },
+          },
+          {
             title: `Dash`,
             to: {
               name: 'dash',
@@ -173,6 +179,12 @@ export default {
             title: `Field`,
             to: {
               name: 'field',
+            },
+          },
+          {
+            title: 'Form',
+            to: {
+              name: 'form',
             },
           },
           {
@@ -212,6 +224,12 @@ export default {
             },
           },
           {
+            title: 'Search',
+            to: {
+              name: 'search',
+            },
+          },
+          {
             title: 'Tooltip',
             to: {
               name: 'tooltip',
@@ -221,18 +239,6 @@ export default {
             title: 'Tree',
             to: {
               name: 'tree',
-            },
-          },
-          {
-            title: 'Form',
-            to: {
-              name: 'form',
-            },
-          },
-          {
-            title: 'Crud',
-            to: {
-              name: 'crud',
             },
           },
         ],

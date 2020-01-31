@@ -73,6 +73,10 @@ import {
   FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
+  SearchFilterSubmittedEventDetail,
+  SearchSelectionUpdatedEventDetail,
+} from './components/kup-search/kup-search-declarations';
+import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -457,6 +461,9 @@ export namespace Components {
     'record': FormRecord;
     'records': FormRecord[];
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupDash {
@@ -482,6 +489,7 @@ export namespace Components {
     */
     'forceOneLine': boolean;
     'globalFilter': boolean;
+    'globalFilterValue': string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
@@ -555,6 +563,9 @@ export namespace Components {
     'fields': FormFields;
     'record': FormRecord;
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupGauge {
@@ -849,6 +860,26 @@ export namespace Components {
     */
     'label': string;
   }
+  interface KupSearch {
+    'data': TableData;
+    'disabled': boolean;
+    'extra': any;
+    'initialValue': string;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter': boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField': string;
+  }
   interface KupTextInput {
     /**
     * Imperatively sets a new value of the input.
@@ -987,13 +1018,13 @@ export namespace Components {
     */
     'iconoff': string;
     /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'label': string;
+    /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'rounded': boolean;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'text': string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -1136,6 +1167,10 @@ export namespace Components {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullheight': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
@@ -1392,6 +1427,12 @@ declare global {
     new (): HTMLKupRadioElementElement;
   };
 
+  interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {}
+  var HTMLKupSearchElement: {
+    prototype: HTMLKupSearchElement;
+    new (): HTMLKupSearchElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1509,6 +1550,7 @@ declare global {
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-radio-element': HTMLKupRadioElementElement;
+    'kup-search': HTMLKupSearchElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1991,6 +2033,9 @@ declare namespace LocalJSX {
     'record'?: FormRecord;
     'records'?: FormRecord[];
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
@@ -2016,6 +2061,7 @@ declare namespace LocalJSX {
     */
     'forceOneLine'?: boolean;
     'globalFilter'?: boolean;
+    'globalFilterValue'?: string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
@@ -2149,6 +2195,9 @@ declare namespace LocalJSX {
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'record'?: FormRecord;
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
@@ -2467,6 +2516,31 @@ declare namespace LocalJSX {
     */
     'label'?: string;
   }
+  interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
+    'data'?: TableData;
+    'disabled'?: boolean;
+    'extra'?: any;
+    'initialValue'?: string;
+    /**
+    * Fired when the filter is submitted but only if in serverHandledFilter mode.
+    */
+    'onKupSearchFilterSubmitted'?: (event: CustomEvent<SearchFilterSubmittedEventDetail>) => void;
+    'onKupSearchSelectionUpdated'?: (event: CustomEvent<SearchSelectionUpdatedEventDetail>) => void;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter'?: boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField'?: string;
+  }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -2655,6 +2729,10 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'iconoff'?: string;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
+    'label'?: string;
     'onKupButtonBlur'?: (event: CustomEvent<{
       value: any;
     }>) => void;
@@ -2674,10 +2752,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'rounded'?: boolean;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'text'?: string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -2935,6 +3009,10 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullheight'?: boolean;
+    /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
     'fullwidth'?: boolean;
@@ -3037,6 +3115,7 @@ declare namespace LocalJSX {
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
     'kup-radio-element': KupRadioElement;
+    'kup-search': KupSearch;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

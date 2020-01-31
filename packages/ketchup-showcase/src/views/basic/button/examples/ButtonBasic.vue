@@ -1,32 +1,8 @@
 <template>
   <div>
     <div id="sample-wrapper">
-      <div id="sample-comp">
-        <div id="sample-comp-wrapper">
-          <wup-button
-            @kupButtonClick="logClick"
-            @kupButtonChange="logChange"
-            @kupButtonFocus="logFocus"
-            @kupButtonBlur="logBlur"
-            @kupButtonInput="logInput"
-            id="demo-component"
-            text="Demo"
-          ></wup-button>
-        </div>
-        <wup-button
-          @kupButtonClick="swapView"
-          id="view-swapper"
-          toggable
-          icon="fullscreen_exit"
-          iconoff="fullscreen"
-          title="Increase/decrease demo size"
-        ></wup-button>
-      </div>
       <div id="sample-specs">
-        <wup-tab-bar
-          @kupTabBarClick="tabSelection"
-          :items.prop="items"
-        ></wup-tab-bar>
+        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
         <div id="sample-specs-container">
           <table class="instruction-table sample-section">
             <thead>
@@ -41,7 +17,7 @@
             <tbody>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">text</span>
+                  <span class="code-word">label</span>
                 </td>
                 <td>
                   The button's text. If no value is specified, the button will
@@ -57,7 +33,8 @@
                 <td class="text-cell">
                   <wup-text-field
                     icon="edit"
-                    id="text"
+                    id="label"
+                    fullheight
                     initialvalue="Demo"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -74,11 +51,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="disabled"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="disabled" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -92,11 +66,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="transparent"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="transparent" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -110,11 +81,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="flat"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="flat" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -128,11 +96,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="rounded"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="rounded" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -151,6 +116,7 @@
                 </td>
                 <td class="text-cell">
                   <wup-text-field
+                    fullheight
                     icon="edit"
                     id="icon"
                     @kupTextFieldInput="updateDemoField"
@@ -161,21 +127,15 @@
                 <td class="prevent-cr">
                   <span class="code-word">trailingicon</span>
                 </td>
-                <td
-                  >The button will display its associated icon after the
-                  text.</td
-                >
+                <td>The button will display its associated icon after the text.</td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="trailingicon"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="trailingicon" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -192,11 +152,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="toggable"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="toggable" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -213,11 +170,8 @@
                 <td class="prevent-cr">
                   <span class="code-word">false</span>
                 </td>
-                <td>
-                  <wup-switch
-                    id="checked"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                <td class="switch-cell">
+                  <wup-switch id="checked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -239,6 +193,7 @@
                 <td class="text-cell">
                   <wup-text-field
                     icon="edit"
+                    fullheight
                     id="iconoff"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -246,10 +201,7 @@
               </tr>
             </tbody>
           </table>
-          <table
-            style="display: none;"
-            class="instruction-table sample-section"
-          >
+          <table style="display: none;" class="instruction-table sample-section">
             <thead>
               <tr>
                 <th>Event</th>
@@ -327,11 +279,54 @@
           <div class="sample-section" style="display: none;">
             <wup-text-field
               fullwidth
+              fullheight
               textarea
               disabled
               initialvalue="This component does not require a JSON to work."
             ></wup-text-field>
           </div>
+        </div>
+      </div>
+      <div id="sample-comp">
+        <div id="sample-comp-wrapper">
+          <wup-button
+            @kupButtonClick="logClick"
+            @kupButtonChange="logChange"
+            @kupButtonFocus="logFocus"
+            @kupButtonBlur="logBlur"
+            @kupButtonInput="logInput"
+            id="demo-component"
+            label="Demo"
+          ></wup-button>
+        </div>
+        <div id="split-container">
+          <wup-button
+            @kupButtonClick="menuTrigger"
+            id="menu-trigger"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="last_page"
+            iconoff="menu_open"
+            title="Open/close side panel"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="swapView"
+            id="view-swapper"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="fullscreen_exit"
+            iconoff="fullscreen"
+            title="Increase/decrease demo size"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="splitView"
+            id="view-splitter"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+            icon="flip"
+            iconoff="view_agenda"
+            title="Split/detach view"
+          ></wup-button>
         </div>
       </div>
     </div>
@@ -347,7 +342,9 @@
       <p>
         The most basic button is a plain text one. In order to render it, you
         need to specify the
-        <span class="code-word">text</span> attribute followed by its value.
+        <span
+          class="code-word"
+        >label</span> attribute followed by its value.
       </p>
     </div>
   </div>
@@ -368,6 +365,22 @@ export default {
       } else {
         document.querySelector('#sample-comp').classList.remove('bigger');
         document.querySelector('#sample-specs').classList.remove('smaller');
+      }
+    },
+    splitView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-wrapper').classList.add('detached');
+      } else {
+        document.querySelector('#sample-wrapper').classList.remove('detached');
+      }
+    },
+    menuTrigger(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-comp').classList.add('full');
+        document.querySelector('#sample-specs').classList.add('closed');
+      } else {
+        document.querySelector('#sample-comp').classList.remove('full');
+        document.querySelector('#sample-specs').classList.remove('closed');
       }
     },
     logClick(e) {
