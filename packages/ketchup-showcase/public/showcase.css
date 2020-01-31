@@ -461,7 +461,6 @@ table.instruction-table {
 
 #sample-wrapper table.instruction-table {
   width: 100%;
-  height: auto;
   margin: 0;
 }
 
@@ -501,15 +500,35 @@ table.instruction-table th {
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 }
 
+#sample-wrapper.full {
+  width: 90vw;
+  background: var(--kup-background-color);
+  height: 90vh;
+  margin: 5vh 5vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
 #sample-wrapper.detached {
   height: 80vh;
   display: block;
+}
+
+#sample-wrapper.detached.full {
+  height: 90vh;
 }
 
 #sample-wrapper.detached #sample-specs {
   height: 40vh;
   width: 100%;
   display: block;
+}
+
+#sample-wrapper.detached.full #sample-specs,
+#sample-wrapper.detached.full #sample-comp {
+  height: 45vh;
 }
 
 #sample-wrapper.detached #sample-comp {
@@ -563,25 +582,48 @@ table.instruction-table th {
   height: 100%;
   position: relative;
   transition: width 0.25s;
-}
-
-#sample-comp.bigger {
-  width: 80%;
+  padding-bottom: 50px;
 }
 
 #sample-comp.full {
   width: 100%;
 }
 
+#sample-wrapper #sample-modal {
+  display: none;
+  position: fixed;
+  background-color: black;
+  z-index: 90;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
+}
+
+#sample-wrapper.full #sample-modal {
+  display: block;
+}
+
+#sample-wrapper.full #sample-specs,
+#sample-wrapper.full #sample-comp {
+  background-color: var(--kup-background-color);
+  z-index: 91;
+}
+
 #sample-comp-wrapper {
   overflow: auto;
   width: fit-content;
-  margin-bottom: 50px;
+  margin: auto;
 }
 
-#sample-wrapper.detached #sample-comp-wrapper {
-  margin-top: 50px;
-  margin-bottom: 0;
+#sample-wrapper.detached #sample-comp {
+  padding-top: 50px;
+  padding-bottom: 0;
 }
 
 #sample-specs {
@@ -589,10 +631,6 @@ table.instruction-table th {
   height: 100%;
   position: relative;
   transition: width 0.25s;
-}
-
-#sample-specs.smaller {
-  width: 20%;
 }
 
 #sample-specs.closed {
@@ -622,7 +660,8 @@ table.instruction-table th {
 }
 
 @media screen and (max-width: 767px) {
-  #view-swapper {
+  #view-swapper,
+  #menu-trigger {
     display: none;
   }
 

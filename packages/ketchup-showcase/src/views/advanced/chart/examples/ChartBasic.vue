@@ -9,7 +9,8 @@
       >Google Charts</a>
       library.
     </p>
-    <div id="sample-wrapper">
+    <div id="sample-wrapper" class="detached">
+      <div id="sample-modal"></div>
       <div id="sample-specs">
         <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
         <div id="sample-specs-container">
@@ -376,15 +377,15 @@
             style="--kup-main-color: var(--kup-text-on-main-color);"
             icon="fullscreen_exit"
             iconoff="fullscreen"
-            title="Increase/decrease demo size"
+            title="Toggle/disable full screen"
           ></wup-button>
           <wup-button
             @kupButtonClick="splitView"
             id="view-splitter"
             toggable
             style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
-            icon="flip"
-            iconoff="view_agenda"
+            icon="view_agenda"
+            iconoff="flip"
             title="Split/detach view"
           ></wup-button>
         </div>
@@ -560,18 +561,16 @@ export default {
     },
     swapView(e) {
       if (e.detail.value === 'on') {
-        document.querySelector('#sample-comp').classList.add('bigger');
-        document.querySelector('#sample-specs').classList.add('smaller');
+        document.querySelector('#sample-wrapper').classList.add('full');
       } else {
-        document.querySelector('#sample-comp').classList.remove('bigger');
-        document.querySelector('#sample-specs').classList.remove('smaller');
+        document.querySelector('#sample-wrapper').classList.remove('full');
       }
     },
     splitView(e) {
       if (e.detail.value === 'on') {
-        document.querySelector('#sample-wrapper').classList.add('detached');
-      } else {
         document.querySelector('#sample-wrapper').classList.remove('detached');
+      } else {
+        document.querySelector('#sample-wrapper').classList.add('detached');
       }
     },
     menuTrigger(e) {
