@@ -1,0 +1,7 @@
+// Imports from material
+@import '@material/list/mdc-list';
+
+// host represent widget DOM element
+:host {
+  display: block;
+}

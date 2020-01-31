@@ -109,7 +109,14 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  WidgetTabBarElement,
+  ComboItem as ComboItem1,
+  KetchupComboEvent as KetchupComboEvent1,
+} from './components/wup-combo/wup-combo-declarations';
+import {
+  PaginatorMode as PaginatorMode1,
+} from './components/wup-paginator/wup-paginator-declarations';
+import {
+  ComponentTabBarElement,
 } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
@@ -1022,6 +1029,60 @@ export namespace Components {
     */
     'labelright': string;
   }
+  interface WupCombo {
+    /**
+    * Programmatically close the combo box
+    */
+    'closeCombo': () => Promise<void>;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField': string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue': ComboItem | null;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable': boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    /**
+    * Items which can be selected
+    */
+    'items': ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label': string;
+    /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
+    /**
+    * Programmatically opens the combo box
+    */
+    'openCombo': () => Promise<void>;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal': boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField': string;
+  }
+  interface WupList {}
+  interface WupPaginator {
+    'currentPage': number;
+    'max': number;
+    'mode': PaginatorMode;
+    'perPage': number;
+    'selectedPerPage': number;
+  }
   interface WupRadio {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -1062,7 +1123,7 @@ export namespace Components {
     /**
     * List of elements.
     */
-    'items': WidgetTabBarElement[];
+    'items': ComponentTabBarElement[];
   }
   interface WupTemplate {
     /**
@@ -1367,6 +1428,24 @@ declare global {
     new (): HTMLWupCheckboxElement;
   };
 
+  interface HTMLWupComboElement extends Components.WupCombo, HTMLStencilElement {}
+  var HTMLWupComboElement: {
+    prototype: HTMLWupComboElement;
+    new (): HTMLWupComboElement;
+  };
+
+  interface HTMLWupListElement extends Components.WupList, HTMLStencilElement {}
+  var HTMLWupListElement: {
+    prototype: HTMLWupListElement;
+    new (): HTMLWupListElement;
+  };
+
+  interface HTMLWupPaginatorElement extends Components.WupPaginator, HTMLStencilElement {}
+  var HTMLWupPaginatorElement: {
+    prototype: HTMLWupPaginatorElement;
+    new (): HTMLWupPaginatorElement;
+  };
+
   interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
   var HTMLWupRadioElement: {
     prototype: HTMLWupRadioElement;
@@ -1436,6 +1515,9 @@ declare global {
     'kup-upload': HTMLKupUploadElement;
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
+    'wup-combo': HTMLWupComboElement;
+    'wup-list': HTMLWupListElement;
+    'wup-paginator': HTMLWupPaginatorElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
@@ -2646,6 +2728,91 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
   }
+  interface WupCombo extends JSXBase.HTMLAttributes<HTMLWupComboElement> {
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'displayedField'?: string;
+    /**
+    * Allows to pass an initial selected item for the combobox
+    */
+    'initialValue'?: ComboItem | null;
+    /**
+    * Marks the field as clearable, allowing an icon to delete its content
+    */
+    'isClearable'?: boolean;
+    /**
+    * Marks the field as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    /**
+    * Items which can be selected
+    */
+    'items'?: ComboItem[];
+    /**
+    * Label to describe the radio group
+    */
+    'label'?: string;
+    /**
+    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+    */
+    'obj'?: GenericObject;
+    /**
+    * When combo is blurred
+    */
+    'onKetchupComboBlurred'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
+    * When combo is focused
+    */
+    'onKetchupComboFocused'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
+    * When an element has been selected
+    */
+    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
+    /**
+    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+    */
+    'usePortal'?: boolean;
+    /**
+    * Chooses which field of an item object should be used to create the list and be filtered.
+    */
+    'valueField'?: string;
+  }
+  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+    /**
+    * Event example.
+    */
+    'onKupListBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupListChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupListClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupListFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupListInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+  }
+  interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
+    'currentPage'?: number;
+    'max'?: number;
+    'mode'?: PaginatorMode;
+    /**
+    * When the current page change
+    */
+    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
+    /**
+    * When the rows per page change
+    */
+    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+    'perPage'?: number;
+    'selectedPerPage'?: number;
+  }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -2716,7 +2883,7 @@ declare namespace LocalJSX {
     /**
     * List of elements.
     */
-    'items'?: WidgetTabBarElement[];
+    'items'?: ComponentTabBarElement[];
     'onKupTabBarBlur'?: (event: CustomEvent<{
       index: number;
       el: EventTarget;
@@ -2876,6 +3043,9 @@ declare namespace LocalJSX {
     'kup-upload': KupUpload;
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
+    'wup-combo': WupCombo;
+    'wup-list': WupList;
+    'wup-paginator': WupPaginator;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;

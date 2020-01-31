@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
-import { WidgetTabBarElement } from './wup-tab-bar-declarations';
+import { ComponentTabBarElement } from './wup-tab-bar-declarations';
 
 @Component({
     tag: 'wup-tab-bar',
@@ -23,7 +23,7 @@ export class WupTabBar {
     /**
      * List of elements.
      */
-    @Prop() items: WidgetTabBarElement[] = [];
+    @Prop() items: ComponentTabBarElement[] = [];
 
     @Event({
         eventName: 'kupTabBarBlur',
