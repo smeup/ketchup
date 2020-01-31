@@ -550,6 +550,8 @@ export namespace Components {
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
+    'getActualRecord': () => Promise<FormRecord>;
+    'getOldRecord': () => Promise<FormRecord>;
     'record': FormRecord;
     'refid': string;
     'searchCallBackOnFilterSubmitted': (

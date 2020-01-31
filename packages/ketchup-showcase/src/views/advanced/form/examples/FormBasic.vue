@@ -94,6 +94,12 @@
         </div>
       </div>
     </div>
+    <div class="methods">
+      <label>Methods</label>
+      See console log...
+      <v-btn @click="onGetActualRecord">Get actual record</v-btn>
+      <v-btn @click="onGetOldRecord">Get old record</v-btn>
+    </div>
   </div>
 </template>
 
@@ -191,6 +197,18 @@ export default {
         this.json = JSON.parse(this.simpleText);
       }
       this.appendMore(this.sampleType);
+    },
+    onGetActualRecord(e) {
+      this.$refs.form
+        .getActualRecord()
+        .then((result) =>
+          console.log('Actual record:' + JSON.stringify(result))
+        );
+    },
+    onGetOldRecord(e) {
+      this.$refs.form
+        .getOldRecord()
+        .then((result) => console.log('Old record: ' + JSON.stringify(result)));
     },
     onFormActionSubmitted(event) {
       this.appendEventToHistory('FormActionSubmitted', event);
@@ -367,5 +385,9 @@ textarea {
 
 .hidden {
   display: none;
+}
+
+.methods {
+  margin-top: 10px;
 }
 </style>

@@ -126,7 +126,6 @@ export function outputValueItem(value: any, outputValueFunction: string) {
         if (outputValueFunction) {
             output = get(value, outputValueFunction, null);
         }
-        console.log('OUTPUT ' + output + ' ' + value);
         if (output == null) {
             return 'TODO: improve outputValue method';
         } else {

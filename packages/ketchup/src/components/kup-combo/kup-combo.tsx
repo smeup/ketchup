@@ -168,6 +168,7 @@ export class KupCombo {
     @Watch('initialValue')
     reflectInitialValue(newValue: ComboItem | null, oldValue?: ComboItem) {
         // When a new initial value is passed, we control that the new item is different from the old one before updating the state
+        // TODO: is correct to send a comboSelected event here?
         if (
             (!newValue && oldValue) ||
             (newValue && !oldValue) ||

@@ -6,6 +6,7 @@ import {
     Event,
     EventEmitter,
     State,
+    Method,
 } from '@stencil/core';
 
 import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
@@ -146,6 +147,22 @@ export class KupForm {
     kupFormFieldChanged: EventEmitter<FormFieldEventDetail>;
 
     //--------------------------------------------------------------------------
+    // METHODS
+    // -------------------------------------------------------------------------
+
+    // can be useful?
+
+    @Method()
+    async getActualRecord() {
+        return this.actualRecord;
+    }
+
+    @Method()
+    async getOldRecord() {
+        return this.oldRecord;
+    }
+
+    //--------------------------------------------------------------------------
     // INTERNAL
     // -------------------------------------------------------------------------
 
@@ -219,7 +236,7 @@ export class KupForm {
         );
     }
 
-    private onCrudFieldChange(
+    private onCrudFieldChanged(
         event: CustomEvent<CrudRecordsChanged>,
         fieldKey: string
     ) {
@@ -227,19 +244,19 @@ export class KupForm {
         // records are here saved with a zipped format but can be saved as preferred, also as are
         let zippedRecords = zipRecords(event.detail.actual.records);
         let value = zippedRecords;
-        this.changeFieldValue(fieldKey, value);
+        this.onFieldChanged(fieldKey, value);
     }
 
-    private onAutocompleteFieldChange(
+    private onAutocompleteFieldChanged(
         event: CustomEvent<KupAutocompleteOption[]>,
         fieldKey: string
     ) {
         event.stopPropagation();
         let value = event.detail;
-        this.changeFieldValue(fieldKey, value);
+        this.onFieldChanged(fieldKey, value);
     }
 
-    private onSimpleValueFieldChange(
+    private onSimpleValueFieldChanged(
         event:
             | CustomEvent<KetchupTextInputEvent>
             | CustomEvent<KetchupComboEvent>
@@ -248,30 +265,50 @@ export class KupForm {
     ) {
         event.stopPropagation();
         const { value } = event.detail;
-        this.changeFieldValue(fieldKey, value);
+        this.onFieldChanged(fieldKey, value);
     }
 
-    private changeFieldValue(fieldKey: string, value: any) {
-        console.log('Change value for field key ' + fieldKey);
+    private isFieldDifferentFromActual(fieldKey: string, value: any) {
+        let isFieldDifferentFromActual = false;
         if (!this.actualRecord.fields.hasOwnProperty(fieldKey)) {
-            this.actualRecord.fields[fieldKey] = {
-                key: fieldKey,
-                value: value,
-            };
+            isFieldDifferentFromActual = true;
         } else {
-            this.actualRecord.fields[fieldKey].value = value;
+            if (this.actualRecord.fields[fieldKey].value != value) {
+                isFieldDifferentFromActual = true;
+            }
         }
+        return isFieldDifferentFromActual;
+    }
 
-        if (this.config && this.config.liveCheck) {
-            this.checkField(
-                this.fields[fieldKey],
-                this.actualRecord.fields[fieldKey]
+    private onFieldChanged(fieldKey: string, value: any) {
+        let isFieldDifferentFromActual = this.isFieldDifferentFromActual(
+            fieldKey,
+            value
+        );
+
+        // added this check because some components (like kup-combo) actually send a change event also when
+        // the value is reset into component -> TODO: evaluate other components behaviour
+        if (isFieldDifferentFromActual) {
+            if (!this.actualRecord.fields.hasOwnProperty(fieldKey)) {
+                this.actualRecord.fields[fieldKey] = {
+                    key: fieldKey,
+                    value: value,
+                };
+            } else {
+                this.actualRecord.fields[fieldKey].value = value;
+            }
+
+            if (this.config && this.config.liveCheck) {
+                this.checkField(
+                    this.fields[fieldKey],
+                    this.actualRecord.fields[fieldKey]
+                );
+            }
+
+            this.kupFormFieldChanged.emit(
+                this.buildFormFieldChangedDetail(fieldKey)
             );
         }
-
-        this.kupFormFieldChanged.emit(
-            this.buildFormFieldChangedDetail(fieldKey)
-        );
     }
 
     //--------------------------------------------------------------------------
@@ -398,7 +435,7 @@ export class KupForm {
                             initialValue={cell && cell.value}
                             disabled={field.readonly}
                             onKetchupComboSelected={(e) =>
-                                this.onSimpleValueFieldChange(e, field.key)
+                                this.onSimpleValueFieldChanged(e, field.key)
                             }
                             onKetchupComboFocused={() =>
                                 this.onFieldFocused(field.key)
@@ -422,7 +459,7 @@ export class KupForm {
                             extraMessages={field.config.extraMessages}
                             actions={field.config.actions}
                             onKupCrudRecordsChanged={(e) =>
-                                this.onCrudFieldChange(e, field.key)
+                                this.onCrudFieldChanged(e, field.key)
                             }
                             onKupCrudFocused={() =>
                                 this.onFieldFocused(field.key)
@@ -453,7 +490,7 @@ export class KupForm {
                             items={field.config.items}
                             {...field.config}
                             onKupAutocompleteSelectionUpdate={(e) =>
-                                this.onAutocompleteFieldChange(e, field.key)
+                                this.onAutocompleteFieldChanged(e, field.key)
                             }
                             autocompleteCallBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
@@ -468,7 +505,7 @@ export class KupForm {
                             initialValue={cell && cell.value}
                             {...field.config}
                             onKupSearchSelectionUpdated={(e) =>
-                                this.onSimpleValueFieldChange(e, field.key)
+                                this.onSimpleValueFieldChanged(e, field.key)
                             }
                             searchCallBackOnFilterSubmitted={
                                 this.searchCallBackOnFilterSubmitted
@@ -519,7 +556,7 @@ export class KupForm {
                             initialValue={cell && cell.value}
                             disabled={field.readonly}
                             onKetchupTextInputChanged={(e) =>
-                                this.onSimpleValueFieldChange(e, field.key)
+                                this.onSimpleValueFieldChanged(e, field.key)
                             }
                             onKetchupTextInputFocused={() =>
                                 this.onFieldFocused(field.key)
