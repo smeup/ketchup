@@ -32,9 +32,9 @@
                 </td>
                 <td class="text-cell">
                   <wup-text-field
-                    icon="edit"
-                    id="label"
                     fullheight
+                    fullwidth
+                    id="label"
                     initialvalue="Demo"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -117,7 +117,7 @@
                 <td class="text-cell">
                   <wup-text-field
                     fullheight
-                    icon="edit"
+                    fullwidth
                     id="icon"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>
@@ -192,8 +192,8 @@
                 </td>
                 <td class="text-cell">
                   <wup-text-field
-                    icon="edit"
                     fullheight
+                    fullwidth
                     id="iconoff"
                     @kupTextFieldInput="updateDemoField"
                   ></wup-text-field>

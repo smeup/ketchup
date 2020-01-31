@@ -461,6 +461,7 @@ table.instruction-table {
 
 #sample-wrapper table.instruction-table {
   width: 100%;
+  height: auto;
   margin: 0;
 }
 
@@ -561,7 +562,6 @@ table.instruction-table th {
   display: inline-flex;
   height: 100%;
   position: relative;
-  overflow: auto;
   transition: width 0.25s;
 }
 
@@ -574,14 +574,14 @@ table.instruction-table th {
 }
 
 #sample-comp-wrapper {
+  overflow: auto;
   width: fit-content;
-  margin: auto;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 #sample-wrapper.detached #sample-comp-wrapper {
-  padding-top: 50px;
-  padding-bottom: 0;
+  margin-top: 50px;
+  margin-bottom: 0;
 }
 
 #sample-specs {
