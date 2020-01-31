@@ -435,9 +435,6 @@ export namespace Components {
     'autocompleteCallBackOnFilterUpdate': (
     detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined;
-    /**
-    * ************************************************************** PUBLIC METHODS                                              * **************************************************************
-    */
     'closeForm': () => Promise<void>;
     'config': CrudConfig;
     'crudCallBackOnFormActionSubmitted': (
@@ -451,7 +448,6 @@ export namespace Components {
     'extraMessages': FormMessage[];
     'fields': FormFields;
     'openForm': () => Promise<void>;
-    'record': FormRecord;
     'records': FormRecord[];
     'refid': string;
     'searchCallBackOnFilterSubmitted': (
@@ -1948,7 +1944,6 @@ declare namespace LocalJSX {
     'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
-    'record'?: FormRecord;
     'records'?: FormRecord[];
     'refid'?: string;
     'searchCallBackOnFilterSubmitted'?: (

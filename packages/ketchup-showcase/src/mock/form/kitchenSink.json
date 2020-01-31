@@ -5,8 +5,6 @@
     "aParamForBackend": "AAA"
   },
 
-  "formOpened": false,
-
   "config": {
     "liveCheck": true
   },
@@ -147,7 +145,10 @@
         "p": "V§N",
         "k": ""
       },
-      "outputValueFunction": "description"
+      "outputValueFunction": "description",
+      "extra": {
+        "liveBackendCheck": true
+      }
     },
     "region": {
       "key": "region",
@@ -225,10 +226,7 @@
         "t": "",
         "p": "V§R"
       },
-      "outputValueFunction": "description",
-      "extra": {
-        "liveBackendCheck": true
-      }
+      "outputValueFunction": "description"
     },
     "address": {
       "key": "address",
@@ -307,9 +305,6 @@
       "titlePosition": "None",
       "description": "Father",
       "shape": "CFG",
-      "validate": {
-        "required": true
-      },
       "refid": "father-xxx",
       "extra": {
         "aParamForBackend": "BBB",
@@ -439,7 +434,10 @@
               "p": "V§N",
               "k": ""
             },
-            "outputValueFunction": "description"
+            "outputValueFunction": "description",
+            "extra": {
+              "liveBackendCheck": true
+            }
           },
           "region": {
             "key": "region",
@@ -518,10 +516,7 @@
               "p": "V§R",
               "k": ""
             },
-            "outputValueFunction": "description",
-            "extra": {
-              "liveBackendCheck": true
-            }
+            "outputValueFunction": "description"
           },
           "address": {
             "key": "address",
@@ -583,9 +578,6 @@
             "titlePosition": "None",
             "description": "Father",
             "shape": "CFG",
-            "validate": {
-              "required": true
-            },
             "refid": "father-father-xxx",
             "extra": {
               "aParamForBackend": "CCC"

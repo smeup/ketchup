@@ -4,7 +4,7 @@
 // BUTTON
 // -------------
 import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+//import isEmpty from 'lodash/isEmpty';
 import { FormRecord } from '../components/kup-form/kup-form-declarations';
 
 export interface J4objKupButtonConfig {
@@ -126,7 +126,8 @@ export function outputValueItem(value: any, outputValueFunction: string) {
         if (outputValueFunction) {
             output = get(value, outputValueFunction, null);
         }
-        if (isEmpty(output)) {
+        console.log('OUTPUT ' + output + ' ' + value);
+        if (output == null) {
             return 'TODO: improve outputValue method';
         } else {
             return output;

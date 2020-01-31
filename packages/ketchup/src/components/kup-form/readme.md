@@ -10,7 +10,7 @@ Fields config and layout are defined in a prop called field. Each field must hav
 
 Fields values are in a prop called record, filled with cells. In a cell you can put also some specific cell data, like a specific shape config or extra or obj props.
 
-# Extra and obj
+## Extra and obj
 
 Extra is a any attribute that can contain all you want to be transferred during events (for example some backed useful params). Obj is a more specific type of info that will be always transferred during events, like extra. Obj contains a type, a parameter and a code. You can put extra and obj at field level, at cell level, at actions level, at component level, and they will always be transferred during events.
 

@@ -7,6 +7,7 @@ import {
     Event,
     EventEmitter,
     Host,
+    State,
 } from '@stencil/core';
 
 import {
@@ -43,31 +44,35 @@ import { SearchFilterSubmittedEventDetail } from '../kup-search/kup-search-decla
 
 import { TableData } from '../kup-data-table/kup-data-table-declarations';
 
+import cloneDeep from 'lodash/cloneDeep';
+
 @Component({
     tag: 'kup-crud',
     styleUrl: 'kup-crud.scss',
     shadow: true,
 })
 export class KupCrud {
+    //--------------------------------------------------------------------------
+    // PROPS
+    // -------------------------------------------------------------------------
+
     @Prop() refid: string;
 
     @Prop() extra: any;
 
-    @Prop({ mutable: true }) config: CrudConfig = {};
+    @Prop() config: CrudConfig = {};
 
-    @Prop({ mutable: true }) records: FormRecord[];
+    @Prop() records: FormRecord[];
 
-    @Prop({ mutable: true }) record: FormRecord;
+    @Prop() fields: FormFields;
 
-    @Prop({ mutable: true }) fields: FormFields;
+    @Prop() sections: FormSection;
 
-    @Prop({ mutable: true }) sections: FormSection;
+    @Prop() extraMessages: FormMessage[] = [];
 
-    @Prop({ mutable: true }) extraMessages: FormMessage[] = [];
+    @Prop() actions: FormActions;
 
-    @Prop({ mutable: true }) actions: FormActions;
-
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
 
     @Prop() crudCallBackOnFormActionSubmitted: (
         detail: FormActionEventDetail
@@ -85,9 +90,9 @@ export class KupCrud {
         detail: SearchFilterSubmittedEventDetail
     ) => Promise<TableData> | undefined = undefined;
 
-    private visibleFields: FormField[] = [];
-
-    private modal: HTMLKupModalElement;
+    //--------------------------------------------------------------------------
+    // EVENTS
+    // -------------------------------------------------------------------------
 
     @Event({
         eventName: 'kupCrudFocused',
@@ -129,9 +134,19 @@ export class KupCrud {
     })
     kupCrudRecordsChanged: EventEmitter<CrudRecordsChanged>;
 
-    /*****************************************************************/
-    /** PUBLIC METHODS                                              **/
-    /*****************************************************************/
+    //--------------------------------------------------------------------------
+    // INTERNAL
+    // -------------------------------------------------------------------------
+
+    @State() actualRecord: FormRecord;
+
+    private visibleFields: FormField[] = [];
+
+    private modal: HTMLKupModalElement;
+
+    //--------------------------------------------------------------------------
+    // PUBLI METHODS
+    // -------------------------------------------------------------------------
 
     @Method()
     async closeForm() {
@@ -143,9 +158,9 @@ export class KupCrud {
         this.modal.visible = true;
     }
 
-    /*****************************************************************/
-    /** ON SOMETHING                                                **/
-    /*****************************************************************/
+    //--------------------------------------------------------------------------
+    // ON SOMETHING
+    // -------------------------------------------------------------------------
 
     componentWillLoad() {
         this.onFieldsChanged();
@@ -172,7 +187,7 @@ export class KupCrud {
 
         // clean form with selected record data
         if (this.records[0]) {
-            this.record = this.records[0];
+            this.actualRecord = cloneDeep(this.records[0]);
         }
         this.extraMessages = [];
 
@@ -188,7 +203,7 @@ export class KupCrud {
     }
 
     // TODO on form field changed....
-    private onFormFieldBlurred(event: CustomEvent<FormFieldEventDetail>) {
+    private onFormFieldChanged(event: CustomEvent<FormFieldEventDetail>) {
         event.stopPropagation();
         let detail = event.detail;
 
@@ -234,9 +249,9 @@ export class KupCrud {
         }
     }
 
-    /*****************************************************************/
-    /** RENDERING                                                   **/
-    /*****************************************************************/
+    //--------------------------------------------------------------------------
+    // RENDERING
+    // -------------------------------------------------------------------------
 
     render() {
         let tableHeader = [];
@@ -304,15 +319,15 @@ export class KupCrud {
                             extra={this.extra}
                             config={this.config}
                             fields={this.fields}
-                            record={this.record}
+                            record={this.actualRecord}
                             sections={this.sections}
                             extraMessages={this.extraMessages}
                             actions={this.actions}
                             onKupFormActionSubmitted={(e) =>
                                 this.onFormActionSubmitted(e)
                             }
-                            onKupFormFieldBlurred={(e) =>
-                                this.onFormFieldBlurred(e)
+                            onKupFormFieldChanged={(e) =>
+                                this.onFormFieldChanged(e)
                             }
                             autocompleteCallBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
@@ -333,9 +348,9 @@ export class KupCrud {
         );
     }
 
-    /*****************************************************************/
-    /** UTIL METHODS                                                **/
-    /*****************************************************************/
+    //--------------------------------------------------------------------------
+    // UTIL METHODS
+    // -------------------------------------------------------------------------
 
     private initVisibleFields(): void {
         this.visibleFields = getVisibleFields(getFields(this.fields));
@@ -349,7 +364,6 @@ export class KupCrud {
         }
 
         if (result.formOpened == false) {
-            console.log('closing form');
             this.modal.visible = false;
         }
 
@@ -357,18 +371,31 @@ export class KupCrud {
             this.extraMessages = result.extraMessages;
         }
 
-        // TODO: actually updating only readonly -> update all existing props...
+        // TODO: as default if you modify fields you have to return all fields
+        // I added a fields.diff.override mode but is an INCOMPLETE sample
+        // the impl is only for readonly and data props -> if can be useful extends it
         if (result.fields) {
-            const keys = Object.keys(result.fields);
-            keys.forEach((key) => {
-                if (result.fields[key].hasOwnProperty('readonly')) {
-                    this.fields[key].readonly = result.fields[key].readonly;
-                }
-            });
+            console.log('Updating fields...');
+            if (result.diffTypes.includes('fields.diff.override')) {
+                const keys = Object.keys(result.fields);
+                keys.forEach((key) => {
+                    if (result.fields[key].hasOwnProperty('config')) {
+                        if (result.fields[key].config.hasOwnProperty('data')) {
+                            this.fields[key].config.data =
+                                result.fields[key].config.data;
+                        }
+                    }
+                    if (result.fields[key].hasOwnProperty('readonly')) {
+                        this.fields[key].readonly = result.fields[key].readonly;
+                    }
+                });
+            } else {
+                this.fields = result.fields;
+            }
         }
 
         if (result.record) {
-            this.record = result.record;
+            this.actualRecord = result.record;
         }
 
         if (result.records) {

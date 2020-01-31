@@ -169,8 +169,11 @@ export class KupCombo {
     reflectInitialValue(newValue: ComboItem | null, oldValue?: ComboItem) {
         // When a new initial value is passed, we control that the new item is different from the old one before updating the state
         if (
-            !oldValue ||
-            newValue[this.valueField] !== oldValue[this.valueField]
+            (!newValue && oldValue) ||
+            (newValue && !oldValue) ||
+            (newValue &&
+                oldValue &&
+                newValue[this.valueField] !== oldValue[this.valueField])
         ) {
             this.onComboSelected(newValue, oldValue);
         }
