@@ -76,10 +76,9 @@
               some fields
             </li>
           </ul>
-          <p></p>
           <p>
-            2) if the form is valid (no errors) your playground schema will be
-            updated.
+            2) if you put country != IT your region field value will be blanked
+            and region options will be updated
           </p>
           <p>
             If you want to activate backend fake logic also after a particular
@@ -94,6 +93,12 @@
           <p>A very simple sample...</p>
         </div>
       </div>
+    </div>
+    <div class="methods">
+      <label>Methods</label>
+      See console log...
+      <v-btn @click="onGetActualRecord">Get actual record</v-btn>
+      <v-btn @click="onGetOldRecord">Get old record</v-btn>
     </div>
   </div>
 </template>
@@ -193,6 +198,18 @@ export default {
       }
       this.appendMore(this.sampleType);
     },
+    onGetActualRecord(e) {
+      this.$refs.form
+        .getActualRecord()
+        .then((result) =>
+          console.log('Actual record:' + JSON.stringify(result))
+        );
+    },
+    onGetOldRecord(e) {
+      this.$refs.form
+        .getOldRecord()
+        .then((result) => console.log('Old record: ' + JSON.stringify(result)));
+    },
     onFormActionSubmitted(event) {
       this.appendEventToHistory('FormActionSubmitted', event);
       let result = chooseAndApplyFakeBackendLogic(
@@ -206,14 +223,14 @@ export default {
     },
     onFormFieldBlurred(event) {
       this.appendEventToHistory('FormFieldBlurred', event);
+    },
+    onFormFieldChanged(event) {
+      this.appendEventToHistory('FormFieldChanged', event);
       let result = chooseAndApplyFakeBackendLogic(
         'FormFieldChanged',
         event.detail
       );
       this.updateForm(result);
-    },
-    onFormFieldChanged(event) {
-      this.appendEventToHistory('FormFieldChanged', event);
     },
     onAutocompleteFilterUpdate(event) {
       this.appendEventToHistory('AutocompleteFilterUpdate', event);
@@ -258,17 +275,34 @@ export default {
         this.$refs.form.extraMessages = result.extraMessages;
       }
 
-      // TODO: actually updating only readonly -> update all existing props...
+      // TODO: as default if you modify fields you have to return all fields
+      // I added a fields.diff.override mode but is an INCOMPLETE sample
+      // the impl is only for readonly and data props -> if can be useful extends it
       if (result.fields) {
-        const keys = Object.keys(result.fields);
-        keys.forEach((key) => {
-          if (result.fields[key].hasOwnProperty('readonly')) {
-            this.$refs.form.fields[key].readonly = result.fields[key].readonly;
-          }
-        });
+        console.log('Updating fields...');
+        if (result.diffTypes.includes('fields.diff.override')) {
+
+          const keys = Object.keys(result.fields);
+          keys.forEach((key) => {
+            if (result.fields[key].hasOwnProperty('config')) {
+              if (result.fields[key].config.hasOwnProperty('data')) {
+                this.$refs.form.fields[key].config.data =
+                  result.fields[key].config.data;
+              }
+            }
+
+            if (result.fields[key].hasOwnProperty('readonly')) {
+              this.$refs.form.fields[key].readonly =
+                result.fields[key].readonly;
+            }
+          });
+        } else {
+          this.$refs.form.fields = result.fields;
+        }
       }
 
       if (result.record) {
+        console.log('Updating record...');
         this.$refs.form.record = result.record;
       }
 
@@ -351,5 +385,9 @@ textarea {
 
 .hidden {
   display: none;
+}
+
+.methods {
+  margin-top: 10px;
 }
 </style>
