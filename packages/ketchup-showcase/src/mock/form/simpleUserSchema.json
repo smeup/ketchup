@@ -1,5 +1,9 @@
 {
   "config": {
+    "multiple": true,
+    "insert": true,
+    "update": true,
+    "delete": true,
     "liveCheck": true
   },
 
@@ -32,10 +36,6 @@
       "description": "Last name",
       "readonly": true,
       "shape": "ITX",
-      "validate": {
-        "required": true,
-        "minLength": 3
-      },
       "config": {
         "isClearable": true,
         "maxLenght": 5
@@ -243,6 +243,8 @@
       }
     ]
   },
+
+  "extraMessages": [],
 
   "actions": {
     "fields": {

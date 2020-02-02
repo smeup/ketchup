@@ -68,6 +68,7 @@ export interface FormFieldCalcs {
     oldValue: any;
 }
 
+// TODO: use a Message common to all framework (and a related kup-message component)
 export interface FormMessage {
     fieldKey?: string;
     text: string;

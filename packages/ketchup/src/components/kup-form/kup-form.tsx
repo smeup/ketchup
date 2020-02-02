@@ -65,6 +65,7 @@ import {
     isAutocompleteInForm,
     isSearchInForm,
     isConfiguratorInForm,
+    isMultipleConfiguratorInForm,
 } from '../../utils/form-cell-utils';
 
 import { KupImage } from '../kup-image/kup-image';
@@ -167,7 +168,7 @@ export class KupForm {
     // -------------------------------------------------------------------------
 
     // it's the actual state of the record
-    @State() actualRecord: FormRecord;
+    @State() actualRecord: FormRecord = { fields: {} };
 
     // it's the actual state of the sections (can be recalculated internally)
     @State() actualSections: FormSection;
@@ -213,8 +214,8 @@ export class KupForm {
     @Watch('record')
     private onRecordChanged() {
         console.log('Changing record prop');
-        this.actualRecord = this.record;
         this.oldRecord = cloneDeep(this.record);
+        this.actualRecord = this.record;
     }
 
     private onFormActionSubmitted(actionField: FormActionField) {
@@ -241,7 +242,7 @@ export class KupForm {
         fieldKey: string
     ) {
         event.stopPropagation();
-        // records are here saved with a zipped format but can be saved as preferred, also as are
+        // simplified crud field -> TODO: save records as are
         let zippedRecords = zipRecords(event.detail.actual.records);
         let value = zippedRecords;
         this.onFieldChanged(fieldKey, value);
@@ -445,7 +446,10 @@ export class KupForm {
                             }
                         ></kup-combo>
                     );
-                } else if (isConfiguratorInForm(cell, field)) {
+                } else if (
+                    isConfiguratorInForm(cell, field) ||
+                    isMultipleConfiguratorInForm(cell, field)
+                ) {
                     let records = unzipRecords(cell && cell.value);
                     fieldContent = (
                         <kup-crud
@@ -575,11 +579,16 @@ export class KupForm {
                 }
             }
 
-            if (field.title.trim().length) {
-                fieldLabelContent = <label>{field.title}</label>;
+            if (field.title && field.title.trim().length > 0) {
+                let title = field.title;
+                if (field.validate && field.validate.required) {
+                    title = title + ' *';
+                }
+                fieldLabelContent = <label>{title}</label>;
             }
 
             let fieldMessages = [...this.actualMessages, ...this.extraMessages];
+
             fieldMessages = fieldMessages
                 ? fieldMessages.filter((elem) => elem.fieldKey == field.key)
                 : [];
@@ -941,8 +950,7 @@ export class KupForm {
         if (
             field.validate &&
             field.validate.required &&
-            cell &&
-            isEmpty(cell.value)
+            (!cell || isEmpty(cell.value))
         ) {
             messages = [
                 ...messages,
@@ -958,8 +966,8 @@ export class KupForm {
         if (
             field.validate &&
             field.validate.minLength &&
-            cell &&
-            (isEmpty(cell.value) ||
+            (!cell ||
+                isEmpty(cell.value) ||
                 cell.value.length < field.validate.minLength)
         ) {
             messages = [

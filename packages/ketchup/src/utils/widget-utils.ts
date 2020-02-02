@@ -7,6 +7,8 @@ import get from 'lodash/get';
 //import isEmpty from 'lodash/isEmpty';
 import { FormRecord } from '../components/kup-form/kup-form-declarations';
 
+import { generateUuidv4 } from './utils';
+
 export interface J4objKupButtonConfig {
     flat: boolean;
     buttonStyle: {};
@@ -136,6 +138,7 @@ export function outputValueItem(value: any, outputValueFunction: string) {
     }
 }
 
+// simplified serializing of crud records (only for test -> TODO: use the entire record as is)
 export function zipRecords(records: FormRecord[]): any {
     let compactRecords = [];
     if (records) {
@@ -143,7 +146,6 @@ export function zipRecords(records: FormRecord[]): any {
             let compactRecord = {};
             const keys = Object.keys(record.fields);
             keys.forEach((key) => {
-                console.log('key' + key);
                 compactRecord[key] = record.fields[key].value;
             });
             compactRecords.push(compactRecord);
@@ -152,6 +154,7 @@ export function zipRecords(records: FormRecord[]): any {
     return compactRecords;
 }
 
+// simplified deserializing of crud records (only for test -> TODO: use the entire record as is)
 export function unzipRecords(value: any): FormRecord[] {
     let records = [];
     if (value) {
@@ -163,7 +166,7 @@ export function unzipRecords(value: any): FormRecord[] {
                     value: compactRecord[key],
                 };
             });
-            let record = { fields: recordFields };
+            let record = { id: generateUuidv4(), fields: recordFields };
             records.push(record);
         });
     }

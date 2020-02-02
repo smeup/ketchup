@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "id": "1",
+      "fields": {
+        "aTextField": {
+          "key": "aTextField",
+          "value": "Hello"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "fields": {
+        "aTextField": {
+          "key": "aTextField2",
+          "value": "Hello2"
+        }
+      }
+    }
+  ]
+}

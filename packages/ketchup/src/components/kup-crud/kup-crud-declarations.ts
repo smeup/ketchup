@@ -7,7 +7,24 @@ import {
     FormActions,
 } from '../kup-form/kup-form-declarations';
 
-export interface CrudConfig extends FormConfig {}
+export interface CrudConfig extends FormConfig {
+    multiple?: true;
+    insert?: true;
+    update?: true;
+    delete?: true;
+}
+
+// TODO: use a Message common to all framework (and a related kup-message component)
+export interface CrudMessage {
+    text: string;
+    level: CrudMessageLevel;
+}
+
+export enum CrudMessageLevel {
+    INFO = 'INFO',
+    WARNING = 'WARNING',
+    ERROR = 'ERROR',
+}
 
 /*****************************************************************/
 /** EVENTS                                                      **/

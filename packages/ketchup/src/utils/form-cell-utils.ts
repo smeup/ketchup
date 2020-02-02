@@ -12,6 +12,7 @@ import {
     isAutocomplete,
     isSearch,
     isConfigurator,
+    isMultipleConfigurator,
     isInputText,
 } from './cell-utils';
 import {
@@ -106,6 +107,10 @@ export function isSearchInForm(cell: FormCell, field: FormField) {
 
 export function isConfiguratorInForm(cell: FormCell, field: FormField) {
     return isConfigurator(cell, field);
+}
+
+export function isMultipleConfiguratorInForm(cell: FormCell, field: FormField) {
+    return isMultipleConfigurator(cell, field);
 }
 
 // -------------

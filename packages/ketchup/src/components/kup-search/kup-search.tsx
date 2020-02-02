@@ -171,7 +171,7 @@ export class KupSearch {
                 ></kup-text-input>
                 <kup-button
                     showicon={true}
-                    iconClass="mdi mdi-pencil"
+                    iconClass="mdi mdi-magnify"
                     onClick={(e) => this.onSearchClicked(e)}
                 ></kup-button>
                 <kup-modal
@@ -188,7 +188,7 @@ export class KupSearch {
                             ></kup-text-input>
                             <kup-button
                                 showicon={true}
-                                iconClass="mdi mdi-pencil"
+                                iconClass="mdi mdi-magnify"
                                 onClick={(e) => this.onSearchDialogClicked(e)}
                             ></kup-button>
                         </div>

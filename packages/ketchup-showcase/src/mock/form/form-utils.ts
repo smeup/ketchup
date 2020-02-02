@@ -93,6 +93,7 @@ export function fakeBackendLogic(
   let newCells = JSON.parse(JSON.stringify(cells));
   let newFields: any = {};
   let areFieldsToBeModified = false;
+  let areCellsToBeModified = false;
 
   let isRecordValid = !(isFormValid == false); // also undefined is ok
   let extraMessages: any = [];
@@ -152,10 +153,12 @@ export function fakeBackendLogic(
       // values
       if (cellValueIsOfType(cell, 'FVM')) {
         console.log('FVM backend modify of field with key ' + cell.key);
+        areCellsToBeModified = true;
         newCells = cellValueModify(aParamForBackend, newCells, cell.key);
       }
       if (cellValueIsOfType(cell, 'GVM')) {
         console.log('GVM backend modify of field with key ' + cell.key);
+        areCellsToBeModified = true;
         keys.forEach((key) => {
           newCells = cellValueModify(aParamForBackend, newCells, key);
         });
@@ -190,8 +193,9 @@ export function fakeBackendLogic(
       }
 
       // conditional server side rule
-      if (cell.key == 'country' && cell.value.value != 'IT') {
+      if (cell && cell.key == 'country' && cell.value.value != 'IT') {
         areFieldsToBeModified = true;
+        areCellsToBeModified = true;
         newFields['region'] = {
           config: {
             data: [
@@ -202,7 +206,7 @@ export function fakeBackendLogic(
             ],
           },
         };
-        newCells['region'].value = { value: '', description: '' };
+        newCells['region'] = { value: { value: '', description: '' } };
       }
     });
   }
@@ -227,7 +231,7 @@ export function fakeBackendLogic(
     records[0] = { fields: newCells };
 
     return {
-      record: { fields: newCells },
+      ...(areCellsToBeModified ? { record: { fields: newCells } } : {}),
       ...(areFieldsToBeModified ? { fields: newFields } : {}),
       ...(areFieldsToBeModified ? { diffTypes: ['fields.diff.override'] } : {}),
       ...(isCheck ? {} : { records: records }),
