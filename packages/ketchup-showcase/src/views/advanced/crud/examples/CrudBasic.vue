@@ -99,10 +99,11 @@
 
 <script>
 import kitchenSinkStructure from '@/mock/form/kitchenSink/kitchenSinkStructure.json';
+import kitchenSinkFather from '@/mock/form/kitchenSink/kitchenSinkFather.json';
+import kitchenSinkRelatives from '@/mock/form/kitchenSink/kitchenSinkRelatives.json';
 import kitchenSinkCrudConfig from '@/mock/crud/kitchenSink/kitchenSinkCrudConfig.json';
 import kitchenSinkCrudExtra from '@/mock/crud/kitchenSink/kitchenSinkCrudExtra.json';
 import kitchenSinkCrudRecords from '@/mock/crud/kitchenSink/kitchenSinkCrudRecords.json';
-import simpleUserSchema from '@/mock/form/simpleUserSchema.json';
 import simpleStructure from '@/mock/form/simple/simpleStructure.json';
 import simpleCrudConfig from '@/mock/crud/simple/simpleCrudConfig.json';
 import simpleMultipleCrudConfig from '@/mock/crud/simple/simpleMultipleCrudConfig.json';
@@ -173,9 +174,11 @@ export default {
         ...JSON.parse(JSON.stringify(kitchenSinkStructure)),
         ...JSON.parse(JSON.stringify(kitchenSinkCrudRecords)),
       };
-
+      json.fields['father'].config = JSON.parse(
+        JSON.stringify(kitchenSinkFather)
+      );
       json.fields['father'].config.fields['relatives'].config = JSON.parse(
-        JSON.stringify(simpleUserSchema)
+        JSON.stringify(kitchenSinkRelatives)
       );
       this.json = json;
     },

@@ -1,21 +1,9 @@
 {
+  "config": {
+    "debugMode": true,
+    "liveCheck": true
+  },
   "fields": {
-    "avatar": {
-      "key": "avatar",
-      "title": "Avatar",
-      "hidden": false,
-      "titlePosition": "Top",
-      "description": "Avatar",
-      "shape": "IMG",
-      "tooltip": "avatar"
-    },
-    "score": {
-      "key": "score",
-      "title": "Score",
-      "titlePosition": "Top",
-      "description": "Score",
-      "tooltip": "score"
-    },
     "firstName": {
       "key": "firstName",
       "title": "First name",
@@ -210,7 +198,8 @@
       },
       "obj": {
         "t": "",
-        "p": "V§R"
+        "p": "V§R",
+        "k": ""
       },
       "outputValueFunction": "description"
     },
@@ -254,23 +243,6 @@
         "displayMode": "description_and_code"
       }
     },
-    "company": {
-      "key": "company",
-      "title": "Company",
-      "titlePosition": "None",
-      "description": "Company",
-      "shape": "ACP",
-      "extra": {
-        "aParamForBackend": "Company"
-      },
-      "outputValueFunction": "description",
-      "config": {
-        "serverHandledFilter": true,
-        "minimumChars": 3,
-        "showClearIcon": true,
-        "displayMode": "description"
-      }
-    },
     "department": {
       "key": "department",
       "title": "Department",
@@ -278,30 +250,24 @@
       "description": "Department",
       "shape": "SRC",
       "extra": {
-        "aParamForBackend": "XYZ"
+        "aParamForBackend": "ZYX"
       },
       "config": {
         "serverHandledFilter": true,
         "valueField": "code"
       }
     },
-    "father": {
-      "key": "father",
-      "title": "Father",
+    "relatives": {
+      "key": "relatives",
+      "title": "Relatives",
       "titlePosition": "None",
-      "description": "Father",
-      "shape": "CFG",
-      "refid": "father-xxx",
+      "description": "Relatives",
+      "shape": "CFM",
+      "refid": "father-relatives-xxx",
       "extra": {
-        "aParamForBackend": "BBB",
-        "liveBackendCheck": true
+        "aParamForBackend": "CCC"
       },
       "config": {},
-      "obj": {
-        "t": "J5",
-        "p": "BRARTI",
-        "k": ""
-      },
       "outputValueFunction": "firstName"
     }
   },
@@ -309,13 +275,6 @@
   "sections": {
     "horizontal": false,
     "sections": [
-      {
-        "horizontal": true,
-        "sections": [
-          { "dim": "40%", "fields": ["avatar"] },
-          { "fields": ["score"] }
-        ]
-      },
       {
         "sections": [
           {
@@ -326,9 +285,8 @@
               "region",
               "address",
               "occupation",
-              "company",
               "department",
-              "father"
+              "relatives"
             ]
           }
         ]
@@ -337,35 +295,6 @@
   },
 
   "extraMessages": [],
-
-  "rules": {
-    "RULE1": {
-      "conditions": {
-        "any": [
-          {
-            "fact": "gameDuration",
-            "operator": "equal",
-            "value": 40
-          },
-          {
-            "fact": "personalFoulCount",
-            "operator": "greaterThanInclusive",
-            "value": 5
-          }
-        ]
-      },
-      "event": {
-        "type": "changeSchema",
-        "params": {
-          "firstName": {
-            "validate": {
-              "required": false
-            }
-          }
-        }
-      }
-    }
-  },
 
   "actions": {
     "fields": {
@@ -417,8 +346,8 @@
       },
       "action3": {
         "key": "action3",
-        "title": "Action 3",
         "hidden": false,
+        "title": "Action 3",
         "tooltip": "action 3",
         "shape": "BTN",
         "config": {

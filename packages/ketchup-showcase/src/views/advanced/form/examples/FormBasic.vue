@@ -137,10 +137,11 @@
 <script>
 import isEmpty from 'lodash/isEmpty';
 import kitchenSinkStructure from '@/mock/form/kitchenSink/kitchenSinkStructure.json';
+import kitchenSinkFather from '@/mock/form/kitchenSink/kitchenSinkFather.json';
+import kitchenSinkRelatives from '@/mock/form/kitchenSink/kitchenSinkRelatives.json';
 import kitchenSinkFormConfig from '@/mock/form/kitchenSink/kitchenSinkFormConfig.json';
 import kitchenSinkFormExtra from '@/mock/form/kitchenSink/kitchenSinkFormExtra.json';
 import kitchenSinkCrudRecords from '@/mock/crud/kitchenSink/kitchenSinkCrudRecords.json';
-import simpleUserSchema from '@/mock/form/simpleUserSchema.json';
 import simpleStructure from '@/mock/form/simple/simpleStructure.json';
 import simpleFormConfig from '@/mock/form/simple/simpleFormConfig.json';
 import simpleCrudRecords from '@/mock/crud/simple/simpleCrudRecords.json';
@@ -216,8 +217,11 @@ export default {
             .cells,
         },
       };
+      json.fields['father'].config = JSON.parse(
+        JSON.stringify(kitchenSinkFather)
+      );
       json.fields['father'].config.fields['relatives'].config = JSON.parse(
-        JSON.stringify(simpleUserSchema)
+        JSON.stringify(kitchenSinkRelatives)
       );
       this.json = json;
     },
