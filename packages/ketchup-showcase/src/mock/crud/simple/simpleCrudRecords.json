@@ -2,7 +2,7 @@
   "records": [
     {
       "id": "1",
-      "fields": {
+      "cells": {
         "aTextField": {
           "key": "aTextField",
           "value": "Hello"
@@ -11,7 +11,7 @@
     },
     {
       "id": "2",
-      "fields": {
+      "cells": {
         "aTextField": {
           "key": "aTextField2",
           "value": "Hello2"

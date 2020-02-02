@@ -23,10 +23,10 @@
           :extra.prop="jsonExtra"
           :config.prop="jsonConfig"
           :fields.prop="jsonFields"
-          :record.prop="jsonRecord"
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
           :actions.prop="jsonActions"
+          :cells.prop="jsonCells"
           @kupFormActionSubmitted="onFormActionSubmitted"
           @kupFormFieldFocused="onFormFieldFocused"
           @kupFormFieldBlurred="onFormFieldBlurred"
@@ -80,10 +80,10 @@
               <v-card-text>
                 <p>See console log...</p>
                 <p>
-                  <v-btn @click="onGetActualRecord">Get actual record</v-btn>
+                  <v-btn @click="onGetActualCells">Get actual cells</v-btn>
                 </p>
                 <p>
-                  <v-btn @click="onGetOldRecord">Get old record</v-btn>
+                  <v-btn @click="onGetOldCells">Get old cells</v-btn>
                 </p>
               </v-card-text>
             </v-card>
@@ -125,7 +125,10 @@
         </p>
       </div>
       <div id="simpleMore">
-        <p>A very simple sample with the same backend logic of kitchenSink sample.</p>
+        <p>
+          A very simple sample with the same backend logic of kitchenSink
+          sample.
+        </p>
       </div>
     </div>
   </div>
@@ -185,8 +188,8 @@ export default {
     jsonConfig() {
       return this.json.config;
     },
-    jsonRecord() {
-      return this.json.record;
+    jsonCells() {
+      return this.json.cells;
     },
     jsonFields() {
       return this.json.fields;
@@ -209,10 +212,10 @@ export default {
         ...JSON.parse(JSON.stringify(kitchenSinkFormConfig)),
         ...JSON.parse(JSON.stringify(kitchenSinkStructure)),
         ...{
-          record: JSON.parse(JSON.stringify(kitchenSinkCrudRecords)).records[0],
+          cells: JSON.parse(JSON.stringify(kitchenSinkCrudRecords)).records[0]
+            .cells,
         },
       };
-
       json.fields['father'].config.fields['relatives'].config = JSON.parse(
         JSON.stringify(simpleUserSchema)
       );
@@ -223,7 +226,7 @@ export default {
         ...JSON.parse(JSON.stringify(simpleFormConfig)),
         ...JSON.parse(JSON.stringify(simpleStructure)),
         ...{
-          record: JSON.parse(JSON.stringify(simpleCrudRecords)).records[0],
+          cells: JSON.parse(JSON.stringify(simpleCrudRecords)).records[0].cells,
         },
       };
       this.json = json;
@@ -245,17 +248,17 @@ export default {
       }
       this.appendMore(this.sampleType);
     },
-    onGetActualRecord(e) {
+    onGetActualCells(e) {
       this.$refs.form
-        .getActualRecord()
+        .getActualCells()
         .then((result) =>
-          console.log('Actual record:' + JSON.stringify(result))
+          console.log('Actual cells:' + JSON.stringify(result))
         );
     },
-    onGetOldRecord(e) {
+    onGetOldCells(e) {
       this.$refs.form
-        .getOldRecord()
-        .then((result) => console.log('Old record: ' + JSON.stringify(result)));
+        .getOldCells()
+        .then((result) => console.log('Old cells: ' + JSON.stringify(result)));
     },
     onFormActionSubmitted(event) {
       this.appendEventToHistory('FormActionSubmitted', event);
@@ -350,8 +353,8 @@ export default {
       }
 
       if (result.record) {
-        console.log('Updating record...');
-        this.$refs.form.record = result.record;
+        console.log('Updating cells...');
+        this.$refs.form.cells = result.record.cells;
       }
 
       // todo: config, sections, actions

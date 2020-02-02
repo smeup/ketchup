@@ -24,7 +24,7 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 | `extra`                              | `extra`    |             | `any`                                                                              | `undefined` |
 | `extraMessages`                      | --         |             | `FormMessage[]`                                                                    | `[]`        |
 | `fields`                             | --         |             | `FormFields`                                                                       | `undefined` |
-| `records`                            | --         |             | `FormRecord[]`                                                                     | `undefined` |
+| `records`                            | --         |             | `CrudRecord[]`                                                                     | `undefined` |
 | `refid`                              | `refid`    |             | `string`                                                                           | `undefined` |
 | `searchCallBackOnFilterSubmitted`    | --         |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
 | `sections`                           | --         |             | `FormSection`                                                                      | `undefined` |

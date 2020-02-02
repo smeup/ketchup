@@ -22,9 +22,8 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
     if (detail.field && detail.field.key) {
       let cell =
         detail.actual &&
-        detail.actual.record &&
-        detail.actual.record.fields &&
-        detail.actual.record.fields[detail.field.key];
+        detail.actual.cells &&
+        detail.actual.cells[detail.field.key];
       if (cell.extra && cell.extra.liveBackendCheck) {
         isToCheck = true;
       } else {
@@ -52,7 +51,7 @@ export function fakeUpdateBackendLogic(detail: any) {
     false,
     detail.isValid,
     detail.field,
-    detail.actual.record.fields,
+    detail.actual.cells,
     detail.action
   );
 }
@@ -63,7 +62,7 @@ export function fakeCheckBackendLogic(detail: any) {
     true,
     detail.isValid,
     detail.field,
-    detail.actual.record.fields,
+    detail.actual.cells,
     detail.action
   );
 }
@@ -228,10 +227,10 @@ export function fakeBackendLogic(
     ];
 
     let records = [];
-    records[0] = { fields: newCells };
+    records[0] = { cells: newCells };
 
     return {
-      ...(areCellsToBeModified ? { record: { fields: newCells } } : {}),
+      ...(areCellsToBeModified ? { record: { cells: newCells } } : {}),
       ...(areFieldsToBeModified ? { fields: newFields } : {}),
       ...(areFieldsToBeModified ? { diffTypes: ['fields.diff.override'] } : {}),
       ...(isCheck ? {} : { records: records }),

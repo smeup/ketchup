@@ -22,11 +22,8 @@ export interface FormField {
     };
 }
 
-export interface FormRecord {
-    id?: string;
-    fields: {
-        [index: string]: FormCell;
-    };
+export interface FormCells {
+    [index: string]: FormCell;
 }
 
 export interface FormCell {
@@ -113,10 +110,10 @@ export interface FormActionEventDetail {
     };
     actual?: {
         fields?: FormFields;
-        record?: FormRecord;
+        cells?: FormCells;
     };
     old?: {
-        record?: FormRecord;
+        cells?: FormCells;
     };
 }
 
@@ -129,9 +126,9 @@ export interface FormFieldEventDetail {
     };
     actual?: {
         fields?: FormFields;
-        record?: FormRecord;
+        cells?: FormCells;
     };
     old?: {
-        record?: FormRecord;
+        cells?: FormCells;
     };
 }

@@ -1,9 +1,8 @@
 {
-
   "records": [
     {
       "id": 1,
-      "fields": {
+      "cells": {
         "avatar": {
           "key": "avatar",
           "value": "https://via.placeholder.com/64?text=CUSTOM",

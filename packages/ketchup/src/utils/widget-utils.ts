@@ -5,7 +5,7 @@
 // -------------
 import get from 'lodash/get';
 //import isEmpty from 'lodash/isEmpty';
-import { FormRecord } from '../components/kup-form/kup-form-declarations';
+import { CrudRecord } from '../components/kup-crud/kup-crud-declarations';
 
 import { generateUuidv4 } from './utils';
 
@@ -139,14 +139,14 @@ export function outputValueItem(value: any, outputValueFunction: string) {
 }
 
 // simplified serializing of crud records (only for test -> TODO: use the entire record as is)
-export function zipRecords(records: FormRecord[]): any {
+export function zipRecords(records: CrudRecord[]): any {
     let compactRecords = [];
     if (records) {
         records.forEach((record) => {
             let compactRecord = {};
-            const keys = Object.keys(record.fields);
+            const keys = Object.keys(record.cells);
             keys.forEach((key) => {
-                compactRecord[key] = record.fields[key].value;
+                compactRecord[key] = record.cells[key].value;
             });
             compactRecords.push(compactRecord);
         });
@@ -155,7 +155,7 @@ export function zipRecords(records: FormRecord[]): any {
 }
 
 // simplified deserializing of crud records (only for test -> TODO: use the entire record as is)
-export function unzipRecords(value: any): FormRecord[] {
+export function unzipRecords(value: any): CrudRecord[] {
     let records = [];
     if (value) {
         value.forEach((compactRecord) => {
@@ -166,7 +166,7 @@ export function unzipRecords(value: any): FormRecord[] {
                     value: compactRecord[key],
                 };
             });
-            let record = { id: generateUuidv4(), fields: recordFields };
+            let record = { id: generateUuidv4(), cells: recordFields };
             records.push(record);
         });
     }

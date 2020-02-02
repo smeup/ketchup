@@ -1,6 +1,6 @@
 import {
     FormConfig,
-    FormRecord,
+    FormCell,
     FormFields,
     FormSection,
     FormMessage,
@@ -30,11 +30,18 @@ export enum CrudMessageLevel {
 /** EVENTS                                                      **/
 /*****************************************************************/
 
+export interface CrudRecord {
+    id?: string;
+    cells: {
+        [index: string]: FormCell;
+    };
+}
+
 export interface CrudRecordsChanged {
     refid?: string;
     extra?: any;
     actual?: {
-        records: FormRecord[];
+        records: CrudRecord[];
     };
 }
 
@@ -43,8 +50,8 @@ export interface CrudCallBackOnFormEventResult {
     sections?: FormSection;
     extraMessages?: FormMessage[];
     actions?: FormActions;
-    record?: FormRecord;
-    records?: FormRecord[];
+    record?: CrudRecord;
+    records?: CrudRecord[];
     formOpened?: boolean;
     diffTypes: string[];
 }

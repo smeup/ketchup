@@ -17,7 +17,7 @@ import {
 
 import {
     FormFields,
-    FormRecord,
+    FormCells,
     FormField,
     FormSection,
     FormMessage,
@@ -33,6 +33,7 @@ import {
 } from '../../utils/widget-utils';
 
 import {
+    CrudRecord,
     CrudConfig,
     CrudRecordsChanged,
     CrudCallBackOnFormEventResult,
@@ -69,7 +70,7 @@ export class KupCrud {
     @Prop() config: CrudConfig = {};
 
     // START form props... TODO: they can arrive from a callback...
-    @Prop() records: FormRecord[];
+    @Prop() records: CrudRecord[];
 
     @Prop() fields: FormFields;
 
@@ -147,7 +148,7 @@ export class KupCrud {
     // INTERNAL
     // -------------------------------------------------------------------------
 
-    @State() actualRecord: FormRecord;
+    @State() actualCells: FormCells;
 
     @State() messages: CrudMessage[] = [];
 
@@ -209,7 +210,7 @@ export class KupCrud {
         }
         this.extra.crud = { mode: 'insert' };
 
-        this.actualRecord = { fields: {} };
+        this.actualCells = {};
         this.extraMessages = [];
         // open modal
         this.modal.visible = true;
@@ -225,7 +226,7 @@ export class KupCrud {
             }
             this.extra.crud = { mode: 'update', recordId: recordId };
             // put a deep clone of the record in the form
-            this.actualRecord = cloneDeep(record);
+            this.actualCells = cloneDeep(record.cells);
             this.extraMessages = [];
             // open modal
             this.modal.visible = true;
@@ -295,7 +296,7 @@ export class KupCrud {
     // RENDERING
     // -------------------------------------------------------------------------
 
-    private renderRow(record: FormRecord) {
+    private renderRow(record: CrudRecord) {
         let rowContent = [];
 
         let updateButtonContent = this.hasRowUpdateAction() ? (
@@ -338,9 +339,9 @@ export class KupCrud {
                 rowContent.push(
                     <td>
                         {outputValue(
-                            record.fields &&
-                                record.fields[field.key] &&
-                                record.fields[field.key].value,
+                            record.cells &&
+                                record.cells[field.key] &&
+                                record.cells[field.key].value,
                             field.outputValueFunction
                         )}
                     </td>
@@ -459,7 +460,7 @@ export class KupCrud {
                             extra={this.extra}
                             config={this.config}
                             fields={this.fields}
-                            record={this.actualRecord}
+                            cells={this.actualCells}
                             sections={this.sections}
                             extraMessages={this.extraMessages}
                             actions={this.actions}
@@ -537,7 +538,7 @@ export class KupCrud {
     }
 
     private getRecordIndexByRecordId(
-        records: FormRecord[],
+        records: CrudRecord[],
         id: string
     ): number {
         let indexes = records.reduce(
@@ -567,7 +568,7 @@ export class KupCrud {
         return indexes[0];
     }
 
-    private getRecordById(records: FormRecord[], id: string): FormRecord {
+    private getRecordById(records: CrudRecord[], id: string): CrudRecord {
         let index = this.getRecordIndexByRecordId(records, id);
         if (index >= 0) {
             return records[index];
@@ -615,7 +616,7 @@ export class KupCrud {
         }
 
         if (result.record) {
-            this.actualRecord = result.record;
+            this.actualCells = result.record.cells;
         }
 
         if (result.records) {
