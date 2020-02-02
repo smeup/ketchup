@@ -54,7 +54,7 @@ When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payloa
 | `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
 | `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
 | `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
-| `config`                             | --        |             | `FormConfig`                                                                       | `{}`        |
+| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
 | `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
 | `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
 | `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |

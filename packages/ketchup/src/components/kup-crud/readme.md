@@ -17,7 +17,7 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 | ------------------------------------ | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
 | `actions`                            | --         |             | `FormActions`                                                                      | `undefined` |
 | `autocompleteCallBackOnFilterUpdate` | --         |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `config`                             | --         |             | `CrudConfig`                                                                       | `{}`        |
+| `config`                             | --         |             | `CrudConfig`                                                                       | `undefined` |
 | `crudCallBackOnFormActionSubmitted`  | --         |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
 | `crudCallBackOnFormFieldChanged`     | --         |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
 | `disabled`                           | `disabled` |             | `boolean`                                                                          | `false`     |

@@ -352,9 +352,9 @@ export default {
         }
       }
 
-      if (result.record) {
+      if (result.cells) {
         console.log('Updating cells...');
-        this.$refs.form.cells = result.record.cells;
+        this.$refs.form.cells = result.cells;
       }
 
       // todo: config, sections, actions

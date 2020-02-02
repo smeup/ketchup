@@ -5,6 +5,7 @@ import {
     FormSection,
     FormMessage,
     FormActions,
+    FormCells,
 } from '../kup-form/kup-form-declarations';
 
 export interface CrudConfig extends FormConfig {
@@ -50,8 +51,7 @@ export interface CrudCallBackOnFormEventResult {
     sections?: FormSection;
     extraMessages?: FormMessage[];
     actions?: FormActions;
-    record?: CrudRecord;
-    records?: CrudRecord[];
-    formOpened?: boolean;
+    cells: FormCells;
     diffTypes: string[];
+    isUpdate: boolean;
 }

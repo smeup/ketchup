@@ -83,7 +83,7 @@ export class KupForm {
 
     @Prop() extra: any;
 
-    @Prop() config: FormConfig = {};
+    @Prop() config: FormConfig;
 
     @Prop() fields: FormFields;
 

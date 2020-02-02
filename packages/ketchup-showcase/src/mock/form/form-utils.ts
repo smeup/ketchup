@@ -48,6 +48,7 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
 export function fakeUpdateBackendLogic(detail: any) {
   return fakeBackendLogic(
     detail.extra && detail.extra.aParamForBackend,
+    detail.extra && detail.extra.operation,
     false,
     detail.isValid,
     detail.field,
@@ -59,6 +60,7 @@ export function fakeUpdateBackendLogic(detail: any) {
 export function fakeCheckBackendLogic(detail: any) {
   return fakeBackendLogic(
     detail.extra && detail.extra.aParamForBackend,
+    detail.extra && detail.extra.operation,
     true,
     detail.isValid,
     detail.field,
@@ -69,6 +71,7 @@ export function fakeCheckBackendLogic(detail: any) {
 
 export function fakeBackendLogic(
   aParamForBackend: any,
+  operation: string,
   isCheck: boolean,
   isFormValid: boolean,
   field: any,
@@ -78,6 +81,8 @@ export function fakeBackendLogic(
   console.log(
     'Applying fake backend logic with aParamForBackend = ' +
       aParamForBackend +
+      ', operation = ' +
+      operation +
       ', isCheck = ' +
       isCheck +
       ', isFormValid = ' +
@@ -192,7 +197,12 @@ export function fakeBackendLogic(
       }
 
       // conditional server side rule
-      if (cell && cell.key == 'country' && cell.value.value != 'IT') {
+      if (
+        cell &&
+        cell.key == 'country' &&
+        cell.value &&
+        cell.value.value != 'IT'
+      ) {
         areFieldsToBeModified = true;
         areCellsToBeModified = true;
         newFields['region'] = {
@@ -226,22 +236,23 @@ export function fakeBackendLogic(
       },
     ];
 
-    let records = [];
-    records[0] = { cells: newCells };
+    if (operation === 'insert') {
+      areCellsToBeModified = true;
+    }
 
     return {
-      ...(areCellsToBeModified ? { record: { cells: newCells } } : {}),
+      ...(!isCheck || areCellsToBeModified ? { cells: newCells } : {}),
       ...(areFieldsToBeModified ? { fields: newFields } : {}),
       ...(areFieldsToBeModified ? { diffTypes: ['fields.diff.override'] } : {}),
-      ...(isCheck ? {} : { records: records }),
+      isUpdate: !isCheck,
       extraMessages: extraMessages,
-      formOpened: isCheck,
     };
   } else {
     console.log('Record KO');
 
     return {
       extraMessages: extraMessages,
+      isUpdate: false,
     };
   }
 }

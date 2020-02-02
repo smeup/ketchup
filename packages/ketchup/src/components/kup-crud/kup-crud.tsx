@@ -67,7 +67,7 @@ export class KupCrud {
 
     @Prop() extra: any;
 
-    @Prop() config: CrudConfig = {};
+    @Prop() config: CrudConfig;
 
     // START form props... TODO: they can arrive from a callback...
     @Prop() records: CrudRecord[];
@@ -208,7 +208,7 @@ export class KupCrud {
         if (!this.extra) {
             this.extra = {};
         }
-        this.extra.crud = { mode: 'insert' };
+        this.extra.operation = 'insert';
 
         this.actualCells = {};
         this.extraMessages = [];
@@ -224,7 +224,8 @@ export class KupCrud {
             if (!this.extra) {
                 this.extra = {};
             }
-            this.extra.crud = { mode: 'update', recordId: recordId };
+            this.extra.operation = 'update';
+            this.extra.recordId = recordId;
             // put a deep clone of the record in the form
             this.actualCells = cloneDeep(record.cells);
             this.extraMessages = [];
@@ -584,7 +585,7 @@ export class KupCrud {
             console.log('Nothing to update...');
         }
 
-        if (result.formOpened == false) {
+        if (result.isUpdate == true) {
             this.modal.visible = false;
         }
 
@@ -615,29 +616,26 @@ export class KupCrud {
             }
         }
 
-        if (result.record) {
-            this.actualCells = result.record.cells;
-        }
+        if (result.cells) {
+            this.actualCells = result.cells;
 
-        if (result.records) {
-            if (extra && extra.crud && extra.crud.mode == 'update') {
-                let index = this.getRecordIndexByRecordId(
-                    this.records,
-                    extra.crud.recordId
-                );
-                this.records[index] = result.records[0];
-            }
-            if (extra && extra.crud && extra.crud.mode == 'insert') {
-                // will put id if is an insert...
-                if (!result.records[0].hasOwnProperty('id')) {
-                    result.records[0].id = generateUuidv4();
+            if (result.isUpdate) {
+                if (extra && extra.operation == 'update') {
+                    let index = this.getRecordIndexByRecordId(
+                        this.records,
+                        extra.recordId
+                    );
+                    this.records[index].cells = result.cells;
                 }
-                this.records = [...this.records, result.records[0]];
-            }
+                if (extra && extra.operation == 'insert') {
+                    let record = { id: generateUuidv4(), cells: result.cells };
+                    this.records = [...this.records, record];
+                }
 
-            this.kupCrudRecordsChanged.emit({
-                actual: { records: this.records },
-            });
+                this.kupCrudRecordsChanged.emit({
+                    actual: { records: this.records },
+                });
+            }
         }
 
         // todo: config, sections, actions
