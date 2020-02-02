@@ -613,11 +613,13 @@ export class KupForm {
                 );
             }
 
-            fieldDebugContent = (
-                <div class="form-field-debug">
-                    {'debug value: ' + JSON.stringify(cell && cell.value)}
-                </div>
-            );
+            if (this.config && this.config.debugMode) {
+                fieldDebugContent = (
+                    <div class="form-field-debug">
+                        {'debug value: ' + JSON.stringify(cell && cell.value)}
+                    </div>
+                );
+            }
         }
 
         return (

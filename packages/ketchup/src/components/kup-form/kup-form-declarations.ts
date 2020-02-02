@@ -80,6 +80,7 @@ export enum FormMessageLevel {
 
 export interface FormConfig {
     liveCheck?: boolean;
+    debugMode?: boolean;
 }
 
 export interface FormActions {

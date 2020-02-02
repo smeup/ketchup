@@ -298,6 +298,7 @@
       },
       "config": {
         "config": {
+          "debugMode": true,
           "liveCheck": true
         },
         "fields": {
