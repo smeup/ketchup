@@ -12,6 +12,7 @@
       height: 100%;
       & .mdc-text-field {
         height: 100%;
+        overflow-y: hidden;
         &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
           height: 100%;
         }

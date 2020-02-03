@@ -6,13 +6,17 @@
         href="https://developers.google.com/chart/"
         target="_blank"
         rel="noopener"
-      >Google Charts</a>
+        >Google Charts</a
+      >
       library.
     </p>
     <div id="sample-wrapper" class="detached">
       <div id="sample-modal"></div>
       <div id="sample-specs">
-        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
+        <wup-tab-bar
+          @kupTabBarClick="tabSelection"
+          :items.prop="items"
+        ></wup-tab-bar>
         <div id="sample-specs-container">
           <table class="instruction-table sample-section">
             <thead>
@@ -182,7 +186,11 @@
                   <span class="code-word">true</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch checked id="legend" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    checked
+                    id="legend"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -210,7 +218,10 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch id="show-marks" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    id="show-marks"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -225,7 +236,10 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch id="stacked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    id="stacked"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -296,7 +310,10 @@
               </tr>
             </tbody>
           </table>
-          <table style="display: none;" class="instruction-table sample-section">
+          <table
+            style="display: none;"
+            class="instruction-table sample-section"
+          >
             <thead>
               <tr>
                 <th>Event</th>
@@ -329,11 +346,10 @@
           </div>
           <div class="sample-section" style="display: none;">
             <wup-text-field
+              @kupTextFieldInput="updateDemoFieldJSON"
               fullwidth
               fullheight
               textarea
-              disabled
-              initialvalue="This component does not require a JSON to work."
             ></wup-text-field>
           </div>
         </div>
@@ -346,18 +362,6 @@
             :types.prop="types"
             :axis.prop="'Col1'"
             :series.prop="series"
-            :asp.prop="asp"
-            :colors.prop="colors"
-            :width.prop="width"
-            :height.prop="height"
-            :legend.prop="legend"
-            :stacked.prop="stacked"
-            :graphTitle.prop="title"
-            :graphTitleColor.prop="titleColor"
-            :graphTitleSize.prop="titleSize"
-            :showMarks.prop="marks"
-            :hAxis.prop="hAxis"
-            :vAxis.prop="vAxis"
           />
         </div>
         <div id="split-container">
@@ -461,7 +465,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onHAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -476,7 +484,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onVAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -559,6 +571,7 @@ export default {
       let text = document.querySelector('.code-word.sample-html').innerText;
       navigator.clipboard.writeText(text);
     },
+
     swapView(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.add('full');
@@ -566,6 +579,7 @@ export default {
         document.querySelector('#sample-wrapper').classList.remove('full');
       }
     },
+
     splitView(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.remove('detached');
@@ -573,6 +587,7 @@ export default {
         document.querySelector('#sample-wrapper').classList.add('detached');
       }
     },
+
     menuTrigger(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-comp').classList.add('full');
@@ -582,6 +597,7 @@ export default {
         document.querySelector('#sample-specs').classList.remove('closed');
       }
     },
+
     logClick(e) {
       var d = new Date();
       document.querySelector('#onclick').innerText =
@@ -592,6 +608,7 @@ export default {
         ':' +
         d.getSeconds();
     },
+
     updateDemoSwitch(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#demo-component').setAttribute(e.target.id, '');
@@ -599,6 +616,7 @@ export default {
         document.querySelector('#demo-component').removeAttribute(e.target.id);
       }
     },
+
     updateDemoField(e) {
       if (e.detail.value !== '') {
         document
@@ -608,6 +626,13 @@ export default {
         document.querySelector('#demo-component').removeAttribute(e.target.id);
       }
     },
+
+    updateDemoFieldJSON(e) {
+      let demoComponent = document.querySelector('#demo-component');
+      let jsonifiedData = JSON.parse(e.detail.value);
+      demoComponent.data = jsonifiedData;
+    },
+
     logInput(e) {
       var d = new Date();
       document.querySelector('#oninput').innerText =
@@ -618,10 +643,12 @@ export default {
         ':' +
         d.getSeconds();
     },
+
     tabSelection(e) {
       let tabCollection = document.querySelectorAll('.sample-section');
       let demoComponent = document.querySelector('#demo-component').outerHTML;
       let tabHTML = tabCollection[2];
+      let tabJSON = tabCollection[3];
       for (let i = 0; i < tabCollection.length; i++) {
         if (i === e.detail.index) {
           tabCollection[i].setAttribute('style', '');
@@ -639,6 +666,15 @@ export default {
             ).innerText = tabCollection[i]
               .querySelector('.code-word')
               .innerText.replace(/=""/g, '');
+          } else if (tabJSON === tabCollection[i]) {
+            let jsonData = document.querySelector('#demo-component').data;
+            let stringifiedJSON = JSON.stringify(jsonData);
+            stringifiedJSON = stringifiedJSON.replace(/{/g, '{ \n ');
+            stringifiedJSON = stringifiedJSON.replace(/}/g, ' \n }');
+            stringifiedJSON = stringifiedJSON.replace(/,/g, ', \n ');
+            tabCollection[i].querySelector(
+              'wup-text-field'
+            ).initialvalue = stringifiedJSON;
           }
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');
