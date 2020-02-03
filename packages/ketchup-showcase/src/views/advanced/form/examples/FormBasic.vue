@@ -16,22 +16,17 @@
       </div>
     </div>
     <div class="container">
-      <div class="json">
-        <label>Schema</label>
-        <textarea cols="50" rows="25" id="json" @change="onJsonTextChange" v-model="jsonText"></textarea>
-      </div>
       <div class="form">
-        <label>FORM</label>
         <kup-form
           ref="form"
           :refid.prop="jsonRefid"
           :extra.prop="jsonExtra"
           :config.prop="jsonConfig"
           :fields.prop="jsonFields"
-          :record.prop="jsonRecord"
           :sections.prop="jsonSections"
           :extraMessages.prop="jsonExtraMessages"
           :actions.prop="jsonActions"
+          :cells.prop="jsonCells"
           @kupFormActionSubmitted="onFormActionSubmitted"
           @kupFormFieldFocused="onFormFieldFocused"
           @kupFormFieldBlurred="onFormFieldBlurred"
@@ -53,61 +48,103 @@
         />
       </div>
 
-      <div class="history">
-        <label>Event history stack</label>
-        <ul class="stack" id="stack"></ul>
-      </div>
-      <div id="hidden" class="hidden">
-        <div id="kitchenSinkMore">
-          <p>Sample of almost all of the features of kup-form.</p>
-          <p>On submit actions some backend fake logic is performed:</p>
-          <p>1) if you put in a field value:</p>
-          <ul>
-            <li>
-              GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or Field
-              Error, Warning or Info Message
-            </li>
-            <li>
-              GVM, FVM -> you will obtain a Global or a Field backend Value
-              Modified
-            </li>
-            <li>
-              GRS, GRU -> you will obtain a Set / Unset of Readonly prop for
-              some fields
-            </li>
-          </ul>
-          <p>
-            2) if you put country != IT your region field value will be blanked
-            and region options will be updated
-          </p>
-          <p>
-            If you want to activate backend fake logic also after a particular
-            field has changed (for example for a backend check) you can put
-            liveBackendCheck=true to the specific field you want. The sample
-            backend function associated to kupFieldBlurred event will read
-            liveBackendCheck prop and if true it will perform the logic but will
-            no update your schema.
-          </p>
-        </div>
-        <div id="simpleMore">
-          <p>A very simple sample...</p>
-        </div>
+      <div class="side">
+        <v-tabs background-color="ligthgrey">
+          <v-tabs-slider color="black"></v-tabs-slider>
+          <v-tab ripple>Schema</v-tab>
+          <v-tab ripple>Events</v-tab>
+          <v-tab ripple>Methods</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <textarea
+                  cols="50"
+                  rows="50"
+                  id="json"
+                  @change="onJsonTextChange"
+                  v-model="jsonText"
+                ></textarea>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <p>See console log for more details...</p>
+                <ul class="stack" id="stack"></ul>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                <p>See console log...</p>
+                <p>
+                  <v-btn @click="onGetActualCells">Get actual cells</v-btn>
+                </p>
+                <p>
+                  <v-btn @click="onGetOldCells">Get old cells</v-btn>
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
       </div>
     </div>
-    <div class="methods">
-      <label>Methods</label>
-      See console log...
-      <v-btn @click="onGetActualRecord">Get actual record</v-btn>
-      <v-btn @click="onGetOldRecord">Get old record</v-btn>
+
+    <div id="hidden" class="hidden">
+      <div id="kitchenSinkMore">
+        <p>Sample of almost all of the current features of kup-form.</p>
+        <p>On submit actions some backend fake logic is performed:</p>
+        <p>1) if you put in a field value:</p>
+        <ul>
+          <li>
+            GEM, GWM, GIM, FEM, FWM, FIM -> you will obtain a Global or Field
+            Error, Warning or Info Message
+          </li>
+          <li>
+            GVM, FVM -> you will obtain a Global or a Field backend Value
+            Modified
+          </li>
+          <li>
+            GRS, GRU -> you will obtain a Set / Unset of Readonly prop for some
+            fields
+          </li>
+        </ul>
+        <p></p>
+        <p>
+          2) if you put country != IT your region field value will be blanked
+          and region options will be updated
+        </p>
+        <p>
+          If you want to activate backend fake logic also after a particular
+          field has changed (for example for a backend check) you can put
+          liveBackendCheck=true to the specific field you want. The sample
+          backend function associated to form field changed event will read
+          liveBackendCheck prop and if true it will perform the logic.
+        </p>
+      </div>
+      <div id="simpleMore">
+        <p>
+          A very simple sample with the same backend logic of kitchenSink
+          sample.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import isEmpty from 'lodash/isEmpty';
-import kitchenSink from '@/mock/form/kitchenSink.json';
-import simpleUserSchema from '@/mock/form/simpleUserSchema.json';
-import simple from '@/mock/form/simple.json';
+import kitchenSinkStructure from '@/mock/form/kitchenSink/kitchenSinkStructure.json';
+import kitchenSinkFather from '@/mock/form/kitchenSink/kitchenSinkFather.json';
+import kitchenSinkRelatives from '@/mock/form/kitchenSink/kitchenSinkRelatives.json';
+import kitchenSinkFormConfig from '@/mock/form/kitchenSink/kitchenSinkFormConfig.json';
+import kitchenSinkFormExtra from '@/mock/form/kitchenSink/kitchenSinkFormExtra.json';
+import kitchenSinkCrudRecords from '@/mock/crud/kitchenSink/kitchenSinkCrudRecords.json';
+import simpleStructure from '@/mock/form/simple/simpleStructure.json';
+import simpleFormConfig from '@/mock/form/simple/simpleFormConfig.json';
+import simpleCrudRecords from '@/mock/crud/simple/simpleCrudRecords.json';
 import {
   buildFormEventCallback,
   chooseAndApplyFakeBackendLogic,
@@ -118,8 +155,6 @@ import { buildSearchFilterSubmittedCallback } from '@/mock/search/search-utils';
 export default {
   data() {
     return {
-      kitchenSinkText: JSON.stringify(kitchenSink),
-      simpleText: JSON.stringify(simple),
       json: '',
       sampleType: '',
       count: 0,
@@ -154,8 +189,8 @@ export default {
     jsonConfig() {
       return this.json.config;
     },
-    jsonRecord() {
-      return this.json.record;
+    jsonCells() {
+      return this.json.cells;
     },
     jsonFields() {
       return this.json.fields;
@@ -173,12 +208,31 @@ export default {
 
   methods: {
     loadKitchenSink() {
-      let json = JSON.parse(this.kitchenSinkText);
-      json.fields['father'].config.fields['father'].config = JSON.parse(
-        JSON.stringify(simpleUserSchema)
+      let json = {
+        ...JSON.parse(JSON.stringify(kitchenSinkFormExtra)),
+        ...JSON.parse(JSON.stringify(kitchenSinkFormConfig)),
+        ...JSON.parse(JSON.stringify(kitchenSinkStructure)),
+        ...{
+          cells: JSON.parse(JSON.stringify(kitchenSinkCrudRecords)).records[0]
+            .cells,
+        },
+      };
+      json.fields['father'].config = JSON.parse(
+        JSON.stringify(kitchenSinkFather)
       );
-      // build record from first of records
-      json.record = json.records[0];
+      json.fields['father'].config.fields['relatives'].config = JSON.parse(
+        JSON.stringify(kitchenSinkRelatives)
+      );
+      this.json = json;
+    },
+    loadSimple() {
+      let json = {
+        ...JSON.parse(JSON.stringify(simpleFormConfig)),
+        ...JSON.parse(JSON.stringify(simpleStructure)),
+        ...{
+          cells: JSON.parse(JSON.stringify(simpleCrudRecords)).records[0].cells,
+        },
+      };
       this.json = json;
     },
     onJsonTextChange(e) {
@@ -194,21 +248,21 @@ export default {
       if (this.sampleType == 'kitchenSink') {
         this.loadKitchenSink();
       } else if (this.sampleType == 'simple') {
-        this.json = JSON.parse(this.simpleText);
+        this.loadSimple();
       }
       this.appendMore(this.sampleType);
     },
-    onGetActualRecord(e) {
+    onGetActualCells(e) {
       this.$refs.form
-        .getActualRecord()
+        .getActualCells()
         .then((result) =>
-          console.log('Actual record:' + JSON.stringify(result))
+          console.log('Actual cells:' + JSON.stringify(result))
         );
     },
-    onGetOldRecord(e) {
+    onGetOldCells(e) {
       this.$refs.form
-        .getOldRecord()
-        .then((result) => console.log('Old record: ' + JSON.stringify(result)));
+        .getOldCells()
+        .then((result) => console.log('Old cells: ' + JSON.stringify(result)));
     },
     onFormActionSubmitted(event) {
       this.appendEventToHistory('FormActionSubmitted', event);
@@ -247,15 +301,17 @@ export default {
     appendEventToHistory(eventType, event) {
       this.count++;
       var node = document.createElement('LI');
-      var textnode = document.createTextNode(
-        this.count +
+      var textnode = document.createTextNode(this.count + ' - ' + eventType);
+      node.appendChild(textnode);
+      document.getElementById('stack').prepend(node);
+      console.log(
+        'EVENT ' +
+          this.count +
           ' - ' +
           eventType +
           ' event with detail : ' +
           JSON.stringify(event.detail)
       );
-      node.appendChild(textnode);
-      document.getElementById('stack').prepend(node);
     },
     appendMore(sampleType) {
       let more = document.getElementById('more');
@@ -281,7 +337,6 @@ export default {
       if (result.fields) {
         console.log('Updating fields...');
         if (result.diffTypes.includes('fields.diff.override')) {
-
           const keys = Object.keys(result.fields);
           keys.forEach((key) => {
             if (result.fields[key].hasOwnProperty('config')) {
@@ -301,9 +356,9 @@ export default {
         }
       }
 
-      if (result.record) {
-        console.log('Updating record...');
-        this.$refs.form.record = result.record;
+      if (result.cells) {
+        console.log('Updating cells...');
+        this.$refs.form.cells = result.cells;
       }
 
       // todo: config, sections, actions
@@ -329,7 +384,7 @@ textarea {
 
 .container {
   display: grid;
-  grid-template-columns: 20% auto 20%;
+  grid-template-columns: 70% auto;
   gap: 10px;
   border: dotted 1px gray;
 }
@@ -337,26 +392,21 @@ textarea {
   margin-top: 10px;
   width: 100%;
   font-size: 12px;
+  word-wrap: break-word;
 }
 
 .stack li {
   width: 100%;
 }
 
-.json {
-  grid-column-start: 1;
-  grid-column-end: 1;
-}
-
-.form {
+.side {
   grid-column-start: 2;
   grid-column-end: 2;
 }
 
-.history {
-  grid-column-start: 3;
-  grid-column-end: 3;
-  word-wrap: break-word;
+.form {
+  grid-column-start: 1;
+  grid-column-end: 1;
 }
 
 .try {
@@ -385,9 +435,5 @@ textarea {
 
 .hidden {
   display: none;
-}
-
-.methods {
-  margin-top: 10px;
 }
 </style>

@@ -4,11 +4,11 @@ Kup-form is a web component that allows to generate forms.
 
 ## Fields
 
-Fields config and layout are defined in a prop called field. Each field must have a unique key prop.
+Fields config and layout are defined in a prop called fields. Each field must have a unique key prop.
 
 ## Cells
 
-Fields values are in a prop called record, filled with cells. In a cell you can put also some specific cell data, like a specific shape config or extra or obj props.
+Fields values are in a prop called cells. In a cell you can find values but also some specific data, like a shape config or extra or obj props.
 
 ## Extra and obj
 
@@ -40,7 +40,7 @@ You can show these kind of messages using the extraMessages prop.
 
 ## Old values
 
-When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payload the actual state of the record and the old one. The old is the copy of the record stored when you set or reset the record prop into the form.
+When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payload the actual state of the cells and the old one. The old is the copy of the cells stored when you set or reset the cells prop into the form.
 
 ---
 
@@ -49,20 +49,20 @@ When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payloa
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default          |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ---------------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined`      |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined`      |
-| `config`                             | --        |             | `FormConfig`                                                                       | `{}`             |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined`      |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined`      |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined`      |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`             |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined`      |
-| `record`                             | --        |             | `FormRecord`                                                                       | `{ fields: {} }` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined`      |
-| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined`      |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined`      |
+| Property                             | Attribute | Description | Type                                                                               | Default     |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
@@ -77,23 +77,23 @@ When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payloa
 
 ## Methods
 
-### `getActualRecord() => Promise<FormRecord>`
+### `getActualCells() => Promise<FormCells>`
 
 
 
 #### Returns
 
-Type: `Promise<FormRecord>`
+Type: `Promise<FormCells>`
 
 
 
-### `getOldRecord() => Promise<FormRecord>`
+### `getOldCells() => Promise<FormCells>`
 
 
 
 #### Returns
 
-Type: `Promise<FormRecord>`
+Type: `Promise<FormCells>`
 
 
 

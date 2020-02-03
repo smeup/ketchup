@@ -1,0 +1,21 @@
+{
+
+  "fields": {
+    "aTextField": {
+      "key": "aTextField",
+      "title": "A text field",
+      "titlePosition": "None",
+      "description": "A text field",
+      "shape": "ITX",
+      "extra": {
+        "liveBackendCheck": true
+      }
+    }
+  },
+
+  "sections": {},
+
+  "extraMessages": []
+
+
+}

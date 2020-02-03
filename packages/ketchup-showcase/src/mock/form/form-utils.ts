@@ -22,9 +22,8 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
     if (detail.field && detail.field.key) {
       let cell =
         detail.actual &&
-        detail.actual.record &&
-        detail.actual.record.fields &&
-        detail.actual.record.fields[detail.field.key];
+        detail.actual.cells &&
+        detail.actual.cells[detail.field.key];
       if (cell.extra && cell.extra.liveBackendCheck) {
         isToCheck = true;
       } else {
@@ -49,10 +48,11 @@ export function chooseAndApplyFakeBackendLogic(eventType: string, detail: any) {
 export function fakeUpdateBackendLogic(detail: any) {
   return fakeBackendLogic(
     detail.extra && detail.extra.aParamForBackend,
+    detail.extra && detail.extra.operation,
     false,
     detail.isValid,
     detail.field,
-    detail.actual.record.fields,
+    detail.actual.cells,
     detail.action
   );
 }
@@ -60,16 +60,18 @@ export function fakeUpdateBackendLogic(detail: any) {
 export function fakeCheckBackendLogic(detail: any) {
   return fakeBackendLogic(
     detail.extra && detail.extra.aParamForBackend,
+    detail.extra && detail.extra.operation,
     true,
     detail.isValid,
     detail.field,
-    detail.actual.record.fields,
+    detail.actual.cells,
     detail.action
   );
 }
 
 export function fakeBackendLogic(
   aParamForBackend: any,
+  operation: string,
   isCheck: boolean,
   isFormValid: boolean,
   field: any,
@@ -79,6 +81,8 @@ export function fakeBackendLogic(
   console.log(
     'Applying fake backend logic with aParamForBackend = ' +
       aParamForBackend +
+      ', operation = ' +
+      operation +
       ', isCheck = ' +
       isCheck +
       ', isFormValid = ' +
@@ -93,6 +97,7 @@ export function fakeBackendLogic(
   let newCells = JSON.parse(JSON.stringify(cells));
   let newFields: any = {};
   let areFieldsToBeModified = false;
+  let areCellsToBeModified = false;
 
   let isRecordValid = !(isFormValid == false); // also undefined is ok
   let extraMessages: any = [];
@@ -152,10 +157,12 @@ export function fakeBackendLogic(
       // values
       if (cellValueIsOfType(cell, 'FVM')) {
         console.log('FVM backend modify of field with key ' + cell.key);
+        areCellsToBeModified = true;
         newCells = cellValueModify(aParamForBackend, newCells, cell.key);
       }
       if (cellValueIsOfType(cell, 'GVM')) {
         console.log('GVM backend modify of field with key ' + cell.key);
+        areCellsToBeModified = true;
         keys.forEach((key) => {
           newCells = cellValueModify(aParamForBackend, newCells, key);
         });
@@ -190,8 +197,14 @@ export function fakeBackendLogic(
       }
 
       // conditional server side rule
-      if (cell.key == 'country' && cell.value.value != 'IT') {
+      if (
+        cell &&
+        cell.key == 'country' &&
+        cell.value &&
+        cell.value.value != 'IT'
+      ) {
         areFieldsToBeModified = true;
+        areCellsToBeModified = true;
         newFields['region'] = {
           config: {
             data: [
@@ -202,7 +215,7 @@ export function fakeBackendLogic(
             ],
           },
         };
-        newCells['region'].value = { value: '', description: '' };
+        newCells['region'] = { value: { value: '', description: '' } };
       }
     });
   }
@@ -223,22 +236,23 @@ export function fakeBackendLogic(
       },
     ];
 
-    let records = [];
-    records[0] = { fields: newCells };
+    if (operation === 'insert') {
+      areCellsToBeModified = true;
+    }
 
     return {
-      record: { fields: newCells },
+      ...(!isCheck || areCellsToBeModified ? { cells: newCells } : {}),
       ...(areFieldsToBeModified ? { fields: newFields } : {}),
       ...(areFieldsToBeModified ? { diffTypes: ['fields.diff.override'] } : {}),
-      ...(isCheck ? {} : { records: records }),
+      isUpdate: !isCheck,
       extraMessages: extraMessages,
-      formOpened: isCheck,
     };
   } else {
     console.log('Record KO');
 
     return {
       extraMessages: extraMessages,
+      isUpdate: false,
     };
   }
 }

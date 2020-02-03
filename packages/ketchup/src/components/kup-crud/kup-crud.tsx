@@ -17,7 +17,7 @@ import {
 
 import {
     FormFields,
-    FormRecord,
+    FormCells,
     FormField,
     FormSection,
     FormMessage,
@@ -33,9 +33,12 @@ import {
 } from '../../utils/widget-utils';
 
 import {
+    CrudRecord,
     CrudConfig,
     CrudRecordsChanged,
     CrudCallBackOnFormEventResult,
+    CrudMessage,
+    CrudMessageLevel,
 } from './kup-crud-declarations';
 
 import isEmpty from 'lodash/isEmpty';
@@ -46,11 +49,15 @@ import { TableData } from '../kup-data-table/kup-data-table-declarations';
 
 import cloneDeep from 'lodash/cloneDeep';
 
+import { generateUuidv4 } from '../../utils/utils';
+
 @Component({
     tag: 'kup-crud',
     styleUrl: 'kup-crud.scss',
     shadow: true,
 })
+// TODO: complete this component... actually is only a simplified version for tests inside form...
+// TODO: used generated uuid to manage different records... records indexes can be used
 export class KupCrud {
     //--------------------------------------------------------------------------
     // PROPS
@@ -60,9 +67,10 @@ export class KupCrud {
 
     @Prop() extra: any;
 
-    @Prop() config: CrudConfig = {};
+    @Prop() config: CrudConfig;
 
-    @Prop() records: FormRecord[];
+    // START form props... TODO: they can arrive from a callback...
+    @Prop() records: CrudRecord[];
 
     @Prop() fields: FormFields;
 
@@ -71,6 +79,8 @@ export class KupCrud {
     @Prop() extraMessages: FormMessage[] = [];
 
     @Prop() actions: FormActions;
+
+    // END form props...
 
     @Prop() disabled: boolean = false;
 
@@ -138,7 +148,9 @@ export class KupCrud {
     // INTERNAL
     // -------------------------------------------------------------------------
 
-    @State() actualRecord: FormRecord;
+    @State() actualCells: FormCells;
+
+    @State() messages: CrudMessage[] = [];
 
     private visibleFields: FormField[] = [];
 
@@ -171,38 +183,70 @@ export class KupCrud {
         this.initVisibleFields();
     }
 
+    // TODO: used button event -> missing kup-button event -> implement it
     private onCrudFocused(event) {
         event.stopPropagation();
         this.kupCrudFocused.emit({});
     }
 
+    // TODO: used button events -> missing kup-button event -> implement it
     private onCrudBlurred(event) {
         event.stopPropagation();
         this.kupCrudBlurred.emit({});
     }
 
-    private onOpenFormClicked(event) {
-        console.log('Open crud form clicked');
-        event.stopPropagation();
-
-        // clean form with selected record data
-        if (this.records[0]) {
-            this.actualRecord = cloneDeep(this.records[0]);
-        }
-        this.extraMessages = [];
-
-        // open modal
-        this.modal.visible = true;
-    }
-
-    private onCancelForm(event) {
+    private onCancelForm(event: CustomEvent) {
         console.log('Cancel crud form clicked');
         event.stopPropagation();
         // close modal
         this.modal.visible = false;
     }
 
-    // TODO on form field changed....
+    private onInsertRecordClicked(event: CustomEvent) {
+        console.log('Insert record');
+        event.stopPropagation();
+        if (!this.extra) {
+            this.extra = {};
+        }
+        this.extra.operation = 'insert';
+
+        this.actualCells = {};
+        this.extraMessages = [];
+        // open modal
+        this.modal.visible = true;
+    }
+
+    private onUpdateRecordClicked(event: CustomEvent, recordId: string) {
+        console.log('Update record with id ' + recordId);
+        event.stopPropagation();
+        let record = this.getRecordById(this.records, recordId);
+        if (record) {
+            if (!this.extra) {
+                this.extra = {};
+            }
+            this.extra.operation = 'update';
+            this.extra.recordId = recordId;
+            // put a deep clone of the record in the form
+            this.actualCells = cloneDeep(record.cells);
+            this.extraMessages = [];
+            // open modal
+            this.modal.visible = true;
+        }
+    }
+
+    private onDeleteRecordClicked(event: CustomEvent, recordId: string) {
+        console.log('Delete record with id ' + recordId);
+        event.stopPropagation();
+        let index = this.getRecordIndexByRecordId(this.records, recordId);
+        if (index >= 0) {
+            this.records.splice(index, 1);
+            this.records = [...this.records];
+            this.kupCrudRecordsChanged.emit({
+                actual: { records: this.records },
+            });
+        }
+    }
+
     private onFormFieldChanged(event: CustomEvent<FormFieldEventDetail>) {
         event.stopPropagation();
         let detail = event.detail;
@@ -214,7 +258,7 @@ export class KupCrud {
             );
             this.crudCallBackOnFormFieldChanged(detail)
                 .then((result) => {
-                    this.update(result);
+                    this.update(detail.extra, result);
                     this.kupCrudFormFieldChanged.emit(detail);
                 })
                 .catch((err) => {
@@ -238,7 +282,7 @@ export class KupCrud {
             );
             this.crudCallBackOnFormActionSubmitted(detail)
                 .then((result) => {
-                    this.update(result);
+                    this.update(detail.extra, result);
                     this.kupCrudFormActionSubmitted.emit(detail);
                 })
                 .catch((err) => {
@@ -253,8 +297,106 @@ export class KupCrud {
     // RENDERING
     // -------------------------------------------------------------------------
 
+    private renderRow(record: CrudRecord) {
+        let rowContent = [];
+
+        let updateButtonContent = this.hasRowUpdateAction() ? (
+            <kup-button
+                showicon={true}
+                flat={true}
+                iconClass="mdi mdi-pencil"
+                onKupButtonClicked={(e) =>
+                    this.onUpdateRecordClicked(e, record.id)
+                }
+            ></kup-button>
+        ) : (
+            ''
+        );
+
+        let deleteButtonContent = this.hasRowDeleteAction() ? (
+            <kup-button
+                showicon={true}
+                flat={true}
+                iconClass="mdi mdi-delete"
+                onKupButtonClicked={(e) =>
+                    this.onDeleteRecordClicked(e, record.id)
+                }
+            ></kup-button>
+        ) : (
+            ''
+        );
+
+        if (this.hasRowActions()) {
+            rowContent.push(
+                <td>
+                    {updateButtonContent}
+                    {deleteButtonContent}
+                </td>
+            );
+        }
+
+        this.visibleFields &&
+            this.visibleFields.forEach((field) => {
+                rowContent.push(
+                    <td>
+                        {outputValue(
+                            record.cells &&
+                                record.cells[field.key] &&
+                                record.cells[field.key].value,
+                            field.outputValueFunction
+                        )}
+                    </td>
+                );
+            });
+
+        return <tr>{rowContent}</tr>;
+    }
+
+    renderMessages() {
+        let messagesContent = '';
+        if (this.messages) {
+            messagesContent = (
+                <div class="global-messages">
+                    {this.messages
+                        .filter((elem) => !!elem)
+                        .map((message, index) => {
+                            return (
+                                <div
+                                    class={
+                                        'global-message ' +
+                                        message.level.toLowerCase()
+                                    }
+                                    key={index}
+                                >
+                                    {message.text}
+                                </div>
+                            );
+                        })}
+                </div>
+            );
+        }
+        return messagesContent;
+    }
+
     render() {
+        let insertButtonContent = this.hasInsertAction() ? (
+            <kup-button
+                showicon={true}
+                showtext={true}
+                flat={true}
+                label="Add"
+                iconClass="mdi mdi-plus"
+                onKupButtonClicked={(e) => this.onInsertRecordClicked(e)}
+            ></kup-button>
+        ) : (
+            ''
+        );
+
         let tableHeader = [];
+
+        if (this.hasRowActions()) {
+            tableHeader.push(<th>Actions</th>);
+        }
 
         this.visibleFields &&
             this.visibleFields.forEach((field) => {
@@ -263,30 +405,30 @@ export class KupCrud {
 
         let tableRows = [];
 
-        this.records[0] &&
-            this.visibleFields &&
-            this.visibleFields.forEach((field) => {
-                tableRows.push(
-                    <td>
-                        {outputValue(
-                            this.records[0].fields[field.key].value,
-                            field.outputValueFunction
-                        )}
-                    </td>
-                );
-            });
+        this.records.forEach((record, i) => {
+            if (i === 0 && this.hasConfigureAction()) {
+                tableRows.push(this.renderRow(record));
+            } else if (!this.hasConfigureAction()) {
+                tableRows.push(this.renderRow(record));
+            }
+        });
 
         const btnStyle = {};
         btnStyle['--kup-button_border-color-focused'] = '#66D3FA';
 
-        let configureButtonContent = !this.disabled ? (
+        let configureButtonContent = this.hasConfigureAction() ? (
             <kup-button
                 style={btnStyle}
                 id="open-modal"
                 label="Configure"
                 showtext={true}
                 flat={false}
-                onClick={(e) => this.onOpenFormClicked(e)}
+                onKupButtonClicked={(e) =>
+                    this.onUpdateRecordClicked(
+                        e,
+                        this.records && this.records[0].id
+                    )
+                }
                 onBlur={(e) => this.onCrudBlurred(e)}
                 onFocus={(e) => this.onCrudFocused(e)}
             >
@@ -299,13 +441,13 @@ export class KupCrud {
         return (
             <Host refid={this.refid}>
                 <div class="crud-component ">
+                    {this.renderMessages()}
+                    {insertButtonContent}
                     <table class="crud-table">
                         <thead>
                             <tr>{tableHeader}</tr>
                         </thead>
-                        <tbody>
-                            <tr>{tableRows}</tr>
-                        </tbody>
+                        <tbody>{tableRows}</tbody>
                     </table>
                     {configureButtonContent}
 
@@ -319,7 +461,7 @@ export class KupCrud {
                             extra={this.extra}
                             config={this.config}
                             fields={this.fields}
-                            record={this.actualRecord}
+                            cells={this.actualCells}
                             sections={this.sections}
                             extraMessages={this.extraMessages}
                             actions={this.actions}
@@ -356,14 +498,94 @@ export class KupCrud {
         this.visibleFields = getVisibleFields(getFields(this.fields));
     }
 
-    private update(result: CrudCallBackOnFormEventResult) {
+    private hasConfigureAction(): boolean {
+        return !this.disabled && this.config && !this.config.multiple;
+    }
+
+    private hasInsertAction(): boolean {
+        return (
+            !this.disabled &&
+            this.config &&
+            this.config.multiple &&
+            this.config.insert
+        );
+    }
+
+    private hasRowUpdateAction(): boolean {
+        return (
+            !this.disabled &&
+            this.config &&
+            this.config.multiple &&
+            this.config.update
+        );
+    }
+
+    private hasRowDeleteAction(): boolean {
+        return (
+            !this.disabled &&
+            this.config &&
+            this.config.multiple &&
+            this.config.delete
+        );
+    }
+
+    private hasRowActions(): boolean {
+        return (
+            !this.disabled &&
+            this.config &&
+            this.config.multiple &&
+            (this.config.update || this.config.delete)
+        );
+    }
+
+    private getRecordIndexByRecordId(
+        records: CrudRecord[],
+        id: string
+    ): number {
+        let indexes = records.reduce(
+            (c, record, i) => (record.id == id ? c.concat(i) : c),
+            []
+        );
+
+        if (!indexes || indexes.length == 0) {
+            this.messages = [
+                {
+                    text: 'Did not find record with id ' + id,
+                    level: CrudMessageLevel.ERROR,
+                },
+            ];
+            return -1;
+        }
+        if (indexes.length > 1) {
+            this.messages = [
+                {
+                    text: 'More than one record with the same id (' + id + ')',
+                    level: CrudMessageLevel.ERROR,
+                },
+            ];
+            return -1;
+        }
+
+        return indexes[0];
+    }
+
+    private getRecordById(records: CrudRecord[], id: string): CrudRecord {
+        let index = this.getRecordIndexByRecordId(records, id);
+        if (index >= 0) {
+            return records[index];
+        } else {
+            return null;
+        }
+    }
+
+    private update(extra: any, result: CrudCallBackOnFormEventResult) {
         console.log('CRUD component update...');
 
         if (isEmpty(result)) {
             console.log('Nothing to update...');
         }
 
-        if (result.formOpened == false) {
+        if (result.isUpdate == true) {
             this.modal.visible = false;
         }
 
@@ -394,15 +616,26 @@ export class KupCrud {
             }
         }
 
-        if (result.record) {
-            this.actualRecord = result.record;
-        }
+        if (result.cells) {
+            this.actualCells = result.cells;
 
-        if (result.records) {
-            this.records = result.records;
-            this.kupCrudRecordsChanged.emit({
-                actual: { records: this.records },
-            });
+            if (result.isUpdate) {
+                if (extra && extra.operation == 'update') {
+                    let index = this.getRecordIndexByRecordId(
+                        this.records,
+                        extra.recordId
+                    );
+                    this.records[index].cells = result.cells;
+                }
+                if (extra && extra.operation == 'insert') {
+                    let record = { id: generateUuidv4(), cells: result.cells };
+                    this.records = [...this.records, record];
+                }
+
+                this.kupCrudRecordsChanged.emit({
+                    actual: { records: this.records },
+                });
+            }
         }
 
         // todo: config, sections, actions

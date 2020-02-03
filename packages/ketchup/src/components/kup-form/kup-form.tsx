@@ -42,7 +42,7 @@ import {
     FormConfig,
     FormActions,
     FormActionField,
-    FormRecord,
+    FormCells,
     FormCell,
 } from './kup-form-declarations';
 
@@ -65,6 +65,7 @@ import {
     isAutocompleteInForm,
     isSearchInForm,
     isConfiguratorInForm,
+    isMultipleConfiguratorInForm,
 } from '../../utils/form-cell-utils';
 
 import { KupImage } from '../kup-image/kup-image';
@@ -82,7 +83,7 @@ export class KupForm {
 
     @Prop() extra: any;
 
-    @Prop() config: FormConfig = {};
+    @Prop() config: FormConfig;
 
     @Prop() fields: FormFields;
 
@@ -92,7 +93,7 @@ export class KupForm {
 
     @Prop() actions: FormActions;
 
-    @Prop() record: FormRecord = { fields: {} };
+    @Prop() cells: FormCells;
 
     @Prop() crudCallBackOnFormActionSubmitted: (
         detail: FormActionEventDetail
@@ -153,21 +154,21 @@ export class KupForm {
     // can be useful?
 
     @Method()
-    async getActualRecord() {
-        return this.actualRecord;
+    async getActualCells() {
+        return this.actualCells;
     }
 
     @Method()
-    async getOldRecord() {
-        return this.oldRecord;
+    async getOldCells() {
+        return this.oldCells;
     }
 
     //--------------------------------------------------------------------------
     // INTERNAL
     // -------------------------------------------------------------------------
 
-    // it's the actual state of the record
-    @State() actualRecord: FormRecord;
+    // it's the actual state of the cells
+    @State() actualCells: FormCells;
 
     // it's the actual state of the sections (can be recalculated internally)
     @State() actualSections: FormSection;
@@ -178,9 +179,9 @@ export class KupForm {
     // it's the actual state of the messages
     @State() actualMessages: FormMessage[] = [];
 
-    // it's not a state, it's a historicization of record at the moment is changed by prop (== by external)
+    // it's not a state, it's a historicization of the cells at the moment are changed by prop (== by external)
     // so used clone deep to store it
-    oldRecord: FormRecord;
+    oldCells: FormCells;
 
     private visibleFields: FormField[] = [];
 
@@ -192,7 +193,7 @@ export class KupForm {
         this.onFieldsChanged();
         this.onSectionsChanged();
         this.onActionsChanged();
-        this.onRecordChanged();
+        this.onCellsChanged();
     }
 
     @Watch('sections')
@@ -210,11 +211,10 @@ export class KupForm {
         this.initActualActions();
     }
 
-    @Watch('record')
-    private onRecordChanged() {
-        console.log('Changing record prop');
-        this.actualRecord = this.record;
-        this.oldRecord = cloneDeep(this.record);
+    @Watch('cells')
+    private onCellsChanged() {
+        this.oldCells = cloneDeep(this.cells);
+        this.actualCells = this.cells;
     }
 
     private onFormActionSubmitted(actionField: FormActionField) {
@@ -241,7 +241,7 @@ export class KupForm {
         fieldKey: string
     ) {
         event.stopPropagation();
-        // records are here saved with a zipped format but can be saved as preferred, also as are
+        // simplified crud field -> TODO: save records as are
         let zippedRecords = zipRecords(event.detail.actual.records);
         let value = zippedRecords;
         this.onFieldChanged(fieldKey, value);
@@ -268,40 +268,40 @@ export class KupForm {
         this.onFieldChanged(fieldKey, value);
     }
 
-    private isFieldDifferentFromActual(fieldKey: string, value: any) {
-        let isFieldDifferentFromActual = false;
-        if (!this.actualRecord.fields.hasOwnProperty(fieldKey)) {
-            isFieldDifferentFromActual = true;
+    private isCellDifferentFromActual(fieldKey: string, value: any) {
+        let isCellDifferentFromActual = false;
+        if (!this.actualCells.hasOwnProperty(fieldKey)) {
+            isCellDifferentFromActual = true;
         } else {
-            if (this.actualRecord.fields[fieldKey].value != value) {
-                isFieldDifferentFromActual = true;
+            if (this.actualCells[fieldKey].value != value) {
+                isCellDifferentFromActual = true;
             }
         }
-        return isFieldDifferentFromActual;
+        return isCellDifferentFromActual;
     }
 
     private onFieldChanged(fieldKey: string, value: any) {
-        let isFieldDifferentFromActual = this.isFieldDifferentFromActual(
+        let isCellDifferentFromActual = this.isCellDifferentFromActual(
             fieldKey,
             value
         );
 
         // added this check because some components (like kup-combo) actually send a change event also when
         // the value is reset into component -> TODO: evaluate other components behaviour
-        if (isFieldDifferentFromActual) {
-            if (!this.actualRecord.fields.hasOwnProperty(fieldKey)) {
-                this.actualRecord.fields[fieldKey] = {
+        if (isCellDifferentFromActual) {
+            if (!this.actualCells.hasOwnProperty(fieldKey)) {
+                this.actualCells[fieldKey] = {
                     key: fieldKey,
                     value: value,
                 };
             } else {
-                this.actualRecord.fields[fieldKey].value = value;
+                this.actualCells[fieldKey].value = value;
             }
 
             if (this.config && this.config.liveCheck) {
                 this.checkField(
                     this.fields[fieldKey],
-                    this.actualRecord.fields[fieldKey]
+                    this.actualCells[fieldKey]
                 );
             }
 
@@ -409,10 +409,7 @@ export class KupForm {
         if (fieldKey) {
             const field = this.fields[fieldKey];
 
-            let cell =
-                this.actualRecord &&
-                this.actualRecord.fields &&
-                this.actualRecord.fields[fieldKey];
+            let cell = this.actualCells && this.actualCells[fieldKey];
 
             if (field) {
                 let index = -1;
@@ -445,7 +442,10 @@ export class KupForm {
                             }
                         ></kup-combo>
                     );
-                } else if (isConfiguratorInForm(cell, field)) {
+                } else if (
+                    isConfiguratorInForm(cell, field) ||
+                    isMultipleConfiguratorInForm(cell, field)
+                ) {
                     let records = unzipRecords(cell && cell.value);
                     fieldContent = (
                         <kup-crud
@@ -575,11 +575,16 @@ export class KupForm {
                 }
             }
 
-            if (field.title.trim().length) {
-                fieldLabelContent = <label>{field.title}</label>;
+            if (field.title && field.title.trim().length > 0) {
+                let title = field.title;
+                if (field.validate && field.validate.required) {
+                    title = title + ' *';
+                }
+                fieldLabelContent = <label>{title}</label>;
             }
 
             let fieldMessages = [...this.actualMessages, ...this.extraMessages];
+
             fieldMessages = fieldMessages
                 ? fieldMessages.filter((elem) => elem.fieldKey == field.key)
                 : [];
@@ -608,11 +613,13 @@ export class KupForm {
                 );
             }
 
-            fieldDebugContent = (
-                <div class="form-field-debug">
-                    {'debug value: ' + JSON.stringify(cell && cell.value)}
-                </div>
-            );
+            if (this.config && this.config.debugMode) {
+                fieldDebugContent = (
+                    <div class="form-field-debug">
+                        {'debug value: ' + JSON.stringify(cell && cell.value)}
+                    </div>
+                );
+            }
         }
 
         return (
@@ -795,8 +802,8 @@ export class KupForm {
             ...(this.refid ? { refid: this.refid } : {}),
             ...(this.extra ? { extra: this.extra } : {}),
             field: { key: fieldKey },
-            actual: { record: this.actualRecord },
-            old: { record: this.oldRecord },
+            actual: { cells: this.actualCells },
+            old: { cells: this.oldCells },
         } as FormFieldEventDetail;
         let fields = this.filterFieldsExtraAndObj(this.fields);
         if (!isEmpty(fields)) {
@@ -819,8 +826,8 @@ export class KupForm {
                 ...(actionField.extra ? { extra: actionField.extra } : {}),
                 ...(actionField.obj ? { obj: actionField.obj } : {}),
             },
-            actual: { record: this.actualRecord },
-            old: { record: this.oldRecord },
+            actual: { cells: this.actualCells },
+            old: { cells: this.oldCells },
             isValid: this.hasErrorMessages(),
         } as FormActionEventDetail;
         let fields = this.filterFieldsExtraAndObj(this.fields);
@@ -927,7 +934,7 @@ export class KupForm {
         fields.forEach((field) => {
             let fieldMessages = this.validateField(
                 this.fields[field.key],
-                this.actualRecord.fields[field.key]
+                this.cells[field.key]
             );
             messages = [...messages, ...fieldMessages];
         });
@@ -941,8 +948,7 @@ export class KupForm {
         if (
             field.validate &&
             field.validate.required &&
-            cell &&
-            isEmpty(cell.value)
+            (!cell || isEmpty(cell.value))
         ) {
             messages = [
                 ...messages,
@@ -958,8 +964,8 @@ export class KupForm {
         if (
             field.validate &&
             field.validate.minLength &&
-            cell &&
-            (isEmpty(cell.value) ||
+            (!cell ||
+                isEmpty(cell.value) ||
                 cell.value.length < field.validate.minLength)
         ) {
             messages = [
