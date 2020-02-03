@@ -66,7 +66,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">[]</span>
                 </td>
-                <td>Fill this in the JSON tab.</td>
+                <td>?</td>
               </tr>
               <tr>
                 <td class="prevent-cr">
@@ -79,7 +79,7 @@
                 <td class="prevent-cr">
                   <span class="code-word">undefined</span>
                 </td>
-                <td>Fill this in the JSON tab.</td>
+                <td>?</td>
               </tr>
               <tr>
                 <td class="prevent-cr">
