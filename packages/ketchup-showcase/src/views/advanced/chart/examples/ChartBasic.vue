@@ -6,17 +6,13 @@
         href="https://developers.google.com/chart/"
         target="_blank"
         rel="noopener"
-        >Google Charts</a
-      >
+      >Google Charts</a>
       library.
     </p>
     <div id="sample-wrapper" class="detached">
       <div id="sample-modal"></div>
       <div id="sample-specs">
-        <wup-tab-bar
-          @kupTabBarClick="tabSelection"
-          :items.prop="items"
-        ></wup-tab-bar>
+        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
         <div id="sample-specs-container">
           <table class="instruction-table sample-section">
             <thead>
@@ -33,14 +29,14 @@
                 <td class="prevent-cr">
                   <span class="code-word">asp</span>
                 </td>
-                <td>?</td>
+                <td>Sets the chart to a 2D or 3D aspect.</td>
                 <td class="prevent-cr">
-                  <span class="code-word">?</span>
+                  <span class="code-word">ChartAspect</span>
                 </td>
                 <td class="prevent-cr">
-                  <span class="code-word">undefined</span>
+                  <span class="code-word">2D</span>
                 </td>
-                <td>?</td>
+                <td>NYI</td>
               </tr>
               <tr>
                 <td class="prevent-cr">
@@ -186,11 +182,7 @@
                   <span class="code-word">true</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    checked
-                    id="legend"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch checked id="legend" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -218,10 +210,7 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    id="show-marks"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch id="show-marks" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -236,10 +225,7 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    id="stacked"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch id="stacked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -310,10 +296,7 @@
               </tr>
             </tbody>
           </table>
-          <table
-            style="display: none;"
-            class="instruction-table sample-section"
-          >
+          <table style="display: none;" class="instruction-table sample-section">
             <thead>
               <tr>
                 <th>Event</th>
@@ -345,12 +328,7 @@
             ></wup-button>
           </div>
           <div class="sample-section" style="display: none;">
-            <wup-text-field
-              @kupTextFieldInput="updateDemoFieldJSON"
-              fullwidth
-              fullheight
-              textarea
-            ></wup-text-field>
+            <wup-text-field @kupTextFieldInput="updateDemoFieldJSON" fullwidth fullheight textarea></wup-text-field>
           </div>
         </div>
       </div>
@@ -465,11 +443,7 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input
-            id="grid-count"
-            type="number"
-            @change="onHAxisGridCountChange"
-          />
+          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
         </div>
       </div>
     </div>
@@ -484,11 +458,7 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input
-            id="grid-count"
-            type="number"
-            @change="onVAxisGridCountChange"
-          />
+          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
         </div>
       </div>
     </div>
