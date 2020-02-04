@@ -371,7 +371,6 @@ export default {
     updateCSS(e) {
       var DOMEl = document.documentElement;
       var varCSS = '--kup-' + e.target.id;
-      console.log(e);
       DOMEl.style.setProperty(varCSS, e.detail.value);
     },
   },
