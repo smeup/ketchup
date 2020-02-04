@@ -9,6 +9,370 @@
       >Google Charts</a>
       library.
     </p>
+    <div id="sample-wrapper" class="detached">
+      <div id="sample-modal"></div>
+      <div id="sample-specs">
+        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
+        <div id="sample-specs-container">
+          <table class="instruction-table sample-section">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Try it!</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">asp</span>
+                </td>
+                <td>Sets the chart to a 2D or 3D aspect.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">ChartAspect</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">2D</span>
+                </td>
+                <td>NYI</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">axis</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">colors</span>
+                </td>
+                <td>Colors of the chart.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string[]</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">[]</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">data</span>
+                </td>
+                <td>The actual data of the table.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">TableData</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">graphTitle</span>
+                </td>
+                <td>Title of the graph.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="graph-title"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">graphTitleColor</span>
+                </td>
+                <td>Title of the graph's color.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="graph-title-color"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">graphTitleSize</span>
+                </td>
+                <td>Size of title of the graph (in pixels).</td>
+                <td class="prevent-cr">
+                  <span class="code-word">number</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="graph-title-size"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">hAxis</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">ChartAxis</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">height</span>
+                </td>
+                <td>Height of the graph (in pixels).</td>
+                <td class="prevent-cr">
+                  <span class="code-word">number</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="height"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">legend</span>
+                </td>
+                <td>The chart's legend</td>
+                <td class="prevent-cr">
+                  <span class="code-word">boolean</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">true</span>
+                </td>
+                <td class="switch-cell">
+                  <wup-switch checked id="legend" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">series</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string[]</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">showMarks</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">boolean</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">false</span>
+                </td>
+                <td class="switch-cell">
+                  <wup-switch id="show-marks" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">stacked</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">boolean</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">false</span>
+                </td>
+                <td class="switch-cell">
+                  <wup-switch id="stacked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">types</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">ChartType[]</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">[ChartType.Hbar]</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">vAxis</span>
+                </td>
+                <td>?</td>
+                <td class="prevent-cr">
+                  <span class="code-word">ChartAxis</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td>?</td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">version</span>
+                </td>
+                <td>Google chart version to load.</td>
+                <td class="prevent-cr">
+                  <span class="code-word">string</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">'45.2'</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="version"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">width</span>
+                </td>
+                <td>Width of the graph (in pixels).</td>
+                <td class="prevent-cr">
+                  <span class="code-word">number</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">undefined</span>
+                </td>
+                <td class="text-cell">
+                  <wup-text-field
+                    fullheight
+                    fullwidth
+                    id="width"
+                    @kupTextFieldInput="updateDemoField"
+                  ></wup-text-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="display: none;" class="instruction-table sample-section">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Type</th>
+                <th>Test it by interacting with the demo component!</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">kupChartClicked</span>
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">click</span>
+                </td>
+                <td>
+                  <div id="onclick" class="code-word"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="sample-section" style="display: none;">
+            <div class="code-word sample-html"></div>
+            <wup-button
+              @kupButtonClick="copyHtml"
+              id="copy-html"
+              icon="file_copy"
+              title="Copy HTML markup"
+            ></wup-button>
+          </div>
+          <div class="sample-section" style="display: none;">
+            <wup-text-field @kupTextFieldInput="updateDemoFieldJSON" fullwidth fullheight textarea></wup-text-field>
+          </div>
+        </div>
+      </div>
+      <div id="sample-comp">
+        <div id="sample-comp-wrapper">
+          <kup-chart
+            id="demo-component"
+            :data.prop="chartData"
+            :types.prop="types"
+            :axis.prop="'Col1'"
+            :series.prop="series"
+          />
+        </div>
+        <div id="split-container">
+          <wup-button
+            @kupButtonClick="menuTrigger"
+            id="menu-trigger"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="last_page"
+            iconoff="menu_open"
+            title="Open/close side panel"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="swapView"
+            id="view-swapper"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color);"
+            icon="fullscreen_exit"
+            iconoff="fullscreen"
+            title="Toggle/disable full screen"
+          ></wup-button>
+          <wup-button
+            @kupButtonClick="splitView"
+            id="view-splitter"
+            toggable
+            style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+            icon="view_agenda"
+            iconoff="flip"
+            title="Split/detach view"
+          ></wup-button>
+        </div>
+      </div>
+    </div>
 
     <h3>Playground</h3>
 
@@ -102,7 +466,8 @@
     <br />
 
     <kup-chart
-      id="chart"
+      id="demo-component"
+      @kupChartClicked="logClick"
       :data.prop="chartData"
       :types.prop="types"
       :axis.prop="'Col1'"
@@ -130,6 +495,28 @@ import { ageWeightData } from '@/mock/chart';
 export default {
   data() {
     return {
+      items: [
+        {
+          text: 'Props',
+          icon: '',
+          status: 'Active',
+        },
+        {
+          text: 'Events',
+          icon: '',
+          status: '',
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          status: '',
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          status: '',
+        },
+      ],
       baseData,
       ageWeightData,
       chartData: baseData,
@@ -150,6 +537,121 @@ export default {
     };
   },
   methods: {
+    copyHtml(e) {
+      let text = document.querySelector('.code-word.sample-html').innerText;
+      navigator.clipboard.writeText(text);
+    },
+
+    swapView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-wrapper').classList.add('full');
+      } else {
+        document.querySelector('#sample-wrapper').classList.remove('full');
+      }
+    },
+
+    splitView(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-wrapper').classList.remove('detached');
+      } else {
+        document.querySelector('#sample-wrapper').classList.add('detached');
+      }
+    },
+
+    menuTrigger(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#sample-comp').classList.add('full');
+        document.querySelector('#sample-specs').classList.add('closed');
+      } else {
+        document.querySelector('#sample-comp').classList.remove('full');
+        document.querySelector('#sample-specs').classList.remove('closed');
+      }
+    },
+
+    logClick(e) {
+      var d = new Date();
+      document.querySelector('#onclick').innerText =
+        'Clicked! Event fired at ' +
+        d.getHours() +
+        ':' +
+        d.getMinutes() +
+        ':' +
+        d.getSeconds();
+    },
+
+    updateDemoSwitch(e) {
+      if (e.detail.value === 'on') {
+        document.querySelector('#demo-component').setAttribute(e.target.id, '');
+      } else {
+        document.querySelector('#demo-component').removeAttribute(e.target.id);
+      }
+    },
+
+    updateDemoField(e) {
+      if (e.detail.value !== '') {
+        document
+          .querySelector('#demo-component')
+          .setAttribute(e.target.id, e.detail.value);
+      } else {
+        document.querySelector('#demo-component').removeAttribute(e.target.id);
+      }
+    },
+
+    updateDemoFieldJSON(e) {
+      let demoComponent = document.querySelector('#demo-component');
+      let jsonifiedData = JSON.parse(e.detail.value);
+      demoComponent.data = jsonifiedData;
+    },
+
+    logInput(e) {
+      var d = new Date();
+      document.querySelector('#oninput').innerText =
+        'Input! Event fired at ' +
+        d.getHours() +
+        ':' +
+        d.getMinutes() +
+        ':' +
+        d.getSeconds();
+    },
+
+    tabSelection(e) {
+      let tabCollection = document.querySelectorAll('.sample-section');
+      let demoComponent = document.querySelector('#demo-component').outerHTML;
+      let tabHTML = tabCollection[2];
+      let tabJSON = tabCollection[3];
+      for (let i = 0; i < tabCollection.length; i++) {
+        if (i === e.detail.index) {
+          tabCollection[i].setAttribute('style', '');
+          if (tabHTML === tabCollection[i]) {
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = demoComponent;
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
+              .innerText.replace('class="hydrated"', '');
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
+              .innerText.replace(/=""/g, '');
+          } else if (tabJSON === tabCollection[i]) {
+            let jsonData = document.querySelector('#demo-component').data;
+            let stringifiedJSON = JSON.stringify(jsonData);
+            stringifiedJSON = stringifiedJSON.replace(/{/g, '{ \n ');
+            stringifiedJSON = stringifiedJSON.replace(/}/g, ' \n }');
+            stringifiedJSON = stringifiedJSON.replace(/,/g, ', \n ');
+            tabCollection[i].querySelector(
+              'wup-text-field'
+            ).initialvalue = stringifiedJSON;
+          }
+        } else {
+          tabCollection[i].setAttribute('style', 'display: none;');
+        }
+      }
+    },
+
     onChartTypeChange(e) {
       this.types = [e.target.value];
       if ('Line' === e.target.value) {
