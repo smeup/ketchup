@@ -529,6 +529,7 @@ table.instruction-table th {
 #sample-wrapper.detached.full #sample-specs,
 #sample-wrapper.detached.full #sample-comp {
   height: 45vh;
+  width: 100%;
 }
 
 #sample-wrapper.detached #sample-comp {
@@ -585,6 +586,7 @@ table.instruction-table th {
   padding-bottom: 50px;
 }
 
+#sample-wrapper.full #sample-comp.full,
 #sample-comp.full {
   width: 100%;
 }
@@ -634,6 +636,7 @@ table.instruction-table th {
   transition: width 0.25s;
 }
 
+#sample-wrapper.full #sample-specs.closed,
 #sample-specs.closed {
   width: 0;
 }
@@ -658,6 +661,19 @@ table.instruction-table th {
   -moz-animation: fadeInFromNone 0.25s ease-out;
   -o-animation: fadeInFromNone 0.25s ease-out;
   animation: fadeInFromNone 0.25s ease-out;
+}
+
+.sample-section .CodeMirror {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  color: var(--kup-text-color);
+  background: var(--kup-background-color);
+}
+
+.sample-section .CodeMirror-linenumber.CodeMirror-gutter-elt {
+  background: var(--kup-disabled-background-color);
+  color: var(--kup-disabled-color);
 }
 
 @media screen and (max-width: 767px) {

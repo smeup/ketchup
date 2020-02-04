@@ -6,17 +6,13 @@
         href="https://developers.google.com/chart/"
         target="_blank"
         rel="noopener"
-        >Google Charts</a
-      >
+      >Google Charts</a>
       library.
     </p>
     <div id="sample-wrapper" class="detached">
       <div id="sample-modal"></div>
       <div id="sample-specs">
-        <wup-tab-bar
-          @kupTabBarClick="tabSelection"
-          :items.prop="items"
-        ></wup-tab-bar>
+        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
         <div id="sample-specs-container">
           <table class="instruction-table sample-section">
             <thead>
@@ -212,21 +208,17 @@
                   <span class="code-word">true</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    checked
-                    id="legend"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch checked id="legend" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
                 <td class="prevent-cr">
                   <span class="code-word">series</span>
                 </td>
-                <td
-                  >The data series to be displayed. They must be of the same
-                  type.</td
-                >
+                <td>
+                  The data series to be displayed. They must be of the same
+                  type.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">string[]</span>
                 </td>
@@ -274,20 +266,17 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    id="show-marks"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch id="show-marks" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
                 <td class="prevent-cr">
                   <span class="code-word">stacked</span>
                 </td>
-                <td
-                  >Displays the data columns of an object on top of each
-                  other.</td
-                >
+                <td>
+                  Displays the data columns of an object on top of each
+                  other.
+                </td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
                 </td>
@@ -295,10 +284,7 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch
-                    id="stacked"
-                    @kupSwitchChange="updateDemoSwitch"
-                  ></wup-switch>
+                  <wup-switch id="stacked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -333,8 +319,8 @@
                     id="types"
                     @kupTextFieldChange="updateDemoFieldArray"
                     @kupTextFieldIconClick="updateDemoFieldArray"
-                  ></wup-text-field
-                ></td>
+                  ></wup-text-field>
+                </td>
               </tr>
               <tr>
                 <td class="prevent-cr">
@@ -391,10 +377,7 @@
               </tr>
             </tbody>
           </table>
-          <table
-            style="display: none;"
-            class="instruction-table sample-section"
-          >
+          <table style="display: none;" class="instruction-table sample-section">
             <thead>
               <tr>
                 <th>Event</th>
@@ -426,12 +409,7 @@
             ></wup-button>
           </div>
           <div class="sample-section" style="display: none;">
-            <wup-text-field
-              @kupTextFieldInput="updateDemoFieldJSON"
-              fullwidth
-              fullheight
-              textarea
-            ></wup-text-field>
+            <textarea id="json-textarea"></textarea>
           </div>
         </div>
       </div>
@@ -547,11 +525,7 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input
-            id="grid-count"
-            type="number"
-            @change="onHAxisGridCountChange"
-          />
+          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
         </div>
       </div>
     </div>
@@ -566,11 +540,7 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input
-            id="grid-count"
-            type="number"
-            @change="onVAxisGridCountChange"
-          />
+          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
         </div>
       </div>
     </div>
@@ -654,6 +624,13 @@ export default {
       navigator.clipboard.writeText(text);
     },
 
+    runJSON() {
+      let demoComponent = document.querySelector('#demo-component');
+      var jsonTextarea = document.querySelector('#json-textarea');
+      let jsonifiedData = JSON.parse(jsonTextarea.value);
+      demoComponent.data = jsonifiedData;
+    },
+
     swapView(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.add('full');
@@ -709,12 +686,6 @@ export default {
       }
     },
 
-    updateDemoFieldJSON(e) {
-      let demoComponent = document.querySelector('#demo-component');
-      let jsonifiedData = JSON.parse(e.detail.value);
-      demoComponent.data = jsonifiedData;
-    },
-
     updateDemoFieldArray(e) {
       if (e.detail.value === undefined) {
         return;
@@ -735,8 +706,8 @@ export default {
       demoComponent[propName] = arrayList;
       e.target.removeAttribute('fullheight');
       e.target.insertAdjacentHTML('beforebegin', newEntry);
-      e.target.initialvalue = "";
-      e.target.value = "";
+      e.target.initialvalue = '';
+      e.target.value = '';
       document
         .querySelector('#' + newEntryId)
         .addEventListener('kupButtonClick', (e) => {
@@ -792,13 +763,26 @@ export default {
               .innerText.replace(/=""/g, '');
           } else if (tabJSON === tabCollection[i]) {
             let jsonData = document.querySelector('#demo-component').data;
-            let stringifiedJSON = JSON.stringify(jsonData);
-            stringifiedJSON = stringifiedJSON.replace(/{/g, '{ \n ');
-            stringifiedJSON = stringifiedJSON.replace(/}/g, ' \n }');
-            stringifiedJSON = stringifiedJSON.replace(/,/g, ', \n ');
+            let stringifiedJSON = JSON.stringify(jsonData, null, 2);
             tabCollection[i].querySelector(
-              'wup-text-field'
-            ).initialvalue = stringifiedJSON;
+              '#json-textarea'
+            ).value = stringifiedJSON;
+            let jsonTextarea = document.querySelector('#json-textarea');
+            let codemirrorTextarea = document.querySelector('.CodeMirror');
+            if (!codemirrorTextarea) {
+              CodeMirror.fromTextArea(jsonTextarea, {
+                mode: { name: 'javascript', json: true },
+                lineNumbers: true,
+                lineWrapping: true,
+                foldGutter: true,
+                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+              }).on('change', function(cm) {
+                cm.save();
+                let demoComponent = document.querySelector('#demo-component');
+                let jsonifiedData = JSON.parse(jsonTextarea.value);
+                demoComponent.data = jsonifiedData;
+              });
+            }
           }
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');
