@@ -527,7 +527,8 @@ table.instruction-table th {
 }
 
 #sample-wrapper.detached.full #sample-specs,
-#sample-wrapper.detached.full #sample-comp {
+#sample-wrapper.detached.full #sample-comp,
+#sample-wrapper.detached.full #sample-specs.closed {
   height: 45vh;
   width: 100%;
 }
