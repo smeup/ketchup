@@ -611,6 +611,7 @@ table.instruction-table th {
 
 #sample-wrapper.full #sample-specs,
 #sample-wrapper.full #sample-comp {
+  width: 50%;
   background-color: var(--kup-background-color);
   z-index: 91;
 }
