@@ -134,6 +134,16 @@ export class WupTextField {
         value: string;
     }>;
 
+    @Event({
+        eventName: 'kupTextFieldIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<{
+        value: string;
+    }>;
+
     //---- Methods ----
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -167,6 +177,13 @@ export class WupTextField {
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupInput.emit({
+            value: target.value,
+        });
+    }
+
+    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupIconClick.emit({
             value: target.value,
         });
     }
@@ -258,6 +275,7 @@ export class WupTextField {
                     class="material-icons mdc-text-field__icon"
                     tabindex="0"
                     role="button"
+                    onClick={(e: any) => this.onKupIconClick(e)}
                 >
                     {this.icon}
                 </i>

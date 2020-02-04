@@ -2893,6 +2893,9 @@ declare namespace LocalJSX {
     'onKupTextFieldFocus'?: (event: CustomEvent<{
       value: string;
     }>) => void;
+    'onKupTextFieldIconClick'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
     'onKupTextFieldInput'?: (event: CustomEvent<{
       value: string;
     }>) => void;
