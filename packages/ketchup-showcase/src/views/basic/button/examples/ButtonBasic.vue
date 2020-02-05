@@ -441,22 +441,27 @@ export default {
         ':' +
         d.getSeconds();
     },
+
     updateDemoSwitch(e) {
+      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
-        document.querySelector('#demo-component').setAttribute(e.target.id, '');
+        demoComponent.setAttribute(e.target.id, '');
       } else {
-        document.querySelector('#demo-component').removeAttribute(e.target.id);
+        demoComponent.removeAttribute(e.target.id);
       }
+      demoComponent.forceUpdate();
     },
+
     updateDemoField(e) {
+      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value !== '') {
-        document
-          .querySelector('#demo-component')
-          .setAttribute(e.target.id, e.detail.value);
+        demoComponent.setAttribute(e.target.id, e.detail.value);
       } else {
-        document.querySelector('#demo-component').removeAttribute(e.target.id);
+        demoComponent.removeAttribute(e.target.id);
       }
+      demoComponent.forceUpdate();
     },
+
     logInput(e) {
       var d = new Date();
       document.querySelector('#oninput').innerText =
@@ -467,6 +472,7 @@ export default {
         ':' +
         d.getSeconds();
     },
+
     tabSelection(e) {
       let tabCollection = document.querySelectorAll('.sample-section');
       let demoComponent = document.querySelector('#demo-component').outerHTML;
