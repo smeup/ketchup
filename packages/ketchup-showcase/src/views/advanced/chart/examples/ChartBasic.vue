@@ -6,13 +6,17 @@
         href="https://developers.google.com/chart/"
         target="_blank"
         rel="noopener"
-      >Google Charts</a>
+        >Google Charts</a
+      >
       library.
     </p>
     <div id="sample-wrapper" class="detached">
       <div id="sample-modal"></div>
       <div id="sample-specs">
-        <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
+        <wup-tab-bar
+          @kupTabBarClick="tabSelection"
+          :items.prop="items"
+        ></wup-tab-bar>
         <div id="sample-specs-container">
           <table class="instruction-table sample-section">
             <thead>
@@ -208,7 +212,11 @@
                   <span class="code-word">true</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch checked id="legend" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    checked
+                    id="legend"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -266,7 +274,10 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch id="show-marks" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    id="show-marks"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -274,8 +285,7 @@
                   <span class="code-word">stacked</span>
                 </td>
                 <td>
-                  Displays the data columns of an object on top of each
-                  other.
+                  Displays the data columns of an object on top of each other.
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">boolean</span>
@@ -284,7 +294,10 @@
                   <span class="code-word">false</span>
                 </td>
                 <td class="switch-cell">
-                  <wup-switch id="stacked" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                  <wup-switch
+                    id="stacked"
+                    @kupSwitchChange="updateDemoSwitch"
+                  ></wup-switch>
                 </td>
               </tr>
               <tr>
@@ -377,7 +390,10 @@
               </tr>
             </tbody>
           </table>
-          <table style="display: none;" class="instruction-table sample-section">
+          <table
+            style="display: none;"
+            class="instruction-table sample-section"
+          >
             <thead>
               <tr>
                 <th>Event</th>
@@ -525,7 +541,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onHAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -540,7 +560,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onVAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -669,21 +693,24 @@ export default {
     },
 
     updateDemoSwitch(e) {
+      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
-        document.querySelector('#demo-component').setAttribute(e.target.id, '');
+        demoComponent.setAttribute(e.target.id, '');
       } else {
-        document.querySelector('#demo-component').removeAttribute(e.target.id);
+        demoComponent.removeAttribute(e.target.id);
       }
+      demoComponent.forceUpdate();
     },
 
     updateDemoField(e) {
+      let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value !== '') {
-        document
-          .querySelector('#demo-component')
+        demoComponent
           .setAttribute(e.target.id, e.detail.value);
       } else {
-        document.querySelector('#demo-component').removeAttribute(e.target.id);
+        demoComponent.removeAttribute(e.target.id);
       }
+      demoComponent.forceUpdate();
     },
 
     updateDemoFieldArray(e) {
@@ -713,6 +740,7 @@ export default {
         .addEventListener('kupButtonClick', (e) => {
           this.updateDemoFieldArrayRemove(e);
         });
+      demoComponent.forceUpdate();
     },
 
     updateDemoFieldArrayRemove(e) {
@@ -726,6 +754,7 @@ export default {
       }
       demoComponent[propName] = arrayList;
       e.target.remove();
+      demoComponent.forceUpdate();
     },
 
     logInput(e) {

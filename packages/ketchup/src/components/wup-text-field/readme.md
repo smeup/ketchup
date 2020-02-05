@@ -28,13 +28,14 @@
 
 ## Events
 
-| Event                | Description | Type                              |
-| -------------------- | ----------- | --------------------------------- |
-| `kupTextFieldBlur`   |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldChange` |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldClick`  |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldFocus`  |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldInput`  |             | `CustomEvent<{ value: string; }>` |
+| Event                   | Description | Type                              |
+| ----------------------- | ----------- | --------------------------------- |
+| `kupTextFieldBlur`      |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldChange`    |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldClick`     |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldFocus`     |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldIconClick` |             | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldInput`     |             | `CustomEvent<{ value: string; }>` |
 
 
 ----------------------------------------------
