@@ -319,7 +319,7 @@
                   <wup-button
                     @kupButtonClick="updateDemoFieldArrayRemove"
                     data-id="types"
-                    id="types-1"
+                    id="types-0"
                     style="--kup-display-mode: inline-block;"
                     flat
                     icon="remove"
