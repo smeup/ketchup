@@ -786,6 +786,11 @@ export default {
               '.code-word'
             ).innerText = tabCollection[i]
               .querySelector('.code-word')
+              .innerText.replace(/(data-v\S+)/gi, '');
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
               .innerText.replace(/=""/g, '');
           } else if (tabJSON === tabCollection[i]) {
             let jsonData = document.querySelector('#demo-component').data;
