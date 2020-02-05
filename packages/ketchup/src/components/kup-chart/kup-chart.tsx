@@ -4,7 +4,6 @@ import {
     Event,
     EventEmitter,
     Prop,
-    State,
     h,
 } from '@stencil/core';
 
@@ -29,8 +28,6 @@ declare const google: any;
     shadow: true,
 })
 export class KupChart {
-    @State() stateSwitcher: boolean = false;
-
     @Prop() data: DataTable;
 
     @Prop()
@@ -96,10 +93,6 @@ export class KupChart {
         bubbles: true,
     })
     kupChartClicked: EventEmitter<ChartClickedEvent>;
-
-    public forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
-    }
 
     private chartContainer?: HTMLDivElement;
 

@@ -449,7 +449,6 @@ export default {
       } else {
         demoComponent.removeAttribute(e.target.id);
       }
-      demoComponent.forceUpdate();
     },
 
     updateDemoField(e) {
@@ -459,7 +458,6 @@ export default {
       } else {
         demoComponent.removeAttribute(e.target.id);
       }
-      demoComponent.forceUpdate();
     },
 
     logInput(e) {

@@ -699,18 +699,15 @@ export default {
       } else {
         demoComponent.removeAttribute(e.target.id);
       }
-      demoComponent.forceUpdate();
     },
 
     updateDemoField(e) {
       let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value !== '') {
-        demoComponent
-          .setAttribute(e.target.id, e.detail.value);
+        demoComponent.setAttribute(e.target.id, e.detail.value);
       } else {
         demoComponent.removeAttribute(e.target.id);
       }
-      demoComponent.forceUpdate();
     },
 
     updateDemoFieldArray(e) {
@@ -729,7 +726,8 @@ export default {
         '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
         e.detail.value +
         '"></wup-button>';
-      arrayList.push(e.detail.value);
+      arrayList = [...arrayList, e.detail.value];
+      //arrayList.push(e.detail.value);
       demoComponent[propName] = arrayList;
       e.target.removeAttribute('fullheight');
       e.target.insertAdjacentHTML('beforebegin', newEntry);
@@ -740,7 +738,6 @@ export default {
         .addEventListener('kupButtonClick', (e) => {
           this.updateDemoFieldArrayRemove(e);
         });
-      demoComponent.forceUpdate();
     },
 
     updateDemoFieldArrayRemove(e) {
@@ -752,9 +749,9 @@ export default {
       if (index > -1) {
         arrayList.splice(index, 1);
       }
+      arrayList = [...arrayList];
       demoComponent[propName] = arrayList;
       e.target.remove();
-      demoComponent.forceUpdate();
     },
 
     logInput(e) {
