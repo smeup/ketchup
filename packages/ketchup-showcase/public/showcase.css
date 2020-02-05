@@ -578,6 +578,12 @@ table.instruction-table th {
   left: 0;
 }
 
+#json-setter {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
 #sample-comp {
   width: 20%;
   display: inline-flex;

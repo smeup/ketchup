@@ -171,14 +171,14 @@
                 <td class="prevent-cr">
                   <span class="code-word">hAxis</span>
                 </td>
-                <td>?</td>
+                <td>Customize the hAxis.</td>
                 <td class="prevent-cr">
                   <span class="code-word">ChartAxis</span>
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">undefined</span>
                 </td>
-                <td>?</td>
+                <td>Use the JSON tab to view/change data.</td>
               </tr>
               <tr>
                 <td class="prevent-cr">
@@ -339,14 +339,14 @@
                 <td class="prevent-cr">
                   <span class="code-word">vAxis</span>
                 </td>
-                <td>?</td>
+                <td>Customize the vAxis.</td>
                 <td class="prevent-cr">
                   <span class="code-word">ChartAxis</span>
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">undefined</span>
                 </td>
-                <td>?</td>
+                <td>Use the JSON tab to view/change data.</td>
               </tr>
               <tr>
                 <td class="prevent-cr">
@@ -425,7 +425,15 @@
             ></wup-button>
           </div>
           <div class="sample-section" style="display: none;">
-            <textarea id="json-textarea"></textarea>
+            <textarea id="json-textarea" style="display: none;"></textarea>
+            <wup-text-field
+              style="z-index: 2;"
+              label="Prop"
+              helper="Write the object-type prop you desire to change/view"
+              id="json-setter"
+              helperwhenfocus
+              @kupTextFieldInput="jsonSet"
+            ></wup-text-field>
           </div>
         </div>
       </div>
@@ -649,13 +657,6 @@ export default {
       navigator.clipboard.writeText(text);
     },
 
-    runJSON() {
-      let demoComponent = document.querySelector('#demo-component');
-      var jsonTextarea = document.querySelector('#json-textarea');
-      let jsonifiedData = JSON.parse(jsonTextarea.value);
-      demoComponent.data = jsonifiedData;
-    },
-
     swapView(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-wrapper').classList.add('full');
@@ -792,33 +793,36 @@ export default {
             ).innerText = tabCollection[i]
               .querySelector('.code-word')
               .innerText.replace(/=""/g, '');
-          } else if (tabJSON === tabCollection[i]) {
-            let jsonData = document.querySelector('#demo-component').data;
-            let stringifiedJSON = JSON.stringify(jsonData, null, 2);
-            tabCollection[i].querySelector(
-              '#json-textarea'
-            ).value = stringifiedJSON;
-            let jsonTextarea = document.querySelector('#json-textarea');
-            let codemirrorTextarea = document.querySelector('.CodeMirror');
-            if (!codemirrorTextarea) {
-              CodeMirror.fromTextArea(jsonTextarea, {
-                mode: { name: 'javascript', json: true },
-                lineNumbers: true,
-                lineWrapping: true,
-                foldGutter: true,
-                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-              }).on('change', function(cm) {
-                cm.save();
-                let demoComponent = document.querySelector('#demo-component');
-                let jsonifiedData = JSON.parse(jsonTextarea.value);
-                demoComponent.data = jsonifiedData;
-              });
-            }
           }
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');
         }
       }
+    },
+
+    jsonSet(e) {
+      let jsonProp = e.detail.value;
+      let demoComponent = document.querySelector('#demo-component');
+      let jsonData = demoComponent[jsonProp];
+      let stringifiedJSON = JSON.stringify(jsonData, null, 2);
+      let jsonTextarea = document.querySelector('#json-textarea');
+      let codemirrorTextarea = document.querySelector('.CodeMirror');
+      jsonTextarea.value = stringifiedJSON;
+      if (codemirrorTextarea) {
+        codemirrorTextarea.remove();
+      }
+      CodeMirror.fromTextArea(jsonTextarea, {
+        mode: { name: 'javascript', json: true },
+        lineNumbers: true,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+      }).on('change', function(cm) {
+        cm.save();
+        let demoComponent = document.querySelector('#demo-component');
+        let jsonifiedData = JSON.parse(jsonTextarea.value);
+        demoComponent.data = jsonifiedData;
+      });
     },
 
     onChartTypeChange(e) {
