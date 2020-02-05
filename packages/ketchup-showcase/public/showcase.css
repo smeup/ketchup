@@ -581,14 +581,22 @@ table.instruction-table th {
 #json-setter,
 #json-setter-opener {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
   z-index: 1;
   display: none;
   -webkit-animation: fadeInFromNone 0.25s ease-out;
   -moz-animation: fadeInFromNone 0.25s ease-out;
   -o-animation: fadeInFromNone 0.25s ease-out;
   animation: fadeInFromNone 0.25s ease-out;
+}
+
+#json-setter {
+  top: 10px;
+  left: 10px;
+}
+
+#json-setter-opener {
+  bottom: 10px;
+  right: 10px;
 }
 
 #json-setter.shown,
