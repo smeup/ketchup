@@ -690,6 +690,10 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
+.sample-section.padded {
+  padding-top: 75px;
+}
+
 .sample-section .CodeMirror {
   height: 100%;
   width: 100%;

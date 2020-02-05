@@ -424,7 +424,11 @@
               title="Copy HTML markup"
             ></wup-button>
           </div>
-          <div class="sample-section" style="display: none;">
+          <div
+            id="json-tab"
+            class="sample-section padded"
+            style="display: none;"
+          >
             <textarea id="json-textarea" style="display: none;"></textarea>
             <wup-text-field
               class="shown"
@@ -811,13 +815,16 @@ export default {
 
     jsonSetSwitch() {
       let jsonSetter = document.querySelector('#json-setter');
-      let jsonSetterOpened = document.querySelector('#json-setter-opener');
+      let jsonSetterOpener = document.querySelector('#json-setter-opener');
+      let jsonTab = document.querySelector('#json-tab');
       if (jsonSetter.classList.contains('shown')) {
         jsonSetter.classList.remove('shown');
-        jsonSetterOpened.classList.add('shown');
+        jsonTab.classList.remove('padded');
+        jsonSetterOpener.classList.add('shown');
       } else {
         jsonSetter.classList.add('shown');
-        jsonSetterOpened.classList.remove('shown');
+        jsonTab.classList.add('padded');
+        jsonSetterOpener.classList.remove('shown');
       }
     },
 
