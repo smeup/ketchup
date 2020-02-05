@@ -727,7 +727,6 @@ export default {
         e.detail.value +
         '"></wup-button>';
       arrayList = [...arrayList, e.detail.value];
-      //arrayList.push(e.detail.value);
       demoComponent[propName] = arrayList;
       e.target.removeAttribute('fullheight');
       e.target.insertAdjacentHTML('beforebegin', newEntry);
