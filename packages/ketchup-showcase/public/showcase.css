@@ -678,6 +678,11 @@ table.instruction-table th {
   color: var(--kup-disabled-color);
 }
 
+.sample-section .cm-s-default .cm-string {
+  color: var(--kup-main-color);
+  font-weight: bold;
+}
+
 @media screen and (max-width: 767px) {
   #view-swapper,
   #menu-trigger {
