@@ -427,13 +427,22 @@
           <div class="sample-section" style="display: none;">
             <textarea id="json-textarea" style="display: none;"></textarea>
             <wup-text-field
-              style="z-index: 2;"
+              class="shown"
               label="Prop"
-              helper="Write the object-type prop you desire to change/view"
+              helper="i.e.: data"
               id="json-setter"
+              icon="close"
+              trailingicon
               helperwhenfocus
+              @kupTextFieldIconClick="jsonSetSwitch"
               @kupTextFieldInput="jsonSet"
             ></wup-text-field>
+            <wup-button
+              @kupButtonClick="jsonSetSwitch"
+              id="json-setter-opener"
+              icon="settings"
+              title="Show prop field"
+            ></wup-button>
           </div>
         </div>
       </div>
@@ -797,6 +806,18 @@ export default {
         } else {
           tabCollection[i].setAttribute('style', 'display: none;');
         }
+      }
+    },
+
+    jsonSetSwitch() {
+      let jsonSetter = document.querySelector('#json-setter');
+      let jsonSetterOpened = document.querySelector('#json-setter-opener');
+      if (jsonSetter.classList.contains('shown')) {
+        jsonSetter.classList.remove('shown');
+        jsonSetterOpened.classList.add('shown');
+      } else {
+        jsonSetter.classList.add('shown');
+        jsonSetterOpened.classList.remove('shown');
       }
     },
 
