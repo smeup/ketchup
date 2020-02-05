@@ -432,6 +432,7 @@
       <div id="sample-comp">
         <div id="sample-comp-wrapper">
           <kup-chart
+            @kupChartClicked="logClick"
             id="demo-component"
             legend
             :data.prop="chartData"
@@ -574,7 +575,6 @@
 
     <kup-chart
       id="playground-component"
-      @kupChartClicked="logClick"
       :data.prop="chartData"
       :types.prop="types"
       :axis.prop="'Col1'"
