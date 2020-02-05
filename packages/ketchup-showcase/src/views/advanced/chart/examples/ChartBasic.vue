@@ -433,6 +433,7 @@
         <div id="sample-comp-wrapper">
           <kup-chart
             id="demo-component"
+            legend
             :data.prop="chartData"
             :asp.prop="['2D']"
             :types.prop="['VBar']"
