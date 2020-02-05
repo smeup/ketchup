@@ -578,10 +578,30 @@ table.instruction-table th {
   left: 0;
 }
 
-#json-setter {
+#json-setter,
+#json-setter-opener {
   position: absolute;
-  top: 25px;
-  right: 25px;
+  z-index: 1;
+  display: none;
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
+}
+
+#json-setter {
+  top: 10px;
+  left: 10px;
+}
+
+#json-setter-opener {
+  bottom: 10px;
+  right: 10px;
+}
+
+#json-setter.shown,
+#json-setter-opener.shown {
+  display: block;
 }
 
 #sample-comp {
@@ -670,6 +690,10 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
+.sample-section.padded {
+  padding-top: 75px;
+}
+
 .sample-section .CodeMirror {
   height: 100%;
   width: 100%;
@@ -683,9 +707,15 @@ table.instruction-table th {
   color: var(--kup-disabled-color);
 }
 
-.sample-section .cm-s-default .cm-string {
+.sample-section .cm-s-default .cm-string,
+.sample-section .cm-s-default .cm-atom {
   color: var(--kup-main-color);
   font-weight: bold;
+}
+
+.sample-section .CodeMirror-gutters {
+  border-right: 1px solid var(--kup-disabled-background-color);
+  background-color: var(--kup-disabled-background-color);
 }
 
 @media screen and (max-width: 767px) {
