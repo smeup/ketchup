@@ -28,6 +28,22 @@
       &.fillspace {
         width: 100%;
       }
+
+      //-- Align --
+      &.align-right {
+        text-align: right;
+
+        > .i {
+          float: right;
+          margin-right: 0;
+          margin-left: 0.5rem;
+        }
+      }
+
+      &.align-left {
+        text-align: left;
+      }      
+
     }
 
     & .mdc-icon-button {

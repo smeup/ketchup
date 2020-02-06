@@ -50,7 +50,7 @@ export class WupButton {
     /**
      * Defaults at null. When set, the button will show this icon.
      */
-    @Prop() icon: string = null;
+    @Prop() iconClass: string = null;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
@@ -58,7 +58,35 @@ export class WupButton {
     /**
      * Defaults at null. When set, the button will show this text.
      */
-    @Prop() text: string = null;
+    @Prop() label: string = null;
+    /**
+     * Defaults at empty. When set apply this style.
+     */
+    @Prop() buttonStyle: {};    
+    /**
+     * Defaults at false. When set to true fill all space avalaible
+     */
+    @Prop() fillspace = false;
+    /**
+     * Defaults at empty. When set align text
+     */
+    @Prop() align: string;
+
+    @Prop() showtext = true;
+    @Prop() showicon = true;
+    /*
+    @Prop() buttonClass: string; ~~~ ha ancora senso? "custom" simile ma non equivalente
+    @Prop() imageSrc: string; ~ immagine oltre ad icona, renderizzata a sx dell'icona
+    @Prop() showtext = true;
+    @Prop() showicon = true;
+    @Prop() rounded = false; ~ qui non gestito per il caso solo icon perchè non c'è bordo
+    @Prop() textmode: string; se = HInt la label viene visualizzata come tooltip e non nel bottone
+    @Prop() transparent = false; ~ gestito solo caso label
+    @Prop() tooltip: string; ~ non è stato gestito
+    @Prop() iconUrl = ~ libreria aggiuntiva icone, non è stato gestito
+        'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
+        */
+    /* @@@@@@@ EVENTS @@@@@@@ */
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -171,7 +199,20 @@ export class WupButton {
         }
     }
 
+    elemAlign() {
+        if (this.align) {
+            if ('right' === this.align) {
+                return ' align-right';
+            } else if ('left' === this.align) {
+                return ' align-left';
+            }
+        }
+        return '';
+    }
+
     render() {
+        //https://ketchup.smeup.com/ketchup-showcase/#/btn
+        //https://ketchup.smeup.com/ketchup-showcase/#/button
         // It renders in two different ways because two different Material layouts are used.
         // If only the icon is present, with no text, an "icon button" will be rendered.
         let widgetClass: string = 'kup-button';
@@ -179,6 +220,7 @@ export class WupButton {
         let textEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
+        let btnStyle = this.buttonStyle;
 
         if (this.custom) {
             widgetClass += ' custom';
@@ -188,16 +230,36 @@ export class WupButton {
             widgetClass += ' mdc-button--disabled';
         }
 
-        if (this.text) {
+        //int TODO = 0;
+        /* todo
+        let image = null;
+        if (this.imageSrc) {
+            image = <img class="button-image" src={this.imageSrc} />;
+        }
+        */
+
+        if (this.label) {
             widgetClass += ' mdc-button';
-            textEl = <span class="mdc-button__label">{this.text}</span>;
-            if (this.icon) {
+
+            //TODO
+            /*
+            if (
+                (!this._isHint() || (this._isHint() && this.flat)) &&
+                this.showtext &&
+                this.label
+            ) {
+                btnLabel = <span class="button-text">{this.label}</span>;
+            }
+            */
+
+            textEl = <span class="mdc-button__label">{this.label}</span>;
+            if (this.iconClass) {
                 iconEl = (
                     <i
                         class="material-icons mdc-button__icon"
                         aria-hidden="true"
                     >
-                        {this.icon}
+                        {this.iconClass}
                     </i>
                 );
             }
@@ -212,41 +274,35 @@ export class WupButton {
                 widgetClass += ' button-shaped';
             }
 
-            if (this.trailingicon && this.icon) {
+            if (this.trailingicon && this.iconClass) {
                 leadingEl = textEl;
                 trailingEl = iconEl;
             } else {
                 leadingEl = iconEl;
                 trailingEl = textEl;
             }
-            return (
-                <Host>
-                    <div id="kup-component">
-                        <button
-                            type="button"
-                            class={widgetClass}
-                            disabled={this.disabled}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
-                        >
-                            <div class="mdc-button__ripple"></div>
-                            {leadingEl}
-                            {trailingEl}
-                        </button>
-                    </div>
-                </Host>
-            );
-        } else if (this.icon) {
+
+            widgetClass += this.elemAlign();
+            /*
+            if (this.align) {
+                if ('right' === this.align) {
+                    widgetClass += ' align-right';
+                } else if ('left' === this.align) {
+                    widgetClass += ' align-left';
+                }
+            }
+            */
+
+        } else if (this.iconClass) {
+            //TODO if (this.showicon && this.iconClass) {
+
             widgetClass += ' mdc-icon-button';
             trailingEl = (
                 <i
                     class="material-icons mdc-icon-button__icon"
                     aria-hidden="true"
                 >
-                    {this.icon}
+                    {this.iconClass}
                 </i>
             );
             if (this.toggable) {
@@ -256,13 +312,13 @@ export class WupButton {
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
                         aria-hidden="true"
                     >
-                        {this.icon}
+                        {this.iconClass}
                     </i>
                 );
                 if (this.checked) {
                     widgetClass += ' mdc-icon-button--on';
                 }
-                let iconOff = this.icon + '_border';
+                let iconOff = this.iconClass + '_border';
                 leadingEl = (
                     <i
                         class="material-icons mdc-icon-button__icon"
@@ -272,26 +328,33 @@ export class WupButton {
                     </i>
                 );
             }
-            return (
-                <Host>
-                    <div id="kup-component">
-                        <button
-                            type="button"
-                            class={widgetClass}
-                            disabled={this.disabled}
-                            onBlur={this.onKupBlur.bind(this)}
-                            onChange={this.onKupChange.bind(this)}
-                            onClick={this.onKupClick.bind(this)}
-                            onFocus={this.onKupFocus.bind(this)}
-                            onInput={this.onKupInput.bind(this)}
-                        >
-                            <div class="mdc-button__ripple"></div>
-                            {leadingEl}
-                            {trailingEl}
-                        </button>
-                    </div>
-                </Host>
-            );
         }
+        //
+        if (this.fillspace) {
+            widgetClass += ' fillspace';
+        }        
+        //
+        return (
+            <Host>
+                <div id="kup-component">
+                    <button
+                        type="button"
+                        style={btnStyle}
+                        class={widgetClass}
+                        disabled={this.disabled}
+                        onBlur={this.onKupBlur.bind(this)}
+                        onChange={this.onKupChange.bind(this)}
+                        onClick={this.onKupClick.bind(this)}
+                        onFocus={this.onKupFocus.bind(this)}
+                        onInput={this.onKupInput.bind(this)}
+                    >
+                        <div class="mdc-button__ripple"></div>
+                        {leadingEl}
+                        {trailingEl}
+                    </button>
+                </div>
+            </Host>
+        );
+
     }
 }
