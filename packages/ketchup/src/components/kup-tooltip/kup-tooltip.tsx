@@ -9,8 +9,8 @@ import {
     State,
 } from '@stencil/core';
 
-import { DataTable, Row } from '../kup-data-table/kup-data-table-declarations';
-import { TooltipData } from './kup-tooltip-declarations';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { TooltipData, TooltipDetailData, TooltipAction } from './kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -34,8 +34,8 @@ export class KupTooltip {
      * Data for the detail
      */
     @Prop()
-    detailData: DataTable;
-
+    detailData: TooltipDetailData;
+    
     @State()
     visible = false;
 
@@ -57,6 +57,16 @@ export class KupTooltip {
         bubbles: true,
     })
     kupTooltipLoadDetail: EventEmitter;
+
+    @Event({
+        eventName: 'kupActionCommandClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupActionCommandClicked: EventEmitter<{
+        actionCommand: TooltipAction;
+    }>;    
 
     @Watch('data')
     onDataChanged() {
@@ -83,6 +93,10 @@ export class KupTooltip {
     // ---- Private methods ----
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
+    }
+
+    private hasActionsData(): boolean {
+        return this.hasDetailData() && !!this.detailData.actions && !!this.detailData.actions.command;        
     }
 
     private resetTimeouts() {
@@ -139,7 +153,14 @@ export class KupTooltip {
         }
     }
 
-    private onMouseLeave() {
+    private onActionCommandClicked(event:Event, action:TooltipAction) {
+        event.stopPropagation();
+        console.log("Emit kupActionCommandClicked: " + JSON.stringify(action));
+        this.kupActionCommandClicked.emit({actionCommand: action})
+    }
+
+
+    onMouseLeave() {
         // reset data
         this.data = null;
         this.detailData = null;
@@ -150,6 +171,7 @@ export class KupTooltip {
         // reset timeouts
         this.resetTimeouts();
     }
+    
 
     // ---- Render methods ----
     private getDefaultLayout() {
@@ -251,7 +273,8 @@ export class KupTooltip {
         }
 
         let detailContent = null;
-        if (this.hasDetailData()) {
+        let detailActions = null;
+        if (this.hasDetailData()) {            
             detailContent = this.rows.map((row) =>
                 row.cells['label'].value === '' ||
                 row.cells['value'].value === '' ? (
@@ -266,7 +289,20 @@ export class KupTooltip {
                         </div>
                     </div>
                 )
-            );
+            );            
+            if (this.hasActionsData()) {                
+                detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
+                    <div class="detail-actions__box">                           
+                        <kup-button           
+                            flat={true}
+                            tooltip={action.text} 
+                            iconClass={action.icon}
+                            onKupButtonClicked={(e) => this.onActionCommandClicked(e,action)}
+                        >
+                        </kup-button>                                                                         
+                    </div>                                                    
+                );                  
+            }                                                         
         }
 
         const detailClass = {
@@ -288,7 +324,13 @@ export class KupTooltip {
                 </div>
                 <div id="detail" class={detailClass}>
                     {detailContent}
-                </div>
+                </div>                                      
+                <div 
+                    id="detail-actions"   
+                    hidden={!this.hasActionsData()}
+                >
+                    {detailActions}
+                </div>          
             </div>
         );
     }

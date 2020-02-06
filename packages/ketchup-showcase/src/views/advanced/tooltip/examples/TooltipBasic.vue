@@ -1,10 +1,11 @@
 <template>
-  <div id="kup-tooltip">
-    <h3>Layout 1 (default layout)</h3>
-    <div id="layout1">
-      <kup-tooltip
+  <div id="kup-tooltip">    
+    <h3>Layout 1 (default layout) <span id="action-confirm-label" v-text="labelText" v-if="labelText !== ''"></span></h3>    
+    <div id="layout1">      
+      <kup-tooltip        
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
@@ -12,6 +13,7 @@
       <kup-tooltip
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
@@ -19,14 +21,15 @@
       <kup-tooltip
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
 
       <kup-tooltip @kupTooltipLoadData="onLoadData($event, 4)" @kupTooltipLoadDetail="loadLust">
         <img :src="images.lust" width="64" height="64" />
-      </kup-tooltip>
-    </div>
+      </kup-tooltip>      
+    </div>    
 
     <h3>Layout 2</h3>
     <div id="layout2">
@@ -34,6 +37,7 @@
         layout="2"
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
@@ -42,6 +46,7 @@
         layout="2"
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
+        @kupActionCommandClicked="actionCommandClicked"       
       >
         <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
@@ -50,6 +55,7 @@
         layout="2"
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
@@ -58,6 +64,7 @@
         layout="2"
         @kupTooltipLoadData="onLoadData($event, 4)"
         @kupTooltipLoadDetail="loadLust"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.lust" width="64" height="64" />
       </kup-tooltip>
@@ -69,6 +76,7 @@
         layout="3"
         @kupTooltipLoadData="onLoadData($event, 1)"
         @kupTooltipLoadDetail="loadBornToDie"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.bornToDie" width="64" height="64" />
       </kup-tooltip>
@@ -77,6 +85,7 @@
         layout="3"
         @kupTooltipLoadData="onLoadData($event, 2)"
         @kupTooltipLoadDetail="loadUltraviolence"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.ultra" width="64" height="64" />
       </kup-tooltip>
@@ -85,6 +94,7 @@
         layout="3"
         @kupTooltipLoadData="onLoadData($event, 3)"
         @kupTooltipLoadDetail="loadHoneymoon"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.honey" width="64" height="64" />
       </kup-tooltip>
@@ -93,10 +103,12 @@
         layout="3"
         @kupTooltipLoadData="onLoadData($event, 4)"
         @kupTooltipLoadDetail="loadLust"
+        @kupActionCommandClicked="actionCommandClicked"
       >
         <img :src="images.lust" width="64" height="64" />
       </kup-tooltip>
     </div>
+
 
     <div class="tooltip-perf">
       <kup-tooltip
@@ -109,6 +121,7 @@
       </kup-tooltip>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -124,13 +137,15 @@ export default {
   data() {
     return {
       images: {
-        ...imageUrls,
+        ...imageUrls
       },
+      labelText: ''
     };
   },
 
   methods: {
     onLoadData(event, index) {
+      this.labelText = '';
       let data;
       switch (index) {
         case 1:
@@ -220,6 +235,11 @@ export default {
     loadLust(event) {
       setTimeout(() => (event.target.detailData = lustForLife), 250);
     },
+
+    actionCommandClicked(event) {      
+      var message = "Hai premuto il bottone a cui è associata l'esecuzione dell'azione: " + JSON.stringify(event.detail.actionCommand.exec);      
+      this.labelText = message;      
+    }
   },
 };
 </script>
@@ -244,4 +264,9 @@ kup-tooltip h4 {
 .tooltip-perf kup-tooltip {
   margin: 0px 3px;
 }
+
+#action-confirm-label {
+  font-size: 80%;
+}
+
 </style>

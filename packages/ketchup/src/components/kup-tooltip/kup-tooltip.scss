@@ -94,6 +94,26 @@
           }
         }
       }
+
+      #detail-actions {
+        border-top: 1px solid var(--tlt_border_color);                
+        padding: 6px {
+          top: 2px;
+          bottom: 2px;
+        } 
+        
+        display: flex;        
+      }
+
+      
+      #detail-actions[hidden] {
+        display: none;
+      }
+      
+      .detail-actions__box {
+        /*margin-right: 10px;*/
+        cursor: pointer;
+      }
     }
   }
 }
