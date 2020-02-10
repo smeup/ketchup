@@ -169,7 +169,7 @@ export class KupTooltip {
     }
 
 
-    onMouseLeave() {
+    private onMouseLeave() {
         // reset data
         this.data = null;
         this.detailData = null;
