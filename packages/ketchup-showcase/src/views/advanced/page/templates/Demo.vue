@@ -298,11 +298,7 @@ export default {
 
     updateDemoField(e) {
       let demoComponent = document.querySelector('#demo-component');
-      if (e.detail.value !== '') {
-        demoComponent.setAttribute(e.target.id, e.detail.value);
-      } else {
-        demoComponent.removeAttribute(e.target.id);
-      }
+      demoComponent[e.target.id] = e.detail.value;
     },
 
     updateDemoFieldArray(e) {
