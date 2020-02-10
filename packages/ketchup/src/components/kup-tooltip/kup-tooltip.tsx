@@ -337,10 +337,10 @@ export class KupTooltip {
                 </div>                                      
                 <div 
                     /** 
-                     * Stoppo la propagazione dell'onClick per evitare che arrivi al contentore
+                     * Stoppo la propagazione dell'onClick per evitare che arrivi al contenitore
                      * e che un singolo click venga gestito con due handler differenti
                      * creando potenziali problemi sulla navigazione.
-                     * Eesempio
+                     * Esempio
                      * Se il tip è dentro una matrice il click darebbe luogo all'emissione 
                      * di due eventi kupActionCommandClicked e kupRowSelected, 
                      * il primo richiamerà ad esempio FUN1 e il secondo FUN2, ma se FUN1 
