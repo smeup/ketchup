@@ -32,17 +32,30 @@
               <td class="prevent-cr"
                 ><span class="code-word">{{ propList.default }}</span></td
               >
+              <td v-if="propList.try === 'json'">
+                Use the JSON tab to view/change this prop.</td
+              >
               <td v-if="propList.try === 'switch'">
                 <wup-switch
                   v-bind:id="propList.prop"
                   @kupSwitchChange="updateDemoSwitch"
                 ></wup-switch
               ></td>
-              <td v-if="propList.try === 'field'">
+              <td class="text-cell" v-if="propList.try === 'field'">
                 <wup-text-field
                   fullwidth
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
+                ></wup-text-field
+              ></td>
+              <td class="text-cell" v-if="propList.try === 'array'">
+                <wup-text-field
+                  fullwidth
+                  trailingicon
+                  icon="add"
+                  v-bind:id="propList.prop"
+                  @kupTextFieldChange="updateDemoFieldArray"
+                  @kupTextFieldIconClick="updateDemoFieldArray"
                 ></wup-text-field
               ></td> </tr
           ></tbody>
@@ -160,20 +173,79 @@ export default {
     demoEvents: Array,
     hasHTML: Boolean,
     hasJSON: Boolean,
+    demoData: Array,
   },
   methods: {
     initEvents() {
       let demoComponent = document.querySelector('#demo-component');
-      for (var i = 0; i < this.demoEvents.length; i++) {
+      for (let i = 0; i < this.demoEvents.length; i++) {
         demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
           this.handleEvent(e)
         );
+      }
+      if (this.demoData) {
+        for (let i = 0; i < this.demoData.length; i++) {
+          demoComponent[this.demoData[i].prop] = this.demoData[i].value;
+        }
+      }
+    },
+
+    initDefaults() {
+      let demoComponent = document.querySelector('#demo-component');
+      for (var i = 0; i < this.demoProps.length; i++) {
+        switch (this.demoProps[i].try) {
+          case 'field':
+            if (demoComponent[this.demoProps[i].prop] !== undefined) {
+              document
+                .querySelector('#' + this.demoProps[i].prop)
+                .setAttribute(
+                  'initialvalue',
+                  demoComponent[this.demoProps[i].prop]
+                );
+            }
+            break;
+          case 'switch':
+            if (demoComponent[this.demoProps[i].prop] === true) {
+              document
+                .querySelector('#' + this.demoProps[i].prop)
+                .setAttribute('checked', demoComponent[this.demoProps[i].prop]);
+            }
+            break;
+          case 'array':
+            if (demoComponent[this.demoProps[i].prop]) {
+              for (
+                var j = 0;
+                j < demoComponent[this.demoProps[i].prop].length;
+                j++
+              ) {
+                let propName = this.demoProps[i].prop;
+                let arrayList = demoComponent[this.demoProps[i].prop];
+                let newEntryId = '' + propName + '-' + j;
+                let newEntry =
+                  '<wup-button data-id="' +
+                  propName +
+                  '" id="' +
+                  newEntryId +
+                  '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+                  arrayList[j] +
+                  '"></wup-button>';
+                document
+                  .querySelector('#' + this.demoProps[i].prop)
+                  .insertAdjacentHTML('beforebegin', newEntry);
+                document
+                  .querySelector('#' + newEntryId)
+                  .addEventListener('kupButtonClick', (e) => {
+                    this.updateDemoFieldArrayRemove(e);
+                  });
+              }
+            }
+            break;
+        }
       }
     },
 
     handleEvent(e) {
       var d = new Date();
-      console.log(e);
       document.querySelector('#on' + e.type).innerText =
         e.type +
         ' event fired at ' +
@@ -218,9 +290,9 @@ export default {
     updateDemoSwitch(e) {
       let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
-        demoComponent.setAttribute(e.target.id, '');
+        demoComponent[e.target.id] = true;
       } else {
-        demoComponent.removeAttribute(e.target.id);
+        demoComponent[e.target.id] = false;
       }
     },
 
@@ -231,6 +303,54 @@ export default {
       } else {
         demoComponent.removeAttribute(e.target.id);
       }
+    },
+
+    updateDemoFieldArray(e) {
+      if (e.detail.value === undefined) {
+        return;
+      }
+      let demoComponent = document.querySelector('#demo-component');
+      let propName = e.target.id;
+      let arrayList = demoComponent[propName];
+      let arrayLen = 0;
+      if (arrayList) {
+        arrayLen = arrayList.length;
+        arrayList = [...arrayList, e.detail.value];
+      } else {
+        arrayList = [e.detail.value];
+      }
+      let newEntryId = '' + e.target.id + '-' + arrayLen;
+      let newEntry =
+        '<wup-button data-id="' +
+        e.target.id +
+        '" id="' +
+        newEntryId +
+        '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+        e.detail.value +
+        '"></wup-button>';
+      demoComponent[propName] = arrayList;
+      e.target.insertAdjacentHTML('beforebegin', newEntry);
+      e.target.initialvalue = '';
+      e.target.value = '';
+      document
+        .querySelector('#' + newEntryId)
+        .addEventListener('kupButtonClick', (e) => {
+          this.updateDemoFieldArrayRemove(e);
+        });
+    },
+
+    updateDemoFieldArrayRemove(e) {
+      let demoComponent = document.querySelector('#demo-component');
+      let propName = e.target.getAttribute('data-id');
+      let labelName = e.target.getAttribute('label');
+      let arrayList = demoComponent[propName];
+      const index = arrayList.indexOf(labelName);
+      if (index > -1) {
+        arrayList.splice(index, 1);
+      }
+      arrayList = [...arrayList];
+      demoComponent[propName] = arrayList;
+      e.target.remove();
     },
 
     tabSelection(e) {
@@ -251,6 +371,11 @@ export default {
             tabCollection[i].querySelector(
               '.code-word'
             ).innerText = demoComponent;
+            tabCollection[i].querySelector(
+              '.code-word'
+            ).innerText = tabCollection[i]
+              .querySelector('.code-word')
+              .innerText.replace('id="demo-component"', '');
             tabCollection[i].querySelector(
               '.code-word'
             ).innerText = tabCollection[i]
@@ -311,6 +436,7 @@ export default {
 
   mounted() {
     this.initEvents();
+    this.initDefaults();
   },
 };
 </script>

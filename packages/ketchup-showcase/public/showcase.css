@@ -497,7 +497,7 @@ table.instruction-table th {
   position: relative;
   display: flex;
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
-  overflow: auto;
+  overflow: hidden;
 }
 
 #sample-wrapper.full {
@@ -646,7 +646,7 @@ table.instruction-table th {
 }
 
 #sample-comp-wrapper {
-  overflow: auto;
+  /* overflow: auto; */
   width: fit-content;
   margin: auto;
 }
