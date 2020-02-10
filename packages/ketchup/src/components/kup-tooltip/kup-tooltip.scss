@@ -82,7 +82,7 @@
         }
 
         .detail-row {
-          display: flex;
+          display: flex;          
           justify-content: space-between;
 
           &:not(:last-child) {
@@ -102,16 +102,15 @@
           bottom: 2px;
         } 
         
-        display: flex;        
+        display: flex;
+        justify-content: flex-end;        
       }
-
       
       #detail-actions[hidden] {
         display: none;
       }
       
       .detail-actions__box {
-        /*margin-right: 10px;*/
         cursor: pointer;
       }
     }

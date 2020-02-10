@@ -35,6 +35,12 @@ export class KupTooltip {
      */
     @Prop()
     detailData: TooltipDetailData;
+
+    /**
+     * Timeout for loadDetail
+     */
+    @Prop()
+    detailDataTimeout: number = 400;
     
     @State()
     visible = false;
@@ -73,7 +79,7 @@ export class KupTooltip {
         if (this.visible) {
             this.positionRecalc();
             // loading detail
-            this.loadDetailTimeout = setTimeout(() => this.loadDetail(), 200);
+            this.loadDetailTimeout = setTimeout(() => this.loadDetail(), this.detailDataTimeout);
         }
     }
 
@@ -94,6 +100,7 @@ export class KupTooltip {
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
     }
+    
 
     private hasActionsData(): boolean {
         return this.hasDetailData() && !!this.detailData.actions && !!this.detailData.actions.command;        
@@ -153,9 +160,11 @@ export class KupTooltip {
         }
     }
 
-    private onActionCommandClicked(event:Event, action:TooltipAction) {
+    private onActionCommandClicked(event:Event, action:TooltipAction) {        
+        //console.log("Emit kupActionCommandClicked: " + JSON.stringify(action));
+        // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
+        // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        console.log("Emit kupActionCommandClicked: " + JSON.stringify(action));
         this.kupActionCommandClicked.emit({actionCommand: action})
     }
 
@@ -274,6 +283,7 @@ export class KupTooltip {
 
         let detailContent = null;
         let detailActions = null;
+        //console.log(this.detailData);
         if (this.hasDetailData()) {            
             detailContent = this.rows.map((row) =>
                 row.cells['label'].value === '' ||
@@ -289,7 +299,7 @@ export class KupTooltip {
                         </div>
                     </div>
                 )
-            );            
+            );                      
             if (this.hasActionsData()) {                
                 detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
                     <div class="detail-actions__box">                           
@@ -297,7 +307,7 @@ export class KupTooltip {
                             flat={true}
                             tooltip={action.text} 
                             iconClass={action.icon}
-                            onKupButtonClicked={(e) => this.onActionCommandClicked(e,action)}
+                            onKupButtonClicked={(event) => this.onActionCommandClicked(event, action)}                            
                         >
                         </kup-button>                                                                         
                     </div>                                                    
@@ -326,6 +336,18 @@ export class KupTooltip {
                     {detailContent}
                 </div>                                      
                 <div 
+                    /** 
+                     * Stoppo la propagazione dell'onClick per evitare che arrivi al contentore
+                     * e che un singolo click venga gestito con due handler differenti
+                     * creando potenziali problemi sulla navigazione.
+                     * Eesempio
+                     * Se il tip è dentro una matrice il click darebbe luogo all'emissione 
+                     * di due eventi kupActionCommandClicked e kupRowSelected, 
+                     * il primo richiamerà ad esempio FUN1 e il secondo FUN2, ma se FUN1 
+                     * viene aperta su una nuova finestra il risultato è che anche la finestra corrente
+                     * che contiene il tip, verrebbe rimpiazzata dalla chiamatqa a FUN2
+                     */
+                    onClick={(e:MouseEvent) => e.stopPropagation()}
                     id="detail-actions"   
                     hidden={!this.hasActionsData()}
                 >
@@ -340,7 +362,7 @@ export class KupTooltip {
             <div
                 id="wrapper"
                 onMouseOver={this.onMouseOver.bind(this)}
-                onMouseLeave={this.onMouseLeave.bind(this)}
+                onMouseLeave={this.onMouseLeave.bind(this)}                
                 ref={(el) => (this.wrapperEl = el)}
             >
                 <slot />
