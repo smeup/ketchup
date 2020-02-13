@@ -73,7 +73,7 @@
               </td>
 
               <td>
-                <div v-bind:id="eventList.refId" class="code-word"></div>
+                <div v-bind:id="'on' + eventList.name" class="code-word"></div>
               </td>
             </tr>
           </tbody>

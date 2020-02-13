@@ -102,27 +102,22 @@ export default {
         {
           name: 'kupCheckboxClick',
           type: 'click',
-          refId: 'onkupCheckboxClick',
         },
         {
           name: 'kupCheckboxChange',
           type: 'change',
-          refId: 'onkupCheckboxChange',
         },
         {
           name: 'kupCheckboxInput',
           type: 'input',
-          refId: 'onkupCheckboxInput',
         },
         {
           name: 'kupCheckboxFocus',
           type: 'focus',
-          refId: 'onkupCheckboxFocus',
         },
         {
           name: 'kupCheckboxBlur',
           type: 'blur',
-          refId: 'onkupCheckboxBlur',
         },
       ],
     };

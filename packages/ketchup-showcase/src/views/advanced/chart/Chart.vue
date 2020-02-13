@@ -263,7 +263,6 @@ export default {
         {
           name: 'kupChartClicked',
           type: 'click',
-          refId: 'onkupChartClicked',
         },
       ],
       demoData: [

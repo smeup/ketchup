@@ -145,27 +145,22 @@ export default {
         {
           name: 'kupButtonClick',
           type: 'click',
-          refId: 'onkupButtonClick',
         },
         {
           name: 'kupButtonChange',
           type: 'change',
-          refId: 'onkupButtonChange',
         },
         {
           name: 'kupButtonInput',
           type: 'input',
-          refId: 'onkupButtonInput',
         },
         {
           name: 'kupButtonFocus',
           type: 'focus',
-          refId: 'onkupButtonFocus',
         },
         {
           name: 'kupButtonBlur',
           type: 'blur',
-          refId: 'onkupButtonBlur',
         },
       ],
     };
