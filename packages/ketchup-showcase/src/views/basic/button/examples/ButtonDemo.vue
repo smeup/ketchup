@@ -16,26 +16,9 @@ export default {
   components: {
     Demo,
   },
-  name: 'ButtonBasic',
+  name: 'ButtonDemo',
   data() {
     return {
-      items: [
-        {
-          text: 'Props',
-          icon: '',
-          status: 'Active',
-        },
-        {
-          text: 'Events',
-          icon: '',
-          status: '',
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          status: '',
-        },
-      ],
       demoTabs: [
         {
           text: 'Props',
