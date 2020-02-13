@@ -170,6 +170,50 @@ export default {
 
     initDefaults() {
       let demoComponent = document.querySelector('#demo-component');
+      let propsTab = document.querySelector('#props-tab');
+      let eventsTab = document.querySelector('#events-tab');
+      let htmlTab = document.querySelector('#html-tab');
+      let jsonTab = document.querySelector('#json-tab');
+
+      propsTab.setAttribute('style', 'display: none;');
+      eventsTab.setAttribute('style', 'display: none;');
+      htmlTab.setAttribute('style', 'display: none;');
+      jsonTab.setAttribute('style', 'display: none;');
+
+      for (let i = 0; i < this.demoTabs.length; i++) {
+        if (this.demoTabs[i].status === 'Active') {
+          switch (this.demoTabs[i].text) {
+            case 'Props':
+              propsTab.setAttribute('style', '');
+              break;
+            case 'Events':
+              eventsTab.setAttribute('style', '');
+              break;
+            case 'HTML':
+              htmlTab.setAttribute('style', '');
+              htmlTab.querySelector('.code-word').innerText = demoComponent;
+              htmlTab.querySelector(
+                '.code-word'
+              ).innerText = htmlTab
+                .querySelector('.code-word')
+                .innerText.replace('id="demo-component"', '');
+              htmlTab.querySelector(
+                '.code-word'
+              ).innerText = htmlTab
+                .querySelector('.code-word')
+                .innerText.replace('class="hydrated"', '');
+              htmlTab.querySelector(
+                '.code-word'
+              ).innerText = htmlTab
+                .querySelector('.code-word')
+                .innerText.replace(/=""/g, '');
+              break;
+            case 'JSON':
+              jsonTab.setAttribute('style', '');
+              break;
+          }
+        }
+      }
 
       for (var i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
