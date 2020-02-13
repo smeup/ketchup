@@ -273,7 +273,11 @@ export default {
         },
         {
           prop: 'series',
-          value: ['Col2', 'Col3'],
+          value: ['Col2', 'Col3', 'Col4'],
+        },
+        {
+          prop: 'colors',
+          value: ['#fc8e1c', 'Black', '#45c4ea'],
         },
         {
           prop: 'axis',
