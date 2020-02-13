@@ -511,6 +511,10 @@ table.instruction-table th {
   z-index: 99;
 }
 
+#sample-wrapper.theming {
+  overflow: auto;
+}
+
 #sample-wrapper.detached {
   height: 80vh;
   display: block;

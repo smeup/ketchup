@@ -39,7 +39,7 @@
           This list contains all the CSS variables currently available for
           customization.
         </p>
-        <div id="sample-wrapper">
+        <div id="sample-wrapper" class="theming">
           <div id="sample-comp" class="full">
             <table class="instruction-table">
               <thead>
