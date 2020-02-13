@@ -170,52 +170,14 @@ export default {
 
     initDefaults() {
       let demoComponent = document.querySelector('#demo-component');
-      let propsTab = document.querySelector('#props-tab');
-      let eventsTab = document.querySelector('#events-tab');
-      let htmlTab = document.querySelector('#html-tab');
-      let jsonTab = document.querySelector('#json-tab');
-
-      propsTab.setAttribute('style', 'display: none;');
-      eventsTab.setAttribute('style', 'display: none;');
-      htmlTab.setAttribute('style', 'display: none;');
-      jsonTab.setAttribute('style', 'display: none;');
 
       for (let i = 0; i < this.demoTabs.length; i++) {
         if (this.demoTabs[i].status === 'Active') {
-          switch (this.demoTabs[i].text) {
-            case 'Props':
-              propsTab.setAttribute('style', '');
-              break;
-            case 'Events':
-              eventsTab.setAttribute('style', '');
-              break;
-            case 'HTML':
-              htmlTab.setAttribute('style', '');
-              htmlTab.querySelector('.code-word').innerText = demoComponent;
-              htmlTab.querySelector(
-                '.code-word'
-              ).innerText = htmlTab
-                .querySelector('.code-word')
-                .innerText.replace('id="demo-component"', '');
-              htmlTab.querySelector(
-                '.code-word'
-              ).innerText = htmlTab
-                .querySelector('.code-word')
-                .innerText.replace('class="hydrated"', '');
-              htmlTab.querySelector(
-                '.code-word'
-              ).innerText = htmlTab
-                .querySelector('.code-word')
-                .innerText.replace(/=""/g, '');
-              break;
-            case 'JSON':
-              jsonTab.setAttribute('style', '');
-              break;
-          }
+          this.handleTab(demoComponent, i);
         }
       }
 
-      for (var i = 0; i < this.demoProps.length; i++) {
+      for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
           case 'field':
             if (demoComponent[this.demoProps[i].prop] !== undefined) {
@@ -383,7 +345,12 @@ export default {
     },
 
     tabSelection(e) {
-      let demoComponent = document.querySelector('#demo-component').outerHTML;
+      let demoComponent = document.querySelector('#demo-component');
+      let i = e.detail.index;
+      this.handleTab(demoComponent, i);
+    },
+
+    handleTab(demoComponent, i) {
       let propsTab = document.querySelector('#props-tab');
       let eventsTab = document.querySelector('#events-tab');
       let htmlTab = document.querySelector('#html-tab');
@@ -394,7 +361,7 @@ export default {
       htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
 
-      switch (this.demoTabs[e.detail.index].text) {
+      switch (this.demoTabs[i].text) {
         case 'Props':
           propsTab.setAttribute('style', '');
           break;
@@ -403,7 +370,8 @@ export default {
           break;
         case 'HTML':
           htmlTab.setAttribute('style', '');
-          htmlTab.querySelector('.code-word').innerText = demoComponent;
+          htmlTab.querySelector('.code-word').innerText =
+            demoComponent.outerHTML;
           htmlTab.querySelector('.code-word').innerText = htmlTab
             .querySelector('.code-word')
             .innerText.replace('id="demo-component"', '');
