@@ -22,23 +22,23 @@ export class WupCheckbox {
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
-    @Prop() checked: boolean = false;
+    @Prop({ reflect: true }) checked: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'indeterminate'.
      */
-    @Prop() indeterminate: boolean = false;
+    @Prop({ reflect: true }) indeterminate: boolean = false;
     /**
      * Defaults at null. When specified, its content is shown to the left of the component as a label.
      */
-    @Prop() labelleft: string = null;
+    @Prop({ reflect: true }) labelleft: string = null;
     /**
      * Defaults at null. When specified, its content is shown to the right of the component as a label.
      */
-    @Prop() labelright: string = null;
+    @Prop({ reflect: true }) labelright: string = null;
 
     @Event({
         eventName: 'kupCheckboxBlur',
