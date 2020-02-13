@@ -113,9 +113,8 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  ComboItem as ComboItem1,
-  KetchupComboEvent as KetchupComboEvent1,
-} from './components/wup-combo/wup-combo-declarations';
+  ComponentListElement,
+} from './components/wup-list/wup-list-declarations';
 import {
   PaginatorMode as PaginatorMode1,
 } from './components/wup-paginator/wup-paginator-declarations';
@@ -1061,52 +1060,29 @@ export namespace Components {
     'labelright': string;
   }
   interface WupCombo {
+    'comboId': string;
     /**
-    * Programmatically close the combo box
+    * Defaults at false. When set to true, the component is disabled.
     */
-    'closeCombo': () => Promise<void>;
+    'disabled': boolean;
     /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue': ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
+    * Marks the list as filterable, allowing an input text to filter the options
     */
     'isFilterable': boolean;
-    /**
-    * Items which can be selected
-    */
-    'items': ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * Programmatically opens the combo box
-    */
-    'openCombo': () => Promise<void>;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
+    'items': ComponentListElement[];
+    'selectable': string;
   }
-  interface WupList {}
+  interface WupList {
+    'dense'?: boolean;
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    'items': ComponentListElement[];
+    'listId': string;
+    'roleType'?: string;
+    'selectable': string;
+  }
   interface WupPaginator {
     'currentPage': number;
     'max': number;
@@ -2803,74 +2779,69 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupCombo extends JSXBase.HTMLAttributes<HTMLWupComboElement> {
+    'comboId'?: string;
     /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
+    * Defaults at false. When set to true, the component is disabled.
     */
-    'displayedField'?: string;
+    'disabled'?: boolean;
     /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue'?: ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
+    * Marks the list as filterable, allowing an input text to filter the options
     */
     'isFilterable'?: boolean;
-    /**
-    * Items which can be selected
-    */
-    'items'?: ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * When combo is blurred
-    */
-    'onKetchupComboBlurred'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When combo is focused
-    */
-    'onKetchupComboFocused'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When an element has been selected
-    */
-    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
-  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+    'items'?: ComponentListElement[];
     /**
     * Event example.
     */
-    'onKupListBlur'?: (event: CustomEvent<{
+    'onKupComboBlur'?: (event: CustomEvent<{
       value: any;
+    }>) => void;
+    'onKupComboChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'selectable'?: string;
+  }
+  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+    'dense'?: boolean;
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    'items'?: ComponentListElement[];
+    'listId'?: string;
+    /**
+    * Events.
+    */
+    'onKupListBlur'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
     }>) => void;
     'onKupListChange'?: (event: CustomEvent<{
-      value: any;
+      selected: ComponentListElement;
+      el: EventTarget;
     }>) => void;
     'onKupListClick'?: (event: CustomEvent<{
-      value: any;
+      selected: ComponentListElement;
+      el: EventTarget;
     }>) => void;
     'onKupListFocus'?: (event: CustomEvent<{
-      value: any;
+      selected: ComponentListElement;
+      el: EventTarget;
     }>) => void;
     'onKupListInput'?: (event: CustomEvent<{
-      value: any;
+      selected: ComponentListElement;
+      el: EventTarget;
     }>) => void;
+    'roleType'?: string;
+    'selectable'?: string;
   }
   interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
     'currentPage'?: number;

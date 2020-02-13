@@ -290,8 +290,19 @@
             label="Shaped & transparent"
         ></wup-button>
 
-        <wup-list></wup-list>
+        <h4>Material Listbox (widget)</h4>
+        <h5>No select</h5>
+        <wup-list selectable="no-select" isFilterable="false" list-id="pippo1" dense="true"></wup-list>
+
+        <h5>Single select</h5>
+        <wup-list selectable="one-select" isFilterable="false" list-id="pippo2" role-type="radiogroup"></wup-list>
+
+        <h5>Multi select</h5>
+        <wup-list selectable="multi-select" isFilterable="false" list-id="pippo3" role-type="group"></wup-list>
         
+        <h4>Material ComboBox (widget)</h4>
+        <wup-combo isFilterable="false" list-id="pluto1"></wup-combo>
+
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" custom label="I am a label"></wup-text-field>
@@ -546,6 +557,47 @@
                         status: ''
                     },
                 ];
+
+                let listBox1 = document.getElementsByTagName('wup-list')[0];
+                let listBox2 = document.getElementsByTagName('wup-list')[1];
+                let listBox3 = document.getElementsByTagName('wup-list')[2];
+
+                let itemsForListBox = [
+                    {
+                        text: 'Text 1',
+                        secondaryText: 'Secondary text 1',
+                        value: 'txt1',
+                    },
+                    {
+                        text: 'Text 2',
+                        value: 'txt2',
+                    },
+                    {
+                        text: 'Text 3',
+                        value: 'txt3',
+                    },
+                    {
+                        text: null,
+                        value: null,
+                        isSeparator: true,
+                    },
+                    {
+                        text: 'Text 4',
+                        value: 'txt4',
+                    },
+                    {
+                        text: 'Text 5',
+                        value: 'txt5',
+                        selected: true,
+                    },
+                ];
+
+            listBox1.items = itemsForListBox;
+            listBox2.items = itemsForListBox;
+            listBox3.items = itemsForListBox;
+
+            let comboBox1 = document.getElementsByTagName('wup-combo')[0];
+            comboBox1.items = itemsForListBox;
 
             let once = true;
             // This is a script for testing these elements
