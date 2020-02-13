@@ -2,7 +2,7 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
+      <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="demoTabs"></wup-tab-bar>
       <div id="sample-specs-container">
         <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
           <thead>
@@ -147,10 +147,7 @@
 <script>
 export default {
   props: {
-    giturl: String,
-    headtitle: String,
-    titles: Array,
-    items: Array,
+    demoTabs: Array,
     demoComp: String,
     demoProps: Array,
     demoEvents: Array,
@@ -343,7 +340,7 @@ export default {
       htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
 
-      switch (this.items[e.detail.index].text) {
+      switch (this.demoTabs[e.detail.index].text) {
         case 'Props':
           propsTab.setAttribute('style', '');
           break;

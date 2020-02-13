@@ -3,7 +3,7 @@
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
         <demo
-          :items="demoTabs"
+          :demoTabs="demoTabs"
           :demoComp="demoComp"
           :demoProps="demoProps"
           :demoEvents="demoEvents"

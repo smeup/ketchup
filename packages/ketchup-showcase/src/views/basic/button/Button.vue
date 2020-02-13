@@ -1,7 +1,12 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <demo :items="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+      <demo
+        :demoTabs="demoTabs"
+        :demoComp="demoComp"
+        :demoProps="demoProps"
+        :demoEvents="demoEvents"
+      ></demo>
       <button-basic></button-basic>
     </template>
     <template v-slot:1>
