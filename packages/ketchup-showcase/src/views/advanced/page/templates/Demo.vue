@@ -294,7 +294,17 @@ export default {
       } else {
         arrayList = [e.detail.value];
       }
-      let newEntryId = '' + e.target.id + '-' + arrayLen;
+
+      for (let endFor = false; endFor === false; ) {
+        var newEntryId = '' + e.target.id + '-' + arrayLen;
+        let existingEl = document.querySelector('#' + newEntryId);
+        if (!existingEl) {
+          endFor = true;
+        } else {
+          arrayLen += 1;
+        }
+      }
+
       let newEntry =
         '<wup-button data-id="' +
         e.target.id +
