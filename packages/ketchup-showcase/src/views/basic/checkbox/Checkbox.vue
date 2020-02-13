@@ -7,8 +7,6 @@
           :demoComp="demoComp"
           :demoProps="demoProps"
           :demoEvents="demoEvents"
-          :hasHTML="hasHTML"
-          :hasJSON="hasJSON"
         ></demo>
         <checkbox-basic></checkbox-basic>
       </template>
@@ -17,8 +15,9 @@
       </template>
       <template v-slot:2>
         <checkbox-disabled></checkbox-disabled>
-      </template> </comp
-  ></div>
+      </template>
+    </comp>
+  </div>
 </template>
 
 <script>
@@ -126,8 +125,6 @@ export default {
           refId: 'onkupCheckboxBlur',
         },
       ],
-      hasHTML: true,
-      hasJSON: false,
     };
   },
 };

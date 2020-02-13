@@ -694,7 +694,7 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-.sample-section.padded {
+#json-tab.padded {
   padding-top: 75px;
 }
 

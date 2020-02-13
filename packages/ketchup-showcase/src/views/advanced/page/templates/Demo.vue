@@ -2,15 +2,9 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar
-        @kupTabBarClick="tabSelection"
-        :items.prop="items"
-      ></wup-tab-bar>
+      <wup-tab-bar @kupTabBarClick="tabSelection" :items.prop="items"></wup-tab-bar>
       <div id="sample-specs-container">
-        <table
-          v-if="demoProps !== null"
-          class="instruction-table sample-section"
-        >
+        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
           <thead>
             <tr>
               <th>Prop</th>
@@ -20,34 +14,29 @@
               <th>Try it!</th>
             </tr>
           </thead>
-          <tbody
-            ><tr v-for="(propList, i) in demoProps" :key="i">
-              <td class="prevent-cr"
-                ><span class="code-word">{{ propList.prop }}</span></td
-              >
+          <tbody>
+            <tr v-for="(propList, i) in demoProps" :key="i">
+              <td class="prevent-cr">
+                <span class="code-word">{{ propList.prop }}</span>
+              </td>
               <td>{{ propList.description }}</td>
-              <td class="prevent-cr"
-                ><span class="code-word">{{ propList.type }}</span></td
-              >
-              <td class="prevent-cr"
-                ><span class="code-word">{{ propList.default }}</span></td
-              >
-              <td v-if="propList.try === 'json'">
-                Use the JSON tab to view/change this prop.</td
-              >
+              <td class="prevent-cr">
+                <span class="code-word">{{ propList.type }}</span>
+              </td>
+              <td class="prevent-cr">
+                <span class="code-word">{{ propList.default }}</span>
+              </td>
+              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
               <td v-if="propList.try === 'switch'">
-                <wup-switch
-                  v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
-                ></wup-switch
-              ></td>
+                <wup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+              </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <wup-text-field
                   fullwidth
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
-                ></wup-text-field
-              ></td>
+                ></wup-text-field>
+              </td>
               <td class="text-cell" v-if="propList.try === 'array'">
                 <wup-text-field
                   fullwidth
@@ -56,14 +45,16 @@
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
                   @kupTextFieldIconClick="updateDemoFieldArray"
-                ></wup-text-field
-              ></td> </tr
-          ></tbody>
+                ></wup-text-field>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <table
           v-if="demoEvents !== null"
+          id="events-tab"
           style="display: none;"
-          class="instruction-table sample-section"
+          class="instruction-table sample-section events-section"
         >
           <thead>
             <tr>
@@ -72,25 +63,22 @@
               <th>Test it by interacting with the demo component!</th>
             </tr>
           </thead>
-          <tbody
-            ><tr v-for="(eventList, j) in demoEvents" :key="j">
-              <td class="prevent-cr"
-                ><span class="code-word">{{ eventList.name }}</span></td
-              >
-              <td class="prevent-cr"
-                ><span class="code-word">{{ eventList.type }}</span></td
-              >
+          <tbody>
+            <tr v-for="(eventList, j) in demoEvents" :key="j">
+              <td class="prevent-cr">
+                <span class="code-word">{{ eventList.name }}</span>
+              </td>
+              <td class="prevent-cr">
+                <span class="code-word">{{ eventList.type }}</span>
+              </td>
 
               <td>
                 <div v-bind:id="eventList.refId" class="code-word"></div>
-              </td> </tr
-          ></tbody>
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <div
-          v-if="hasHTML === true"
-          class="sample-section html-section"
-          style="display: none;"
-        >
+        <div id="html-tab" class="sample-section" style="display: none;">
           <div class="code-word sample-html"></div>
           <wup-button
             @kupButtonClick="copyHtml"
@@ -99,12 +87,7 @@
             title="Copy HTML markup"
           ></wup-button>
         </div>
-        <div
-          v-if="hasJSON === true"
-          id="json-tab"
-          class="sample-section padded"
-          style="display: none;"
-        >
+        <div id="json-tab" class="sample-section padded" style="display: none;">
           <textarea id="json-textarea" style="display: none;"></textarea>
           <wup-text-field
             class="shown"
@@ -127,7 +110,7 @@
       </div>
     </div>
     <div id="sample-comp">
-      <div v-html="demoComp" id="sample-comp-wrapper"> </div>
+      <div v-html="demoComp" id="sample-comp-wrapper"></div>
       <div id="split-container">
         <wup-button
           @kupButtonClick="menuTrigger"
@@ -171,8 +154,6 @@ export default {
     demoComp: String,
     demoProps: Array,
     demoEvents: Array,
-    hasHTML: Boolean,
-    hasJSON: Boolean,
     demoData: Array,
   },
   methods: {
@@ -192,6 +173,7 @@ export default {
 
     initDefaults() {
       let demoComponent = document.querySelector('#demo-component');
+
       for (var i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
           case 'field':
@@ -350,42 +332,40 @@ export default {
     },
 
     tabSelection(e) {
-      let tabCollection = document.querySelectorAll('.sample-section');
       let demoComponent = document.querySelector('#demo-component').outerHTML;
-      let tabHTML = null;
+      let propsTab = document.querySelector('#props-tab');
+      let eventsTab = document.querySelector('#events-tab');
+      let htmlTab = document.querySelector('#html-tab');
+      let jsonTab = document.querySelector('#json-tab');
 
-      for (let j = 0; j < tabCollection.length; j++) {
-        if (tabCollection[j].classList.contains('html-section')) {
-          tabHTML = tabCollection[j];
-        }
-      }
+      propsTab.setAttribute('style', 'display: none;');
+      eventsTab.setAttribute('style', 'display: none;');
+      htmlTab.setAttribute('style', 'display: none;');
+      jsonTab.setAttribute('style', 'display: none;');
 
-      for (let i = 0; i < tabCollection.length; i++) {
-        if (i === e.detail.index) {
-          tabCollection[i].setAttribute('style', '');
-          if (tabHTML === tabCollection[i]) {
-            tabCollection[i].querySelector(
-              '.code-word'
-            ).innerText = demoComponent;
-            tabCollection[i].querySelector(
-              '.code-word'
-            ).innerText = tabCollection[i]
-              .querySelector('.code-word')
-              .innerText.replace('id="demo-component"', '');
-            tabCollection[i].querySelector(
-              '.code-word'
-            ).innerText = tabCollection[i]
-              .querySelector('.code-word')
-              .innerText.replace('class="hydrated"', '');
-            tabCollection[i].querySelector(
-              '.code-word'
-            ).innerText = tabCollection[i]
-              .querySelector('.code-word')
-              .innerText.replace(/=""/g, '');
-          }
-        } else {
-          tabCollection[i].setAttribute('style', 'display: none;');
-        }
+      switch (this.items[e.detail.index].text) {
+        case 'Props':
+          propsTab.setAttribute('style', '');
+          break;
+        case 'Events':
+          eventsTab.setAttribute('style', '');
+          break;
+        case 'HTML':
+          htmlTab.setAttribute('style', '');
+          htmlTab.querySelector('.code-word').innerText = demoComponent;
+          htmlTab.querySelector('.code-word').innerText = htmlTab
+            .querySelector('.code-word')
+            .innerText.replace('id="demo-component"', '');
+          htmlTab.querySelector('.code-word').innerText = htmlTab
+            .querySelector('.code-word')
+            .innerText.replace('class="hydrated"', '');
+          htmlTab.querySelector('.code-word').innerText = htmlTab
+            .querySelector('.code-word')
+            .innerText.replace(/=""/g, '');
+          break;
+        case 'JSON':
+          jsonTab.setAttribute('style', '');
+          break;
       }
     },
 

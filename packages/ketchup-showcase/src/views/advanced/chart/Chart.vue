@@ -7,8 +7,6 @@
         :demoProps="demoProps"
         :demoEvents="demoEvents"
         :demoData="demoData"
-        :hasHTML="hasHTML"
-        :hasJSON="hasJSON"
       ></demo>
       <chart-basic></chart-basic>
     </template>
@@ -268,8 +266,6 @@ export default {
           refId: 'onkupChartClicked',
         },
       ],
-      hasHTML: true,
-      hasJSON: true,
       demoData: [
         {
           prop: 'data',
