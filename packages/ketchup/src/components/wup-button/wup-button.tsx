@@ -345,7 +345,7 @@ export class WupButton {
         let title = '';
         if (this.tooltip) {
             title = this.tooltip;
-        } else if (this._isHint()) {
+        } else if (this.isHint()) {
             title = this.label;
         }        
         //
