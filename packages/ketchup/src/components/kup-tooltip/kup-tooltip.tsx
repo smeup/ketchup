@@ -40,8 +40,8 @@ export class KupTooltip {
      * Timeout for loadDetail
      */
     @Prop()
-    detailDataTimeout: number = 400;
-    
+    detailDataTimeout: number = 800;
+        
     @State()
     visible = false;
 
@@ -93,6 +93,7 @@ export class KupTooltip {
 
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
+    private mouseLeaveTimeout: NodeJS.Timeout;
 
     private wrapperEl: HTMLSpanElement;
 
@@ -115,6 +116,11 @@ export class KupTooltip {
         if (this.loadDetailTimeout) {
             clearTimeout(this.loadDetailTimeout);
             this.loadDetailTimeout = null;
+        }
+
+        if (this.mouseLeaveTimeout) {
+            clearTimeout(this.mouseLeaveTimeout);
+            this.mouseLeaveTimeout = null;
         }
     }
 
@@ -149,6 +155,13 @@ export class KupTooltip {
 
     // ---- Listeners ----
     private onMouseOver() {
+        // Cancello il mouseLeaveTimeout così se l'utente
+        // esce e rientra rimanendo nell'intervallo di 500ms 
+        // il tip non si chiude
+        if (this.mouseLeaveTimeout) {
+            clearTimeout(this.mouseLeaveTimeout);
+            this.mouseLeaveTimeout = null;
+        }
         if (!this.tooltipTimeout) {
             this.tooltipTimeout = setTimeout(() => {
                 this.tooltipTimeout = null;
@@ -170,15 +183,20 @@ export class KupTooltip {
 
 
     private onMouseLeave() {
-        // reset data
-        this.data = null;
-        this.detailData = null;
+        // Se non sono presenti azioni si chiude immediatamente, altrimenti
+        // lo chiudo dopo 500ms
+        let timeout = this.hasActionsData()?500:0;
+        this.mouseLeaveTimeout = setTimeout(() => {
+            // reset data
+            this.data = null;
+            this.detailData = null;
 
-        // reset visibility
-        this.visible = false;
+            // reset visibility
+            this.visible = false;
 
-        // reset timeouts
-        this.resetTimeouts();
+            // reset timeouts
+            this.resetTimeouts();
+        },timeout)
     }
     
 
