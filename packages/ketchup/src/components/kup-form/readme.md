@@ -4,13 +4,13 @@ Kup-form is a web component that allows to generate forms.
 
 ## Fields
 
-Fields config and layout are defined in a prop called field. Each field must have a unique key prop.
+Fields config and layout are defined in a prop called fields. Each field must have a unique key prop.
 
 ## Cells
 
-Fields values are in a prop called record, filled with cells. In a cell you can put also some specific cell data, like a specific shape config or extra or obj props.
+Fields values are in a prop called cells. In a cell you can find values but also some specific data, like a shape config or extra or obj props.
 
-# Extra and obj
+## Extra and obj
 
 Extra is a any attribute that can contain all you want to be transferred during events (for example some backed useful params). Obj is a more specific type of info that will be always transferred during events, like extra. Obj contains a type, a parameter and a code. You can put extra and obj at field level, at cell level, at actions level, at component level, and they will always be transferred during events.
 
@@ -38,11 +38,9 @@ When a form is submitted or when another form event is performed some backend lo
 
 You can show these kind of messages using the extraMessages prop.
 
-## State
+## Old values
 
-The props: config, fields, sections, extraMessages are mutable (they can be updated by the component) and they are syncronized with the actual state of that entities. So if you want to obtain the actual state of fields (for example actual fields values) you can use fields props from the component (using for example: this.\$refs.form.fields).
-
-During events all the state of the component isn't sent. So if you need some state info on event you can use props.
+When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payload the actual state of the cells and the old one. The old is the copy of the cells stored when you set or reset the cells prop into the form.
 
 ---
 
@@ -51,20 +49,20 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default          |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ---------------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined`      |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined`      |
-| `config`                             | --        |             | `FormConfig`                                                                       | `{}`             |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined`      |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined`      |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined`      |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`             |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined`      |
-| `record`                             | --        |             | `FormRecord`                                                                       | `{ fields: {} }` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined`      |
-| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined`      |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined`      |
+| Property                             | Attribute | Description | Type                                                                               | Default     |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
@@ -75,6 +73,29 @@ During events all the state of the component isn't sent. So if you need some sta
 | `kupFormFieldBlurred`    |             | `CustomEvent<FormFieldEventDetail>`  |
 | `kupFormFieldChanged`    |             | `CustomEvent<FormFieldEventDetail>`  |
 | `kupFormFieldFocused`    |             | `CustomEvent<FormFieldEventDetail>`  |
+
+
+## Methods
+
+### `getActualCells() => Promise<FormCells>`
+
+
+
+#### Returns
+
+Type: `Promise<FormCells>`
+
+
+
+### `getOldCells() => Promise<FormCells>`
+
+
+
+#### Returns
+
+Type: `Promise<FormCells>`
+
+
 
 
 ## CSS Custom Properties
