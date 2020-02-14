@@ -74,17 +74,30 @@ export class WupButton {
 
     @Prop() showtext = true;
     @Prop() showicon = true;
+
+    /**   
+     * Defaults at empty. Additional icons library.
+     */
+    @Prop() iconUrl: string;
+
+    /**   
+     * Defaults at empty. Additional image (rendered on the left of icon).
+     */
+    @Prop() imageSrc: string;
+    //'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
+
+    /**
+     * Defaults at empty. When set to 'Hint' the label is shown as tooltip
+     */
+    @Prop() textmode: string; 
+
+    /**   
+     * Defaults at empty.
+     */
+    @Prop() tooltip: string;
+
     /*
     @Prop() buttonClass: string; ~~~ ha ancora senso? "custom" simile ma non equivalente
-    @Prop() imageSrc: string; ~ immagine oltre ad icona, renderizzata a sx dell'icona
-    @Prop() showtext = true;
-    @Prop() showicon = true;
-    @Prop() rounded = false; ~ qui non gestito per il caso solo icon perchè non c'è bordo
-    @Prop() textmode: string; se = HInt la label viene visualizzata come tooltip e non nel bottone
-    @Prop() transparent = false; ~ gestito solo caso label
-    @Prop() tooltip: string; ~ non è stato gestito
-    @Prop() iconUrl = ~ libreria aggiuntiva icone, non è stato gestito
-        'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
         */
     /* @@@@@@@ EVENTS @@@@@@@ */
 
@@ -210,6 +223,10 @@ export class WupButton {
         return '';
     }
 
+    isHint() {
+        return 'Hint' === this.textmode;
+    }    
+
     render() {
         //https://ketchup.smeup.com/ketchup-showcase/#/btn
         //https://ketchup.smeup.com/ketchup-showcase/#/button
@@ -220,6 +237,8 @@ export class WupButton {
         let textEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
+        let extraCssEl: HTMLElement = null;
+        let extraImageEl: HTMLElement = null;
         let btnStyle = this.buttonStyle;
 
         if (this.custom) {
@@ -230,30 +249,14 @@ export class WupButton {
             widgetClass += ' mdc-button--disabled';
         }
 
-        //int TODO = 0;
-        /* todo
-        let image = null;
-        if (this.imageSrc) {
-            image = <img class="button-image" src={this.imageSrc} />;
-        }
-        */
-
         if (this.label) {
             widgetClass += ' mdc-button';
 
-            //TODO
-            /*
-            if (
-                (!this._isHint() || (this._isHint() && this.flat)) &&
-                this.showtext &&
-                this.label
-            ) {
-                btnLabel = <span class="button-text">{this.label}</span>;
+           if ((!this.isHint() || (this.isHint() && this.flat)) && this.showtext && this.label) {
+                textEl = <span class="mdc-button__label">{this.label}</span>;
             }
-            */
-
-            textEl = <span class="mdc-button__label">{this.label}</span>;
-            if (this.iconClass) {
+            //
+            if (this.iconClass && this.showicon) {
                 iconEl = (
                     <i
                         class="material-icons mdc-button__icon"
@@ -294,53 +297,67 @@ export class WupButton {
             */
 
         } else if (this.iconClass) {
-            //TODO if (this.showicon && this.iconClass) {
-
             widgetClass += ' mdc-icon-button';
-            trailingEl = (
-                <i
-                    class="material-icons mdc-icon-button__icon"
-                    aria-hidden="true"
-                >
-                    {this.iconClass}
-                </i>
-            );
-            if (this.toggable) {
-                widgetClass += ' toggable';
+            if (this.showicon) {
                 trailingEl = (
                     <i
-                        class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
+                        class="material-icons mdc-icon-button__icon"
                         aria-hidden="true"
                     >
                         {this.iconClass}
                     </i>
                 );
-                if (this.checked) {
-                    widgetClass += ' mdc-icon-button--on';
+                if (this.toggable) {
+                    widgetClass += ' toggable';
+                    trailingEl = (
+                        <i
+                            class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
+                            aria-hidden="true"
+                        >
+                            {this.iconClass}
+                        </i>
+                    );
+                    if (this.checked) {
+                        widgetClass += ' mdc-icon-button--on';
+                    }
+                    let iconOff = this.iconClass + '_border';
+                    leadingEl = (
+                        <i
+                            class="material-icons mdc-icon-button__icon"
+                            aria-hidden="true"
+                        >
+                            {iconOff}
+                        </i>
+                    );
                 }
-                let iconOff = this.iconClass + '_border';
-                leadingEl = (
-                    <i
-                        class="material-icons mdc-icon-button__icon"
-                        aria-hidden="true"
-                    >
-                        {iconOff}
-                    </i>
-                );
             }
         }
-        //
+        //TODO no per icon?
         if (this.fillspace) {
             widgetClass += ' fillspace';
+        }        
+        if (this.iconUrl) {
+            extraCssEl = (<link href={this.iconUrl} rel="stylesheet" type="text/css" />);
+        }
+        if (this.imageSrc) {
+            extraImageEl = (<img class="button-image" src={this.imageSrc} />);
+        }
+        let title = '';
+        if (this.tooltip) {
+            title = this.tooltip;
+        } else if (this._isHint()) {
+            title = this.label;
         }        
         //
         return (
             <Host>
+                {extraCssEl}
                 <div id="kup-component">
                     <button
                         type="button"
                         style={btnStyle}
                         class={widgetClass}
+                        title={title}
                         disabled={this.disabled}
                         onBlur={this.onKupBlur.bind(this)}
                         onChange={this.onKupChange.bind(this)}
@@ -349,6 +366,7 @@ export class WupButton {
                         onInput={this.onKupInput.bind(this)}
                     >
                         <div class="mdc-button__ripple"></div>
+                        {extraImageEl}
                         {leadingEl}
                         {trailingEl}
                     </button>
