@@ -155,7 +155,7 @@ export class WupButton {
 
     //---- Lifecycle hooks ----
 
-    componentDidRender() {
+    componentWillRender() {
         if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
@@ -167,7 +167,7 @@ export class WupButton {
         }
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
