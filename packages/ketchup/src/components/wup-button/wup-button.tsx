@@ -155,7 +155,7 @@ export class WupButton {
 
     //---- Lifecycle hooks ----
 
-    componentWillRender() {
+    componentDidRender() {
         if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
