@@ -253,7 +253,7 @@ export class WupButton {
             widgetClass += ' mdc-button';
 
            if ((!this.isHint() || (this.isHint() && this.flat)) && this.showtext && this.label) {
-                textEl = <span class="mdc-button__label">{this.label}</span>;
+                textEl = (<span class="mdc-button__label">{this.label}</span>);
             }
             //
             if (this.iconClass && this.showicon) {
