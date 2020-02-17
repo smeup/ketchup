@@ -174,6 +174,7 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-tooltip --> kup-button
   kup-paginator --> kup-combo
   kup-combo --> kup-text-input
   kup-combo --> kup-portal

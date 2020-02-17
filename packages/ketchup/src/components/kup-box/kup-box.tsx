@@ -29,11 +29,11 @@ import {
 
 import {
     isButton,
-    isYesNo,
     isRadio,
     isPassword,
     isIcon,
-    isChart
+    isChart,
+    isCheckbox
 } from '../../utils/object-utils';
 
 import {
@@ -1208,7 +1208,7 @@ export class KupBox {
                             {...buildButtonConfig(cell.value, cell.config)}
                         />
                     );
-                } else if (isYesNo(cell.obj)) {
+                } else if (isCheckbox(cell.obj)) {
                     let checked = cell.value == '1';
                     boContent = (
                         <kup-checkbox
