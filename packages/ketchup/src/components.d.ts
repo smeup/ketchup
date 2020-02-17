@@ -104,7 +104,9 @@ import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
+  TooltipAction,
   TooltipData,
+  TooltipDetailData,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
   TreeNode,
@@ -114,7 +116,10 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  WidgetTabBarElement,
+  ComponentRadioElement,
+} from './components/wup-radio/wup-radio-declarations';
+import {
+  ComponentTabBarElement,
 } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
@@ -926,7 +931,11 @@ export namespace Components {
     /**
     * Data for the detail
     */
-    'detailData': DataTable;
+    'detailData': TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout': number;
     /**
     * Layout used to display the items
     */
@@ -1008,15 +1017,19 @@ export namespace Components {
     /**
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
-    'iconoff': string;
+    'iconOff': string;
     /**
     * Defaults at null. When set, the button will show this text.
     */
     'label': string;
     /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'outlined': boolean;
+    /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
-    'rounded': boolean;
+    'shaped': boolean;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -1024,11 +1037,7 @@ export namespace Components {
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent': boolean;
+    'trailingIcon': boolean;
   }
   interface WupCheckbox {
     /**
@@ -1044,31 +1053,31 @@ export namespace Components {
     */
     'indeterminate': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft': string;
+    'label': string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright': string;
+    'leadingLabel': boolean;
   }
   interface WupRadio {
     /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
+    * List of elements.
     */
-    'checked': boolean;
+    'data': ComponentRadioElement[];
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft': string;
+    'leadingLabel': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'labelright': string;
+    'name': string;
   }
   interface WupSwitch {
     /**
@@ -1080,19 +1089,19 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft': string;
+    'label': string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright': string;
+    'leadingLabel': boolean;
   }
   interface WupTabBar {
     /**
     * List of elements.
     */
-    'items': WidgetTabBarElement[];
+    'data': ComponentTabBarElement[];
   }
   interface WupTemplate {
     /**
@@ -1108,11 +1117,11 @@ export namespace Components {
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
-    'fullheight': boolean;
+    'fullHeight': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
-    'fullwidth': boolean;
+    'fullWidth': boolean;
     /**
     * Defaults at null. When set, its content will be shown as a help text below the field.
     */
@@ -1120,7 +1129,7 @@ export namespace Components {
     /**
     * Defaults at false. When set, the helper will be shown only when the field is focused.
     */
-    'helperwhenfocus': boolean;
+    'helperWhenFocused': boolean;
     /**
     * Defaults at null. When set, the text-field will show this icon.
     */
@@ -1128,39 +1137,39 @@ export namespace Components {
     /**
     * Sets the initial value of the component
     */
-    'initialvalue': string;
+    'initialValue': string;
     /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label': string;
     /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright': string;
+    'leadingLabel': boolean;
     /**
     * Defaults at null. When set, the helper will display a character counter.
     */
-    'maxlength': number;
+    'maxLength': number;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined': boolean;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
-    'rounded': boolean;
+    'shaped': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered as a textarea.
     */
-    'textarea': boolean;
+    'textArea': boolean;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon': boolean;
+    'trailingIcon': boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel': boolean;
   }
 }
 
@@ -2523,11 +2532,18 @@ declare namespace LocalJSX {
     /**
     * Data for the detail
     */
-    'detailData'?: DataTable;
+    'detailData'?: TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout'?: number;
     /**
     * Layout used to display the items
     */
     'layout'?: string;
+    'onKupActionCommandClicked'?: (event: CustomEvent<{
+      actionCommand: TooltipAction;
+    }>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
@@ -2644,15 +2660,12 @@ declare namespace LocalJSX {
     /**
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
-    'iconoff'?: string;
+    'iconOff'?: string;
     /**
     * Defaults at null. When set, the button will show this text.
     */
     'label'?: string;
     'onKupButtonBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonChange'?: (event: CustomEvent<{
       value: any;
     }>) => void;
     'onKupButtonClick'?: (event: CustomEvent<{
@@ -2661,13 +2674,14 @@ declare namespace LocalJSX {
     'onKupButtonFocus'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupButtonInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'outlined'?: boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
-    'rounded'?: boolean;
+    'shaped'?: boolean;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
@@ -2675,11 +2689,7 @@ declare namespace LocalJSX {
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent'?: boolean;
+    'trailingIcon'?: boolean;
   }
   interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
     /**
@@ -2695,13 +2705,13 @@ declare namespace LocalJSX {
     */
     'indeterminate'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft'?: string;
+    'label'?: string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     'onKupCheckboxBlur'?: (event: CustomEvent<{
       value: string;
     }>) => void;
@@ -2720,21 +2730,21 @@ declare namespace LocalJSX {
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
+    * List of elements.
     */
-    'checked'?: boolean;
+    'data'?: ComponentRadioElement[];
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft'?: string;
+    'leadingLabel'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'labelright'?: string;
+    'name'?: string;
     'onKupRadioBlur'?: (event: CustomEvent<{
       value: string;
     }>) => void;
@@ -2761,13 +2771,13 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft'?: string;
+    'label'?: string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     'onKupSwitchBlur'?: (event: CustomEvent<{
       value: string;
     }>) => void;
@@ -2788,12 +2798,8 @@ declare namespace LocalJSX {
     /**
     * List of elements.
     */
-    'items'?: WidgetTabBarElement[];
+    'data'?: ComponentTabBarElement[];
     'onKupTabBarBlur'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarChange'?: (event: CustomEvent<{
       index: number;
       el: EventTarget;
     }>) => void;
@@ -2802,10 +2808,6 @@ declare namespace LocalJSX {
       el: EventTarget;
     }>) => void;
     'onKupTabBarFocus'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarInput'?: (event: CustomEvent<{
       index: number;
       el: EventTarget;
     }>) => void;
@@ -2842,11 +2844,11 @@ declare namespace LocalJSX {
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
-    'fullheight'?: boolean;
+    'fullHeight'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
-    'fullwidth'?: boolean;
+    'fullWidth'?: boolean;
     /**
     * Defaults at null. When set, its content will be shown as a help text below the field.
     */
@@ -2854,7 +2856,7 @@ declare namespace LocalJSX {
     /**
     * Defaults at false. When set, the helper will be shown only when the field is focused.
     */
-    'helperwhenfocus'?: boolean;
+    'helperWhenFocused'?: boolean;
     /**
     * Defaults at null. When set, the text-field will show this icon.
     */
@@ -2862,23 +2864,19 @@ declare namespace LocalJSX {
     /**
     * Sets the initial value of the component
     */
-    'initialvalue'?: string;
+    'initialValue'?: string;
     /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label'?: string;
     /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     /**
     * Defaults at null. When set, the helper will display a character counter.
     */
-    'maxlength'?: number;
+    'maxLength'?: number;
     'onKupTextFieldBlur'?: (event: CustomEvent<{
       value: string;
     }>) => void;
@@ -2902,17 +2900,21 @@ declare namespace LocalJSX {
     */
     'outlined'?: boolean;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
-    'rounded'?: boolean;
+    'shaped'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered as a textarea.
     */
-    'textarea'?: boolean;
+    'textArea'?: boolean;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon'?: boolean;
+    'trailingIcon'?: boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel'?: boolean;
   }
 
   interface IntrinsicElements {

@@ -27,7 +27,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.advancedItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.advancedItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -44,7 +48,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.javascriptItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.javascriptItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -62,7 +70,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.basicItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.basicItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -70,9 +82,11 @@
           </v-list>
         </v-list-group>
         <v-list>
-          <v-list-tile :to="{
+          <v-list-tile
+            :to="{
               name: 'theming',
-            }">
+            }"
+          >
             <v-list-tile-content>
               <v-list-tile-title>Theming</v-list-tile-title>
             </v-list-tile-content>
@@ -84,13 +98,18 @@
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <div class="logo_header">
-        <img src="ketchup_logo_header.svg" class="light" style="height: 40px;" />
+        <img
+          src="ketchup_logo_header.svg"
+          class="light"
+          style="height: 40px;"
+        />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <wup-switch
         onclick="changeTheme();"
         style="min-width: 150px; --kup-text-color: #f5f5f5;"
-        labelleft="Dark Mode"
+        leading-label
+        label="Dark Mode"
         id="theme-switch"
       ></wup-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">

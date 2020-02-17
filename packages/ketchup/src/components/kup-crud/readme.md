@@ -115,6 +115,7 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-tooltip --> kup-button
   kup-paginator --> kup-combo
   kup-image --> kup-badge
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px

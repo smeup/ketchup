@@ -11,7 +11,7 @@
         <div class="kup-container">
           <wup-button disabled text="Raised"></wup-button>
           <wup-button disabled flat label="Flat"></wup-button>
-          <wup-button disabled transparent label="Transparent"></wup-button>
+          <wup-button disabled outlined label="Transparent"></wup-button>
           <wup-button disabled icon="favorite"></wup-button>
         </div>
         <p class="centered">Disabled sample markup</p>

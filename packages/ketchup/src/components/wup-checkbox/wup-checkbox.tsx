@@ -32,13 +32,13 @@ export class WupCheckbox {
      */
     @Prop({ reflect: true }) indeterminate: boolean = false;
     /**
-     * Defaults at null. When specified, its content is shown to the left of the component as a label.
+     * Defaults at null. When specified, its content will be shown as a label.
      */
-    @Prop({ reflect: true }) labelleft: string = null;
+    @Prop({ reflect: true }) label: string = null;
     /**
-     * Defaults at null. When specified, its content is shown to the right of the component as a label.
+     * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) labelright: string = null;
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
 
     @Event({
         eventName: 'kupCheckboxBlur',
@@ -156,7 +156,7 @@ export class WupCheckbox {
     render() {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
-        let componentLabel: string = '';
+        let componentLabel: string = this.label;
 
         if (this.disabled) {
             componentClass += ' mdc-checkbox--disabled';
@@ -166,11 +166,8 @@ export class WupCheckbox {
             componentClass += ' mdc-checkbox--checked';
         }
 
-        if (this.labelleft) {
+        if (this.leadingLabel) {
             formClass += ' mdc-form-field--align-end';
-            componentLabel = this.labelleft;
-        } else if (this.labelright) {
-            componentLabel = this.labelright;
         }
 
         return (

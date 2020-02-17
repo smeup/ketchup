@@ -3,20 +3,17 @@
     <div class="demo-wrapper">
       <p>
         Radio buttons can be rendered with a label on their left or on their
-        right. You can choose between setting a
-        <span class="code-word">labelleft</span> or a
-        <span class="code-word">labelright</span> attribute, which are mutually
-        exclusive.
+        right. By default it will be on the right of the component, you can set
+        the <span class="code-word">leadingLabel</span> prop to true to display
+        it on the left.
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-radio labelleft="This label is on the left"></wup-radio>
-          <wup-radio labelright="This label is on the right"></wup-radio>
+          <wup-radio leading-label :data.prop="dataLeft"></wup-radio>
+          <wup-radio :data.prop="dataRight"></wup-radio>
         </div>
         <p class="centered">Left aligned sample markup</p>
         <code class="flat">{{ markupLeft }}</code>
-        <p class="centered">Right aligned sample markup</p>
-        <code class="flat">{{ markupRight }}</code>
       </div>
     </div>
   </div>
@@ -27,8 +24,21 @@ export default {
   name: 'CheckboxLabels',
   data() {
     return {
-      markupLeft: '<wup-radio labelleft="Your label"></wup-radio>',
-      markupRight: '<wup-radio labelright="Your label"></wup-radio>',
+      dataLeft: [
+        {
+          value: 'left',
+          label: 'This label is on the left',
+          checked: false,
+        },
+      ],
+      dataRight: [
+        {
+          value: 'right',
+          label: 'This label is on the right',
+          checked: false,
+        },
+      ],
+      markupLeft: '<wup-radio leading-label></wup-radio>',
     };
   },
 };

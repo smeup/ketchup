@@ -25,7 +25,7 @@
         the off state will show an outlined version of the
         <span class="code-word">icon</span>. You can change this by setting a
         Material Design icon value in the prop
-        <span class="code-word">iconoff</span>.</p
+        <span class="code-word">iconOff</span>.</p
       ><div class="demo-container">
         <div class="kup-container">
           <wup-button toggable icon="favorite"></wup-button>
