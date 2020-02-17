@@ -4,9 +4,9 @@ Kup-crud is a web component that allows to configure a record or a set of record
 
 ## Callbacks and events
 
-When a crud form action is submitted or a crud form field is changed you can use related callback function for your backend logic. In this way you can update directly the CRUD component related to that events.
+When a crud form action is submitted or a crud form field is changed you can use related callback function for your backend logic. In this way you can update directly the crud component related to that events.
 
-You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events but you have to find the related CRUD component starting from your root crud component if you can have a crud inside a crud. You can find it setting refid prop for each crud field and reading them from events.
+You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events but if you have a crud inside a crud they can be sent by a crud child component. You can understand which crud component send them setting refid prop for each crud field and reading them from events.
 
 <!-- Auto Generated Below -->
 
@@ -17,15 +17,14 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 | ------------------------------------ | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
 | `actions`                            | --         |             | `FormActions`                                                                      | `undefined` |
 | `autocompleteCallBackOnFilterUpdate` | --         |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `config`                             | --         |             | `CrudConfig`                                                                       | `{}`        |
+| `config`                             | --         |             | `CrudConfig`                                                                       | `undefined` |
 | `crudCallBackOnFormActionSubmitted`  | --         |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
 | `crudCallBackOnFormFieldChanged`     | --         |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
 | `disabled`                           | `disabled` |             | `boolean`                                                                          | `false`     |
 | `extra`                              | `extra`    |             | `any`                                                                              | `undefined` |
 | `extraMessages`                      | --         |             | `FormMessage[]`                                                                    | `[]`        |
 | `fields`                             | --         |             | `FormFields`                                                                       | `undefined` |
-| `record`                             | --         |             | `FormRecord`                                                                       | `undefined` |
-| `records`                            | --         |             | `FormRecord[]`                                                                     | `undefined` |
+| `records`                            | --         |             | `CrudRecord[]`                                                                     | `undefined` |
 | `refid`                              | `refid`    |             | `string`                                                                           | `undefined` |
 | `searchCallBackOnFilterSubmitted`    | --         |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
 | `sections`                           | --         |             | `FormSection`                                                                      | `undefined` |
@@ -46,9 +45,7 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 
 ### `closeForm() => Promise<void>`
 
-**************************************************************
-PUBLIC METHODS                                              *
-**************************************************************
+
 
 #### Returns
 

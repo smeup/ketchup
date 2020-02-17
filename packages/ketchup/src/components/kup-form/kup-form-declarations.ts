@@ -22,11 +22,8 @@ export interface FormField {
     };
 }
 
-export interface FormRecord {
-    id?: string;
-    fields: {
-        [index: string]: FormCell;
-    };
+export interface FormCells {
+    [index: string]: FormCell;
 }
 
 export interface FormCell {
@@ -68,6 +65,7 @@ export interface FormFieldCalcs {
     oldValue: any;
 }
 
+// TODO: use a Message common to all framework (and a related kup-message component)
 export interface FormMessage {
     fieldKey?: string;
     text: string;
@@ -82,6 +80,7 @@ export enum FormMessageLevel {
 
 export interface FormConfig {
     liveCheck?: boolean;
+    debugMode?: boolean;
 }
 
 export interface FormActions {
@@ -112,10 +111,10 @@ export interface FormActionEventDetail {
     };
     actual?: {
         fields?: FormFields;
-        record?: FormRecord;
+        cells?: FormCells;
     };
     old?: {
-        record?: FormRecord;
+        cells?: FormCells;
     };
 }
 
@@ -128,9 +127,9 @@ export interface FormFieldEventDetail {
     };
     actual?: {
         fields?: FormFields;
-        record?: FormRecord;
+        cells?: FormCells;
     };
     old?: {
-        record?: FormRecord;
+        cells?: FormCells;
     };
 }

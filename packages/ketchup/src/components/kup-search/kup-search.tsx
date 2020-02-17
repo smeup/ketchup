@@ -22,7 +22,9 @@ import {
 })
 // TODO: complete this component... actually is only a simplified version for tests inside form...
 export class KupSearch {
-    private modal: HTMLKupModalElement;
+    //--------------------------------------------------------------------------
+    // PROPS
+    // -------------------------------------------------------------------------
 
     @Prop() extra: any;
 
@@ -43,6 +45,17 @@ export class KupSearch {
      */
     @Prop() serverHandledFilter: boolean = false;
 
+    /**    
+    /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered. 
+     */
+    @Prop() searchCallBackOnFilterSubmitted: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined = undefined;
+
+    //--------------------------------------------------------------------------
+    // EVENTS
+    // -------------------------------------------------------------------------
+
     @Event({
         eventName: 'kupSearchSelectionUpdated',
         composed: true,
@@ -62,18 +75,17 @@ export class KupSearch {
     })
     kupSearchFilterSubmitted: EventEmitter<SearchFilterSubmittedEventDetail>;
 
-    /**    
-    /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered. 
-     */
-    @Prop() searchCallBackOnFilterSubmitted: (
-        detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined = undefined;
+    //--------------------------------------------------------------------------
+    // INTERNAL
+    // -------------------------------------------------------------------------
 
     @State() value: string = '';
 
-    /*****************************************************************/
-    /** ON SOMETHING                                                **/
-    /*****************************************************************/
+    private modal: HTMLKupModalElement;
+
+    //--------------------------------------------------------------------------
+    // ON SOMETHING
+    // -------------------------------------------------------------------------
 
     componentWillLoad() {
         this.onInitialValueChanged();
@@ -143,9 +155,9 @@ export class KupSearch {
         }
     }
 
-    /*****************************************************************/
-    /** RENDERING                                                   **/
-    /*****************************************************************/
+    //--------------------------------------------------------------------------
+    // RENDERING
+    // -------------------------------------------------------------------------
 
     render() {
         return (
@@ -159,7 +171,7 @@ export class KupSearch {
                 ></kup-text-input>
                 <kup-button
                     showicon={true}
-                    iconClass="mdi mdi-pencil"
+                    iconClass="mdi mdi-magnify"
                     onClick={(e) => this.onSearchClicked(e)}
                 ></kup-button>
                 <kup-modal
@@ -176,7 +188,7 @@ export class KupSearch {
                             ></kup-text-input>
                             <kup-button
                                 showicon={true}
-                                iconClass="mdi mdi-pencil"
+                                iconClass="mdi mdi-magnify"
                                 onClick={(e) => this.onSearchDialogClicked(e)}
                             ></kup-button>
                         </div>

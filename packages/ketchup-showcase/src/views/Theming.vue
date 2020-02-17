@@ -39,7 +39,7 @@
           This list contains all the CSS variables currently available for
           customization.
         </p>
-        <div id="sample-wrapper">
+        <div id="sample-wrapper" class="theming">
           <div id="sample-comp" class="full">
             <table class="instruction-table">
               <thead>
@@ -65,7 +65,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="edit"
+                      fullwidth
                       id="display-mode"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -87,7 +87,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="edit"
+                      fullwidth
                       id="font-family"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -108,7 +108,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="edit"
+                      fullwidth
                       id="font-size"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -125,7 +125,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -142,7 +142,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="header-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -159,7 +159,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="drawer-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -179,7 +179,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -199,7 +199,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="text-on-main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -216,7 +216,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -236,7 +236,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="icon-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -253,7 +253,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="hover-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -274,7 +274,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="hover-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -291,7 +291,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="border-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -308,7 +308,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="disabled-text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -329,7 +329,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="disabled-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -346,7 +346,7 @@
                   <td class="text-cell">
                     <wup-text-field
                       fullheight
-                      icon="brush"
+                      fullwidth
                       id="field-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -371,7 +371,6 @@ export default {
     updateCSS(e) {
       var DOMEl = document.documentElement;
       var varCSS = '--kup-' + e.target.id;
-      console.log(e);
       DOMEl.style.setProperty(varCSS, e.detail.value);
     },
   },

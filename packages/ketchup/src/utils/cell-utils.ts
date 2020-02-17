@@ -180,6 +180,11 @@ export function isConfigurator(cell: Cell, boxObject: BoxObject) {
     return 'CFG' === shape;
 }
 
+export function isMultipleConfigurator(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CFM' === shape;
+}
+
 // -------------
 // INPUT TEXT
 // -------------

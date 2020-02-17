@@ -480,7 +480,6 @@ table.instruction-table td.text-cell {
 table.instruction-table td,
 table.instruction-table th {
   padding: 6px 13px;
-  border: 1px solid #dfe2e5;
 }
 
 table.instruction-table td.switch-cell {
@@ -494,10 +493,26 @@ table.instruction-table th {
 #sample-wrapper {
   width: 100%;
   height: 50vh;
-  margin: 5rem 0;
+  margin: 3rem 0 5rem 0;
   position: relative;
   display: flex;
   box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+  overflow: hidden;
+}
+
+#sample-wrapper.full {
+  width: 90vw;
+  background: var(--kup-background-color);
+  height: 90vh;
+  margin: 5vh 5vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+#sample-wrapper.theming {
+  overflow: auto;
 }
 
 #sample-wrapper.detached {
@@ -505,10 +520,21 @@ table.instruction-table th {
   display: block;
 }
 
+#sample-wrapper.detached.full {
+  height: 90vh;
+}
+
 #sample-wrapper.detached #sample-specs {
   height: 40vh;
   width: 100%;
   display: block;
+}
+
+#sample-wrapper.detached.full #sample-specs,
+#sample-wrapper.detached.full #sample-comp,
+#sample-wrapper.detached.full #sample-specs.closed {
+  height: 45vh;
+  width: 100%;
 }
 
 #sample-wrapper.detached #sample-comp {
@@ -553,7 +579,33 @@ table.instruction-table th {
 #copy-html {
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
+}
+
+#json-setter,
+#json-setter-opener {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
+}
+
+#json-setter {
+  top: 10px;
+  left: 10px;
+}
+
+#json-setter-opener {
+  bottom: 10px;
+  right: 10px;
+}
+
+#json-setter.shown,
+#json-setter-opener.shown {
+  display: block;
 }
 
 #sample-comp {
@@ -561,25 +613,49 @@ table.instruction-table th {
   display: inline-flex;
   height: 100%;
   position: relative;
-  overflow: auto;
   transition: width 0.25s;
+  padding-bottom: 50px;
 }
 
-#sample-comp.bigger {
-  width: 80%;
-}
-
+#sample-wrapper.full #sample-comp.full,
 #sample-comp.full {
   width: 100%;
 }
 
-#sample-comp-wrapper {
-  width: fit-content;
-  margin: auto;
-  padding-bottom: 50px;
+#sample-wrapper #sample-modal {
+  display: none;
+  position: fixed;
+  background-color: black;
+  z-index: 90;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+  -webkit-animation: fadeInFromNone 0.25s ease-out;
+  -moz-animation: fadeInFromNone 0.25s ease-out;
+  -o-animation: fadeInFromNone 0.25s ease-out;
+  animation: fadeInFromNone 0.25s ease-out;
 }
 
-#sample-wrapper.detached #sample-comp-wrapper {
+#sample-wrapper.full #sample-modal {
+  display: block;
+}
+
+#sample-wrapper.full #sample-specs,
+#sample-wrapper.full #sample-comp {
+  width: 50%;
+  background-color: var(--kup-background-color);
+  z-index: 91;
+}
+
+#sample-comp-wrapper {
+  /* overflow: auto; */
+  width: fit-content;
+  margin: auto;
+}
+
+#sample-wrapper.detached #sample-comp {
   padding-top: 50px;
   padding-bottom: 0;
 }
@@ -591,10 +667,7 @@ table.instruction-table th {
   transition: width 0.25s;
 }
 
-#sample-specs.smaller {
-  width: 20%;
-}
-
+#sample-wrapper.full #sample-specs.closed,
 #sample-specs.closed {
   width: 0;
 }
@@ -621,8 +694,37 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
+#json-tab.padded {
+  padding-top: 75px;
+}
+
+.sample-section .CodeMirror {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  color: var(--kup-text-color);
+  background: var(--kup-background-color);
+}
+
+.sample-section .CodeMirror-linenumber.CodeMirror-gutter-elt {
+  background: var(--kup-disabled-background-color);
+  color: var(--kup-disabled-color);
+}
+
+.sample-section .cm-s-default .cm-string,
+.sample-section .cm-s-default .cm-atom {
+  color: var(--kup-main-color);
+  font-weight: bold;
+}
+
+.sample-section .CodeMirror-gutters {
+  border-right: 1px solid var(--kup-disabled-background-color);
+  background-color: var(--kup-disabled-background-color);
+}
+
 @media screen and (max-width: 767px) {
-  #view-swapper {
+  #view-swapper,
+  #menu-trigger {
     display: none;
   }
 

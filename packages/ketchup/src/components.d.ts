@@ -60,16 +60,17 @@ import {
 import {
   CrudCallBackOnFormEventResult,
   CrudConfig,
+  CrudRecord,
   CrudRecordsChanged,
 } from './components/kup-crud/kup-crud-declarations';
 import {
   FormActionEventDetail,
   FormActions,
+  FormCells,
   FormConfig,
   FormFieldEventDetail,
   FormFields,
   FormMessage,
-  FormRecord,
   FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
@@ -441,9 +442,6 @@ export namespace Components {
     'autocompleteCallBackOnFilterUpdate': (
     detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined;
-    /**
-    * ************************************************************** PUBLIC METHODS                                              * **************************************************************
-    */
     'closeForm': () => Promise<void>;
     'config': CrudConfig;
     'crudCallBackOnFormActionSubmitted': (
@@ -457,8 +455,7 @@ export namespace Components {
     'extraMessages': FormMessage[];
     'fields': FormFields;
     'openForm': () => Promise<void>;
-    'record': FormRecord;
-    'records': FormRecord[];
+    'records': CrudRecord[];
     'refid': string;
     'searchCallBackOnFilterSubmitted': (
     detail: SearchFilterSubmittedEventDetail
@@ -550,6 +547,7 @@ export namespace Components {
     'autocompleteCallBackOnFilterUpdate': (
     detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined;
+    'cells': FormCells;
     'config': FormConfig;
     'crudCallBackOnFormActionSubmitted': (
     detail: FormActionEventDetail
@@ -560,7 +558,8 @@ export namespace Components {
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
-    'record': FormRecord;
+    'getActualCells': () => Promise<FormCells>;
+    'getOldCells': () => Promise<FormCells>;
     'refid': string;
     'searchCallBackOnFilterSubmitted': (
     detail: SearchFilterSubmittedEventDetail
@@ -2008,8 +2007,7 @@ declare namespace LocalJSX {
     'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
-    'record'?: FormRecord;
-    'records'?: FormRecord[];
+    'records'?: CrudRecord[];
     'refid'?: string;
     'searchCallBackOnFilterSubmitted'?: (
     detail: SearchFilterSubmittedEventDetail
@@ -2157,6 +2155,7 @@ declare namespace LocalJSX {
     'autocompleteCallBackOnFilterUpdate'?: (
     detail: KupAutocompleteFilterUpdatePayload
     ) => Promise<KupAutocompleteOption[]> | undefined;
+    'cells'?: FormCells;
     'config'?: FormConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail
@@ -2171,7 +2170,6 @@ declare namespace LocalJSX {
     'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'record'?: FormRecord;
     'refid'?: string;
     'searchCallBackOnFilterSubmitted'?: (
     detail: SearchFilterSubmittedEventDetail
@@ -3038,6 +3036,9 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
     'onKupTextFieldFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldIconClick'?: (event: CustomEvent<{
       value: string;
     }>) => void;
     'onKupTextFieldInput'?: (event: CustomEvent<{

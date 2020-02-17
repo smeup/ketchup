@@ -1,0 +1,7 @@
+{
+  "config": {
+    "debugMode": true,
+    "multiple": false,
+    "liveCheck": true
+  }
+}

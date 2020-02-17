@@ -12,6 +12,7 @@
       height: 100%;
       & .mdc-text-field {
         height: 100%;
+        overflow-y: hidden;
         &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
           height: 100%;
         }
@@ -56,6 +57,20 @@
         }
       }
 
+      &.mdc-text-field--fullwidth .mdc-text-field__input {
+        padding: 0 10px;
+      }
+
+      &.mdc-text-field--fullwidth.mdc-text-field--with-leading-icon
+        .mdc-text-field__input {
+        padding-left: 50px;
+      }
+
+      &.mdc-text-field--fullwidth.mdc-text-field--with-trailing-icon
+        .mdc-text-field__input {
+        padding-right: 50px;
+      }
+
       &.shaped {
         border-radius: 16px 16px 0 0;
       }
@@ -72,6 +87,10 @@
         .mdc-notched-outline__trailing {
         border-radius: 0 28px 28px 0;
         width: 28px;
+      }
+
+      & .mdc-notched-outline {
+        opacity: 1;
       }
 
       & label,

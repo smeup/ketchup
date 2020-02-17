@@ -33,7 +33,7 @@ export class KupChart {
     @Prop()
     types: ChartType[] = [ChartType.Hbar];
 
-    @Prop()
+    @Prop({ reflect: true })
     axis: string;
 
     @Prop()
@@ -45,28 +45,28 @@ export class KupChart {
     @Prop()
     colors: string[] = [];
 
-    @Prop()
+    @Prop({ reflect: true })
     width: number;
 
-    @Prop()
+    @Prop({ reflect: true })
     height: number;
 
-    @Prop()
+    @Prop({ reflect: true })
     legend = true;
 
-    @Prop()
+    @Prop({ reflect: true })
     stacked = false;
 
-    @Prop()
+    @Prop({ reflect: true })
     graphTitle: string;
 
-    @Prop()
+    @Prop({ reflect: true })
     graphTitleColor: string;
 
-    @Prop()
+    @Prop({ reflect: true })
     graphTitleSize: number;
 
-    @Prop()
+    @Prop({ reflect: true })
     showMarks = false;
 
     @Prop()
