@@ -189,7 +189,7 @@
         .column-title {
           // Mandatory to allow ellipsis of the the column title when column size is really small.
           display: inline-block; // Mandatory to allow width related props to take effect
-          max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
+          //  max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
           overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: bottom;
