@@ -22,43 +22,43 @@ export class WupButton {
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with a colored outline.
      */
-    @Prop() transparent: boolean = false;
+    @Prop({ reflect: true }) transparent: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered flat.
      */
-    @Prop() flat: boolean = false;
+    @Prop({ reflect: true }) flat: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
-    @Prop() rounded: boolean = false;
+    @Prop({ reflect: true }) rounded: boolean = false;
     /**
      * Defaults at false. When set to true, the icon button will be toggable on/off.
      */
-    @Prop() toggable: boolean = false;
+    @Prop({ reflect: true }) toggable: boolean = false;
     /**
      * Defaults at false. When set to true, the icon button state will be on.
      */
-    @Prop() checked: boolean = false;
+    @Prop({ reflect: true }) checked: boolean = false;
     /**
      * Defaults at null. When set, the button will show this icon.
      */
-    @Prop() icon: string = null;
+    @Prop({ reflect: true }) icon: string = null;
     /**
      * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
      */
-    @Prop() iconoff: string = null;
+    @Prop({ reflect: true }) iconoff: string = null;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop() trailingicon: boolean = false;
+    @Prop({ reflect: true }) trailingicon: boolean = false;
     /**
      * Defaults at null. When set, the button will show this text.
      */
-    @Prop() label: string = null;
+    @Prop({ reflect: true }) label: string = null;
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -167,7 +167,7 @@ export class WupButton {
         }
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {

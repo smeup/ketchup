@@ -119,7 +119,7 @@ export class WupTabBar {
 
     //---- Lifecycle hooks ----
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {

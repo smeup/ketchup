@@ -6,7 +6,8 @@
         href="https://developers.google.com/chart/"
         target="_blank"
         rel="noopener"
-      >Google Charts</a>
+        >Google Charts</a
+      >
       library.
     </p>
 
@@ -79,7 +80,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onHAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onHAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -94,7 +99,11 @@
         </div>
         <div>
           <label for="grid-count">Grid count</label>
-          <input id="grid-count" type="number" @change="onVAxisGridCountChange" />
+          <input
+            id="grid-count"
+            type="number"
+            @change="onVAxisGridCountChange"
+          />
         </div>
       </div>
     </div>
@@ -102,7 +111,7 @@
     <br />
 
     <kup-chart
-      id="chart"
+      id="playground-component"
       :data.prop="chartData"
       :types.prop="types"
       :axis.prop="'Col1'"

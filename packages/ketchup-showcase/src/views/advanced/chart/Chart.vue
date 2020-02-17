@@ -1,51 +1,55 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <chart-basic></chart-basic>
+      <chart-demo></chart-demo>
     </template>
     <template v-slot:1>
-      <chart-area></chart-area>
+      <chart-basic></chart-basic>
     </template>
     <template v-slot:2>
-      <chart-bar></chart-bar>
+      <chart-area></chart-area>
     </template>
     <template v-slot:3>
-      <chart-bubble></chart-bubble>
+      <chart-bar></chart-bar>
     </template>
     <template v-slot:4>
-      <chart-calendar></chart-calendar>
+      <chart-bubble></chart-bubble>
     </template>
     <template v-slot:5>
-      <chart-candlestick></chart-candlestick>
+      <chart-calendar></chart-calendar>
     </template>
     <template v-slot:6>
-      <chart-column></chart-column>
+      <chart-candlestick></chart-candlestick>
     </template>
     <template v-slot:7>
-      <chart-combo></chart-combo>
+      <chart-column></chart-column>
     </template>
     <template v-slot:8>
-      <chart-events></chart-events>
+      <chart-combo></chart-combo>
     </template>
     <template v-slot:9>
-      <chart-geo></chart-geo>
+      <chart-events></chart-events>
     </template>
     <template v-slot:10>
-      <chart-line></chart-line>
+      <chart-geo></chart-geo>
     </template>
     <template v-slot:11>
-      <chart-pie></chart-pie>
+      <chart-line></chart-line>
     </template>
     <template v-slot:12>
-      <chart-sankey></chart-sankey>
+      <chart-pie></chart-pie>
     </template>
     <template v-slot:13>
+      <chart-sankey></chart-sankey>
+    </template>
+    <template v-slot:14>
       <chart-scatter></chart-scatter>
     </template>
   </comp>
 </template>
 
 <script>
+import ChartDemo from '@/views/advanced/chart/examples/ChartDemo';
 import ChartArea from '@/views/advanced/chart/examples/ChartArea';
 import ChartBar from '@/views/advanced/chart/examples/ChartBar';
 import ChartBubble from '@/views/advanced/chart/examples/ChartBubble';
@@ -64,6 +68,7 @@ import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
+    ChartDemo,
     ChartBasic,
     ChartArea,
     ChartBar,
@@ -86,6 +91,7 @@ export default {
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-chart',
       headtitle: 'Chart',
       titles: [
+        'Playground',
         'Basic usage',
         'Area',
         'Bar',

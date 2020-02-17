@@ -307,6 +307,7 @@
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" custom label="I am a label"></wup-text-field>
+        <wup-text-field icon="favorite" id="event-textfield-icon" custom label="Icon test"></wup-text-field>
         <wup-checkbox id="event-checkbox"></wup-checkbox>
         <wup-button id="event-button" toggable icon="favorite"></wup-button>
         <wup-radio id="event-radio"></wup-radio>
@@ -432,6 +433,7 @@
 
             let eTabbar = document.getElementById('event-tabbar');
             let eTextfield = document.getElementById('event-textfield');
+            let eTextfieldIcon = document.getElementById('event-textfield-icon');
             let eCheckbox = document.getElementById('event-checkbox');
             let eButton = document.getElementById('event-button');
             let eRadio = document.getElementById('event-radio');
@@ -466,6 +468,10 @@
                     });
                     eTextfield.addEventListener('kupTextFieldInput', (e) => {
                         console.log('event-textfield has been INPUTTED, KEK', e);
+                    });
+                    
+                    eTextfieldIcon.addEventListener('kupTextFieldIconClick', (e) => {
+                        console.log('event-textfield-icon has been CLICKED', e);
                     });
 
                     eCheckbox.addEventListener('kupCheckboxBlur', (e) => {

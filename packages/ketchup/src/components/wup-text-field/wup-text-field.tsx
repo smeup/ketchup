@@ -26,63 +26,63 @@ export class WupTextField {
     /**
      * Sets the initial value of the component
      */
-    @Prop() initialvalue: string = '';
+    @Prop({ reflect: true }) initialvalue: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
-    @Prop() fullwidth: boolean = false;
+    @Prop({ reflect: true }) fullwidth: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered at full height.
      */
-    @Prop() fullheight: boolean = false;
+    @Prop({ reflect: true }) fullheight: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
-    @Prop() textarea: boolean = false;
+    @Prop({ reflect: true }) textarea: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
-    @Prop() outlined: boolean = false;
+    @Prop({ reflect: true }) outlined: boolean = false;
     /**
      * Defaults at null. When set, its content will be shown as a label.
      */
-    @Prop() label: string = null;
+    @Prop({ reflect: true }) label: string = null;
     /**
      * Defaults at null. When set, its content will be shown as a label to the left in a form.
      */
-    @Prop() labelleft: string = null;
+    @Prop({ reflect: true }) labelleft: string = null;
     /**
      * Defaults at null. When set, its content will be shown as a label to the right in a form.
      */
-    @Prop() labelright: string = null;
+    @Prop({ reflect: true }) labelright: string = null;
     /**
      * Defaults at null. When set, its content will be shown as a help text below the field.
      */
-    @Prop() helper: string = null;
+    @Prop({ reflect: true }) helper: string = null;
     /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
-    @Prop() rounded: boolean = false;
+    @Prop({ reflect: true }) rounded: boolean = false;
     /**
      * Defaults at false. When set, the helper will be shown only when the field is focused.
      */
-    @Prop() helperwhenfocus: boolean = false;
+    @Prop({ reflect: true }) helperwhenfocus: boolean = false;
     /**
      * Defaults at null. When set, the helper will display a character counter.
      */
-    @Prop() maxlength: number = null;
+    @Prop({ reflect: true }) maxlength: number = null;
     /**
      * Defaults at null. When set, the text-field will show this icon.
      */
-    @Prop() icon: string = null;
+    @Prop({ reflect: true }) icon: string = null;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop() trailingicon: boolean = false;
+    @Prop({ reflect: true }) trailingicon: boolean = false;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -134,6 +134,16 @@ export class WupTextField {
         value: string;
     }>;
 
+    @Event({
+        eventName: 'kupTextFieldIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<{
+        value: string;
+    }>;
+
     //---- Methods ----
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -171,6 +181,13 @@ export class WupTextField {
         });
     }
 
+    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupIconClick.emit({
+            value: target.value,
+        });
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -182,7 +199,7 @@ export class WupTextField {
         this.value = this.initialvalue;
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
@@ -258,6 +275,7 @@ export class WupTextField {
                     class="material-icons mdc-text-field__icon"
                     tabindex="0"
                     role="button"
+                    onClick={(e: any) => this.onKupIconClick(e)}
                 >
                     {this.icon}
                 </i>
