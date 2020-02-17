@@ -12,7 +12,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-tab-bar :items.prop="items"></wup-tab-bar>
+          <wup-tab-bar :data.prop="data"></wup-tab-bar>
         </div>
         <p class="centered">Icons sample object</p>
         <code class="flat">{{ markupObject }}</code>
@@ -26,25 +26,25 @@ export default {
   name: 'TabbarStyling',
   data() {
     return {
-      items: [
+      data: [
         {
           text: 'Favorites',
           icon: 'favorites',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Settings',
           icon: 'build',
-          status: '',
+          active: false,
         },
         {
           text: 'Iconless',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       markupObject:
-        "{ text: 'Favorites', icon: 'favorites', status: 'Active' }, { text: 'Settings', icon: 'build', status: ''}",
+        "{ text: 'Favorites', icon: 'favorites', active: true }, { text: 'Settings', icon: 'build', active: false}",
     };
   },
 };

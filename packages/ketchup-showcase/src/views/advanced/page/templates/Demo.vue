@@ -4,7 +4,7 @@
     <div id="sample-specs">
       <wup-tab-bar
         @kupTabBarClick="tabSelection"
-        :items.prop="demoTabs"
+        :data.prop="demoTabs"
       ></wup-tab-bar>
       <div id="sample-specs-container">
         <table
@@ -44,15 +44,15 @@
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <wup-text-field
-                  fullwidth
+                  full-width
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
                 ></wup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
                 <wup-text-field
-                  fullwidth
-                  trailingicon
+                  full-width
+                  trailingIcon
                   icon="add"
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
@@ -107,8 +107,8 @@
             helper="i.e.: data"
             id="json-setter"
             icon="close"
-            trailingicon
-            helperwhenfocus
+            trailingIcon
+            helperWhenFocused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
           ></wup-text-field>
@@ -130,7 +130,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="last_page"
-          iconoff="menu_open"
+          iconOff="menu_open"
           title="Open/close side panel"
         ></wup-button>
         <wup-button
@@ -139,7 +139,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="fullscreen_exit"
-          iconoff="fullscreen"
+          iconOff="fullscreen"
           title="Toggle/disable full screen"
         ></wup-button>
         <wup-button
@@ -148,7 +148,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
           icon="view_agenda"
-          iconoff="flip"
+          iconOff="flip"
           title="Split/detach view"
         ></wup-button>
       </div>
@@ -196,7 +196,7 @@ export default {
               document
                 .querySelector('#' + this.demoProps[i].prop)
                 .setAttribute(
-                  'initialvalue',
+                  'initial-value',
                   demoComponent[this.demoProps[i].prop]
                 );
             }
@@ -333,7 +333,7 @@ export default {
         '"></wup-button>';
       demoComponent[propName] = arrayList;
       e.target.insertAdjacentHTML('beforebegin', newEntry);
-      e.target.initialvalue = '';
+      e.target.initialValue = '';
       e.target.value = '';
       document
         .querySelector('#' + newEntryId)

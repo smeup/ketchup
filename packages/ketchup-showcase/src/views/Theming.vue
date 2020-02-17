@@ -17,11 +17,8 @@
           This is caused by the CSS property
           <span class="code-word">display: block</span>, to which they default.
           Try setting them all inline, by changing the value of the variable
-          <span
-            class="code-word"
-          >--kup-display-mode</span> in the table below
-          to
-          <span class="code-word">inline-block</span>.
+          <span class="code-word">--kup-display-mode</span> in the table below
+          to <span class="code-word">inline-block</span>.
         </p>
         <div class="demo-container">
           <div class="kup-container" style="display: unset;">
@@ -56,16 +53,16 @@
                     <span class="code-word">--kup-display-mode</span>
                   </td>
                   <td>
-                    Sets the display property of the components, useful to switch
-                    between inline/block.
+                    Sets the display property of the components, useful to
+                    switch between inline/block.
                   </td>
                   <td class="prevent-cr">
                     <span class="code-word">display</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="display-mode"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -77,17 +74,17 @@
                   </td>
                   <td>
                     Sets a different font family, overriding the default Roboto
-                    provided by Material Design. To set a custom font not natively
-                    supported by the browser, you must import manually its font
-                    face.
+                    provided by Material Design. To set a custom font not
+                    natively supported by the browser, you must import manually
+                    its font face.
                   </td>
                   <td class="prevent-cr">
                     <span class="code-word">font</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="font-family"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -99,16 +96,16 @@
                   </td>
                   <td>
                     Sets a different font size, a sensible range is between 12px
-                    and 18px. It's possible to break this boundary but some strange
-                    behaviors might occur.
+                    and 18px. It's possible to break this boundary but some
+                    strange behaviors might occur.
                   </td>
                   <td class="prevent-cr">
                     <span class="code-word">size</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="font-size"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -124,8 +121,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -141,8 +138,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="header-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -158,8 +155,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="drawer-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -178,8 +175,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -190,16 +187,16 @@
                     <span class="code-word">--kup-text-on-main-color</span>
                   </td>
                   <td>
-                    Sets the color of text displayed above the main color, keep in
-                    mind accessibility when setting this!
+                    Sets the color of text displayed above the main color, keep
+                    in mind accessibility when setting this!
                   </td>
                   <td class="prevent-cr">
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="text-on-main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -215,8 +212,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -227,16 +224,16 @@
                     <span class="code-word">--kup-icon-color</span>
                   </td>
                   <td>
-                    Sets the color of icons, for example leading and trailing icons
-                    in text fields.
+                    Sets the color of icons, for example leading and trailing
+                    icons in text fields.
                   </td>
                   <td class="prevent-cr">
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="icon-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -252,8 +249,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="hover-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -273,8 +270,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="hover-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -284,14 +281,16 @@
                   <td class="prevent-cr">
                     <span class="code-word">--kup-border-color</span>
                   </td>
-                  <td>Sets the color of borders, such as checkboxes borders.</td>
+                  <td
+                    >Sets the color of borders, such as checkboxes borders.</td
+                  >
                   <td class="prevent-cr">
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="border-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -307,8 +306,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="disabled-text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -316,7 +315,9 @@
                 </tr>
                 <tr>
                   <td class="prevent-cr">
-                    <span class="code-word">--kup-disabled-background-color</span>
+                    <span class="code-word"
+                      >--kup-disabled-background-color</span
+                    >
                   </td>
                   <td>
                     Sets the background color of disabled text, keep in mind
@@ -328,8 +329,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="disabled-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -345,8 +346,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullheight
-                      fullwidth
+                      full-height
+                      full-width
                       id="field-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>

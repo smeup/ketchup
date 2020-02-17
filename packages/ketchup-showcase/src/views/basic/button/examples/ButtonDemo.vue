@@ -23,29 +23,29 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       demoComp:
         '<wup-button icon="sentiment_satisfied_alt" id="demo-component" label="demo"></wup-button>',
       demoProps: [
         {
-          prop: 'label',
+          prop: 'checked',
           description:
-            "The button's text. If no value is specified, the button will render as an icon button, in this variant specifying an icon is mandatory.",
-          type: 'string',
-          default: 'null',
-          try: 'field',
+            'Icon button variant only. The toggable icon button state will be initialized to ON.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'disabled',
@@ -56,22 +56,8 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'transparent',
-          description: 'The button will be rendered with an outlined style.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'flat',
           description: 'The button will be rendered as flat text.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'rounded',
-          description: "The button's borders will be shaped.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -85,9 +71,31 @@ export default {
           try: 'field',
         },
         {
-          prop: 'trailingicon',
+          prop: 'iconOff',
           description:
-            'The button will display its associated icon after the text.',
+            'Toggable icon button variant only. By default, the off state will be displayed as an outlined version of the icon prop. By setting this prop with a Material Design icon, the off state will show this icon instead.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'label',
+          description:
+            "The button's text. If no value is specified, the button will render as an icon button, in this variant specifying an icon is mandatory.",
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'outlined',
+          description: 'The button will be rendered with an outlined style.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'shaped',
+          description: "The button's borders will be more rounded.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -101,34 +109,18 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'checked',
+          prop: 'trailingIcon',
           description:
-            'Icon button variant only. The toggable icon button state will be initialized to ON.',
+            'The button will display its associated icon after the text.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'iconoff',
-          description:
-            'Toggable icon button variant only. By default, the off state will be displayed as an outlined version of the icon prop. By setting this prop with a Material Design icon, the off state will show this icon instead.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
         },
       ],
       demoEvents: [
         {
           name: 'kupButtonClick',
           type: 'click',
-        },
-        {
-          name: 'kupButtonChange',
-          type: 'change',
-        },
-        {
-          name: 'kupButtonInput',
-          type: 'input',
         },
         {
           name: 'kupButtonFocus',

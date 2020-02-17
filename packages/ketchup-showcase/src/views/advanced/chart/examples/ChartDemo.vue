@@ -25,22 +25,22 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'JSON',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       demoComp: '<kup-chart legend id="demo-component"></kup-chart>',

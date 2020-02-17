@@ -17,11 +17,11 @@
 
     <div class="demo-wrapper">
       <p>
-        To trigger the different states of the component you need to specify
-        either the
+        To trigger the different states of the component you need to use the
         <span class="code-word">checked</span> or
-        <span class="code-word">indeterminate</span> attributes. When none of
-        them is specified, the checkbox defaults to unmarked.
+        <span class="code-word">indeterminate</span> props, which are mutually
+        exclusive. When none of them is set to true, the checkbox defaults to an
+        unchecked status.
       </p>
       <div class="demo-container">
         <div class="kup-container">

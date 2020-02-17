@@ -26,7 +26,7 @@ export class WupTextField {
     /**
      * Sets the initial value of the component
      */
-    @Prop({ reflect: true }) initialvalue: string = '';
+    @Prop({ reflect: true }) initialValue: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -34,15 +34,15 @@ export class WupTextField {
     /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
-    @Prop({ reflect: true }) fullwidth: boolean = false;
+    @Prop({ reflect: true }) fullWidth: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered at full height.
      */
-    @Prop({ reflect: true }) fullheight: boolean = false;
+    @Prop({ reflect: true }) fullHeight: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
-    @Prop({ reflect: true }) textarea: boolean = false;
+    @Prop({ reflect: true }) textArea: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
@@ -52,29 +52,29 @@ export class WupTextField {
      */
     @Prop({ reflect: true }) label: string = null;
     /**
-     * Defaults at null. When set, its content will be shown as a label to the left in a form.
+     * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) labelleft: string = null;
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
     /**
-     * Defaults at null. When set, its content will be shown as a label to the right in a form.
+     * Defaults at false. When set to true, the label will be on the right of the component.
      */
-    @Prop({ reflect: true }) labelright: string = null;
+    @Prop({ reflect: true }) trailingLabel: boolean = false;
     /**
      * Defaults at null. When set, its content will be shown as a help text below the field.
      */
     @Prop({ reflect: true }) helper: string = null;
     /**
-     * Defaults at false. When set to true, the button will be rendered with rounded edges.
+     * Defaults at false. When set to true, the button will be rendered with shaped edges.
      */
-    @Prop({ reflect: true }) rounded: boolean = false;
+    @Prop({ reflect: true }) shaped: boolean = false;
     /**
      * Defaults at false. When set, the helper will be shown only when the field is focused.
      */
-    @Prop({ reflect: true }) helperwhenfocus: boolean = false;
+    @Prop({ reflect: true }) helperWhenFocused: boolean = false;
     /**
      * Defaults at null. When set, the helper will display a character counter.
      */
-    @Prop({ reflect: true }) maxlength: number = null;
+    @Prop({ reflect: true }) maxLength: number = null;
     /**
      * Defaults at null. When set, the text-field will show this icon.
      */
@@ -82,7 +82,7 @@ export class WupTextField {
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop({ reflect: true }) trailingicon: boolean = false;
+    @Prop({ reflect: true }) trailingIcon: boolean = false;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -194,9 +194,9 @@ export class WupTextField {
         this.onInitialValueChanged();
     }
 
-    @Watch('initialvalue')
+    @Watch('initialValue')
     onInitialValueChanged() {
-        this.value = this.initialvalue;
+        this.value = this.initialValue;
     }
 
     componentDidRender() {
@@ -241,11 +241,6 @@ export class WupTextField {
         let widgetEl: HTMLElement = null;
         let placeholderLabel: string = null;
 
-        //If there is a form, "label" attribute doesn't make sense and it should be empty, so we override its content with null
-        if (this.labelleft || this.labelright) {
-            this.label = null;
-        }
-
         if (!this.label) {
             componentClass += ' mdc-text-field--no-label';
         }
@@ -254,14 +249,14 @@ export class WupTextField {
             componentClass += ' mdc-text-field--disabled';
         }
 
-        if (this.rounded) {
+        if (this.shaped) {
             componentClass += ' shaped';
         }
 
-        if (this.fullwidth) {
+        if (this.fullWidth) {
             componentClass += ' mdc-text-field--fullwidth';
             placeholderLabel = this.label;
-        } else if (this.label) {
+        } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
             labelEl = (
                 <label class="mdc-floating-label" htmlFor="wup-input">
                     {this.label}
@@ -280,7 +275,7 @@ export class WupTextField {
                     {this.icon}
                 </i>
             );
-            if (this.trailingicon) {
+            if (this.trailingIcon) {
                 componentClass += ' mdc-text-field--with-trailing-icon';
             } else {
                 componentClass += ' mdc-text-field--with-leading-icon';
@@ -290,12 +285,12 @@ export class WupTextField {
         if (this.helper) {
             let helperClass: string = 'mdc-text-field-helper-text';
 
-            if (!this.helperwhenfocus) {
+            if (!this.helperWhenFocused) {
                 helperClass += ' mdc-text-field-helper-text--persistent';
             }
 
-            if (this.maxlength && !this.textarea) {
-                let charString = '0 / ' + this.maxlength;
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -310,8 +305,8 @@ export class WupTextField {
                 </div>
             );
         } else {
-            if (this.maxlength && !this.textarea) {
-                let charString = '0 / ' + this.maxlength;
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -323,7 +318,7 @@ export class WupTextField {
             }
         }
 
-        if (this.textarea || this.outlined) {
+        if (this.textArea || this.outlined) {
             widgetEl = this.outlinedStyling(
                 componentClass,
                 labelEl,
@@ -339,7 +334,7 @@ export class WupTextField {
             );
         }
 
-        if (this.labelleft || this.labelright) {
+        if (this.leadingLabel || this.trailingLabel) {
             widgetEl = this.renderForm(widgetEl, helperEl);
         } else {
             widgetEl = this.renderTextField(widgetEl, helperEl);
@@ -360,17 +355,17 @@ export class WupTextField {
         componentClass += '  mdc-text-field--outlined';
 
         if (this.icon) {
-            if (this.trailingicon) {
+            if (this.trailingIcon) {
                 trailingIconEl = iconEl;
             } else {
                 leadingIconEl = iconEl;
             }
         }
 
-        if (this.textarea) {
+        if (this.textArea) {
             componentClass += ' mdc-text-field--textarea';
-            if (this.maxlength) {
-                let charString = '0 / ' + this.maxlength;
+            if (this.maxLength) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -382,7 +377,7 @@ export class WupTextField {
                     id="wup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
                     onBlur={(e: any) => this.onKupBlur(e)}
                     onChange={(e: any) => this.onKupChange(e)}
@@ -399,7 +394,7 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     placeholder={placeholderLabel}
                     disabled={this.disabled}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
                     onBlur={(e: any) => this.onKupBlur(e)}
                     onChange={(e: any) => this.onKupChange(e)}
@@ -435,7 +430,7 @@ export class WupTextField {
         let trailingIconEl: HTMLElement = null;
 
         if (this.icon) {
-            if (this.trailingicon) {
+            if (this.trailingIcon) {
                 trailingIconEl = iconEl;
             } else {
                 leadingIconEl = iconEl;
@@ -451,7 +446,7 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
                     onBlur={(e: any) => this.onKupBlur(e)}
                     onChange={(e: any) => this.onKupChange(e)}
@@ -468,17 +463,13 @@ export class WupTextField {
 
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
-        let labelEl: HTMLElement = null;
         let wrapperClass: string = '';
 
-        if (this.fullheight) {
-            wrapperClass += ' fullheight';
+        if (this.fullHeight) {
+            wrapperClass += ' full-height';
         }
 
-        if (this.labelright) {
-            labelEl = <label htmlFor="wup-input">{this.labelright}</label>;
-        } else {
-            labelEl = <label htmlFor="wup-input">{this.labelleft}</label>;
+        if (this.leadingLabel) {
             formClass += ' mdc-form-field--align-end';
         }
 
@@ -488,7 +479,7 @@ export class WupTextField {
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
-                        {labelEl}
+                        <label htmlFor="wup-input">{this.label}</label>
                     </div>
                 </div>
             </Host>
@@ -498,8 +489,8 @@ export class WupTextField {
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let wrapperClass: string = '';
 
-        if (this.fullheight) {
-            wrapperClass += ' fullheight';
+        if (this.fullHeight) {
+            wrapperClass += ' full-height';
         }
         return (
             <Host>

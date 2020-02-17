@@ -23,17 +23,17 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       demoComp: '<wup-switch id="demo-component"></wup-switch>',
@@ -54,20 +54,19 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'labelleft',
-          description:
-            'Displays the value of this prop on the left of the component as a label. Attribute labelleft must be null.',
+          prop: 'label',
+          description: 'Displays a label.',
           type: 'string',
           default: 'null',
           try: 'field',
         },
         {
-          prop: 'labelright',
+          prop: 'leadingLabel',
           description:
-            'Displays the value of this prop on the right of the component as a label. Attribute labelright must be null.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
+            'The label will be displayed to the left of the component.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
       ],
       demoEvents: [

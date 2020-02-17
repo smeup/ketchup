@@ -7,31 +7,31 @@
         <span class="code-word">flat</span>
         will render a button without its background, only the text will be
         visible. On the other hand, the attribute
-        <span class="code-word">transparent</span> will render an outlined
-        button. These attributes must be used exclusively.</p
+        <span class="code-word">outlined</span> will render an outlined button.
+        These attributes are mutually exclusive.</p
       >
       <div class="demo-container">
         <div class="kup-container">
           <wup-button flat label="Flat"></wup-button>
-          <wup-button transparent label="Transparent"></wup-button>
+          <wup-button outlined label="Outlined"></wup-button>
         </div>
         <p class="centered">Flat sample markup</p>
         <code class="flat">{{ markupFlat }}</code>
-        <p class="centered">Transparent sample markup</p>
-        <code class="flat">{{ markupTransparent }}</code>
+        <p class="centered">Outlined sample markup</p>
+        <code class="flat">{{ markupOutlined }}</code>
       </div>
     </div>
 
     <div class="demo-wrapper">
       <p
-        >The attribute <span class="code-word">rounded</span> may be used for
-        any of the stylings above, and it will shape the edges of the button to
-        be rounded.</p
+        >The attribute <span class="code-word">shaped</span> may be used for any
+        of the stylings above, and it will shape the edges of the button to be
+        more round.</p
       ><div class="demo-container">
         <div class="kup-container">
-          <wup-button rounded label="Raised"></wup-button>
-          <wup-button flat rounded label="Flat"></wup-button>
-          <wup-button transparent rounded label="Transparent"></wup-button>
+          <wup-button shaped label="Raised"></wup-button>
+          <wup-button flat shaped label="Flat"></wup-button>
+          <wup-button outlined shaped label="Outlined"></wup-button>
         </div>
         <p class="centered">Rounded sample markup</p>
         <code class="flat">{{ markupRounded }}</code>
@@ -55,7 +55,7 @@
         <div class="kup-container">
           <wup-button icon="favorite" label="Favorite"></wup-button>
           <wup-button flat icon="play_arrow" label="Play"></wup-button>
-          <wup-button transparent icon="done" label="Submit"></wup-button>
+          <wup-button outlined icon="done" label="Submit"></wup-button>
         </div>
         <p class="centered">Icon sample markup</p>
         <code class="flat">{{ markupIcon }}</code>
@@ -70,9 +70,8 @@ export default {
   data() {
     return {
       markupFlat: '<wup-button flat label="Flat"></wup-button>',
-      markupTransparent:
-        '<wup-button transparent label="Transparent"></wup-button>',
-      markupRounded: '<wup-button rounded label="Rounded"></wup-button>',
+      markupOutlined: '<wup-button outlined label="Outlined"></wup-button>',
+      markupRounded: '<wup-button shaped label="Shaped"></wup-button>',
       markupIcon: '<wup-button icon="Favorite" label="Favorite"></wup-button>',
     };
   },

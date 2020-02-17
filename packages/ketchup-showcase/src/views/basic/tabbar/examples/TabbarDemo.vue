@@ -25,31 +25,31 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'JSON',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       demoComp: '<wup-tab-bar id="demo-component"></wup-tab-bar>',
       demoProps: [
         {
-          prop: 'items',
+          prop: 'data',
           description:
             'Object array containing the data of the tabs: text to be shown, optional icon and status (if active or not).',
-          type: 'WidgetTabBarElement[]',
+          type: 'ComponentTabBarElement[]',
           default: '[]',
           try: 'json',
         },
@@ -58,14 +58,6 @@ export default {
         {
           name: 'kupTabBarClick',
           type: 'click',
-        },
-        {
-          name: 'kupTabBarChange',
-          type: 'change',
-        },
-        {
-          name: 'kupTabBarInput',
-          type: 'input',
         },
         {
           name: 'kupTabBarFocus',
@@ -78,27 +70,27 @@ export default {
       ],
       demoData: [
         {
-          prop: 'items',
+          prop: 'data',
           value: [
             {
               text: 'First',
               icon: 'filter_1',
-              status: 'Active',
+              active: true,
             },
             {
               text: 'Second',
               icon: 'filter_2',
-              status: '',
+              active: false,
             },
             {
               text: 'Third',
               icon: 'filter_3',
-              status: '',
+              active: false,
             },
             {
               text: 'Fourth',
               icon: 'filter_4',
-              status: '',
+              active: false,
             },
           ],
         },

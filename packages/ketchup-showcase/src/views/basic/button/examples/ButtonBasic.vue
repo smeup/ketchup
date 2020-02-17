@@ -11,8 +11,8 @@
       </p>
       <p>
         The most basic button is a plain text one. In order to render it, you
-        need to specify the
-        <span class="code-word">label</span> attribute followed by its value.
+        need to use the
+        <span class="code-word">label</span> prop.
       </p>
     </div>
   </div>
@@ -23,21 +23,21 @@ export default {
   name: 'ButtonBasic',
   data() {
     return {
-      items: [
+      data: [
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
     };

@@ -23,17 +23,17 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
         },
       ],
       demoComp:
@@ -48,7 +48,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'fullheight',
+          prop: 'fullHeight',
           description:
             'Sets the height of the component to fill all the available horizontal space given by its parent.',
           type: 'boolean',
@@ -56,7 +56,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'fullwidth',
+          prop: 'fullWidth',
           description:
             'Sets the width of the component to fill all the available horizontal space given by its parent.',
           type: 'boolean',
@@ -72,7 +72,7 @@ export default {
           try: 'field',
         },
         {
-          prop: 'helperwhenfocus',
+          prop: 'helperWhenFocused',
           description:
             'The helper will be shown only when the field is focused.',
           type: 'boolean',
@@ -88,7 +88,7 @@ export default {
           try: 'field',
         },
         {
-          prop: 'initialvalue',
+          prop: 'initialValue',
           description: 'Sets the initial text value of the component.',
           type: 'string',
           default: 'undefined',
@@ -102,23 +102,15 @@ export default {
           try: 'field',
         },
         {
-          prop: 'labelleft',
+          prop: 'leadingLabel',
           description:
-            'Displays the value of this prop on the left of the component as a label. Attribute labelleft must be null.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
+            'The label will be displayed to the left of the component.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
-          prop: 'labelright',
-          description:
-            'Displays the value of this prop on the right of the component as a label. Attribute labelright must be null.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'maxlength',
+          prop: 'maxLength',
           description:
             'Sets the component max length to given characters and the helper will display a character counter.',
           type: 'string',
@@ -133,22 +125,30 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'rounded',
+          prop: 'shaped',
           description: 'The text field will be rendered with shaped borders.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'textarea',
+          prop: 'textArea',
           description: 'The component will render as a textarea.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'trailingicon',
+          prop: 'trailingIcon',
           description: 'The icon will be shown after the text.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'trailingLabel',
+          description:
+            'The label will be displayed to the left of the component.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

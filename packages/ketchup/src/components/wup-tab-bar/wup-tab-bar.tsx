@@ -4,13 +4,12 @@ import {
     Element,
     Event,
     EventEmitter,
-    State,
     Host,
     h,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
-import { WidgetTabBarElement } from './wup-tab-bar-declarations';
+import { ComponentTabBarElement } from './wup-tab-bar-declarations';
 
 @Component({
     tag: 'wup-tab-bar',
@@ -19,11 +18,10 @@ import { WidgetTabBarElement } from './wup-tab-bar-declarations';
 })
 export class WupTabBar {
     @Element() rootElement: HTMLElement;
-    @State() value: string = '';
     /**
      * List of elements.
      */
-    @Prop() items: WidgetTabBarElement[] = [];
+    @Prop() data: ComponentTabBarElement[] = [];
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -32,17 +30,6 @@ export class WupTabBar {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        index: number;
-        el: EventTarget;
-    }>;
-
-    @Event({
-        eventName: 'kupTabBarChange',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupChange: EventEmitter<{
         index: number;
         el: EventTarget;
     }>;
@@ -69,28 +56,10 @@ export class WupTabBar {
         el: EventTarget;
     }>;
 
-    @Event({
-        eventName: 'kupTabBarInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        index: number;
-        el: EventTarget;
-    }>;
-
     //---- Methods ----
 
     onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
-            index: i,
-            el: e.target,
-        });
-    }
-
-    onKupChange(i: number, e: Event) {
-        this.kupChange.emit({
             index: i,
             el: e.target,
         });
@@ -105,13 +74,6 @@ export class WupTabBar {
 
     onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
-            index: i,
-            el: e.target,
-        });
-    }
-
-    onKupInput(i: number, e: Event) {
-        this.kupInput.emit({
             index: i,
             el: e.target,
         });
@@ -132,23 +94,23 @@ export class WupTabBar {
         let tabEl: HTMLElement;
         let componentClass: string = 'mdc-tab-bar';
 
-        for (let i = 0; i < this.items.length; i++) {
+        for (let i = 0; i < this.data.length; i++) {
             let tabClass: string = 'mdc-tab';
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
-            if (this.items[i].status === 'Active') {
+            if (this.data[i].active === true) {
                 tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 
-            if (this.items[i].icon !== '') {
+            if (this.data[i].icon !== '') {
                 iconEl = (
                     <span
                         class="mdc-tab__icon material-icons"
                         aria-hidden="true"
                     >
-                        {this.items[i].icon}
+                        {this.data[i].icon}
                     </span>
                 );
             }
@@ -159,17 +121,14 @@ export class WupTabBar {
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
-                    value={this.items[i].text}
                     onBlur={(e) => this.onKupBlur(i, e)}
-                    onChange={(e) => this.onKupChange(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
                     onFocus={(e) => this.onKupFocus(i, e)}
-                    onInput={(e) => this.onKupInput(i, e)}
                 >
                     <span class="mdc-tab__content">
                         {iconEl}
                         <span class="mdc-tab__text-label">
-                            {this.items[i].text}
+                            {this.data[i].text}
                         </span>
                     </span>
                     <span class={indicatorClass}>

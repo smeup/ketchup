@@ -4,11 +4,11 @@
 @import '@material/textfield/character-counter/mdc-text-field-character-counter';
 @import '@material/textfield/icon/mdc-text-field-icon';
 
-:host([fullheight]) {
+:host([full-height]) {
   height: 100%;
 
   & #kup-component {
-    &.fullheight {
+    &.full-height {
       height: 100%;
       & .mdc-text-field {
         height: 100%;
