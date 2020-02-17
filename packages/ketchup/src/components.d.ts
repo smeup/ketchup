@@ -1073,7 +1073,6 @@ export namespace Components {
     'selectable': string;
   }
   interface WupList {
-    'dense'?: boolean;
     /**
     * Marks the list as filterable, allowing an input text to filter the options
     */
@@ -1082,6 +1081,7 @@ export namespace Components {
     'listId': string;
     'roleType'?: string;
     'selectable': string;
+    'twoLine': boolean;
   }
   interface WupPaginator {
     'currentPage': number;
@@ -1107,6 +1107,8 @@ export namespace Components {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright': string;
+    'name': string;
+    'value': string;
   }
   interface WupSwitch {
     /**
@@ -2810,7 +2812,6 @@ declare namespace LocalJSX {
     'selectable'?: string;
   }
   interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
-    'dense'?: boolean;
     /**
     * Marks the list as filterable, allowing an input text to filter the options
     */
@@ -2842,6 +2843,7 @@ declare namespace LocalJSX {
     }>) => void;
     'roleType'?: string;
     'selectable'?: string;
+    'twoLine'?: boolean;
   }
   interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
     'currentPage'?: number;
@@ -2875,21 +2877,28 @@ declare namespace LocalJSX {
     * Defaults at null. When specified, its content is shown to the right of the component as a label.
     */
     'labelright'?: string;
+    'name'?: string;
     'onKupRadioBlur'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioChange'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioClick'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioFocus'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioInput'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
+    'value'?: string;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
     /**

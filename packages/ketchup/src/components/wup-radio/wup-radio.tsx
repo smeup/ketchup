@@ -4,7 +4,6 @@ import {
     EventEmitter,
     Prop,
     Element,
-    State,
     Host,
     h,
 } from '@stencil/core';
@@ -18,7 +17,8 @@ import { MDCFormField } from '@material/form-field';
 })
 export class WupRadio {
     @Element() rootElement: HTMLElement;
-    @State() value: string = '';
+    @Prop() name: string = '';
+    @Prop() value: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -44,6 +44,7 @@ export class WupRadio {
     })
     kupBlur: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -54,6 +55,7 @@ export class WupRadio {
     })
     kupChange: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -64,6 +66,7 @@ export class WupRadio {
     })
     kupClick: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -74,6 +77,7 @@ export class WupRadio {
     })
     kupFocus: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -84,6 +88,7 @@ export class WupRadio {
     })
     kupInput: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     //---- Methods ----
@@ -92,6 +97,7 @@ export class WupRadio {
         const { target } = event;
         this.kupBlur.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -99,6 +105,7 @@ export class WupRadio {
         const { target } = event;
         this.kupChange.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -106,6 +113,7 @@ export class WupRadio {
         const { target } = event;
         this.kupClick.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -113,6 +121,7 @@ export class WupRadio {
         const { target } = event;
         this.kupFocus.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -120,6 +129,7 @@ export class WupRadio {
         const { target } = event;
         this.kupInput.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -167,7 +177,9 @@ export class WupRadio {
                             <input
                                 class="mdc-radio__native-control"
                                 type="radio"
-                                id="radio-id"
+                                id={this.name}
+                                name={this.name}
+                                value={this.value}
                                 checked={this.checked}
                                 disabled={this.disabled}
                                 onBlur={(e: any) => this.onKupBlur(e)}
@@ -182,7 +194,31 @@ export class WupRadio {
                             </div>
                             <div class="mdc-radio__ripple"></div>
                         </div>
-                        <label htmlFor="radio-id">{componentLabel}</label>
+                        <label htmlFor={this.name}>{componentLabel}</label>
+                    </div>
+                    <div class={formClass}>
+                        <div class={componentClass}>
+                            <input
+                                class="mdc-radio__native-control"
+                                type="radio"
+                                id={this.name}
+                                name={this.name}
+                                value={this.value}
+                                checked={this.checked}
+                                disabled={this.disabled}
+                                onBlur={(e: any) => this.onKupBlur(e)}
+                                onChange={(e: any) => this.onKupChange(e)}
+                                onClick={(e: any) => this.onKupClick(e)}
+                                onFocus={(e: any) => this.onKupFocus(e)}
+                                onInput={(e: any) => this.onKupInput(e)}
+                            ></input>
+                            <div class="mdc-radio__background">
+                                <div class="mdc-radio__outer-circle"></div>
+                                <div class="mdc-radio__inner-circle"></div>
+                            </div>
+                            <div class="mdc-radio__ripple"></div>
+                        </div>
+                        <label htmlFor={this.name}>{componentLabel}aa</label>
                     </div>
                 </div>
             </Host>

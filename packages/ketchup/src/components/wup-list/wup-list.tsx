@@ -51,9 +51,9 @@ export class WupList {
 
     @Prop({ reflect: true }) listId: string = 'WupList-myId';
 
-    @Prop({ reflect: true }) roleType?: string = WupList.ROLE_LISTBOX;
+    @Prop({ reflect: true }) twoLine: boolean = false;
 
-    @Prop({ reflect: true }) dense?: boolean = false;
+    @Prop({ reflect: true }) roleType?: string = WupList.ROLE_LISTBOX;
 
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
@@ -238,10 +238,12 @@ export class WupList {
         if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
             componentClass += ' mdc-list--non-interactive';
         }
+        /*
         if (this.dense == true) {
             componentClass += ' mdc-list--dense';
         }
-        if (this.isTwoLineItemsList()) {
+        */
+        if (this.twoLine) {
             componentClass += ' mdc-list--two-line';
         }
         let roleAttr = this.roleType;
@@ -327,20 +329,10 @@ export class WupList {
             let checkedAttr: boolean = item.selected == true ? true : null;
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <div class="mdc-radio">
-                        <input
-                            class="mdc-radio__native-control"
-                            type="radio"
-                            id={this.listId + index}
-                            name={this.listId + 'radio'}
-                            value={item.value}
-                            checked={checkedAttr}
-                        />
-                        <div class="mdc-radio__background">
-                            <div class="mdc-radio__outer-circle"></div>
-                            <div class="mdc-radio__inner-circle"></div>
-                        </div>
-                    </div>
+                    <wup-radio
+                        value={item.value}
+                        checked={checkedAttr}
+                    ></wup-radio>
                 </span>,
                 <label
                     class="mdc-list-item__text"
@@ -461,14 +453,5 @@ export class WupList {
         });
 
         return index;
-    }
-
-    isTwoLineItemsList() {
-        this.filteredItems.forEach((item) => {
-            if (item.secondaryText != '') {
-                return true;
-            }
-        });
-        return false;
     }
 }

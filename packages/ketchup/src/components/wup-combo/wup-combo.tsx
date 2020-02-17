@@ -193,7 +193,6 @@ export class WupCombo {
                                 items={this.items}
                                 selectable={WupList.SELECTABLE_ONE_SELECT}
                                 listId={this.comboId + 'List'}
-                                dense={true}
                                 onKupListClick={(e: CustomEvent) =>
                                     this.onAAA(e)
                                 }
