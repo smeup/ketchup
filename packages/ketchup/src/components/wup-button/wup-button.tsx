@@ -167,7 +167,7 @@ export class WupButton {
         }
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {

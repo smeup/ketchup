@@ -135,7 +135,7 @@ export class WupSwitch {
         }
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {

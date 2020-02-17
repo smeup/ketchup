@@ -139,7 +139,7 @@ export class WupCheckbox {
         }
     }
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
