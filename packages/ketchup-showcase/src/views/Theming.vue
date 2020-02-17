@@ -61,8 +61,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="display-mode"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -83,8 +83,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="font-family"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -104,8 +104,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="font-size"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -121,8 +121,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -138,8 +138,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="header-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -155,8 +155,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="drawer-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -175,8 +175,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -195,8 +195,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="text-on-main-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -212,8 +212,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -232,8 +232,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="icon-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -249,8 +249,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="hover-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -270,8 +270,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="hover-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -289,8 +289,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="border-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -306,8 +306,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="disabled-text-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -329,8 +329,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="disabled-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
@@ -346,8 +346,8 @@
                   </td>
                   <td class="text-cell">
                     <wup-text-field
-                      fullHeight
-                      fullWidth
+                      full-height
+                      full-width
                       id="field-background-color"
                       @kupTextFieldInput="updateCSS"
                     ></wup-text-field>
