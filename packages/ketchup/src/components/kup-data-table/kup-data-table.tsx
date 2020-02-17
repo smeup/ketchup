@@ -58,7 +58,6 @@ import {
     isBar,
     isChart,
     isButton,
-    isCheckbox,
     isIcon,
     isImage,
     isLink,
@@ -67,6 +66,7 @@ import {
     isRadio,
     isVoCodver,
     isStringObject,
+    isCheckbox,
 } from '../../utils/object-utils';
 
 @Component({
@@ -1263,7 +1263,10 @@ export class KupDataTable {
                     ? this.filters[column.name]
                     : '';
 
-            if (this.showFilters && isStringObject(column.obj)) {
+            if (
+                this.showFilters &&
+                (isStringObject(column.obj) || isCheckbox(column.obj))
+            ) {
                 // When showing filters, displays input box to update them.
                 filter = (
                     <div>
