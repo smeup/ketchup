@@ -467,10 +467,16 @@ export namespace Components {
     'layout': string;
   }
   interface KupDataTable {
+    /**
+    * Used to set custom columns width.
+    */
     'columnsWidth': Array<{
       column: string;
       width: number;
     }>;
+    /**
+    * The data of the table.
+    */
     'data': TableData;
     'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
     /**
@@ -478,24 +484,41 @@ export namespace Components {
     */
     'density': string;
     /**
-    * Enables sorting of the columns by dragging them into different columns
+    * Enables the sorting of columns by dragging them into different columns.
     */
     'enableSortableColumns': boolean;
+    /**
+    * Expands groups when set to true.
+    */
     'expandGroups': boolean;
+    /**
+    * List of filters set by the user.
+    */
     'filters': GenericMap;
     /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
+    /**
+    * When set to true it activates the global filter.
+    */
     'globalFilter': boolean;
+    /**
+    * The value of the global filter.
+    */
     'globalFilterValue': string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
     'groupLabelDisplay': GroupLabelDisplayMode;
+    /**
+    * The list of groups.
+    */
     'groups': Array<GroupObject>;
+    /**
+    * When set to true the header will stick on top of the table when scrolling.
+    */
     'headerIsPersistent': boolean;
-    'hoverScroll': boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -508,12 +531,33 @@ export namespace Components {
     * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
     */
     'loadMoreStep': number;
+    /**
+    * When set to true enables rows multi selection.
+    */
     'multiSelection': boolean;
+    /**
+    * Sets the position of the paginator. Available positions: top, bottom or both.
+    */
     'paginatorPos': PaginatorPos;
+    /**
+    * Sets the actions of the rows.
+    */
     'rowActions': Array<RowAction>;
+    /**
+    * Sets the number of rows per page to display.
+    */
     'rowsPerPage': number;
+    /**
+    * Selects the specified row.
+    */
     'selectRow': number;
+    /**
+    * When set to true enables the column filters.
+    */
     'showFilters': boolean;
+    /**
+    * Can be used to customize the grid view of the table.
+    */
     'showGrid': ShowGrid;
     /**
     * Enables rendering of the table header.
@@ -523,12 +567,21 @@ export namespace Components {
     * If set to true, displays the button to load more records.
     */
     'showLoadMore': boolean;
+    /**
+    * Defines the current sorting options.
+    */
     'sort': Array<SortObject>;
+    /**
+    * When set to true enables the sorting of the columns.
+    */
     'sortEnabled': boolean;
     /**
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData': boolean;
+    /**
+    * Defines the current totals options.
+    */
     'totals': TotalsMap;
   }
   interface KupFld {
@@ -1974,34 +2027,57 @@ declare namespace LocalJSX {
     'onKetchupDashClicked'?: (event: CustomEvent<{}>) => void;
   }
   interface KupDataTable extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
+    /**
+    * Used to set custom columns width.
+    */
     'columnsWidth'?: Array<{
       column: string;
       width: number;
     }>;
+    /**
+    * The data of the table.
+    */
     'data'?: TableData;
     /**
     * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
     */
     'density'?: string;
     /**
-    * Enables sorting of the columns by dragging them into different columns
+    * Enables the sorting of columns by dragging them into different columns.
     */
     'enableSortableColumns'?: boolean;
+    /**
+    * Expands groups when set to true.
+    */
     'expandGroups'?: boolean;
+    /**
+    * List of filters set by the user.
+    */
     'filters'?: GenericMap;
     /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine'?: boolean;
+    /**
+    * When set to true it activates the global filter.
+    */
     'globalFilter'?: boolean;
+    /**
+    * The value of the global filter.
+    */
     'globalFilterValue'?: string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
     'groupLabelDisplay'?: GroupLabelDisplayMode;
+    /**
+    * The list of groups.
+    */
     'groups'?: Array<GroupObject>;
+    /**
+    * When set to true the header will stick on top of the table when scrolling.
+    */
     'headerIsPersistent'?: boolean;
-    'hoverScroll'?: boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -2014,6 +2090,9 @@ declare namespace LocalJSX {
     * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
     */
     'loadMoreStep'?: number;
+    /**
+    * When set to true enables rows multi selection.
+    */
     'multiSelection'?: boolean;
     /**
     * When 'add column' menu item is clicked
@@ -2067,11 +2146,29 @@ declare namespace LocalJSX {
       selectedRows: Array<Row>;
       clickedColumn: string;
     }>) => void;
+    /**
+    * Sets the position of the paginator. Available positions: top, bottom or both.
+    */
     'paginatorPos'?: PaginatorPos;
+    /**
+    * Sets the actions of the rows.
+    */
     'rowActions'?: Array<RowAction>;
+    /**
+    * Sets the number of rows per page to display.
+    */
     'rowsPerPage'?: number;
+    /**
+    * Selects the specified row.
+    */
     'selectRow'?: number;
+    /**
+    * When set to true enables the column filters.
+    */
     'showFilters'?: boolean;
+    /**
+    * Can be used to customize the grid view of the table.
+    */
     'showGrid'?: ShowGrid;
     /**
     * Enables rendering of the table header.
@@ -2081,12 +2178,21 @@ declare namespace LocalJSX {
     * If set to true, displays the button to load more records.
     */
     'showLoadMore'?: boolean;
+    /**
+    * Defines the current sorting options.
+    */
     'sort'?: Array<SortObject>;
+    /**
+    * When set to true enables the sorting of the columns.
+    */
     'sortEnabled'?: boolean;
     /**
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
+    /**
+    * Defines the current totals options.
+    */
     'totals'?: TotalsMap;
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {

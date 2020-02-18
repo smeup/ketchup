@@ -531,13 +531,13 @@ table.instruction-table th {
 }
 
 #sample-wrapper.detached.full #sample-specs,
-#sample-wrapper.detached.full #sample-comp,
+#sample-wrapper.detached.full #sample-dynamic,
 #sample-wrapper.detached.full #sample-specs.closed {
   height: 45vh;
   width: 100%;
 }
 
-#sample-wrapper.detached #sample-comp {
+#sample-wrapper.detached #sample-dynamic {
   height: 40vh;
   width: 100%;
   display: flex;
@@ -608,17 +608,28 @@ table.instruction-table th {
   display: block;
 }
 
-#sample-comp {
+#sample-dynamic {
   width: 20%;
   display: inline-flex;
   height: 100%;
   position: relative;
   transition: width 0.25s;
   padding-bottom: 50px;
+  overflow: auto;
 }
 
-#sample-wrapper.full #sample-comp.full,
-#sample-comp.full {
+#sample-comp {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+#sample-dynamic.full {
+  width: 100%;
+}
+
+#sample-wrapper.full #sample-dynamic.full,
+#sample-dynamic.full {
   width: 100%;
 }
 
@@ -643,21 +654,30 @@ table.instruction-table th {
 }
 
 #sample-wrapper.full #sample-specs,
-#sample-wrapper.full #sample-comp {
+#sample-wrapper.full #sample-dynamic {
   width: 50%;
   background-color: var(--kup-background-color);
   z-index: 91;
 }
 
-#sample-comp-wrapper {
+#sample-dynamic-wrapper {
   /* overflow: auto; */
   width: fit-content;
   margin: auto;
 }
 
-#sample-wrapper.detached #sample-comp {
+#sample-wrapper.detached #sample-dynamic {
   padding-top: 50px;
   padding-bottom: 0;
+}
+
+#sample-comp-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+#sample-comp-wrapper #demo-component {
+  margin: auto;
 }
 
 #sample-specs {

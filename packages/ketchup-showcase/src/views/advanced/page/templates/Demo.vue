@@ -2,9 +2,16 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></wup-tab-bar>
+      <wup-tab-bar
+        @kupTabBarClick="tabSelection"
+        :data.prop="demoTabs"
+      ></wup-tab-bar>
       <div id="sample-specs-container">
-        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
+        <table
+          id="props-tab"
+          v-if="demoProps !== null"
+          class="instruction-table sample-section"
+        >
           <thead>
             <tr>
               <th>Prop</th>
@@ -26,9 +33,14 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
+              <td v-if="propList.try === 'json'"
+                >Use the JSON tab to view/change this prop.</td
+              >
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <wup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></wup-switch>
+                <wup-switch
+                  v-bind:id="propList.prop"
+                  @kupSwitchChange="updateDemoSwitch"
+                ></wup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <wup-text-field
@@ -109,8 +121,10 @@
         </div>
       </div>
     </div>
-    <div id="sample-comp">
-      <div v-html="demoComp" id="sample-comp-wrapper"></div>
+    <div id="sample-dynamic">
+      <div id="sample-comp">
+        <div v-html="demoComp" id="sample-comp-wrapper"></div>
+      </div>
       <div id="split-container">
         <wup-button
           @kupButtonClick="menuTrigger"
@@ -265,9 +279,11 @@ export default {
     menuTrigger(e) {
       if (e.detail.value === 'on') {
         document.querySelector('#sample-comp').classList.add('full');
+        document.querySelector('#sample-dynamic').classList.add('full');
         document.querySelector('#sample-specs').classList.add('closed');
       } else {
         document.querySelector('#sample-comp').classList.remove('full');
+        document.querySelector('#sample-dynamic').classList.remove('full');
         document.querySelector('#sample-specs').classList.remove('closed');
       }
     },
