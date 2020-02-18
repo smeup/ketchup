@@ -31,23 +31,7 @@ export default {
     triggerEl.addEventListener('click', function() {
       el.classList.add('dynamic-position');
       anchorEl.classList.add('dynamic-position-anchor');
-      let offsetH = el.clientHeight;
-      let offsetW = el.clientWidth;
-      let margin = 0;
-      const rect = anchorEl.getBoundingClientRect();
-      el.removeAttribute('style');
-
-      if (window.innerHeight - rect.bottom < offsetH) {
-        el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
-      } else {
-        el.style.top = `${rect.bottom + margin}px`;
-      }
-      if (window.innerWidth - rect.left < offsetW) {
-        el.style.right = `${window.innerWidth - rect.right}px`;
-      } else {
-        el.style.left = `${rect.left}px`;
-      }
-      document.addEventListener('scroll', function() {
+      var positionEl = function(el, anchorEl) {
         let offsetH = el.clientHeight;
         let offsetW = el.clientWidth;
         let margin = 0;
@@ -64,24 +48,13 @@ export default {
         } else {
           el.style.left = `${rect.left}px`;
         }
+      };
+      positionEl(el, anchorEl);
+      document.addEventListener('scroll', function() {
+        positionEl(el, anchorEl);
       });
       document.addEventListener('resize', function() {
-        let offsetH = el.clientHeight;
-        let offsetW = el.clientWidth;
-        let margin = 0;
-        const rect = anchorEl.getBoundingClientRect();
-        el.removeAttribute('style');
-
-        if (window.innerHeight - rect.bottom < offsetH) {
-          el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
-        } else {
-          el.style.top = `${rect.bottom + margin}px`;
-        }
-        if (window.innerWidth - rect.left < offsetW) {
-          el.style.right = `${window.innerWidth - rect.right}px`;
-        } else {
-          el.style.left = `${rect.left}px`;
-        }
+        positionEl(el, anchorEl);
       });
     });
   },
