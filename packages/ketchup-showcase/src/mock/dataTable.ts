@@ -1595,6 +1595,11 @@ export function dataTableCheckboxFactory(
           name: 'C',
           size: 0,
           title: 'Si/No',
+          obj: {
+            k: '',
+            p: 'SI/NO',
+            t: 'V2',
+          },
         },
       ],
       rows: [

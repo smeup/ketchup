@@ -15,10 +15,6 @@ export function isButton({ t, p }: Object): boolean {
     return 'J4' === t && 'BTN' === p;
 }
 
-export function isYesNo({ t, p }: Object): boolean {
-    return 'V2' === t && 'SINO' === p;
-}
-
 export function isRadio({ t, p }: Object): boolean {
     return 'V2' === t && 'RADIO' === p;
 }

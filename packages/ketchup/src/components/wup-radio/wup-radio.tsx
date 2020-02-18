@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
+import { ComponentRadioElement } from './wup-radio-declarations';
 
 @Component({
     tag: 'wup-radio',
@@ -17,24 +18,22 @@ import { MDCFormField } from '@material/form-field';
 })
 export class WupRadio {
     @Element() rootElement: HTMLElement;
-    @Prop() name: string = '';
-    @Prop() value: string = '';
+    /**
+     * Defaults at null. It's the name that binds the radio buttons together.
+     */
+    @Prop({ reflect: true }) name: string = 'radio-list';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
     /**
-     * Defaults at false. When set to true, the component will be set to 'checked'.
+     * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
     /**
-     * Defaults at null. When specified, its content is shown to the left of the component as a label.
+     * List of elements.
      */
-    @Prop({ reflect: true }) labelleft: string = null;
-    /**
-     * Defaults at null. When specified, its content is shown to the right of the component as a label.
-     */
-    @Prop({ reflect: true }) labelright: string = null;
+    @Prop() data: ComponentRadioElement[] = [];
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -139,13 +138,14 @@ export class WupRadio {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
-            const component = MDCRadio.attachTo(
-                root.querySelector('.mdc-radio')
-            );
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
-            );
-            formField.input = component;
+            let formFields: any = root.querySelectorAll('.mdc-form-field');
+            for (let i = 0; i < formFields.length; i++) {
+                let component = MDCRadio.attachTo(
+                    formFields[i].querySelector('.mdc-radio')
+                );
+                let formField = MDCFormField.attachTo(formFields[i]);
+                formField.input = component;
+            }
         }
     }
 
@@ -153,74 +153,56 @@ export class WupRadio {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-radio';
         let componentLabel: string = '';
+        let radioList: Array<HTMLElement> = [];
+        let radioEl: HTMLElement;
 
         if (this.disabled) {
             componentClass += ' mdc-radio--disabled';
         }
 
-        if (this.checked) {
-            componentClass += ' mdc-radio--checked';
+        if (this.leadingLabel) {
+            formClass += ' mdc-form-field--align-end';
         }
 
-        if (this.labelleft) {
-            formClass += ' mdc-form-field--align-end';
-            componentLabel = this.labelleft;
-        } else if (this.labelright) {
-            componentLabel = this.labelright;
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].checked) {
+                componentClass += ' mdc-radio--checked';
+            }
+            componentLabel = this.data[i].label;
+            let radioId = this.name + i;
+
+            radioEl = (
+                <div class={formClass}>
+                    <div class={componentClass}>
+                        <input
+                            class="mdc-radio__native-control"
+                            type="radio"
+                            id={radioId}
+                            name={this.name}
+                            value={this.data[i].value}
+                            checked={this.data[i].checked}
+                            disabled={this.disabled}
+                            onBlur={(e: any) => this.onKupBlur(e)}
+                            onChange={(e: any) => this.onKupChange(e)}
+                            onClick={(e: any) => this.onKupClick(e)}
+                            onFocus={(e: any) => this.onKupFocus(e)}
+                            onInput={(e: any) => this.onKupInput(e)}
+                        ></input>
+                        <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                        </div>
+                        <div class="mdc-radio__ripple"></div>
+                    </div>
+                    <label htmlFor={this.name}>{componentLabel}</label>
+                </div>
+            );
+            radioList.push(radioEl);
         }
 
         return (
             <Host>
-                <div id="kup-component">
-                    <div class={formClass}>
-                        <div class={componentClass}>
-                            <input
-                                class="mdc-radio__native-control"
-                                type="radio"
-                                id={this.name}
-                                name={this.name}
-                                value={this.value}
-                                checked={this.checked}
-                                disabled={this.disabled}
-                                onBlur={(e: any) => this.onKupBlur(e)}
-                                onChange={(e: any) => this.onKupChange(e)}
-                                onClick={(e: any) => this.onKupClick(e)}
-                                onFocus={(e: any) => this.onKupFocus(e)}
-                                onInput={(e: any) => this.onKupInput(e)}
-                            ></input>
-                            <div class="mdc-radio__background">
-                                <div class="mdc-radio__outer-circle"></div>
-                                <div class="mdc-radio__inner-circle"></div>
-                            </div>
-                            <div class="mdc-radio__ripple"></div>
-                        </div>
-                        <label htmlFor={this.name}>{componentLabel}</label>
-                    </div>
-                    <div class={formClass}>
-                        <div class={componentClass}>
-                            <input
-                                class="mdc-radio__native-control"
-                                type="radio"
-                                id={this.name}
-                                name={this.name}
-                                value={this.value}
-                                checked={this.checked}
-                                disabled={this.disabled}
-                                onBlur={(e: any) => this.onKupBlur(e)}
-                                onChange={(e: any) => this.onKupChange(e)}
-                                onClick={(e: any) => this.onKupClick(e)}
-                                onFocus={(e: any) => this.onKupFocus(e)}
-                                onInput={(e: any) => this.onKupInput(e)}
-                            ></input>
-                            <div class="mdc-radio__background">
-                                <div class="mdc-radio__outer-circle"></div>
-                                <div class="mdc-radio__inner-circle"></div>
-                            </div>
-                            <div class="mdc-radio__ripple"></div>
-                        </div>
-                        <label htmlFor={this.name}>{componentLabel}aa</label>
-                    </div>
-                </div>
+                <div id="kup-component">{radioList}</div>
             </Host>
         );
     }

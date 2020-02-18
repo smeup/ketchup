@@ -1,6 +1,12 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+      :demoData="demoData"
+    ></demo>
   </div>
 </template>
 
@@ -18,27 +24,33 @@ export default {
         {
           text: 'Props',
           icon: '',
-          status: 'Active',
+          active: true,
         },
         {
           text: 'Events',
           icon: '',
-          status: '',
+          active: false,
         },
         {
           text: 'HTML',
           icon: '',
-          status: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
       ],
       demoComp: '<wup-radio id="demo-component"></wup-radio>',
       demoProps: [
         {
-          prop: 'checked',
-          description: 'Sets the component to checked state.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'data',
+          description:
+            'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
+          type: 'ComponentRadioElement[]',
+          default: '[]',
+          try: 'json',
         },
         {
           prop: 'disabled',
@@ -49,19 +61,18 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'labelleft',
+          prop: 'leadingLabel',
           description:
-            'Displays the value of this prop on the left of the component as a label. Attribute labelleft must be null.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
+            'The label will be displayed to the left of the component.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
-          prop: 'labelright',
-          description:
-            'Displays the value of this prop on the right of the component as a label. Attribute labelright must be null.',
+          prop: 'name',
+          description: "It's the name that binds the radio buttons together.",
           type: 'string',
-          default: 'null',
+          default: 'radio-list',
           try: 'field',
         },
       ],
@@ -85,6 +96,27 @@ export default {
         {
           name: 'kupRadioBlur',
           type: 'blur',
+        },
+      ],
+      demoData: [
+        {
+          prop: 'data',
+          value: [
+            {
+              value: '1',
+              label: 'First option',
+              checked: true,
+            },
+            {
+              value: '2',
+              label: 'Second option',
+              checked: false,
+            },
+          ],
+        },
+        {
+          prop: 'name',
+          value: 'radio-list',
         },
       ],
     };

@@ -4,3136 +4,3385 @@
  * It contains typing information for all components that exist in this project.
  */
 
-
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
-  AutocompleteDisplayMode,
-  AutocompleteSortBy,
-  AutocompleteSortOrder,
-  KupAutocompleteFilterUpdatePayload,
-  KupAutocompleteOption,
+    AutocompleteDisplayMode,
+    AutocompleteSortBy,
+    AutocompleteSortOrder,
+    KupAutocompleteFilterUpdatePayload,
+    KupAutocompleteOption,
 } from './components/kup-autocomplete/kup-autocomplete-declarations';
+import { BadgePosition } from './components/kup-badge/kup-badge-declarations';
 import {
-  BadgePosition,
-} from './components/kup-badge/kup-badge-declarations';
-import {
-  Cell,
-  Column,
-  DataTable,
-  GenericMap,
-  GroupLabelDisplayMode,
-  GroupObject,
-  KupDataTableCellButtonClick,
-  KupDataTableSortedColumnIndexes,
-  LoadMoreMode,
-  PaginatorPos,
-  Row,
-  RowAction,
-  ShowGrid,
-  SortObject,
-  TableData,
-  TotalsMap,
+    Cell,
+    Column,
+    DataTable,
+    GenericMap,
+    GroupLabelDisplayMode,
+    GroupObject,
+    KupDataTableCellButtonClick,
+    KupDataTableSortedColumnIndexes,
+    LoadMoreMode,
+    PaginatorPos,
+    Row,
+    RowAction,
+    ShowGrid,
+    SortObject,
+    TableData,
+    TotalsMap,
 } from './components/kup-data-table/kup-data-table-declarations';
+import { BoxRow, Layout } from './components/kup-box/kup-box-declarations';
+import { ButtonConfig } from './components/kup-btn/kup-btn-declarations';
 import {
-  BoxRow,
-  Layout,
-} from './components/kup-box/kup-box-declarations';
-import {
-  ButtonConfig,
-} from './components/kup-btn/kup-btn-declarations';
-import {
-  ChartAspect,
-  ChartAxis,
-  ChartClickedEvent,
-  ChartType,
+    ChartAspect,
+    ChartAxis,
+    ChartClickedEvent,
+    ChartType,
 } from './components/kup-chart/kup-chart-declarations';
+import { KupCheckboxMenuItem } from './components/kup-checkbox-menu/kup-checkbox-menu-declarations';
 import {
-  KupCheckboxMenuItem,
-} from './components/kup-checkbox-menu/kup-checkbox-menu-declarations';
-import {
-  ComboItem,
-  KetchupComboEvent,
+    ComboItem,
+    KetchupComboEvent,
 } from './components/kup-combo/kup-combo-declarations';
+import { GenericObject } from './types/GenericTypes';
 import {
-  GenericObject,
-} from './types/GenericTypes';
-import {
-  CrudCallBackOnFormEventResult,
-  CrudConfig,
-  CrudRecord,
-  CrudRecordsChanged,
+    CrudCallBackOnFormEventResult,
+    CrudConfig,
+    CrudRecord,
+    CrudRecordsChanged,
 } from './components/kup-crud/kup-crud-declarations';
 import {
-  FormActionEventDetail,
-  FormActions,
-  FormCells,
-  FormConfig,
-  FormFieldEventDetail,
-  FormFields,
-  FormMessage,
-  FormSection,
+    FormActionEventDetail,
+    FormActions,
+    FormCells,
+    FormConfig,
+    FormFieldEventDetail,
+    FormFields,
+    FormMessage,
+    FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
-  SearchFilterSubmittedEventDetail,
-  SearchSelectionUpdatedEventDetail,
+    SearchFilterSubmittedEventDetail,
+    SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
-  KetchupFldChangeEvent,
-  KetchupFldSubmitEvent,
+    KetchupFldChangeEvent,
+    KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
+import { Badge } from './components/kup-image/kup-image-declarations';
+import { Image } from './components/fields/kup-image-button/kup-image-declarations';
+import { PaginatorMode } from './components/kup-paginator/kup-paginator-declarations';
+import { JSX } from '@stencil/core';
+import { ElementOffset } from './utils/offset';
 import {
-  Badge,
-} from './components/kup-image/kup-image-declarations';
-import {
-  Image,
-} from './components/fields/kup-image-button/kup-image-declarations';
-import {
-  PaginatorMode,
-} from './components/kup-paginator/kup-paginator-declarations';
-import {
-  JSX,
-} from '@stencil/core';
-import {
-  ElementOffset,
-} from './utils/offset';
-import {
-  KetchupRadioChangeEvent,
-  KetchupRadioElement,
+    KetchupRadioChangeEvent,
+    KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
+import { KetchupTextInputEvent } from './components/kup-text-input/kup-text-input-declarations';
 import {
-  KetchupTextInputEvent,
-} from './components/kup-text-input/kup-text-input-declarations';
-import {
-  TooltipAction,
-  TooltipData,
-  TooltipDetailData,
+    TooltipAction,
+    TooltipData,
+    TooltipDetailData,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
-  TreeNode,
-  TreeNodePath,
+    TreeNode,
+    TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
-import {
-  UploadProps,
-} from './components/kup-upload/kup-upload-declarations';
-import {
-  ComponentListElement,
-} from './components/wup-list/wup-list-declarations';
-import {
-  PaginatorMode as PaginatorMode1,
-} from './components/wup-paginator/wup-paginator-declarations';
-import {
-  ComponentTabBarElement,
-} from './components/wup-tab-bar/wup-tab-bar-declarations';
+import { UploadProps } from './components/kup-upload/kup-upload-declarations';
+import { ComponentRadioElement } from './components/wup-radio/wup-radio-declarations';
+import { ComponentTabBarElement } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
-  interface KupAutocomplete {
-    /**
-    * When true, the user can select custom values by pressing the enter button when the input is focused.
-    */
-    'allowCustomItems': boolean;
-    /**
-    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-    */
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    /**
-    * Sets if the autocomplete should be enabled or not
-    */
-    'disabled': boolean;
-    /**
-    * Selects how the autocomplete items must display their label and how they can be filtered for
-    */
-    'displayMode': AutocompleteDisplayMode;
-    /**
-    * Any extra info. It will be sent in events payload
-    */
-    'extra': any;
-    /**
-    * The initial selected items set inside component
-    */
-    'initialSelectedItems': KupAutocompleteOption[];
-    /**
-    * Sets the autocomplete items data
-    */
-    'items': KupAutocompleteOption[];
-    /**
-    * When greater than 0, limits the results of the filter to the specified number of elements.
-    */
-    'limitResults': number;
-    /**
-    * The minimum number of chars to trigger the autocomplete
-    */
-    'minimumChars': number;
-    /**
-    * Allows more than one option to be selected at the same time.
-    */
-    'multipleSelection': boolean;
-    /**
-    * Label shown when there are no items found with a given filter
-    */
-    'noItemsLabel': string;
-    /**
-    * The placeholder string to set to the input for the autocomplete
-    */
-    'placeholder': string;
-    /**
-    * Programmatically removes all of the selected items and returns them before they are removed.
-    */
-    'removeAllSelectedItems': () => Promise<KupAutocompleteOption[]>;
-    /**
-    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
-    */
-    'serverHandledFilter': boolean;
-    /**
-    * Shows the icon to clear the input
-    */
-    'showClearIcon': boolean;
-    /**
-    * Shows icon to force the dropdown menu to be opened
-    */
-    'showDropdownIcon': boolean;
-    /**
-    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
-    */
-    'sortBy': AutocompleteSortBy;
-    /**
-    * Decides which type of sort must be applied to the list of rendered items.
-    */
-    'sortOrder': AutocompleteSortOrder;
-  }
-  interface KupBadge {
-    'icon': string;
-    'position': BadgePosition;
-    'text': string;
-  }
-  interface KupBox {
-    /**
-    * Number of columns
-    */
-    'columns': number;
-    /**
-    * Data
-    */
-    'data': { columns?: Column[]; rows?: BoxRow[] };
-    /**
-    * Enable dragging
-    */
-    'dragEnabled': boolean;
-    /**
-    * Enable dropping
-    */
-    'dropEnabled': boolean;
-    /**
-    * Drop can be done in section
-    */
-    'dropOnSection': false;
-    /**
-    * If enabled, a button to load / display the row actions will be displayed on the right of every box
-    */
-    'enableRowActions': boolean;
-    /**
-    * Enable filtering
-    */
-    'filterEnabled': boolean;
-    /**
-    * How the field will be displayed. If not present, a default one will be created.
-    */
-    'layout': Layout;
-    'loadRowActions': (row: BoxRow, actions: RowAction[]) => Promise<void>;
-    /**
-    * Enable multi selection
-    */
-    'multiSelection': boolean;
-    /**
-    * Number of boxes per page
-    */
-    'pageSize': number;
-    /**
-    * Enables pagination
-    */
-    'pagination': boolean;
-    /**
-    * Automatically selects the box at the specified index
-    */
-    'selectBox': number;
-    /**
-    * If enabled, highlights the selected box/boxes
-    */
-    'showSelection': boolean;
-    /**
-    * If sorting is enabled, specifies which column to sort
-    */
-    'sortBy': string;
-    /**
-    * Enable sorting
-    */
-    'sortEnabled': boolean;
-  }
-  interface KupBtn {
-    'buttons': any[];
-    'config': ButtonConfig;
-  }
-  interface KupButton {
-    'align': string;
-    'buttonClass': string;
-    'buttonStyle': {};
-    'fillspace': boolean;
-    'flat': boolean;
-    'iconClass': string;
-    'iconUrl': string;
-    'imageSrc': string;
-    'label': string;
-    'rounded': boolean;
-    'showicon': boolean;
-    'showtext': boolean;
-    'textmode': string;
-    'tooltip': string;
-    'transparent': boolean;
-  }
-  interface KupCalendar {
-    'data': DataTable;
-    'dateCol': string;
-    'descrCol': string;
-    'endCol': string;
-    'hideNavigation': boolean;
-    'iconCol': string;
-    'imageCol': string;
-    'initialDate': string;
-    'startCol': string;
-    'styleCol': string;
-    'weekView': boolean;
-  }
-  interface KupChart {
-    'asp': ChartAspect;
-    'axis': string;
-    'colors': string[];
-    'data': DataTable;
-    'graphTitle': string;
-    'graphTitleColor': string;
-    'graphTitleSize': number;
-    'hAxis': ChartAxis;
-    'height': number;
-    'legend': boolean;
-    'series': string[];
-    'showMarks': boolean;
-    'stacked': boolean;
-    'types': ChartType[];
-    'vAxis': ChartAxis;
-    /**
-    * Google chart version to load
-    */
-    'version': string;
-    'width': number;
-  }
-  interface KupChartCell {
-    'cellConfig'?: any;
-    'value': string;
-  }
-  interface KupCheckbox {
-    /**
-    * Sets the checkbox to be checked
-    */
-    'checked': boolean;
-    /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
-    */
-    'disabled': boolean;
-    /**
-    * The label to set to the component
-    */
-    'label': string;
-    /**
-    * Sets the tabindex of the checkbox
-    */
-    'setTabIndex': number;
-    /**
-    * If true, shows the label by using a label tag
-    */
-    'showLabel': boolean;
-  }
-  interface KupCheckboxMenu {
-    /**
-    * Sets if the checkbox menu should be disabled
-    */
-    'disabled': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * The label to show as a placeholder inside the filter input
-    */
-    'filterLabel': string;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
-    */
-    'items': KupCheckboxMenuItem[];
-    /**
-    * The label to set to the component
-    */
-    'label': string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KupChip {
-    'closable': boolean;
-    'disabled': boolean;
-  }
-  interface KupChipKnowledge {
-    'closeable'?: boolean;
-    'disabled'?: boolean;
-    'imgUrl': string;
-    'label': string;
-    'name': string;
-  }
-  interface KupCombo {
-    /**
-    * Programmatically close the combo box
-    */
-    'closeCombo': () => Promise<void>;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue': ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    /**
-    * Items which can be selected
-    */
-    'items': ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * Programmatically opens the combo box
-    */
-    'openCombo': () => Promise<void>;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KupCrud {
-    'actions': FormActions;
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    'closeForm': () => Promise<void>;
-    'config': CrudConfig;
-    'crudCallBackOnFormActionSubmitted': (
-    detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'crudCallBackOnFormFieldChanged': (
-    detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'disabled': boolean;
-    'extra': any;
-    'extraMessages': FormMessage[];
-    'fields': FormFields;
-    'openForm': () => Promise<void>;
-    'records': CrudRecord[];
-    'refid': string;
-    'searchCallBackOnFilterSubmitted': (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    'sections': FormSection;
-  }
-  interface KupDash {
-    'active': boolean;
-    'fontsize': string;
-    'layout': string;
-  }
-  interface KupDataTable {
-    'columnsWidth': Array<{
-      column: string;
-      width: number;
-    }>;
-    'data': TableData;
-    'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
-    /**
-    * Enables sorting of the columns by dragging them into different columns
-    */
-    'enableSortableColumns': boolean;
-    'expandGroups': boolean;
-    'filters': GenericMap;
-    /**
-    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
-    */
-    'forceOneLine': boolean;
-    'globalFilter': boolean;
-    'globalFilterValue': string;
-    /**
-    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
-    */
-    'groupLabelDisplay': GroupLabelDisplayMode;
-    'groups': Array<GroupObject>;
-    'headerIsPersistent': boolean;
-    'hoverScroll': boolean;
-    /**
-    * Sets a maximum limit of new records which can be required by the load more functionality.
-    */
-    'loadMoreLimit': number;
-    /**
-    * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-    */
-    'loadMoreMode': LoadMoreMode;
-    /**
-    * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-    */
-    'loadMoreStep': number;
-    'multiSelection': boolean;
-    'paginatorPos': PaginatorPos;
-    'rowActions': Array<RowAction>;
-    'rowsPerPage': number;
-    'selectRow': number;
-    'showFilters': boolean;
-    'showGrid': ShowGrid;
-    /**
-    * Enables rendering of the table header.
-    */
-    'showHeader': boolean;
-    /**
-    * If set to true, displays the button to load more records.
-    */
-    'showLoadMore': boolean;
-    'sort': Array<SortObject>;
-    'sortEnabled': boolean;
-    /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
-    */
-    'sortableColumnsMutateData': boolean;
-    'totals': TotalsMap;
-  }
-  interface KupFld {
-    /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config': string | object;
-    /**
-    * Effective data to pass to the component
-    */
-    'data': any;
-    /**
-    * Provides an interface to get the current value programmatically
-    */
-    'getCurrentValue': () => Promise<string | object>;
-  }
-  interface KupForm {
-    'actions': FormActions;
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    'cells': FormCells;
-    'config': FormConfig;
-    'crudCallBackOnFormActionSubmitted': (
-    detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'crudCallBackOnFormFieldChanged': (
-    detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'extra': any;
-    'extraMessages': FormMessage[];
-    'fields': FormFields;
-    'getActualCells': () => Promise<FormCells>;
-    'getOldCells': () => Promise<FormCells>;
-    'refid': string;
-    'searchCallBackOnFilterSubmitted': (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    'sections': FormSection;
-  }
-  interface KupGauge {
-    /**
-    * Sets how much the arc of the gauge should be thick.
-    */
-    'arcThickness': number;
-    /**
-    * Array of three elements to specify the color of the arcs.
-    */
-    'colors': string[];
-    /**
-    * The first threshold, establishing the length of the first and second arc.
-    */
-    'firstThreshold'?: number;
-    /**
-    * The distance the label and the value has from the gauge graph.
-    */
-    'labelDistance': number;
-    /**
-    * The maximum value reachable in the current graph.
-    */
-    'maxValue': number;
-    /**
-    * A string which will be appended to the displayed values of the component.
-    */
-    'measurementUnit': string;
-    /**
-    * The minimum value reachable in the current graph.
-    */
-    'minValue': number;
-    /**
-    * if true, shows a rounded needle.
-    */
-    'needleCircle': boolean;
-    /**
-    * if true, ignore threasholds in gauge and show colored value's arc.
-    */
-    'onlyValue': boolean;
-    /**
-    * If set to true, the colors inside the colors array are used in the reversed order.
-    */
-    'reverseColors': boolean;
-    /**
-    * The second threshold, establishing the length of the second and third arc.
-    */
-    'secondThreshold'?: number;
-    /**
-    * If set to false, threshold values of the gauge are not displayed.
-    */
-    'showLabels': boolean;
-    /**
-    * If set to false, the maximum and minimum values of the gauge are not displayed.
-    */
-    'showMaxmin': boolean;
-    /**
-    * If set to false, the current value of the gauge is not displayed.
-    */
-    'showValue': boolean;
-    /**
-    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
-    */
-    'size': number;
-    /**
-    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
-    */
-    'value': number;
-    /**
-    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
-    */
-    'valueSize': number;
-    /**
-    * Set Width gauge.
-    */
-    'widthComponent': string;
-  }
-  interface KupGraphicCell {
-    'height': number;
-    'value': string;
-    'width': number;
-  }
-  interface KupHtml {
-    /**
-    * If true, the kup-html takes the shape of a button
-    */
-    'isButton': boolean;
-    /**
-    * The label to show when button isButton is active
-    */
-    'label': string;
-    /**
-    * The address which must be referenced by the iframe
-    */
-    'src': string;
-  }
-  interface KupIcon {
-    'iconClass': string;
-    'iconStyle': {};
-    'iconStylesheets': string[];
-    'imageSrc': string;
-  }
-  interface KupImage {
-    'alt': string;
-    'badges': Badge[];
-    'height': string;
-    'maxHeight': string;
-    'maxWidth': string;
-    'src': string;
-    'width': string;
-  }
-  interface KupImageButton {
-    /**
-    * If enabled, can select one or more images
-    */
-    'allowMultiSelection': boolean;
-    /**
-    * urls of the images
-    */
-    'images': Image[];
-    /**
-    * If enabled, display the image description below the image
-    */
-    'showDescription': boolean;
-    /**
-    * image dimension
-    */
-    'size': number;
-  }
-  interface KupLayout {
-    /**
-    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
-    */
-    'columnsNumber': number;
-    /**
-    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
-    */
-    'contentBasedColumnsWidth': boolean;
-    /**
-    * When true, the layout and its contents will try to take all the available horizontal space.
-    */
-    'fillSpace': boolean;
-    /**
-    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
-    */
-    'horizontal': boolean;
-  }
-  interface KupMenu {
-    /**
-    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-    */
-    'closeOnOuterClick': boolean;
-    /**
-    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-    */
-    'deactivationRelativeTo': HTMLElement;
-    /**
-    * Open or closes the menu. The menu itself can edit this prop.
-    */
-    'isActive': boolean;
-    /**
-    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-    */
-    'margin': number;
-    /**
-    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-    */
-    'positionRelativeTo': HTMLElement;
-  }
-  interface KupModal {
-    'header': string;
-    'visible': boolean;
-  }
-  interface KupPaginator {
-    'currentPage': number;
-    'max': number;
-    'mode': PaginatorMode;
-    'perPage': number;
-    'selectedPerPage': number;
-  }
-  interface KupPortal {
-    /**
-    * Returns the root node instance of the KetchupPortalInstance element
-    */
-    'getPortalInstance': () => Promise<HTMLElement>;
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible': boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars': string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes': JSX.Element[] | JSX.Element;
-    /**
-    * Reference to the html element which is using the portal. It must be a root of a web component.
-    */
-    'portalParentRef': HTMLElement;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode': HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset': ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement | null;
-  }
-  interface KupPortalInstance {
-    'additionalAdoptedStyleSheets': CSSStyleSheet[];
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible': boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
-  interface KupProgressBar {
-    /**
-    * FLag to show or hide the progress bar's label
-    */
-    'hideLabel': boolean;
-    /**
-    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
-    */
-    'isSmall': boolean;
-    /**
-    * Specifies a text for the bar's label
-    */
-    'labelText': string;
-    /**
-    * The current value the progress bar must display.
-    */
-    'value': number;
-  }
-  interface KupRadio {
-    /**
-    * Direction in which the radio elements must be placed
-    */
-    'direction': string;
-    /**
-    * Sets the radio to be disabled
-    */
-    'disabled': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the Radio group
-    */
-    'initialValue': KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items': KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * Radio elements value
-    */
-    'radioName': string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KupRadioElement {
-    /**
-    * Specifies if the radio element is selected or not.
-    */
-    'checked': boolean;
-    /**
-    * Flag: the radio button is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Label to assign to the radio button.
-    */
-    'label': string;
-  }
-  interface KupSearch {
-    'data': TableData;
-    'disabled': boolean;
-    'extra': any;
-    'initialValue': string;
-    /**
-    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
-    */
-    'searchCallBackOnFilterSubmitted': (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    /**
-    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
-    */
-    'serverHandledFilter': boolean;
-    /**
-    * The field used to obtain value
-    */
-    'valueField': string;
-  }
-  interface KupTextInput {
-    /**
-    * Imperatively sets a new value of the input.
-    */
-    'changeValue': (newValue: string, emitEvent?: boolean) => Promise<boolean>;
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce': number;
-    /**
-    * Sets the input to be disabled
-    */
-    'disabled': boolean;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue': string;
-    /**
-    * Specify the type of input. Allowed values: password, text.
-    */
-    'inputType': string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Label to describe the text-input clear button group
-    */
-    'label': string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength': number;
-    /**
-    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
-    */
-    'obj'?: GenericObject;
-    /**
-    * text for input placeholder
-    */
-    'placeholder': string;
-    /**
-    * Triggers the focus event on the input text
-    */
-    'triggerFocus': () => Promise<void>;
-  }
-  interface KupTooltip {
-    /**
-    * Data for top section
-    */
-    'data': TooltipData;
-    /**
-    * Data for the detail
-    */
-    'detailData': TooltipDetailData;
-    /**
-    * Timeout for loadDetail
-    */
-    'detailDataTimeout': number;
-    /**
-    * Layout used to display the items
-    */
-    'layout': string;
-  }
-  interface KupTree {
-    /**
-    * auto select programmatic selectic node
-    */
-    'autoSelectionNodeMode': boolean;
-    /**
-    * The columns of the tree when tree visualization is active
-    */
-    'columns'?: Column[];
-    /**
-    * The json data used to populate the tree view: the basic, always visible tree nodes.
-    */
-    'data': TreeNode[];
-    /**
-    * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
-    */
-    'dynamicExpansionCallback': (
-    treeNodeToExpand: TreeNode,
-    treeNodePath: TreeNodePath
-    ) => Promise<TreeNode[]> | undefined;
-    /**
-    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
-    */
-    'expanded': boolean;
-    /**
-    * Scroll on hover
-    */
-    'hoverScroll': boolean;
-    /**
-    * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
-    */
-    'selectedNode': TreeNodePath;
-    /**
-    * Shows the tree data as a table.
-    */
-    'showColumns': boolean;
-    /**
-    * Flag: shows the header of the tree when the tree is displayed as a table.
-    */
-    'showHeader': boolean;
-    /**
-    * Show the icons of the various nodes of the tree.
-    */
-    'showIcons': boolean;
-    /**
-    * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
-    */
-    'showObjectNavigation': boolean;
-    /**
-    * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
-    */
-    'useDynamicExpansion': boolean;
-  }
-  interface KupUpload {
-    'typeOptions': UploadProps;
-  }
-  interface WupButton {
-    /**
-    * Defaults at false. When set to true, the icon button state will be on.
-    */
-    'checked': boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered flat.
-    */
-    'flat': boolean;
-    /**
-    * Defaults at null. When set, the button will show this icon.
-    */
-    'icon': string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconoff': string;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'label': string;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'rounded': boolean;
-    /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
-    */
-    'toggable': boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingicon': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent': boolean;
-  }
-  interface WupCheckbox {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked': boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-    */
-    'indeterminate': boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft': string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright': string;
-  }
-  interface WupCombo {
-    'comboId': string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    'items': ComponentListElement[];
-    'selectable': string;
-  }
-  interface WupList {
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    'items': ComponentListElement[];
-    'listId': string;
-    'roleType'?: string;
-    'selectable': string;
-    'twoLine': boolean;
-  }
-  interface WupPaginator {
-    'currentPage': number;
-    'max': number;
-    'mode': PaginatorMode;
-    'perPage': number;
-    'selectedPerPage': number;
-  }
-  interface WupRadio {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked': boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft': string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright': string;
-    'name': string;
-    'value': string;
-  }
-  interface WupSwitch {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked': boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft': string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright': string;
-  }
-  interface WupTabBar {
-    /**
-    * List of elements.
-    */
-    'items': ComponentTabBarElement[];
-  }
-  interface WupTemplate {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-  }
-  interface WupTextField {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full height.
-    */
-    'fullheight': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full width.
-    */
-    'fullwidth': boolean;
-    /**
-    * Defaults at null. When set, its content will be shown as a help text below the field.
-    */
-    'helper': string;
-    /**
-    * Defaults at false. When set, the helper will be shown only when the field is focused.
-    */
-    'helperwhenfocus': boolean;
-    /**
-    * Defaults at null. When set, the text-field will show this icon.
-    */
-    'icon': string;
-    /**
-    * Sets the initial value of the component
-    */
-    'initialvalue': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label.
-    */
-    'label': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
-    */
-    'labelleft': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright': string;
-    /**
-    * Defaults at null. When set, the helper will display a character counter.
-    */
-    'maxlength': number;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as an outlined field.
-    */
-    'outlined': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'rounded': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as a textarea.
-    */
-    'textarea': boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingicon': boolean;
-  }
+    interface KupAutocomplete {
+        /**
+         * When true, the user can select custom values by pressing the enter button when the input is focused.
+         */
+        allowCustomItems: boolean;
+        /**
+         * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+         */
+        autocompleteCallBackOnFilterUpdate: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        /**
+         * Sets if the autocomplete should be enabled or not
+         */
+        disabled: boolean;
+        /**
+         * Selects how the autocomplete items must display their label and how they can be filtered for
+         */
+        displayMode: AutocompleteDisplayMode;
+        /**
+         * Any extra info. It will be sent in events payload
+         */
+        extra: any;
+        /**
+         * The initial selected items set inside component
+         */
+        initialSelectedItems: KupAutocompleteOption[];
+        /**
+         * Sets the autocomplete items data
+         */
+        items: KupAutocompleteOption[];
+        /**
+         * When greater than 0, limits the results of the filter to the specified number of elements.
+         */
+        limitResults: number;
+        /**
+         * The minimum number of chars to trigger the autocomplete
+         */
+        minimumChars: number;
+        /**
+         * Allows more than one option to be selected at the same time.
+         */
+        multipleSelection: boolean;
+        /**
+         * Label shown when there are no items found with a given filter
+         */
+        noItemsLabel: string;
+        /**
+         * The placeholder string to set to the input for the autocomplete
+         */
+        placeholder: string;
+        /**
+         * Programmatically removes all of the selected items and returns them before they are removed.
+         */
+        removeAllSelectedItems: () => Promise<KupAutocompleteOption[]>;
+        /**
+         * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+         */
+        serverHandledFilter: boolean;
+        /**
+         * Shows the icon to clear the input
+         */
+        showClearIcon: boolean;
+        /**
+         * Shows icon to force the dropdown menu to be opened
+         */
+        showDropdownIcon: boolean;
+        /**
+         * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+         */
+        sortBy: AutocompleteSortBy;
+        /**
+         * Decides which type of sort must be applied to the list of rendered items.
+         */
+        sortOrder: AutocompleteSortOrder;
+    }
+    interface KupBadge {
+        icon: string;
+        position: BadgePosition;
+        text: string;
+    }
+    interface KupBox {
+        /**
+         * Number of columns
+         */
+        columns: number;
+        /**
+         * Data
+         */
+        data: { columns?: Column[]; rows?: BoxRow[] };
+        /**
+         * Enable dragging
+         */
+        dragEnabled: boolean;
+        /**
+         * Enable dropping
+         */
+        dropEnabled: boolean;
+        /**
+         * Drop can be done in section
+         */
+        dropOnSection: false;
+        /**
+         * If enabled, a button to load / display the row actions will be displayed on the right of every box
+         */
+        enableRowActions: boolean;
+        /**
+         * Enable filtering
+         */
+        filterEnabled: boolean;
+        /**
+         * How the field will be displayed. If not present, a default one will be created.
+         */
+        layout: Layout;
+        loadRowActions: (row: BoxRow, actions: RowAction[]) => Promise<void>;
+        /**
+         * Enable multi selection
+         */
+        multiSelection: boolean;
+        /**
+         * Number of boxes per page
+         */
+        pageSize: number;
+        /**
+         * Enables pagination
+         */
+        pagination: boolean;
+        /**
+         * Automatically selects the box at the specified index
+         */
+        selectBox: number;
+        /**
+         * If enabled, highlights the selected box/boxes
+         */
+        showSelection: boolean;
+        /**
+         * If sorting is enabled, specifies which column to sort
+         */
+        sortBy: string;
+        /**
+         * Enable sorting
+         */
+        sortEnabled: boolean;
+    }
+    interface KupBtn {
+        buttons: any[];
+        config: ButtonConfig;
+    }
+    interface KupButton {
+        align: string;
+        buttonClass: string;
+        buttonStyle: {};
+        fillspace: boolean;
+        flat: boolean;
+        iconClass: string;
+        iconUrl: string;
+        imageSrc: string;
+        label: string;
+        rounded: boolean;
+        showicon: boolean;
+        showtext: boolean;
+        textmode: string;
+        tooltip: string;
+        transparent: boolean;
+    }
+    interface KupCalendar {
+        data: DataTable;
+        dateCol: string;
+        descrCol: string;
+        endCol: string;
+        hideNavigation: boolean;
+        iconCol: string;
+        imageCol: string;
+        initialDate: string;
+        startCol: string;
+        styleCol: string;
+        weekView: boolean;
+    }
+    interface KupChart {
+        asp: ChartAspect;
+        axis: string;
+        colors: string[];
+        data: DataTable;
+        graphTitle: string;
+        graphTitleColor: string;
+        graphTitleSize: number;
+        hAxis: ChartAxis;
+        height: number;
+        legend: boolean;
+        series: string[];
+        showMarks: boolean;
+        stacked: boolean;
+        types: ChartType[];
+        vAxis: ChartAxis;
+        /**
+         * Google chart version to load
+         */
+        version: string;
+        width: number;
+    }
+    interface KupChartCell {
+        cellConfig?: any;
+        value: string;
+    }
+    interface KupCheckbox {
+        /**
+         * Sets the checkbox to be checked
+         */
+        checked: boolean;
+        /**
+         * Sets the checkbox to be disabled  Must have reflect into the attribute
+         */
+        disabled: boolean;
+        /**
+         * The label to set to the component
+         */
+        label: string;
+        /**
+         * Sets the tabindex of the checkbox
+         */
+        setTabIndex: number;
+        /**
+         * If true, shows the label by using a label tag
+         */
+        showLabel: boolean;
+    }
+    interface KupCheckboxMenu {
+        /**
+         * Sets if the checkbox menu should be disabled
+         */
+        disabled: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField: string;
+        /**
+         * The label to show as a placeholder inside the filter input
+         */
+        filterLabel: string;
+        /**
+         * Marks the field as filterable, allowing an input text to filter the options
+         */
+        isFilterable: boolean;
+        /**
+         * Sets the checkbox to be disabled  Must have reflect into the attribute
+         */
+        items: KupCheckboxMenuItem[];
+        /**
+         * The label to set to the component
+         */
+        label: string;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField: string;
+    }
+    interface KupChip {
+        closable: boolean;
+        disabled: boolean;
+    }
+    interface KupChipKnowledge {
+        closeable?: boolean;
+        disabled?: boolean;
+        imgUrl: string;
+        label: string;
+        name: string;
+    }
+    interface KupCombo {
+        /**
+         * Programmatically close the combo box
+         */
+        closeCombo: () => Promise<void>;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField: string;
+        /**
+         * Allows to pass an initial selected item for the combobox
+         */
+        initialValue: ComboItem | null;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        isClearable: boolean;
+        /**
+         * Marks the field as filterable, allowing an input text to filter the options
+         */
+        isFilterable: boolean;
+        /**
+         * Items which can be selected
+         */
+        items: ComboItem[];
+        /**
+         * Label to describe the radio group
+         */
+        label: string;
+        /**
+         * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+         */
+        obj?: GenericObject;
+        /**
+         * Programmatically opens the combo box
+         */
+        openCombo: () => Promise<void>;
+        /**
+         * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+         */
+        usePortal: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField: string;
+    }
+    interface KupCrud {
+        actions: FormActions;
+        autocompleteCallBackOnFilterUpdate: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        closeForm: () => Promise<void>;
+        config: CrudConfig;
+        crudCallBackOnFormActionSubmitted: (
+            detail: FormActionEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        crudCallBackOnFormFieldChanged: (
+            detail: FormFieldEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        disabled: boolean;
+        extra: any;
+        extraMessages: FormMessage[];
+        fields: FormFields;
+        openForm: () => Promise<void>;
+        records: CrudRecord[];
+        refid: string;
+        searchCallBackOnFilterSubmitted: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        sections: FormSection;
+    }
+    interface KupDash {
+        active: boolean;
+        fontsize: string;
+        layout: string;
+    }
+    interface KupDataTable {
+        columnsWidth: Array<{
+            column: string;
+            width: number;
+        }>;
+        data: TableData;
+        defaultSortingFunction: (
+            columns: Column[],
+            receivingColumnIndex: number,
+            sortedColumnIndex: number,
+            useNewObject?: boolean
+        ) => Promise<Column[]>;
+        /**
+         * Enables sorting of the columns by dragging them into different columns
+         */
+        enableSortableColumns: boolean;
+        expandGroups: boolean;
+        filters: GenericMap;
+        /**
+         * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
+         */
+        forceOneLine: boolean;
+        globalFilter: boolean;
+        globalFilterValue: string;
+        /**
+         * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+         */
+        groupLabelDisplay: GroupLabelDisplayMode;
+        groups: Array<GroupObject>;
+        headerIsPersistent: boolean;
+        hoverScroll: boolean;
+        /**
+         * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        loadMoreLimit: number;
+        /**
+         * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+         */
+        loadMoreMode: LoadMoreMode;
+        /**
+         * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+         */
+        loadMoreStep: number;
+        multiSelection: boolean;
+        paginatorPos: PaginatorPos;
+        rowActions: Array<RowAction>;
+        rowsPerPage: number;
+        selectRow: number;
+        showFilters: boolean;
+        showGrid: ShowGrid;
+        /**
+         * Enables rendering of the table header.
+         */
+        showHeader: boolean;
+        /**
+         * If set to true, displays the button to load more records.
+         */
+        showLoadMore: boolean;
+        sort: Array<SortObject>;
+        sortEnabled: boolean;
+        /**
+         * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+         */
+        sortableColumnsMutateData: boolean;
+        totals: TotalsMap;
+    }
+    interface KupFld {
+        /**
+         * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+         */
+        config: string | object;
+        /**
+         * Effective data to pass to the component
+         */
+        data: any;
+        /**
+         * Provides an interface to get the current value programmatically
+         */
+        getCurrentValue: () => Promise<string | object>;
+    }
+    interface KupForm {
+        actions: FormActions;
+        autocompleteCallBackOnFilterUpdate: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        cells: FormCells;
+        config: FormConfig;
+        crudCallBackOnFormActionSubmitted: (
+            detail: FormActionEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        crudCallBackOnFormFieldChanged: (
+            detail: FormFieldEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        extra: any;
+        extraMessages: FormMessage[];
+        fields: FormFields;
+        getActualCells: () => Promise<FormCells>;
+        getOldCells: () => Promise<FormCells>;
+        refid: string;
+        searchCallBackOnFilterSubmitted: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        sections: FormSection;
+    }
+    interface KupGauge {
+        /**
+         * Sets how much the arc of the gauge should be thick.
+         */
+        arcThickness: number;
+        /**
+         * Array of three elements to specify the color of the arcs.
+         */
+        colors: string[];
+        /**
+         * The first threshold, establishing the length of the first and second arc.
+         */
+        firstThreshold?: number;
+        /**
+         * The distance the label and the value has from the gauge graph.
+         */
+        labelDistance: number;
+        /**
+         * The maximum value reachable in the current graph.
+         */
+        maxValue: number;
+        /**
+         * A string which will be appended to the displayed values of the component.
+         */
+        measurementUnit: string;
+        /**
+         * The minimum value reachable in the current graph.
+         */
+        minValue: number;
+        /**
+         * if true, shows a rounded needle.
+         */
+        needleCircle: boolean;
+        /**
+         * if true, ignore threasholds in gauge and show colored value's arc.
+         */
+        onlyValue: boolean;
+        /**
+         * If set to true, the colors inside the colors array are used in the reversed order.
+         */
+        reverseColors: boolean;
+        /**
+         * The second threshold, establishing the length of the second and third arc.
+         */
+        secondThreshold?: number;
+        /**
+         * If set to false, threshold values of the gauge are not displayed.
+         */
+        showLabels: boolean;
+        /**
+         * If set to false, the maximum and minimum values of the gauge are not displayed.
+         */
+        showMaxmin: boolean;
+        /**
+         * If set to false, the current value of the gauge is not displayed.
+         */
+        showValue: boolean;
+        /**
+         * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+         */
+        size: number;
+        /**
+         * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+         */
+        value: number;
+        /**
+         * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+         */
+        valueSize: number;
+        /**
+         * Set Width gauge.
+         */
+        widthComponent: string;
+    }
+    interface KupGraphicCell {
+        height: number;
+        value: string;
+        width: number;
+    }
+    interface KupHtml {
+        /**
+         * If true, the kup-html takes the shape of a button
+         */
+        isButton: boolean;
+        /**
+         * The label to show when button isButton is active
+         */
+        label: string;
+        /**
+         * The address which must be referenced by the iframe
+         */
+        src: string;
+    }
+    interface KupIcon {
+        iconClass: string;
+        iconStyle: {};
+        iconStylesheets: string[];
+        imageSrc: string;
+    }
+    interface KupImage {
+        alt: string;
+        badges: Badge[];
+        height: string;
+        maxHeight: string;
+        maxWidth: string;
+        src: string;
+        width: string;
+    }
+    interface KupImageButton {
+        /**
+         * If enabled, can select one or more images
+         */
+        allowMultiSelection: boolean;
+        /**
+         * urls of the images
+         */
+        images: Image[];
+        /**
+         * If enabled, display the image description below the image
+         */
+        showDescription: boolean;
+        /**
+         * image dimension
+         */
+        size: number;
+    }
+    interface KupLayout {
+        /**
+         * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+         */
+        columnsNumber: number;
+        /**
+         * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+         */
+        contentBasedColumnsWidth: boolean;
+        /**
+         * When true, the layout and its contents will try to take all the available horizontal space.
+         */
+        fillSpace: boolean;
+        /**
+         * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+         */
+        horizontal: boolean;
+    }
+    interface KupMenu {
+        /**
+         * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+         */
+        closeOnOuterClick: boolean;
+        /**
+         * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
+         */
+        deactivationRelativeTo: HTMLElement;
+        /**
+         * Open or closes the menu. The menu itself can edit this prop.
+         */
+        isActive: boolean;
+        /**
+         * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
+         */
+        margin: number;
+        /**
+         * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+         */
+        positionRelativeTo: HTMLElement;
+    }
+    interface KupModal {
+        header: string;
+        visible: boolean;
+    }
+    interface KupPaginator {
+        currentPage: number;
+        max: number;
+        mode: PaginatorMode;
+        perPage: number;
+        selectedPerPage: number;
+    }
+    interface KupPortal {
+        /**
+         * Returns the root node instance of the KetchupPortalInstance element
+         */
+        getPortalInstance: () => Promise<HTMLElement>;
+        /**
+         * Tells the portal instance if it can be visible or not
+         */
+        isVisible: boolean;
+        /**
+         * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+         */
+        mirroredCssVars: string[];
+        /**
+         * Virtual node list the KetchupPortalInstance must render
+         */
+        nodes: JSX.Element[] | JSX.Element;
+        /**
+         * Reference to the html element which is using the portal. It must be a root of a web component.
+         */
+        portalParentRef: HTMLElement;
+        /**
+         * The HTML element on which the virtual node must be appended
+         */
+        portalRootNode: HTMLElement;
+        /**
+         * Calculated offset of where the portal must be positioned
+         */
+        refOffset: ElementOffset;
+        /**
+         * A style node to be copied into the KetchupPortalInstance
+         */
+        styleNode: HTMLStyleElement | null;
+    }
+    interface KupPortalInstance {
+        additionalAdoptedStyleSheets: CSSStyleSheet[];
+        /**
+         * Specifies if the current portal instance should be displayed or not.
+         */
+        isVisible: boolean;
+        /**
+         * A style node to be copied into the KetchupPortalInstance
+         */
+        styleNode: HTMLStyleElement;
+        /**
+         * Virtual node list the KetchupPortalInstance must render
+         */
+        vNodes?: JSX.Element[] | JSX.Element;
+    }
+    interface KupProgressBar {
+        /**
+         * FLag to show or hide the progress bar's label
+         */
+        hideLabel: boolean;
+        /**
+         * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+         */
+        isSmall: boolean;
+        /**
+         * Specifies a text for the bar's label
+         */
+        labelText: string;
+        /**
+         * The current value the progress bar must display.
+         */
+        value: number;
+    }
+    interface KupRadio {
+        /**
+         * Direction in which the radio elements must be placed
+         */
+        direction: string;
+        /**
+         * Sets the radio to be disabled
+         */
+        disabled: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField: string;
+        /**
+         * Allows to pass an initial selected item for the Radio group
+         */
+        initialValue: KetchupRadioElement;
+        /**
+         * Radio elements to display
+         */
+        items: KetchupRadioElement[];
+        /**
+         * Label to describe the radio group
+         */
+        label: string;
+        /**
+         * Radio elements value
+         */
+        radioName: string;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField: string;
+    }
+    interface KupRadioElement {
+        /**
+         * Specifies if the radio element is selected or not.
+         */
+        checked: boolean;
+        /**
+         * Flag: the radio button is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Label to assign to the radio button.
+         */
+        label: string;
+    }
+    interface KupSearch {
+        data: TableData;
+        disabled: boolean;
+        extra: any;
+        initialValue: string;
+        /**
+         * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+         */
+        searchCallBackOnFilterSubmitted: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        /**
+         * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+         */
+        serverHandledFilter: boolean;
+        /**
+         * The field used to obtain value
+         */
+        valueField: string;
+    }
+    interface KupTextInput {
+        /**
+         * Imperatively sets a new value of the input.
+         */
+        changeValue: (
+            newValue: string,
+            emitEvent?: boolean
+        ) => Promise<boolean>;
+        /**
+         * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+         */
+        debounce: number;
+        /**
+         * Sets the input to be disabled
+         */
+        disabled: boolean;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        initialValue: string;
+        /**
+         * Specify the type of input. Allowed values: password, text.
+         */
+        inputType: string;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        isClearable: boolean;
+        /**
+         * Label to describe the text-input clear button group
+         */
+        label: string;
+        /**
+         * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+         */
+        maxLength: number;
+        /**
+         * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
+         */
+        obj?: GenericObject;
+        /**
+         * text for input placeholder
+         */
+        placeholder: string;
+        /**
+         * Triggers the focus event on the input text
+         */
+        triggerFocus: () => Promise<void>;
+    }
+    interface KupTooltip {
+        /**
+         * Data for top section
+         */
+        data: TooltipData;
+        /**
+         * Data for the detail
+         */
+        detailData: TooltipDetailData;
+        /**
+         * Timeout for loadDetail
+         */
+        detailDataTimeout: number;
+        /**
+         * Layout used to display the items
+         */
+        layout: string;
+    }
+    interface KupTree {
+        /**
+         * auto select programmatic selectic node
+         */
+        autoSelectionNodeMode: boolean;
+        /**
+         * The columns of the tree when tree visualization is active
+         */
+        columns?: Column[];
+        /**
+         * The json data used to populate the tree view: the basic, always visible tree nodes.
+         */
+        data: TreeNode[];
+        /**
+         * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+         */
+        dynamicExpansionCallback: (
+            treeNodeToExpand: TreeNode,
+            treeNodePath: TreeNodePath
+        ) => Promise<TreeNode[]> | undefined;
+        /**
+         * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+         */
+        expanded: boolean;
+        /**
+         * Scroll on hover
+         */
+        hoverScroll: boolean;
+        /**
+         * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
+         */
+        selectedNode: TreeNodePath;
+        /**
+         * Shows the tree data as a table.
+         */
+        showColumns: boolean;
+        /**
+         * Flag: shows the header of the tree when the tree is displayed as a table.
+         */
+        showHeader: boolean;
+        /**
+         * Show the icons of the various nodes of the tree.
+         */
+        showIcons: boolean;
+        /**
+         * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
+         */
+        showObjectNavigation: boolean;
+        /**
+         * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
+         */
+        useDynamicExpansion: boolean;
+    }
+    interface KupUpload {
+        typeOptions: UploadProps;
+    }
+    interface WupButton {
+        /**
+         * Defaults at false. When set to true, the icon button state will be on.
+         */
+        checked: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered flat.
+         */
+        flat: boolean;
+        /**
+         * Defaults at null. When set, the button will show this icon.
+         */
+        icon: string;
+        /**
+         * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+         */
+        iconOff: string;
+        /**
+         * Defaults at null. When set, the button will show this text.
+         */
+        label: string;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with a colored outline.
+         */
+        outlined: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with rounded edges.
+         */
+        shaped: boolean;
+        /**
+         * Defaults at false. When set to true, the icon button will be toggable on/off.
+         */
+        toggable: boolean;
+        /**
+         * Defaults at null. When set, the icon will be shown after the text.
+         */
+        trailingIcon: boolean;
+    }
+    interface WupCheckbox {
+        /**
+         * Defaults at false. When set to true, the component will be set to 'checked'.
+         */
+        checked: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+         */
+        indeterminate: boolean;
+        /**
+         * Defaults at null. When specified, its content will be shown as a label.
+         */
+        label: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel: boolean;
+    }
+    interface WupCombo {
+        comboId: string;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Marks the list as filterable, allowing an input text to filter the options
+         */
+        isFilterable: boolean;
+        items: ComponentListElement[];
+        selectable: string;
+    }
+    interface WupList {
+        /**
+         * Marks the list as filterable, allowing an input text to filter the options
+         */
+        isFilterable: boolean;
+        items: ComponentListElement[];
+        listId: string;
+        roleType?: string;
+        selectable: string;
+        twoLine: boolean;
+    }
+    interface WupPaginator {
+        currentPage: number;
+        max: number;
+        mode: PaginatorMode;
+        perPage: number;
+        selectedPerPage: number;
+    }
+    interface WupRadio {
+        /**
+         * List of elements.
+         */
+        data: ComponentRadioElement[];
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel: boolean;
+        /**
+         * Defaults at null. It's the name that binds the radio buttons together.
+         */
+        name: string;
+    }
+    interface WupSwitch {
+        /**
+         * Defaults at false. When set to true, the component will be set to 'checked'.
+         */
+        checked: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Defaults at null. When specified, its content will be shown as a label.
+         */
+        label: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel: boolean;
+    }
+    interface WupTabBar {
+        /**
+         * List of elements.
+         */
+        data: ComponentTabBarElement[];
+    }
+    interface WupTemplate {
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+    }
+    interface WupTextField {
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered at full height.
+         */
+        fullHeight: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered at full width.
+         */
+        fullWidth: boolean;
+        /**
+         * Defaults at null. When set, its content will be shown as a help text below the field.
+         */
+        helper: string;
+        /**
+         * Defaults at false. When set, the helper will be shown only when the field is focused.
+         */
+        helperWhenFocused: boolean;
+        /**
+         * Defaults at null. When set, the text-field will show this icon.
+         */
+        icon: string;
+        /**
+         * Sets the initial value of the component
+         */
+        initialValue: string;
+        /**
+         * Defaults at null. When set, its content will be shown as a label.
+         */
+        label: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel: boolean;
+        /**
+         * Defaults at null. When set, the helper will display a character counter.
+         */
+        maxLength: number;
+        /**
+         * Defaults at false. When set to true, the component will be rendered as an outlined field.
+         */
+        outlined: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with shaped edges.
+         */
+        shaped: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered as a textarea.
+         */
+        textArea: boolean;
+        /**
+         * Defaults at null. When set, the icon will be shown after the text.
+         */
+        trailingIcon: boolean;
+        /**
+         * Defaults at false. When set to true, the label will be on the right of the component.
+         */
+        trailingLabel: boolean;
+    }
 }
 
 declare global {
+    interface HTMLKupAutocompleteElement
+        extends Components.KupAutocomplete,
+            HTMLStencilElement {}
+    var HTMLKupAutocompleteElement: {
+        prototype: HTMLKupAutocompleteElement;
+        new (): HTMLKupAutocompleteElement;
+    };
 
+    interface HTMLKupBadgeElement
+        extends Components.KupBadge,
+            HTMLStencilElement {}
+    var HTMLKupBadgeElement: {
+        prototype: HTMLKupBadgeElement;
+        new (): HTMLKupBadgeElement;
+    };
 
-  interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {}
-  var HTMLKupAutocompleteElement: {
-    prototype: HTMLKupAutocompleteElement;
-    new (): HTMLKupAutocompleteElement;
-  };
+    interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {}
+    var HTMLKupBoxElement: {
+        prototype: HTMLKupBoxElement;
+        new (): HTMLKupBoxElement;
+    };
 
-  interface HTMLKupBadgeElement extends Components.KupBadge, HTMLStencilElement {}
-  var HTMLKupBadgeElement: {
-    prototype: HTMLKupBadgeElement;
-    new (): HTMLKupBadgeElement;
-  };
+    interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
+    var HTMLKupBtnElement: {
+        prototype: HTMLKupBtnElement;
+        new (): HTMLKupBtnElement;
+    };
 
-  interface HTMLKupBoxElement extends Components.KupBox, HTMLStencilElement {}
-  var HTMLKupBoxElement: {
-    prototype: HTMLKupBoxElement;
-    new (): HTMLKupBoxElement;
-  };
+    interface HTMLKupButtonElement
+        extends Components.KupButton,
+            HTMLStencilElement {}
+    var HTMLKupButtonElement: {
+        prototype: HTMLKupButtonElement;
+        new (): HTMLKupButtonElement;
+    };
 
-  interface HTMLKupBtnElement extends Components.KupBtn, HTMLStencilElement {}
-  var HTMLKupBtnElement: {
-    prototype: HTMLKupBtnElement;
-    new (): HTMLKupBtnElement;
-  };
+    interface HTMLKupCalendarElement
+        extends Components.KupCalendar,
+            HTMLStencilElement {}
+    var HTMLKupCalendarElement: {
+        prototype: HTMLKupCalendarElement;
+        new (): HTMLKupCalendarElement;
+    };
 
-  interface HTMLKupButtonElement extends Components.KupButton, HTMLStencilElement {}
-  var HTMLKupButtonElement: {
-    prototype: HTMLKupButtonElement;
-    new (): HTMLKupButtonElement;
-  };
+    interface HTMLKupChartElement
+        extends Components.KupChart,
+            HTMLStencilElement {}
+    var HTMLKupChartElement: {
+        prototype: HTMLKupChartElement;
+        new (): HTMLKupChartElement;
+    };
 
-  interface HTMLKupCalendarElement extends Components.KupCalendar, HTMLStencilElement {}
-  var HTMLKupCalendarElement: {
-    prototype: HTMLKupCalendarElement;
-    new (): HTMLKupCalendarElement;
-  };
+    interface HTMLKupChartCellElement
+        extends Components.KupChartCell,
+            HTMLStencilElement {}
+    var HTMLKupChartCellElement: {
+        prototype: HTMLKupChartCellElement;
+        new (): HTMLKupChartCellElement;
+    };
 
-  interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {}
-  var HTMLKupChartElement: {
-    prototype: HTMLKupChartElement;
-    new (): HTMLKupChartElement;
-  };
+    interface HTMLKupCheckboxElement
+        extends Components.KupCheckbox,
+            HTMLStencilElement {}
+    var HTMLKupCheckboxElement: {
+        prototype: HTMLKupCheckboxElement;
+        new (): HTMLKupCheckboxElement;
+    };
 
-  interface HTMLKupChartCellElement extends Components.KupChartCell, HTMLStencilElement {}
-  var HTMLKupChartCellElement: {
-    prototype: HTMLKupChartCellElement;
-    new (): HTMLKupChartCellElement;
-  };
+    interface HTMLKupCheckboxMenuElement
+        extends Components.KupCheckboxMenu,
+            HTMLStencilElement {}
+    var HTMLKupCheckboxMenuElement: {
+        prototype: HTMLKupCheckboxMenuElement;
+        new (): HTMLKupCheckboxMenuElement;
+    };
 
-  interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {}
-  var HTMLKupCheckboxElement: {
-    prototype: HTMLKupCheckboxElement;
-    new (): HTMLKupCheckboxElement;
-  };
+    interface HTMLKupChipElement
+        extends Components.KupChip,
+            HTMLStencilElement {}
+    var HTMLKupChipElement: {
+        prototype: HTMLKupChipElement;
+        new (): HTMLKupChipElement;
+    };
 
-  interface HTMLKupCheckboxMenuElement extends Components.KupCheckboxMenu, HTMLStencilElement {}
-  var HTMLKupCheckboxMenuElement: {
-    prototype: HTMLKupCheckboxMenuElement;
-    new (): HTMLKupCheckboxMenuElement;
-  };
+    interface HTMLKupChipKnowledgeElement
+        extends Components.KupChipKnowledge,
+            HTMLStencilElement {}
+    var HTMLKupChipKnowledgeElement: {
+        prototype: HTMLKupChipKnowledgeElement;
+        new (): HTMLKupChipKnowledgeElement;
+    };
 
-  interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {}
-  var HTMLKupChipElement: {
-    prototype: HTMLKupChipElement;
-    new (): HTMLKupChipElement;
-  };
+    interface HTMLKupComboElement
+        extends Components.KupCombo,
+            HTMLStencilElement {}
+    var HTMLKupComboElement: {
+        prototype: HTMLKupComboElement;
+        new (): HTMLKupComboElement;
+    };
 
-  interface HTMLKupChipKnowledgeElement extends Components.KupChipKnowledge, HTMLStencilElement {}
-  var HTMLKupChipKnowledgeElement: {
-    prototype: HTMLKupChipKnowledgeElement;
-    new (): HTMLKupChipKnowledgeElement;
-  };
+    interface HTMLKupCrudElement
+        extends Components.KupCrud,
+            HTMLStencilElement {}
+    var HTMLKupCrudElement: {
+        prototype: HTMLKupCrudElement;
+        new (): HTMLKupCrudElement;
+    };
 
-  interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
-  var HTMLKupComboElement: {
-    prototype: HTMLKupComboElement;
-    new (): HTMLKupComboElement;
-  };
+    interface HTMLKupDashElement
+        extends Components.KupDash,
+            HTMLStencilElement {}
+    var HTMLKupDashElement: {
+        prototype: HTMLKupDashElement;
+        new (): HTMLKupDashElement;
+    };
 
-  interface HTMLKupCrudElement extends Components.KupCrud, HTMLStencilElement {}
-  var HTMLKupCrudElement: {
-    prototype: HTMLKupCrudElement;
-    new (): HTMLKupCrudElement;
-  };
+    interface HTMLKupDataTableElement
+        extends Components.KupDataTable,
+            HTMLStencilElement {}
+    var HTMLKupDataTableElement: {
+        prototype: HTMLKupDataTableElement;
+        new (): HTMLKupDataTableElement;
+    };
 
-  interface HTMLKupDashElement extends Components.KupDash, HTMLStencilElement {}
-  var HTMLKupDashElement: {
-    prototype: HTMLKupDashElement;
-    new (): HTMLKupDashElement;
-  };
+    interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
+    var HTMLKupFldElement: {
+        prototype: HTMLKupFldElement;
+        new (): HTMLKupFldElement;
+    };
 
-  interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {}
-  var HTMLKupDataTableElement: {
-    prototype: HTMLKupDataTableElement;
-    new (): HTMLKupDataTableElement;
-  };
+    interface HTMLKupFormElement
+        extends Components.KupForm,
+            HTMLStencilElement {}
+    var HTMLKupFormElement: {
+        prototype: HTMLKupFormElement;
+        new (): HTMLKupFormElement;
+    };
 
-  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
-  var HTMLKupFldElement: {
-    prototype: HTMLKupFldElement;
-    new (): HTMLKupFldElement;
-  };
+    interface HTMLKupGaugeElement
+        extends Components.KupGauge,
+            HTMLStencilElement {}
+    var HTMLKupGaugeElement: {
+        prototype: HTMLKupGaugeElement;
+        new (): HTMLKupGaugeElement;
+    };
 
-  interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {}
-  var HTMLKupFormElement: {
-    prototype: HTMLKupFormElement;
-    new (): HTMLKupFormElement;
-  };
+    interface HTMLKupGraphicCellElement
+        extends Components.KupGraphicCell,
+            HTMLStencilElement {}
+    var HTMLKupGraphicCellElement: {
+        prototype: HTMLKupGraphicCellElement;
+        new (): HTMLKupGraphicCellElement;
+    };
 
-  interface HTMLKupGaugeElement extends Components.KupGauge, HTMLStencilElement {}
-  var HTMLKupGaugeElement: {
-    prototype: HTMLKupGaugeElement;
-    new (): HTMLKupGaugeElement;
-  };
+    interface HTMLKupHtmlElement
+        extends Components.KupHtml,
+            HTMLStencilElement {}
+    var HTMLKupHtmlElement: {
+        prototype: HTMLKupHtmlElement;
+        new (): HTMLKupHtmlElement;
+    };
 
-  interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {}
-  var HTMLKupGraphicCellElement: {
-    prototype: HTMLKupGraphicCellElement;
-    new (): HTMLKupGraphicCellElement;
-  };
+    interface HTMLKupIconElement
+        extends Components.KupIcon,
+            HTMLStencilElement {}
+    var HTMLKupIconElement: {
+        prototype: HTMLKupIconElement;
+        new (): HTMLKupIconElement;
+    };
 
-  interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {}
-  var HTMLKupHtmlElement: {
-    prototype: HTMLKupHtmlElement;
-    new (): HTMLKupHtmlElement;
-  };
+    interface HTMLKupImageElement
+        extends Components.KupImage,
+            HTMLStencilElement {}
+    var HTMLKupImageElement: {
+        prototype: HTMLKupImageElement;
+        new (): HTMLKupImageElement;
+    };
 
-  interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {}
-  var HTMLKupIconElement: {
-    prototype: HTMLKupIconElement;
-    new (): HTMLKupIconElement;
-  };
+    interface HTMLKupImageButtonElement
+        extends Components.KupImageButton,
+            HTMLStencilElement {}
+    var HTMLKupImageButtonElement: {
+        prototype: HTMLKupImageButtonElement;
+        new (): HTMLKupImageButtonElement;
+    };
 
-  interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {}
-  var HTMLKupImageElement: {
-    prototype: HTMLKupImageElement;
-    new (): HTMLKupImageElement;
-  };
+    interface HTMLKupLayoutElement
+        extends Components.KupLayout,
+            HTMLStencilElement {}
+    var HTMLKupLayoutElement: {
+        prototype: HTMLKupLayoutElement;
+        new (): HTMLKupLayoutElement;
+    };
 
-  interface HTMLKupImageButtonElement extends Components.KupImageButton, HTMLStencilElement {}
-  var HTMLKupImageButtonElement: {
-    prototype: HTMLKupImageButtonElement;
-    new (): HTMLKupImageButtonElement;
-  };
+    interface HTMLKupMenuElement
+        extends Components.KupMenu,
+            HTMLStencilElement {}
+    var HTMLKupMenuElement: {
+        prototype: HTMLKupMenuElement;
+        new (): HTMLKupMenuElement;
+    };
 
-  interface HTMLKupLayoutElement extends Components.KupLayout, HTMLStencilElement {}
-  var HTMLKupLayoutElement: {
-    prototype: HTMLKupLayoutElement;
-    new (): HTMLKupLayoutElement;
-  };
+    interface HTMLKupModalElement
+        extends Components.KupModal,
+            HTMLStencilElement {}
+    var HTMLKupModalElement: {
+        prototype: HTMLKupModalElement;
+        new (): HTMLKupModalElement;
+    };
 
-  interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {}
-  var HTMLKupMenuElement: {
-    prototype: HTMLKupMenuElement;
-    new (): HTMLKupMenuElement;
-  };
+    interface HTMLKupPaginatorElement
+        extends Components.KupPaginator,
+            HTMLStencilElement {}
+    var HTMLKupPaginatorElement: {
+        prototype: HTMLKupPaginatorElement;
+        new (): HTMLKupPaginatorElement;
+    };
 
-  interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {}
-  var HTMLKupModalElement: {
-    prototype: HTMLKupModalElement;
-    new (): HTMLKupModalElement;
-  };
+    interface HTMLKupPortalElement
+        extends Components.KupPortal,
+            HTMLStencilElement {}
+    var HTMLKupPortalElement: {
+        prototype: HTMLKupPortalElement;
+        new (): HTMLKupPortalElement;
+    };
 
-  interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {}
-  var HTMLKupPaginatorElement: {
-    prototype: HTMLKupPaginatorElement;
-    new (): HTMLKupPaginatorElement;
-  };
+    interface HTMLKupPortalInstanceElement
+        extends Components.KupPortalInstance,
+            HTMLStencilElement {}
+    var HTMLKupPortalInstanceElement: {
+        prototype: HTMLKupPortalInstanceElement;
+        new (): HTMLKupPortalInstanceElement;
+    };
 
-  interface HTMLKupPortalElement extends Components.KupPortal, HTMLStencilElement {}
-  var HTMLKupPortalElement: {
-    prototype: HTMLKupPortalElement;
-    new (): HTMLKupPortalElement;
-  };
+    interface HTMLKupProgressBarElement
+        extends Components.KupProgressBar,
+            HTMLStencilElement {}
+    var HTMLKupProgressBarElement: {
+        prototype: HTMLKupProgressBarElement;
+        new (): HTMLKupProgressBarElement;
+    };
 
-  interface HTMLKupPortalInstanceElement extends Components.KupPortalInstance, HTMLStencilElement {}
-  var HTMLKupPortalInstanceElement: {
-    prototype: HTMLKupPortalInstanceElement;
-    new (): HTMLKupPortalInstanceElement;
-  };
+    interface HTMLKupRadioElement
+        extends Components.KupRadio,
+            HTMLStencilElement {}
+    var HTMLKupRadioElement: {
+        prototype: HTMLKupRadioElement;
+        new (): HTMLKupRadioElement;
+    };
 
-  interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {}
-  var HTMLKupProgressBarElement: {
-    prototype: HTMLKupProgressBarElement;
-    new (): HTMLKupProgressBarElement;
-  };
+    interface HTMLKupRadioElementElement
+        extends Components.KupRadioElement,
+            HTMLStencilElement {}
+    var HTMLKupRadioElementElement: {
+        prototype: HTMLKupRadioElementElement;
+        new (): HTMLKupRadioElementElement;
+    };
 
-  interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {}
-  var HTMLKupRadioElement: {
-    prototype: HTMLKupRadioElement;
-    new (): HTMLKupRadioElement;
-  };
+    interface HTMLKupSearchElement
+        extends Components.KupSearch,
+            HTMLStencilElement {}
+    var HTMLKupSearchElement: {
+        prototype: HTMLKupSearchElement;
+        new (): HTMLKupSearchElement;
+    };
 
-  interface HTMLKupRadioElementElement extends Components.KupRadioElement, HTMLStencilElement {}
-  var HTMLKupRadioElementElement: {
-    prototype: HTMLKupRadioElementElement;
-    new (): HTMLKupRadioElementElement;
-  };
+    interface HTMLKupTextInputElement
+        extends Components.KupTextInput,
+            HTMLStencilElement {}
+    var HTMLKupTextInputElement: {
+        prototype: HTMLKupTextInputElement;
+        new (): HTMLKupTextInputElement;
+    };
 
-  interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {}
-  var HTMLKupSearchElement: {
-    prototype: HTMLKupSearchElement;
-    new (): HTMLKupSearchElement;
-  };
+    interface HTMLKupTooltipElement
+        extends Components.KupTooltip,
+            HTMLStencilElement {}
+    var HTMLKupTooltipElement: {
+        prototype: HTMLKupTooltipElement;
+        new (): HTMLKupTooltipElement;
+    };
 
-  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
-  var HTMLKupTextInputElement: {
-    prototype: HTMLKupTextInputElement;
-    new (): HTMLKupTextInputElement;
-  };
+    interface HTMLKupTreeElement
+        extends Components.KupTree,
+            HTMLStencilElement {}
+    var HTMLKupTreeElement: {
+        prototype: HTMLKupTreeElement;
+        new (): HTMLKupTreeElement;
+    };
 
-  interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {}
-  var HTMLKupTooltipElement: {
-    prototype: HTMLKupTooltipElement;
-    new (): HTMLKupTooltipElement;
-  };
+    interface HTMLKupUploadElement
+        extends Components.KupUpload,
+            HTMLStencilElement {}
+    var HTMLKupUploadElement: {
+        prototype: HTMLKupUploadElement;
+        new (): HTMLKupUploadElement;
+    };
 
-  interface HTMLKupTreeElement extends Components.KupTree, HTMLStencilElement {}
-  var HTMLKupTreeElement: {
-    prototype: HTMLKupTreeElement;
-    new (): HTMLKupTreeElement;
-  };
+    interface HTMLWupButtonElement
+        extends Components.WupButton,
+            HTMLStencilElement {}
+    var HTMLWupButtonElement: {
+        prototype: HTMLWupButtonElement;
+        new (): HTMLWupButtonElement;
+    };
 
-  interface HTMLKupUploadElement extends Components.KupUpload, HTMLStencilElement {}
-  var HTMLKupUploadElement: {
-    prototype: HTMLKupUploadElement;
-    new (): HTMLKupUploadElement;
-  };
+    interface HTMLWupCheckboxElement
+        extends Components.WupCheckbox,
+            HTMLStencilElement {}
+    var HTMLWupCheckboxElement: {
+        prototype: HTMLWupCheckboxElement;
+        new (): HTMLWupCheckboxElement;
+    };
 
-  interface HTMLWupButtonElement extends Components.WupButton, HTMLStencilElement {}
-  var HTMLWupButtonElement: {
-    prototype: HTMLWupButtonElement;
-    new (): HTMLWupButtonElement;
-  };
+    interface HTMLWupComboElement
+        extends Components.WupCombo,
+            HTMLStencilElement {}
+    var HTMLWupComboElement: {
+        prototype: HTMLWupComboElement;
+        new (): HTMLWupComboElement;
+    };
 
-  interface HTMLWupCheckboxElement extends Components.WupCheckbox, HTMLStencilElement {}
-  var HTMLWupCheckboxElement: {
-    prototype: HTMLWupCheckboxElement;
-    new (): HTMLWupCheckboxElement;
-  };
+    interface HTMLWupListElement
+        extends Components.WupList,
+            HTMLStencilElement {}
+    var HTMLWupListElement: {
+        prototype: HTMLWupListElement;
+        new (): HTMLWupListElement;
+    };
 
-  interface HTMLWupComboElement extends Components.WupCombo, HTMLStencilElement {}
-  var HTMLWupComboElement: {
-    prototype: HTMLWupComboElement;
-    new (): HTMLWupComboElement;
-  };
+    interface HTMLWupPaginatorElement
+        extends Components.WupPaginator,
+            HTMLStencilElement {}
+    var HTMLWupPaginatorElement: {
+        prototype: HTMLWupPaginatorElement;
+        new (): HTMLWupPaginatorElement;
+    };
 
-  interface HTMLWupListElement extends Components.WupList, HTMLStencilElement {}
-  var HTMLWupListElement: {
-    prototype: HTMLWupListElement;
-    new (): HTMLWupListElement;
-  };
+    interface HTMLWupRadioElement
+        extends Components.WupRadio,
+            HTMLStencilElement {}
+    var HTMLWupRadioElement: {
+        prototype: HTMLWupRadioElement;
+        new (): HTMLWupRadioElement;
+    };
 
-  interface HTMLWupPaginatorElement extends Components.WupPaginator, HTMLStencilElement {}
-  var HTMLWupPaginatorElement: {
-    prototype: HTMLWupPaginatorElement;
-    new (): HTMLWupPaginatorElement;
-  };
+    interface HTMLWupSwitchElement
+        extends Components.WupSwitch,
+            HTMLStencilElement {}
+    var HTMLWupSwitchElement: {
+        prototype: HTMLWupSwitchElement;
+        new (): HTMLWupSwitchElement;
+    };
 
-  interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
-  var HTMLWupRadioElement: {
-    prototype: HTMLWupRadioElement;
-    new (): HTMLWupRadioElement;
-  };
+    interface HTMLWupTabBarElement
+        extends Components.WupTabBar,
+            HTMLStencilElement {}
+    var HTMLWupTabBarElement: {
+        prototype: HTMLWupTabBarElement;
+        new (): HTMLWupTabBarElement;
+    };
 
-  interface HTMLWupSwitchElement extends Components.WupSwitch, HTMLStencilElement {}
-  var HTMLWupSwitchElement: {
-    prototype: HTMLWupSwitchElement;
-    new (): HTMLWupSwitchElement;
-  };
+    interface HTMLWupTemplateElement
+        extends Components.WupTemplate,
+            HTMLStencilElement {}
+    var HTMLWupTemplateElement: {
+        prototype: HTMLWupTemplateElement;
+        new (): HTMLWupTemplateElement;
+    };
 
-  interface HTMLWupTabBarElement extends Components.WupTabBar, HTMLStencilElement {}
-  var HTMLWupTabBarElement: {
-    prototype: HTMLWupTabBarElement;
-    new (): HTMLWupTabBarElement;
-  };
-
-  interface HTMLWupTemplateElement extends Components.WupTemplate, HTMLStencilElement {}
-  var HTMLWupTemplateElement: {
-    prototype: HTMLWupTemplateElement;
-    new (): HTMLWupTemplateElement;
-  };
-
-  interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
-  var HTMLWupTextFieldElement: {
-    prototype: HTMLWupTextFieldElement;
-    new (): HTMLWupTextFieldElement;
-  };
-  interface HTMLElementTagNameMap {
-    'kup-autocomplete': HTMLKupAutocompleteElement;
-    'kup-badge': HTMLKupBadgeElement;
-    'kup-box': HTMLKupBoxElement;
-    'kup-btn': HTMLKupBtnElement;
-    'kup-button': HTMLKupButtonElement;
-    'kup-calendar': HTMLKupCalendarElement;
-    'kup-chart': HTMLKupChartElement;
-    'kup-chart-cell': HTMLKupChartCellElement;
-    'kup-checkbox': HTMLKupCheckboxElement;
-    'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
-    'kup-chip': HTMLKupChipElement;
-    'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
-    'kup-combo': HTMLKupComboElement;
-    'kup-crud': HTMLKupCrudElement;
-    'kup-dash': HTMLKupDashElement;
-    'kup-data-table': HTMLKupDataTableElement;
-    'kup-fld': HTMLKupFldElement;
-    'kup-form': HTMLKupFormElement;
-    'kup-gauge': HTMLKupGaugeElement;
-    'kup-graphic-cell': HTMLKupGraphicCellElement;
-    'kup-html': HTMLKupHtmlElement;
-    'kup-icon': HTMLKupIconElement;
-    'kup-image': HTMLKupImageElement;
-    'kup-image-button': HTMLKupImageButtonElement;
-    'kup-layout': HTMLKupLayoutElement;
-    'kup-menu': HTMLKupMenuElement;
-    'kup-modal': HTMLKupModalElement;
-    'kup-paginator': HTMLKupPaginatorElement;
-    'kup-portal': HTMLKupPortalElement;
-    'kup-portal-instance': HTMLKupPortalInstanceElement;
-    'kup-progress-bar': HTMLKupProgressBarElement;
-    'kup-radio': HTMLKupRadioElement;
-    'kup-radio-element': HTMLKupRadioElementElement;
-    'kup-search': HTMLKupSearchElement;
-    'kup-text-input': HTMLKupTextInputElement;
-    'kup-tooltip': HTMLKupTooltipElement;
-    'kup-tree': HTMLKupTreeElement;
-    'kup-upload': HTMLKupUploadElement;
-    'wup-button': HTMLWupButtonElement;
-    'wup-checkbox': HTMLWupCheckboxElement;
-    'wup-combo': HTMLWupComboElement;
-    'wup-list': HTMLWupListElement;
-    'wup-paginator': HTMLWupPaginatorElement;
-    'wup-radio': HTMLWupRadioElement;
-    'wup-switch': HTMLWupSwitchElement;
-    'wup-tab-bar': HTMLWupTabBarElement;
-    'wup-template': HTMLWupTemplateElement;
-    'wup-text-field': HTMLWupTextFieldElement;
-  }
+    interface HTMLWupTextFieldElement
+        extends Components.WupTextField,
+            HTMLStencilElement {}
+    var HTMLWupTextFieldElement: {
+        prototype: HTMLWupTextFieldElement;
+        new (): HTMLWupTextFieldElement;
+    };
+    interface HTMLElementTagNameMap {
+        'kup-autocomplete': HTMLKupAutocompleteElement;
+        'kup-badge': HTMLKupBadgeElement;
+        'kup-box': HTMLKupBoxElement;
+        'kup-btn': HTMLKupBtnElement;
+        'kup-button': HTMLKupButtonElement;
+        'kup-calendar': HTMLKupCalendarElement;
+        'kup-chart': HTMLKupChartElement;
+        'kup-chart-cell': HTMLKupChartCellElement;
+        'kup-checkbox': HTMLKupCheckboxElement;
+        'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
+        'kup-chip': HTMLKupChipElement;
+        'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
+        'kup-combo': HTMLKupComboElement;
+        'kup-crud': HTMLKupCrudElement;
+        'kup-dash': HTMLKupDashElement;
+        'kup-data-table': HTMLKupDataTableElement;
+        'kup-fld': HTMLKupFldElement;
+        'kup-form': HTMLKupFormElement;
+        'kup-gauge': HTMLKupGaugeElement;
+        'kup-graphic-cell': HTMLKupGraphicCellElement;
+        'kup-html': HTMLKupHtmlElement;
+        'kup-icon': HTMLKupIconElement;
+        'kup-image': HTMLKupImageElement;
+        'kup-image-button': HTMLKupImageButtonElement;
+        'kup-layout': HTMLKupLayoutElement;
+        'kup-menu': HTMLKupMenuElement;
+        'kup-modal': HTMLKupModalElement;
+        'kup-paginator': HTMLKupPaginatorElement;
+        'kup-portal': HTMLKupPortalElement;
+        'kup-portal-instance': HTMLKupPortalInstanceElement;
+        'kup-progress-bar': HTMLKupProgressBarElement;
+        'kup-radio': HTMLKupRadioElement;
+        'kup-radio-element': HTMLKupRadioElementElement;
+        'kup-search': HTMLKupSearchElement;
+        'kup-text-input': HTMLKupTextInputElement;
+        'kup-tooltip': HTMLKupTooltipElement;
+        'kup-tree': HTMLKupTreeElement;
+        'kup-upload': HTMLKupUploadElement;
+        'wup-button': HTMLWupButtonElement;
+        'wup-checkbox': HTMLWupCheckboxElement;
+        'wup-combo': HTMLWupComboElement;
+        'wup-list': HTMLWupListElement;
+        'wup-paginator': HTMLWupPaginatorElement;
+        'wup-radio': HTMLWupRadioElement;
+        'wup-switch': HTMLWupSwitchElement;
+        'wup-tab-bar': HTMLWupTabBarElement;
+        'wup-template': HTMLWupTemplateElement;
+        'wup-text-field': HTMLWupTextFieldElement;
+    }
 }
 
 declare namespace LocalJSX {
-  interface KupAutocomplete extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
-    /**
-    * When true, the user can select custom values by pressing the enter button when the input is focused.
-    */
-    'allowCustomItems'?: boolean;
-    /**
-    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
-    */
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    /**
-    * Sets if the autocomplete should be enabled or not
-    */
-    'disabled'?: boolean;
-    /**
-    * Selects how the autocomplete items must display their label and how they can be filtered for
-    */
-    'displayMode'?: AutocompleteDisplayMode;
-    /**
-    * Any extra info. It will be sent in events payload
-    */
-    'extra'?: any;
-    /**
-    * The initial selected items set inside component
-    */
-    'initialSelectedItems'?: KupAutocompleteOption[];
-    /**
-    * Sets the autocomplete items data
-    */
-    'items'?: KupAutocompleteOption[];
-    /**
-    * When greater than 0, limits the results of the filter to the specified number of elements.
-    */
-    'limitResults'?: number;
-    /**
-    * The minimum number of chars to trigger the autocomplete
-    */
-    'minimumChars'?: number;
-    /**
-    * Allows more than one option to be selected at the same time.
-    */
-    'multipleSelection'?: boolean;
-    /**
-    * Label shown when there are no items found with a given filter
-    */
-    'noItemsLabel'?: string;
-    /**
-    * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
-    */
-    'onKupAutocompleteFilterUpdate'?: (event: CustomEvent<KupAutocompleteFilterUpdatePayload>) => void;
-    /**
-    * Fired when the autocomplete selected items are changed (both in single and multiple mode).
-    */
-    'onKupAutocompleteSelectionUpdate'?: (event: CustomEvent<KupAutocompleteOption[]>) => void;
-    /**
-    * The placeholder string to set to the input for the autocomplete
-    */
-    'placeholder'?: string;
-    /**
-    * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
-    */
-    'serverHandledFilter'?: boolean;
-    /**
-    * Shows the icon to clear the input
-    */
-    'showClearIcon'?: boolean;
-    /**
-    * Shows icon to force the dropdown menu to be opened
-    */
-    'showDropdownIcon'?: boolean;
-    /**
-    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
-    */
-    'sortBy'?: AutocompleteSortBy;
-    /**
-    * Decides which type of sort must be applied to the list of rendered items.
-    */
-    'sortOrder'?: AutocompleteSortOrder;
-  }
-  interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
-    'icon'?: string;
-    'position'?: BadgePosition;
-    'text'?: string;
-  }
-  interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
-    /**
-    * Number of columns
-    */
-    'columns'?: number;
-    /**
-    * Data
-    */
-    'data'?: { columns?: Column[]; rows?: BoxRow[] };
-    /**
-    * Enable dragging
-    */
-    'dragEnabled'?: boolean;
-    /**
-    * Enable dropping
-    */
-    'dropEnabled'?: boolean;
-    /**
-    * Drop can be done in section
-    */
-    'dropOnSection'?: false;
-    /**
-    * If enabled, a button to load / display the row actions will be displayed on the right of every box
-    */
-    'enableRowActions'?: boolean;
-    /**
-    * Enable filtering
-    */
-    'filterEnabled'?: boolean;
-    /**
-    * How the field will be displayed. If not present, a default one will be created.
-    */
-    'layout'?: Layout;
-    /**
-    * Enable multi selection
-    */
-    'multiSelection'?: boolean;
-    /**
-    * Triggered when a box is auto selected via selectBox prop
-    */
-    'onKupAutoBoxSelect'?: (event: CustomEvent<{
-      row: BoxRow;
-    }>) => void;
-    /**
-    * Triggered when a box is clicked
-    */
-    'onKupBoxClicked'?: (event: CustomEvent<{
-      row: BoxRow;
-      column?: string;
-    }>) => void;
-    /**
-    * Triggered when a box dragging is ended
-    */
-    'onKupBoxDragEnded'?: (event: CustomEvent<{
-      fromId: string;
-      fromRow: BoxRow;
-      fromSelectedRows?: BoxRow[];
-    }>) => void;
-    /**
-    * Triggered when a box dragging is started
-    */
-    'onKupBoxDragStarted'?: (event: CustomEvent<{
-      fromId: string;
-      fromRow: BoxRow;
-      fromSelectedRows?: BoxRow[];
-    }>) => void;
-    /**
-    * Triggered when a box is dropped
-    */
-    'onKupBoxDropped'?: (event: CustomEvent<{
-      fromId: string;
-      fromRow: BoxRow;
-      fromSelectedRows?: BoxRow[];
-      toId: string;
-      toRow: BoxRow;
-      toSelectedRows?: BoxRow[];
-    }>) => void;
-    /**
-    * Triggered when the multi selection checkbox changes value
-    */
-    'onKupBoxSelected'?: (event: CustomEvent<{
-      rows: BoxRow[];
-    }>) => void;
-    /**
-    * When the row menu action icon is clicked
-    */
-    'onKupRowActionClicked'?: (event: CustomEvent<{
-      row: BoxRow;
-      action: RowAction;
-      index: number;
-    }>) => void;
-    /**
-    * When the row menu action icon is clicked
-    */
-    'onKupRowActionMenuClicked'?: (event: CustomEvent<{
-      row: BoxRow;
-    }>) => void;
-    /**
-    * Number of boxes per page
-    */
-    'pageSize'?: number;
-    /**
-    * Enables pagination
-    */
-    'pagination'?: boolean;
-    /**
-    * Automatically selects the box at the specified index
-    */
-    'selectBox'?: number;
-    /**
-    * If enabled, highlights the selected box/boxes
-    */
-    'showSelection'?: boolean;
-    /**
-    * If sorting is enabled, specifies which column to sort
-    */
-    'sortBy'?: string;
-    /**
-    * Enable sorting
-    */
-    'sortEnabled'?: boolean;
-  }
-  interface KupBtn extends JSXBase.HTMLAttributes<HTMLKupBtnElement> {
-    'buttons'?: any[];
-    'config'?: ButtonConfig;
-  }
-  interface KupButton extends JSXBase.HTMLAttributes<HTMLKupButtonElement> {
-    'align'?: string;
-    'buttonClass'?: string;
-    'buttonStyle'?: {};
-    'fillspace'?: boolean;
-    'flat'?: boolean;
-    'iconClass'?: string;
-    'iconUrl'?: string;
-    'imageSrc'?: string;
-    'label'?: string;
-    'onKupButtonClicked'?: (event: CustomEvent<{
-      id: string;
-    }>) => void;
-    'rounded'?: boolean;
-    'showicon'?: boolean;
-    'showtext'?: boolean;
-    'textmode'?: string;
-    'tooltip'?: string;
-    'transparent'?: boolean;
-  }
-  interface KupCalendar extends JSXBase.HTMLAttributes<HTMLKupCalendarElement> {
-    'data'?: DataTable;
-    'dateCol'?: string;
-    'descrCol'?: string;
-    'endCol'?: string;
-    'hideNavigation'?: boolean;
-    'iconCol'?: string;
-    'imageCol'?: string;
-    'initialDate'?: string;
-    /**
-    * When a date is clicked
-    */
-    'onKupCalendarDateClicked'?: (event: CustomEvent<Date>) => void;
-    /**
-    * When an event is clicked
-    */
-    'onKupCalendarEventClicked'?: (event: CustomEvent<Row>) => void;
-    /**
-    * When a date is dropped
-    */
-    'onKupCalendarEventDropped'?: (event: CustomEvent<{
-      fromDate: {
-        start: Date;
-        end: Date;
-      };
-      toDate: {
-        start: Date;
-        end: Date;
-      };
-    }>) => void;
-    /**
-    * When the navigation change
-    */
-    'onKupCalendarViewChanged'?: (event: CustomEvent<{
-      from: Date;
-      to: Date;
-    }>) => void;
-    'startCol'?: string;
-    'styleCol'?: string;
-    'weekView'?: boolean;
-  }
-  interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
-    'asp'?: ChartAspect;
-    'axis'?: string;
-    'colors'?: string[];
-    'data'?: DataTable;
-    'graphTitle'?: string;
-    'graphTitleColor'?: string;
-    'graphTitleSize'?: number;
-    'hAxis'?: ChartAxis;
-    'height'?: number;
-    'legend'?: boolean;
-    /**
-    * Triggered when a chart serie is clicked
-    */
-    'onKupChartClicked'?: (event: CustomEvent<ChartClickedEvent>) => void;
-    'series'?: string[];
-    'showMarks'?: boolean;
-    'stacked'?: boolean;
-    'types'?: ChartType[];
-    'vAxis'?: ChartAxis;
-    /**
-    * Google chart version to load
-    */
-    'version'?: string;
-    'width'?: number;
-  }
-  interface KupChartCell extends JSXBase.HTMLAttributes<HTMLKupChartCellElement> {
-    'cellConfig'?: any;
-    'value'?: string;
-  }
-  interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
-    /**
-    * Sets the checkbox to be checked
-    */
-    'checked'?: boolean;
-    /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
-    */
-    'disabled'?: boolean;
-    /**
-    * The label to set to the component
-    */
-    'label'?: string;
-    /**
-    * Fired when the checkbox input is blurred
-    */
-    'onKupCheckboxBlur'?: (event: CustomEvent<{
-      checked: boolean;
-    }>) => void;
-    /**
-    * Fired when the checkbox input changes its value
-    */
-    'onKupCheckboxChange'?: (event: CustomEvent<{
-      checked: boolean;
-    }>) => void;
-    /**
-    * Fired when the checkbox input receive focus
-    */
-    'onKupCheckboxFocus'?: (event: CustomEvent<{
-      checked: boolean;
-    }>) => void;
-    /**
-    * Sets the tabindex of the checkbox
-    */
-    'setTabIndex'?: number;
-    /**
-    * If true, shows the label by using a label tag
-    */
-    'showLabel'?: boolean;
-  }
-  interface KupCheckboxMenu extends JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement> {
-    /**
-    * Sets if the checkbox menu should be disabled
-    */
-    'disabled'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * The label to show as a placeholder inside the filter input
-    */
-    'filterLabel'?: string;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
-    */
-    'items'?: KupCheckboxMenuItem[];
-    /**
-    * The label to set to the component
-    */
-    'label'?: string;
-    /**
-    * Fired when the checkbox input changes its value
-    */
-    'onKupCheckboxMenuSelected'?: (event: CustomEvent<KupCheckboxMenuItem[]>) => void;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
-  interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
-    'closable'?: boolean;
-    'disabled'?: boolean;
-    'onClose'?: (event: CustomEvent<any>) => void;
-  }
-  interface KupChipKnowledge extends JSXBase.HTMLAttributes<HTMLKupChipKnowledgeElement> {
-    'closeable'?: boolean;
-    'disabled'?: boolean;
-    'imgUrl'?: string;
-    'label'?: string;
-    'name'?: string;
-    'onKupChipKnowledgeClick'?: (event: CustomEvent<any>) => void;
-    'onKupChipKnowledgeClose'?: (event: CustomEvent<any>) => void;
-  }
-  interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue'?: ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    /**
-    * Items which can be selected
-    */
-    'items'?: ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * When combo is blurred
-    */
-    'onKetchupComboBlurred'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When combo is focused
-    */
-    'onKetchupComboFocused'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When an element has been selected
-    */
-    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
-  interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
-    'actions'?: FormActions;
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    'config'?: CrudConfig;
-    'crudCallBackOnFormActionSubmitted'?: (
-    detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'crudCallBackOnFormFieldChanged'?: (
-    detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'disabled'?: boolean;
-    'extra'?: any;
-    'extraMessages'?: FormMessage[];
-    'fields'?: FormFields;
-    'onKupCrudBlurred'?: (event: CustomEvent<any>) => void;
-    'onKupCrudFocused'?: (event: CustomEvent<any>) => void;
-    'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
-    'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
-    'records'?: CrudRecord[];
-    'refid'?: string;
-    'searchCallBackOnFilterSubmitted'?: (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    'sections'?: FormSection;
-  }
-  interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
-    'active'?: boolean;
-    'fontsize'?: string;
-    'layout'?: string;
-    'onKetchupDashClicked'?: (event: CustomEvent<{}>) => void;
-  }
-  interface KupDataTable extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
-    'columnsWidth'?: Array<{
-      column: string;
-      width: number;
-    }>;
-    'data'?: TableData;
-    /**
-    * Enables sorting of the columns by dragging them into different columns
-    */
-    'enableSortableColumns'?: boolean;
-    'expandGroups'?: boolean;
-    'filters'?: GenericMap;
-    /**
-    * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
-    */
-    'forceOneLine'?: boolean;
-    'globalFilter'?: boolean;
-    'globalFilterValue'?: string;
-    /**
-    * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
-    */
-    'groupLabelDisplay'?: GroupLabelDisplayMode;
-    'groups'?: Array<GroupObject>;
-    'headerIsPersistent'?: boolean;
-    'hoverScroll'?: boolean;
-    /**
-    * Sets a maximum limit of new records which can be required by the load more functionality.
-    */
-    'loadMoreLimit'?: number;
-    /**
-    * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
-    */
-    'loadMoreMode'?: LoadMoreMode;
-    /**
-    * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
-    */
-    'loadMoreStep'?: number;
-    'multiSelection'?: boolean;
-    /**
-    * When 'add column' menu item is clicked
-    */
-    'onKupAddColumn'?: (event: CustomEvent<{ column: string }>) => void;
-    /**
-    * When a row is auto selected via selectRow prop
-    */
-    'onKupAutoRowSelect'?: (event: CustomEvent<{
-      selectedRow: Row;
-    }>) => void;
-    'onKupCellButtonClicked'?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
-    'onKupDataTableSortedColumn'?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
-    /**
-    * When a tooltip request detail data
-    */
-    'onKupDetailRequest'?: (event: CustomEvent<{
-      cell: Cell;
-      tooltip: EventTarget;
-    }>) => void;
-    'onKupLoadMoreClicked'?: (event: CustomEvent<{
-      loadItems: number;
-    }>) => void;
-    /**
-    * When a tooltip request initial data
-    */
-    'onKupLoadRequest'?: (event: CustomEvent<{
-      cell: Cell;
-      tooltip: EventTarget;
-    }>) => void;
-    /**
-    * When cell option is clicked
-    */
-    'onKupOptionClicked'?: (event: CustomEvent<{
-      column: string;
-      row: Row;
-    }>) => void;
-    /**
-    * When a row action is clicked
-    */
-    'onKupRowActionClicked'?: (event: CustomEvent<{
-      type: 'default' | 'variable' | 'expander';
-      row: Row;
-      action?: RowAction;
-      index?: number;
-    }>) => void;
-    /**
-    * When a row is selected
-    */
-    'onKupRowSelected'?: (event: CustomEvent<{
-      selectedRows: Array<Row>;
-      clickedColumn: string;
-    }>) => void;
-    'paginatorPos'?: PaginatorPos;
-    'rowActions'?: Array<RowAction>;
-    'rowsPerPage'?: number;
-    'selectRow'?: number;
-    'showFilters'?: boolean;
-    'showGrid'?: ShowGrid;
-    /**
-    * Enables rendering of the table header.
-    */
-    'showHeader'?: boolean;
-    /**
-    * If set to true, displays the button to load more records.
-    */
-    'showLoadMore'?: boolean;
-    'sort'?: Array<SortObject>;
-    'sortEnabled'?: boolean;
-    /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
-    */
-    'sortableColumnsMutateData'?: boolean;
-    'totals'?: TotalsMap;
-  }
-  interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
-    /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config'?: string | object;
-    /**
-    * Effective data to pass to the component
-    */
-    'data'?: any;
-    /**
-    * Launched when the value of the current FLD changes.
-    */
-    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
-    /**
-    * Launched when the FLD values are confirmed and a submit event is triggered.
-    */
-    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
-  }
-  interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
-    'actions'?: FormActions;
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
-    'cells'?: FormCells;
-    'config'?: FormConfig;
-    'crudCallBackOnFormActionSubmitted'?: (
-    detail: FormActionEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'crudCallBackOnFormFieldChanged'?: (
-    detail: FormFieldEventDetail
-    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
-    'extra'?: any;
-    'extraMessages'?: FormMessage[];
-    'fields'?: FormFields;
-    'onKupFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
-    'onKupFormFieldBlurred'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
-    'refid'?: string;
-    'searchCallBackOnFilterSubmitted'?: (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    'sections'?: FormSection;
-  }
-  interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
-    /**
-    * Sets how much the arc of the gauge should be thick.
-    */
-    'arcThickness'?: number;
-    /**
-    * Array of three elements to specify the color of the arcs.
-    */
-    'colors'?: string[];
-    /**
-    * The first threshold, establishing the length of the first and second arc.
-    */
-    'firstThreshold'?: number;
-    /**
-    * The distance the label and the value has from the gauge graph.
-    */
-    'labelDistance'?: number;
-    /**
-    * The maximum value reachable in the current graph.
-    */
-    'maxValue'?: number;
-    /**
-    * A string which will be appended to the displayed values of the component.
-    */
-    'measurementUnit'?: string;
-    /**
-    * The minimum value reachable in the current graph.
-    */
-    'minValue'?: number;
-    /**
-    * if true, shows a rounded needle.
-    */
-    'needleCircle'?: boolean;
-    /**
-    * if true, ignore threasholds in gauge and show colored value's arc.
-    */
-    'onlyValue'?: boolean;
-    /**
-    * If set to true, the colors inside the colors array are used in the reversed order.
-    */
-    'reverseColors'?: boolean;
-    /**
-    * The second threshold, establishing the length of the second and third arc.
-    */
-    'secondThreshold'?: number;
-    /**
-    * If set to false, threshold values of the gauge are not displayed.
-    */
-    'showLabels'?: boolean;
-    /**
-    * If set to false, the maximum and minimum values of the gauge are not displayed.
-    */
-    'showMaxmin'?: boolean;
-    /**
-    * If set to false, the current value of the gauge is not displayed.
-    */
-    'showValue'?: boolean;
-    /**
-    * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
-    */
-    'size'?: number;
-    /**
-    * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
-    */
-    'value'?: number;
-    /**
-    * The current size of gauge's value. Correct values are: 0,1,2 or 3.
-    */
-    'valueSize'?: number;
-    /**
-    * Set Width gauge.
-    */
-    'widthComponent'?: string;
-  }
-  interface KupGraphicCell extends JSXBase.HTMLAttributes<HTMLKupGraphicCellElement> {
-    'height'?: number;
-    'value'?: string;
-    'width'?: number;
-  }
-  interface KupHtml extends JSXBase.HTMLAttributes<HTMLKupHtmlElement> {
-    /**
-    * If true, the kup-html takes the shape of a button
-    */
-    'isButton'?: boolean;
-    /**
-    * The label to show when button isButton is active
-    */
-    'label'?: string;
-    /**
-    * When loading the frame has thrown an error
-    */
-    'onKetchupHtmlError'?: (event: CustomEvent<any>) => void;
-    /**
-    * When the iframe has been loaded
-    */
-    'onKetchupHtmlLoaded'?: (event: CustomEvent<any>) => void;
-    /**
-    * The address which must be referenced by the iframe
-    */
-    'src'?: string;
-  }
-  interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
-    'iconClass'?: string;
-    'iconStyle'?: {};
-    'iconStylesheets'?: string[];
-    'imageSrc'?: string;
-  }
-  interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
-    'alt'?: string;
-    'badges'?: Badge[];
-    'height'?: string;
-    'maxHeight'?: string;
-    'maxWidth'?: string;
-    'src'?: string;
-    'width'?: string;
-  }
-  interface KupImageButton extends JSXBase.HTMLAttributes<HTMLKupImageButtonElement> {
-    /**
-    * If enabled, can select one or more images
-    */
-    'allowMultiSelection'?: boolean;
-    /**
-    * urls of the images
-    */
-    'images'?: Image[];
-    'onKupImageButtonSelected'?: (event: CustomEvent<{
-      selectedImages: Image[];
-    }>) => void;
-    /**
-    * If enabled, display the image description below the image
-    */
-    'showDescription'?: boolean;
-    /**
-    * image dimension
-    */
-    'size'?: number;
-  }
-  interface KupLayout extends JSXBase.HTMLAttributes<HTMLKupLayoutElement> {
-    /**
-    * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
-    */
-    'columnsNumber'?: number;
-    /**
-    * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
-    */
-    'contentBasedColumnsWidth'?: boolean;
-    /**
-    * When true, the layout and its contents will try to take all the available horizontal space.
-    */
-    'fillSpace'?: boolean;
-    /**
-    * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
-    */
-    'horizontal'?: boolean;
-  }
-  interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
-    /**
-    * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-    */
-    'closeOnOuterClick'?: boolean;
-    /**
-    * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-    */
-    'deactivationRelativeTo'?: HTMLElement;
-    /**
-    * Open or closes the menu. The menu itself can edit this prop.
-    */
-    'isActive'?: boolean;
-    /**
-    * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-    */
-    'margin'?: number;
-    /**
-    * When the menu gets closed.
-    */
-    'onKupMenuClose'?: (event: CustomEvent<void>) => void;
-    /**
-    * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-    */
-    'positionRelativeTo'?: HTMLElement;
-  }
-  interface KupModal extends JSXBase.HTMLAttributes<HTMLKupModalElement> {
-    'header'?: string;
-    'onKupModalCancel'?: (event: CustomEvent<any>) => void;
-    'visible'?: boolean;
-  }
-  interface KupPaginator extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
-    'currentPage'?: number;
-    'max'?: number;
-    'mode'?: PaginatorMode;
-    /**
-    * When the current page change
-    */
-    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
-    /**
-    * When the rows per page change
-    */
-    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
-    'perPage'?: number;
-    'selectedPerPage'?: number;
-  }
-  interface KupPortal extends JSXBase.HTMLAttributes<HTMLKupPortalElement> {
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible'?: boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars'?: string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes'?: JSX.Element[] | JSX.Element;
-    /**
-    * Reference to the html element which is using the portal. It must be a root of a web component.
-    */
-    'portalParentRef'?: HTMLElement;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode'?: HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset'?: ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement | null;
-  }
-  interface KupPortalInstance extends JSXBase.HTMLAttributes<HTMLKupPortalInstanceElement> {
-    'additionalAdoptedStyleSheets'?: CSSStyleSheet[];
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible'?: boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
-  interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
-    /**
-    * FLag to show or hide the progress bar's label
-    */
-    'hideLabel'?: boolean;
-    /**
-    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
-    */
-    'isSmall'?: boolean;
-    /**
-    * Specifies a text for the bar's label
-    */
-    'labelText'?: string;
-    /**
-    * The current value the progress bar must display.
-    */
-    'value'?: number;
-  }
-  interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
-    /**
-    * Direction in which the radio elements must be placed
-    */
-    'direction'?: string;
-    /**
-    * Sets the radio to be disabled
-    */
-    'disabled'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * Allows to pass an initial selected item for the Radio group
-    */
-    'initialValue'?: KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items'?: KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * When currently selected radio button has been changed.
-    */
-    'onKetchupRadioChanged'?: (event: CustomEvent<KetchupRadioChangeEvent>) => void;
-    /**
-    * Radio elements value
-    */
-    'radioName'?: string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
-  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {
-    /**
-    * Specifies if the radio element is selected or not.
-    */
-    'checked'?: boolean;
-    /**
-    * Flag: the radio button is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Label to assign to the radio button.
-    */
-    'label'?: string;
-  }
-  interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
-    'data'?: TableData;
-    'disabled'?: boolean;
-    'extra'?: any;
-    'initialValue'?: string;
-    /**
-    * Fired when the filter is submitted but only if in serverHandledFilter mode.
-    */
-    'onKupSearchFilterSubmitted'?: (event: CustomEvent<SearchFilterSubmittedEventDetail>) => void;
-    'onKupSearchSelectionUpdated'?: (event: CustomEvent<SearchSelectionUpdatedEventDetail>) => void;
-    /**
-    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
-    */
-    'searchCallBackOnFilterSubmitted'?: (
-    detail: SearchFilterSubmittedEventDetail
-    ) => Promise<TableData> | undefined;
-    /**
-    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
-    */
-    'serverHandledFilter'?: boolean;
-    /**
-    * The field used to obtain value
-    */
-    'valueField'?: string;
-  }
-  interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce'?: number;
-    /**
-    * Sets the input to be disabled
-    */
-    'disabled'?: boolean;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue'?: string;
-    /**
-    * Specify the type of input. Allowed values: password, text.
-    */
-    'inputType'?: string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Label to describe the text-input clear button group
-    */
-    'label'?: string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength'?: number;
-    /**
-    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
-    */
-    'obj'?: GenericObject;
-    /**
-    * When text field loses focus (blur)
-    */
-    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput)
-    */
-    'onKetchupTextInputChanged'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the text input gains focus
-    */
-    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When a keydown enter event occurs it generates
-    */
-    'onKetchupTextInputSubmit'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the input text value gets updated
-    */
-    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * text for input placeholder
-    */
-    'placeholder'?: string;
-  }
-  interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
-    /**
-    * Data for top section
-    */
-    'data'?: TooltipData;
-    /**
-    * Data for the detail
-    */
-    'detailData'?: TooltipDetailData;
-    /**
-    * Timeout for loadDetail
-    */
-    'detailDataTimeout'?: number;
-    /**
-    * Layout used to display the items
-    */
-    'layout'?: string;
-    'onKupActionCommandClicked'?: (event: CustomEvent<{
-      actionCommand: TooltipAction;
-    }>) => void;
-    'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
-    'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
-  }
-  interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
-    /**
-    * auto select programmatic selectic node
-    */
-    'autoSelectionNodeMode'?: boolean;
-    /**
-    * The columns of the tree when tree visualization is active
-    */
-    'columns'?: Column[];
-    /**
-    * The json data used to populate the tree view: the basic, always visible tree nodes.
-    */
-    'data'?: TreeNode[];
-    /**
-    * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
-    */
-    'dynamicExpansionCallback'?: (
-    treeNodeToExpand: TreeNode,
-    treeNodePath: TreeNodePath
-    ) => Promise<TreeNode[]> | undefined;
-    /**
-    * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
-    */
-    'expanded'?: boolean;
-    /**
-    * Scroll on hover
-    */
-    'hoverScroll'?: boolean;
-    /**
-    * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
-    */
-    'onKupOptionClicked'?: (event: CustomEvent<{
-      cell: Cell;
-      column: Column;
-      treeNode: TreeNode;
-    }>) => void;
-    /**
-    * Fired when a TreeNode gets collapsed (closed).
-    */
-    'onKupTreeNodeCollapse'?: (event: CustomEvent<{
-      treeNodePath: TreeNodePath;
-      treeNode: TreeNode;
-    }>) => void;
-    /**
-    * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
-    */
-    'onKupTreeNodeExpand'?: (event: CustomEvent<{
-      treeNodePath: TreeNodePath;
-      treeNode: TreeNode;
-      usesDynamicExpansion?: boolean;
-      dynamicExpansionRequireChildren?: boolean;
-    }>) => void;
-    /**
-    * Fired when a node of the tree has been selected
-    */
-    'onKupTreeNodeSelected'?: (event: CustomEvent<{
-      treeNodePath: TreeNodePath;
-      treeNode: TreeNode;
-      auto: boolean;
-    }>) => void;
-    /**
-    * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
-    */
-    'selectedNode'?: TreeNodePath;
-    /**
-    * Shows the tree data as a table.
-    */
-    'showColumns'?: boolean;
-    /**
-    * Flag: shows the header of the tree when the tree is displayed as a table.
-    */
-    'showHeader'?: boolean;
-    /**
-    * Show the icons of the various nodes of the tree.
-    */
-    'showIcons'?: boolean;
-    /**
-    * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
-    */
-    'showObjectNavigation'?: boolean;
-    /**
-    * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
-    */
-    'useDynamicExpansion'?: boolean;
-  }
-  interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
-    'onKetchupFileRejected'?: (event: CustomEvent<any>) => void;
-    /**
-    * Launched when file upload succeed
-    */
-    'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
-    'typeOptions'?: UploadProps;
-  }
-  interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
-    /**
-    * Defaults at false. When set to true, the icon button state will be on.
-    */
-    'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered flat.
-    */
-    'flat'?: boolean;
-    /**
-    * Defaults at null. When set, the button will show this icon.
-    */
-    'icon'?: string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconoff'?: string;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'label'?: string;
-    'onKupButtonBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'rounded'?: boolean;
-    /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
-    */
-    'toggable'?: boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingicon'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent'?: boolean;
-  }
-  interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-    */
-    'indeterminate'?: boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright'?: string;
-    'onKupCheckboxBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-  }
-  interface WupCombo extends JSXBase.HTMLAttributes<HTMLWupComboElement> {
-    'comboId'?: string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    'items'?: ComponentListElement[];
-    /**
-    * Event example.
-    */
-    'onKupComboBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'selectable'?: string;
-  }
-  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    'items'?: ComponentListElement[];
-    'listId'?: string;
-    /**
-    * Events.
-    */
-    'onKupListBlur'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListChange'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListClick'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListFocus'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListInput'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'roleType'?: string;
-    'selectable'?: string;
-    'twoLine'?: boolean;
-  }
-  interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
-    'currentPage'?: number;
-    'max'?: number;
-    'mode'?: PaginatorMode;
-    /**
-    * When the current page change
-    */
-    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
-    /**
-    * When the rows per page change
-    */
-    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
-    'perPage'?: number;
-    'selectedPerPage'?: number;
-  }
-  interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright'?: string;
-    'name'?: string;
-    'onKupRadioBlur'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioChange'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioClick'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioFocus'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioInput'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'value'?: string;
-  }
-  interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
-    */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
-    */
-    'labelright'?: string;
-    'onKupSwitchBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-  }
-  interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
-    /**
-    * List of elements.
-    */
-    'items'?: ComponentTabBarElement[];
-    'onKupTabBarBlur'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarChange'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarClick'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarFocus'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarInput'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-  }
-  interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Event example.
-    */
-    'onKupCOMP_NAMEBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-  }
-  interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full height.
-    */
-    'fullheight'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full width.
-    */
-    'fullwidth'?: boolean;
-    /**
-    * Defaults at null. When set, its content will be shown as a help text below the field.
-    */
-    'helper'?: string;
-    /**
-    * Defaults at false. When set, the helper will be shown only when the field is focused.
-    */
-    'helperwhenfocus'?: boolean;
-    /**
-    * Defaults at null. When set, the text-field will show this icon.
-    */
-    'icon'?: string;
-    /**
-    * Sets the initial value of the component
-    */
-    'initialvalue'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label.
-    */
-    'label'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
-    */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright'?: string;
-    /**
-    * Defaults at null. When set, the helper will display a character counter.
-    */
-    'maxlength'?: number;
-    'onKupTextFieldBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldIconClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as an outlined field.
-    */
-    'outlined'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'rounded'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as a textarea.
-    */
-    'textarea'?: boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingicon'?: boolean;
-  }
+    interface KupAutocomplete
+        extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
+        /**
+         * When true, the user can select custom values by pressing the enter button when the input is focused.
+         */
+        allowCustomItems?: boolean;
+        /**
+         * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+         */
+        autocompleteCallBackOnFilterUpdate?: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        /**
+         * Sets if the autocomplete should be enabled or not
+         */
+        disabled?: boolean;
+        /**
+         * Selects how the autocomplete items must display their label and how they can be filtered for
+         */
+        displayMode?: AutocompleteDisplayMode;
+        /**
+         * Any extra info. It will be sent in events payload
+         */
+        extra?: any;
+        /**
+         * The initial selected items set inside component
+         */
+        initialSelectedItems?: KupAutocompleteOption[];
+        /**
+         * Sets the autocomplete items data
+         */
+        items?: KupAutocompleteOption[];
+        /**
+         * When greater than 0, limits the results of the filter to the specified number of elements.
+         */
+        limitResults?: number;
+        /**
+         * The minimum number of chars to trigger the autocomplete
+         */
+        minimumChars?: number;
+        /**
+         * Allows more than one option to be selected at the same time.
+         */
+        multipleSelection?: boolean;
+        /**
+         * Label shown when there are no items found with a given filter
+         */
+        noItemsLabel?: string;
+        /**
+         * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
+         */
+        onKupAutocompleteFilterUpdate?: (
+            event: CustomEvent<KupAutocompleteFilterUpdatePayload>
+        ) => void;
+        /**
+         * Fired when the autocomplete selected items are changed (both in single and multiple mode).
+         */
+        onKupAutocompleteSelectionUpdate?: (
+            event: CustomEvent<KupAutocompleteOption[]>
+        ) => void;
+        /**
+         * The placeholder string to set to the input for the autocomplete
+         */
+        placeholder?: string;
+        /**
+         * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
+         */
+        serverHandledFilter?: boolean;
+        /**
+         * Shows the icon to clear the input
+         */
+        showClearIcon?: boolean;
+        /**
+         * Shows icon to force the dropdown menu to be opened
+         */
+        showDropdownIcon?: boolean;
+        /**
+         * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
+         */
+        sortBy?: AutocompleteSortBy;
+        /**
+         * Decides which type of sort must be applied to the list of rendered items.
+         */
+        sortOrder?: AutocompleteSortOrder;
+    }
+    interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
+        icon?: string;
+        position?: BadgePosition;
+        text?: string;
+    }
+    interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
+        /**
+         * Number of columns
+         */
+        columns?: number;
+        /**
+         * Data
+         */
+        data?: { columns?: Column[]; rows?: BoxRow[] };
+        /**
+         * Enable dragging
+         */
+        dragEnabled?: boolean;
+        /**
+         * Enable dropping
+         */
+        dropEnabled?: boolean;
+        /**
+         * Drop can be done in section
+         */
+        dropOnSection?: false;
+        /**
+         * If enabled, a button to load / display the row actions will be displayed on the right of every box
+         */
+        enableRowActions?: boolean;
+        /**
+         * Enable filtering
+         */
+        filterEnabled?: boolean;
+        /**
+         * How the field will be displayed. If not present, a default one will be created.
+         */
+        layout?: Layout;
+        /**
+         * Enable multi selection
+         */
+        multiSelection?: boolean;
+        /**
+         * Triggered when a box is auto selected via selectBox prop
+         */
+        onKupAutoBoxSelect?: (
+            event: CustomEvent<{
+                row: BoxRow;
+            }>
+        ) => void;
+        /**
+         * Triggered when a box is clicked
+         */
+        onKupBoxClicked?: (
+            event: CustomEvent<{
+                row: BoxRow;
+                column?: string;
+            }>
+        ) => void;
+        /**
+         * Triggered when a box dragging is ended
+         */
+        onKupBoxDragEnded?: (
+            event: CustomEvent<{
+                fromId: string;
+                fromRow: BoxRow;
+                fromSelectedRows?: BoxRow[];
+            }>
+        ) => void;
+        /**
+         * Triggered when a box dragging is started
+         */
+        onKupBoxDragStarted?: (
+            event: CustomEvent<{
+                fromId: string;
+                fromRow: BoxRow;
+                fromSelectedRows?: BoxRow[];
+            }>
+        ) => void;
+        /**
+         * Triggered when a box is dropped
+         */
+        onKupBoxDropped?: (
+            event: CustomEvent<{
+                fromId: string;
+                fromRow: BoxRow;
+                fromSelectedRows?: BoxRow[];
+                toId: string;
+                toRow: BoxRow;
+                toSelectedRows?: BoxRow[];
+            }>
+        ) => void;
+        /**
+         * Triggered when the multi selection checkbox changes value
+         */
+        onKupBoxSelected?: (
+            event: CustomEvent<{
+                rows: BoxRow[];
+            }>
+        ) => void;
+        /**
+         * When the row menu action icon is clicked
+         */
+        onKupRowActionClicked?: (
+            event: CustomEvent<{
+                row: BoxRow;
+                action: RowAction;
+                index: number;
+            }>
+        ) => void;
+        /**
+         * When the row menu action icon is clicked
+         */
+        onKupRowActionMenuClicked?: (
+            event: CustomEvent<{
+                row: BoxRow;
+            }>
+        ) => void;
+        /**
+         * Number of boxes per page
+         */
+        pageSize?: number;
+        /**
+         * Enables pagination
+         */
+        pagination?: boolean;
+        /**
+         * Automatically selects the box at the specified index
+         */
+        selectBox?: number;
+        /**
+         * If enabled, highlights the selected box/boxes
+         */
+        showSelection?: boolean;
+        /**
+         * If sorting is enabled, specifies which column to sort
+         */
+        sortBy?: string;
+        /**
+         * Enable sorting
+         */
+        sortEnabled?: boolean;
+    }
+    interface KupBtn extends JSXBase.HTMLAttributes<HTMLKupBtnElement> {
+        buttons?: any[];
+        config?: ButtonConfig;
+    }
+    interface KupButton extends JSXBase.HTMLAttributes<HTMLKupButtonElement> {
+        align?: string;
+        buttonClass?: string;
+        buttonStyle?: {};
+        fillspace?: boolean;
+        flat?: boolean;
+        iconClass?: string;
+        iconUrl?: string;
+        imageSrc?: string;
+        label?: string;
+        onKupButtonClicked?: (
+            event: CustomEvent<{
+                id: string;
+            }>
+        ) => void;
+        rounded?: boolean;
+        showicon?: boolean;
+        showtext?: boolean;
+        textmode?: string;
+        tooltip?: string;
+        transparent?: boolean;
+    }
+    interface KupCalendar
+        extends JSXBase.HTMLAttributes<HTMLKupCalendarElement> {
+        data?: DataTable;
+        dateCol?: string;
+        descrCol?: string;
+        endCol?: string;
+        hideNavigation?: boolean;
+        iconCol?: string;
+        imageCol?: string;
+        initialDate?: string;
+        /**
+         * When a date is clicked
+         */
+        onKupCalendarDateClicked?: (event: CustomEvent<Date>) => void;
+        /**
+         * When an event is clicked
+         */
+        onKupCalendarEventClicked?: (event: CustomEvent<Row>) => void;
+        /**
+         * When a date is dropped
+         */
+        onKupCalendarEventDropped?: (
+            event: CustomEvent<{
+                fromDate: {
+                    start: Date;
+                    end: Date;
+                };
+                toDate: {
+                    start: Date;
+                    end: Date;
+                };
+            }>
+        ) => void;
+        /**
+         * When the navigation change
+         */
+        onKupCalendarViewChanged?: (
+            event: CustomEvent<{
+                from: Date;
+                to: Date;
+            }>
+        ) => void;
+        startCol?: string;
+        styleCol?: string;
+        weekView?: boolean;
+    }
+    interface KupChart extends JSXBase.HTMLAttributes<HTMLKupChartElement> {
+        asp?: ChartAspect;
+        axis?: string;
+        colors?: string[];
+        data?: DataTable;
+        graphTitle?: string;
+        graphTitleColor?: string;
+        graphTitleSize?: number;
+        hAxis?: ChartAxis;
+        height?: number;
+        legend?: boolean;
+        /**
+         * Triggered when a chart serie is clicked
+         */
+        onKupChartClicked?: (event: CustomEvent<ChartClickedEvent>) => void;
+        series?: string[];
+        showMarks?: boolean;
+        stacked?: boolean;
+        types?: ChartType[];
+        vAxis?: ChartAxis;
+        /**
+         * Google chart version to load
+         */
+        version?: string;
+        width?: number;
+    }
+    interface KupChartCell
+        extends JSXBase.HTMLAttributes<HTMLKupChartCellElement> {
+        cellConfig?: any;
+        value?: string;
+    }
+    interface KupCheckbox
+        extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
+        /**
+         * Sets the checkbox to be checked
+         */
+        checked?: boolean;
+        /**
+         * Sets the checkbox to be disabled  Must have reflect into the attribute
+         */
+        disabled?: boolean;
+        /**
+         * The label to set to the component
+         */
+        label?: string;
+        /**
+         * Fired when the checkbox input is blurred
+         */
+        onKupCheckboxBlur?: (
+            event: CustomEvent<{
+                checked: boolean;
+            }>
+        ) => void;
+        /**
+         * Fired when the checkbox input changes its value
+         */
+        onKupCheckboxChange?: (
+            event: CustomEvent<{
+                checked: boolean;
+            }>
+        ) => void;
+        /**
+         * Fired when the checkbox input receive focus
+         */
+        onKupCheckboxFocus?: (
+            event: CustomEvent<{
+                checked: boolean;
+            }>
+        ) => void;
+        /**
+         * Sets the tabindex of the checkbox
+         */
+        setTabIndex?: number;
+        /**
+         * If true, shows the label by using a label tag
+         */
+        showLabel?: boolean;
+    }
+    interface KupCheckboxMenu
+        extends JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement> {
+        /**
+         * Sets if the checkbox menu should be disabled
+         */
+        disabled?: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField?: string;
+        /**
+         * The label to show as a placeholder inside the filter input
+         */
+        filterLabel?: string;
+        /**
+         * Marks the field as filterable, allowing an input text to filter the options
+         */
+        isFilterable?: boolean;
+        /**
+         * Sets the checkbox to be disabled  Must have reflect into the attribute
+         */
+        items?: KupCheckboxMenuItem[];
+        /**
+         * The label to set to the component
+         */
+        label?: string;
+        /**
+         * Fired when the checkbox input changes its value
+         */
+        onKupCheckboxMenuSelected?: (
+            event: CustomEvent<KupCheckboxMenuItem[]>
+        ) => void;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField?: string;
+    }
+    interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
+        closable?: boolean;
+        disabled?: boolean;
+        onClose?: (event: CustomEvent<any>) => void;
+    }
+    interface KupChipKnowledge
+        extends JSXBase.HTMLAttributes<HTMLKupChipKnowledgeElement> {
+        closeable?: boolean;
+        disabled?: boolean;
+        imgUrl?: string;
+        label?: string;
+        name?: string;
+        onKupChipKnowledgeClick?: (event: CustomEvent<any>) => void;
+        onKupChipKnowledgeClose?: (event: CustomEvent<any>) => void;
+    }
+    interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField?: string;
+        /**
+         * Allows to pass an initial selected item for the combobox
+         */
+        initialValue?: ComboItem | null;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        isClearable?: boolean;
+        /**
+         * Marks the field as filterable, allowing an input text to filter the options
+         */
+        isFilterable?: boolean;
+        /**
+         * Items which can be selected
+         */
+        items?: ComboItem[];
+        /**
+         * Label to describe the radio group
+         */
+        label?: string;
+        /**
+         * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
+         */
+        obj?: GenericObject;
+        /**
+         * When combo is blurred
+         */
+        onKetchupComboBlurred?: (event: CustomEvent<KetchupComboEvent>) => void;
+        /**
+         * When combo is focused
+         */
+        onKetchupComboFocused?: (event: CustomEvent<KetchupComboEvent>) => void;
+        /**
+         * When an element has been selected
+         */
+        onKetchupComboSelected?: (
+            event: CustomEvent<KetchupComboEvent>
+        ) => void;
+        /**
+         * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
+         */
+        usePortal?: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField?: string;
+    }
+    interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
+        actions?: FormActions;
+        autocompleteCallBackOnFilterUpdate?: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        config?: CrudConfig;
+        crudCallBackOnFormActionSubmitted?: (
+            detail: FormActionEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        crudCallBackOnFormFieldChanged?: (
+            detail: FormFieldEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        disabled?: boolean;
+        extra?: any;
+        extraMessages?: FormMessage[];
+        fields?: FormFields;
+        onKupCrudBlurred?: (event: CustomEvent<any>) => void;
+        onKupCrudFocused?: (event: CustomEvent<any>) => void;
+        onKupCrudFormActionSubmitted?: (
+            event: CustomEvent<FormActionEventDetail>
+        ) => void;
+        onKupCrudFormFieldChanged?: (
+            event: CustomEvent<FormFieldEventDetail>
+        ) => void;
+        onKupCrudRecordsChanged?: (
+            event: CustomEvent<CrudRecordsChanged>
+        ) => void;
+        records?: CrudRecord[];
+        refid?: string;
+        searchCallBackOnFilterSubmitted?: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        sections?: FormSection;
+    }
+    interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
+        active?: boolean;
+        fontsize?: string;
+        layout?: string;
+        onKetchupDashClicked?: (event: CustomEvent<{}>) => void;
+    }
+    interface KupDataTable
+        extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
+        columnsWidth?: Array<{
+            column: string;
+            width: number;
+        }>;
+        data?: TableData;
+        /**
+         * Enables sorting of the columns by dragging them into different columns
+         */
+        enableSortableColumns?: boolean;
+        expandGroups?: boolean;
+        filters?: GenericMap;
+        /**
+         * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
+         */
+        forceOneLine?: boolean;
+        globalFilter?: boolean;
+        globalFilterValue?: string;
+        /**
+         * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
+         */
+        groupLabelDisplay?: GroupLabelDisplayMode;
+        groups?: Array<GroupObject>;
+        headerIsPersistent?: boolean;
+        hoverScroll?: boolean;
+        /**
+         * Sets a maximum limit of new records which can be required by the load more functionality.
+         */
+        loadMoreLimit?: number;
+        /**
+         * Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.
+         */
+        loadMoreMode?: LoadMoreMode;
+        /**
+         * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
+         */
+        loadMoreStep?: number;
+        multiSelection?: boolean;
+        /**
+         * When 'add column' menu item is clicked
+         */
+        onKupAddColumn?: (event: CustomEvent<{ column: string }>) => void;
+        /**
+         * When a row is auto selected via selectRow prop
+         */
+        onKupAutoRowSelect?: (
+            event: CustomEvent<{
+                selectedRow: Row;
+            }>
+        ) => void;
+        onKupCellButtonClicked?: (
+            event: CustomEvent<KupDataTableCellButtonClick>
+        ) => void;
+        onKupDataTableSortedColumn?: (
+            event: CustomEvent<KupDataTableSortedColumnIndexes>
+        ) => void;
+        /**
+         * When a tooltip request detail data
+         */
+        onKupDetailRequest?: (
+            event: CustomEvent<{
+                cell: Cell;
+                tooltip: EventTarget;
+            }>
+        ) => void;
+        onKupLoadMoreClicked?: (
+            event: CustomEvent<{
+                loadItems: number;
+            }>
+        ) => void;
+        /**
+         * When a tooltip request initial data
+         */
+        onKupLoadRequest?: (
+            event: CustomEvent<{
+                cell: Cell;
+                tooltip: EventTarget;
+            }>
+        ) => void;
+        /**
+         * When cell option is clicked
+         */
+        onKupOptionClicked?: (
+            event: CustomEvent<{
+                column: string;
+                row: Row;
+            }>
+        ) => void;
+        /**
+         * When a row action is clicked
+         */
+        onKupRowActionClicked?: (
+            event: CustomEvent<{
+                type: 'default' | 'variable' | 'expander';
+                row: Row;
+                action?: RowAction;
+                index?: number;
+            }>
+        ) => void;
+        /**
+         * When a row is selected
+         */
+        onKupRowSelected?: (
+            event: CustomEvent<{
+                selectedRows: Array<Row>;
+                clickedColumn: string;
+            }>
+        ) => void;
+        paginatorPos?: PaginatorPos;
+        rowActions?: Array<RowAction>;
+        rowsPerPage?: number;
+        selectRow?: number;
+        showFilters?: boolean;
+        showGrid?: ShowGrid;
+        /**
+         * Enables rendering of the table header.
+         */
+        showHeader?: boolean;
+        /**
+         * If set to true, displays the button to load more records.
+         */
+        showLoadMore?: boolean;
+        sort?: Array<SortObject>;
+        sortEnabled?: boolean;
+        /**
+         * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+         */
+        sortableColumnsMutateData?: boolean;
+        totals?: TotalsMap;
+    }
+    interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
+        /**
+         * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
+         */
+        config?: string | object;
+        /**
+         * Effective data to pass to the component
+         */
+        data?: any;
+        /**
+         * Launched when the value of the current FLD changes.
+         */
+        onKetchupFldChanged?: (
+            event: CustomEvent<KetchupFldChangeEvent>
+        ) => void;
+        /**
+         * Launched when the FLD values are confirmed and a submit event is triggered.
+         */
+        onKetchupFldSubmit?: (
+            event: CustomEvent<KetchupFldSubmitEvent>
+        ) => void;
+    }
+    interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
+        actions?: FormActions;
+        autocompleteCallBackOnFilterUpdate?: (
+            detail: KupAutocompleteFilterUpdatePayload
+        ) => Promise<KupAutocompleteOption[]> | undefined;
+        cells?: FormCells;
+        config?: FormConfig;
+        crudCallBackOnFormActionSubmitted?: (
+            detail: FormActionEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        crudCallBackOnFormFieldChanged?: (
+            detail: FormFieldEventDetail
+        ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        extra?: any;
+        extraMessages?: FormMessage[];
+        fields?: FormFields;
+        onKupFormActionSubmitted?: (
+            event: CustomEvent<FormActionEventDetail>
+        ) => void;
+        onKupFormFieldBlurred?: (
+            event: CustomEvent<FormFieldEventDetail>
+        ) => void;
+        onKupFormFieldChanged?: (
+            event: CustomEvent<FormFieldEventDetail>
+        ) => void;
+        onKupFormFieldFocused?: (
+            event: CustomEvent<FormFieldEventDetail>
+        ) => void;
+        refid?: string;
+        searchCallBackOnFilterSubmitted?: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        sections?: FormSection;
+    }
+    interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
+        /**
+         * Sets how much the arc of the gauge should be thick.
+         */
+        arcThickness?: number;
+        /**
+         * Array of three elements to specify the color of the arcs.
+         */
+        colors?: string[];
+        /**
+         * The first threshold, establishing the length of the first and second arc.
+         */
+        firstThreshold?: number;
+        /**
+         * The distance the label and the value has from the gauge graph.
+         */
+        labelDistance?: number;
+        /**
+         * The maximum value reachable in the current graph.
+         */
+        maxValue?: number;
+        /**
+         * A string which will be appended to the displayed values of the component.
+         */
+        measurementUnit?: string;
+        /**
+         * The minimum value reachable in the current graph.
+         */
+        minValue?: number;
+        /**
+         * if true, shows a rounded needle.
+         */
+        needleCircle?: boolean;
+        /**
+         * if true, ignore threasholds in gauge and show colored value's arc.
+         */
+        onlyValue?: boolean;
+        /**
+         * If set to true, the colors inside the colors array are used in the reversed order.
+         */
+        reverseColors?: boolean;
+        /**
+         * The second threshold, establishing the length of the second and third arc.
+         */
+        secondThreshold?: number;
+        /**
+         * If set to false, threshold values of the gauge are not displayed.
+         */
+        showLabels?: boolean;
+        /**
+         * If set to false, the maximum and minimum values of the gauge are not displayed.
+         */
+        showMaxmin?: boolean;
+        /**
+         * If set to false, the current value of the gauge is not displayed.
+         */
+        showValue?: boolean;
+        /**
+         * Con be used change the viewbox of the SVG. By manipulating this value, some customizations of the aspect of the gauge is achievable.
+         */
+        size?: number;
+        /**
+         * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
+         */
+        value?: number;
+        /**
+         * The current size of gauge's value. Correct values are: 0,1,2 or 3.
+         */
+        valueSize?: number;
+        /**
+         * Set Width gauge.
+         */
+        widthComponent?: string;
+    }
+    interface KupGraphicCell
+        extends JSXBase.HTMLAttributes<HTMLKupGraphicCellElement> {
+        height?: number;
+        value?: string;
+        width?: number;
+    }
+    interface KupHtml extends JSXBase.HTMLAttributes<HTMLKupHtmlElement> {
+        /**
+         * If true, the kup-html takes the shape of a button
+         */
+        isButton?: boolean;
+        /**
+         * The label to show when button isButton is active
+         */
+        label?: string;
+        /**
+         * When loading the frame has thrown an error
+         */
+        onKetchupHtmlError?: (event: CustomEvent<any>) => void;
+        /**
+         * When the iframe has been loaded
+         */
+        onKetchupHtmlLoaded?: (event: CustomEvent<any>) => void;
+        /**
+         * The address which must be referenced by the iframe
+         */
+        src?: string;
+    }
+    interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
+        iconClass?: string;
+        iconStyle?: {};
+        iconStylesheets?: string[];
+        imageSrc?: string;
+    }
+    interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
+        alt?: string;
+        badges?: Badge[];
+        height?: string;
+        maxHeight?: string;
+        maxWidth?: string;
+        src?: string;
+        width?: string;
+    }
+    interface KupImageButton
+        extends JSXBase.HTMLAttributes<HTMLKupImageButtonElement> {
+        /**
+         * If enabled, can select one or more images
+         */
+        allowMultiSelection?: boolean;
+        /**
+         * urls of the images
+         */
+        images?: Image[];
+        onKupImageButtonSelected?: (
+            event: CustomEvent<{
+                selectedImages: Image[];
+            }>
+        ) => void;
+        /**
+         * If enabled, display the image description below the image
+         */
+        showDescription?: boolean;
+        /**
+         * image dimension
+         */
+        size?: number;
+    }
+    interface KupLayout extends JSXBase.HTMLAttributes<HTMLKupLayoutElement> {
+        /**
+         * Specifies how many columns the content must be organized onto.  If this is greater than 1, then the horizontal prop will have no effect.
+         */
+        columnsNumber?: number;
+        /**
+         * By default, columns size is calculated by the grid layout and it tries to give the same space to elements.  If this is true, columns width will be calculated according to the cells content. See SCSS file for more details.
+         */
+        contentBasedColumnsWidth?: boolean;
+        /**
+         * When true, the layout and its contents will try to take all the available horizontal space.
+         */
+        fillSpace?: boolean;
+        /**
+         * Tells the layout to place all elements onto a single row. It does not work when columnsNumber is greater then 1.
+         */
+        horizontal?: boolean;
+    }
+    interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
+        /**
+         * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
+         */
+        closeOnOuterClick?: boolean;
+        /**
+         * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
+         */
+        deactivationRelativeTo?: HTMLElement;
+        /**
+         * Open or closes the menu. The menu itself can edit this prop.
+         */
+        isActive?: boolean;
+        /**
+         * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
+         */
+        margin?: number;
+        /**
+         * When the menu gets closed.
+         */
+        onKupMenuClose?: (event: CustomEvent<void>) => void;
+        /**
+         * Forces the menu to open on a given position. The default value allows the menu to open itself in the best position according to its calculation. The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
+         */
+        positionRelativeTo?: HTMLElement;
+    }
+    interface KupModal extends JSXBase.HTMLAttributes<HTMLKupModalElement> {
+        header?: string;
+        onKupModalCancel?: (event: CustomEvent<any>) => void;
+        visible?: boolean;
+    }
+    interface KupPaginator
+        extends JSXBase.HTMLAttributes<HTMLKupPaginatorElement> {
+        currentPage?: number;
+        max?: number;
+        mode?: PaginatorMode;
+        /**
+         * When the current page change
+         */
+        onKupPageChanged?: (event: CustomEvent<{ newPage: number }>) => void;
+        /**
+         * When the rows per page change
+         */
+        onKupRowsPerPageChanged?: (
+            event: CustomEvent<{ newRowsPerPage: number }>
+        ) => void;
+        perPage?: number;
+        selectedPerPage?: number;
+    }
+    interface KupPortal extends JSXBase.HTMLAttributes<HTMLKupPortalElement> {
+        /**
+         * Tells the portal instance if it can be visible or not
+         */
+        isVisible?: boolean;
+        /**
+         * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
+         */
+        mirroredCssVars?: string[];
+        /**
+         * Virtual node list the KetchupPortalInstance must render
+         */
+        nodes?: JSX.Element[] | JSX.Element;
+        /**
+         * Reference to the html element which is using the portal. It must be a root of a web component.
+         */
+        portalParentRef?: HTMLElement;
+        /**
+         * The HTML element on which the virtual node must be appended
+         */
+        portalRootNode?: HTMLElement;
+        /**
+         * Calculated offset of where the portal must be positioned
+         */
+        refOffset?: ElementOffset;
+        /**
+         * A style node to be copied into the KetchupPortalInstance
+         */
+        styleNode?: HTMLStyleElement | null;
+    }
+    interface KupPortalInstance
+        extends JSXBase.HTMLAttributes<HTMLKupPortalInstanceElement> {
+        additionalAdoptedStyleSheets?: CSSStyleSheet[];
+        /**
+         * Specifies if the current portal instance should be displayed or not.
+         */
+        isVisible?: boolean;
+        /**
+         * A style node to be copied into the KetchupPortalInstance
+         */
+        styleNode?: HTMLStyleElement;
+        /**
+         * Virtual node list the KetchupPortalInstance must render
+         */
+        vNodes?: JSX.Element[] | JSX.Element;
+    }
+    interface KupProgressBar
+        extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
+        /**
+         * FLag to show or hide the progress bar's label
+         */
+        hideLabel?: boolean;
+        /**
+         * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+         */
+        isSmall?: boolean;
+        /**
+         * Specifies a text for the bar's label
+         */
+        labelText?: string;
+        /**
+         * The current value the progress bar must display.
+         */
+        value?: number;
+    }
+    interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
+        /**
+         * Direction in which the radio elements must be placed
+         */
+        direction?: string;
+        /**
+         * Sets the radio to be disabled
+         */
+        disabled?: boolean;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        displayedField?: string;
+        /**
+         * Allows to pass an initial selected item for the Radio group
+         */
+        initialValue?: KetchupRadioElement;
+        /**
+         * Radio elements to display
+         */
+        items?: KetchupRadioElement[];
+        /**
+         * Label to describe the radio group
+         */
+        label?: string;
+        /**
+         * When currently selected radio button has been changed.
+         */
+        onKetchupRadioChanged?: (
+            event: CustomEvent<KetchupRadioChangeEvent>
+        ) => void;
+        /**
+         * Radio elements value
+         */
+        radioName?: string;
+        /**
+         * Chooses which field of an item object should be used to create the list and be filtered.
+         */
+        valueField?: string;
+    }
+    interface KupRadioElement
+        extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {
+        /**
+         * Specifies if the radio element is selected or not.
+         */
+        checked?: boolean;
+        /**
+         * Flag: the radio button is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Label to assign to the radio button.
+         */
+        label?: string;
+    }
+    interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
+        data?: TableData;
+        disabled?: boolean;
+        extra?: any;
+        initialValue?: string;
+        /**
+         * Fired when the filter is submitted but only if in serverHandledFilter mode.
+         */
+        onKupSearchFilterSubmitted?: (
+            event: CustomEvent<SearchFilterSubmittedEventDetail>
+        ) => void;
+        onKupSearchSelectionUpdated?: (
+            event: CustomEvent<SearchSelectionUpdatedEventDetail>
+        ) => void;
+        /**
+         * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+         */
+        searchCallBackOnFilterSubmitted?: (
+            detail: SearchFilterSubmittedEventDetail
+        ) => Promise<TableData> | undefined;
+        /**
+         * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+         */
+        serverHandledFilter?: boolean;
+        /**
+         * The field used to obtain value
+         */
+        valueField?: string;
+    }
+    interface KupTextInput
+        extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
+        /**
+         * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
+         */
+        debounce?: number;
+        /**
+         * Sets the input to be disabled
+         */
+        disabled?: boolean;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        initialValue?: string;
+        /**
+         * Specify the type of input. Allowed values: password, text.
+         */
+        inputType?: string;
+        /**
+         * Marks the field as clearable, allowing an icon to delete its content
+         */
+        isClearable?: boolean;
+        /**
+         * Label to describe the text-input clear button group
+         */
+        label?: string;
+        /**
+         * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
+         */
+        maxLength?: number;
+        /**
+         * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
+         */
+        obj?: GenericObject;
+        /**
+         * When text field loses focus (blur)
+         */
+        onKetchupTextInputBlurred?: (
+            event: CustomEvent<KetchupTextInputEvent>
+        ) => void;
+        /**
+         * When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput)
+         */
+        onKetchupTextInputChanged?: (
+            event: CustomEvent<KetchupTextInputEvent>
+        ) => void;
+        /**
+         * When the text input gains focus
+         */
+        onKetchupTextInputFocused?: (
+            event: CustomEvent<KetchupTextInputEvent>
+        ) => void;
+        /**
+         * When a keydown enter event occurs it generates
+         */
+        onKetchupTextInputSubmit?: (
+            event: CustomEvent<KetchupTextInputEvent>
+        ) => void;
+        /**
+         * When the input text value gets updated
+         */
+        onKetchupTextInputUpdated?: (
+            event: CustomEvent<KetchupTextInputEvent>
+        ) => void;
+        /**
+         * text for input placeholder
+         */
+        placeholder?: string;
+    }
+    interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
+        /**
+         * Data for top section
+         */
+        data?: TooltipData;
+        /**
+         * Data for the detail
+         */
+        detailData?: TooltipDetailData;
+        /**
+         * Timeout for loadDetail
+         */
+        detailDataTimeout?: number;
+        /**
+         * Layout used to display the items
+         */
+        layout?: string;
+        onKupActionCommandClicked?: (
+            event: CustomEvent<{
+                actionCommand: TooltipAction;
+            }>
+        ) => void;
+        onKupTooltipLoadData?: (event: CustomEvent<any>) => void;
+        onKupTooltipLoadDetail?: (event: CustomEvent<any>) => void;
+    }
+    interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
+        /**
+         * auto select programmatic selectic node
+         */
+        autoSelectionNodeMode?: boolean;
+        /**
+         * The columns of the tree when tree visualization is active
+         */
+        columns?: Column[];
+        /**
+         * The json data used to populate the tree view: the basic, always visible tree nodes.
+         */
+        data?: TreeNode[];
+        /**
+         * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+         */
+        dynamicExpansionCallback?: (
+            treeNodeToExpand: TreeNode,
+            treeNodePath: TreeNodePath
+        ) => Promise<TreeNode[]> | undefined;
+        /**
+         * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+         */
+        expanded?: boolean;
+        /**
+         * Scroll on hover
+         */
+        hoverScroll?: boolean;
+        /**
+         * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
+         */
+        onKupOptionClicked?: (
+            event: CustomEvent<{
+                cell: Cell;
+                column: Column;
+                treeNode: TreeNode;
+            }>
+        ) => void;
+        /**
+         * Fired when a TreeNode gets collapsed (closed).
+         */
+        onKupTreeNodeCollapse?: (
+            event: CustomEvent<{
+                treeNodePath: TreeNodePath;
+                treeNode: TreeNode;
+            }>
+        ) => void;
+        /**
+         * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
+         */
+        onKupTreeNodeExpand?: (
+            event: CustomEvent<{
+                treeNodePath: TreeNodePath;
+                treeNode: TreeNode;
+                usesDynamicExpansion?: boolean;
+                dynamicExpansionRequireChildren?: boolean;
+            }>
+        ) => void;
+        /**
+         * Fired when a node of the tree has been selected
+         */
+        onKupTreeNodeSelected?: (
+            event: CustomEvent<{
+                treeNodePath: TreeNodePath;
+                treeNode: TreeNode;
+                auto: boolean;
+            }>
+        ) => void;
+        /**
+         * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
+         */
+        selectedNode?: TreeNodePath;
+        /**
+         * Shows the tree data as a table.
+         */
+        showColumns?: boolean;
+        /**
+         * Flag: shows the header of the tree when the tree is displayed as a table.
+         */
+        showHeader?: boolean;
+        /**
+         * Show the icons of the various nodes of the tree.
+         */
+        showIcons?: boolean;
+        /**
+         * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
+         */
+        showObjectNavigation?: boolean;
+        /**
+         * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
+         */
+        useDynamicExpansion?: boolean;
+    }
+    interface KupUpload extends JSXBase.HTMLAttributes<HTMLKupUploadElement> {
+        onKetchupFileRejected?: (event: CustomEvent<any>) => void;
+        /**
+         * Launched when file upload succeed
+         */
+        onKetchupFileUploaded?: (event: CustomEvent<any>) => void;
+        typeOptions?: UploadProps;
+    }
+    interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
+        /**
+         * Defaults at false. When set to true, the icon button state will be on.
+         */
+        checked?: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered flat.
+         */
+        flat?: boolean;
+        /**
+         * Defaults at null. When set, the button will show this icon.
+         */
+        icon?: string;
+        /**
+         * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+         */
+        iconOff?: string;
+        /**
+         * Defaults at null. When set, the button will show this text.
+         */
+        label?: string;
+        onKupButtonBlur?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupButtonClick?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupButtonFocus?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with a colored outline.
+         */
+        outlined?: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with rounded edges.
+         */
+        shaped?: boolean;
+        /**
+         * Defaults at false. When set to true, the icon button will be toggable on/off.
+         */
+        toggable?: boolean;
+        /**
+         * Defaults at null. When set, the icon will be shown after the text.
+         */
+        trailingIcon?: boolean;
+    }
+    interface WupCheckbox
+        extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
+        /**
+         * Defaults at false. When set to true, the component will be set to 'checked'.
+         */
+        checked?: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+         */
+        indeterminate?: boolean;
+        /**
+         * Defaults at null. When specified, its content will be shown as a label.
+         */
+        label?: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel?: boolean;
+        onKupCheckboxBlur?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupCheckboxChange?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupCheckboxClick?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupCheckboxFocus?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupCheckboxInput?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+    }
+    interface WupCombo extends JSXBase.HTMLAttributes<HTMLWupComboElement> {
+        comboId?: string;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Marks the list as filterable, allowing an input text to filter the options
+         */
+        isFilterable?: boolean;
+        items?: ComponentListElement[];
+        /**
+         * Event example.
+         */
+        onKupComboBlur?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupComboChange?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupComboClick?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupComboFocus?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupComboInput?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        selectable?: string;
+    }
+    interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+        /**
+         * Marks the list as filterable, allowing an input text to filter the options
+         */
+        isFilterable?: boolean;
+        items?: ComponentListElement[];
+        listId?: string;
+        /**
+         * Events.
+         */
+        onKupListBlur?: (
+            event: CustomEvent<{
+                selected: ComponentListElement;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupListChange?: (
+            event: CustomEvent<{
+                selected: ComponentListElement;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupListClick?: (
+            event: CustomEvent<{
+                selected: ComponentListElement;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupListFocus?: (
+            event: CustomEvent<{
+                selected: ComponentListElement;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupListInput?: (
+            event: CustomEvent<{
+                selected: ComponentListElement;
+                el: EventTarget;
+            }>
+        ) => void;
+        roleType?: string;
+        selectable?: string;
+        twoLine?: boolean;
+    }
+    interface WupPaginator
+        extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
+        currentPage?: number;
+        max?: number;
+        mode?: PaginatorMode;
+        /**
+         * When the current page change
+         */
+        onKupPageChanged?: (event: CustomEvent<{ newPage: number }>) => void;
+        /**
+         * When the rows per page change
+         */
+        onKupRowsPerPageChanged?: (
+            event: CustomEvent<{ newRowsPerPage: number }>
+        ) => void;
+        perPage?: number;
+        selectedPerPage?: number;
+    }
+    interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
+        /**
+         * List of elements.
+         */
+        data?: ComponentRadioElement[];
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel?: boolean;
+        /**
+         * Defaults at null. It's the name that binds the radio buttons together.
+         */
+        name?: string;
+        onKupRadioBlur?: (
+            event: CustomEvent<{
+                value: string;
+                checked: boolean;
+            }>
+        ) => void;
+        onKupRadioChange?: (
+            event: CustomEvent<{
+                value: string;
+                checked: boolean;
+            }>
+        ) => void;
+        onKupRadioClick?: (
+            event: CustomEvent<{
+                value: string;
+                checked: boolean;
+            }>
+        ) => void;
+        onKupRadioFocus?: (
+            event: CustomEvent<{
+                value: string;
+                checked: boolean;
+            }>
+        ) => void;
+        onKupRadioInput?: (
+            event: CustomEvent<{
+                value: string;
+                checked: boolean;
+            }>
+        ) => void;
+        value?: string;
+    }
+    interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
+        /**
+         * Defaults at false. When set to true, the component will be set to 'checked'.
+         */
+        checked?: boolean;
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Defaults at null. When specified, its content will be shown as a label.
+         */
+        label?: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel?: boolean;
+        onKupSwitchBlur?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupSwitchChange?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupSwitchClick?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupSwitchFocus?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupSwitchInput?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+    }
+    interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+        /**
+         * List of elements.
+         */
+        data?: ComponentTabBarElement[];
+        onKupTabBarBlur?: (
+            event: CustomEvent<{
+                index: number;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupTabBarClick?: (
+            event: CustomEvent<{
+                index: number;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupTabBarFocus?: (
+            event: CustomEvent<{
+                index: number;
+                el: EventTarget;
+            }>
+        ) => void;
+    }
+    interface WupTemplate
+        extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Event example.
+         */
+        onKupCOMP_NAMEBlur?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupCOMP_NAMEChange?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupCOMP_NAMEClick?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupCOMP_NAMEFocus?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+        onKupCOMP_NAMEInput?: (
+            event: CustomEvent<{
+                value: any;
+            }>
+        ) => void;
+    }
+    interface WupTextField
+        extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
+        /**
+         * Defaults at false. When set to true, the component is disabled.
+         */
+        disabled?: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered at full height.
+         */
+        fullHeight?: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered at full width.
+         */
+        fullWidth?: boolean;
+        /**
+         * Defaults at null. When set, its content will be shown as a help text below the field.
+         */
+        helper?: string;
+        /**
+         * Defaults at false. When set, the helper will be shown only when the field is focused.
+         */
+        helperWhenFocused?: boolean;
+        /**
+         * Defaults at null. When set, the text-field will show this icon.
+         */
+        icon?: string;
+        /**
+         * Sets the initial value of the component
+         */
+        initialValue?: string;
+        /**
+         * Defaults at null. When set, its content will be shown as a label.
+         */
+        label?: string;
+        /**
+         * Defaults at false. When set to true, the label will be on the left of the component.
+         */
+        leadingLabel?: boolean;
+        /**
+         * Defaults at null. When set, the helper will display a character counter.
+         */
+        maxLength?: number;
+        onKupTextFieldBlur?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupTextFieldChange?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupTextFieldClick?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupTextFieldFocus?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupTextFieldIconClick?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupTextFieldInput?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        /**
+         * Defaults at false. When set to true, the component will be rendered as an outlined field.
+         */
+        outlined?: boolean;
+        /**
+         * Defaults at false. When set to true, the button will be rendered with shaped edges.
+         */
+        shaped?: boolean;
+        /**
+         * Defaults at false. When set to true, the component will be rendered as a textarea.
+         */
+        textArea?: boolean;
+        /**
+         * Defaults at null. When set, the icon will be shown after the text.
+         */
+        trailingIcon?: boolean;
+        /**
+         * Defaults at false. When set to true, the label will be on the right of the component.
+         */
+        trailingLabel?: boolean;
+    }
 
-  interface IntrinsicElements {
-    'kup-autocomplete': KupAutocomplete;
-    'kup-badge': KupBadge;
-    'kup-box': KupBox;
-    'kup-btn': KupBtn;
-    'kup-button': KupButton;
-    'kup-calendar': KupCalendar;
-    'kup-chart': KupChart;
-    'kup-chart-cell': KupChartCell;
-    'kup-checkbox': KupCheckbox;
-    'kup-checkbox-menu': KupCheckboxMenu;
-    'kup-chip': KupChip;
-    'kup-chip-knowledge': KupChipKnowledge;
-    'kup-combo': KupCombo;
-    'kup-crud': KupCrud;
-    'kup-dash': KupDash;
-    'kup-data-table': KupDataTable;
-    'kup-fld': KupFld;
-    'kup-form': KupForm;
-    'kup-gauge': KupGauge;
-    'kup-graphic-cell': KupGraphicCell;
-    'kup-html': KupHtml;
-    'kup-icon': KupIcon;
-    'kup-image': KupImage;
-    'kup-image-button': KupImageButton;
-    'kup-layout': KupLayout;
-    'kup-menu': KupMenu;
-    'kup-modal': KupModal;
-    'kup-paginator': KupPaginator;
-    'kup-portal': KupPortal;
-    'kup-portal-instance': KupPortalInstance;
-    'kup-progress-bar': KupProgressBar;
-    'kup-radio': KupRadio;
-    'kup-radio-element': KupRadioElement;
-    'kup-search': KupSearch;
-    'kup-text-input': KupTextInput;
-    'kup-tooltip': KupTooltip;
-    'kup-tree': KupTree;
-    'kup-upload': KupUpload;
-    'wup-button': WupButton;
-    'wup-checkbox': WupCheckbox;
-    'wup-combo': WupCombo;
-    'wup-list': WupList;
-    'wup-paginator': WupPaginator;
-    'wup-radio': WupRadio;
-    'wup-switch': WupSwitch;
-    'wup-tab-bar': WupTabBar;
-    'wup-template': WupTemplate;
-    'wup-text-field': WupTextField;
-  }
+    interface IntrinsicElements {
+        'kup-autocomplete': KupAutocomplete;
+        'kup-badge': KupBadge;
+        'kup-box': KupBox;
+        'kup-btn': KupBtn;
+        'kup-button': KupButton;
+        'kup-calendar': KupCalendar;
+        'kup-chart': KupChart;
+        'kup-chart-cell': KupChartCell;
+        'kup-checkbox': KupCheckbox;
+        'kup-checkbox-menu': KupCheckboxMenu;
+        'kup-chip': KupChip;
+        'kup-chip-knowledge': KupChipKnowledge;
+        'kup-combo': KupCombo;
+        'kup-crud': KupCrud;
+        'kup-dash': KupDash;
+        'kup-data-table': KupDataTable;
+        'kup-fld': KupFld;
+        'kup-form': KupForm;
+        'kup-gauge': KupGauge;
+        'kup-graphic-cell': KupGraphicCell;
+        'kup-html': KupHtml;
+        'kup-icon': KupIcon;
+        'kup-image': KupImage;
+        'kup-image-button': KupImageButton;
+        'kup-layout': KupLayout;
+        'kup-menu': KupMenu;
+        'kup-modal': KupModal;
+        'kup-paginator': KupPaginator;
+        'kup-portal': KupPortal;
+        'kup-portal-instance': KupPortalInstance;
+        'kup-progress-bar': KupProgressBar;
+        'kup-radio': KupRadio;
+        'kup-radio-element': KupRadioElement;
+        'kup-search': KupSearch;
+        'kup-text-input': KupTextInput;
+        'kup-tooltip': KupTooltip;
+        'kup-tree': KupTree;
+        'kup-upload': KupUpload;
+        'wup-button': WupButton;
+        'wup-checkbox': WupCheckbox;
+        'wup-combo': WupCombo;
+        'wup-list': WupList;
+        'wup-paginator': WupPaginator;
+        'wup-radio': WupRadio;
+        'wup-switch': WupSwitch;
+        'wup-tab-bar': WupTabBar;
+        'wup-template': WupTemplate;
+        'wup-text-field': WupTextField;
+    }
 }
 
 export { LocalJSX as JSX };
 
-
-declare module "@stencil/core" {
-  export namespace JSX {
-    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
-  }
+declare module '@stencil/core' {
+    export namespace JSX {
+        interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+    }
 }
-
-
