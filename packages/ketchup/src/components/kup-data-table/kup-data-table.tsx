@@ -175,6 +175,12 @@ export class KupDataTable {
     showGrid: ShowGrid = ShowGrid.ROW;
 
     /**
+     * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+     */
+    @Prop({ reflect: true })
+    density: string = 'medium';
+
+    /**
      * If set to true, displays the button to load more records.
      */
     @Prop({ reflect: true }) showLoadMore: boolean = false;
@@ -223,9 +229,6 @@ export class KupDataTable {
 
     @State()
     private botFontSizePanelVisible = false;
-
-    @State()
-    private density: string = 'medium';
 
     @State()
     private fontsize: string = 'medium';

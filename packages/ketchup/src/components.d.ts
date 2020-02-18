@@ -474,6 +474,10 @@ export namespace Components {
     'data': TableData;
     'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
     /**
+    * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+    */
+    'density': string;
+    /**
     * Enables sorting of the columns by dragging them into different columns
     */
     'enableSortableColumns': boolean;
@@ -1975,6 +1979,10 @@ declare namespace LocalJSX {
       width: number;
     }>;
     'data'?: TableData;
+    /**
+    * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+    */
+    'density'?: string;
     /**
     * Enables sorting of the columns by dragging them into different columns
     */
