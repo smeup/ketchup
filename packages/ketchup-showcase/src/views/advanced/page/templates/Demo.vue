@@ -118,7 +118,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="last_page"
-          iconOff="menu_open"
+          icon-off="menu_open"
           title="Open/close side panel"
         ></wup-button>
         <wup-button
@@ -127,7 +127,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="fullscreen_exit"
-          iconOff="fullscreen"
+          icon-off="fullscreen"
           title="Toggle/disable full screen"
         ></wup-button>
         <wup-button
@@ -136,7 +136,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
           icon="view_agenda"
-          iconOff="flip"
+          icon-off="flip"
           title="Split/detach view"
         ></wup-button>
       </div>
