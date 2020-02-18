@@ -1,66 +1,70 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <datatable-basic></datatable-basic>
+      <datatable-demo></datatable-demo>
     </template>
     <template v-slot:1>
-      <datatable-checkbox></datatable-checkbox>
+      <datatable-basic></datatable-basic>
     </template>
     <template v-slot:2>
-      <datatable-columns-width></datatable-columns-width>
+      <datatable-checkbox></datatable-checkbox>
     </template>
     <template v-slot:3>
-      <datatable-filters></datatable-filters>
+      <datatable-columns-width></datatable-columns-width>
     </template>
     <template v-slot:4>
-      <datatable-graphic-cell></datatable-graphic-cell>
+      <datatable-filters></datatable-filters>
     </template>
     <template v-slot:5>
-      <datatable-chart-cell></datatable-chart-cell>
+      <datatable-graphic-cell></datatable-graphic-cell>
     </template>
     <template v-slot:6>
-      <datatable-groups></datatable-groups>
+      <datatable-chart-cell></datatable-chart-cell>
     </template>
     <template v-slot:7>
-      <datatable-j4btn></datatable-j4btn>
+      <datatable-groups></datatable-groups>
     </template>
     <template v-slot:8>
-      <datatable-pagination></datatable-pagination>
+      <datatable-j4btn></datatable-j4btn>
     </template>
     <template v-slot:9>
-      <datatable-progressbar></datatable-progressbar>
+      <datatable-pagination></datatable-pagination>
     </template>
     <template v-slot:10>
-      <datatable-radio></datatable-radio>
+      <datatable-progressbar></datatable-progressbar>
     </template>
     <template v-slot:11>
-      <datatable-row-actions></datatable-row-actions>
+      <datatable-radio></datatable-radio>
     </template>
     <template v-slot:12>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:13>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:14>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:15>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:16>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:17>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:18>
+      <datatable-total></datatable-total>
+    </template>
+    <template v-slot:19>
       <datatable-j4ico></datatable-j4ico>
     </template>
   </comp>
 </template>
 
 <script>
+import DatatableDemo from '@/views/advanced/datatable/examples/DatatableDemo';
 import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';
 import DatatableCheckbox from '@/views/advanced/datatable/examples/DatatableCheckbox';
 import DatatableColumnsWidth from '@/views/advanced/datatable/examples/DatatableColumnsWidth';
@@ -84,6 +88,7 @@ import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
+    DatatableDemo,
     DatatableBasic,
     DatatableCheckbox,
     DatatableColumnsWidth,
@@ -111,6 +116,7 @@ export default {
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-data-table',
       headtitle: 'Data table',
       titles: [
+        'Playground',
         'Basic usage',
         'With checkboxes',
         'Custom column width',
