@@ -104,7 +104,9 @@ import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
+  TooltipAction,
   TooltipData,
+  TooltipDetailData,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
   TreeNode,
@@ -932,7 +934,11 @@ export namespace Components {
     /**
     * Data for the detail
     */
-    'detailData': DataTable;
+    'detailData': TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout': number;
     /**
     * Layout used to display the items
     */
@@ -2583,11 +2589,18 @@ declare namespace LocalJSX {
     /**
     * Data for the detail
     */
-    'detailData'?: DataTable;
+    'detailData'?: TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout'?: number;
     /**
     * Layout used to display the items
     */
     'layout'?: string;
+    'onKupActionCommandClicked'?: (event: CustomEvent<{
+      actionCommand: TooltipAction;
+    }>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
