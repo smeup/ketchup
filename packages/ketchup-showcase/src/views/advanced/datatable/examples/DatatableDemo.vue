@@ -229,8 +229,8 @@ export default {
         {
           prop: 'totals',
           description: 'Defines the current sorting options.',
-          type: 'TotalsMap[]',
-          default: '[]',
+          type: 'TotalsMap',
+          default: 'undefined',
           try: 'json',
         },
       ],
