@@ -949,10 +949,6 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -972,6 +968,10 @@ export namespace Components {
     * Defaults at empty. Additional icons library.
     */
     'iconUrl': string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconoff': string;
     /**
     * Defaults at empty. Additional image (rendered on the left of icon).
     */
@@ -2570,10 +2570,6 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2593,6 +2589,10 @@ declare namespace LocalJSX {
     * Defaults at empty. Additional icons library.
     */
     'iconUrl'?: string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconoff'?: string;
     /**
     * Defaults at empty. Additional image (rendered on the left of icon).
     */
