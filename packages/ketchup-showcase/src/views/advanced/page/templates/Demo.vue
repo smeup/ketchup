@@ -2,16 +2,9 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar
-        @kupTabBarClick="tabSelection"
-        :data.prop="demoTabs"
-      ></wup-tab-bar>
+      <wup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></wup-tab-bar>
       <div id="sample-specs-container">
-        <table
-          id="props-tab"
-          v-if="demoProps !== null"
-          class="instruction-table sample-section"
-        >
+        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
           <thead>
             <tr>
               <th>Prop</th>
@@ -33,14 +26,9 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'"
-                >Use the JSON tab to view/change this prop.</td
-              >
+              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <wup-switch
-                  v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
-                ></wup-switch>
+                <wup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></wup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <wup-text-field
@@ -107,7 +95,7 @@
             helper="i.e.: data"
             id="json-setter"
             icon="close"
-            trailingIcon
+            trailing-icon
             helperWhenFocused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
@@ -130,7 +118,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="last_page"
-          iconOff="menu_open"
+          icon-off="menu_open"
           title="Open/close side panel"
         ></wup-button>
         <wup-button
@@ -139,7 +127,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color);"
           icon="fullscreen_exit"
-          iconOff="fullscreen"
+          icon-off="fullscreen"
           title="Toggle/disable full screen"
         ></wup-button>
         <wup-button
@@ -148,7 +136,7 @@
           toggable
           style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
           icon="view_agenda"
-          iconOff="flip"
+          icon-off="flip"
           title="Split/detach view"
         ></wup-button>
       </div>
