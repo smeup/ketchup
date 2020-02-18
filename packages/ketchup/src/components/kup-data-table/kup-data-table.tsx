@@ -6,6 +6,7 @@ import {
     JSX,
     Method,
     Prop,
+    Element,
     State,
     Watch,
 } from '@stencil/core';
@@ -75,6 +76,7 @@ import {
     shadow: true,
 })
 export class KupDataTable {
+    @Element() rootElement: HTMLElement;
     @Prop()
     columnsWidth: Array<{
         column: string;
@@ -564,13 +566,42 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
+        const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
         document.addEventListener('scroll', this.stickyHeaderPosition);
         document.addEventListener('resize', this.stickyHeaderPosition);
         this.scrollOnHoverInstance = new scrollOnHover();
         this.positionRecalcInstance = new positionRecalc();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-        this.positionRecalcInstance.positionRecalcSetup(this.customizePanelRef);
+        if (this.customizePanelRef) {
+            let customizeAnchor = this.customizePanelRef
+                .closest('.paginator-wrapper')
+                .getElementsByClassName('custom-settings')[0];
+            this.positionRecalcInstance.positionRecalcSetup(
+                this.customizePanelRef,
+                customizeAnchor
+            );
+        }
+
+        if (root != null) {
+            let menus: any = root.querySelectorAll('.column-menu');
+
+            for (let i = 0; i < menus.length; i++) {
+                let wrapper: any = menus[i].closest('th');
+                let columnTitle: any = wrapper.querySelector('.column-title');
+                let anchor: any;
+                if (columnTitle) {
+                    anchor = columnTitle;
+                } else {
+                    anchor = wrapper;
+                }
+                this.positionRecalcInstance.positionRecalcSetup(
+                    menus[i],
+                    anchor
+                );
+            }
+        }
+
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -2221,7 +2252,6 @@ export class KupDataTable {
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
 
-        this.positionRecalcInstance.setPosition(elPanel, elButton, 3);
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
