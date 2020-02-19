@@ -620,9 +620,7 @@ export class KupDataTable {
         document.addEventListener('click', this.onDocumentClick);
         document.addEventListener('scroll', this.stickyHeaderPosition);
         document.addEventListener('resize', this.stickyHeaderPosition);
-        this.scrollOnHoverInstance = new scrollOnHover();
         this.positionRecalcInstance = new positionRecalc();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
         if (this.customizePanelRef) {
             let customizeAnchor = this.customizePanelRef
                 .closest('.paginator-wrapper')
@@ -638,22 +636,17 @@ export class KupDataTable {
 
             for (let i = 0; i < menus.length; i++) {
                 let wrapper: any = menus[i].closest('th');
-                let columnTitle: any = wrapper.querySelector('.column-title');
-                let anchor: any;
-                if (columnTitle) {
-                    anchor = columnTitle;
-                } else {
-                    anchor = wrapper;
-                }
                 this.positionRecalcInstance.positionRecalcSetup(
                     menus[i],
-                    anchor
+                    wrapper
                 );
             }
         }
     }
 
     componentDidLoad() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 

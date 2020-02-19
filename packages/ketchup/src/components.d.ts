@@ -1056,6 +1056,10 @@ export namespace Components {
   }
   interface WupButton {
     /**
+    * Defaults at empty. When set apply this style.
+    */
+    'buttonStyle': {};
+    /**
     * Defaults at false. When set to true, the icon button state will be on.
     */
     'checked': boolean;
@@ -1063,6 +1067,10 @@ export namespace Components {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
+    /**
+    * Defaults at false. When set to true fill all space avalaible
+    */
+    'fillspace': boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered flat.
     */
@@ -1076,6 +1084,14 @@ export namespace Components {
     */
     'iconOff': string;
     /**
+    * Defaults at empty. Additional icons library.
+    */
+    'iconUrl': string;
+    /**
+    * Defaults at empty. Additional image (rendered on the left of icon).
+    */
+    'imageSrc': string;
+    /**
     * Defaults at null. When set, the button will show this text.
     */
     'label': string;
@@ -1087,10 +1103,20 @@ export namespace Components {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped': boolean;
+    'showicon': boolean;
+    'showtext': boolean;
+    /**
+    * Defaults at empty. When set to 'Hint' the label is shown as tooltip
+    */
+    'textmode': string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
     'toggable': boolean;
+    /**
+    * Defaults at empty.
+    */
+    'tooltip': string;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
@@ -2757,6 +2783,10 @@ declare namespace LocalJSX {
   }
   interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
     /**
+    * Defaults at empty. When set apply this style.
+    */
+    'buttonStyle'?: {};
+    /**
     * Defaults at false. When set to true, the icon button state will be on.
     */
     'checked'?: boolean;
@@ -2764,6 +2794,10 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true fill all space avalaible
+    */
+    'fillspace'?: boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered flat.
     */
@@ -2776,6 +2810,14 @@ declare namespace LocalJSX {
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'iconOff'?: string;
+    /**
+    * Defaults at empty. Additional icons library.
+    */
+    'iconUrl'?: string;
+    /**
+    * Defaults at empty. Additional image (rendered on the left of icon).
+    */
+    'imageSrc'?: string;
     /**
     * Defaults at null. When set, the button will show this text.
     */
@@ -2797,10 +2839,20 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped'?: boolean;
+    'showicon'?: boolean;
+    'showtext'?: boolean;
+    /**
+    * Defaults at empty. When set to 'Hint' the label is shown as tooltip
+    */
+    'textmode'?: string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
     'toggable'?: boolean;
+    /**
+    * Defaults at empty.
+    */
+    'tooltip'?: string;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
