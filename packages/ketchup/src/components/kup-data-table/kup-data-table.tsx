@@ -636,16 +636,9 @@ export class KupDataTable {
 
             for (let i = 0; i < menus.length; i++) {
                 let wrapper: any = menus[i].closest('th');
-                let columnTitle: any = wrapper.querySelector('.column-title');
-                let anchor: any;
-                if (columnTitle) {
-                    anchor = columnTitle;
-                } else {
-                    anchor = wrapper;
-                }
                 this.positionRecalcInstance.positionRecalcSetup(
                     menus[i],
-                    anchor
+                    wrapper
                 );
             }
         }
