@@ -332,6 +332,7 @@
           background: var(--dtt_group-background-color);
           font-weight: bold;
           border-top: 1px solid var(--dtt_border-color);
+          cursor: pointer;
 
           &.group-label {
             border-bottom: none;

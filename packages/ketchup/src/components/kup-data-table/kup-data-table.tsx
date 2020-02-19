@@ -620,9 +620,7 @@ export class KupDataTable {
         document.addEventListener('click', this.onDocumentClick);
         document.addEventListener('scroll', this.stickyHeaderPosition);
         document.addEventListener('resize', this.stickyHeaderPosition);
-        this.scrollOnHoverInstance = new scrollOnHover();
         this.positionRecalcInstance = new positionRecalc();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
         if (this.customizePanelRef) {
             let customizeAnchor = this.customizePanelRef
                 .closest('.paginator-wrapper')
@@ -654,6 +652,8 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
