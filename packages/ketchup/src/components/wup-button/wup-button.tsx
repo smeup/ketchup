@@ -80,7 +80,6 @@ export class WupButton {
      * Defaults at empty. Additional image (rendered on the left of icon).
      */
     @Prop({ reflect: true }) imageSrc: string;
-    //'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
 
     /**
      * Defaults at empty. When set to 'Hint' the label is shown as tooltip
@@ -216,14 +215,24 @@ export class WupButton {
             }
             //
             if (this.icon && this.showicon) {
-                iconEl = (
-                    <i
-                        class="material-icons mdc-button__icon"
-                        aria-hidden="true"
-                    >
-                        {this.icon}
-                    </i>
-                );
+                if (this.iconUrl) {
+                    iconEl = (
+                        <i
+                            class={this.icon}
+                            aria-hidden="true"
+                        >
+                        </i>
+                    );
+                } else {
+                    iconEl = (
+                        <i
+                            class="material-icons mdc-button__icon"
+                            aria-hidden="true"
+                        >
+                            {this.icon}
+                        </i>
+                    );
+                   }
             }
 
             if (this.outlined) {
@@ -252,14 +261,24 @@ export class WupButton {
         } else if (this.icon) {
             componentClass += ' mdc-icon-button';
             if (this.showicon) {
-                trailingEl = (
-                    <i
-                        class="material-icons mdc-icon-button__icon"
+                if (this.iconUrl) {
+                    trailingEl = (
+                        <i
+                        class={this.icon}
                         aria-hidden="true"
                     >
-                        {this.icon}
-                    </i>
-                );
+                        </i>
+                    );
+                } else {
+                        trailingEl = (
+                            <i
+                                class="material-icons mdc-icon-button__icon"
+                                aria-hidden="true"
+                            >
+                                {this.icon}
+                            </i>
+                        );
+                }                
                 if (this.toggable) {
                     componentClass += ' toggable';
                     trailingEl = (
@@ -296,7 +315,7 @@ export class WupButton {
             extraCssEl = (<link href={this.iconUrl} rel="stylesheet" type="text/css" />);
         }
         if (this.imageSrc) {
-            extraImageEl = (<img class="button-image" src={this.imageSrc} />);
+            extraImageEl = (<img src={this.imageSrc} />);
         }
         let title = '';
         if (this.tooltip) {
