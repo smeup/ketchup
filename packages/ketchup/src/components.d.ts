@@ -1082,15 +1082,15 @@ export namespace Components {
     /**
     * Defaults at null. When set, the button will show this icon.
     */
-    'iconClass': string;
+    'icon': string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconOff': string;
     /**
     * Defaults at empty. Additional icons library.
     */
     'iconUrl': string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconoff': string;
     /**
     * Defaults at empty. Additional image (rendered on the left of icon).
     */
@@ -1100,9 +1100,13 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
     */
-    'rounded': boolean;
+    'outlined': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'shaped': boolean;
     'showicon': boolean;
     'showtext': boolean;
     /**
@@ -2808,15 +2812,15 @@ declare namespace LocalJSX {
     /**
     * Defaults at null. When set, the button will show this icon.
     */
-    'iconClass'?: string;
+    'icon'?: string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconOff'?: string;
     /**
     * Defaults at empty. Additional icons library.
     */
     'iconUrl'?: string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconoff'?: string;
     /**
     * Defaults at empty. Additional image (rendered on the left of icon).
     */
@@ -2837,7 +2841,11 @@ declare namespace LocalJSX {
     /**
     * Defaults at false. When set to true, the button will be rendered with a colored outline.
     */
-    'rounded'?: boolean;
+    'outlined'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'shaped'?: boolean;
     'showicon'?: boolean;
     'showtext'?: boolean;
     /**

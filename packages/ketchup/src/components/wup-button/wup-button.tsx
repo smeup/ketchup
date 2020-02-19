@@ -230,13 +230,13 @@ export class WupButton {
                 labelEl = (<span class="mdc-button__label">{this.label}</span>);
             }
             //
-            if (this.iconClass && this.showicon) {
+            if (this.icon && this.showicon) {
                 iconEl = (
                     <i
                         class="material-icons mdc-button__icon"
                         aria-hidden="true"
                     >
-                        {this.iconClass}
+                        {this.icon}
                     </i>
                 );
             }
@@ -261,8 +261,12 @@ export class WupButton {
 
             componentClass += this.elemAlign();
 
+            if (this.fillspace) {
+                componentClass += ' fillspace';
+            }        
 
-        } else if (this.iconClass) {
+
+        } else if (this.icon) {
             componentClass += ' mdc-icon-button';
             if (this.showicon) {
                 trailingEl = (
@@ -270,7 +274,7 @@ export class WupButton {
                         class="material-icons mdc-icon-button__icon"
                         aria-hidden="true"
                     >
-                        {this.iconClass}
+                        {this.icon}
                     </i>
                 );
                 if (this.toggable) {
@@ -280,7 +284,7 @@ export class WupButton {
                             class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
                             aria-hidden="true"
                         >
-                            {this.iconClass}
+                            {this.icon}
                         </i>
                     );
                     if (this.checked) {
@@ -305,10 +309,6 @@ export class WupButton {
                 }
             }
         }
-        //TODO no per icon?
-        if (this.fillspace) {
-            componentClass += ' fillspace';
-        }        
         if (this.iconUrl) {
             extraCssEl = (<link href={this.iconUrl} rel="stylesheet" type="text/css" />);
         }
@@ -322,30 +322,30 @@ export class WupButton {
             title = this.label;
         }        
         //
-        return (
-            <Host>
-                {extraCssEl}
-                <div id="kup-component">
-                    <button
-                        type="button"
-                        style={btnStyle}
-                        class={componentClass}
-                        title={title}
-                        disabled={this.disabled}
-                        onBlur={this.onKupBlur.bind(this)}
-                        onChange={this.onKupChange.bind(this)}
-                        onClick={this.onKupClick.bind(this)}
-                        onFocus={this.onKupFocus.bind(this)}
-                        onInput={this.onKupInput.bind(this)}
-                    >
-                        <div class="mdc-button__ripple"></div>
-                        {extraImageEl}
-                        {leadingEl}
-                        {trailingEl}
-                    </button>
-                </div>
-            </Host>
-        );
+        if (leadingEl || trailingEl) {
+            return (
+                <Host>
+                    {extraCssEl}
+                    <div id="kup-component">
+                        <button
+                            type="button"
+                            style={btnStyle}
+                            class={componentClass}
+                            title={title}
+                            disabled={this.disabled}
+                            onBlur={this.onKupBlur.bind(this)}
+                            onClick={this.onKupClick.bind(this)}
+                            onFocus={this.onKupFocus.bind(this)}
+                        >
+                            <div class="mdc-button__ripple"></div>
+                            {extraImageEl}
+                            {leadingEl}
+                            {trailingEl}
+                        </button>
+                    </div>
+                </Host>
+            );
+            }
 
     }
 }
