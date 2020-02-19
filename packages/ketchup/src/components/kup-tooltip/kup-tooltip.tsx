@@ -74,6 +74,14 @@ export class KupTooltip {
         actionCommand: TooltipAction;
     }>;    
 
+    @Event({
+        eventName: 'kupDefaultActionCommandClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupDefaultActionCommandClicked: EventEmitter;
+
     @Watch('data')
     onDataChanged() {
         if (this.visible) {
@@ -142,11 +150,12 @@ export class KupTooltip {
     }
 
     private getTitle(): string {
+        let datatitle:string = '';
         if (this.data) {
-            return this.data.title;
+            datatitle = this.data.title;
         }
-
-        return '';
+        const title = <div class="title" onClick={(event) => this.onDefaultActionCommandClicked(event)}>{datatitle}</div>;
+        return title;
     }
 
     private getContent() {
@@ -179,6 +188,12 @@ export class KupTooltip {
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
         this.kupActionCommandClicked.emit({actionCommand: action})
+    }
+
+    private onDefaultActionCommandClicked(event:Event) { 
+        //Evento di default al click       
+        event.stopPropagation();
+        this.kupDefaultActionCommandClicked.emit()
     }
 
 
@@ -321,13 +336,13 @@ export class KupTooltip {
             if (this.hasActionsData()) {                
                 detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
                     <div class="detail-actions__box">                           
-                        <kup-button           
+                        <wup-button           
                             flat={true}
                             tooltip={action.text} 
                             iconClass={action.icon}
                             onKupButtonClicked={(event) => this.onActionCommandClicked(event, action)}                            
                         >
-                        </kup-button>                                                                         
+                        </wup-button>                                                                         
                     </div>                                                    
                 );                  
             }                                                         

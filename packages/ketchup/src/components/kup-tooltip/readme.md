@@ -17,11 +17,12 @@
 
 ## Events
 
-| Event                     | Description | Type                                             |
-| ------------------------- | ----------- | ------------------------------------------------ |
-| `kupActionCommandClicked` |             | `CustomEvent<{ actionCommand: TooltipAction; }>` |
-| `kupTooltipLoadData`      |             | `CustomEvent<any>`                               |
-| `kupTooltipLoadDetail`    |             | `CustomEvent<any>`                               |
+| Event                            | Description | Type                                             |
+| -------------------------------- | ----------- | ------------------------------------------------ |
+| `kupActionCommandClicked`        |             | `CustomEvent<{ actionCommand: TooltipAction; }>` |
+| `kupDefaultActionCommandClicked` |             | `CustomEvent<any>`                               |
+| `kupTooltipLoadData`             |             | `CustomEvent<any>`                               |
+| `kupTooltipLoadDetail`           |             | `CustomEvent<any>`                               |
 
 
 ## Dependencies
