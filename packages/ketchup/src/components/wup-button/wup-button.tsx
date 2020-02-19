@@ -67,10 +67,6 @@ export class WupButton {
      * Defaults at false. When set to true fill all space avalaible
      */
     @Prop({ reflect: true }) fillspace = false;
-    /**
-     * Defaults at empty. When set align text
-     */
-    @Prop({ reflect: true }) align: string;
 
     @Prop({ reflect: true }) showtext = true;
     @Prop({ reflect: true }) showicon = true;
@@ -190,17 +186,6 @@ export class WupButton {
         }
     }
 
-    elemAlign() {
-        if (this.align) {
-            if ('right' === this.align) {
-                return ' align-right';
-            } else if ('left' === this.align) {
-                return ' align-left';
-            }
-        }
-        return '';
-    }
-
     isHint() {
         return 'Hint' === this.textmode;
     }    
@@ -258,8 +243,6 @@ export class WupButton {
                 leadingEl = iconEl;
                 trailingEl = labelEl;
             }
-
-            componentClass += this.elemAlign();
 
             if (this.fillspace) {
                 componentClass += ' fillspace';

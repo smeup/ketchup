@@ -1056,10 +1056,6 @@ export namespace Components {
   }
   interface WupButton {
     /**
-    * Defaults at empty. When set align text
-    */
-    'align': string;
-    /**
     * Defaults at empty. When set apply this style.
     */
     'buttonStyle': {};
@@ -2785,10 +2781,6 @@ declare namespace LocalJSX {
     'typeOptions'?: UploadProps;
   }
   interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
-    /**
-    * Defaults at empty. When set align text
-    */
-    'align'?: string;
     /**
     * Defaults at empty. When set apply this style.
     */
