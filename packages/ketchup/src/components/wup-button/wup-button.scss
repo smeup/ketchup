@@ -48,6 +48,10 @@
 
     & .mdc-icon-button {
       color: var(--kup-main-color);
+
+      &:disabled {
+        color: var(--kup-disabled-text-color);
+      }
     }
   }
 }
