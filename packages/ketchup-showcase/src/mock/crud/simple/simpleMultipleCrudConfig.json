@@ -1,0 +1,10 @@
+{
+  "config": {
+    "multiple": true,
+    "insert": true,
+    "update": true,
+    "delete": true,
+    "liveCheck": true
+  }
+
+}

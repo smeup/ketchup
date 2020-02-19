@@ -4,13 +4,12 @@ import {
     Element,
     Event,
     EventEmitter,
-    State,
     Host,
     h,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
-import { WidgetTabBarElement } from './wup-tab-bar-declarations';
+import { ComponentTabBarElement } from './wup-tab-bar-declarations';
 
 @Component({
     tag: 'wup-tab-bar',
@@ -19,15 +18,10 @@ import { WidgetTabBarElement } from './wup-tab-bar-declarations';
 })
 export class WupTabBar {
     @Element() rootElement: HTMLElement;
-    @State() value: string = '';
-    /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
     /**
      * List of elements.
      */
-    @Prop() items: WidgetTabBarElement[] = [];
+    @Prop() data: ComponentTabBarElement[] = [];
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -36,17 +30,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
-    }>;
-
-    @Event({
-        eventName: 'kupTabBarChange',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupChange: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -56,7 +41,8 @@ export class WupTabBar {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     @Event({
@@ -66,64 +52,36 @@ export class WupTabBar {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
-    }>;
-
-    @Event({
-        eventName: 'kupTabBarInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: any;
+        index: number;
+        el: EventTarget;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
-        this.kupChange.emit({
-            value: target.value,
-        });
-        this.value = target.value;
-    }
-
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick(i: number, e: Event) {
         this.kupClick.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus(i: number, e: Event) {
         this.kupFocus.emit({
-            value: target.value,
+            index: i,
+            el: e.target,
         });
-        this.value = target.value;
-    }
-
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
-        this.kupInput.emit({
-            value: target.value,
-        });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
 
-    componentDidLoad() {
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
@@ -134,29 +92,25 @@ export class WupTabBar {
     render() {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
-        let widgetClass: string = 'mdc-tab-bar';
+        let componentClass: string = 'mdc-tab-bar';
 
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
-
-        for (let i = 0; i < this.items.length; i++) {
+        for (let i = 0; i < this.data.length; i++) {
             let tabClass: string = 'mdc-tab';
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
-            if (this.items[i].status === 'Active') {
+            if (this.data[i].active === true) {
                 tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 
-            if (this.items[i].icon !== '') {
+            if (this.data[i].icon !== '') {
                 iconEl = (
                     <span
                         class="mdc-tab__icon material-icons"
                         aria-hidden="true"
                     >
-                        {this.items[i].icon}
+                        {this.data[i].icon}
                     </span>
                 );
             }
@@ -167,17 +121,14 @@ export class WupTabBar {
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
-                    value={this.items[i].text}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e) => this.onKupBlur(i, e)}
+                    onClick={(e) => this.onKupClick(i, e)}
+                    onFocus={(e) => this.onKupFocus(i, e)}
                 >
                     <span class="mdc-tab__content">
                         {iconEl}
                         <span class="mdc-tab__text-label">
-                            {this.items[i].text}
+                            {this.data[i].text}
                         </span>
                     </span>
                     <span class={indicatorClass}>
@@ -192,7 +143,7 @@ export class WupTabBar {
         return (
             <Host>
                 <div id="kup-component">
-                    <div class={widgetClass} role="tablist">
+                    <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">
                             <div class="mdc-tab-scroller__scroll-area">
                                 <div class="mdc-tab-scroller__scroll-content">

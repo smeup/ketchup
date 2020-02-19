@@ -43,6 +43,47 @@ export const bornToDie = {
       },
     },
   ],
+  actions:  
+  {
+    /** Ne metto 7 per verificare se vengono visualizzati solo i primi 5 */
+    command: [
+      {
+        text: "Attiva il riconoscimento facciale",
+        icon: "mdi mdi-face",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0001)"
+      },                    
+      {
+        text: "Accendi la luce",
+        icon: "mdi mdi-lightbulb-on",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0002)"
+      },
+      {
+        text: "Leggi gli ultimi feed rss",
+        icon: "mdi mdi-rss-box",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0003)"
+      },
+      {
+        text: "Accedi a videocorso su udemy",
+        icon: "mdi mdi-school",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0004)"
+      },
+      {
+        text: "Sblocca la serratura della cantina",
+        icon: "mdi mdi-lock-open",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0005)"
+      },
+      {
+        text: "Fai qualcosa d'altro",
+        icon: "mdi mdi-play",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0005)"
+      },
+      {
+        text: "Fai qualcosa d'altro",
+        icon: "mdi mdi-play",      
+        exec: "F(EXD;*SCO;) 1(CN;CLI;C0006)"
+      },
+    ]
+  }   
 };
 
 export const ultraviolence = {
@@ -89,7 +130,7 @@ export const ultraviolence = {
         },
       },
     },
-  ],
+  ],  
 };
 
 export const honeymoon = {

@@ -7,24 +7,23 @@
 
 ## Properties
 
-| Property     | Attribute    | Description                                                                                      | Type      | Default |
-| ------------ | ------------ | ------------------------------------------------------------------------------------------------ | --------- | ------- |
-| `checked`    | `checked`    | Defaults at false. When set to true, the component will be set to 'checked'.                     | `boolean` | `false` |
-| `custom`     | `custom`     | Defaults at false. When set to true, mixins and classes of customization are enabled.            | `boolean` | `false` |
-| `disabled`   | `disabled`   | Defaults at false. When set to true, the component is disabled.                                  | `boolean` | `false` |
-| `labelleft`  | `labelleft`  | Defaults at null. When specified, its content is shown to the left of the component as a label.  | `string`  | `null`  |
-| `labelright` | `labelright` | Defaults at null. When specified, its content is shown to the right of the component as a label. | `string`  | `null`  |
+| Property       | Attribute       | Description                                                                          | Type                      | Default        |
+| -------------- | --------------- | ------------------------------------------------------------------------------------ | ------------------------- | -------------- |
+| `data`         | --              | List of elements.                                                                    | `ComponentRadioElement[]` | `[]`           |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`                 | `false`        |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`                 | `false`        |
+| `name`         | `name`          | Defaults at null. It's the name that binds the radio buttons together.               | `string`                  | `'radio-list'` |
 
 
 ## Events
 
-| Event            | Description | Type                           |
-| ---------------- | ----------- | ------------------------------ |
-| `kupRadioBlur`   |             | `CustomEvent<{ value: any; }>` |
-| `kupRadioChange` |             | `CustomEvent<{ value: any; }>` |
-| `kupRadioClick`  |             | `CustomEvent<{ value: any; }>` |
-| `kupRadioFocus`  |             | `CustomEvent<{ value: any; }>` |
-| `kupRadioInput`  |             | `CustomEvent<{ value: any; }>` |
+| Event            | Description | Type                              |
+| ---------------- | ----------- | --------------------------------- |
+| `kupRadioBlur`   |             | `CustomEvent<{ value: string; }>` |
+| `kupRadioChange` |             | `CustomEvent<{ value: string; }>` |
+| `kupRadioClick`  |             | `CustomEvent<{ value: string; }>` |
+| `kupRadioFocus`  |             | `CustomEvent<{ value: string; }>` |
+| `kupRadioInput`  |             | `CustomEvent<{ value: string; }>` |
 
 
 ----------------------------------------------

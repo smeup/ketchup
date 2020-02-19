@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
+
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
 import { toKebabCase } from './utils';
@@ -34,7 +35,7 @@ export function getFromConfig(
     propName: string
 ): any {
     let prop = null;
-    if (cell.config) {
+    if (cell && cell.config) {
         prop = get(cell.config, propName, null);
     }
     if (!prop && boxObject && boxObject.config) {
@@ -50,7 +51,8 @@ export function getFromConfig(
 export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return (
-        'PGB' === shape || (!shape && cell.obj && isProgressBarObj(cell.obj))
+        'PGB' === shape ||
+        (!shape && cell && cell.obj && isProgressBarObj(cell.obj))
     );
 }
 
@@ -113,7 +115,9 @@ export function buildProgressBarConfig(
 
 export function isImage(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
-    return 'IMG' === shape || (!shape && cell.obj && isImageObj(cell.obj));
+    return (
+        'IMG' === shape || (!shape && cell && cell.obj && isImageObj(cell.obj))
+    );
 }
 
 // -------------
@@ -125,7 +129,7 @@ export function buildIconConfig(cell: Cell, value: string) {
     let iconStyle = null;
     let imageSrc = null;
 
-    if (cell.config) {
+    if (cell && cell.config) {
         const config = cell.config;
         iconStylesheets = config.iconStylesheets;
         iconStyle = config.iconStyle;
@@ -138,4 +142,54 @@ export function buildIconConfig(cell: Cell, value: string) {
         ...(iconStylesheets ? { iconStylesheets: iconStylesheets } : {}),
         ...(imageSrc ? { imageSrc: imageSrc } : {}),
     };
+}
+
+// -------------
+// COMBO
+// -------------
+
+export function isCombo(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CMB' === shape;
+}
+
+// -------------
+// AUTOCOMPLETE
+// -------------
+
+export function isAutocomplete(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'ACP' === shape;
+}
+
+// -------------
+// SEARCH
+// -------------
+
+export function isSearch(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'SRC' === shape;
+}
+
+// -------------
+// CRUD
+// -------------
+
+export function isConfigurator(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CFG' === shape;
+}
+
+export function isMultipleConfigurator(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'CFM' === shape;
+}
+
+// -------------
+// INPUT TEXT
+// -------------
+
+export function isInputText(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'ITX' === shape || !shape;
 }

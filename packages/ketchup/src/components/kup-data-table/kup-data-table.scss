@@ -178,7 +178,6 @@
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
         position: relative;
-        position: sticky;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
         top: 0;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
@@ -189,10 +188,11 @@
         .column-title {
           // Mandatory to allow ellipsis of the the column title when column size is really small.
           display: inline-block; // Mandatory to allow width related props to take effect
-          max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
+          //  max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
           overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: bottom;
+          white-space: normal;
         }
 
         &.number {
@@ -314,7 +314,7 @@
 
     > tbody {
       border: 1px solid var(--dtt_border-color);
-      cursor: pointer;
+      cursor: auto;
 
       > tr {
         &:not(.group-total):hover,
@@ -448,7 +448,6 @@
               display: flex;
             }
           }
-
 
           // Class assigned to the image of a cell
           // Allows regulation of sizes

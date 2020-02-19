@@ -13,10 +13,7 @@ import {
     Column,
 } from './kup-data-table-declarations';
 
-import {
-    isNumber
-} from '../../utils/object-utils';
-
+import { isNumber } from '../../utils/object-utils';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -169,17 +166,34 @@ const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
  * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
  * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
  */
-function matchSpecialFilter(cellValue: string, parsedFilter:  RegExpMatchArray | null, ignoreNegativeFlag: boolean = false): boolean {
+function matchSpecialFilter(
+    cellValue: string,
+    parsedFilter: RegExpMatchArray | null,
+    ignoreNegativeFlag: boolean = false
+): boolean {
     // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
     if (parsedFilter) {
         // endsWith and startWith are not supported by IE 11
         // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-        const toRet: boolean = (parsedFilter[3] === "" && !cellValue.trim()) ||
-          (!parsedFilter[2] && parsedFilter[4] && cellValue.startsWith(parsedFilter[3])) ||
-          (parsedFilter[2] && !parsedFilter[4] && cellValue.endsWith(parsedFilter[3])) ||
-          (!parsedFilter[2] && !parsedFilter[4] && cellValue === parsedFilter[3]) ||
-          (parsedFilter[2] && parsedFilter[4] && cellValue.indexOf(parsedFilter[3]) >= 0);
-        return !ignoreNegativeFlag ?  (parsedFilter[1].indexOf('!') < 0 ? toRet : !toRet) : toRet;
+        const toRet: boolean =
+            (parsedFilter[3] === '' && !cellValue.trim()) ||
+            (!parsedFilter[2] &&
+                parsedFilter[4] &&
+                cellValue.startsWith(parsedFilter[3])) ||
+            (parsedFilter[2] &&
+                !parsedFilter[4] &&
+                cellValue.endsWith(parsedFilter[3])) ||
+            (!parsedFilter[2] &&
+                !parsedFilter[4] &&
+                cellValue === parsedFilter[3]) ||
+            (parsedFilter[2] &&
+                parsedFilter[4] &&
+                cellValue.indexOf(parsedFilter[3]) >= 0);
+        return !ignoreNegativeFlag
+            ? parsedFilter[1].indexOf('!') < 0
+                ? toRet
+                : !toRet
+            : toRet;
     }
     return false;
 }
@@ -210,21 +224,22 @@ export function filterRows(
      */
     const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
-    if (
-        (filters && Object.keys(filters).length > 0) ||
-        (isUsingGlobalFilter)
-    ) {
+    if ((filters && Object.keys(filters).length > 0) || isUsingGlobalFilter) {
         // Before filtering the rows, we analyze the global filter
         /**
          * Holds the RegExp parsed data of the global filter, if an expression filter is set.
          * @see filterAnalyzer
          */
-        const analyzedGlobalFilter = isUsingGlobalFilter ? globalFilter.match(filterAnalyzer) : undefined;
+        const analyzedGlobalFilter = isUsingGlobalFilter
+            ? globalFilter.match(filterAnalyzer)
+            : undefined;
         /**
          * When using an expression filter, this flag shows if the current global filter is negative.
          * @see filterAnalyzer
          */
-        const globalFilterIsNegative: boolean = analyzedGlobalFilter ? analyzedGlobalFilter[1].indexOf('!') >= 0 : false;
+        const globalFilterIsNegative: boolean = analyzedGlobalFilter
+            ? analyzedGlobalFilter[1].indexOf('!') >= 0
+            : false;
 
         // filtering rows
         return rows.filter((r: Row) => {
@@ -240,18 +255,22 @@ export function filterRows(
                 for (let i = 0; i < columns.length; i++) {
                     let cellValue;
                     const cell = r.cells[columns[i]];
-                    
-                    if (cell)
-                        cellValue = cell.value;
+
+                    if (cell) cellValue = cell.value;
 
                     // checks if the value of the filter is contained inside value of the object
                     // Or is if the filter is a special filter to be matched.
                     // Since it is a global filter, we do not take into consideration the negative modifier in this control.
-                    if (cellValue && 
-                        cellValue
-                            .toLowerCase()
-                            .includes(globalFilter.toLocaleLowerCase()) ||
-                        matchSpecialFilter(cellValue, analyzedGlobalFilter, true)
+                    if (
+                        (cellValue &&
+                            cellValue
+                                .toLowerCase()
+                                .includes(globalFilter.toLocaleLowerCase())) ||
+                        matchSpecialFilter(
+                            cellValue,
+                            analyzedGlobalFilter,
+                            true
+                        )
                     ) {
                         // the element matches the global filter
                         found = true;
@@ -262,7 +281,10 @@ export function filterRows(
                 // If no value matches the global filter and the global filter is not negative
                 // OR we have found a match and the global filter is negative
                 // the current element gets filtered.
-                if ((!found && !globalFilterIsNegative) || (found && globalFilterIsNegative)) {
+                if (
+                    (!found && !globalFilterIsNegative) ||
+                    (found && globalFilterIsNegative)
+                ) {
                     return false;
                 }
             }
@@ -290,7 +312,10 @@ export function filterRows(
                         cellValue.value
                             .toLowerCase()
                             .includes(filterValue.toLowerCase()) ||
-                        matchSpecialFilter(cellValue.value, filterValue.match(filterAnalyzer))
+                        matchSpecialFilter(
+                            cellValue.value,
+                            filterValue.match(filterAnalyzer)
+                        )
                     ) {
                         return true;
                     }
@@ -317,7 +342,7 @@ export function groupRows(
     }
 
     // Keeps label of the valid columns
-    const columnLabels: {[index: string]: string} = {};
+    const columnLabels: { [index: string]: string } = {};
 
     // remove invalid groups and store column labels
     const validGroups = groups.filter(({ column }) => {
@@ -418,7 +443,7 @@ export function groupRows(
                         groupRow.group.children.push(tempGroupingRow);
                     }
                     groupRow = tempGroupingRow;
-                } 
+                }
             }
 
             // adding row
@@ -456,8 +481,7 @@ function updateGroupTotal(
         if (cell) {
             let isNumber = false;
 
-            if (cell && cell.obj)
-                isNumber = cell.obj.t === 'NR';
+            if (cell && cell.obj) isNumber = cell.obj.t === 'NR';
 
             const totalMode = totals[key];
 
@@ -468,7 +492,8 @@ function updateGroupTotal(
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
-                        const currentParentCount = parent.group.totals[key] || 0;
+                        const currentParentCount =
+                            parent.group.totals[key] || 0;
 
                         parent.group.totals[key] = currentParentCount + 1;
 
@@ -488,7 +513,8 @@ function updateGroupTotal(
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
-                            const currentParentSum = parent.group.totals[key] || 0;
+                            const currentParentSum =
+                                parent.group.totals[key] || 0;
 
                             parent.group.totals[key] = cellValue
                                 .add(currentParentSum)
@@ -565,47 +591,49 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     return numberOfLeaf;
 }
 
-export function normalizeRows(columns: Array<Column>, rows: Array<Row>) : Array<Row>
-{
+export function normalizeRows(
+    columns: Array<Column>,
+    rows: Array<Row>
+): Array<Row> {
     if (rows) {
         const normalizedrows = Object.assign(rows);
         rows.forEach((row: Row) => {
             columns.forEach((column) => {
                 const cell = row.cells[column.name];
-                if ((cell && column.obj) && (!cell.obj)) {
+                if (cell && column.obj && !cell.obj) {
                     // cell.obj = Object.assign(column.obj);
-                    cell.obj = { 
-                                  t: column.obj.t,
-                                  p: column.obj.p,
-                                  k: cell.value                                  }                
-                }    
-            })
-        })
+                    cell.obj = {
+                        t: column.obj.t,
+                        p: column.obj.p,
+                        k: cell.value,
+                    };
+                }
+            });
+        });
         return normalizedrows;
     } else {
-        return undefined
+        return undefined;
     }
 }
 
 export function normalizeTotals(
     columns: Array<Column>,
     totals: TotalsMap
-    ) : TotalsMap {
-    
+): TotalsMap {
     if (!columns || !totals) {
         return {};
     }
-    
+
     let rettotals: TotalsMap = {};
     const k = Object.keys(totals);
 
     k.forEach((key) => {
-        if (key==="*ALL") { 
+        if (key === '*ALL') {
             columns.forEach((c) => {
                 if (c.obj && isNumber(c.obj)) {
-                    rettotals[c.name] = totals[key];   
+                    rettotals[c.name] = totals[key];
                 }
-            })
+            });
         } else {
             rettotals[key] = totals[key];
         }
@@ -640,7 +668,7 @@ export function calcTotals(
                     const cell = r.cells[key];
 
                     // check if number
-                    if ((cell) && (cell.obj) && (cell.obj.t === 'NR')) {
+                    if (cell && cell.obj && cell.obj.t === 'NR') {
                         const cellValue = numeral(cell.obj.k);
 
                         const currentFooterValue = footerRow[key] || 0;
@@ -779,7 +807,11 @@ export function paginateRows(
  * @returns {boolean} - true if borderRadius is present, false otherwise.
  */
 export function styleHasBorderRadius(cell: Cell): boolean {
-  return !!(cell && cell.style && (cell.style.borderRadius || cell.style['border-radius']));
+    return !!(
+        cell &&
+        cell.style &&
+        (cell.style.borderRadius || cell.style['border-radius'])
+    );
 }
 
 /**
@@ -789,7 +821,9 @@ export function styleHasBorderRadius(cell: Cell): boolean {
  */
 
 export function styleHasWritingMode(cell: Cell): boolean {
-    return !!(cell && cell.style && (cell.style.writingMode || cell.style['writing-mode']));
-  }
-  
-
+    return !!(
+        cell &&
+        cell.style &&
+        (cell.style.writingMode || cell.style['writing-mode'])
+    );
+}

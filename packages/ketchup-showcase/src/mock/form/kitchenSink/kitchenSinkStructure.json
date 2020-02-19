@@ -1,8 +1,4 @@
 {
-  "config": {
-    "liveCheck": true
-  },
-
   "fields": {
     "avatar": {
       "key": "avatar",
@@ -11,22 +7,14 @@
       "titlePosition": "Top",
       "description": "Avatar",
       "shape": "IMG",
-      "tooltip": "avatar",
-      "config": {
-        "badges": [
-          {
-            "icon": "mdi mdi-account",
-            "position": "BR"
-          }
-        ],
-        "width": "20",
-        "height": "20"
-      },
-      "obj": {
-        "t": "CN",
-        "p": "COL",
-        "k": "PARFRA"
-      }
+      "tooltip": "avatar"
+    },
+    "score": {
+      "key": "score",
+      "title": "Score",
+      "titlePosition": "Top",
+      "description": "Score",
+      "tooltip": "score"
     },
     "firstName": {
       "key": "firstName",
@@ -46,7 +34,7 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Tito"
+        "k": ""
       }
     },
     "lastName": {
@@ -54,11 +42,8 @@
       "title": "Last name",
       "titlePosition": "None",
       "description": "Last name",
+      "readonly": true,
       "shape": "ITX",
-      "validate": {
-        "required": true,
-        "minLength": 3
-      },
       "config": {
         "isClearable": true,
         "maxLenght": 5
@@ -66,7 +51,7 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Fulvio"
+        "k": ""
       }
     },
     "country": {
@@ -130,15 +115,26 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global readonly unset"
           }
         ]
       },
       "obj": {
         "t": "TA",
         "p": "V§N",
-        "k": "IT"
+        "k": ""
       },
-      "outputValueFunction": "description"
+      "outputValueFunction": "description",
+      "extra": {
+        "liveBackendCheck": true
+      }
     },
     "region": {
       "key": "region",
@@ -201,18 +197,22 @@
           {
             "value": "FVU",
             "description": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "description": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "description": "Global readonly unset"
           }
         ]
       },
       "obj": {
         "t": "",
-        "p": "V§R",
-        "k": "08"
+        "p": "V§R"
       },
-      "outputValueFunction": "description",
-      "extra": {
-        "liveBackendCheck": true
-      }
+      "outputValueFunction": "description"
     },
     "address": {
       "key": "address",
@@ -230,38 +230,148 @@
       "obj": {
         "t": "",
         "p": "",
-        "k": "Ostia"
+        "k": ""
       },
       "extra": {
         "liveBackendCheck": true
       }
+    },
+    "occupation": {
+      "key": "occupation",
+      "title": "Occupation",
+      "titlePosition": "None",
+      "description": "Occupation",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Occupation"
+      },
+      "outputValueFunction": "description",
+      "config": {
+        "serverHandledFilter": true,
+        "minimumChars": 2,
+        "showClearIcon": true,
+        "showDropdownIcon": true,
+        "displayMode": "description_and_code"
+      }
+    },
+    "company": {
+      "key": "company",
+      "title": "Company",
+      "titlePosition": "None",
+      "description": "Company",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Company"
+      },
+      "outputValueFunction": "description",
+      "config": {
+        "serverHandledFilter": true,
+        "minimumChars": 3,
+        "showClearIcon": true,
+        "displayMode": "description"
+      }
+    },
+    "department": {
+      "key": "department",
+      "title": "Department",
+      "titlePosition": "None",
+      "description": "Department",
+      "shape": "SRC",
+      "extra": {
+        "aParamForBackend": "XYZ"
+      },
+      "config": {
+        "serverHandledFilter": true,
+        "valueField": "code"
+      }
+    },
+    "father": {
+      "key": "father",
+      "title": "Father",
+      "titlePosition": "None",
+      "description": "Father",
+      "shape": "CFG",
+      "refid": "father-xxx",
+      "extra": {
+        "aParamForBackend": "BBB",
+        "liveBackendCheck": true
+      },
+      "config": {},
+      "obj": {
+        "t": "J5",
+        "p": "BRARTI",
+        "k": ""
+      },
+      "outputValueFunction": "firstName"
     }
   },
 
   "sections": {
-    "horizontal": true,
+    "horizontal": false,
     "sections": [
       {
-        "dim": "30%",
-        "fields": ["avatar"]
+        "horizontal": true,
+        "sections": [
+          { "dim": "40%", "fields": ["avatar"] },
+          { "fields": ["score"] }
+        ]
       },
       {
         "sections": [
-          { "fields": ["firstName"] },
-          { "fields": ["lastName"] },
-          { "fields": ["country"] },
-          { "fields": ["region"] },
-          { "fields": ["address"] }
+          {
+            "fields": [
+              "firstName",
+              "lastName",
+              "country",
+              "region",
+              "address",
+              "occupation",
+              "company",
+              "department",
+              "father"
+            ]
+          }
         ]
       }
     ]
+  },
+
+  "extraMessages": [],
+
+  "rules": {
+    "RULE1": {
+      "conditions": {
+        "any": [
+          {
+            "fact": "gameDuration",
+            "operator": "equal",
+            "value": 40
+          },
+          {
+            "fact": "personalFoulCount",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "changeSchema",
+        "params": {
+          "firstName": {
+            "validate": {
+              "required": false
+            }
+          }
+        }
+      }
+    }
   },
 
   "actions": {
     "fields": {
       "submit": {
         "key": "submit",
-        "value": "Confirm",
+        "title": "Confirm",
         "config": {
           "showtext": true,
           "flat": false
@@ -270,6 +380,7 @@
       "action1": {
         "key": "action1",
         "hidden": false,
+        "title": "Action 1",
         "tooltip": "action 1",
         "shape": "BTN",
         "config": {
@@ -281,12 +392,12 @@
           "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
           "p": "BTN",
           "t": "J4"
-        },
-        "value": "Action 1"
+        }
       },
       "action2": {
         "key": "action2",
         "hidden": false,
+        "title": "Action 2",
         "tooltip": "action 2",
         "shape": "BTN",
         "config": {
@@ -302,11 +413,11 @@
           "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
           "p": "BTN",
           "t": "J4"
-        },
-        "value": "Action 2"
+        }
       },
       "action3": {
         "key": "action3",
+        "title": "Action 3",
         "hidden": false,
         "tooltip": "action 3",
         "shape": "BTN",
@@ -320,8 +431,7 @@
           "p": "BTN",
           "t": "J4"
         },
-        "options": false,
-        "value": "Action 3"
+        "options": false
       }
     },
     "sections": [

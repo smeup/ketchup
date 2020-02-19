@@ -6,15 +6,53 @@
  * @returns An array of KupAutocompleteOption.
  * @constructor
  */
-export function AutocompleteItemFactory(itemsCount = 20, baseCode = 'CD', baseDescription = 'Item ') {
-    const toRet = [];
+export function AutocompleteItemFactory(
+  itemsCount = 20,
+  baseCode = 'CD',
+  baseDescription = 'Item '
+) {
+  const toRet = [];
 
-    for (let i = 0; i < itemsCount; i++) {
-        toRet.push({
-            code: baseCode + i,
-            description: baseDescription + i
-        });
-    }
+  for (let i = 0; i < itemsCount; i++) {
+    toRet.push({
+      code: baseCode + i,
+      description: baseDescription + i,
+    });
+  }
 
-    return toRet;
+  return toRet;
+}
+
+export function buildAutocompleteFilterUpdateCallback(itemsCount: number) {
+  return (detail: any) =>
+    autocompleteFilterUpdateCallbackCall(itemsCount, detail);
+}
+
+export function autocompleteFilterUpdateCallbackCall(
+  itemsCount: any,
+  detail: any
+) {
+  console.log(
+    'AutocompleteFilterUpdateCallbackCall with detail ' + JSON.stringify(detail)
+  );
+  let aParamForBackend = 'NON';
+  if (detail.extra && detail.extra.aParamForBackend) {
+    aParamForBackend = detail.extra.aParamForBackend;
+  }
+
+  let baseCode = aParamForBackend.substring(0, 3).toUpperCase();
+  let baseDescription = aParamForBackend + ' ';
+
+  let items: any = [];
+  if (detail.matchesMinimumCharsRequired) {
+    items = AutocompleteItemFactory(itemsCount, baseCode, baseDescription);
+    items = items.filter((elem: any) =>
+      (elem.code + ' - ' + elem.description).includes(detail.filter)
+    );
+  }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(items);
+    }, 2);
+  });
 }

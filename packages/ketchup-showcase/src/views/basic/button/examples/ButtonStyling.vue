@@ -7,31 +7,31 @@
         <span class="code-word">flat</span>
         will render a button without its background, only the text will be
         visible. On the other hand, the attribute
-        <span class="code-word">transparent</span> will render an outlined
-        button. These attributes must be used exclusively.</p
+        <span class="code-word">outlined</span> will render an outlined button.
+        These attributes are mutually exclusive.</p
       >
       <div class="demo-container">
         <div class="kup-container">
-          <wup-button flat text="Flat"></wup-button>
-          <wup-button transparent text="Transparent"></wup-button>
+          <wup-button flat label="Flat"></wup-button>
+          <wup-button outlined label="Outlined"></wup-button>
         </div>
         <p class="centered">Flat sample markup</p>
         <code class="flat">{{ markupFlat }}</code>
-        <p class="centered">Transparent sample markup</p>
-        <code class="flat">{{ markupTransparent }}</code>
+        <p class="centered">Outlined sample markup</p>
+        <code class="flat">{{ markupOutlined }}</code>
       </div>
     </div>
 
     <div class="demo-wrapper">
       <p
-        >The attribute <span class="code-word">rounded</span> may be used for
-        any of the stylings above, and it will shape the edges of the button to
-        be rounded.</p
+        >The attribute <span class="code-word">shaped</span> may be used for any
+        of the stylings above, and it will shape the edges of the button to be
+        more round.</p
       ><div class="demo-container">
         <div class="kup-container">
-          <wup-button rounded text="Raised"></wup-button>
-          <wup-button flat rounded text="Flat"></wup-button>
-          <wup-button transparent rounded text="Transparent"></wup-button>
+          <wup-button shaped label="Raised"></wup-button>
+          <wup-button flat shaped label="Flat"></wup-button>
+          <wup-button outlined shaped label="Outlined"></wup-button>
         </div>
         <p class="centered">Rounded sample markup</p>
         <code class="flat">{{ markupRounded }}</code>
@@ -47,15 +47,15 @@
         <a href="https://material.io/resources/icons/?style=baseline"
           >Material Design library</a
         >. It's important to specify both
-        <span class="code-word">text</span> and
+        <span class="code-word">label</span> and
         <span class="code-word">icon</span> attributes in this case, because
         specifying only <span class="code-word">icon</span> will render the
         <span class="code-word">icon button variant</span>.</p
       ><div class="demo-container">
         <div class="kup-container">
-          <wup-button icon="favorite" text="Favorite"></wup-button>
-          <wup-button flat icon="play_arrow" text="Play"></wup-button>
-          <wup-button transparent icon="done" text="Submit"></wup-button>
+          <wup-button icon="favorite" label="Favorite"></wup-button>
+          <wup-button flat icon="play_arrow" label="Play"></wup-button>
+          <wup-button outlined icon="done" label="Submit"></wup-button>
         </div>
         <p class="centered">Icon sample markup</p>
         <code class="flat">{{ markupIcon }}</code>
@@ -69,11 +69,10 @@ export default {
   name: 'ButtonStyling',
   data() {
     return {
-      markupFlat: '<wup-button flat text="Flat"></wup-button>',
-      markupTransparent:
-        '<wup-button transparent text="Transparent"></wup-button>',
-      markupRounded: '<wup-button rounded text="Rounded"></wup-button>',
-      markupIcon: '<wup-button icon="Favorite" text="Favorite"></wup-button>',
+      markupFlat: '<wup-button flat label="Flat"></wup-button>',
+      markupOutlined: '<wup-button outlined label="Outlined"></wup-button>',
+      markupRounded: '<wup-button shaped label="Shaped"></wup-button>',
+      markupIcon: '<wup-button icon="Favorite" label="Favorite"></wup-button>',
     };
   },
 };

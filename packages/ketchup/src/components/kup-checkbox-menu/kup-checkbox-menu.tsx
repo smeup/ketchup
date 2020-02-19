@@ -199,7 +199,7 @@ export class KupCheckboxMenu {
                                         item[this.valueField]
                                     ) >= 0
                                 }
-                                labelright={item[this.displayedField]}
+                                label={item[this.displayedField]}
                                 onKupCheckboxChange={(e: CustomEvent) => {
                                     this.handleCheckboxItemStateChange(item, e);
                                 }}

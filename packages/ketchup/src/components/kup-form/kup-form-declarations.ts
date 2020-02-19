@@ -3,41 +3,40 @@ export interface FormFields {
 }
 
 export interface FormField {
-    refid?: string;
     key: string;
+    refid?: string;
     title?: string;
     description?: string;
     hidden?: boolean;
-    shape?: string;
+    readonly?: boolean;
     validate?: FormFieldValidate;
     outputValueFunction?: string;
-
+    // can be present in form cell
+    shape?: string;
     config?: any;
     extra?: any;
     obj?: {
-        t?: string;
-        p?: string;
-        k?: string;
+        t: string;
+        p: string;
+        k: string;
     };
-    value: any;
 }
 
-export interface FormRecord {
-    id?: string;
-    fields: {
-        [index: string]: {
-            key: string;
-            value: any;
+export interface FormCells {
+    [index: string]: FormCell;
+}
 
-            //TODO
-            config?: any;
-            extra?: any;
-            obj?: {
-                t?: string;
-                p?: string;
-                k?: string;
-            };
-        };
+export interface FormCell {
+    key: string;
+    value: any;
+    // can be present in form field
+    shape?: string;
+    config?: any;
+    extra?: any;
+    obj?: {
+        t: string;
+        p: string;
+        k: string;
     };
 }
 
@@ -66,6 +65,7 @@ export interface FormFieldCalcs {
     oldValue: any;
 }
 
+// TODO: use a Message common to all framework (and a related kup-message component)
 export interface FormMessage {
     fieldKey?: string;
     text: string;
@@ -80,6 +80,7 @@ export enum FormMessageLevel {
 
 export interface FormConfig {
     liveCheck?: boolean;
+    debugMode?: boolean;
 }
 
 export interface FormActions {
@@ -103,26 +104,17 @@ export interface FormActionEventDetail {
     refid?: string;
     extra?: any;
     isValid?: boolean;
-    action?: {
+    action: {
         key: string;
+        extra?: string;
+        obj?: string;
     };
     actual?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        fields?: FormFields;
+        cells?: FormCells;
     };
     old?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        cells?: FormCells;
     };
 }
 
@@ -134,21 +126,10 @@ export interface FormFieldEventDetail {
         key: string;
     };
     actual?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        fields?: FormFields;
+        cells?: FormCells;
     };
     old?: {
-        fields: {
-            [index: string]: {
-                key: string;
-                value: any;
-                extra?: any;
-            };
-        };
+        cells?: FormCells;
     };
 }

@@ -60,18 +60,23 @@ import {
 import {
   CrudCallBackOnFormEventResult,
   CrudConfig,
+  CrudRecord,
   CrudRecordsChanged,
 } from './components/kup-crud/kup-crud-declarations';
 import {
   FormActionEventDetail,
   FormActions,
+  FormCells,
   FormConfig,
   FormFieldEventDetail,
   FormFields,
   FormMessage,
-  FormRecord,
   FormSection,
 } from './components/kup-form/kup-form-declarations';
+import {
+  SearchFilterSubmittedEventDetail,
+  SearchSelectionUpdatedEventDetail,
+} from './components/kup-search/kup-search-declarations';
 import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
@@ -99,7 +104,9 @@ import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
+  TooltipAction,
   TooltipData,
+  TooltipDetailData,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
   TreeNode,
@@ -109,7 +116,10 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  WidgetTabBarElement,
+  ComponentRadioElement,
+} from './components/wup-radio/wup-radio-declarations';
+import {
+  ComponentTabBarElement,
 } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
@@ -119,6 +129,12 @@ export namespace Components {
     */
     'allowCustomItems': boolean;
     /**
+    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled': boolean;
@@ -126,6 +142,14 @@ export namespace Components {
     * Selects how the autocomplete items must display their label and how they can be filtered for
     */
     'displayMode': AutocompleteDisplayMode;
+    /**
+    * Any extra info. It will be sent in events payload
+    */
+    'extra': any;
+    /**
+    * The initial selected items set inside component
+    */
+    'initialSelectedItems': KupAutocompleteOption[];
     /**
     * Sets the autocomplete items data
     */
@@ -414,9 +438,9 @@ export namespace Components {
   }
   interface KupCrud {
     'actions': FormActions;
-    /**
-    * ************************************************************** PUBLIC METHODS                                              * **************************************************************
-    */
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     'closeForm': () => Promise<void>;
     'config': CrudConfig;
     'crudCallBackOnFormActionSubmitted': (
@@ -425,12 +449,16 @@ export namespace Components {
     'crudCallBackOnFormFieldChanged': (
     detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'disabled': boolean;
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
     'openForm': () => Promise<void>;
-    'records': FormRecord[];
+    'records': CrudRecord[];
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupDash {
@@ -439,30 +467,58 @@ export namespace Components {
     'layout': string;
   }
   interface KupDataTable {
+    /**
+    * Used to set custom columns width.
+    */
     'columnsWidth': Array<{
       column: string;
       width: number;
     }>;
+    /**
+    * The data of the table.
+    */
     'data': TableData;
     'defaultSortingFunction': (columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>;
     /**
-    * Enables sorting of the columns by dragging them into different columns
+    * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+    */
+    'density': string;
+    /**
+    * Enables the sorting of columns by dragging them into different columns.
     */
     'enableSortableColumns': boolean;
+    /**
+    * Expands groups when set to true.
+    */
     'expandGroups': boolean;
+    /**
+    * List of filters set by the user.
+    */
     'filters': GenericMap;
     /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
+    /**
+    * When set to true it activates the global filter.
+    */
     'globalFilter': boolean;
+    /**
+    * The value of the global filter.
+    */
+    'globalFilterValue': string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
     'groupLabelDisplay': GroupLabelDisplayMode;
+    /**
+    * The list of groups.
+    */
     'groups': Array<GroupObject>;
+    /**
+    * When set to true the header will stick on top of the table when scrolling.
+    */
     'headerIsPersistent': boolean;
-    'hoverScroll': boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -475,12 +531,33 @@ export namespace Components {
     * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
     */
     'loadMoreStep': number;
+    /**
+    * When set to true enables rows multi selection.
+    */
     'multiSelection': boolean;
+    /**
+    * Sets the position of the paginator. Available positions: top, bottom or both.
+    */
     'paginatorPos': PaginatorPos;
+    /**
+    * Sets the actions of the rows.
+    */
     'rowActions': Array<RowAction>;
+    /**
+    * Sets the number of rows per page to display.
+    */
     'rowsPerPage': number;
+    /**
+    * Selects the specified row.
+    */
     'selectRow': number;
+    /**
+    * When set to true enables the column filters.
+    */
     'showFilters': boolean;
+    /**
+    * Can be used to customize the grid view of the table.
+    */
     'showGrid': ShowGrid;
     /**
     * Enables rendering of the table header.
@@ -490,12 +567,21 @@ export namespace Components {
     * If set to true, displays the button to load more records.
     */
     'showLoadMore': boolean;
+    /**
+    * Defines the current sorting options.
+    */
     'sort': Array<SortObject>;
+    /**
+    * When set to true enables the sorting of the columns.
+    */
     'sortEnabled': boolean;
     /**
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData': boolean;
+    /**
+    * Defines the current totals options.
+    */
     'totals': TotalsMap;
   }
   interface KupFld {
@@ -514,6 +600,10 @@ export namespace Components {
   }
   interface KupForm {
     'actions': FormActions;
+    'autocompleteCallBackOnFilterUpdate': (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'cells': FormCells;
     'config': FormConfig;
     'crudCallBackOnFormActionSubmitted': (
     detail: FormActionEventDetail
@@ -524,7 +614,12 @@ export namespace Components {
     'extra': any;
     'extraMessages': FormMessage[];
     'fields': FormFields;
+    'getActualCells': () => Promise<FormCells>;
+    'getOldCells': () => Promise<FormCells>;
     'refid': string;
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections': FormSection;
   }
   interface KupGauge {
@@ -819,6 +914,26 @@ export namespace Components {
     */
     'label': string;
   }
+  interface KupSearch {
+    'data': TableData;
+    'disabled': boolean;
+    'extra': any;
+    'initialValue': string;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted': (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter': boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField': string;
+  }
   interface KupTextInput {
     /**
     * Imperatively sets a new value of the input.
@@ -873,7 +988,11 @@ export namespace Components {
     /**
     * Data for the detail
     */
-    'detailData': DataTable;
+    'detailData': TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout': number;
     /**
     * Layout used to display the items
     */
@@ -981,7 +1100,7 @@ export namespace Components {
     */
     'label': string;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'rounded': boolean;
     'showicon': boolean;
@@ -1001,21 +1120,13 @@ export namespace Components {
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent': boolean;
+    'trailingIcon': boolean;
   }
   interface WupCheckbox {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked': boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1025,35 +1136,31 @@ export namespace Components {
     */
     'indeterminate': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft': string;
+    'label': string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright': string;
+    'leadingLabel': boolean;
   }
   interface WupRadio {
     /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
+    * List of elements.
     */
-    'checked': boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
+    'data': ComponentRadioElement[];
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft': string;
+    'leadingLabel': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'labelright': string;
+    'name': string;
   }
   interface WupSwitch {
     /**
@@ -1061,37 +1168,25 @@ export namespace Components {
     */
     'checked': boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft': string;
+    'label': string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright': string;
+    'leadingLabel': boolean;
   }
   interface WupTabBar {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * List of elements.
     */
-    'items': WidgetTabBarElement[];
+    'data': ComponentTabBarElement[];
   }
   interface WupTemplate {
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1099,17 +1194,17 @@ export namespace Components {
   }
   interface WupTextField {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom': boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullHeight': boolean;
+    /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
-    'fullwidth': boolean;
+    'fullWidth': boolean;
     /**
     * Defaults at null. When set, its content will be shown as a help text below the field.
     */
@@ -1117,43 +1212,47 @@ export namespace Components {
     /**
     * Defaults at false. When set, the helper will be shown only when the field is focused.
     */
-    'helperwhenfocus': boolean;
+    'helperWhenFocused': boolean;
     /**
     * Defaults at null. When set, the text-field will show this icon.
     */
     'icon': string;
     /**
+    * Sets the initial value of the component
+    */
+    'initialValue': string;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label': string;
     /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright': string;
+    'leadingLabel': boolean;
     /**
     * Defaults at null. When set, the helper will display a character counter.
     */
-    'maxlength': number;
+    'maxLength': number;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined': boolean;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
-    'rounded': boolean;
+    'shaped': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered as a textarea.
     */
-    'textarea': boolean;
+    'textArea': boolean;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon': boolean;
+    'trailingIcon': boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel': boolean;
   }
 }
 
@@ -1358,6 +1457,12 @@ declare global {
     new (): HTMLKupRadioElementElement;
   };
 
+  interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {}
+  var HTMLKupSearchElement: {
+    prototype: HTMLKupSearchElement;
+    new (): HTMLKupSearchElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1457,6 +1562,7 @@ declare global {
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-radio-element': HTMLKupRadioElementElement;
+    'kup-search': HTMLKupSearchElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1478,6 +1584,12 @@ declare namespace LocalJSX {
     */
     'allowCustomItems'?: boolean;
     /**
+    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled'?: boolean;
@@ -1485,6 +1597,14 @@ declare namespace LocalJSX {
     * Selects how the autocomplete items must display their label and how they can be filtered for
     */
     'displayMode'?: AutocompleteDisplayMode;
+    /**
+    * Any extra info. It will be sent in events payload
+    */
+    'extra'?: any;
+    /**
+    * The initial selected items set inside component
+    */
+    'initialSelectedItems'?: KupAutocompleteOption[];
     /**
     * Sets the autocomplete items data
     */
@@ -1900,6 +2020,9 @@ declare namespace LocalJSX {
   }
   interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
     'actions'?: FormActions;
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
     'config'?: CrudConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail
@@ -1907,6 +2030,7 @@ declare namespace LocalJSX {
     'crudCallBackOnFormFieldChanged'?: (
     detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+    'disabled'?: boolean;
     'extra'?: any;
     'extraMessages'?: FormMessage[];
     'fields'?: FormFields;
@@ -1915,8 +2039,11 @@ declare namespace LocalJSX {
     'onKupCrudFormActionSubmitted'?: (event: CustomEvent<FormActionEventDetail>) => void;
     'onKupCrudFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupCrudRecordsChanged'?: (event: CustomEvent<CrudRecordsChanged>) => void;
-    'records'?: FormRecord[];
+    'records'?: CrudRecord[];
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupDash extends JSXBase.HTMLAttributes<HTMLKupDashElement> {
@@ -1926,29 +2053,57 @@ declare namespace LocalJSX {
     'onKetchupDashClicked'?: (event: CustomEvent<{}>) => void;
   }
   interface KupDataTable extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
+    /**
+    * Used to set custom columns width.
+    */
     'columnsWidth'?: Array<{
       column: string;
       width: number;
     }>;
+    /**
+    * The data of the table.
+    */
     'data'?: TableData;
     /**
-    * Enables sorting of the columns by dragging them into different columns
+    * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+    */
+    'density'?: string;
+    /**
+    * Enables the sorting of columns by dragging them into different columns.
     */
     'enableSortableColumns'?: boolean;
+    /**
+    * Expands groups when set to true.
+    */
     'expandGroups'?: boolean;
+    /**
+    * List of filters set by the user.
+    */
     'filters'?: GenericMap;
     /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine'?: boolean;
+    /**
+    * When set to true it activates the global filter.
+    */
     'globalFilter'?: boolean;
+    /**
+    * The value of the global filter.
+    */
+    'globalFilterValue'?: string;
     /**
     * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
     */
     'groupLabelDisplay'?: GroupLabelDisplayMode;
+    /**
+    * The list of groups.
+    */
     'groups'?: Array<GroupObject>;
+    /**
+    * When set to true the header will stick on top of the table when scrolling.
+    */
     'headerIsPersistent'?: boolean;
-    'hoverScroll'?: boolean;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -1961,6 +2116,9 @@ declare namespace LocalJSX {
     * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
     */
     'loadMoreStep'?: number;
+    /**
+    * When set to true enables rows multi selection.
+    */
     'multiSelection'?: boolean;
     /**
     * When 'add column' menu item is clicked
@@ -2014,11 +2172,29 @@ declare namespace LocalJSX {
       selectedRows: Array<Row>;
       clickedColumn: string;
     }>) => void;
+    /**
+    * Sets the position of the paginator. Available positions: top, bottom or both.
+    */
     'paginatorPos'?: PaginatorPos;
+    /**
+    * Sets the actions of the rows.
+    */
     'rowActions'?: Array<RowAction>;
+    /**
+    * Sets the number of rows per page to display.
+    */
     'rowsPerPage'?: number;
+    /**
+    * Selects the specified row.
+    */
     'selectRow'?: number;
+    /**
+    * When set to true enables the column filters.
+    */
     'showFilters'?: boolean;
+    /**
+    * Can be used to customize the grid view of the table.
+    */
     'showGrid'?: ShowGrid;
     /**
     * Enables rendering of the table header.
@@ -2028,12 +2204,21 @@ declare namespace LocalJSX {
     * If set to true, displays the button to load more records.
     */
     'showLoadMore'?: boolean;
+    /**
+    * Defines the current sorting options.
+    */
     'sort'?: Array<SortObject>;
+    /**
+    * When set to true enables the sorting of the columns.
+    */
     'sortEnabled'?: boolean;
     /**
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
+    /**
+    * Defines the current totals options.
+    */
     'totals'?: TotalsMap;
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
@@ -2056,6 +2241,10 @@ declare namespace LocalJSX {
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
+    'autocompleteCallBackOnFilterUpdate'?: (
+    detail: KupAutocompleteFilterUpdatePayload
+    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'cells'?: FormCells;
     'config'?: FormConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail
@@ -2071,6 +2260,9 @@ declare namespace LocalJSX {
     'onKupFormFieldChanged'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'onKupFormFieldFocused'?: (event: CustomEvent<FormFieldEventDetail>) => void;
     'refid'?: string;
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
     'sections'?: FormSection;
   }
   interface KupGauge extends JSXBase.HTMLAttributes<HTMLKupGaugeElement> {
@@ -2389,6 +2581,31 @@ declare namespace LocalJSX {
     */
     'label'?: string;
   }
+  interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
+    'data'?: TableData;
+    'disabled'?: boolean;
+    'extra'?: any;
+    'initialValue'?: string;
+    /**
+    * Fired when the filter is submitted but only if in serverHandledFilter mode.
+    */
+    'onKupSearchFilterSubmitted'?: (event: CustomEvent<SearchFilterSubmittedEventDetail>) => void;
+    'onKupSearchSelectionUpdated'?: (event: CustomEvent<SearchSelectionUpdatedEventDetail>) => void;
+    /**
+    * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
+    */
+    'searchCallBackOnFilterSubmitted'?: (
+    detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
+    /**
+    * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
+    */
+    'serverHandledFilter'?: boolean;
+    /**
+    * The field used to obtain value
+    */
+    'valueField'?: string;
+  }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -2455,11 +2672,18 @@ declare namespace LocalJSX {
     /**
     * Data for the detail
     */
-    'detailData'?: DataTable;
+    'detailData'?: TooltipDetailData;
+    /**
+    * Timeout for loadDetail
+    */
+    'detailDataTimeout'?: number;
     /**
     * Layout used to display the items
     */
     'layout'?: string;
+    'onKupActionCommandClicked'?: (event: CustomEvent<{
+      actionCommand: TooltipAction;
+    }>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
@@ -2604,20 +2828,14 @@ declare namespace LocalJSX {
     'onKupButtonBlur'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupButtonChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
     'onKupButtonClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
     'onKupButtonFocus'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupButtonInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
     */
     'rounded'?: boolean;
     'showicon'?: boolean;
@@ -2637,21 +2855,13 @@ declare namespace LocalJSX {
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'transparent'?: boolean;
+    'trailingIcon'?: boolean;
   }
   interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
     /**
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2661,64 +2871,60 @@ declare namespace LocalJSX {
     */
     'indeterminate'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft'?: string;
+    'label'?: string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     'onKupCheckboxBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupCheckboxInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
+    * List of elements.
     */
-    'checked'?: boolean;
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
+    'data'?: ComponentRadioElement[];
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft'?: string;
+    'leadingLabel'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'labelright'?: string;
+    'name'?: string;
     'onKupRadioBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupRadioInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
@@ -2727,67 +2933,52 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * Defaults at null. When specified, its content is shown to the left of the component as a label.
+    * Defaults at null. When specified, its content will be shown as a label.
     */
-    'labelleft'?: string;
+    'label'?: string;
     /**
-    * Defaults at null. When specified, its content is shown to the right of the component as a label.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     'onKupSwitchBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupSwitchInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * List of elements.
     */
-    'items'?: WidgetTabBarElement[];
+    'data'?: ComponentTabBarElement[];
     'onKupTabBarBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupTabBarChange'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarClick'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
     'onKupTabBarFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupTabBarInput'?: (event: CustomEvent<{
-      value: any;
+      index: number;
+      el: EventTarget;
     }>) => void;
   }
   interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
-    /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2813,17 +3004,17 @@ declare namespace LocalJSX {
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
     /**
-    * Defaults at false. When set to true, mixins and classes of customization are enabled.
-    */
-    'custom'?: boolean;
-    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullHeight'?: boolean;
+    /**
     * Defaults at false. When set to true, the component will be rendered at full width.
     */
-    'fullwidth'?: boolean;
+    'fullWidth'?: boolean;
     /**
     * Defaults at null. When set, its content will be shown as a help text below the field.
     */
@@ -2831,58 +3022,65 @@ declare namespace LocalJSX {
     /**
     * Defaults at false. When set, the helper will be shown only when the field is focused.
     */
-    'helperwhenfocus'?: boolean;
+    'helperWhenFocused'?: boolean;
     /**
     * Defaults at null. When set, the text-field will show this icon.
     */
     'icon'?: string;
     /**
+    * Sets the initial value of the component
+    */
+    'initialValue'?: string;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label'?: string;
     /**
-    * Defaults at null. When set, its content will be shown as a label to the left in a form.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'labelleft'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label to the right in a form.
-    */
-    'labelright'?: string;
+    'leadingLabel'?: boolean;
     /**
     * Defaults at null. When set, the helper will display a character counter.
     */
-    'maxlength'?: number;
+    'maxLength'?: number;
     'onKupTextFieldBlur'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldChange'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldClick'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     'onKupTextFieldFocus'?: (event: CustomEvent<{
-      value: any;
+      value: string;
+    }>) => void;
+    'onKupTextFieldIconClick'?: (event: CustomEvent<{
+      value: string;
     }>) => void;
     'onKupTextFieldInput'?: (event: CustomEvent<{
-      value: any;
+      value: string;
     }>) => void;
     /**
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined'?: boolean;
     /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
-    'rounded'?: boolean;
+    'shaped'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered as a textarea.
     */
-    'textarea'?: boolean;
+    'textArea'?: boolean;
     /**
     * Defaults at null. When set, the icon will be shown after the text.
     */
-    'trailingicon'?: boolean;
+    'trailingIcon'?: boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel'?: boolean;
   }
 
   interface IntrinsicElements {
@@ -2919,6 +3117,7 @@ declare namespace LocalJSX {
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
     'kup-radio-element': KupRadioElement;
+    'kup-search': KupSearch;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

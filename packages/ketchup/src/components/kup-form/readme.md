@@ -4,7 +4,15 @@ Kup-form is a web component that allows to generate forms.
 
 ## Fields
 
-Fields config, layout and values are defined in fields prop. Each field must have a unique key prop. Field value can be a string or a object.
+Fields config and layout are defined in a prop called fields. Each field must have a unique key prop.
+
+## Cells
+
+Fields values are in a prop called cells. In a cell you can find values but also some specific data, like a shape config or extra or obj props.
+
+## Extra and obj
+
+Extra is a any attribute that can contain all you want to be transferred during events (for example some backed useful params). Obj is a more specific type of info that will be always transferred during events, like extra. Obj contains a type, a parameter and a code. You can put extra and obj at field level, at cell level, at actions level, at component level, and they will always be transferred during events.
 
 ## Sections
 
@@ -18,23 +26,21 @@ If you set a liveCheck=true inside config prop, everytime a field value is chang
 
 If you want to add a server side check everytime a field value is changed you can put a param in the 'extra' prop of a field (for example liveBackendCheck=true) and read it on the FormFieldChanged event.
 
+## Actions
+
+As default, if actions prop is empty, a submit button and a reset button (not yet implemented) will be rendered in the bottom right of the form. The reset will empty all fields when clicked.
+
+If you want to add actions or customize submit and/or reset buttons (or hide them) you have to set actions prop. You have to define both actions fields (they are button widget so you can add all the attributes of a BTN shape or J4BTN object field while the value will be the title) and actions sections. There are only four possibile sections with position: TL (top left), TR (top right), BL (bottom left), BR (bottom right). As a form field an action field must have a unique key. Submit action has "submit" key, reset action has "reset" key. Performing an action will generate a kupFormActionSubmitted event.
+
 ## Extra messages
 
 When a form is submitted or when another form event is performed some backend logic can be executed. In this case you can have the need to show some backend messages (for example backend check messages) inside the form.
 
 You can show these kind of messages using the extraMessages prop.
 
-## Actions
+## Old values
 
-As default, if actions prop is empty, a submit button and a reset button (not yet implemented) will be rendered in the bottom right of the form. The reset will empty all fields when clicked.
-
-If you want to add actions or customize submit and/or reset buttons (or hide them) you have to set actions prop. You have to define both actions fields (they are button widget so you can add all the attributes of a BTN shape or J4BTN object) and actions sections. There are only four possibile sections with position: TL (top left), TR (top right), BL (bottom left), BR (bottom right). As a form field an action field must have a unique key. Submit action has "submit" key, reset action has "reset" key. Performing an action will generate a kupFormActionSubmitted event.
-
-## State
-
-The props: config, fields, sections, extraMessages are mutable (they can be updated by the component) and they are syncronized with the actual state of that entities. So if you want to obtain the actual state of fields (for example actual fields values) you can use fields props from the component (using for example: this.\$refs.form.fields).
-
-During events all the state of the component isn't sent. So if you need some state info on event you can use props.
+When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payload the actual state of the cells and the old one. The old is the copy of the cells stored when you set or reset the cells prop into the form.
 
 ---
 
@@ -43,17 +49,20 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ## Properties
 
-| Property                            | Attribute | Description | Type                                                                        | Default     |
-| ----------------------------------- | --------- | ----------- | --------------------------------------------------------------------------- | ----------- |
-| `actions`                           | --        |             | `FormActions`                                                               | `undefined` |
-| `config`                            | --        |             | `FormConfig`                                                                | `{}`        |
-| `crudCallBackOnFormActionSubmitted` | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>` | `undefined` |
-| `crudCallBackOnFormFieldChanged`    | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`  | `undefined` |
-| `extra`                             | `extra`   |             | `any`                                                                       | `undefined` |
-| `extraMessages`                     | --        |             | `FormMessage[]`                                                             | `[]`        |
-| `fields`                            | --        |             | `FormFields`                                                                | `undefined` |
-| `refid`                             | `refid`   |             | `string`                                                                    | `undefined` |
-| `sections`                          | --        |             | `FormSection`                                                               | `undefined` |
+| Property                             | Attribute | Description | Type                                                                               | Default     |
+| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
+| `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
 
 
 ## Events
@@ -64,6 +73,29 @@ During events all the state of the component isn't sent. So if you need some sta
 | `kupFormFieldBlurred`    |             | `CustomEvent<FormFieldEventDetail>`  |
 | `kupFormFieldChanged`    |             | `CustomEvent<FormFieldEventDetail>`  |
 | `kupFormFieldFocused`    |             | `CustomEvent<FormFieldEventDetail>`  |
+
+
+## Methods
+
+### `getActualCells() => Promise<FormCells>`
+
+
+
+#### Returns
+
+Type: `Promise<FormCells>`
+
+
+
+### `getOldCells() => Promise<FormCells>`
+
+
+
+#### Returns
+
+Type: `Promise<FormCells>`
+
+
 
 
 ## CSS Custom Properties
@@ -86,18 +118,26 @@ During events all the state of the component isn't sent. So if you need some sta
 
 ### Depends on
 
-- [kup-text-input](../kup-text-input)
 - [kup-combo](../kup-combo)
 - [kup-crud](../kup-crud)
+- [kup-autocomplete](../kup-autocomplete)
+- [kup-search](../kup-search)
+- [kup-image](../kup-image)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-text-input](../kup-text-input)
 - [kup-button](../kup-button)
 - [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form --> kup-text-input
   kup-form --> kup-combo
   kup-form --> kup-crud
+  kup-form --> kup-autocomplete
+  kup-form --> kup-search
+  kup-form --> kup-image
+  kup-form --> kup-progress-bar
+  kup-form --> kup-text-input
   kup-form --> kup-button
   kup-form --> kup-crud
   kup-combo --> kup-text-input
@@ -107,6 +147,28 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-crud --> kup-form
+  kup-autocomplete --> kup-chip
+  kup-autocomplete --> kup-text-input
+  kup-autocomplete --> kup-menu
+  kup-autocomplete --> kup-icon
+  kup-search --> kup-text-input
+  kup-search --> kup-button
+  kup-search --> kup-modal
+  kup-search --> kup-data-table
+  kup-data-table --> kup-text-input
+  kup-data-table --> kup-icon
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-button
+  kup-data-table --> kup-graphic-cell
+  kup-data-table --> kup-chart-cell
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-tooltip
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-chip
+  kup-tooltip --> kup-button
+  kup-paginator --> kup-combo
+  kup-image --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

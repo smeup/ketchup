@@ -6,6 +6,7 @@ import {
     EventEmitter,
     State,
     Host,
+    Watch,
     h,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
@@ -23,61 +24,65 @@ export class WupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
+     * Sets the initial value of the component
      */
-    @Prop() custom: boolean = false;
+    @Prop({ reflect: true }) initialValue: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
-    @Prop() fullwidth: boolean = false;
+    @Prop({ reflect: true }) fullWidth: boolean = false;
+    /**
+     * Defaults at false. When set to true, the component will be rendered at full height.
+     */
+    @Prop({ reflect: true }) fullHeight: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
-    @Prop() textarea: boolean = false;
+    @Prop({ reflect: true }) textArea: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
-    @Prop() outlined: boolean = false;
+    @Prop({ reflect: true }) outlined: boolean = false;
     /**
      * Defaults at null. When set, its content will be shown as a label.
      */
-    @Prop() label: string = null;
+    @Prop({ reflect: true }) label: string = null;
     /**
-     * Defaults at null. When set, its content will be shown as a label to the left in a form.
+     * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop() labelleft: string = null;
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
     /**
-     * Defaults at null. When set, its content will be shown as a label to the right in a form.
+     * Defaults at false. When set to true, the label will be on the right of the component.
      */
-    @Prop() labelright: string = null;
+    @Prop({ reflect: true }) trailingLabel: boolean = false;
     /**
      * Defaults at null. When set, its content will be shown as a help text below the field.
      */
-    @Prop() helper: string = null;
+    @Prop({ reflect: true }) helper: string = null;
     /**
-     * Defaults at false. When set to true, the button will be rendered with rounded edges.
+     * Defaults at false. When set to true, the button will be rendered with shaped edges.
      */
-    @Prop() rounded: boolean = false;
+    @Prop({ reflect: true }) shaped: boolean = false;
     /**
      * Defaults at false. When set, the helper will be shown only when the field is focused.
      */
-    @Prop() helperwhenfocus: boolean = false;
+    @Prop({ reflect: true }) helperWhenFocused: boolean = false;
     /**
      * Defaults at null. When set, the helper will display a character counter.
      */
-    @Prop() maxlength: number = null;
+    @Prop({ reflect: true }) maxLength: number = null;
     /**
      * Defaults at null. When set, the text-field will show this icon.
      */
-    @Prop() icon: string = null;
+    @Prop({ reflect: true }) icon: string = null;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop() trailingicon: boolean = false;
+    @Prop({ reflect: true }) trailingIcon: boolean = false;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -86,7 +91,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -96,7 +101,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -106,7 +111,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -116,7 +121,7 @@ export class WupTextField {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -126,54 +131,75 @@ export class WupTextField {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        value: string;
+    }>;
+
+    @Event({
+        eventName: 'kupTextFieldIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<{
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupBlur.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupChange.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupClick.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupFocus.emit({
             value: target.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
         this.kupInput.emit({
             value: target.value,
         });
-        this.value = target.value;
+    }
+
+    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupIconClick.emit({
+            value: target.value,
+        });
     }
 
     //---- Lifecycle hooks ----
 
-    componentDidLoad() {
+    componentWillLoad() {
+        this.onInitialValueChanged();
+    }
+
+    @Watch('initialValue')
+    onInitialValueChanged() {
+        this.value = this.initialValue;
+    }
+
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
@@ -207,7 +233,7 @@ export class WupTextField {
     //---- Rendering ----
 
     render() {
-        let widgetClass: string = 'mdc-text-field';
+        let componentClass: string = 'mdc-text-field';
         let labelEl: HTMLElement = null;
         let helperEl: HTMLElement = null;
         let iconEl: HTMLElement = null;
@@ -215,31 +241,22 @@ export class WupTextField {
         let widgetEl: HTMLElement = null;
         let placeholderLabel: string = null;
 
-        //If there is a form, "label" attribute doesn't make sense and it should be empty, so we override its content with null
-        if (this.labelleft || this.labelright) {
-            this.label = null;
-        }
-
         if (!this.label) {
-            widgetClass += ' mdc-text-field--no-label';
-        }
-
-        if (this.custom) {
-            widgetClass += ' custom';
+            componentClass += ' mdc-text-field--no-label';
         }
 
         if (this.disabled) {
-            widgetClass += ' mdc-text-field--disabled';
+            componentClass += ' mdc-text-field--disabled';
         }
 
-        if (this.rounded) {
-            widgetClass += ' shaped';
+        if (this.shaped) {
+            componentClass += ' shaped';
         }
 
-        if (this.fullwidth) {
-            widgetClass += ' mdc-text-field--fullwidth';
+        if (this.fullWidth) {
+            componentClass += ' mdc-text-field--fullwidth';
             placeholderLabel = this.label;
-        } else if (this.label) {
+        } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
             labelEl = (
                 <label class="mdc-floating-label" htmlFor="wup-input">
                     {this.label}
@@ -253,26 +270,27 @@ export class WupTextField {
                     class="material-icons mdc-text-field__icon"
                     tabindex="0"
                     role="button"
+                    onClick={(e: any) => this.onKupIconClick(e)}
                 >
                     {this.icon}
                 </i>
             );
-            if (this.trailingicon) {
-                widgetClass += ' mdc-text-field--with-trailing-icon';
+            if (this.trailingIcon) {
+                componentClass += ' mdc-text-field--with-trailing-icon';
             } else {
-                widgetClass += ' mdc-text-field--with-leading-icon';
+                componentClass += ' mdc-text-field--with-leading-icon';
             }
         }
 
         if (this.helper) {
             let helperClass: string = 'mdc-text-field-helper-text';
 
-            if (!this.helperwhenfocus) {
+            if (!this.helperWhenFocused) {
                 helperClass += ' mdc-text-field-helper-text--persistent';
             }
 
-            if (this.maxlength && !this.textarea) {
-                let charString = '0 / ' + this.maxlength;
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -287,8 +305,8 @@ export class WupTextField {
                 </div>
             );
         } else {
-            if (this.maxlength && !this.textarea) {
-                let charString = '0 / ' + this.maxlength;
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -300,23 +318,23 @@ export class WupTextField {
             }
         }
 
-        if (this.textarea || this.outlined) {
+        if (this.textArea || this.outlined) {
             widgetEl = this.outlinedStyling(
-                widgetClass,
+                componentClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
             );
         } else {
             widgetEl = this.defaultStyling(
-                widgetClass,
+                componentClass,
                 labelEl,
                 placeholderLabel,
                 iconEl
             );
         }
 
-        if (this.labelleft || this.labelright) {
+        if (this.leadingLabel || this.trailingLabel) {
             widgetEl = this.renderForm(widgetEl, helperEl);
         } else {
             widgetEl = this.renderTextField(widgetEl, helperEl);
@@ -325,7 +343,7 @@ export class WupTextField {
     }
 
     outlinedStyling(
-        widgetClass: string,
+        componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -334,20 +352,20 @@ export class WupTextField {
         let inputEl: HTMLElement = null;
         let leadingIconEl: HTMLElement = null;
         let trailingIconEl: HTMLElement = null;
-        widgetClass += '  mdc-text-field--outlined';
+        componentClass += '  mdc-text-field--outlined';
 
         if (this.icon) {
-            if (this.trailingicon) {
+            if (this.trailingIcon) {
                 trailingIconEl = iconEl;
             } else {
                 leadingIconEl = iconEl;
             }
         }
 
-        if (this.textarea) {
-            widgetClass += ' mdc-text-field--textarea';
-            if (this.maxlength) {
-                let charString = '0 / ' + this.maxlength;
+        if (this.textArea) {
+            componentClass += ' mdc-text-field--textarea';
+            if (this.maxLength) {
+                let charString = '0 / ' + this.maxLength;
                 charEl = (
                     <div class="mdc-text-field-character-counter">
                         {charString}
@@ -359,13 +377,13 @@ export class WupTextField {
                     id="wup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></textarea>
             );
         } else {
@@ -376,19 +394,19 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     placeholder={placeholderLabel}
                     disabled={this.disabled}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></input>
             );
         }
 
         return (
-            <div class={widgetClass}>
+            <div class={componentClass}>
                 {charEl}
                 {leadingIconEl}
                 {inputEl}
@@ -403,7 +421,7 @@ export class WupTextField {
     }
 
     defaultStyling(
-        widgetClass: string,
+        componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
         iconEl: HTMLElement
@@ -412,7 +430,7 @@ export class WupTextField {
         let trailingIconEl: HTMLElement = null;
 
         if (this.icon) {
-            if (this.trailingicon) {
+            if (this.trailingIcon) {
                 trailingIconEl = iconEl;
             } else {
                 leadingIconEl = iconEl;
@@ -420,7 +438,7 @@ export class WupTextField {
         }
 
         return (
-            <div class={widgetClass}>
+            <div class={componentClass}>
                 {leadingIconEl}
                 <input
                     type="text"
@@ -428,13 +446,13 @@ export class WupTextField {
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
-                    maxlength={this.maxlength}
+                    maxlength={this.maxLength}
                     value={this.value}
-                    onBlur={this.onKupBlur.bind(this)}
-                    onChange={this.onKupChange.bind(this)}
-                    onClick={this.onKupClick.bind(this)}
-                    onFocus={this.onKupFocus.bind(this)}
-                    onInput={this.onKupInput.bind(this)}
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
                 ></input>
                 {trailingIconEl}
                 {labelEl}
@@ -445,22 +463,23 @@ export class WupTextField {
 
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
-        let labelEl: HTMLElement = null;
+        let wrapperClass: string = '';
 
-        if (this.labelright) {
-            labelEl = <label htmlFor="wup-input">{this.labelright}</label>;
-        } else {
-            labelEl = <label htmlFor="wup-input">{this.labelleft}</label>;
+        if (this.fullHeight) {
+            wrapperClass += ' full-height';
+        }
+
+        if (this.leadingLabel) {
             formClass += ' mdc-form-field--align-end';
         }
 
         return (
             <Host>
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
-                        {labelEl}
+                        <label htmlFor="wup-input">{this.label}</label>
                     </div>
                 </div>
             </Host>
@@ -468,9 +487,14 @@ export class WupTextField {
     }
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
+        let wrapperClass: string = '';
+
+        if (this.fullHeight) {
+            wrapperClass += ' full-height';
+        }
         return (
             <Host>
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     {widgetEl}
                     {helperEl}
                 </div>

@@ -387,7 +387,7 @@ export const v2sinoData = {
         FLD2: {
           obj: {
             t: 'V2',
-            p: 'SINO',
+            p: 'SI/NO',
             k: '',
           },
           value: '',
@@ -407,7 +407,7 @@ export const v2sinoData = {
         FLD2: {
           obj: {
             t: 'V2',
-            p: 'SINO',
+            p: 'SI/NO',
             k: '1',
           },
           value: '1',

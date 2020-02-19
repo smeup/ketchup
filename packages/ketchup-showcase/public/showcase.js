@@ -6,7 +6,7 @@ window.onload = function() {
 
 function checkNav() {
   var listLabels = document.querySelectorAll('.page-nav-element');
-  if (!listLabels) {
+  if (listLabels.length === 0) {
     return;
   }
   var elements = document.querySelectorAll('.section');

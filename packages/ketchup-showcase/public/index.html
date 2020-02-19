@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="codemirror/codemirror.css" />
+    <script src="codemirror/codemirror.js"></script>
+    <script src="codemirror/javascript.js"></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -103,7 +106,7 @@
       --kup-main-color: #d64325;
       --kup-display-mode: block;
       --kup-font-family: 'Oswald', sans-serif;
-      --kup-font-size: 16px;
+      --kup-font-size: 14px;
       --kup-text-on-main-color: #ffffff;
       --kup-text-color: #2e2e2e;
       --kup-icon-color: #505050;
@@ -130,6 +133,9 @@
       var themeArray = DOMEl.themeJSON;
       if (DOMEl.hasAttribute('style')) {
         DOMEl.removeAttribute('style');
+      }
+
+      if (DOMEl.querySelector('#inspire').classList.contains('theme--dark')) {
         DOMEl.querySelector('#inspire').classList.add('theme--light');
         DOMEl.querySelector('#inspire').classList.remove('theme--dark');
       } else {

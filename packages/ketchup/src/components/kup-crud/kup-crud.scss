@@ -4,4 +4,27 @@
   td {
     border: 1px solid black;
   }
+
+  .crud-table {
+    margin-bottom: 10px;
+  }
+
+  .global-messages {
+    .global-message {
+      background-color: #f0f0f0;
+      padding: 7px;
+
+      &.error {
+        border-bottom: 7px solid red;
+      }
+
+      &.warning {
+        border-bottom: 7px solid orange;
+      }
+
+      &.info {
+        border-bottom: 7px solid blue;
+      }
+    }
+  }
 }

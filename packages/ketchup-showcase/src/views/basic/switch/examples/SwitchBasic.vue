@@ -16,9 +16,9 @@
 
     <div class="demo-wrapper">
       <p>
-        To render a switch triggered you need to specify the
-        <span class="code-word">checked</span> attribute. When it isn't, the
-        switch defaults to OFF.
+        To render a switch triggered you need to set to true the
+        <span class="code-word">checked</span> prop. When it isn't, the switch
+        defaults to OFF.
       </p>
       <div class="demo-container">
         <div class="kup-container">

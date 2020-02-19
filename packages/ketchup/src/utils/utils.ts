@@ -10,7 +10,18 @@ export function generateUniqueId(field: string = 'def'): string {
     return new Date().getTime() + field.trim().replace(/\s/g, '_');
 }
 
-export function eventFromElement(element: HTMLElement, eventSource: HTMLElement) {
+export function generateUuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
+export function eventFromElement(
+    element: HTMLElement,
+    eventSource: HTMLElement
+) {
     while (eventSource) {
         if (eventSource === element) return true;
         eventSource = eventSource.parentElement;
@@ -23,17 +34,20 @@ export function eventFromElement(element: HTMLElement, eventSource: HTMLElement)
  * @param event
  * @param element
  */
-export function isEventFromElement(event: Event, element: HTMLElement):boolean {
-  try {
-    if (event.composedPath().indexOf(element) >= 0) {
-      return true;
+export function isEventFromElement(
+    event: Event,
+    element: HTMLElement
+): boolean {
+    try {
+        if (event.composedPath().indexOf(element) >= 0) {
+            return true;
+        }
+    } catch (e) {
+        if (eventFromElement(element, event.target as HTMLElement)) {
+            return true;
+        }
     }
-  } catch (e) {
-    if (eventFromElement(element, event.target as HTMLElement)) {
-      return true;
-    }
-  }
-  return false;
+    return false;
 }
 
 /**

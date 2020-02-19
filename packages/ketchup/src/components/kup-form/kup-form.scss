@@ -86,7 +86,7 @@
       flex-grow: 1;
       position: relative;
       border-radius: var(--form_border-radius);
-      border: 1px dotted var(--form_border-color);
+      //border: 1px dotted var(--form_border-color);
       display: flex;
 
       &.column {
@@ -98,7 +98,7 @@
         flex-direction: row;
         flex: 1 1 1%;
         flex-wrap: wrap;
-        border-style: ridge;
+        //@extend: ridge;
 
         &.column {
           flex-direction: column;
@@ -124,7 +124,10 @@
         }
 
         .form-field {
+          border: 1px dotted var(--form_border-color);
+          margin: 3px;
           padding: 1px 4px;
+
           kup-image,
           kup-checkbox,
           kup-icon {
@@ -136,15 +139,18 @@
             font-weight: bold;
           }
 
-          .form-field-message {
-            &.error {
-              color: red;
-            }
-            &.warning {
-              color: orange;
-            }
-            &.info {
-              color: blue;
+          .form-field-messages {
+            margin: 2px;
+            .form-field-message {
+              &.error {
+                color: red;
+              }
+              &.warning {
+                color: orange;
+              }
+              &.info {
+                color: blue;
+              }
             }
           }
         }
@@ -154,7 +160,7 @@
         }
 
         &.titled {
-          border: 1px solid var(--form_border-color);
+          //border: 1px solid var(--form_border-color);
           padding-top: 5px;
           position: relative;
           margin: 10px;

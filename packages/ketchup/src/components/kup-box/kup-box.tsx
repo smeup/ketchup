@@ -29,10 +29,11 @@ import {
 
 import {
     isButton,
-    isYesNo,
     isRadio,
     isPassword,
     isIcon,
+    isChart,
+    isCheckbox
 } from '../../utils/object-utils';
 
 import {
@@ -1207,7 +1208,7 @@ export class KupBox {
                             {...buildButtonConfig(cell.value, cell.config)}
                         />
                     );
-                } else if (isYesNo(cell.obj)) {
+                } else if (isCheckbox(cell.obj)) {
                     let checked = cell.value == '1';
                     boContent = (
                         <kup-checkbox
@@ -1254,6 +1255,30 @@ export class KupBox {
                                 value
                             )}
                         />
+                    );
+                } else if (isChart(cell.obj)) {
+                    const props: {
+                        value: string;
+                        width?: number;
+                        height?: number;
+                        cellConfig: any;
+                    } = {
+                        value: cell.value,
+                        cellConfig: cell.config,
+                    };
+        
+                    // check if column has width
+                    const height: number = Number(getFromConfig(cell, boxObject, 'height'));
+                    const width: number = Number(getFromConfig(cell, boxObject, 'width'));
+                    if (height > 0) {
+                        props.height = height;
+                    }
+                    if (width > 0) {
+                        props.width = width;
+                    }
+        
+                    boContent = (
+                        <kup-chart-cell {...props} />
                     );
                 } else if (isIcon(cell.obj)) {
                     boContent = (

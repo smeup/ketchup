@@ -4,7 +4,7 @@ export interface DataTable {
 }
 
 export interface Cell {
-    obj: {
+    obj?: {
         t: string;
         p: string;
         k: string;
@@ -149,7 +149,7 @@ export interface KupDataTableSortedColumnIndexes {
  * @readonly
  */
 export enum GroupLabelDisplayMode {
-  BOTH = 'both',
-  LABEL = 'label',
-  VALUE = 'value',
+    BOTH = 'both',
+    LABEL = 'label',
+    VALUE = 'value',
 }

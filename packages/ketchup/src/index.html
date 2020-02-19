@@ -82,7 +82,7 @@
     </head>
     <body>
         <div id="theme-tester">
-            <wup-switch labelleft="Theme tester" id="theme-switch"></wup-switch>
+            <wup-switch leading-label label="Theme tester" id="theme-switch"></wup-switch>
         </div>
         <a href="chart.html">Ketchup charts</a>
         <br />
@@ -227,70 +227,69 @@
         <h4>Material Text Field (widget)</h4>
         <wup-text-field icon="favorite" outlined label="I am a label"></wup-text-field>
         <wup-text-field></wup-text-field>
-        <wup-text-field custom label="I am a label"></wup-text-field>
-        <wup-text-field custom outlined label="I am a label"></wup-text-field>
-        <wup-text-field custom disabled label="I am a label"></wup-text-field>
-        <wup-text-field icon="favorite"></wup-text-field>
-        <wup-text-field rounded icon="favorite"></wup-text-field>
-        <wup-text-field trailingicon icon="favorite"></wup-text-field>
-        <wup-text-field helper="I am a helper text"></wup-text-field>
-        <wup-text-field helperwhenfocus helper="I am a helper text"></wup-text-field>
-        <wup-text-field helperwhenfocus maxlength="10" helper="I am a helper text"></wup-text-field>
-        <wup-text-field maxlength="10" helper="I am a helper text"></wup-text-field>
-        <wup-text-field fullwidth textarea ></wup-text-field>
-        <wup-text-field maxlength="10" fullwidth textarea ></wup-text-field>
-        <wup-text-field labelleft="I am a label left"></wup-text-field>
-        <wup-text-field labelright="I am a label right"></wup-text-field>
         <wup-text-field label="I am a label"></wup-text-field>
         <wup-text-field outlined label="I am a label"></wup-text-field>
-        <wup-text-field outlined rounded label="I am a label"></wup-text-field>
-        <wup-text-field textarea></wup-text-field>
-        <wup-text-field textarea label="I am a label"></wup-text-field>
-        <wup-text-field fullwidth label="I am a label"></wup-text-field>
         <wup-text-field disabled label="I am a label"></wup-text-field>
+        <wup-text-field icon="favorite"></wup-text-field>
+        <wup-text-field shaped icon="favorite"></wup-text-field>
+        <wup-text-field trailing-icon icon="favorite"></wup-text-field>
+        <wup-text-field helper="I am a helper text"></wup-text-field>
+        <wup-text-field helper-when-focused helper="I am a helper text"></wup-text-field>
+        <wup-text-field helper-when-focused max-length="10" helper="I am a helper text"></wup-text-field>
+        <wup-text-field max-length="10" helper="I am a helper text"></wup-text-field>
+        <wup-text-field full-width text-area ></wup-text-field>
+        <wup-text-field max-length="10" full-width text-area ></wup-text-field>
+        <wup-text-field leading-label label="I am a label left"></wup-text-field>
+        <wup-text-field trailing-label label="I am a label right"></wup-text-field>
+        <wup-text-field label="I am a label"></wup-text-field>
+        <wup-text-field outlined label="I am a label"></wup-text-field>
+        <wup-text-field outlined shaped label="I am a label"></wup-text-field>
+        <wup-text-field text-area></wup-text-field>
+        <wup-text-field text-area label="I am a label"></wup-text-field>
+        <wup-text-field full-width label="I am a label"></wup-text-field>
+        <wup-text-field disabled label="I am a label"></wup-text-field>
+        <wup-text-field disabled label="I am a label" initial-value="yooooo"></wup-text-field>
+        <wup-text-field  label="I am a label" initial-value="yooooo"></wup-text-field>
         <h4>Material Checkbox (widget)</h4>
         <wup-checkbox></wup-checkbox>
         <wup-checkbox disabled></wup-checkbox>
         <wup-checkbox disabled checked></wup-checkbox>
-        <h4>Material Radio (widget)</h4>
-        <wup-radio></wup-radio>
-        <wup-radio disabled></wup-radio>
-        <wup-radio disabled checked></wup-radio>
-        <wup-radio checked></wup-radio>
         <h4>Material Switch (widget)</h4>
         <wup-switch></wup-switch>
         <h4>Material Buttons (widget)</h4>
         <wup-button></wup-button>
         <wup-button icon="favorite"></wup-button>
+        <wup-button disabled icon="favorite"></wup-button>
         <wup-button toggable icon="favorite"></wup-button>
+        <wup-button toggable icon="menu" icon-off="favorite"></wup-button>
         <wup-button toggable checked icon="favorite"></wup-button>
         <wup-button disabled icon="favorite"></wup-button>
-        <wup-button text="Flat" flat></wup-button>
-        <wup-button raised text="Raised"></wup-button>
-        <wup-button text="Flat & disabled" flat disabled></wup-button>
-        <wup-button text="Transparent & disabled" disabled transparent></wup-button>
-        <wup-button raised disabled text="Raised & disabled"></wup-button>
-        <wup-button raised icon="favorite" text="Raised favorite"></wup-button>
+        <wup-button label="Flat" flat></wup-button>
+        <wup-button text="Raised"></wup-button>
+        <wup-button label="Flat & disabled" flat disabled></wup-button>
+        <wup-button label="Outlined & disabled" disabled outlined></wup-button>
+        <wup-button disabled label="Raised & disabled"></wup-button>
+        <wup-button icon="favorite" label="Raised favorite"></wup-button>
         <wup-button
-            raised
-            trailingicon
+            trailing-icon
             icon="favorite"
-            text="Raised trailing favorite"
+            label="Raised trailing favorite"
         ></wup-button>
-        <wup-button transparent text="Transparent"></wup-button>
-        <wup-button rounded text="Shaped"></wup-button>
-        <wup-button rounded raised text="Shaped & raised"></wup-button>
+        <wup-button outlined label="Outlined"></wup-button>
+        <wup-button shaped label="Shaped"></wup-button>
+        <wup-button shaped label="Shaped & raised"></wup-button>
         <wup-button
-            rounded
+        shaped
             transparent
-            text="Shaped & transparent"
+            label="Shaped & transparent"
         ></wup-button>
         
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
-        <wup-text-field id="event-textfield" custom label="I am a label"></wup-text-field>
+        <wup-text-field id="event-textfield" label="I am a label"></wup-text-field>
+        <wup-text-field icon="favorite" id="event-textfield-icon" label="Icon test"></wup-text-field>
         <wup-checkbox id="event-checkbox"></wup-checkbox>
-        <wup-button id="event-button" raised text="Click me"></wup-button>
+        <wup-button id="event-button" toggable icon="favorite"></wup-button>
         <wup-radio id="event-radio"></wup-radio>
         <wup-switch id="event-switch"></wup-switch>
 
@@ -414,6 +413,7 @@
 
             let eTabbar = document.getElementById('event-tabbar');
             let eTextfield = document.getElementById('event-textfield');
+            let eTextfieldIcon = document.getElementById('event-textfield-icon');
             let eCheckbox = document.getElementById('event-checkbox');
             let eButton = document.getElementById('event-button');
             let eRadio = document.getElementById('event-radio');
@@ -448,6 +448,10 @@
                     });
                     eTextfield.addEventListener('kupTextFieldInput', (e) => {
                         console.log('event-textfield has been INPUTTED, KEK', e);
+                    });
+                    
+                    eTextfieldIcon.addEventListener('kupTextFieldIconClick', (e) => {
+                        console.log('event-textfield-icon has been CLICKED', e);
                     });
 
                     eCheckbox.addEventListener('kupCheckboxBlur', (e) => {
@@ -518,28 +522,88 @@
             gaucolor.colors = ['red', 'yellow', 'green'];
 
             let tabBar = document.getElementsByTagName('wup-tab-bar')[0];
-            tabBar.items = [
+            tabBar.data = [
                     {
                         text: 'Favorites',
                         icon: 'favorites',
-                        status: 'Active'
+                        active: true
                     },
                     {
                         text: 'Set alarm clock',
                         icon: 'alarm_on',
-                        status: ''
+                        active: false
                     },
                     {
                         text: 'Settings',
                         icon: 'build',
-                        status: ''
+                        active: false
                     },
                     {
                         text: 'Iconless',
                         icon: '',
-                        status: ''
+                        active: false
                     },
                 ];
+
+let radioList = document.getElementsByTagName('wup-radio')[0];
+radioList.data = [
+        {
+            value: 'Favorites',
+            label: "label 1",
+            checked: true
+        },
+        {
+            value: 'Set alarm clock',
+            label: "label 2",
+            checked: false
+        },
+        {
+            value: 'Settings',
+            label: "label 3",
+            checked: false
+        },
+    ];
+
+                let listBox1 = document.getElementsByTagName('wup-list')[0];
+                let listBox2 = document.getElementsByTagName('wup-list')[1];
+                let listBox3 = document.getElementsByTagName('wup-list')[2];
+
+                let itemsForListBox = [
+                    {
+                        text: 'Text 1',
+                        secondaryText: 'Secondary text 1',
+                        value: 'txt1',
+                    },
+                    {
+                        text: 'Text 2',
+                        value: 'txt2',
+                    },
+                    {
+                        text: 'Text 3',
+                        value: 'txt3',
+                    },
+                    {
+                        text: null,
+                        value: null,
+                        isSeparator: true,
+                    },
+                    {
+                        text: 'Text 4',
+                        value: 'txt4',
+                    },
+                    {
+                        text: 'Text 5',
+                        value: 'txt5',
+                        selected: true,
+                    },
+                ];
+
+            listBox1.items = itemsForListBox;
+            listBox2.items = itemsForListBox;
+            listBox3.items = itemsForListBox;
+
+            let comboBox1 = document.getElementsByTagName('wup-combo')[0];
+            comboBox1.items = itemsForListBox;
 
             let once = true;
             // This is a script for testing these elements

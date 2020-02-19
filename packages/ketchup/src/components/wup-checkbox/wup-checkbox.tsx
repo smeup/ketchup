@@ -20,29 +20,25 @@ export class WupCheckbox {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, mixins and classes of customization are enabled.
-     */
-    @Prop() custom: boolean = false;
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
-    @Prop() checked: boolean = false;
+    @Prop({ reflect: true }) checked: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'indeterminate'.
      */
-    @Prop() indeterminate: boolean = false;
+    @Prop({ reflect: true }) indeterminate: boolean = false;
     /**
-     * Defaults at null. When specified, its content is shown to the left of the component as a label.
+     * Defaults at null. When specified, its content will be shown as a label.
      */
-    @Prop() labelleft: string = null;
+    @Prop({ reflect: true }) label: string = null;
     /**
-     * Defaults at null. When specified, its content is shown to the right of the component as a label.
+     * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop() labelright: string = null;
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
 
     @Event({
         eventName: 'kupCheckboxBlur',
@@ -51,7 +47,7 @@ export class WupCheckbox {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -61,7 +57,7 @@ export class WupCheckbox {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -71,7 +67,7 @@ export class WupCheckbox {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -81,7 +77,7 @@ export class WupCheckbox {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     @Event({
@@ -91,54 +87,59 @@ export class WupCheckbox {
         bubbles: true,
     })
     kupInput: EventEmitter<{
-        value: any;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupBlur() {
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupChange() {
+        if (this.checked) {
+            this.checked = false;
+            this.value = 'off';
+        } else {
+            this.checked = true;
+            this.value = 'on';
+        }
         this.kupChange.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupClick() {
         this.kupClick.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupFocus() {
         this.kupFocus.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
+    onKupInput() {
         this.kupInput.emit({
-            value: target.value,
+            value: this.value,
         });
-        this.value = target.value;
     }
 
     //---- Lifecycle hooks ----
 
-    componentDidLoad() {
+    componentWillRender() {
+        if (this.checked) {
+            this.value = 'on';
+        } else {
+            this.value = 'off';
+        }
+    }
+
+    componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
@@ -154,33 +155,26 @@ export class WupCheckbox {
 
     render() {
         let formClass: string = 'mdc-form-field';
-        let widgetClass: string = 'mdc-checkbox';
-        let widgetLabel: string = '';
-
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
+        let componentClass: string = 'mdc-checkbox';
+        let componentLabel: string = this.label;
 
         if (this.disabled) {
-            widgetClass += ' mdc-checkbox--disabled';
+            componentClass += ' mdc-checkbox--disabled';
         }
 
         if (this.checked) {
-            widgetClass += ' mdc-checkbox--checked';
+            componentClass += ' mdc-checkbox--checked';
         }
 
-        if (this.labelleft) {
+        if (this.leadingLabel) {
             formClass += ' mdc-form-field--align-end';
-            widgetLabel = this.labelleft;
-        } else if (this.labelright) {
-            widgetLabel = this.labelright;
         }
 
         return (
             <Host>
                 <div id="kup-component">
                     <div class={formClass}>
-                        <div id="checkbox-wrapper" class={widgetClass}>
+                        <div id="checkbox-wrapper" class={componentClass}>
                             {/* 
                             // @ts-ignore */}
                             <input
@@ -189,11 +183,12 @@ export class WupCheckbox {
                                 checked={this.checked}
                                 disabled={this.disabled}
                                 indeterminate={this.indeterminate}
-                                onBlur={this.onKupBlur.bind(this)}
-                                onChange={this.onKupChange.bind(this)}
-                                onClick={this.onKupClick.bind(this)}
-                                onFocus={this.onKupFocus.bind(this)}
-                                onInput={this.onKupInput.bind(this)}
+                                value={this.value}
+                                onBlur={() => this.onKupBlur()}
+                                onChange={() => this.onKupChange()}
+                                onClick={() => this.onKupClick()}
+                                onFocus={() => this.onKupFocus()}
+                                onInput={() => this.onKupInput()}
                             />
                             <div class="mdc-checkbox__background">
                                 <svg
@@ -210,7 +205,9 @@ export class WupCheckbox {
                             </div>
                             <div class="mdc-checkbox__ripple"></div>
                         </div>
-                        <label htmlFor="checkbox-wrapper">{widgetLabel}</label>
+                        <label htmlFor="checkbox-wrapper">
+                            {componentLabel}
+                        </label>
                     </div>
                 </div>
             </Host>

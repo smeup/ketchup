@@ -4,8 +4,10 @@
 // BUTTON
 // -------------
 import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import { FormRecord } from '../components/kup-form/kup-form-declarations';
+//import isEmpty from 'lodash/isEmpty';
+import { CrudRecord } from '../components/kup-crud/kup-crud-declarations';
+
+import { generateUuidv4 } from './utils';
 
 export interface J4objKupButtonConfig {
     flat: boolean;
@@ -126,7 +128,7 @@ export function outputValueItem(value: any, outputValueFunction: string) {
         if (outputValueFunction) {
             output = get(value, outputValueFunction, null);
         }
-        if (isEmpty(output)) {
+        if (output == null) {
             return 'TODO: improve outputValue method';
         } else {
             return output;
@@ -136,15 +138,15 @@ export function outputValueItem(value: any, outputValueFunction: string) {
     }
 }
 
-export function zipRecords(records: FormRecord[]): any {
+// simplified serializing of crud records (only for test -> TODO: use the entire record as is)
+export function zipRecords(records: CrudRecord[]): any {
     let compactRecords = [];
     if (records) {
         records.forEach((record) => {
             let compactRecord = {};
-            const keys = Object.keys(record.fields);
+            const keys = Object.keys(record.cells);
             keys.forEach((key) => {
-                console.log('key' + key);
-                compactRecord[key] = record.fields[key].value;
+                compactRecord[key] = record.cells[key].value;
             });
             compactRecords.push(compactRecord);
         });
@@ -152,7 +154,8 @@ export function zipRecords(records: FormRecord[]): any {
     return compactRecords;
 }
 
-export function unzipRecords(value: any): FormRecord[] {
+// simplified deserializing of crud records (only for test -> TODO: use the entire record as is)
+export function unzipRecords(value: any): CrudRecord[] {
     let records = [];
     if (value) {
         value.forEach((compactRecord) => {
@@ -163,7 +166,7 @@ export function unzipRecords(value: any): FormRecord[] {
                     value: compactRecord[key],
                 };
             });
-            let record = { fields: recordFields };
+            let record = { id: generateUuidv4(), cells: recordFields };
             records.push(record);
         });
     }

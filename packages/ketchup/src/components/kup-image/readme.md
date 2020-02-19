@@ -23,6 +23,7 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-form](../kup-form)
 
 ### Depends on
 
@@ -33,6 +34,7 @@
 graph TD;
   kup-image --> kup-badge
   kup-box --> kup-image
+  kup-form --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
