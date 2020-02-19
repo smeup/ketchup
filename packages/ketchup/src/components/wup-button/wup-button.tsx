@@ -26,7 +26,7 @@ export class WupButton {
     /**
      * Defaults at false. When set to true, the button will be rendered with a colored outline.
      */
-    @Prop({ reflect: true }) transparent: boolean = false;
+    @Prop({ reflect: true }) outlined: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered flat.
      */
@@ -34,7 +34,7 @@ export class WupButton {
     /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
-    @Prop({ reflect: true }) rounded: boolean = false;
+    @Prop({ reflect: true }) shaped: boolean = false;
     /**
      * Defaults at false. When set to true, the icon button will be toggable on/off.
      */
@@ -46,15 +46,15 @@ export class WupButton {
     /**
      * Defaults at null. When set, the button will show this icon.
      */
-    @Prop({ reflect: true }) iconClass: string = null;
+    @Prop({ reflect: true }) icon: string = null;
     /**
      * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
      */
-    @Prop({ reflect: true }) iconoff: string = null;    
+    @Prop({ reflect: true }) iconOff: string = null;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop({ reflect: true }) trailingicon: boolean = false;
+    @Prop({ reflect: true }) trailingIcon: boolean = false;
     /**
      * Defaults at null. When set, the button will show this text.
      */
@@ -96,9 +96,6 @@ export class WupButton {
      */
     @Prop() tooltip: string;
 
-    /*
-    @Prop() buttonClass: string; ~~~ ha ancora senso? "custom" simile ma non equivalente
-        */
     /* @@@@@@@ EVENTS @@@@@@@ */
 
     @Event({
@@ -108,16 +105,6 @@ export class WupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: any;
-    }>;
-
-    @Event({
-        eventName: 'kupButtonChange',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupChange: EventEmitter<{
         value: any;
     }>;
 
@@ -141,26 +128,10 @@ export class WupButton {
         value: any;
     }>;
 
-    @Event({
-        eventName: 'kupButtonInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: any;
-    }>;
-
     //---- Methods ----
 
     onKupBlur() {
         this.kupBlur.emit({
-            value: this.value,
-        });
-    }
-
-    onKupChange() {
-        this.kupChange.emit({
             value: this.value,
         });
     }
@@ -188,16 +159,10 @@ export class WupButton {
         });
     }
 
-    onKupInput() {
-        this.kupInput.emit({
-            value: this.value,
-        });
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.label === null && this.iconClass !== null) {
+        if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
             } else {
@@ -245,28 +210,24 @@ export class WupButton {
         //https://ketchup.smeup.com/ketchup-showcase/#/button
         // It renders in two different ways because two different Material layouts are used.
         // If only the icon is present, with no text, an "icon button" will be rendered.
-        let widgetClass: string = 'kup-button';
+        let componentClass: string = 'kup-button';
         let iconEl: HTMLElement = null;
-        let textEl: HTMLElement = null;
+        let labelEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
         let extraCssEl: HTMLElement = null;
         let extraImageEl: HTMLElement = null;
         let btnStyle = this.buttonStyle;
 
-        if (this.custom) {
-            widgetClass += ' custom';
-        }
-
         if (this.disabled) {
-            widgetClass += ' mdc-button--disabled';
+            componentClass += ' mdc-button--disabled';
         }
 
         if (this.label) {
-            widgetClass += ' mdc-button';
+            componentClass += ' mdc-button';
 
            if ((!this.isHint() || (this.isHint() && this.flat)) && this.showtext && this.label) {
-                textEl = (<span class="mdc-button__label">{this.label}</span>);
+                labelEl = (<span class="mdc-button__label">{this.label}</span>);
             }
             //
             if (this.iconClass && this.showicon) {
@@ -280,37 +241,29 @@ export class WupButton {
                 );
             }
 
-            if (this.transparent) {
-                widgetClass += ' mdc-button--outlined';
+            if (this.outlined) {
+                componentClass += ' mdc-button--outlined';
             } else if (!this.flat) {
-                widgetClass += ' mdc-button--raised';
+                componentClass += ' mdc-button--raised';
             }
 
-            if (this.rounded) {
-                widgetClass += ' button-shaped';
+            if (this.shaped) {
+                componentClass += ' button-shaped';
             }
 
-            if (this.trailingicon && this.iconClass) {
-                leadingEl = textEl;
+            if (this.trailingIcon && this.icon) {
+                leadingEl = labelEl;
                 trailingEl = iconEl;
             } else {
                 leadingEl = iconEl;
-                trailingEl = textEl;
+                trailingEl = labelEl;
             }
 
-            widgetClass += this.elemAlign();
-            /*
-            if (this.align) {
-                if ('right' === this.align) {
-                    widgetClass += ' align-right';
-                } else if ('left' === this.align) {
-                    widgetClass += ' align-left';
-                }
-            }
-            */
+            componentClass += this.elemAlign();
+
 
         } else if (this.iconClass) {
-            widgetClass += ' mdc-icon-button';
+            componentClass += ' mdc-icon-button';
             if (this.showicon) {
                 trailingEl = (
                     <i
@@ -321,7 +274,7 @@ export class WupButton {
                     </i>
                 );
                 if (this.toggable) {
-                    widgetClass += ' toggable';
+                    componentClass += ' toggable';
                     trailingEl = (
                         <i
                             class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
@@ -331,9 +284,16 @@ export class WupButton {
                         </i>
                     );
                     if (this.checked) {
-                        widgetClass += ' mdc-icon-button--on';
+                        componentClass += ' mdc-icon-button--on';
                     }
-                    let iconOff = this.iconClass + '_border';
+                    
+	                let iconOff: string;
+    	            if (this.iconOff) {
+        	            iconOff = this.iconOff;
+            	    } else {
+                	    iconOff = this.icon + '_border';
+	                }                    
+                    
                     leadingEl = (
                         <i
                             class="material-icons mdc-icon-button__icon"
@@ -347,7 +307,7 @@ export class WupButton {
         }
         //TODO no per icon?
         if (this.fillspace) {
-            widgetClass += ' fillspace';
+            componentClass += ' fillspace';
         }        
         if (this.iconUrl) {
             extraCssEl = (<link href={this.iconUrl} rel="stylesheet" type="text/css" />);
@@ -369,7 +329,7 @@ export class WupButton {
                     <button
                         type="button"
                         style={btnStyle}
-                        class={widgetClass}
+                        class={componentClass}
                         title={title}
                         disabled={this.disabled}
                         onBlur={this.onKupBlur.bind(this)}
