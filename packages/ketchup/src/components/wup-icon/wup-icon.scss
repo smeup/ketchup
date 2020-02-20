@@ -1,0 +1,10 @@
+// host represent widget DOM element
+:host {
+  display: block;
+
+  #kup-component {
+    img {
+      color: var(--kup-main-color);
+    }
+  }
+}

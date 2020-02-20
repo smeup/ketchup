@@ -1118,6 +1118,32 @@ export namespace Components {
     */
     'leadingLabel': boolean;
   }
+  interface WupIcon {
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color': string;
+    /**
+    * The height of the icon, defaults to 100%.
+    */
+    'height': string;
+    /**
+    * The name of the icon.
+    */
+    'name': string;
+    /**
+    * Used to set the public path to recover the assets.
+    */
+    'publicPath': string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type': string;
+    /**
+    * The width of the icon, defaults to 100%.
+    */
+    'width': string;
+  }
   interface WupRadio {
     /**
     * List of elements.
@@ -1473,6 +1499,12 @@ declare global {
     new (): HTMLWupCheckboxElement;
   };
 
+  interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
+  var HTMLWupIconElement: {
+    prototype: HTMLWupIconElement;
+    new (): HTMLWupIconElement;
+  };
+
   interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
   var HTMLWupRadioElement: {
     prototype: HTMLWupRadioElement;
@@ -1543,6 +1575,7 @@ declare global {
     'kup-upload': HTMLKupUploadElement;
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
+    'wup-icon': HTMLWupIconElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
@@ -2842,6 +2875,32 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
   }
+  interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color'?: string;
+    /**
+    * The height of the icon, defaults to 100%.
+    */
+    'height'?: string;
+    /**
+    * The name of the icon.
+    */
+    'name'?: string;
+    /**
+    * Used to set the public path to recover the assets.
+    */
+    'publicPath'?: string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type'?: string;
+    /**
+    * The width of the icon, defaults to 100%.
+    */
+    'width'?: string;
+  }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**
     * List of elements.
@@ -3072,6 +3131,7 @@ declare namespace LocalJSX {
     'kup-upload': KupUpload;
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
+    'wup-icon': WupIcon;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;

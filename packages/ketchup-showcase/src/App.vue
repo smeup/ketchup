@@ -278,6 +278,12 @@ export default {
             },
           },
           {
+            title: `Icon`,
+            to: {
+              name: 'icon',
+            },
+          },
+          {
             title: `Radio`,
             to: {
               name: 'radio',
