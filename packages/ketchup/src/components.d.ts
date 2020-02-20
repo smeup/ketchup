@@ -1103,8 +1103,6 @@ export namespace Components {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped': boolean;
-    'showicon': boolean;
-    'showtext': boolean;
     /**
     * Defaults at empty. When set to 'Hint' the label is shown as tooltip
     */
@@ -2838,8 +2836,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped'?: boolean;
-    'showicon'?: boolean;
-    'showtext'?: boolean;
     /**
     * Defaults at empty. When set to 'Hint' the label is shown as tooltip
     */
