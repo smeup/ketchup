@@ -4,6 +4,7 @@ import {
     Element,
     Host,
     State,
+    Watch,
     getAssetPath,
     h,
 } from '@stencil/core';
@@ -44,6 +45,10 @@ export class WupIcon {
      * The resource loaded.
      */
     @State() resource: string = undefined;
+    @Watch('resource')
+    rerenderIcon() {
+        this.render();
+    }
 
     //---- Lifecycle hooks ----
 
@@ -61,7 +66,6 @@ export class WupIcon {
     componentWillUpdate() {
         this.resource = undefined;
         var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
-        console.log(res);
         fetch(res)
             .then((file) => file.text())
             .then((text) => {

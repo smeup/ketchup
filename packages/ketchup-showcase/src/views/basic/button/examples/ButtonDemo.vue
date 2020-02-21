@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -56,15 +51,15 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'fillspace',
-          description: 'The button will expand horizontally.',
+          prop: 'flat',
+          description: 'The button will be rendered as flat text.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'flat',
-          description: 'The button will be rendered as flat text.',
+          prop: 'fullWidth',
+          description: 'The button will fill all available horizontal space.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
