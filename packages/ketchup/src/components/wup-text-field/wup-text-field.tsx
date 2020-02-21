@@ -23,30 +23,39 @@ import { MDCTextFieldIcon } from '@material/textfield/icon';
 export class WupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+
     /**
-     * Sets the initial value of the component
+     * Custom style to be passed to the component.
      */
-    @Prop({ reflect: true }) initialValue: string = '';
+    @Prop({ reflect: true }) customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
     /**
-     * Defaults at false. When set to true, the component will be rendered at full width.
-     */
-    @Prop({ reflect: true }) fullWidth: boolean = false;
-    /**
      * Defaults at false. When set to true, the component will be rendered at full height.
      */
     @Prop({ reflect: true }) fullHeight: boolean = false;
     /**
-     * Defaults at false. When set to true, the component will be rendered as a textarea.
+     * Defaults at false. When set to true, the component will be rendered at full width.
      */
-    @Prop({ reflect: true }) textArea: boolean = false;
+    @Prop({ reflect: true }) fullWidth: boolean = false;
     /**
-     * Defaults at false. When set to true, the component will be rendered as an outlined field.
+     * Defaults at null. When set, its content will be shown as a help text below the field.
      */
-    @Prop({ reflect: true }) outlined: boolean = false;
+    @Prop({ reflect: true }) helper: string = null;
+    /**
+     * Defaults at false. When set, the helper will be shown only when the field is focused.
+     */
+    @Prop({ reflect: true }) helperWhenFocused: boolean = false;
+    /**
+     * Defaults at null. When set, the text-field will show this icon.
+     */
+    @Prop({ reflect: true }) icon: string = null;
+    /**
+     * Sets the initial value of the component
+     */
+    @Prop({ reflect: true }) initialValue: string = '';
     /**
      * Defaults at null. When set, its content will be shown as a label.
      */
@@ -56,33 +65,29 @@ export class WupTextField {
      */
     @Prop({ reflect: true }) leadingLabel: boolean = false;
     /**
-     * Defaults at false. When set to true, the label will be on the right of the component.
+     * Defaults at null. When set, the helper will display a character counter.
      */
-    @Prop({ reflect: true }) trailingLabel: boolean = false;
+    @Prop({ reflect: true }) maxLength: number = null;
     /**
-     * Defaults at null. When set, its content will be shown as a help text below the field.
+     * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
-    @Prop({ reflect: true }) helper: string = null;
+    @Prop({ reflect: true }) outlined: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with shaped edges.
      */
     @Prop({ reflect: true }) shaped: boolean = false;
     /**
-     * Defaults at false. When set, the helper will be shown only when the field is focused.
+     * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
-    @Prop({ reflect: true }) helperWhenFocused: boolean = false;
-    /**
-     * Defaults at null. When set, the helper will display a character counter.
-     */
-    @Prop({ reflect: true }) maxLength: number = null;
-    /**
-     * Defaults at null. When set, the text-field will show this icon.
-     */
-    @Prop({ reflect: true }) icon: string = null;
+    @Prop({ reflect: true }) textArea: boolean = false;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop({ reflect: true }) trailingIcon: boolean = false;
+    /**
+     * Defaults at false. When set to true, the label will be on the right of the component.
+     */
+    @Prop({ reflect: true }) trailingLabel: boolean = false;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -267,9 +272,11 @@ export class WupTextField {
         if (this.icon) {
             iconEl = (
                 <wup-icon
+                    tabindex="0"
                     class="material-icons mdc-text-field__icon"
                     dimensions="24px"
                     name={this.icon}
+                    onClick={(e: any) => this.onKupIconClick(e)}
                 ></wup-icon>
             );
             if (this.trailingIcon) {
@@ -461,9 +468,24 @@ export class WupTextField {
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
         let wrapperClass: string = '';
+        let customStyle = undefined;
+        let elStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.fullWidth) {
+            elStyle = {
+                width: '100%',
+            };
+        }
 
         if (this.fullHeight) {
             wrapperClass += ' full-height';
+            elStyle = {
+                ...elStyle,
+                height: '100%',
+            };
         }
 
         if (this.leadingLabel) {
@@ -471,8 +493,9 @@ export class WupTextField {
         }
 
         return (
-            <Host>
-                <div id="kup-component" class={wrapperClass}>
+            <Host style={elStyle}>
+                {customStyle}
+                <div id="kup-component" class={wrapperClass} style={elStyle}>
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
@@ -485,13 +508,30 @@ export class WupTextField {
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let wrapperClass: string = '';
+        let customStyle = undefined;
+        let elStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.fullWidth) {
+            elStyle = {
+                width: '100%',
+            };
+        }
 
         if (this.fullHeight) {
             wrapperClass += ' full-height';
+            elStyle = {
+                ...elStyle,
+                height: '100%',
+            };
         }
+
         return (
-            <Host>
-                <div id="kup-component" class={wrapperClass}>
+            <Host style={elStyle}>
+                {customStyle}
+                <div id="kup-component" class={wrapperClass} style={elStyle}>
                     {widgetEl}
                     {helperEl}
                 </div>

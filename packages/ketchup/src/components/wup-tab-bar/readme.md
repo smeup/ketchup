@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description       | Type                       | Default |
-| -------- | --------- | ----------------- | -------------------------- | ------- |
-| `data`   | --        | List of elements. | `ComponentTabBarElement[]` | `[]`    |
+| Property      | Attribute      | Description                                 | Type                       | Default     |
+| ------------- | -------------- | ------------------------------------------- | -------------------------- | ----------- |
+| `customStyle` | `custom-style` | Custom style to be passed to the component. | `string`                   | `undefined` |
+| `data`        | --             | List of elements.                           | `ComponentTabBarElement[]` | `[]`        |
 
 
 ## Events

@@ -35,6 +35,11 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp: '<wup-checkbox id="demo-component"></wup-checkbox>',
       demoProps: [
@@ -44,6 +49,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
         },
         {
           prop: 'disabled',

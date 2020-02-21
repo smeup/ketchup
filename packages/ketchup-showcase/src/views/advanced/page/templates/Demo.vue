@@ -36,6 +36,9 @@
               <td v-if="propList.try === 'json'"
                 >Use the JSON tab to view/change this prop.</td
               >
+              <td v-if="propList.try === 'css'"
+                >Use the CSS tab to view/change this prop.</td
+              >
               <td class="switch-cell" v-if="propList.try === 'switch'">
                 <wup-switch
                   v-bind:id="propList.prop"
@@ -115,6 +118,26 @@
           <wup-button
             @kupButtonClick="jsonSetSwitch"
             id="json-setter-opener"
+            icon="settings"
+            title="Show prop field"
+          ></wup-button>
+        </div>
+        <div id="css-tab" class="sample-section padded" style="display: none;">
+          <textarea id="css-textarea" style="display: none;"></textarea>
+          <wup-text-field
+            class="shown"
+            label="Prop"
+            helper="i.e.: customStyle"
+            id="css-setter"
+            icon="close"
+            trailing-icon
+            helperWhenFocused
+            @kupTextFieldIconClick="cssSetSwitch"
+            @kupTextFieldInput="cssSet"
+          ></wup-text-field>
+          <wup-button
+            @kupButtonClick="cssSetSwitch"
+            id="css-setter-opener"
             icon="settings"
             title="Show prop field"
           ></wup-button>
@@ -373,11 +396,13 @@ export default {
       let eventsTab = document.querySelector('#events-tab');
       let htmlTab = document.querySelector('#html-tab');
       let jsonTab = document.querySelector('#json-tab');
+      let cssTab = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
       htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
+      cssTab.setAttribute('style', 'display: none;');
 
       switch (this.demoTabs[i].text) {
         case 'Props':
@@ -403,6 +428,9 @@ export default {
         case 'JSON':
           jsonTab.setAttribute('style', '');
           break;
+        case 'CSS':
+          cssTab.setAttribute('style', '');
+          break;
       }
     },
 
@@ -421,6 +449,21 @@ export default {
       }
     },
 
+    cssSetSwitch() {
+      let cssSetter = document.querySelector('#css-setter');
+      let cssSetterOpener = document.querySelector('#css-setter-opener');
+      let cssTab = document.querySelector('#css-tab');
+      if (cssSetter.classList.contains('shown')) {
+        cssSetter.classList.remove('shown');
+        cssTab.classList.remove('padded');
+        cssSetterOpener.classList.add('shown');
+      } else {
+        cssSetter.classList.add('shown');
+        cssTab.classList.add('padded');
+        cssSetterOpener.classList.remove('shown');
+      }
+    },
+
     jsonSet(e) {
       let jsonProp = e.detail.value;
       let demoComponent = document.querySelector('#demo-component');
@@ -428,7 +471,7 @@ export default {
       let jsonData = demoComponent[jsonProp];
       let stringifiedJSON = JSON.stringify(jsonData, null, 2);
       let jsonTextarea = document.querySelector('#json-textarea');
-      let codemirrorTextarea = document.querySelector('.CodeMirror');
+      let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
       jsonTextarea.value = stringifiedJSON;
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
@@ -445,6 +488,31 @@ export default {
         let jsonifiedData = JSON.parse(jsonTextarea.value);
         let prop = demoComponent.currentJSONprop;
         demoComponent[prop] = jsonifiedData;
+      });
+    },
+
+    cssSet(e) {
+      let cssProp = e.detail.value;
+      let demoComponent = document.querySelector('#demo-component');
+      demoComponent.currentCSSprop = cssProp;
+      let cssData = demoComponent[cssProp];
+      let cssTextarea = document.querySelector('#css-textarea');
+      let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
+      cssTextarea.value = cssData;
+      if (codemirrorTextarea) {
+        codemirrorTextarea.remove();
+      }
+      CodeMirror.fromTextArea(cssTextarea, {
+        mode: { name: 'text/css' },
+        lineNumbers: true,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+      }).on('change', function(cm) {
+        cm.save();
+        let demoComponent = document.querySelector('#demo-component');
+        let prop = demoComponent.currentCSSprop;
+        demoComponent[prop] = cssTextarea.value;
       });
     },
   },

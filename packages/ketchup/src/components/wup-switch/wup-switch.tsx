@@ -20,13 +20,17 @@ export class WupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop({ reflect: true }) disabled: boolean = false;
-    /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
     @Prop({ reflect: true }) checked: boolean = false;
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+    /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop({ reflect: true }) disabled: boolean = false;
     /**
      * Defaults at null. When specified, its content will be shown as a label.
      */
@@ -153,6 +157,10 @@ export class WupSwitch {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-switch';
         let componentLabel: string = this.label;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
 
         if (this.disabled) {
             componentClass += ' mdc-switch--disabled';
@@ -168,6 +176,7 @@ export class WupSwitch {
 
         return (
             <Host>
+                {customStyle}
                 <div id="kup-component">
                     <div class={formClass}>
                         <div class={componentClass}>

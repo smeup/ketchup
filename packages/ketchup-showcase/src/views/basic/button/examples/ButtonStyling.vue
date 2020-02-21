@@ -40,12 +40,36 @@
 
     <div class="demo-wrapper">
       <p
+        >It is possible to set the button to fill all available space both
+        vertically and horizontally, using the
+        <span class="code-word">fullHeight</span> and
+        <span class="code-word">fullWidth</span> props. You can use them both as
+        in the example below.</p
+      ><div class="demo-container">
+        <div
+          class="kup-container"
+          style="height: 25vh; width: 50vw; margin: auto;  margin-bottom: 2rem;"
+        >
+          <wup-button
+            full-height
+            full-width
+            label="Full height and full width"
+          ></wup-button>
+        </div>
+        <p class="centered">Full height sample markup</p>
+        <code class="flat">{{ markupFullheight }}</code>
+        <p class="centered">Full width sample markup</p>
+        <code class="flat">{{ markupFullwidth }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p
         >If you want to use an icon to give further emphasis to the button's
         meaning, you can use the attribute
-        <span class="code-word">icon</span> and specify a value supported inside
-        the
-        <a href="https://material.io/resources/icons/?style=baseline"
-          >Material Design library</a
+        <span class="code-word">icon</span> and specify a value supported by the
+        <a href="https://ketchup.smeup.com/ketchup-showcase/#/icon"
+          >Ketch.UP Icon component</a
         >. It's important to specify both
         <span class="code-word">label</span> and
         <span class="code-word">icon</span> attributes in this case, because
@@ -61,6 +85,25 @@
         <code class="flat">{{ markupIcon }}</code>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p
+        >The <span class="code-word">iconColor</span> prop will override the
+        default behavior of icons, always rendering them using the color
+        provided, unless the component is
+        <span class="code-word">disabled</span>.</p
+      ><div class="demo-container">
+        <div class="kup-container">
+          <wup-button
+            icon-color="purple"
+            icon="favorite"
+            label="Purple heart"
+          ></wup-button>
+        </div>
+        <p class="centered">Icon color sample markup</p>
+        <code class="flat">{{ markupIconcolor }}</code>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,6 +113,12 @@ export default {
   data() {
     return {
       markupFlat: '<wup-button flat label="Flat"></wup-button>',
+      markupFullheight:
+        '<wup-button full-height label="Full height"></wup-button>',
+      markupFullwidth:
+        '<wup-button full-width label="Full width"></wup-button>',
+      markupIconcolor:
+        '<wup-button icon-color="purple" label="Purple heart"></wup-button>',
       markupOutlined: '<wup-button outlined label="Outlined"></wup-button>',
       markupRounded: '<wup-button shaped label="Shaped"></wup-button>',
       markupIcon: '<wup-button icon="Favorite" label="Favorite"></wup-button>',

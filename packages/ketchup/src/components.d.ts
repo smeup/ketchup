@@ -1060,6 +1060,10 @@ export namespace Components {
     */
     'checked': boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1070,13 +1074,17 @@ export namespace Components {
     /**
     * Defaults at false. When set to true fill all the available horizontal space.
     */
+    'fullHeight': boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
     'fullWidth': boolean;
     /**
     * Defaults at null. When set, the button will show this icon.
     */
     'icon': string;
     /**
-    * If not set, the defaults will be --kup-main-color for icon buttons and --kup-text-on-main for standard buttons.
+    * If not set, it will be managed by the component.
     */
     'iconColor': string;
     /**
@@ -1100,7 +1108,7 @@ export namespace Components {
     */
     'toggable': boolean;
     /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
     */
     'tooltip': string;
     /**
@@ -1113,6 +1121,10 @@ export namespace Components {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1136,6 +1148,10 @@ export namespace Components {
     */
     'color': string;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
     */
     'dimensions': string;
@@ -1149,6 +1165,10 @@ export namespace Components {
     'type': string;
   }
   interface WupRadio {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * List of elements.
     */
@@ -1172,6 +1192,10 @@ export namespace Components {
     */
     'checked': boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1186,6 +1210,10 @@ export namespace Components {
   }
   interface WupTabBar {
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * List of elements.
     */
     'data': ComponentTabBarElement[];
@@ -1197,6 +1225,10 @@ export namespace Components {
     'disabled': boolean;
   }
   interface WupTextField {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2797,6 +2829,10 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2807,13 +2843,17 @@ declare namespace LocalJSX {
     /**
     * Defaults at false. When set to true fill all the available horizontal space.
     */
+    'fullHeight'?: boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
     'fullWidth'?: boolean;
     /**
     * Defaults at null. When set, the button will show this icon.
     */
     'icon'?: string;
     /**
-    * If not set, the defaults will be --kup-main-color for icon buttons and --kup-text-on-main for standard buttons.
+    * If not set, it will be managed by the component.
     */
     'iconColor'?: string;
     /**
@@ -2846,7 +2886,7 @@ declare namespace LocalJSX {
     */
     'toggable'?: boolean;
     /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
     */
     'tooltip'?: string;
     /**
@@ -2859,6 +2899,10 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2897,6 +2941,10 @@ declare namespace LocalJSX {
     */
     'color'?: string;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
     */
     'dimensions'?: string;
@@ -2910,6 +2958,10 @@ declare namespace LocalJSX {
     'type'?: string;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * List of elements.
     */
@@ -2948,6 +3000,10 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2976,6 +3032,10 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * List of elements.
     */
@@ -3018,6 +3078,10 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */

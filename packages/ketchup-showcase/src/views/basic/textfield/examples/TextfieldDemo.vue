@@ -1,6 +1,11 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+    ></demo>
   </div>
 </template>
 
@@ -30,10 +35,23 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp:
         '<wup-text-field icon="sentiment_satisfied" initial-value="Some text" label="Demo" id="demo-component"></wup-text-field>',
       demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
+        },
         {
           prop: 'disabled',
           description:
@@ -45,7 +63,7 @@ export default {
         {
           prop: 'fullHeight',
           description:
-            'Sets the height of the component to fill all the available horizontal space given by its parent.',
+            'Sets the height of the component to fill all the available horizontal space provided by its parent.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -53,7 +71,7 @@ export default {
         {
           prop: 'fullWidth',
           description:
-            'Sets the width of the component to fill all the available horizontal space given by its parent.',
+            'Sets the width of the component to fill all the available horizontal space provided by its parent.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

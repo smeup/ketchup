@@ -29,6 +29,11 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp:
         '<wup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="favorite" type="svg" ></wup-icon>',
@@ -40,6 +45,14 @@ export default {
           type: 'boolean',
           default: 'var(--kup-icon-color)',
           try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
         },
         {
           prop: 'dimensions',

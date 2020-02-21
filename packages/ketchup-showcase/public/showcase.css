@@ -584,7 +584,9 @@ table.instruction-table th {
 }
 
 #json-setter,
-#json-setter-opener {
+#json-setter-opener,
+#css-setter,
+#css-setter-opener {
   position: absolute;
   z-index: 1;
   display: none;
@@ -594,18 +596,22 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-#json-setter {
+#json-setter,
+#css-setter {
   top: 10px;
   left: 10px;
 }
 
-#json-setter-opener {
+#json-setter-opener,
+#css-setter-opener {
   bottom: 10px;
   right: 10px;
 }
 
 #json-setter.shown,
-#json-setter-opener.shown {
+#json-setter-opener.shown,
+#css-setter.shown,
+#css-setter-opener.shown {
   display: block;
 }
 
@@ -715,7 +721,8 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-#json-tab.padded {
+#json-tab.padded,
+#css-tab.padded {
   padding-top: 75px;
 }
 
@@ -754,6 +761,10 @@ table.instruction-table th {
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
+}
+
+.kup-container wup-icon {
+  margin: auto;
 }
 
 @media screen and (max-width: 767px) {
