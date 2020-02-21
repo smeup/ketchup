@@ -11,6 +11,7 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
+
         <script src="https://d3js.org/d3-path.v1.min.js"></script>
         <script src="https://d3js.org/d3-shape.v1.min.js"></script>
         <script type="module" src="/build/mycomponent.esm.js"></script>
@@ -257,15 +258,18 @@
         <h4>Material Switch (widget)</h4>
         <wup-switch></wup-switch>
         <h4>Material Buttons (widget)</h4>
-        <wup-button></wup-button>
-        <wup-button icon="favorite"></wup-button>
-        <wup-button disabled icon="favorite"></wup-button>
-        <wup-button toggable icon="favorite"></wup-button>
-        <wup-button toggable icon="menu" icon-off="favorite"></wup-button>
-        <wup-button toggable checked icon="favorite"></wup-button>
-        <wup-button disabled icon="favorite"></wup-button>
+        <span>empty:</span><wup-button></wup-button>
+        <span>icon:</span><wup-button icon="favorite"></wup-button>
+        <span>disabled:</span><wup-button disabled icon="favorite"></wup-button>
+        <span>toggable:</span><wup-button toggable icon="favorite"></wup-button>
+        <span>toggable+icon-off:</span><wup-button toggable icon="zoom_out" icon-off="zoom_in"></wup-button>
+        <span>toggable+checked:</span><wup-button toggable checked icon="favorite"></wup-button>
+        <span>icon+tooltip:</span><wup-button tooltip="Tooltip" icon="favorite"></wup-button>
+        <span>extra icons:</span><wup-button icon-url="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" icon="mdi mdi-paw" ></wup-button>
+        
+        <!-- -->
         <wup-button label="Flat" flat></wup-button>
-        <wup-button text="Raised"></wup-button>
+        <wup-button label="Raised"></wup-button>
         <wup-button label="Flat & disabled" flat disabled></wup-button>
         <wup-button label="Outlined & disabled" disabled outlined></wup-button>
         <wup-button disabled label="Raised & disabled"></wup-button>
@@ -276,16 +280,24 @@
             label="Raised trailing favorite"
         ></wup-button>
         <wup-button outlined label="Outlined"></wup-button>
-        <wup-button shaped label="Shaped"></wup-button>
+        <wup-button shaped disabled label="Shaped & disabled"></wup-button>
         <wup-button shaped label="Shaped & raised"></wup-button>
         <wup-button
-        shaped
-            transparent
-            label="Shaped & transparent"
+            shaped
+            outlined
+            label="Shaped & outlined"
         ></wup-button>
         <wup-icon color="red" name="favorite"></wup-icon>
         <wup-icon name="favorite"></wup-icon>
         
+        <wup-button fillspace label="Fill space"></wup-button>
+        <wup-button showicon="false" label="Hide icon" icon="favorite"></wup-button>
+        <span>Hide text:</span><wup-button showtext="false" label="Hide text" icon="favorite"></wup-button>
+        <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
+        <span>Hint:</span><wup-button textmode="Hint" label="With Hint" icon="favorite"></wup-button>
+        <wup-button image-src="http://placehold.it/32x32&text=X" label="Additional image" icon="favorite"></wup-button>
+        <wup-button icon-url="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" icon="mdi mdi-paw" label="Extra icons" ></wup-button>
+
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" label="I am a label"></wup-text-field>
