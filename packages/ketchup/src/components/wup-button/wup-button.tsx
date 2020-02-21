@@ -68,9 +68,6 @@ export class WupButton {
      */
     @Prop({ reflect: true }) fillspace = false;
 
-    @Prop({ reflect: true }) showtext = true;
-    @Prop({ reflect: true }) showicon = true;
-
     /**   
      * Defaults at empty. Additional icons library.
      */
@@ -210,11 +207,11 @@ export class WupButton {
         if (this.label) {
             componentClass += ' mdc-button';
 
-           if ((!this.isHint() || (this.isHint() && this.flat)) && this.showtext && this.label) {
+           if ((!this.isHint() || (this.isHint() && this.flat)) && this.label) {
                 labelEl = (<span class="mdc-button__label">{this.label}</span>);
             }
             //
-            if (this.icon && this.showicon) {
+            if (this.icon) {
                 if (this.iconUrl) {
                     iconEl = (
                         <i
@@ -260,7 +257,6 @@ export class WupButton {
 
         } else if (this.icon) {
             componentClass += ' mdc-icon-button';
-            if (this.showicon) {
                 if (this.iconUrl) {
                     trailingEl = (
                         <i
@@ -309,7 +305,6 @@ export class WupButton {
                         </i>
                     );
                 }
-            }
         }
         if (this.iconUrl) {
             extraCssEl = (<link href={this.iconUrl} rel="stylesheet" type="text/css" />);

@@ -56,6 +56,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'fillspace',
+          description: 'The button will expand horizontally.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'flat',
           description: 'The button will be rendered as flat text.',
           type: 'boolean',
