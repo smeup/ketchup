@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -27,50 +31,37 @@ export default {
         },
       ],
       demoComp:
-        '<wup-icon public-path="../../ketchup/dist/mycomponent" name="favorite" id="demo-component"></wup-icon>',
+        '<wup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="favorite" type="svg" ></wup-icon>',
       demoProps: [
         {
           prop: 'color',
           description:
             'The color of the icon, defaults to the main color of the app. Accepts any CSS color format (HEX, RGB, etc.).',
           type: 'boolean',
-          default: 'string',
+          default: 'var(--kup-icon-color)',
           try: 'field',
         },
         {
-          prop: 'height',
+          prop: 'dimensions',
           description:
-            'The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.).',
-          type: 'boolean',
-          default: 'string',
+            'The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared. Accepts any CSS height format (px, %, vh, etc.). ',
+          type: 'string',
+          default: '100%',
           try: 'field',
         },
         {
           prop: 'name',
           description: 'The name of the icon.',
           type: 'string',
-          default: 'false',
-          try: 'field',
-        },
-        {
-          prop: 'publicPath',
-          description: 'Used to set the public path to recover the assets.',
-          type: 'string',
-          default: '/build',
+          default: 'undefined',
           try: 'field',
         },
         {
           prop: 'type',
-          description: 'The type of the icon, defaults to "svg".',
+          description:
+            'The type of the icon, defaults to "svg". Currently it is the only type supported.',
           type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'width',
-          description: 'The width of the icon, defaults to 100%.',
-          type: 'string',
-          default: 'false',
+          default: 'svg',
           try: 'field',
         },
       ],

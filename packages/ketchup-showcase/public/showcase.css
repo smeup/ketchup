@@ -138,7 +138,6 @@ i.v-icon.material-icons {
 }
 
 .demo-container {
-  max-width: 80%;
   text-align: center;
   margin: auto;
 }
@@ -153,7 +152,9 @@ i.v-icon.material-icons {
 
 .kup-container {
   display: inline-flex;
-  margin: 30px 0;
+  margin: 2rem 1.5rem;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .kup-container-fw {
@@ -742,7 +743,24 @@ table.instruction-table th {
   background-color: var(--kup-disabled-background-color);
 }
 
+.icon-wrapper {
+  height: 120px;
+  width: 120px;
+  padding: 1.25rem;
+}
+
+.icon-label {
+  margin-top: 0.4rem;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
 @media screen and (max-width: 767px) {
+  .demo-container {
+    max-width: 80%;
+  }
+
   #view-swapper,
   #menu-trigger {
     display: none;

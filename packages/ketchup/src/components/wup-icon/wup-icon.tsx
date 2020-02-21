@@ -1,4 +1,12 @@
-import { Component, Prop, Element, Host, getAssetPath, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    getAssetPath,
+    h,
+} from '@stencil/core';
 
 @Component({
     tag: 'wup-icon',
@@ -15,12 +23,12 @@ export class WupIcon {
     /**
      * The color of the icon, defaults to the main color of the app.
      */
-    @Prop({ reflect: true }) color: string = undefined;
+    @Prop({ reflect: true }) color: string = 'var(--kup-icon-color)';
 
     /**
-     * The height of the icon, defaults to 100%.
+     * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
      */
-    @Prop({ reflect: true }) height: string = '100%';
+    @Prop({ reflect: true }) dimensions: string = '100%';
 
     /**
      * The name of the icon.
@@ -33,65 +41,52 @@ export class WupIcon {
     @Prop({ reflect: true }) type: string = 'svg';
 
     /**
-     * The width of the icon, defaults to 100%.
+     * The resource loaded.
      */
-    @Prop({ reflect: true }) width: string = '100%';
-
-    /**
-     * Used to set the public path to recover the assets.
-     */
-    @Prop({ reflect: true }) publicPath: string = '/build';
-
-    private objectEl: any;
-
-    //---- Methods ----
-
-    setStyle() {
-        let style: string = '';
-        if (this.color) {
-            style += ' color: ' + this.color + ';';
-            style += ' fill: ' + this.color + ';';
-        }
-        if (this.height) {
-            style += ' height: ' + this.height + ';';
-        }
-        if (this.width) {
-            style += ' width: ' + this.width + ';';
-        }
-
-        if (this.objectEl.contentDocument.querySelector('svg')) {
-            this.objectEl.contentDocument
-                .querySelector('svg')
-                .setAttribute('style', style);
-        }
-    }
+    @State() resource: string = undefined;
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
+        console.log(res);
+        fetch(res)
+            .then((file) => file.text())
+            .then((text) => {
+                this.resource = text;
+            })
+            .catch(console.error.bind(console));
+    }
+
+    componentWillUpdate() {
+        this.resource = undefined;
+        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
+        console.log(res);
+        fetch(res)
+            .then((file) => file.text())
+            .then((text) => {
+                this.resource = text;
+            })
+            .catch(console.error.bind(console));
+    }
+
     render() {
-        let style = {
-            height: this.height,
-            width: this.width,
+        let elStyle = {
+            height: this.dimensions,
+            width: this.dimensions,
+            color: this.color,
+            fill: this.color,
         };
-        console.log(
-            getAssetPath(
-                `${this.publicPath}/assets/${this.type}/${this.name}.${this.type}`
-            )
-        );
+        if (!this.resource) {
+            return;
+        }
+        let el: string = this.resource;
+        el = el.replace('height="48"', 'height="100%"');
+        el = el.replace('width="48"', 'width="100%"');
 
         return (
-            <Host>
-                <div id="kup-component">
-                    <object
-                        style={style}
-                        ref={(el) => (this.objectEl = el as any)}
-                        data={getAssetPath(
-                            `${this.publicPath}/assets/${this.type}/${this.name}.${this.type}`
-                        )}
-                        type="image/svg+xml"
-                        onLoad={() => this.setStyle()}
-                    ></object>
-                </div>
+            <Host style={elStyle}>
+                <div id="kup-component" innerHTML={el} style={elStyle}></div>
             </Host>
         );
     }

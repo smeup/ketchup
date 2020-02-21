@@ -38,6 +38,19 @@
 | `kupTextFieldInput`     |             | `CustomEvent<{ value: string; }>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [wup-icon](../wup-icon)
+
+### Graph
+```mermaid
+graph TD;
+  wup-text-field --> wup-icon
+  style wup-text-field fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

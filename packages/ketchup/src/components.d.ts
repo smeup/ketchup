@@ -1124,25 +1124,17 @@ export namespace Components {
     */
     'color': string;
     /**
-    * The height of the icon, defaults to 100%.
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
     */
-    'height': string;
+    'dimensions': string;
     /**
     * The name of the icon.
     */
     'name': string;
     /**
-    * Used to set the public path to recover the assets.
-    */
-    'publicPath': string;
-    /**
     * The type of the icon, defaults to "svg".
     */
     'type': string;
-    /**
-    * The width of the icon, defaults to 100%.
-    */
-    'width': string;
   }
   interface WupRadio {
     /**
@@ -2881,25 +2873,17 @@ declare namespace LocalJSX {
     */
     'color'?: string;
     /**
-    * The height of the icon, defaults to 100%.
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
     */
-    'height'?: string;
+    'dimensions'?: string;
     /**
     * The name of the icon.
     */
     'name'?: string;
     /**
-    * Used to set the public path to recover the assets.
-    */
-    'publicPath'?: string;
-    /**
     * The type of the icon, defaults to "svg".
     */
     'type'?: string;
-    /**
-    * The width of the icon, defaults to 100%.
-    */
-    'width'?: string;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**

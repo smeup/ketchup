@@ -266,14 +266,11 @@ export class WupTextField {
 
         if (this.icon) {
             iconEl = (
-                <i
+                <wup-icon
                     class="material-icons mdc-text-field__icon"
-                    tabindex="0"
-                    role="button"
-                    onClick={(e: any) => this.onKupIconClick(e)}
-                >
-                    {this.icon}
-                </i>
+                    dimensions="24px"
+                    name={this.icon}
+                ></wup-icon>
             );
             if (this.trailingIcon) {
                 componentClass += ' mdc-text-field--with-trailing-icon';

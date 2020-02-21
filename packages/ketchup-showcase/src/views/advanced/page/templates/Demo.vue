@@ -170,10 +170,12 @@ export default {
   methods: {
     initEvents() {
       let demoComponent = document.querySelector('#demo-component');
-      for (let i = 0; i < this.demoEvents.length; i++) {
-        demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
-          this.handleEvent(e)
-        );
+      if (this.demoEvents) {
+        for (let i = 0; i < this.demoEvents.length; i++) {
+          demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
+            this.handleEvent(e)
+          );
+        }
       }
       if (this.demoData) {
         for (let i = 0; i < this.demoData.length; i++) {

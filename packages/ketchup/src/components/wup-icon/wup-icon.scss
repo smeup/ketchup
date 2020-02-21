@@ -1,10 +1,8 @@
 // host represent widget DOM element
 :host {
-  display: block;
+  display: var(--kup-display-mode);
 
   #kup-component {
-    img {
-      color: var(--kup-main-color);
-    }
+    margin: auto;
   }
 }
