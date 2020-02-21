@@ -754,6 +754,7 @@ table.instruction-table th {
   height: 120px;
   width: 120px;
   padding: 1.25rem;
+  margin: auto;
 }
 
 .icon-label {
