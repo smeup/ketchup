@@ -22,6 +22,19 @@
 | `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [wup-icon](../wup-icon)
+
+### Graph
+```mermaid
+graph TD;
+  wup-tab-bar --> wup-icon
+  style wup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

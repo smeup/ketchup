@@ -2640,6 +2640,1106 @@
             <wup-icon dimensions="48px" name="question_answer"></wup-icon>
             <div class="icon-label">question_answer</div>
           </div>
+          <div class="icon-wrapper" title="queue_music">
+            <wup-icon dimensions="48px" name="queue_music"></wup-icon>
+            <div class="icon-label">queue_music</div>
+          </div>
+          <div class="icon-wrapper" title="queue_play_next">
+            <wup-icon dimensions="48px" name="queue_play_next"></wup-icon>
+            <div class="icon-label">queue_play_next</div>
+          </div>
+          <div class="icon-wrapper" title="queue">
+            <wup-icon dimensions="48px" name="queue"></wup-icon>
+            <div class="icon-label">queue</div>
+          </div>
+          <div class="icon-wrapper" title="radio_button_checked">
+            <wup-icon dimensions="48px" name="radio_button_checked"></wup-icon>
+            <div class="icon-label">radio_button_checked</div>
+          </div>
+          <div class="icon-wrapper" title="radio_button_unchecked">
+            <wup-icon dimensions="48px" name="radio_button_unchecked"></wup-icon>
+            <div class="icon-label">radio_button_unchecked</div>
+          </div>
+          <div class="icon-wrapper" title="radio">
+            <wup-icon dimensions="48px" name="radio"></wup-icon>
+            <div class="icon-label">radio</div>
+          </div>
+          <div class="icon-wrapper" title="rate_review">
+            <wup-icon dimensions="48px" name="rate_review"></wup-icon>
+            <div class="icon-label">rate_review</div>
+          </div>
+          <div class="icon-wrapper" title="receipt">
+            <wup-icon dimensions="48px" name="receipt"></wup-icon>
+            <div class="icon-label">receipt</div>
+          </div>
+          <div class="icon-wrapper" title="recent_actors">
+            <wup-icon dimensions="48px" name="recent_actors"></wup-icon>
+            <div class="icon-label">recent_actors</div>
+          </div>
+          <div class="icon-wrapper" title="record_voice_over">
+            <wup-icon dimensions="48px" name="record_voice_over"></wup-icon>
+            <div class="icon-label">record_voice_over</div>
+          </div>
+          <div class="icon-wrapper" title="redeem">
+            <wup-icon dimensions="48px" name="redeem"></wup-icon>
+            <div class="icon-label">redeem</div>
+          </div>
+          <div class="icon-wrapper" title="redo">
+            <wup-icon dimensions="48px" name="redo"></wup-icon>
+            <div class="icon-label">redo</div>
+          </div>
+          <div class="icon-wrapper" title="refresh">
+            <wup-icon dimensions="48px" name="refresh"></wup-icon>
+            <div class="icon-label">refresh</div>
+          </div>
+          <div class="icon-wrapper" title="remove_circle_outline">
+            <wup-icon dimensions="48px" name="remove_circle_outline"></wup-icon>
+            <div class="icon-label">remove_circle_outline</div>
+          </div>
+          <div class="icon-wrapper" title="remove_circle">
+            <wup-icon dimensions="48px" name="remove_circle"></wup-icon>
+            <div class="icon-label">remove_circle</div>
+          </div>
+          <div class="icon-wrapper" title="remove_from_queue">
+            <wup-icon dimensions="48px" name="remove_from_queue"></wup-icon>
+            <div class="icon-label">remove_from_queue</div>
+          </div>
+          <div class="icon-wrapper" title="remove_red_eye">
+            <wup-icon dimensions="48px" name="remove_red_eye"></wup-icon>
+            <div class="icon-label">remove_red_eye</div>
+          </div>
+          <div class="icon-wrapper" title="remove_shopping_cart">
+            <wup-icon dimensions="48px" name="remove_shopping_cart"></wup-icon>
+            <div class="icon-label">remove_shopping_cart</div>
+          </div>
+          <div class="icon-wrapper" title="remove">
+            <wup-icon dimensions="48px" name="remove"></wup-icon>
+            <div class="icon-label">remove</div>
+          </div>
+          <div class="icon-wrapper" title="repeat_one">
+            <wup-icon dimensions="48px" name="repeat_one"></wup-icon>
+            <div class="icon-label">repeat_one</div>
+          </div>
+          <div class="icon-wrapper" title="repeat">
+            <wup-icon dimensions="48px" name="repeat"></wup-icon>
+            <div class="icon-label">repeat</div>
+          </div>
+          <div class="icon-wrapper" title="replay_5">
+            <wup-icon dimensions="48px" name="replay_5"></wup-icon>
+            <div class="icon-label">replay_5</div>
+          </div>
+          <div class="icon-wrapper" title="replay_10">
+            <wup-icon dimensions="48px" name="replay_10"></wup-icon>
+            <div class="icon-label">replay_10</div>
+          </div>
+          <div class="icon-wrapper" title="replay_30">
+            <wup-icon dimensions="48px" name="replay_30"></wup-icon>
+            <div class="icon-label">replay_30</div>
+          </div>
+          <div class="icon-wrapper" title="replay">
+            <wup-icon dimensions="48px" name="replay"></wup-icon>
+            <div class="icon-label">replay</div>
+          </div>
+          <div class="icon-wrapper" title="reply_all">
+            <wup-icon dimensions="48px" name="reply_all"></wup-icon>
+            <div class="icon-label">reply_all</div>
+          </div>
+          <div class="icon-wrapper" title="reply">
+            <wup-icon dimensions="48px" name="reply"></wup-icon>
+            <div class="icon-label">reply</div>
+          </div>
+          <div class="icon-wrapper" title="report_problem">
+            <wup-icon dimensions="48px" name="report_problem"></wup-icon>
+            <div class="icon-label">report_problem</div>
+          </div>
+          <div class="icon-wrapper" title="report">
+            <wup-icon dimensions="48px" name="report"></wup-icon>
+            <div class="icon-label">report</div>
+          </div>
+          <div class="icon-wrapper" title="restaurant_menu">
+            <wup-icon dimensions="48px" name="restaurant_menu"></wup-icon>
+            <div class="icon-label">restaurant_menu</div>
+          </div>
+          <div class="icon-wrapper" title="restaurant">
+            <wup-icon dimensions="48px" name="restaurant"></wup-icon>
+            <div class="icon-label">restaurant</div>
+          </div>
+          <div class="icon-wrapper" title="restore_page">
+            <wup-icon dimensions="48px" name="restore_page"></wup-icon>
+            <div class="icon-label">restore_page</div>
+          </div>
+          <div class="icon-wrapper" title="restore">
+            <wup-icon dimensions="48px" name="restore"></wup-icon>
+            <div class="icon-label">restore</div>
+          </div>
+          <div class="icon-wrapper" title="ring_volume">
+            <wup-icon dimensions="48px" name="ring_volume"></wup-icon>
+            <div class="icon-label">ring_volume</div>
+          </div>
+          <div class="icon-wrapper" title="room_service">
+            <wup-icon dimensions="48px" name="room_service"></wup-icon>
+            <div class="icon-label">room_service</div>
+          </div>
+          <div class="icon-wrapper" title="room">
+            <wup-icon dimensions="48px" name="room"></wup-icon>
+            <div class="icon-label">room</div>
+          </div>
+          <div class="icon-wrapper" title="rotate_90_degrees_ccw">
+            <wup-icon dimensions="48px" name="rotate_90_degrees_ccw"></wup-icon>
+            <div class="icon-label">rotate_90_degrees_ccw</div>
+          </div>
+          <div class="icon-wrapper" title="rotate_left">
+            <wup-icon dimensions="48px" name="rotate_left"></wup-icon>
+            <div class="icon-label">rotate_left</div>
+          </div>
+          <div class="icon-wrapper" title="rotate_right">
+            <wup-icon dimensions="48px" name="rotate_right"></wup-icon>
+            <div class="icon-label">rotate_right</div>
+          </div>
+          <div class="icon-wrapper" title="rounded_corner">
+            <wup-icon dimensions="48px" name="rounded_corner"></wup-icon>
+            <div class="icon-label">rounded_corner</div>
+          </div>
+          <div class="icon-wrapper" title="router">
+            <wup-icon dimensions="48px" name="router"></wup-icon>
+            <div class="icon-label">router</div>
+          </div>
+          <div class="icon-wrapper" title="rowing">
+            <wup-icon dimensions="48px" name="rowing"></wup-icon>
+            <div class="icon-label">rowing</div>
+          </div>
+          <div class="icon-wrapper" title="rss_feed">
+            <wup-icon dimensions="48px" name="rss_feed"></wup-icon>
+            <div class="icon-label">rss_feed</div>
+          </div>
+          <div class="icon-wrapper" title="rv_hookup">
+            <wup-icon dimensions="48px" name="rv_hookup"></wup-icon>
+            <div class="icon-label">rv_hookup</div>
+          </div>
+          <div class="icon-wrapper" title="satellite">
+            <wup-icon dimensions="48px" name="satellite"></wup-icon>
+            <div class="icon-label">satellite</div>
+          </div>
+          <div class="icon-wrapper" title="save">
+            <wup-icon dimensions="48px" name="save"></wup-icon>
+            <div class="icon-label">save</div>
+          </div>
+          <div class="icon-wrapper" title="scanner">
+            <wup-icon dimensions="48px" name="scanner"></wup-icon>
+            <div class="icon-label">scanner</div>
+          </div>
+          <div class="icon-wrapper" title="schedule">
+            <wup-icon dimensions="48px" name="schedule"></wup-icon>
+            <div class="icon-label">schedule</div>
+          </div>
+          <div class="icon-wrapper" title="school">
+            <wup-icon dimensions="48px" name="school"></wup-icon>
+            <div class="icon-label">school</div>
+          </div>
+          <div class="icon-wrapper" title="screen_lock_landscape">
+            <wup-icon dimensions="48px" name="screen_lock_landscape"></wup-icon>
+            <div class="icon-label">screen_lock_landscape</div>
+          </div>
+          <div class="icon-wrapper" title="screen_lock_portrait">
+            <wup-icon dimensions="48px" name="screen_lock_portrait"></wup-icon>
+            <div class="icon-label">screen_lock_portrait</div>
+          </div>
+          <div class="icon-wrapper" title="screen_lock_rotation">
+            <wup-icon dimensions="48px" name="screen_lock_rotation"></wup-icon>
+            <div class="icon-label">screen_lock_rotation</div>
+          </div>
+          <div class="icon-wrapper" title="screen_rotation">
+            <wup-icon dimensions="48px" name="screen_rotation"></wup-icon>
+            <div class="icon-label">screen_rotation</div>
+          </div>
+          <div class="icon-wrapper" title="screen_share">
+            <wup-icon dimensions="48px" name="screen_share"></wup-icon>
+            <div class="icon-label">screen_share</div>
+          </div>
+          <div class="icon-wrapper" title="sd_card">
+            <wup-icon dimensions="48px" name="sd_card"></wup-icon>
+            <div class="icon-label">sd_card</div>
+          </div>
+          <div class="icon-wrapper" title="sd_storage">
+            <wup-icon dimensions="48px" name="sd_storage"></wup-icon>
+            <div class="icon-label">sd_storage</div>
+          </div>
+          <div class="icon-wrapper" title="search">
+            <wup-icon dimensions="48px" name="search"></wup-icon>
+            <div class="icon-label">search</div>
+          </div>
+          <div class="icon-wrapper" title="security">
+            <wup-icon dimensions="48px" name="security"></wup-icon>
+            <div class="icon-label">security</div>
+          </div>
+          <div class="icon-wrapper" title="select_all">
+            <wup-icon dimensions="48px" name="select_all"></wup-icon>
+            <div class="icon-label">select_all</div>
+          </div>
+          <div class="icon-wrapper" title="send">
+            <wup-icon dimensions="48px" name="send"></wup-icon>
+            <div class="icon-label">send</div>
+          </div>
+          <div class="icon-wrapper" title="sentiment_dissatisfied">
+            <wup-icon dimensions="48px" name="sentiment_dissatisfied"></wup-icon>
+            <div class="icon-label">sentiment_dissatisfied</div>
+          </div>
+          <div class="icon-wrapper" title="sentiment_neutral">
+            <wup-icon dimensions="48px" name="sentiment_neutral"></wup-icon>
+            <div class="icon-label">sentiment_neutral</div>
+          </div>
+          <div class="icon-wrapper" title="sentiment_satisfied">
+            <wup-icon dimensions="48px" name="sentiment_satisfied"></wup-icon>
+            <div class="icon-label">sentiment_satisfied</div>
+          </div>
+          <div class="icon-wrapper" title="sentiment_very_dissatisfied">
+            <wup-icon dimensions="48px" name="sentiment_very_dissatisfied"></wup-icon>
+            <div class="icon-label">sentiment_very_dissatisfied</div>
+          </div>
+          <div class="icon-wrapper" title="sentiment_very_satisfied">
+            <wup-icon dimensions="48px" name="sentiment_very_satisfied"></wup-icon>
+            <div class="icon-label">sentiment_very_satisfied</div>
+          </div>
+          <div class="icon-wrapper" title="settings_applications">
+            <wup-icon dimensions="48px" name="settings_applications"></wup-icon>
+            <div class="icon-label">settings_applications</div>
+          </div>
+          <div class="icon-wrapper" title="settings_backup_restore">
+            <wup-icon dimensions="48px" name="settings_backup_restore"></wup-icon>
+            <div class="icon-label">settings_backup_restore</div>
+          </div>
+          <div class="icon-wrapper" title="settings_bluetooth">
+            <wup-icon dimensions="48px" name="settings_bluetooth"></wup-icon>
+            <div class="icon-label">settings_bluetooth</div>
+          </div>
+          <div class="icon-wrapper" title="settings_brightness">
+            <wup-icon dimensions="48px" name="settings_brightness"></wup-icon>
+            <div class="icon-label">settings_brightness</div>
+          </div>
+          <div class="icon-wrapper" title="settings_cell">
+            <wup-icon dimensions="48px" name="settings_cell"></wup-icon>
+            <div class="icon-label">settings_cell</div>
+          </div>
+          <div class="icon-wrapper" title="settings_ethernet">
+            <wup-icon dimensions="48px" name="settings_ethernet"></wup-icon>
+            <div class="icon-label">settings_ethernet</div>
+          </div>
+          <div class="icon-wrapper" title="settings_input_antenna">
+            <wup-icon dimensions="48px" name="settings_input_antenna"></wup-icon>
+            <div class="icon-label">settings_input_antenna</div>
+          </div>
+          <div class="icon-wrapper" title="settings_input_component">
+            <wup-icon dimensions="48px" name="settings_input_component"></wup-icon>
+            <div class="icon-label">settings_input_component</div>
+          </div>
+          <div class="icon-wrapper" title="settings_input_composite">
+            <wup-icon dimensions="48px" name="settings_input_composite"></wup-icon>
+            <div class="icon-label">settings_input_composite</div>
+          </div>
+          <div class="icon-wrapper" title="settings_input_hdmi">
+            <wup-icon dimensions="48px" name="settings_input_hdmi"></wup-icon>
+            <div class="icon-label">settings_input_hdmi</div>
+          </div>
+          <div class="icon-wrapper" title="settings_input_svideo">
+            <wup-icon dimensions="48px" name="settings_input_svideo"></wup-icon>
+            <div class="icon-label">settings_input_svideo</div>
+          </div>
+          <div class="icon-wrapper" title="settings_overscan">
+            <wup-icon dimensions="48px" name="settings_overscan"></wup-icon>
+            <div class="icon-label">settings_overscan</div>
+          </div>
+          <div class="icon-wrapper" title="settings_phone">
+            <wup-icon dimensions="48px" name="settings_phone"></wup-icon>
+            <div class="icon-label">settings_phone</div>
+          </div>
+          <div class="icon-wrapper" title="settings_power">
+            <wup-icon dimensions="48px" name="settings_power"></wup-icon>
+            <div class="icon-label">settings_power</div>
+          </div>
+          <div class="icon-wrapper" title="settings_remote">
+            <wup-icon dimensions="48px" name="settings_remote"></wup-icon>
+            <div class="icon-label">settings_remote</div>
+          </div>
+          <div class="icon-wrapper" title="settings_system_daydream">
+            <wup-icon dimensions="48px" name="settings_system_daydream"></wup-icon>
+            <div class="icon-label">settings_system_daydream</div>
+          </div>
+          <div class="icon-wrapper" title="settings_voice">
+            <wup-icon dimensions="48px" name="settings_voice"></wup-icon>
+            <div class="icon-label">settings_voice</div>
+          </div>
+          <div class="icon-wrapper" title="settings">
+            <wup-icon dimensions="48px" name="settings"></wup-icon>
+            <div class="icon-label">settings</div>
+          </div>
+          <div class="icon-wrapper" title="share">
+            <wup-icon dimensions="48px" name="share"></wup-icon>
+            <div class="icon-label">share</div>
+          </div>
+          <div class="icon-wrapper" title="shop_two">
+            <wup-icon dimensions="48px" name="shop_two"></wup-icon>
+            <div class="icon-label">shop_two</div>
+          </div>
+          <div class="icon-wrapper" title="shop">
+            <wup-icon dimensions="48px" name="shop"></wup-icon>
+            <div class="icon-label">shop</div>
+          </div>
+          <div class="icon-wrapper" title="shopping_basket">
+            <wup-icon dimensions="48px" name="shopping_basket"></wup-icon>
+            <div class="icon-label">shopping_basket</div>
+          </div>
+          <div class="icon-wrapper" title="shopping_cart">
+            <wup-icon dimensions="48px" name="shopping_cart"></wup-icon>
+            <div class="icon-label">shopping_cart</div>
+          </div>
+          <div class="icon-wrapper" title="short_text">
+            <wup-icon dimensions="48px" name="short_text"></wup-icon>
+            <div class="icon-label">short_text</div>
+          </div>
+          <div class="icon-wrapper" title="show_chart">
+            <wup-icon dimensions="48px" name="show_chart"></wup-icon>
+            <div class="icon-label">show_chart</div>
+          </div>
+          <div class="icon-wrapper" title="shuffle">
+            <wup-icon dimensions="48px" name="shuffle"></wup-icon>
+            <div class="icon-label">shuffle</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_0_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_0_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_0_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_1_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_1_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_1_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_2_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_2_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_2_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_3_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_3_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_3_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_4_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_4_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_4_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_0_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_0_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_connected_no_internet_0_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_1_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_1_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_connected_no_internet_1_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_2_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_2_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_connected_no_internet_2_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_3_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_3_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_connected_no_internet_3_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_4_bar">
+            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_4_bar"></wup-icon>
+            <div class="icon-label">signal_cellular_connected_no_internet_4_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_no_sim">
+            <wup-icon dimensions="48px" name="signal_cellular_no_sim"></wup-icon>
+            <div class="icon-label">signal_cellular_no_sim</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_null">
+            <wup-icon dimensions="48px" name="signal_cellular_null"></wup-icon>
+            <div class="icon-label">signal_cellular_null</div>
+          </div>
+          <div class="icon-wrapper" title="signal_cellular_off">
+            <wup-icon dimensions="48px" name="signal_cellular_off"></wup-icon>
+            <div class="icon-label">signal_cellular_off</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_0_bar">
+            <wup-icon dimensions="48px" name="signal_wifi_0_bar"></wup-icon>
+            <div class="icon-label">signal_wifi_0_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_1_bar_lock">
+            <wup-icon dimensions="48px" name="signal_wifi_1_bar_lock"></wup-icon>
+            <div class="icon-label">signal_wifi_1_bar_lock</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_1_bar">
+            <wup-icon dimensions="48px" name="signal_wifi_1_bar"></wup-icon>
+            <div class="icon-label">signal_wifi_1_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_2_bar_lock">
+            <wup-icon dimensions="48px" name="signal_wifi_2_bar_lock"></wup-icon>
+            <div class="icon-label">signal_wifi_2_bar_lock</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_2_bar">
+            <wup-icon dimensions="48px" name="signal_wifi_2_bar"></wup-icon>
+            <div class="icon-label">signal_wifi_2_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_3_bar_lock">
+            <wup-icon dimensions="48px" name="signal_wifi_3_bar_lock"></wup-icon>
+            <div class="icon-label">signal_wifi_3_bar_lock</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_3_bar">
+            <wup-icon dimensions="48px" name="signal_wifi_3_bar"></wup-icon>
+            <div class="icon-label">signal_wifi_3_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_4_bar_lock">
+            <wup-icon dimensions="48px" name="signal_wifi_4_bar_lock"></wup-icon>
+            <div class="icon-label">signal_wifi_4_bar_lock</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_4_bar">
+            <wup-icon dimensions="48px" name="signal_wifi_4_bar"></wup-icon>
+            <div class="icon-label">signal_wifi_4_bar</div>
+          </div>
+          <div class="icon-wrapper" title="signal_wifi_off">
+            <wup-icon dimensions="48px" name="signal_wifi_off"></wup-icon>
+            <div class="icon-label">signal_wifi_off</div>
+          </div>
+          <div class="icon-wrapper" title="sim_card_alert">
+            <wup-icon dimensions="48px" name="sim_card_alert"></wup-icon>
+            <div class="icon-label">sim_card_alert</div>
+          </div>
+          <div class="icon-wrapper" title="sim_card">
+            <wup-icon dimensions="48px" name="sim_card"></wup-icon>
+            <div class="icon-label">sim_card</div>
+          </div>
+          <div class="icon-wrapper" title="skip_next">
+            <wup-icon dimensions="48px" name="skip_next"></wup-icon>
+            <div class="icon-label">skip_next</div>
+          </div>
+          <div class="icon-wrapper" title="skip_previous">
+            <wup-icon dimensions="48px" name="skip_previous"></wup-icon>
+            <div class="icon-label">skip_previous</div>
+          </div>
+          <div class="icon-wrapper" title="slideshow">
+            <wup-icon dimensions="48px" name="slideshow"></wup-icon>
+            <div class="icon-label">slideshow</div>
+          </div>
+          <div class="icon-wrapper" title="slow_motion_video">
+            <wup-icon dimensions="48px" name="slow_motion_video"></wup-icon>
+            <div class="icon-label">slow_motion_video</div>
+          </div>
+          <div class="icon-wrapper" title="smartphone">
+            <wup-icon dimensions="48px" name="smartphone"></wup-icon>
+            <div class="icon-label">smartphone</div>
+          </div>
+          <div class="icon-wrapper" title="smoke_free">
+            <wup-icon dimensions="48px" name="smoke_free"></wup-icon>
+            <div class="icon-label">smoke_free</div>
+          </div>
+          <div class="icon-wrapper" title="smoking_rooms">
+            <wup-icon dimensions="48px" name="smoking_rooms"></wup-icon>
+            <div class="icon-label">smoking_rooms</div>
+          </div>
+          <div class="icon-wrapper" title="sms_failed">
+            <wup-icon dimensions="48px" name="sms_failed"></wup-icon>
+            <div class="icon-label">sms_failed</div>
+          </div>
+          <div class="icon-wrapper" title="sms">
+            <wup-icon dimensions="48px" name="sms"></wup-icon>
+            <div class="icon-label">sms</div>
+          </div>
+          <div class="icon-wrapper" title="snooze">
+            <wup-icon dimensions="48px" name="snooze"></wup-icon>
+            <div class="icon-label">snooze</div>
+          </div>
+          <div class="icon-wrapper" title="sort">
+            <wup-icon dimensions="48px" name="sort"></wup-icon>
+            <div class="icon-label">sort</div>
+          </div>
+          <div class="icon-wrapper" title="spa">
+            <wup-icon dimensions="48px" name="spa"></wup-icon>
+            <div class="icon-label">spa</div>
+          </div>
+          <div class="icon-wrapper" title="space_bar">
+            <wup-icon dimensions="48px" name="space_bar"></wup-icon>
+            <div class="icon-label">space_bar</div>
+          </div>
+          <div class="icon-wrapper" title="speaker_group">
+            <wup-icon dimensions="48px" name="speaker_group"></wup-icon>
+            <div class="icon-label">speaker_group</div>
+          </div>
+          <div class="icon-wrapper" title="speaker_notes_off">
+            <wup-icon dimensions="48px" name="speaker_notes_off"></wup-icon>
+            <div class="icon-label">speaker_notes_off</div>
+          </div>
+          <div class="icon-wrapper" title="speaker_notes">
+            <wup-icon dimensions="48px" name="speaker_notes"></wup-icon>
+            <div class="icon-label">speaker_notes</div>
+          </div>
+          <div class="icon-wrapper" title="speaker_phone">
+            <wup-icon dimensions="48px" name="speaker_phone"></wup-icon>
+            <div class="icon-label">speaker_phone</div>
+          </div>
+          <div class="icon-wrapper" title="speaker">
+            <wup-icon dimensions="48px" name="speaker"></wup-icon>
+            <div class="icon-label">speaker</div>
+          </div>
+          <div class="icon-wrapper" title="spellcheck">
+            <wup-icon dimensions="48px" name="spellcheck"></wup-icon>
+            <div class="icon-label">spellcheck</div>
+          </div>
+          <div class="icon-wrapper" title="star_half">
+            <wup-icon dimensions="48px" name="star_half"></wup-icon>
+            <div class="icon-label">star_half</div>
+          </div>
+          <div class="icon-wrapper" title="stars">
+            <wup-icon dimensions="48px" name="stars"></wup-icon>
+            <div class="icon-label">stars</div>
+          </div>
+          <div class="icon-wrapper" title="stay_current_landscape">
+            <wup-icon dimensions="48px" name="stay_current_landscape"></wup-icon>
+            <div class="icon-label">stay_current_landscape</div>
+          </div>
+          <div class="icon-wrapper" title="stay_current_portrait">
+            <wup-icon dimensions="48px" name="stay_current_portrait"></wup-icon>
+            <div class="icon-label">stay_current_portrait</div>
+          </div>
+          <div class="icon-wrapper" title="stay_primary_landscape">
+            <wup-icon dimensions="48px" name="stay_primary_landscape"></wup-icon>
+            <div class="icon-label">stay_primary_landscape</div>
+          </div>
+          <div class="icon-wrapper" title="stay_primary_portrait">
+            <wup-icon dimensions="48px" name="stay_primary_portrait"></wup-icon>
+            <div class="icon-label">stay_primary_portrait</div>
+          </div>
+          <div class="icon-wrapper" title="stop_screen_share">
+            <wup-icon dimensions="48px" name="stop_screen_share"></wup-icon>
+            <div class="icon-label">stop_screen_share</div>
+          </div>
+          <div class="icon-wrapper" title="stop">
+            <wup-icon dimensions="48px" name="stop"></wup-icon>
+            <div class="icon-label">stop</div>
+          </div>
+          <div class="icon-wrapper" title="storage">
+            <wup-icon dimensions="48px" name="storage"></wup-icon>
+            <div class="icon-label">storage</div>
+          </div>
+          <div class="icon-wrapper" title="store_mall_directory">
+            <wup-icon dimensions="48px" name="store_mall_directory"></wup-icon>
+            <div class="icon-label">store_mall_directory</div>
+          </div>
+          <div class="icon-wrapper" title="store">
+            <wup-icon dimensions="48px" name="store"></wup-icon>
+            <div class="icon-label">store</div>
+          </div>
+          <div class="icon-wrapper" title="straighten">
+            <wup-icon dimensions="48px" name="straighten"></wup-icon>
+            <div class="icon-label">straighten</div>
+          </div>
+          <div class="icon-wrapper" title="streetview">
+            <wup-icon dimensions="48px" name="streetview"></wup-icon>
+            <div class="icon-label">streetview</div>
+          </div>
+          <div class="icon-wrapper" title="strikethrough_s">
+            <wup-icon dimensions="48px" name="strikethrough_s"></wup-icon>
+            <div class="icon-label">strikethrough_s</div>
+          </div>
+          <div class="icon-wrapper" title="style">
+            <wup-icon dimensions="48px" name="style"></wup-icon>
+            <div class="icon-label">style</div>
+          </div>
+          <div class="icon-wrapper" title="subdirectory_arrow_left">
+            <wup-icon dimensions="48px" name="subdirectory_arrow_left"></wup-icon>
+            <div class="icon-label">subdirectory_arrow_left</div>
+          </div>
+          <div class="icon-wrapper" title="subdirectory_arrow_right">
+            <wup-icon dimensions="48px" name="subdirectory_arrow_right"></wup-icon>
+            <div class="icon-label">subdirectory_arrow_right</div>
+          </div>
+          <div class="icon-wrapper" title="subject">
+            <wup-icon dimensions="48px" name="subject"></wup-icon>
+            <div class="icon-label">subject</div>
+          </div>
+          <div class="icon-wrapper" title="subscriptions">
+            <wup-icon dimensions="48px" name="subscriptions"></wup-icon>
+            <div class="icon-label">subscriptions</div>
+          </div>
+          <div class="icon-wrapper" title="subtitles">
+            <wup-icon dimensions="48px" name="subtitles"></wup-icon>
+            <div class="icon-label">subtitles</div>
+          </div>
+          <div class="icon-wrapper" title="subway">
+            <wup-icon dimensions="48px" name="subway"></wup-icon>
+            <div class="icon-label">subway</div>
+          </div>
+          <div class="icon-wrapper" title="supervisor_account">
+            <wup-icon dimensions="48px" name="supervisor_account"></wup-icon>
+            <div class="icon-label">supervisor_account</div>
+          </div>
+          <div class="icon-wrapper" title="surround_sound">
+            <wup-icon dimensions="48px" name="surround_sound"></wup-icon>
+            <div class="icon-label">surround_sound</div>
+          </div>
+          <div class="icon-wrapper" title="swap_calls">
+            <wup-icon dimensions="48px" name="swap_calls"></wup-icon>
+            <div class="icon-label">swap_calls</div>
+          </div>
+          <div class="icon-wrapper" title="swap_horiz">
+            <wup-icon dimensions="48px" name="swap_horiz"></wup-icon>
+            <div class="icon-label">swap_horiz</div>
+          </div>
+          <div class="icon-wrapper" title="swap_vert">
+            <wup-icon dimensions="48px" name="swap_vert"></wup-icon>
+            <div class="icon-label">swap_vert</div>
+          </div>
+          <div class="icon-wrapper" title="swap_vertical_circle">
+            <wup-icon dimensions="48px" name="swap_vertical_circle"></wup-icon>
+            <div class="icon-label">swap_vertical_circle</div>
+          </div>
+          <div class="icon-wrapper" title="switch_camera">
+            <wup-icon dimensions="48px" name="switch_camera"></wup-icon>
+            <div class="icon-label">switch_camera</div>
+          </div>
+          <div class="icon-wrapper" title="switch_video">
+            <wup-icon dimensions="48px" name="switch_video"></wup-icon>
+            <div class="icon-label">switch_video</div>
+          </div>
+          <div class="icon-wrapper" title="sync_disabled">
+            <wup-icon dimensions="48px" name="sync_disabled"></wup-icon>
+            <div class="icon-label">sync_disabled</div>
+          </div>
+          <div class="icon-wrapper" title="sync_problem">
+            <wup-icon dimensions="48px" name="sync_problem"></wup-icon>
+            <div class="icon-label">sync_problem</div>
+          </div>
+          <div class="icon-wrapper" title="sync">
+            <wup-icon dimensions="48px" name="sync"></wup-icon>
+            <div class="icon-label">sync</div>
+          </div>
+          <div class="icon-wrapper" title="system_update_alt">
+            <wup-icon dimensions="48px" name="system_update_alt"></wup-icon>
+            <div class="icon-label">system_update_alt</div>
+          </div>
+          <div class="icon-wrapper" title="system_update">
+            <wup-icon dimensions="48px" name="system_update"></wup-icon>
+            <div class="icon-label">system_update</div>
+          </div>
+          <div class="icon-wrapper" title="tab_unselected">
+            <wup-icon dimensions="48px" name="tab_unselected"></wup-icon>
+            <div class="icon-label">tab_unselected</div>
+          </div>
+          <div class="icon-wrapper" title="tab">
+            <wup-icon dimensions="48px" name="tab"></wup-icon>
+            <div class="icon-label">tab</div>
+          </div>
+          <div class="icon-wrapper" title="tablet_android">
+            <wup-icon dimensions="48px" name="tablet_android"></wup-icon>
+            <div class="icon-label">tablet_android</div>
+          </div>
+          <div class="icon-wrapper" title="tablet_mac">
+            <wup-icon dimensions="48px" name="tablet_mac"></wup-icon>
+            <div class="icon-label">tablet_mac</div>
+          </div>
+          <div class="icon-wrapper" title="tablet">
+            <wup-icon dimensions="48px" name="tablet"></wup-icon>
+            <div class="icon-label">tablet</div>
+          </div>
+          <div class="icon-wrapper" title="tag_faces">
+            <wup-icon dimensions="48px" name="tag_faces"></wup-icon>
+            <div class="icon-label">tag_faces</div>
+          </div>
+          <div class="icon-wrapper" title="tap_and_play">
+            <wup-icon dimensions="48px" name="tap_and_play"></wup-icon>
+            <div class="icon-label">tap_and_play</div>
+          </div>
+          <div class="icon-wrapper" title="terrain">
+            <wup-icon dimensions="48px" name="terrain"></wup-icon>
+            <div class="icon-label">terrain</div>
+          </div>
+          <div class="icon-wrapper" title="text_fields">
+            <wup-icon dimensions="48px" name="text_fields"></wup-icon>
+            <div class="icon-label">text_fields</div>
+          </div>
+          <div class="icon-wrapper" title="text_format">
+            <wup-icon dimensions="48px" name="text_format"></wup-icon>
+            <div class="icon-label">text_format</div>
+          </div>
+          <div class="icon-wrapper" title="textsms">
+            <wup-icon dimensions="48px" name="textsms"></wup-icon>
+            <div class="icon-label">textsms</div>
+          </div>
+          <div class="icon-wrapper" title="texture">
+            <wup-icon dimensions="48px" name="texture"></wup-icon>
+            <div class="icon-label">texture</div>
+          </div>
+          <div class="icon-wrapper" title="theaters">
+            <wup-icon dimensions="48px" name="theaters"></wup-icon>
+            <div class="icon-label">theaters</div>
+          </div>
+          <div class="icon-wrapper" title="thumb_down">
+            <wup-icon dimensions="48px" name="thumb_down"></wup-icon>
+            <div class="icon-label">thumb_down</div>
+          </div>
+          <div class="icon-wrapper" title="thumb_up">
+            <wup-icon dimensions="48px" name="thumb_up"></wup-icon>
+            <div class="icon-label">thumb_up</div>
+          </div>
+          <div class="icon-wrapper" title="thumbs_up_down">
+            <wup-icon dimensions="48px" name="thumbs_up_down"></wup-icon>
+            <div class="icon-label">thumbs_up_down</div>
+          </div>
+          <div class="icon-wrapper" title="time_to_leave">
+            <wup-icon dimensions="48px" name="time_to_leave"></wup-icon>
+            <div class="icon-label">time_to_leave</div>
+          </div>
+          <div class="icon-wrapper" title="timelapse">
+            <wup-icon dimensions="48px" name="timelapse"></wup-icon>
+            <div class="icon-label">timelapse</div>
+          </div>
+          <div class="icon-wrapper" title="timeline">
+            <wup-icon dimensions="48px" name="timeline"></wup-icon>
+            <div class="icon-label">timeline</div>
+          </div>
+          <div class="icon-wrapper" title="timer_3">
+            <wup-icon dimensions="48px" name="timer_3"></wup-icon>
+            <div class="icon-label">timer_3</div>
+          </div>
+          <div class="icon-wrapper" title="timer_10">
+            <wup-icon dimensions="48px" name="timer_10"></wup-icon>
+            <div class="icon-label">timer_10</div>
+          </div>
+          <div class="icon-wrapper" title="timer_off">
+            <wup-icon dimensions="48px" name="timer_off"></wup-icon>
+            <div class="icon-label">timer_off</div>
+          </div>
+          <div class="icon-wrapper" title="timer">
+            <wup-icon dimensions="48px" name="timer"></wup-icon>
+            <div class="icon-label">timer</div>
+          </div>
+          <div class="icon-wrapper" title="title">
+            <wup-icon dimensions="48px" name="title"></wup-icon>
+            <div class="icon-label">title</div>
+          </div>
+          <div class="icon-wrapper" title="toc">
+            <wup-icon dimensions="48px" name="toc"></wup-icon>
+            <div class="icon-label">toc</div>
+          </div>
+          <div class="icon-wrapper" title="today">
+            <wup-icon dimensions="48px" name="today"></wup-icon>
+            <div class="icon-label">today</div>
+          </div>
+          <div class="icon-wrapper" title="toll">
+            <wup-icon dimensions="48px" name="toll"></wup-icon>
+            <div class="icon-label">toll</div>
+          </div>
+          <div class="icon-wrapper" title="tonality">
+            <wup-icon dimensions="48px" name="tonality"></wup-icon>
+            <div class="icon-label">tonality</div>
+          </div>
+          <div class="icon-wrapper" title="touch_app">
+            <wup-icon dimensions="48px" name="touch_app"></wup-icon>
+            <div class="icon-label">touch_app</div>
+          </div>
+          <div class="icon-wrapper" title="toys">
+            <wup-icon dimensions="48px" name="toys"></wup-icon>
+            <div class="icon-label">toys</div>
+          </div>
+          <div class="icon-wrapper" title="track_changes">
+            <wup-icon dimensions="48px" name="track_changes"></wup-icon>
+            <div class="icon-label">track_changes</div>
+          </div>
+          <div class="icon-wrapper" title="traffic">
+            <wup-icon dimensions="48px" name="traffic"></wup-icon>
+            <div class="icon-label">traffic</div>
+          </div>
+          <div class="icon-wrapper" title="train">
+            <wup-icon dimensions="48px" name="train"></wup-icon>
+            <div class="icon-label">train</div>
+          </div>
+          <div class="icon-wrapper" title="tram">
+            <wup-icon dimensions="48px" name="tram"></wup-icon>
+            <div class="icon-label">tram</div>
+          </div>
+          <div class="icon-wrapper" title="transfer_within_a_station">
+            <wup-icon dimensions="48px" name="transfer_within_a_station"></wup-icon>
+            <div class="icon-label">transfer_within_a_station</div>
+          </div>
+          <div class="icon-wrapper" title="transform">
+            <wup-icon dimensions="48px" name="transform"></wup-icon>
+            <div class="icon-label">transform</div>
+          </div>
+          <div class="icon-wrapper" title="translate">
+            <wup-icon dimensions="48px" name="translate"></wup-icon>
+            <div class="icon-label">translate</div>
+          </div>
+          <div class="icon-wrapper" title="trending_down">
+            <wup-icon dimensions="48px" name="trending_down"></wup-icon>
+            <div class="icon-label">trending_down</div>
+          </div>
+          <div class="icon-wrapper" title="trending_flat">
+            <wup-icon dimensions="48px" name="trending_flat"></wup-icon>
+            <div class="icon-label">trending_flat</div>
+          </div>
+          <div class="icon-wrapper" title="trending_up">
+            <wup-icon dimensions="48px" name="trending_up"></wup-icon>
+            <div class="icon-label">trending_up</div>
+          </div>
+          <div class="icon-wrapper" title="tune">
+            <wup-icon dimensions="48px" name="tune"></wup-icon>
+            <div class="icon-label">tune</div>
+          </div>
+          <div class="icon-wrapper" title="turned_in_not">
+            <wup-icon dimensions="48px" name="turned_in_not"></wup-icon>
+            <div class="icon-label">turned_in_not</div>
+          </div>
+          <div class="icon-wrapper" title="turned_in">
+            <wup-icon dimensions="48px" name="turned_in"></wup-icon>
+            <div class="icon-label">turned_in</div>
+          </div>
+          <div class="icon-wrapper" title="tv">
+            <wup-icon dimensions="48px" name="tv"></wup-icon>
+            <div class="icon-label">tv</div>
+          </div>
+          <div class="icon-wrapper" title="unarchive">
+            <wup-icon dimensions="48px" name="unarchive"></wup-icon>
+            <div class="icon-label">unarchive</div>
+          </div>
+          <div class="icon-wrapper" title="undo">
+            <wup-icon dimensions="48px" name="undo"></wup-icon>
+            <div class="icon-label">undo</div>
+          </div>
+          <div class="icon-wrapper" title="unfold_less">
+            <wup-icon dimensions="48px" name="unfold_less"></wup-icon>
+            <div class="icon-label">unfold_less</div>
+          </div>
+          <div class="icon-wrapper" title="unfold_more">
+            <wup-icon dimensions="48px" name="unfold_more"></wup-icon>
+            <div class="icon-label">unfold_more</div>
+          </div>
+          <div class="icon-wrapper" title="update">
+            <wup-icon dimensions="48px" name="update"></wup-icon>
+            <div class="icon-label">update</div>
+          </div>
+          <div class="icon-wrapper" title="usb">
+            <wup-icon dimensions="48px" name="usb"></wup-icon>
+            <div class="icon-label">usb</div>
+          </div>
+          <div class="icon-wrapper" title="verified_user">
+            <wup-icon dimensions="48px" name="verified_user"></wup-icon>
+            <div class="icon-label">verified_user</div>
+          </div>
+          <div class="icon-wrapper" title="vertical_align_bottom">
+            <wup-icon dimensions="48px" name="vertical_align_bottom"></wup-icon>
+            <div class="icon-label">vertical_align_bottom</div>
+          </div>
+          <div class="icon-wrapper" title="vertical_align_center">
+            <wup-icon dimensions="48px" name="vertical_align_center"></wup-icon>
+            <div class="icon-label">vertical_align_center</div>
+          </div>
+          <div class="icon-wrapper" title="vertical_align_top">
+            <wup-icon dimensions="48px" name="vertical_align_top"></wup-icon>
+            <div class="icon-label">vertical_align_top</div>
+          </div>
+          <div class="icon-wrapper" title="vibration">
+            <wup-icon dimensions="48px" name="vibration"></wup-icon>
+            <div class="icon-label">vibration</div>
+          </div>
+          <div class="icon-wrapper" title="video_call">
+            <wup-icon dimensions="48px" name="video_call"></wup-icon>
+            <div class="icon-label">video_call</div>
+          </div>
+          <div class="icon-wrapper" title="video_label">
+            <wup-icon dimensions="48px" name="video_label"></wup-icon>
+            <div class="icon-label">video_label</div>
+          </div>
+          <div class="icon-wrapper" title="video_library">
+            <wup-icon dimensions="48px" name="video_library"></wup-icon>
+            <div class="icon-label">video_library</div>
+          </div>
+          <div class="icon-wrapper" title="videocam_off">
+            <wup-icon dimensions="48px" name="videocam_off"></wup-icon>
+            <div class="icon-label">videocam_off</div>
+          </div>
+          <div class="icon-wrapper" title="videocam">
+            <wup-icon dimensions="48px" name="videocam"></wup-icon>
+            <div class="icon-label">videocam</div>
+          </div>
+          <div class="icon-wrapper" title="videogame_asset">
+            <wup-icon dimensions="48px" name="videogame_asset"></wup-icon>
+            <div class="icon-label">videogame_asset</div>
+          </div>
+          <div class="icon-wrapper" title="view_agenda">
+            <wup-icon dimensions="48px" name="view_agenda"></wup-icon>
+            <div class="icon-label">view_agenda</div>
+          </div>
+          <div class="icon-wrapper" title="view_array">
+            <wup-icon dimensions="48px" name="view_array"></wup-icon>
+            <div class="icon-label">view_array</div>
+          </div>
+          <div class="icon-wrapper" title="view_carousel">
+            <wup-icon dimensions="48px" name="view_carousel"></wup-icon>
+            <div class="icon-label">view_carousel</div>
+          </div>
+          <div class="icon-wrapper" title="view_column">
+            <wup-icon dimensions="48px" name="view_column"></wup-icon>
+            <div class="icon-label">view_column</div>
+          </div>
+          <div class="icon-wrapper" title="view_comfy">
+            <wup-icon dimensions="48px" name="view_comfy"></wup-icon>
+            <div class="icon-label">view_comfy</div>
+          </div>
+          <div class="icon-wrapper" title="view_compact">
+            <wup-icon dimensions="48px" name="view_compact"></wup-icon>
+            <div class="icon-label">view_compact</div>
+          </div>
+          <div class="icon-wrapper" title="view_day">
+            <wup-icon dimensions="48px" name="view_day"></wup-icon>
+            <div class="icon-label">view_day</div>
+          </div>
+          <div class="icon-wrapper" title="view_headline">
+            <wup-icon dimensions="48px" name="view_headline"></wup-icon>
+            <div class="icon-label">view_headline</div>
+          </div>
+          <div class="icon-wrapper" title="view_list">
+            <wup-icon dimensions="48px" name="view_list"></wup-icon>
+            <div class="icon-label">view_list</div>
+          </div>
+          <div class="icon-wrapper" title="view_module">
+            <wup-icon dimensions="48px" name="view_module"></wup-icon>
+            <div class="icon-label">view_module</div>
+          </div>
+          <div class="icon-wrapper" title="view_quilt">
+            <wup-icon dimensions="48px" name="view_quilt"></wup-icon>
+            <div class="icon-label">view_quilt</div>
+          </div>
+          <div class="icon-wrapper" title="view_stream">
+            <wup-icon dimensions="48px" name="view_stream"></wup-icon>
+            <div class="icon-label">view_stream</div>
+          </div>
+          <div class="icon-wrapper" title="view_week">
+            <wup-icon dimensions="48px" name="view_week"></wup-icon>
+            <div class="icon-label">view_week</div>
+          </div>
+          <div class="icon-wrapper" title="visibility_off">
+            <wup-icon dimensions="48px" name="visibility_off"></wup-icon>
+            <div class="icon-label">visibility_off</div>
+          </div>
+          <div class="icon-wrapper" title="visibility">
+            <wup-icon dimensions="48px" name="visibility"></wup-icon>
+            <div class="icon-label">visibility</div>
+          </div>
+          <div class="icon-wrapper" title="voice_chat">
+            <wup-icon dimensions="48px" name="voice_chat"></wup-icon>
+            <div class="icon-label">voice_chat</div>
+          </div>
+          <div class="icon-wrapper" title="voicemail">
+            <wup-icon dimensions="48px" name="voicemail"></wup-icon>
+            <div class="icon-label">voicemail</div>
+          </div>
+          <div class="icon-wrapper" title="volume_down">
+            <wup-icon dimensions="48px" name="volume_down"></wup-icon>
+            <div class="icon-label">volume_down</div>
+          </div>
+          <div class="icon-wrapper" title="volume_mute">
+            <wup-icon dimensions="48px" name="volume_mute"></wup-icon>
+            <div class="icon-label">volume_mute</div>
+          </div>
+          <div class="icon-wrapper" title="volume_off">
+            <wup-icon dimensions="48px" name="volume_off"></wup-icon>
+            <div class="icon-label">volume_off</div>
+          </div>
+          <div class="icon-wrapper" title="volume_up">
+            <wup-icon dimensions="48px" name="volume_up"></wup-icon>
+            <div class="icon-label">volume_up</div>
+          </div>
+          <div class="icon-wrapper" title="vpn_key">
+            <wup-icon dimensions="48px" name="vpn_key"></wup-icon>
+            <div class="icon-label">vpn_key</div>
+          </div>
+          <div class="icon-wrapper" title="vpn_lock">
+            <wup-icon dimensions="48px" name="vpn_lock"></wup-icon>
+            <div class="icon-label">vpn_lock</div>
+          </div>
+          <div class="icon-wrapper" title="wallpaper">
+            <wup-icon dimensions="48px" name="wallpaper"></wup-icon>
+            <div class="icon-label">wallpaper</div>
+          </div>
+          <div class="icon-wrapper" title="warning">
+            <wup-icon dimensions="48px" name="warning"></wup-icon>
+            <div class="icon-label">warning</div>
+          </div>
+          <div class="icon-wrapper" title="watch_later">
+            <wup-icon dimensions="48px" name="watch_later"></wup-icon>
+            <div class="icon-label">watch_later</div>
+          </div>
+          <div class="icon-wrapper" title="watch">
+            <wup-icon dimensions="48px" name="watch"></wup-icon>
+            <div class="icon-label">watch</div>
+          </div>
+          <div class="icon-wrapper" title="wb_auto">
+            <wup-icon dimensions="48px" name="wb_auto"></wup-icon>
+            <div class="icon-label">wb_auto</div>
+          </div>
+          <div class="icon-wrapper" title="wb_cloudy">
+            <wup-icon dimensions="48px" name="wb_cloudy"></wup-icon>
+            <div class="icon-label">wb_cloudy</div>
+          </div>
+          <div class="icon-wrapper" title="wb_incandescent">
+            <wup-icon dimensions="48px" name="wb_incandescent"></wup-icon>
+            <div class="icon-label">wb_incandescent</div>
+          </div>
+          <div class="icon-wrapper" title="wb_iridescent">
+            <wup-icon dimensions="48px" name="wb_iridescent"></wup-icon>
+            <div class="icon-label">wb_iridescent</div>
+          </div>
+          <div class="icon-wrapper" title="wb_sunny">
+            <wup-icon dimensions="48px" name="wb_sunny"></wup-icon>
+            <div class="icon-label">wb_sunny</div>
+          </div>
+          <div class="icon-wrapper" title="wc">
+            <wup-icon dimensions="48px" name="wc"></wup-icon>
+            <div class="icon-label">wc</div>
+          </div>
+          <div class="icon-wrapper" title="web_asset">
+            <wup-icon dimensions="48px" name="web_asset"></wup-icon>
+            <div class="icon-label">web_asset</div>
+          </div>
+          <div class="icon-wrapper" title="web">
+            <wup-icon dimensions="48px" name="web"></wup-icon>
+            <div class="icon-label">web</div>
+          </div>
+          <div class="icon-wrapper" title="weekend">
+            <wup-icon dimensions="48px" name="weekend"></wup-icon>
+            <div class="icon-label">weekend</div>
+          </div>
+          <div class="icon-wrapper" title="whatshot">
+            <wup-icon dimensions="48px" name="whatshot"></wup-icon>
+            <div class="icon-label">whatshot</div>
+          </div>
+          <div class="icon-wrapper" title="widgets">
+            <wup-icon dimensions="48px" name="widgets"></wup-icon>
+            <div class="icon-label">widgets</div>
+          </div>
+          <div class="icon-wrapper" title="wifi_lock">
+            <wup-icon dimensions="48px" name="wifi_lock"></wup-icon>
+            <div class="icon-label">wifi_lock</div>
+          </div>
+          <div class="icon-wrapper" title="wifi_tethering">
+            <wup-icon dimensions="48px" name="wifi_tethering"></wup-icon>
+            <div class="icon-label">wifi_tethering</div>
+          </div>
+          <div class="icon-wrapper" title="wifi">
+            <wup-icon dimensions="48px" name="wifi"></wup-icon>
+            <div class="icon-label">wifi</div>
+          </div>
+          <div class="icon-wrapper" title="work">
+            <wup-icon dimensions="48px" name="work"></wup-icon>
+            <div class="icon-label">work</div>
+          </div>
+          <div class="icon-wrapper" title="wrap_text">
+            <wup-icon dimensions="48px" name="wrap_text"></wup-icon>
+            <div class="icon-label">wrap_text</div>
+          </div>
+          <div class="icon-wrapper" title="youtube_searched_for">
+            <wup-icon dimensions="48px" name="youtube_searched_for"></wup-icon>
+            <div class="icon-label">youtube_searched_for</div>
+          </div>
+          <div class="icon-wrapper" title="zoom_out_map">
+            <wup-icon dimensions="48px" name="zoom_out_map"></wup-icon>
+            <div class="icon-label">zoom_out_map</div>
+          </div>
         </div>
       </div>
     </div>

@@ -114,12 +114,12 @@ export class WupTabBar {
 
             if (this.data[i].icon !== '') {
                 iconEl = (
-                    <span
+                    <wup-icon
+                        color="var(--kup-main-color)"
                         class="mdc-tab__icon material-icons"
-                        aria-hidden="true"
-                    >
-                        {this.data[i].icon}
-                    </span>
+                        dimensions="24px"
+                        name={this.data[i].icon}
+                    ></wup-icon>
                 );
             }
 

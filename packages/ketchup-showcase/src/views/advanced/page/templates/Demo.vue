@@ -55,7 +55,7 @@
               <td class="text-cell" v-if="propList.try === 'array'">
                 <wup-text-field
                   full-width
-                  trailingIcon
+                  trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
@@ -111,7 +111,7 @@
             id="json-setter"
             icon="close"
             trailing-icon
-            helperWhenFocused
+            helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
           ></wup-text-field>
@@ -131,7 +131,7 @@
             id="css-setter"
             icon="close"
             trailing-icon
-            helperWhenFocused
+            helper-when-focused
             @kupTextFieldIconClick="cssSetSwitch"
             @kupTextFieldInput="cssSet"
           ></wup-text-field>

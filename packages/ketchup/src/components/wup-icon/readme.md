@@ -21,12 +21,14 @@
 ### Used by
 
  - [wup-button](../wup-button)
+ - [wup-tab-bar](../wup-tab-bar)
  - [wup-text-field](../wup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
   wup-button --> wup-icon
+  wup-tab-bar --> wup-icon
   wup-text-field --> wup-icon
   style wup-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
