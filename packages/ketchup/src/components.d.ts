@@ -499,6 +499,7 @@ export namespace Components {
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
+    'getInternalState': () => Promise<{ groups: GroupObject[]; filters: GenericMap; data: TableData; }>;
     /**
     * When set to true it activates the global filter.
     */

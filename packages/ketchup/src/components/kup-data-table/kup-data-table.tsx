@@ -1139,6 +1139,16 @@ export class KupDataTable {
         this.adjustGroupState();
     }
 
+    @Method()
+    async getInternalState() {
+        // TODO - Just for test
+        return {
+            groups: this.groups,
+            filters: this.filters,
+            data: this.data,
+        };
+    }
+
     // Handler for loadMore button is clicked.
     private onLoadMoreClick() {
         let loadItems: number = 0;

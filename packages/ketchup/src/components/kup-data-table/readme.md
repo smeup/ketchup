@@ -106,6 +106,16 @@ Type: `Promise<Column[]>`
 
 
 
+### `getInternalState() => Promise<{ groups: GroupObject[]; filters: GenericMap; data: TableData; }>`
+
+
+
+#### Returns
+
+Type: `Promise<{ groups: GroupObject[]; filters: GenericMap; data: TableData; }>`
+
+
+
 
 ## CSS Custom Properties
 
