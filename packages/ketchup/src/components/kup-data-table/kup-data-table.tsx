@@ -18,6 +18,7 @@ import { positionRecalc } from '../../utils/recalc-position';
 import {
     Cell,
     Column,
+    FixedCellsClasses,
     GenericMap,
     GroupLabelDisplayMode,
     GroupObject,
@@ -113,6 +114,24 @@ export class KupDataTable {
      */
     @Prop({ mutable: true })
     filters: GenericMap = {};
+
+    /**
+     * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedRows.
+     * @see fixedRows
+     */
+    @Prop({reflect: true})
+    fixedColumns: number = 0;
+
+    /**
+     * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedColumns.
+     * @see fixedColumns
+     */
+    @Prop({reflect: true})
+    fixedRows: number = 0;
 
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
@@ -1735,7 +1754,7 @@ export class KupDataTable {
         return footer;
     }
 
-    private renderRow(row: Row, level = 0, previousRow?: Row) {
+    private renderRow(row: Row, level = 0, previousRow?: Row, rowIsFixed: boolean = false) {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
@@ -1854,7 +1873,7 @@ export class KupDataTable {
                             level + 1,
                             groupRowIndex > 0
                                 ? currentArray[groupRowIndex - 1]
-                                : null
+                                : null,
                         )
                     )
                     .forEach((jsxRow) => {
@@ -1869,10 +1888,11 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            const cells = visibleColumns.map((currentColumn, index) => {
+            //-- Renders plain rows cells --
+            const cells = visibleColumns.map((currentColumn, cellIndex) => {
                 const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
-                if (index === 0) {
+                if (cellIndex === 0) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
@@ -1925,10 +1945,14 @@ export class KupDataTable {
                         : null
                 );
 
+                // Classes which will be set onto the single data-table cell
                 const cellClass = {
                     'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
+                    // Checks if the cell current column is fixed or not. Uses the cellIndex since it matches the column
+                    [FixedCellsClasses.columns]: Number.isInteger(this.fixedColumns) && (cellIndex + 1) <= this.fixedColumns,
+                    [FixedCellsClasses.rows]: rowIsFixed,
                 };
 
                 let cellStyle = null;
@@ -2579,7 +2603,8 @@ export class KupDataTable {
                     this.renderRow(
                         row,
                         0,
-                        rowIndex > 0 ? currentArray[rowIndex - 1] : null
+                        rowIndex > 0 ? currentArray[rowIndex - 1] : null,
+                        Number.isInteger(this.fixedRows) && (rowIndex + 1) <= this.fixedRows,
                     )
                 )
                 .forEach((jsxRow) => {
