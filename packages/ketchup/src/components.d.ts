@@ -499,6 +499,14 @@ export namespace Components {
     */
     'filters': GenericMap;
     /**
+    * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+    */
+    'fixedColumns': number;
+    /**
+    * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
+    */
+    'fixedRows': number;
+    /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
@@ -2201,6 +2209,14 @@ declare namespace LocalJSX {
     * List of filters set by the user.
     */
     'filters'?: GenericMap;
+    /**
+    * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+    */
+    'fixedColumns'?: number;
+    /**
+    * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
+    */
+    'fixedRows'?: number;
     /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */

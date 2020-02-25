@@ -116,6 +116,11 @@
   z-index: 0;
 }
 
+%fixedCellsBase {
+  position: sticky;
+  z-index: 1;
+}
+
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
@@ -315,6 +320,7 @@
       }
     }
 
+    //-------- data-table main body --------
     > tbody {
       border: 1px solid var(--dtt_border-color);
       cursor: auto;
@@ -329,6 +335,9 @@
             transition: background-color 250ms ease-in-out;
           }
         }
+
+        position: relative;
+        z-index: 0;
 
         // grouping
         &.group {
@@ -458,6 +467,17 @@
           .cell-image {
             max-height: var(--dtt_cell-image_max-height);
             min-height: var(--dtt_cell-image_min-height);
+          }
+
+          //-- Fixed cells (rows and columns) --
+          &.fixed-column {
+            left: 0;
+            @extend %fixedCellsBase;
+          }
+
+          &.fixed-row {
+            top: 0;
+            @extend %fixedCellsBase;
           }
         }
       }
