@@ -2011,11 +2011,13 @@ export class KupDataTable {
 
                 if (validFixedColumn) {
                     cellClass[FixedCellsClasses.columns] = validFixedColumn;
+                    cellClass['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
                     cellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + cellCssIndex + ')';
                 }
 
                 if (validFixedRowIndex) {
                   cellClass[FixedCellsClasses.rows] = !!validFixedRowIndex;
+                  cellClass['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
                   cellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
                 }
                 //-- END: fixed --

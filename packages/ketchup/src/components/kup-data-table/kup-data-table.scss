@@ -145,11 +145,46 @@ $sticky-cell--row-z-index: 4;
 //-- Fixed cells (rows and columns) --
 $fixed-row-class: fixed-row;
 
+@mixin fixedRowSeparator($bottom-position) {
+  bottom: $bottom-position;
+  border-bottom: 1px solid var(--dtt_border-color);
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: auto;
+  z-index: 1;
+}
+
+@mixin fixedColumnSeparator($right-position) {
+  bottom: 0;
+  border-right: 1px solid var(--dtt_border-color);
+  content: '';
+  height: auto;
+  position: absolute;
+  right: $right-position;
+  top: 0;
+  width: 0;
+  z-index: 1;
+}
+
 // For a fixed row
 .#{$fixed-row-class} {
   @extend %fixedCellsBase;
   top: 0;
   z-index: $sticky-cell--row-z-index;
+
+  // When the cell must keep its border
+  &.show-row-separator::after {
+    @include fixedRowSeparator(-1px);
+  }
+
+  @supports (-moz-appearance:none) {
+    .row-separation &::after {
+      @include fixedRowSeparator(0);
+    }
+  }
 }
 
 // For a fixed column
@@ -157,7 +192,18 @@ $fixed-row-class: fixed-row;
 .fixed-column {
   @extend %fixedCellsBase;
   left: 0;
-  z-index: $sticky-cell--row-z-index; // Must be higher than row
+  z-index: $sticky-cell--column-z-index; // Must be higher than row
+
+  // When the cell must keep its border
+  &.show-column-separator::before {
+    @include fixedColumnSeparator(-1px);
+  }
+
+  @supports (-moz-appearance:none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+  }
 
   &.#{$fixed-row-class} {
     z-index: $sticky-cell--row-column-z-index; // Must be higher than column
@@ -379,9 +425,6 @@ $fixed-row-class: fixed-row;
             transition: background-color 250ms ease-in-out;
           }
         }
-
-        position: relative;
-        z-index: 0;
 
         // grouping
         &.group {
