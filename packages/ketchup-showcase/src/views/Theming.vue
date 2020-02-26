@@ -337,6 +337,22 @@
                     ></wup-text-field>
                   </td>
                 </tr>
+                <tr>
+                  <td class="prevent-cr">
+                    <span class="code-word">--kup-chip-background-color</span>
+                  </td>
+                  <td>Sets the background color of chips.</td>
+                  <td class="prevent-cr">
+                    <span class="code-word">color</span>
+                  </td>
+                  <td class="text-cell">
+                    <wup-text-field
+                      full-width
+                      id="chip-background-color"
+                      @kupTextFieldInput="updateCSS"
+                    ></wup-text-field>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

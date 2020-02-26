@@ -4,8 +4,22 @@
   display: var(--kup-display-mode);
 
   #kup-component {
+    & .mdc-chip {
+      background-color: var(--kup-chip-background-color);
+      color: var(--kup-text-color);
+    }
+
+    & .mdc-chip-set--choice .mdc-chip--selected {
+      color: var(--kup-main-color);
+    }
+
     & .mdc-chip__primary-action {
       outline: none;
+    }
+
+    & svg path {
+      color: var(--kup-text-color);
+      stroke: var(--kup-text-color);
     }
 
     & .mdc-chip__icon--leading-hidden {
