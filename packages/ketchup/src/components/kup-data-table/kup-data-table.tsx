@@ -19,6 +19,7 @@ import {
     Cell,
     Column,
     FixedCellsClasses,
+    FixedCellsCSSVarsBase,
     GenericMap,
     GroupLabelDisplayMode,
     GroupObject,
@@ -70,6 +71,7 @@ import {
     isStringObject,
     isCheckbox,
 } from '../../utils/object-utils';
+import {GenericObject} from "../../types/GenericTypes";
 
 @Component({
     tag: 'kup-data-table',
@@ -388,8 +390,8 @@ export class KupDataTable {
      * @private
      */
     private theadRef: any;
-    private tableRef: HTMLTableSectionElement;
-    private tableAreaRef: HTMLTableSectionElement;
+    private tableRef: HTMLTableElement;
+    private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
     private customizePanelRef: any;
 
@@ -523,7 +525,7 @@ export class KupDataTable {
     };
 
     stickyHeaderPosition = () => {
-        let tableBody: any = this.tableRef;
+        let tableBody: HTMLTableElement = this.tableRef;
         if (tableBody) {
             let el: any = this.stickyTheadRef;
             let parent: any = tableBody.closest('.below-wrapper');
@@ -625,7 +627,7 @@ export class KupDataTable {
     //     }
     // );
 
-    // lifecycle
+    //======== Lifecycle Hooks ========
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
@@ -634,6 +636,7 @@ export class KupDataTable {
             this.forceGroupExpansion();
         }
     }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
@@ -661,6 +664,8 @@ export class KupDataTable {
                 );
             }
         }
+
+        this.updateFixedRowsAndColumnsCssVariables();
     }
 
     componentDidLoad() {
@@ -687,6 +692,7 @@ export class KupDataTable {
         document.removeEventListener('resize', this.stickyHeaderPosition);
     }
 
+    //======== Utility methods ========
     private hasTooltip(cell: Cell) {
         return (
             cell.obj &&
@@ -894,7 +900,44 @@ export class KupDataTable {
         }
     }
 
-    // event listeners
+    //==== Fixed columns and rows methods ====
+    private updateFixedRowsAndColumnsCssVariables(): boolean {
+        // When grouping, the fixed rows and columns are not sticky
+        if (this.isGrouping() || !this.tableRef) return false;
+        let toRet: boolean = false;
+
+        const tableTbody: HTMLTableSectionElement = this.tableRef.querySelector('tbody');
+
+        if (this.fixedRows >= 1) {
+            let currentRow: HTMLTableRowElement = this.tableRef.querySelector('tbody > tr:first-of-type');
+            let previousHeight: number = 0;
+
+            // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
+            for (let i = 1; i <= this.fixedRows && currentRow; i++) {
+                tableTbody.style.setProperty(FixedCellsCSSVarsBase.rows + i, previousHeight + 'px');
+                previousHeight += (currentRow.children[0] as HTMLTableCellElement).offsetHeight;
+                currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
+            }
+            toRet = true;
+        }
+
+        if (this.fixedColumns >= 1) {
+            let currentCell: HTMLTableCellElement = this.tableRef.querySelector('tbody > tr:first-of-type > td:first-of-type');
+            let previousWidth: number = 0;
+
+            // @See [CSSCount]
+            for (let i = 1; i <= this.fixedColumns && currentCell; i++) {
+                tableTbody.style.setProperty(FixedCellsCSSVarsBase.columns + i, previousWidth + 'px');
+                previousWidth += currentCell.offsetWidth;
+                currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
+            }
+          toRet = true;
+        }
+
+        return toRet;
+    }
+
+    //======== Event Listeners ========
     private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -1754,7 +1797,7 @@ export class KupDataTable {
         return footer;
     }
 
-    private renderRow(row: Row, level = 0, previousRow?: Row, rowIsFixed: boolean = false) {
+    private renderRow(row: Row, level = 0, previousRow?: Row, rowCssIndex: number = 0) {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
@@ -1950,15 +1993,32 @@ export class KupDataTable {
                     'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
-                    // Checks if the cell current column is fixed or not. Uses the cellIndex since it matches the column
-                    [FixedCellsClasses.columns]: Number.isInteger(this.fixedColumns) && (cellIndex + 1) <= this.fixedColumns,
-                    [FixedCellsClasses.rows]: rowIsFixed,
                 };
 
-                let cellStyle = null;
+                let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
                 }
+
+                //-- Controls if there are fixed rows or columns --
+                const cellCssIndex: number = (cellIndex + 1);
+                const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && cellCssIndex <= this.fixedColumns;
+                const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
+
+                if (!cellStyle && (validFixedColumn || validFixedRowIndex)) {
+                    cellStyle = {};
+                }
+
+                if (validFixedColumn) {
+                    cellClass[FixedCellsClasses.columns] = validFixedColumn;
+                    cellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + cellCssIndex + ')';
+                }
+
+                if (validFixedRowIndex) {
+                  cellClass[FixedCellsClasses.rows] = !!validFixedRowIndex;
+                  cellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
+                }
+                //-- END: fixed --
 
                 // Controls if there are columns with a specified width
                 if (this.columnsWidth && this.columnsWidth.length) {
@@ -2604,7 +2664,7 @@ export class KupDataTable {
                         row,
                         0,
                         rowIndex > 0 ? currentArray[rowIndex - 1] : null,
-                        Number.isInteger(this.fixedRows) && (rowIndex + 1) <= this.fixedRows,
+                        rowIndex + 1,
                     )
                 )
                 .forEach((jsxRow) => {
@@ -2707,15 +2767,12 @@ export class KupDataTable {
                 </div>
                 <div
                     class="below-wrapper"
-                    ref={(el) => (this.tableAreaRef = el as any)}
+                    ref={(el: HTMLDivElement) => this.tableAreaRef = el}
                 >
                     {groupChips}
                     <table
                         class={tableClass}
-                        ref={(el: HTMLTableElement) =>
-                            (this.tableRef = el as any)
-                        }
-                    >
+                        ref={(el: HTMLTableElement) => this.tableRef = el}>
                         <thead
                             hidden={!this.showHeader}
                             ref={(el) => (this.theadRef = el as any)}

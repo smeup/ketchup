@@ -6,27 +6,25 @@ h3 {
 
 <template>
   <div>
-    <h3>Test</h3>
+    <h3>Fixed columns (2)</h3>
     <kup-data-table
       :data.prop="data"
       :showFilters.prop="true"
       fixed-columns="2"/>
 
-    <h3>Group labels configuration</h3>
-    <div>Here you can change the visualization mode of the labels of the group:</div>
-    <kup-combo
-      :items.prop="comboboxLabelModes"
-      :initial-value.prop="comboboxLabelModes[0]"
-      label="Select label position"
-      @ketchupComboSelected="onDisplayedLabelChange"
-    />
-    <br />
-    <br />
+    <h3>Fixed rows (3)</h3>
     <kup-data-table
       :data.prop="data"
-      :groupLabelDisplay.prop="selectedLabelMode"
-      :groups.prop="group1"
       :showFilters.prop="true"
+      fixed-rows="3"
+    />
+
+    <h3>Fixed columns (3) rows (4)</h3>
+    <kup-data-table
+      :data.prop="data"
+      :showFilters.prop="true"
+      fixed-columns="3"
+      fixed-rows="4"
     />
 
     <h3>Single group (hidden)</h3>
@@ -48,7 +46,6 @@ h3 {
 
 <script>
 import { groupDataTable } from '@/mock/dataTable';
-const labelModes = ['both', 'label', 'value'];
 
 export default {
   name: 'DatatableFixedColumnsRows',
@@ -57,8 +54,6 @@ export default {
       data: {
         ...groupDataTable,
       },
-      labelModes,
-      selectedLabelMode: labelModes[0],
       group1: [
         {
           column: 'FLD0',
@@ -92,20 +87,6 @@ export default {
         FLD2: 'Count',
       },
     };
-  },
-  computed: {
-    comboboxLabelModes() {
-      return this.labelModes.map((mode) => {
-        return {
-          id: mode,
-        };
-      });
-    },
-  },
-  methods: {
-    onDisplayedLabelChange(e) {
-      this.selectedLabelMode = e.detail.value.id;
-    },
   },
 };
 </script>
