@@ -116,11 +116,49 @@
   z-index: 0;
 }
 
+//-------- Fixed columns and rows declarations --------
+// The z-index of the data table main wrapper.
+$table-below-wrapper--z-index: 0;
+// z-indexes to allow correct layering of different pieces of fixed and sticky positioning
+// These values must be decreasing order
+$sticky-header--z-index: 10;
+$sticky-cell--row-column-z-index: 8;
+$sticky-cell--column-z-index: 6;
+$sticky-cell--row-z-index: 4;
+
+// Base style for the cells which are sticky
 %fixedCellsBase {
+  background-color: var(--dtt_background-color);
   position: sticky;
-  z-index: 1;
+
+  &:hover {
+    background-color: var(--dtt_hover-background-color);
+  }
 }
 
+//-- Fixed cells (rows and columns) --
+$fixed-row-class: fixed-row;
+
+// For a fixed row
+.#{$fixed-row-class} {
+  @extend %fixedCellsBase;
+  top: 0;
+  z-index: $sticky-cell--row-z-index;
+}
+
+// For a fixed column
+// MUST be after to take precedence
+.fixed-column {
+  @extend %fixedCellsBase;
+  left: 0;
+  z-index: $sticky-cell--row-z-index; // Must be higher than row
+
+  &.#{$fixed-row-class} {
+    z-index: $sticky-cell--row-column-z-index; // Must be higher than column
+  }
+}
+
+//-------- TABLE WRAPPER --------
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
@@ -128,6 +166,8 @@
   // contains the table and other bottom elements of the matrix
   .below-wrapper {
     overflow-x: auto;
+    position: relative;
+    z-index: $table-below-wrapper--z-index;
   }
 
   /*
@@ -468,17 +508,6 @@
             max-height: var(--dtt_cell-image_max-height);
             min-height: var(--dtt_cell-image_min-height);
           }
-
-          //-- Fixed cells (rows and columns) --
-          &.fixed-column {
-            left: 0;
-            @extend %fixedCellsBase;
-          }
-
-          &.fixed-row {
-            top: 0;
-            @extend %fixedCellsBase;
-          }
         }
       }
     }
@@ -512,6 +541,7 @@
         &.activated {
           opacity: 1;
           pointer-events: all;
+          z-index: $sticky-header--z-index;
         }
 
         &[hidden] {

@@ -160,3 +160,8 @@ export const FixedCellsClasses = {
     columns: 'fixed-column',
     rows: 'fixed-row'
 };
+
+export const FixedCellsCSSVarsBase = {
+  columns: '--ddt_column-left-',
+  rows: '--ddt_row-top-'
+};
