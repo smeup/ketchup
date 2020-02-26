@@ -16,14 +16,16 @@ h3 {
     <kup-data-table
       :data.prop="data"
       :showFilters.prop="true"
+      :style="smallTableStyle"
       fixed-rows="3"
     />
 
-    <h3>Fixed columns (3) rows (4)</h3>
+    <h3>Fixed columns (2) rows (4)</h3>
     <kup-data-table
       :data.prop="data"
       :showFilters.prop="true"
-      fixed-columns="3"
+      :style="smallTableStyle"
+      fixed-columns="2"
       fixed-rows="4"
     />
 
@@ -83,6 +85,9 @@ export default {
           visible: false,
         },
       ],
+      smallTableStyle: {
+          '--dtt_table-wrapper-height': '200px',
+      },
       totals1: {
         FLD2: 'Count',
       },

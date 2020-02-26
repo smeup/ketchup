@@ -28,6 +28,7 @@
 * @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
 * @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
 * @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
+* @prop --dtt_table-wrapper-height, --kup-data-table_table-wrapper-height: The height of the table inside the data table.
 */
 
 :host {
@@ -112,6 +113,11 @@
     transparent
   );
 
+  --dtt_table-wrapper-height: var(
+      --kup-data-table_table-wrapper-height,
+      auto
+  );
+
   position: relative;
   z-index: 0;
 }
@@ -165,7 +171,8 @@ $fixed-row-class: fixed-row;
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
   .below-wrapper {
-    overflow-x: auto;
+    height: var(--dtt_table-wrapper-height);
+    overflow: auto;
     position: relative;
     z-index: $table-below-wrapper--z-index;
   }

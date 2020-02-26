@@ -140,6 +140,7 @@ Type: `Promise<Column[]>`
 | `--dtt_paginator-background, --kup-data-table_paginator-background`       | Color of the paginator's background.                                    |
 | `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                                         |
 | `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                                |
+| `--dtt_table-wrapper-height, --kup-data-table_table-wrapper-height`       | The height of the table inside the data table.                          |
 | `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                |
 
 
