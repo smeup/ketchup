@@ -1,6 +1,11 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+    ></demo>
   </div>
 </template>
 
@@ -37,7 +42,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-text-field icon="sentiment_satisfied" initial-value="Some text" label="Demo" id="demo-component"></wup-text-field>',
+        '<wup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></wup-text-field>',
       demoProps: [
         {
           prop: 'customStyle',

@@ -36,7 +36,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="favorite" type="svg" ></wup-icon>',
+        '<wup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="widgets" type="svg" ></wup-icon>',
       demoProps: [
         {
           prop: 'color',

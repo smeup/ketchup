@@ -45,7 +45,6 @@ export class WupIcon {
 
     @Watch('resource')
     rerenderIcon() {
-        console.log('loaded');
         this.render();
     }
 

@@ -1,0 +1,23 @@
+@import '@material/chips/mdc-chips';
+
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    & .mdc-chip__primary-action {
+      outline: none;
+    }
+
+    & .mdc-chip__icon--leading-hidden {
+      display: none;
+    }
+
+    & .remove-icon {
+      margin-left: 4px;
+      margin-right: -4px;
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}

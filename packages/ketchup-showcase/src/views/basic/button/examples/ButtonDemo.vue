@@ -42,7 +42,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-button icon="sentiment_satisfied" id="demo-component" label="demo"></wup-button>',
+        '<wup-button icon="widgets" id="demo-component" label="demo"></wup-button>',
       demoProps: [
         {
           prop: 'checked',

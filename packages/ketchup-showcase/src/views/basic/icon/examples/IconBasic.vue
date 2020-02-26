@@ -21,7 +21,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-icon name="favorite"></wup-icon>
+          <wup-icon name="widgets"></wup-icon>
         </div>
         <p class="centered">Favorite icon sample markup</p>
         <code class="flat">{{ markupFavorite }}</code>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       markupBasic: '<wup-icon name="your_icon"></wup-icon>',
-      markupFavorite: '<wup-icon name="favorite"></wup-icon>',
+      markupFavorite: '<wup-icon name="widgets"></wup-icon>',
     };
   },
 };

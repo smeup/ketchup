@@ -116,6 +116,9 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
+  ComponentChipElement,
+} from './components/wup-chip/wup-chip-declarations';
+import {
   ComponentRadioElement,
 } from './components/wup-radio/wup-radio-declarations';
 import {
@@ -1142,6 +1145,20 @@ export namespace Components {
     */
     'leadingLabel': boolean;
   }
+  interface WupChip {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * List of elements.
+    */
+    'data': ComponentChipElement[];
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type': string;
+  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1535,6 +1552,12 @@ declare global {
     new (): HTMLWupCheckboxElement;
   };
 
+  interface HTMLWupChipElement extends Components.WupChip, HTMLStencilElement {}
+  var HTMLWupChipElement: {
+    prototype: HTMLWupChipElement;
+    new (): HTMLWupChipElement;
+  };
+
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
@@ -1611,6 +1634,7 @@ declare global {
     'kup-upload': HTMLKupUploadElement;
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
+    'wup-chip': HTMLWupChipElement;
     'wup-icon': HTMLWupIconElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
@@ -2935,6 +2959,37 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
   }
+  interface WupChip extends JSXBase.HTMLAttributes<HTMLWupChipElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * List of elements.
+    */
+    'data'?: ComponentChipElement[];
+    'onKupChipBlur'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    'onKupChipError'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
+    'onKupChipFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipIconClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type'?: string;
+  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3203,6 +3258,7 @@ declare namespace LocalJSX {
     'kup-upload': KupUpload;
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
+    'wup-chip': WupChip;
     'wup-icon': WupIcon;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;

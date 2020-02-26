@@ -291,6 +291,7 @@
         
         <wup-button full-width label="Fill space"></wup-button>
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
+        <wup-chip type="filter"></wup-chip>
         
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
@@ -533,7 +534,7 @@
             tabBar.data = [
                     {
                         text: 'Favorites',
-                        icon: 'favorites',
+                        icon: 'favorite',
                         active: true
                     },
                     {
@@ -569,6 +570,22 @@ radioList.data = [
             value: 'Settings',
             label: "label 3",
             checked: false
+        },
+    ];
+
+let chipList = document.getElementsByTagName('wup-chip')[0];
+chipList.data = [
+        {
+            value: 'favorites',
+            icon: 'favorite',
+            label: "Favorites",
+            checked: false
+        },
+        {
+            value: 'Set alarm clock',
+            label: "Label 2",
+            icon: 'filter_2',
+            checked: true
         },
     ];
 
