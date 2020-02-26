@@ -27,6 +27,7 @@ h3 {
       :style="smallTableStyle"
       fixed-columns="2"
       fixed-rows="4"
+      show-grid="Complete"
     />
 
     <h3>Single group (hidden)</h3>
