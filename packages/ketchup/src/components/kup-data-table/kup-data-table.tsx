@@ -901,12 +901,12 @@ export class KupDataTable {
     }
 
     //==== Fixed columns and rows methods ====
-    private composeFixedCellStyleAndClass(columnCssIndex: number, rowCssIndex: number): undefined | {
+    private composeFixedCellStyleAndClass(columnCssIndex: number, rowCssIndex: number, extraCellsCount: number = 0): undefined | {
       fixedCellClasses: GenericObject,
       fixedCellStyle: GenericObject
     } {
       //-- Controls if there are fixed rows or columns --
-      const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= (this.fixedColumns + (this.multiSelection ? 1 : 0));
+      const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= this.fixedColumns + extraCellsCount;
       const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
 
       // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
@@ -958,9 +958,10 @@ export class KupDataTable {
         if (this.fixedColumns >= 1) {
             let currentCell: HTMLTableCellElement = this.tableRef.querySelector('tbody > tr:first-of-type > td:first-of-type');
             let previousWidth: number = 0;
+            let totalFixedColumns = this.fixedColumns + (this.hasRowActions() ? 1 : 0) + (this.multiSelection ? 1 : 0);
 
             // @See [CSSCount]
-            for (let i = 1; i <= this.fixedColumns && currentCell; i++) {
+            for (let i = 1; i <= totalFixedColumns && currentCell; i++) {
                 tableTbody.style.setProperty(FixedCellsCSSVarsBase.columns + i, previousWidth + 'px');
                 previousWidth += currentCell.offsetWidth;
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
@@ -1955,7 +1956,86 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            //-- Renders plain rows cells --
+            //-- The row is normal --
+            /**
+             * How many control cells there are before the effective cells
+             */
+            let specialExtraCellsCount: number = 0;
+
+            // Renders selection cell
+            // IF active, this must be the first cell
+            // This is a special cell
+            let selectRowCell = null;
+            if (this.multiSelection) {
+                specialExtraCellsCount++;
+                const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, rowCssIndex, specialExtraCellsCount - 1);
+
+                selectRowCell = (
+                    <td
+                        class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
+                        style={selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : null}>
+                        <input
+                            type="checkbox"
+                            checked={this.selectedRows.includes(row)}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) =>
+                                this.onRowCheckboxSelection(e, row)
+                            }
+                        />
+                    </td>
+                );
+            }
+
+            // Renders action cell
+            // If active, this can be either the first or second cell
+            let rowActionsCell = null;
+            if (this.hasRowActions()) {
+                // Increments
+                specialExtraCellsCount++;
+                const actionsStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, rowCssIndex, specialExtraCellsCount - 1);
+
+                const defaultRowActions = this.renderActions(
+                    this.rowActions,
+                    row,
+                    'default'
+                );
+
+                let rowActionExpander = null;
+                let variableActions = null;
+                if (row.actions) {
+                    // adding variable actions
+                    variableActions = this.renderActions(
+                        row.actions,
+                        row,
+                        'variable'
+                    );
+                } else {
+                    // adding expander
+                    rowActionExpander = (
+                        <span
+                            title="Espandi voci"
+                            class={`row-action mdi mdi-chevron-right`}
+                            onClick={(e) =>
+                                this.onRowActionExpanderClick(e, row)
+                            }
+                            role="button"
+                            aria-label="Espandi voci"
+                        />
+                    );
+                }
+
+                rowActionsCell = (
+                    <td
+                        class={actionsStyleAndClass ? actionsStyleAndClass.fixedCellClasses : null}
+                        style={actionsStyleAndClass ? actionsStyleAndClass.fixedCellStyle : null}>
+                        {defaultRowActions}
+                        {rowActionExpander}
+                        {variableActions}
+                    </td>
+                );
+            }
+
+            // Renders plain rows cells
             const cells = visibleColumns.map((currentColumn, cellIndex) => {
                 const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
@@ -2024,12 +2104,10 @@ export class KupDataTable {
                     cellStyle = cell.style;
                 }
 
-                // For fixed cells
-                const fixedStyles = this.composeFixedCellStyleAndClass(cellIndex + 1, rowCssIndex);
+                //-- For fixed cells --
+                const fixedStyles = this.composeFixedCellStyleAndClass(cellIndex + 1 + specialExtraCellsCount, rowCssIndex, specialExtraCellsCount);
                 if (fixedStyles) {
-                  console.log("bef", cellStyle,fixedStyles.fixedCellStyle);
                   cellStyle = Object.assign(cellStyle ? cellStyle : {}, fixedStyles.fixedCellStyle);
-                  console.log("aft",cellStyle);
                   cellClass = {
                     ...cellClass,
                     ...(fixedStyles.fixedCellClasses)
@@ -2070,70 +2148,8 @@ export class KupDataTable {
                 );
             });
 
-            let selectRowCell = null;
-            if (this.multiSelection) {
-                selectRowCell = (
-                    <td>
-                        <input
-                            type="checkbox"
-                            checked={this.selectedRows.includes(row)}
-                            onClick={(e) => e.stopPropagation()}
-                            onChange={(e) =>
-                                this.onRowCheckboxSelection(e, row)
-                            }
-                        />
-                    </td>
-                );
-            }
-
-            let groupingCell = null;
-            // if (this.isGrouping() && this.hasTotals()) {
-            //     groupingCell = <td />;
-            // }
-
             // adding row to rendered rows
             this.renderedRows.push(row);
-
-            let rowActionsCell = null;
-            if (this.hasRowActions()) {
-                const defaultRowActions = this.renderActions(
-                    this.rowActions,
-                    row,
-                    'default'
-                );
-
-                let rowActionExpander = null;
-                let variableActions = null;
-                if (row.actions) {
-                    // adding variable actions
-                    variableActions = this.renderActions(
-                        row.actions,
-                        row,
-                        'variable'
-                    );
-                } else {
-                    // adding expander
-                    rowActionExpander = (
-                        <span
-                            title="Espandi voci"
-                            class={`row-action mdi mdi-chevron-right`}
-                            onClick={(e) =>
-                                this.onRowActionExpanderClick(e, row)
-                            }
-                            role="button"
-                            aria-label="Espandi voci"
-                        />
-                    );
-                }
-
-                rowActionsCell = (
-                    <td>
-                        {defaultRowActions}
-                        {rowActionExpander}
-                        {variableActions}
-                    </td>
-                );
-            }
 
             const rowClass = {
                 selected: this.selectedRows.includes(row),
@@ -2142,7 +2158,6 @@ export class KupDataTable {
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
                     {selectRowCell}
-                    {groupingCell}
                     {rowActionsCell}
                     {cells}
                 </tr>
