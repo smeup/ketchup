@@ -67,7 +67,6 @@ export class WupIcon {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        console.log('will render');
         this.fetchResource();
     }
 
