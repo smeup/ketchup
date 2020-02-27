@@ -159,14 +159,14 @@ export class WupButton {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
-            const buttonRipple = MDCRipple.attachTo(
-                root.querySelector('.kup-button')
-            );
-            const iconEl = root.querySelector('.kup-button');
-            if (iconEl.classList.contains('mdc-icon-button')) {
-                buttonRipple.unbounded = true;
-                if (iconEl.classList.contains('toggable')) {
-                    new MDCIconButtonToggle(iconEl);
+            let button = root.querySelector('.kup-button');
+            if (button != undefined) {
+                const buttonRipple = MDCRipple.attachTo(button);
+                if (button.classList.contains('mdc-icon-button')) {
+                    buttonRipple.unbounded = true;
+                    if (button.classList.contains('toggable')) {
+                        new MDCIconButtonToggle(button);
+                    }
                 }
             }
         }
