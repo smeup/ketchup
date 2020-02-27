@@ -332,7 +332,6 @@ export class KupDataTable {
     private loadMoreEventPreviousQuantity: number = 0;
 
     private scrollOnHoverInstance: scrollOnHover;
-    private positionRecalcInstance: positionRecalc;
 
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
@@ -620,15 +619,11 @@ export class KupDataTable {
         document.addEventListener('click', this.onDocumentClick);
         document.addEventListener('scroll', this.stickyHeaderPosition);
         document.addEventListener('resize', this.stickyHeaderPosition);
-        this.positionRecalcInstance = new positionRecalc();
         if (this.customizePanelRef) {
             let customizeAnchor = this.customizePanelRef
                 .closest('.paginator-wrapper')
                 .getElementsByClassName('custom-settings')[0];
-            this.positionRecalcInstance.positionRecalcSetup(
-                this.customizePanelRef,
-                customizeAnchor
-            );
+            positionRecalc(this.customizePanelRef, customizeAnchor);
         }
 
         if (root != null) {
@@ -636,10 +631,7 @@ export class KupDataTable {
 
             for (let i = 0; i < menus.length; i++) {
                 let wrapper: any = menus[i].closest('th');
-                this.positionRecalcInstance.positionRecalcSetup(
-                    menus[i],
-                    wrapper
-                );
+                positionRecalc(menus[i], wrapper);
             }
         }
     }

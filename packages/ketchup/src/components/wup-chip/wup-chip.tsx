@@ -34,8 +34,6 @@ export class WupChip {
      */
     @Prop({ reflect: true }) type: string = undefined;
 
-    private errorLoggingInstance: errorLogging;
-
     @Event({
         eventName: 'kupChipBlur',
         composed: true,
@@ -150,17 +148,13 @@ export class WupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    this.errorLoggingInstance.logError('wup-chip', message);
+                    errorLogging('wup-chip', message);
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
                 }
             }
         }
-    }
-
-    componentWillLoad() {
-        this.errorLoggingInstance = new errorLogging();
     }
 
     componentDidRender() {
@@ -197,12 +191,12 @@ export class WupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    this.errorLoggingInstance.logError('wup-chip', message);
+                    errorLogging('wup-chip', message);
             }
         }
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            this.errorLoggingInstance.logError('wup-chip', message);
+            errorLogging('wup-chip', message);
         }
         for (let i = 0; i < this.data.length; i++) {
             let componentClass: string = 'mdc-chip';
