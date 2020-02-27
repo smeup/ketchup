@@ -2601,13 +2601,6 @@
             <wup-icon dimensions="48px" name="play_arrow"></wup-icon>
             <div class="icon-label">play_arrow</div>
           </div>
-          <div class="icon-wrapper" title="play_circle_filled_white">
-            <wup-icon
-              dimensions="48px"
-              name="play_circle_filled_white"
-            ></wup-icon>
-            <div class="icon-label">play_circle_filled_white</div>
-          </div>
           <div class="icon-wrapper" title="play_circle_filled">
             <wup-icon dimensions="48px" name="play_circle_filled"></wup-icon>
             <div class="icon-label">play_circle_filled</div>

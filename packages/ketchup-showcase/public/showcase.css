@@ -762,6 +762,7 @@ table.instruction-table th {
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
+  white-space: pre;
 }
 
 .kup-container wup-icon {
