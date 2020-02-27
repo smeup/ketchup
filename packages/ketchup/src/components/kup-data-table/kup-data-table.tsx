@@ -395,6 +395,9 @@ export class KupDataTable {
      */
     private theadRef: any;
     private tableRef: HTMLTableElement;
+    /**
+     * Reference to the working area of teh table. This is the below-wrapper reference.
+     */
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
     private customizePanelRef: any;
@@ -934,15 +937,14 @@ export class KupDataTable {
         if (this.isGrouping() || !this.tableRef) return false;
         let toRet: boolean = false;
 
-        const tableTbody: HTMLTableSectionElement = this.tableRef.querySelector('tbody');
-
         if (this.fixedRows >= 1) {
             let currentRow: HTMLTableRowElement = this.tableRef.querySelector('tbody > tr:first-of-type');
-            let previousHeight: number = 0;
+            // The height must start from the height of the header
+            let previousHeight: number = (this.tableRef.querySelector('thead > tr:first-of-type > th:first-of-type') as HTMLTableCellElement).offsetHeight;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
-                tableTbody.style.setProperty(FixedCellsCSSVarsBase.rows + i, previousHeight + 'px');
+                this.tableAreaRef.style.setProperty(FixedCellsCSSVarsBase.rows + i, previousHeight + 'px');
                 previousHeight += (currentRow.children[0] as HTMLTableCellElement).offsetHeight;
                 currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
             }
@@ -956,7 +958,7 @@ export class KupDataTable {
 
             // @See [CSSCount]
             for (let i = 1; i <= totalFixedColumns && currentCell; i++) {
-                tableTbody.style.setProperty(FixedCellsCSSVarsBase.columns + i, previousWidth + 'px');
+                this.tableAreaRef.style.setProperty(FixedCellsCSSVarsBase.columns + i, previousWidth + 'px');
                 previousWidth += currentCell.offsetWidth;
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
             }
@@ -1431,42 +1433,106 @@ export class KupDataTable {
     /**
      * Given the parameters return the classes and style for each table header cell
      * @param columnName - The name of the columns currently being examinated
+     * @param columnIndex - The index of the current column
+     * @param extraCells - the extra cells rendered into the table
      * @param columnIsNumber - If the current columns contains numeric values
      */
-    private composeHeaderCellClassAndStyle(columnName: string, columnIsNumber: boolean = false): {
+    private composeHeaderCellClassAndStyle(columnName: string, columnIndex: number, extraCells: number = 0, columnIsNumber: boolean = false): {
       columnClass: GenericObject,
       thStyle: GenericObject
     } {
-      let columnClass: GenericObject = {},
-        thStyle: GenericObject = {};
+        let columnClass: GenericObject = {},
+            thStyle: GenericObject = {};
 
-      // Checks if data table columns have custom width
-      if (this.columnsWidth.length > 0) {
-        for (let i = 0; i < this.columnsWidth.length; i++) {
-          const currentCol = this.columnsWidth[i];
+        // Checks if data table columns have custom width
+        if (this.columnsWidth.length > 0) {
+            for (let i = 0; i < this.columnsWidth.length; i++) {
+                const currentCol = this.columnsWidth[i];
 
-          if (currentCol.column === columnName) {
-            const width = currentCol.width.toString() + 'px';
-            thStyle = {
-              width,
-              minWidth: width,
-              maxWidth: width,
-            };
-            break;
-          }
+                if (currentCol.column === columnName) {
+                    const width = currentCol.width.toString() + 'px';
+                    thStyle = {
+                        width,
+                        minWidth: width,
+                        maxWidth: width,
+                    };
+                    break;
+                }
+            }
         }
-      }
 
-      columnClass.number = columnIsNumber;
+        // Special class column hosts numbers
+        columnClass.number = columnIsNumber;
 
-      return {
-        columnClass,
-        thStyle
-      };
+        // For fixed cells styles and classes
+        const fixedCellStyle = this.composeFixedCellStyleAndClass(columnIndex + 1 + extraCells, 0, extraCells);
+        if (fixedCellStyle) {
+            columnClass = {
+                ...columnClass,
+                ...(fixedCellStyle.fixedCellClasses)
+            };
+            thStyle = {
+                ...thStyle,
+                ...(fixedCellStyle.fixedCellStyle)
+            };
+        }
+
+        return {
+            columnClass,
+            thStyle
+        };
     }
 
     private renderHeader() {
-        const dataColumns = this.getVisibleColumns().map((column) => {
+        let specialExtraCellsCount: number = 0;
+
+        // Renders multiple selection column
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+                ...(selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : {})
+            };
+
+            multiSelectColumn = (
+                <th
+                    class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : {}}
+                    style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length === this.renderedRows.length
+                        }
+                    />
+                </th>
+            );
+        }
+
+        //  let groupColumn = null;
+        //  if (this.isGrouping() && this.hasTotals()) {
+        //      groupColumn = <th />;
+        //  }
+
+        // Renders action column
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            actionsColumn = <th
+                class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : {}}
+                style={selectionStyleAndClass? selectionStyleAndClass.fixedCellStyle : {}}/>;
+        }
+
+        // Renders normal cells
+        const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
@@ -1690,7 +1756,12 @@ export class KupDataTable {
             }
 
             // Composes column cell style and classes
-            let {thStyle, columnClass} = this.composeHeaderCellClassAndStyle(column.name, column.obj ? isNumber(column.obj) : false);
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
+                column.name,
+                columnIndex,
+                specialExtraCellsCount,
+                column.obj ? isNumber(column.obj) : false
+            );
 
             return (
                 <th
@@ -1710,71 +1781,34 @@ export class KupDataTable {
             );
         });
 
-        let multiSelectColumn = null;
-        if (this.multiSelection) {
-            const style = {
-                width: '30px',
-                margin: '0 auto',
-            };
-            multiSelectColumn = (
-                <th style={style}>
-                    <input
-                        type="checkbox"
-                        onChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
-                        checked={
-                            this.selectedRows.length > 0 &&
-                            this.selectedRows.length ===
-                                this.renderedRows.length
-                        }
-                    />
-                </th>
-            );
-        }
-
-        //  let groupColumn = null;
-        //  if (this.isGrouping() && this.hasTotals()) {
-        //      groupColumn = <th />;
-        //  }
-
-        let actionsColumn = null;
-        if (this.hasRowActions()) {
-            actionsColumn = <th />;
-        }
-
         return [multiSelectColumn, actionsColumn, ...dataColumns];
         //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     private renderStickyHeader() {
-        const dataColumns = this.getVisibleColumns().map((column) => {
-            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(column.name, column.obj ? isNumber(column.obj) : false);
-
-            return (
-                <th-sticky class={columnClass} style={thStyle}>
-                    <span class="column-title">
-                        {this.applyLineBreaks(column.title)}
-                    </span>
-                </th-sticky>
-            );
-        });
+        let specialExtraCellsCount: number = 0;
 
         let multiSelectColumn = null;
         if (this.multiSelection) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
             const style = {
                 width: '30px',
                 margin: '0 auto',
+                ...(selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : {})
             };
             multiSelectColumn = (
-                <th-sticky style={style}>
+                <th-sticky
+                    class={selectionStyleAndClass.fixedCellClasses}
+                    style={style}>
                     <input
                         type="checkbox"
                         onChange={(e) => this.onSelectAll(e)}
                         title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
                         checked={
                             this.selectedRows.length > 0 &&
-                            this.selectedRows.length ===
-                                this.renderedRows.length
+                            this.selectedRows.length === this.renderedRows.length
                         }
                     />
                 </th-sticky>
@@ -1786,10 +1820,34 @@ export class KupDataTable {
         //     groupColumn = <th-sticky />;
         // }
 
+        // Empty cell for the actions
         let actionsColumn = null;
         if (this.hasRowActions()) {
-            actionsColumn = <th-sticky />;
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            actionsColumn = <th-sticky
+                class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
+                style={selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : null}/>;
         }
+
+        // Composes normal header cells
+        const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
+                column.name,
+                columnIndex,
+                specialExtraCellsCount,
+                column.obj ? isNumber(column.obj) : false
+            );
+
+            return (
+                <th-sticky class={columnClass} style={thStyle}>
+                    <span class="column-title">
+                       {this.applyLineBreaks(column.title)}
+                    </span>
+                </th-sticky>
+            );
+        });
 
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }

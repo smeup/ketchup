@@ -280,9 +280,9 @@ $fixed-row-class: fixed-row;
         border-right: 1px solid var(--dtt_border-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
-        position: relative;
+        position: sticky; // This is used for sticky positioning the header when table is short
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
-        top: 0;
+        top: 0; // This is mandatory for the sticky
         // Enforce consistent vertical alignment with sibiling header cells
         //  when filter field or sort/filter icons are present.
         vertical-align: bottom;
