@@ -25,10 +25,13 @@
         background: var(--kup-disabled-background-color);
       }
 
-      &.fillspace {
+      &.fullwidth {
         width: 100%;
-      }  
+      }
 
+      &.fullheight {
+        height: 100%;
+      }
     }
 
     & .mdc-icon-button {

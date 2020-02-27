@@ -34,6 +34,10 @@
       }
     }
 
+    wup-icon {
+      cursor: pointer;
+    }
+
     & .mdc-text-field {
       @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
       @include mdc-text-field-fullwidth-bottom-line-color(

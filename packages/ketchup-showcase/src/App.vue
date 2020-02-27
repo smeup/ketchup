@@ -278,6 +278,18 @@ export default {
             },
           },
           {
+            title: `Chip`,
+            to: {
+              name: 'chip',
+            },
+          },
+          {
+            title: `Icon`,
+            to: {
+              name: 'icon',
+            },
+          },
+          {
             title: `Radio`,
             to: {
               name: 'radio',

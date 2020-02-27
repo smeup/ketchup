@@ -262,10 +262,9 @@
         <span>icon:</span><wup-button icon="favorite"></wup-button>
         <span>disabled:</span><wup-button disabled icon="favorite"></wup-button>
         <span>toggable:</span><wup-button toggable icon="favorite"></wup-button>
-        <span>toggable+icon-off:</span><wup-button toggable icon="zoom_out" icon-off="zoom_in"></wup-button>
+        <span>toggable+icon-off:</span><wup-button toggable icon="fullscreen" icon-off="fullscreen_exit"></wup-button>
         <span>toggable+checked:</span><wup-button toggable checked icon="favorite"></wup-button>
         <span>icon+tooltip:</span><wup-button tooltip="Tooltip" icon="favorite"></wup-button>
-        <span>extra icons:</span><wup-button icon-url="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" icon="mdi mdi-paw" ></wup-button>
         
         <!-- -->
         <wup-button label="Flat" flat></wup-button>
@@ -287,14 +286,13 @@
             outlined
             label="Shaped & outlined"
         ></wup-button>
-        <wup-button fillspace label="Fill space"></wup-button>
-        <wup-button showicon="false" label="Hide icon" icon="favorite"></wup-button>
-        <span>Hide text:</span><wup-button showtext="false" label="Hide text" icon="favorite"></wup-button>
+        <wup-icon color="red" name="favorite"></wup-icon>
+        <wup-icon name="favorite"></wup-icon>
+        
+        <wup-button full-width label="Fill space"></wup-button>
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
-        <span>Hint:</span><wup-button textmode="Hint" label="With Hint" icon="favorite"></wup-button>
-        <wup-button image-src="http://placehold.it/32x32&text=X" label="Additional image" icon="favorite"></wup-button>
-        <wup-button icon-url="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" icon="mdi mdi-paw" label="Extra icons" ></wup-button>
-
+        <wup-chip type="filter"></wup-chip>
+        
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" label="I am a label"></wup-text-field>
@@ -381,6 +379,10 @@
       {
         name: '--kup-field-background-color',
         value: '#2a2a2a',
+      },
+      {
+        name: '--kup-chip-background-color',
+        value: '#222222',
       },
       {
         name: '--mdc-theme-primary',
@@ -536,7 +538,7 @@
             tabBar.data = [
                     {
                         text: 'Favorites',
-                        icon: 'favorites',
+                        icon: 'favorite',
                         active: true
                     },
                     {
@@ -572,6 +574,22 @@ radioList.data = [
             value: 'Settings',
             label: "label 3",
             checked: false
+        },
+    ];
+
+let chipList = document.getElementsByTagName('wup-chip')[0];
+chipList.data = [
+        {
+            value: 'favorites',
+            icon: 'favorite',
+            label: "Favorites",
+            checked: false
+        },
+        {
+            value: 'Set alarm clock',
+            label: "Label 2",
+            icon: 'filter_2',
+            checked: true
         },
     ];
 
@@ -1172,6 +1190,7 @@ radioList.data = [
             --kup-disabled-text-color: #5c5c5c;
             --kup-disabled-background-color: #eaeaea;
             --kup-field-background-color: #fafafa;
+            --kup-chip-background-color: #eaeaea;
 
             --mdc-theme-primary: var(--kup-main-color);
             --mdc-theme-on-primary: var(--kup-text-on-main-color);

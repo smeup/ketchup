@@ -155,6 +155,16 @@ let basicRoutes = [
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
   },
   {
+    path: `/chip`,
+    name: 'chip',
+    component: () => import(`@/views/basic/chip/Chip.vue`),
+  },
+  {
+    path: `/icon`,
+    name: 'icon',
+    component: () => import(`@/views/basic/icon/Icon.vue`),
+  },
+  {
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
