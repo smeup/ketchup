@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>Here is the list of all available icons sorted alphabetically.</p>
+      <p>List of official Material Design icons.</p>
       <div class="demo-container">
         <div class="kup-container">
           <div class="icon-wrapper" title="3d_rotation">
@@ -33,7 +33,10 @@
             <div class="icon-label">accessible</div>
           </div>
           <div class="icon-wrapper" title="account_balance_wallet">
-            <wup-icon dimensions="48px" name="account_balance_wallet"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="account_balance_wallet"
+            ></wup-icon>
             <div class="icon-label">account_balance_wallet</div>
           </div>
           <div class="icon-wrapper" title="account_balance">
@@ -101,7 +104,10 @@
             <div class="icon-label">adjust</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_flat_angled">
-            <wup-icon dimensions="48px" name="airline_seat_flat_angled"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_flat_angled"
+            ></wup-icon>
             <div class="icon-label">airline_seat_flat_angled</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_flat">
@@ -109,27 +115,45 @@
             <div class="icon-label">airline_seat_flat</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_individual_suite">
-            <wup-icon dimensions="48px" name="airline_seat_individual_suite"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_individual_suite"
+            ></wup-icon>
             <div class="icon-label">airline_seat_individual_suite</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_legroom_extra">
-            <wup-icon dimensions="48px" name="airline_seat_legroom_extra"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_legroom_extra"
+            ></wup-icon>
             <div class="icon-label">airline_seat_legroom_extra</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_legroom_normal">
-            <wup-icon dimensions="48px" name="airline_seat_legroom_normal"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_legroom_normal"
+            ></wup-icon>
             <div class="icon-label">airline_seat_legroom_normal</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_legroom_reduced">
-            <wup-icon dimensions="48px" name="airline_seat_legroom_reduced"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_legroom_reduced"
+            ></wup-icon>
             <div class="icon-label">airline_seat_legroom_reduced</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_recline_extra">
-            <wup-icon dimensions="48px" name="airline_seat_recline_extra"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_recline_extra"
+            ></wup-icon>
             <div class="icon-label">airline_seat_recline_extra</div>
           </div>
           <div class="icon-wrapper" title="airline_seat_recline_normal">
-            <wup-icon dimensions="48px" name="airline_seat_recline_normal"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="airline_seat_recline_normal"
+            ></wup-icon>
             <div class="icon-label">airline_seat_recline_normal</div>
           </div>
           <div class="icon-wrapper" title="airplanemode_active">
@@ -197,7 +221,10 @@
             <div class="icon-label">arrow_downward</div>
           </div>
           <div class="icon-wrapper" title="arrow_drop_down_circle">
-            <wup-icon dimensions="48px" name="arrow_drop_down_circle"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="arrow_drop_down_circle"
+            ></wup-icon>
             <div class="icon-label">arrow_drop_down_circle</div>
           </div>
           <div class="icon-wrapper" title="arrow_drop_down">
@@ -661,7 +688,10 @@
             <div class="icon-label">chat</div>
           </div>
           <div class="icon-wrapper" title="check_box_outline_blank">
-            <wup-icon dimensions="48px" name="check_box_outline_blank"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="check_box_outline_blank"
+            ></wup-icon>
             <div class="icon-label">check_box_outline_blank</div>
           </div>
           <div class="icon-wrapper" title="check_box">
@@ -805,7 +835,10 @@
             <div class="icon-label">content_paste</div>
           </div>
           <div class="icon-wrapper" title="control_point_duplicate">
-            <wup-icon dimensions="48px" name="control_point_duplicate"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="control_point_duplicate"
+            ></wup-icon>
             <div class="icon-label">control_point_duplicate</div>
           </div>
           <div class="icon-wrapper" title="control_point">
@@ -1409,11 +1442,17 @@
             <div class="icon-label">format_color_text</div>
           </div>
           <div class="icon-wrapper" title="format_indent_decrease">
-            <wup-icon dimensions="48px" name="format_indent_decrease"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="format_indent_decrease"
+            ></wup-icon>
             <div class="icon-label">format_indent_decrease</div>
           </div>
           <div class="icon-wrapper" title="format_indent_increase">
-            <wup-icon dimensions="48px" name="format_indent_increase"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="format_indent_increase"
+            ></wup-icon>
             <div class="icon-label">format_indent_increase</div>
           </div>
           <div class="icon-wrapper" title="format_italic">
@@ -1453,11 +1492,17 @@
             <div class="icon-label">format_strikethrough</div>
           </div>
           <div class="icon-wrapper" title="format_textdirection_l_to_r">
-            <wup-icon dimensions="48px" name="format_textdirection_l_to_r"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="format_textdirection_l_to_r"
+            ></wup-icon>
             <div class="icon-label">format_textdirection_l_to_r</div>
           </div>
           <div class="icon-wrapper" title="format_textdirection_r_to_l">
-            <wup-icon dimensions="48px" name="format_textdirection_r_to_l"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="format_textdirection_r_to_l"
+            ></wup-icon>
             <div class="icon-label">format_textdirection_r_to_l</div>
           </div>
           <div class="icon-wrapper" title="format_underlined">
@@ -1913,7 +1958,10 @@
             <div class="icon-label">local_car_wash</div>
           </div>
           <div class="icon-wrapper" title="local_convenience_store">
-            <wup-icon dimensions="48px" name="local_convenience_store"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="local_convenience_store"
+            ></wup-icon>
             <div class="icon-label">local_convenience_store</div>
           </div>
           <div class="icon-wrapper" title="local_dining">
@@ -2401,7 +2449,10 @@
             <div class="icon-label">perm_data_setting</div>
           </div>
           <div class="icon-wrapper" title="perm_device_information">
-            <wup-icon dimensions="48px" name="perm_device_information"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="perm_device_information"
+            ></wup-icon>
             <div class="icon-label">perm_device_information</div>
           </div>
           <div class="icon-wrapper" title="perm_identity">
@@ -2453,7 +2504,10 @@
             <div class="icon-label">phone_android</div>
           </div>
           <div class="icon-wrapper" title="phone_bluetooth_speaker">
-            <wup-icon dimensions="48px" name="phone_bluetooth_speaker"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="phone_bluetooth_speaker"
+            ></wup-icon>
             <div class="icon-label">phone_bluetooth_speaker</div>
           </div>
           <div class="icon-wrapper" title="phone_forwarded">
@@ -2517,7 +2571,10 @@
             <div class="icon-label">picture_as_pdf</div>
           </div>
           <div class="icon-wrapper" title="picture_in_picture_alt">
-            <wup-icon dimensions="48px" name="picture_in_picture_alt"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="picture_in_picture_alt"
+            ></wup-icon>
             <div class="icon-label">picture_in_picture_alt</div>
           </div>
           <div class="icon-wrapper" title="picture_in_picture">
@@ -2545,7 +2602,10 @@
             <div class="icon-label">play_arrow</div>
           </div>
           <div class="icon-wrapper" title="play_circle_filled_white">
-            <wup-icon dimensions="48px" name="play_circle_filled_white"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="play_circle_filled_white"
+            ></wup-icon>
             <div class="icon-label">play_circle_filled_white</div>
           </div>
           <div class="icon-wrapper" title="play_circle_filled">
@@ -2657,7 +2717,10 @@
             <div class="icon-label">radio_button_checked</div>
           </div>
           <div class="icon-wrapper" title="radio_button_unchecked">
-            <wup-icon dimensions="48px" name="radio_button_unchecked"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="radio_button_unchecked"
+            ></wup-icon>
             <div class="icon-label">radio_button_unchecked</div>
           </div>
           <div class="icon-wrapper" title="radio">
@@ -2881,7 +2944,10 @@
             <div class="icon-label">send</div>
           </div>
           <div class="icon-wrapper" title="sentiment_dissatisfied">
-            <wup-icon dimensions="48px" name="sentiment_dissatisfied"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="sentiment_dissatisfied"
+            ></wup-icon>
             <div class="icon-label">sentiment_dissatisfied</div>
           </div>
           <div class="icon-wrapper" title="sentiment_neutral">
@@ -2893,11 +2959,17 @@
             <div class="icon-label">sentiment_satisfied</div>
           </div>
           <div class="icon-wrapper" title="sentiment_very_dissatisfied">
-            <wup-icon dimensions="48px" name="sentiment_very_dissatisfied"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="sentiment_very_dissatisfied"
+            ></wup-icon>
             <div class="icon-label">sentiment_very_dissatisfied</div>
           </div>
           <div class="icon-wrapper" title="sentiment_very_satisfied">
-            <wup-icon dimensions="48px" name="sentiment_very_satisfied"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="sentiment_very_satisfied"
+            ></wup-icon>
             <div class="icon-label">sentiment_very_satisfied</div>
           </div>
           <div class="icon-wrapper" title="settings_applications">
@@ -2905,7 +2977,10 @@
             <div class="icon-label">settings_applications</div>
           </div>
           <div class="icon-wrapper" title="settings_backup_restore">
-            <wup-icon dimensions="48px" name="settings_backup_restore"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="settings_backup_restore"
+            ></wup-icon>
             <div class="icon-label">settings_backup_restore</div>
           </div>
           <div class="icon-wrapper" title="settings_bluetooth">
@@ -2925,15 +3000,24 @@
             <div class="icon-label">settings_ethernet</div>
           </div>
           <div class="icon-wrapper" title="settings_input_antenna">
-            <wup-icon dimensions="48px" name="settings_input_antenna"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="settings_input_antenna"
+            ></wup-icon>
             <div class="icon-label">settings_input_antenna</div>
           </div>
           <div class="icon-wrapper" title="settings_input_component">
-            <wup-icon dimensions="48px" name="settings_input_component"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="settings_input_component"
+            ></wup-icon>
             <div class="icon-label">settings_input_component</div>
           </div>
           <div class="icon-wrapper" title="settings_input_composite">
-            <wup-icon dimensions="48px" name="settings_input_composite"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="settings_input_composite"
+            ></wup-icon>
             <div class="icon-label">settings_input_composite</div>
           </div>
           <div class="icon-wrapper" title="settings_input_hdmi">
@@ -2961,7 +3045,10 @@
             <div class="icon-label">settings_remote</div>
           </div>
           <div class="icon-wrapper" title="settings_system_daydream">
-            <wup-icon dimensions="48px" name="settings_system_daydream"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="settings_system_daydream"
+            ></wup-icon>
             <div class="icon-label">settings_system_daydream</div>
           </div>
           <div class="icon-wrapper" title="settings_voice">
@@ -3024,28 +3111,71 @@
             <wup-icon dimensions="48px" name="signal_cellular_4_bar"></wup-icon>
             <div class="icon-label">signal_cellular_4_bar</div>
           </div>
-          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_0_bar">
-            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_0_bar"></wup-icon>
-            <div class="icon-label">signal_cellular_connected_no_internet_0_bar</div>
+          <div
+            class="icon-wrapper"
+            title="signal_cellular_connected_no_internet_0_bar"
+          >
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_connected_no_internet_0_bar"
+            ></wup-icon>
+            <div class="icon-label"
+              >signal_cellular_connected_no_internet_0_bar</div
+            >
           </div>
-          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_1_bar">
-            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_1_bar"></wup-icon>
-            <div class="icon-label">signal_cellular_connected_no_internet_1_bar</div>
+          <div
+            class="icon-wrapper"
+            title="signal_cellular_connected_no_internet_1_bar"
+          >
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_connected_no_internet_1_bar"
+            ></wup-icon>
+            <div class="icon-label"
+              >signal_cellular_connected_no_internet_1_bar</div
+            >
           </div>
-          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_2_bar">
-            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_2_bar"></wup-icon>
-            <div class="icon-label">signal_cellular_connected_no_internet_2_bar</div>
+          <div
+            class="icon-wrapper"
+            title="signal_cellular_connected_no_internet_2_bar"
+          >
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_connected_no_internet_2_bar"
+            ></wup-icon>
+            <div class="icon-label"
+              >signal_cellular_connected_no_internet_2_bar</div
+            >
           </div>
-          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_3_bar">
-            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_3_bar"></wup-icon>
-            <div class="icon-label">signal_cellular_connected_no_internet_3_bar</div>
+          <div
+            class="icon-wrapper"
+            title="signal_cellular_connected_no_internet_3_bar"
+          >
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_connected_no_internet_3_bar"
+            ></wup-icon>
+            <div class="icon-label"
+              >signal_cellular_connected_no_internet_3_bar</div
+            >
           </div>
-          <div class="icon-wrapper" title="signal_cellular_connected_no_internet_4_bar">
-            <wup-icon dimensions="48px" name="signal_cellular_connected_no_internet_4_bar"></wup-icon>
-            <div class="icon-label">signal_cellular_connected_no_internet_4_bar</div>
+          <div
+            class="icon-wrapper"
+            title="signal_cellular_connected_no_internet_4_bar"
+          >
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_connected_no_internet_4_bar"
+            ></wup-icon>
+            <div class="icon-label"
+              >signal_cellular_connected_no_internet_4_bar</div
+            >
           </div>
           <div class="icon-wrapper" title="signal_cellular_no_sim">
-            <wup-icon dimensions="48px" name="signal_cellular_no_sim"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="signal_cellular_no_sim"
+            ></wup-icon>
             <div class="icon-label">signal_cellular_no_sim</div>
           </div>
           <div class="icon-wrapper" title="signal_cellular_null">
@@ -3061,7 +3191,10 @@
             <div class="icon-label">signal_wifi_0_bar</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_1_bar_lock">
-            <wup-icon dimensions="48px" name="signal_wifi_1_bar_lock"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="signal_wifi_1_bar_lock"
+            ></wup-icon>
             <div class="icon-label">signal_wifi_1_bar_lock</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_1_bar">
@@ -3069,7 +3202,10 @@
             <div class="icon-label">signal_wifi_1_bar</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_2_bar_lock">
-            <wup-icon dimensions="48px" name="signal_wifi_2_bar_lock"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="signal_wifi_2_bar_lock"
+            ></wup-icon>
             <div class="icon-label">signal_wifi_2_bar_lock</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_2_bar">
@@ -3077,7 +3213,10 @@
             <div class="icon-label">signal_wifi_2_bar</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_3_bar_lock">
-            <wup-icon dimensions="48px" name="signal_wifi_3_bar_lock"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="signal_wifi_3_bar_lock"
+            ></wup-icon>
             <div class="icon-label">signal_wifi_3_bar_lock</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_3_bar">
@@ -3085,7 +3224,10 @@
             <div class="icon-label">signal_wifi_3_bar</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_4_bar_lock">
-            <wup-icon dimensions="48px" name="signal_wifi_4_bar_lock"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="signal_wifi_4_bar_lock"
+            ></wup-icon>
             <div class="icon-label">signal_wifi_4_bar_lock</div>
           </div>
           <div class="icon-wrapper" title="signal_wifi_4_bar">
@@ -3189,7 +3331,10 @@
             <div class="icon-label">stars</div>
           </div>
           <div class="icon-wrapper" title="stay_current_landscape">
-            <wup-icon dimensions="48px" name="stay_current_landscape"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="stay_current_landscape"
+            ></wup-icon>
             <div class="icon-label">stay_current_landscape</div>
           </div>
           <div class="icon-wrapper" title="stay_current_portrait">
@@ -3197,7 +3342,10 @@
             <div class="icon-label">stay_current_portrait</div>
           </div>
           <div class="icon-wrapper" title="stay_primary_landscape">
-            <wup-icon dimensions="48px" name="stay_primary_landscape"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="stay_primary_landscape"
+            ></wup-icon>
             <div class="icon-label">stay_primary_landscape</div>
           </div>
           <div class="icon-wrapper" title="stay_primary_portrait">
@@ -3241,11 +3389,17 @@
             <div class="icon-label">style</div>
           </div>
           <div class="icon-wrapper" title="subdirectory_arrow_left">
-            <wup-icon dimensions="48px" name="subdirectory_arrow_left"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="subdirectory_arrow_left"
+            ></wup-icon>
             <div class="icon-label">subdirectory_arrow_left</div>
           </div>
           <div class="icon-wrapper" title="subdirectory_arrow_right">
-            <wup-icon dimensions="48px" name="subdirectory_arrow_right"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="subdirectory_arrow_right"
+            ></wup-icon>
             <div class="icon-label">subdirectory_arrow_right</div>
           </div>
           <div class="icon-wrapper" title="subject">
@@ -3453,7 +3607,10 @@
             <div class="icon-label">tram</div>
           </div>
           <div class="icon-wrapper" title="transfer_within_a_station">
-            <wup-icon dimensions="48px" name="transfer_within_a_station"></wup-icon>
+            <wup-icon
+              dimensions="48px"
+              name="transfer_within_a_station"
+            ></wup-icon>
             <div class="icon-label">transfer_within_a_station</div>
           </div>
           <div class="icon-wrapper" title="transform">
@@ -3748,7 +3905,7 @@
 
 <script>
 export default {
-  name: 'IconList',
+  name: 'IconMaterialList',
   data() {
     return {};
   },

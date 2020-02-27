@@ -8,7 +8,10 @@
         <icon-basic></icon-basic>
       </template>
       <template v-slot:2>
-        <icon-list></icon-list>
+        <icon-material-list></icon-material-list>
+      </template>
+      <template v-slot:3>
+        <icon-extra-list></icon-extra-list>
       </template>
     </comp>
   </div>
@@ -17,13 +20,15 @@
 <script>
 import IconDemo from '@/views/basic/icon/examples/IconDemo';
 import IconBasic from '@/views/basic/icon/examples/IconBasic';
-import IconList from '@/views/basic/icon/examples/IconList';
+import IconMaterialList from '@/views/basic/icon/examples/IconMaterialList';
+import IconExtraList from '@/views/basic/icon/examples/IconExtraList';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     IconDemo,
     IconBasic,
-    IconList,
+    IconMaterialList,
+    IconExtraList,
     Comp,
   },
   data() {
@@ -31,7 +36,12 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-icon',
       headtitle: 'Icon',
-      titles: ['Playground', 'Basic usage', 'List'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'Material Design icons list',
+        'Extra icons list',
+      ],
     };
   },
 };
