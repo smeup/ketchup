@@ -203,6 +203,10 @@ $fixed-row-class: fixed-row;
     .column-separation &::before {
       @include fixedColumnSeparator(0);
     }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(-1px);
+    }
   }
 
   &.#{$fixed-row-class} {

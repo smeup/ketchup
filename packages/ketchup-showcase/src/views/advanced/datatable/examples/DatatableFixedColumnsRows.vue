@@ -6,11 +6,18 @@ h3 {
 
 <template>
   <div>
-    <h3>Fixed columns (2)</h3>
+    <h3>Fixed columns (2 columns and show-grid = Row)</h3>
     <kup-data-table
       :data.prop="data"
       :showFilters.prop="true"
       fixed-columns="2"/>
+
+    <h3>Fixed columns (2 columns and show-grid = Col)</h3>
+    <kup-data-table
+      :data.prop="data"
+      :showFilters.prop="true"
+      fixed-columns="2"
+      show-grid="Col"/>
 
     <h3>Fixed rows (3)</h3>
     <kup-data-table
