@@ -895,6 +895,40 @@ export class KupDataTable {
     }
 
     //==== Fixed columns and rows methods ====
+    private composeFixedCellStyleAndClass(columnCssIndex: number, rowCssIndex: number): undefined | {
+      fixedCellClasses: GenericObject,
+      fixedCellStyle: GenericObject
+    } {
+      //-- Controls if there are fixed rows or columns --
+      const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= (this.fixedColumns + (this.multiSelection ? 1 : 0));
+      const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
+
+      // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
+      if (!validFixedRowIndex && !validFixedColumn) {
+        return undefined;
+      }
+
+      const fixedCellClasses: GenericObject = {},
+        fixedCellStyle: GenericObject = {};
+
+      if (validFixedColumn) {
+        fixedCellClasses[FixedCellsClasses.columns] = validFixedColumn;
+        fixedCellClasses['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
+        fixedCellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
+      }
+
+      if (validFixedRowIndex) {
+        fixedCellClasses[FixedCellsClasses.rows] = !!validFixedRowIndex;
+        fixedCellClasses['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
+        fixedCellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
+      }
+
+      return {
+        fixedCellClasses,
+        fixedCellStyle
+      };
+    }
+
     private updateFixedRowsAndColumnsCssVariables(): boolean {
         // When grouping, the fixed rows and columns are not sticky
         if (this.isGrouping() || !this.tableRef) return false;
@@ -1393,9 +1427,44 @@ export class KupDataTable {
     }
 
     //======== render methods ========
-    private renderHeader() {
-        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
+    /**
+     * Given the parameters return the classes and style for each table header cell
+     * @param columnName - The name of the columns currently being examinated
+     * @param columnIsNumber - If the current columns contains numeric values
+     */
+    private composeHeaderCellClassAndStyle(columnName: string, columnIsNumber: boolean = false): {
+      columnClass: GenericObject,
+      thStyle: GenericObject
+    } {
+      let columnClass: GenericObject = {},
+        thStyle: GenericObject = {};
 
+      // Checks if data table columns have custom width
+      if (this.columnsWidth.length > 0) {
+        for (let i = 0; i < this.columnsWidth.length; i++) {
+          const currentCol = this.columnsWidth[i];
+
+          if (currentCol.column === columnName) {
+            const width = currentCol.width.toString() + 'px';
+            thStyle = {
+              width,
+              minWidth: width,
+              maxWidth: width,
+            };
+            break;
+          }
+        }
+      }
+
+      columnClass.number = columnIsNumber;
+
+      return {
+        columnClass,
+        thStyle
+      };
+    }
+
+    private renderHeader() {
         const dataColumns = this.getVisibleColumns().map((column) => {
             //---- Filter ----
             let filter = null;
@@ -1477,23 +1546,6 @@ export class KupDataTable {
                         />
                     </span>
                 );
-            }
-
-            let thStyle = null;
-            if (hasCustomColumnsWidth) {
-                for (let i = 0; i < this.columnsWidth.length; i++) {
-                    const currentCol = this.columnsWidth[i];
-
-                    if (currentCol.column === column.name) {
-                        const width = currentCol.width.toString() + 'px';
-                        thStyle = {
-                            width,
-                            minWidth: width,
-                            maxWidth: width,
-                        };
-                        break;
-                    }
-                }
             }
 
             const columnMenuItems: JSX.Element[] = [];
@@ -1636,12 +1688,8 @@ export class KupDataTable {
                 };
             }
 
-            let columnClass = {};
-            if (column.obj) {
-                columnClass = {
-                    number: isNumber(column.obj),
-                };
-            }
+            // Composes column cell style and classes
+            let {thStyle, columnClass} = this.composeHeaderCellClassAndStyle(column.name, column.obj ? isNumber(column.obj) : false);
 
             return (
                 <th
@@ -1698,32 +1746,8 @@ export class KupDataTable {
     }
 
     private renderStickyHeader() {
-        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
-
         const dataColumns = this.getVisibleColumns().map((column) => {
-            let thStyle = null;
-            if (hasCustomColumnsWidth) {
-                for (let i = 0; i < this.columnsWidth.length; i++) {
-                    const currentCol = this.columnsWidth[i];
-
-                    if (currentCol.column === column.name) {
-                        const width = currentCol.width.toString() + 'px';
-                        thStyle = {
-                            width,
-                            minWidth: width,
-                            maxWidth: width,
-                        };
-                        break;
-                    }
-                }
-            }
-
-            let columnClass = {};
-            if (column.obj) {
-                columnClass = {
-                    number: isNumber(column.obj),
-                };
-            }
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(column.name, column.obj ? isNumber(column.obj) : false);
 
             return (
                 <th-sticky class={columnClass} style={thStyle}>
@@ -1989,7 +2013,7 @@ export class KupDataTable {
                 );
 
                 // Classes which will be set onto the single data-table cell
-                const cellClass = {
+                let cellClass = {
                     'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
@@ -2000,27 +2024,17 @@ export class KupDataTable {
                     cellStyle = cell.style;
                 }
 
-                //-- Controls if there are fixed rows or columns --
-                const cellCssIndex: number = (cellIndex + 1);
-                const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && cellCssIndex <= this.fixedColumns;
-                const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
-
-                if (!cellStyle && (validFixedColumn || validFixedRowIndex)) {
-                    cellStyle = {};
+                // For fixed cells
+                const fixedStyles = this.composeFixedCellStyleAndClass(cellIndex + 1, rowCssIndex);
+                if (fixedStyles) {
+                  console.log("bef", cellStyle,fixedStyles.fixedCellStyle);
+                  cellStyle = Object.assign(cellStyle ? cellStyle : {}, fixedStyles.fixedCellStyle);
+                  console.log("aft",cellStyle);
+                  cellClass = {
+                    ...cellClass,
+                    ...(fixedStyles.fixedCellClasses)
+                  };
                 }
-
-                if (validFixedColumn) {
-                    cellClass[FixedCellsClasses.columns] = validFixedColumn;
-                    cellClass['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
-                    cellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + cellCssIndex + ')';
-                }
-
-                if (validFixedRowIndex) {
-                  cellClass[FixedCellsClasses.rows] = !!validFixedRowIndex;
-                  cellClass['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
-                  cellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
-                }
-                //-- END: fixed --
 
                 // Controls if there are columns with a specified width
                 if (this.columnsWidth.length > 0) {
