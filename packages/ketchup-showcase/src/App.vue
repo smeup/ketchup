@@ -319,6 +319,12 @@ export default {
         title: 'Javascript',
         javascriptItems: [
           {
+            title: 'Error logging',
+            to: {
+              name: 'errorlogging',
+            },
+          },
+          {
             title: 'Scroll on hover',
             to: {
               name: 'scrollonhover',

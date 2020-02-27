@@ -130,6 +130,11 @@ let advancedRoutes = [
 
 let javascriptRoutes = [
   {
+    path: `/errorlogging`,
+    name: 'errorlogging',
+    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+  },
+  {
     path: `/scrollonhover`,
     name: 'scrollonhover',
     component: () =>
