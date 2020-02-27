@@ -37,17 +37,18 @@ h3 {
       show-grid="Complete"
     />
 
-    <h3>Single group (hidden)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group2" />
+    <h3>Fixed columns (2) and rows (3) with multiple selection and actions activated</h3>
+    <kup-data-table
+      :data.prop="data"
+      :rowActions.prop="rowActions"
+      :showFilters.prop="true"
+      :style="smallTableStyle"
+      fixed-columns="2"
+      fixed-rows="3"
+      multi-selection/>
 
     <h3>Multiple group (visible)</h3>
     <kup-data-table :data.prop="data" :groups.prop="group3" />
-
-    <h3>Multiple group (hidden)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group4" />
-
-    <h3>Single group and totals</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group1" :totals.prop="totals1" />
 
     <h3>Multiple group and expansion</h3>
     <kup-data-table :data.prop="data" :groups.prop="group3" :expandGroups.prop="true" />
@@ -64,17 +65,6 @@ export default {
       data: {
         ...groupDataTable,
       },
-      group1: [
-        {
-          column: 'FLD0',
-        },
-      ],
-      group2: [
-        {
-          column: 'FLD0',
-          visible: false,
-        },
-      ],
       group3: [
         {
           column: 'FLD0',
@@ -83,19 +73,19 @@ export default {
           column: 'FLD1',
         },
       ],
-      group4: [
-        {
-          column: 'FLD0',
-          visible: false,
-        },
-        {
-          column: 'FLD1',
-          visible: false,
-        },
-      ],
       smallTableStyle: {
-          '--dtt_table-wrapper-height': '200px',
+          '--dtt_table-wrapper-height': '250px',
       },
+      rowActions: [
+          {
+              text: 'Action #1',
+              icon: 'mdi mdi-folder',
+          },
+          {
+              text: 'Action #2',
+              icon: 'mdi mdi-account',
+          },
+      ],
       totals1: {
         FLD2: 'Count',
       },
