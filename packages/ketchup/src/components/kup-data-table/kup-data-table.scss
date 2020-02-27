@@ -199,6 +199,7 @@ $fixed-row-class: fixed-row;
     @include fixedColumnSeparator(-1px);
   }
 
+  // This is a small fix for Firefox since it has a strange bug which "compresses" the content of the sticky cells
   @supports (-moz-appearance:none) {
     .column-separation &::before {
       @include fixedColumnSeparator(0);
