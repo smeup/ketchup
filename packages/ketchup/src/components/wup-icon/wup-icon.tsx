@@ -67,7 +67,12 @@ export class WupIcon {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        this.fetchResource();
+        if (this.type === 'svg') {
+            this.fetchResource();
+        } else {
+            this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type;
+        }
     }
 
     render() {
