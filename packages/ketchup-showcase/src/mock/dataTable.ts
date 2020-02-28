@@ -157,7 +157,7 @@ export const defaultDataTable = {
     },
     {
       name: 'FLD2',
-      title: 'Working License',
+      title: 'Working|License',
       size: 10,
     },
     {
