@@ -85,15 +85,30 @@ export class WupIcon {
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
         }
-        el = el.replace('height="48"', 'height="100%"');
-        el = el.replace('width="48"', 'width="100%"');
-        el = el.replace('fill="#010101"', '');
+        if (this.type === 'svg') {
+            el = el.replace('height="48"', 'height="100%"');
+            el = el.replace('width="48"', 'width="100%"');
+            el = el.replace('fill="#010101"', '');
 
-        return (
-            <Host style={elStyle}>
-                {customStyle}
-                <div id="kup-component" innerHTML={el} style={elStyle}></div>
-            </Host>
-        );
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div
+                        id="kup-component"
+                        innerHTML={el}
+                        style={elStyle}
+                    ></div>
+                </Host>
+            );
+        } else {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" style={elStyle}>
+                        <img style={elStyle} src={el}></img>
+                    </div>
+                </Host>
+            );
+        }
     }
 }
