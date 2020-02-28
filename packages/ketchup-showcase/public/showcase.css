@@ -753,7 +753,7 @@ table.instruction-table th {
 .icon-wrapper {
   height: 120px;
   width: 120px;
-  padding: 1.25rem;
+  padding: 0.25rem;
   margin: auto;
 }
 
@@ -762,6 +762,7 @@ table.instruction-table th {
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
+  white-space: pre;
 }
 
 .kup-container wup-icon {

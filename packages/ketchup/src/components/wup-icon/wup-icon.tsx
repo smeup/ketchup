@@ -4,10 +4,10 @@ import {
     Element,
     Host,
     State,
-    Watch,
     getAssetPath,
     h,
 } from '@stencil/core';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'wup-icon',
@@ -43,31 +43,36 @@ export class WupIcon {
      */
     @Prop({ reflect: true }) type: string = 'svg';
 
-    @Watch('resource')
-    rerenderIcon() {
-        this.render();
+    //---- Methods ----
+
+    fetchResource() {
+        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
+        fetch(res)
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Icon( ' + res + ' ) was not loaded!');
+                }
+            })
+            .then((text) => {
+                this.resource = text;
+            })
+            .catch((error) => {
+                let message = error;
+                errorLogging('wup-icon', message);
+            });
     }
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {
-        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
-        fetch(res)
-            .then((file) => file.text())
-            .then((text) => {
-                this.resource = text;
-            })
-            .catch(console.error.bind(console));
-    }
-
-    componentWillUpdate() {
-        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
-        fetch(res)
-            .then((file) => file.text())
-            .then((text) => {
-                this.resource = text;
-            })
-            .catch(console.error.bind(console));
+    componentWillRender() {
+        if (this.type === 'svg') {
+            this.fetchResource();
+        } else {
+            this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type;
+        }
     }
 
     render() {
@@ -85,15 +90,34 @@ export class WupIcon {
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
         }
-        el = el.replace('height="48"', 'height="100%"');
-        el = el.replace('width="48"', 'width="100%"');
-        el = el.replace('fill="#010101"', '');
+        if (this.type === 'svg') {
+            el = el.replace('height="24"', 'height="100%"');
+            el = el.replace('width="24"', 'width="100%"');
+            el = el.replace('height="48"', 'height="100%"');
+            el = el.replace('width="48"', 'width="100%"');
+            el = el.replace('fill="#010101"', '');
+            el = el.replace('fill="#000000"', '');
+            el = el.replace('fill="#ffffff"', '');
 
-        return (
-            <Host style={elStyle}>
-                {customStyle}
-                <div id="kup-component" innerHTML={el} style={elStyle}></div>
-            </Host>
-        );
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div
+                        id="kup-component"
+                        innerHTML={el}
+                        style={elStyle}
+                    ></div>
+                </Host>
+            );
+        } else {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" style={elStyle}>
+                        <img style={elStyle} src={el}></img>
+                    </div>
+                </Host>
+            );
+        }
     }
 }
