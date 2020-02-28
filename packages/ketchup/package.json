@@ -25,6 +25,7 @@
         "dist/"
     ],
     "scripts": {
+        "buildnodocs": "stencil build",
         "build": "stencil build --docs",
         "start": "stencil build --dev --watch --serve",
         "start--es5": "stencil build --dev --watch --serve --es5",

@@ -38,6 +38,11 @@ export default {
                   { content: [{ column: 'FLD3', shape: 'PGB' }] },
                 ],
               },
+              {
+                sections: [
+                  { content: [{ column: 'FLD4', shape: 'EDT' }] }
+                ],
+              }
             ],
           },
         ],

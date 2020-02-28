@@ -193,3 +193,12 @@ export function isInputText(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'ITX' === shape || !shape;
 }
+
+// -------------
+// INPUT EDITOR
+// -------------
+
+export function isEditor(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'EDT' === shape;
+}

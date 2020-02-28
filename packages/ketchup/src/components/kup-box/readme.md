@@ -85,6 +85,7 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-icon](../kup-icon)
+- [kup-editor](../kup-editor)
 - [kup-combo](../kup-combo)
 - [kup-paginator](../kup-paginator)
 
@@ -100,6 +101,7 @@ graph TD;
   kup-box --> kup-progress-bar
   kup-box --> kup-chart-cell
   kup-box --> kup-icon
+  kup-box --> kup-editor
   kup-box --> kup-combo
   kup-box --> kup-paginator
   kup-image --> kup-badge

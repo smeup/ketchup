@@ -20,6 +20,11 @@ export const defaultData = {
       title: 'Delivery date',
       size: 10,
     },
+    {
+      name: 'FLD5',
+      title: 'HTML',
+      size: 50,
+    },
   ],
   rows: [
     {
@@ -1122,6 +1127,11 @@ export const shapeData = {
       title: 'Progress',
       size: 10,
     },
+    {
+      name: 'FLD4',
+      title: 'Html',
+      size: 10,
+    },
   ],
   rows: [
     {
@@ -1161,6 +1171,15 @@ export const shapeData = {
           },
           value: '89',
         },
+        FLD4: {
+          obj: {
+            t: 'AR',
+            p: 'ART',
+            k: 'myhtml',
+          },
+          value: 'contenuto <b>grassetto</b> e <i>corsivo</i>',
+        },
+
       },
       layout: {
         sections: [
@@ -1191,6 +1210,15 @@ export const shapeData = {
                       },
                     ],
                   },
+                  {
+                    dim: '50%',
+                    content: [
+                      {
+                        column: 'FLD4',
+                        shape: 'EDT',
+                      },
+                    ],
+                  },              
                 ],
               },
             ],

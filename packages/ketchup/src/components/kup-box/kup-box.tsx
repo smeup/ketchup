@@ -37,6 +37,7 @@ import {
 } from '../../utils/object-utils';
 
 import {
+    isEditor,
     isImage,
     isProgressBar,
     getFromConfig,
@@ -1150,6 +1151,7 @@ export class KupBox {
         let boContent = null;
 
         let boStyle = {};
+        //let boInnerHTML = null;
 
         if (boxObject.column) {
             const cell = row.cells[boxObject.column];
@@ -1284,6 +1286,13 @@ export class KupBox {
                     boContent = (
                         <kup-icon {...buildIconConfig(cell, cell.value)} />
                     );
+                } else if (isEditor(cell, boxObject)) {
+                    boContent = (
+                        <kup-editor
+                            text={cell.value}
+                        ></kup-editor>
+                    );
+
                 } else {
                     boContent = cell.value;
                 }
