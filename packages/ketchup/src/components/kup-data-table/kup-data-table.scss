@@ -140,6 +140,17 @@ $sticky-cell--row-z-index: 4;
   &:hover {
     background-color: var(--dtt_hover-background-color);
   }
+
+  // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
+  thead &,
+  sticky-header & {
+    background-color: var(--dtt_head-background-color);
+    z-index: #{$sticky-header--z-index};
+
+    &:hover {
+      background-color: var(--dtt_head-background-color);
+    }
+  }
 }
 
 //-- Fixed cells (rows and columns) --
@@ -210,6 +221,7 @@ $fixed-row-class: fixed-row;
     }
   }
 
+  // When there is both the column and the row fixed
   &.#{$fixed-row-class} {
     z-index: $sticky-cell--row-column-z-index; // Must be higher than column
   }
