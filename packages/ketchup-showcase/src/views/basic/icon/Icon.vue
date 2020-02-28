@@ -39,8 +39,8 @@ export default {
       titles: [
         'Playground',
         'Basic usage',
-        'Material Design icons list',
-        'Extra icons list',
+        'Material Design SVG List',
+        'Extra SVG icons list',
       ],
     };
   },
