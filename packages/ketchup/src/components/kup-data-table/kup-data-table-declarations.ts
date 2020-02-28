@@ -25,6 +25,7 @@ export interface Column {
     title: string;
     size?: number;
     visible?: boolean;
+    clickable?: boolean;
     hideValuesRepetitions?: boolean;
     obj?: {
         t: string;
