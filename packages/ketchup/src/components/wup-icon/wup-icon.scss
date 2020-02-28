@@ -6,7 +6,8 @@
     margin: auto;
   }
 
-  svg {
-    display: block;
+  svg,
+  img {
+    display: var(--kup-display-mode);
   }
 }
