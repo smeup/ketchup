@@ -587,6 +587,12 @@ export namespace Components {
     */
     'totals': TotalsMap;
   }
+  interface KupEditor {
+    /**
+    * The html to be rendered and edited
+    */
+    'text': string;
+  }
   interface KupFld {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
@@ -1408,6 +1414,12 @@ declare global {
     new (): HTMLKupDataTableElement;
   };
 
+  interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {}
+  var HTMLKupEditorElement: {
+    prototype: HTMLKupEditorElement;
+    new (): HTMLKupEditorElement;
+  };
+
   interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
   var HTMLKupFldElement: {
     prototype: HTMLKupFldElement;
@@ -1610,6 +1622,7 @@ declare global {
     'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
+    'kup-editor': HTMLKupEditorElement;
     'kup-fld': HTMLKupFldElement;
     'kup-form': HTMLKupFormElement;
     'kup-gauge': HTMLKupGaugeElement;
@@ -2287,6 +2300,12 @@ declare namespace LocalJSX {
     * Defines the current totals options.
     */
     'totals'?: TotalsMap;
+  }
+  interface KupEditor extends JSXBase.HTMLAttributes<HTMLKupEditorElement> {
+    /**
+    * The html to be rendered and edited
+    */
+    'text'?: string;
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
     /**
@@ -3234,6 +3253,7 @@ declare namespace LocalJSX {
     'kup-crud': KupCrud;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
+    'kup-editor': KupEditor;
     'kup-fld': KupFld;
     'kup-form': KupForm;
     'kup-gauge': KupGauge;
