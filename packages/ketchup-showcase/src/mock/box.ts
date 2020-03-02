@@ -1254,7 +1254,7 @@ export const shapeData = {
             p: 'ART',
             k: 'myhtml',
           },
-          value: '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
+          value: '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b> e immagine <img src="https://picsum.photos/100/50"/></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
         },
 
       },
