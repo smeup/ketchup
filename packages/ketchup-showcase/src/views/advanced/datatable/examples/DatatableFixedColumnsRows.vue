@@ -47,11 +47,21 @@ h3 {
       fixed-rows="3"
       multi-selection/>
 
-    <h3>Multiple group (visible)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group3" />
+    <h3>When there are fixed columns or rows but groups are active, fixed does not work</h3>
+    <kup-data-table
+      :data.prop="data"
+      :groups.prop="group3"
+      :style="smallTableStyle"
+      fixed-columns="2"
+      fixed-rows="3"/>
 
-    <h3>Multiple group and expansion</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group3" :expandGroups.prop="true" />
+    <kup-data-table
+      :data.prop="data"
+      :groups.prop="group3"
+      :expandGroups.prop="true"
+      :style="smallTableStyle"
+      fixed-columns="2"
+      fixed-rows="3"/>
   </div>
 </template>
 

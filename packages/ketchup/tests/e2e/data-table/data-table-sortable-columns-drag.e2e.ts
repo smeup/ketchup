@@ -47,7 +47,6 @@ describe('data-table with sort column enabled', () => {
         draggableItems = await page.findAll('kup-data-table >>> thead [draggable]');
 
         const dragStartListener = page.spyOnEvent('dragstart');
-        console.log(dragStartListener);
         expect(dragStartListener).toHaveLength(1);
     }, 30000);
 });
