@@ -90,6 +90,7 @@ export class KupSpinner {
         let masterClass = '';
         let wrapperClass = '';
         let spinnerClass = '';
+        let spinnerEl: any = '';
         let elStyle = undefined;
         let customStyle = undefined;
         if (this.customStyle) {
@@ -108,6 +109,22 @@ export class KupSpinner {
             masterClass += ' spinner-version';
             wrapperClass = 'loading-wrapper-master-spinner';
             spinnerClass = 'spinner-v' + this.layout;
+            if (this.layout === 7) {
+                spinnerEl = [
+                    <div class="sk-spinner-v7-dot"></div>,
+                    <div class="sk-spinner-v7-dot"></div>,
+                    <div class="sk-spinner-v7-dot"></div>,
+                    <div class="sk-spinner-v7-dot"></div>,
+                    <div class="sk-spinner-v7-dot"></div>,
+                    <div class="sk-spinner-v7-dot"></div>,
+                ];
+            }
+            if (this.layout === 9) {
+                spinnerEl = [
+                    <div class="sk-spinner-v9-bounce1"></div>,
+                    <div class="sk-spinner-v9-bounce2"></div>,
+                ];
+            }
         }
 
         if (this.fullScreen) {
@@ -146,7 +163,7 @@ export class KupSpinner {
                         style={elStyle}
                     >
                         <div id={wrapperClass} style={elStyle}>
-                            <div class={spinnerClass}></div>
+                            <div class={spinnerClass}>{spinnerEl}</div>
                         </div>
                     </div>
                 </div>

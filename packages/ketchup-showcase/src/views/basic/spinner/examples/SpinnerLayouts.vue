@@ -32,6 +32,18 @@
             <kup-spinner active dimensions="6px" layout="6"></kup-spinner>
             <div class="icon-label">6</div>
           </div>
+          <div class="icon-wrapper" title="Layout: 7">
+            <kup-spinner active dimensions="6px" layout="7"></kup-spinner>
+            <div class="icon-label">7</div>
+          </div>
+          <div class="icon-wrapper" title="Layout: 8">
+            <kup-spinner active dimensions="6px" layout="8"></kup-spinner>
+            <div class="icon-label">8</div>
+          </div>
+          <div class="icon-wrapper" title="Layout: 9">
+            <kup-spinner active dimensions="6px" layout="9"></kup-spinner>
+            <div class="icon-label">9</div>
+          </div>
         </div>
       </div>
     </div>
