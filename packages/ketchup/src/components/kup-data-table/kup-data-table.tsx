@@ -1797,7 +1797,7 @@ export class KupDataTable {
             };
             multiSelectColumn = (
                 <th-sticky
-                    class={selectionStyleAndClass.fixedCellClasses}
+                    class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
                     style={style}>
                     <input
                         type="checkbox"
