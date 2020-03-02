@@ -125,6 +125,31 @@ export class KupSpinner {
                     <div class="sk-spinner-v9-bounce2"></div>,
                 ];
             }
+            if (this.layout === 10) {
+                spinnerEl = [
+                    <div class="sk-spinner-v10-cube1"></div>,
+                    <div class="sk-spinner-v10-cube2"></div>,
+                ];
+            }
+            if (this.layout === 12) {
+                spinnerEl = [
+                    <div class="sk-spinner-v12-dot1"></div>,
+                    <div class="sk-spinner-v12-dot2"></div>,
+                ];
+            }
+            if (this.layout === 13) {
+                spinnerEl = [
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube1"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube2"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube3"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube4"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube5"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube6"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube7"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube8"></div>,
+                    <div class="sk-spinner-v13-cube sk-spinner-v13-cube9"></div>,
+                ];
+            }
         }
 
         if (this.fullScreen) {

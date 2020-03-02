@@ -31,7 +31,7 @@
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="height: 10vh; width: 100%;">
+        <div class="kup-container" style="height: 100px; width: 100%;">
           <kup-spinner active dimensions="10px"></kup-spinner>
         </div>
         <div class="kup-container" style="height: 10vh; width: 100%;">

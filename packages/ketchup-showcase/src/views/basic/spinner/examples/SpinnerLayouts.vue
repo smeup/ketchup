@@ -44,6 +44,22 @@
             <kup-spinner active dimensions="6px" layout="9"></kup-spinner>
             <div class="icon-label">9</div>
           </div>
+          <div class="icon-wrapper" title="Layout: 10">
+            <kup-spinner active dimensions="6px" layout="10"></kup-spinner>
+            <div class="icon-label">10</div>
+          </div>
+          <div class="icon-wrapper" title="Layout: 11">
+            <kup-spinner active dimensions="6px" layout="11"></kup-spinner>
+            <div class="icon-label">11</div>
+          </div>
+          <div class="icon-wrapper" title="Layout: 12">
+            <kup-spinner active dimensions="6px" layout="12"></kup-spinner>
+            <div class="icon-label">12</div>
+          </div>
+          <div class="icon-wrapper" title="Layout: 13">
+            <kup-spinner active dimensions="6px" layout="13"></kup-spinner>
+            <div class="icon-label">13</div>
+          </div>
         </div>
       </div>
     </div>
