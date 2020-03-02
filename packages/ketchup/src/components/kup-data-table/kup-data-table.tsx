@@ -668,7 +668,7 @@ export class KupDataTable {
             }
         }
 
-        this.updateFixedRowsAndColumnsCssVariables();
+        setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(),50);
     }
 
     componentDidLoad() {
