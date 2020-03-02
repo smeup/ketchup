@@ -76,7 +76,7 @@ import {
     shadow: true,
 })
 export class KupDataTable {
-    @Element() rootElement: HTMLElement;
+    @Element() rootElement!: HTMLElement;
     /**
      * Used to set custom columns width.
      */
@@ -685,13 +685,10 @@ export class KupDataTable {
     }
 
     private getVisibleColumns(): Array<Column> {
-        const visibleColumns = this.getColumns().filter((column) => {
-            if (column.hasOwnProperty('visible')) {
-                return column.visible;
-            }
-
-            return true;
-        });
+        // TODO: change into `visible ?? true` when TS dependency has been updated
+        const visibleColumns = this.getColumns().filter(({ visible }) =>
+            visible !== undefined ? visible : true
+        );
 
         // check grouping
         if (this.isGrouping()) {
@@ -1846,7 +1843,7 @@ export class KupDataTable {
                             level + 1,
                             groupRowIndex > 0
                                 ? currentArray[groupRowIndex - 1]
-                                : null
+                                : undefined
                         )
                     )
                     .forEach((jsxRow) => {
@@ -1905,16 +1902,11 @@ export class KupDataTable {
 
                 const jsxCell = this.renderCell(
                     cell,
-                    name,
-                    // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                    {
-                        row,
-                        column: currentColumn,
-                    },
-                    !!hideValuesRepetitions,
+                    row,
+                    currentColumn,
                     hideValuesRepetitions && previousRow
                         ? previousRow.cells[name].value
-                        : null
+                        : undefined
                 );
 
                 const cellClass = {
@@ -1929,7 +1921,7 @@ export class KupDataTable {
                 }
 
                 // Controls if there are columns with a specified width
-                if (this.columnsWidth && this.columnsWidth.length) {
+                if (this.columnsWidth.length > 0) {
                     let colWidth: string = '';
 
                     // Search if this column has a specified width
@@ -2078,16 +2070,13 @@ export class KupDataTable {
      */
     private renderCell(
         cell: Cell,
-        column: string,
-        cellData: {
-            column: Column;
-            row: Row;
-        },
-        hideValuesRepetition: boolean = false,
+        row: Row,
+        column: Column,
         previousRowCellValue?: string
     ) {
-        const clazz = {
+        const classObj: Record<string, boolean> = {
             'cell-content': true,
+            clickable: !!column.clickable,
         };
 
         // When the previous row value is different from the current value, we can show the current value.
@@ -2106,7 +2095,7 @@ export class KupDataTable {
                 const cellValue = numeral(cell.obj.k).value();
 
                 if (cellValue < 0) {
-                    clazz['negative-number'] = true;
+                    classObj['negative-number'] = true;
                 }
             }
         } else if (isImage(cell.obj)) {
@@ -2122,13 +2111,8 @@ export class KupDataTable {
             content = (
                 <kup-checkbox
                     checked={checked}
-                    disabled={
-                        cellData &&
-                        cellData.row &&
-                        cellData.row.hasOwnProperty('readOnly')
-                            ? cellData.row.readOnly
-                            : true
-                    }
+                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
+                    disabled={row.readOnly !== undefined ? row.readOnly : true}
                 />
             );
         } else if (isButton(cell.obj)) {
@@ -2156,45 +2140,47 @@ export class KupDataTable {
                     {...buildButtonConfig(cell.value, cell.config)}
                     onKupButtonClicked={this.onJ4btnClicked.bind(
                         this,
-                        cellData ? cellData.row : null,
-                        cellData ? cellData.column : null,
+                        row,
+                        column,
                         cell
                     )}
                 />
             );
         } else if (isBar(cell.obj)) {
+            const columnWidth = this.columnsWidth.find(
+                ({ column: columnName }) => columnName === column.name
+            );
+
             const props: { value: string; width?: number } = {
                 value: cell.value,
+                width:
+                    columnWidth !== undefined ? columnWidth.width : undefined,
             };
-
-            // check if column has width
-            if (this.columnsWidth && this.columnsWidth[column]) {
-                props.width = this.columnsWidth[column];
-            }
 
             // Controls if we should display this cell value
             content =
-                !hideValuesRepetition || valueToDisplay ? (
+                !column.hideValuesRepetitions || valueToDisplay ? (
                     <kup-graphic-cell {...props} />
                 ) : null;
         } else if (isChart(cell.obj)) {
+            const columnWidth = this.columnsWidth.find(
+                ({ column: columnName }) => columnName === column.name
+            );
+
             const props: {
+                cellConfig: any;
                 value: string;
                 width?: number;
-                cellConfig: any;
             } = {
-                value: cell.value,
                 cellConfig: cell.config,
+                value: cell.value,
+                width:
+                    columnWidth !== undefined ? columnWidth.width : undefined,
             };
-
-            // check if column has width
-            if (this.columnsWidth && this.columnsWidth[column]) {
-                props.width = this.columnsWidth[column];
-            }
 
             content = <kup-chart-cell {...props} />;
         } else if (isProgressBar(cell.obj)) {
-            if (!hideValuesRepetition || valueToDisplay) {
+            if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-progress-bar
                         {...buildProgressBarConfig(
@@ -2209,16 +2195,13 @@ export class KupDataTable {
                 content = null;
             }
         } else if (isRadio(cell.obj)) {
-            if (!hideValuesRepetition || valueToDisplay) {
+            if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-radio-element
                         checked={!!cell.obj.k}
+                        // TODO: update as `row.readOnly ?? true` when dependencies are updated
                         disabled={
-                            cellData &&
-                            cellData.row &&
-                            cellData.row.hasOwnProperty('readOnly')
-                                ? cellData.row.readOnly
-                                : true
+                            row.readOnly !== undefined ? row.readOnly : true
                         }
                     />
                 );
@@ -2243,13 +2226,13 @@ export class KupDataTable {
                     class="datatable-tooltip"
                     onKupTooltipLoadData={(ev) =>
                         this.kupLoadRequest.emit({
-                            cell: cell,
+                            cell,
                             tooltip: ev.srcElement,
                         })
                     }
                     onKupTooltipLoadDetail={(ev) =>
                         this.kupDetailRequest.emit({
-                            cell: cell,
+                            cell,
                             tooltip: ev.srcElement,
                         })
                     }
@@ -2260,7 +2243,7 @@ export class KupDataTable {
         }
 
         return (
-            <span class={clazz} style={style}>
+            <span class={classObj} style={style}>
                 {content}
             </span>
         );
@@ -2648,9 +2631,7 @@ export class KupDataTable {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
             'auto-width': !!(
-                this.columnsWidth &&
-                this.columnsWidth.length &&
-                this.tableHasAutoWidth()
+                this.columnsWidth.length > 0 && this.tableHasAutoWidth()
             ),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||

@@ -2,18 +2,23 @@
   <div>
     <h2>Data Table column size</h2>
     <p>
-      In the following examples, to check the different behaviors of the tables when the size of the screen changes,
-      it can be useful to resize the browser window.
-      <br />To do so in a more comfortable way, you can open your browser inspection devtools by pressing F12 or right clicking
-      anywhere on an element and click "Inspect"
-      <br />If you're using Apple Safari browser, you will have to enable the debug mode in order to do so (just Google it).
+      In the following examples, to check the different behaviors of the tables
+      when the size of the screen changes, it can be useful to resize the
+      browser window.
+      <br />To do so in a more comfortable way, you can open your browser
+      inspection devtools by pressing F12 or right clicking anywhere on an
+      element and click "Inspect" <br />If you're using Apple Safari browser,
+      you will have to enable the debug mode in order to do so (just Google it).
     </p>
 
     <h3>Long text with no configuration</h3>
     <kup-data-table :data.prop="longTextData" />
 
     <h3>Long text, some columns have specified length</h3>
-    <p>Columns with a custom size are {{ columnNamesToString(someColumnsWidth, longTextData) }}</p>
+    <p
+      >Columns with a custom size are
+      {{ columnNamesToString(someColumnsWidth, longTextData) }}</p
+    >
     <h4>
       forceOneLine =
       <code class="inline">false</code>
@@ -35,8 +40,10 @@
 
     <h3>All visible columns have a custom size</h3>
     <p>
-      When all visible columns have a custom size, the table width gets set to the sum of the columns.
-      <br />The table itself gains a margin auto attribute to eventually center it.
+      When all visible columns have a custom size, the table width gets set to
+      the sum of the columns.
+      <br />The table itself gains a margin auto attribute to eventually center
+      it.
     </p>
 
     <h4>
