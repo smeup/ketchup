@@ -343,6 +343,24 @@ export class KupDataTable {
         this.initRows();
     }
 
+    @Watch('fixedColumns')
+    @Watch('fixedRows')
+    controlFixedRowsColumns() {
+        let warnMessage = '';
+
+        if (isNaN(this.fixedColumns) || this.fixedColumns < 0) {
+            warnMessage += `The value ${this.fixedColumns} set on fixedColumns property is not valid.`;
+        }
+
+        if (isNaN(this.fixedRows) || this.fixedRows < 0) {
+            warnMessage += `The value ${this.fixedRows} set on fixedRows property is not valid.`;
+        }
+
+        if (warnMessage && console) {
+            console.warn(warnMessage + 'Any fixed rule will be ignored.')
+        }
+    }
+
     private rows: Array<Row>;
 
     private paginatedRows: Array<Row>;
@@ -899,37 +917,41 @@ export class KupDataTable {
 
     //==== Fixed columns and rows methods ====
     private composeFixedCellStyleAndClass(columnCssIndex: number, rowCssIndex: number, extraCellsCount: number = 0): undefined | {
-      fixedCellClasses: GenericObject,
-      fixedCellStyle: GenericObject
+        fixedCellClasses: GenericObject,
+        fixedCellStyle: GenericObject
     } {
-      //-- Controls if there are fixed rows or columns --
-      const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= this.fixedColumns + extraCellsCount;
-      const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
+        if (this.isGrouping()) {
+            return undefined;
+        }
 
-      // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
-      if (!validFixedRowIndex && !validFixedColumn) {
-        return undefined;
-      }
+        //-- Controls if there are fixed rows or columns --
+        const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= this.fixedColumns + extraCellsCount;
+        const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
 
-      const fixedCellClasses: GenericObject = {},
-        fixedCellStyle: GenericObject = {};
+        // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
+        if (!validFixedRowIndex && !validFixedColumn) {
+            return undefined;
+        }
 
-      if (validFixedColumn) {
-        fixedCellClasses[FixedCellsClasses.columns] = validFixedColumn;
-        fixedCellClasses['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
-        fixedCellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
-      }
+        const fixedCellClasses: GenericObject = {},
+            fixedCellStyle: GenericObject = {};
 
-      if (validFixedRowIndex) {
-        fixedCellClasses[FixedCellsClasses.rows] = !!validFixedRowIndex;
-        fixedCellClasses['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
-        fixedCellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
-      }
+        if (validFixedColumn) {
+            fixedCellClasses[FixedCellsClasses.columns] = validFixedColumn;
+            fixedCellClasses['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
+            fixedCellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
+        }
 
-      return {
-        fixedCellClasses,
-        fixedCellStyle
-      };
+        if (validFixedRowIndex) {
+            fixedCellClasses[FixedCellsClasses.rows] = !!validFixedRowIndex;
+            fixedCellClasses['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
+            fixedCellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
+        }
+
+        return {
+            fixedCellClasses,
+            fixedCellStyle
+        };
     }
 
     private updateFixedRowsAndColumnsCssVariables(): boolean {
