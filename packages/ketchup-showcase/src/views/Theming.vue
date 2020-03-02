@@ -353,6 +353,22 @@
                     ></wup-text-field>
                   </td>
                 </tr>
+                <tr>
+                  <td class="prevent-cr">
+                    <span class="code-word">--kup-spinner-color</span>
+                  </td>
+                  <td>Sets the color of spinners.</td>
+                  <td class="prevent-cr">
+                    <span class="code-word">color</span>
+                  </td>
+                  <td class="text-cell">
+                    <wup-text-field
+                      full-width
+                      id="spinner-color"
+                      @kupTextFieldInput="updateCSS"
+                    ></wup-text-field>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

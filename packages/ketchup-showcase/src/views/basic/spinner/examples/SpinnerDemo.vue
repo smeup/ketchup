@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -21,11 +25,6 @@ export default {
           active: true,
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
           text: 'HTML',
           icon: '',
           active: false,
@@ -36,11 +35,19 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<kup-spinner id="demo-component"></kup-spinner>',
+      demoComp:
+        '<kup-spinner active layout="1" id="demo-component"></kup-spinner>',
       demoProps: [
         {
           prop: 'active',
           description: 'When set to true the spinner is animating.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'barVariant',
+          description: 'Decides whether the component is a bar or a spinner.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -54,12 +61,27 @@ export default {
           try: 'css',
         },
         {
+          prop: 'dimensions',
+          description:
+            'Width and height of the spinner. For the bar variant, only height.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'fader',
           description:
-            "Places a blend modal over the wrapper to darken the view. It will be displayed after 3500ms since the component's render.",
+            "Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark). It will be displayed after 3500ms since the component's render.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'faderTimeout',
+          description: 'The time required for the "fader" to trigger.',
+          type: 'number',
+          default: '3500',
+          try: 'field',
         },
         {
           prop: 'fullScreen',
@@ -72,7 +94,7 @@ export default {
         {
           prop: 'layout',
           description: 'Sets the layout of the spinner.',
-          type: 'string',
+          type: 'number',
           default: '1',
           try: 'field',
         },

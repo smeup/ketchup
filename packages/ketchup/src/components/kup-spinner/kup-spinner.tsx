@@ -16,7 +16,7 @@ export class KupSpinner {
     @Prop({ reflect: true }) active: boolean = false;
 
     /**
-     * Sets whether the component is a bar or a spinner.
+     * Decides whether the component is a bar or a spinner.
      */
     @Prop({ reflect: true }) barVariant: boolean = false;
 
@@ -26,9 +26,19 @@ export class KupSpinner {
     @Prop({ reflect: true }) customStyle: string = undefined;
 
     /**
-     * Places a blend modal over the wrapper to darken the view. It will be displayed after 3500ms since the component's render.
+     * Width and height of the spinner. For the bar variant, only height.
+     */
+    @Prop({ reflect: true }) dimensions: string = undefined;
+
+    /**
+     * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
      */
     @Prop({ reflect: true }) fader: boolean = false;
+
+    /**
+     * The time required for the "fader" to trigger.
+     */
+    @Prop({ reflect: true }) faderTimeout: number = 3500;
 
     /**
      * When set to true the component will fill the whole viewport.
@@ -38,11 +48,22 @@ export class KupSpinner {
     /**
      * Sets the layout of the spinner.
      */
-    @Prop({ reflect: true }) layout: string = '1';
+    @Prop({ reflect: true }) layout: number = 1;
 
     //---- Methods ----
 
     //---- Lifecycle hooks ----
+
+    componentDidUpdate() {
+        let message = 'Updating...';
+        errorLogging('kup-spinner', message);
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            root.querySelector('#loading-wrapper-master').classList.remove(
+                'loading-wrapper-big-wait'
+            );
+        }
+    }
 
     componentWillRender() {
         let message = 'Rendering...';
@@ -50,14 +71,18 @@ export class KupSpinner {
     }
 
     componentDidRender() {
+        let message = 'Rendered...';
+        errorLogging('kup-spinner', message);
         const root = this.rootElement.shadowRoot;
 
-        if (root != undefined && this.fader) {
-            setTimeout(function() {
-                root.querySelector('#loading-wrapper-master').classList.add(
-                    'loading-wrapper-big-wait'
-                );
-            }, 3500);
+        if (root) {
+            if (this.fader) {
+                setTimeout(function() {
+                    root.querySelector('#loading-wrapper-master').classList.add(
+                        'loading-wrapper-big-wait'
+                    );
+                }, this.faderTimeout);
+            }
         }
     }
 
@@ -66,7 +91,6 @@ export class KupSpinner {
         let wrapperClass = '';
         let spinnerClass = '';
         let elStyle = undefined;
-        let spinnerEl = undefined;
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
@@ -84,14 +108,6 @@ export class KupSpinner {
             masterClass += ' spinner-version';
             wrapperClass = 'loading-wrapper-master-spinner';
             spinnerClass = 'spinner-v' + this.layout;
-
-            if (this.layout === '1') {
-                spinnerEl = (
-                    <div class="lds-circle">
-                        <div></div>
-                    </div>
-                );
-            }
         }
 
         if (this.fullScreen) {
@@ -103,13 +119,34 @@ export class KupSpinner {
             };
         }
 
+        if (this.dimensions) {
+            elStyle = {
+                ...elStyle,
+                fontSize: this.dimensions,
+            };
+        } else if (!this.barVariant) {
+            elStyle = {
+                ...elStyle,
+                fontSize: '16px',
+            };
+        } else {
+            elStyle = {
+                ...elStyle,
+                fontSize: '3px',
+            };
+        }
+
         return (
             <Host style={elStyle}>
                 {customStyle}
                 <div id="kup-component" style={elStyle}>
-                    <div id="loading-wrapper-master" class={masterClass}>
-                        <div id={wrapperClass}>
-                            <div class={spinnerClass}>{spinnerEl}</div>
+                    <div
+                        id="loading-wrapper-master"
+                        class={masterClass}
+                        style={elStyle}
+                    >
+                        <div id={wrapperClass} style={elStyle}>
+                            <div class={spinnerClass}></div>
                         </div>
                     </div>
                 </div>

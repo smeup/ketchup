@@ -943,7 +943,7 @@ export namespace Components {
     */
     'active': boolean;
     /**
-    * Sets whether the component is a bar or a spinner.
+    * Decides whether the component is a bar or a spinner.
     */
     'barVariant': boolean;
     /**
@@ -951,9 +951,17 @@ export namespace Components {
     */
     'customStyle': string;
     /**
-    * Places a blend modal over the wrapper to darken the view. It will be displayed after 3500ms since the component's render.
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions': string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
     */
     'fader': boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout': number;
     /**
     * When set to true the component will fill the whole viewport.
     */
@@ -961,7 +969,7 @@ export namespace Components {
     /**
     * Sets the layout of the spinner.
     */
-    'layout': string;
+    'layout': number;
   }
   interface KupTextInput {
     /**
@@ -2712,7 +2720,7 @@ declare namespace LocalJSX {
     */
     'active'?: boolean;
     /**
-    * Sets whether the component is a bar or a spinner.
+    * Decides whether the component is a bar or a spinner.
     */
     'barVariant'?: boolean;
     /**
@@ -2720,9 +2728,17 @@ declare namespace LocalJSX {
     */
     'customStyle'?: string;
     /**
-    * Places a blend modal over the wrapper to darken the view. It will be displayed after 3500ms since the component's render.
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions'?: string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
     */
     'fader'?: boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout'?: number;
     /**
     * When set to true the component will fill the whole viewport.
     */
@@ -2730,7 +2746,7 @@ declare namespace LocalJSX {
     /**
     * Sets the layout of the spinner.
     */
-    'layout'?: string;
+    'layout'?: number;
   }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
