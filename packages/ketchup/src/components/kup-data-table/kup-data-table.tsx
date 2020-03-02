@@ -253,6 +253,11 @@ export class KupDataTable {
     @Prop()
     totals: TotalsMap;
 
+    /**
+     * Defines the placeholder character which will be replaced by a line break.
+     */
+    @Prop() lineBreakCharacter: string = '|';
+
     //-------- State --------
 
     @State()
@@ -1318,6 +1323,13 @@ export class KupDataTable {
         }
     }
 
+    private applyLineBreaks(content: string) {
+        // We add a break line before every chunk
+        return content
+            .split(this.lineBreakCharacter)
+            .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
+    }
+
     //======== render methods ========
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
@@ -1577,7 +1589,9 @@ export class KupDataTable {
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
                     {...dragHandlers}
                 >
-                    <span class="column-title">{column.title}</span>
+                    <span class="column-title">
+                        {this.applyLineBreaks(column.title)}
+                    </span>
                     {sort}
                     {filter}
                     {columnMenu}
@@ -1651,7 +1665,9 @@ export class KupDataTable {
 
             return (
                 <th-sticky class={columnClass} style={thStyle}>
-                    <span class="column-title">{column.title}</span>
+                    <span class="column-title">
+                        {this.applyLineBreaks(column.title)}
+                    </span>
                 </th-sticky>
             );
         });
