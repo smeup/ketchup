@@ -1171,15 +1171,6 @@ export const shapeData = {
           },
           value: '89',
         },
-        FLD4: {
-          obj: {
-            t: 'AR',
-            p: 'ART',
-            k: 'myhtml',
-          },
-          value: 'contenuto <b>grassetto</b> e <i>corsivo</i>',
-        },
-
       },
       layout: {
         sections: [
@@ -1210,15 +1201,6 @@ export const shapeData = {
                       },
                     ],
                   },
-                  {
-                    dim: '50%',
-                    content: [
-                      {
-                        column: 'FLD4',
-                        shape: 'EDT',
-                      },
-                    ],
-                  },              
                 ],
               },
             ],
@@ -1263,6 +1245,34 @@ export const shapeData = {
         },
       },
     },
+    {
+      id: '3',
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'AR',
+            p: 'ART',
+            k: 'myhtml',
+          },
+          value: '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
+        },
+
+      },
+      layout: {
+        sections: [
+          {
+            horizontal: true,
+            dim: '100%',
+            content: [
+              {
+                    column: 'FLD1',
+                    shape: 'EDT',
+              },
+            ],
+          }
+        ]
+      }
+    }
   ],
 };
 

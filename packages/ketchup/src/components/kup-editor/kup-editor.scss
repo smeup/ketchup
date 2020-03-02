@@ -1,13 +1,9 @@
 /**
-* @prop --edt_height, --kup-editor_height: Specifies the height the frame must have. Default: 600px ;
-* @prop --edt_width, --kup-editor_width: Specifies the width of the frame Default: 100% ;
 */
 
 :host {
   // Variables
-  --edt_height: var(--kup-editor_height, 600px);
-  --edt_width: var(--kup-editor_width, 100%);
-
+  
   // Style
   display: inline-block;
   width: 100%;
@@ -18,9 +14,4 @@
   // When the Iframe is in button form
   display: inline-block;
   width: auto;
-}
-
-.ketchup-frame {
-  height: var(--edt_height);
-  width: var(--edt_width);
 }
