@@ -42,27 +42,64 @@ export class KupLayout {
   horizontal: boolean = false;
 
   render() {
-    // Classes
-    let layoutClasses = null;
 
-    if (this.columnsNumber > 1) {
-      layoutClasses = {
-        ['lyo-multiple-columns']: true,
+    let classLayout= null;
+
+    //horizontal class
+    //let posHorizontal = null;
+
+    if (this.columnsNumber <= 1){
+      if(this.horizontal){
+        classLayout = {
+        ['horizontal'] : true 
+        }
       }
     }
 
-    // Styles
+    //fillspace class
+    //let allSpace = null;
 
+    if(this.fillSpace) {
+      classLayout = {
+        ['fill-space'] : true
+      }
+    }
+  
+    //contentBasedColumnsWidth
+   // let columnWidth = null;
+
+    if(this.contentBasedColumnsWidth){
+      classLayout = {
+        ['content-based-columns-width'] : true
+      }
+    }
+
+    // Classes
+    //let layoutClasses = null;
+
+    if (this.columnsNumber > 1) {
+      classLayout = {
+        ['lyo-multiple-columns']: true,
+      }
+    } else (this.columnsNumber = 1) 
+      classLayout = {
+        ['vertical']: true,
+      }
+    
+    // Styles
     let layoutStyle = null;
 
     if (this.columnsNumber >= 1) {
-      layoutStyle = {
+      classLayout = {
         ['--lyo_column-number']: this.columnsNumber,
       };
     }
 
-    return <Host class={layoutClasses} style={layoutStyle}>
+    return <Host 
+    class={{classLayout  
+      }} 
+      style={layoutStyle}>
       <slot/>
-    </Host>;
+    </Host>
   }
 }

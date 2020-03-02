@@ -5,6 +5,9 @@ $fill-space-attribute: fill-space;
 $horizontal-attribute: horizontal;
 $multiple-column-class: lyo-multiple-columns;
 
+$vertical-attribute: vertical;
+$content-based-col-width: content-based-columns-width;
+
 /**
 * @prop --lyo_column-number, --kup-layout_column-number: Number of columns. This property is regulated by the columnsNumber property, but can be overridden by !important declarations.
 * @prop --lyo_grid-gap, --kup-layout_grid-gap: Space between two adjacent cells (on columns and rows).
@@ -12,7 +15,7 @@ $multiple-column-class: lyo-multiple-columns;
 
 // When no options are set
 :host {
-  --lyo_column-number: var(--kup-layout_column-number, 1);
+  //--lyo_column-number: var(--kup-layout_column-number, 1);
   --lyo_grid-gap: var(--kup-layout_grid-gap, 2px);
 
   //-- Basic style --
@@ -33,13 +36,33 @@ $multiple-column-class: lyo-multiple-columns;
 
 // WHen there are multiple columns, elements are placed one cell after the other and going on to rows.
 :host(.#{$multiple-column-class}) {
-  grid-auto-flow: row;
+  column-count: 2;
+  //--lyo_column-number: var(--kup-layout_column-number, 2);
+  //grid-auto-flow: row;
+  //column-count: '4';
 }
 
 //-- Filling space in a normal situation make the container take all available width --
 :host([#{$fill-space-attribute}]) {
   display: grid;
+  text-align: center;
   width: 100%;
+}
+
+//-- when there is one column
+:host([#{$vertical-attribute}]) {
+  //display: grid;
+  //grid-template-columns: auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+//-- auto set width cell 
+:host([#{$content-based-col-width}]) {
+  //white-space: nowrap;
+  table-layout: auto;
+  column-width: auto;
+  //grid-auto-columns: 1fr;
 }
 
 //---- In horizontal mode ----
