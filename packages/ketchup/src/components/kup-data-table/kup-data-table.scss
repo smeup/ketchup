@@ -123,6 +123,12 @@
 }
 
 //-------- Fixed columns and rows declarations --------
+/*
+* Section comments declarations.
+* [fcr-ff] - This is a workaround necessary to support correctly the Firefox browser,
+*
+*/
+
 // The z-index of the data table main wrapper.
 $table-below-wrapper--z-index: 0;
 // z-indexes to allow correct layering of different pieces of fixed and sticky positioning
@@ -191,9 +197,14 @@ $fixed-row-class: fixed-row;
     @include fixedRowSeparator(-1px);
   }
 
+  // [fcr-ff] @see
   @supports (-moz-appearance:none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
     .row-separation &::after {
-      @include fixedRowSeparator(0);
+      @include fixedRowSeparator(0); // marked as !important otherwise the previous declaration will take precedence
     }
   }
 }
@@ -217,7 +228,11 @@ $fixed-row-class: fixed-row;
     }
 
     .row-separation &::after {
-      @include fixedRowSeparator(-1px);
+      @include fixedRowSeparator(0);
+    }
+
+    .row-separation &:not(.#{$fixed-row-class})::after {
+      bottom: -1px;
     }
   }
 
