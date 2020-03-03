@@ -89,6 +89,7 @@ import {
     TreeNodePath,
 } from './components/kup-tree/kup-tree-declarations';
 import { UploadProps } from './components/kup-upload/kup-upload-declarations';
+import { ComponentChipElement } from './components/wup-chip/wup-chip-declarations';
 import { ComponentRadioElement } from './components/wup-radio/wup-radio-declarations';
 import { ComponentTabBarElement } from './components/wup-tab-bar/wup-tab-bar-declarations';
 
@@ -437,10 +438,16 @@ export namespace Components {
         layout: string;
     }
     interface KupDataTable {
+        /**
+         * Used to set custom columns width.
+         */
         columnsWidth: Array<{
             column: string;
             width: number;
         }>;
+        /**
+         * The data of the table.
+         */
         data: TableData;
         defaultSortingFunction: (
             columns: Column[],
@@ -449,24 +456,45 @@ export namespace Components {
             useNewObject?: boolean
         ) => Promise<Column[]>;
         /**
-         * Enables sorting of the columns by dragging them into different columns
+         * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+         */
+        density: string;
+        /**
+         * Enables the sorting of columns by dragging them into different columns.
          */
         enableSortableColumns: boolean;
+        /**
+         * Expands groups when set to true.
+         */
         expandGroups: boolean;
+        /**
+         * List of filters set by the user.
+         */
         filters: GenericMap;
         /**
          * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         forceOneLine: boolean;
+        /**
+         * When set to true it activates the global filter.
+         */
         globalFilter: boolean;
+        /**
+         * The value of the global filter.
+         */
         globalFilterValue: string;
         /**
          * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
          */
         groupLabelDisplay: GroupLabelDisplayMode;
+        /**
+         * The list of groups.
+         */
         groups: Array<GroupObject>;
+        /**
+         * When set to true the header will stick on top of the table when scrolling.
+         */
         headerIsPersistent: boolean;
-        hoverScroll: boolean;
         /**
          * Sets a maximum limit of new records which can be required by the load more functionality.
          */
@@ -479,12 +507,33 @@ export namespace Components {
          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
          */
         loadMoreStep: number;
+        /**
+         * When set to true enables rows multi selection.
+         */
         multiSelection: boolean;
+        /**
+         * Sets the position of the paginator. Available positions: top, bottom or both.
+         */
         paginatorPos: PaginatorPos;
+        /**
+         * Sets the actions of the rows.
+         */
         rowActions: Array<RowAction>;
+        /**
+         * Sets the number of rows per page to display.
+         */
         rowsPerPage: number;
+        /**
+         * Selects the specified row.
+         */
         selectRow: number;
+        /**
+         * When set to true enables the column filters.
+         */
         showFilters: boolean;
+        /**
+         * Can be used to customize the grid view of the table.
+         */
         showGrid: ShowGrid;
         /**
          * Enables rendering of the table header.
@@ -494,13 +543,28 @@ export namespace Components {
          * If set to true, displays the button to load more records.
          */
         showLoadMore: boolean;
+        /**
+         * Defines the current sorting options.
+         */
         sort: Array<SortObject>;
+        /**
+         * When set to true enables the sorting of the columns.
+         */
         sortEnabled: boolean;
         /**
          * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
          */
         sortableColumnsMutateData: boolean;
+        /**
+         * Defines the current totals options.
+         */
         totals: TotalsMap;
+    }
+    interface KupEditor {
+        /**
+         * The html to be rendered and edited
+         */
+        text: string;
     }
     interface KupFld {
         /**
@@ -981,6 +1045,10 @@ export namespace Components {
          */
         checked: boolean;
         /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
+        /**
          * Defaults at false. When set to true, the component is disabled.
          */
         disabled: boolean;
@@ -989,9 +1057,21 @@ export namespace Components {
          */
         flat: boolean;
         /**
+         * Defaults at false. When set to true fill all the available horizontal space.
+         */
+        fullHeight: boolean;
+        /**
+         * Defaults at false. When set to true fill all the available horizontal space.
+         */
+        fullWidth: boolean;
+        /**
          * Defaults at null. When set, the button will show this icon.
          */
         icon: string;
+        /**
+         * If not set, it will be managed by the component.
+         */
+        iconColor: string;
         /**
          * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -1013,6 +1093,10 @@ export namespace Components {
          */
         toggable: boolean;
         /**
+         * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
+         */
+        tooltip: string;
+        /**
          * Defaults at null. When set, the icon will be shown after the text.
          */
         trailingIcon: boolean;
@@ -1022,6 +1106,10 @@ export namespace Components {
          * Defaults at false. When set to true, the component will be set to 'checked'.
          */
         checked: boolean;
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
         /**
          * Defaults at false. When set to true, the component is disabled.
          */
@@ -1039,38 +1127,47 @@ export namespace Components {
          */
         leadingLabel: boolean;
     }
-    interface WupCombo {
-        comboId: string;
+    interface WupChip {
         /**
-         * Defaults at false. When set to true, the component is disabled.
+         * Custom style to be passed to the component.
          */
-        disabled: boolean;
+        customStyle: string;
         /**
-         * Marks the list as filterable, allowing an input text to filter the options
+         * List of elements.
          */
-        isFilterable: boolean;
-        items: ComponentListElement[];
-        selectable: string;
+        data: ComponentChipElement[];
+        /**
+         * The type of chip. Available types: input, filter, choice or empty for default.
+         */
+        type: string;
     }
-    interface WupList {
+    interface WupIcon {
         /**
-         * Marks the list as filterable, allowing an input text to filter the options
+         * The color of the icon, defaults to the main color of the app.
          */
-        isFilterable: boolean;
-        items: ComponentListElement[];
-        listId: string;
-        roleType?: string;
-        selectable: string;
-        twoLine: boolean;
-    }
-    interface WupPaginator {
-        currentPage: number;
-        max: number;
-        mode: PaginatorMode;
-        perPage: number;
-        selectedPerPage: number;
+        color: string;
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
+        /**
+         * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+         */
+        dimensions: string;
+        /**
+         * The name of the icon.
+         */
+        name: string;
+        /**
+         * The type of the icon, defaults to "svg".
+         */
+        type: string;
     }
     interface WupRadio {
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
         /**
          * List of elements.
          */
@@ -1094,6 +1191,10 @@ export namespace Components {
          */
         checked: boolean;
         /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
+        /**
          * Defaults at false. When set to true, the component is disabled.
          */
         disabled: boolean;
@@ -1108,6 +1209,10 @@ export namespace Components {
     }
     interface WupTabBar {
         /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
+        /**
          * List of elements.
          */
         data: ComponentTabBarElement[];
@@ -1119,6 +1224,10 @@ export namespace Components {
         disabled: boolean;
     }
     interface WupTextField {
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle: string;
         /**
          * Defaults at false. When set to true, the component is disabled.
          */
@@ -1321,12 +1430,18 @@ declare global {
         new (): HTMLKupFormElement;
     };
 
-    interface HTMLKupGaugeElement
-        extends Components.KupGauge,
+    interface HTMLKupEditorElement
+        extends Components.KupEditor,
             HTMLStencilElement {}
-    var HTMLKupGaugeElement: {
-        prototype: HTMLKupGaugeElement;
-        new (): HTMLKupGaugeElement;
+    var HTMLKupEditorElement: {
+        prototype: HTMLKupEditorElement;
+        new (): HTMLKupEditorElement;
+    };
+
+    interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
+    var HTMLKupFldElement: {
+        prototype: HTMLKupFldElement;
+        new (): HTMLKupFldElement;
     };
 
     interface HTMLKupGraphicCellElement
@@ -1513,12 +1628,28 @@ declare global {
         new (): HTMLWupListElement;
     };
 
-    interface HTMLWupPaginatorElement
-        extends Components.WupPaginator,
+    interface HTMLWupChipElement
+        extends Components.WupChip,
             HTMLStencilElement {}
-    var HTMLWupPaginatorElement: {
-        prototype: HTMLWupPaginatorElement;
-        new (): HTMLWupPaginatorElement;
+    var HTMLWupChipElement: {
+        prototype: HTMLWupChipElement;
+        new (): HTMLWupChipElement;
+    };
+
+    interface HTMLWupIconElement
+        extends Components.WupIcon,
+            HTMLStencilElement {}
+    var HTMLWupIconElement: {
+        prototype: HTMLWupIconElement;
+        new (): HTMLWupIconElement;
+    };
+
+    interface HTMLWupRadioElement
+        extends Components.WupRadio,
+            HTMLStencilElement {}
+    var HTMLWupRadioElement: {
+        prototype: HTMLWupRadioElement;
+        new (): HTMLWupRadioElement;
     };
 
     interface HTMLWupRadioElement
@@ -1545,14 +1676,6 @@ declare global {
         new (): HTMLWupTabBarElement;
     };
 
-    interface HTMLWupTemplateElement
-        extends Components.WupTemplate,
-            HTMLStencilElement {}
-    var HTMLWupTemplateElement: {
-        prototype: HTMLWupTemplateElement;
-        new (): HTMLWupTemplateElement;
-    };
-
     interface HTMLWupTextFieldElement
         extends Components.WupTextField,
             HTMLStencilElement {}
@@ -1577,6 +1700,7 @@ declare global {
         'kup-crud': HTMLKupCrudElement;
         'kup-dash': HTMLKupDashElement;
         'kup-data-table': HTMLKupDataTableElement;
+        'kup-editor': HTMLKupEditorElement;
         'kup-fld': HTMLKupFldElement;
         'kup-form': HTMLKupFormElement;
         'kup-gauge': HTMLKupGaugeElement;
@@ -1601,9 +1725,8 @@ declare global {
         'kup-upload': HTMLKupUploadElement;
         'wup-button': HTMLWupButtonElement;
         'wup-checkbox': HTMLWupCheckboxElement;
-        'wup-combo': HTMLWupComboElement;
-        'wup-list': HTMLWupListElement;
-        'wup-paginator': HTMLWupPaginatorElement;
+        'wup-chip': HTMLWupChipElement;
+        'wup-icon': HTMLWupIconElement;
         'wup-radio': HTMLWupRadioElement;
         'wup-switch': HTMLWupSwitchElement;
         'wup-tab-bar': HTMLWupTabBarElement;
@@ -2137,30 +2260,57 @@ declare namespace LocalJSX {
     }
     interface KupDataTable
         extends JSXBase.HTMLAttributes<HTMLKupDataTableElement> {
+        /**
+         * Used to set custom columns width.
+         */
         columnsWidth?: Array<{
             column: string;
             width: number;
         }>;
+        /**
+         * The data of the table.
+         */
         data?: TableData;
         /**
-         * Enables sorting of the columns by dragging them into different columns
+         * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
+         */
+        density?: string;
+        /**
+         * Enables the sorting of columns by dragging them into different columns.
          */
         enableSortableColumns?: boolean;
+        /**
+         * Expands groups when set to true.
+         */
         expandGroups?: boolean;
+        /**
+         * List of filters set by the user.
+         */
         filters?: GenericMap;
         /**
          * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         forceOneLine?: boolean;
+        /**
+         * When set to true it activates the global filter.
+         */
         globalFilter?: boolean;
+        /**
+         * The value of the global filter.
+         */
         globalFilterValue?: string;
         /**
          * How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}
          */
         groupLabelDisplay?: GroupLabelDisplayMode;
+        /**
+         * The list of groups.
+         */
         groups?: Array<GroupObject>;
+        /**
+         * When set to true the header will stick on top of the table when scrolling.
+         */
         headerIsPersistent?: boolean;
-        hoverScroll?: boolean;
         /**
          * Sets a maximum limit of new records which can be required by the load more functionality.
          */
@@ -2173,6 +2323,9 @@ declare namespace LocalJSX {
          * The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.
          */
         loadMoreStep?: number;
+        /**
+         * When set to true enables rows multi selection.
+         */
         multiSelection?: boolean;
         /**
          * When 'add column' menu item is clicked
@@ -2244,11 +2397,29 @@ declare namespace LocalJSX {
                 clickedColumn: string;
             }>
         ) => void;
+        /**
+         * Sets the position of the paginator. Available positions: top, bottom or both.
+         */
         paginatorPos?: PaginatorPos;
+        /**
+         * Sets the actions of the rows.
+         */
         rowActions?: Array<RowAction>;
+        /**
+         * Sets the number of rows per page to display.
+         */
         rowsPerPage?: number;
+        /**
+         * Selects the specified row.
+         */
         selectRow?: number;
+        /**
+         * When set to true enables the column filters.
+         */
         showFilters?: boolean;
+        /**
+         * Can be used to customize the grid view of the table.
+         */
         showGrid?: ShowGrid;
         /**
          * Enables rendering of the table header.
@@ -2258,13 +2429,28 @@ declare namespace LocalJSX {
          * If set to true, displays the button to load more records.
          */
         showLoadMore?: boolean;
+        /**
+         * Defines the current sorting options.
+         */
         sort?: Array<SortObject>;
+        /**
+         * When set to true enables the sorting of the columns.
+         */
         sortEnabled?: boolean;
         /**
          * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
          */
         sortableColumnsMutateData?: boolean;
+        /**
+         * Defines the current totals options.
+         */
         totals?: TotalsMap;
+    }
+    interface KupEditor extends JSXBase.HTMLAttributes<HTMLKupEditorElement> {
+        /**
+         * The html to be rendered and edited
+         */
+        text?: string;
     }
     interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
         /**
@@ -2880,6 +3066,10 @@ declare namespace LocalJSX {
          */
         checked?: boolean;
         /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
+        /**
          * Defaults at false. When set to true, the component is disabled.
          */
         disabled?: boolean;
@@ -2888,9 +3078,21 @@ declare namespace LocalJSX {
          */
         flat?: boolean;
         /**
+         * Defaults at false. When set to true fill all the available horizontal space.
+         */
+        fullHeight?: boolean;
+        /**
+         * Defaults at false. When set to true fill all the available horizontal space.
+         */
+        fullWidth?: boolean;
+        /**
          * Defaults at null. When set, the button will show this icon.
          */
         icon?: string;
+        /**
+         * If not set, it will be managed by the component.
+         */
+        iconColor?: string;
         /**
          * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -2927,6 +3129,10 @@ declare namespace LocalJSX {
          */
         toggable?: boolean;
         /**
+         * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
+         */
+        tooltip?: string;
+        /**
          * Defaults at null. When set, the icon will be shown after the text.
          */
         trailingIcon?: boolean;
@@ -2937,6 +3143,10 @@ declare namespace LocalJSX {
          * Defaults at false. When set to true, the component will be set to 'checked'.
          */
         checked?: boolean;
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
         /**
          * Defaults at false. When set to true, the component is disabled.
          */
@@ -2979,110 +3189,74 @@ declare namespace LocalJSX {
             }>
         ) => void;
     }
-    interface WupCombo extends JSXBase.HTMLAttributes<HTMLWupComboElement> {
-        comboId?: string;
+    interface WupChip extends JSXBase.HTMLAttributes<HTMLWupChipElement> {
         /**
-         * Defaults at false. When set to true, the component is disabled.
+         * Custom style to be passed to the component.
          */
-        disabled?: boolean;
+        customStyle?: string;
         /**
-         * Marks the list as filterable, allowing an input text to filter the options
+         * List of elements.
          */
-        isFilterable?: boolean;
-        items?: ComponentListElement[];
+        data?: ComponentChipElement[];
+        onKupChipBlur?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupChipClick?: (
+            event: CustomEvent<{
+                index: number;
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupChipError?: (
+            event: CustomEvent<{
+                el: EventTarget;
+            }>
+        ) => void;
+        onKupChipFocus?: (
+            event: CustomEvent<{
+                value: string;
+            }>
+        ) => void;
+        onKupChipIconClick?: (
+            event: CustomEvent<{
+                index: number;
+                el: EventTarget;
+            }>
+        ) => void;
         /**
-         * Event example.
+         * The type of chip. Available types: input, filter, choice or empty for default.
          */
-        onKupComboBlur?: (
-            event: CustomEvent<{
-                value: any;
-            }>
-        ) => void;
-        onKupComboChange?: (
-            event: CustomEvent<{
-                value: any;
-            }>
-        ) => void;
-        onKupComboClick?: (
-            event: CustomEvent<{
-                value: any;
-            }>
-        ) => void;
-        onKupComboFocus?: (
-            event: CustomEvent<{
-                value: any;
-            }>
-        ) => void;
-        onKupComboInput?: (
-            event: CustomEvent<{
-                value: any;
-            }>
-        ) => void;
-        selectable?: string;
+        type?: string;
     }
-    interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+    interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
         /**
-         * Marks the list as filterable, allowing an input text to filter the options
+         * The color of the icon, defaults to the main color of the app.
          */
-        isFilterable?: boolean;
-        items?: ComponentListElement[];
-        listId?: string;
+        color?: string;
         /**
-         * Events.
+         * Custom style to be passed to the component.
          */
-        onKupListBlur?: (
-            event: CustomEvent<{
-                selected: ComponentListElement;
-                el: EventTarget;
-            }>
-        ) => void;
-        onKupListChange?: (
-            event: CustomEvent<{
-                selected: ComponentListElement;
-                el: EventTarget;
-            }>
-        ) => void;
-        onKupListClick?: (
-            event: CustomEvent<{
-                selected: ComponentListElement;
-                el: EventTarget;
-            }>
-        ) => void;
-        onKupListFocus?: (
-            event: CustomEvent<{
-                selected: ComponentListElement;
-                el: EventTarget;
-            }>
-        ) => void;
-        onKupListInput?: (
-            event: CustomEvent<{
-                selected: ComponentListElement;
-                el: EventTarget;
-            }>
-        ) => void;
-        roleType?: string;
-        selectable?: string;
-        twoLine?: boolean;
-    }
-    interface WupPaginator
-        extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
-        currentPage?: number;
-        max?: number;
-        mode?: PaginatorMode;
+        customStyle?: string;
         /**
-         * When the current page change
+         * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
          */
-        onKupPageChanged?: (event: CustomEvent<{ newPage: number }>) => void;
+        dimensions?: string;
         /**
-         * When the rows per page change
+         * The name of the icon.
          */
-        onKupRowsPerPageChanged?: (
-            event: CustomEvent<{ newRowsPerPage: number }>
-        ) => void;
-        perPage?: number;
-        selectedPerPage?: number;
+        name?: string;
+        /**
+         * The type of the icon, defaults to "svg".
+         */
+        type?: string;
     }
     interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
         /**
          * List of elements.
          */
@@ -3102,40 +3276,38 @@ declare namespace LocalJSX {
         onKupRadioBlur?: (
             event: CustomEvent<{
                 value: string;
-                checked: boolean;
             }>
         ) => void;
         onKupRadioChange?: (
             event: CustomEvent<{
                 value: string;
-                checked: boolean;
             }>
         ) => void;
         onKupRadioClick?: (
             event: CustomEvent<{
                 value: string;
-                checked: boolean;
             }>
         ) => void;
         onKupRadioFocus?: (
             event: CustomEvent<{
                 value: string;
-                checked: boolean;
             }>
         ) => void;
         onKupRadioInput?: (
             event: CustomEvent<{
                 value: string;
-                checked: boolean;
             }>
         ) => void;
-        value?: string;
     }
     interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
         /**
          * Defaults at false. When set to true, the component will be set to 'checked'.
          */
         checked?: boolean;
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
         /**
          * Defaults at false. When set to true, the component is disabled.
          */
@@ -3175,6 +3347,10 @@ declare namespace LocalJSX {
         ) => void;
     }
     interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
         /**
          * List of elements.
          */
@@ -3235,6 +3411,10 @@ declare namespace LocalJSX {
     }
     interface WupTextField
         extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
+        /**
+         * Custom style to be passed to the component.
+         */
+        customStyle?: string;
         /**
          * Defaults at false. When set to true, the component is disabled.
          */
@@ -3344,6 +3524,7 @@ declare namespace LocalJSX {
         'kup-crud': KupCrud;
         'kup-dash': KupDash;
         'kup-data-table': KupDataTable;
+        'kup-editor': KupEditor;
         'kup-fld': KupFld;
         'kup-form': KupForm;
         'kup-gauge': KupGauge;
@@ -3368,9 +3549,8 @@ declare namespace LocalJSX {
         'kup-upload': KupUpload;
         'wup-button': WupButton;
         'wup-checkbox': WupCheckbox;
-        'wup-combo': WupCombo;
-        'wup-list': WupList;
-        'wup-paginator': WupPaginator;
+        'wup-chip': WupChip;
+        'wup-icon': WupIcon;
         'wup-radio': WupRadio;
         'wup-switch': WupSwitch;
         'wup-tab-bar': WupTabBar;

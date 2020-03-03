@@ -9,6 +9,7 @@
 
 | Property       | Attribute       | Description                                                                          | Type                      | Default        |
 | -------------- | --------------- | ------------------------------------------------------------------------------------ | ------------------------- | -------------- |
+| `customStyle`  | `custom-style`  | Custom style to be passed to the component.                                          | `string`                  | `undefined`    |
 | `data`         | --              | List of elements.                                                                    | `ComponentRadioElement[]` | `[]`           |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`                 | `false`        |
 | `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`                 | `false`        |

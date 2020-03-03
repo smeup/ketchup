@@ -6,6 +6,7 @@ import {
     JSX,
     Method,
     Prop,
+    Element,
     State,
     Watch,
 } from '@stencil/core';
@@ -75,22 +76,41 @@ import {
     shadow: true,
 })
 export class KupDataTable {
+    @Element() rootElement!: HTMLElement;
+    /**
+     * Used to set custom columns width.
+     */
     @Prop()
     columnsWidth: Array<{
         column: string;
         width: number;
     }> = [];
 
+    /**
+     * Expands groups when set to true.
+     */
+    @Prop({ reflect: true })
+    expandGroups = false;
+
+    /**
+     * The data of the table.
+     */
     @Prop() data: TableData;
 
     /**
-     * Enables sorting of the columns by dragging them into different columns
+     * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop() enableSortableColumns: boolean = false;
+    @Prop({ reflect: true })
+    density: string = 'small';
 
-    @Prop()
-    expandGroups = false;
+    /**
+     * Enables the sorting of columns by dragging them into different columns.
+     */
+    @Prop({ reflect: true }) enableSortableColumns: boolean = false;
 
+    /**
+     * List of filters set by the user.
+     */
     @Prop({ mutable: true })
     filters: GenericMap = {};
 
@@ -101,44 +121,41 @@ export class KupDataTable {
     @Prop({ reflect: true })
     forceOneLine: boolean = false;
 
-    @Prop()
+    /**
+     * When set to true it activates the global filter.
+     */
+    @Prop({ reflect: true })
     globalFilter = false;
 
-    @Prop({ mutable: true })
+    /**
+     * The value of the global filter.
+     */
+    @Prop({ reflect: true, mutable: true })
     globalFilterValue = '';
 
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
      */
-    @Prop()
+    @Prop({ reflect: true })
     groupLabelDisplay: GroupLabelDisplayMode = GroupLabelDisplayMode.BOTH;
 
+    /**
+     * The list of groups.
+     */
     @Prop({ mutable: true })
     groups: Array<GroupObject> = [];
 
-    @Prop()
-    hoverScroll: boolean = true;
-
+    /**
+     * When set to true the header will stick on top of the table when scrolling.
+     */
     @Prop({ reflect: true })
     headerIsPersistent = true;
-
-    @Prop()
-    multiSelection = false;
 
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
-    @Prop() loadMoreLimit: number = 1000;
-
-    /**
-     * The number of records which will be requested to be downloaded when clicking on the load more button.
-     *
-     * This property is regulated also by loadMoreMode.
-     * @see loadMoreMode
-     * @see loadMoreLimit
-     */
-    @Prop() loadMoreStep: number = 60;
+    @Prop({ reflect: true }) loadMoreLimit: number = 1000;
 
     /**
      * Establish the modality of how many new records will be downloaded.
@@ -149,17 +166,56 @@ export class KupDataTable {
      */
     @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
 
-    @Prop()
+    /**
+     * The number of records which will be requested to be downloaded when clicking on the load more button.
+     *
+     * This property is regulated also by loadMoreMode.
+     * @see loadMoreMode
+     * @see loadMoreLimit
+     */
+    @Prop({ reflect: true }) loadMoreStep: number = 60;
+
+    /**
+     * When set to true enables rows multi selection.
+     */
+    @Prop({ reflect: true })
+    multiSelection = false;
+
+    /**
+     * Sets the position of the paginator. Available positions: top, bottom or both.
+     */
+    @Prop({ reflect: true })
     paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
-    @Prop()
-    rowsPerPage = 10;
-
+    /**
+     * Sets the actions of the rows.
+     */
     @Prop()
     rowActions: Array<RowAction>;
 
-    @Prop()
+    /**
+     * Sets the number of rows per page to display.
+     */
+    @Prop({ reflect: true })
+    rowsPerPage = 10;
+
+    /**
+     * Selects the specified row.
+     */
+    @Prop({ reflect: true })
     selectRow: number;
+
+    /**
+     * When set to true enables the column filters.
+     */
+    @Prop({ reflect: true })
+    showFilters = false;
+
+    /**
+     * Can be used to customize the grid view of the table.
+     */
+    @Prop({ reflect: true })
+    showGrid: ShowGrid = ShowGrid.ROW;
 
     /**
      * Enables rendering of the table header.
@@ -168,20 +224,20 @@ export class KupDataTable {
     @Prop({ reflect: true })
     showHeader = true;
 
-    @Prop()
-    showFilters = false;
-
-    @Prop()
-    showGrid: ShowGrid = ShowGrid.ROW;
-
     /**
      * If set to true, displays the button to load more records.
      */
     @Prop({ reflect: true }) showLoadMore: boolean = false;
 
-    @Prop()
+    /**
+     * When set to true enables the sorting of the columns.
+     */
+    @Prop({ reflect: true })
     sortEnabled = true;
 
+    /**
+     * Defines the current sorting options.
+     */
     @Prop({ mutable: true })
     sort: Array<SortObject> = [];
 
@@ -189,10 +245,18 @@ export class KupDataTable {
      * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property
      * and then fires the event
      */
-    @Prop() sortableColumnsMutateData: boolean = true;
+    @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
 
+    /**
+     * Defines the current totals options.
+     */
     @Prop()
     totals: TotalsMap;
+
+    /**
+     * Defines the placeholder character which will be replaced by a line break.
+     */
+    @Prop() lineBreakCharacter: string = '|';
 
     //-------- State --------
 
@@ -223,9 +287,6 @@ export class KupDataTable {
 
     @State()
     private botFontSizePanelVisible = false;
-
-    @State()
-    private density: string = 'medium';
 
     @State()
     private fontsize: string = 'medium';
@@ -276,7 +337,6 @@ export class KupDataTable {
     private loadMoreEventPreviousQuantity: number = 0;
 
     private scrollOnHoverInstance: scrollOnHover;
-    private positionRecalcInstance: positionRecalc;
 
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
@@ -559,15 +619,31 @@ export class KupDataTable {
             this.forceGroupExpansion();
         }
     }
-
-    componentDidLoad() {
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
         document.addEventListener('scroll', this.stickyHeaderPosition);
         document.addEventListener('resize', this.stickyHeaderPosition);
+        if (this.customizePanelRef) {
+            let customizeAnchor = this.customizePanelRef
+                .closest('.paginator-wrapper')
+                .getElementsByClassName('custom-settings')[0];
+            positionRecalc(this.customizePanelRef, customizeAnchor);
+        }
+
+        if (root != null) {
+            let menus: any = root.querySelectorAll('.column-menu');
+
+            for (let i = 0; i < menus.length; i++) {
+                let wrapper: any = menus[i].closest('th');
+                positionRecalc(menus[i], wrapper);
+            }
+        }
+    }
+
+    componentDidLoad() {
         this.scrollOnHoverInstance = new scrollOnHover();
-        this.positionRecalcInstance = new positionRecalc();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-        this.positionRecalcInstance.positionRecalcSetup(this.customizePanelRef);
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -614,13 +690,10 @@ export class KupDataTable {
     }
 
     private getVisibleColumns(): Array<Column> {
-        const visibleColumns = this.getColumns().filter((column) => {
-            if (column.hasOwnProperty('visible')) {
-                return column.visible;
-            }
-
-            return true;
-        });
+        // TODO: change into `visible ?? true` when TS dependency has been updated
+        const visibleColumns = this.getColumns().filter(({ visible }) =>
+            visible !== undefined ? visible : true
+        );
 
         // check grouping
         if (this.isGrouping()) {
@@ -1250,6 +1323,13 @@ export class KupDataTable {
         }
     }
 
+    private applyLineBreaks(content: string) {
+        // We add a break line before every chunk
+        return content
+            .split(this.lineBreakCharacter)
+            .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
+    }
+
     //======== render methods ========
     private renderHeader() {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
@@ -1509,7 +1589,9 @@ export class KupDataTable {
                     onMouseLeave={() => this.onColumnMouseLeave(column.name)}
                     {...dragHandlers}
                 >
-                    <span class="column-title">{column.title}</span>
+                    <span class="column-title">
+                        {this.applyLineBreaks(column.title)}
+                    </span>
                     {sort}
                     {filter}
                     {columnMenu}
@@ -1583,7 +1665,9 @@ export class KupDataTable {
 
             return (
                 <th-sticky class={columnClass} style={thStyle}>
-                    <span class="column-title">{column.title}</span>
+                    <span class="column-title">
+                        {this.applyLineBreaks(column.title)}
+                    </span>
                 </th-sticky>
             );
         });
@@ -1775,7 +1859,7 @@ export class KupDataTable {
                             level + 1,
                             groupRowIndex > 0
                                 ? currentArray[groupRowIndex - 1]
-                                : null
+                                : undefined
                         )
                     )
                     .forEach((jsxRow) => {
@@ -1834,16 +1918,11 @@ export class KupDataTable {
 
                 const jsxCell = this.renderCell(
                     cell,
-                    name,
-                    // The previous value must be passed only if repeated values can be hidden and we have a previous row.
-                    {
-                        row,
-                        column: currentColumn,
-                    },
-                    !!hideValuesRepetitions,
+                    row,
+                    currentColumn,
                     hideValuesRepetitions && previousRow
                         ? previousRow.cells[name].value
-                        : null
+                        : undefined
                 );
 
                 const cellClass = {
@@ -1858,7 +1937,7 @@ export class KupDataTable {
                 }
 
                 // Controls if there are columns with a specified width
-                if (this.columnsWidth && this.columnsWidth.length) {
+                if (this.columnsWidth.length > 0) {
                     let colWidth: string = '';
 
                     // Search if this column has a specified width
@@ -2007,16 +2086,13 @@ export class KupDataTable {
      */
     private renderCell(
         cell: Cell,
-        column: string,
-        cellData: {
-            column: Column;
-            row: Row;
-        },
-        hideValuesRepetition: boolean = false,
+        row: Row,
+        column: Column,
         previousRowCellValue?: string
     ) {
-        const clazz = {
+        const classObj: Record<string, boolean> = {
             'cell-content': true,
+            clickable: !!column.clickable,
         };
 
         // When the previous row value is different from the current value, we can show the current value.
@@ -2035,7 +2111,7 @@ export class KupDataTable {
                 const cellValue = numeral(cell.obj.k).value();
 
                 if (cellValue < 0) {
-                    clazz['negative-number'] = true;
+                    classObj['negative-number'] = true;
                 }
             }
         } else if (isImage(cell.obj)) {
@@ -2051,13 +2127,8 @@ export class KupDataTable {
             content = (
                 <kup-checkbox
                     checked={checked}
-                    disabled={
-                        cellData &&
-                        cellData.row &&
-                        cellData.row.hasOwnProperty('readOnly')
-                            ? cellData.row.readOnly
-                            : true
-                    }
+                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
+                    disabled={row.readOnly !== undefined ? row.readOnly : true}
                 />
             );
         } else if (isButton(cell.obj)) {
@@ -2085,45 +2156,47 @@ export class KupDataTable {
                     {...buildButtonConfig(cell.value, cell.config)}
                     onKupButtonClicked={this.onJ4btnClicked.bind(
                         this,
-                        cellData ? cellData.row : null,
-                        cellData ? cellData.column : null,
+                        row,
+                        column,
                         cell
                     )}
                 />
             );
         } else if (isBar(cell.obj)) {
+            const columnWidth = this.columnsWidth.find(
+                ({ column: columnName }) => columnName === column.name
+            );
+
             const props: { value: string; width?: number } = {
                 value: cell.value,
+                width:
+                    columnWidth !== undefined ? columnWidth.width : undefined,
             };
-
-            // check if column has width
-            if (this.columnsWidth && this.columnsWidth[column]) {
-                props.width = this.columnsWidth[column];
-            }
 
             // Controls if we should display this cell value
             content =
-                !hideValuesRepetition || valueToDisplay ? (
+                !column.hideValuesRepetitions || valueToDisplay ? (
                     <kup-graphic-cell {...props} />
                 ) : null;
         } else if (isChart(cell.obj)) {
+            const columnWidth = this.columnsWidth.find(
+                ({ column: columnName }) => columnName === column.name
+            );
+
             const props: {
+                cellConfig: any;
                 value: string;
                 width?: number;
-                cellConfig: any;
             } = {
-                value: cell.value,
                 cellConfig: cell.config,
+                value: cell.value,
+                width:
+                    columnWidth !== undefined ? columnWidth.width : undefined,
             };
-
-            // check if column has width
-            if (this.columnsWidth && this.columnsWidth[column]) {
-                props.width = this.columnsWidth[column];
-            }
 
             content = <kup-chart-cell {...props} />;
         } else if (isProgressBar(cell.obj)) {
-            if (!hideValuesRepetition || valueToDisplay) {
+            if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-progress-bar
                         {...buildProgressBarConfig(
@@ -2138,16 +2211,13 @@ export class KupDataTable {
                 content = null;
             }
         } else if (isRadio(cell.obj)) {
-            if (!hideValuesRepetition || valueToDisplay) {
+            if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-radio-element
                         checked={!!cell.obj.k}
+                        // TODO: update as `row.readOnly ?? true` when dependencies are updated
                         disabled={
-                            cellData &&
-                            cellData.row &&
-                            cellData.row.hasOwnProperty('readOnly')
-                                ? cellData.row.readOnly
-                                : true
+                            row.readOnly !== undefined ? row.readOnly : true
                         }
                     />
                 );
@@ -2172,13 +2242,13 @@ export class KupDataTable {
                     class="datatable-tooltip"
                     onKupTooltipLoadData={(ev) =>
                         this.kupLoadRequest.emit({
-                            cell: cell,
+                            cell,
                             tooltip: ev.srcElement,
                         })
                     }
                     onKupTooltipLoadDetail={(ev) =>
                         this.kupDetailRequest.emit({
-                            cell: cell,
+                            cell,
                             tooltip: ev.srcElement,
                         })
                     }
@@ -2189,7 +2259,7 @@ export class KupDataTable {
         }
 
         return (
-            <span class={clazz} style={style}>
+            <span class={classObj} style={style}>
                 {content}
             </span>
         );
@@ -2221,7 +2291,6 @@ export class KupDataTable {
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
 
-        this.positionRecalcInstance.setPosition(elPanel, elButton, 3);
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
@@ -2578,9 +2647,7 @@ export class KupDataTable {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
             'auto-width': !!(
-                this.columnsWidth &&
-                this.columnsWidth.length &&
-                this.tableHasAutoWidth()
+                this.columnsWidth.length > 0 && this.tableHasAutoWidth()
             ),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||

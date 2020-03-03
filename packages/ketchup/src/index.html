@@ -11,6 +11,7 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
+
         <script src="https://d3js.org/d3-path.v1.min.js"></script>
         <script src="https://d3js.org/d3-shape.v1.min.js"></script>
         <script type="module" src="/build/mycomponent.esm.js"></script>
@@ -257,15 +258,17 @@
         <h4>Material Switch (widget)</h4>
         <wup-switch></wup-switch>
         <h4>Material Buttons (widget)</h4>
-        <wup-button></wup-button>
-        <wup-button icon="favorite"></wup-button>
-        <wup-button disabled icon="favorite"></wup-button>
-        <wup-button toggable icon="favorite"></wup-button>
-        <wup-button toggable icon="menu" icon-off="favorite"></wup-button>
-        <wup-button toggable checked icon="favorite"></wup-button>
-        <wup-button disabled icon="favorite"></wup-button>
+        <span>empty:</span><wup-button></wup-button>
+        <span>icon:</span><wup-button icon="favorite"></wup-button>
+        <span>disabled:</span><wup-button disabled icon="favorite"></wup-button>
+        <span>toggable:</span><wup-button toggable icon="favorite"></wup-button>
+        <span>toggable+icon-off:</span><wup-button toggable icon="fullscreen" icon-off="fullscreen_exit"></wup-button>
+        <span>toggable+checked:</span><wup-button toggable checked icon="favorite"></wup-button>
+        <span>icon+tooltip:</span><wup-button tooltip="Tooltip" icon="favorite"></wup-button>
+        
+        <!-- -->
         <wup-button label="Flat" flat></wup-button>
-        <wup-button text="Raised"></wup-button>
+        <wup-button label="Raised"></wup-button>
         <wup-button label="Flat & disabled" flat disabled></wup-button>
         <wup-button label="Outlined & disabled" disabled outlined></wup-button>
         <wup-button disabled label="Raised & disabled"></wup-button>
@@ -276,23 +279,19 @@
             label="Raised trailing favorite"
         ></wup-button>
         <wup-button outlined label="Outlined"></wup-button>
-        <wup-button shaped label="Shaped"></wup-button>
+        <wup-button shaped disabled label="Shaped & disabled"></wup-button>
         <wup-button shaped label="Shaped & raised"></wup-button>
         <wup-button
-        shaped
-            transparent
-            label="Shaped & transparent"
+            shaped
+            outlined
+            label="Shaped & outlined"
         ></wup-button>
-
-        <h4>Material Listbox (widget)</h4>
-        <h5>No select</h5>
-        <wup-list selectable="no-select" isFilterable="false" list-id="pippo1" two-line="true"></wup-list>
-
-        <h5>Single select</h5>
-        <wup-list selectable="one-select" isFilterable="false" list-id="pippo2" role-type="radiogroup"></wup-list>
-
-        <h5>Multi select</h5>
-        <wup-list selectable="multi-select" isFilterable="false" list-id="pippo3" role-type="group"></wup-list>
+        <wup-icon color="red" name="favorite"></wup-icon>
+        <wup-icon name="favorite"></wup-icon>
+        
+        <wup-button full-width label="Fill space"></wup-button>
+        <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
+        <wup-chip type="filter"></wup-chip>
         
         <h4>Material ComboBox (widget)</h4>
         <wup-combo isFilterable="false" list-id="pluto1"></wup-combo>
@@ -383,6 +382,10 @@
       {
         name: '--kup-field-background-color',
         value: '#2a2a2a',
+      },
+      {
+        name: '--kup-chip-background-color',
+        value: '#222222',
       },
       {
         name: '--mdc-theme-primary',
@@ -538,7 +541,7 @@
             tabBar.data = [
                     {
                         text: 'Favorites',
-                        icon: 'favorites',
+                        icon: 'favorite',
                         active: true
                     },
                     {
@@ -574,6 +577,22 @@ radioList.data = [
             value: 'Settings',
             label: "label 3",
             checked: false
+        },
+    ];
+
+let chipList = document.getElementsByTagName('wup-chip')[0];
+chipList.data = [
+        {
+            value: 'favorites',
+            icon: 'favorite',
+            label: "Favorites",
+            checked: false
+        },
+        {
+            value: 'Set alarm clock',
+            label: "Label 2",
+            icon: 'filter_2',
+            checked: true
         },
     ];
 
@@ -1174,6 +1193,7 @@ radioList.data = [
             --kup-disabled-text-color: #5c5c5c;
             --kup-disabled-background-color: #eaeaea;
             --kup-field-background-color: #fafafa;
+            --kup-chip-background-color: #eaeaea;
 
             --mdc-theme-primary: var(--kup-main-color);
             --mdc-theme-on-primary: var(--kup-text-on-main-color);

@@ -25,6 +25,7 @@
         "dist/"
     ],
     "scripts": {
+        "buildnodocs": "stencil build",
         "build": "stencil build --docs",
         "start": "stencil build --dev --watch --serve",
         "start--es5": "stencil build --dev --watch --serve --es5",
@@ -40,6 +41,8 @@
         "@fullcalendar/timegrid": "^4.3.0",
         "@material/button": "^4.0.0",
         "@material/checkbox": "^4.0.0",
+        "@material/chips": "^4.0.0",
+        "@material/icon-button": "^4.0.0",
         "@material/form-field": "^4.0.0",
         "@material/icon-button": "^4.0.0",
         "@material/list": "^4.0.0",

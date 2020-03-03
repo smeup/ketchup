@@ -35,9 +35,14 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp:
-        '<wup-button icon="sentiment_satisfied_alt" id="demo-component" label="demo"></wup-button>',
+        '<wup-button icon="widgets" id="demo-component" label="demo"></wup-button>',
       demoProps: [
         {
           prop: 'checked',
@@ -46,6 +51,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
         },
         {
           prop: 'disabled',
@@ -63,9 +76,33 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'fullHeight',
+          description:
+            'The button will fill all available vertical space. Has no effect on icon buttons variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'fullWidth',
+          description:
+            'The button will fill all available horizontal space. Has no effect on icon buttons variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'icon',
           description:
             'The button will be rendered with the specified Material Design icon.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'iconColor',
+          description:
+            'Sets the color of the icon. When unset, it will be managed by the component.',
           type: 'string',
           default: 'null',
           try: 'field',
@@ -107,6 +144,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'tooltip',
+          description:
+            'When set, this tooltip will be displayed on mouse over (using the HTML attribute title).',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
         },
         {
           prop: 'trailingIcon',

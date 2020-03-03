@@ -20,6 +20,11 @@ export const defaultData = {
       title: 'Delivery date',
       size: 10,
     },
+    {
+      name: 'FLD5',
+      title: 'HTML',
+      size: 50,
+    },
   ],
   rows: [
     {
@@ -1122,6 +1127,11 @@ export const shapeData = {
       title: 'Progress',
       size: 10,
     },
+    {
+      name: 'FLD4',
+      title: 'Html',
+      size: 10,
+    },
   ],
   rows: [
     {
@@ -1235,6 +1245,34 @@ export const shapeData = {
         },
       },
     },
+    {
+      id: '3',
+      cells: {
+        FLD1: {
+          obj: {
+            t: 'AR',
+            p: 'ART',
+            k: 'myhtml',
+          },
+          value: '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b> e immagine <img src="https://picsum.photos/100/50"/></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
+        },
+
+      },
+      layout: {
+        sections: [
+          {
+            horizontal: true,
+            dim: '100%',
+            content: [
+              {
+                    column: 'FLD1',
+                    shape: 'EDT',
+              },
+            ],
+          }
+        ]
+      }
+    }
   ],
 };
 

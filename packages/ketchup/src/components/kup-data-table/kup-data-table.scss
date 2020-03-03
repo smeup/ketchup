@@ -178,9 +178,11 @@
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
         position: relative;
-        position: sticky;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
         top: 0;
+        // Enforce consistent vertical alignment with sibiling header cells
+        //  when filter field or sort/filter icons are present.
+        vertical-align: bottom;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
 
         //---- Column name container ----
@@ -193,6 +195,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: bottom;
+          white-space: normal;
         }
 
         &.number {
@@ -332,6 +335,7 @@
           background: var(--dtt_group-background-color);
           font-weight: bold;
           border-top: 1px solid var(--dtt_border-color);
+          cursor: pointer;
 
           &.group-label {
             border-bottom: none;

@@ -278,6 +278,18 @@ export default {
             },
           },
           {
+            title: `Chip`,
+            to: {
+              name: 'chip',
+            },
+          },
+          {
+            title: `Icon`,
+            to: {
+              name: 'icon',
+            },
+          },
+          {
             title: `Radio`,
             to: {
               name: 'radio',
@@ -306,6 +318,12 @@ export default {
       {
         title: 'Javascript',
         javascriptItems: [
+          {
+            title: 'Error logging',
+            to: {
+              name: 'errorlogging',
+            },
+          },
           {
             title: 'Scroll on hover',
             to: {

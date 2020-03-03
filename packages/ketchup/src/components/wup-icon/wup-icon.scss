@@ -1,0 +1,13 @@
+// host represent widget DOM element
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    margin: auto;
+  }
+
+  svg,
+  img {
+    display: var(--kup-display-mode);
+  }
+}

@@ -19,6 +19,10 @@ import { ComponentTabBarElement } from './wup-tab-bar-declarations';
 export class WupTabBar {
     @Element() rootElement: HTMLElement;
     /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+    /**
      * List of elements.
      */
     @Prop() data: ComponentTabBarElement[] = [];
@@ -93,6 +97,10 @@ export class WupTabBar {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
         let componentClass: string = 'mdc-tab-bar';
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
 
         for (let i = 0; i < this.data.length; i++) {
             let tabClass: string = 'mdc-tab';
@@ -106,12 +114,12 @@ export class WupTabBar {
 
             if (this.data[i].icon !== '') {
                 iconEl = (
-                    <span
+                    <wup-icon
+                        color="var(--kup-main-color)"
                         class="mdc-tab__icon material-icons"
-                        aria-hidden="true"
-                    >
-                        {this.data[i].icon}
-                    </span>
+                        dimensions="24px"
+                        name={this.data[i].icon}
+                    ></wup-icon>
                 );
             }
 
@@ -142,6 +150,7 @@ export class WupTabBar {
 
         return (
             <Host>
+                {customStyle}
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">

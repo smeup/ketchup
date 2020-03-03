@@ -42,9 +42,22 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp: '<wup-tab-bar id="demo-component"></wup-tab-bar>',
       demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
+        },
         {
           prop: 'data',
           description:

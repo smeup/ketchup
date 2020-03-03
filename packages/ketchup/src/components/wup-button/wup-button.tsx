@@ -20,17 +20,49 @@ export class WupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**
+     * Defaults at false. When set to true, the icon button state will be on.
+     */
+    @Prop({ reflect: true }) checked: boolean = false;
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
     /**
-     * Defaults at false. When set to true, the button will be rendered with a colored outline.
-     */
-    @Prop({ reflect: true }) outlined: boolean = false;
-    /**
      * Defaults at false. When set to true, the button will be rendered flat.
      */
     @Prop({ reflect: true }) flat: boolean = false;
+    /**
+     * Defaults at false. When set to true fill all the available horizontal space.
+     */
+    @Prop({ reflect: true }) fullHeight = false;
+    /**
+     * Defaults at false. When set to true fill all the available horizontal space.
+     */
+    @Prop({ reflect: true }) fullWidth = false;
+    /**
+     * Defaults at null. When set, the button will show this icon.
+     */
+    @Prop({ reflect: true }) icon: string = null;
+    /**
+     * If not set, it will be managed by the component.
+     */
+    @Prop({ reflect: true }) iconColor: string = null;
+    /**
+     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+     */
+    @Prop({ reflect: true }) iconOff: string = null;
+    /**
+     * Defaults at null. When set, the button will show this text.
+     */
+    @Prop({ reflect: true }) label: string = null;
+    /**
+     * Defaults at false. When set to true, the button will be rendered with a colored outline.
+     */
+    @Prop({ reflect: true }) outlined: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
@@ -40,25 +72,13 @@ export class WupButton {
      */
     @Prop({ reflect: true }) toggable: boolean = false;
     /**
-     * Defaults at false. When set to true, the icon button state will be on.
+     * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
      */
-    @Prop({ reflect: true }) checked: boolean = false;
-    /**
-     * Defaults at null. When set, the button will show this icon.
-     */
-    @Prop({ reflect: true }) icon: string = null;
-    /**
-     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-     */
-    @Prop({ reflect: true }) iconOff: string = null;
+    @Prop({ reflect: true }) tooltip: string = undefined;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop({ reflect: true }) trailingIcon: boolean = false;
-    /**
-     * Defaults at null. When set, the button will show this text.
-     */
-    @Prop({ reflect: true }) label: string = null;
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -139,14 +159,14 @@ export class WupButton {
         const root = this.rootElement.shadowRoot;
 
         if (root != null) {
-            const buttonRipple = MDCRipple.attachTo(
-                root.querySelector('.kup-button')
-            );
-            const iconEl = root.querySelector('.kup-button');
-            if (iconEl.classList.contains('mdc-icon-button')) {
-                buttonRipple.unbounded = true;
-                if (iconEl.classList.contains('toggable')) {
-                    new MDCIconButtonToggle(iconEl);
+            let button = root.querySelector('.kup-button');
+            if (button != undefined) {
+                const buttonRipple = MDCRipple.attachTo(button);
+                if (button.classList.contains('mdc-icon-button')) {
+                    buttonRipple.unbounded = true;
+                    if (button.classList.contains('toggable')) {
+                        new MDCIconButtonToggle(button);
+                    }
                 }
             }
         }
@@ -160,22 +180,38 @@ export class WupButton {
         let labelEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
+        let elStyle = undefined;
+        let iconColor = undefined;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
+            iconColor = 'var(--kup-disabled-text-color)';
+        } else {
+            iconColor = this.iconColor;
         }
 
         if (this.label) {
             componentClass += ' mdc-button';
             labelEl = <span class="mdc-button__label">{this.label}</span>;
             if (this.icon) {
+                if (!iconColor) {
+                    if (this.flat || this.outlined) {
+                        iconColor = 'var(--kup-main-color)';
+                    } else {
+                        iconColor = 'var(--kup-text-on-main-color)';
+                    }
+                }
                 iconEl = (
-                    <i
+                    <wup-icon
+                        color={iconColor}
                         class="material-icons mdc-button__icon"
-                        aria-hidden="true"
-                    >
-                        {this.icon}
-                    </i>
+                        dimensions="18px"
+                        name={this.icon}
+                    ></wup-icon>
                 );
             }
 
@@ -189,6 +225,21 @@ export class WupButton {
                 componentClass += ' button-shaped';
             }
 
+            if (this.fullWidth) {
+                componentClass += ' fullwidth';
+                elStyle = {
+                    width: '100%',
+                };
+            }
+
+            if (this.fullHeight) {
+                componentClass += ' fullheight';
+                elStyle = {
+                    ...elStyle,
+                    height: '100%',
+                };
+            }
+
             if (this.trailingIcon && this.icon) {
                 leadingEl = labelEl;
                 trailingEl = iconEl;
@@ -197,12 +248,14 @@ export class WupButton {
                 trailingEl = labelEl;
             }
             return (
-                <Host>
-                    <div id="kup-component">
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" style={elStyle}>
                         <button
                             type="button"
                             class={componentClass}
                             disabled={this.disabled}
+                            title={this.tooltip}
                             onBlur={() => this.onKupBlur()}
                             onClick={() => this.onKupClick()}
                             onFocus={() => this.onKupFocus()}
@@ -215,24 +268,27 @@ export class WupButton {
                 </Host>
             );
         } else if (this.icon) {
+            if (!iconColor) {
+                iconColor = 'var(--kup-main-color)';
+            }
             componentClass += ' mdc-icon-button';
             trailingEl = (
-                <i
+                <wup-icon
+                    color={iconColor}
                     class="material-icons mdc-icon-button__icon"
-                    aria-hidden="true"
-                >
-                    {this.icon}
-                </i>
+                    dimensions="18px"
+                    name={this.icon}
+                ></wup-icon>
             );
             if (this.toggable) {
                 componentClass += ' toggable';
                 trailingEl = (
-                    <i
+                    <wup-icon
+                        color={iconColor}
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        aria-hidden="true"
-                    >
-                        {this.icon}
-                    </i>
+                        dimensions="18px"
+                        name={this.icon}
+                    ></wup-icon>
                 );
                 if (this.checked) {
                     componentClass += ' mdc-icon-button--on';
@@ -246,16 +302,17 @@ export class WupButton {
                 }
 
                 leadingEl = (
-                    <i
+                    <wup-icon
+                        color={this.iconColor}
                         class="material-icons mdc-icon-button__icon"
-                        aria-hidden="true"
-                    >
-                        {iconOff}
-                    </i>
+                        dimensions="18px"
+                        name={iconOff}
+                    ></wup-icon>
                 );
             }
             return (
                 <Host>
+                    {customStyle}
                     <div id="kup-component">
                         {/* 
                             // @ts-ignore */}
@@ -265,6 +322,7 @@ export class WupButton {
                             checked={this.checked}
                             disabled={this.disabled}
                             value={this.value}
+                            title={this.tooltip}
                             onBlur={() => this.onKupBlur()}
                             onClick={() => this.onKupClick()}
                             onFocus={() => this.onKupFocus()}
