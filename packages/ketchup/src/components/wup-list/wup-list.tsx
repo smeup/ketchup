@@ -13,7 +13,7 @@ import { MDCList } from '@material/list';
 
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './wup-list-declarations';
-import { MDCListFoundation } from '@material/list/foundation';
+//import { MDCListFoundation } from '@material/list/foundation';
 
 @Component({
     tag: 'wup-list',
@@ -28,8 +28,8 @@ export class WupList {
 
     @Prop() items: ComponentListElement[] = [];
 
-    filteredItems: ComponentListElement[] = [];
-    listComponent: MDCList = null;
+    @State() filteredItems: ComponentListElement[] = [];
+    @State() listComponent: MDCList = null;
 
     /**
      * Marks the list as filterable, allowing an input text to filter the options
@@ -158,10 +158,10 @@ export class WupList {
     ) {
         const { target } = e;
 
-        if (!(target instanceof HTMLLIElement)) {
-            return;
-        }
-        console.log('onKupClict() target: ' + target);
+        //if (!(target instanceof HTMLLIElement)) {
+        //    return;
+        //}
+        console.log('onKupClick() target: ' + target);
 
         if (this.selectable == WupList.SELECTABLE_MULTI_SELECT) {
             if (item.selected == true) {
@@ -207,17 +207,168 @@ export class WupList {
         this.filter = event.detail.value.toLowerCase();
     }
 
+    renderSeparator() {
+        return <li role="separator" class="mdc-list-divider"></li>;
+    }
+
+    renderListItem(item: ComponentListElement, index: number) {
+        this.filteredItems[this.filteredItems.length] = item;
+        let primaryTextTag = [item.text];
+        let secTextTag = [];
+        if (item.secondaryText && item.secondaryText != '') {
+            primaryTextTag = [
+                <span class="mdc-list-item__primary-text">{item.text}</span>,
+            ];
+            secTextTag = [
+                <span class="mdc-list-item__secondary-text">
+                    {item.secondaryText}
+                </span>,
+            ];
+        }
+        let classAttr = 'mdc-list-item';
+        let tabIndexAttr = '-1';
+        if (item.selected == true) {
+            classAttr += ' mdc-list-item--selected';
+            tabIndexAttr = '0';
+        }
+        let roleAttr = 'option';
+        let ariaCheckedAttr: string = null;
+        let ariaSelectedAttr: string = item.selected == true ? 'true' : 'false';
+        if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
+            ariaSelectedAttr = null;
+        }
+        let innerSpanTag = [
+            <span class="mdc-list-item__text">
+                {primaryTextTag}
+                {secTextTag}
+            </span>,
+        ];
+        if (this.roleType == WupList.ROLE_RADIOGROUP) {
+            roleAttr = 'radio';
+            ariaCheckedAttr = item.selected == true ? 'true' : 'false';
+            //let checkedAttr: boolean = item.selected == true ? true : null;
+            let dataTmp = [
+                { value: item.value, label: 'ppp', checked: item.selected },
+            ];
+            innerSpanTag = [
+                <span class="mdc-list-item__graphic">
+                    <wup-radio
+                        name={this.listId + 'radio'}
+                        data={dataTmp}
+                    ></wup-radio>
+                </span>,
+                <label
+                    class="mdc-list-item__text"
+                    htmlFor={this.listId + index}
+                >
+                    {primaryTextTag}
+                    {secTextTag}
+                </label>,
+            ];
+        } else if (this.roleType == WupList.ROLE_CHECKBOX) {
+            roleAttr = 'checkbox';
+            ariaCheckedAttr = item.selected == true ? 'true' : 'false';
+            let checkedAttr: boolean = item.selected == true ? true : null;
+
+            let aaa = {
+                display: 'none',
+            };
+
+            innerSpanTag = [
+                <span class="mdc-list-item__graphic">
+                    <wup-checkbox
+                        class="mdc-checkbox"
+                        id={this.listId + index}
+                        checked={checkedAttr}
+                    ></wup-checkbox>
+                    <input type="checkbox" style={aaa} />
+                </span>,
+                <label
+                    class="mdc-list-item__text"
+                    htmlFor={this.listId + index}
+                >
+                    {primaryTextTag}
+                    {secTextTag}
+                </label>,
+            ];
+        }
+        return (
+            <li
+                class={classAttr}
+                role={roleAttr}
+                tabindex={tabIndexAttr}
+                data-value={item.value}
+                aria-selected={ariaSelectedAttr}
+                aria-checked={ariaCheckedAttr}
+                onClick={
+                    this.selectable == WupList.SELECTABLE_NO_SELECT
+                        ? (e: any) => e.stopPropagation()
+                        : (e: any) => this.onKupClick(e, item)
+                }
+            >
+                {innerSpanTag}
+            </li>
+        );
+    }
+
+    setUnselected(item: ComponentListElement) {
+        let index = this.getLiIndexElementForValue(item.value);
+
+        if (index > -1) {
+            let target = this.listComponent.listElements[index];
+            target.setAttribute('aria-selected', 'false');
+            target.setAttribute('aria-checked', 'false');
+            target.setAttribute('class', 'mdc-list-item');
+        }
+        item.selected = false;
+    }
+
+    setSelected(item: ComponentListElement) {
+        let index = this.getLiIndexElementForValue(item.value);
+        if (index > -1) {
+            let target = this.listComponent.listElements[index];
+
+            target.setAttribute('aria-selected', 'true');
+            target.setAttribute('aria-checked', 'true');
+            target.setAttribute(
+                'class',
+                'mdc-list-item' + ' ' + 'mdc-list-item--selected'
+            );
+        }
+        item.selected = true;
+    }
+
+    getLiIndexElementForValue(key: string) {
+        let index = -1;
+        let i = 0;
+        this.filteredItems.forEach((item) => {
+            if (item.isSeparator != true) {
+                if (item.value == key) {
+                    index = i;
+                }
+            }
+            i++;
+        });
+
+        return index;
+    }
+
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
-
+        console.log('componentDidLoad() id: ' + this.listId);
         if (root != null) {
             // Material design javascript initialization
             // Refer to: https://material.io/develop/web/components and choose your component
             this.listComponent = MDCList.attachTo(
-                root.querySelector('.' + MDCListFoundation.cssClasses.ROOT) // Use your widget selector
+                root.querySelector('.mdc-list') // Use your widget selector
+            );
+
+            console.log(
+                'componentDidLoad() this.listComponent: ' +
+                    JSON.stringify(this.listComponent)
             );
 
             if (this.selectable == WupList.SELECTABLE_ONE_SELECT) {
@@ -234,7 +385,7 @@ export class WupList {
 
     render() {
         //---- Rendering ----
-        let componentClass: string = MDCListFoundation.cssClasses.ROOT;
+        let componentClass: string = 'mdc-list';
         if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
             componentClass += ' mdc-list--non-interactive';
         }
@@ -284,156 +435,5 @@ export class WupList {
                 </div>
             </Host>
         );
-    }
-
-    renderSeparator() {
-        return <li role="separator" class="mdc-list-divider"></li>;
-    }
-
-    renderListItem(item: ComponentListElement, index: number) {
-        this.filteredItems[this.filteredItems.length] = item;
-        let primaryTextTag = [item.text];
-        let secTextTag = [];
-        if (item.secondaryText && item.secondaryText != '') {
-            primaryTextTag = [
-                <span class="mdc-list-item__primary-text">{item.text}</span>,
-            ];
-            secTextTag = [
-                <span class="mdc-list-item__secondary-text">
-                    {item.secondaryText}
-                </span>,
-            ];
-        }
-        let classAttr = MDCListFoundation.cssClasses.LIST_ITEM_CLASS;
-        let tabIndexAttr = '-1';
-        if (item.selected == true) {
-            classAttr +=
-                ' ' + MDCListFoundation.cssClasses.LIST_ITEM_SELECTED_CLASS;
-            tabIndexAttr = '0';
-        }
-        let roleAttr = 'option';
-        let ariaCheckedAttr: string = null;
-        let ariaSelectedAttr: string = item.selected == true ? 'true' : 'false';
-        if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
-            ariaSelectedAttr = null;
-        }
-        let innerSpanTag = [
-            <span class="mdc-list-item__text">
-                {primaryTextTag}
-                {secTextTag}
-            </span>,
-        ];
-        if (this.roleType == WupList.ROLE_RADIOGROUP) {
-            roleAttr = 'radio';
-            ariaCheckedAttr = item.selected == true ? 'true' : 'false';
-            let checkedAttr: boolean = item.selected == true ? true : null;
-            innerSpanTag = [
-                <span class="mdc-list-item__graphic">
-                    <wup-radio
-                        value={item.value}
-                        checked={checkedAttr}
-                    ></wup-radio>
-                </span>,
-                <label
-                    class="mdc-list-item__text"
-                    htmlFor={this.listId + index}
-                >
-                    {primaryTextTag}
-                    {secTextTag}
-                </label>,
-            ];
-        } else if (this.roleType == WupList.ROLE_CHECKBOX) {
-            roleAttr = 'checkbox';
-            ariaCheckedAttr = item.selected == true ? 'true' : 'false';
-            let checkedAttr: boolean = item.selected == true ? true : null;
-            innerSpanTag = [
-                <span class="mdc-list-item__graphic">
-                    <wup-checkbox
-                        id={this.listId + index}
-                        checked={checkedAttr}
-                    ></wup-checkbox>
-                </span>,
-                <label
-                    class="mdc-list-item__text"
-                    htmlFor={this.listId + index}
-                >
-                    {primaryTextTag}
-                    {secTextTag}
-                </label>,
-            ];
-        }
-        return (
-            <li
-                class={classAttr}
-                role={roleAttr}
-                tabindex={tabIndexAttr}
-                data-value={item.value}
-                aria-selected={ariaSelectedAttr}
-                aria-checked={ariaCheckedAttr}
-                onClick={
-                    this.selectable == WupList.SELECTABLE_NO_SELECT
-                        ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupClick(e, item)
-                }
-            >
-                {innerSpanTag}
-            </li>
-        );
-    }
-
-    setUnselected(item: ComponentListElement) {
-        let index = this.getLiIndexElementForValue(item.value);
-
-        if (index > -1) {
-            let target = this.listComponent.listElements[index];
-            target.setAttribute(
-                MDCListFoundation.strings.ARIA_SELECTED,
-                'false'
-            );
-            target.setAttribute(
-                MDCListFoundation.strings.ARIA_CHECKED,
-                'false'
-            );
-            target.setAttribute(
-                'class',
-                MDCListFoundation.cssClasses.LIST_ITEM_CLASS
-            );
-        }
-        item.selected = false;
-    }
-
-    setSelected(item: ComponentListElement) {
-        let index = this.getLiIndexElementForValue(item.value);
-        if (index > -1) {
-            let target = this.listComponent.listElements[index];
-
-            target.setAttribute(
-                MDCListFoundation.strings.ARIA_SELECTED,
-                'true'
-            );
-            target.setAttribute(MDCListFoundation.strings.ARIA_CHECKED, 'true');
-            target.setAttribute(
-                'class',
-                MDCListFoundation.cssClasses.LIST_ITEM_CLASS +
-                    ' ' +
-                    MDCListFoundation.cssClasses.LIST_ITEM_SELECTED_CLASS
-            );
-        }
-        item.selected = true;
-    }
-
-    getLiIndexElementForValue(key: string) {
-        let index = -1;
-        let i = 0;
-        this.filteredItems.forEach((item) => {
-            if (item.isSeparator != true) {
-                if (item.value == key) {
-                    index = i;
-                }
-            }
-            i++;
-        });
-
-        return index;
     }
 }

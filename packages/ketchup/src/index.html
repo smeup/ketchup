@@ -293,8 +293,14 @@
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
         <wup-chip type="filter"></wup-chip>
         
+        <h4>Material ListBox (widget)</h4>
+        <wup-list is-filterable="false" selectable="no-select" list-id="pippo1"></wup-list>
+        <wup-list is-filterable="false" selectable="multi-select" list-id="pippo2"></wup-list>
+        <wup-list is-filterable="false" selectable="one-select" role-type="radiogroup" list-id="pippo3"></wup-list>
+        <wup-list is-filterable="false" selectable="multi-select" role-type="group" list-id="pippo4"></wup-list>
+
         <h4>Material ComboBox (widget)</h4>
-        <wup-combo isFilterable="false" list-id="pluto1"></wup-combo>
+        <wup-combo is-filterable="false" list-id="pluto1"></wup-combo>
 
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
@@ -599,6 +605,8 @@ chipList.data = [
                 let listBox1 = document.getElementsByTagName('wup-list')[0];
                 let listBox2 = document.getElementsByTagName('wup-list')[1];
                 let listBox3 = document.getElementsByTagName('wup-list')[2];
+                let listBox4 = document.getElementsByTagName('wup-list')[3];
+
 
                 let itemsForListBox = [
                     {
@@ -633,6 +641,7 @@ chipList.data = [
             listBox1.items = itemsForListBox;
             listBox2.items = itemsForListBox;
             listBox3.items = itemsForListBox;
+            listBox4.items = itemsForListBox;
 
             let comboBox1 = document.getElementsByTagName('wup-combo')[0];
             comboBox1.items = itemsForListBox;
