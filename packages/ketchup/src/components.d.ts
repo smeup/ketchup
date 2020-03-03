@@ -943,6 +943,40 @@ export namespace Components {
     */
     'valueField': string;
   }
+  interface KupSpinner {
+    /**
+    * When set to true the spinner is animating.
+    */
+    'active': boolean;
+    /**
+    * Decides whether the component is a bar or a spinner.
+    */
+    'barVariant': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions': string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+    */
+    'fader': boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout': number;
+    /**
+    * When set to true the component will fill the whole viewport.
+    */
+    'fullScreen': boolean;
+    /**
+    * Sets the layout of the spinner.
+    */
+    'layout': number;
+  }
   interface KupTextInput {
     /**
     * Imperatively sets a new value of the input.
@@ -1528,6 +1562,12 @@ declare global {
     new (): HTMLKupSearchElement;
   };
 
+  interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {}
+  var HTMLKupSpinnerElement: {
+    prototype: HTMLKupSpinnerElement;
+    new (): HTMLKupSpinnerElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1641,6 +1681,7 @@ declare global {
     'kup-radio': HTMLKupRadioElement;
     'kup-radio-element': HTMLKupRadioElementElement;
     'kup-search': HTMLKupSearchElement;
+    'kup-spinner': HTMLKupSpinnerElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -2692,6 +2733,40 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
+  interface KupSpinner extends JSXBase.HTMLAttributes<HTMLKupSpinnerElement> {
+    /**
+    * When set to true the spinner is animating.
+    */
+    'active'?: boolean;
+    /**
+    * Decides whether the component is a bar or a spinner.
+    */
+    'barVariant'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions'?: string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+    */
+    'fader'?: boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout'?: number;
+    /**
+    * When set to true the component will fill the whole viewport.
+    */
+    'fullScreen'?: boolean;
+    /**
+    * Sets the layout of the spinner.
+    */
+    'layout'?: number;
+  }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -3272,6 +3347,7 @@ declare namespace LocalJSX {
     'kup-radio': KupRadio;
     'kup-radio-element': KupRadioElement;
     'kup-search': KupSearch;
+    'kup-spinner': KupSpinner;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;

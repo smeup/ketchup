@@ -566,6 +566,10 @@ table.instruction-table th {
   right: 0;
 }
 
+#view-splitter {
+  display: table;
+}
+
 #menu-trigger {
   position: absolute;
   top: 0;
