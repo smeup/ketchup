@@ -9,8 +9,8 @@
 
 | Property       | Attribute       | Description                                                                | Type                     | Default                        |
 | -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ------------------------------ |
+| `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                           |
 | `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                        |
-| `items`        | --              |                                                                            | `ComponentListElement[]` | `[]`                           |
 | `listId`       | `list-id`       |                                                                            | `string`                 | `'WupList-myId'`               |
 | `roleType`     | `role-type`     |                                                                            | `string`                 | `WupList.ROLE_LISTBOX`         |
 | `selectable`   | `selectable`    |                                                                            | `string`                 | `WupList.SELECTABLE_NO_SELECT` |
@@ -32,19 +32,19 @@
 
 ### Used by
 
- - [wup-combo](..\wup-combo)
+ - [wup-select](../wup-select)
 
 ### Depends on
 
-- [wup-radio](..\wup-radio)
-- [wup-checkbox](..\wup-checkbox)
+- [wup-radio](../wup-radio)
+- [wup-checkbox](../wup-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
   wup-list --> wup-radio
   wup-list --> wup-checkbox
-  wup-combo --> wup-list
+  wup-select --> wup-list
   style wup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

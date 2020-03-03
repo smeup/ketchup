@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import SelectDemo from '@/views/basic/list/examples/SelectDemo';
-import SelectBasic from '@/views/basic/list/examples/SelectBasic';
+import SelectDemo from '@/views/basic/select/examples/SelectDemo';
+import SelectBasic from '@/views/basic/select/examples/SelectBasic';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
