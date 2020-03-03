@@ -15,17 +15,17 @@ import { WupList } from '../wup-list/wup-list';
 //import { MDCFormField } from '@material/form-field';
 
 @Component({
-    tag: 'wup-combo',
-    styleUrl: 'wup-combo.scss',
+    tag: 'wup-select',
+    styleUrl: 'wup-select.scss',
     shadow: true,
 })
-export class WupCombo {
+export class WupSelect {
     /**
      * Following default props and elements common to all widgets
      */
     @Element() rootElement: HTMLElement;
 
-    @Prop() items: ComponentListElement[] = [];
+    @Prop() data: ComponentListElement[] = [];
 
     /**
      * Marks the list as filterable, allowing an input text to filter the options
@@ -41,21 +41,21 @@ export class WupCombo {
     // multi-select - più di un item selezionabile alla volta
     @Prop({ reflect: true }) selectable: string = WupList.SELECTABLE_ONE_SELECT;
 
-    @Prop({ reflect: true }) comboId: string = 'WupCombo-myId';
+    @Prop({ reflect: true }) selectId: string = 'WupSelect-myId';
 
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
 
-    comboComponent: MDCSelect = null;
+    selectComponent: MDCSelect = null;
 
     /**
      * Event example.
      */
 
     @Event({
-        eventName: 'kupComboBlur',
+        eventName: 'kupSelectBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -65,7 +65,7 @@ export class WupCombo {
     }>;
 
     @Event({
-        eventName: 'kupComboChange',
+        eventName: 'kupSelectChange',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -75,7 +75,7 @@ export class WupCombo {
     }>;
 
     @Event({
-        eventName: 'kupComboClick',
+        eventName: 'kupSelectClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -85,7 +85,7 @@ export class WupCombo {
     }>;
 
     @Event({
-        eventName: 'kupComboFocus',
+        eventName: 'kupSelectFocus',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -95,7 +95,7 @@ export class WupCombo {
     }>;
 
     @Event({
-        eventName: 'kupComboInput',
+        eventName: 'kupSelectInput',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -157,7 +157,7 @@ export class WupCombo {
 
         if (root != null) {
             // Material design javascript initialization
-            this.comboComponent = MDCSelect.attachTo(
+            this.selectComponent = MDCSelect.attachTo(
                 root.querySelector('.' + MDCSelectFoundation.cssClasses.ROOT)
             );
             /*
@@ -190,9 +190,9 @@ export class WupCombo {
 
                         <div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
                             <wup-list
-                                items={this.items}
+                                data={this.data}
                                 selectable={WupList.SELECTABLE_ONE_SELECT}
-                                listId={this.comboId + 'List'}
+                                listId={this.selectId + 'List'}
                                 onKupListClick={(e: CustomEvent) =>
                                     this.onAAA(e)
                                 }

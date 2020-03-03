@@ -290,9 +290,21 @@ export default {
             },
           },
           {
+            title: `List`,
+            to: {
+              name: 'list',
+            },
+          },
+          {
             title: `Radio`,
             to: {
               name: 'radio',
+            },
+          },
+          {
+            title: `Select`,
+            to: {
+              name: 'select',
             },
           },
           {

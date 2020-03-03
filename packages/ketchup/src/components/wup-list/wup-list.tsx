@@ -26,7 +26,7 @@ export class WupList {
      */
     @Element() rootElement: HTMLElement;
 
-    @Prop() items: ComponentListElement[] = [];
+    @Prop() data: ComponentListElement[] = [];
 
     @State() filteredItems: ComponentListElement[] = [];
     @State() listComponent: MDCList = null;
@@ -172,7 +172,7 @@ export class WupList {
         }
         if (this.selectable == WupList.SELECTABLE_ONE_SELECT) {
             if (item.selected == false) {
-                this.items.map((item1) => {
+                this.data.map((item1) => {
                     this.setUnselected(item1);
                 });
                 this.setSelected(item);
@@ -417,7 +417,7 @@ export class WupList {
                         id={this.listId}
                         aria-multiselectable={ariaMultiSelectable}
                     >
-                        {this.items
+                        {this.data
                             .filter(
                                 (item) =>
                                     !this.filter ||
