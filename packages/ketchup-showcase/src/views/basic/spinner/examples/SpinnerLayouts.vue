@@ -60,6 +60,10 @@
             <kup-spinner active dimensions="6px" layout="13"></kup-spinner>
             <div class="icon-label">13</div>
           </div>
+          <div class="icon-wrapper" title="Layout: 14">
+            <kup-spinner active dimensions="6px" layout="14"></kup-spinner>
+            <div class="icon-label">14</div>
+          </div>
         </div>
       </div>
     </div>
