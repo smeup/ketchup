@@ -74,7 +74,6 @@ export class KupMenu {
     @Element() menuElement: HTMLElement;
 
     //---- Not reactive ----
-    positioner = new positionRecalc();
     clickOutsideMenuFunction = this.onDocumentClick.bind(this);
 
     //-------- Lifecycle hooks --------
@@ -101,7 +100,7 @@ export class KupMenu {
     menuReposition(newValue: boolean) {
         // When the new value is true so the menu is visible, we calculate the new position
         if (newValue && this.positionRelativeTo) {
-            this.positioner.positionRecalcSetup(
+            positionRecalc(
                 this.menuElement,
                 this.positionRelativeTo || this.getMenuParentNode() // There must always be an element to which the position will be calculated relatively to,
             );

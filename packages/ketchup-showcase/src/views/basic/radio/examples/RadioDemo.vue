@@ -41,6 +41,11 @@ export default {
           icon: '',
           active: false,
         },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
       ],
       demoComp: '<wup-radio id="demo-component"></wup-radio>',
       demoProps: [
@@ -51,6 +56,14 @@ export default {
           type: 'ComponentRadioElement[]',
           default: '[]',
           try: 'json',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Sets a custom style for the component by feeding this string into a <style> tag.',
+          type: 'string',
+          default: 'null',
+          try: 'css',
         },
         {
           prop: 'disabled',

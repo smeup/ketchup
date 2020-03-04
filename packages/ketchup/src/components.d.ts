@@ -116,6 +116,9 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
+  ComponentChipElement,
+} from './components/wup-chip/wup-chip-declarations';
+import {
   ComponentRadioElement,
 } from './components/wup-radio/wup-radio-declarations';
 import {
@@ -584,6 +587,12 @@ export namespace Components {
     */
     'totals': TotalsMap;
   }
+  interface KupEditor {
+    /**
+    * The html to be rendered and edited
+    */
+    'text': string;
+  }
   interface KupFld {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
@@ -934,6 +943,40 @@ export namespace Components {
     */
     'valueField': string;
   }
+  interface KupSpinner {
+    /**
+    * When set to true the spinner is animating.
+    */
+    'active': boolean;
+    /**
+    * Decides whether the component is a bar or a spinner.
+    */
+    'barVariant': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions': string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+    */
+    'fader': boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout': number;
+    /**
+    * When set to true the component will fill the whole viewport.
+    */
+    'fullScreen': boolean;
+    /**
+    * Sets the layout of the spinner.
+    */
+    'layout': number;
+  }
   interface KupTextInput {
     /**
     * Imperatively sets a new value of the input.
@@ -1056,41 +1099,41 @@ export namespace Components {
   }
   interface WupButton {
     /**
-    * Defaults at empty. When set apply this style.
-    */
-    'buttonStyle': {};
-    /**
     * Defaults at false. When set to true, the icon button state will be on.
     */
     'checked': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * Defaults at false. When set to true fill all space avalaible
-    */
-    'fillspace': boolean;
-    /**
     * Defaults at false. When set to true, the button will be rendered flat.
     */
     'flat': boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullHeight': boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullWidth': boolean;
     /**
     * Defaults at null. When set, the button will show this icon.
     */
     'icon': string;
     /**
+    * If not set, it will be managed by the component.
+    */
+    'iconColor': string;
+    /**
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'iconOff': string;
-    /**
-    * Defaults at empty. Additional icons library.
-    */
-    'iconUrl': string;
-    /**
-    * Defaults at empty. Additional image (rendered on the left of icon).
-    */
-    'imageSrc': string;
     /**
     * Defaults at null. When set, the button will show this text.
     */
@@ -1103,18 +1146,12 @@ export namespace Components {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped': boolean;
-    'showicon': boolean;
-    'showtext': boolean;
-    /**
-    * Defaults at empty. When set to 'Hint' the label is shown as tooltip
-    */
-    'textmode': string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
     'toggable': boolean;
     /**
-    * Defaults at empty.
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
     */
     'tooltip': string;
     /**
@@ -1127,6 +1164,10 @@ export namespace Components {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1144,7 +1185,47 @@ export namespace Components {
     */
     'leadingLabel': boolean;
   }
+  interface WupChip {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * List of elements.
+    */
+    'data': ComponentChipElement[];
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type': string;
+  }
+  interface WupIcon {
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color': string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+    */
+    'dimensions': string;
+    /**
+    * The name of the icon.
+    */
+    'name': string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type': string;
+  }
   interface WupRadio {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * List of elements.
     */
@@ -1168,6 +1249,10 @@ export namespace Components {
     */
     'checked': boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
@@ -1182,6 +1267,10 @@ export namespace Components {
   }
   interface WupTabBar {
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * List of elements.
     */
     'data': ComponentTabBarElement[];
@@ -1193,6 +1282,10 @@ export namespace Components {
     'disabled': boolean;
   }
   interface WupTextField {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -1355,6 +1448,12 @@ declare global {
     new (): HTMLKupDataTableElement;
   };
 
+  interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {}
+  var HTMLKupEditorElement: {
+    prototype: HTMLKupEditorElement;
+    new (): HTMLKupEditorElement;
+  };
+
   interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
   var HTMLKupFldElement: {
     prototype: HTMLKupFldElement;
@@ -1463,6 +1562,12 @@ declare global {
     new (): HTMLKupSearchElement;
   };
 
+  interface HTMLKupSpinnerElement extends Components.KupSpinner, HTMLStencilElement {}
+  var HTMLKupSpinnerElement: {
+    prototype: HTMLKupSpinnerElement;
+    new (): HTMLKupSpinnerElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1497,6 +1602,18 @@ declare global {
   var HTMLWupCheckboxElement: {
     prototype: HTMLWupCheckboxElement;
     new (): HTMLWupCheckboxElement;
+  };
+
+  interface HTMLWupChipElement extends Components.WupChip, HTMLStencilElement {}
+  var HTMLWupChipElement: {
+    prototype: HTMLWupChipElement;
+    new (): HTMLWupChipElement;
+  };
+
+  interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
+  var HTMLWupIconElement: {
+    prototype: HTMLWupIconElement;
+    new (): HTMLWupIconElement;
   };
 
   interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
@@ -1545,6 +1662,7 @@ declare global {
     'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
+    'kup-editor': HTMLKupEditorElement;
     'kup-fld': HTMLKupFldElement;
     'kup-form': HTMLKupFormElement;
     'kup-gauge': HTMLKupGaugeElement;
@@ -1563,12 +1681,15 @@ declare global {
     'kup-radio': HTMLKupRadioElement;
     'kup-radio-element': HTMLKupRadioElementElement;
     'kup-search': HTMLKupSearchElement;
+    'kup-spinner': HTMLKupSpinnerElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
+    'wup-chip': HTMLWupChipElement;
+    'wup-icon': HTMLWupIconElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
@@ -2221,6 +2342,12 @@ declare namespace LocalJSX {
     */
     'totals'?: TotalsMap;
   }
+  interface KupEditor extends JSXBase.HTMLAttributes<HTMLKupEditorElement> {
+    /**
+    * The html to be rendered and edited
+    */
+    'text'?: string;
+  }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
     /**
     * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
@@ -2606,6 +2733,40 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
+  interface KupSpinner extends JSXBase.HTMLAttributes<HTMLKupSpinnerElement> {
+    /**
+    * When set to true the spinner is animating.
+    */
+    'active'?: boolean;
+    /**
+    * Decides whether the component is a bar or a spinner.
+    */
+    'barVariant'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Width and height of the spinner. For the bar variant, only height.
+    */
+    'dimensions'?: string;
+    /**
+    * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
+    */
+    'fader'?: boolean;
+    /**
+    * The time required for the "fader" to trigger.
+    */
+    'faderTimeout'?: number;
+    /**
+    * When set to true the component will fill the whole viewport.
+    */
+    'fullScreen'?: boolean;
+    /**
+    * Sets the layout of the spinner.
+    */
+    'layout'?: number;
+  }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
     * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
@@ -2784,41 +2945,41 @@ declare namespace LocalJSX {
   }
   interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
     /**
-    * Defaults at empty. When set apply this style.
-    */
-    'buttonStyle'?: {};
-    /**
     * Defaults at false. When set to true, the icon button state will be on.
     */
     'checked'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * Defaults at false. When set to true fill all space avalaible
-    */
-    'fillspace'?: boolean;
-    /**
     * Defaults at false. When set to true, the button will be rendered flat.
     */
     'flat'?: boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullHeight'?: boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullWidth'?: boolean;
     /**
     * Defaults at null. When set, the button will show this icon.
     */
     'icon'?: string;
     /**
+    * If not set, it will be managed by the component.
+    */
+    'iconColor'?: string;
+    /**
     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
     */
     'iconOff'?: string;
-    /**
-    * Defaults at empty. Additional icons library.
-    */
-    'iconUrl'?: string;
-    /**
-    * Defaults at empty. Additional image (rendered on the left of icon).
-    */
-    'imageSrc'?: string;
     /**
     * Defaults at null. When set, the button will show this text.
     */
@@ -2840,18 +3001,12 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the button will be rendered with rounded edges.
     */
     'shaped'?: boolean;
-    'showicon'?: boolean;
-    'showtext'?: boolean;
-    /**
-    * Defaults at empty. When set to 'Hint' the label is shown as tooltip
-    */
-    'textmode'?: string;
     /**
     * Defaults at false. When set to true, the icon button will be toggable on/off.
     */
     'toggable'?: boolean;
     /**
-    * Defaults at empty.
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
     */
     'tooltip'?: string;
     /**
@@ -2864,6 +3019,10 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -2896,7 +3055,64 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
   }
+  interface WupChip extends JSXBase.HTMLAttributes<HTMLWupChipElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * List of elements.
+    */
+    'data'?: ComponentChipElement[];
+    'onKupChipBlur'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    'onKupChipError'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
+    'onKupChipFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipIconClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type'?: string;
+  }
+  interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color'?: string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+    */
+    'dimensions'?: string;
+    /**
+    * The name of the icon.
+    */
+    'name'?: string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type'?: string;
+  }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * List of elements.
     */
@@ -2935,6 +3151,10 @@ declare namespace LocalJSX {
     */
     'checked'?: boolean;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
@@ -2963,6 +3183,10 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * List of elements.
     */
@@ -3005,6 +3229,10 @@ declare namespace LocalJSX {
     }>) => void;
   }
   interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
@@ -3102,6 +3330,7 @@ declare namespace LocalJSX {
     'kup-crud': KupCrud;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
+    'kup-editor': KupEditor;
     'kup-fld': KupFld;
     'kup-form': KupForm;
     'kup-gauge': KupGauge;
@@ -3120,12 +3349,15 @@ declare namespace LocalJSX {
     'kup-radio': KupRadio;
     'kup-radio-element': KupRadioElement;
     'kup-search': KupSearch;
+    'kup-spinner': KupSpinner;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
+    'wup-chip': WupChip;
+    'wup-icon': WupIcon;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;

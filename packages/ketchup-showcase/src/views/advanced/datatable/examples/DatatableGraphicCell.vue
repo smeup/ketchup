@@ -1,15 +1,25 @@
 <template>
   <div>
     <h3>Filters enabled</h3>
-    <kup-data-table :data.prop="gcData"></kup-data-table>
+    <kup-data-table
+      :data.prop="gcData"
+      :columnsWidth.prop="columnsWidth"
+    ></kup-data-table>
   </div>
 </template>
-
 
 <script>
 export default {
   data() {
     return {
+      // Check that column width is set on the cell canvas width
+      //  instead of the column element in case of graphic cells
+      columnsWidth: [
+        {
+          column: 'FLD2',
+          width: '200',
+        },
+      ],
       gcData: {
         columns: [
           {

@@ -18,6 +18,15 @@ import { ComponentRadioElement } from './wup-radio-declarations';
 })
 export class WupRadio {
     @Element() rootElement: HTMLElement;
+
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+    /**
+     * List of elements.
+     */
+    @Prop() data: ComponentRadioElement[] = [];
     /**
      * Defaults at null. It's the name that binds the radio buttons together.
      */
@@ -30,10 +39,6 @@ export class WupRadio {
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
     @Prop({ reflect: true }) leadingLabel: boolean = false;
-    /**
-     * List of elements.
-     */
-    @Prop() data: ComponentRadioElement[] = [];
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -145,6 +150,10 @@ export class WupRadio {
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
 
         if (this.disabled) {
             componentClass += ' mdc-radio--disabled';
@@ -192,6 +201,7 @@ export class WupRadio {
 
         return (
             <Host>
+                {customStyle}
                 <div id="kup-component">{radioList}</div>
             </Host>
         );

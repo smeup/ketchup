@@ -180,6 +180,9 @@
         position: relative;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
         top: 0;
+        // Enforce consistent vertical alignment with sibiling header cells
+        //  when filter field or sort/filter icons are present.
+        vertical-align: bottom;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
 
         //---- Column name container ----

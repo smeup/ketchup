@@ -157,7 +157,7 @@ export const defaultDataTable = {
     },
     {
       name: 'FLD2',
-      title: 'Working License',
+      title: 'Working|License',
       size: 10,
     },
     {
@@ -761,12 +761,16 @@ export const iconImagesDataTable = {
     {
       name: 'FLD1',
       title: 'Person',
+      // Checks 'clickable' class is not added when present but false
+      clickable: false,
       size: '',
     },
     {
       name: 'FLD2',
       title: 'Icon',
       size: 10,
+      // Checks 'clickable' class is added
+      clickable: true,
     },
     {
       name: 'FLD3',

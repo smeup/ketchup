@@ -130,6 +130,11 @@ let advancedRoutes = [
 
 let javascriptRoutes = [
   {
+    path: `/errorlogging`,
+    name: 'errorlogging',
+    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+  },
+  {
     path: `/scrollonhover`,
     name: 'scrollonhover',
     component: () =>
@@ -155,9 +160,24 @@ let basicRoutes = [
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
   },
   {
+    path: `/chip`,
+    name: 'chip',
+    component: () => import(`@/views/basic/chip/Chip.vue`),
+  },
+  {
+    path: `/icon`,
+    name: 'icon',
+    component: () => import(`@/views/basic/icon/Icon.vue`),
+  },
+  {
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
+  },
+  {
+    path: `/spinner`,
+    name: 'spinner',
+    component: () => import(`@/views/basic/spinner/Spinner.vue`),
   },
   {
     path: `/switch`,
