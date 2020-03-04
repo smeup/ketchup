@@ -531,6 +531,10 @@ export namespace Components {
     */
     'headerIsPersistent': boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter': string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit': number;
@@ -2241,6 +2245,10 @@ declare namespace LocalJSX {
     * When set to true the header will stick on top of the table when scrolling.
     */
     'headerIsPersistent'?: boolean;
+    /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter'?: string;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
