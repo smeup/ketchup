@@ -2685,6 +2685,7 @@ declare namespace LocalJSX {
       actionCommand: TooltipAction;
     }>) => void;
     'onKupDefaultActionCommandClicked'?: (event: CustomEvent<any>) => void;
+    'onKupDefaultOptionClicked'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }

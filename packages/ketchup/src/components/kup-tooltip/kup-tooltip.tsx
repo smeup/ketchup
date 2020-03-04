@@ -75,12 +75,20 @@ export class KupTooltip {
     }>;    
 
     @Event({
-        eventName: 'kupDefaultActionCommandClicked',
+        eventName: 'kupDefaultActionClicked',
         composed: true,
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultActionCommandClicked: EventEmitter;
+    kupDefaultActionClicked: EventEmitter;
+
+    @Event({
+        eventName: 'kupDefaultOptionClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupDefaultOptionClicked: EventEmitter;
 
     @Watch('data')
     onDataChanged() {
@@ -154,7 +162,15 @@ export class KupTooltip {
         if (this.data) {
             datatitle = this.data.title;
         }
-        const title = <div class="title" onClick={(event) => this.onDefaultActionCommandClicked(event)}>{datatitle}</div>;
+        const title = <div><div class="title" onClick={(event) => this.onDefaultActionClicked(event)}>
+                {datatitle}
+            </div>
+            <kup-button           
+                flat={true}
+                iconClass="mdi mdi-open-in-new"
+                onKupButtonClicked={(event) => this.onDefaultOptionClicked(event)}>
+            </kup-button> 
+        </div>;
         return title;
     }
 
@@ -190,12 +206,17 @@ export class KupTooltip {
         this.kupActionCommandClicked.emit({actionCommand: action})
     }
 
-    private onDefaultActionCommandClicked(event:Event) { 
+    private onDefaultActionClicked(event:Event) { 
         //Evento di default al click       
         event.stopPropagation();
-        this.kupDefaultActionCommandClicked.emit()
+        this.kupDefaultActionClicked.emit()
     }
 
+    private onDefaultOptionClicked(event:Event) { 
+        //Evento di default al click       
+        event.stopPropagation();
+        this.kupDefaultOptionClicked.emit()
+    }
 
     private onMouseLeave() {
         // Se non sono presenti azioni si chiude immediatamente, altrimenti
@@ -333,16 +354,17 @@ export class KupTooltip {
                     </div>
                 )
             );                      
-            if (this.hasActionsData()) {                
+            if (this.hasActionsData()) {  
+          
                 detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
                     <div class="detail-actions__box">                           
-                        <wup-button           
+                        <kup-button           
                             flat={true}
                             tooltip={action.text} 
                             iconClass={action.icon}
                             onKupButtonClicked={(event) => this.onActionCommandClicked(event, action)}                            
                         >
-                        </wup-button>                                                                         
+                        </kup-button>                                                                         
                     </div>                                                    
                 );                  
             }                                                         

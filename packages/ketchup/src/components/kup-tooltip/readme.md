@@ -21,6 +21,7 @@
 | -------------------------------- | ----------- | ------------------------------------------------ |
 | `kupActionCommandClicked`        |             | `CustomEvent<{ actionCommand: TooltipAction; }>` |
 | `kupDefaultActionCommandClicked` |             | `CustomEvent<any>`                               |
+| `kupDefaultOptionClicked`        |             | `CustomEvent<any>`                               |
 | `kupTooltipLoadData`             |             | `CustomEvent<any>`                               |
 | `kupTooltipLoadDetail`           |             | `CustomEvent<any>`                               |
 

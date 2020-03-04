@@ -37,9 +37,13 @@
           margin-right: 15px;
         }
 
-        .title:hover {
-          text-decoration: underline;
-          cursor: pointer;
+        .title {
+            display: inline-block;
+
+            &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
 
         .right {
