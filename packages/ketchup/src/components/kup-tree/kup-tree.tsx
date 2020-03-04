@@ -4,6 +4,7 @@ import {
     EventEmitter,
     h,
     Prop,
+    Host,
     State,
     Watch,
     JSX,
@@ -55,6 +56,10 @@ export class KupTree {
      * The columns of the tree when tree visualization is active
      */
     @Prop() columns?: Column[];
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
@@ -657,25 +662,46 @@ export class KupTree {
             ((treeNodeData.children && treeNodeData.children.length) ||
                 this.useDynamicExpansion)
         );
-        let treeExpandIcon = (
-            <span
-                class={
-                    'expand-icon kup-tree__icon kup-tree__node__expander' +
-                    (hasExpandIcon ? ' mdi mdi-menu-right' : '')
-                }
-                onClick={
-                    hasExpandIcon && !treeNodeData.disabled
-                        ? (event) => {
-                              event.stopPropagation();
-                              this.hdlTreeNodeExpanderClicked(
-                                  treeNodeData,
-                                  treeNodePath
-                              );
-                          }
-                        : null
-                }
-            />
-        );
+        let treeExpandIcon;
+        if (hasExpandIcon) {
+            treeExpandIcon = (
+                <wup-icon
+                    class="expand-icon kup-tree__icon kup-tree__node__expander"
+                    dimensions="1.5rem"
+                    name="menu-right"
+                    onClick={
+                        hasExpandIcon && !treeNodeData.disabled
+                            ? (event) => {
+                                  event.stopPropagation();
+                                  this.hdlTreeNodeExpanderClicked(
+                                      treeNodeData,
+                                      treeNodePath
+                                  );
+                              }
+                            : null
+                    }
+                ></wup-icon>
+            );
+        } else {
+            treeExpandIcon = (
+                <span
+                    class={
+                        'expand-icon kup-tree__icon kup-tree__node__expander'
+                    }
+                    onClick={
+                        hasExpandIcon && !treeNodeData.disabled
+                            ? (event) => {
+                                  event.stopPropagation();
+                                  this.hdlTreeNodeExpanderClicked(
+                                      treeNodeData,
+                                      treeNodePath
+                                  );
+                              }
+                            : null
+                    }
+                />
+            );
+        }
 
         // When TreeNode icons are visible, creates the icon if one is specified
         let treeNodeIcon: any = null;
@@ -696,12 +722,11 @@ export class KupTree {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = (
-                        <span
-                            class={
-                                'kup-tree__icon mdi mdi-' +
-                                treeNodeData.iconClass
-                            }
-                        />
+                        <wup-icon
+                            class="kup-tree__icon"
+                            dimensions="1.5rem"
+                            name={treeNodeData.iconClass}
+                        ></wup-icon>
                     );
                 }
             } else {
@@ -835,6 +860,11 @@ export class KupTree {
     }
 
     render() {
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
         // Computes the visible columns for later use
         if (this.showColumns && this.columns) {
             this.visibleColumns = this.columns.filter((column) =>
@@ -863,32 +893,36 @@ export class KupTree {
         const visibleHeader = this.showHeader && this.showColumns;
 
         return (
-            <div class="container">
-                <link
-                    href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-                <div
-                    class="wrapper"
-                    ref={(el) => (this.treeWrapperRef = el as any)}
-                >
-                    <table
-                        class="kup-tree"
-                        ref={(el) => (this.treeRef = el as any)}
-                        data-show-columns={this.showColumns}
-                        data-show-object-navigation={this.showObjectNavigation}
+            <Host>
+                {customStyle}
+                <div id="kup-component">
+                    <div
+                        class="wrapper"
+                        ref={(el) => (this.treeWrapperRef = el as any)}
                     >
-                        <thead class={{ 'header--is-visible': visibleHeader }}>
-                            <tr>
-                                <th />
-                                {visibleHeader ? this.renderHeader() : null}
-                            </tr>
-                        </thead>
-                        <tbody>{treeNodes}</tbody>
-                    </table>
+                        <table
+                            class="kup-tree"
+                            ref={(el) => (this.treeRef = el as any)}
+                            data-show-columns={this.showColumns}
+                            data-show-object-navigation={
+                                this.showObjectNavigation
+                            }
+                        >
+                            <thead
+                                class={{
+                                    'header--is-visible': visibleHeader,
+                                }}
+                            >
+                                <tr>
+                                    <th />
+                                    {visibleHeader ? this.renderHeader() : null}
+                                </tr>
+                            </thead>
+                            <tbody>{treeNodes}</tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </Host>
         );
     }
 }

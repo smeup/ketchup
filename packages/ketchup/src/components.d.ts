@@ -523,6 +523,10 @@ export namespace Components {
     */
     'headerIsPersistent': boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter': string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit': number;
@@ -1050,6 +1054,10 @@ export namespace Components {
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
@@ -2226,6 +2234,10 @@ declare namespace LocalJSX {
     */
     'headerIsPersistent'?: boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter'?: string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit'?: number;
@@ -2857,6 +2869,10 @@ declare namespace LocalJSX {
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
