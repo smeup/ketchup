@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 
 import { Row } from '../kup-data-table/kup-data-table-declarations';
-import { TooltipData, TooltipDetailData, TooltipAction } from './kup-tooltip-declarations';
+import { TooltipData, TooltipDetailData, TooltipAction, TooltipObject } from './kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -80,7 +80,11 @@ export class KupTooltip {
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultActionClicked: EventEmitter;
+    
+    kupDefaultActionClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;    
+
 
     @Event({
         eventName: 'kupDefaultOptionClicked',
@@ -88,7 +92,9 @@ export class KupTooltip {
         cancelable: true,
         bubbles: true,
     })
-    kupDefaultOptionClicked: EventEmitter;
+    kupDefaultOptionClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;  
 
     @Watch('data')
     onDataChanged() {
@@ -178,6 +184,11 @@ export class KupTooltip {
         return this.data ? this.data.content : {};
     }
 
+    private getObj():TooltipObject{
+        const nullObj:TooltipObject = {t:"", p:"", k:""}
+        return this.data ? this.data.obj : nullObj;
+    }
+
     // ---- Listeners ----
     private onMouseOver() {
         // Cancello il mouseLeaveTimeout così se l'utente
@@ -207,15 +218,15 @@ export class KupTooltip {
     }
 
     private onDefaultActionClicked(event:Event) { 
-        //Evento di default al click       
+        //Evento di default al click     
         event.stopPropagation();
-        this.kupDefaultActionClicked.emit()
+        this.kupDefaultActionClicked.emit({obj:this.getObj()})
     }
 
     private onDefaultOptionClicked(event:Event) { 
-        //Evento di default al click       
+        //Evento di default al click  
         event.stopPropagation();
-        this.kupDefaultOptionClicked.emit()
+        this.kupDefaultOptionClicked.emit({obj:this.getObj()})
     }
 
     private onMouseLeave() {

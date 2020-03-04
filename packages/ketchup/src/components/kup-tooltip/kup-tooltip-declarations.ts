@@ -1,6 +1,13 @@
 import { DataTable } from "../kup-data-table/kup-data-table-declarations";
 
+
+export interface TooltipObject {
+    t:String;
+    p:String;
+    k:String;
+}
 export interface TooltipData {
+    obj?: TooltipObject;
     image?: string;
     title?: string;
     content: {
