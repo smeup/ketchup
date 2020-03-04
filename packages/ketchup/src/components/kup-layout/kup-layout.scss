@@ -15,7 +15,7 @@ $content-based-col-width: content-based-columns-width;
 
 // When no options are set
 :host {
-  //--lyo_column-number: var(--kup-layout_column-number, 1);
+  --lyo_column-number: var(--kup-layout_column-number, 1);
   --lyo_grid-gap: var(--kup-layout_grid-gap, 2px);
 
   //-- Basic style --
@@ -36,10 +36,7 @@ $content-based-col-width: content-based-columns-width;
 
 // WHen there are multiple columns, elements are placed one cell after the other and going on to rows.
 :host(.#{$multiple-column-class}) {
-  column-count: 2;
-  //--lyo_column-number: var(--kup-layout_column-number, 2);
-  //grid-auto-flow: row;
-  //column-count: '4';
+  --kup-layout_column-number: 2;
 }
 
 //-- Filling space in a normal situation make the container take all available width --
