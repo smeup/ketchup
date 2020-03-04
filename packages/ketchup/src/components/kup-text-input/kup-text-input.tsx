@@ -15,12 +15,86 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { debounceEvent } from '../../utils/helpers';
 
+import {
+    KupStatePersisted,
+    KupStateManager,
+    KupStateEvent,
+    KupStateModel,
+} from '../kup-state';
+
+// This class models our component state.
+class ComponentState extends KupStateModel {
+    // TODO: define common attributes
+    public name:string = "Ale";
+
+    public toDebugString() {
+        return `name=${this.name}`;
+    }
+}
+
 @Component({
     tag: 'kup-text-input',
     styleUrl: 'kup-text-input.scss',
     shadow: true,
 })
-export class KupTextInput {
+export class KupTextInput implements KupStatePersisted<ComponentState> {
+
+    //////////////////////////////
+    // Begin state management
+    // NOTE: I'd have loved to avoid this level of verbosity in Stencil.js
+    // but starting with 0.12 we cannot make a @Component extend a class without
+    // some sort of hack which would indeed make the code more hard to understand.
+    // TODO: evaluate if it makes sense to exploit Object.setPrototypeOf to
+    // enforce the inheritance through an abstract class to make it smoother.
+    // In that case remember you should check if the environment is Stencil.js
+    // to avoid breaking the "Do not depend on any Stencil.js-specific logic" goal,
+    // as that hack would only be needed by the stencil build pipeline.
+    //////////////////////////////
+
+    state: ComponentState = new ComponentState();
+    // Cannot use stencil built-in @Event or EventEmitter
+    // as they break our KupStateManager registration being
+    // outside of Stencil components.
+    // @Event() stateChange: EventEmitter<ComponentState>; // Would be null for ksm.registerEvent()
+
+    stateChange: KupStateEvent<ComponentState> = new KupStateEvent<ComponentState>(ComponentState);
+
+    // Get a singleton instance, register our custom event emitter to start
+    // a listener.
+    registerState() {
+        const ksm = KupStateManager.getInstance();
+        ksm.registerListener(this.stateChange);
+    }
+
+    getValue() {
+        const ksm = KupStateManager.getInstance();
+        console.log("store contains: ");
+        console.log(ksm.getStore());
+    }
+
+    // NOTE: with live-reload this might be triggered multiple time
+    // TODO: exercise for the reader is to ensure this gets called only once.
+    constructor() {
+        this.registerState();
+    }
+
+    // This method cannot be abstracted started in stencil 0.12 as @Component
+    // annotated components cannot derive from abstracted classes.
+    stateChanged() {
+        console.log("state changed:", this.state);
+        this.stateChange.emit(this.state);
+
+        // simulate a delay to retrieve the values from the store
+        // TODO: remove me
+        setTimeout(() => {
+            this.getValue();
+        }, 2000);
+    }
+
+    //////////////////////////////
+    // End state management
+    //////////////////////////////
+
     /**
      * Marks the field as clearable, allowing an icon to delete its content
      */
@@ -270,6 +344,23 @@ export class KupTextInput {
 
     onInputChanged(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
+
+        //////////////////////////////
+        // Trigger state change
+        //////////////////////////////
+
+        // Update the model and trigger a stateChanged event.
+        this.state.name = target.value;
+        // By using this trigger you can effectively trigger a
+        // state change from everywhere in the lifecycle of your
+        // component, even using custom logic to detect
+        // whether to trigger it or not.
+        this.stateChanged();
+
+        //////////////////////////////
+        // End state change
+        //////////////////////////////
+
         this.ketchupTextInputChanged.emit({
             value: target.value,
             oldValue: this.value,
