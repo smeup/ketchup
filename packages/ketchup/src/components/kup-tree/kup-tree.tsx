@@ -818,7 +818,10 @@ export class KupTree {
                 {...treeNodeOptions}
             >
                 <td
-                    class={{ 'mdc-ripple-surface': !this.showColumns }}
+                    class={{
+                        'mdc-ripple-surface':
+                            !this.showColumns && !treeNodeData.disabled,
+                    }}
                     style={treeNodeData.style || null}
                 >
                     {indent}

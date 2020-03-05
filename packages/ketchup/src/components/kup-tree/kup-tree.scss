@@ -70,18 +70,18 @@
           margin-right: 0.4rem;
           height: 1.5rem;
           width: 1.5rem;
+          transition: transform 0.1s;
         }
 
         &__node {
           cursor: default;
 
-          &.with-dyn {
+          &.with-dyn:not(.kup-tree__node--disabled) {
             cursor: pointer;
           }
 
-          &__expander {
+          &:not(.kup-tree__node--disabled) &__expander {
             cursor: pointer;
-            transition: transform 0.1s;
           }
 
           &--disabled {
