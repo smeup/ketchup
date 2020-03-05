@@ -205,7 +205,7 @@ export class KupTooltip {
                 this.visible = true;
 
                 this.kupTooltipLoadData.emit();
-            }, 200);
+            }, 400);
         }
     }
 
@@ -394,6 +394,7 @@ export class KupTooltip {
                 id="tooltip"
                 hidden={!this.visible || !this.data}
                 style={tooltipStyle}
+                onClick={(e:MouseEvent) => e.stopPropagation()}
             >
                 <div id="main-content" class={mainContentClass}>
                     {mainContent}
@@ -401,19 +402,7 @@ export class KupTooltip {
                 <div id="detail" class={detailClass}>
                     {detailContent}
                 </div>                                      
-                <div 
-                    /** 
-                     * Stoppo la propagazione dell'onClick per evitare che arrivi al contenitore
-                     * e che un singolo click venga gestito con due handler differenti
-                     * creando potenziali problemi sulla navigazione.
-                     * Esempio
-                     * Se il tip è dentro una matrice il click darebbe luogo all'emissione 
-                     * di due eventi kupActionCommandClicked e kupRowSelected, 
-                     * il primo richiamerà ad esempio FUN1 e il secondo FUN2, ma se FUN1 
-                     * viene aperta su una nuova finestra il risultato è che anche la finestra corrente
-                     * che contiene il tip, verrebbe rimpiazzata dalla chiamatqa a FUN2
-                     */
-                    onClick={(e:MouseEvent) => e.stopPropagation()}
+                <div                     
                     id="detail-actions"   
                     hidden={!this.hasActionsData()}
                 >
