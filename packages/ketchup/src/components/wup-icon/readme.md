@@ -20,6 +20,7 @@
 
 ### Used by
 
+ - [kup-tree](../kup-tree)
  - [wup-button](../wup-button)
  - [wup-chip](../wup-chip)
  - [wup-tab-bar](../wup-tab-bar)
@@ -28,6 +29,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  kup-tree --> wup-icon
   wup-button --> wup-icon
   wup-chip --> wup-icon
   wup-tab-bar --> wup-icon

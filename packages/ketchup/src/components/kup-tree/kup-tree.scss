@@ -1,10 +1,12 @@
+@import '@material/ripple/mdc-ripple';
+
 :host {
   display: var(--kup-display-mode);
 
   #kup-component {
     color: var(--kup-text-color);
 
-    & .wrapper {
+    .wrapper {
       overflow-x: auto;
 
       .kup-tree {
@@ -13,9 +15,13 @@
 
         thead {
           display: none;
-
           &.header--is-visible {
             display: table-header-group;
+
+            th {
+              padding: 0.8rem 0.5rem;
+              font-size: 1.1rem;
+            }
           }
 
           th {
@@ -28,10 +34,22 @@
           font-size: 1rem;
           line-height: 1rem;
 
+          &.mdc-ripple-surface {
+            --mdc-ripple-fg-opacity: 0.24;
+
+            &:before,
+            &:after {
+              background-color: var(--kup-main-color);
+            }
+          }
+
           & .cell-content {
             display: inline-block;
-            vertical-align: 0.325rem;
             line-height: 1rem;
+          }
+
+          & wup-icon ~ .cell-content {
+            vertical-align: 0.325rem;
           }
         }
 
@@ -61,17 +79,17 @@
             cursor: pointer;
           }
 
+          &__expander {
+            cursor: pointer;
+            transition: transform 0.1s;
+          }
+
           &--disabled {
             opacity: 0.4;
 
             &__expander {
               pointer-events: none;
             }
-          }
-
-          &__expander {
-            cursor: pointer;
-            transition: transform 0.1s;
           }
 
           &[data-is-expanded] .expand-icon {
@@ -91,6 +109,10 @@
             }
           }
 
+          &--selected:not(.kup-tree__node--disabled) > td {
+            font-weight: bold;
+          }
+
           &--selected:not(.kup-tree__node--disabled),
           &:hover:not(.kup-tree__node--disabled) {
             > td {
@@ -100,11 +122,11 @@
           }
         }
 
-        &[data-show-columns] &__node {
+        &[data-show-columns] .kup-tree__node {
           border-bottom: solid 1px var(--kup-border-color);
         }
 
-        &[data-show-object-navigation] &__node {
+        &[data-show-object-navigation] .kup-tree__node {
           &:hover .options {
             opacity: 1;
             visibility: visible;

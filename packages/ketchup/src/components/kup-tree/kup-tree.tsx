@@ -1,6 +1,7 @@
 import {
     Component,
     Event,
+    Element,
     EventEmitter,
     h,
     Prop,
@@ -30,6 +31,7 @@ import {
 import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { MDCRipple } from '@material/ripple';
 
 /*import {
   ComboItem,
@@ -47,11 +49,11 @@ import { GenericObject } from '../../types/GenericTypes';
     shadow: true,
 })
 export class KupTree {
+    @Element() rootElement: HTMLElement;
     /**
-     * Scroll on hover
+     * Auto select programmatic selectic node
      */
-    @Prop()
-    hoverScroll: boolean = true;
+    @Prop({ reflect: true }) autoSelectionNodeMode: boolean = true;
     /**
      * The columns of the tree when tree visualization is active
      */
@@ -64,51 +66,6 @@ export class KupTree {
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
     @Prop() data: TreeNode[] = [];
-    /**
-     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
-     */
-    @Prop() expanded: boolean = false;
-    /**
-     * Shows the tree data as a table.
-     */
-    @Prop({ reflect: true }) showColumns: boolean = false;
-    /**
-     * Flag: shows the header of the tree when the tree is displayed as a table.
-     * @see showColumns
-     */
-    @Prop({ reflect: true }) showHeader: boolean = false;
-    /**
-     * Show the icons of the various nodes of the tree.
-     */
-    @Prop({ reflect: true }) showIcons: boolean = true;
-    /**
-     * An array of integers containing the path to a selected child.\
-     * Groups up the properties SelFirst, SelItem, SelName.
-     */
-    @Prop({ mutable: true }) selectedNode: TreeNodePath = [];
-
-    /**
-     * auto select programmatic selectic node
-     */
-    @Prop() autoSelectionNodeMode: boolean = true;
-    /**
-     * When a node has options in its data and is on mouse over state while this prop is true,
-     * the node must shows the cog wheel to trigger object navigation upon click.
-     *
-     * This will generate an event to inform the navigation object has been activated.
-     */
-    @Prop() showObjectNavigation: boolean = false;
-    /**
-     * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
-     * tree have been passed inside the data property.
-     *
-     * Therefore, when expanding a node, the tree must emit an event (or run a given callback)
-     * and wait for the child nodes to be downloaded from the server.
-     *
-     * For more information:
-     * @see dynamicExpansionCallback
-     */
-    @Prop({ reflect: true }) useDynamicExpansion: boolean = false;
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
@@ -125,6 +82,50 @@ export class KupTree {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
+    /**
+     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+     */
+    @Prop({ reflect: true }) expanded: boolean = false;
+    /**
+     * Activates the scroll on hover function
+     */
+    @Prop({ reflect: true }) hoverScroll: boolean = true;
+    /**
+     * An array of integers containing the path to a selected child.\
+     * Groups up the properties SelFirst, SelItem, SelName.
+     */
+    @Prop({ mutable: true }) selectedNode: TreeNodePath = [];
+    /**
+     * Shows the tree data as a table.
+     */
+    @Prop({ reflect: true }) showColumns: boolean = false;
+    /**
+     * Flag: shows the header of the tree when the tree is displayed as a table.
+     * @see showColumns
+     */
+    @Prop({ reflect: true }) showHeader: boolean = false;
+    /**
+     * Shows the icons of the nodes.
+     */
+    @Prop({ reflect: true }) showIcons: boolean = true;
+    /**
+     * When a node has options in its data and is on mouse over state while this prop is true,
+     * the node must shows the cog wheel to trigger object navigation upon click.
+     *
+     * This will generate an event to inform the navigation object has been activated.
+     */
+    @Prop({ reflect: true }) showObjectNavigation: boolean = false;
+    /**
+     * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
+     * tree have been passed inside the data property.
+     *
+     * Therefore, when expanding a node, the tree must emit an event (or run a given callback)
+     * and wait for the child nodes to be downloaded from the server.
+     *
+     * For more information:
+     * @see dynamicExpansionCallback
+     */
+    @Prop({ reflect: true }) useDynamicExpansion: boolean = false;
     /**
      * Nodes of the tree are draggable and can be sorted.
      * Currently this feature is not available.
@@ -233,6 +234,17 @@ export class KupTree {
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
             this.selectedNodeString = this.selectedNode.toString();
+        }
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root != null) {
+            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+            for (let i = 0; i < rippleCells.length; i++) {
+                MDCRipple.attachTo(rippleCells[i]);
+            }
         }
     }
 
@@ -803,7 +815,10 @@ export class KupTree {
                 data-tree-path={treeNodePath}
                 {...treeNodeOptions}
             >
-                <td style={treeNodeData.style || null}>
+                <td
+                    class="mdc-ripple-surface"
+                    style={treeNodeData.style || null}
+                >
                     {indent}
                     {treeExpandIcon}
                     {treeNodeIcon}
