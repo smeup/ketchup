@@ -70,6 +70,8 @@ import {
     isCheckbox,
 } from '../../utils/object-utils';
 
+import { getBoolean } from '../../utils/utils';
+
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -2214,7 +2216,7 @@ export class KupDataTable {
             if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-radio-element
-                        checked={!!cell.obj.k}
+                        checked={getBoolean(cell.obj.k)}
                         // TODO: update as `row.readOnly ?? true` when dependencies are updated
                         disabled={
                             row.readOnly !== undefined ? row.readOnly : true
