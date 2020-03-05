@@ -242,8 +242,10 @@ export class KupTree {
 
         if (root != null) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
-            for (let i = 0; i < rippleCells.length; i++) {
-                MDCRipple.attachTo(rippleCells[i]);
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
             }
         }
     }
@@ -816,7 +818,7 @@ export class KupTree {
                 {...treeNodeOptions}
             >
                 <td
-                    class="mdc-ripple-surface"
+                    class={{ 'mdc-ripple-surface': !this.showColumns }}
                     style={treeNodeData.style || null}
                 >
                     {indent}

@@ -109,10 +109,6 @@
             }
           }
 
-          &--selected:not(.kup-tree__node--disabled) > td {
-            font-weight: bold;
-          }
-
           &--selected:not(.kup-tree__node--disabled),
           &:hover:not(.kup-tree__node--disabled) {
             > td {
