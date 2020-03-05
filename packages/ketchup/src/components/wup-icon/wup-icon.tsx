@@ -1,19 +1,10 @@
-import {
-    Component,
-    Prop,
-    Element,
-    Host,
-    State,
-    getAssetPath,
-    h,
-} from '@stencil/core';
+import { Component, Prop, Element, Host, State, h } from '@stencil/core';
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'wup-icon',
     styleUrl: 'wup-icon.scss',
     shadow: true,
-    assetsDirs: ['assets'],
 })
 export class WupIcon {
     @Element() rootElement: HTMLElement;
@@ -46,7 +37,7 @@ export class WupIcon {
     //---- Methods ----
 
     fetchResource() {
-        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
+        var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
         fetch(res)
             .then((response) => {
                 if (response.ok) {

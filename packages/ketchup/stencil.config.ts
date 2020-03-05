@@ -15,10 +15,6 @@ export const config: Config = {
         {
             src: 'dash.html',
         },
-        {
-            src: '../src/components/wup-icon/assets',
-            dest: './build/assets',
-        },
     ],
 
     namespace: 'mycomponent',
