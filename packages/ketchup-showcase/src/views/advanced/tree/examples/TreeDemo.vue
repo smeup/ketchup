@@ -49,7 +49,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-tree show-icons hover-scroll id="demo-component"></kup-tree>',
+        '<kup-tree show-icons hover-scroll auto-selection-node-mode id="demo-component"></kup-tree>',
       demoProps: [
         {
           prop: 'autoSelectionNodeMode',
