@@ -1,6 +1,13 @@
+import { Badge } from '../kup-image/kup-image-declarations';
+
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
+}
+
+export interface CellConfig {
+    badges?: Badge[];
+    [index: string]: any;
 }
 
 export interface Cell {
@@ -13,7 +20,7 @@ export interface Cell {
     style?: GenericMap;
     options?: boolean;
     shape?: string;
-    config?: any;
+    config?: CellConfig;
 }
 
 export interface CellsHolder {

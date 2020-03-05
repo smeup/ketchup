@@ -107,6 +107,7 @@ import {
   TooltipAction,
   TooltipData,
   TooltipDetailData,
+  TooltipObject,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
   TreeNode,
@@ -523,6 +524,10 @@ export namespace Components {
     */
     'headerIsPersistent': boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter': string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit': number;
@@ -734,6 +739,10 @@ export namespace Components {
     'alt': string;
     'badges': Badge[];
     'height': string;
+    /**
+    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+    */
+    'limitWidthByHeight': boolean;
     'maxHeight': string;
     'maxWidth': string;
     'src': string;
@@ -2226,6 +2235,10 @@ declare namespace LocalJSX {
     */
     'headerIsPersistent'?: boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter'?: string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit'?: number;
@@ -2503,6 +2516,10 @@ declare namespace LocalJSX {
     'alt'?: string;
     'badges'?: Badge[];
     'height'?: string;
+    /**
+    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+    */
+    'limitWidthByHeight'?: boolean;
     'maxHeight'?: string;
     'maxWidth'?: string;
     'src'?: string;
@@ -2845,8 +2862,12 @@ declare namespace LocalJSX {
     'onKupActionCommandClicked'?: (event: CustomEvent<{
       actionCommand: TooltipAction;
     }>) => void;
-    'onKupDefaultActionCommandClicked'?: (event: CustomEvent<any>) => void;
-    'onKupDefaultOptionClicked'?: (event: CustomEvent<any>) => void;
+    'onKupDefaultActionClicked'?: (event: CustomEvent<{
+      obj: TooltipObject;
+    }>) => void;
+    'onKupDefaultOptionClicked'?: (event: CustomEvent<{
+      obj: TooltipObject;
+    }>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
