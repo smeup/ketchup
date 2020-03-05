@@ -168,13 +168,13 @@ export class KupTooltip {
         if (this.data) {
             datatitle = this.data.title;
         }
-        const title = <div><div class="title" onClick={(event) => this.onDefaultActionClicked(event)}>
+        const title = <div><div class="title" onClick={(event) => this.onDefaultOptionClicked(event)}>
                 {datatitle}
             </div>
             <kup-button           
                 flat={true}
                 iconClass="mdi mdi-open-in-new"
-                onKupButtonClicked={(event) => this.onDefaultOptionClicked(event)}>
+                onKupButtonClicked={(event) => this.onDefaultActionClicked(event)}>
             </kup-button> 
         </div>;
         return title;
