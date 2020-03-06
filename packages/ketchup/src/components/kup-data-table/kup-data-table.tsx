@@ -322,6 +322,11 @@ export class KupDataTable {
         this.initRows();
     }
 
+    /**
+     * The reference for the function used to close the menu of the header cells
+     */
+    private documentHandlerCloseHeaderMenu;
+
     private rows: Array<Row>;
 
     private paginatedRows: Array<Row>;
@@ -329,8 +334,6 @@ export class KupDataTable {
     private footer: { [index: string]: number };
 
     private renderedRows: Array<Row> = [];
-
-    private columnOverTimeout: NodeJS.Timeout;
 
     private loadMoreEventCounter: number = 0;
 
@@ -657,12 +660,22 @@ export class KupDataTable {
                 });
             }
         }
+
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(this);
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
     }
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
         document.removeEventListener('resize', this.stickyHeaderPosition);
+
+        // Remove function to close header menu onto the document
+        if (this.documentHandlerCloseHeaderMenu) {
+            document.removeEventListener('click', this.documentHandlerCloseHeaderMenu);
+        }
     }
 
     private hasTooltip(cell: Cell) {
@@ -1061,17 +1074,43 @@ export class KupDataTable {
         });
     }
 
-    private onColumnMouseEnter(column: string) {
-        this.columnOverTimeout = setTimeout(() => {
-            this.openedMenu = column;
-        }, 500);
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+        this.openedMenu = column;
+        // Prevent opening of the default browser menu
+        e.preventDefault();
+        return false;
     }
 
-    private onColumnMouseLeave(column: string) {
-        // clearing timeout
-        clearTimeout(this.columnOverTimeout);
+    /**
+     * Type guard needed to be sure that an object returned from composePath() is an HTMLElement with classes
+     * @param node
+     */
+    private isHTMLElementFromEventTarget (node: EventTarget): node is HTMLElement {
+        return (node as HTMLElement).classList !== undefined;
+    }
 
-        if (this.openedMenu === column) {
+    private onHeaderCellContextMenuClose(event: MouseEvent) {
+        // Gets the path of the event (does not work in IE11 or previous)
+        const eventPath = event.composedPath();
+        let fromMenu = false;
+        let fromSameTable = false;
+
+        // Examine the path
+        for (let elem of eventPath) {
+            // If we encounter our table we can stop looping the elements
+            if (elem === this.tableAreaRef) {
+                fromSameTable = true;
+                break;
+            }
+
+            // If the event comes from a menu of the table header
+            if (this.isHTMLElementFromEventTarget(elem) && elem.classList && elem.classList.contains('column-menu')) {
+                fromMenu = true;
+            }
+        }
+
+        // When we have an open menu and the event does NOT come from the same table, we close the menu.
+        if (this.openedMenu && !(fromMenu && fromSameTable)) {
             this.openedMenu = null;
         }
     }
@@ -1585,8 +1624,7 @@ export class KupDataTable {
                 <th
                     class={columnClass}
                     style={thStyle}
-                    onMouseEnter={() => this.onColumnMouseEnter(column.name)}
-                    onMouseLeave={() => this.onColumnMouseLeave(column.name)}
+                    onContextMenu={(e: MouseEvent) => this.onHeaderCellContextMenuOpen(e,column.name)}
                     {...dragHandlers}
                 >
                     <span class="column-title">

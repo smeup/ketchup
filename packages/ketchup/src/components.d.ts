@@ -107,6 +107,7 @@ import {
   TooltipAction,
   TooltipData,
   TooltipDetailData,
+  TooltipObject,
 } from './components/kup-tooltip/kup-tooltip-declarations';
 import {
   TreeNode,
@@ -522,6 +523,10 @@ export namespace Components {
     * When set to true the header will stick on top of the table when scrolling.
     */
     'headerIsPersistent': boolean;
+    /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter': string;
     /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
@@ -2226,6 +2231,10 @@ declare namespace LocalJSX {
     */
     'headerIsPersistent'?: boolean;
     /**
+    * Defines the placeholder character which will be replaced by a line break.
+    */
+    'lineBreakCharacter'?: string;
+    /**
     * Sets a maximum limit of new records which can be required by the load more functionality.
     */
     'loadMoreLimit'?: number;
@@ -2845,8 +2854,12 @@ declare namespace LocalJSX {
     'onKupActionCommandClicked'?: (event: CustomEvent<{
       actionCommand: TooltipAction;
     }>) => void;
-    'onKupDefaultActionCommandClicked'?: (event: CustomEvent<any>) => void;
-    'onKupDefaultOptionClicked'?: (event: CustomEvent<any>) => void;
+    'onKupDefaultActionClicked'?: (event: CustomEvent<{
+      obj: TooltipObject;
+    }>) => void;
+    'onKupDefaultOptionClicked'?: (event: CustomEvent<{
+      obj: TooltipObject;
+    }>) => void;
     'onKupTooltipLoadData'?: (event: CustomEvent<any>) => void;
     'onKupTooltipLoadDetail'?: (event: CustomEvent<any>) => void;
   }
