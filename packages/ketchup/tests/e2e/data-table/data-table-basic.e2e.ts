@@ -236,9 +236,12 @@ describe('kup-data-table', () => {
             await page.waitForChanges();
         });
 
-        it('the thead header', async () => {
+        it.each([
+            ['thead', 'thead > tr > th'],
+            ['sticky', 'thead-sticky > tr-sticky > th-sticky'],
+        ])('the %s header', async (label, selector) => {
             for (let i = 0; i < columnsWithLineBreaks.length; i++) {
-                const tableHeaderCellTitle = await page.find(`kup-data-table >>> thead > tr > th:nth-of-type(${columnsWithLineBreaks[i].colIndex + 1}) .column-title`);
+                const tableHeaderCellTitle = await page.find(`kup-data-table >>> ${selector}:nth-of-type(${columnsWithLineBreaks[i].colIndex + 1}) .column-title`);
                 let textNodes = 0;
                 let breakNodes = 0;
 
@@ -257,10 +260,6 @@ describe('kup-data-table', () => {
                 expect(breakNodes).toEqual(columnsWithLineBreaks[i].breaksCount);
                 expect(textNodes).toEqual(columnsWithLineBreaks[i].breaksCount + 1);
             }
-        });
-
-        it.skip('the sticky header', async () => {
-
         });
     });
 });
