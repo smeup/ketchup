@@ -254,7 +254,7 @@ export class KupDataTable {
     totals: TotalsMap;
 
     /**
-     * Defines the placeholder character which will be replaced by a line break.
+     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
      */
     @Prop() lineBreakCharacter: string = '|';
 

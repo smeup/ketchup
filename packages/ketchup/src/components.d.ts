@@ -524,7 +524,7 @@ export namespace Components {
     */
     'headerIsPersistent': boolean;
     /**
-    * Defines the placeholder character which will be replaced by a line break.
+    * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
     */
     'lineBreakCharacter': string;
     /**
@@ -2235,7 +2235,7 @@ declare namespace LocalJSX {
     */
     'headerIsPersistent'?: boolean;
     /**
-    * Defines the placeholder character which will be replaced by a line break.
+    * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
     */
     'lineBreakCharacter'?: string;
     /**

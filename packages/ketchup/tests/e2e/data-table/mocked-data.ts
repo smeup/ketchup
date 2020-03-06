@@ -335,6 +335,49 @@ export const hiddenColumns = {
   ],
 };
 
+export interface ColumnsWithLineBreaksGenerator {
+    colIndex: number,
+    breaksCount: number
+}
+
+export function DataWithHeaderLineBreaksFactory(
+    tableSize: {
+        colSize: number,
+        rowSize: number
+    },
+    columnWithLineBreakIndexes: ColumnsWithLineBreaksGenerator[] = [
+        {colIndex: 0, breaksCount: 1},
+        {colIndex: 1, breaksCount: 2}
+    ],
+    lineBreakPlaceholder = '|'
+)  {
+    const tableData = createData(tableSize.colSize, tableSize.rowSize);
+    const randomTitleWords = [
+        'very',
+        'title',
+        'such',
+        'short',
+        'Lord',
+        'of the',
+        'rings',
+        'Blackflame',
+        'Friede'
+    ];
+
+    let currentCol;
+    for (let i = 0; i < columnWithLineBreakIndexes.length; i++) {
+        currentCol = tableData.columns[columnWithLineBreakIndexes[i].colIndex];
+        if (currentCol) {
+            for (let j = 0; j < columnWithLineBreakIndexes[i].breaksCount; j++) {
+                currentCol.title += lineBreakPlaceholder + randomTitleWords[Math.floor(Math.random() * randomTitleWords.length)];
+            }
+        }
+    }
+
+    return tableData;
+}
+
+
 const msMockData = {...staticData};
 msMockData.rows = [
   ...msMockData.rows,

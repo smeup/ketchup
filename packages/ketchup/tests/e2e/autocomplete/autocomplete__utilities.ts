@@ -27,10 +27,8 @@ export function checkAutocompleteSelectedPayloadDetail(eventDetail: KupAutocompl
   if (eventDetail.length !== toMatch.length) {
     throw new Error('The eventDetail payload event and the toMatch array does not match.');
   }
-  console.log(eventDetail, toMatch);
 
   for (let i = 0; i < eventDetail.length; i++) {
-    console.log(eventDetail[i].code , toMatch[i].code , eventDetail[i].description , toMatch[i].description);
     if (eventDetail[i].code !== toMatch[i].code || eventDetail[i].description !== toMatch[i].description) {
       return false;
     }
