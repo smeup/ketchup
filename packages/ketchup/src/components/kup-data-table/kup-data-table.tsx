@@ -1374,6 +1374,12 @@ export class KupDataTable {
         const hasCustomColumnsWidth = this.columnsWidth.length > 0;
 
         const dataColumns = this.getVisibleColumns().map((column) => {
+            /**
+             * Generic object for classes to add to the th (header cell)
+             * Accepts string indexes (the class names) as boolean values (if the class should be applied or not).
+             */
+            let columnClass: Record<string , boolean> = {};
+
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
@@ -1440,22 +1446,38 @@ export class KupDataTable {
             }
 
             //---- Sort ----
-            let sort = null;
+            let sortIcon = null;
+            let sortEventHandler = undefined;
+
+            // When sorting is enabled, there are two things to do:
+            // 1 - Add correct icon to the table
+            // 2 - stores the handler to be later set onto the whole cell
             if (this.sortEnabled && isStringObject(column.obj)) {
-                sort = (
+                sortIcon = (
                     <span class="column-sort">
                         <span
                             role="button"
                             aria-label="Sort column" // TODO
                             class={'mdi ' + this.getSortIcon(column.name)}
-                            onClick={(e: MouseEvent) =>
-                                this.onColumnSort(e, column.name)
-                            }
                         />
                     </span>
                 );
+
+                // The handler for triggering the sorting of a column
+                sortEventHandler = (e: MouseEvent) => {
+                    console.log('Dentro l\'handler', e, (e.target as HTMLTableCellElement).hasAttribute(this.dragStarterAttribute));
+                    // Sorts column only when currently pressed mouse button is the the left click handler
+                    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+                    if (e.button === 0 && !((e.target as HTMLTableCellElement).hasAttribute(this.dragStarterAttribute))) {
+                        this.onColumnSort(e, column.name);
+                    }
+                };
+
+                // Adds the sortable class to the header cell
+                columnClass['header-cell--sortable'] = true;
             }
 
+            // Sets custom columns width
             let thStyle = null;
             if (hasCustomColumnsWidth) {
                 for (let i = 0; i < this.columnsWidth.length; i++) {
@@ -1517,7 +1539,6 @@ export class KupDataTable {
             }
 
             // Check if columns are droppable and sets their handlers
-            // TODO set better typing.
             let dragHandlers: any = {};
             if (this.enableSortableColumns) {
                 // Reference for drag events and what they permit or not
@@ -1613,11 +1634,8 @@ export class KupDataTable {
                 };
             }
 
-            let columnClass = {};
             if (column.obj) {
-                columnClass = {
-                    number: isNumber(column.obj),
-                };
+                columnClass.number = isNumber(column.obj);
             }
 
             return (
@@ -1625,12 +1643,13 @@ export class KupDataTable {
                     class={columnClass}
                     style={thStyle}
                     onContextMenu={(e: MouseEvent) => this.onHeaderCellContextMenuOpen(e,column.name)}
+                    onMouseUp={sortEventHandler}
                     {...dragHandlers}
                 >
                     <span class="column-title">
                         {this.applyLineBreaks(column.title)}
                     </span>
-                    {sort}
+                    {sortIcon}
                     {filter}
                     {columnMenu}
                 </th>

@@ -209,6 +209,15 @@
         }
 
         //---- Sort and remove-filter icons ----
+        // Base for an header cell
+        &.header-cell {
+
+          // When column is sortable
+          &--sortable {
+            cursor: pointer;
+          }
+        }
+
         .column-sort {
           cursor: pointer;
           margin-left: $column-sort-margin;
@@ -518,6 +527,7 @@
           white-space: nowrap;
         }
 
+        // The element holding the icon for the sort
         .column-sort {
           cursor: pointer;
 
