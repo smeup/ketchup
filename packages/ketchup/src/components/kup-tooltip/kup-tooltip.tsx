@@ -185,7 +185,7 @@ export class KupTooltip {
     }
 
     private getObj():TooltipObject{
-        const nullObj:TooltipObject = {t:"", p:"", k:""}
+        const nullObj:TooltipObject = {t:"", p:"", k:"", url:""}
         return this.data ? this.data.obj : nullObj;
     }
 
