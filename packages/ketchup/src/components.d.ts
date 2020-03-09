@@ -584,7 +584,7 @@ export namespace Components {
     */
     'sortEnabled': boolean;
     /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData': boolean;
     /**
@@ -2343,7 +2343,7 @@ declare namespace LocalJSX {
     */
     'sortEnabled'?: boolean;
     /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
     /**

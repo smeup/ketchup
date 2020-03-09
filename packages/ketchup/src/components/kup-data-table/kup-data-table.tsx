@@ -242,7 +242,7 @@ export class KupDataTable {
     sort: Array<SortObject> = [];
 
     /**
-     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property
+     * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
      * and then fires the event
      */
     @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
@@ -296,6 +296,13 @@ export class KupDataTable {
 
     @State()
     private botDensityPanelVisible = false;
+
+    /**
+     * This is a flag to be used for the draggable columns to force rerender
+     * by changing the internal state.
+     */
+    @State()
+    private triggerColumnSortRerender = false;
 
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
@@ -1318,6 +1325,12 @@ export class KupDataTable {
         });
     }
 
+    /**
+     * After a drop of a column header, if the table can update its own data, does so and triggers rerender.
+     * @param columns - The columns to sort
+     * @param receivingColumnIndex - The index where the column will be inserted
+     * @param sortedColumnIndex - The index where the column will be removed
+     */
     private moveSortedColumns(
         columns: Column[],
         receivingColumnIndex: number,
@@ -1325,6 +1338,7 @@ export class KupDataTable {
     ) {
         const remove = columns.splice(sortedColumnIndex, 1);
         columns.splice(receivingColumnIndex, 0, remove[0]);
+        this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
     }
 
     @Method() async defaultSortingFunction(
@@ -1465,7 +1479,6 @@ export class KupDataTable {
 
                 // The handler for triggering the sorting of a column
                 sortEventHandler = (e: MouseEvent) => {
-                    console.log('Dentro l\'handler', e, (e.target as HTMLTableCellElement).hasAttribute(this.dragStarterAttribute));
                     // Sorts column only when currently pressed mouse button is the the left click handler
                     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
                     if (e.button === 0 && !((e.target as HTMLTableCellElement).hasAttribute(this.dragStarterAttribute))) {
