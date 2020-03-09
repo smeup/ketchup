@@ -241,33 +241,39 @@ export class KupFld {
          * JSX dynamic component notation
          * @see: https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
          */
-        let compPrefix = 'kup-';
+        let compPrefix = '';
         let type: string = '';
         let confObj: { [key: string]: any } = {};
+        console.log("KUP-FLD type: ", this);
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 confObj.displayedField = 'value';
                 confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
+                compPrefix = 'kup-';
                 type = 'combo';
                 break;
             case 'rad':
                 confObj.valueField = 'obj';
                 confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
+                compPrefix = 'wup-';
                 type = 'radio';
                 break;
             case 'itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                type = 'text-input';
+                //compPrefix = 'kup-';
+                //type = 'text-input';
+                compPrefix = 'wup-';
+                type = 'text-field';
                 break;
                 /**/
             case 'fup':
+                    compPrefix = 'kup-';
                     type = 'upload';
-                    //TODO ???
-                   //TODO confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
+                //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
                 type = 'vaadin-upload';
