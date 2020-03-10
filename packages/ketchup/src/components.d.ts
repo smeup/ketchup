@@ -1200,12 +1200,16 @@ export namespace Components {
   interface WupList {
     'data': ComponentListElement[];
     /**
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate': boolean;
+    /**
     * Marks the list as filterable, allowing an input text to filter the options
     */
     'isFilterable': boolean;
     'listId': string;
     'roleType'?: string;
-    'selectable': string;
+    'selectable'?: boolean;
     'twoLine': boolean;
   }
   interface WupPaginator {
@@ -1248,7 +1252,7 @@ export namespace Components {
     */
     'isFilterable': boolean;
     'selectId': string;
-    'selectable': string;
+    'selectable': boolean;
   }
   interface WupSwitch {
     /**
@@ -3100,6 +3104,10 @@ declare namespace LocalJSX {
   interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
     'data'?: ComponentListElement[];
     /**
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate'?: boolean;
+    /**
     * Marks the list as filterable, allowing an input text to filter the options
     */
     'isFilterable'?: boolean;
@@ -3128,7 +3136,7 @@ declare namespace LocalJSX {
       el: EventTarget;
     }>) => void;
     'roleType'?: string;
-    'selectable'?: string;
+    'selectable'?: boolean;
     'twoLine'?: boolean;
   }
   interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
@@ -3217,7 +3225,7 @@ declare namespace LocalJSX {
       value: any;
     }>) => void;
     'selectId'?: string;
-    'selectable'?: string;
+    'selectable'?: boolean;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
     /**

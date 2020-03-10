@@ -294,13 +294,14 @@
         <wup-chip type="filter"></wup-chip>
         
         <h4>Material ListBox (widget)</h4>
-        <wup-list is-filterable="false" selectable="no-select" list-id="pippo1"></wup-list>
-        <wup-list is-filterable="false" selectable="multi-select" list-id="pippo2"></wup-list>
-        <wup-list is-filterable="false" selectable="one-select" role-type="radiogroup" list-id="pippo3"></wup-list>
-        <wup-list is-filterable="false" selectable="multi-select" role-type="group" list-id="pippo4"></wup-list>
+        <wup-list is-filterable="false" selectable="false" list-id="pippo1" two-line="true"></wup-list>
+        <wup-list is-filterable="false" list-id="pippo2"></wup-list>
+        <wup-list is-filterable="false" role-type="radiogroup" list-id="pippo3"></wup-list>
+        <wup-list is-filterable="false" role-type="group" list-id="pippo4"></wup-list>
 
         <h4>Material Select (widget)</h4>
-        <wup-select is-filterable="false" list-id="pluto1"></wup-select>
+        <wup-select is-filterable="false" select-id="pluto1"></wup-select>
+        <wup-select is-filterable="false" select-id="pluto2"></wup-select>
 
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
@@ -644,7 +645,9 @@ chipList.data = [
             listBox4.data = itemsForListBox;
 
             let selectBox1 = document.getElementsByTagName('wup-select')[0];
-            selectBox1.data = itemsForListBox;
+            selectBox1.data = [...itemsForListBox];
+            let selectBox2 = document.getElementsByTagName('wup-select')[1];
+            selectBox2.data = [...itemsForListBox];
 
             let once = true;
             // This is a script for testing these elements

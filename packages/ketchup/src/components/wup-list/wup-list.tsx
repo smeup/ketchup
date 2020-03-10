@@ -10,15 +10,16 @@ import {
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
+import { MDCCheckbox } from '@material/checkbox';
+import { MDCRadio } from '@material/radio';
 
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './wup-list-declarations';
-//import { MDCListFoundation } from '@material/list/foundation';
 
 @Component({
     tag: 'wup-list',
     styleUrl: 'wup-list.scss',
-    shadow: true,
+    shadow: false,
 })
 export class WupList {
     /**
@@ -28,8 +29,8 @@ export class WupList {
 
     @Prop() data: ComponentListElement[] = [];
 
-    @State() filteredItems: ComponentListElement[] = [];
-    @State() listComponent: MDCList = null;
+    private filteredItems: ComponentListElement[] = [];
+    private listComponent: MDCList = null;
 
     /**
      * Marks the list as filterable, allowing an input text to filter the options
@@ -40,24 +41,28 @@ export class WupList {
     // Keeps string for filtering elements when filter mode is active
     @State() filter: string = '';
 
-    // no-select - items non selezionabili
-    // one-select - un solo item selezionabile alla volta
-    // multi-select - più di un item selezionabile alla volta
-    @Prop({ reflect: true }) selectable: string = WupList.SELECTABLE_NO_SELECT;
-
-    static SELECTABLE_NO_SELECT: string = 'no-select';
-    static SELECTABLE_ONE_SELECT: string = 'one-select';
-    static SELECTABLE_MULTI_SELECT: string = 'multi-select';
+    // false - not selectable items
+    // true  - selectable items (@see role-type attribute)
+    @Prop({ reflect: true }) selectable?: boolean = true;
 
     @Prop({ reflect: true }) listId: string = 'WupList-myId';
 
+    // each item text fills 2 rows, (no density)
     @Prop({ reflect: true }) twoLine: boolean = false;
 
     @Prop({ reflect: true }) roleType?: string = WupList.ROLE_LISTBOX;
 
+    // just single selection
     static ROLE_LISTBOX: string = 'listbox';
+    // just single selection, with radio button
     static ROLE_RADIOGROUP: string = 'radiogroup';
+    // just multiple selection, with check box
     static ROLE_CHECKBOX: string = 'group';
+
+    /**
+     * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+     */
+    @Prop({ reflect: true }) indeterminate: boolean = false;
 
     /**
      * Events.
@@ -135,42 +140,21 @@ export class WupList {
         });
     }
 
-    ___onKupClick(
-        e: CustomEvent & { target: HTMLLIElement },
-        item: ComponentListElement
-    ) {
-        const { target } = e;
-        if (!(target instanceof HTMLLIElement)) {
-            return;
-        }
-        console.log(
-            'onKupClict() target: ' + target + ' item: ' + JSON.stringify(item)
-        );
-        this.kupClick.emit({
-            selected: item,
-            el: target,
-        });
-    }
-
     onKupClick(
         e: CustomEvent & { target: HTMLLIElement },
         item: ComponentListElement
     ) {
         const { target } = e;
 
-        //if (!(target instanceof HTMLLIElement)) {
-        //    return;
-        //}
-        console.log('onKupClick() target: ' + target);
-
-        if (this.selectable == WupList.SELECTABLE_MULTI_SELECT) {
+        if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item);
             } else {
                 this.setSelected(item);
             }
         }
-        if (this.selectable == WupList.SELECTABLE_ONE_SELECT) {
+
+        if (this.isSingleSelection()) {
             if (item.selected == false) {
                 this.data.map((item1) => {
                     this.setUnselected(item1);
@@ -197,6 +181,21 @@ export class WupList {
             selected: item,
             el: e.target,
         });
+    }
+
+    private isSingleSelection(): boolean {
+        return (
+            this.roleType == WupList.ROLE_LISTBOX ||
+            this.roleType == WupList.ROLE_RADIOGROUP
+        );
+    }
+
+    private isMultiSelection(): boolean {
+        return this.roleType == WupList.ROLE_CHECKBOX;
+    }
+
+    private isSimpleListbox(): boolean {
+        return this.roleType == WupList.ROLE_LISTBOX;
     }
 
     /**
@@ -227,14 +226,14 @@ export class WupList {
         }
         let classAttr = 'mdc-list-item';
         let tabIndexAttr = '-1';
-        if (item.selected == true) {
+        if (item.selected == true && this.isSimpleListbox()) {
             classAttr += ' mdc-list-item--selected';
             tabIndexAttr = '0';
         }
         let roleAttr = 'option';
         let ariaCheckedAttr: string = null;
         let ariaSelectedAttr: string = item.selected == true ? 'true' : 'false';
-        if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
+        if (!this.selectable) {
             ariaSelectedAttr = null;
         }
         let innerSpanTag = [
@@ -245,22 +244,33 @@ export class WupList {
         ];
         if (this.roleType == WupList.ROLE_RADIOGROUP) {
             roleAttr = 'radio';
-            ariaCheckedAttr = item.selected == true ? 'true' : 'false';
-            //let checkedAttr: boolean = item.selected == true ? true : null;
-            let dataTmp = [
-                { value: item.value, label: 'ppp', checked: item.selected },
-            ];
+            let checkedAttr: boolean = item.selected == true ? true : null;
+            let componentClass: string = 'mdc-radio';
+
+            if (!this.selectable) {
+                componentClass += ' mdc-radio--disabled';
+            }
+
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <wup-radio
-                        name={this.listId + 'radio'}
-                        data={dataTmp}
-                    ></wup-radio>
+                    <div class={componentClass}>
+                        <input
+                            class="mdc-radio__native-control"
+                            type="radio"
+                            id={this.listId + 'radio' + index}
+                            name={this.listId + 'radio'}
+                            value={item.value}
+                            checked={checkedAttr}
+                            disabled={!this.selectable}
+                        ></input>
+                        <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                        </div>
+                        <div class="mdc-radio__ripple"></div>
+                    </div>
                 </span>,
-                <label
-                    class="mdc-list-item__text"
-                    htmlFor={this.listId + index}
-                >
+                <label htmlFor={this.listId + 'radio' + index}>
                     {primaryTextTag}
                     {secTextTag}
                 </label>,
@@ -270,18 +280,42 @@ export class WupList {
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let checkedAttr: boolean = item.selected == true ? true : null;
 
-            let aaa = {
-                display: 'none',
-            };
+            let componentClass: string = 'mdc-checkbox';
+
+            if (!this.selectable) {
+                componentClass += ' mdc-checkbox--disabled';
+            }
+            if (item.selected) {
+                componentClass += ' mdc-checkbox--checked';
+            }
 
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <wup-checkbox
-                        class="mdc-checkbox"
-                        id={this.listId + index}
-                        checked={checkedAttr}
-                    ></wup-checkbox>
-                    <input type="checkbox" style={aaa} />
+                    <div class={componentClass}>
+                        {/* 
+                            // @ts-ignore */}
+                        <input
+                            type="checkbox"
+                            class="mdc-checkbox__native-control"
+                            indeterminate={this.indeterminate}
+                            checked={checkedAttr}
+                            value={item.value}
+                            id={this.listId + index}
+                        />
+                        <div class="mdc-checkbox__background">
+                            <svg
+                                class="mdc-checkbox__checkmark"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    class="mdc-checkbox__checkmark-path"
+                                    fill="none"
+                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"
+                                />
+                            </svg>
+                            <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                    </div>
                 </span>,
                 <label
                     class="mdc-list-item__text"
@@ -301,7 +335,7 @@ export class WupList {
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
                 onClick={
-                    this.selectable == WupList.SELECTABLE_NO_SELECT
+                    !this.selectable
                         ? (e: any) => e.stopPropagation()
                         : (e: any) => this.onKupClick(e, item)
                 }
@@ -312,29 +346,10 @@ export class WupList {
     }
 
     setUnselected(item: ComponentListElement) {
-        let index = this.getLiIndexElementForValue(item.value);
-
-        if (index > -1) {
-            let target = this.listComponent.listElements[index];
-            target.setAttribute('aria-selected', 'false');
-            target.setAttribute('aria-checked', 'false');
-            target.setAttribute('class', 'mdc-list-item');
-        }
         item.selected = false;
     }
 
     setSelected(item: ComponentListElement) {
-        let index = this.getLiIndexElementForValue(item.value);
-        if (index > -1) {
-            let target = this.listComponent.listElements[index];
-
-            target.setAttribute('aria-selected', 'true');
-            target.setAttribute('aria-checked', 'true');
-            target.setAttribute(
-                'class',
-                'mdc-list-item' + ' ' + 'mdc-list-item--selected'
-            );
-        }
         item.selected = true;
     }
 
@@ -358,24 +373,25 @@ export class WupList {
     componentDidLoad() {
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
-        console.log('componentDidLoad() id: ' + this.listId);
         if (root != null) {
+            if (this.roleType == WupList.ROLE_CHECKBOX) {
+                root.querySelectorAll('.mdc-checkbox').forEach((c) => {
+                    MDCCheckbox.attachTo(c);
+                });
+            }
+            if (this.roleType == WupList.ROLE_RADIOGROUP) {
+                root.querySelectorAll('.mdc-radio').forEach((c) => {
+                    MDCRadio.attachTo(c);
+                });
+            }
+
             // Material design javascript initialization
             // Refer to: https://material.io/develop/web/components and choose your component
             this.listComponent = MDCList.attachTo(
                 root.querySelector('.mdc-list') // Use your widget selector
             );
 
-            console.log(
-                'componentDidLoad() this.listComponent: ' +
-                    JSON.stringify(this.listComponent)
-            );
-
-            if (this.selectable == WupList.SELECTABLE_ONE_SELECT) {
-                this.listComponent.singleSelection = true;
-            } else if (this.selectable == WupList.SELECTABLE_MULTI_SELECT) {
-                this.listComponent.singleSelection = false;
-            }
+            this.listComponent.singleSelection = this.isSingleSelection();
 
             this.listComponent.listElements.map(
                 (listItemEl: any) => new MDCRipple(listItemEl)
@@ -386,23 +402,26 @@ export class WupList {
     render() {
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
-        if (this.selectable == WupList.SELECTABLE_NO_SELECT) {
+        if (!this.selectable) {
             componentClass += ' mdc-list--non-interactive';
         }
-        /*
-        if (this.dense == true) {
-            componentClass += ' mdc-list--dense';
-        }
-        */
+
         if (this.twoLine) {
             componentClass += ' mdc-list--two-line';
         }
         let roleAttr = this.roleType;
 
         let ariaMultiSelectable: string = 'false';
-        if (this.selectable == WupList.SELECTABLE_MULTI_SELECT) {
+        if (this.isMultiSelection()) {
             ariaMultiSelectable = 'true';
         }
+
+        console.log(
+            'wup-list.render() -id: ' +
+                this.listId +
+                ' -data: ' +
+                JSON.stringify(this.data)
+        );
 
         this.filteredItems = [];
         let index = 0;

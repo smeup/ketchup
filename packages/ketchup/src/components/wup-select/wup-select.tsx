@@ -9,10 +9,9 @@ import {
     h,
 } from '@stencil/core';
 
-import { MDCSelect, MDCSelectFoundation } from '@material/select';
+import { MDCSelect } from '@material/select';
 import { ComponentListElement } from '../wup-list/wup-list-declarations';
-import { WupList } from '../wup-list/wup-list';
-//import { MDCFormField } from '@material/form-field';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'wup-select',
@@ -36,19 +35,21 @@ export class WupSelect {
     // Keeps string for filtering elements when filter mode is active
     @State() filter: string = '';
 
-    // no-select - items non selezionabili
-    // one-select - un solo item selezionabile alla volta
-    // multi-select - più di un item selezionabile alla volta
-    @Prop({ reflect: true }) selectable: string = WupList.SELECTABLE_ONE_SELECT;
+    // false - not selectable items
+    // true  - selectable items
+    @Prop({ reflect: true }) selectable: boolean = true;
 
     @Prop({ reflect: true }) selectId: string = 'WupSelect-myId';
 
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() disabled: boolean = false;
+    @Prop({ reflect: true }) disabled: boolean = false;
 
-    selectComponent: MDCSelect = null;
+    private textElement: HTMLDivElement = null;
+
+    private value: string = '';
+    private text: string = '';
 
     /**
      * Event example.
@@ -157,44 +158,44 @@ export class WupSelect {
 
         if (root != null) {
             // Material design javascript initialization
-            this.selectComponent = MDCSelect.attachTo(
-                root.querySelector('.' + MDCSelectFoundation.cssClasses.ROOT)
-            );
-            /*
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field') // If your widget is attached to a form
-            );
-            formField.input = component;
-            */
+            MDCSelect.attachTo(root.querySelector('.mdc-select'));
+            this.textElement = root.querySelector('.mdc-select__selected-text');
         }
     }
 
     render() {
         //---- Rendering ----
-        //let formClass: string = 'mdc-form-field';
-        let componentClass: string =
-            MDCSelectFoundation.cssClasses.ROOT + ' mdc-select--no-label';
+        let componentClass: string = 'mdc-select mdc-select--no-label';
 
         if (this.disabled) {
-            componentClass += ' ' + MDCSelectFoundation.cssClasses.DISABLED;
+            componentClass += ' mdc-select--disabled';
         }
+        this.checkDataInputForRender();
+        console.log(
+            'wup-select.render() -id: ' +
+                this.selectId +
+                ' -data: ' +
+                JSON.stringify(this.data)
+        );
         return (
             <Host>
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class="mdc-select__anchor demo-width-class">
                             <i class="mdc-select__dropdown-icon"></i>
-                            <div class="mdc-select__selected-text"></div>
+                            <div class="mdc-select__selected-text">
+                                {this.text}
+                            </div>
                             <div class="mdc-line-ripple"></div>
                         </div>
 
                         <div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
                             <wup-list
                                 data={this.data}
-                                selectable={WupList.SELECTABLE_ONE_SELECT}
+                                selectable={this.selectable}
                                 listId={this.selectId + 'List'}
                                 onKupListClick={(e: CustomEvent) =>
-                                    this.onAAA(e)
+                                    this.setSelectedItem(e)
                                 }
                             ></wup-list>
                         </div>
@@ -204,8 +205,44 @@ export class WupSelect {
         );
     }
 
-    onAAA(e: CustomEvent) {
+    setSelectedItem(e: CustomEvent) {
         console.log('e.detail: ' + JSON.stringify(e.detail));
         console.log('e.detail.selected.value: ' + e.detail.selected.value);
+        this.text = e.detail.selected.text;
+        this.value = e.detail.selected.value;
+        this.updateVisualization();
+    }
+
+    checkDataInputForRender() {
+        this.text = '';
+        this.value = '';
+
+        let found = false;
+        this.data.forEach((i) => {
+            if (!i.isSeparator) {
+                if (i.selected) {
+                    this.text = i.text;
+                    this.value = i.value;
+                    if (found) {
+                        this.logError(
+                            'Found list item selected, more than once at a time; first [' +
+                                this.value +
+                                '] current [' +
+                                i.value +
+                                ']'
+                        );
+                    }
+                    found = true;
+                }
+            }
+        });
+    }
+
+    updateVisualization() {
+        this.textElement.innerText = this.text;
+    }
+
+    logError(msg: string) {
+        errorLogging('wup-select', msg);
     }
 }
