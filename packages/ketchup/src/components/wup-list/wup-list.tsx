@@ -224,7 +224,7 @@ export class WupList {
                 </span>,
             ];
         }
-        let classAttr = 'mdc-list-item';
+        let classAttr = 'mdc-list-item mdc-ripple-surface';
         let tabIndexAttr = '-1';
         if (item.selected == true && this.isSimpleListbox()) {
             classAttr += ' mdc-list-item--selected';
@@ -387,9 +387,6 @@ export class WupList {
 
             // Material design javascript initialization
             // Refer to: https://material.io/develop/web/components and choose your component
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list') // Use your widget selector
-            );
 
             this.listComponent.singleSelection = this.isSingleSelection();
 

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -16,7 +11,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'SelectDemo',
+  name: 'ComboboxDemo',
   data() {
     return {
       demoTabs: [
@@ -36,12 +31,17 @@ export default {
           active: false,
         },
         {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
           text: 'CSS',
           icon: '',
           active: false,
         },
       ],
-      demoComp: '<wup-select id="demo-component"></wup-select>',
+      demoComp: '<wup-combobox id="demo-component"></wup-combobox>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -61,23 +61,23 @@ export default {
       ],
       demoEvents: [
         {
-          name: 'kupSelectClick',
+          name: 'kupComboboxClick',
           type: 'click',
         },
         {
-          name: 'kupSelectChange',
+          name: 'kupComboboxChange',
           type: 'change',
         },
         {
-          name: 'kupSelectInput',
+          name: 'kupComboboxInput',
           type: 'input',
         },
         {
-          name: 'kupSelectFocus',
+          name: 'kupComboboxFocus',
           type: 'focus',
         },
         {
-          name: 'kupSelectBlur',
+          name: 'kupComboboxBlur',
           type: 'blur',
         },
       ],

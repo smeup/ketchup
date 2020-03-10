@@ -458,6 +458,7 @@
         <h4>Material Select (widget)</h4>
         <wup-select is-filterable="false" select-id="pluto1"></wup-select>
         <wup-select is-filterable="false" select-id="pluto2"></wup-select>
+        <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
 
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
@@ -808,6 +809,8 @@ chipList.data = [
             selectBox1.data = [...itemsForListBox];
             let selectBox2 = document.getElementsByTagName('wup-select')[1];
             selectBox2.data = [...itemsForListBox];
+            let comboBox1 = document.getElementsByTagName('wup-combobox')[0];
+            comboBox1.data = itemsForListBox;
 
             let once = true;
             // This is a script for testing these elements

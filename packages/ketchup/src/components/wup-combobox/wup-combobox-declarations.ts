@@ -1,13 +1,13 @@
 import { KupPayloadEvent } from '../../types/EventInterfaces';
 import { GenericObject } from '../../types/GenericTypes';
 
-export interface SelectItem {
+export interface ComboboxItem {
     [key: string]: any;
 }
 
-export interface SelectPosition {
+export interface ComboboxPosition {
     isRight: boolean;
     isTop: boolean;
 }
 
-export type KetchupSelectEvent = KupPayloadEvent<SelectItem, GenericObject>;
+export type KetchupComboboxEvent = KupPayloadEvent<ComboboxItem, GenericObject>;

@@ -2,30 +2,30 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
-        <select-demo></select-demo>
+        <combobox-demo></combobox-demo>
       </template>
       <template v-slot:1>
-        <select-basic></select-basic>
+        <combobox-basic></combobox-basic>
       </template>
     </comp>
   </div>
 </template>
 
 <script>
-import SelectDemo from '@/views/basic/select/examples/SelectDemo';
-import SelectBasic from '@/views/basic/select/examples/SelectBasic';
+import ComboboxDemo from '@/views/basic/combobox/examples/ComboboxDemo';
+import ComboboxBasic from '@/views/basic/combobox/examples/ComboboxBasic';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
-    SelectDemo,
-    SelectBasic,
+    ComboboxDemo,
+    ComboboxBasic,
     Comp,
   },
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-select',
-      headtitle: 'Select',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-combobox',
+      headtitle: 'Combobox',
       titles: ['Playground', 'Basic usage'],
     };
   },

@@ -1,10 +1,7 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >Selects are text fields with preset values, presented in a menu when
-        the text field is clicked.</p
-      >
+      <p>Combobox are text fields with a list of preset choices associated to them.</p>
       <br />
       <p class="centered">Sample markup</p>
       <code class="flat">{{ markupBasic }}</code>
@@ -14,10 +11,10 @@
 
 <script>
 export default {
-  name: 'SelectBasic',
+  name: 'ComboboxBasic',
   data() {
     return {
-      markupBasic: '<wup-select></wup-select>',
+      markupBasic: '<wup-combobox></wup-combobox>',
     };
   },
 };
