@@ -180,9 +180,9 @@ let basicRoutes = [
     component: () => import(`@/views/basic/radio/Radio.vue`),
   },
   {
-    path: `/select`,
-    name: 'select',
-    component: () => import(`@/views/basic/select/Select.vue`),
+    path: `/combobox`,
+    name: 'combobox',
+    component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
     path: `/switch`,

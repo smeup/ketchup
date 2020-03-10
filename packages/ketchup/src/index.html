@@ -300,7 +300,7 @@
         <wup-list is-filterable="false" selectable="multi-select" role-type="group" list-id="pippo4"></wup-list>
 
         <h4>Material Select (widget)</h4>
-        <wup-select is-filterable="false" list-id="pluto1"></wup-select>
+        <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
 
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
@@ -643,7 +643,7 @@ chipList.data = [
             listBox3.data = itemsForListBox;
             listBox4.data = itemsForListBox;
 
-            let selectBox1 = document.getElementsByTagName('wup-select')[0];
+            let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
             selectBox1.data = itemsForListBox;
 
             let once = true;

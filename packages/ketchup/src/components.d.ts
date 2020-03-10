@@ -1175,6 +1175,16 @@ export namespace Components {
     */
     'type': string;
   }
+  interface WupCombobox {
+    /**
+    * The data of the component.
+    */
+    'data': ComponentListElement[];
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1236,19 +1246,6 @@ export namespace Components {
     * Defaults at null. It's the name that binds the radio buttons together.
     */
     'name': string;
-  }
-  interface WupSelect {
-    'data': ComponentListElement[];
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    'selectId': string;
-    'selectable': string;
   }
   interface WupSwitch {
     /**
@@ -1611,6 +1608,12 @@ declare global {
     new (): HTMLWupChipElement;
   };
 
+  interface HTMLWupComboboxElement extends Components.WupCombobox, HTMLStencilElement {}
+  var HTMLWupComboboxElement: {
+    prototype: HTMLWupComboboxElement;
+    new (): HTMLWupComboboxElement;
+  };
+
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
@@ -1633,12 +1636,6 @@ declare global {
   var HTMLWupRadioElement: {
     prototype: HTMLWupRadioElement;
     new (): HTMLWupRadioElement;
-  };
-
-  interface HTMLWupSelectElement extends Components.WupSelect, HTMLStencilElement {}
-  var HTMLWupSelectElement: {
-    prototype: HTMLWupSelectElement;
-    new (): HTMLWupSelectElement;
   };
 
   interface HTMLWupSwitchElement extends Components.WupSwitch, HTMLStencilElement {}
@@ -1707,11 +1704,11 @@ declare global {
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-chip': HTMLWupChipElement;
+    'wup-combobox': HTMLWupComboboxElement;
     'wup-icon': HTMLWupIconElement;
     'wup-list': HTMLWupListElement;
     'wup-paginator': HTMLWupPaginatorElement;
     'wup-radio': HTMLWupRadioElement;
-    'wup-select': HTMLWupSelectElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
     'wup-template': HTMLWupTemplateElement;
@@ -3075,6 +3072,34 @@ declare namespace LocalJSX {
     */
     'type'?: string;
   }
+  interface WupCombobox extends JSXBase.HTMLAttributes<HTMLWupComboboxElement> {
+    /**
+    * The data of the component.
+    */
+    'data'?: ComponentListElement[];
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Event example.
+    */
+    'onKupSelectBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSelectChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSelectClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSelectFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupSelectInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3187,37 +3212,6 @@ declare namespace LocalJSX {
       value: string;
       checked: boolean;
     }>) => void;
-  }
-  interface WupSelect extends JSXBase.HTMLAttributes<HTMLWupSelectElement> {
-    'data'?: ComponentListElement[];
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    /**
-    * Event example.
-    */
-    'onKupSelectBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupSelectChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupSelectClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupSelectFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupSelectInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'selectId'?: string;
-    'selectable'?: string;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
     /**
@@ -3430,11 +3424,11 @@ declare namespace LocalJSX {
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
     'wup-chip': WupChip;
+    'wup-combobox': WupCombobox;
     'wup-icon': WupIcon;
     'wup-list': WupList;
     'wup-paginator': WupPaginator;
     'wup-radio': WupRadio;
-    'wup-select': WupSelect;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;
     'wup-template': WupTemplate;

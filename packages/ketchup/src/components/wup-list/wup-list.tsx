@@ -9,11 +9,8 @@ import {
     State,
 } from '@stencil/core';
 
-import { MDCList } from '@material/list';
-
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './wup-list-declarations';
-//import { MDCListFoundation } from '@material/list/foundation';
 
 @Component({
     tag: 'wup-list',
@@ -29,7 +26,7 @@ export class WupList {
     @Prop() data: ComponentListElement[] = [];
 
     @State() filteredItems: ComponentListElement[] = [];
-    @State() listComponent: MDCList = null;
+    @State() listComponent: any = null;
 
     /**
      * Marks the list as filterable, allowing an input text to filter the options
@@ -225,7 +222,7 @@ export class WupList {
                 </span>,
             ];
         }
-        let classAttr = 'mdc-list-item';
+        let classAttr = 'mdc-list-item mdc-ripple-surface';
         let tabIndexAttr = '-1';
         if (item.selected == true) {
             classAttr += ' mdc-list-item--selected';
@@ -362,9 +359,6 @@ export class WupList {
         if (root != null) {
             // Material design javascript initialization
             // Refer to: https://material.io/develop/web/components and choose your component
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list') // Use your widget selector
-            );
 
             console.log(
                 'componentDidLoad() this.listComponent: ' +
