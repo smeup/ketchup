@@ -37,6 +37,15 @@
           margin-right: 15px;
         }
 
+        .title {
+            display: inline-block;
+
+            &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
         .right {
           display: flex;
           flex-direction: column;

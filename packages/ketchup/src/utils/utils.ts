@@ -83,3 +83,22 @@ export function formatSize(size: any) {
         return size + 'px';
     }
 }
+
+/**
+ * Convert argument to boolean. Everything is false unless: true, "true", 1, "1", "on", "yes"
+ * @param value the value to convert
+ * @return the boolean value of passed argument
+ */
+export function getBoolean(value: any) {
+    switch (value) {
+        case true:
+        case 'true':
+        case 1:
+        case '1':
+        case 'on':
+        case 'yes':
+            return true;
+        default:
+            return false;
+    }
+}

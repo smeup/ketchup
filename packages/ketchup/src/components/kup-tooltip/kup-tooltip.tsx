@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 
 import { Row } from '../kup-data-table/kup-data-table-declarations';
-import { TooltipData, TooltipDetailData, TooltipAction } from './kup-tooltip-declarations';
+import { TooltipData, TooltipDetailData, TooltipAction, TooltipObject } from './kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -73,6 +73,28 @@ export class KupTooltip {
     kupActionCommandClicked: EventEmitter<{
         actionCommand: TooltipAction;
     }>;    
+
+    @Event({
+        eventName: 'kupDefaultActionClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    
+    kupDefaultActionClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;    
+
+
+    @Event({
+        eventName: 'kupDefaultOptionClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupDefaultOptionClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;  
 
     @Watch('data')
     onDataChanged() {
@@ -142,15 +164,29 @@ export class KupTooltip {
     }
 
     private getTitle(): string {
+        let datatitle:string = '';
         if (this.data) {
-            return this.data.title;
+            datatitle = this.data.title;
         }
-
-        return '';
+        const title = <div><div class="title" onClick={(event) => this.onDefaultOptionClicked(event)}>
+                {datatitle}
+            </div>
+            <kup-button           
+                flat={true}
+                iconClass="mdi mdi-open-in-new"
+                onKupButtonClicked={(event) => this.onDefaultActionClicked(event)}>
+            </kup-button> 
+        </div>;
+        return title;
     }
 
     private getContent() {
         return this.data ? this.data.content : {};
+    }
+
+    private getObj():TooltipObject{
+        const nullObj:TooltipObject = {t:"", p:"", k:"", url:""}
+        return this.data ? this.data.obj : nullObj;
     }
 
     // ---- Listeners ----
@@ -169,7 +205,7 @@ export class KupTooltip {
                 this.visible = true;
 
                 this.kupTooltipLoadData.emit();
-            }, 200);
+            }, 400);
         }
     }
 
@@ -181,6 +217,17 @@ export class KupTooltip {
         this.kupActionCommandClicked.emit({actionCommand: action})
     }
 
+    private onDefaultActionClicked(event:Event) { 
+        //Evento di default al click     
+        event.stopPropagation();
+        this.kupDefaultActionClicked.emit({obj:this.getObj()})
+    }
+
+    private onDefaultOptionClicked(event:Event) { 
+        //Evento di default al click  
+        event.stopPropagation();
+        this.kupDefaultOptionClicked.emit({obj:this.getObj()})
+    }
 
     private onMouseLeave() {
         // Se non sono presenti azioni si chiude immediatamente, altrimenti
@@ -318,7 +365,8 @@ export class KupTooltip {
                     </div>
                 )
             );                      
-            if (this.hasActionsData()) {                
+            if (this.hasActionsData()) {  
+          
                 detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
                     <div class="detail-actions__box">                           
                         <kup-button           
@@ -346,6 +394,7 @@ export class KupTooltip {
                 id="tooltip"
                 hidden={!this.visible || !this.data}
                 style={tooltipStyle}
+                onClick={(e:MouseEvent) => e.stopPropagation()}
             >
                 <div id="main-content" class={mainContentClass}>
                     {mainContent}
@@ -353,19 +402,7 @@ export class KupTooltip {
                 <div id="detail" class={detailClass}>
                     {detailContent}
                 </div>                                      
-                <div 
-                    /** 
-                     * Stoppo la propagazione dell'onClick per evitare che arrivi al contenitore
-                     * e che un singolo click venga gestito con due handler differenti
-                     * creando potenziali problemi sulla navigazione.
-                     * Esempio
-                     * Se il tip è dentro una matrice il click darebbe luogo all'emissione 
-                     * di due eventi kupActionCommandClicked e kupRowSelected, 
-                     * il primo richiamerà ad esempio FUN1 e il secondo FUN2, ma se FUN1 
-                     * viene aperta su una nuova finestra il risultato è che anche la finestra corrente
-                     * che contiene il tip, verrebbe rimpiazzata dalla chiamatqa a FUN2
-                     */
-                    onClick={(e:MouseEvent) => e.stopPropagation()}
+                <div                     
                     id="detail-actions"   
                     hidden={!this.hasActionsData()}
                 >
