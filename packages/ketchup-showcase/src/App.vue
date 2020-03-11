@@ -308,12 +308,6 @@ export default {
             },
           },
           {
-            title: `Select`,
-            to: {
-              name: 'select',
-            },
-          },
-          {
             title: `Spinner`,
             to: {
               name: 'spinner',

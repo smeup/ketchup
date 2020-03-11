@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                | Type                     | Default                        |
-| -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ------------------------------ |
-| `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                           |
-| `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                        |
-| `listId`       | `list-id`       |                                                                            | `string`                 | `'WupList-myId'`               |
-| `roleType`     | `role-type`     |                                                                            | `string`                 | `WupList.ROLE_LISTBOX`         |
-| `selectable`   | `selectable`    |                                                                            | `string`                 | `WupList.SELECTABLE_NO_SELECT` |
-| `twoLine`      | `two-line`      |                                                                            | `boolean`                | `false`                        |
+| Property       | Attribute       | Description                                                                | Type                     | Default                |
+| -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ---------------------- |
+| `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                   |
+| `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                |
+| `listId`       | `list-id`       |                                                                            | `string`                 | `'WupList-myId'`       |
+| `roleType`     | `role-type`     |                                                                            | `string`                 | `WupList.ROLE_LISTBOX` |
+| `selectable`   | `selectable`    |                                                                            | `boolean`                | `true`                 |
+| `twoLine`      | `two-line`      |                                                                            | `boolean`                | `false`                |
 
 
 ## Events
@@ -32,7 +32,7 @@
 
 ### Used by
 
- - [wup-select](../wup-select)
+ - [wup-combobox](../wup-combobox)
 
 ### Depends on
 
@@ -44,7 +44,7 @@
 graph TD;
   wup-list --> wup-radio
   wup-list --> wup-checkbox
-  wup-select --> wup-list
+  wup-combobox --> wup-list
   style wup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

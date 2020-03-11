@@ -5,7 +5,6 @@ import {
     Prop,
     Element,
     Host,
-    State,
     h,
 } from '@stencil/core';
 
@@ -20,7 +19,6 @@ import { positionRecalc } from '../../utils/recalc-position';
 })
 export class WupCombobox {
     @Element() rootElement: HTMLElement;
-    @State() initialValue: string;
 
     /**
      * Custom style to be passed to the component.
@@ -37,8 +35,9 @@ export class WupCombobox {
      */
     @Prop() textfieldData: ComponentProps[] = [];
 
-    private textfieldEl: any;
-    private listEl: any;
+    private textfieldEl: any = undefined;
+    private listEl: any = undefined;
+    private initialValue: string = undefined;
 
     /**
      * Event example.
@@ -135,8 +134,7 @@ export class WupCombobox {
     }
 
     handleValue() {
-        let newData = [...this.listEl.data];
-        this.listData['data'] = newData;
+        this.consistencyCheck();
         this.closeList();
     }
 
@@ -166,34 +164,39 @@ export class WupCombobox {
         this.listEl.classList.remove('visible');
     }
 
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
+    consistencyCheck() {
         var firstSelectedFound = false;
 
         if (this.listData) {
             for (let j = 0; j < this.listData.length; j++) {
                 if (this.listData[j].prop === 'data') {
-                    if (this.listData[j].value.selected && firstSelectedFound) {
-                        this.listData[j].value.selected = false;
-                        let message =
-                            'Found occurence of data(' +
-                            j +
-                            ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
+                    var currentProp = this.listData[j].value;
+                    for (let i = 0; i < currentProp.length; i++) {
+                        if (currentProp[i].selected && firstSelectedFound) {
+                            currentProp[i].selected = false;
+                            let message =
+                                'Found occurence of data(' +
+                                j +
+                                ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                        errorLogging('wup-combobox', message);
-                    }
-                    if (
-                        this.listData[j].value.selected &&
-                        !firstSelectedFound
-                    ) {
-                        firstSelectedFound = true;
-                        this.initialValue = this.listData[j].value.text;
+                            errorLogging('wup-combobox', message);
+                        }
+                        if (currentProp[i].selected && !firstSelectedFound) {
+                            firstSelectedFound = true;
+                            this.initialValue = currentProp[i].text;
+
+                            if (this.textfieldEl) {
+                                this.textfieldEl.initialValue =
+                                    currentProp[i].text;
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
+    //---- Lifecycle hooks ----
 
     componentDidRender() {
         positionRecalc(this.listEl, this.textfieldEl);
@@ -253,6 +256,7 @@ export class WupCombobox {
             customStyle = <style>{this.customStyle}</style>;
         }
 
+        this.consistencyCheck();
         let textfieldEl = this.prepTextfield();
         let listEl = this.prepList();
 
