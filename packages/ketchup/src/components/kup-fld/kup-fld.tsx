@@ -297,9 +297,8 @@ export class KupFld {
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
-                //items={this.data}
-                {...items2render}
-                {...data2render}
+                items={items2render}
+                data={data2render}
                 {...confObj}
                 {...this.propagate}
             />

@@ -33,16 +33,57 @@ export const fldData = [
 
 export const fldDataWupRadio = [
         {
-          value: 'chocolate',
-          label: 'Chocolate',
-          checked: true,
+          checked: false,
+          "label": "DELGIO",
+          "programs": "Java",
+          "value": "sme001"
         },
         {
-          value: 'cream',
-          label: 'Cream',
           checked: false,
-        },  
+          "label": "SANCOS",
+          "programs": "Kotlin",
+          "value": "sme002"
+        },
+        {
+          checked: false,
+          "label": "PARFRA",
+          "programs": "Delphi",
+          "value": "sme004"
+        },
+        {
+          checked: false,
+          "label": "ZAMCHI",
+          "programs": "Go",
+          "value": "sme006"
+        }        
 ];
+export const fldDataWupRadioPreChecked = [
+  {
+    checked: false,
+    "label": "DELGIO",
+    "programs": "Java",
+    "value": "sme001"
+  },
+  {
+    checked: false,
+    "label": "SANCOS",
+    "programs": "Kotlin",
+    "value": "sme002"
+  },
+  {
+    checked: false,
+    "label": "PARFRA",
+    "programs": "Delphi",
+    "value": "sme004"
+  },
+  {
+    checked: true,
+    "label": "ZAMCHI",
+    "programs": "Go",
+    "value": "sme006"
+  }        
+];
+
 
 export function fldConfigFactory(propToChange: {name: string, value: string}[] = []) {
   let toRet: {
