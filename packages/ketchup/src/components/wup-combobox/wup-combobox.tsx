@@ -209,7 +209,8 @@ export class WupSelect {
                     <wup-list
                         class="mdc-menu mdc-menu-surface"
                         data={this.data}
-                        selectable={WupList.SELECTABLE_ONE_SELECT}
+                        selectable={!this.disabled}
+                        roleType={WupList.ROLE_LISTBOX}
                         listId={'List-NoNeedForIDImho'}
                         ref={(el) => (this.listEl = el as any)}
                         onKupListClick={() => this.handleValue()}

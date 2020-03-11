@@ -1,7 +1,5 @@
 // Imports from material
 @import '@material/list/mdc-list';
-@import '@material/checkbox/mdc-checkbox';
-@import '@material/radio/mdc-radio';
 
 // host represent widget DOM element
 :host {
@@ -9,7 +7,7 @@
 
   #kup-component {
     & .mdc-list {
-      //@include mdc-list-single-line-density(-4);
+      @include mdc-list-single-line-density(-4);
     }
   }
 }
