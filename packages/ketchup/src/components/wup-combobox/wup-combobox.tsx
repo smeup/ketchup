@@ -9,38 +9,35 @@ import {
     h,
 } from '@stencil/core';
 
-import { ComponentListElement } from '../wup-list/wup-list-declarations';
+import { ComponentProps } from '../wup-combobox/wup-combobox-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
-import { WupList } from '../wup-list/wup-list';
 
 @Component({
     tag: 'wup-combobox',
     styleUrl: 'wup-combobox.scss',
     shadow: true,
 })
-export class WupSelect {
-    /**
-     * Following default props and elements common to all widgets
-     */
+export class WupCombobox {
     @Element() rootElement: HTMLElement;
-
-    /**
-     * The data of the component.
-     */
-    @Prop() data: ComponentListElement[] = [];
-
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop() disabled: boolean = false;
-
-    /**
-     * Text of the text field.
-     */
     @State() initialValue: string;
 
-    private textfieldEl: HTMLElement;
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+
+    /**
+     * Props of the list.
+     */
+    @Prop() listData: ComponentProps[] = [];
+
+    /**
+     * Props of the text field.
+     */
+    @Prop() textfieldData: ComponentProps[] = [];
+
+    private textfieldEl: any;
     private listEl: any;
 
     /**
@@ -48,7 +45,7 @@ export class WupSelect {
      */
 
     @Event({
-        eventName: 'kupSelectBlur',
+        eventName: 'kupComboboxBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -58,7 +55,7 @@ export class WupSelect {
     }>;
 
     @Event({
-        eventName: 'kupSelectChange',
+        eventName: 'kupComboboxChange',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -68,7 +65,7 @@ export class WupSelect {
     }>;
 
     @Event({
-        eventName: 'kupSelectClick',
+        eventName: 'kupComboboxClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -78,7 +75,7 @@ export class WupSelect {
     }>;
 
     @Event({
-        eventName: 'kupSelectFocus',
+        eventName: 'kupComboboxFocus',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -88,7 +85,7 @@ export class WupSelect {
     }>;
 
     @Event({
-        eventName: 'kupSelectInput',
+        eventName: 'kupComboboxInput',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -139,7 +136,7 @@ export class WupSelect {
 
     handleValue() {
         let newData = [...this.listEl.data];
-        this.data = newData;
+        this.listData['data'] = newData;
         this.closeList();
     }
 
@@ -173,19 +170,27 @@ export class WupSelect {
 
     componentWillLoad() {
         var firstSelectedFound = false;
-        for (let j = 0; j < this.data.length; j++) {
-            if (this.data[j].selected && firstSelectedFound) {
-                this.data[j].selected = false;
-                let message =
-                    'Found occurence of data(' +
-                    j +
-                    ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                errorLogging('wup-combobox', message);
-            }
-            if (this.data[j].selected && !firstSelectedFound) {
-                firstSelectedFound = true;
-                this.initialValue = this.data[j].text;
+        if (this.listData) {
+            for (let j = 0; j < this.listData.length; j++) {
+                if (this.listData[j].prop === 'data') {
+                    if (this.listData[j].value.selected && firstSelectedFound) {
+                        this.listData[j].value.selected = false;
+                        let message =
+                            'Found occurence of data(' +
+                            j +
+                            ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
+
+                        errorLogging('wup-combobox', message);
+                    }
+                    if (
+                        this.listData[j].value.selected &&
+                        !firstSelectedFound
+                    ) {
+                        firstSelectedFound = true;
+                        this.initialValue = this.listData[j].value.text;
+                    }
+                }
             }
         }
     }
@@ -194,26 +199,76 @@ export class WupSelect {
         positionRecalc(this.listEl, this.textfieldEl);
     }
 
+    prepTextfield() {
+        let propList = undefined;
+        for (let j = 0; j < this.textfieldData.length; j++) {
+            let newProp = this.textfieldData[j].prop;
+            let newValue = this.textfieldData[j].value;
+            if (propList) {
+                propList = { ...propList, [newProp]: newValue };
+            } else {
+                propList = { [newProp]: newValue };
+            }
+        }
+
+        let comp: HTMLElement = (
+            <wup-text-field
+                {...propList}
+                initial-value={this.initialValue}
+                onKupTextFieldIconClick={() => this.handleList()}
+                ref={(el) => (this.textfieldEl = el as any)}
+            ></wup-text-field>
+        );
+
+        return comp;
+    }
+
+    prepList() {
+        let propList = undefined;
+        for (let j = 0; j < this.listData.length; j++) {
+            let newProp = this.listData[j].prop;
+            let newValue = this.listData[j].value;
+            if (propList) {
+                propList = { ...propList, [newProp]: newValue };
+            } else {
+                propList = { [newProp]: newValue };
+            }
+        }
+
+        let comp: HTMLElement = (
+            <wup-list
+                {...propList}
+                class="mdc-menu mdc-menu-surface"
+                onKupListClick={() => this.handleValue()}
+                ref={(el) => (this.listEl = el as any)}
+            ></wup-list>
+        );
+
+        return comp;
+    }
+
     render() {
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        let textfieldEl = this.prepTextfield();
+        let listEl = this.prepList();
+
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)}>
-                <div id="kup-component">
-                    <wup-text-field
-                        trailing-icon
-                        disabled={this.disabled}
-                        icon="arrow_drop_down"
-                        initial-value={this.initialValue}
-                        ref={(el) => (this.textfieldEl = el as any)}
-                        onKupTextFieldIconClick={() => this.handleList()}
-                    ></wup-text-field>
-                    <wup-list
-                        class="mdc-menu mdc-menu-surface"
-                        data={this.data}
-                        selectable={WupList.SELECTABLE_ONE_SELECT}
-                        listId={'List-NoNeedForIDImho'}
-                        ref={(el) => (this.listEl = el as any)}
-                        onKupListClick={() => this.handleValue()}
-                    ></wup-list>
+                {customStyle}
+                <div
+                    id="kup-component"
+                    onBlur={(e: any) => this.onKupBlur(e)}
+                    onChange={(e: any) => this.onKupChange(e)}
+                    onClick={(e: any) => this.onKupClick(e)}
+                    onFocus={(e: any) => this.onKupFocus(e)}
+                    onInput={(e: any) => this.onKupInput(e)}
+                >
+                    {textfieldEl}
+                    {listEl}
                 </div>
             </Host>
         );

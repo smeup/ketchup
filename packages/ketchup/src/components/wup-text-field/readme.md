@@ -41,6 +41,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [wup-combobox](../wup-combobox)
+
 ### Depends on
 
 - [wup-icon](../wup-icon)
@@ -49,6 +53,7 @@
 ```mermaid
 graph TD;
   wup-text-field --> wup-icon
+  wup-combobox --> wup-text-field
   style wup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+      :demoData="demoData"
+    ></demo>
   </div>
 </template>
 
@@ -41,7 +47,8 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-combobox id="demo-component"></wup-combobox>',
+      demoComp:
+        '<wup-combobox label="demo" id="demo-component"></wup-combobox>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -52,10 +59,19 @@ export default {
           try: 'css',
         },
         {
-          prop: 'data',
-          description: 'The data of the list.',
-          type: 'ComponentListElement',
-          default: 'undefined',
+          prop: 'textfieldData',
+          description:
+            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          type: 'ComponentProps[]',
+          default: '[]',
+          try: 'json',
+        },
+        {
+          prop: 'listData',
+          description:
+            "Set of props related to the list. To check the available props visit the List basic component's page.",
+          type: 'ComponentProps[]',
+          default: '[]',
           try: 'json',
         },
       ],
@@ -79,6 +95,44 @@ export default {
         {
           name: 'kupComboboxBlur',
           type: 'blur',
+        },
+      ],
+      demoData: [
+        {
+          prop: 'textfieldData',
+          value: [
+            { prop: 'trailingIcon', value: true },
+            { prop: 'icon', value: 'arrow_drop_down' },
+          ],
+        },
+        {
+          prop: 'listData',
+          value: [
+            {
+              prop: 'data',
+              value: [
+                {
+                  text: 'First choice',
+                  value: '1',
+                },
+                {
+                  text: 'Second choice',
+                  value: '2',
+                },
+                {
+                  text: null,
+                  value: null,
+                  isSeparator: true,
+                },
+                {
+                  text: 'Third choice (below a separator)',
+                  value: '3',
+                },
+              ],
+            },
+            { prop: 'selectable', value: 'one-select' },
+            { prop: 'listId', value: 'LISTA' },
+          ],
         },
       ],
     };

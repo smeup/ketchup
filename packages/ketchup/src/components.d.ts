@@ -119,6 +119,9 @@ import {
   ComponentChipElement,
 } from './components/wup-chip/wup-chip-declarations';
 import {
+  ComponentProps,
+} from './components/wup-combobox/wup-combobox-declarations';
+import {
   ComponentListElement,
 } from './components/wup-list/wup-list-declarations';
 import {
@@ -1177,13 +1180,17 @@ export namespace Components {
   }
   interface WupCombobox {
     /**
-    * The data of the component.
+    * Custom style to be passed to the component.
     */
-    'data': ComponentListElement[];
+    'customStyle': string;
     /**
-    * Defaults at false. When set to true, the component is disabled.
+    * Props of the list.
     */
-    'disabled': boolean;
+    'listData': ComponentProps[];
+    /**
+    * Props of the text field.
+    */
+    'textfieldData': ComponentProps[];
   }
   interface WupIcon {
     /**
@@ -3074,31 +3081,35 @@ declare namespace LocalJSX {
   }
   interface WupCombobox extends JSXBase.HTMLAttributes<HTMLWupComboboxElement> {
     /**
-    * The data of the component.
+    * Custom style to be passed to the component.
     */
-    'data'?: ComponentListElement[];
+    'customStyle'?: string;
     /**
-    * Defaults at false. When set to true, the component is disabled.
+    * Props of the list.
     */
-    'disabled'?: boolean;
+    'listData'?: ComponentProps[];
     /**
     * Event example.
     */
-    'onKupSelectBlur'?: (event: CustomEvent<{
+    'onKupComboboxBlur'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupSelectChange'?: (event: CustomEvent<{
+    'onKupComboboxChange'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupSelectClick'?: (event: CustomEvent<{
+    'onKupComboboxClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupSelectFocus'?: (event: CustomEvent<{
+    'onKupComboboxFocus'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupSelectInput'?: (event: CustomEvent<{
+    'onKupComboboxInput'?: (event: CustomEvent<{
       value: any;
     }>) => void;
+    /**
+    * Props of the text field.
+    */
+    'textfieldData'?: ComponentProps[];
   }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**

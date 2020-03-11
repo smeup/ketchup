@@ -644,7 +644,8 @@ chipList.data = [
             listBox4.data = itemsForListBox;
 
             let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
-            selectBox1.data = itemsForListBox;
+            selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];
+            selectBox1.listData = [{prop: "data", value: itemsForListBox}, {prop: "selectable", value: "one-select"}, {prop: "listId" , value: "LISTA"}];
 
             let once = true;
             // This is a script for testing these elements
