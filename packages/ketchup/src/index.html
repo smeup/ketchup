@@ -294,10 +294,10 @@
         <wup-chip type="filter"></wup-chip>
         
         <h4>Material ListBox (widget)</h4>
-        <wup-list is-filterable="false" selectable="no-select" list-id="pippo1"></wup-list>
-        <wup-list is-filterable="false" selectable="multi-select" list-id="pippo2"></wup-list>
-        <wup-list is-filterable="false" selectable="one-select" role-type="radiogroup" list-id="pippo3"></wup-list>
-        <wup-list is-filterable="false" selectable="multi-select" role-type="group" list-id="pippo4"></wup-list>
+        <wup-list is-filterable="false" selectable="false" list-id="pippo1"></wup-list>
+        <wup-list is-filterable="false" selectable="true" list-id="pippo2"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="radiogroup" list-id="pippo3"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="group" list-id="pippo4"></wup-list>
 
         <h4>Material Select (widget)</h4>
         <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
@@ -638,10 +638,10 @@ chipList.data = [
                     },
                 ];
 
-            listBox1.data = itemsForListBox;
-            listBox2.data = itemsForListBox;
-            listBox3.data = itemsForListBox;
-            listBox4.data = itemsForListBox;
+            listBox1.data = [...itemsForListBox];
+            listBox2.data = [...itemsForListBox];
+            listBox3.data = [...itemsForListBox];
+            listBox4.data = [...itemsForListBox];
 
             let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
             selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];

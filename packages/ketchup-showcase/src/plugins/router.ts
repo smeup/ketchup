@@ -185,6 +185,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
+    path: `/spinner`,
+    name: 'spinner',
+    component: () => import(`@/views/basic/spinner/Spinner.vue`),
+  },
+  {
     path: `/switch`,
     name: 'switch',
     component: () => import(`@/views/basic/switch/Switch.vue`),
