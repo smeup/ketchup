@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -68,7 +63,7 @@ export default {
         },
         {
           prop: 'listId',
-          description: '?',
+          description: 'Identify the component',
           type: 'boolean',
           default: 'WupList-myId',
           try: 'switch',
@@ -76,47 +71,46 @@ export default {
         {
           prop: 'roleType',
           description:
-            'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
+            'Defines the type of selection. Values accepted: listbox, rdiogroup or group.',
           type: 'string',
           default: 'listbox',
           try: 'field',
         },
         {
           prop: 'selectable',
-          description:
-            'Defines how many elements are selectable. Values accepted: no-select, one-select or multi-select.',
-          type: 'string',
-          default: 'no-select',
-          try: 'field',
+          description: 'Defines if the list items ar or not selectable.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
         },
         {
           prop: 'twoLine',
           description:
-            "The list elements' descriptions will be arranged in two lines.",
+            'The list elements descriptions will be arranged in two lines.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
       ],
-      demoEvents: [
+      deoEvents: [
         {
-          name: 'kupListClick',
+          name: 'kuListClick',
           type: 'click',
         },
         {
-          name: 'kupListChange',
+          name: 'kuListChange',
           type: 'change',
         },
         {
-          name: 'kupListInput',
+          name: 'kuListInput',
           type: 'input',
         },
         {
-          name: 'kupListFocus',
+          name: 'kuListFocus',
           type: 'focus',
         },
         {
-          name: 'kupListBlur',
+          name: 'kuListBlur',
           type: 'blur',
         },
       ],
