@@ -244,7 +244,8 @@ export class KupFld {
         let compPrefix = '';
         let type: string = '';
         let confObj: { [key: string]: any } = {};
-        console.log("KUP-FLD type: ", this);
+        let items2render = null;
+        let data2render = null;
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 confObj.displayedField = 'value';
@@ -252,13 +253,16 @@ export class KupFld {
                 confObj.onKetchupComboSelected = this.onChangeInstance;
                 compPrefix = 'kup-';
                 type = 'combo';
+                items2render=this.data;
                 break;
             case 'rad':
-                confObj.valueField = 'obj';
-                confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
+                //confObj.valueField = 'obj';
+                confObj.name = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
                 compPrefix = 'wup-';
                 type = 'radio';
+                data2render=this.data;
+                console.log("KUP-FLD rad data: ", this.data);
                 break;
             case 'itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
@@ -268,12 +272,14 @@ export class KupFld {
                 //type = 'text-input';
                 compPrefix = 'wup-';
                 type = 'text-field';
+                items2render=this.data;
                 break;
                 /**/
             case 'fup':
                     compPrefix = 'kup-';
                     type = 'upload';
-                //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
+                    items2render=this.data;
+                    //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
                 type = 'vaadin-upload';
@@ -291,7 +297,9 @@ export class KupFld {
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
-                items={this.data}
+                //items={this.data}
+                {...items2render}
+                {...data2render}
                 {...confObj}
                 {...this.propagate}
             />

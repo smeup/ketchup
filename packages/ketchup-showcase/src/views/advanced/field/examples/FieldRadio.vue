@@ -71,7 +71,7 @@ export default {
     import('@/mock/fldData.ts')
       .then((data) => {
         const { fldData, fldConfigFactory } = data;
-        this.fldData = fldData;
+        this.fldData = fldDataWupRadio;//fldData;
         this.fldConfig = fldConfigFactory([
           {
             name: 'type',

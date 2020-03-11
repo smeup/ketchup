@@ -31,6 +31,19 @@ export const fldData = [
     }
 ];
 
+export const fldDataWupRadio = [
+        {
+          value: 'chocolate',
+          label: 'Chocolate',
+          checked: true,
+        },
+        {
+          value: 'cream',
+          label: 'Cream',
+          checked: false,
+        },  
+];
+
 export function fldConfigFactory(propToChange: {name: string, value: string}[] = []) {
   let toRet: {
     [index: string]: string | object | boolean;
