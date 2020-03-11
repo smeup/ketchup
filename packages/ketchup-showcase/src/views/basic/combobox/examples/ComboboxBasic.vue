@@ -2,12 +2,12 @@
   <div>
     <div class="demo-wrapper">
       <p
-        >Combobox are <span class="code-word">Text Field</span> components with
-        a list of preset choices associated to them, displayed in
+        >Comboboxes are <span class="code-word">Text Field</span> components
+        with a list of preset choices associated to them, displayed in
         <span class="code-word">List</span> components.
         <br />
         The <span class="code-word">listData</span> prop is where the data of
-        the list is stored. In the same way, the
+        the list is stored. <br />In the same way, the
         <span class="code-word">textfieldData</span> prop takes care of the text
         field's configuration.</p
       ><p>

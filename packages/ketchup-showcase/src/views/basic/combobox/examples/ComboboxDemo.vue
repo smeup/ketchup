@@ -103,6 +103,7 @@ export default {
           value: [
             { prop: 'trailingIcon', value: true },
             { prop: 'icon', value: 'arrow_drop_down' },
+            { prop: 'label', value: 'demo' },
           ],
         },
         {
@@ -116,8 +117,9 @@ export default {
                   value: '1',
                 },
                 {
-                  text: 'Second choice',
+                  text: 'Selected choice',
                   value: '2',
+                  selected: true,
                 },
                 {
                   text: null,
