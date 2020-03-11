@@ -141,6 +141,7 @@ export class WupList {
     ) {
         const { target } = e;
 
+        /*
         console.log(
             'wup-list.onKupClick() ' +
                 this.listId +
@@ -149,6 +150,7 @@ export class WupList {
                 ' - ' +
                 JSON.stringify(item)
         );
+        */
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -204,14 +206,7 @@ export class WupList {
         if (item.selected != true) {
             item.selected = false;
         }
-        console.log(
-            'wup-list.renderListItem() ' +
-                this.listId +
-                ' - index: ' +
-                index +
-                ' - ' +
-                JSON.stringify(item)
-        );
+
         let primaryTextTag = [item.text];
         let secTextTag = [];
         if (item.secondaryText && item.secondaryText != '') {
