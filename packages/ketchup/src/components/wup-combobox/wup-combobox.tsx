@@ -38,6 +38,7 @@ export class WupCombobox {
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
     private initialValue: string = undefined;
+    private elStyle: any = undefined;
 
     /**
      * Event example.
@@ -166,6 +167,7 @@ export class WupCombobox {
 
     consistencyCheck() {
         var firstSelectedFound = false;
+        this.initialValue = undefined;
 
         if (this.listData) {
             for (let j = 0; j < this.listData.length; j++) {
@@ -204,6 +206,7 @@ export class WupCombobox {
 
     prepTextfield() {
         let propList = undefined;
+
         for (let j = 0; j < this.textfieldData.length; j++) {
             let newProp = this.textfieldData[j].prop;
             let newValue = this.textfieldData[j].value;
@@ -212,11 +215,26 @@ export class WupCombobox {
             } else {
                 propList = { [newProp]: newValue };
             }
+
+            if (this.textfieldData[j].prop === 'fullWidth') {
+                this.elStyle = {
+                    ...this.elStyle,
+                    width: '100%',
+                };
+            }
+
+            if (this.textfieldData[j].prop === 'fullHeight') {
+                this.elStyle = {
+                    ...this.elStyle,
+                    height: '100%',
+                };
+            }
         }
 
         let comp: HTMLElement = (
             <wup-text-field
                 {...propList}
+                style={this.elStyle}
                 initial-value={this.initialValue}
                 onKupTextFieldIconClick={() => this.handleList()}
                 ref={(el) => (this.textfieldEl = el as any)}
@@ -261,10 +279,11 @@ export class WupCombobox {
         let listEl = this.prepList();
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)}>
+            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
                 {customStyle}
                 <div
                     id="kup-component"
+                    style={this.elStyle}
                     onBlur={(e: any) => this.onKupBlur(e)}
                     onChange={(e: any) => this.onKupChange(e)}
                     onClick={(e: any) => this.onKupClick(e)}
