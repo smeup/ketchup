@@ -16,13 +16,15 @@
 
 ## Events
 
-| Event               | Description    | Type                           |
-| ------------------- | -------------- | ------------------------------ |
-| `kupComboboxBlur`   | Event example. | `CustomEvent<{ value: any; }>` |
-| `kupComboboxChange` |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxClick`  |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxFocus`  |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxInput`  |                | `CustomEvent<{ value: any; }>` |
+| Event                  | Description    | Type                           |
+| ---------------------- | -------------- | ------------------------------ |
+| `kupComboboxBlur`      | Event example. | `CustomEvent<{ value: any; }>` |
+| `kupComboboxChange`    |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxClick`     |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxFocus`     |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxIconClick` |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxInput`     |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxItemClick` |                | `CustomEvent<{ value: any; }>` |
 
 
 ## Dependencies

@@ -17,6 +17,7 @@
 | `helperWhenFocused` | `helper-when-focused` | Defaults at false. When set, the helper will be shown only when the field is focused.     | `boolean` | `false`     |
 | `icon`              | `icon`                | Defaults at null. When set, the text-field will show this icon.                           | `string`  | `null`      |
 | `initialValue`      | `initial-value`       | Sets the initial value of the component                                                   | `string`  | `''`        |
+| `inputType`         | `input-type`          | The HTML type of the input element. It has no effect on text areas.                       | `string`  | `'text'`    |
 | `label`             | `label`               | Defaults at null. When set, its content will be shown as a label.                         | `string`  | `null`      |
 | `leadingLabel`      | `leading-label`       | Defaults at false. When set to true, the label will be on the left of the component.      | `boolean` | `false`     |
 | `maxLength`         | `max-length`          | Defaults at null. When set, the helper will display a character counter.                  | `number`  | `null`      |

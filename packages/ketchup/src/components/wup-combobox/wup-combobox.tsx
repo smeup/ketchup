@@ -5,6 +5,7 @@ import {
     Prop,
     Element,
     Host,
+    Watch,
     h,
 } from '@stencil/core';
 
@@ -37,7 +38,8 @@ export class WupCombobox {
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
-    private initialValue: string = undefined;
+    private value: string = undefined;
+    private elStyle: any = undefined;
 
     /**
      * Event example.
@@ -93,6 +95,33 @@ export class WupCombobox {
         value: any;
     }>;
 
+    @Event({
+        eventName: 'kupComboboxIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupIconClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupComboboxItemClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupItemClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Watch('value')
+    onValueChanged() {
+        if (this.textfieldEl) {
+            this.textfieldEl.initialValue = this.value;
+        }
+    }
+
     /**
      * --- Methods ----
      */
@@ -107,6 +136,8 @@ export class WupCombobox {
 
     onKupChange(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
+        this.value = target.value;
+
         this.kupChange.emit({
             value: target.value,
         });
@@ -128,22 +159,33 @@ export class WupCombobox {
 
     onKupInput(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
+        this.value = target.value;
+
         this.kupInput.emit({
             value: target.value,
         });
     }
 
-    handleValue() {
-        this.consistencyCheck();
-        this.closeList();
-    }
+    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
 
-    handleList() {
         if (this.textfieldEl.classList.contains('toggled')) {
             this.closeList();
         } else {
             this.openList();
         }
+        this.kupIconClick.emit({
+            value: target.value,
+        });
+    }
+
+    onKupItemClick() {
+        this.consistencyCheck();
+        this.closeList();
+
+        this.kupItemClick.emit({
+            value: this.value,
+        });
     }
 
     openList() {
@@ -183,12 +225,7 @@ export class WupCombobox {
                         }
                         if (currentProp[i].selected && !firstSelectedFound) {
                             firstSelectedFound = true;
-                            this.initialValue = currentProp[i].text;
-
-                            if (this.textfieldEl) {
-                                this.textfieldEl.initialValue =
-                                    currentProp[i].text;
-                            }
+                            this.value = currentProp[i].text;
                         }
                     }
                 }
@@ -204,6 +241,7 @@ export class WupCombobox {
 
     prepTextfield() {
         let propList = undefined;
+
         for (let j = 0; j < this.textfieldData.length; j++) {
             let newProp = this.textfieldData[j].prop;
             let newValue = this.textfieldData[j].value;
@@ -212,13 +250,33 @@ export class WupCombobox {
             } else {
                 propList = { [newProp]: newValue };
             }
+
+            if (this.textfieldData[j].prop === 'fullWidth') {
+                this.elStyle = {
+                    ...this.elStyle,
+                    width: '100%',
+                };
+            }
+
+            if (this.textfieldData[j].prop === 'fullHeight') {
+                this.elStyle = {
+                    ...this.elStyle,
+                    height: '100%',
+                };
+            }
         }
 
         let comp: HTMLElement = (
             <wup-text-field
                 {...propList}
-                initial-value={this.initialValue}
-                onKupTextFieldIconClick={() => this.handleList()}
+                style={this.elStyle}
+                initial-value={this.value}
+                onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
+                onKupTextFieldChange={(e: any) => this.onKupChange(e)}
+                onKupTextFieldClick={(e: any) => this.onKupClick(e)}
+                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
+                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
+                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></wup-text-field>
         );
@@ -242,7 +300,7 @@ export class WupCombobox {
             <wup-list
                 {...propList}
                 class="mdc-menu mdc-menu-surface"
-                onKupListClick={() => this.handleValue()}
+                onKupListClick={() => this.onKupItemClick()}
                 ref={(el) => (this.listEl = el as any)}
             ></wup-list>
         );
@@ -261,16 +319,9 @@ export class WupCombobox {
         let listEl = this.prepList();
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)}>
+            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
                 {customStyle}
-                <div
-                    id="kup-component"
-                    onBlur={(e: any) => this.onKupBlur(e)}
-                    onChange={(e: any) => this.onKupChange(e)}
-                    onClick={(e: any) => this.onKupClick(e)}
-                    onFocus={(e: any) => this.onKupFocus(e)}
-                    onInput={(e: any) => this.onKupInput(e)}
-                >
+                <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
                     {listEl}
                 </div>
