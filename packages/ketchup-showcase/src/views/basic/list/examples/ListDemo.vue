@@ -149,8 +149,7 @@ export default {
             },
           ],
         },
-        { prop: 'selectable', value: 'true' },
-        { prop: 'roleType', value: 'listbox' },
+        { prop: 'selectable', value: true },
         { prop: 'listId', value: 'LISTA' },
       ],
     };

@@ -141,7 +141,6 @@ export class WupList {
     ) {
         const { target } = e;
 
-        /*
         console.log(
             'wup-list.onKupClick() ' +
                 this.listId +
@@ -150,7 +149,6 @@ export class WupList {
                 ' - ' +
                 JSON.stringify(item)
         );
-        */
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -220,12 +218,13 @@ export class WupList {
             ];
         }
         let classAttr = 'mdc-list-item';
-        let tabIndexAttr = '-1';
+        let tabIndexAttr = item.selected == true ? '0' : '-1';
         if (item.selected == true && this.isListBoxRule()) {
             classAttr += ' mdc-list-item--selected';
-            tabIndexAttr = '0';
+            //tabIndexAttr = '0';
         }
         let roleAttr = 'option';
+
         let ariaCheckedAttr: string = null;
         let ariaSelectedAttr: string = item.selected == true ? 'true' : 'false';
         if (this.selectable != true) {
@@ -252,13 +251,13 @@ export class WupList {
             };
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
+                    <input type="radio" style={aaa} />
                     <wup-radio
                         name={this.listId + 'radio'}
                         data={dataTmp}
                         id={this.listId + index}
                         ref={(el) => (this.radios[index] = el as any)}
                     ></wup-radio>
-                    <input type="radio" style={aaa} />
                 </span>,
                 <label
                     class="mdc-list-item__text"
@@ -279,13 +278,13 @@ export class WupList {
 
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
+                    <input type="checkbox" style={aaa} />
                     <wup-checkbox
                         class="mdc-checkbox"
                         id={this.listId + index}
                         checked={checkedAttr}
                         ref={(el) => (this.checkboxes[index] = el as any)}
                     ></wup-checkbox>
-                    <input type="checkbox" style={aaa} />
                 </span>,
                 <label
                     class="mdc-list-item__text"
@@ -323,16 +322,17 @@ export class WupList {
                 index +
                 ' - ' +
                 JSON.stringify(item) +
-                ' - this.isListBoxRule() ' +
-                this.isListBoxRule()
+                ' - this.roleType ' +
+                this.roleType
         );
         item.selected = false;
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'false');
         target.setAttribute('aria-checked', 'false');
-        //if (this.isListBoxRule()) {
-        target.setAttribute('class', 'mdc-list-item');
-        //}
+        target.setAttribute('tabindex', '-1');
+        if (this.isListBoxRule()) {
+            target.setAttribute('class', 'mdc-list-item');
+        }
 
         this.sendInfoToSubComponent(index, item);
     }
@@ -345,13 +345,14 @@ export class WupList {
                 index +
                 ' - ' +
                 JSON.stringify(item) +
-                ' - this.isListBoxRule() ' +
-                this.isListBoxRule()
+                ' - this.roleType ' +
+                this.roleType
         );
         item.selected = true;
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'true');
         target.setAttribute('aria-checked', 'true');
+        target.setAttribute('tabindex', '0');
         if (this.isListBoxRule()) {
             target.setAttribute(
                 'class',
@@ -413,9 +414,16 @@ export class WupList {
         return this.roleType == WupList.ROLE_LISTBOX;
     }
 
+    checkRoleType() {
+        if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
+            this.roleType = WupList.ROLE_LISTBOX;
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
+        this.listComponent = null;
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
         if (root != null) {
@@ -434,7 +442,13 @@ export class WupList {
     }
 
     render() {
-        console.log('wup-list.render() ' + this.listId);
+        this.checkRoleType();
+        console.log(
+            'wup-list.render() ' +
+                this.listId +
+                ' - this.roleType ' +
+                this.roleType
+        );
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
@@ -451,6 +465,8 @@ export class WupList {
         }
 
         this.filteredItems = [];
+        this.radios = [];
+        this.checkboxes = [];
         let index = 0;
         // Host refers to container DOM element - wup-list
         // Copy your material design markup from https://material.io/develop/web/components/

@@ -117,6 +117,14 @@ export class WupCombobox {
 
     @Watch('value')
     onValueChanged() {
+        console.log('wup-combobox.onValueChanged() value= ' + this.value);
+        if (this.textfieldEl) {
+            this.textfieldEl.initialValue = this.value;
+        }
+    }
+
+    updateValueChanged() {
+        console.log('wup-combobox.updateValueChanged() value= ' + this.value);
         if (this.textfieldEl) {
             this.textfieldEl.initialValue = this.value;
         }
@@ -180,8 +188,10 @@ export class WupCombobox {
     }
 
     onKupItemClick() {
+        console.log('wup-combobox.onKupItemClick() ');
         this.consistencyCheck();
         this.closeList();
+        this.updateValueChanged();
 
         this.kupItemClick.emit({
             value: this.value,
