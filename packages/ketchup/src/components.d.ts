@@ -1361,6 +1361,10 @@ export namespace Components {
     */
     'initialValue': string;
     /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType': string;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label': string;
@@ -3185,7 +3189,13 @@ declare namespace LocalJSX {
     'onKupComboboxFocus'?: (event: CustomEvent<{
       value: any;
     }>) => void;
+    'onKupComboboxIconClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     'onKupComboboxInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxItemClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
     /**
@@ -3422,6 +3432,10 @@ declare namespace LocalJSX {
     * Sets the initial value of the component
     */
     'initialValue'?: string;
+    /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType'?: string;
     /**
     * Defaults at null. When set, its content will be shown as a label.
     */

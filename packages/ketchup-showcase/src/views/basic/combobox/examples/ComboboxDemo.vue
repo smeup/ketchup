@@ -96,6 +96,14 @@ export default {
           name: 'kupComboboxBlur',
           type: 'blur',
         },
+        {
+          name: 'kupComboboxIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupComboboxItemClick',
+          type: 'click',
+        },
       ],
       demoData: [
         {
