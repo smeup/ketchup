@@ -221,7 +221,7 @@ export class WupList {
         }
         let classAttr = 'mdc-list-item';
         let tabIndexAttr = '-1';
-        if (item.selected == true) {
+        if (item.selected == true && this.isListBoxRule()) {
             classAttr += ' mdc-list-item--selected';
             tabIndexAttr = '0';
         }
@@ -247,6 +247,9 @@ export class WupList {
                     checked: item.selected == true ? true : false,
                 },
             ];
+            let aaa = {
+                display: 'none',
+            };
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
                     <wup-radio
@@ -255,6 +258,7 @@ export class WupList {
                         id={this.listId + index}
                         ref={(el) => (this.radios[index] = el as any)}
                     ></wup-radio>
+                    <input type="radio" style={aaa} />
                 </span>,
                 <label
                     class="mdc-list-item__text"
@@ -316,20 +320,25 @@ export class WupList {
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'false');
         target.setAttribute('aria-checked', 'false');
-        target.setAttribute('class', 'mdc-list-item');
+        if (this.isListBoxRule()) {
+            target.setAttribute('class', 'mdc-list-item');
+        }
 
         this.sendInfoToSubComponent(index, item);
     }
 
     setSelected(item: ComponentListElement, index: number) {
         item.selected = true;
+
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'true');
         target.setAttribute('aria-checked', 'true');
-        target.setAttribute(
-            'class',
-            'mdc-list-item' + ' ' + 'mdc-list-item--selected'
-        );
+        if (this.isListBoxRule()) {
+            target.setAttribute(
+                'class',
+                'mdc-list-item' + ' ' + 'mdc-list-item--selected'
+            );
+        }
 
         this.sendInfoToSubComponent(index, item);
     }
@@ -366,9 +375,7 @@ export class WupList {
     }
 
     isSingleSelection(): boolean {
-        return (
-            this.isRadioButtonRule() || this.roleType == WupList.ROLE_LISTBOX
-        );
+        return this.isRadioButtonRule() || this.isListBoxRule();
     }
 
     isMultiSelection(): boolean {
@@ -381,6 +388,10 @@ export class WupList {
 
     isRadioButtonRule(): boolean {
         return this.roleType == WupList.ROLE_RADIOGROUP;
+    }
+
+    isListBoxRule(): boolean {
+        return this.roleType == WupList.ROLE_LISTBOX;
     }
 
     //---- Lifecycle hooks ----

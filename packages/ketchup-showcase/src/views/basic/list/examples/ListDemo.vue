@@ -71,7 +71,7 @@ export default {
         {
           prop: 'roleType',
           description:
-            'Defines the type of selection. Values accepted: listbox, rdiogroup or group.',
+            'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
           type: 'string',
           default: 'listbox',
           try: 'field',
