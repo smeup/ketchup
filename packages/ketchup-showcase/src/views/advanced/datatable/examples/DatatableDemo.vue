@@ -227,6 +227,22 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'tableHeight',
+          description:
+            'Sets the height of the table. If set, sticky header will behave through CSS and not JavaScript, scroll on hover will be disabled.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tableWidth',
+          description:
+            'Sets the width of the table. If set, sticky header will behave through CSS and not JavaScript, scroll on hover will be disabled.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'totals',
           description: 'Defines the current sorting options.',
           type: 'TotalsMap',

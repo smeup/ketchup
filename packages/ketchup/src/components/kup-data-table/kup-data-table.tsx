@@ -250,6 +250,18 @@ export class KupDataTable {
     @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
 
     /**
+     * Sets the height of the table.
+     */
+    @Prop({ reflect: true })
+    tableHeight: string = undefined;
+
+    /**
+     * Sets the width of the table.
+     */
+    @Prop({ reflect: true })
+    tableWidth: string = undefined;
+
+    /**
      * Defines the current totals options.
      */
     @Prop()
@@ -644,8 +656,13 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+        if (
+            this.tableHeight === 'undefined' &&
+            this.tableWidth === 'undefined'
+        ) {
+            this.scrollOnHoverInstance = new scrollOnHover();
+            this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+        }
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -2555,6 +2572,7 @@ export class KupDataTable {
     render() {
         // resetting rows
         this.renderedRows = [];
+        let elStyle = undefined;
 
         let rows = null;
         if (this.paginatedRows.length === 0) {
@@ -2644,7 +2662,6 @@ export class KupDataTable {
 
             groupChips = <div id="group-chips">{chips}</div>;
         }
-
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
@@ -2659,14 +2676,35 @@ export class KupDataTable {
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.ROW === this.showGrid,
 
-            'persistent-header': this.headerIsPersistent,
+            'persistent-header':
+                this.headerIsPersistent &&
+                this.tableHeight === undefined &&
+                this.tableWidth === undefined,
+
+            'custom-size':
+                this.tableHeight !== undefined || this.tableWidth !== undefined,
         };
 
         tableClass[`density-${this.density}`] = true;
         tableClass[`fontsize-${this.fontsize}`] = true;
 
+        if (this.tableHeight) {
+            elStyle = {
+                height: this.tableHeight,
+                overflow: 'auto',
+            };
+        }
+
+        if (this.tableWidth) {
+            elStyle = {
+                ...elStyle,
+                width: this.tableWidth,
+                overflow: 'auto',
+            };
+        }
+
         return (
-            <div id="data-table-wrapper">
+            <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}

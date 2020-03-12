@@ -122,7 +122,7 @@
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
   .below-wrapper {
-    overflow-x: auto;
+    // overflow-x: auto; why
   }
 
   /*
@@ -166,6 +166,11 @@
       margin: auto;
       min-width: auto; // [mandatory] See [1] [2]
       width: 0; // [mandatory] See [1] [2]
+    }
+
+    &.custom-size th {
+      position: sticky;
+      top: 0;
     }
 
     > thead {
