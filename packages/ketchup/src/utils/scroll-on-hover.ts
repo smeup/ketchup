@@ -10,6 +10,23 @@ var scrollOnHoverY: number = 0;
 var scrollTimeout: any = 'off';
 
 export class scrollOnHover {
+    scrollOnHoverDisable(el: HTMLElement) {
+        el.classList.remove('hover-scrolling-el');
+        el.parentElement.classList.remove('hover-scrolling-parent');
+        el.removeEventListener('scroll', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('click', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('mousemove', (event: MouseEvent) =>
+            this.handleScroll(event)
+        );
+        el.removeEventListener('mouseleave', (event: MouseEvent) =>
+            this.killScroll(event)
+        );
+    }
+
     scrollOnHoverSetup(el: HTMLElement) {
         el.classList.add('hover-scrolling-el');
         el.parentElement.classList.add('hover-scrolling-parent');
@@ -54,9 +71,15 @@ export class scrollOnHover {
     handleScroll(event: any) {
         scrollOnHoverX = event.clientX;
         scrollOnHoverY = event.clientY;
-        let el = event.target
-            .closest('.hover-scrolling-parent')
-            .querySelectorAll('.hover-scrolling-el')[0];
+        let elParent = event.target.closest('.hover-scrolling-parent');
+        if (!elParent) {
+            return;
+        }
+        let el = elParent.querySelectorAll('.hover-scrolling-el')[0];
+        if (!el) {
+            return;
+        }
+
         const elPos = el.getBoundingClientRect();
         this.setChildrenScroll(el);
         let arrowContainter = el.querySelectorAll(
@@ -212,13 +235,23 @@ export class scrollOnHover {
     killScroll(event: any) {
         let el: any;
         if (event.target.shadowRoot) {
-            el = event.target.shadowRoot.querySelectorAll(
-                '.hover-scrolling-el'
-            )[0];
+            let elShadow = event.target.shadowRoot;
+            if (!elShadow) {
+                return;
+            }
+            el = elShadow.querySelectorAll('.hover-scrolling-el')[0];
+            if (!el) {
+                return;
+            }
         } else {
-            el = event.target
-                .closest('.hover-scrolling-parent')
-                .querySelectorAll('.hover-scrolling-el')[0];
+            let elParent = event.target.closest('.hover-scrolling-parent');
+            if (!elParent) {
+                return;
+            }
+            el = elParent.querySelectorAll('.hover-scrolling-el')[0];
+            if (!el) {
+                return;
+            }
         }
         scrollTimeout = 'off';
         clearTimeout(scrollTimeout);

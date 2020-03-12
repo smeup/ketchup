@@ -121,8 +121,8 @@
 
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
-  .below-wrapper {
-    // overflow-x: auto; why
+  .below-wrapper:not(.custom-size) {
+    overflow-x: auto;
   }
 
   /*

@@ -522,6 +522,9 @@ export class KupDataTable {
     };
 
     stickyHeaderPosition = () => {
+        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
+            return;
+        }
         let tableBody: any = this.tableRef;
         if (tableBody) {
             let el: any = this.stickyTheadRef;
@@ -636,8 +639,14 @@ export class KupDataTable {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
-        document.addEventListener('scroll', this.stickyHeaderPosition);
-        document.addEventListener('resize', this.stickyHeaderPosition);
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            document.addEventListener('scroll', this.stickyHeaderPosition);
+            document.addEventListener('resize', this.stickyHeaderPosition);
+        }
         if (this.customizePanelRef) {
             let customizeAnchor = this.customizePanelRef
                 .closest('.paginator-wrapper')
@@ -653,16 +662,20 @@ export class KupDataTable {
                 positionRecalc(menus[i], wrapper);
             }
         }
+
+        if (
+            this.scrollOnHoverInstance !== undefined &&
+            (this.tableHeight !== undefined || this.tableWidth !== undefined)
+        ) {
+            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
+            this.scrollOnHoverInstance = undefined;
+        }
     }
 
     componentDidLoad() {
-        if (
-            this.tableHeight === 'undefined' &&
-            this.tableWidth === 'undefined'
-        ) {
-            this.scrollOnHoverInstance = new scrollOnHover();
-            this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-        }
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -2703,6 +2716,32 @@ export class KupDataTable {
             };
         }
 
+        let stickyEl = undefined;
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            stickyEl = (
+                <sticky-header
+                    class="hover-scrolling-child"
+                    hidden={!this.showHeader}
+                    ref={(el: HTMLTableSectionElement) =>
+                        (this.stickyTheadRef = el as any)
+                    }
+                >
+                    <thead-sticky>
+                        <tr-sticky>{stickyHeader}</tr-sticky>
+                    </thead-sticky>
+                </sticky-header>
+            );
+        }
+
+        let belowClass = 'below-wrapper';
+        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
+            belowClass += ' custom-size';
+        }
+
         return (
             <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
@@ -2710,7 +2749,7 @@ export class KupDataTable {
                     {globalFilter}
                 </div>
                 <div
-                    class="below-wrapper"
+                    class={belowClass}
                     ref={(el) => (this.tableAreaRef = el as any)}
                 >
                     {groupChips}
@@ -2729,17 +2768,7 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
-                    <sticky-header
-                        class="hover-scrolling-child"
-                        hidden={!this.showHeader}
-                        ref={(el: HTMLTableSectionElement) =>
-                            (this.stickyTheadRef = el as any)
-                        }
-                    >
-                        <thead-sticky>
-                            <tr-sticky>{stickyHeader}</tr-sticky>
-                        </thead-sticky>
-                    </sticky-header>
+                    {stickyEl}
                 </div>
                 {paginatorBottom}
             </div>
