@@ -5,7 +5,6 @@ import {
     Prop,
     Element,
     Host,
-    Watch,
     h,
 } from '@stencil/core';
 
@@ -115,21 +114,6 @@ export class WupCombobox {
         value: any;
     }>;
 
-    @Watch('value')
-    onValueChanged() {
-        console.log('wup-combobox.onValueChanged() value= ' + this.value);
-        if (this.textfieldEl) {
-            this.textfieldEl.initialValue = this.value;
-        }
-    }
-
-    updateValueChanged() {
-        console.log('wup-combobox.updateValueChanged() value= ' + this.value);
-        if (this.textfieldEl) {
-            this.textfieldEl.initialValue = this.value;
-        }
-    }
-
     /**
      * --- Methods ----
      */
@@ -188,10 +172,8 @@ export class WupCombobox {
     }
 
     onKupItemClick() {
-        console.log('wup-combobox.onKupItemClick() ');
         this.consistencyCheck();
         this.closeList();
-        this.updateValueChanged();
 
         this.kupItemClick.emit({
             value: this.value,
@@ -236,6 +218,9 @@ export class WupCombobox {
                         if (currentProp[i].selected && !firstSelectedFound) {
                             firstSelectedFound = true;
                             this.value = currentProp[i].text;
+                            if (this.textfieldEl) {
+                                this.textfieldEl.initialValue = this.value;
+                            }
                         }
                     }
                 }
