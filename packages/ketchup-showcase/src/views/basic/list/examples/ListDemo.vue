@@ -1,6 +1,12 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+      :demoData="demoData"
+    ></demo>
   </div>
 </template>
 
@@ -27,6 +33,11 @@ export default {
         },
         {
           text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
           icon: '',
           active: false,
         },
@@ -92,7 +103,7 @@ export default {
           try: 'switch',
         },
       ],
-      deoEvents: [
+      demoEvents: [
         {
           name: 'kuListClick',
           type: 'click',
@@ -113,6 +124,34 @@ export default {
           name: 'kuListBlur',
           type: 'blur',
         },
+      ],
+      demoData: [
+        {
+          prop: 'data',
+          value: [
+            {
+              text: 'First choice',
+              value: '1',
+            },
+            {
+              text: 'Selected choice',
+              value: '2',
+              selected: true,
+            },
+            {
+              text: null,
+              value: null,
+              isSeparator: true,
+            },
+            {
+              text: 'Third choice (below a separator)',
+              value: '3',
+            },
+          ],
+        },
+        { prop: 'selectable', value: 'true' },
+        { prop: 'roleType', value: 'listbox' },
+        { prop: 'listId', value: 'LISTA' },
       ],
     };
   },

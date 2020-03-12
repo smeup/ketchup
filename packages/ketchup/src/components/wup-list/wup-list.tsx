@@ -316,20 +316,39 @@ export class WupList {
     }
 
     setUnselected(item: ComponentListElement, index: number) {
+        console.log(
+            'wup-list.setUnselected() ' +
+                this.listId +
+                ' - index: ' +
+                index +
+                ' - ' +
+                JSON.stringify(item) +
+                ' - this.isListBoxRule() ' +
+                this.isListBoxRule()
+        );
         item.selected = false;
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'false');
         target.setAttribute('aria-checked', 'false');
-        if (this.isListBoxRule()) {
-            target.setAttribute('class', 'mdc-list-item');
-        }
+        //if (this.isListBoxRule()) {
+        target.setAttribute('class', 'mdc-list-item');
+        //}
 
         this.sendInfoToSubComponent(index, item);
     }
 
     setSelected(item: ComponentListElement, index: number) {
+        console.log(
+            'wup-list.setSelected() ' +
+                this.listId +
+                ' - index: ' +
+                index +
+                ' - ' +
+                JSON.stringify(item) +
+                ' - this.isListBoxRule() ' +
+                this.isListBoxRule()
+        );
         item.selected = true;
-
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'true');
         target.setAttribute('aria-checked', 'true');
@@ -415,6 +434,7 @@ export class WupList {
     }
 
     render() {
+        console.log('wup-list.render() ' + this.listId);
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
