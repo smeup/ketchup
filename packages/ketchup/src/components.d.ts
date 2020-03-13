@@ -532,7 +532,7 @@ export namespace Components {
     */
     'headerIsPersistent': boolean;
     /**
-    * Defines the placeholder character which will be replaced by a line break.
+    * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
     */
     'lineBreakCharacter': string;
     /**
@@ -747,6 +747,10 @@ export namespace Components {
     'alt': string;
     'badges': Badge[];
     'height': string;
+    /**
+    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+    */
+    'limitWidthByHeight': boolean;
     'maxHeight': string;
     'maxWidth': string;
     'src': string;
@@ -2247,7 +2251,7 @@ declare namespace LocalJSX {
     */
     'headerIsPersistent'?: boolean;
     /**
-    * Defines the placeholder character which will be replaced by a line break.
+    * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
     */
     'lineBreakCharacter'?: string;
     /**
@@ -2528,6 +2532,10 @@ declare namespace LocalJSX {
     'alt'?: string;
     'badges'?: Badge[];
     'height'?: string;
+    /**
+    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+    */
+    'limitWidthByHeight'?: boolean;
     'maxHeight'?: string;
     'maxWidth'?: string;
     'src'?: string;

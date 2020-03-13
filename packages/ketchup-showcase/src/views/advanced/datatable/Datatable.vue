@@ -63,6 +63,9 @@
     <template v-slot:20>
       <datatable-j4ico></datatable-j4ico>
     </template>
+    <template v-slot:20>
+      <datatable-images-and-badges/>
+    </template>
   </comp>
 </template>
 
@@ -76,6 +79,7 @@ import DatatableGraphicCell from '@/views/advanced/datatable/examples/DatatableG
 import DatatableChartCell from '@/views/advanced/datatable/examples/DatatableChartCell';
 import DatatableFixedColumnsRows from '@/views/advanced/datatable/examples/DatatableFixedColumnsRows';
 import DatatableGroups from '@/views/advanced/datatable/examples/DatatableGroups';
+import DatatableImagesAndBadges from '@/views/advanced/datatable/examples/DatatableImagesAndBadges';
 import DatatableJ4btn from '@/views/advanced/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/advanced/datatable/examples/DatatableJ4ico';
 import DatatablePagination from '@/views/advanced/datatable/examples/DatatablePagination';
@@ -101,6 +105,7 @@ export default {
     DatatableChartCell,
     DatatableFixedColumnsRows,
     DatatableGroups,
+    DatatableImagesAndBadges,
     DatatableJ4btn,
     DatatablePagination,
     DatatableProgressbar,
@@ -142,6 +147,7 @@ export default {
         'With tooltip',
         'With totals',
         'With J4Ico',
+        'Images and badges'
       ],
     };
   },

@@ -277,7 +277,7 @@ export class KupDataTable {
     totals: TotalsMap;
 
     /**
-     * Defines the placeholder character which will be replaced by a line break.
+     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
      */
     @Prop() lineBreakCharacter: string = '|';
 
@@ -2405,7 +2405,21 @@ export class KupDataTable {
                 }
             }
         } else if (isImage(cell.obj)) {
-            content = <img src={valueToDisplay} alt="" class="cell-image" />;
+            // If we have a not duplicated image to render
+            if (valueToDisplay) {
+                // Checks if there are badges to set
+                content = <kup-image
+                    class="cell-image"
+                    badges={cell.config ? cell.config.badges : undefined}
+                    height="auto"
+                    limit-width-by-height
+                    max-height="var(--dtt_cell-image_max-height)"
+                    src={valueToDisplay}
+                    width="auto"
+                />;
+            } else {
+                content = null;
+            }
         } else if (isLink(cell.obj)) {
             content = (
                 <a href={valueToDisplay} target="_blank">
