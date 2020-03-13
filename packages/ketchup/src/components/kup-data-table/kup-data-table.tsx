@@ -1610,11 +1610,14 @@ export class KupDataTable {
 
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
-             /**
-             * Generic object for classes to add to the th (header cell)
-             * Accepts string indexes (the class names) as boolean values (if the class should be applied or not).
-             */
-            let columnClass: Record<string , boolean> = {};
+            // Composes column cell style and classes
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
+                column.name,
+                columnIndex,
+                specialExtraCellsCount,
+                column.obj ? isNumber(column.obj) : false
+            );
+
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
@@ -1710,25 +1713,22 @@ export class KupDataTable {
                 // Adds the sortable class to the header cell
                 columnClass['header-cell--sortable'] = true;
             }
-          
+
             // Sets custom columns width
-            let thStyle = null;
-            if (hasCustomColumnsWidth) {
+            if (this.columnsWidth && this.columnsWidth.length) {
                 for (let i = 0; i < this.columnsWidth.length; i++) {
                     const currentCol = this.columnsWidth[i];
 
                     if (currentCol.column === column.name) {
                         const width = currentCol.width.toString() + 'px';
-                        thStyle = {
-                            width,
-                            minWidth: width,
-                            maxWidth: width,
-                        };
+                        thStyle.width = width;
+                        thStyle.minWidth = width;
+                        thStyle.maxWidth = width;
                         break;
                     }
                 }
             }
-          
+
             const columnMenuItems: JSX.Element[] = [];
 
             //---- adding grouping ----
@@ -1867,15 +1867,7 @@ export class KupDataTable {
                     },
                 };
             }
-          
-            // Composes column cell style and classes
-            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
-                column.name,
-                columnIndex,
-                specialExtraCellsCount,
-                column.obj ? isNumber(column.obj) : false
-            );
-          
+
             if (column.obj) {
                 columnClass.number = isNumber(column.obj);
             }
