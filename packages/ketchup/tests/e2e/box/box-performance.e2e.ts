@@ -47,7 +47,5 @@ it('kup-box performance logger', async (done) => {
 
     const avarage = Math.floor(sum / MAX_ITER);
 
-    console.log(`avarage time: ${avarage} (run ${MAX_ITER} times)`);
-
     done();
 });
