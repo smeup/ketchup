@@ -105,23 +105,23 @@ export default {
       ],
       demoEvents: [
         {
-          name: 'kuListClick',
+          name: 'kupListClick',
           type: 'click',
         },
         {
-          name: 'kuListChange',
+          name: 'kupListChange',
           type: 'change',
         },
         {
-          name: 'kuListInput',
+          name: 'kupListInput',
           type: 'input',
         },
         {
-          name: 'kuListFocus',
+          name: 'kupListFocus',
           type: 'focus',
         },
         {
-          name: 'kuListBlur',
+          name: 'kupListBlur',
           type: 'blur',
         },
       ],

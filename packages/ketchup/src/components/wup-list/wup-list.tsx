@@ -140,15 +140,6 @@ export class WupList {
         index: number
     ) {
         const { target } = e;
-
-        console.log(
-            'wup-list.onKupClick() ' +
-                this.listId +
-                ' - index: ' +
-                index +
-                ' - ' +
-                JSON.stringify(item)
-        );
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -315,16 +306,6 @@ export class WupList {
     }
 
     setUnselected(item: ComponentListElement, index: number) {
-        console.log(
-            'wup-list.setUnselected() ' +
-                this.listId +
-                ' - index: ' +
-                index +
-                ' - ' +
-                JSON.stringify(item) +
-                ' - this.roleType ' +
-                this.roleType
-        );
         item.selected = false;
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'false');
@@ -338,16 +319,6 @@ export class WupList {
     }
 
     setSelected(item: ComponentListElement, index: number) {
-        console.log(
-            'wup-list.setSelected() ' +
-                this.listId +
-                ' - index: ' +
-                index +
-                ' - ' +
-                JSON.stringify(item) +
-                ' - this.roleType ' +
-                this.roleType
-        );
         item.selected = true;
         let target = this.listComponent.listElements[index];
         target.setAttribute('aria-selected', 'true');
@@ -443,12 +414,6 @@ export class WupList {
 
     render() {
         this.checkRoleType();
-        console.log(
-            'wup-list.render() ' +
-                this.listId +
-                ' - this.roleType ' +
-                this.roleType
-        );
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
