@@ -265,7 +265,7 @@ export class KupDataTable {
     sort: Array<SortObject> = [];
 
     /**
-     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property
+     * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
      * and then fires the event
      */
     @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
@@ -320,6 +320,13 @@ export class KupDataTable {
     @State()
     private botDensityPanelVisible = false;
 
+    /**
+     * This is a flag to be used for the draggable columns to force rerender
+     * by changing the internal state.
+     */
+    @State()
+    private triggerColumnSortRerender = false;
+
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -363,6 +370,11 @@ export class KupDataTable {
         }
     }
 
+    /**
+     * The reference for the function used to close the menu of the header cells
+     */
+    private documentHandlerCloseHeaderMenu;
+
     private rows: Array<Row>;
 
     private paginatedRows: Array<Row>;
@@ -370,8 +382,6 @@ export class KupDataTable {
     private footer: { [index: string]: number };
 
     private renderedRows: Array<Row> = [];
-
-    private columnOverTimeout: NodeJS.Timeout;
 
     private loadMoreEventCounter: number = 0;
 
@@ -704,12 +714,22 @@ export class KupDataTable {
                 });
             }
         }
+
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(this);
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
     }
 
     componentDidUnload() {
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
         document.removeEventListener('resize', this.stickyHeaderPosition);
+
+        // Remove function to close header menu onto the document
+        if (this.documentHandlerCloseHeaderMenu) {
+            document.removeEventListener('click', this.documentHandlerCloseHeaderMenu);
+        }
     }
 
     //======== Utility methods ========
@@ -1184,17 +1204,43 @@ export class KupDataTable {
         });
     }
 
-    private onColumnMouseEnter(column: string) {
-        this.columnOverTimeout = setTimeout(() => {
-            this.openedMenu = column;
-        }, 500);
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+        this.openedMenu = column;
+        // Prevent opening of the default browser menu
+        e.preventDefault();
+        return false;
     }
 
-    private onColumnMouseLeave(column: string) {
-        // clearing timeout
-        clearTimeout(this.columnOverTimeout);
+    /**
+     * Type guard needed to be sure that an object returned from composePath() is an HTMLElement with classes
+     * @param node
+     */
+    private isHTMLElementFromEventTarget (node: EventTarget): node is HTMLElement {
+        return (node as HTMLElement).classList !== undefined;
+    }
 
-        if (this.openedMenu === column) {
+    private onHeaderCellContextMenuClose(event: MouseEvent) {
+        // Gets the path of the event (does not work in IE11 or previous)
+        const eventPath = event.composedPath();
+        let fromMenu = false;
+        let fromSameTable = false;
+
+        // Examine the path
+        for (let elem of eventPath) {
+            // If we encounter our table we can stop looping the elements
+            if (elem === this.tableAreaRef) {
+                fromSameTable = true;
+                break;
+            }
+
+            // If the event comes from a menu of the table header
+            if (this.isHTMLElementFromEventTarget(elem) && elem.classList && elem.classList.contains('column-menu')) {
+                fromMenu = true;
+            }
+        }
+
+        // When we have an open menu and the event does NOT come from the same table, we close the menu.
+        if (this.openedMenu && !(fromMenu && fromSameTable)) {
             this.openedMenu = null;
         }
     }
@@ -1402,6 +1448,12 @@ export class KupDataTable {
         });
     }
 
+    /**
+     * After a drop of a column header, if the table can update its own data, does so and triggers rerender.
+     * @param columns - The columns to sort
+     * @param receivingColumnIndex - The index where the column will be inserted
+     * @param sortedColumnIndex - The index where the column will be removed
+     */
     private moveSortedColumns(
         columns: Column[],
         receivingColumnIndex: number,
@@ -1409,6 +1461,7 @@ export class KupDataTable {
     ) {
         const remove = columns.splice(sortedColumnIndex, 1);
         columns.splice(receivingColumnIndex, 0, remove[0]);
+        this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
     }
 
     @Method() async defaultSortingFunction(
@@ -1557,6 +1610,11 @@ export class KupDataTable {
 
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
+             /**
+             * Generic object for classes to add to the th (header cell)
+             * Accepts string indexes (the class names) as boolean values (if the class should be applied or not).
+             */
+            let columnClass: Record<string , boolean> = {};
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
@@ -1623,22 +1681,54 @@ export class KupDataTable {
             }
 
             //---- Sort ----
-            let sort = null;
+            let sortIcon = null;
+            let sortEventHandler = undefined;
+
+            // When sorting is enabled, there are two things to do:
+            // 1 - Add correct icon to the table
+            // 2 - stores the handler to be later set onto the whole cell
             if (this.sortEnabled && isStringObject(column.obj)) {
-                sort = (
+                sortIcon = (
                     <span class="column-sort">
                         <span
                             role="button"
                             aria-label="Sort column" // TODO
                             class={'mdi ' + this.getSortIcon(column.name)}
-                            onClick={(e: MouseEvent) =>
-                                this.onColumnSort(e, column.name)
-                            }
                         />
                     </span>
                 );
-            }
 
+                // The handler for triggering the sorting of a column
+                sortEventHandler = (e: MouseEvent) => {
+                    // Sorts column only when currently pressed mouse button is the the left click handler
+                    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+                    if (e.button === 0 && !((e.target as HTMLTableCellElement).hasAttribute(this.dragStarterAttribute))) {
+                        this.onColumnSort(e, column.name);
+                    }
+                };
+
+                // Adds the sortable class to the header cell
+                columnClass['header-cell--sortable'] = true;
+            }
+          
+            // Sets custom columns width
+            let thStyle = null;
+            if (hasCustomColumnsWidth) {
+                for (let i = 0; i < this.columnsWidth.length; i++) {
+                    const currentCol = this.columnsWidth[i];
+
+                    if (currentCol.column === column.name) {
+                        const width = currentCol.width.toString() + 'px';
+                        thStyle = {
+                            width,
+                            minWidth: width,
+                            maxWidth: width,
+                        };
+                        break;
+                    }
+                }
+            }
+          
             const columnMenuItems: JSX.Element[] = [];
 
             //---- adding grouping ----
@@ -1683,7 +1773,6 @@ export class KupDataTable {
             }
 
             // Check if columns are droppable and sets their handlers
-            // TODO set better typing.
             let dragHandlers: any = {};
             if (this.enableSortableColumns) {
                 // Reference for drag events and what they permit or not
@@ -1778,7 +1867,7 @@ export class KupDataTable {
                     },
                 };
             }
-
+          
             // Composes column cell style and classes
             const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
                 column.name,
@@ -1786,19 +1875,23 @@ export class KupDataTable {
                 specialExtraCellsCount,
                 column.obj ? isNumber(column.obj) : false
             );
+          
+            if (column.obj) {
+                columnClass.number = isNumber(column.obj);
+            }
 
             return (
                 <th
                     class={columnClass}
                     style={thStyle}
-                    onMouseEnter={() => this.onColumnMouseEnter(column.name)}
-                    onMouseLeave={() => this.onColumnMouseLeave(column.name)}
+                    onContextMenu={(e: MouseEvent) => this.onHeaderCellContextMenuOpen(e,column.name)}
+                    onMouseUp={sortEventHandler}
                     {...dragHandlers}
                 >
                     <span class="column-title">
                         {this.applyLineBreaks(column.title)}
                     </span>
-                    {sort}
+                    {sortIcon}
                     {filter}
                     {columnMenu}
                 </th>
