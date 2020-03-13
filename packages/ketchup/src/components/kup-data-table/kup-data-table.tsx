@@ -18,6 +18,8 @@ import { positionRecalc } from '../../utils/recalc-position';
 import {
     Cell,
     Column,
+    FixedCellsClasses,
+    FixedCellsCSSVarsBase,
     GenericMap,
     GroupLabelDisplayMode,
     GroupObject,
@@ -69,6 +71,9 @@ import {
     isStringObject,
     isCheckbox,
 } from '../../utils/object-utils';
+import {GenericObject} from "../../types/GenericTypes";
+
+import { getBoolean } from '../../utils/utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -113,6 +118,24 @@ export class KupDataTable {
      */
     @Prop({ mutable: true })
     filters: GenericMap = {};
+
+    /**
+     * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedRows.
+     * @see fixedRows
+     */
+    @Prop({reflect: true})
+    fixedColumns: number = 0;
+
+    /**
+     * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
+     * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
+     * Can be combined with fixedColumns.
+     * @see fixedColumns
+     */
+    @Prop({reflect: true})
+    fixedRows: number = 0;
 
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
@@ -329,6 +352,24 @@ export class KupDataTable {
         this.initRows();
     }
 
+    @Watch('fixedColumns')
+    @Watch('fixedRows')
+    controlFixedRowsColumns() {
+        let warnMessage = '';
+
+        if (isNaN(this.fixedColumns) || this.fixedColumns < 0) {
+            warnMessage += `The value ${this.fixedColumns} set on fixedColumns property is not valid.`;
+        }
+
+        if (isNaN(this.fixedRows) || this.fixedRows < 0) {
+            warnMessage += `The value ${this.fixedRows} set on fixedRows property is not valid.`;
+        }
+
+        if (warnMessage && console) {
+            console.warn(warnMessage + 'Any fixed rule will be ignored.')
+        }
+    }
+
     /**
      * The reference for the function used to close the menu of the header cells
      */
@@ -383,8 +424,11 @@ export class KupDataTable {
      * @private
      */
     private theadRef: any;
-    private tableRef: HTMLTableSectionElement;
-    private tableAreaRef: HTMLTableSectionElement;
+    private tableRef: HTMLTableElement;
+    /**
+     * Reference to the working area of teh table. This is the below-wrapper reference.
+     */
+    private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
     private customizePanelRef: any;
 
@@ -518,7 +562,7 @@ export class KupDataTable {
     };
 
     stickyHeaderPosition = () => {
-        let tableBody: any = this.tableRef;
+        let tableBody: HTMLTableElement = this.tableRef;
         if (tableBody) {
             let el: any = this.stickyTheadRef;
             let parent: any = tableBody.closest('.below-wrapper');
@@ -620,7 +664,7 @@ export class KupDataTable {
     //     }
     // );
 
-    // lifecycle
+    //======== Lifecycle Hooks ========
     componentWillLoad() {
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
@@ -629,6 +673,7 @@ export class KupDataTable {
             this.forceGroupExpansion();
         }
     }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
@@ -649,6 +694,8 @@ export class KupDataTable {
                 positionRecalc(menus[i], wrapper);
             }
         }
+
+        setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(),50);
     }
 
     componentDidLoad() {
@@ -685,6 +732,7 @@ export class KupDataTable {
         }
     }
 
+    //======== Utility methods ========
     private hasTooltip(cell: Cell) {
         return (
             cell.obj &&
@@ -889,7 +937,82 @@ export class KupDataTable {
         }
     }
 
-    // event listeners
+    //==== Fixed columns and rows methods ====
+    private composeFixedCellStyleAndClass(columnCssIndex: number, rowCssIndex: number, extraCellsCount: number = 0): undefined | {
+        fixedCellClasses: GenericObject,
+        fixedCellStyle: GenericObject
+    } {
+        if (this.isGrouping()) {
+            return undefined;
+        }
+
+        //-- Controls if there are fixed rows or columns --
+        const validFixedColumn: boolean = Number.isInteger(this.fixedColumns) && columnCssIndex <= this.fixedColumns + extraCellsCount;
+        const validFixedRowIndex = Number.isInteger(this.fixedRows) && rowCssIndex > 0 && rowCssIndex <= this.fixedRows;
+
+        // When the cell is not valid to be either into a fixed column or into a fixed row, returns null.
+        if (!validFixedRowIndex && !validFixedColumn) {
+            return undefined;
+        }
+
+        const fixedCellClasses: GenericObject = {},
+            fixedCellStyle: GenericObject = {};
+
+        if (validFixedColumn) {
+            fixedCellClasses[FixedCellsClasses.columns] = validFixedColumn;
+            fixedCellClasses['show-column-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.COL === this.showGrid;
+            fixedCellStyle['left'] = 'var(' + FixedCellsCSSVarsBase.columns + columnCssIndex + ')';
+        }
+
+        if (validFixedRowIndex) {
+            fixedCellClasses[FixedCellsClasses.rows] = !!validFixedRowIndex;
+            fixedCellClasses['show-row-separator'] = ShowGrid.COMPLETE === this.showGrid || ShowGrid.ROW === this.showGrid;
+            fixedCellStyle['top'] = 'var(' + FixedCellsCSSVarsBase.rows + rowCssIndex + ')';
+        }
+
+        return {
+            fixedCellClasses,
+            fixedCellStyle
+        };
+    }
+
+    private updateFixedRowsAndColumnsCssVariables(): boolean {
+        // When grouping, the fixed rows and columns are not sticky
+        if (this.isGrouping() || !this.tableRef) return false;
+        let toRet: boolean = false;
+
+        if (this.fixedRows >= 1) {
+            let currentRow: HTMLTableRowElement = this.tableRef.querySelector('tbody > tr:first-of-type');
+            // The height must start from the height of the header
+            let previousHeight: number = (this.tableRef.querySelector('thead > tr:first-of-type > th:first-of-type') as HTMLTableCellElement).offsetHeight;
+
+            // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
+            for (let i = 1; i <= this.fixedRows && currentRow; i++) {
+                this.tableAreaRef.style.setProperty(FixedCellsCSSVarsBase.rows + i, previousHeight + 'px');
+                previousHeight += (currentRow.children[0] as HTMLTableCellElement).offsetHeight;
+                currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
+            }
+            toRet = true;
+        }
+
+        if (this.fixedColumns >= 1) {
+            let currentCell: HTMLTableCellElement = this.tableRef.querySelector('tbody > tr:first-of-type > td:first-of-type');
+            let previousWidth: number = 0;
+            let totalFixedColumns = this.fixedColumns + (this.hasRowActions() ? 1 : 0) + (this.multiSelection ? 1 : 0);
+
+            // @See [CSSCount]
+            for (let i = 1; i <= totalFixedColumns && currentCell; i++) {
+                this.tableAreaRef.style.setProperty(FixedCellsCSSVarsBase.columns + i, previousWidth + 'px');
+                previousWidth += currentCell.offsetWidth;
+                currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
+            }
+          toRet = true;
+        }
+
+        return toRet;
+    }
+
+    //======== Event Listeners ========
     private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -1384,16 +1507,114 @@ export class KupDataTable {
     }
 
     //======== render methods ========
-    private renderHeader() {
-        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
+    /**
+     * Given the parameters return the classes and style for each table header cell
+     * @param columnName - The name of the columns currently being examinated
+     * @param columnIndex - The index of the current column
+     * @param extraCells - the extra cells rendered into the table
+     * @param columnIsNumber - If the current columns contains numeric values
+     */
+    private composeHeaderCellClassAndStyle(columnName: string, columnIndex: number, extraCells: number = 0, columnIsNumber: boolean = false): {
+      columnClass: GenericObject,
+      thStyle: GenericObject
+    } {
+        let columnClass: GenericObject = {},
+            thStyle: GenericObject = {};
 
-        const dataColumns = this.getVisibleColumns().map((column) => {
-            /**
+        // Checks if data table columns have custom width
+        if (this.columnsWidth.length > 0) {
+            for (let i = 0; i < this.columnsWidth.length; i++) {
+                const currentCol = this.columnsWidth[i];
+
+                if (currentCol.column === columnName) {
+                    const width = currentCol.width.toString() + 'px';
+                    thStyle = {
+                        width,
+                        minWidth: width,
+                        maxWidth: width,
+                    };
+                    break;
+                }
+            }
+        }
+
+        // Special class column hosts numbers
+        columnClass.number = columnIsNumber;
+
+        // For fixed cells styles and classes
+        const fixedCellStyle = this.composeFixedCellStyleAndClass(columnIndex + 1 + extraCells, 0, extraCells);
+        if (fixedCellStyle) {
+            columnClass = {
+                ...columnClass,
+                ...(fixedCellStyle.fixedCellClasses)
+            };
+            thStyle = {
+                ...thStyle,
+                ...(fixedCellStyle.fixedCellStyle)
+            };
+        }
+
+        return {
+            columnClass,
+            thStyle
+        };
+    }
+
+    private renderHeader() {
+        let specialExtraCellsCount: number = 0;
+
+        // Renders multiple selection column
+        let multiSelectColumn = null;
+        if (this.multiSelection) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            const style = {
+                width: '30px',
+                margin: '0 auto',
+                ...(selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : {})
+            };
+
+            multiSelectColumn = (
+                <th
+                    class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : {}}
+                    style={style}>
+                    <input
+                        type="checkbox"
+                        onChange={(e) => this.onSelectAll(e)}
+                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        checked={
+                            this.selectedRows.length > 0 &&
+                            this.selectedRows.length === this.renderedRows.length
+                        }
+                    />
+                </th>
+            );
+        }
+
+        //  let groupColumn = null;
+        //  if (this.isGrouping() && this.hasTotals()) {
+        //      groupColumn = <th />;
+        //  }
+
+        // Renders action column
+        let actionsColumn = null;
+        if (this.hasRowActions()) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            actionsColumn = <th
+                class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : {}}
+                style={selectionStyleAndClass? selectionStyleAndClass.fixedCellStyle : {}}/>;
+        }
+
+        // Renders normal cells
+        const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
+             /**
              * Generic object for classes to add to the th (header cell)
              * Accepts string indexes (the class names) as boolean values (if the class should be applied or not).
              */
             let columnClass: Record<string , boolean> = {};
-
             //---- Filter ----
             let filter = null;
             // If the current column has a filter, then we take its value
@@ -1489,7 +1710,7 @@ export class KupDataTable {
                 // Adds the sortable class to the header cell
                 columnClass['header-cell--sortable'] = true;
             }
-
+          
             // Sets custom columns width
             let thStyle = null;
             if (hasCustomColumnsWidth) {
@@ -1507,7 +1728,7 @@ export class KupDataTable {
                     }
                 }
             }
-
+          
             const columnMenuItems: JSX.Element[] = [];
 
             //---- adding grouping ----
@@ -1646,7 +1867,15 @@ export class KupDataTable {
                     },
                 };
             }
-
+          
+            // Composes column cell style and classes
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
+                column.name,
+                columnIndex,
+                specialExtraCellsCount,
+                column.obj ? isNumber(column.obj) : false
+            );
+          
             if (column.obj) {
                 columnClass.number = isNumber(column.obj);
             }
@@ -1669,95 +1898,34 @@ export class KupDataTable {
             );
         });
 
-        let multiSelectColumn = null;
-        if (this.multiSelection) {
-            const style = {
-                width: '30px',
-                margin: '0 auto',
-            };
-            multiSelectColumn = (
-                <th style={style}>
-                    <input
-                        type="checkbox"
-                        onChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
-                        checked={
-                            this.selectedRows.length > 0 &&
-                            this.selectedRows.length ===
-                                this.renderedRows.length
-                        }
-                    />
-                </th>
-            );
-        }
-
-        //  let groupColumn = null;
-        //  if (this.isGrouping() && this.hasTotals()) {
-        //      groupColumn = <th />;
-        //  }
-
-        let actionsColumn = null;
-        if (this.hasRowActions()) {
-            actionsColumn = <th />;
-        }
-
         return [multiSelectColumn, actionsColumn, ...dataColumns];
         //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
     private renderStickyHeader() {
-        const hasCustomColumnsWidth = this.columnsWidth.length > 0;
-
-        const dataColumns = this.getVisibleColumns().map((column) => {
-            let thStyle = null;
-            if (hasCustomColumnsWidth) {
-                for (let i = 0; i < this.columnsWidth.length; i++) {
-                    const currentCol = this.columnsWidth[i];
-
-                    if (currentCol.column === column.name) {
-                        const width = currentCol.width.toString() + 'px';
-                        thStyle = {
-                            width,
-                            minWidth: width,
-                            maxWidth: width,
-                        };
-                        break;
-                    }
-                }
-            }
-
-            let columnClass = {};
-            if (column.obj) {
-                columnClass = {
-                    number: isNumber(column.obj),
-                };
-            }
-
-            return (
-                <th-sticky class={columnClass} style={thStyle}>
-                    <span class="column-title">
-                        {this.applyLineBreaks(column.title)}
-                    </span>
-                </th-sticky>
-            );
-        });
+        let specialExtraCellsCount: number = 0;
 
         let multiSelectColumn = null;
         if (this.multiSelection) {
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
             const style = {
                 width: '30px',
                 margin: '0 auto',
+                ...(selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : {})
             };
             multiSelectColumn = (
-                <th-sticky style={style}>
+                <th-sticky
+                    class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
+                    style={style}>
                     <input
                         type="checkbox"
                         onChange={(e) => this.onSelectAll(e)}
                         title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
                         checked={
                             this.selectedRows.length > 0 &&
-                            this.selectedRows.length ===
-                                this.renderedRows.length
+                            this.selectedRows.length === this.renderedRows.length
                         }
                     />
                 </th-sticky>
@@ -1769,10 +1937,34 @@ export class KupDataTable {
         //     groupColumn = <th-sticky />;
         // }
 
+        // Empty cell for the actions
         let actionsColumn = null;
         if (this.hasRowActions()) {
-            actionsColumn = <th-sticky />;
+            specialExtraCellsCount++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, 0, specialExtraCellsCount - 1);
+
+            actionsColumn = <th-sticky
+                class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
+                style={selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : null}/>;
         }
+
+        // Composes normal header cells
+        const dataColumns = this.getVisibleColumns().map((column, columnIndex) => {
+            const {columnClass, thStyle} = this.composeHeaderCellClassAndStyle(
+                column.name,
+                columnIndex,
+                specialExtraCellsCount,
+                column.obj ? isNumber(column.obj) : false
+            );
+
+            return (
+                <th-sticky class={columnClass} style={thStyle}>
+                    <span class="column-title">
+                       {this.applyLineBreaks(column.title)}
+                    </span>
+                </th-sticky>
+            );
+        });
 
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
@@ -1810,7 +2002,7 @@ export class KupDataTable {
         return footer;
     }
 
-    private renderRow(row: Row, level = 0, previousRow?: Row) {
+    private renderRow(row: Row, level = 0, previousRow?: Row, rowCssIndex: number = 0) {
         const visibleColumns = this.getVisibleColumns();
 
         if (row.group) {
@@ -1944,10 +2136,90 @@ export class KupDataTable {
             // grouping row
             return jsxRows;
         } else {
-            const cells = visibleColumns.map((currentColumn, index) => {
+            //-- The row is normal --
+            /**
+             * How many control cells there are before the effective cells
+             */
+            let specialExtraCellsCount: number = 0;
+
+            // Renders selection cell
+            // IF active, this must be the first cell
+            // This is a special cell
+            let selectRowCell = null;
+            if (this.multiSelection) {
+                specialExtraCellsCount++;
+                const selectionStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, rowCssIndex, specialExtraCellsCount - 1);
+
+                selectRowCell = (
+                    <td
+                        class={selectionStyleAndClass ? selectionStyleAndClass.fixedCellClasses : null}
+                        style={selectionStyleAndClass ? selectionStyleAndClass.fixedCellStyle : null}>
+                        <input
+                            type="checkbox"
+                            checked={this.selectedRows.includes(row)}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) =>
+                                this.onRowCheckboxSelection(e, row)
+                            }
+                        />
+                    </td>
+                );
+            }
+
+            // Renders action cell
+            // If active, this can be either the first or second cell
+            let rowActionsCell = null;
+            if (this.hasRowActions()) {
+                // Increments
+                specialExtraCellsCount++;
+                const actionsStyleAndClass = this.composeFixedCellStyleAndClass(specialExtraCellsCount, rowCssIndex, specialExtraCellsCount - 1);
+
+                const defaultRowActions = this.renderActions(
+                    this.rowActions,
+                    row,
+                    'default'
+                );
+
+                let rowActionExpander = null;
+                let variableActions = null;
+                if (row.actions) {
+                    // adding variable actions
+                    variableActions = this.renderActions(
+                        row.actions,
+                        row,
+                        'variable'
+                    );
+                } else {
+                    // adding expander
+                    rowActionExpander = (
+                        <span
+                            title="Espandi voci"
+                            class={`row-action mdi mdi-chevron-right`}
+                            onClick={(e) =>
+                                this.onRowActionExpanderClick(e, row)
+                            }
+                            role="button"
+                            aria-label="Espandi voci"
+                        />
+                    );
+                }
+
+                rowActionsCell = (
+                    <td
+                        class={actionsStyleAndClass ? actionsStyleAndClass.fixedCellClasses : null}
+                        style={actionsStyleAndClass ? actionsStyleAndClass.fixedCellStyle : null}>
+                        {defaultRowActions}
+                        {rowActionExpander}
+                        {variableActions}
+                    </td>
+                );
+            }
+
+            // Renders plain rows cells
+            const cells = visibleColumns.map((currentColumn, cellIndex) => {
                 const { name, hideValuesRepetitions } = currentColumn;
                 let indend = [];
-                if (index === 0) {
+                if (cellIndex === 0) {
                     for (let i = 0; i < level; i++) {
                         indend.push(<span class="indent" />);
                     }
@@ -1995,15 +2267,26 @@ export class KupDataTable {
                         : undefined
                 );
 
-                const cellClass = {
+                // Classes which will be set onto the single data-table cell
+                let cellClass = {
                     'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
 
-                let cellStyle = null;
+                let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
+                }
+
+                //-- For fixed cells --
+                const fixedStyles = this.composeFixedCellStyleAndClass(cellIndex + 1 + specialExtraCellsCount, rowCssIndex, specialExtraCellsCount);
+                if (fixedStyles) {
+                  cellStyle = Object.assign(cellStyle ? cellStyle : {}, fixedStyles.fixedCellStyle);
+                  cellClass = {
+                    ...cellClass,
+                    ...(fixedStyles.fixedCellClasses)
+                  };
                 }
 
                 // Controls if there are columns with a specified width
@@ -2040,70 +2323,8 @@ export class KupDataTable {
                 );
             });
 
-            let selectRowCell = null;
-            if (this.multiSelection) {
-                selectRowCell = (
-                    <td>
-                        <input
-                            type="checkbox"
-                            checked={this.selectedRows.includes(row)}
-                            onClick={(e) => e.stopPropagation()}
-                            onChange={(e) =>
-                                this.onRowCheckboxSelection(e, row)
-                            }
-                        />
-                    </td>
-                );
-            }
-
-            let groupingCell = null;
-            // if (this.isGrouping() && this.hasTotals()) {
-            //     groupingCell = <td />;
-            // }
-
             // adding row to rendered rows
             this.renderedRows.push(row);
-
-            let rowActionsCell = null;
-            if (this.hasRowActions()) {
-                const defaultRowActions = this.renderActions(
-                    this.rowActions,
-                    row,
-                    'default'
-                );
-
-                let rowActionExpander = null;
-                let variableActions = null;
-                if (row.actions) {
-                    // adding variable actions
-                    variableActions = this.renderActions(
-                        row.actions,
-                        row,
-                        'variable'
-                    );
-                } else {
-                    // adding expander
-                    rowActionExpander = (
-                        <span
-                            title="Espandi voci"
-                            class={`row-action mdi mdi-chevron-right`}
-                            onClick={(e) =>
-                                this.onRowActionExpanderClick(e, row)
-                            }
-                            role="button"
-                            aria-label="Espandi voci"
-                        />
-                    );
-                }
-
-                rowActionsCell = (
-                    <td>
-                        {defaultRowActions}
-                        {rowActionExpander}
-                        {variableActions}
-                    </td>
-                );
-            }
 
             const rowClass = {
                 selected: this.selectedRows.includes(row),
@@ -2112,7 +2333,6 @@ export class KupDataTable {
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
                     {selectRowCell}
-                    {groupingCell}
                     {rowActionsCell}
                     {cells}
                 </tr>
@@ -2284,7 +2504,7 @@ export class KupDataTable {
             if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (
                     <kup-radio-element
-                        checked={!!cell.obj.k}
+                        checked={getBoolean(cell.obj.k)}
                         // TODO: update as `row.readOnly ?? true` when dependencies are updated
                         disabled={
                             row.readOnly !== undefined ? row.readOnly : true
@@ -2640,7 +2860,8 @@ export class KupDataTable {
                     this.renderRow(
                         row,
                         0,
-                        rowIndex > 0 ? currentArray[rowIndex - 1] : null
+                        rowIndex > 0 ? currentArray[rowIndex - 1] : null,
+                        rowIndex + 1,
                     )
                 )
                 .forEach((jsxRow) => {
@@ -2741,15 +2962,12 @@ export class KupDataTable {
                 </div>
                 <div
                     class="below-wrapper"
-                    ref={(el) => (this.tableAreaRef = el as any)}
+                    ref={(el: HTMLDivElement) => this.tableAreaRef = el}
                 >
                     {groupChips}
                     <table
                         class={tableClass}
-                        ref={(el: HTMLTableElement) =>
-                            (this.tableRef = el as any)
-                        }
-                    >
+                        ref={(el: HTMLTableElement) => this.tableRef = el}>
                         <thead
                             hidden={!this.showHeader}
                             ref={(el) => (this.theadRef = el as any)}
