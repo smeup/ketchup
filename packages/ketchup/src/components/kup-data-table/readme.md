@@ -1,20 +1,14 @@
 # kup-data-table
 
-
-
 ## About persistent header
 
-A persistent header is when the header of the table remains positioned fixedly and is visible when a user
-scrolls the window until the whole table has disappeared from view.
+A persistent header is when the header of the table remains positioned fixedly and is visible when a user scrolls the window until the whole table has disappeared from view.
 
-The current implementation, based on the features of the currently used SmeUP data table component,
-make use of the CSS property `position: sticky;`.
-[Here](https://caniuse.com/#feat=css-sticky) you can see the support fot this feature.
+The current implementation, based on the features of the currently used SmeUP data table component, make use of the CSS property `position: sticky;`. [Here](https://caniuse.com/#feat=css-sticky) you can see the support fot this feature.
 
 The implementation of this feature makes use of pure CSS because its current behavior is quite simple.
 
-More details about the component's modification to allow sticky positioning can be found inside the comments
-left in the component itself.
+More details about the component's modification to allow sticky positioning can be found inside the comments left in the component itself.
 
 To see how to configure this behavior, check out the `header-is-persistent` property.
 
@@ -22,24 +16,17 @@ To see how to configure this behavior, check out the `header-is-persistent` prop
 
 ##### Table headers borders
 
-Browsers tables has always been problematic.
-Due to how browsers implements the `sticky` feature, when applied to a `<th>` element inside a `<thead>`,
-the borders do not get scrolled down: they stay in their original position.
+Browsers tables has always been problematic. Due to how browsers implements the `sticky` feature, when applied to a `<th>` element inside a `<thead>`, the borders do not get scrolled down: they stay in their original position.
 
-In other words, if you need to set border between header cells, your best call would be to either use the
-`:before` or `after` pseudo elements positioned absolutely inside each cell.
-Or set the border to a wrapper which is also the first children of the cell itself.
+In other words, if you need to set border between header cells, your best call would be to either use the `:before` or `after` pseudo elements positioned absolutely inside each cell. Or set the border to a wrapper which is also the first children of the cell itself.
 
-This helps you solve also other problems with `<th>` elements having a transparent border set when scrolling.
-A border you cannot get rid of.
+This helps you solve also other problems with `<th>` elements having a transparent border set when scrolling. A border you cannot get rid of.
 
 ##### The `sticky` behavior is relative to an element first scrollable ancestor
 
 The `sticky` behavior gets triggered when the first ancestor element with a scrollable content gets scrolled.
 
-If the `sticky` element would be hidden by the scroll, after having specified a threshold (top, bottom, left, right),
-the element gets positioned fixedly until its ancestor is fully scrolled: in that moment it stops from being fixed and disappears.
-
+If the `sticky` element would be hidden by the scroll, after having specified a threshold (top, bottom, left, right), the element gets positioned fixedly until its ancestor is fully scrolled: in that moment it stops from being fixed and disappears.
 
 <!-- Auto Generated Below -->
 
@@ -62,7 +49,7 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `groupLabelDisplay`         | `group-label-display`          | How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}                                                                                                                       | `GroupLabelDisplayMode.BOTH \| GroupLabelDisplayMode.LABEL \| GroupLabelDisplayMode.VALUE`       | `GroupLabelDisplayMode.BOTH`         |
 | `groups`                    | --                             | The list of groups.                                                                                                                                                                                                            | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | When set to true the header will stick on top of the table when scrolling.                                                                                                                                                     | `boolean`                                                                                        | `true`                               |
-| `lineBreakCharacter`        | `line-break-character`         | Defines the placeholder character which will be replaced by a line break.                                                                               | `string`                                                                                         | `'\|'`                               |
+| `lineBreakCharacter`        | `line-break-character`         | Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.                                                                                                          | `string`                                                                                         | `'\|'`                               |
 | `loadMoreLimit`             | `load-more-limit`              | Sets a maximum limit of new records which can be required by the load more functionality.                                                                                                                                      | `number`                                                                                         | `1000`                               |
 | `loadMoreMode`              | `load-more-mode`               | Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.                                                                                                           | `LoadMoreMode.CONSTANT \| LoadMoreMode.CONSTANT_INCREMENT \| LoadMoreMode.PROGRESSIVE_THRESHOLD` | `LoadMoreMode.PROGRESSIVE_THRESHOLD` |
 | `loadMoreStep`              | `load-more-step`               | The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.                                                                        | `number`                                                                                         | `60`                                 |
@@ -77,7 +64,9 @@ the element gets positioned fixedly until its ancestor is fully scrolled: in tha
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                        | `false`                              |
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                           | `SortObject[]`                                                                                   | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns.                                                                                                                                                                           | `boolean`                                                                                        | `true`                               |
-| `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event                                                                                        | `boolean`                                                                                        | `true`                               |
+| `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event                                                                                       | `boolean`                                                                                        | `true`                               |
+| `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                         | `undefined`                          |
+| `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                         | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options.                                                                                                                                                                                            | `TotalsMap`                                                                                      | `undefined`                          |
 
 
@@ -154,6 +143,7 @@ Type: `Promise<Column[]>`
 
 - [kup-text-input](../kup-text-input)
 - [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
@@ -169,6 +159,7 @@ Type: `Promise<Column[]>`
 graph TD;
   kup-data-table --> kup-text-input
   kup-data-table --> kup-icon
+  kup-data-table --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
@@ -178,6 +169,7 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-image --> kup-badge
   kup-tooltip --> kup-button
   kup-paginator --> kup-combo
   kup-combo --> kup-text-input

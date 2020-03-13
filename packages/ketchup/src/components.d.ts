@@ -605,6 +605,14 @@ export namespace Components {
     */
     'sortableColumnsMutateData': boolean;
     /**
+    * Sets the height of the table.
+    */
+    'tableHeight': string;
+    /**
+    * Sets the width of the table.
+    */
+    'tableWidth': string;
+    /**
     * Defines the current totals options.
     */
     'totals': TotalsMap;
@@ -2432,6 +2440,14 @@ declare namespace LocalJSX {
     * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
+    /**
+    * Sets the height of the table.
+    */
+    'tableHeight'?: string;
+    /**
+    * Sets the width of the table.
+    */
+    'tableWidth'?: string;
     /**
     * Defines the current totals options.
     */

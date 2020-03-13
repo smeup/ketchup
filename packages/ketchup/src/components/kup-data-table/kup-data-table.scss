@@ -113,10 +113,7 @@
     transparent
   );
 
-  --dtt_table-wrapper-height: var(
-      --kup-data-table_table-wrapper-height,
-      auto
-  );
+  --dtt_table-wrapper-height: var(--kup-data-table_table-wrapper-height, auto);
 
   position: relative;
   z-index: 0;
@@ -199,13 +196,15 @@ $fixed-row-class: fixed-row;
   }
 
   // @see [fcr-ff]
-  @supports (-moz-appearance:none) {
+  @supports (-moz-appearance: none) {
     .column-separation &::before {
       @include fixedColumnSeparator(0);
     }
 
     .row-separation &::after {
-      @include fixedRowSeparator(0); // marked as !important otherwise the previous declaration will take precedence
+      @include fixedRowSeparator(
+        0
+      ); // marked as !important otherwise the previous declaration will take precedence
     }
   }
 }
@@ -223,7 +222,7 @@ $fixed-row-class: fixed-row;
   }
 
   // This is a small fix for Firefox since it has a strange bug which "compresses" the content of the sticky cells
-  @supports (-moz-appearance:none) {
+  @supports (-moz-appearance: none) {
     .column-separation &::before {
       @include fixedColumnSeparator(0);
     }
@@ -249,11 +248,16 @@ $fixed-row-class: fixed-row;
 
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
+
   .below-wrapper {
     height: var(--dtt_table-wrapper-height);
     overflow: auto;
     position: relative;
     z-index: $table-below-wrapper--z-index;
+  }
+
+  .below-wrapper:not(.custom-size) {
+    overflow-x: auto;
   }
 
   /*
@@ -299,6 +303,11 @@ $fixed-row-class: fixed-row;
       width: 0; // [mandatory] See [1] [2]
     }
 
+    &.custom-size th {
+      position: sticky;
+      top: 0;
+    }
+
     > thead {
       background: var(--dtt_head-background-color);
 
@@ -337,13 +346,13 @@ $fixed-row-class: fixed-row;
 
           // The row separator:
           &::after {
-            bottom: 0;// Is slightly placed to the bottom
-            left: -1px;// gets slightly bigger to cover the absence of a border-right
+            bottom: 0; // Is slightly placed to the bottom
+            left: -1px; // gets slightly bigger to cover the absence of a border-right
           }
 
           // The column separator
           &::before {
-            content: none;// Is not rendered on firefox because it does not render right-border on thead.
+            content: none; // Is not rendered on firefox because it does not render right-border on thead.
           }
         }
 
@@ -373,7 +382,6 @@ $fixed-row-class: fixed-row;
         //---- Sort and remove-filter icons ----
         // Base for an header cell
         &.header-cell {
-
           // When column is sortable
           &--sortable {
             cursor: pointer;
