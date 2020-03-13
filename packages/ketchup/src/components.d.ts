@@ -500,6 +500,14 @@ export namespace Components {
     */
     'filters': GenericMap;
     /**
+    * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+    */
+    'fixedColumns': number;
+    /**
+    * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
+    */
+    'fixedRows': number;
+    /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine': boolean;
@@ -584,7 +592,7 @@ export namespace Components {
     */
     'sortEnabled': boolean;
     /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData': boolean;
     /**
@@ -2211,6 +2219,14 @@ declare namespace LocalJSX {
     */
     'filters'?: GenericMap;
     /**
+    * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
+    */
+    'fixedColumns'?: number;
+    /**
+    * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.
+    */
+    'fixedRows'?: number;
+    /**
     * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
     */
     'forceOneLine'?: boolean;
@@ -2347,7 +2363,7 @@ declare namespace LocalJSX {
     */
     'sortEnabled'?: boolean;
     /**
-    * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
+    * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
     /**
