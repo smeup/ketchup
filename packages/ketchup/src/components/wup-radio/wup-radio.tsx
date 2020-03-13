@@ -48,6 +48,7 @@ export class WupRadio {
     })
     kupBlur: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -58,6 +59,7 @@ export class WupRadio {
     })
     kupChange: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -68,6 +70,7 @@ export class WupRadio {
     })
     kupClick: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -78,6 +81,7 @@ export class WupRadio {
     })
     kupFocus: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     @Event({
@@ -88,6 +92,7 @@ export class WupRadio {
     })
     kupInput: EventEmitter<{
         value: string;
+        checked: boolean;
     }>;
 
     //---- Methods ----
@@ -96,6 +101,7 @@ export class WupRadio {
         const { target } = event;
         this.kupBlur.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -103,6 +109,7 @@ export class WupRadio {
         const { target } = event;
         this.kupChange.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -110,6 +117,7 @@ export class WupRadio {
         const { target } = event;
         this.kupClick.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -117,6 +125,7 @@ export class WupRadio {
         const { target } = event;
         this.kupFocus.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 
@@ -124,6 +133,7 @@ export class WupRadio {
         const { target } = event;
         this.kupInput.emit({
             value: target.value,
+            checked: target.checked,
         });
     }
 

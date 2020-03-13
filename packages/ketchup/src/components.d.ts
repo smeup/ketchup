@@ -120,6 +120,15 @@ import {
   ComponentChipElement,
 } from './components/wup-chip/wup-chip-declarations';
 import {
+  ComponentProps,
+} from './components/wup-combobox/wup-combobox-declarations';
+import {
+  ComponentListElement,
+} from './components/wup-list/wup-list-declarations';
+import {
+  PaginatorMode as PaginatorMode1,
+} from './components/wup-paginator/wup-paginator-declarations';
+import {
   ComponentRadioElement,
 } from './components/wup-radio/wup-radio-declarations';
 import {
@@ -1216,6 +1225,20 @@ export namespace Components {
     */
     'type': string;
   }
+  interface WupCombobox {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Props of the list.
+    */
+    'listData': ComponentProps[];
+    /**
+    * Props of the text field.
+    */
+    'textfieldData': ComponentProps[];
+  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1237,6 +1260,24 @@ export namespace Components {
     * The type of the icon, defaults to "svg".
     */
     'type': string;
+  }
+  interface WupList {
+    'data': ComponentListElement[];
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    'listId': string;
+    'roleType'?: string;
+    'selectable': boolean;
+    'twoLine': boolean;
+  }
+  interface WupPaginator {
+    'currentPage': number;
+    'max': number;
+    'mode': PaginatorMode;
+    'perPage': number;
+    'selectedPerPage': number;
   }
   interface WupRadio {
     /**
@@ -1331,6 +1372,10 @@ export namespace Components {
     * Sets the initial value of the component
     */
     'initialValue': string;
+    /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType': string;
     /**
     * Defaults at null. When set, its content will be shown as a label.
     */
@@ -1627,10 +1672,28 @@ declare global {
     new (): HTMLWupChipElement;
   };
 
+  interface HTMLWupComboboxElement extends Components.WupCombobox, HTMLStencilElement {}
+  var HTMLWupComboboxElement: {
+    prototype: HTMLWupComboboxElement;
+    new (): HTMLWupComboboxElement;
+  };
+
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
     new (): HTMLWupIconElement;
+  };
+
+  interface HTMLWupListElement extends Components.WupList, HTMLStencilElement {}
+  var HTMLWupListElement: {
+    prototype: HTMLWupListElement;
+    new (): HTMLWupListElement;
+  };
+
+  interface HTMLWupPaginatorElement extends Components.WupPaginator, HTMLStencilElement {}
+  var HTMLWupPaginatorElement: {
+    prototype: HTMLWupPaginatorElement;
+    new (): HTMLWupPaginatorElement;
   };
 
   interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
@@ -1706,7 +1769,10 @@ declare global {
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-chip': HTMLWupChipElement;
+    'wup-combobox': HTMLWupComboboxElement;
     'wup-icon': HTMLWupIconElement;
+    'wup-list': HTMLWupListElement;
+    'wup-paginator': HTMLWupPaginatorElement;
     'wup-radio': HTMLWupRadioElement;
     'wup-switch': HTMLWupSwitchElement;
     'wup-tab-bar': HTMLWupTabBarElement;
@@ -3123,6 +3189,44 @@ declare namespace LocalJSX {
     */
     'type'?: string;
   }
+  interface WupCombobox extends JSXBase.HTMLAttributes<HTMLWupComboboxElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Props of the list.
+    */
+    'listData'?: ComponentProps[];
+    /**
+    * Event example.
+    */
+    'onKupComboboxBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxIconClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxItemClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    /**
+    * Props of the text field.
+    */
+    'textfieldData'?: ComponentProps[];
+  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3144,6 +3248,55 @@ declare namespace LocalJSX {
     * The type of the icon, defaults to "svg".
     */
     'type'?: string;
+  }
+  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
+    'data'?: ComponentListElement[];
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    'listId'?: string;
+    /**
+    * Events.
+    */
+    'onKupListBlur'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListChange'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListClick'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListFocus'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListInput'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'roleType'?: string;
+    'selectable'?: boolean;
+    'twoLine'?: boolean;
+  }
+  interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
+    'currentPage'?: number;
+    'max'?: number;
+    'mode'?: PaginatorMode;
+    /**
+    * When the current page change
+    */
+    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
+    /**
+    * When the rows per page change
+    */
+    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
+    'perPage'?: number;
+    'selectedPerPage'?: number;
   }
   interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
     /**
@@ -3168,18 +3321,23 @@ declare namespace LocalJSX {
     'name'?: string;
     'onKupRadioBlur'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioChange'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioClick'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioFocus'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
     'onKupRadioInput'?: (event: CustomEvent<{
       value: string;
+      checked: boolean;
     }>) => void;
   }
   interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
@@ -3299,6 +3457,10 @@ declare namespace LocalJSX {
     */
     'initialValue'?: string;
     /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType'?: string;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label'?: string;
@@ -3394,7 +3556,10 @@ declare namespace LocalJSX {
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
     'wup-chip': WupChip;
+    'wup-combobox': WupCombobox;
     'wup-icon': WupIcon;
+    'wup-list': WupList;
+    'wup-paginator': WupPaginator;
     'wup-radio': WupRadio;
     'wup-switch': WupSwitch;
     'wup-tab-bar': WupTabBar;
