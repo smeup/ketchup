@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 import { Badge } from './kup-image-declarations';
 import { formatSize } from '../../utils/utils';
 
@@ -28,6 +28,13 @@ export class KupImage {
 
     @Prop()
     maxHeight = '';
+
+    /**
+     * When the image width should be decided by limiting its height.
+     * This leverages the browser default image handling mechanism.
+     * Have a look at the CSS part for more details.
+     */
+    @Prop({reflect: true}) limitWidthByHeight = false;
 
     @Prop()
     badges: Badge[];
@@ -60,10 +67,10 @@ export class KupImage {
         };
 
         return (
-            <div id="image-wrapper" style={wrapperStyle}>
+            <Host style={wrapperStyle}>
                 <img src={this.src} alt={this.alt} />
                 {badgesElem}
-            </div>
+            </Host>
         );
     }
 }

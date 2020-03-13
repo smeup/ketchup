@@ -57,6 +57,10 @@ export class WupTextField {
      */
     @Prop({ reflect: true }) initialValue: string = '';
     /**
+     * The HTML type of the input element. It has no effect on text areas.
+     */
+    @Prop({ reflect: true }) inputType: string = 'text';
+    /**
      * Defaults at null. When set, its content will be shown as a label.
      */
     @Prop({ reflect: true }) label: string = null;
@@ -149,6 +153,11 @@ export class WupTextField {
         value: string;
     }>;
 
+    @Watch('initialValue')
+    onInitialValueChanged() {
+        this.value = this.initialValue;
+    }
+
     //---- Methods ----
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -197,11 +206,6 @@ export class WupTextField {
 
     componentWillLoad() {
         this.onInitialValueChanged();
-    }
-
-    @Watch('initialValue')
-    onInitialValueChanged() {
-        this.value = this.initialValue;
     }
 
     componentDidRender() {
@@ -393,11 +397,11 @@ export class WupTextField {
         } else {
             inputEl = (
                 <input
-                    type="text"
+                    type={this.inputType}
                     id="wup-input"
                     class="mdc-text-field__input"
-                    placeholder={placeholderLabel}
                     disabled={this.disabled}
+                    placeholder={placeholderLabel}
                     maxlength={this.maxLength}
                     value={this.value}
                     onBlur={(e: any) => this.onKupBlur(e)}
@@ -445,7 +449,7 @@ export class WupTextField {
             <div class={componentClass}>
                 {leadingIconEl}
                 <input
-                    type="text"
+                    type={this.inputType}
                     id="wup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}

@@ -159,8 +159,6 @@ describe('kup-data-table filters rows', () => {
 
       const completeFilter = `${isAffirmative ? '' : '!'}'${searchKey}'`;
 
-      console.log("negative positive",testDescription, isAffirmative, completeFilter);
-
       it('on column filter', () => {
         const filtered = filterRows(
           mockedRowsWithEmptyValues,
@@ -177,8 +175,6 @@ describe('kup-data-table filters rows', () => {
         expect(filtered).toHaveLength(filterProofRowsCount);
 
         filtered.forEach(row => {
-          console.log(row.cells[columnToFilterOn].value);
-
           const compareResult = compareFunction(row.cells[columnToFilterOn].value, filterText);
           expect(isAffirmative ? compareResult : !compareResult).toBeTruthy(); // [1]
         })
