@@ -24,6 +24,7 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
 
 ### Depends on
