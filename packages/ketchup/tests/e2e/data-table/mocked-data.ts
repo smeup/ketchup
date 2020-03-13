@@ -351,7 +351,7 @@ export function DataWithHeaderLineBreaksFactory(
     ],
     lineBreakPlaceholder = '|'
 )  {
-    const tableData = createData(tableSize.colSize, tableSize.rowSize);
+    const tableData: DataTable = createData(tableSize.colSize, tableSize.rowSize);
     const randomTitleWords = [
         'very',
         'title',
@@ -366,7 +366,7 @@ export function DataWithHeaderLineBreaksFactory(
 
     let currentCol;
     for (let i = 0; i < columnWithLineBreakIndexes.length; i++) {
-        currentCol = tableData.columns[columnWithLineBreakIndexes[i].colIndex];
+        currentCol = tableData.columns![columnWithLineBreakIndexes[i].colIndex];
         if (currentCol) {
             for (let j = 0; j < columnWithLineBreakIndexes[i].breaksCount; j++) {
                 currentCol.title += lineBreakPlaceholder + randomTitleWords[Math.floor(Math.random() * randomTitleWords.length)];
