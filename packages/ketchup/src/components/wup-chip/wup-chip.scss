@@ -11,6 +11,11 @@
 
     & .mdc-chip-set--choice .mdc-chip--selected {
       color: var(--kup-main-color);
+
+      & .mdc-chip__ripple {
+        background-color: var(--kup-main-color);
+        opacity: 0.25;
+      }
     }
 
     & .mdc-chip__primary-action {
