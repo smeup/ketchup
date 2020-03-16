@@ -84,28 +84,114 @@ export const fldDataWupRadioPreChecked = [
   }        
 ];
 
+export const fldDataWupCombobox = 
+ [
+  {
+    prop: 'data',
+    value: [
+      {
+        text: 'DELGIO',
+        value: 'sme001',
+      },
+      {
+        text: 'SANCOS',
+        value: 'sme002',
+        selected: true,
+      },
+      {
+        text: 'PARFRA',
+        value: 'sme004',
+      },
+      {
+        text: 'ZAMCHI',
+        value: 'sme006',
+      },      
+    ],
+  },
+  { prop: 'selectable', value: 'one-select' },
+  { prop: 'listId', value: 'LISTA' },
+]
+
+export const fldDataWupComboboxSeparator = 
+ [
+  {
+    prop: 'data',
+    value: [
+      {
+        text: 'DELGIO',
+        value: 'sme001',
+      },
+      {
+        text: 'SANCOS',
+        value: 'sme002',
+      },
+      {
+        text: null,
+        value: null,
+        isSeparator: true,
+      },
+      {
+        text: 'PARFRA',
+        value: 'sme004',
+      },
+      {
+        text: 'ZAMCHI',
+        value: 'sme006',
+      },      
+    ],
+  },
+  { prop: 'selectable', value: 'one-select' },
+  { prop: 'listId', value: 'LISTA' },
+]
+
+
+export const fldDataWupComboboxUnselected = 
+ [
+  {
+    prop: 'data',
+    value: [
+      {
+        text: 'DELGIO',
+        value: 'sme001',
+      },
+      {
+        text: 'SANCOS',
+        value: 'sme002',
+      },
+      {
+        text: 'PARFRA',
+        value: 'sme004',
+      },
+      {
+        text: 'ZAMCHI',
+        value: 'sme006',
+      },      
+    ],
+  },
+  { prop: 'selectable', value: 'one-select' },
+  { prop: 'listId', value: 'LISTA' },
+]
+
 
 export function fldConfigFactory(propToChange: {name: string, value: string}[] = []) {
   let toRet: {
     [index: string]: string | object | boolean;
   } = {
     "type": "cmb",
-    "displayedField": "value",
-    "label": "Select a team member",
-    "initialValue": {
-      "value": "DELGIO",
-      "programs": "Java",
-      "id": "sme001"
-    },
     "showSubmit": true,
     "submitLabel": "Confirm",
-    "usePortal": true
+    'selectable':'one-select' ,
+    'listId':'LISTA',
+    'textfieldData' : [
+      { prop: 'trailingIcon', value: true },
+      { prop: 'icon', value: 'arrow_drop_down' },
+      { prop: 'label', value: 'Select a team member' },
+      /* { prop: 'leadingLabel', value: true }, */
+    ],
   };
-
   propToChange.forEach(prop => {
     toRet[prop.name] = prop.value;
   });
-
   return toRet;
 }
 

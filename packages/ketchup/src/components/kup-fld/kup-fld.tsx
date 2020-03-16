@@ -246,35 +246,32 @@ export class KupFld {
         let confObj: { [key: string]: any } = {};
         let items2render = null;
         let data2render = null;
+        let listData2render = null;
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 confObj.displayedField = 'value';
                 confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
-                compPrefix = 'kup-';
-                type = 'combo';
-                items2render=this.data;
+                compPrefix = 'wup-';
+                type = 'combobox';
+                //items2render=this.data;
+                listData2render = this.data;
                 break;
             case 'rad':
-                //confObj.valueField = 'obj';
                 confObj.name = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
                 compPrefix = 'wup-';
                 type = 'radio';
                 data2render=this.data;
-                console.log("KUP-FLD rad data: ", this.data);
                 break;
             case 'itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                //compPrefix = 'kup-';
-                //type = 'text-input';
                 compPrefix = 'wup-';
                 type = 'text-field';
                 items2render=this.data;
                 break;
-                /**/
             case 'fup':
                     compPrefix = 'kup-';
                     type = 'upload';
@@ -299,6 +296,7 @@ export class KupFld {
                 class={baseClass + '__component'}
                 items={items2render}
                 data={data2render}
+                listData={listData2render}
                 {...confObj}
                 {...this.propagate}
             />
