@@ -77,6 +77,16 @@ export default {
       hiddenColumnsData: { ...hiddenColumnsData },
       noAutomaticMutate: createDataForPagination(4, 25),
       noAutomaticNewObject: createDataForPagination(4, 25),
+      sort: [
+          {
+              column: 'FLD1',
+              sortMode: 'A',
+          },
+          {
+              column: 'FLD2',
+              sortMode: 'D',
+          },
+      ],
       /*cellStyleData: { ...cellStyleDataTable },
             iconImagesDataTable: { ...iconImagesDataTable },
             columnsWidth: [

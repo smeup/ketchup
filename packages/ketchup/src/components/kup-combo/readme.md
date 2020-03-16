@@ -81,6 +81,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
+ - [wup-paginator](../wup-paginator)
 
 ### Depends on
 
@@ -96,6 +97,7 @@ graph TD;
   kup-box --> kup-combo
   kup-form --> kup-combo
   kup-paginator --> kup-combo
+  wup-paginator --> kup-combo
   style kup-combo fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

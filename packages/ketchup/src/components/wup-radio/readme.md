@@ -18,14 +18,27 @@
 
 ## Events
 
-| Event            | Description | Type                              |
-| ---------------- | ----------- | --------------------------------- |
-| `kupRadioBlur`   |             | `CustomEvent<{ value: string; }>` |
-| `kupRadioChange` |             | `CustomEvent<{ value: string; }>` |
-| `kupRadioClick`  |             | `CustomEvent<{ value: string; }>` |
-| `kupRadioFocus`  |             | `CustomEvent<{ value: string; }>` |
-| `kupRadioInput`  |             | `CustomEvent<{ value: string; }>` |
+| Event            | Description | Type                                                |
+| ---------------- | ----------- | --------------------------------------------------- |
+| `kupRadioBlur`   |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioChange` |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioClick`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioFocus`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioInput`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
 
+
+## Dependencies
+
+### Used by
+
+ - [wup-list](../wup-list)
+
+### Graph
+```mermaid
+graph TD;
+  wup-list --> wup-radio
+  style wup-radio fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

@@ -84,7 +84,6 @@ describe('box and badges', () => {
                         break;
 
                     case 1:
-                        console.log("secondo", kupBadges[i].className);
                         expect(kupBadges[i]).toHaveClass('top-left');
                         break;
 

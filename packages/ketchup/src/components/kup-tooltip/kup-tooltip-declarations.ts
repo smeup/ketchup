@@ -5,6 +5,7 @@ export interface TooltipObject {
     t:String;
     p:String;
     k:String;
+    url:String;
 }
 export interface TooltipData {
     obj?: TooltipObject;
@@ -22,6 +23,7 @@ export interface TooltipAction {
     text: string;    
     icon: string;
     exec: string;
+    url: string;
 }
 
 export interface TooltipDetailData extends DataTable {    

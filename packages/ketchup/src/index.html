@@ -82,9 +82,6 @@
         </style>
     </head>
     <body>
-        <div style="margin: auto; display: block; height: 20vh; width: 100vh;">
-           <kup-spinner layout="14" active></kup-spinner>
-        </div>
         <div id="theme-tester">
             <wup-switch leading-label label="Theme tester" id="theme-switch"></wup-switch>
         </div>
@@ -104,7 +101,7 @@
             initial-value="ciao"
         ></kup-text-input>
 
-        <h1>fillspace horizontal component</h1>
+        <h1>Layout component</h1>
         <kup-layout fill-space horizontal>
           <button>Test 1: dim</button>
           <button>Test 1: dimensione</button>
@@ -116,159 +113,6 @@
           <button>Test 2: filler</button>
           <button>Test 2: filler</button>
         </kup-layout>
-
-        <h1>fillspace horizontal KUP component</h1>
-        <kup-layout fill-space horizontal>
-          <wup-button label="a"></wup-button>
-          <wup-button label="b" icon="favorite"></wup-button>
-          <wup-button label="a"></wup-button>
-          <wup-button label="b" icon="favorite"></wup-button>
-          <wup-button label="a"></wup-button>
-          <wup-button label="b" icon="favorite"></wup-button>
-          <wup-button label="a"></wup-button>
-          <wup-button label="b" icon="favorite"></wup-button>
-          <wup-button label="a"></wup-button>
-          <wup-button label="b" icon="favorite"></wup-button>
-        </kup-layout>
-
-        <h1>horizontal layout component</h1>
-        <kup-layout horizontal>
-          <button>Test 1: dim</button>
-          <button>Test 1: dimensione</button>
-          <button>Test 1: dimensione più lunga di tutte</button>
-          <button>Test 1: dim media tra tutte</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-        </kup-layout>
-
-        <h1>fillspace vertical Layout</h1>
-        <kup-layout fill-space vertical>
-          <button>Test 1: dim</button>
-          <button>Test 1: dimensione</button>
-          <button>Test 1: dimensione più lunga di tutte</button>
-          <button>Test 1: dim media tra tutte</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-        </kup-layout>
-
-        <h1>vertical Layout</h1>
-        <kup-layout vertical>
-          <button>Test 1: dim</button>
-          <button>Test 1: dimensione</button>
-          <button>Test 1: dimensione più lunga di tutte</button>
-          <button>Test 1: dim media tra tutte</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-        </kup-layout>
-
-        <h1>autoSize cells Layout</h1>
-        <kup-layout content-based-columns-width>
-          <button>Test 1: dim</button>
-          <button>Test 1: dimensione</button>
-          <button>Test 1: dimensione più lunga di tutte</button>
-          <button>Test 1: dim media tra tutte</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-        </kup-layout>
-
-        <h1>number column Layout</h1>
-        <kup-layout columns-number="5">
-          <button>Test 1: dim</button>
-          <button>Test 1: dimensione</button>
-          <button>Test 1: dimensione più lunga di tutte</button>
-          <button>Test 1: dim media tra tutte</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-          <button>Test 2: filler</button>
-        </kup-layout>
-
-    <h1>Combo in kup-Layout fill space horizonatl</h1>
-    <kup-layout fill-space horizontal>
-        <h4>FLD 1</h4>
-            <kup-fld id="kfld-1"></kup-fld>
-        <h4>FLD 2</h4>
-            <kup-fld id="kfld-2"></kup-fld>
-        <h4>FLD 3</h4>
-            <kup-fld id="kfld-3"></kup-fld>
-        <h4>FLD 4</h4>
-            <kup-fld id="kfld-4"></kup-fld>
-        <h4>FLD Initial value</h4>
-            <kup-fld id="fld-radio-initialValue"></kup-fld>
-        <h4>FLD 5: text format</h4>
-            <kup-fld id="fld-5-text"></kup-fld>
-        <h4>FLD 6: UPLOAD</h4>
-            <kup-fld id="fld-6-upload"></kup-fld>
-    </kup-layout>
-
-    <kup-layout horizontal>
-        <h1>The gauge disposed in horizontal </h1>
-        <kup-gauge value="-50" size="300"></kup-gauge>
-        <kup-gauge
-            value="50"
-            size="300"
-            first-threshold="-25"
-            second-threshold="50"
-        ></kup-gauge>
-
-        <kup-gauge
-            value="150"
-            min-value="80"
-            max-value="350"
-            first-threshold="150"
-            second-threshold="275"
-            value-size="3"
-        ></kup-gauge>
-    </kup-layout>   
-
-    <h1>Combo in kup-Layout fill space vertical</h1>
-    <kup-layout fill-space vertical multiple-column-class>
-        <h4>FLD 1</h4>
-            <kup-fld id="kfld-1"></kup-fld>
-        <h4>FLD 2</h4>
-            <kup-fld id="kfld-2"></kup-fld>
-        <h4>FLD 3</h4>
-            <kup-fld id="kfld-3"></kup-fld>
-        <h4>FLD 4</h4>
-            <kup-fld id="kfld-4"></kup-fld>
-        <h4>FLD Initial value</h4>
-            <kup-fld id="fld-radio-initialValue"></kup-fld>
-        <h4>FLD 5: text format</h4>
-            <kup-fld id="fld-5-text"></kup-fld>
-        <h4>FLD 6: UPLOAD</h4>
-            <kup-fld id="fld-6-upload"></kup-fld>
-    </kup-layout>
-
-    <h1>Combo in kup-Layout vertical</h1>
-    <kup-layout multiple-column-class vertical>
-        <h4>FLD 1</h4>
-            <kup-fld id="kfld-1"></kup-fld>
-        <h4>FLD 2</h4>
-            <kup-fld id="kfld-2"></kup-fld>
-        <h4>FLD 3</h4>
-            <kup-fld id="kfld-3"></kup-fld>
-        <h4>FLD 4</h4>
-            <kup-fld id="kfld-4"></kup-fld>
-        <h4>FLD Initial value</h4>
-            <kup-fld id="fld-radio-initialValue"></kup-fld>
-        <h4>FLD 5: text format</h4>
-            <kup-fld id="fld-5-text"></kup-fld>
-        <h4>FLD 6: UPLOAD</h4>
-            <kup-fld id="fld-6-upload"></kup-fld>
-    </kup-layout>
 
         <h4>Combo using portal</h4>
         <kup-combo is-clearable use-portal="true"></kup-combo>
@@ -449,6 +293,15 @@
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
         <wup-chip type="filter"></wup-chip>
         
+        <h4>Material ListBox (widget)</h4>
+        <wup-list is-filterable="false" selectable="false" list-id="pippo1"></wup-list>
+        <wup-list is-filterable="false" selectable="true" list-id="pippo2"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="radiogroup" list-id="pippo3"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="group" list-id="pippo4"></wup-list>
+
+        <h4>Material Select (widget)</h4>
+        <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
+
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" label="I am a label"></wup-text-field>
@@ -539,10 +392,6 @@
       {
         name: '--kup-chip-background-color',
         value: '#222222',
-      },
-      {
-        name: '--kup-spinner-color',
-        value: '#f2e114',
       },
       {
         name: '--mdc-theme-primary',
@@ -756,6 +605,8 @@ chipList.data = [
                 let listBox1 = document.getElementsByTagName('wup-list')[0];
                 let listBox2 = document.getElementsByTagName('wup-list')[1];
                 let listBox3 = document.getElementsByTagName('wup-list')[2];
+                let listBox4 = document.getElementsByTagName('wup-list')[3];
+
 
                 let itemsForListBox = [
                     {
@@ -787,12 +638,14 @@ chipList.data = [
                     },
                 ];
 
-            listBox1.items = itemsForListBox;
-            listBox2.items = itemsForListBox;
-            listBox3.items = itemsForListBox;
+            listBox1.data = [...itemsForListBox];
+            listBox2.data = [...itemsForListBox];
+            listBox3.data = [...itemsForListBox];
+            listBox4.data = [...itemsForListBox];
 
-            let comboBox1 = document.getElementsByTagName('wup-combo')[0];
-            comboBox1.items = itemsForListBox;
+            let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
+            selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];
+            selectBox1.listData = [{prop: "data", value: itemsForListBox}, {prop: "selectable", value: "one-select"}, {prop: "listId" , value: "LISTA"}];
 
             let once = true;
             // This is a script for testing these elements
@@ -1351,7 +1204,6 @@ chipList.data = [
             --kup-disabled-background-color: #eaeaea;
             --kup-field-background-color: #fafafa;
             --kup-chip-background-color: #eaeaea;
-            --kup-spinner-color: #eaa710;
 
             --mdc-theme-primary: var(--kup-main-color);
             --mdc-theme-on-primary: var(--kup-text-on-main-color);

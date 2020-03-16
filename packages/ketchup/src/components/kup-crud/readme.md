@@ -106,6 +106,7 @@ graph TD;
   kup-search --> kup-data-table
   kup-data-table --> kup-text-input
   kup-data-table --> kup-icon
+  kup-data-table --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
@@ -115,9 +116,9 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-image --> kup-badge
   kup-tooltip --> kup-button
   kup-paginator --> kup-combo
-  kup-image --> kup-badge
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
