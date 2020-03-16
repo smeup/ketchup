@@ -1336,12 +1336,12 @@ export class KupDataTable {
         }
     }
 
-    private onOptionClicked(column: string, row: Row) {
-        this.kupOptionClicked.emit({
-            column,
-            row,
-        });
-    }
+    //private onOptionClicked(column: string, row: Row) {
+    //    this.kupOptionClicked.emit({
+    //        column,
+    //        row,
+    //    });
+    //}
 
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
@@ -2410,7 +2410,7 @@ export class KupDataTable {
 
                 const cell = row.cells[name];
 
-                let options = null;
+                //let options = null;
                 /**
                  * Options must be rendered when the option field is specified AND (one of the following):
                  * 1 - Column do not have to hide repetitions
@@ -2418,28 +2418,28 @@ export class KupDataTable {
                  * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
                  * @todo Move this rendering, if possible, inside renderCell()
                  */
-                if (
-                    cell.options &&
-                    (!hideValuesRepetitions ||
-                        (hideValuesRepetitions &&
-                            (!previousRow ||
-                                previousRow.cells[name].value !== cell.value)))
-                ) {
-                    options = (
-                        <span
-                            class="options"
-                            role="button"
-                            aria-label="Opzioni oggetto"
-                            title="Opzioni oggetto"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                this.onOptionClicked(name, row);
-                            }}
-                        >
-                            <i class="mdi mdi-settings" />
-                        </span>
-                    );
-                }
+                //if (
+                //    cell.options &&
+                //    (!hideValuesRepetitions ||
+                //        (hideValuesRepetitions &&
+                //            (!previousRow ||
+                //                previousRow.cells[name].value !== cell.value)))
+                //) {
+                //    options = (
+                //        <span
+                //            class="options"
+                //            role="button"
+                //            aria-label="Opzioni oggetto"
+                //            title="Opzioni oggetto"
+                //            onClick={(e) => {
+                //               e.stopPropagation();
+                //              this.onOptionClicked(name, row);
+                //           }}
+                //       >
+                //           <i class="mdi mdi-settings" />
+                //       </span>
+                //   );
+                //}
 
                 const jsxCell = this.renderCell(
                     cell,
@@ -2452,7 +2452,7 @@ export class KupDataTable {
 
                 // Classes which will be set onto the single data-table cell
                 let cellClass = {
-                    'has-options': !!options,
+                    //    'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
@@ -2508,7 +2508,7 @@ export class KupDataTable {
                     <td data-column={name} style={cellStyle} class={cellClass}>
                         {indend}
                         {jsxCell}
-                        {options}
+                        {/* {options} */}
                     </td>
                 );
             });

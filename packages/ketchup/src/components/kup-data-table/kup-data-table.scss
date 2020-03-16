@@ -256,6 +256,10 @@ $fixed-row-class: fixed-row;
     z-index: $table-below-wrapper--z-index;
   }
 
+  .below-wrapper.custom-size {
+    overflow: unset;
+  }
+
   .below-wrapper:not(.custom-size) {
     overflow-x: auto;
   }

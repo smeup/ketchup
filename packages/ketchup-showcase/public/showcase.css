@@ -73,13 +73,14 @@ h3 {
 }
 
 .page-nav-element {
-  max-height: 22px;
-  margin-top: 8px;
+  color: var(--kup-text-color);
   display: block;
+  margin-top: 8px;
+  max-height: 22px;
   padding-left: 15px;
   padding-top: 7.5px;
   transition: all 0.2s ease-in;
-  color: var(--kup-text-color);
+  white-space: pre;
 }
 
 .page-nav-element.active {
