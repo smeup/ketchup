@@ -4,41 +4,22 @@
 
     <h3>Radio group with label</h3>
     <div>
-      <kup-fld :config.prop="fldConfig" :data.prop="fldData" class="all-columns" />
+      <kup-fld :config.prop="fldConfig" :data.prop="fldData" />
     </div>
 
     <h3>Radio group with label and initial value</h3>
     <div>
-      <kup-fld :config.prop="fldConfigInitialValue" :data.prop="fldData" />
+      <kup-fld :config.prop="fldConfig" :data.prop="fldDataPreChecked" />
     </div>
 
-    <h3>Change displayed field</h3>
-    <div class="example-container">
-      <kup-fld :config.prop="fldConfigDisplayedField" :data.prop="fldData" />
-      <div>
-        <h4>Select displayed field</h4>
-        <kup-combo
-          v-if="dataField[0]"
-          :items.prop="dataField"
-          :initial-value.prop="dataField[0]"
-          label="Select label position"
-          @ketchupComboSelected="onDisplayedFieldChange"
-        />
-      </div>
+    <h3>Radio group with label on the left</h3>
+    <div>
+      <kup-fld :config.prop="fldConfigLeadLbl" :data.prop="fldData"  />
     </div>
 
-    <h3>Change orientation: default horizontal</h3>
-    <div class="example-container">
-      <kup-fld :config.prop="fldConfigOrientation" :data.prop="fldData" />
-      <div>
-        <h4>Select displayed field</h4>
-        <kup-combo
-          :items.prop="directionValues"
-          :initial-value.prop="directionValues[0]"
-          label="Select label position"
-          @ketchupComboSelected="onDirectionChange"
-        />
-      </div>
+    <h3>Radio group disabled</h3>
+    <div>
+      <kup-fld :config.prop="fldConfigDis" :data.prop="fldDataPreChecked" />
     </div>
   </div>
 </template>
@@ -70,45 +51,35 @@ export default {
   mounted() {
     import('@/mock/fldData.ts')
       .then((data) => {
-        const { fldData, fldConfigFactory } = data;
-        this.fldData = fldData;
+        const { fldData, fldDataWupRadio, fldDataWupRadioPreChecked, fldConfigFactory } = data;
+        this.fldData = fldDataWupRadio;
+        this.fldDataPreChecked = fldDataWupRadioPreChecked;
         this.fldConfig = fldConfigFactory([
           {
             name: 'type',
             value: 'rad',
-          },
-          // Mandatory here
+          }
+        ]);
+        this.fldConfigLeadLbl = fldConfigFactory([
           {
-            name: 'valueField',
-            value: 'id',
-          },
-          {
-            name: 'valueField',
-            value: 'id',
+            name: 'type',
+            value: 'rad',
           },
           {
-            name: 'initialValue',
-            value: {},
+            name: 'leadingLabel',
+            value: 'true',
           },
         ]);
-        this.fldConfigInitialValue = {
-          ...this.fldConfig,
-          initialValue: {
-            value: 'ZAMCHI',
-            programs: 'Go',
-            id: 'sme006',
+        this.fldConfigDis = fldConfigFactory([
+          {
+            name: 'type',
+            value: 'rad',
           },
-        };
-        this.fldConfigDisplayedField = {
-          ...this.fldConfig,
-        };
-        this.fldConfigOrientation = {
-          ...this.fldConfig,
-          labelPos: 'top',
-          direction: 'vertical',
-          submitPos: 'top',
-        };
-        console.log(this.fldConfigOrientation);
+          {
+            name: 'disabled',
+            value: 'true',
+          }
+        ]);
       })
       .catch((err) => {
         console.log(err);

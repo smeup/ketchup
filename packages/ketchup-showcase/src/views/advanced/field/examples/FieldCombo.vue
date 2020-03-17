@@ -20,60 +20,16 @@
       <kup-fld :config.prop="fldConfig" :data.prop="fldData" />
     </div>
 
-    <h3>Change label position</h3>
-    <div class="example-container">
-      <kup-fld :config.prop="fldConfigPosition" :data.prop="fldData" />
-      <div>
-        <h4>Select label position</h4>
-        <kup-combo
-          :items.prop="labelPositions"
-          :initial-value.prop="labelPositions[0]"
-          label="Select label position"
-          @ketchupComboSelected="onPositionChange"
-        />
-      </div>
-    </div>
-
-    <h3>Change displayed field</h3>
-    <div class="example-container">
-      <kup-fld :config.prop="fldConfigDisplayedField" :data.prop="fldData" />
-      <div>
-        <h4>Select displayed field</h4>
-        <kup-combo
-          v-if="dataField[0]"
-          :items.prop="dataField"
-          :initial-value.prop="dataField[0]"
-          label="Select label position"
-          @ketchupComboSelected="onDisplayedFieldChange"
-        />
-      </div>
-    </div>
-
     <h3>With no initial value</h3>
     <div class="example-container">
-      <kup-fld :config.prop="fldConfigNoInitialValue" :data.prop="fldData" />
+      <kup-fld :config.prop="fldConfig" :data.prop="fldDataUnselected" />
     </div>
 
-    <!--h3>Marks combo as clearable</h3>
+    <h3>With separator</h3>
     <div class="example-container">
-      <kup-fld
-        :config.prop="fldConfigIsClearable"
-        :data.prop="fldData"
-      />
-    </div-->
+      <kup-fld :config.prop="fldConfig" :data.prop="fldDataSeparator" />
+    </div>    
 
-    <h3>Comparison between using portal mode or not</h3>
-    <div class="example-container hide-overflow">
-      <div>
-        <h4>With portal</h4>
-        <kup-fld :config.prop="fldConfig" :data.prop="fldData" />
-      </div>
-      <div>
-        <h4>Without</h4>
-        <kup-fld :config.prop="fldConfigNoPortal" :data.prop="fldData" />
-      </div>
-    </div>
-    <p>See portals for more details.</p>
   </div>
 </template>
 
@@ -84,40 +40,18 @@ export default {
     return {
       fldConfig: {},
       fldData: [],
-      fldConfigPosition: {},
-      fldConfigDisplayedField: {},
-      fldConfigNoInitialValue: {},
-      fldConfigIsClearable: {},
-      fldConfigNoPortal: {},
-      labelPositions: [{ id: 'left' }, { id: 'right' }, { id: 'top' }],
+      fldDataUnselected: [],
+      fldDataSeparator: [],
     };
   },
   mounted() {
     import('@/mock/fldData.ts')
       .then((data) => {
-        const { fldData, fldConfigFactory } = data;
-        this.fldData = fldData;
+        const { fldDataWupCombobox, fldDataWupComboboxUnselected, fldDataWupComboboxSeparator, fldConfigFactory } = data;
+        this.fldData = fldDataWupCombobox;
+        this.fldDataUnselected = fldDataWupComboboxUnselected;
+        this.fldDataSeparator = fldDataWupComboboxSeparator;
         this.fldConfig = fldConfigFactory();
-        this.fldConfigPosition = fldConfigFactory([{ labelPos: 'top' }]);
-        this.fldConfigDisplayedField = fldConfigFactory();
-        this.fldConfigNoInitialValue = fldConfigFactory([
-          {
-            name: 'initialValue',
-            value: {},
-          },
-        ]);
-        this.fldConfigIsClearable = fldConfigFactory([
-          {
-            name: 'isClearable',
-            value: true,
-          },
-        ]);
-        this.fldConfigNoPortal = fldConfigFactory([
-          {
-            name: 'usePortal',
-            value: false,
-          },
-        ]);
       })
       .catch((err) => {
         console.log(err);
@@ -135,18 +69,6 @@ export default {
     },
   },
   methods: {
-    onPositionChange(e) {
-      this.fldConfigPosition = {
-        ...this.fldConfigPosition,
-        labelPos: e.detail.value.id,
-      };
-    },
-    onDisplayedFieldChange(e) {
-      this.fldConfigDisplayedField = {
-        ...this.fldConfigDisplayedField,
-        displayedField: e.detail.value.id,
-      };
-    },
   },
 };
 </script>

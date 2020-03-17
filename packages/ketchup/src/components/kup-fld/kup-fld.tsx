@@ -241,33 +241,42 @@ export class KupFld {
          * JSX dynamic component notation
          * @see: https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
          */
-        let compPrefix = 'kup-';
+        let compPrefix = '';
         let type: string = '';
         let confObj: { [key: string]: any } = {};
+        let items2render = null;
+        let data2render = null;
+        let listData2render = null;
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 confObj.displayedField = 'value';
                 confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
-                type = 'combo';
+                compPrefix = 'wup-';
+                type = 'combobox';
+                //items2render=this.data;
+                listData2render = this.data;
                 break;
             case 'rad':
-                confObj.valueField = 'obj';
-                confObj.radioName = this.radioGeneratedName; // TODO this must be changed to use a proper data field
+                confObj.name = this.radioGeneratedName; // TODO this must be changed to use a proper data field
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
+                compPrefix = 'wup-';
                 type = 'radio';
+                data2render=this.data;
                 break;
             case 'itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                type = 'text-input';
+                compPrefix = 'wup-';
+                type = 'text-field';
+                items2render=this.data;
                 break;
-                /**/
             case 'fup':
+                    compPrefix = 'kup-';
                     type = 'upload';
-                    //TODO ???
-                   //TODO confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
+                    items2render=this.data;
+                    //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
                 type = 'vaadin-upload';
@@ -285,7 +294,9 @@ export class KupFld {
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
-                items={this.data}
+                items={items2render}
+                data={data2render}
+                listData={listData2render}
                 {...confObj}
                 {...this.propagate}
             />
