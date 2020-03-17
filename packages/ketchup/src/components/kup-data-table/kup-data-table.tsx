@@ -2201,8 +2201,8 @@ export class KupDataTable {
                 // adding 'grouping' cell
                 const grouplabelcell = (
                     <td colSpan={this.calculateColspan()}>
-                        {indent}
                         <span class="group-cell-content">
+                            {indent}
                             <span
                                 class={icon}
                                 role="button"
@@ -2247,8 +2247,8 @@ export class KupDataTable {
                 jsxRows.push(
                     <tr class="group" onClick={() => this.onRowExpand(row)}>
                         <td colSpan={this.calculateColspan()}>
-                            {indent}
                             <span class="group-cell-content">
+                                {indent}
                                 <span
                                     class={icon}
                                     role="button"
@@ -2442,6 +2442,7 @@ export class KupDataTable {
                 //}
 
                 const jsxCell = this.renderCell(
+                    indend,
                     cell,
                     row,
                     currentColumn,
@@ -2506,7 +2507,6 @@ export class KupDataTable {
 
                 return (
                     <td data-column={name} style={cellStyle} class={cellClass}>
-                        {indend}
                         {jsxCell}
                         {/* {options} */}
                     </td>
@@ -2565,6 +2565,7 @@ export class KupDataTable {
      * @param cellData.row - The row object to which the cell belongs.
      */
     private renderCell(
+        indend: any,
         cell: Cell,
         row: Row,
         column: Column,
@@ -2756,6 +2757,7 @@ export class KupDataTable {
 
         return (
             <span class={classObj} style={style}>
+                {indend}
                 {content}
             </span>
         );
