@@ -170,9 +170,19 @@ let basicRoutes = [
     component: () => import(`@/views/basic/icon/Icon.vue`),
   },
   {
+    path: `/list`,
+    name: 'list',
+    component: () => import(`@/views/basic/list/List.vue`),
+  },
+  {
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
+  },
+  {
+    path: `/combobox`,
+    name: 'combobox',
+    component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
     path: `/spinner`,

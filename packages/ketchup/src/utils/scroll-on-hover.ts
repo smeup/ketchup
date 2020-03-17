@@ -6,6 +6,26 @@
 //
 
 export class scrollOnHover {
+    scrollOnHoverDisable(el: HTMLElement) {
+        if (!el) {
+            return;
+        }
+        el.classList.remove('hover-scrolling-el');
+        el.parentElement.classList.remove('hover-scrolling-parent');
+        el.removeEventListener('scroll', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('click', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('mousemove', (event: MouseEvent) =>
+            this.handleScroll(event)
+        );
+        el.removeEventListener('mouseleave', (event: MouseEvent) =>
+            this.killScroll(event)
+        );
+    }
+
     setupArrows() {
         let arrowsContainer: HTMLElement = document.createElement('div');
         arrowsContainer.setAttribute('id', 'container-scrolling-arrow');
@@ -33,6 +53,9 @@ export class scrollOnHover {
     }
 
     scrollOnHoverSetup(el: HTMLElement) {
+        if (!el) {
+            return;
+        }
         let arrows = this.setupArrows();
         el.classList.add('hover-scrolling-el');
         el.parentElement.classList.add('hover-scrolling-parent');
@@ -56,6 +79,9 @@ export class scrollOnHover {
     }
 
     async setCoordinates(event: any, el: any) {
+        if (!el) {
+            return;
+        }
         let arrowContainer = el.querySelector('#container-scrolling-arrow');
         el['clientRect'] = el.getBoundingClientRect();
         el['scrollOnHoverX'] = event.clientX;
@@ -65,9 +91,14 @@ export class scrollOnHover {
     }
 
     async handleScroll(event: any) {
-        let el = event.target
-            .closest('.hover-scrolling-parent')
-            .querySelector('.hover-scrolling-el');
+        let parentEl = event.target.closest('.hover-scrolling-parent');
+        if (!parentEl) {
+            return;
+        }
+        let el = parentEl.querySelector('.hover-scrolling-el');
+        if (!el) {
+            return;
+        }
         this.setCoordinates(event, el);
         if (el['scrollTimeout'] !== 'off') {
             return;
@@ -137,6 +168,9 @@ export class scrollOnHover {
         percLeft: number,
         direction: string
     ) {
+        if (!el) {
+            return;
+        }
         let elOffset = el.scrollOnHoverX - el.clientRect.left;
         if (
             el.scrollTimeout === 'off' ||
@@ -164,13 +198,13 @@ export class scrollOnHover {
                 this.killScroll(el);
                 return;
             }
-            step = step - parseInt('3', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            step = step - parseInt('10', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         } else {
             if (step === maxScrollLeft) {
                 this.killScroll(el);
                 return;
             }
-            step = step + parseInt('3', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            step = step + parseInt('10', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         }
         el.scrollLeft = step;
         setTimeout(() => {
@@ -186,6 +220,9 @@ export class scrollOnHover {
     }
 
     setChildrenScroll(el: any) {
+        if (!el) {
+            return;
+        }
         let step = el.scrollLeft;
         let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
         if (childrenToScroll) {
@@ -196,6 +233,9 @@ export class scrollOnHover {
     }
 
     async killScroll(el: any) {
+        if (!el) {
+            return;
+        }
         el['scrollTimeout'] = 'off';
         clearTimeout(el.scrollTimeout);
         var leftArrow = el.querySelectorAll(

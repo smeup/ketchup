@@ -1,4 +1,4 @@
-import {Cell, Column, Row, TableData,} from "../../../src/components/kup-data-table/kup-data-table-declarations";
+import {Cell, Column, Row, DataTable,} from "../../../src/components/kup-data-table/kup-data-table-declarations";
 
 const fld1Values = ['DELGIO', 'CASFRA', 'PARFRA', 'FIOGIA', 'ZAMCHI'];
 
@@ -33,7 +33,7 @@ function cellFactory(value: string, t: string = 'nr', p: string = '', k: string 
  * @param numberOfRows - The number of rows to generate.
  * @returns The data to set to the table.
  */
-export function LongTextDataFactory(numberOfCols: number = 4, numberOfRows: number = 20): TableData {
+export function LongTextDataFactory(numberOfCols: number = 4, numberOfRows: number = 20): DataTable {
   const longText = "Column's width defined by the matrix setup";
   let i = 0;
 
@@ -65,8 +65,8 @@ export function LongTextDataFactory(numberOfCols: number = 4, numberOfRows: numb
 }
 
 
-function createData(colSize: number, rowSize: number) {
-  const columns: any = [];
+export function createData(colSize: number, rowSize: number): DataTable {
+  const columns: Column[] = [];
   for (let i = 0; i < colSize; i++) {
     columns.push({
       name: 'FLD' + i,
@@ -75,7 +75,7 @@ function createData(colSize: number, rowSize: number) {
     });
   }
 
-  const rows = [];
+  const rows: Row[] = [];
   for (let i = 0; i < rowSize; i++) {
     const currentRow: {
       cells: any;
@@ -334,6 +334,49 @@ export const hiddenColumns = {
     },
   ],
 };
+
+export interface ColumnsWithLineBreaksGenerator {
+    colIndex: number,
+    breaksCount: number
+}
+
+export function DataWithHeaderLineBreaksFactory(
+    tableSize: {
+        colSize: number,
+        rowSize: number
+    },
+    columnWithLineBreakIndexes: ColumnsWithLineBreaksGenerator[] = [
+        {colIndex: 0, breaksCount: 1},
+        {colIndex: 1, breaksCount: 2}
+    ],
+    lineBreakPlaceholder = '|'
+)  {
+    const tableData: DataTable = createData(tableSize.colSize, tableSize.rowSize);
+    const randomTitleWords = [
+        'very',
+        'title',
+        'such',
+        'short',
+        'Lord',
+        'of the',
+        'rings',
+        'Blackflame',
+        'Friede'
+    ];
+
+    let currentCol;
+    for (let i = 0; i < columnWithLineBreakIndexes.length; i++) {
+        currentCol = tableData.columns![columnWithLineBreakIndexes[i].colIndex];
+        if (currentCol) {
+            for (let j = 0; j < columnWithLineBreakIndexes[i].breaksCount; j++) {
+                currentCol.title += lineBreakPlaceholder + randomTitleWords[Math.floor(Math.random() * randomTitleWords.length)];
+            }
+        }
+    }
+
+    return tableData;
+}
+
 
 const msMockData = {...staticData};
 msMockData.rows = [
@@ -881,7 +924,7 @@ export const groupingData = GroupingDataFactory();
 
 // Builds the data for the data table when equal values must not be displayed.
 // Placed here a forced type to allow a correct usage later
-let dataTableHideRepetitions = (GroupingDataFactory() as TableData);
+let dataTableHideRepetitions = (GroupingDataFactory() as DataTable);
 
 // @ts-ignore
 dataTableHideRepetitions.columns.forEach(column => {

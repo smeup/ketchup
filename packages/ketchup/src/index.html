@@ -82,9 +82,6 @@
         </style>
     </head>
     <body>
-        <div style="margin: auto; display: block; height: 20vh; width: 100vh;">
-           <kup-spinner layout="14" active></kup-spinner>
-        </div>
         <div id="theme-tester">
             <wup-switch leading-label label="Theme tester" id="theme-switch"></wup-switch>
         </div>
@@ -296,6 +293,15 @@
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
         <wup-chip type="filter"></wup-chip>
         
+        <h4>Material ListBox (widget)</h4>
+        <wup-list is-filterable="false" selectable="false" list-id="pippo1"></wup-list>
+        <wup-list is-filterable="false" selectable="true" list-id="pippo2"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="radiogroup" list-id="pippo3"></wup-list>
+        <wup-list is-filterable="false" selectable="true" role-type="group" list-id="pippo4"></wup-list>
+
+        <h4>Material Select (widget)</h4>
+        <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
+
         <h4>Events testing</h4>
         <wup-tab-bar id="event-tabbar"></wup-tab-bar>
         <wup-text-field id="event-textfield" label="I am a label"></wup-text-field>
@@ -613,6 +619,8 @@ chipList.data = [
                 let listBox1 = document.getElementsByTagName('wup-list')[0];
                 let listBox2 = document.getElementsByTagName('wup-list')[1];
                 let listBox3 = document.getElementsByTagName('wup-list')[2];
+                let listBox4 = document.getElementsByTagName('wup-list')[3];
+
 
                 let itemsForListBox = [
                     {
@@ -644,12 +652,14 @@ chipList.data = [
                     },
                 ];
 
-            listBox1.items = itemsForListBox;
-            listBox2.items = itemsForListBox;
-            listBox3.items = itemsForListBox;
+            listBox1.data = [...itemsForListBox];
+            listBox2.data = [...itemsForListBox];
+            listBox3.data = [...itemsForListBox];
+            listBox4.data = [...itemsForListBox];
 
-            let comboBox1 = document.getElementsByTagName('wup-combo')[0];
-            comboBox1.items = itemsForListBox;
+            let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
+            selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];
+            selectBox1.listData = [{prop: "data", value: itemsForListBox}, {prop: "selectable", value: "one-select"}, {prop: "listId" , value: "LISTA"}];
 
             let once = true;
             // This is a script for testing these elements

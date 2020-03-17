@@ -15,8 +15,10 @@ const columnData = {
     }
 };
 
+let draggableItems, page;
+
 describe('data-table with sort column enabled', () => {
-    let draggableItems, page;
+
 
     beforeEach(async () => {
         page = await newE2EPage();
@@ -40,14 +42,13 @@ describe('data-table with sort column enabled', () => {
         await page.setContent('<kup-data-table enable-sortable-columns></kup-data-table>');
 
         const table = await page.find('kup-data-table');
-        table.setProperty('data', staticData);
+        await table.setProperty('data', staticData);
 
         await page.waitForChanges();
 
         draggableItems = await page.findAll('kup-data-table >>> thead [draggable]');
 
         const dragStartListener = page.spyOnEvent('dragstart');
-        console.log(dragStartListener);
         expect(dragStartListener).toHaveLength(1);
     }, 30000);
 });

@@ -1,6 +1,13 @@
+import { Badge } from '../kup-image/kup-image-declarations';
+
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
+}
+
+export interface CellConfig {
+    badges?: Badge[];
+    [index: string]: any;
 }
 
 export interface Cell {
@@ -13,7 +20,7 @@ export interface Cell {
     style?: GenericMap;
     options?: boolean;
     shape?: string;
-    config?: any;
+    config?: CellConfig;
 }
 
 export interface CellsHolder {
@@ -125,7 +132,7 @@ export interface KupDataTableCellButtonClick {
     row: Row;
 }
 
-//---- *NEXT functionalit AKA load more ----
+//---- *NEXT functionality AKA load more ----
 export enum LoadMoreMode {
     CONSTANT = 'constant',
     CONSTANT_INCREMENT = 'constant_increment',
@@ -140,7 +147,7 @@ export interface KupDataTableSortedColumnIndexes {
     sortedColumnIndex: number;
 }
 
-//---- Sortable Columns Functionality ----
+//---- Group label display functionality ----
 /**
  * The possible values the display property can have.
  * @enum
@@ -154,3 +161,14 @@ export enum GroupLabelDisplayMode {
     LABEL = 'label',
     VALUE = 'value',
 }
+
+//---- Fixed rows and cells classes ----
+export const FixedCellsClasses = {
+    columns: 'fixed-column',
+    rows: 'fixed-row'
+};
+
+export const FixedCellsCSSVarsBase = {
+  columns: '--ddt_column-left-',
+  rows: '--ddt_row-top-'
+};

@@ -1,6 +1,12 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-import { staticData, hiddenColumns, cellStyleDataTable } from './mocked-data';
+import {
+    staticData,
+    hiddenColumns,
+    cellStyleDataTable,
+    DataWithHeaderLineBreaksFactory,
+    ColumnsWithLineBreaksGenerator,
+} from './mocked-data';
 import { cellsSelector } from './data-table-selectors';
 
 const globalFilterSelector = 'kup-data-table >>> .globalFilter';
@@ -146,13 +152,13 @@ describe('kup-data-table', () => {
         for (let i = 0; i < firstRowCells.length; i++) {
             const cell = firstRowCells[i];
 
-            const rightClick = await cell.findAll('.options');
+            //    const rightClick = await cell.findAll('.options');
 
-            if (i === 0) {
-                expect(rightClick).toHaveLength(1);
-            } else {
-                expect(rightClick).toHaveLength(0);
-            }
+            //    if (i === 0) {
+            //        expect(rightClick).toHaveLength(1);
+            //    } else {
+            //        expect(rightClick).toHaveLength(0);
+            //    }
         }
     });
 
@@ -196,5 +202,82 @@ describe('kup-data-table', () => {
 
         expect(contentStyle.borderRadius).toBe('50px');
         expect(contentStyle.padding).toBe('3px');
+    });
+
+    describe.each([
+        ['the default separator', '|'],
+        ['a custom line separator', '-'],
+    ])('can insert line breaks by using %s inside', function(
+        description,
+        separator
+    ) {
+        let dataWithLineBreaksHeader,
+            columnsWithLineBreaks: ColumnsWithLineBreaksGenerator[];
+        let page, tableElement;
+
+        beforeAll(() => {
+            columnsWithLineBreaks = [
+                {
+                    colIndex: 1,
+                    breaksCount: 3,
+                },
+                {
+                    colIndex: 3,
+                    breaksCount: 2,
+                },
+            ];
+
+            dataWithLineBreaksHeader = DataWithHeaderLineBreaksFactory(
+                {
+                    colSize: 7,
+                    rowSize: 10,
+                },
+                columnsWithLineBreaks,
+                separator
+            );
+        });
+
+        beforeEach(async () => {
+            page = await newE2EPage();
+            await page.setContent('<kup-data-table></kup-data-table>');
+            tableElement = await page.find('kup-data-table');
+            await tableElement.setProperty('data', dataWithLineBreaksHeader);
+            await tableElement.setProperty('lineBreakCharacter', separator);
+            await page.waitForChanges();
+        });
+
+        it.each([
+            ['thead', 'thead > tr > th'],
+            ['sticky', 'thead-sticky > tr-sticky > th-sticky'],
+        ])('the %s header', async (label, selector) => {
+            for (let i = 0; i < columnsWithLineBreaks.length; i++) {
+                const tableHeaderCellTitle = await page.find(
+                    `kup-data-table >>> ${selector}:nth-of-type(${columnsWithLineBreaks[
+                        i
+                    ].colIndex + 1}) .column-title`
+                );
+                let textNodes = 0;
+                let breakNodes = 0;
+
+                // console.log(tableHeaderCellTitle);
+                for (let node of tableHeaderCellTitle.childNodes) {
+                    // For node types
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+                    if (node.nodeType === 3) {
+                        // Text node
+                        textNodes++;
+                    } else if (node.nodeType === 1 && node.tagName === 'BR') {
+                        breakNodes++;
+                    }
+                }
+
+                expect(breakNodes).toEqual(
+                    columnsWithLineBreaks[i].breaksCount
+                );
+                expect(textNodes).toEqual(
+                    columnsWithLineBreaks[i].breaksCount + 1
+                );
+            }
+        });
     });
 });

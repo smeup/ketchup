@@ -28,6 +28,7 @@
 * @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
 * @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
 * @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
+* @prop --dtt_table-wrapper-height, --kup-data-table_table-wrapper-height: The height of the table inside the data table.
 */
 
 :host {
@@ -112,16 +113,154 @@
     transparent
   );
 
+  --dtt_table-wrapper-height: var(--kup-data-table_table-wrapper-height, auto);
+
   position: relative;
   z-index: 0;
 }
 
+//-------- Fixed columns and rows declarations --------
+/*
+* Section comments declarations.
+* [fcr-ff] - This is a workaround necessary to support correctly the Firefox browser,
+*
+*/
+
+// The z-index of the data table main wrapper.
+$table-below-wrapper--z-index: 0;
+// z-indexes to allow correct layering of different pieces of fixed and sticky positioning
+// These values must be decreasing order
+$sticky-header--z-index: 10;
+$sticky-cell--row-column-z-index: 8;
+$sticky-cell--column-z-index: 6;
+$sticky-cell--row-z-index: 4;
+
+// Base style for the cells which are sticky
+%fixedCellsBase {
+  background-color: var(--dtt_background-color);
+  position: sticky;
+
+  &:hover {
+    background-color: var(--dtt_hover-background-color);
+  }
+
+  // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
+  thead &,
+  sticky-header & {
+    background-color: var(--dtt_head-background-color);
+    z-index: #{$sticky-header--z-index};
+
+    &:hover {
+      background-color: var(--dtt_head-background-color);
+    }
+  }
+}
+
+//-- Fixed cells (rows and columns) --
+$fixed-row-class: fixed-row;
+
+@mixin fixedRowSeparator($bottom-position) {
+  bottom: $bottom-position;
+  border-bottom: 1px solid var(--dtt_border-color);
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: auto;
+  z-index: 1;
+}
+
+@mixin fixedColumnSeparator($right-position) {
+  bottom: 0;
+  border-right: 1px solid var(--dtt_border-color);
+  content: '';
+  height: auto;
+  position: absolute;
+  right: $right-position;
+  top: 0;
+  width: 0;
+  z-index: 1;
+}
+
+// For a fixed row
+.#{$fixed-row-class} {
+  @extend %fixedCellsBase;
+  top: 0;
+  z-index: $sticky-cell--row-z-index;
+
+  // When the cell must keep its border
+  thead &::after,
+  &.show-row-separator::after {
+    @include fixedRowSeparator(-1px);
+  }
+
+  // @see [fcr-ff]
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(
+        0
+      ); // marked as !important otherwise the previous declaration will take precedence
+    }
+  }
+}
+
+// For a fixed column
+// MUST be after to take precedence
+.fixed-column {
+  @extend %fixedCellsBase;
+  left: 0;
+  z-index: $sticky-cell--column-z-index; // Must be higher than row
+
+  // When the cell must keep its border
+  &.show-column-separator::before {
+    @include fixedColumnSeparator(-1px);
+  }
+
+  // This is a small fix for Firefox since it has a strange bug which "compresses" the content of the sticky cells
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(0);
+    }
+
+    .row-separation &:not(.#{$fixed-row-class})::after {
+      bottom: -1px;
+    }
+  }
+
+  // When there is both the column and the row fixed
+  &.#{$fixed-row-class} {
+    z-index: $sticky-cell--row-column-z-index; // Must be higher than column
+  }
+}
+
+//-------- TABLE WRAPPER --------
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
+
   .below-wrapper {
+    height: var(--dtt_table-wrapper-height);
+    overflow: auto;
+    position: relative;
+    z-index: $table-below-wrapper--z-index;
+  }
+
+  .below-wrapper.custom-size {
+    overflow: unset;
+  }
+
+  .below-wrapper:not(.custom-size) {
     overflow-x: auto;
   }
 
@@ -168,22 +307,58 @@
       width: 0; // [mandatory] See [1] [2]
     }
 
+    &.custom-size th {
+      position: sticky;
+      top: 0;
+    }
+
     > thead {
       background: var(--dtt_head-background-color);
 
+      // Table header styles
       th {
         background: var(--dtt_head-background-color);
         border-bottom: 2px solid var(--dtt_border-color);
         border-right: 1px solid var(--dtt_border-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
-        position: relative;
+        position: sticky; // This is used for sticky positioning the header when table is short
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
-        top: 0;
+        top: 0; // This is mandatory for the sticky
         // Enforce consistent vertical alignment with sibiling header cells
         //  when filter field or sort/filter icons are present.
         vertical-align: bottom;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
+
+        // The after for the rows separator element fallback for Firefox and sticky rows
+        &::after {
+          @include fixedRowSeparator(0);
+          border-bottom: 2px solid var(--dtt_border-color);
+          bottom: -2px;
+        }
+
+        // The before for the columns separator element fallback for Firefox and sticky columns
+        &::before {
+          @include fixedColumnSeparator(0);
+          right: -1px;
+        }
+
+        // On Firefox, things changes
+        @supports (-moz-appearance: none) {
+          // Remove the border bottom, because it causes too much trouble
+          border-bottom: 0;
+
+          // The row separator:
+          &::after {
+            bottom: 0; // Is slightly placed to the bottom
+            left: -1px; // gets slightly bigger to cover the absence of a border-right
+          }
+
+          // The column separator
+          &::before {
+            content: none; // Is not rendered on firefox because it does not render right-border on thead.
+          }
+        }
 
         //---- Column name container ----
         $column-sort-margin: 0.5rem;
@@ -209,6 +384,14 @@
         }
 
         //---- Sort and remove-filter icons ----
+        // Base for an header cell
+        &.header-cell {
+          // When column is sortable
+          &--sortable {
+            cursor: pointer;
+          }
+        }
+
         .column-sort {
           cursor: pointer;
           margin-left: $column-sort-margin;
@@ -315,6 +498,7 @@
       }
     }
 
+    //-------- data-table main body --------
     > tbody {
       border: 1px solid var(--dtt_border-color);
       cursor: auto;
@@ -492,6 +676,7 @@
         &.activated {
           opacity: 1;
           pointer-events: all;
+          z-index: $sticky-header--z-index;
         }
 
         &[hidden] {
@@ -518,6 +703,7 @@
           white-space: nowrap;
         }
 
+        // The element holding the icon for the sort
         .column-sort {
           cursor: pointer;
 

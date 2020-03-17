@@ -1,0 +1,36 @@
+@import '@material/menu/mdc-menu';
+@import '@material/menu-surface/mdc-menu-surface';
+
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    & wup-list {
+      animation: fadeInFromNone 0.25s ease-out;
+      max-height: 40vh;
+      transition: height 0.2s;
+
+      &.visible {
+        display: block;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}

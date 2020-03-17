@@ -123,9 +123,16 @@
           display: grid;
         }
 
+        // Since the small rework of the kup-image, using flex to specify orientation is no longer necessary.
+        // We simply use the margin trick which is much more neat and simple.
         &.center-aligned {
           text-align: center;
-          kup-image,
+
+          kup-image {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
           kup-checkbox,
           kup-icon {
             justify-content: center;
@@ -134,7 +141,12 @@
 
         &.left-aligned {
           text-align: left;
-          kup-image,
+
+          kup-image {
+            margin-left: 0;
+            margin-right: auto;
+          }
+
           kup-checkbox,
           kup-icon {
             justify-content: flex-start;
@@ -143,7 +155,12 @@
 
         &.right-aligned {
           text-align: right;
-          kup-image,
+
+          kup-image {
+            margin-left: auto;
+            margin-right: 0;
+          }
+
           kup-checkbox,
           kup-icon {
             justify-content: flex-end;
@@ -152,7 +169,8 @@
 
         .box-object {
           padding: 1px 4px;
-          kup-image,
+
+          kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
           kup-checkbox,
           kup-icon {
             display: flex;

@@ -14,7 +14,11 @@ export function positionRecalc(el: HTMLElement, anchorEl: HTMLElement) {
         let offsetW: number = el.clientWidth;
         let margin: number = 0;
         const rect = anchorEl.getBoundingClientRect();
-        el.removeAttribute('style');
+
+        el.style.top = ``;
+        el.style.right = ``;
+        el.style.bottom = ``;
+        el.style.left = ``;
 
         if (window.innerHeight - rect.bottom < offsetH) {
             el.style.bottom = `${window.innerHeight - rect.top + margin}px`;

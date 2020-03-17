@@ -706,12 +706,13 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     const obj1 = cell1.obj;
     const obj2 = cell2.obj;
 
+    // If either the type or the parameter of the current object are not equal.
     if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
-        let compare = obj1.t.localeCompare(obj2.t);
+        let compare = localCompareAsInJava(obj1.t, obj2.t);
         if (compare === 0) {
-            compare = obj1.p.localeCompare(obj2.p);
+            compare = localCompareAsInJava(obj1.p, obj2.p);
         }
-        return compare;
+        return compare * sm;
     }
 
     // number
@@ -723,11 +724,7 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
             return 0;
         }
 
-        if (n1 > n2) {
-            return sm * 1;
-        } else {
-            return sm * -1;
-        }
+        return sm * (n1 > n2 ? 1 : -1);
     }
 
     // date
@@ -743,7 +740,7 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
             m2 = moment(obj2.k, 'DDMMYYYY');
         } else {
             // no valid format -> check via k
-            return obj1.k.localeCompare(obj2.k);
+            return sm * localCompareAsInJava(obj1.k, obj2.k);
         }
 
         if (m1.isSame(m2)) {
@@ -757,12 +754,42 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         }
     }
 
-    // sort by cell value
-    let value1 = cell1.value;
-    let value2 = cell2.value;
+    return sm * ((obj1.k && obj2.k) ?
+        localCompareAsInJava(obj1.k, obj2.k) : // If there is k set sort by it
+        localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
+    );
 
-    return sm * value1.localeCompare(value2);
 }
+
+/**
+ * Given two strings to compare, the functions decides which string comes before the other or if they are equal.
+ * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
+ * the Java version of compareTo().
+ *
+ * This function has been taken from the link below, but it is slightly improved.
+ * @param t1
+ * @param t2
+ * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
+ */
+function localCompareAsInJava(t1: string, t2: string): number {
+    const lim = Math.min(t1.length, t2.length);
+
+    let k = 0;
+    while (k < lim) {
+        const c1 = t1[k];
+        const c2 = t2[k];
+        if (c1 !== c2) {
+            if (c1.charCodeAt(0) === 32) {
+                return c1.charCodeAt(0) + c2.charCodeAt(0);
+            } else {
+                return c1.charCodeAt(0) - c2.charCodeAt(0);
+            }
+        }
+        k++;
+    }
+    return t1.length - t2.length;
+}
+
 
 function adjustGroupId(row: Row): void {
     if (!row.group) {

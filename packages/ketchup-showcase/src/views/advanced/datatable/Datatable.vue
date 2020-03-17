@@ -25,40 +25,46 @@
       <datatable-groups></datatable-groups>
     </template>
     <template v-slot:8>
-      <datatable-j4btn></datatable-j4btn>
+      <datatable-fixed-columns-rows/>
     </template>
     <template v-slot:9>
-      <datatable-pagination></datatable-pagination>
+      <datatable-j4btn></datatable-j4btn>
     </template>
     <template v-slot:10>
-      <datatable-progressbar></datatable-progressbar>
+      <datatable-pagination></datatable-pagination>
     </template>
     <template v-slot:11>
-      <datatable-radio></datatable-radio>
+      <datatable-progressbar></datatable-progressbar>
     </template>
     <template v-slot:12>
-      <datatable-row-actions></datatable-row-actions>
+      <datatable-radio></datatable-radio>
     </template>
     <template v-slot:13>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:14>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:15>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:16>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:17>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:18>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:19>
+      <datatable-total></datatable-total>
+    </template>
+    <template v-slot:20>
       <datatable-j4ico></datatable-j4ico>
+    </template>
+    <template v-slot:20>
+      <datatable-images-and-badges/>
     </template>
   </comp>
 </template>
@@ -71,7 +77,9 @@ import DatatableColumnsWidth from '@/views/advanced/datatable/examples/Datatable
 import DatatableFilters from '@/views/advanced/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/advanced/datatable/examples/DatatableGraphicCell';
 import DatatableChartCell from '@/views/advanced/datatable/examples/DatatableChartCell';
+import DatatableFixedColumnsRows from '@/views/advanced/datatable/examples/DatatableFixedColumnsRows';
 import DatatableGroups from '@/views/advanced/datatable/examples/DatatableGroups';
+import DatatableImagesAndBadges from '@/views/advanced/datatable/examples/DatatableImagesAndBadges';
 import DatatableJ4btn from '@/views/advanced/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/advanced/datatable/examples/DatatableJ4ico';
 import DatatablePagination from '@/views/advanced/datatable/examples/DatatablePagination';
@@ -95,7 +103,9 @@ export default {
     DatatableFilters,
     DatatableGraphicCell,
     DatatableChartCell,
+    DatatableFixedColumnsRows,
     DatatableGroups,
+    DatatableImagesAndBadges,
     DatatableJ4btn,
     DatatablePagination,
     DatatableProgressbar,
@@ -124,6 +134,7 @@ export default {
         'Graphic cells',
         'Chart cells',
         'Groups',
+        'With Fixed columns and rows',
         'With J4BTN',
         'Pagination',
         'With progress bar',
@@ -136,6 +147,7 @@ export default {
         'With tooltip',
         'With totals',
         'With J4Ico',
+        'Images and badges'
       ],
     };
   },

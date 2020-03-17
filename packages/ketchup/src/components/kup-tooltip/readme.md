@@ -20,6 +20,8 @@
 | Event                     | Description | Type                                             |
 | ------------------------- | ----------- | ------------------------------------------------ |
 | `kupActionCommandClicked` |             | `CustomEvent<{ actionCommand: TooltipAction; }>` |
+| `kupDefaultActionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`           |
+| `kupDefaultOptionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`           |
 | `kupTooltipLoadData`      |             | `CustomEvent<any>`                               |
 | `kupTooltipLoadDetail`    |             | `CustomEvent<any>`                               |
 

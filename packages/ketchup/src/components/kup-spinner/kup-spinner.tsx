@@ -1,5 +1,4 @@
 import { Component, Prop, Element, Host, h } from '@stencil/core';
-import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-spinner',
@@ -55,8 +54,6 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentDidUpdate() {
-        let message = 'Updating...';
-        errorLogging('kup-spinner', message);
         const root = this.rootElement.shadowRoot;
         if (root) {
             root.querySelector('#loading-wrapper-master').classList.remove(
@@ -65,14 +62,7 @@ export class KupSpinner {
         }
     }
 
-    componentWillRender() {
-        let message = 'Rendering...';
-        errorLogging('kup-spinner', message);
-    }
-
     componentDidRender() {
-        let message = 'Rendered...';
-        errorLogging('kup-spinner', message);
         const root = this.rootElement.shadowRoot;
 
         if (root) {
