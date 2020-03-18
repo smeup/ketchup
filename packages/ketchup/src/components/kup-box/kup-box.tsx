@@ -4,6 +4,7 @@ import {
     Component,
     Event,
     Prop,
+    Host,
     State,
     Watch,
     EventEmitter,
@@ -33,7 +34,7 @@ import {
     isPassword,
     isIcon,
     isChart,
-    isCheckbox
+    isCheckbox,
 } from '../../utils/object-utils';
 
 import {
@@ -67,10 +68,58 @@ import { KupImage } from '../kup-image/kup-image';
 })
 export class KupBox {
     @Element() el: HTMLElement;
+
+    /**
+     * Number of columns
+     */
+    @Prop({ reflect: true }) columns = 1;
+
+    /**
+     * Alignment of the content. Can be set to left, right or center.
+     */
+    @Prop({ reflect: true })
+    contentAlign: string = 'center';
+
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+
     /**
      * Data
      */
     @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
+
+    /**
+     * Enable dragging
+     */
+    @Prop({ reflect: true })
+    dragEnabled = false;
+
+    /**
+     * Enable dropping
+     */
+    @Prop({ reflect: true })
+    dropEnabled = false;
+
+    /**
+     * Drop can be done in section
+     */
+    @Prop({ reflect: true })
+    dropOnSection: false;
+
+    /**
+     * If enabled, a button to load / display the row actions
+     * will be displayed on the right of every box
+     */
+    @Prop({ reflect: true })
+    enableRowActions = false;
+
+    /**
+     * Enable filtering
+     */
+    @Prop({ reflect: true })
+    filterEnabled = false;
 
     /**
      * How the field will be displayed. If not present, a default one will be created.
@@ -78,58 +127,22 @@ export class KupBox {
     @Prop() layout: Layout;
 
     /**
-     * Number of columns
-     */
-    @Prop() columns = 1;
-
-    /**
-     * Enable sorting
-     */
-    @Prop()
-    sortEnabled = false;
-
-    /**
-     * If sorting is enabled, specifies which column to sort
-     */
-    @Prop({ mutable: true })
-    sortBy: string;
-
-    /**
-     * Enable filtering
-     */
-    @Prop()
-    filterEnabled = false;
-
-    /**
      * Enable multi selection
      */
-    @Prop()
+    @Prop({ reflect: true })
     multiSelection = false;
 
     /**
-     * Automatically selects the box at the specified index
-     */
-    @Prop()
-    selectBox: number;
-
-    /**
-     * If enabled, highlights the selected box/boxes
-     */
-    @Prop()
-    showSelection = true;
-
-    /**
-     * If enabled, a button to load / display the row actions
-     * will be displayed on the right of every box
-     */
-    @Prop()
-    enableRowActions = false;
-
-    /**
-     * Enables pagination
+     * Removes border
      */
     @Prop({ reflect: true })
-    pagination = false;
+    noBorder: boolean = false;
+
+    /**
+     * Removes padding
+     */
+    @Prop({ reflect: true })
+    noPadding: boolean = false;
 
     /**
      * Number of boxes per page
@@ -138,22 +151,34 @@ export class KupBox {
     pageSize = 10;
 
     /**
-     * Enable dragging
+     * Enables pagination
      */
-    @Prop()
-    dragEnabled = false;
+    @Prop({ reflect: true })
+    pagination = false;
 
     /**
-     * Enable dropping
+     * Automatically selects the box at the specified index
      */
-    @Prop()
-    dropEnabled = false;
+    @Prop({ reflect: true })
+    selectBox: number;
 
     /**
-     * Drop can be done in section
+     * If enabled, highlights the selected box/boxes
      */
-    @Prop()
-    dropOnSection: false;
+    @Prop({ reflect: true })
+    showSelection = true;
+
+    /**
+     * If sorting is enabled, specifies which column to sort
+     */
+    @Prop({ mutable: true, reflect: true })
+    sortBy: string;
+
+    /**
+     * Enable sorting
+     */
+    @Prop({ reflect: true })
+    sortEnabled = false;
 
     @State()
     private globalFilterValue = '';
@@ -1064,7 +1089,7 @@ export class KupBox {
         const isGrid = !!section.columns;
 
         const sectionClass: { [index: string]: boolean } = {
-            'box-section center-aligned': true, //TODO: Manage 'center-aligned' as prop to give the chance to use 'left-aligned' or 'right-aligned' when needed
+            'box-section': true,
             open: sectionExpanded,
             column: !isGrid && !section.horizontal,
             grid: isGrid,
@@ -1268,31 +1293,28 @@ export class KupBox {
                         value: cell.value,
                         cellConfig: cell.config,
                     };
-        
+
                     // check if column has width
-                    const height: number = Number(getFromConfig(cell, boxObject, 'height'));
-                    const width: number = Number(getFromConfig(cell, boxObject, 'width'));
+                    const height: number = Number(
+                        getFromConfig(cell, boxObject, 'height')
+                    );
+                    const width: number = Number(
+                        getFromConfig(cell, boxObject, 'width')
+                    );
                     if (height > 0) {
                         props.height = height;
                     }
                     if (width > 0) {
                         props.width = width;
                     }
-        
-                    boContent = (
-                        <kup-chart-cell {...props} />
-                    );
+
+                    boContent = <kup-chart-cell {...props} />;
                 } else if (isIcon(cell.obj)) {
                     boContent = (
                         <kup-icon {...buildIconConfig(cell, cell.value)} />
                     );
                 } else if (isEditor(cell, boxObject)) {
-                    boContent = (
-                        <kup-editor
-                            text={cell.value}
-                        ></kup-editor>
-                    );
-
+                    boContent = <kup-editor text={cell.value}></kup-editor>;
                 } else {
                     boContent = cell.value;
                 }
@@ -1314,6 +1336,20 @@ export class KupBox {
     }
 
     render() {
+        let wrapperClass = this.contentAlign + '-aligned';
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.noBorder) {
+            wrapperClass += ' no-border';
+        }
+
+        if (this.noPadding) {
+            wrapperClass += ' no-padding';
+        }
+
         let sortPanel = null;
         if (this.sortEnabled) {
             let initialValue = { value: '', id: '' };
@@ -1407,34 +1443,39 @@ export class KupBox {
         };
 
         return (
-            <div
-                class="box-component"
-                onDragOver={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDragOver(e)
-                        : null
-                }
-                onDragLeave={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDragLeave(e)
-                        : null
-                }
-                onDrop={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDrop(e)
-                        : null
-                }
-            >
-                {sortPanel}
-                {filterPanel}
-                {paginator}
-                <div id="box-container" style={containerStyle}>
-                    {boxContent}
+            <Host>
+                {customStyle}
+                <div id="kup-component" class={wrapperClass}>
+                    <div
+                        class="box-component"
+                        onDragOver={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDragOver(e)
+                                : null
+                        }
+                        onDragLeave={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDragLeave(e)
+                                : null
+                        }
+                        onDrop={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDrop(e)
+                                : null
+                        }
+                    >
+                        {sortPanel}
+                        {filterPanel}
+                        {paginator}
+                        <div id="box-container" style={containerStyle}>
+                            {boxContent}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </Host>
         );
     }
 }

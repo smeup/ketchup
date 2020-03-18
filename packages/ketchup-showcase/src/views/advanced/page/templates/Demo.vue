@@ -219,6 +219,11 @@ export default {
       for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
           case 'field':
+            if (this.demoProps[i].type === 'number') {
+              document
+                .querySelector('#' + this.demoProps[i].prop)
+                .setAttribute('input-type', 'number');
+            }
             if (demoComponent[this.demoProps[i].prop] !== undefined) {
               document
                 .querySelector('#' + this.demoProps[i].prop)
