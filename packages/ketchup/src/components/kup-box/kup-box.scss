@@ -37,6 +37,82 @@
   --box_badge-border-radius: var(--kup-box_badge-border-radius, 15px);
   --box_badge-text: var(--kup-box_badge-text, white);
   --box_badge-dimension: var(--kup-box_badge-dimension, 30px);
+
+  #kup-component {
+    &.no-border {
+      #box-container {
+        .box {
+          border: none;
+        }
+      }
+    }
+
+    &.no-padding {
+      #box-container {
+        .box {
+          padding: 0;
+
+          .box-section {
+            .box-object {
+              padding: 0;
+            }
+
+            &.last-child {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    &.center-aligned {
+      & .box-section {
+        text-align: center;
+
+        kup-image {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        kup-checkbox,
+        kup-icon {
+          justify-content: center;
+        }
+      }
+    }
+
+    &.left-aligned {
+      & .box-section {
+        text-align: left;
+
+        kup-image {
+          margin-left: 0;
+          margin-right: auto;
+        }
+
+        kup-checkbox,
+        kup-icon {
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    &.right-aligned {
+      & .box-section {
+        text-align: right;
+
+        kup-image {
+          margin-left: auto;
+          margin-right: 0;
+        }
+
+        kup-checkbox,
+        kup-icon {
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
 }
 
 .box-component {
@@ -121,50 +197,6 @@
 
         &.grid {
           display: grid;
-        }
-
-        // Since the small rework of the kup-image, using flex to specify orientation is no longer necessary.
-        // We simply use the margin trick which is much more neat and simple.
-        &.center-aligned {
-          text-align: center;
-
-          kup-image {
-            margin-left: auto;
-            margin-right: auto;
-          }
-
-          kup-checkbox,
-          kup-icon {
-            justify-content: center;
-          }
-        }
-
-        &.left-aligned {
-          text-align: left;
-
-          kup-image {
-            margin-left: 0;
-            margin-right: auto;
-          }
-
-          kup-checkbox,
-          kup-icon {
-            justify-content: flex-start;
-          }
-        }
-
-        &.right-aligned {
-          text-align: right;
-
-          kup-image {
-            margin-left: auto;
-            margin-right: 0;
-          }
-
-          kup-checkbox,
-          kup-icon {
-            justify-content: flex-end;
-          }
         }
 
         .box-object {
@@ -324,37 +356,6 @@
           svg {
             opacity: 1;
           }
-        }
-      }
-    }
-  }
-}
-
-:host(.no-shadow) {
-  #box-container {
-    .box {
-      border: none;
-
-      &:hover,
-      &.selected {
-        box-shadow: none;
-      }
-    }
-  }
-}
-
-:host(.without-padding) {
-  #box-container {
-    .box {
-      padding: 0;
-
-      .box-section {
-        .box-object {
-          padding: 0;
-        }
-
-        &.last-child {
-          margin: 0;
         }
       }
     }

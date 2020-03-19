@@ -223,6 +223,14 @@ export namespace Components {
     */
     'columns': number;
     /**
+    * Alignment of the content. Can be set to left, right or center.
+    */
+    'contentAlign': string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * Data
     */
     'data': { columns?: Column[]; rows?: BoxRow[] };
@@ -255,6 +263,14 @@ export namespace Components {
     * Enable multi selection
     */
     'multiSelection': boolean;
+    /**
+    * Removes border
+    */
+    'noBorder': boolean;
+    /**
+    * Removes padding
+    */
+    'noPadding': boolean;
     /**
     * Number of boxes per page
     */
@@ -1881,6 +1897,14 @@ declare namespace LocalJSX {
     */
     'columns'?: number;
     /**
+    * Alignment of the content. Can be set to left, right or center.
+    */
+    'contentAlign'?: string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * Data
     */
     'data'?: { columns?: Column[]; rows?: BoxRow[] };
@@ -1912,6 +1936,14 @@ declare namespace LocalJSX {
     * Enable multi selection
     */
     'multiSelection'?: boolean;
+    /**
+    * Removes border
+    */
+    'noBorder'?: boolean;
+    /**
+    * Removes padding
+    */
+    'noPadding'?: boolean;
     /**
     * Triggered when a box is auto selected via selectBox prop
     */
