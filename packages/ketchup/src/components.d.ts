@@ -1093,13 +1093,17 @@ export namespace Components {
   }
   interface KupTree {
     /**
-    * auto select programmatic selectic node
+    * Auto select programmatic selectic node
     */
     'autoSelectionNodeMode': boolean;
     /**
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
     /**
     * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
@@ -1116,7 +1120,7 @@ export namespace Components {
     */
     'expanded': boolean;
     /**
-    * Scroll on hover
+    * Activates the scroll on hover function
     */
     'hoverScroll': boolean;
     /**
@@ -1132,7 +1136,7 @@ export namespace Components {
     */
     'showHeader': boolean;
     /**
-    * Show the icons of the various nodes of the tree.
+    * Shows the icons of the nodes.
     */
     'showIcons': boolean;
     /**
@@ -3003,13 +3007,17 @@ declare namespace LocalJSX {
   }
   interface KupTree extends JSXBase.HTMLAttributes<HTMLKupTreeElement> {
     /**
-    * auto select programmatic selectic node
+    * Auto select programmatic selectic node
     */
     'autoSelectionNodeMode'?: boolean;
     /**
     * The columns of the tree when tree visualization is active
     */
     'columns'?: Column[];
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
     /**
     * The json data used to populate the tree view: the basic, always visible tree nodes.
     */
@@ -3026,7 +3034,7 @@ declare namespace LocalJSX {
     */
     'expanded'?: boolean;
     /**
-    * Scroll on hover
+    * Activates the scroll on hover function
     */
     'hoverScroll'?: boolean;
     /**
@@ -3074,7 +3082,7 @@ declare namespace LocalJSX {
     */
     'showHeader'?: boolean;
     /**
-    * Show the icons of the various nodes of the tree.
+    * Shows the icons of the nodes.
     */
     'showIcons'?: boolean;
     /**

@@ -16,6 +16,7 @@ export const config: Config = {
             src: 'dash.html',
         },
     ],
+
     namespace: 'mycomponent',
     outputTargets: [
         { type: 'dist' },
