@@ -12,7 +12,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-tab-bar :data.prop="data"></wup-tab-bar>
+          <kup-tab-bar :data.prop="data"></kup-tab-bar>
         </div>
         <p class="centered">Icons sample object</p>
         <code class="flat">{{ markupObject }}</code>

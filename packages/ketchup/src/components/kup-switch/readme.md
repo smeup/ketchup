@@ -1,6 +1,4 @@
-# wup-switch
-
-
+# kup-switch
 
 <!-- Auto Generated Below -->
 

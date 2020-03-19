@@ -8,7 +8,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field outlined label="I am outlined"></wup-text-field>
+          <kup-text-field outlined label="I am outlined"></kup-text-field>
         </div>
         <p class="centered">Outlined sample markup</p>
         <code class="flat">{{ markupOutlined }}</code>
@@ -23,12 +23,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field rounded label="I am shaped and flat"></wup-text-field>
-          <wup-text-field
+          <kup-text-field rounded label="I am shaped and flat"></kup-text-field>
+          <kup-text-field
             rounded
             outlined
             label="I am shaped and outlined"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Shaped sample markup</p>
         <code class="flat">{{ markupShaped }}</code>
@@ -42,8 +42,8 @@ export default {
   name: 'TextfieldStyling',
   data() {
     return {
-      markupOutlined: '<wup-text-field outlined></wup-text-field>',
-      markupShaped: '<wup-text-field rounded></wup-text-field>',
+      markupOutlined: '<kup-text-field outlined></kup-text-field>',
+      markupShaped: '<kup-text-field rounded></kup-text-field>',
     };
   },
 };

@@ -1,6 +1,4 @@
-# wup-text-field
-
-
+# kup-text-field
 
 <!-- Auto Generated Below -->
 
@@ -53,9 +51,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  wup-text-field --> wup-icon
-  wup-combobox --> wup-text-field
-  style wup-text-field fill:#f9f,stroke:#333,stroke-width:4px
+  kup-text-field --> wup-icon
+  wup-combobox --> kup-text-field
+  style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

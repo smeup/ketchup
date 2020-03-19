@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-list',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-list',
       headtitle: 'List',
       titles: ['Playground', 'Basic usage', 'Item selection'],
     };

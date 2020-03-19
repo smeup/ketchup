@@ -88,6 +88,9 @@ import {
   Image,
 } from './components/fields/kup-image-button/kup-image-declarations';
 import {
+  ComponentListElement,
+} from './components/kup-list/kup-list-declarations';
+import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
 import {
@@ -100,6 +103,9 @@ import {
   KetchupRadioChangeEvent,
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
+import {
+  ComponentTabBarElement,
+} from './components/kup-tab-bar/kup-tab-bar-declarations';
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
@@ -123,17 +129,11 @@ import {
   ComponentProps,
 } from './components/wup-combobox/wup-combobox-declarations';
 import {
-  ComponentListElement,
-} from './components/wup-list/wup-list-declarations';
-import {
   PaginatorMode as PaginatorMode1,
 } from './components/wup-paginator/wup-paginator-declarations';
 import {
   ComponentRadioElement,
 } from './components/wup-radio/wup-radio-declarations';
-import {
-  ComponentTabBarElement,
-} from './components/wup-tab-bar/wup-tab-bar-declarations';
 
 export namespace Components {
   interface KupAutocomplete {
@@ -809,6 +809,17 @@ export namespace Components {
     */
     'horizontal': boolean;
   }
+  interface KupList {
+    'data': ComponentListElement[];
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable': boolean;
+    'listId': string;
+    'roleType'?: string;
+    'selectable': boolean;
+    'twoLine': boolean;
+  }
   interface KupMenu {
     /**
     * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
@@ -1010,6 +1021,108 @@ export namespace Components {
     * Sets the layout of the spinner.
     */
     'layout': number;
+  }
+  interface KupSwitch {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at null. When specified, its content will be shown as a label.
+    */
+    'label': string;
+    /**
+    * Defaults at false. When set to true, the label will be on the left of the component.
+    */
+    'leadingLabel': boolean;
+  }
+  interface KupTabBar {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * List of elements.
+    */
+    'data': ComponentTabBarElement[];
+  }
+  interface KupTextField {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullHeight': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full width.
+    */
+    'fullWidth': boolean;
+    /**
+    * Defaults at null. When set, its content will be shown as a help text below the field.
+    */
+    'helper': string;
+    /**
+    * Defaults at false. When set, the helper will be shown only when the field is focused.
+    */
+    'helperWhenFocused': boolean;
+    /**
+    * Defaults at null. When set, the text-field will show this icon.
+    */
+    'icon': string;
+    /**
+    * Sets the initial value of the component
+    */
+    'initialValue': string;
+    /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType': string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label.
+    */
+    'label': string;
+    /**
+    * Defaults at false. When set to true, the label will be on the left of the component.
+    */
+    'leadingLabel': boolean;
+    /**
+    * Defaults at null. When set, the helper will display a character counter.
+    */
+    'maxLength': number;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as an outlined field.
+    */
+    'outlined': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
+    */
+    'shaped': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as a textarea.
+    */
+    'textArea': boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingIcon': boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel': boolean;
   }
   interface KupTextInput {
     /**
@@ -1269,17 +1382,6 @@ export namespace Components {
     */
     'type': string;
   }
-  interface WupList {
-    'data': ComponentListElement[];
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    'listId': string;
-    'roleType'?: string;
-    'selectable': boolean;
-    'twoLine': boolean;
-  }
   interface WupPaginator {
     'currentPage': number;
     'max': number;
@@ -1309,113 +1411,11 @@ export namespace Components {
     */
     'name': string;
   }
-  interface WupSwitch {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked': boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at null. When specified, its content will be shown as a label.
-    */
-    'label': string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel': boolean;
-  }
-  interface WupTabBar {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * List of elements.
-    */
-    'data': ComponentTabBarElement[];
-  }
   interface WupTemplate {
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
-  }
-  interface WupTextField {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full height.
-    */
-    'fullHeight': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full width.
-    */
-    'fullWidth': boolean;
-    /**
-    * Defaults at null. When set, its content will be shown as a help text below the field.
-    */
-    'helper': string;
-    /**
-    * Defaults at false. When set, the helper will be shown only when the field is focused.
-    */
-    'helperWhenFocused': boolean;
-    /**
-    * Defaults at null. When set, the text-field will show this icon.
-    */
-    'icon': string;
-    /**
-    * Sets the initial value of the component
-    */
-    'initialValue': string;
-    /**
-    * The HTML type of the input element. It has no effect on text areas.
-    */
-    'inputType': string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label.
-    */
-    'label': string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel': boolean;
-    /**
-    * Defaults at null. When set, the helper will display a character counter.
-    */
-    'maxLength': number;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as an outlined field.
-    */
-    'outlined': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with shaped edges.
-    */
-    'shaped': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as a textarea.
-    */
-    'textArea': boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingIcon': boolean;
-    /**
-    * Defaults at false. When set to true, the label will be on the right of the component.
-    */
-    'trailingLabel': boolean;
   }
 }
 
@@ -1578,6 +1578,12 @@ declare global {
     new (): HTMLKupLayoutElement;
   };
 
+  interface HTMLKupListElement extends Components.KupList, HTMLStencilElement {}
+  var HTMLKupListElement: {
+    prototype: HTMLKupListElement;
+    new (): HTMLKupListElement;
+  };
+
   interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {}
   var HTMLKupMenuElement: {
     prototype: HTMLKupMenuElement;
@@ -1638,6 +1644,24 @@ declare global {
     new (): HTMLKupSpinnerElement;
   };
 
+  interface HTMLKupSwitchElement extends Components.KupSwitch, HTMLStencilElement {}
+  var HTMLKupSwitchElement: {
+    prototype: HTMLKupSwitchElement;
+    new (): HTMLKupSwitchElement;
+  };
+
+  interface HTMLKupTabBarElement extends Components.KupTabBar, HTMLStencilElement {}
+  var HTMLKupTabBarElement: {
+    prototype: HTMLKupTabBarElement;
+    new (): HTMLKupTabBarElement;
+  };
+
+  interface HTMLKupTextFieldElement extends Components.KupTextField, HTMLStencilElement {}
+  var HTMLKupTextFieldElement: {
+    prototype: HTMLKupTextFieldElement;
+    new (): HTMLKupTextFieldElement;
+  };
+
   interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
   var HTMLKupTextInputElement: {
     prototype: HTMLKupTextInputElement;
@@ -1692,12 +1716,6 @@ declare global {
     new (): HTMLWupIconElement;
   };
 
-  interface HTMLWupListElement extends Components.WupList, HTMLStencilElement {}
-  var HTMLWupListElement: {
-    prototype: HTMLWupListElement;
-    new (): HTMLWupListElement;
-  };
-
   interface HTMLWupPaginatorElement extends Components.WupPaginator, HTMLStencilElement {}
   var HTMLWupPaginatorElement: {
     prototype: HTMLWupPaginatorElement;
@@ -1710,28 +1728,10 @@ declare global {
     new (): HTMLWupRadioElement;
   };
 
-  interface HTMLWupSwitchElement extends Components.WupSwitch, HTMLStencilElement {}
-  var HTMLWupSwitchElement: {
-    prototype: HTMLWupSwitchElement;
-    new (): HTMLWupSwitchElement;
-  };
-
-  interface HTMLWupTabBarElement extends Components.WupTabBar, HTMLStencilElement {}
-  var HTMLWupTabBarElement: {
-    prototype: HTMLWupTabBarElement;
-    new (): HTMLWupTabBarElement;
-  };
-
   interface HTMLWupTemplateElement extends Components.WupTemplate, HTMLStencilElement {}
   var HTMLWupTemplateElement: {
     prototype: HTMLWupTemplateElement;
     new (): HTMLWupTemplateElement;
-  };
-
-  interface HTMLWupTextFieldElement extends Components.WupTextField, HTMLStencilElement {}
-  var HTMLWupTextFieldElement: {
-    prototype: HTMLWupTextFieldElement;
-    new (): HTMLWupTextFieldElement;
   };
   interface HTMLElementTagNameMap {
     'kup-autocomplete': HTMLKupAutocompleteElement;
@@ -1760,6 +1760,7 @@ declare global {
     'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-layout': HTMLKupLayoutElement;
+    'kup-list': HTMLKupListElement;
     'kup-menu': HTMLKupMenuElement;
     'kup-modal': HTMLKupModalElement;
     'kup-paginator': HTMLKupPaginatorElement;
@@ -1770,6 +1771,9 @@ declare global {
     'kup-radio-element': HTMLKupRadioElementElement;
     'kup-search': HTMLKupSearchElement;
     'kup-spinner': HTMLKupSpinnerElement;
+    'kup-switch': HTMLKupSwitchElement;
+    'kup-tab-bar': HTMLKupTabBarElement;
+    'kup-text-field': HTMLKupTextFieldElement;
     'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
@@ -1779,13 +1783,9 @@ declare global {
     'wup-chip': HTMLWupChipElement;
     'wup-combobox': HTMLWupComboboxElement;
     'wup-icon': HTMLWupIconElement;
-    'wup-list': HTMLWupListElement;
     'wup-paginator': HTMLWupPaginatorElement;
     'wup-radio': HTMLWupRadioElement;
-    'wup-switch': HTMLWupSwitchElement;
-    'wup-tab-bar': HTMLWupTabBarElement;
     'wup-template': HTMLWupTemplateElement;
-    'wup-text-field': HTMLWupTextFieldElement;
   }
 }
 
@@ -2662,6 +2662,40 @@ declare namespace LocalJSX {
     */
     'horizontal'?: boolean;
   }
+  interface KupList extends JSXBase.HTMLAttributes<HTMLKupListElement> {
+    'data'?: ComponentListElement[];
+    /**
+    * Marks the list as filterable, allowing an input text to filter the options
+    */
+    'isFilterable'?: boolean;
+    'listId'?: string;
+    /**
+    * Events.
+    */
+    'onKupListBlur'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListChange'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListClick'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListFocus'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'onKupListInput'?: (event: CustomEvent<{
+      selected: ComponentListElement;
+      el: EventTarget;
+    }>) => void;
+    'roleType'?: string;
+    'selectable'?: boolean;
+    'twoLine'?: boolean;
+  }
   interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
     /**
     * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
@@ -2881,6 +2915,153 @@ declare namespace LocalJSX {
     * Sets the layout of the spinner.
     */
     'layout'?: number;
+  }
+  interface KupSwitch extends JSXBase.HTMLAttributes<HTMLKupSwitchElement> {
+    /**
+    * Defaults at false. When set to true, the component will be set to 'checked'.
+    */
+    'checked'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at null. When specified, its content will be shown as a label.
+    */
+    'label'?: string;
+    /**
+    * Defaults at false. When set to true, the label will be on the left of the component.
+    */
+    'leadingLabel'?: boolean;
+    'onKupSwitchBlur'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupSwitchChange'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupSwitchClick'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupSwitchFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupSwitchInput'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+  }
+  interface KupTabBar extends JSXBase.HTMLAttributes<HTMLKupTabBarElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * List of elements.
+    */
+    'data'?: ComponentTabBarElement[];
+    'onKupTabBarBlur'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    'onKupTabBarClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    'onKupTabBarFocus'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+  }
+  interface KupTextField extends JSXBase.HTMLAttributes<HTMLKupTextFieldElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full height.
+    */
+    'fullHeight'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered at full width.
+    */
+    'fullWidth'?: boolean;
+    /**
+    * Defaults at null. When set, its content will be shown as a help text below the field.
+    */
+    'helper'?: string;
+    /**
+    * Defaults at false. When set, the helper will be shown only when the field is focused.
+    */
+    'helperWhenFocused'?: boolean;
+    /**
+    * Defaults at null. When set, the text-field will show this icon.
+    */
+    'icon'?: string;
+    /**
+    * Sets the initial value of the component
+    */
+    'initialValue'?: string;
+    /**
+    * The HTML type of the input element. It has no effect on text areas.
+    */
+    'inputType'?: string;
+    /**
+    * Defaults at null. When set, its content will be shown as a label.
+    */
+    'label'?: string;
+    /**
+    * Defaults at false. When set to true, the label will be on the left of the component.
+    */
+    'leadingLabel'?: boolean;
+    /**
+    * Defaults at null. When set, the helper will display a character counter.
+    */
+    'maxLength'?: number;
+    'onKupTextFieldBlur'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldChange'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldClick'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldIconClick'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupTextFieldInput'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as an outlined field.
+    */
+    'outlined'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with shaped edges.
+    */
+    'shaped'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be rendered as a textarea.
+    */
+    'textArea'?: boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingIcon'?: boolean;
+    /**
+    * Defaults at false. When set to true, the label will be on the right of the component.
+    */
+    'trailingLabel'?: boolean;
   }
   interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
     /**
@@ -3265,40 +3446,6 @@ declare namespace LocalJSX {
     */
     'type'?: string;
   }
-  interface WupList extends JSXBase.HTMLAttributes<HTMLWupListElement> {
-    'data'?: ComponentListElement[];
-    /**
-    * Marks the list as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    'listId'?: string;
-    /**
-    * Events.
-    */
-    'onKupListBlur'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListChange'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListClick'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListFocus'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'onKupListInput'?: (event: CustomEvent<{
-      selected: ComponentListElement;
-      el: EventTarget;
-    }>) => void;
-    'roleType'?: string;
-    'selectable'?: boolean;
-    'twoLine'?: boolean;
-  }
   interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
     'currentPage'?: number;
     'max'?: number;
@@ -3356,65 +3503,6 @@ declare namespace LocalJSX {
       checked: boolean;
     }>) => void;
   }
-  interface WupSwitch extends JSXBase.HTMLAttributes<HTMLWupSwitchElement> {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked'?: boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at null. When specified, its content will be shown as a label.
-    */
-    'label'?: string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel'?: boolean;
-    'onKupSwitchBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupSwitchInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-  }
-  interface WupTabBar extends JSXBase.HTMLAttributes<HTMLWupTabBarElement> {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * List of elements.
-    */
-    'data'?: ComponentTabBarElement[];
-    'onKupTabBarBlur'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarClick'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupTabBarFocus'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-  }
   interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
     /**
     * Defaults at false. When set to true, the component is disabled.
@@ -3438,94 +3526,6 @@ declare namespace LocalJSX {
     'onKupCOMP_NAMEInput'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-  }
-  interface WupTextField extends JSXBase.HTMLAttributes<HTMLWupTextFieldElement> {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full height.
-    */
-    'fullHeight'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered at full width.
-    */
-    'fullWidth'?: boolean;
-    /**
-    * Defaults at null. When set, its content will be shown as a help text below the field.
-    */
-    'helper'?: string;
-    /**
-    * Defaults at false. When set, the helper will be shown only when the field is focused.
-    */
-    'helperWhenFocused'?: boolean;
-    /**
-    * Defaults at null. When set, the text-field will show this icon.
-    */
-    'icon'?: string;
-    /**
-    * Sets the initial value of the component
-    */
-    'initialValue'?: string;
-    /**
-    * The HTML type of the input element. It has no effect on text areas.
-    */
-    'inputType'?: string;
-    /**
-    * Defaults at null. When set, its content will be shown as a label.
-    */
-    'label'?: string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel'?: boolean;
-    /**
-    * Defaults at null. When set, the helper will display a character counter.
-    */
-    'maxLength'?: number;
-    'onKupTextFieldBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldIconClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupTextFieldInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as an outlined field.
-    */
-    'outlined'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with shaped edges.
-    */
-    'shaped'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be rendered as a textarea.
-    */
-    'textArea'?: boolean;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingIcon'?: boolean;
-    /**
-    * Defaults at false. When set to true, the label will be on the right of the component.
-    */
-    'trailingLabel'?: boolean;
   }
 
   interface IntrinsicElements {
@@ -3555,6 +3555,7 @@ declare namespace LocalJSX {
     'kup-image': KupImage;
     'kup-image-button': KupImageButton;
     'kup-layout': KupLayout;
+    'kup-list': KupList;
     'kup-menu': KupMenu;
     'kup-modal': KupModal;
     'kup-paginator': KupPaginator;
@@ -3565,6 +3566,9 @@ declare namespace LocalJSX {
     'kup-radio-element': KupRadioElement;
     'kup-search': KupSearch;
     'kup-spinner': KupSpinner;
+    'kup-switch': KupSwitch;
+    'kup-tab-bar': KupTabBar;
+    'kup-text-field': KupTextField;
     'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
@@ -3574,13 +3578,9 @@ declare namespace LocalJSX {
     'wup-chip': WupChip;
     'wup-combobox': WupCombobox;
     'wup-icon': WupIcon;
-    'wup-list': WupList;
     'wup-paginator': WupPaginator;
     'wup-radio': WupRadio;
-    'wup-switch': WupSwitch;
-    'wup-tab-bar': WupTabBar;
     'wup-template': WupTemplate;
-    'wup-text-field': WupTextField;
   }
 }
 

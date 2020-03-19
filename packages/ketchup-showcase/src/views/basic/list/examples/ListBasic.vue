@@ -17,7 +17,7 @@ export default {
   name: 'ListBasic',
   data() {
     return {
-      markupBasic: '<wup-list></wup-list>',
+      markupBasic: '<kup-list></kup-list>',
     };
   },
 };

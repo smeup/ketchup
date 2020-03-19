@@ -1,6 +1,4 @@
-# wup-list
-
-
+# kup-list
 
 <!-- Auto Generated Below -->
 
@@ -11,8 +9,8 @@
 | -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ---------------------- |
 | `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                   |
 | `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                |
-| `listId`       | `list-id`       |                                                                            | `string`                 | `'WupList-myId'`       |
-| `roleType`     | `role-type`     |                                                                            | `string`                 | `WupList.ROLE_LISTBOX` |
+| `listId`       | `list-id`       |                                                                            | `string`                 | `'KupList-myId'`       |
+| `roleType`     | `role-type`     |                                                                            | `string`                 | `KupList.ROLE_LISTBOX` |
 | `selectable`   | `selectable`    |                                                                            | `boolean`                | `true`                 |
 | `twoLine`      | `two-line`      |                                                                            | `boolean`                | `false`                |
 
@@ -42,10 +40,10 @@
 ### Graph
 ```mermaid
 graph TD;
-  wup-list --> wup-radio
-  wup-list --> wup-checkbox
-  wup-combobox --> wup-list
-  style wup-list fill:#f9f,stroke:#333,stroke-width:4px
+  kup-list --> wup-radio
+  kup-list --> wup-checkbox
+  wup-combobox --> kup-list
+  style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

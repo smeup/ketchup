@@ -48,7 +48,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-tab-bar id="demo-component"></wup-tab-bar>',
+      demoComp: '<kup-tab-bar id="demo-component"></kup-tab-bar>',
       demoProps: [
         {
           prop: 'customStyle',

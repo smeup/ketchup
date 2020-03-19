@@ -1,7 +1,5 @@
 # wup-template
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -20,18 +18,18 @@
 
 ### Used by
 
+ - [kup-tab-bar](../kup-tab-bar)
+ - [kup-text-field](../kup-text-field)
  - [wup-button](../wup-button)
  - [wup-chip](../wup-chip)
- - [wup-tab-bar](../wup-tab-bar)
- - [wup-text-field](../wup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-tab-bar --> wup-icon
+  kup-text-field --> wup-icon
   wup-button --> wup-icon
   wup-chip --> wup-icon
-  wup-tab-bar --> wup-icon
-  wup-text-field --> wup-icon
   style wup-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

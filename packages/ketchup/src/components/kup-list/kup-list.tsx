@@ -11,16 +11,16 @@ import {
 
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
-import { ComponentListElement } from './wup-list-declarations';
+import { ComponentListElement } from './kup-list-declarations';
 import { WupRadio } from '../wup-radio/wup-radio';
 import { WupCheckbox } from '../wup-checkbox/wup-checkbox';
 
 @Component({
-    tag: 'wup-list',
-    styleUrl: 'wup-list.scss',
+    tag: 'kup-list',
+    styleUrl: 'kup-list.scss',
     shadow: true,
 })
-export class WupList {
+export class KupList {
     /**
      * Following default props and elements common to all widgets
      */
@@ -48,11 +48,11 @@ export class WupList {
     // multi-select - più di un item selezionabile alla volta
     @Prop({ reflect: true }) selectable: boolean = true;
 
-    @Prop({ reflect: true }) listId: string = 'WupList-myId';
+    @Prop({ reflect: true }) listId: string = 'KupList-myId';
 
     @Prop({ reflect: true }) twoLine: boolean = false;
 
-    @Prop({ reflect: true }) roleType?: string = WupList.ROLE_LISTBOX;
+    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
 
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
@@ -374,20 +374,20 @@ export class WupList {
     }
 
     isCheckBoxRule(): boolean {
-        return this.roleType == WupList.ROLE_CHECKBOX;
+        return this.roleType == KupList.ROLE_CHECKBOX;
     }
 
     isRadioButtonRule(): boolean {
-        return this.roleType == WupList.ROLE_RADIOGROUP;
+        return this.roleType == KupList.ROLE_RADIOGROUP;
     }
 
     isListBoxRule(): boolean {
-        return this.roleType == WupList.ROLE_LISTBOX;
+        return this.roleType == KupList.ROLE_LISTBOX;
     }
 
     checkRoleType() {
         if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
-            this.roleType = WupList.ROLE_LISTBOX;
+            this.roleType = KupList.ROLE_LISTBOX;
         }
     }
 
@@ -433,7 +433,7 @@ export class WupList {
         this.radios = [];
         this.checkboxes = [];
         let index = 0;
-        // Host refers to container DOM element - wup-list
+        // Host refers to container DOM element - kup-list
         // Copy your material design markup from https://material.io/develop/web/components/
         return (
             <Host>

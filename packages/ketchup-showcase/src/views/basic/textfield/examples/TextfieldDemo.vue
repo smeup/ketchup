@@ -42,7 +42,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></wup-text-field>',
+        '<kup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></kup-text-field>',
       demoProps: [
         {
           prop: 'customStyle',

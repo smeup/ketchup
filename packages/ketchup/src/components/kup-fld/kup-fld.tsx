@@ -1,9 +1,21 @@
-import { Component, Event, EventEmitter, Method, Prop, State, Watch, h } from '@stencil/core';
-import { generateUniqueId } from "../../utils/utils";
-import { KetchupFldChangeEvent, KetchupFldSubmitEvent } from "./kup-fld-declarations";
-import {KetchupTextInputEvent} from "../kup-text-input/kup-text-input-declarations";
-import {KetchupRadioChangeEvent} from "../kup-radio/kup-radio-declarations";
-import {KetchupComboEvent} from "../kup-combo/kup-combo-declarations";
+import {
+    Component,
+    Event,
+    EventEmitter,
+    Method,
+    Prop,
+    State,
+    Watch,
+    h,
+} from '@stencil/core';
+import { generateUniqueId } from '../../utils/utils';
+import {
+    KetchupFldChangeEvent,
+    KetchupFldSubmitEvent,
+} from './kup-fld-declarations';
+import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+import { KetchupRadioChangeEvent } from '../kup-radio/kup-radio-declarations';
+import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 
 @Component({
     tag: 'kup-fld',
@@ -262,21 +274,21 @@ export class KupFld {
                 confObj.onKetchupRadioChanged = this.onChangeInstance;
                 compPrefix = 'wup-';
                 type = 'radio';
-                data2render=this.data;
+                data2render = this.data;
                 break;
             case 'itx':
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
                 // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
-                compPrefix = 'wup-';
+                compPrefix = 'kup-';
                 type = 'text-field';
-                items2render=this.data;
+                items2render = this.data;
                 break;
             case 'fup':
-                    compPrefix = 'kup-';
-                    type = 'upload';
-                    items2render=this.data;
-                    //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
+                compPrefix = 'kup-';
+                type = 'upload';
+                items2render = this.data;
+                //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
                 /*
                 compPrefix = '';
                 type = 'vaadin-upload';
@@ -286,8 +298,8 @@ export class KupFld {
                 type ='input';
                 confObj.type = 'file';
                 */
-               break;
-            }
+                break;
+        }
 
         const $DynamicComponent = (compPrefix + type) as any; // TODO check if there is a better typing
         /** ... -> spread operator */

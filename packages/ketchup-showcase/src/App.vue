@@ -105,13 +105,13 @@
         />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
-      <wup-switch
+      <kup-switch
         onclick="changeTheme();"
         style="min-width: 150px; --kup-text-color: #f5f5f5;"
         leading-label
         label="Dark Mode"
         id="theme-switch"
-      ></wup-switch>
+      ></kup-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>

@@ -24,9 +24,9 @@
           <div class="kup-container" style="display: unset;">
             <wup-radio></wup-radio>
             <wup-checkbox></wup-checkbox>
-            <wup-text-field label="Demo"></wup-text-field>
+            <kup-text-field label="Demo"></kup-text-field>
             <wup-button label="Demo"></wup-button>
-            <wup-switch></wup-switch>
+            <kup-switch></kup-switch>
           </div>
         </div>
       </div>
@@ -60,11 +60,11 @@
                     <span class="code-word">display</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="display-mode"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -81,11 +81,11 @@
                     <span class="code-word">font</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="font-family"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -101,11 +101,11 @@
                     <span class="code-word">size</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="font-size"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -117,11 +117,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -133,11 +133,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="header-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -149,11 +149,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="drawer-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -168,11 +168,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="main-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -187,11 +187,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="text-on-main-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -203,11 +203,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="text-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -222,11 +222,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="icon-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -238,11 +238,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="hover-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -258,11 +258,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="hover-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -276,11 +276,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="border-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -292,11 +292,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="disabled-text-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -314,11 +314,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="disabled-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -330,11 +330,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="field-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -346,11 +346,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="chip-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -362,11 +362,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="spinner-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
               </tbody>

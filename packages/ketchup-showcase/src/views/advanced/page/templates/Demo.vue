@@ -2,10 +2,10 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar
+      <kup-tab-bar
         @kupTabBarClick="tabSelection"
         :data.prop="demoTabs"
-      ></wup-tab-bar>
+      ></kup-tab-bar>
       <div id="sample-specs-container">
         <table
           id="props-tab"
@@ -40,27 +40,27 @@
                 >Use the CSS tab to view/change this prop.</td
               >
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <wup-switch
+                <kup-switch
                   v-bind:id="propList.prop"
                   @kupSwitchChange="updateDemoSwitch"
-                ></wup-switch>
+                ></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
-                <wup-text-field
+                <kup-text-field
                   full-width
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
-                <wup-text-field
+                <kup-text-field
                   full-width
                   trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
                   @kupTextFieldIconClick="updateDemoFieldArray"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
             </tr>
           </tbody>
@@ -104,7 +104,7 @@
         </div>
         <div id="json-tab" class="sample-section padded" style="display: none;">
           <textarea id="json-textarea" style="display: none;"></textarea>
-          <wup-text-field
+          <kup-text-field
             class="shown"
             label="Prop"
             helper="i.e.: data"
@@ -114,7 +114,7 @@
             helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
-          ></wup-text-field>
+          ></kup-text-field>
           <wup-button
             @kupButtonClick="jsonSetSwitch"
             id="json-setter-opener"
@@ -124,7 +124,7 @@
         </div>
         <div id="css-tab" class="sample-section padded" style="display: none;">
           <textarea id="css-textarea" style="display: none;"></textarea>
-          <wup-text-field
+          <kup-text-field
             class="shown"
             label="Prop"
             helper="i.e.: customStyle"
@@ -134,7 +134,7 @@
             helper-when-focused
             @kupTextFieldIconClick="cssSetSwitch"
             @kupTextFieldInput="cssSet"
-          ></wup-text-field>
+          ></kup-text-field>
           <wup-button
             @kupButtonClick="cssSetSwitch"
             id="css-setter-opener"

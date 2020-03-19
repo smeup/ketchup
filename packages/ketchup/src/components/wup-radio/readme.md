@@ -1,7 +1,5 @@
 # wup-radio
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -31,12 +29,12 @@
 
 ### Used by
 
- - [wup-list](../wup-list)
+ - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  wup-list --> wup-radio
+  kup-list --> wup-radio
   style wup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

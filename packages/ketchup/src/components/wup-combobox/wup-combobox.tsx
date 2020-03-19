@@ -262,7 +262,7 @@ export class WupCombobox {
         }
 
         let comp: HTMLElement = (
-            <wup-text-field
+            <kup-text-field
                 {...propList}
                 style={this.elStyle}
                 initial-value={this.value}
@@ -273,7 +273,7 @@ export class WupCombobox {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
-            ></wup-text-field>
+            ></kup-text-field>
         );
 
         return comp;
@@ -292,12 +292,12 @@ export class WupCombobox {
         }
 
         let comp: HTMLElement = (
-            <wup-list
+            <kup-list
                 {...propList}
                 class="mdc-menu mdc-menu-surface"
                 onKupListClick={() => this.onKupItemClick()}
                 ref={(el) => (this.listEl = el as any)}
-            ></wup-list>
+            ></kup-list>
         );
 
         return comp;
