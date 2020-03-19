@@ -369,6 +369,22 @@
                     ></kup-text-field>
                   </td>
                 </tr>
+                <tr>
+                  <td class="prevent-cr">
+                    <span class="code-word">--kup-title-background-color</span>
+                  </td>
+                  <td>Sets the color of titles (trees, data tables, etc.).</td>
+                  <td class="prevent-cr">
+                    <span class="code-word">color</span>
+                  </td>
+                  <td class="text-cell">
+                    <wup-text-field
+                      full-width
+                      id="title-background-color"
+                      @kupTextFieldInput="updateCSS"
+                    ></wup-text-field>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

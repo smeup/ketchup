@@ -10,6 +10,8 @@
 | Property           | Attribute            | Description                                                                                        | Type                                       | Default     |
 | ------------------ | -------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
 | `columns`          | `columns`            | Number of columns                                                                                  | `number`                                   | `1`         |
+| `contentAlign`     | `content-align`      | Alignment of the content. Can be set to left, right or center.                                     | `string`                                   | `'center'`  |
+| `customStyle`      | `custom-style`       | Custom style to be passed to the component.                                                        | `string`                                   | `undefined` |
 | `data`             | --                   | Data                                                                                               | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
 | `dragEnabled`      | `drag-enabled`       | Enable dragging                                                                                    | `boolean`                                  | `false`     |
 | `dropEnabled`      | `drop-enabled`       | Enable dropping                                                                                    | `boolean`                                  | `false`     |
@@ -18,6 +20,8 @@
 | `filterEnabled`    | `filter-enabled`     | Enable filtering                                                                                   | `boolean`                                  | `false`     |
 | `layout`           | --                   | How the field will be displayed. If not present, a default one will be created.                    | `Layout`                                   | `undefined` |
 | `multiSelection`   | `multi-selection`    | Enable multi selection                                                                             | `boolean`                                  | `false`     |
+| `noBorder`         | `no-border`          | Removes border                                                                                     | `boolean`                                  | `false`     |
+| `noPadding`        | `no-padding`         | Removes padding                                                                                    | `boolean`                                  | `false`     |
 | `pageSize`         | `page-size`          | Number of boxes per page                                                                           | `number`                                   | `10`        |
 | `pagination`       | `pagination`         | Enables pagination                                                                                 | `boolean`                                  | `false`     |
 | `selectBox`        | `select-box`         | Automatically selects the box at the specified index                                               | `number`                                   | `undefined` |

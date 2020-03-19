@@ -319,6 +319,7 @@ export class WupButton {
                         <button
                             type="button"
                             class={componentClass}
+                            // @ts-ignore
                             checked={this.checked}
                             disabled={this.disabled}
                             value={this.value}

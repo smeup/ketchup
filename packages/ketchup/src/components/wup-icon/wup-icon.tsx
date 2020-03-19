@@ -1,19 +1,10 @@
-import {
-    Component,
-    Prop,
-    Element,
-    Host,
-    State,
-    getAssetPath,
-    h,
-} from '@stencil/core';
+import { Component, Prop, Element, Host, State, h } from '@stencil/core';
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'wup-icon',
     styleUrl: 'wup-icon.scss',
     shadow: true,
-    assetsDirs: ['assets'],
 })
 export class WupIcon {
     @Element() rootElement: HTMLElement;
@@ -45,9 +36,9 @@ export class WupIcon {
 
     //---- Methods ----
 
-    fetchResource() {
-        var res = getAssetPath(`assets/${this.type}/${this.name}.${this.type}`);
-        fetch(res)
+    async fetchResource() {
+        var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
+        return fetch(res)
             .then((response) => {
                 if (response.ok) {
                     return response.text();
@@ -68,17 +59,14 @@ export class WupIcon {
 
     componentWillRender() {
         if (this.type === 'svg') {
-            this.fetchResource();
+            return this.fetchResource();
         } else {
-            this.resource =
-                'assets/' + this.type + '/' + this.name + '.' + this.type;
+            return (this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type);
         }
     }
 
     render() {
-        if (!this.resource) {
-            return;
-        }
         let elStyle = {
             height: this.dimensions,
             width: this.dimensions,
