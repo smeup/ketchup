@@ -126,7 +126,6 @@ Type: `Promise<FormCells>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-text-input](../kup-text-input)
 - [kup-button](../kup-button)
-- [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
@@ -139,13 +138,9 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-text-input
   kup-form --> kup-button
-  kup-form --> kup-crud
   kup-combo --> kup-text-input
   kup-combo --> kup-portal
   kup-portal --> kup-portal-instance
-  kup-crud --> kup-button
-  kup-crud --> kup-modal
-  kup-crud --> kup-form
   kup-crud --> kup-form
   kup-autocomplete --> kup-chip
   kup-autocomplete --> kup-text-input

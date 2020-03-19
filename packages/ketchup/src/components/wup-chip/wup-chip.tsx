@@ -274,6 +274,7 @@ export class WupChip {
                             role="button"
                             tabindex={i}
                             class="mdc-chip__primary-action"
+                            // @ts-ignore
                             value={this.data[i].value}
                             checked={this.data[i].checked}
                             onBlur={(e: any) => this.onKupBlur(e)}
