@@ -108,13 +108,13 @@ use portals only in edge cases requiring them, like the ones listed above.
 
 ## Methods
 
-### `getPortalInstance() => Promise<HTMLKupPortalInstanceElement>`
+### `getPortalInstance() => Promise<HTMLElement>`
 
 Returns the root node instance of the KetchupPortalInstance element
 
 #### Returns
 
-Type: `Promise<HTMLKupPortalInstanceElement>`
+Type: `Promise<HTMLElement>`
 
 
 
