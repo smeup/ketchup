@@ -818,6 +818,7 @@ export class KupForm {
     private buildFormActionSubmittedDetail(
         actionField: FormActionField
     ): FormActionEventDetail {
+        // @ts-ignore
         let detail = {
             ...(this.refid ? { refid: this.refid } : {}),
             ...(this.extra ? { extra: this.extra } : {}),
