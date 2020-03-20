@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >List of extra icons. Some of these icons might overlap with the
-        official MD icons but with different names.</p
-      >
+      <p>
+        List of extra icons. Some of these icons might overlap with the
+        official MD icons but with different names.
+      </p>
       <div class="demo-container">
         <div class="kup-container">
           <div class="icon-wrapper" title="account">
@@ -20,10 +20,7 @@
             <div class="icon-label">account-box-outline</div>
           </div>
           <div class="icon-wrapper" title="account-circle-outline">
-            <wup-icon
-              dimensions="48px"
-              name="account-circle-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="account-circle-outline"></wup-icon>
             <div class="icon-label">account-circle-outline</div>
           </div>
           <div class="icon-wrapper" title="account-multiple">
@@ -75,17 +72,11 @@
             <div class="icon-label">arrow-down-bold</div>
           </div>
           <div class="icon-wrapper" title="arrow-down-bold-circle">
-            <wup-icon
-              dimensions="48px"
-              name="arrow-down-bold-circle"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="arrow-down-bold-circle"></wup-icon>
             <div class="icon-label">arrow-down-bold-circle</div>
           </div>
           <div class="icon-wrapper" title="arrow-down-bold-hexagon-outline">
-            <wup-icon
-              dimensions="48px"
-              name="arrow-down-bold-hexagon-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="arrow-down-bold-hexagon-outline"></wup-icon>
             <div class="icon-label">arrow-down-bold-hexagon-outline</div>
           </div>
           <div class="icon-wrapper" title="arrow-expand">
@@ -185,24 +176,15 @@
             <div class="icon-label">chart-pie</div>
           </div>
           <div class="icon-wrapper" title="checkbox-marked-outline">
-            <wup-icon
-              dimensions="48px"
-              name="checkbox-marked-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="checkbox-marked-outline"></wup-icon>
             <div class="icon-label">checkbox-marked-outline</div>
           </div>
           <div class="icon-wrapper" title="checkbox-multiple-marked">
-            <wup-icon
-              dimensions="48px"
-              name="checkbox-multiple-marked"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="checkbox-multiple-marked"></wup-icon>
             <div class="icon-label">checkbox-multiple-marked</div>
           </div>
           <div class="icon-wrapper" title="checkbox-multiple-marked-outline">
-            <wup-icon
-              dimensions="48px"
-              name="checkbox-multiple-marked-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="checkbox-multiple-marked-outline"></wup-icon>
             <div class="icon-label">checkbox-multiple-marked-outline</div>
           </div>
           <div class="icon-wrapper" title="chevron-down">
@@ -450,10 +432,7 @@
             <div class="icon-label">folder-multiple</div>
           </div>
           <div class="icon-wrapper" title="folder-multiple-outline">
-            <wup-icon
-              dimensions="48px"
-              name="folder-multiple-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="folder-multiple-outline"></wup-icon>
             <div class="icon-label">folder-multiple-outline</div>
           </div>
           <div class="icon-wrapper" title="folder-outline">
@@ -523,6 +502,10 @@
           <div class="icon-wrapper" title="json">
             <wup-icon dimensions="48px" name="json"></wup-icon>
             <div class="icon-label">json</div>
+          </div>
+          <div class="icon-wrapper" title="key">
+            <wup-icon dimensions="48px" name="key"></wup-icon>
+            <div class="icon-label">key</div>
           </div>
           <div class="icon-wrapper" title="key-variant">
             <wup-icon dimensions="48px" name="key-variant"></wup-icon>
@@ -609,10 +592,7 @@
             <div class="icon-label">pencil</div>
           </div>
           <div class="icon-wrapper" title="pencil-box-multiple-outline">
-            <wup-icon
-              dimensions="48px"
-              name="pencil-box-multiple-outline"
-            ></wup-icon>
+            <wup-icon dimensions="48px" name="pencil-box-multiple-outline"></wup-icon>
             <div class="icon-label">pencil-box-multiple-outline</div>
           </div>
           <div class="icon-wrapper" title="percent">
