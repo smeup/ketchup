@@ -67,6 +67,11 @@ export class WupIcon {
     }
 
     render() {
+        if (this.resource === undefined) {
+            let message = 'Resource undefined, not rendering!';
+            errorLogging('wup-icon', message);
+            return;
+        }
         let elStyle = {
             height: this.dimensions,
             width: this.dimensions,
