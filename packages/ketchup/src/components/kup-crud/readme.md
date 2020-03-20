@@ -112,7 +112,7 @@ graph TD;
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip

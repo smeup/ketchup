@@ -1,40 +1,28 @@
 # kup-radio
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                              | Type                    | Default                        |
-| ---------------- | ----------------- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------------ |
-| `direction`      | `direction`       | Direction in which the radio elements must be placed                                     | `string`                | `'horizontal'`                 |
-| `disabled`       | `disabled`        | Sets the radio to be disabled                                                            | `boolean`               | `false`                        |
-| `displayedField` | `displayed-field` | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`                         |
-| `initialValue`   | --                | Allows to pass an initial selected item for the Radio group                              | `KetchupRadioElement`   | `KetchupRadioElementFactory()` |
-| `items`          | --                | Radio elements to display                                                                | `KetchupRadioElement[]` | `[]`                           |
-| `label`          | `label`           | Label to describe the radio group                                                        | `string`                | `''`                           |
-| `radioName`      | `radio-name`      | Radio elements value                                                                     | `string`                | `''`                           |
-| `valueField`     | `value-field`     | Chooses which field of an item object should be used to create the list and be filtered. | `string`                | `'id'`                         |
+| Property       | Attribute       | Description                                                                          | Type                      | Default        |
+| -------------- | --------------- | ------------------------------------------------------------------------------------ | ------------------------- | -------------- |
+| `customStyle`  | `custom-style`  | Custom style to be passed to the component.                                          | `string`                  | `undefined`    |
+| `data`         | --              | List of elements.                                                                    | `ComponentRadioElement[]` | `[]`           |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                      | `boolean`                 | `false`        |
+| `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component. | `boolean`                 | `false`        |
+| `name`         | `name`          | Defaults at null. It's the name that binds the radio buttons together.               | `string`                  | `'radio-list'` |
 
 
 ## Events
 
-| Event                 | Description                                            | Type                                               |
-| --------------------- | ------------------------------------------------------ | -------------------------------------------------- |
-| `ketchupRadioChanged` | When currently selected radio button has been changed. | `CustomEvent<KupPayloadEvent<any, GenericObject>>` |
-
-
-## CSS Custom Properties
-
-| Name                                                    | Description                                                |
-| ------------------------------------------------------- | ---------------------------------------------------------- |
-| `--rad_border-color, --kup-radio_border-color`          | Set default color of external border of the radio element  |
-| `--rad_border-color--selected --kup-radio_border-color` | Set selected color of external border of the radio element |
-| `--rad_color, --kup-radio_color`                        | Sets radio element color when selected radio appears       |
-| `--rad_font-size, --kup-radio_font-size`                | Sets font size and icon radio button size (size * 1.4)     |
-| `--rad_tr-duration, --kup-radio_transition-duration`    | Sets all components transitions duration                   |
+| Event            | Description | Type                                                |
+| ---------------- | ----------- | --------------------------------------------------- |
+| `kupRadioBlur`   |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioChange` |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioClick`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioFocus`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
+| `kupRadioInput`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
 
 
 ## Dependencies
@@ -42,11 +30,15 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
+ - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-box --> kup-radio
+  kup-data-table --> kup-radio
+  kup-list --> kup-radio
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

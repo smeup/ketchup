@@ -2709,15 +2709,18 @@ export class KupDataTable {
             }
         } else if (isRadio(cell.obj)) {
             if (!column.hideValuesRepetitions || valueToDisplay) {
-                content = (
-                    <kup-radio-element
-                        checked={getBoolean(cell.obj.k)}
-                        // TODO: update as `row.readOnly ?? true` when dependencies are updated
-                        disabled={
-                            row.readOnly !== undefined ? row.readOnly : true
-                        }
-                    />
-                );
+                let radioProp = {
+                    data: [
+                        {
+                            label: '',
+                            value: cell.value,
+                            checked: getBoolean(cell.obj.k),
+                        },
+                    ],
+                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
+                    disabled: row.readOnly !== undefined ? row.readOnly : true,
+                };
+                content = <kup-radio {...radioProp} />;
             } else {
                 content = null;
             }

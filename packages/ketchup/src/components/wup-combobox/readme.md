@@ -38,7 +38,7 @@ graph TD;
   wup-combobox --> kup-text-field
   wup-combobox --> kup-list
   kup-text-field --> wup-icon
-  kup-list --> wup-radio
+  kup-list --> kup-radio
   kup-list --> wup-checkbox
   style wup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```

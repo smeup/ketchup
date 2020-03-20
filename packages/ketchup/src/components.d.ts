@@ -78,8 +78,8 @@ import {
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
-  KetchupFldChangeEvent,
-  KetchupFldSubmitEvent,
+  KupFldChangeEvent,
+  KupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
 import {
   Badge,
@@ -100,8 +100,7 @@ import {
   ElementOffset,
 } from './utils/offset';
 import {
-  KetchupRadioChangeEvent,
-  KetchupRadioElement,
+  ComponentRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
 import {
   ComponentTabBarElement,
@@ -131,9 +130,6 @@ import {
 import {
   PaginatorMode as PaginatorMode1,
 } from './components/wup-paginator/wup-paginator-declarations';
-import {
-  ComponentRadioElement,
-} from './components/wup-radio/wup-radio-declarations';
 
 export namespace Components {
   interface KupAutocomplete {
@@ -645,6 +641,10 @@ export namespace Components {
     */
     'config': string | object;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
     * Effective data to pass to the component
     */
     'data': any;
@@ -938,51 +938,25 @@ export namespace Components {
   }
   interface KupRadio {
     /**
-    * Direction in which the radio elements must be placed
+    * Custom style to be passed to the component.
     */
-    'direction': string;
+    'customStyle': string;
     /**
-    * Sets the radio to be disabled
+    * List of elements.
+    */
+    'data': ComponentRadioElement[];
+    /**
+    * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'displayedField': string;
+    'leadingLabel': boolean;
     /**
-    * Allows to pass an initial selected item for the Radio group
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'initialValue': KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items': KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * Radio elements value
-    */
-    'radioName': string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
-  interface KupRadioElement {
-    /**
-    * Specifies if the radio element is selected or not.
-    */
-    'checked': boolean;
-    /**
-    * Flag: the radio button is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Label to assign to the radio button.
-    */
-    'label': string;
+    'name': string;
   }
   interface KupSearch {
     'data': TableData;
@@ -1409,34 +1383,6 @@ export namespace Components {
     'perPage': number;
     'selectedPerPage': number;
   }
-  interface WupRadio {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * List of elements.
-    */
-    'data': ComponentRadioElement[];
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel': boolean;
-    /**
-    * Defaults at null. It's the name that binds the radio buttons together.
-    */
-    'name': string;
-  }
-  interface WupTemplate {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-  }
 }
 
 declare global {
@@ -1646,12 +1592,6 @@ declare global {
     new (): HTMLKupRadioElement;
   };
 
-  interface HTMLKupRadioElementElement extends Components.KupRadioElement, HTMLStencilElement {}
-  var HTMLKupRadioElementElement: {
-    prototype: HTMLKupRadioElementElement;
-    new (): HTMLKupRadioElementElement;
-  };
-
   interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {}
   var HTMLKupSearchElement: {
     prototype: HTMLKupSearchElement;
@@ -1741,18 +1681,6 @@ declare global {
     prototype: HTMLWupPaginatorElement;
     new (): HTMLWupPaginatorElement;
   };
-
-  interface HTMLWupRadioElement extends Components.WupRadio, HTMLStencilElement {}
-  var HTMLWupRadioElement: {
-    prototype: HTMLWupRadioElement;
-    new (): HTMLWupRadioElement;
-  };
-
-  interface HTMLWupTemplateElement extends Components.WupTemplate, HTMLStencilElement {}
-  var HTMLWupTemplateElement: {
-    prototype: HTMLWupTemplateElement;
-    new (): HTMLWupTemplateElement;
-  };
   interface HTMLElementTagNameMap {
     'kup-autocomplete': HTMLKupAutocompleteElement;
     'kup-badge': HTMLKupBadgeElement;
@@ -1788,7 +1716,6 @@ declare global {
     'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
-    'kup-radio-element': HTMLKupRadioElementElement;
     'kup-search': HTMLKupSearchElement;
     'kup-spinner': HTMLKupSpinnerElement;
     'kup-switch': HTMLKupSwitchElement;
@@ -1804,8 +1731,6 @@ declare global {
     'wup-combobox': HTMLWupComboboxElement;
     'wup-icon': HTMLWupIconElement;
     'wup-paginator': HTMLWupPaginatorElement;
-    'wup-radio': HTMLWupRadioElement;
-    'wup-template': HTMLWupTemplateElement;
   }
 }
 
@@ -2501,17 +2426,21 @@ declare namespace LocalJSX {
     */
     'config'?: string | object;
     /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
     * Effective data to pass to the component
     */
     'data'?: any;
     /**
     * Launched when the value of the current FLD changes.
     */
-    'onKetchupFldChanged'?: (event: CustomEvent<KetchupFldChangeEvent>) => void;
+    'onKupFldChange'?: (event: CustomEvent<KupFldChangeEvent>) => void;
     /**
     * Launched when the FLD values are confirmed and a submit event is triggered.
     */
-    'onKetchupFldSubmit'?: (event: CustomEvent<KetchupFldSubmitEvent>) => void;
+    'onKupFldSubmit'?: (event: CustomEvent<KupFldSubmitEvent>) => void;
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
@@ -2843,55 +2772,45 @@ declare namespace LocalJSX {
   }
   interface KupRadio extends JSXBase.HTMLAttributes<HTMLKupRadioElement> {
     /**
-    * Direction in which the radio elements must be placed
+    * Custom style to be passed to the component.
     */
-    'direction'?: string;
+    'customStyle'?: string;
     /**
-    * Sets the radio to be disabled
+    * List of elements.
+    */
+    'data'?: ComponentRadioElement[];
+    /**
+    * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'displayedField'?: string;
+    'leadingLabel'?: boolean;
     /**
-    * Allows to pass an initial selected item for the Radio group
+    * Defaults at null. It's the name that binds the radio buttons together.
     */
-    'initialValue'?: KetchupRadioElement;
-    /**
-    * Radio elements to display
-    */
-    'items'?: KetchupRadioElement[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * When currently selected radio button has been changed.
-    */
-    'onKetchupRadioChanged'?: (event: CustomEvent<KetchupRadioChangeEvent>) => void;
-    /**
-    * Radio elements value
-    */
-    'radioName'?: string;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
-  interface KupRadioElement extends JSXBase.HTMLAttributes<HTMLKupRadioElementElement> {
-    /**
-    * Specifies if the radio element is selected or not.
-    */
-    'checked'?: boolean;
-    /**
-    * Flag: the radio button is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Label to assign to the radio button.
-    */
-    'label'?: string;
+    'name'?: string;
+    'onKupRadioBlur'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
+    'onKupRadioChange'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
+    'onKupRadioClick'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
+    'onKupRadioFocus'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
+    'onKupRadioInput'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
   }
   interface KupSearch extends JSXBase.HTMLAttributes<HTMLKupSearchElement> {
     'data'?: TableData;
@@ -3501,72 +3420,6 @@ declare namespace LocalJSX {
     'perPage'?: number;
     'selectedPerPage'?: number;
   }
-  interface WupRadio extends JSXBase.HTMLAttributes<HTMLWupRadioElement> {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * List of elements.
-    */
-    'data'?: ComponentRadioElement[];
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel'?: boolean;
-    /**
-    * Defaults at null. It's the name that binds the radio buttons together.
-    */
-    'name'?: string;
-    'onKupRadioBlur'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioChange'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioClick'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioFocus'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-    'onKupRadioInput'?: (event: CustomEvent<{
-      value: string;
-      checked: boolean;
-    }>) => void;
-  }
-  interface WupTemplate extends JSXBase.HTMLAttributes<HTMLWupTemplateElement> {
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Event example.
-    */
-    'onKupCOMP_NAMEBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupCOMP_NAMEInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-  }
 
   interface IntrinsicElements {
     'kup-autocomplete': KupAutocomplete;
@@ -3603,7 +3456,6 @@ declare namespace LocalJSX {
     'kup-portal-instance': KupPortalInstance;
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
-    'kup-radio-element': KupRadioElement;
     'kup-search': KupSearch;
     'kup-spinner': KupSpinner;
     'kup-switch': KupSwitch;
@@ -3619,8 +3471,6 @@ declare namespace LocalJSX {
     'wup-combobox': WupCombobox;
     'wup-icon': WupIcon;
     'wup-paginator': WupPaginator;
-    'wup-radio': WupRadio;
-    'wup-template': WupTemplate;
   }
 }
 

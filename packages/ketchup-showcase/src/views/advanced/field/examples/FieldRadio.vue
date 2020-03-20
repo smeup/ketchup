@@ -14,7 +14,7 @@
 
     <h3>Radio group with label on the left</h3>
     <div>
-      <kup-fld :config.prop="fldConfigLeadLbl" :data.prop="fldData"  />
+      <kup-fld :config.prop="fldConfigLeadLbl" :data.prop="fldData" />
     </div>
 
     <h3>Radio group disabled</h3>
@@ -51,14 +51,19 @@ export default {
   mounted() {
     import('@/mock/fldData.ts')
       .then((data) => {
-        const { fldData, fldDataWupRadio, fldDataWupRadioPreChecked, fldConfigFactory } = data;
-        this.fldData = fldDataWupRadio;
-        this.fldDataPreChecked = fldDataWupRadioPreChecked;
+        const {
+          fldData,
+          fldDataKupRadio,
+          fldDataKupRadioPreChecked,
+          fldConfigFactory,
+        } = data;
+        this.fldData = fldDataKupRadio;
+        this.fldDataPreChecked = fldDataKupRadioPreChecked;
         this.fldConfig = fldConfigFactory([
           {
             name: 'type',
             value: 'rad',
-          }
+          },
         ]);
         this.fldConfigLeadLbl = fldConfigFactory([
           {
@@ -78,7 +83,7 @@ export default {
           {
             name: 'disabled',
             value: 'true',
-          }
+          },
         ]);
       })
       .catch((err) => {

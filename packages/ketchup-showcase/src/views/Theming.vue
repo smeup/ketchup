@@ -22,7 +22,7 @@
         </p>
         <div class="demo-container">
           <div class="kup-container" style="display: unset;">
-            <wup-radio></wup-radio>
+            <kup-radio></kup-radio>
             <wup-checkbox></wup-checkbox>
             <kup-text-field label="Demo"></kup-text-field>
             <wup-button label="Demo"></wup-button>
@@ -378,11 +378,11 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <wup-text-field
+                    <kup-text-field
                       full-width
                       id="title-background-color"
                       @kupTextFieldInput="updateCSS"
-                    ></wup-text-field>
+                    ></kup-text-field>
                   </td>
                 </tr>
               </tbody>

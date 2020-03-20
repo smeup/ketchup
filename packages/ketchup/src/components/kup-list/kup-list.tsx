@@ -12,7 +12,7 @@ import {
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './kup-list-declarations';
-import { WupRadio } from '../wup-radio/wup-radio';
+import { KupRadio } from '../kup-radio/kup-radio';
 import { WupCheckbox } from '../wup-checkbox/wup-checkbox';
 
 @Component({
@@ -31,7 +31,7 @@ export class KupList {
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
 
-    private radios: WupRadio[] = [];
+    private radios: KupRadio[] = [];
     private checkboxes: WupCheckbox[] = [];
 
     /**
@@ -243,12 +243,12 @@ export class KupList {
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
                     <input type="radio" style={aaa} />
-                    <wup-radio
+                    <kup-radio
                         name={this.listId + 'radio'}
                         data={dataTmp}
                         id={this.listId + index}
                         ref={(el) => (this.radios[index] = el as any)}
-                    ></wup-radio>
+                    ></kup-radio>
                 </span>,
                 <label
                     class="mdc-list-item__text"

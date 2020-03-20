@@ -149,7 +149,7 @@ Type: `Promise<Column[]>`
 - [kup-graphic-cell](../kup-graphic-cell)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-radio-element](../kup-radio-element)
+- [kup-radio](../kup-radio)
 - [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-chip](../kup-chip)
@@ -165,7 +165,7 @@ graph TD;
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip

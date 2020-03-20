@@ -90,11 +90,6 @@
         <a href="data-table.html">Ketchup data table</a>
         <br />
         <kup-button label="Sono bottone"></kup-button>
-        <kup-radio
-            id="krg1"
-            displayed-field="label"
-            value-field="value"
-        ></kup-radio>
         <kup-text-input
             id="int1"
             is-clearable
@@ -308,7 +303,7 @@
         <kup-text-field icon="favorite" id="event-textfield-icon" label="Icon test"></kup-text-field>
         <wup-checkbox id="event-checkbox"></wup-checkbox>
         <wup-button id="event-button" toggable icon="favorite"></wup-button>
-        <wup-radio id="event-radio"></wup-radio>
+        <kup-radio id="event-radio"></kup-radio>
         <kup-switch id="event-switch"></kup-switch>
 
         
@@ -581,7 +576,7 @@
                     },
                 ];
 
-let radioList = document.getElementsByTagName('wup-radio')[0];
+let radioList = document.getElementsByTagName('kup-radio')[0];
 radioList.data = [
         {
             value: 'Favorites',
