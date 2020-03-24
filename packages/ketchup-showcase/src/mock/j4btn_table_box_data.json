@@ -39,7 +39,7 @@
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112)",
@@ -182,7 +182,7 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) T(Edit)",
@@ -327,7 +327,7 @@
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil",
+            "icon": "pencil",
             "tooltip": "Edit"
           },
           "obj": {
@@ -472,7 +472,7 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
@@ -615,7 +615,7 @@
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil",
+            "icon": "pencil",
             "buttonStyle": {
               "backgroundColor": "#3063a5",
               "color": "#FFF"
@@ -691,7 +691,7 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil",
+            "icon": "pencil",
             "buttonStyle": {
               "backgroundColor": "#3063a5",
               "color": "#FFF"
@@ -768,7 +768,7 @@
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil",
+            "icon": "pencil",
             "buttonStyle": {
               "backgroundColor": "#3063a5",
               "color": "#FFF"
@@ -845,7 +845,7 @@
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112)",
@@ -990,7 +990,7 @@
           "config": {
             "showtext": true,
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
@@ -1137,7 +1137,7 @@
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil",
+            "icon": "pencil",
             "tooltip": "Edit"
           },
           "obj": {
@@ -1283,7 +1283,7 @@
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -1574,7 +1574,7 @@
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -1647,7 +1647,7 @@
           "config": {
             "showtext": true,
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -1795,7 +1795,7 @@
             "showtext": true,
             "flat": false,
             "fillspace": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
