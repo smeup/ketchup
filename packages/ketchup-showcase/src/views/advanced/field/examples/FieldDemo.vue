@@ -125,29 +125,34 @@ export default {
           prop: 'data',
           value: [
             {
-              value: '1',
-              label: 'First',
-              checked: false,
-            },
-            {
-              value: '2',
-              label: 'Second',
-              checked: false,
-            },
-            {
-              value: '3',
-              label: 'Third',
-              checked: true,
-            },
-            {
-              value: '4',
-              label: 'Fourth',
-              checked: false,
-            },
-            {
-              value: '5',
-              label: 'Fifth',
-              checked: false,
+              prop: 'data',
+              value: [
+                {
+                  value: '1',
+                  label: 'First',
+                  checked: false,
+                },
+                {
+                  value: '2',
+                  label: 'Second',
+                  checked: false,
+                },
+                {
+                  value: '3',
+                  label: 'Third',
+                  checked: true,
+                },
+                {
+                  value: '4',
+                  label: 'Fourth',
+                  checked: false,
+                },
+                {
+                  value: '5',
+                  label: 'Fifth',
+                  checked: false,
+                },
+              ],
             },
           ],
         },

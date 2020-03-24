@@ -1,49 +1,48 @@
-/**
-* Css Properties
-* @prop --fld_comp-margin, --kup-fld_component-margin: Specifies internal margin between label, submit button and dynamic component
-*/
-
 :host {
-  display: flex;
-  flex-wrap: wrap;
-  --fld_comp-margin: var(--kup-fld_component-margin, 8px);
-}
+  display: var(--kup-display-mode);
 
-// Base class and its derived
-.kup-fld {
-  $rightClass: #{&}--right;
+  #kup-component {
+    display: inline-flex;
 
-  // the top div container
-  &__top-container {
-    align-items: center;
-    display: flex;
-    order: 0;
-    width: 100%;
-  }
-
-  // the label
-  &__label {
-    margin: var(--fld_comp-margin);
-    order: 1;
-
-    &#{$rightClass} {
-      order: 4;
+    & label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
+      font-size: var(--kup-font-size);
     }
-  }
 
-  // the dynamic component
-  &__component {
-    margin: var(--fld_comp-margin);
-    order: 3;
-  }
+    &.label-top {
+      flex-direction: column;
 
-  // the submit button
-  &__submit {
-    margin: var(--fld_comp-margin);
-    order: 2;
+      & label {
+        float: left;
+      }
+      & kup-button {
+        float: right;
+      }
+    }
 
-    &#{$rightClass} {
-      order: 5;
+    &.label-right {
+      flex-direction: row-reverse;
+
+      & label {
+        margin: auto auto auto 1rem;
+      }
+    }
+
+    &.label-bottom {
+      flex-direction: column-reverse;
+
+      & label {
+        margin: 1rem auto auto auto;
+      }
+    }
+
+    &.label-left {
+      flex-direction: row;
+
+      & label {
+        margin: auto 1rem auto auto;
+      }
     }
   }
 }

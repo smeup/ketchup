@@ -96,7 +96,7 @@ export class KupFld {
 
     //---- Methods ----
 
-    // When a change or update event must be launched as if it's coming from the Fld itself
+    // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
         let message = 'Changing!';
         errorLogging('kup-fld', message);
@@ -111,7 +111,7 @@ export class KupFld {
         this.currentValue = value;
     }
 
-    // When a submit event must be launched as if it's coming from the Fld itself
+    // When a submit event must be launched as if it's coming from the FLD itself
     onSubmit(event: CustomEvent) {
         let message = 'Submitting!';
         errorLogging('kup-fld', message);
@@ -146,13 +146,26 @@ export class KupFld {
         const baseClass = 'kup-fld';
         let label = null;
         let submit = null;
+        let wrapperClass = '';
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
         }
 
-        //-- Label --
+        let propList = undefined;
+
+        for (let j = 0; j < this.data.length; j++) {
+            let newProp = this.data[j].prop;
+            let newValue = this.data[j].value;
+            if (propList) {
+                propList = { ...propList, [newProp]: newValue };
+            } else {
+                propList = { [newProp]: newValue };
+            }
+        }
+
         if (this.label.trim().length) {
+            wrapperClass += ' label-' + this.labelPos;
             label = (
                 <label
                     class={
@@ -169,8 +182,8 @@ export class KupFld {
             );
         }
 
-        //-- Submit --
         if (this.showSubmit) {
+            wrapperClass += ' submit-' + this.submitPos;
             submit = (
                 <kup-button
                     class={
@@ -214,23 +227,7 @@ export class KupFld {
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 comp = 'wup-combobox';
-                confObj.data = this.data;
-                confObj.displayedField = 'value';
-                confObj.valueField = 'value';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
-                break;
-            case 'rad':
-                comp = 'kup-radio';
-                confObj.data = this.data;
-                confObj.name = this.radioGeneratedName; // TODO this must be changed to use a proper data field
-                confObj.onkupRadioChange = this.onChangeInstance;
-                break;
-            case 'itx':
-                comp = 'kup-text-field';
-                confObj.data = this.data;
-                confObj.onKetchupTextInputUpdated = this.onChangeInstance;
-                // When FLD has the text form, it should submit also when a user presses Enter on the text field
-                confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
                 break;
             case 'fup':
                 comp = 'kup-upload';
@@ -246,12 +243,26 @@ export class KupFld {
                 confObj.type = 'file';
                 */
                 break;
+            case 'itx':
+                comp = 'kup-text-field';
+                confObj.onKetchupTextInputUpdated = this.onChangeInstance;
+                // When FLD has the text form, it should submit also when a user presses Enter on the text field
+                confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
+                break;
+            case 'rad':
+                comp = 'kup-radio';
+                confObj.onkupRadioChange = this.onChangeInstance;
+                break;
         }
 
         const $DynamicComponent = comp as any; // TODO check if there is a better typing
 
         toRender.push(
-            <$DynamicComponent class={baseClass + '__component'} {...confObj} />
+            <$DynamicComponent
+                class={baseClass + '__component'}
+                {...confObj}
+                {...propList}
+            />
         );
 
         if (!submitIsTop && submit) {
@@ -261,7 +272,9 @@ export class KupFld {
         return (
             <Host>
                 {customStyle}
-                <div id="kup-component">{toRender}</div>
+                <div id="kup-component" class={wrapperClass}>
+                    {toRender}
+                </div>
             </Host>
         );
     }

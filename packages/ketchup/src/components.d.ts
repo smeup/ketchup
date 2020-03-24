@@ -78,6 +78,7 @@ import {
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
+  ComponentProps,
   KupFldChangeEvent,
   KupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -125,7 +126,7 @@ import {
   ComponentChipElement,
 } from './components/wup-chip/wup-chip-declarations';
 import {
-  ComponentProps,
+  ComponentProps as ComponentProps1,
 } from './components/wup-combobox/wup-combobox-declarations';
 import {
   PaginatorMode as PaginatorMode1,
@@ -637,21 +638,41 @@ export namespace Components {
   }
   interface KupFld {
     /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config': string | object;
-    /**
     * Custom style to be passed to the component.
     */
     'customStyle': string;
     /**
-    * Effective data to pass to the component
+    * Effective data to pass to the component.
     */
-    'data': any;
+    'data': ComponentProps[];
     /**
     * Provides an interface to get the current value programmatically
     */
     'getCurrentValue': () => Promise<string | object>;
+    /**
+    * The text of the label. If set to empty or has only white space chars, the label will be removed.
+    */
+    'label': string;
+    /**
+    * Sets the label's position, left right or top.
+    */
+    'labelPos': string;
+    /**
+    * Sets whether the submit button must be displayed or not.
+    */
+    'showSubmit': boolean;
+    /**
+    * Sets the submit button's label.
+    */
+    'submitLabel': string;
+    /**
+    * Sets the submit button's position, left right or top.
+    */
+    'submitPos': string;
+    /**
+    * The type of the FLD
+    */
+    'type': string;
   }
   interface KupForm {
     'actions': FormActions;
@@ -2422,17 +2443,21 @@ declare namespace LocalJSX {
   }
   interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
     /**
-    * Data the FLD must parse to fully be configured. It must be either an Object or a JSON parsable string
-    */
-    'config'?: string | object;
-    /**
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
     /**
-    * Effective data to pass to the component
+    * Effective data to pass to the component.
     */
-    'data'?: any;
+    'data'?: ComponentProps[];
+    /**
+    * The text of the label. If set to empty or has only white space chars, the label will be removed.
+    */
+    'label'?: string;
+    /**
+    * Sets the label's position, left right or top.
+    */
+    'labelPos'?: string;
     /**
     * Launched when the value of the current FLD changes.
     */
@@ -2441,6 +2466,22 @@ declare namespace LocalJSX {
     * Launched when the FLD values are confirmed and a submit event is triggered.
     */
     'onKupFldSubmit'?: (event: CustomEvent<KupFldSubmitEvent>) => void;
+    /**
+    * Sets whether the submit button must be displayed or not.
+    */
+    'showSubmit'?: boolean;
+    /**
+    * Sets the submit button's label.
+    */
+    'submitLabel'?: string;
+    /**
+    * Sets the submit button's position, left right or top.
+    */
+    'submitPos'?: string;
+    /**
+    * The type of the FLD
+    */
+    'type'?: string;
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
