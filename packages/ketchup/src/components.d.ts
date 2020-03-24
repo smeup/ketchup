@@ -58,6 +58,9 @@ import {
   GenericObject,
 } from './types/GenericTypes';
 import {
+  ComponentProps,
+} from './components/kup-combobox/kup-combobox-declarations';
+import {
   CrudCallBackOnFormEventResult,
   CrudConfig,
   CrudRecord,
@@ -78,7 +81,7 @@ import {
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
-  ComponentProps,
+  ComponentProps as ComponentProps1,
   KupFldChangeEvent,
   KupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -125,9 +128,6 @@ import {
 import {
   ComponentChipElement,
 } from './components/wup-chip/wup-chip-declarations';
-import {
-  ComponentProps as ComponentProps1,
-} from './components/wup-combobox/wup-combobox-declarations';
 import {
   PaginatorMode as PaginatorMode1,
 } from './components/wup-paginator/wup-paginator-declarations';
@@ -462,6 +462,20 @@ export namespace Components {
     */
     'valueField': string;
   }
+  interface KupCombobox {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Props of the list.
+    */
+    'listData': ComponentProps[];
+    /**
+    * Props of the text field.
+    */
+    'textfieldData': ComponentProps[];
+  }
   interface KupCrud {
     'actions': FormActions;
     'autocompleteCallBackOnFilterUpdate': (
@@ -666,7 +680,7 @@ export namespace Components {
     */
     'submitLabel': string;
     /**
-    * Sets the submit button's position, left right or top.
+    * Sets the submit button's position, top right bottom or left.
     */
     'submitPos': string;
     /**
@@ -1361,20 +1375,6 @@ export namespace Components {
     */
     'type': string;
   }
-  interface WupCombobox {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * Props of the list.
-    */
-    'listData': ComponentProps[];
-    /**
-    * Props of the text field.
-    */
-    'textfieldData': ComponentProps[];
-  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1485,6 +1485,12 @@ declare global {
   var HTMLKupComboElement: {
     prototype: HTMLKupComboElement;
     new (): HTMLKupComboElement;
+  };
+
+  interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {}
+  var HTMLKupComboboxElement: {
+    prototype: HTMLKupComboboxElement;
+    new (): HTMLKupComboboxElement;
   };
 
   interface HTMLKupCrudElement extends Components.KupCrud, HTMLStencilElement {}
@@ -1685,12 +1691,6 @@ declare global {
     new (): HTMLWupChipElement;
   };
 
-  interface HTMLWupComboboxElement extends Components.WupCombobox, HTMLStencilElement {}
-  var HTMLWupComboboxElement: {
-    prototype: HTMLWupComboboxElement;
-    new (): HTMLWupComboboxElement;
-  };
-
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
@@ -1716,6 +1716,7 @@ declare global {
     'kup-chip': HTMLKupChipElement;
     'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combo': HTMLKupComboElement;
+    'kup-combobox': HTMLKupComboboxElement;
     'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
@@ -1749,7 +1750,6 @@ declare global {
     'wup-button': HTMLWupButtonElement;
     'wup-checkbox': HTMLWupCheckboxElement;
     'wup-chip': HTMLWupChipElement;
-    'wup-combobox': HTMLWupComboboxElement;
     'wup-icon': HTMLWupIconElement;
     'wup-paginator': HTMLWupPaginatorElement;
   }
@@ -2212,6 +2212,44 @@ declare namespace LocalJSX {
     */
     'valueField'?: string;
   }
+  interface KupCombobox extends JSXBase.HTMLAttributes<HTMLKupComboboxElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Props of the list.
+    */
+    'listData'?: ComponentProps[];
+    /**
+    * Event example.
+    */
+    'onKupComboboxBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxIconClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxItemClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    /**
+    * Props of the text field.
+    */
+    'textfieldData'?: ComponentProps[];
+  }
   interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
     'actions'?: FormActions;
     'autocompleteCallBackOnFilterUpdate'?: (
@@ -2475,7 +2513,7 @@ declare namespace LocalJSX {
     */
     'submitLabel'?: string;
     /**
-    * Sets the submit button's position, left right or top.
+    * Sets the submit button's position, top right bottom or left.
     */
     'submitPos'?: string;
     /**
@@ -3386,44 +3424,6 @@ declare namespace LocalJSX {
     */
     'type'?: string;
   }
-  interface WupCombobox extends JSXBase.HTMLAttributes<HTMLWupComboboxElement> {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * Props of the list.
-    */
-    'listData'?: ComponentProps[];
-    /**
-    * Event example.
-    */
-    'onKupComboboxBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxChange'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxIconClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxInput'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupComboboxItemClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    /**
-    * Props of the text field.
-    */
-    'textfieldData'?: ComponentProps[];
-  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3476,6 +3476,7 @@ declare namespace LocalJSX {
     'kup-chip': KupChip;
     'kup-chip-knowledge': KupChipKnowledge;
     'kup-combo': KupCombo;
+    'kup-combobox': KupCombobox;
     'kup-crud': KupCrud;
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
@@ -3509,7 +3510,6 @@ declare namespace LocalJSX {
     'wup-button': WupButton;
     'wup-checkbox': WupCheckbox;
     'wup-chip': WupChip;
-    'wup-combobox': WupCombobox;
     'wup-icon': WupIcon;
     'wup-paginator': WupPaginator;
   }

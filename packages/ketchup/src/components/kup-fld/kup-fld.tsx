@@ -53,7 +53,7 @@ export class KupFld {
     @Prop({ reflect: true }) submitLabel: string = '';
 
     /**
-     * Sets the submit button's position, left right or top.
+     * Sets the submit button's position, top right bottom or left.
      */
     @Prop({ reflect: true }) submitPos: string = 'right';
 
@@ -206,9 +206,10 @@ export class KupFld {
         const labelIsTop = this.labelPos === 'top';
         const labelIsLeft = this.labelPos === 'left';
         const labelIsRight = this.labelPos === 'right';
-        const submitIsTop = this.labelPos === 'top';
-        const submitIsLeft = this.labelPos === 'left';
-        const submitIsRight = this.labelPos === 'right';
+        const submitIsTop = this.submitPos === 'top';
+        const submitIsLeft = this.submitPos === 'left';
+        const submitIsRight = this.submitPos === 'right';
+        const submitIsBottom = this.submitPos === 'bottom';
 
         if (labelIsTop || submitIsTop) {
             toRender.push(
@@ -227,7 +228,6 @@ export class KupFld {
             toRender.push(submit);
         }
 
-        let confObj: { [key: string]: any } = {};
         let comp: string = undefined;
 
         if (this.type === undefined) {
@@ -237,20 +237,19 @@ export class KupFld {
         switch (this.type.toLowerCase()) {
             case 'cmb':
                 comp = 'kup-combobox';
-                confObj.onKetchupComboSelected = this.onChangeInstance;
+                propList.onkupComboboxChange = this.onChangeInstance;
                 break;
             case 'fup':
                 comp = 'kup-upload';
-                confObj.items = this.data;
+                propList.items = this.data;
                 break;
             case 'itx':
                 comp = 'kup-text-field';
-                confObj.onKetchupTextInputUpdated = this.onChangeInstance;
-                confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
+                propList.onkupTextfieldChange = this.onChangeInstance;
                 break;
             case 'rad':
                 comp = 'kup-radio';
-                confObj.onkupRadioChange = this.onChangeInstance;
+                propList.onkupRadioChange = this.onChangeInstance;
                 break;
         }
 
@@ -259,7 +258,6 @@ export class KupFld {
         toRender.push(
             <$DynamicComponent
                 class={baseClass + '__component'}
-                {...confObj}
                 {...propList}
             />
         );
@@ -268,7 +266,7 @@ export class KupFld {
             toRender.push(label);
         }
 
-        if (submitIsRight && submit) {
+        if ((submitIsRight || submitIsBottom) && submit) {
             toRender.push(submit);
         }
 

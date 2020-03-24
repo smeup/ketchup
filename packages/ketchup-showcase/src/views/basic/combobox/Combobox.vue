@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-combobox',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-combobox',
       headtitle: 'Combobox',
       titles: ['Playground', 'Basic usage'],
     };

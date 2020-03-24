@@ -8,16 +8,16 @@ import {
     h,
 } from '@stencil/core';
 
-import { ComponentProps } from '../wup-combobox/wup-combobox-declarations';
+import { ComponentProps } from '../kup-combobox/kup-combobox-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
-    tag: 'wup-combobox',
-    styleUrl: 'wup-combobox.scss',
+    tag: 'kup-combobox',
+    styleUrl: 'kup-combobox.scss',
     shadow: true,
 })
-export class WupCombobox {
+export class KupCombobox {
     @Element() rootElement: HTMLElement;
 
     /**
@@ -126,12 +126,11 @@ export class WupCombobox {
         });
     }
 
-    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
-        this.value = target.value;
+    onKupChange(e: CustomEvent) {
+        this.value = e.detail.value;
 
         this.kupChange.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
@@ -149,12 +148,11 @@ export class WupCombobox {
         });
     }
 
-    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
-        const { target } = e;
-        this.value = target.value;
+    onKupInput(e: CustomEvent) {
+        this.value = e.detail.value;
 
-        this.kupInput.emit({
-            value: target.value,
+        this.kupChange.emit({
+            value: this.value,
         });
     }
 
@@ -213,7 +211,7 @@ export class WupCombobox {
                                 j +
                                 ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                            errorLogging('wup-combobox', message);
+                            errorLogging('kup-combobox', message);
                         }
                         if (currentProp[i].selected && !firstSelectedFound) {
                             firstSelectedFound = true;

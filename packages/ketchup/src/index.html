@@ -295,7 +295,7 @@
         <kup-list is-filterable="false" selectable="true" role-type="group" list-id="pippo4"></kup-list>
 
         <h4>Material Select (widget)</h4>
-        <wup-combobox is-filterable="false" list-id="pluto1"></wup-combobox>
+        <kup-combobox is-filterable="false" list-id="pluto1"></kup-combobox>
 
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -652,7 +652,7 @@ chipList.data = [
             listBox3.data = [...itemsForListBox];
             listBox4.data = [...itemsForListBox];
 
-            let selectBox1 = document.getElementsByTagName('wup-combobox')[0];
+            let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];
             selectBox1.listData = [{prop: "data", value: itemsForListBox}, {prop: "selectable", value: "one-select"}, {prop: "listId" , value: "LISTA"}];
 

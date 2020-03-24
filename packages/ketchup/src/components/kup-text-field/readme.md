@@ -42,7 +42,7 @@
 
 ### Used by
 
- - [wup-combobox](../wup-combobox)
+ - [kup-combobox](../kup-combobox)
 
 ### Depends on
 
@@ -52,7 +52,7 @@
 ```mermaid
 graph TD;
   kup-text-field --> wup-icon
-  wup-combobox --> kup-text-field
+  kup-combobox --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

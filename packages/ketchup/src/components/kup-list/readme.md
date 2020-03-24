@@ -30,7 +30,7 @@
 
 ### Used by
 
- - [wup-combobox](../wup-combobox)
+ - [kup-combobox](../kup-combobox)
 
 ### Depends on
 
@@ -42,7 +42,7 @@
 graph TD;
   kup-list --> kup-radio
   kup-list --> wup-checkbox
-  wup-combobox --> kup-list
+  kup-combobox --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -35,12 +35,12 @@
 ### Graph
 ```mermaid
 graph TD;
-  wup-combobox --> kup-text-field
-  wup-combobox --> kup-list
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
   kup-text-field --> wup-icon
   kup-list --> kup-radio
   kup-list --> wup-checkbox
-  style wup-combobox fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

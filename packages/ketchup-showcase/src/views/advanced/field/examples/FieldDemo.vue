@@ -97,7 +97,8 @@ export default {
         },
         {
           prop: 'submitPos',
-          description: "Sets the submit button's position, left right or top.",
+          description:
+            "Sets the submit button's position, top right bottom or left.",
           type: 'string',
           default: 'right',
           try: 'field',
@@ -123,7 +124,7 @@ export default {
       ],
       demoData: [
         {
-          prop: 'data',
+          prop: 'dataRAD',
           value: [
             {
               prop: 'data',
@@ -153,6 +154,51 @@ export default {
                   label: 'Fifth',
                   checked: false,
                 },
+              ],
+            },
+          ],
+        },
+        {
+          prop: 'dataITX',
+          value: [
+            { prop: 'icon', value: 'widgets' },
+            { prop: 'label', value: 'demo' },
+          ],
+        },
+        {
+          prop: 'dataCMB',
+          value: [
+            {
+              prop: 'textfieldData',
+              value: [
+                { prop: 'trailingIcon', value: true },
+                { prop: 'icon', value: 'arrow_drop_down' },
+                { prop: 'label', value: 'demo' },
+              ],
+            },
+            {
+              prop: 'listData',
+              value: [
+                {
+                  prop: 'data',
+                  value: [
+                    {
+                      text: 'First choice',
+                      value: '1',
+                      selected: true,
+                    },
+                    {
+                      text: 'Selected choice',
+                      value: '2',
+                    },
+                    {
+                      text: 'Third choice',
+                      value: '3',
+                    },
+                  ],
+                },
+                { prop: 'selectable', value: 'one-select' },
+                { prop: 'listId', value: 'LISTA' },
               ],
             },
           ],
