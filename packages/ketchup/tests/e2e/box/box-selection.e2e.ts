@@ -41,7 +41,7 @@ describe('box selection', () => {
         expect(event.detail.column).toBe('FLD1');
 
         // testing second object
-        obj = objects[1];
+        const obj = objects[1];
 
         await obj.click();
 
