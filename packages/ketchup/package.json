@@ -58,13 +58,12 @@
         "numeral": "^2.0.6"
     },
     "devDependencies": {
-        "@stencil/core": "^1.9.2",
+        "@stencil/core": "~1.11.1-0",
         "@stencil/sass": "^1.1.1",
         "@types/jest": "^24.9.0",
         "@types/jest-cli": "^24.3.0",
         "@types/lodash": "^4.14.136",
         "@types/node": "^12.6.8",
-        "@types/numeral": "0.0.25",
         "@types/puppeteer": "~2.0.1",
         "@vaadin/vaadin-upload": "^4.2.2",
         "jest": "^24.9.0",
