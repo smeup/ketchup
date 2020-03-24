@@ -3,18 +3,6 @@
     <template v-slot:0>
       <field-demo></field-demo>
     </template>
-    <template v-slot:1>
-      <field-basic></field-basic>
-    </template>
-    <template v-slot:2>
-      <field-combo></field-combo>
-    </template>
-    <template v-slot:3>
-      <field-graphic></field-graphic>
-    </template>
-    <template v-slot:4>
-      <field-radio></field-radio>
-    </template>
   </comp>
 </template>
 

@@ -7,12 +7,13 @@ import {
     Prop,
     h,
 } from '@stencil/core';
-import { generateUniqueId } from '../../utils/utils';
+
 import {
     KupFldChangeEvent,
     KupFldSubmitEvent,
     ComponentProps,
 } from './kup-fld-declarations';
+
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
@@ -62,7 +63,6 @@ export class KupFld {
     @Prop({ reflect: true }) type: string = undefined;
 
     //-- Not reactive --
-    radioGeneratedName = generateUniqueId('value');
     currentValue: object | string = null;
     previousValue: object | string = null;
 
@@ -100,6 +100,7 @@ export class KupFld {
     onChange(event: CustomEvent) {
         let message = 'Changing!';
         errorLogging('kup-fld', message);
+        console.log(event);
         const { value, info } = event.detail;
         this.kupChange.emit({
             originalEvent: event,
@@ -115,6 +116,7 @@ export class KupFld {
     onSubmit(event: CustomEvent) {
         let message = 'Submitting!';
         errorLogging('kup-fld', message);
+        console.log(event);
         this.kupSubmit.emit({
             originalEvent: event,
             oldValue: this.previousValue,
@@ -202,7 +204,11 @@ export class KupFld {
 
         //-- If a component must be positioned on top of the dynamic one --
         const labelIsTop = this.labelPos === 'top';
-        const submitIsTop = this.submitPos === 'top';
+        const labelIsLeft = this.labelPos === 'left';
+        const labelIsRight = this.labelPos === 'right';
+        const submitIsTop = this.labelPos === 'top';
+        const submitIsLeft = this.labelPos === 'left';
+        const submitIsRight = this.labelPos === 'right';
 
         if (labelIsTop || submitIsTop) {
             toRender.push(
@@ -213,40 +219,33 @@ export class KupFld {
             );
         }
 
-        //-- Outputs the main dynamic component to render --
-        if (!labelIsTop && label) {
+        if (labelIsLeft && label) {
             toRender.push(label);
+        }
+
+        if (submitIsLeft && submit) {
+            toRender.push(submit);
         }
 
         let confObj: { [key: string]: any } = {};
         let comp: string = undefined;
+
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
             errorLogging('kup-fld', message);
         }
         switch (this.type.toLowerCase()) {
             case 'cmb':
-                comp = 'wup-combobox';
+                comp = 'kup-combobox';
                 confObj.onKetchupComboSelected = this.onChangeInstance;
                 break;
             case 'fup':
                 comp = 'kup-upload';
                 confObj.items = this.data;
-                //confObj.formDataName:'WTX_FILE' -> no, usare il nome del campo: "id": "TPLFLD"
-                /*
-                compPrefix = '';
-                type = 'vaadin-upload';
-                */
-                /*
-                compPrefix = '';
-                type ='input';
-                confObj.type = 'file';
-                */
                 break;
             case 'itx':
                 comp = 'kup-text-field';
                 confObj.onKetchupTextInputUpdated = this.onChangeInstance;
-                // When FLD has the text form, it should submit also when a user presses Enter on the text field
                 confObj.onKetchupTextInputSubmit = this.onSubmitInstance;
                 break;
             case 'rad':
@@ -265,7 +264,11 @@ export class KupFld {
             />
         );
 
-        if (!submitIsTop && submit) {
+        if (labelIsRight && label) {
+            toRender.push(label);
+        }
+
+        if (submitIsRight && submit) {
             toRender.push(submit);
         }
 

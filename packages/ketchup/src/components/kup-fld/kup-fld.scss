@@ -2,46 +2,59 @@
   display: var(--kup-display-mode);
 
   #kup-component {
-    display: inline-flex;
-
     & label {
       color: var(--kup-text-color);
       font-family: var(--kup-font-family);
       font-size: var(--kup-font-size);
     }
 
-    &.label-top {
-      flex-direction: column;
+    & .kup-fld__component {
+      display: inline-block;
+    }
 
+    &.label-top.submit-top {
       & label {
         float: left;
+        margin: auto auto 1rem auto;
       }
       & kup-button {
         float: right;
+        margin: auto auto 1rem auto;
       }
     }
 
     &.label-right {
-      flex-direction: row-reverse;
-
       & label {
+        display: inline-block;
         margin: auto auto auto 1rem;
       }
     }
 
-    &.label-bottom {
-      flex-direction: column-reverse;
-
-      & label {
-        margin: 1rem auto auto auto;
+    &.submit-right {
+      & kup-button {
+        display: inline-block;
+        margin: auto auto auto 1rem;
       }
     }
 
     &.label-left {
-      flex-direction: row;
-
       & label {
+        display: inline-block;
         margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-left {
+      & kup-button {
+        display: inline-block;
+        margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-bottom {
+      & kup-button {
+        display: block;
+        margin: 1rem auto auto auto;
       }
     }
   }

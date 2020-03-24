@@ -59,7 +59,8 @@ export default {
         },
         {
           prop: 'data',
-          description: 'The actual data of the field.',
+          description:
+            'The actual data passed to the component, including its props.',
           type: 'any',
           default: 'undefined',
           try: 'json',
