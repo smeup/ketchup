@@ -25,9 +25,9 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-checkbox></wup-checkbox>
-          <wup-checkbox indeterminate></wup-checkbox>
-          <wup-checkbox checked></wup-checkbox>
+          <kup-checkbox></kup-checkbox>
+          <kup-checkbox indeterminate></kup-checkbox>
+          <kup-checkbox checked></kup-checkbox>
         </div>
         <p class="centered">Marked state sample markup</p>
         <code class="flat">{{ markupMarked }}</code>
@@ -43,9 +43,9 @@ export default {
   name: 'CheckboxBasic',
   data() {
     return {
-      markupBasic: '<wup-checkbox></wup-checkbox>',
-      markupMarked: '<wup-checkbox checked></wup-checkbox>',
-      markupIndeterminate: '<wup-checkbox indeterminate></wup-checkbox>',
+      markupBasic: '<kup-checkbox></kup-checkbox>',
+      markupMarked: '<kup-checkbox checked></kup-checkbox>',
+      markupIndeterminate: '<kup-checkbox indeterminate></kup-checkbox>',
     };
   },
 };

@@ -355,25 +355,29 @@ export namespace Components {
   }
   interface KupCheckbox {
     /**
-    * Sets the checkbox to be checked
+    * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked': boolean;
     /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * The label to set to the component
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate': boolean;
+    /**
+    * Defaults at null. When specified, its content will be shown as a label.
     */
     'label': string;
     /**
-    * Sets the tabindex of the checkbox
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
-    'setTabIndex': number;
-    /**
-    * If true, shows the label by using a label tag
-    */
-    'showLabel': boolean;
+    'leadingLabel': boolean;
   }
   interface KupCheckboxMenu {
     /**
@@ -2076,43 +2080,49 @@ declare namespace LocalJSX {
   }
   interface KupCheckbox extends JSXBase.HTMLAttributes<HTMLKupCheckboxElement> {
     /**
-    * Sets the checkbox to be checked
+    * Defaults at false. When set to true, the component will be set to 'checked'.
     */
     'checked'?: boolean;
     /**
-    * Sets the checkbox to be disabled  Must have reflect into the attribute
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * The label to set to the component
+    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+    */
+    'indeterminate'?: boolean;
+    /**
+    * Defaults at null. When specified, its content will be shown as a label.
     */
     'label'?: string;
     /**
-    * Fired when the checkbox input is blurred
+    * Defaults at false. When set to true, the label will be on the left of the component.
     */
+    'leadingLabel'?: boolean;
     'onKupCheckboxBlur'?: (event: CustomEvent<{
+      value: string;
       checked: boolean;
     }>) => void;
-    /**
-    * Fired when the checkbox input changes its value
-    */
     'onKupCheckboxChange'?: (event: CustomEvent<{
+      value: string;
       checked: boolean;
     }>) => void;
-    /**
-    * Fired when the checkbox input receive focus
-    */
+    'onKupCheckboxClick'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
     'onKupCheckboxFocus'?: (event: CustomEvent<{
+      value: string;
       checked: boolean;
     }>) => void;
-    /**
-    * Sets the tabindex of the checkbox
-    */
-    'setTabIndex'?: number;
-    /**
-    * If true, shows the label by using a label tag
-    */
-    'showLabel'?: boolean;
+    'onKupCheckboxInput'?: (event: CustomEvent<{
+      value: string;
+      checked: boolean;
+    }>) => void;
   }
   interface KupCheckboxMenu extends JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement> {
     /**

@@ -193,7 +193,7 @@ export class KupCheckboxMenu {
                 {itemsToRender.map((item) => {
                     return (
                         <li>
-                            <wup-checkbox
+                            <kup-checkbox
                                 checked={
                                     this.selectedItems.indexOf(
                                         item[this.valueField]
@@ -230,7 +230,7 @@ export class KupCheckboxMenu {
                     onKupMenuClose={this.closeMenu.bind(this)}
                 >
                     <div class="checkbox-menu-header" slot="top-container">
-                        <wup-checkbox
+                        <kup-checkbox
                             onKupCheckboxChange={(e: CustomEvent) => {
                                 this.toggleAllCheckboxesSelection(e);
                             }}

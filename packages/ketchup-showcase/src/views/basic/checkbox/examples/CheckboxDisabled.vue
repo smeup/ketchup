@@ -9,8 +9,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-checkbox disabled></wup-checkbox>
-          <wup-checkbox disabled checked></wup-checkbox>
+          <kup-checkbox disabled></kup-checkbox>
+          <kup-checkbox disabled checked></kup-checkbox>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -24,7 +24,7 @@ export default {
   name: 'CheckboxDisabled',
   data() {
     return {
-      markupDisabled: '<wup-checkbox disabled></wup-checkbox>',
+      markupDisabled: '<kup-checkbox disabled></kup-checkbox>',
     };
   },
 };

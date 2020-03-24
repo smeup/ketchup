@@ -41,7 +41,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-checkbox id="demo-component"></wup-checkbox>',
+      demoComp: '<kup-checkbox id="demo-component"></kup-checkbox>',
       demoProps: [
         {
           prop: 'checked',

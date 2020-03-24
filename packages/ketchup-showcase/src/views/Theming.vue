@@ -23,7 +23,7 @@
         <div class="demo-container">
           <div class="kup-container" style="display: unset;">
             <kup-radio></kup-radio>
-            <wup-checkbox></wup-checkbox>
+            <kup-checkbox></kup-checkbox>
             <kup-text-field label="Demo"></kup-text-field>
             <wup-button label="Demo"></wup-button>
             <kup-switch></kup-switch>
