@@ -1,7 +1,5 @@
 # wup-checkbox
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -33,13 +31,13 @@
 ### Used by
 
  - [kup-checkbox-menu](../kup-checkbox-menu)
- - [wup-list](../wup-list)
+ - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-checkbox-menu --> wup-checkbox
-  wup-list --> wup-checkbox
+  kup-list --> wup-checkbox
   style wup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

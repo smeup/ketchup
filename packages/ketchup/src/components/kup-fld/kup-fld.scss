@@ -1,49 +1,61 @@
-/**
-* Css Properties
-* @prop --fld_comp-margin, --kup-fld_component-margin: Specifies internal margin between label, submit button and dynamic component
-*/
-
 :host {
-  display: flex;
-  flex-wrap: wrap;
-  --fld_comp-margin: var(--kup-fld_component-margin, 8px);
-}
+  display: var(--kup-display-mode);
 
-// Base class and its derived
-.kup-fld {
-  $rightClass: #{&}--right;
-
-  // the top div container
-  &__top-container {
-    align-items: center;
-    display: flex;
-    order: 0;
-    width: 100%;
-  }
-
-  // the label
-  &__label {
-    margin: var(--fld_comp-margin);
-    order: 1;
-
-    &#{$rightClass} {
-      order: 4;
+  #kup-component {
+    & label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
+      font-size: var(--kup-font-size);
     }
-  }
 
-  // the dynamic component
-  &__component {
-    margin: var(--fld_comp-margin);
-    order: 3;
-  }
+    & .kup-fld__component {
+      display: inline-block;
+    }
 
-  // the submit button
-  &__submit {
-    margin: var(--fld_comp-margin);
-    order: 2;
+    &.label-top.submit-top {
+      & label {
+        float: left;
+        margin: auto auto 1rem auto;
+      }
+      & kup-button {
+        float: right;
+        margin: auto auto 1rem auto;
+      }
+    }
 
-    &#{$rightClass} {
-      order: 5;
+    &.label-right {
+      & label {
+        display: inline-block;
+        margin: auto auto auto 1rem;
+      }
+    }
+
+    &.submit-right {
+      & kup-button {
+        display: inline-block;
+        margin: auto auto auto 1rem;
+      }
+    }
+
+    &.label-left {
+      & label {
+        display: inline-block;
+        margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-left {
+      & kup-button {
+        display: inline-block;
+        margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-bottom {
+      & kup-button {
+        display: block;
+        margin: 1rem auto auto auto;
+      }
     }
   }
 }

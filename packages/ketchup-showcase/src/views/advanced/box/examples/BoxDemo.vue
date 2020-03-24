@@ -12,13 +12,12 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-import { baseData } from '@/mock/chart';
 
 export default {
   components: {
     Demo,
   },
-  name: 'ChartDemo',
+  name: 'BoxDemo',
   data() {
     return {
       demoTabs: [
@@ -76,7 +75,7 @@ export default {
         },
         {
           prop: 'data',
-          description: 'The actual data of the chart.',
+          description: 'The actual data of the box.',
           type: '{ columns?: Column[]; rows?: BoxRow[]; }',
           default: 'undefined',
           try: 'json',

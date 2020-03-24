@@ -5,7 +5,7 @@
   display: var(--kup-display-mode);
 
   #kup-component {
-    & wup-list {
+    & kup-list {
       animation: fadeInFromNone 0.25s ease-out;
       max-height: 40vh;
       transition: height 0.2s;

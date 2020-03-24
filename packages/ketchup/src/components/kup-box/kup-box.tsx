@@ -1231,7 +1231,7 @@ export class KupBox {
                     );
                 } else if (isButton(cell.obj)) {
                     boContent = (
-                        <kup-button
+                        <wup-button
                             {...buildButtonConfig(cell.value, cell.config)}
                         />
                     );
@@ -1244,25 +1244,18 @@ export class KupBox {
                         ></kup-checkbox>
                     );
                 } else if (isRadio(cell.obj)) {
-                    let initialValue = {
-                        label: '',
-                        value: '1',
+                    let radioProp = {
+                        data: [
+                            {
+                                label: '',
+                                value: cell.value,
+                                checked: cell.value == '1',
+                            },
+                        ],
+                        disabled: true,
                     };
-                    let items = [
-                        {
-                            label: '',
-                            value: cell.value,
-                        },
-                    ];
 
-                    boContent = (
-                        <kup-radio
-                            disabled={true}
-                            items={items}
-                            initialValue={initialValue}
-                            value-field="value"
-                        />
-                    );
+                    boContent = <kup-radio {...radioProp} />;
                 } else if (isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-input

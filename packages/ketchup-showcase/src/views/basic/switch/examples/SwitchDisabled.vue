@@ -9,8 +9,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-switch disabled></wup-switch>
-          <wup-switch disabled checked></wup-switch>
+          <kup-switch disabled></kup-switch>
+          <kup-switch disabled checked></kup-switch>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -24,7 +24,7 @@ export default {
   name: 'SwitchDisabled',
   data() {
     return {
-      markupDisabled: '<wup-switch disabled></wup-switch>',
+      markupDisabled: '<kup-switch disabled></kup-switch>',
     };
   },
 };

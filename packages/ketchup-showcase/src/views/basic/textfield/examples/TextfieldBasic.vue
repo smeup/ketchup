@@ -8,7 +8,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field label="I am a text field"></wup-text-field>
+          <kup-text-field label="I am a text field"></kup-text-field>
         </div>
         <p class="centered">Sample markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -22,7 +22,7 @@ export default {
   name: 'TextfieldBasic',
   data() {
     return {
-      markupBasic: '<wup-text-field></wup-text-field>',
+      markupBasic: '<kup-text-field></kup-text-field>',
     };
   },
 };

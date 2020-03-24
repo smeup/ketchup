@@ -22,8 +22,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-switch></wup-switch>
-          <wup-switch checked></wup-switch>
+          <kup-switch></kup-switch>
+          <kup-switch checked></kup-switch>
         </div>
         <p class="centered">Marked state sample markup</p>
         <code class="flat">{{ markupMarked }}</code>
@@ -37,8 +37,8 @@ export default {
   name: 'SwitchBasic',
   data() {
     return {
-      markupBasic: '<wup-switch></wup-switch>',
-      markupMarked: '<wup-switch checked></wup-switch>',
+      markupBasic: '<kup-switch></kup-switch>',
+      markupMarked: '<kup-switch checked></kup-switch>',
     };
   },
 };

@@ -16,11 +16,11 @@ import { MDCTextFieldCharacterCounter } from '@material/textfield/character-coun
 import { MDCTextFieldIcon } from '@material/textfield/icon';
 
 @Component({
-    tag: 'wup-text-field',
-    styleUrl: 'wup-text-field.scss',
+    tag: 'kup-text-field',
+    styleUrl: 'kup-text-field.scss',
     shadow: true,
 })
-export class WupTextField {
+export class KupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
 
@@ -267,7 +267,7 @@ export class WupTextField {
             placeholderLabel = this.label;
         } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
             labelEl = (
-                <label class="mdc-floating-label" htmlFor="wup-input">
+                <label class="mdc-floating-label" htmlFor="kup-input">
                     {this.label}
                 </label>
             );
@@ -382,7 +382,7 @@ export class WupTextField {
             }
             inputEl = (
                 <textarea
-                    id="wup-input"
+                    id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     maxlength={this.maxLength}
@@ -398,7 +398,7 @@ export class WupTextField {
             inputEl = (
                 <input
                     type={this.inputType}
-                    id="wup-input"
+                    id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
@@ -450,7 +450,7 @@ export class WupTextField {
                 {leadingIconEl}
                 <input
                     type={this.inputType}
-                    id="wup-input"
+                    id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
                     placeholder={placeholderLabel}
@@ -503,7 +503,7 @@ export class WupTextField {
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
-                        <label htmlFor="wup-input">{this.label}</label>
+                        <label htmlFor="kup-input">{this.label}</label>
                     </div>
                 </div>
             </Host>

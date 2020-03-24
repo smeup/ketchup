@@ -12,11 +12,11 @@ import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
 
 @Component({
-    tag: 'wup-switch',
-    styleUrl: 'wup-switch.scss',
+    tag: 'kup-switch',
+    styleUrl: 'kup-switch.scss',
     shadow: true,
 })
-export class WupSwitch {
+export class KupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     /**

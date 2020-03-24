@@ -47,7 +47,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-list id="demo-component"></wup-list>',
+      demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -76,7 +76,7 @@ export default {
           prop: 'listId',
           description: 'Identify the component',
           type: 'boolean',
-          default: 'WupList-myId',
+          default: 'KupList-myId',
           try: 'switch',
         },
         {

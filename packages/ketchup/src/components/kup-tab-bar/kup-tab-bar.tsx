@@ -9,14 +9,14 @@ import {
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
-import { ComponentTabBarElement } from './wup-tab-bar-declarations';
+import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 
 @Component({
-    tag: 'wup-tab-bar',
-    styleUrl: 'wup-tab-bar.scss',
+    tag: 'kup-tab-bar',
+    styleUrl: 'kup-tab-bar.scss',
     shadow: true,
 })
-export class WupTabBar {
+export class KupTabBar {
     @Element() rootElement: HTMLElement;
     /**
      * Custom style to be passed to the component.

@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-combobox label="demo" id="demo-component"></wup-combobox>',
+        '<kup-combobox label="demo" id="demo-component"></kup-combobox>',
       demoProps: [
         {
           prop: 'customStyle',

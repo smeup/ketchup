@@ -41,7 +41,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-switch id="demo-component"></wup-switch>',
+      demoComp: '<kup-switch id="demo-component"></kup-switch>',
       demoProps: [
         {
           prop: 'checked',

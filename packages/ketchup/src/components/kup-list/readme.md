@@ -1,6 +1,4 @@
-# wup-list
-
-
+# kup-list
 
 <!-- Auto Generated Below -->
 
@@ -11,8 +9,8 @@
 | -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ---------------------- |
 | `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                   |
 | `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                |
-| `listId`       | `list-id`       |                                                                            | `string`                 | `'WupList-myId'`       |
-| `roleType`     | `role-type`     |                                                                            | `string`                 | `WupList.ROLE_LISTBOX` |
+| `listId`       | `list-id`       |                                                                            | `string`                 | `'KupList-myId'`       |
+| `roleType`     | `role-type`     |                                                                            | `string`                 | `KupList.ROLE_LISTBOX` |
 | `selectable`   | `selectable`    |                                                                            | `boolean`                | `true`                 |
 | `twoLine`      | `two-line`      |                                                                            | `boolean`                | `false`                |
 
@@ -32,20 +30,20 @@
 
 ### Used by
 
- - [wup-combobox](../wup-combobox)
+ - [kup-combobox](../kup-combobox)
 
 ### Depends on
 
-- [wup-radio](../wup-radio)
+- [kup-radio](../kup-radio)
 - [wup-checkbox](../wup-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
-  wup-list --> wup-radio
-  wup-list --> wup-checkbox
-  wup-combobox --> wup-list
-  style wup-list fill:#f9f,stroke:#333,stroke-width:4px
+  kup-list --> kup-radio
+  kup-list --> wup-checkbox
+  kup-combobox --> kup-list
+  style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

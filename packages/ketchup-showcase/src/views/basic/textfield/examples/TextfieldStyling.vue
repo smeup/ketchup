@@ -8,7 +8,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field outlined label="I am outlined"></wup-text-field>
+          <kup-text-field outlined label="I am outlined"></kup-text-field>
         </div>
         <p class="centered">Outlined sample markup</p>
         <code class="flat">{{ markupOutlined }}</code>
@@ -23,12 +23,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field shaped label="I am shaped and flat"></wup-text-field>
-          <wup-text-field
+          <kup-text-field shaped label="I am shaped and flat"></kup-text-field>
+          <kup-text-field
             shaped
             outlined
             label="I am shaped and outlined"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Shaped sample markup</p>
         <code class="flat">{{ markupShaped }}</code>
@@ -46,10 +46,10 @@
       <br />
       <div class="demo-container">
         <div class="kup-container-fw">
-          <wup-text-field
+          <kup-text-field
             full-width
             label="I am a full width field"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Full width sample markup</p>
         <code class="flat">{{ markupFullwidth }}</code>
@@ -64,10 +64,10 @@
       <br />
       <div class="demo-container">
         <div class="kup-container-fw" style="height: 75px;">
-          <wup-text-field
+          <kup-text-field
             full-height
             label="I am a full height field"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Full height sample markup</p>
         <code class="flat">{{ markupFullheight }}</code>
@@ -86,20 +86,20 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field
+          <kup-text-field
             label="I have a heart"
             icon="favorite"
-          ></wup-text-field>
-          <wup-text-field
+          ></kup-text-field>
+          <kup-text-field
             label="I am rich"
             icon="attach_money"
             outlined
-          ></wup-text-field>
-          <wup-text-field
+          ></kup-text-field>
+          <kup-text-field
             shaped
             label="I feel like dancing"
             icon="music_note"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Icon sample markup</p>
         <code class="flat">{{ markupIcon }}</code>
@@ -110,11 +110,11 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field
+          <kup-text-field
             label="I am right-hearted"
             trailing-icon
             icon="favorite"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Trailing icon sample markup</p>
         <code class="flat">{{ markupTrailingIcon }}</code>
@@ -132,15 +132,15 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field
+          <kup-text-field
             label="Persistent helper"
             helper="I am persistent"
-          ></wup-text-field>
-          <wup-text-field
+          ></kup-text-field>
+          <kup-text-field
             helper-when-focused
             label="Discrete helper"
             helper="I show when asked to"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Helper sample markup</p>
         <code class="flat">{{ markupHelper }}</code>
@@ -159,15 +159,15 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field
+          <kup-text-field
             max-length="10"
             label="Counter in field"
-          ></wup-text-field>
-          <wup-text-field
+          ></kup-text-field>
+          <kup-text-field
             text-area
             max-length="120"
             label="Counter in text area"
-          ></wup-text-field>
+          ></kup-text-field>
         </div>
         <p class="centered">Counter sample markup</p>
         <code class="flat">{{ markupCounter }}</code>
@@ -181,17 +181,17 @@ export default {
   name: 'TextfieldStyling',
   data() {
     return {
-      markupOutlined: '<wup-text-field outlined></wup-text-field>',
-      markupShaped: '<wup-text-field shaped></wup-text-field>',
-      markupFullwidth: '<wup-text-field full-width></wup-text-field>',
-      markupFullheight: '<wup-text-field full-height></wup-text-field>',
-      markupIcon: '<wup-text-field icon="your_icon"></wup-text-field>',
+      markupOutlined: '<kup-text-field outlined></kup-text-field>',
+      markupShaped: '<kup-text-field shaped></kup-text-field>',
+      markupFullwidth: '<kup-text-field full-width></kup-text-field>',
+      markupFullheight: '<kup-text-field full-height></kup-text-field>',
+      markupIcon: '<kup-text-field icon="your_icon"></kup-text-field>',
       markupTrailingIcon:
-        '<wup-text-field trailing-icon icon="your_icon"></wup-text-field>',
-      markupHelper: '<wup-text-field helper="Your help text"></wup-text-field>',
+        '<kup-text-field trailing-icon icon="your_icon"></kup-text-field>',
+      markupHelper: '<kup-text-field helper="Your help text"></kup-text-field>',
       markupFocusHelper:
-        '<wup-text-field helper-when-focused helper="Your help text"></wup-text-field>',
-      markupCounter: '<wup-text-field max-length="10"></wup-text-field>',
+        '<kup-text-field helper-when-focused helper="Your help text"></kup-text-field>',
+      markupCounter: '<kup-text-field max-length="10"></kup-text-field>',
     };
   },
 };

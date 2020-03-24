@@ -1,6 +1,4 @@
-# wup-tab-bar
-
-
+# kup-tab-bar
 
 <!-- Auto Generated Below -->
 
@@ -31,8 +29,8 @@
 ### Graph
 ```mermaid
 graph TD;
-  wup-tab-bar --> wup-icon
-  style wup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
+  kup-tab-bar --> wup-icon
+  style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

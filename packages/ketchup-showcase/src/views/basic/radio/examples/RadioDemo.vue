@@ -47,7 +47,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-radio id="demo-component"></wup-radio>',
+      demoComp: '<kup-radio id="demo-component"></kup-radio>',
       demoProps: [
         {
           prop: 'data',
