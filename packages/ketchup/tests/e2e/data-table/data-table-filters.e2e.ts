@@ -1,4 +1,4 @@
-import {E2EPage, newE2EPage, E2EElement} from '@stencil/core/testing';
+import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
 
 import { staticData } from './mocked-data';
 
@@ -12,14 +12,16 @@ import { staticData } from './mocked-data';
  * @return A promise whose payload is the E2EElement of the global filter
  */
 async function globalFilterSelector(page: E2EPage): Promise<E2EElement> {
-  const temp = (await page.evaluateHandle(`document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-input").shadowRoot.querySelector("input")`)) as unknown as E2EElement;
-  return temp;
+    const temp = ((await page.evaluateHandle(
+        `document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-input").shadowRoot.querySelector("input")`
+    )) as unknown) as E2EElement;
+    return temp;
 }
 
 function delay(time) {
-  return new Promise(function(resolve) {
-    setTimeout(resolve, time)
-  });
+    return new Promise(function(resolve) {
+        setTimeout(resolve, time);
+    });
 }
 
 const filtersSelector = 'kup-data-table >>> table > thead kup-text-input';
@@ -34,6 +36,7 @@ describe('kup-data-table with global filter', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', staticData);
+        element.setProperty('globalFilterValue', 'DEL');
 
         await page.waitForChanges();
 
@@ -41,17 +44,27 @@ describe('kup-data-table with global filter', () => {
         const filters = await page.findAll(filtersSelector);
         expect(filters).toHaveLength(0);
 
+        // testing table rows
+        let bodyRows = await page.findAll(
+            'kup-data-table >>> table tbody > tr'
+        );
+        expect(bodyRows).toHaveLength(1);
+
         // getting global filter input and changing value
         let globalFilterInput = await globalFilterSelector(page);
 
         // Read inside the read me for explanations on the different methods of typing characters with puppeteer API
-        await globalFilterInput.type('FRA', {delay: 200});
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.type('FRA', { delay: 1000 });
+
+        await globalFilterInput.click();
+
+        await page.waitForChanges();
 
         // testing table rows
-        const bodyRows = await page.findAll(
-            'kup-data-table >>> table tbody > tr'
-        );
-
+        bodyRows = await page.findAll('kup-data-table >>> table tbody > tr');
         expect(bodyRows).toHaveLength(2);
     }, 20000); // Raised default time out to allow computing of filtered table and user keypress
 });
@@ -70,13 +83,11 @@ describe('kup-data-table with filters', () => {
         let globalFilterInput;
         // no global filter -> we use the try catch statement since the promise must fail in order for the test to be correct.
         try {
-           globalFilterInput = await globalFilterSelector(page);
-        }
-        catch (e) {
-          expect(globalFilterInput).toBeFalsy();
-        }
-        finally {
-          expect(globalFilterInput).toBeFalsy();
+            globalFilterInput = await globalFilterSelector(page);
+        } catch (e) {
+            expect(globalFilterInput).toBeFalsy();
+        } finally {
+            expect(globalFilterInput).toBeFalsy();
         }
 
         // testing filters
