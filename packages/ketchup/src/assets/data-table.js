@@ -464,23 +464,18 @@ document.getElementById('radio-buttons').data = radioData;
 // filters
 const showFilter = document.getElementById('show-filter');
 showFilter.data = defaultData;
-showFilter.showFilters = true;
+showFilter.showFilters = 'true';
 
 const filter = document.getElementById('filter');
 filter.data = defaultData;
-filter.config = {
-    showFilter: true,
-    filter: {
-        FLD1: 'fra',
-    },
+filter.showFilters = 'true';
+filter.filters = {
+    FLD1: 'fra',
 };
 
 const globalFilter = document.getElementById('global-filter');
 globalFilter.data = defaultData;
-globalFilter.config = {
-    showFilter: true,
-    globalFilter: true,
-};
+globalFilter.globalFilter = 'true';
 
 // sort
 const noSort = document.getElementById('no-sort');
