@@ -13,7 +13,7 @@ import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
-import { WupCheckbox } from '../wup-checkbox/wup-checkbox';
+import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 
 @Component({
     tag: 'kup-list',
@@ -32,7 +32,7 @@ export class KupList {
     private listComponent: MDCList = null;
 
     private radios: KupRadio[] = [];
-    private checkboxes: WupCheckbox[] = [];
+    private checkboxes: KupCheckbox[] = [];
 
     /**
      * Marks the list as filterable, allowing an input text to filter the options
@@ -270,12 +270,12 @@ export class KupList {
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
                     <input type="checkbox" style={aaa} />
-                    <wup-checkbox
+                    <kup-checkbox
                         class="mdc-checkbox"
                         id={this.listId + index}
                         checked={checkedAttr}
                         ref={(el) => (this.checkboxes[index] = el as any)}
-                    ></wup-checkbox>
+                    ></kup-checkbox>
                 </span>,
                 <label
                     class="mdc-list-item__text"

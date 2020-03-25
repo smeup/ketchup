@@ -9,11 +9,11 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-checkbox
+          <kup-checkbox
             leading-label
             label="This label is on the left"
-          ></wup-checkbox>
-          <wup-checkbox label="This label is on the right"></wup-checkbox>
+          ></kup-checkbox>
+          <kup-checkbox label="This label is on the right"></kup-checkbox>
         </div>
         <p class="centered">Left aligned sample markup</p>
         <code class="flat">{{ markupLeft }}</code>
@@ -29,9 +29,9 @@ export default {
   name: 'CheckboxLabels',
   data() {
     return {
-      markupRight: '<wup-checkbox label="Your label"></wup-checkbox>',
+      markupRight: '<kup-checkbox label="Your label"></kup-checkbox>',
       markupLeft:
-        '<wup-checkbox leading-label label="Your label"></wup-checkbox>',
+        '<kup-checkbox leading-label label="Your label"></kup-checkbox>',
     };
   },
 };
