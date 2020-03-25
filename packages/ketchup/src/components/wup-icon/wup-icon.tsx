@@ -58,11 +58,25 @@ export class WupIcon {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.type === 'svg') {
-            return this.fetchResource();
+        if (
+            this.name.indexOf('.') > -1 ||
+            this.name.indexOf('/') > -1 ||
+            this.name.indexOf('\\') > -1
+        ) {
+            let message =
+                'Detected an src img path for icon with name(' +
+                this.name +
+                ')! Overriding "svg" with "srcpath".';
+            errorLogging('wup-icon', message);
+            this.resource = this.name;
+            this.type = 'srcpath';
         } else {
-            return (this.resource =
-                'assets/' + this.type + '/' + this.name + '.' + this.type);
+            if (this.type === 'svg') {
+                return this.fetchResource();
+            } else {
+                return (this.resource =
+                    'assets/' + this.type + '/' + this.name + '.' + this.type);
+            }
         }
     }
 
