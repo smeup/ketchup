@@ -79,14 +79,6 @@ export class WupIcon {
             customStyle = <style>{this.customStyle}</style>;
         }
         if (this.type === 'svg') {
-            el = el.replace('height="24"', 'height="100%"');
-            el = el.replace('width="24"', 'width="100%"');
-            el = el.replace('height="48"', 'height="100%"');
-            el = el.replace('width="48"', 'width="100%"');
-            el = el.replace('fill="#010101"', '');
-            el = el.replace('fill="#000000"', '');
-            el = el.replace('fill="#ffffff"', '');
-
             return (
                 <Host style={elStyle}>
                     {customStyle}
