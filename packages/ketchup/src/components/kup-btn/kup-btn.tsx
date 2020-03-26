@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
 
 import { ButtonConfig } from './kup-btn-declarations';
 
@@ -15,12 +15,23 @@ export class KupBtn {
 
     @State() selectedBtnIndex: number;
 
+    @Event({
+        eventName: 'kupBtnClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    btnClicked: EventEmitter<{
+        id: number;
+    }>;
+
     onBtnClicked(event: CustomEvent) {
-        if (this.config.showSelection) {
-            this.selectedBtnIndex = parseInt(
-                (event.target as HTMLElement).dataset.id
-            );
-        }
+        this.selectedBtnIndex = parseInt(
+            (event.target as HTMLElement).dataset.id
+        );
+        this.btnClicked.emit({
+            id: this.selectedBtnIndex,
+        });
     }
 
     render() {
@@ -55,36 +66,17 @@ export class KupBtn {
         if (buttonsInGrid.length > 0) {
             buttonsJsx = buttonsInGrid.map((btns) => {
                 const btnsJsx = btns.map((btn) => {
-                    let btnClass = this.config.buttonClass || '';
-                    if (id === this.selectedBtnIndex) {
-                        btnClass += ' btn-selected';
-                    }
-
-                    let cls =
-                        this.config.fillspace || !this.config.horizontal
-                            ? 'fillspace'
-                            : '';
-
                     return (
                         <td>
-                            <kup-button
-                                iconUrl={this.config.iconUrl}
-                                label={btn.value}
-                                iconClass={btn.iconClass}
-                                fillspace={this.config.fillspace}
-                                showtext={this.config.showtext}
-                                showicon={this.config.showicon}
-                                rounded={this.config.rounded}
-                                textmode={this.config.textmode}
-                                transparent={this.config.transparent}
-                                buttonClass={btnClass}
+                            <wup-button
+                                label={btn.label}
+                                icon={btn.icon}
+                                fullWidth={this.config.fillspace}
+                                shaped={this.config.rounded}
+                                outlined={this.config.transparent}
                                 flat={this.config.flat}
                                 data-id={id++}
-                                onKupButtonClicked={(ev) =>
-                                    this.onBtnClicked(ev)
-                                }
-                                align={this.config.align}
-                                class={cls}
+                                onKupButtonClick={(ev) => this.onBtnClicked(ev)}
                             />
                         </td>
                     );
@@ -108,54 +100,9 @@ export class KupBtn {
         // It simply sets them in style inside the html. Not the most elegant way,
         // https://medium.com/geckoboard-under-the-hood/how-we-made-our-product-more-personalized-with-css-variables-and-react-b29298fde608
         // https://medium.com/fbdevclagos/how-to-leverage-styled-components-and-css-variables-to-build-truly-reusable-components-in-react-4bbf50467666
-        const commonStyle = {};
-
-        if (this.config.btnStyle) {
-            if (this.config.btnStyle.fontColor) {
-                commonStyle[
-                    '--kup-button_text-color'
-                ] = this.config.btnStyle.fontColor;
-            }
-
-            if (this.config.btnStyle.underline) {
-                commonStyle['--kup-button_text-decoration'] = 'underline';
-            }
-
-            if (this.config.btnStyle.fontName) {
-                commonStyle[
-                    '--kup-button_font-family'
-                ] = this.config.btnStyle.fontName;
-            }
-
-            if (this.config.btnStyle.fontSize) {
-                commonStyle[
-                    '--kup-button_font-size'
-                ] = this.config.btnStyle.fontSize;
-            }
-
-            if (this.config.btnStyle.bold) {
-                commonStyle['--kup-button_font-weight'] = 700;
-            }
-
-            if (this.config.btnStyle.bckColor) {
-                commonStyle[
-                    '--kup-button_main-color'
-                ] = this.config.btnStyle.bckColor;
-            }
-
-            if (this.config.btnStyle.italic) {
-                commonStyle['--kup-button_font-style'] = 'italic';
-            }
-
-            if (this.config.borderColor) {
-                commonStyle[
-                    '--kup-button_border-color'
-                ] = this.config.borderColor;
-            }
-        }
 
         return (
-            <table class={compClass} style={commonStyle}>
+            <table class={compClass}>
                 <tbody>{buttonsJsx}</tbody>
             </table>
         );
