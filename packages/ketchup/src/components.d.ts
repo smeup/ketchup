@@ -129,9 +129,6 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  ComponentChipElement as ComponentChipElement1,
-} from './components/wup-chip/wup-chip-declarations';
-import {
   PaginatorMode as PaginatorMode1,
 } from './components/wup-paginator/wup-paginator-declarations';
 
@@ -1352,46 +1349,6 @@ export namespace Components {
     */
     'trailingIcon': boolean;
   }
-  interface WupCheckbox {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked': boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-    */
-    'indeterminate': boolean;
-    /**
-    * Defaults at null. When specified, its content will be shown as a label.
-    */
-    'label': string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel': boolean;
-  }
-  interface WupChip {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * List of elements.
-    */
-    'data': ComponentChipElement[];
-    /**
-    * The type of chip. Available types: input, filter, choice or empty for default.
-    */
-    'type': string;
-  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1696,18 +1653,6 @@ declare global {
     new (): HTMLWupButtonElement;
   };
 
-  interface HTMLWupCheckboxElement extends Components.WupCheckbox, HTMLStencilElement {}
-  var HTMLWupCheckboxElement: {
-    prototype: HTMLWupCheckboxElement;
-    new (): HTMLWupCheckboxElement;
-  };
-
-  interface HTMLWupChipElement extends Components.WupChip, HTMLStencilElement {}
-  var HTMLWupChipElement: {
-    prototype: HTMLWupChipElement;
-    new (): HTMLWupChipElement;
-  };
-
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
@@ -1765,8 +1710,6 @@ declare global {
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
     'wup-button': HTMLWupButtonElement;
-    'wup-checkbox': HTMLWupCheckboxElement;
-    'wup-chip': HTMLWupChipElement;
     'wup-icon': HTMLWupIconElement;
     'wup-paginator': HTMLWupPaginatorElement;
   }
@@ -3401,78 +3344,6 @@ declare namespace LocalJSX {
     */
     'trailingIcon'?: boolean;
   }
-  interface WupCheckbox extends JSXBase.HTMLAttributes<HTMLWupCheckboxElement> {
-    /**
-    * Defaults at false. When set to true, the component will be set to 'checked'.
-    */
-    'checked'?: boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the component will be set to 'indeterminate'.
-    */
-    'indeterminate'?: boolean;
-    /**
-    * Defaults at null. When specified, its content will be shown as a label.
-    */
-    'label'?: string;
-    /**
-    * Defaults at false. When set to true, the label will be on the left of the component.
-    */
-    'leadingLabel'?: boolean;
-    'onKupCheckboxBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxChange'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxClick'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupCheckboxInput'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-  }
-  interface WupChip extends JSXBase.HTMLAttributes<HTMLWupChipElement> {
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * List of elements.
-    */
-    'data'?: ComponentChipElement[];
-    'onKupChipBlur'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupChipClick'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    'onKupChipError'?: (event: CustomEvent<{
-      el: EventTarget;
-    }>) => void;
-    'onKupChipFocus'?: (event: CustomEvent<{
-      value: string;
-    }>) => void;
-    'onKupChipIconClick'?: (event: CustomEvent<{
-      index: number;
-      el: EventTarget;
-    }>) => void;
-    /**
-    * The type of chip. Available types: input, filter, choice or empty for default.
-    */
-    'type'?: string;
-  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3557,8 +3428,6 @@ declare namespace LocalJSX {
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
     'wup-button': WupButton;
-    'wup-checkbox': WupCheckbox;
-    'wup-chip': WupChip;
     'wup-icon': WupIcon;
     'wup-paginator': WupPaginator;
   }

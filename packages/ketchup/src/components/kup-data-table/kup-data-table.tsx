@@ -74,6 +74,7 @@ import {
 import { GenericObject } from '../../types/GenericTypes';
 
 import { getBoolean } from '../../utils/utils';
+import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -879,12 +880,7 @@ export class KupDataTable {
         return this.rowActions !== undefined;
     }
 
-    private removeGroup(group: GroupObject) {
-        // resetting group state
-        this.groupState = {};
-
-        const index = this.groups.indexOf(group);
-
+    private removeGroup(index: number) {
         if (index >= 0) {
             // removing group from prop
             this.groups.splice(index, 1);
@@ -3123,24 +3119,31 @@ export class KupDataTable {
 
         let groupChips = null;
         if (this.isGrouping()) {
-            const chips = this.groups.map((group) => {
+            const chipsData = this.groups.map((group) => {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    return (
-                        <kup-chip
-                            type="input"
-                            onKupChipIconClick={() => this.removeGroup(group)}
-                        >
-                            {column.title}
-                        </kup-chip>
-                    );
+                    let a: ComponentChipElement = {
+                        label: column.title,
+                        value: column.name,
+                        checked: true,
+                    };
+                    return a;
                 } else {
                     return null;
                 }
             });
-
-            groupChips = <div id="group-chips">{chips}</div>;
+            if (chipsData.length > 0) {
+                groupChips = (
+                    <kup-chip
+                        type="input"
+                        onKupChipIconClick={(e: CustomEvent) =>
+                            this.removeGroup(e.detail.index)
+                        }
+                        data={chipsData}
+                    ></kup-chip>
+                );
+            }
         }
         const tableClass = {
             // Class for specifying if the table should have width: auto.

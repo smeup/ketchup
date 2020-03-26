@@ -89,11 +89,11 @@
         <br />
         <a href="data-table.html">Ketchup data table</a>
         <br />
-        <kup-text-input
+        <kup-text-field
             id="int1"
             is-clearable
             initial-value="ciao"
-        ></kup-text-input>
+        ></kup-text-field>
 
         <h1>Layout component</h1>
         <kup-layout fill-space horizontal>
@@ -126,12 +126,11 @@
         <kup-fld id="fld-6-upload"></kup-fld>
 
         <h4>Input text type password</h4>
-        <kup-text-input
+        <kup-text-field
             input-type="password"
             initial-value="pippo"
-            debounce="100"
             is-clearable
-        ></kup-text-input>
+        ></kup-text-field>
 
         <h4>The gauge</h4>
         <h5>Valori positivi e negativi con uno o più thresholds</h5>
@@ -933,7 +932,7 @@ chipList.data = [
 
                     // For the password field
                     const inPassword = document.querySelector(
-                        'kup-text-input[input-type="password"]'
+                        'kup-text-field[input-type="password"]'
                     );
                     inPassword.addEventListener(
                         'ketchupTextInputFocused',
