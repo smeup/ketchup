@@ -1,15 +1,9 @@
-import {
-    Component,
-    Event,
-    EventEmitter,
-    Prop,
-    h
-} from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 @Component({
     tag: 'kup-html',
     styleUrl: 'kup-html.scss',
-    shadow: true
+    shadow: true,
 })
 export class KupHtml {
     /**
@@ -20,8 +14,9 @@ export class KupHtml {
      * If true, the kup-html takes the shape of a button
      */
     @Prop({
-        reflect: true
-    }) isButton: boolean = false;
+        reflect: true,
+    })
+    isButton: boolean = false;
     /**
      * The address which must be referenced by the iframe
      */
@@ -36,7 +31,7 @@ export class KupHtml {
         eventName: 'ketchupHtmlError',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupHtmlError: EventEmitter;
 
@@ -51,7 +46,7 @@ export class KupHtml {
         eventName: 'ketchupHtmlLoaded',
         composed: true,
         cancelable: false,
-        bubbles: true
+        bubbles: true,
     })
     ketchupHtmlLoaded: EventEmitter;
 
@@ -61,21 +56,22 @@ export class KupHtml {
 
     //---- Rendering functions ----
     render() {
-        return !this.isButton ?
+        return !this.isButton ? (
             <iframe
                 class="ketchup-frame"
                 onError={this.onFrameError.bind(this)}
                 onLoad={this.onFrameLoaded.bind(this)}
-                src={this.src}/> :
+                src={this.src}
+            />
+        ) : (
             <a
                 aria-label={this.label}
                 href={this.src}
                 rel="noopener"
-                target="_blank">
-                <kup-button
-                    align="right"
-                    iconClass="mdi mdi-open-in-new"
-                    label={this.label}/>
+                target="_blank"
+            >
+                <wup-button icon="open_in_new" label={this.label} />
             </a>
+        );
     }
 }

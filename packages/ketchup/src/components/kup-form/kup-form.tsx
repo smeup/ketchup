@@ -654,12 +654,12 @@ export class KupForm {
     renderActionField(actionField: FormActionField) {
         let actionContent = (
             <div class="form-action">
-                <kup-button
+                <wup-button
                     {...buildButtonConfig(
                         actionField.title,
                         actionField.config
                     )}
-                    onKupButtonClicked={() =>
+                    onKupButtonClick={() =>
                         this.onFormActionSubmitted(actionField)
                     }
                 />

@@ -58,11 +58,25 @@ export class WupIcon {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.type === 'svg') {
-            return this.fetchResource();
+        if (
+            this.name.indexOf('.') > -1 ||
+            this.name.indexOf('/') > -1 ||
+            this.name.indexOf('\\') > -1
+        ) {
+            let message =
+                'Detected an src img path for icon with name(' +
+                this.name +
+                ')! Overriding "svg" with "srcpath".';
+            errorLogging('wup-icon', message);
+            this.resource = this.name;
+            this.type = 'srcpath';
         } else {
-            return (this.resource =
-                'assets/' + this.type + '/' + this.name + '.' + this.type);
+            if (this.type === 'svg') {
+                return this.fetchResource();
+            } else {
+                return (this.resource =
+                    'assets/' + this.type + '/' + this.name + '.' + this.type);
+            }
         }
     }
 
@@ -84,14 +98,6 @@ export class WupIcon {
             customStyle = <style>{this.customStyle}</style>;
         }
         if (this.type === 'svg') {
-            el = el.replace('height="24"', 'height="100%"');
-            el = el.replace('width="24"', 'width="100%"');
-            el = el.replace('height="48"', 'height="100%"');
-            el = el.replace('width="48"', 'width="100%"');
-            el = el.replace('fill="#010101"', '');
-            el = el.replace('fill="#000000"', '');
-            el = el.replace('fill="#ffffff"', '');
-
             return (
                 <Host style={elStyle}>
                     {customStyle}
