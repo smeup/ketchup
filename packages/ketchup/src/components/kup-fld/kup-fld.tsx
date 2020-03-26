@@ -233,24 +233,25 @@ export class KupFld {
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
             errorLogging('kup-fld', message);
-        }
-        switch (this.type.toLowerCase()) {
-            case 'cmb':
-                comp = 'kup-combobox';
-                propList.onkupComboboxChange = this.onChangeInstance;
-                break;
-            case 'fup':
-                comp = 'kup-upload';
-                propList.items = this.data;
-                break;
-            case 'itx':
-                comp = 'kup-text-field';
-                propList.onkupTextfieldChange = this.onChangeInstance;
-                break;
-            case 'rad':
-                comp = 'kup-radio';
-                propList.onkupRadioChange = this.onChangeInstance;
-                break;
+        } else {
+            switch (this.type.toLowerCase()) {
+                case 'cmb':
+                    comp = 'kup-combobox';
+                    propList.onkupComboboxChange = this.onChangeInstance;
+                    break;
+                case 'fup':
+                    comp = 'kup-upload';
+                    propList.items = this.data;
+                    break;
+                case 'itx':
+                    comp = 'kup-text-field';
+                    propList.onkupTextfieldChange = this.onChangeInstance;
+                    break;
+                case 'rad':
+                    comp = 'kup-radio';
+                    propList.onkupRadioChange = this.onChangeInstance;
+                    break;
+            }
         }
 
         const $DynamicComponent = comp as any; // TODO check if there is a better typing

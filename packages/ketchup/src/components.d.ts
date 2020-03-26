@@ -51,6 +51,9 @@ import {
   KupCheckboxMenuItem,
 } from './components/kup-checkbox-menu/kup-checkbox-menu-declarations';
 import {
+  ComponentChipElement,
+} from './components/kup-chip/kup-chip-declarations';
+import {
   ComboItem,
   KetchupComboEvent,
 } from './components/kup-combo/kup-combo-declarations';
@@ -126,7 +129,7 @@ import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
 import {
-  ComponentChipElement,
+  ComponentChipElement as ComponentChipElement1,
 } from './components/wup-chip/wup-chip-declarations';
 import {
   PaginatorMode as PaginatorMode1,
@@ -410,8 +413,18 @@ export namespace Components {
     'valueField': string;
   }
   interface KupChip {
-    'closable': boolean;
-    'disabled': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * List of elements.
+    */
+    'data': ComponentChipElement[];
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type': string;
   }
   interface KupChipKnowledge {
     'closeable'?: boolean;
@@ -2159,9 +2172,35 @@ declare namespace LocalJSX {
     'valueField'?: string;
   }
   interface KupChip extends JSXBase.HTMLAttributes<HTMLKupChipElement> {
-    'closable'?: boolean;
-    'disabled'?: boolean;
-    'onClose'?: (event: CustomEvent<any>) => void;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * List of elements.
+    */
+    'data'?: ComponentChipElement[];
+    'onKupChipBlur'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    'onKupChipError'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
+    'onKupChipFocus'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    'onKupChipIconClick'?: (event: CustomEvent<{
+      index: number;
+      el: EventTarget;
+    }>) => void;
+    /**
+    * The type of chip. Available types: input, filter, choice or empty for default.
+    */
+    'type'?: string;
   }
   interface KupChipKnowledge extends JSXBase.HTMLAttributes<HTMLKupChipKnowledgeElement> {
     'closeable'?: boolean;

@@ -568,8 +568,8 @@ export class KupAutocomplete {
                 {this.selectedItems.map((selectedItem) => {
                     return (
                         <kup-chip
-                            closable={true}
-                            onClose={() =>
+                            type="input"
+                            onKupChipIconClick={() =>
                                 this.removeItemFromSelection(selectedItem)
                             }
                         >

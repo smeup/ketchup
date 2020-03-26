@@ -1672,9 +1672,8 @@ export class KupDataTable {
                     }
                     style={style}
                 >
-                    <input
-                        type="checkbox"
-                        onChange={(e) => this.onSelectAll(e)}
+                    <kup-checkbox
+                        onKupCheckboxChange={(e) => this.onSelectAll(e)}
                         title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
                         checked={
                             this.selectedRows.length > 0 &&
@@ -2050,9 +2049,8 @@ export class KupDataTable {
                     }
                     style={style}
                 >
-                    <input
-                        type="checkbox"
-                        onChange={(e) => this.onSelectAll(e)}
+                    <kup-checkbox
+                        onKupCheckboxChange={(e) => this.onSelectAll(e)}
                         title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
                         checked={
                             this.selectedRows.length > 0 &&
@@ -2324,13 +2322,12 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        <input
-                            type="checkbox"
-                            checked={this.selectedRows.includes(row)}
-                            onClick={(e) => e.stopPropagation()}
-                            onChange={(e) =>
+                        <kup-checkbox
+                            onKupCheckboxChange={(e) =>
                                 this.onRowCheckboxSelection(e, row)
                             }
+                            onKupCheckboxClick={(e) => e.stopPropagation()}
+                            checked={this.selectedRows.includes(row)}
                         />
                     </td>
                 );
@@ -3132,8 +3129,8 @@ export class KupDataTable {
                 if (column) {
                     return (
                         <kup-chip
-                            closable
-                            onClose={() => this.removeGroup(group)}
+                            type="input"
+                            onKupChipIconClick={() => this.removeGroup(group)}
                         >
                             {column.title}
                         </kup-chip>

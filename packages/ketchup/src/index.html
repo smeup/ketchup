@@ -246,7 +246,7 @@
         <kup-text-field full-width label="I am a label"></kup-text-field>
         <kup-text-field disabled label="I am a label"></kup-text-field>
         <kup-text-field disabled label="I am a label" initial-value="yooooo"></kup-text-field>
-        <kup-text-field  label="I am a label" initial-value="yooooo"></kup-text-field>
+        <kup-text-field label="I am a label" initial-value="yooooo"></kup-text-field>
         
         <h4>Material Switch (widget)</h4>
         <kup-switch></kup-switch>
@@ -284,7 +284,7 @@
         
         <wup-button full-width label="Fill space"></wup-button>
         <wup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></wup-button>
-        <wup-chip type="filter"></wup-chip>
+        <kup-chip type="filter"></kup-chip>
         
         <h4>Material ListBox (widget)</h4>
         <kup-list is-filterable="false" selectable="false" list-id="pippo1"></kup-list>
@@ -593,7 +593,7 @@ radioList.data = [
         },
     ];
 
-let chipList = document.getElementsByTagName('wup-chip')[0];
+let chipList = document.getElementsByTagName('kup-chip')[0];
 chipList.data = [
         {
             value: 'favorites',
@@ -659,6 +659,7 @@ chipList.data = [
             // This is mandatory for testing the passage of complex parameters inside web components
             setInterval(function() {
                 // Radio develop test
+                /*
                 const radio = document.querySelector('#krg1');
                 radio.radioName = 'finalFantasy';
                 radio.items = [
@@ -675,16 +676,18 @@ chipList.data = [
                         value: 'Jetch',
                     },
                 ];
-
+                    */
                 // Test input text
                 const inText = document.querySelector('#int1');
 
                 // Things which need to be done once
                 if (once) {
+                    /*
                     radio.addEventListener(
                         'ketchupRadioChanged',
                         (event) => {}
                     );
+                    */
 
                     inText.addEventListener('ketchupTextInputFocused', (e) => {
                         console.log('#int1 has been FOCUSED', e);
@@ -959,77 +962,118 @@ chipList.data = [
         <div class="BTN">
             <div class="btn-options">
                 <div>
-                    <label for="btn-showtext">Show text</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Show text" leading-label
                         checked
                         name="btn-showtext"
                         id="btn-showtext"
-                        onchange="toggleBtnShowtext(event)"
                     />
                 </div>
+                <script>
+                    const checkField1 = document.querySelector('#btn-showtext');
+                    checkField1.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnShowtext(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-fillspace">Fillspace</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Fillspace" leading-label
                         name="btn-fillspace"
                         id="btn-fillspace"
-                        onchange="toggleBtnFillspace(event)"
                     />
                 </div>
+                <script>
+                    const checkField2 = document.querySelector('#btn-fillspace');
+                    checkField2.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnFillspace(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-horizontal">Horizontal</label>
-                    <input
-                        type="checkbox"
-                        checked
+                    <kup-checkbox label="Horizontal" leading-label
                         name="btn-horizontal"
                         id="btn-horizontal"
-                        onchange="toggleBtnHorizontal(event)"
                     />
                 </div>
+                <script>
+                    const checkField3 = document.querySelector('#btn-horizontal');
+                    checkField3.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnHorizontal(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-showicon">Show icon</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Show icon" leading-label
                         checked
                         name="btn-showicon"
                         id="btn-showicon"
-                        onchange="toggleBtnShowicon(event)"
                     />
                 </div>
+                <script>
+                    const checkField4 = document.querySelector('#btn-showicon');
+                    checkField4.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnShowicon(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-rounded">Rounded</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Rounded" leading-label
                         name="btn-rounded"
                         id="btn-rounded"
-                        onchange="toggleBtnRounded(event)"
                     />
                 </div>
+                <script>
+                    const checkField5 = document.querySelector('#btn-rounded');
+                    checkField5.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnRounded(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-hinttextmode">TextMode='Hint'</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="TextMode='Hint'" leading-label
                         name="btn-hinttextmode"
                         id="btn-hinttextmode"
-                        onchange="toggleBtnTextModeHint(event)"
                     />
                 </div>
+                <script>
+                    const checkField6 = document.querySelector('#btn-hinttextmode');
+                    checkField6.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnTextModeHint(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-transparent">Transparent</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Transparent" leading-label
                         name="btn-transparent"
                         id="btn-transparent"
-                        onchange="toggleBtnTransparent(event)"
                     />
                 </div>
+                <script>
+                    const checkField7 = document.querySelector('#btn-transparent');
+                    checkField7.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnTransparent(e);
+                        }
+                    );
+                </script>
 
                 <div>
                     <label for="btn-bordercolor">Border color</label>
@@ -1057,24 +1101,36 @@ chipList.data = [
                 </div>
 
                 <div>
-                    <label for="btn-flat">Flat</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Flat" leading-label
                         name="btn-flat"
                         id="btn-flat"
-                        onchange="toggleBtnFlat(event)"
                     />
                 </div>
+                <script>
+                    const checkField8 = document.querySelector('#btn-flat');
+                    checkField8.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnFlat(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-showselection">Show Selection</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Show Selection" leading-label
                         name="btn-showselection"
                         id="btn-showselection"
-                        onchange="toggleBtnShowSelection(event)"
                     />
                 </div>
+                <script>
+                    const checkField9 = document.querySelector('#btn-showselection');
+                    checkField9.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnShowSelection(e);
+                        }
+                    );
+                </script>
 
                 <div>
                     <label for="btn-columns">Columns</label>
@@ -1100,34 +1156,52 @@ chipList.data = [
                 </div>
 
                 <div>
-                    <label for="btn-fontbold">Bold font</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Bold font" leading-label
                         name="btn-fontbold"
                         id="btn-fontbold"
-                        onchange="toggleBtnStyle()"
                     />
                 </div>
+                <script>
+                    const checkField10 = document.querySelector('#btn-fontbold');
+                    checkField10.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnStyle(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-fontitalic">Italic font</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Italic font" leading-label
                         name="btn-fontitalic"
                         id="btn-fontitalic"
-                        onchange="toggleBtnStyle()"
                     />
                 </div>
+                <script>
+                    const checkField11 = document.querySelector('#btn-fontitalic');
+                    checkField11.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnStyle(e);
+                        }
+                    );
+                </script>
 
                 <div>
-                    <label for="btn-fontunderline">Underline font</label>
-                    <input
-                        type="checkbox"
+                    <kup-checkbox label="Underline font" leading-label
                         name="btn-fontunderline"
                         id="btn-fontunderline"
-                        onchange="toggleBtnStyle()"
                     />
                 </div>
+                <script>
+                    const checkField12 = document.querySelector('#btn-fontunderline');
+                    checkField12.addEventListener(
+                        'kupCheckboxChange',
+                        (e) => {
+                            toggleBtnStyle(e);
+                        }
+                    );
+                </script>
 
                 <div>
                     <label for="btn-fontcolor">Font color</label>

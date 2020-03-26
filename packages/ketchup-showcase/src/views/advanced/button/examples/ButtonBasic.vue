@@ -6,6 +6,16 @@
     <div class="BTN">
       <div class="btn-options">
         <div>
+          <kup-checkbox
+            label="Show text"
+            leading-label
+            checked
+            name="btn-showtext"
+            id="btn-showtext"
+            @kupCheckboxChange="toggleBtnShowtext"
+          />
+          <!--
+
           <label for="btn-showtext">Show text</label>
           <input
             type="checkbox"
@@ -14,6 +24,7 @@
             id="btn-showtext"
             @change="toggleBtnShowtext"
           />
+          -->
         </div>
 
         <div>
@@ -176,12 +187,7 @@
 
         <div>
           <label for="btn-fontsize">Font size</label>
-          <input
-            id="btn-fontsize"
-            type="number"
-            @change="toggleBtnStyle"
-            value="14"
-          />
+          <input id="btn-fontsize" type="number" @change="toggleBtnStyle" value="14" />
         </div>
       </div>
 

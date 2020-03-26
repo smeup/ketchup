@@ -907,11 +907,12 @@ export class KupBox {
         if (this.multiSelection) {
             multiSel = (
                 <div class="box-selection">
-                    <input
-                        type="checkbox"
+                    <kup-checkbox
                         checked={isSelected}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={() => this.onSelectionCheckChange(row)}
+                        onKupCheckboxClick={(e) => e.stopPropagation()}
+                        onKupCheckboxChange={() =>
+                            this.onSelectionCheckChange(row)
+                        }
                     />
                 </div>
             );

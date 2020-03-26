@@ -104,12 +104,12 @@ export class KupCheckbox {
     onKupBlur() {
         this.kupBlur.emit({
             value: this.value,
-            checked: !!this.checked,
+            checked: this.checked == true ? true : false,
         });
     }
 
     onKupChange() {
-        if (this.checked) {
+        if (this.checked == true) {
             this.checked = false;
             this.value = 'off';
         } else {
@@ -118,28 +118,28 @@ export class KupCheckbox {
         }
         this.kupChange.emit({
             value: this.value,
-            checked: !!this.checked,
+            checked: this.checked,
         });
     }
 
     onKupClick() {
         this.kupClick.emit({
             value: this.value,
-            checked: !!this.checked,
+            checked: this.checked == true ? true : false,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
             value: this.value,
-            checked: !!this.checked,
+            checked: this.checked == true ? true : false,
         });
     }
 
     onKupInput() {
         this.kupInput.emit({
             value: this.value,
-            checked: !!this.checked,
+            checked: this.checked == true ? true : false,
         });
     }
 

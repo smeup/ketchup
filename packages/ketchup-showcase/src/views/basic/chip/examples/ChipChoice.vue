@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >By setting the <span class="code-word">type</span> prop to
+      <p>
+        By setting the
+        <span class="code-word">type</span> prop to
         <span class="code-word">choice</span>, the chip set will behave as a set
-        of selectable elements, but only one at a time can be active.</p
-      >
+        of selectable elements, but only one at a time can be active.
+      </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-chip type="choice" :data.prop="data"></wup-chip>
+          <kup-chip type="choice" :data.prop="data"></kup-chip>
         </div>
         <p class="centered">Sample choice markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -43,7 +44,7 @@ export default {
           checked: true,
         },
       ],
-      markupBasic: '<wup-chip type="choice"></wup-chip>',
+      markupBasic: '<kup-chip type="choice"></kup-chip>',
     };
   },
 };

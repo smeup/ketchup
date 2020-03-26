@@ -47,7 +47,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-chip id="demo-component"></wup-chip>',
+      demoComp: '<kup-chip id="demo-component"></kup-chip>',
       demoProps: [
         {
           prop: 'data',
