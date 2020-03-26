@@ -68,7 +68,7 @@ export class KupBtn {
                 const btnsJsx = btns.map((btn) => {
                     return (
                         <td>
-                            <wup-button
+                            <kup-button
                                 label={btn.label}
                                 icon={btn.icon}
                                 fullWidth={this.config.fillspace}

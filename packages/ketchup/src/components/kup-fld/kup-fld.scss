@@ -17,7 +17,7 @@
         float: left;
         margin: auto auto 1rem auto;
       }
-      & wup-button {
+      & kup-button {
         float: right;
         margin: auto auto 1rem auto;
       }
@@ -31,7 +31,7 @@
     }
 
     &.submit-right {
-      & wup-button {
+      & kup-button {
         display: inline-block;
         margin: auto auto auto 1rem;
       }
@@ -45,14 +45,14 @@
     }
 
     &.submit-left {
-      & wup-button {
+      & kup-button {
         display: inline-block;
         margin: auto 1rem auto auto;
       }
     }
 
     &.submit-bottom {
-      & wup-button {
+      & kup-button {
         display: block;
         margin: 1rem auto auto auto;
       }

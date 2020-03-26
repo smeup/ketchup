@@ -654,7 +654,7 @@ export class KupForm {
     renderActionField(actionField: FormActionField) {
         let actionContent = (
             <div class="form-action">
-                <wup-button
+                <kup-button
                     {...buildButtonConfig(
                         actionField.title,
                         actionField.config

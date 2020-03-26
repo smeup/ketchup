@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-button',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-button',
       headtitle: 'Button',
       titles: [
         'Playground',

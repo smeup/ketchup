@@ -299,25 +299,25 @@ export class KupCrud {
         let rowContent = [];
 
         let updateButtonContent = this.hasRowUpdateAction() ? (
-            <wup-button
+            <kup-button
                 flat={true}
                 icon="pencil"
                 onKupButtonClick={(e) =>
                     this.onUpdateRecordClicked(e, record.id)
                 }
-            ></wup-button>
+            ></kup-button>
         ) : (
             ''
         );
 
         let deleteButtonContent = this.hasRowDeleteAction() ? (
-            <wup-button
+            <kup-button
                 flat={true}
                 icon="delete"
                 onKupButtonClick={(e) =>
                     this.onDeleteRecordClicked(e, record.id)
                 }
-            ></wup-button>
+            ></kup-button>
         ) : (
             ''
         );
@@ -376,12 +376,12 @@ export class KupCrud {
 
     render() {
         let insertButtonContent = this.hasInsertAction() ? (
-            <wup-button
+            <kup-button
                 flat={true}
                 label="Add"
                 icon="plus"
                 onKupButtonClick={(e) => this.onInsertRecordClicked(e)}
-            ></wup-button>
+            ></kup-button>
         ) : (
             ''
         );
@@ -408,7 +408,7 @@ export class KupCrud {
         });
 
         let configureButtonContent = this.hasConfigureAction() ? (
-            <wup-button
+            <kup-button
                 id="open-modal"
                 label="Configure"
                 flat={false}
@@ -422,7 +422,7 @@ export class KupCrud {
                 onKupButtonFocus={(e) => this.onCrudFocused(e)}
             >
                 Configure
-            </wup-button>
+            </kup-button>
         ) : (
             ''
         );

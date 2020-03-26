@@ -17,15 +17,18 @@
           This is caused by the CSS property
           <span class="code-word">display: block</span>, to which they default.
           Try setting them all inline, by changing the value of the variable
-          <span class="code-word">--kup-display-mode</span> in the table below
-          to <span class="code-word">inline-block</span>.
+          <span
+            class="code-word"
+          >--kup-display-mode</span> in the table below
+          to
+          <span class="code-word">inline-block</span>.
         </p>
         <div class="demo-container">
           <div class="kup-container" style="display: unset;">
             <kup-radio></kup-radio>
             <kup-checkbox></kup-checkbox>
             <kup-text-field label="Demo"></kup-text-field>
-            <wup-button label="Demo"></wup-button>
+            <kup-button label="Demo"></kup-button>
             <kup-switch></kup-switch>
           </div>
         </div>
@@ -60,11 +63,7 @@
                     <span class="code-word">display</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="display-mode"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="display-mode" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -81,11 +80,7 @@
                     <span class="code-word">font</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="font-family"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="font-family" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -101,11 +96,7 @@
                     <span class="code-word">size</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="font-size"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="font-size" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -117,11 +108,7 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="background-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="background-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -168,11 +155,7 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="main-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -203,11 +186,7 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="text-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="text-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -222,11 +201,7 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="icon-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="icon-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -258,29 +233,19 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="hover-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="hover-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
                   <td class="prevent-cr">
                     <span class="code-word">--kup-border-color</span>
                   </td>
-                  <td
-                    >Sets the color of borders, such as checkboxes borders.</td
-                  >
+                  <td>Sets the color of borders, such as checkboxes borders.</td>
                   <td class="prevent-cr">
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="border-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="border-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>
@@ -301,9 +266,7 @@
                 </tr>
                 <tr>
                   <td class="prevent-cr">
-                    <span class="code-word"
-                      >--kup-disabled-background-color</span
-                    >
+                    <span class="code-word">--kup-disabled-background-color</span>
                   </td>
                   <td>
                     Sets the background color of disabled text, keep in mind
@@ -362,11 +325,7 @@
                     <span class="code-word">color</span>
                   </td>
                   <td class="text-cell">
-                    <kup-text-field
-                      full-width
-                      id="spinner-color"
-                      @kupTextFieldInput="updateCSS"
-                    ></kup-text-field>
+                    <kup-text-field full-width id="spinner-color" @kupTextFieldInput="updateCSS"></kup-text-field>
                   </td>
                 </tr>
                 <tr>

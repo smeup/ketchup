@@ -185,13 +185,13 @@ export class KupTooltip {
                 >
                     {datatitle}
                 </div>
-                <wup-button
+                <kup-button
                     flat={true}
                     icon="open-in-new"
                     onKupButtonClick={(event) =>
                         this.onDefaultActionClicked(event)
                     }
-                ></wup-button>
+                ></kup-button>
             </div>
         );
         return title;
@@ -386,14 +386,14 @@ export class KupTooltip {
                     .slice(0, 5)
                     .map((action) => (
                         <div class="detail-actions__box">
-                            <wup-button
+                            <kup-button
                                 flat={true}
                                 tooltip={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
                                     this.onActionCommandClicked(event, action)
                                 }
-                            ></wup-button>
+                            ></kup-button>
                         </div>
                     ));
             }

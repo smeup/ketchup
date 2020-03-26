@@ -187,7 +187,7 @@ export class KupFld {
         if (this.showSubmit) {
             wrapperClass += ' submit-' + this.submitPos;
             submit = (
-                <wup-button
+                <kup-button
                     class={baseClass + '__submit'}
                     label={this.submitLabel}
                     onKupButtonClick={this.onSubmitInstance}

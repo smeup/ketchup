@@ -210,7 +210,6 @@ export default {
   mounted() {},
   methods: {
     onKupBtnClicked(event) {
-      console.log(event);
       const btnIndex = event.detail.id;
       const jsonBtn = JSON.stringify(this.btnlist[btnIndex]);
       this.labelText = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;

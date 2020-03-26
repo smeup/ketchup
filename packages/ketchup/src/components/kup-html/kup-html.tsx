@@ -70,7 +70,7 @@ export class KupHtml {
                 rel="noopener"
                 target="_blank"
             >
-                <wup-button icon="open_in_new" label={this.label} />
+                <kup-button icon="open_in_new" label={this.label} />
             </a>
         );
     }
