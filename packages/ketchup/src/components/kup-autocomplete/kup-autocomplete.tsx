@@ -19,7 +19,7 @@ import {
     KupAutocompleteOption,
 } from './kup-autocomplete-declarations';
 
-import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+//import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
 
 import { isEventFromElement } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
@@ -434,6 +434,7 @@ export class KupAutocomplete {
         }
     }
 
+    /*
     handleCustomItemInsertion(payload: KetchupTextInputEvent) {
         const parsedValue: string = payload.value.trim().replace(/\s/g, '_');
         // A custom item con be added only if the given value has a length and there are currently no keyboard selected items
@@ -441,6 +442,18 @@ export class KupAutocomplete {
             this.addCustomItemToSelection({
                 code: 'custom:' + parsedValue,
                 description: payload.value,
+            });
+        }
+    }
+    */
+
+    handleCustomItemInsertion(value: string) {
+        const parsedValue: string = value.trim().replace(/\s/g, '_');
+        // A custom item con be added only if the given value has a length and there are currently no keyboard selected items
+        if (parsedValue && parsedValue.length && !this.keyboardSelectedItem) {
+            this.addCustomItemToSelection({
+                code: 'custom:' + parsedValue,
+                description: value,
             });
         }
     }
@@ -590,24 +603,23 @@ export class KupAutocomplete {
                     ? this.composeMultipleSelectionContainer()
                     : null}
 
-                <kup-text-input
+                <kup-text-field
                     disabled={this.disabled}
                     isClearable={this.showClearIcon}
-                    placeholder={this.placeholder}
-                    ref={(el) =>
-                        (this.filterInputRef = el as HTMLKupTextInputElement)
-                    }
-                    onKetchupTextInputFocused={() => {
+                    label={this.placeholder}
+                    fullWidth={true}
+                    ref={(el) => (this.filterInputRef = el as any)}
+                    onKupTextFieldFocus={() => {
                         this.openMenu(true);
                     }}
-                    onKetchupTextInputUpdated={(e: CustomEvent) =>
+                    onKupTextFieldInput={(e: CustomEvent) =>
                         this.handleFilterChange(e.detail.value)
                     }
-                    onKetchupTextInputSubmit={
+                    onKupTextFieldSubmit={
                         this.allowCustomItems
                             ? (e: CustomEvent) =>
-                                  this.handleCustomItemInsertion(e.detail)
-                            : null
+                                  this.handleCustomItemInsertion(e.detail.value)
+                            : (e: CustomEvent) => e.stopPropagation()
                     }
                 >
                     <kup-menu
@@ -643,7 +655,7 @@ export class KupAutocomplete {
                             onClick={this.menuStateToggle.bind(this)}
                         />
                     ) : null}
-                </kup-text-input>
+                </kup-text-field>
             </div>
         );
     }

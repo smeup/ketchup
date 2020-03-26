@@ -169,6 +169,19 @@ export class KupTextField {
         value: string;
     }>;
 
+    /**
+     * When a keydown enter event occurs it generates
+     */
+    @Event({
+        eventName: 'kupTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
+        value: string;
+    }>;
+
     @Watch('initialValue')
     onInitialValueChanged() {
         this.value = this.initialValue;
@@ -221,6 +234,18 @@ export class KupTextField {
     onKupClearIconClick() {
         this.value = '';
         this.inputEl.value = '';
+    }
+
+    /**
+     * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
+     */
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.kupTextFieldSubmit.emit({
+                value: this.value,
+            });
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -448,6 +473,7 @@ export class KupTextField {
                     onClick={(e: any) => this.onKupClick(e)}
                     onFocus={(e: any) => this.onKupFocus(e)}
                     onInput={(e: any) => this.onKupInput(e)}
+                    onKeyDown={(e: any) => this.onKeyDown(e)}
                     ref={(el) => (this.inputEl = el as any)}
                 ></input>
             );
@@ -503,6 +529,7 @@ export class KupTextField {
                     onClick={(e: any) => this.onKupClick(e)}
                     onFocus={(e: any) => this.onKupFocus(e)}
                     onInput={(e: any) => this.onKupInput(e)}
+                    onKeyDown={(e: any) => this.onKeyDown(e)}
                     ref={(el) => (this.inputEl = el as any)}
                 ></input>
                 {clearIconEl}
