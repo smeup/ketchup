@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -95,7 +90,7 @@ export default {
         {
           prop: 'icon',
           description:
-            'The text-field will be rendered with the specified Material Design icon.',
+            "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
           type: 'string',
           default: 'undefined',
           try: 'field',
@@ -114,6 +109,14 @@ export default {
           type: 'string',
           default: 'text',
           try: 'field',
+        },
+        {
+          prop: 'isClearable',
+          description:
+            "Displays a clear-shaped trailing icon which resets the field when clicked. It shouldn't be used in textareas.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'label',
@@ -198,6 +201,10 @@ export default {
         },
         {
           name: 'kupTextFieldIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldClearIconClick',
           type: 'click',
         },
       ],

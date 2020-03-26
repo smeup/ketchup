@@ -61,6 +61,10 @@ export class KupTextField {
      */
     @Prop({ reflect: true }) inputType: string = 'text';
     /**
+     * Enables a clear trailing icon.
+     */
+    @Prop({ reflect: true }) isClearable: boolean = false;
+    /**
      * Defaults at null. When set, its content will be shown as a label.
      */
     @Prop({ reflect: true }) label: string = null;
@@ -92,6 +96,8 @@ export class KupTextField {
      * Defaults at false. When set to true, the label will be on the right of the component.
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
+
+    private inputEl;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -153,6 +159,16 @@ export class KupTextField {
         value: string;
     }>;
 
+    @Event({
+        eventName: 'kupTextFieldClearIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClearIconClick: EventEmitter<{
+        value: string;
+    }>;
+
     @Watch('initialValue')
     onInitialValueChanged() {
         this.value = this.initialValue;
@@ -202,6 +218,11 @@ export class KupTextField {
         });
     }
 
+    onKupClearIconClick() {
+        this.value = '';
+        this.inputEl.value = '';
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -246,6 +267,7 @@ export class KupTextField {
         let labelEl: HTMLElement = null;
         let helperEl: HTMLElement = null;
         let iconEl: HTMLElement = null;
+        let clearIconEl: HTMLElement = null;
         let charEl: HTMLElement = null;
         let widgetEl: HTMLElement = null;
         let placeholderLabel: string = null;
@@ -271,6 +293,19 @@ export class KupTextField {
                     {this.label}
                 </label>
             );
+        }
+
+        if (this.isClearable) {
+            clearIconEl = (
+                <wup-icon
+                    tabindex="1"
+                    class="material-icons mdc-text-field__icon clear-icon"
+                    dimensions="24px"
+                    name="clear"
+                    onClick={() => this.onKupClearIconClick()}
+                ></wup-icon>
+            );
+            componentClass += ' is-clearable';
         }
 
         if (this.icon) {
@@ -331,14 +366,16 @@ export class KupTextField {
                 componentClass,
                 labelEl,
                 placeholderLabel,
-                iconEl
+                iconEl,
+                clearIconEl
             );
         } else {
             widgetEl = this.defaultStyling(
                 componentClass,
                 labelEl,
                 placeholderLabel,
-                iconEl
+                iconEl,
+                clearIconEl
             );
         }
 
@@ -354,7 +391,8 @@ export class KupTextField {
         componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
-        iconEl: HTMLElement
+        iconEl: HTMLElement,
+        clearIconEl: HTMLElement
     ) {
         let charEl: HTMLElement = null;
         let inputEl: HTMLElement = null;
@@ -392,6 +430,7 @@ export class KupTextField {
                     onClick={(e: any) => this.onKupClick(e)}
                     onFocus={(e: any) => this.onKupFocus(e)}
                     onInput={(e: any) => this.onKupInput(e)}
+                    ref={(el) => (this.inputEl = el as any)}
                 ></textarea>
             );
         } else {
@@ -409,6 +448,7 @@ export class KupTextField {
                     onClick={(e: any) => this.onKupClick(e)}
                     onFocus={(e: any) => this.onKupFocus(e)}
                     onInput={(e: any) => this.onKupInput(e)}
+                    ref={(el) => (this.inputEl = el as any)}
                 ></input>
             );
         }
@@ -418,6 +458,7 @@ export class KupTextField {
                 {charEl}
                 {leadingIconEl}
                 {inputEl}
+                {clearIconEl}
                 {trailingIconEl}
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
@@ -432,7 +473,8 @@ export class KupTextField {
         componentClass: string,
         labelEl: HTMLElement,
         placeholderLabel: string,
-        iconEl: HTMLElement
+        iconEl: HTMLElement,
+        clearIconEl: HTMLElement
     ) {
         let leadingIconEl: HTMLElement = null;
         let trailingIconEl: HTMLElement = null;
@@ -461,7 +503,9 @@ export class KupTextField {
                     onClick={(e: any) => this.onKupClick(e)}
                     onFocus={(e: any) => this.onKupFocus(e)}
                     onInput={(e: any) => this.onKupInput(e)}
+                    ref={(el) => (this.inputEl = el as any)}
                 ></input>
+                {clearIconEl}
                 {trailingIconEl}
                 {labelEl}
                 <div class="mdc-line-ripple"></div>
