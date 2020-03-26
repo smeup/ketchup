@@ -9,10 +9,10 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-button disabled text="Raised"></wup-button>
-          <wup-button disabled flat label="Flat"></wup-button>
-          <wup-button disabled outlined label="Transparent"></wup-button>
-          <wup-button disabled icon="favorite"></wup-button>
+          <kup-button disabled text="Raised"></kup-button>
+          <kup-button disabled flat label="Flat"></kup-button>
+          <kup-button disabled outlined label="Transparent"></kup-button>
+          <kup-button disabled icon="favorite"></kup-button>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -26,7 +26,7 @@ export default {
   name: 'ButtonDisabled',
   data() {
     return {
-      markupDisabled: '<wup-button disabled label="Disabled"></wup-button>',
+      markupDisabled: '<kup-button disabled label="Disabled"></kup-button>',
     };
   },
 };

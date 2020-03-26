@@ -2642,7 +2642,7 @@ export class KupDataTable {
              * @see https://reactjs.org/docs/handling-events.html
              */
             content = (
-                <wup-button
+                <kup-button
                     {...buildButtonConfig(cell.value, cell.config)}
                     onKupButtonClick={this.onJ4btnClicked.bind(
                         this,

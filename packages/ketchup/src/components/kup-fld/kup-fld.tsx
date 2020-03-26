@@ -8,11 +8,7 @@ import {
     h,
 } from '@stencil/core';
 
-import {
-    KupFldChangeEvent,
-    KupFldSubmitEvent,
-    ComponentProps,
-} from './kup-fld-declarations';
+import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-fld-declarations';
 
 import { errorLogging } from '../../utils/error-logging';
 
@@ -30,7 +26,7 @@ export class KupFld {
     /**
      * Effective data to pass to the component.
      */
-    @Prop() data: ComponentProps[] = [];
+    @Prop() data: Object = {};
 
     /**
      * The text of the label. If set to empty or has only white space chars, the label will be removed.
@@ -154,17 +150,7 @@ export class KupFld {
             customStyle = <style>{this.customStyle}</style>;
         }
 
-        let propList = undefined;
-
-        for (let j = 0; j < this.data.length; j++) {
-            let newProp = this.data[j].prop;
-            let newValue = this.data[j].value;
-            if (propList) {
-                propList = { ...propList, [newProp]: newValue };
-            } else {
-                propList = { [newProp]: newValue };
-            }
-        }
+        let propList: any = { ...this.data };
 
         if (this.label.trim().length) {
             wrapperClass += ' label-' + this.labelPos;
@@ -187,7 +173,7 @@ export class KupFld {
         if (this.showSubmit) {
             wrapperClass += ' submit-' + this.submitPos;
             submit = (
-                <wup-button
+                <kup-button
                     class={baseClass + '__submit'}
                     label={this.submitLabel}
                     onKupButtonClick={this.onSubmitInstance}

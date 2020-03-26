@@ -8,7 +8,6 @@ import {
     h,
 } from '@stencil/core';
 
-import { ComponentProps } from '../kup-combobox/kup-combobox-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 
@@ -28,12 +27,12 @@ export class KupCombobox {
     /**
      * Props of the list.
      */
-    @Prop() listData: ComponentProps[] = [];
+    @Prop() listData: Object = {};
 
     /**
      * Props of the text field.
      */
-    @Prop() textfieldData: ComponentProps[] = [];
+    @Prop() textfieldData: Object = {};
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
@@ -173,6 +172,10 @@ export class KupCombobox {
         this.consistencyCheck();
         this.closeList();
 
+        this.kupChange.emit({
+            value: this.value,
+        });
+
         this.kupItemClick.emit({
             value: this.value,
         });
@@ -199,27 +202,22 @@ export class KupCombobox {
     consistencyCheck() {
         var firstSelectedFound = false;
 
-        if (this.listData) {
-            for (let j = 0; j < this.listData.length; j++) {
-                if (this.listData[j].prop === 'data') {
-                    var currentProp = this.listData[j].value;
-                    for (let i = 0; i < currentProp.length; i++) {
-                        if (currentProp[i].selected && firstSelectedFound) {
-                            currentProp[i].selected = false;
-                            let message =
-                                'Found occurence of data(' +
-                                j +
-                                ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
+        if (this.listData['data']) {
+            for (let i = 0; i < this.listData['data'].length; i++) {
+                if (this.listData['data'][i].selected && firstSelectedFound) {
+                    this.listData['data'][i].selected = false;
+                    let message =
+                        'Found occurence of data(' +
+                        i +
+                        ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                            errorLogging('kup-combobox', message);
-                        }
-                        if (currentProp[i].selected && !firstSelectedFound) {
-                            firstSelectedFound = true;
-                            this.value = currentProp[i].text;
-                            if (this.textfieldEl) {
-                                this.textfieldEl.initialValue = this.value;
-                            }
-                        }
+                    errorLogging('kup-combobox', message);
+                }
+                if (this.listData['data'][i].selected && !firstSelectedFound) {
+                    firstSelectedFound = true;
+                    this.value = this.listData['data'][i].text;
+                    if (this.textfieldEl) {
+                        this.textfieldEl.initialValue = this.value;
                     }
                 }
             }
@@ -233,35 +231,23 @@ export class KupCombobox {
     }
 
     prepTextfield() {
-        let propList = undefined;
+        if (this.textfieldData['fullWidth']) {
+            this.elStyle = {
+                ...this.elStyle,
+                width: '100%',
+            };
+        }
 
-        for (let j = 0; j < this.textfieldData.length; j++) {
-            let newProp = this.textfieldData[j].prop;
-            let newValue = this.textfieldData[j].value;
-            if (propList) {
-                propList = { ...propList, [newProp]: newValue };
-            } else {
-                propList = { [newProp]: newValue };
-            }
-
-            if (this.textfieldData[j].prop === 'fullWidth') {
-                this.elStyle = {
-                    ...this.elStyle,
-                    width: '100%',
-                };
-            }
-
-            if (this.textfieldData[j].prop === 'fullHeight') {
-                this.elStyle = {
-                    ...this.elStyle,
-                    height: '100%',
-                };
-            }
+        if (this.textfieldData['fullHeight']) {
+            this.elStyle = {
+                ...this.elStyle,
+                height: '100%',
+            };
         }
 
         let comp: HTMLElement = (
             <kup-text-field
-                {...propList}
+                {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
                 onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
@@ -278,20 +264,9 @@ export class KupCombobox {
     }
 
     prepList() {
-        let propList = undefined;
-        for (let j = 0; j < this.listData.length; j++) {
-            let newProp = this.listData[j].prop;
-            let newValue = this.listData[j].value;
-            if (propList) {
-                propList = { ...propList, [newProp]: newValue };
-            } else {
-                propList = { [newProp]: newValue };
-            }
-        }
-
         let comp: HTMLElement = (
             <kup-list
-                {...propList}
+                {...this.listData}
                 class="mdc-menu mdc-menu-surface"
                 onKupListClick={() => this.onKupItemClick()}
                 ref={(el) => (this.listEl = el as any)}

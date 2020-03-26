@@ -251,12 +251,9 @@ export default {
         },
       ],
       demoEvents: [],
-      demoData: [
-        {
-          prop: 'data',
-          value: defaultDataTable,
-        },
-      ],
+      demoData: {
+        data: defaultDataTable,
+      },
     };
   },
 };

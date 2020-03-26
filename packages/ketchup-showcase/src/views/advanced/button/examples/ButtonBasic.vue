@@ -191,7 +191,7 @@
         </div>
       </div>
 
-      <kup-btn :buttons.prop="btnlist" @kupButtonClicked="onKupBtnClicked" />
+      <kup-btn :buttons.prop="btnlist" @kupBtnClick="onKupBtnClicked" />
 
       <code id="btn-label" v-text="labelText" />
     </div>
@@ -366,46 +366,46 @@ const btnlist = JSON.parse(`{
       }
     },
     "data": [{
-      "value": "label bottone #1",
+      "label": "label bottone #1",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-account",
+      "icon": "account",
       "children": []
     },{
-      "value": "label bottone #2",
+      "label": "label bottone #2",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     },{
-      "value": "label bottone #3",
+      "label": "label bottone #3",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     },{
-      "value": "label bottone #4",
+      "label": "label bottone #4",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     },{
-      "value": "label bottone #5",
+      "label": "label bottone #5",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     },{
-      "value": "label bottone #6",
+      "label": "label bottone #6",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     },{
-      "value": "label bottone #7",
+      "label": "label bottone #7",
       "options (sarebbe il tasto destro)": true,
       "obj": "J1KEY",
-      "iconClass": "mdi mdi-plus",
+      "icon": "plus",
       "children": []
     }],
     "messages": [],

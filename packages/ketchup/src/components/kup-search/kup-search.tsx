@@ -169,10 +169,10 @@ export class KupSearch {
                         this.onSearchInputChanged(e)
                     }
                 ></kup-text-input>
-                <wup-button
+                <kup-button
                     icon="magnify"
                     onKupButtonClick={(e) => this.onSearchClicked(e)}
-                ></wup-button>
+                ></kup-button>
                 <kup-modal
                     ref={(el) => (this.modal = el)}
                     onKupModalCancel={(e) => this.onSearchCancelled(e)}
@@ -185,12 +185,12 @@ export class KupSearch {
                                     this.onSearchInputChanged(e)
                                 }
                             ></kup-text-input>
-                            <wup-button
+                            <kup-button
                                 icon="magnify"
                                 onKupButtonClick={(e) =>
                                     this.onSearchDialogClicked(e)
                                 }
-                            ></wup-button>
+                            ></kup-button>
                         </div>
                     ) : null}
 

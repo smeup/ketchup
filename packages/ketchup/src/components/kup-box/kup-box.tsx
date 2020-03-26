@@ -1232,7 +1232,7 @@ export class KupBox {
                     );
                 } else if (isButton(cell.obj)) {
                     boContent = (
-                        <wup-button
+                        <kup-button
                             {...buildButtonConfig(cell.value, cell.config)}
                         />
                     );

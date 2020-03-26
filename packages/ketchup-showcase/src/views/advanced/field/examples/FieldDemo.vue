@@ -61,8 +61,8 @@ export default {
           prop: 'data',
           description:
             'The actual data passed to the component, including its props.',
-          type: 'any',
-          default: 'undefined',
+          type: 'Object',
+          default: '{}',
           try: 'json',
         },
         {
@@ -122,88 +122,65 @@ export default {
           type: 'CustomEvent',
         },
       ],
-      demoData: [
-        {
-          prop: 'dataRAD',
-          value: [
+      demoData: {
+        data: { icon: 'widgets', label: 'demo' },
+        dataCMB: {
+          textfieldData: {
+            trailingIcon: true,
+            icon: 'arrow_drop_down',
+            label: 'demo',
+          },
+          listData: {
+            data: [
+              {
+                text: 'First choice',
+                value: '1',
+                selected: true,
+              },
+              {
+                text: 'Selected choice',
+                value: '2',
+              },
+              {
+                text: 'Third choice',
+                value: '3',
+              },
+            ],
+            listId: 'LISTA',
+            selectable: 'one-select',
+          },
+        },
+        dataITX: { icon: 'widgets', label: 'demo' },
+        dataRAD: {
+          data: [
             {
-              prop: 'data',
-              value: [
-                {
-                  value: '1',
-                  label: 'First',
-                  checked: false,
-                },
-                {
-                  value: '2',
-                  label: 'Second',
-                  checked: false,
-                },
-                {
-                  value: '3',
-                  label: 'Third',
-                  checked: true,
-                },
-                {
-                  value: '4',
-                  label: 'Fourth',
-                  checked: false,
-                },
-                {
-                  value: '5',
-                  label: 'Fifth',
-                  checked: false,
-                },
-              ],
+              value: '1',
+              label: 'First',
+              checked: false,
+            },
+            {
+              value: '2',
+              label: 'Second',
+              checked: false,
+            },
+            {
+              value: '3',
+              label: 'Third',
+              checked: true,
+            },
+            {
+              value: '4',
+              label: 'Fourth',
+              checked: false,
+            },
+            {
+              value: '5',
+              label: 'Fifth',
+              checked: false,
             },
           ],
         },
-        {
-          prop: 'dataITX',
-          value: [
-            { prop: 'icon', value: 'widgets' },
-            { prop: 'label', value: 'demo' },
-          ],
-        },
-        {
-          prop: 'dataCMB',
-          value: [
-            {
-              prop: 'textfieldData',
-              value: [
-                { prop: 'trailingIcon', value: true },
-                { prop: 'icon', value: 'arrow_drop_down' },
-                { prop: 'label', value: 'demo' },
-              ],
-            },
-            {
-              prop: 'listData',
-              value: [
-                {
-                  prop: 'data',
-                  value: [
-                    {
-                      text: 'First choice',
-                      value: '1',
-                      selected: true,
-                    },
-                    {
-                      text: 'Selected choice',
-                      value: '2',
-                    },
-                    {
-                      text: 'Third choice',
-                      value: '3',
-                    },
-                  ],
-                },
-                { prop: 'selectable', value: 'one-select' },
-                { prop: 'listId', value: 'LISTA' },
-              ],
-            },
-          ],
-        },
-      ],
+      },
     };
   },
 };
