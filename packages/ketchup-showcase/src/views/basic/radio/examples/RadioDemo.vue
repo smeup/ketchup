@@ -111,27 +111,21 @@ export default {
           type: 'blur',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              value: '1',
-              label: 'First option',
-              checked: true,
-            },
-            {
-              value: '2',
-              label: 'Second option',
-              checked: false,
-            },
-          ],
-        },
-        {
-          prop: 'name',
-          value: 'radio-list',
-        },
-      ],
+      demoData: {
+        data: [
+          {
+            value: '1',
+            label: 'First option',
+            checked: true,
+          },
+          {
+            value: '2',
+            label: 'Second option',
+            checked: false,
+          },
+        ],
+        name: 'radio-list',
+      },
     };
   },
 };

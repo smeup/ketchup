@@ -125,33 +125,30 @@ export default {
           type: 'blur',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              text: 'First choice',
-              value: '1',
-            },
-            {
-              text: 'Selected choice',
-              value: '2',
-              selected: true,
-            },
-            {
-              text: null,
-              value: null,
-              isSeparator: true,
-            },
-            {
-              text: 'Third choice (below a separator)',
-              value: '3',
-            },
-          ],
-        },
-        { prop: 'selectable', value: true },
-        { prop: 'listId', value: 'LISTA' },
-      ],
+      demoData: {
+        data: [
+          {
+            text: 'First choice',
+            value: '1',
+          },
+          {
+            text: 'Selected choice',
+            value: '2',
+            selected: true,
+          },
+          {
+            text: null,
+            value: null,
+            isSeparator: true,
+          },
+          {
+            text: 'Third choice (below a separator)',
+            value: '3',
+          },
+        ],
+        listId: 'LISTA',
+        selectable: true,
+      },
     };
   },
 };

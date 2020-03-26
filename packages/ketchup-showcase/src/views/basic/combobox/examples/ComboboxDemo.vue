@@ -62,16 +62,16 @@ export default {
           prop: 'textfieldData',
           description:
             "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
-          type: 'ComponentProps[]',
-          default: '[]',
+          type: 'Object',
+          default: '{}',
           try: 'json',
         },
         {
           prop: 'listData',
           description:
             "Set of props related to the list. To check the available props visit the List basic component's page.",
-          type: 'ComponentProps[]',
-          default: '[]',
+          type: 'Object',
+          default: '{}',
           try: 'json',
         },
       ],
@@ -105,46 +105,37 @@ export default {
           type: 'click',
         },
       ],
-      demoData: [
-        {
-          prop: 'textfieldData',
-          value: [
-            { prop: 'trailingIcon', value: true },
-            { prop: 'icon', value: 'arrow_drop_down' },
-            { prop: 'label', value: 'demo' },
-          ],
+      demoData: {
+        textfieldData: {
+          icon: 'arrow_drop_down',
+          label: 'demo',
+          trailingIcon: true,
         },
-        {
-          prop: 'listData',
-          value: [
+        listData: {
+          data: [
             {
-              prop: 'data',
-              value: [
-                {
-                  text: 'First choice',
-                  value: '1',
-                },
-                {
-                  text: 'Selected choice',
-                  value: '2',
-                  selected: true,
-                },
-                {
-                  text: null,
-                  value: null,
-                  isSeparator: true,
-                },
-                {
-                  text: 'Third choice (below a separator)',
-                  value: '3',
-                },
-              ],
+              text: 'First choice',
+              value: '1',
             },
-            { prop: 'selectable', value: 'one-select' },
-            { prop: 'listId', value: 'LISTA' },
+            {
+              text: 'Selected choice',
+              value: '2',
+              selected: true,
+            },
+            {
+              text: null,
+              value: null,
+              isSeparator: true,
+            },
+            {
+              text: 'Third choice (below a separator)',
+              value: '3',
+            },
           ],
+          listId: 'LISTA',
+          selectable: 'one-select',
         },
-      ],
+      },
     };
   },
 };

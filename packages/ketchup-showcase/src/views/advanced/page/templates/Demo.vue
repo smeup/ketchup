@@ -174,7 +174,7 @@ export default {
     demoComp: String,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Array,
+    demoData: Object,
   },
   methods: {
     initEvents() {
@@ -187,8 +187,10 @@ export default {
         }
       }
       if (this.demoData) {
-        for (let i = 0; i < this.demoData.length; i++) {
-          demoComponent[this.demoData[i].prop] = this.demoData[i].value;
+        const keys = Object.keys(this.demoData);
+
+        for (let k of keys) {
+          demoComponent[k] = this.demoData[k];
         }
       }
     },

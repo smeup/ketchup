@@ -175,32 +175,14 @@ export default {
           type: 'click',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: baseData,
-        },
-        {
-          prop: 'series',
-          value: ['Col2', 'Col3', 'Col4'],
-        },
-        {
-          prop: 'colors',
-          value: ['#fc8e1c', 'Black', '#45c4ea'],
-        },
-        {
-          prop: 'axis',
-          value: 'Col1',
-        },
-        {
-          prop: 'types',
-          value: ['Hbar'],
-        },
-        {
-          prop: 'asp',
-          value: '2D',
-        },
-      ],
+      demoData: {
+        asp: '2D',
+        axis: 'Col1',
+        colors: ['#fc8e1c', 'Black', '#45c4ea'],
+        data: baseData,
+        series: ['Col2', 'Col3', 'Col4'],
+        types: ['Hbar'],
+      },
     };
   },
 };

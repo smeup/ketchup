@@ -92,31 +92,28 @@ export default {
           type: 'click',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              value: '1_chip',
-              icon: 'filter_1',
-              label: 'First chip',
-              checked: false,
-            },
-            {
-              value: '2_chip',
-              icon: 'filter_2',
-              label: 'Second chip',
-              checked: true,
-            },
-            {
-              value: '3_chip',
-              icon: 'filter_3',
-              label: 'Third chip',
-              checked: false,
-            },
-          ],
-        },
-      ],
+      demoData: {
+        data: [
+          {
+            value: '1_chip',
+            icon: 'filter_1',
+            label: 'First chip',
+            checked: false,
+          },
+          {
+            value: '2_chip',
+            icon: 'filter_2',
+            label: 'Second chip',
+            checked: true,
+          },
+          {
+            value: '3_chip',
+            icon: 'filter_3',
+            label: 'Third chip',
+            checked: false,
+          },
+        ],
+      },
     };
   },
 };
