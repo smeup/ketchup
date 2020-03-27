@@ -47,14 +47,14 @@
           "key": "country",
           "value": {
             "value": "IT",
-            "description": "Italy"
+            "text": "Italy"
           }
         },
         "region": {
           "key": "region",
           "value": {
             "value": "08",
-            "description": "Lazio"
+            "text": "Lazio"
           }
         },
         "address": {
@@ -63,11 +63,11 @@
         },
         "occupation": {
           "key": "occupation",
-          "value": [{ "code": "OCC02", "description": "Occupation 2" }]
+          "value": [{ "code": "OCC02", "text": "Occupation 2" }]
         },
         "company": {
           "key": "company",
-          "value": [{ "code": "COM3", "description": "Company 3" }]
+          "value": [{ "code": "COM3", "text": "Company 3" }]
         },
         "department": {
           "key": "department",
@@ -79,19 +79,17 @@
             {
               "firstName": "Antonino",
               "lastName": "Pio",
-              "country": { "value": "IT", "description": "Italy" },
-              "region": { "value": "08", "description": "Lazio" },
+              "country": { "value": "IT", "text": "Italy" },
+              "region": { "value": "08", "text": "Lazio" },
               "address": "Lanuvio",
-              "occupation": [
-                { "code": "OCC03", "description": "Occupation 3" }
-              ],
+              "occupation": [{ "code": "OCC03", "text": "Occupation 3" }],
               "department": "MARZYX",
               "relatives": [
                 {
                   "firstName": "Tito",
                   "lastName": "Flavio",
-                  "country": { "value": "IT", "description": "Italy" },
-                  "region": { "value": "08", "description": "Lazio" },
+                  "country": { "value": "IT", "text": "Italy" },
+                  "region": { "value": "08", "text": "Lazio" },
                   "address": "Ostia"
                 }
               ]

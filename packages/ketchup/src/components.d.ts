@@ -54,16 +54,6 @@ import {
   ComponentChipElement,
 } from './components/kup-chip/kup-chip-declarations';
 import {
-  ComboItem,
-  KetchupComboEvent,
-} from './components/kup-combo/kup-combo-declarations';
-import {
-  GenericObject,
-} from './types/GenericTypes';
-import {
-  ComponentProps,
-} from './components/kup-combobox/kup-combobox-declarations';
-import {
   CrudCallBackOnFormEventResult,
   CrudConfig,
   CrudRecord,
@@ -84,7 +74,6 @@ import {
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
-  ComponentProps as ComponentProps1,
   KupFldChangeEvent,
   KupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -113,6 +102,9 @@ import {
   ComponentTabBarElement,
 } from './components/kup-tab-bar/kup-tab-bar-declarations';
 import {
+  GenericObject,
+} from './types/GenericTypes';
+import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
@@ -128,9 +120,6 @@ import {
 import {
   UploadProps,
 } from './components/kup-upload/kup-upload-declarations';
-import {
-  PaginatorMode as PaginatorMode1,
-} from './components/wup-paginator/wup-paginator-declarations';
 
 export namespace Components {
   interface KupAutocomplete {
@@ -298,21 +287,66 @@ export namespace Components {
     'config': ButtonConfig;
   }
   interface KupButton {
-    'align': string;
-    'buttonClass': string;
-    'buttonStyle': {};
-    'fillspace': boolean;
+    /**
+    * Defaults at false. When set to true, the icon button state will be on.
+    */
+    'checked': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered flat.
+    */
     'flat': boolean;
-    'iconClass': string;
-    'iconUrl': string;
-    'imageSrc': string;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullHeight': boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullWidth': boolean;
+    /**
+    * Defaults at null. When set, the button will show this icon.
+    */
+    'icon': string;
+    /**
+    * If not set, it will be managed by the component.
+    */
+    'iconColor': string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconOff': string;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
     'label': string;
-    'rounded': boolean;
-    'showicon': boolean;
-    'showtext': boolean;
-    'textmode': string;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'outlined': boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'shaped': boolean;
+    /**
+    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    */
+    'toggable': boolean;
+    /**
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
+    */
     'tooltip': string;
-    'transparent': boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingIcon': boolean;
   }
   interface KupCalendar {
     'data': DataTable;
@@ -430,52 +464,6 @@ export namespace Components {
     'label': string;
     'name': string;
   }
-  interface KupCombo {
-    /**
-    * Programmatically close the combo box
-    */
-    'closeCombo': () => Promise<void>;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField': string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue': ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable': boolean;
-    /**
-    * Items which can be selected
-    */
-    'items': ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label': string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * Programmatically opens the combo box
-    */
-    'openCombo': () => Promise<void>;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal': boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField': string;
-  }
   interface KupCombobox {
     /**
     * Custom style to be passed to the component.
@@ -484,11 +472,11 @@ export namespace Components {
     /**
     * Props of the list.
     */
-    'listData': ComponentProps[];
+    'listData': Object;
     /**
     * Props of the text field.
     */
-    'textfieldData': ComponentProps[];
+    'textfieldData': Object;
   }
   interface KupCrud {
     'actions': FormActions;
@@ -672,7 +660,7 @@ export namespace Components {
     /**
     * Effective data to pass to the component.
     */
-    'data': ComponentProps[];
+    'data': Object;
     /**
     * Provides an interface to get the current value programmatically
     */
@@ -1131,6 +1119,10 @@ export namespace Components {
     */
     'inputType': string;
     /**
+    * Enables a clear trailing icon.
+    */
+    'isClearable': boolean;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label': string;
@@ -1287,68 +1279,6 @@ export namespace Components {
   interface KupUpload {
     'typeOptions': UploadProps;
   }
-  interface WupButton {
-    /**
-    * Defaults at false. When set to true, the icon button state will be on.
-    */
-    'checked': boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered flat.
-    */
-    'flat': boolean;
-    /**
-    * Defaults at false. When set to true fill all the available horizontal space.
-    */
-    'fullHeight': boolean;
-    /**
-    * Defaults at false. When set to true fill all the available horizontal space.
-    */
-    'fullWidth': boolean;
-    /**
-    * Defaults at null. When set, the button will show this icon.
-    */
-    'icon': string;
-    /**
-    * If not set, it will be managed by the component.
-    */
-    'iconColor': string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconOff': string;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'label': string;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'outlined': boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'shaped': boolean;
-    /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
-    */
-    'toggable': boolean;
-    /**
-    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-    */
-    'tooltip': string;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingIcon': boolean;
-  }
   interface WupIcon {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -1370,13 +1300,6 @@ export namespace Components {
     * The type of the icon, defaults to "svg".
     */
     'type': string;
-  }
-  interface WupPaginator {
-    'currentPage': number;
-    'max': number;
-    'mode': PaginatorMode;
-    'perPage': number;
-    'selectedPerPage': number;
   }
 }
 
@@ -1453,12 +1376,6 @@ declare global {
   var HTMLKupChipKnowledgeElement: {
     prototype: HTMLKupChipKnowledgeElement;
     new (): HTMLKupChipKnowledgeElement;
-  };
-
-  interface HTMLKupComboElement extends Components.KupCombo, HTMLStencilElement {}
-  var HTMLKupComboElement: {
-    prototype: HTMLKupComboElement;
-    new (): HTMLKupComboElement;
   };
 
   interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {}
@@ -1647,22 +1564,10 @@ declare global {
     new (): HTMLKupUploadElement;
   };
 
-  interface HTMLWupButtonElement extends Components.WupButton, HTMLStencilElement {}
-  var HTMLWupButtonElement: {
-    prototype: HTMLWupButtonElement;
-    new (): HTMLWupButtonElement;
-  };
-
   interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
   var HTMLWupIconElement: {
     prototype: HTMLWupIconElement;
     new (): HTMLWupIconElement;
-  };
-
-  interface HTMLWupPaginatorElement extends Components.WupPaginator, HTMLStencilElement {}
-  var HTMLWupPaginatorElement: {
-    prototype: HTMLWupPaginatorElement;
-    new (): HTMLWupPaginatorElement;
   };
   interface HTMLElementTagNameMap {
     'kup-autocomplete': HTMLKupAutocompleteElement;
@@ -1677,7 +1582,6 @@ declare global {
     'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
     'kup-chip': HTMLKupChipElement;
     'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
-    'kup-combo': HTMLKupComboElement;
     'kup-combobox': HTMLKupComboboxElement;
     'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
@@ -1709,9 +1613,7 @@ declare global {
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
-    'wup-button': HTMLWupButtonElement;
     'wup-icon': HTMLWupIconElement;
-    'wup-paginator': HTMLWupPaginatorElement;
   }
 }
 
@@ -1942,26 +1844,80 @@ declare namespace LocalJSX {
   interface KupBtn extends JSXBase.HTMLAttributes<HTMLKupBtnElement> {
     'buttons'?: any[];
     'config'?: ButtonConfig;
+    'onKupBtnClick'?: (event: CustomEvent<{
+      id: number;
+    }>) => void;
   }
   interface KupButton extends JSXBase.HTMLAttributes<HTMLKupButtonElement> {
-    'align'?: string;
-    'buttonClass'?: string;
-    'buttonStyle'?: {};
-    'fillspace'?: boolean;
+    /**
+    * Defaults at false. When set to true, the icon button state will be on.
+    */
+    'checked'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Defaults at false. When set to true, the component is disabled.
+    */
+    'disabled'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered flat.
+    */
     'flat'?: boolean;
-    'iconClass'?: string;
-    'iconUrl'?: string;
-    'imageSrc'?: string;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullHeight'?: boolean;
+    /**
+    * Defaults at false. When set to true fill all the available horizontal space.
+    */
+    'fullWidth'?: boolean;
+    /**
+    * Defaults at null. When set, the button will show this icon.
+    */
+    'icon'?: string;
+    /**
+    * If not set, it will be managed by the component.
+    */
+    'iconColor'?: string;
+    /**
+    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+    */
+    'iconOff'?: string;
+    /**
+    * Defaults at null. When set, the button will show this text.
+    */
     'label'?: string;
-    'onKupButtonClicked'?: (event: CustomEvent<{
-      id: string;
+    'onKupButtonBlur'?: (event: CustomEvent<{
+      value: any;
     }>) => void;
-    'rounded'?: boolean;
-    'showicon'?: boolean;
-    'showtext'?: boolean;
-    'textmode'?: string;
+    'onKupButtonClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupButtonFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with a colored outline.
+    */
+    'outlined'?: boolean;
+    /**
+    * Defaults at false. When set to true, the button will be rendered with rounded edges.
+    */
+    'shaped'?: boolean;
+    /**
+    * Defaults at false. When set to true, the icon button will be toggable on/off.
+    */
+    'toggable'?: boolean;
+    /**
+    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
+    */
     'tooltip'?: string;
-    'transparent'?: boolean;
+    /**
+    * Defaults at null. When set, the icon will be shown after the text.
+    */
+    'trailingIcon'?: boolean;
   }
   interface KupCalendar extends JSXBase.HTMLAttributes<HTMLKupCalendarElement> {
     'data'?: DataTable;
@@ -2154,56 +2110,6 @@ declare namespace LocalJSX {
     'onKupChipKnowledgeClick'?: (event: CustomEvent<any>) => void;
     'onKupChipKnowledgeClose'?: (event: CustomEvent<any>) => void;
   }
-  interface KupCombo extends JSXBase.HTMLAttributes<HTMLKupComboElement> {
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'displayedField'?: string;
-    /**
-    * Allows to pass an initial selected item for the combobox
-    */
-    'initialValue'?: ComboItem | null;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Marks the field as filterable, allowing an input text to filter the options
-    */
-    'isFilterable'?: boolean;
-    /**
-    * Items which can be selected
-    */
-    'items'?: ComboItem[];
-    /**
-    * Label to describe the radio group
-    */
-    'label'?: string;
-    /**
-    * An arbitrary object object which can be passed to the component. It will be returned when ketchupComboSelected event is fired, inside detail.info.obj
-    */
-    'obj'?: GenericObject;
-    /**
-    * When combo is blurred
-    */
-    'onKetchupComboBlurred'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When combo is focused
-    */
-    'onKetchupComboFocused'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * When an element has been selected
-    */
-    'onKetchupComboSelected'?: (event: CustomEvent<KetchupComboEvent>) => void;
-    /**
-    * If true, the combobox uses a Stencil portal to create the menu. Please use this feature carefully, only if needed.
-    */
-    'usePortal'?: boolean;
-    /**
-    * Chooses which field of an item object should be used to create the list and be filtered.
-    */
-    'valueField'?: string;
-  }
   interface KupCombobox extends JSXBase.HTMLAttributes<HTMLKupComboboxElement> {
     /**
     * Custom style to be passed to the component.
@@ -2212,7 +2118,7 @@ declare namespace LocalJSX {
     /**
     * Props of the list.
     */
-    'listData'?: ComponentProps[];
+    'listData'?: Object;
     /**
     * Event example.
     */
@@ -2240,7 +2146,7 @@ declare namespace LocalJSX {
     /**
     * Props of the text field.
     */
-    'textfieldData'?: ComponentProps[];
+    'textfieldData'?: Object;
   }
   interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
     'actions'?: FormActions;
@@ -2479,7 +2385,7 @@ declare namespace LocalJSX {
     /**
     * Effective data to pass to the component.
     */
-    'data'?: ComponentProps[];
+    'data'?: Object;
     /**
     * The text of the label. If set to empty or has only white space chars, the label will be removed.
     */
@@ -3039,6 +2945,10 @@ declare namespace LocalJSX {
     */
     'inputType'?: string;
     /**
+    * Enables a clear trailing icon.
+    */
+    'isClearable'?: boolean;
+    /**
     * Defaults at null. When set, its content will be shown as a label.
     */
     'label'?: string;
@@ -3056,6 +2966,9 @@ declare namespace LocalJSX {
     'onKupTextFieldChange'?: (event: CustomEvent<{
       value: string;
     }>) => void;
+    'onKupTextFieldClearIconClick'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
     'onKupTextFieldClick'?: (event: CustomEvent<{
       value: string;
     }>) => void;
@@ -3066,6 +2979,12 @@ declare namespace LocalJSX {
       value: string;
     }>) => void;
     'onKupTextFieldInput'?: (event: CustomEvent<{
+      value: string;
+    }>) => void;
+    /**
+    * When a keydown enter event occurs it generates
+    */
+    'onKupTextFieldSubmit'?: (event: CustomEvent<{
       value: string;
     }>) => void;
     /**
@@ -3273,77 +3192,6 @@ declare namespace LocalJSX {
     'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
     'typeOptions'?: UploadProps;
   }
-  interface WupButton extends JSXBase.HTMLAttributes<HTMLWupButtonElement> {
-    /**
-    * Defaults at false. When set to true, the icon button state will be on.
-    */
-    'checked'?: boolean;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * Defaults at false. When set to true, the component is disabled.
-    */
-    'disabled'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered flat.
-    */
-    'flat'?: boolean;
-    /**
-    * Defaults at false. When set to true fill all the available horizontal space.
-    */
-    'fullHeight'?: boolean;
-    /**
-    * Defaults at false. When set to true fill all the available horizontal space.
-    */
-    'fullWidth'?: boolean;
-    /**
-    * Defaults at null. When set, the button will show this icon.
-    */
-    'icon'?: string;
-    /**
-    * If not set, it will be managed by the component.
-    */
-    'iconColor'?: string;
-    /**
-    * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
-    */
-    'iconOff'?: string;
-    /**
-    * Defaults at null. When set, the button will show this text.
-    */
-    'label'?: string;
-    'onKupButtonBlur'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonClick'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    'onKupButtonFocus'?: (event: CustomEvent<{
-      value: any;
-    }>) => void;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with a colored outline.
-    */
-    'outlined'?: boolean;
-    /**
-    * Defaults at false. When set to true, the button will be rendered with rounded edges.
-    */
-    'shaped'?: boolean;
-    /**
-    * Defaults at false. When set to true, the icon button will be toggable on/off.
-    */
-    'toggable'?: boolean;
-    /**
-    * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-    */
-    'tooltip'?: string;
-    /**
-    * Defaults at null. When set, the icon will be shown after the text.
-    */
-    'trailingIcon'?: boolean;
-  }
   interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
     /**
     * The color of the icon, defaults to the main color of the app.
@@ -3366,21 +3214,6 @@ declare namespace LocalJSX {
     */
     'type'?: string;
   }
-  interface WupPaginator extends JSXBase.HTMLAttributes<HTMLWupPaginatorElement> {
-    'currentPage'?: number;
-    'max'?: number;
-    'mode'?: PaginatorMode;
-    /**
-    * When the current page change
-    */
-    'onKupPageChanged'?: (event: CustomEvent<{ newPage: number }>) => void;
-    /**
-    * When the rows per page change
-    */
-    'onKupRowsPerPageChanged'?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
-    'perPage'?: number;
-    'selectedPerPage'?: number;
-  }
 
   interface IntrinsicElements {
     'kup-autocomplete': KupAutocomplete;
@@ -3395,7 +3228,6 @@ declare namespace LocalJSX {
     'kup-checkbox-menu': KupCheckboxMenu;
     'kup-chip': KupChip;
     'kup-chip-knowledge': KupChipKnowledge;
-    'kup-combo': KupCombo;
     'kup-combobox': KupCombobox;
     'kup-crud': KupCrud;
     'kup-dash': KupDash;
@@ -3427,9 +3259,7 @@ declare namespace LocalJSX {
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
-    'wup-button': WupButton;
     'wup-icon': WupIcon;
-    'wup-paginator': WupPaginator;
   }
 }
 

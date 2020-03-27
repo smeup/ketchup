@@ -109,7 +109,6 @@
         </kup-layout>
 
         <h4>Combo using portal</h4>
-        <kup-combo is-clearable use-portal="true"></kup-combo>
         <h4>FLD 1</h4>
         <kup-fld id="kfld-1"></kup-fld>
         <h4>FLD 2</h4>
@@ -701,32 +700,6 @@ chipList.data = [
 
                     // Never triggers again these part of the code
                     once = false;
-
-                    // The combo box
-                    const comboBox = document.querySelector('kup-combo');
-                    comboBox.initialValue = {
-                        id: 'Darth Vader',
-                    };
-                    comboBox.items = [
-                        {
-                            id: 'Darth Vader',
-                        },
-                        {
-                            id: 'Darth Sidius',
-                        },
-                        {
-                            id: 'Darth Maul',
-                        },
-                        {
-                            id: 'Darth Tiranus',
-                        },
-                    ];
-                    comboBox.addEventListener(
-                        'ketchupComboSelected',
-                        (event) => {
-                            console.log('comboHasBeenSelected', event);
-                        }
-                    );
 
                     const fld_1 = document.querySelector('#kfld-1');
                     fld_1.config = {

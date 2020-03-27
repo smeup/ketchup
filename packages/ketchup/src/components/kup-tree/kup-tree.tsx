@@ -33,16 +33,6 @@ import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper'
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 
-/*import {
-  ComboItem,
-  ComboPosition,
-  KetchupComboEvent,
-} from './kup-combo-declarations';
-import { eventFromElement } from '../../utils/utils';
-import { getElementOffset } from '../../utils/offset';
-import { GenericObject } from '../../types/GenericTypes';
-*/
-
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
