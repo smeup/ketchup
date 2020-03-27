@@ -430,6 +430,12 @@ describe('kup-tree with data', () => {
 
           expect(treeNodeCellContent).toEqualText(selectedTreeNode.value);
           if (!selectedTreeNode.disabled) {
+            console.log(
+              'tmp log: selected node cycle n. ' +
+                  i +
+                  ' ' +
+                  JSON.stringify(selectedE2ENode.outerHTML)
+            );
             expect(selectedE2ENode).toHaveClass('kup-tree__node--selected');
           } else {
             expect(selectedE2ENode).not.toHaveClass('kup-tree__node--selected');
