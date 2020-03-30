@@ -245,6 +245,10 @@ export class KupCombobox {
             };
         }
 
+        if (!this.textfieldData['icon']) {
+            this.textfieldData['icon'] = 'arrow_drop_down';
+        }
+
         let comp: HTMLElement = (
             <kup-text-field
                 {...this.textfieldData}
