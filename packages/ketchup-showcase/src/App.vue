@@ -153,12 +153,6 @@ export default {
             },
           },
           {
-            title: `Chips`,
-            to: {
-              name: 'chips',
-            },
-          },
-          {
             title: 'Crud',
             to: {
               name: 'crud',

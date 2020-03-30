@@ -15,6 +15,13 @@
 | `config`  | --        |             | `ButtonConfig` | `{}`        |
 
 
+## Events
+
+| Event         | Description | Type                           |
+| ------------- | ----------- | ------------------------------ |
+| `kupBtnClick` |             | `CustomEvent<{ id: number; }>` |
+
+
 ## Dependencies
 
 ### Depends on
@@ -25,6 +32,7 @@
 ```mermaid
 graph TD;
   kup-btn --> kup-button
+  kup-button --> kup-icon
   style kup-btn fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

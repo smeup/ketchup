@@ -24,12 +24,12 @@
 
 ### Depends on
 
-- [wup-icon](../wup-icon)
+- [kup-icon](../kup-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-tab-bar --> wup-icon
+  kup-tab-bar --> kup-icon
   style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

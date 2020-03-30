@@ -29,7 +29,7 @@
 
 ### Depends on
 
-- [wup-checkbox](../wup-checkbox)
+- [kup-checkbox](../kup-checkbox)
 - [kup-icon](../kup-icon)
 - [kup-menu](../kup-menu)
 - [kup-text-input](../kup-text-input)
@@ -37,7 +37,7 @@
 ### Graph
 ```mermaid
 graph TD;
-  kup-checkbox-menu --> wup-checkbox
+  kup-checkbox-menu --> kup-checkbox
   kup-checkbox-menu --> kup-icon
   kup-checkbox-menu --> kup-menu
   kup-checkbox-menu --> kup-text-input

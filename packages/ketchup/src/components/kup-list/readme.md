@@ -35,13 +35,13 @@
 ### Depends on
 
 - [kup-radio](../kup-radio)
-- [wup-checkbox](../wup-checkbox)
+- [kup-checkbox](../kup-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-list --> kup-radio
-  kup-list --> wup-checkbox
+  kup-list --> kup-checkbox
   kup-combobox --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

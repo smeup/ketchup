@@ -706,15 +706,6 @@ export class KupAutocomplete {
                             {autocompleteItems}
                         </ul>
                     </kup-menu>
-                    {this.showDropdownIcon ? (
-                        <kup-icon
-                            class="autocomplete__menu-toggle-icon"
-                            iconClass={'mdi mdi-menu-down'}
-                            role="button"
-                            slot="right"
-                            onClick={this.menuStateToggle.bind(this)}
-                        />
-                    ) : null}
                 </kup-text-field>
             </div>
         );

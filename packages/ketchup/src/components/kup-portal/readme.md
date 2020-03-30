@@ -121,10 +121,6 @@ Type: `Promise<HTMLElement>`
 
 ## Dependencies
 
-### Used by
-
- - [kup-combo](../kup-combo)
-
 ### Depends on
 
 - [kup-portal-instance](../kup-portal-instance)
@@ -133,7 +129,6 @@ Type: `Promise<HTMLElement>`
 ```mermaid
 graph TD;
   kup-portal --> kup-portal-instance
-  kup-combo --> kup-portal
   style kup-portal fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

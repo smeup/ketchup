@@ -35,11 +35,11 @@
 
 ### Used by
 
- - [kup-box](..\kup-box)
- - [kup-checkbox-menu](..\kup-checkbox-menu)
- - [kup-data-table](..\kup-data-table)
- - [kup-list](..\kup-list)
- - [kup-tree](..\kup-tree)
+ - [kup-box](../kup-box)
+ - [kup-checkbox-menu](../kup-checkbox-menu)
+ - [kup-data-table](../kup-data-table)
+ - [kup-list](../kup-list)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid

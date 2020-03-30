@@ -222,7 +222,7 @@ export class KupCheckboxMenu {
                     onClick={this.menuStateToggle.bind(this)}
                 >
                     {this.label}
-                    <kup-icon iconClass={'mdi mdi-menu-down'} />
+                    <kup-icon name="drop_down_arrow" />
                 </span>
 
                 <kup-menu
@@ -245,7 +245,7 @@ export class KupCheckboxMenu {
                             />
                         ) : null}
                         <kup-icon
-                            iconClass={'mdi mdi-close'}
+                            name="close"
                             onClick={this.closeMenu.bind(this)}
                         />
                     </div>

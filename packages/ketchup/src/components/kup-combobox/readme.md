@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property        | Attribute      | Description                                 | Type               | Default     |
-| --------------- | -------------- | ------------------------------------------- | ------------------ | ----------- |
-| `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string`           | `undefined` |
-| `listData`      | --             | Props of the list.                          | `ComponentProps[]` | `[]`        |
-| `textfieldData` | --             | Props of the text field.                    | `ComponentProps[]` | `[]`        |
+| Property        | Attribute      | Description                                 | Type     | Default     |
+| --------------- | -------------- | ------------------------------------------- | -------- | ----------- |
+| `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string` | `undefined` |
+| `listData`      | --             | Props of the list.                          | `Object` | `{}`        |
+| `textfieldData` | --             | Props of the text field.                    | `Object` | `{}`        |
 
 
 ## Events
@@ -27,6 +27,12 @@
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](../kup-box)
+ - [kup-form](../kup-form)
+ - [kup-paginator](../kup-paginator)
+
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
@@ -37,9 +43,12 @@
 graph TD;
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> wup-icon
+  kup-text-field --> kup-icon
   kup-list --> kup-radio
-  kup-list --> wup-checkbox
+  kup-list --> kup-checkbox
+  kup-box --> kup-combobox
+  kup-form --> kup-combobox
+  kup-paginator --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

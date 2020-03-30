@@ -206,12 +206,12 @@ export class KupButton {
                     }
                 }
                 iconEl = (
-                    <wup-icon
+                    <kup-icon
                         color={iconColor}
                         class="material-icons mdc-button__icon"
                         dimensions="18px"
                         name={this.icon}
-                    ></wup-icon>
+                    ></kup-icon>
                 );
             }
 
@@ -273,22 +273,22 @@ export class KupButton {
             }
             componentClass += ' mdc-icon-button';
             trailingEl = (
-                <wup-icon
+                <kup-icon
                     color={iconColor}
                     class="material-icons mdc-icon-button__icon"
                     dimensions="18px"
                     name={this.icon}
-                ></wup-icon>
+                ></kup-icon>
             );
             if (this.toggable) {
                 componentClass += ' toggable';
                 trailingEl = (
-                    <wup-icon
+                    <kup-icon
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
                         dimensions="18px"
                         name={this.icon}
-                    ></wup-icon>
+                    ></kup-icon>
                 );
                 if (this.checked) {
                     componentClass += ' mdc-icon-button--on';
@@ -302,12 +302,12 @@ export class KupButton {
                 }
 
                 leadingEl = (
-                    <wup-icon
+                    <kup-icon
                         color={this.iconColor}
                         class="material-icons mdc-icon-button__icon"
                         dimensions="18px"
                         name={iconOff}
-                    ></wup-icon>
+                    ></kup-icon>
                 );
             }
             return (
