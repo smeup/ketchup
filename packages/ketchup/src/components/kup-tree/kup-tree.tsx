@@ -710,26 +710,16 @@ export class KupTree {
         // When TreeNode icons are visible, creates the icon if one is specified
         let treeNodeIcon: any = null;
         if (this.showIcons) {
-            if (treeNodeData.iconSrc) {
-                if (treeNodeData.iconSrc === '') {
-                    treeNodeIcon = <span class="kup-tree__icon" />;
-                } else {
-                    treeNodeIcon = (
-                        <img
-                            class="kup-tree__icon"
-                            src={treeNodeData.iconSrc}
-                        />
-                    );
-                }
-            } else if (treeNodeData.iconClass) {
-                if (treeNodeData.iconClass === '') {
+            if (treeNodeData.icon) {
+                if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = (
                         <kup-icon
                             class="kup-tree__icon"
                             dimensions="1.5rem"
-                            name={treeNodeData.iconClass}
+                            name={treeNodeData.icon}
+                            color={treeNodeData.icon}
                         ></kup-icon>
                     );
                 }

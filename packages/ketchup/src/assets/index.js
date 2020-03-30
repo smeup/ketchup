@@ -13,43 +13,43 @@ const btnlist = JSON.parse(`{
         "value": "label bottone #1",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-account",
+        "icon": "mdi mdi-account",
         "children": []
       },{
         "value": "label bottone #2",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       },{
         "value": "label bottone #3",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       },{
         "value": "label bottone #4",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       },{
         "value": "label bottone #5",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       },{
         "value": "label bottone #6",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       },{
         "value": "label bottone #7",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "mdi mdi-plus",
         "children": []
       }],
       "messages": [],

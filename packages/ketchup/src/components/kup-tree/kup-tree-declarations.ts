@@ -20,9 +20,9 @@ export interface TreeNode {
 
   expandable: boolean;
 
-  iconClass?: string;
+  icon?: string;
 
-  iconSrc?:string;
+  iconColor?:string;
 
   id?: string;
 
