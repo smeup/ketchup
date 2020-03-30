@@ -413,6 +413,11 @@ describe('kup-tree with data', () => {
           await treeElement.setProperty('selectedNode', treeNodePath);
           await page.waitForChanges();
 
+          console.time('Slept for');
+          //await page.waitFor(1000);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          console.timeEnd('Slept for');
+
           // Find element index
           let flatIndex: number = -1;
           for (let k = 0; k < flatTree.length; k++) {
@@ -444,7 +449,7 @@ describe('kup-tree with data', () => {
 
         // Controls that no selection events were generated during this process
         expect(selectedListener).toHaveLength(0);
-      });
+      }, 60000);
 
 
       test('emits a selected event if clicked (not on the expand icon)', async () => {
