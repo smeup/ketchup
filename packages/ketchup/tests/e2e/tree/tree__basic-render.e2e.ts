@@ -14,6 +14,7 @@ import {
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
+import { defaultData } from './mocked-data';
 
 const dataTreeConfiguration: {
   depth: number,
@@ -56,7 +57,9 @@ async function testElementStyle(htmlNode: E2EElement, style: GenericMap) {
 describe('kup-tree with data', () => {
   //---- Creates a new batch of data and then cleans it ----
   beforeEach(async () => {
-    const treeData: TreeConfigData = TreeFactory(dataTreeConfiguration.depth,4);
+    //const treeData: TreeConfigData = TreeFactory(dataTreeConfiguration.depth,4);
+    // used a fixed tree generated from TreeFactory (to understand tests failures easily)
+    const treeData = defaultData;
     data = treeData.data;
     columns = treeData.columns;
 
