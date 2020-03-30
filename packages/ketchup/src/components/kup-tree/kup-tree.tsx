@@ -719,7 +719,7 @@ export class KupTree {
                             class="kup-tree__icon"
                             dimensions="1.5rem"
                             name={treeNodeData.icon}
-                            color={treeNodeData.icon}
+                            color={treeNodeData.iconColor}
                         ></kup-icon>
                     );
                 }
