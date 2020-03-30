@@ -58,17 +58,17 @@ Type: `Promise<KupAutocompleteOption[]>`
 ### Depends on
 
 - [kup-chip](../kup-chip)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 - [kup-menu](../kup-menu)
-- [kup-icon](../kup-icon)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-autocomplete --> kup-chip
-  kup-autocomplete --> kup-text-input
+  kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-menu
-  kup-autocomplete --> kup-icon
+  kup-chip --> kup-icon
+  kup-text-field --> kup-icon
   kup-form --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```

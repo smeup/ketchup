@@ -80,39 +80,42 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
-- [kup-checkbox](../kup-checkbox)
 - [kup-radio](../kup-radio)
 - [kup-text-input](../kup-text-input)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-icon](../kup-icon)
 - [kup-editor](../kup-editor)
-- [kup-combo](../kup-combo)
+- [kup-combobox](../kup-combobox)
 - [kup-paginator](../kup-paginator)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-checkbox
   kup-box --> kup-badge
   kup-box --> kup-image
   kup-box --> kup-button
-  kup-box --> kup-checkbox
   kup-box --> kup-radio
   kup-box --> kup-text-input
   kup-box --> kup-progress-bar
   kup-box --> kup-chart-cell
   kup-box --> kup-icon
   kup-box --> kup-editor
-  kup-box --> kup-combo
+  kup-box --> kup-combobox
   kup-box --> kup-paginator
   kup-image --> kup-badge
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
-  kup-paginator --> kup-combo
+  kup-button --> kup-icon
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-paginator --> kup-combobox
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

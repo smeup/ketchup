@@ -114,12 +114,12 @@ export class KupTabBar {
 
             if (this.data[i].icon !== '') {
                 iconEl = (
-                    <wup-icon
+                    <kup-icon
                         color="var(--kup-main-color)"
                         class="mdc-tab__icon material-icons"
                         dimensions="24px"
                         name={this.data[i].icon}
-                    ></wup-icon>
+                    ></kup-icon>
                 );
             }
 

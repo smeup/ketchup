@@ -1,10 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
   </div>
 </template>
 
@@ -36,7 +32,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="widgets" type="svg" ></wup-icon>',
+        '<kup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="widgets" type="svg" ></kup-icon>',
       demoProps: [
         {
           prop: 'color',

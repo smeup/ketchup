@@ -16,6 +16,7 @@
 | `icon`              | `icon`                | Defaults at null. When set, the text-field will show this icon.                           | `string`  | `null`      |
 | `initialValue`      | `initial-value`       | Sets the initial value of the component                                                   | `string`  | `''`        |
 | `inputType`         | `input-type`          | The HTML type of the input element. It has no effect on text areas.                       | `string`  | `'text'`    |
+| `isClearable`       | `is-clearable`        | Enables a clear trailing icon.                                                            | `boolean` | `false`     |
 | `label`             | `label`               | Defaults at null. When set, its content will be shown as a label.                         | `string`  | `null`      |
 | `leadingLabel`      | `leading-label`       | Defaults at false. When set to true, the label will be on the left of the component.      | `boolean` | `false`     |
 | `maxLength`         | `max-length`          | Defaults at null. When set, the helper will display a character counter.                  | `number`  | `null`      |
@@ -28,30 +29,34 @@
 
 ## Events
 
-| Event                   | Description | Type                              |
-| ----------------------- | ----------- | --------------------------------- |
-| `kupTextFieldBlur`      |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldChange`    |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldClick`     |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldFocus`     |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldIconClick` |             | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldInput`     |             | `CustomEvent<{ value: string; }>` |
+| Event                        | Description                                    | Type                              |
+| ---------------------------- | ---------------------------------------------- | --------------------------------- |
+| `kupTextFieldBlur`           |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldChange`         |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldClearIconClick` |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldClick`          |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldFocus`          |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldIconClick`      |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldInput`          |                                                | `CustomEvent<{ value: string; }>` |
+| `kupTextFieldSubmit`         | When a keydown enter event occurs it generates | `CustomEvent<{ value: string; }>` |
 
 
 ## Dependencies
 
 ### Used by
 
+ - [kup-autocomplete](../kup-autocomplete)
  - [kup-combobox](../kup-combobox)
 
 ### Depends on
 
-- [wup-icon](../wup-icon)
+- [kup-icon](../kup-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-text-field --> wup-icon
+  kup-text-field --> kup-icon
+  kup-autocomplete --> kup-text-field
   kup-combobox --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

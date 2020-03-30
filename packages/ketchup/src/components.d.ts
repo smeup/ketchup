@@ -82,7 +82,7 @@ import {
 } from './components/kup-image/kup-image-declarations';
 import {
   Image,
-} from './components/fields/kup-image-button/kup-image-declarations';
+} from './components/kup-image-button/kup-image-declarations';
 import {
   ComponentListElement,
 } from './components/kup-list/kup-list-declarations';
@@ -808,10 +808,26 @@ export namespace Components {
     'src': string;
   }
   interface KupIcon {
-    'iconClass': string;
-    'iconStyle': {};
-    'iconStylesheets': string[];
-    'imageSrc': string;
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color': string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+    */
+    'dimensions': string;
+    /**
+    * The name of the icon.
+    */
+    'name': string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type': string;
   }
   interface KupImage {
     'alt': string;
@@ -1279,28 +1295,6 @@ export namespace Components {
   interface KupUpload {
     'typeOptions': UploadProps;
   }
-  interface WupIcon {
-    /**
-    * The color of the icon, defaults to the main color of the app.
-    */
-    'color': string;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle': string;
-    /**
-    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-    */
-    'dimensions': string;
-    /**
-    * The name of the icon.
-    */
-    'name': string;
-    /**
-    * The type of the icon, defaults to "svg".
-    */
-    'type': string;
-  }
 }
 
 declare global {
@@ -1563,12 +1557,6 @@ declare global {
     prototype: HTMLKupUploadElement;
     new (): HTMLKupUploadElement;
   };
-
-  interface HTMLWupIconElement extends Components.WupIcon, HTMLStencilElement {}
-  var HTMLWupIconElement: {
-    prototype: HTMLWupIconElement;
-    new (): HTMLWupIconElement;
-  };
   interface HTMLElementTagNameMap {
     'kup-autocomplete': HTMLKupAutocompleteElement;
     'kup-badge': HTMLKupBadgeElement;
@@ -1613,7 +1601,6 @@ declare global {
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
-    'wup-icon': HTMLWupIconElement;
   }
 }
 
@@ -2547,10 +2534,26 @@ declare namespace LocalJSX {
     'src'?: string;
   }
   interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
-    'iconClass'?: string;
-    'iconStyle'?: {};
-    'iconStylesheets'?: string[];
-    'imageSrc'?: string;
+    /**
+    * The color of the icon, defaults to the main color of the app.
+    */
+    'color'?: string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+    */
+    'dimensions'?: string;
+    /**
+    * The name of the icon.
+    */
+    'name'?: string;
+    /**
+    * The type of the icon, defaults to "svg".
+    */
+    'type'?: string;
   }
   interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
     'alt'?: string;
@@ -3192,28 +3195,6 @@ declare namespace LocalJSX {
     'onKetchupFileUploaded'?: (event: CustomEvent<any>) => void;
     'typeOptions'?: UploadProps;
   }
-  interface WupIcon extends JSXBase.HTMLAttributes<HTMLWupIconElement> {
-    /**
-    * The color of the icon, defaults to the main color of the app.
-    */
-    'color'?: string;
-    /**
-    * Custom style to be passed to the component.
-    */
-    'customStyle'?: string;
-    /**
-    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-    */
-    'dimensions'?: string;
-    /**
-    * The name of the icon.
-    */
-    'name'?: string;
-    /**
-    * The type of the icon, defaults to "svg".
-    */
-    'type'?: string;
-  }
 
   interface IntrinsicElements {
     'kup-autocomplete': KupAutocomplete;
@@ -3259,7 +3240,6 @@ declare namespace LocalJSX {
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;
-    'wup-icon': WupIcon;
   }
 }
 

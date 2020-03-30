@@ -8,7 +8,7 @@
       >the element to be positioned and its anchor element</span>.
       <br />Let's take this chip as an example.
     </p>
-    <kup-chip>This chip will be anchored</kup-chip>
+    <kup-chip :data.prop="data"></kup-chip>
     <br />
     <br />
     <p>
@@ -25,6 +25,13 @@
 export default {
   data() {
     return {
+      data: [
+        {
+          value: '1',
+          label: 'This chip will be anchored',
+          checked: false,
+        },
+      ],
       codeSample:
         'positionRecalc(el: HTMLElement, anchorEl: HTMLElement) {...}',
     };

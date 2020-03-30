@@ -141,10 +141,10 @@ Type: `Promise<Column[]>`
 
 ### Depends on
 
+- [kup-checkbox](../kup-checkbox)
 - [kup-text-input](../kup-text-input)
 - [kup-icon](../kup-icon)
 - [kup-image](../kup-image)
-- [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
 - [kup-chart-cell](../kup-chart-cell)
@@ -157,10 +157,10 @@ Type: `Promise<Column[]>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-data-table --> kup-checkbox
   kup-data-table --> kup-text-input
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
@@ -170,11 +170,15 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
   kup-image --> kup-badge
+  kup-button --> kup-icon
   kup-tooltip --> kup-button
-  kup-paginator --> kup-combo
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
+  kup-paginator --> kup-combobox
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-chip --> kup-icon
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -44,15 +44,17 @@
 
 ### Depends on
 
-- [kup-combo](../kup-combo)
+- [kup-combobox](../kup-combobox)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-paginator --> kup-combo
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
+  kup-paginator --> kup-combobox
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-box --> kup-paginator
   kup-data-table --> kup-paginator
   style kup-paginator fill:#f9f,stroke:#333,stroke-width:4px

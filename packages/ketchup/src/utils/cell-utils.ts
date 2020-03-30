@@ -125,22 +125,25 @@ export function isImage(cell: Cell, boxObject: BoxObject) {
 // -------------
 
 export function buildIconConfig(cell: Cell, value: string) {
-    let iconStylesheets = null;
-    let iconStyle = null;
-    let imageSrc = null;
+    let color = null;
+    let customStyle = null;
+    let dimensions = null;
+    let type = null;
 
     if (cell && cell.config) {
         const config = cell.config;
-        iconStylesheets = config.iconStylesheets;
-        iconStyle = config.iconStyle;
-        imageSrc = config.imageSrc;
+        color = config.color;
+        customStyle = config.customStyle;
+        dimensions = config.dimensions;
+        type = config.type;
     }
 
     return {
-        iconClass: value,
-        iconStyle: iconStyle,
-        ...(iconStylesheets ? { iconStylesheets: iconStylesheets } : {}),
-        ...(imageSrc ? { imageSrc: imageSrc } : {}),
+        color: color,
+        customStyle: customStyle,
+        dimensions: dimensions,
+        name: value,
+        type: type,
     };
 }
 

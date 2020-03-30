@@ -118,7 +118,7 @@ Type: `Promise<FormCells>`
 
 ### Depends on
 
-- [kup-combo](../kup-combo)
+- [kup-combobox](../kup-combobox)
 - [kup-crud](../kup-crud)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-search](../kup-search)
@@ -131,7 +131,7 @@ Type: `Promise<FormCells>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-form --> kup-combo
+  kup-form --> kup-combobox
   kup-form --> kup-crud
   kup-form --> kup-autocomplete
   kup-form --> kup-search
@@ -140,25 +140,28 @@ graph TD;
   kup-form --> kup-text-input
   kup-form --> kup-button
   kup-form --> kup-crud
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-crud --> kup-button
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-crud --> kup-form
+  kup-button --> kup-icon
   kup-autocomplete --> kup-chip
-  kup-autocomplete --> kup-text-input
+  kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-menu
-  kup-autocomplete --> kup-icon
+  kup-chip --> kup-icon
   kup-search --> kup-text-input
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
+  kup-data-table --> kup-checkbox
   kup-data-table --> kup-text-input
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
@@ -169,7 +172,7 @@ graph TD;
   kup-data-table --> kup-chip
   kup-image --> kup-badge
   kup-tooltip --> kup-button
-  kup-paginator --> kup-combo
+  kup-paginator --> kup-combobox
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
