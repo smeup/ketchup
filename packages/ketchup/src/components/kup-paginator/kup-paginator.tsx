@@ -1,6 +1,5 @@
 import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
-import { ComboItem } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from './kup-paginator-declarations';
 
 @Component({
@@ -97,20 +96,21 @@ export class KupPaginator {
     }
 
     // render functions
-    private getGoToPageItems(maxNumberOfPage: number): ComboItem[] {
-        const goToPageItems: ComboItem[] = [];
+    private getGoToPageItems(maxNumberOfPage: number) {
+        const goToPageItems = [];
 
         for (let i = 1; i <= maxNumberOfPage; i++) {
-            const item: ComboItem = {};
-            item['id'] = i;
+            const item = {};
+            item['value'] = i;
+            item['text'] = i;
             goToPageItems.push(item);
         }
 
         return goToPageItems;
     }
 
-    private getRowsPerPageItems(): ComboItem[] {
-        const rowsPerPageItems: ComboItem[] = [];
+    private getRowsPerPageItems() {
+        const rowsPerPageItems = [];
 
         if (this.currentPage !== this.max) {
             let i = this.perPage;
@@ -121,18 +121,21 @@ export class KupPaginator {
 
             while (i < this.max) {
                 rowsPerPageItems.push({
-                    id: i,
+                    text: i,
+                    value: i,
                 });
                 i = i * 2;
             }
 
             // adding 'max' option
             rowsPerPageItems.push({
-                id: this.max,
+                text: this.max,
+                value: this.max,
             });
         } else {
             rowsPerPageItems.push({
-                id: this.perPage,
+                text: this.perPage,
+                value: this.perPage,
             });
         }
 
@@ -156,6 +159,28 @@ export class KupPaginator {
 
         const rowsPerPageItems = this.getRowsPerPageItems();
 
+        let textfieldDataPage = {
+            initialValue: this.currentPage,
+            label: 'Page',
+            trailingIcon: true,
+        };
+        let listDataPage = {
+            data: goToPageItems,
+            listId: 'LISTA',
+            selectable: 'one-select',
+        };
+
+        let textfieldDataRows = {
+            initialValue: this.perPage,
+            label: 'Rows / page',
+            trailingIcon: true,
+        };
+        let listDataRows = {
+            data: rowsPerPageItems,
+            listId: 'LISTA',
+            selectable: 'one-select',
+        };
+
         return (
             <div id="paginator">
                 <div class="align-left">
@@ -166,14 +191,10 @@ export class KupPaginator {
                                 onclick={() => this.onPrevPage()}
                             />
                         </span>
-                        <kup-combo
-                            usePortal
-                            items={goToPageItems}
-                            isFilterable={false}
-                            initialValue={{
-                                id: this.currentPage,
-                            }}
-                            onKetchupComboSelected={(e) => this.onPageChange(e)}
+                        <kup-combobox
+                            textfieldData={textfieldDataPage}
+                            listData={listDataPage}
+                            onKupComboboxItemClick={(e) => this.onPageChange(e)}
                         />
                         <span class="next-page">
                             <icon
@@ -185,14 +206,10 @@ export class KupPaginator {
                     <div class="tot-section">
                         <span>Righe:</span>
                         <slot name="more-results" />
-                        <kup-combo
-                            usePortal
-                            items={rowsPerPageItems}
-                            isFilterable={false}
-                            initialValue={{
-                                id: this.perPage,
-                            }}
-                            onKetchupComboSelected={(e) =>
+                        <kup-combobox
+                            textfieldData={textfieldDataRows}
+                            listData={listDataRows}
+                            onKupComboboxItemClick={(e) =>
                                 this.onRowsPerPage(e)
                             }
                         />

@@ -286,7 +286,7 @@ export class KupForm {
             value
         );
 
-        // added this check because some components (like kup-combo) actually send a change event also when
+        // added this check because some components actually send a change event also when
         // the value is reset into component -> TODO: evaluate other components behaviour
         if (isCellDifferentFromActual) {
             if (!this.actualCells.hasOwnProperty(fieldKey)) {
@@ -425,22 +425,35 @@ export class KupForm {
                 }
 
                 if (isComboInForm(cell, field)) {
+                    let textfieldData = {
+                        disabled: field.readonly,
+                        trailingIcon: true,
+                    };
+                    if (cell) {
+                        if (cell.value) {
+                            textfieldData['initialValue'] = cell.value.text;
+                        }
+                    }
+                    let listData = {
+                        data: field.config.data,
+                        listId: 'LISTA',
+                        selectable: 'one-select',
+                    };
                     fieldContent = (
-                        <kup-combo
-                            items={field.config.data}
+                        <kup-combobox
+                            textfieldData={textfieldData}
+                            listData={listData}
                             {...field.config}
-                            initialValue={cell && cell.value}
-                            disabled={field.readonly}
-                            onKetchupComboSelected={(e) =>
+                            onKupComboboxItemClick={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKetchupComboFocused={() =>
+                            onKupComboboxFocus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKetchupComboBlurred={() =>
+                            onKupComboboxBlur={() =>
                                 this.onFieldBlurred(field.key)
                             }
-                        ></kup-combo>
+                        ></kup-combobox>
                     );
                 } else if (
                     isConfiguratorInForm(cell, field) ||

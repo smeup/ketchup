@@ -57,7 +57,6 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { KupImage } from '../kup-image/kup-image';
 
@@ -479,8 +478,9 @@ export class KupBox {
         };
     }
 
-    private onSortChange(kupComboEvent: KetchupComboEvent) {
-        this.sortBy = kupComboEvent.value.id;
+    private onSortChange(e: CustomEvent) {
+        console.log(e);
+        this.sortBy = e.detail.value;
         this.initRows();
     }
 
@@ -1346,34 +1346,35 @@ export class KupBox {
 
         let sortPanel = null;
         if (this.sortEnabled) {
-            let initialValue = { value: '', id: '' };
-
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
                 const item = {
-                    value: column.title,
-                    id: column.name,
+                    text: column.title,
+                    value: column.name,
+                    selected: column.name === this.sortBy,
                 };
-
-                if (column.name === this.sortBy) {
-                    // setting initial value
-                    initialValue = item;
-                }
 
                 return item;
             });
 
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            let textfieldData = {
+                initialValue: this.sortBy,
+                label: 'Sort by',
+                trailingIcon: true,
+            };
+            let listData = {
+                data: items,
+                listId: 'LISTA',
+                selectable: 'one-select',
+            };
 
             sortPanel = (
                 <div id="sort-panel">
-                    <kup-combo
-                        displayedField="value"
-                        items={items}
-                        initialValue={initialValue}
-                        onKetchupComboSelected={(e) =>
-                            this.onSortChange(e.detail)
-                        }
+                    <kup-combobox
+                        textfieldData={textfieldData}
+                        listData={listData}
+                        onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>
             );
