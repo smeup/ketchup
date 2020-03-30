@@ -1741,11 +1741,11 @@ export class KupDataTable {
                     // When showing filters, displays input box to update them.
                     filter = (
                         <div>
-                            <kup-text-input
+                            <kup-text-field
                                 class="datatable-filter"
                                 initialValue={filterValue}
                                 data-col={column.name}
-                                onKetchupTextInputUpdated={(e) => {
+                                onKupTextFieldInput={(e) => {
                                     this.onFilterChange(e, column.name);
                                 }}
                             />
@@ -3090,10 +3090,10 @@ export class KupDataTable {
         if (this.globalFilter) {
             globalFilter = (
                 <div id="globalFilter">
-                    <kup-text-input
+                    <kup-text-field
                         initialValue={this.globalFilterValue}
                         label="Global filter"
-                        onKetchupTextInputUpdated={(event) =>
+                        onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     />

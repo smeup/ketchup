@@ -8,6 +8,7 @@ import {
     Host,
     Watch,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
@@ -197,6 +198,7 @@ export class KupTextField {
     }
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        console.log('kup-textfield.onKupChange()');
         const { target } = event;
         this.kupChange.emit({
             value: target.value,
@@ -211,6 +213,7 @@ export class KupTextField {
     }
 
     onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+        console.log('kup-textfield.onKupFocus()');
         const { target } = event;
         this.kupFocus.emit({
             value: target.value,
@@ -218,6 +221,7 @@ export class KupTextField {
     }
 
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        console.log('kup-textfield.onKupInput()');
         const { target } = event;
         this.kupInput.emit({
             value: target.value,
@@ -240,6 +244,7 @@ export class KupTextField {
      * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
      */
     onKeyDown(event: KeyboardEvent) {
+        console.log('kup-textfield.onKeyDown()');
         if (event.key === 'Enter') {
             event.preventDefault();
             this.kupTextFieldSubmit.emit({
@@ -248,6 +253,25 @@ export class KupTextField {
         }
     }
 
+    /**
+     * Imperatively sets a new value of the input.
+     * @method changeValue
+     * @param newValue - the new value to be set inside the input
+     * @param emitEvent - If true, then also forces the component to emit an updated event
+     */
+    @Method()
+    async changeValue(newValue: string, emitEvent: boolean = false) {
+        if (typeof newValue === 'string') {
+            if (emitEvent) {
+                this.kupInput.emit({
+                    value: newValue,
+                });
+            }
+            this.value = newValue;
+            return true;
+        }
+        throw new Error(`The value ${newValue} is not a valid string.`);
+    }
     //---- Lifecycle hooks ----
 
     componentWillLoad() {

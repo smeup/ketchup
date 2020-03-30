@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>In this form, the Field wraps a kup-text-input element.</p>
+    <p>In this form, the Field wraps a kup-text-field element.</p>
 
     <h3>Basic input text</h3>
     <div class="example-container">
@@ -27,10 +27,10 @@
       <kup-fld :config.prop="inputWithMaxLength" />
       <div>
         <h4>Change input max length</h4>
-        <kup-text-input
+        <kup-text-field
           :initial-value="fieldMaxLength"
           :max-length="5"
-          @ketchupTextInputUpdated="onUpdateMaxLength"
+          @kupTextFieldSubmit="onUpdateMaxLength"
         />
       </div>
     </div>

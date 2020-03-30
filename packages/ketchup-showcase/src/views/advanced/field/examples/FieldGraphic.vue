@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p>This section describes the most common configurations of the Field component.</p>
+    <p>
+      This section describes the most common configurations of the Field
+      component.
+    </p>
 
     <h3>Change label and submit position</h3>
     <div class="example-container">
@@ -30,10 +33,10 @@
       <kup-fld :config.prop="fldConfigLabelText" :data.prop="fldData" />
       <div>
         <h4>Change label text</h4>
-        <kup-text-input
+        <kup-text-field
           :items.prop="labelPositions"
           initial-value="Change me"
-          @ketchupTextInputUpdated="onLabelTextChange"
+          @kupTextFieldSubmit="onLabelTextChange"
         />
       </div>
     </div>
@@ -43,10 +46,10 @@
       <kup-fld :config.prop="fldConfigSubmitText" :data.prop="fldData" />
       <div>
         <h4>Change label text</h4>
-        <kup-text-input
+        <kup-text-field
           :items.prop="labelPositions"
           initial-value="Change me"
-          @ketchupTextInputUpdated="onSubmitTextChange"
+          @kupTextFieldSubmit="onSubmitTextChange"
         />
       </div>
     </div>

@@ -19,8 +19,6 @@ import {
     KupAutocompleteOption,
 } from './kup-autocomplete-declarations';
 
-//import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
-
 import { isEventFromElement } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -289,6 +287,24 @@ export class KupAutocomplete {
      * @param checkFilterLength - If set to true, also checks if the minimum length of the filter is respected before opening the menu
      */
     openMenu(checkFilterLength: boolean = false) {
+        console.log('kup-autocomplete.openMenu()');
+        console.log('kup-autocomplete.openMenu() isDisabled=' + this.disabled);
+        console.log(
+            'kup-autocomplete.openMenu() menuIsOpen=' + this.menuIsOpen
+        );
+        console.log(
+            'kup-autocomplete.openMenu() checkFilterLength=' + checkFilterLength
+        );
+        console.log(
+            'kup-autocomplete.openMenu() minimumChars=' + this.minimumChars
+        );
+        console.log(
+            'kup-autocomplete.openMenu() currentFilter=' + this.currentFilter
+        );
+        console.log(
+            'kup-autocomplete.openMenu() currentlyFilteredItems=' +
+                JSON.stringify(this.currentlyFilteredItems)
+        );
         if (
             !this.disabled &&
             !this.menuIsOpen &&
@@ -300,6 +316,7 @@ export class KupAutocomplete {
                     this.currentlyFilteredItems.length < 1))
         ) {
             this.menuIsOpen = true;
+            console.log('kup-autocomplete.openMenu() set menuIsOpen=true');
         }
     }
 
@@ -320,6 +337,7 @@ export class KupAutocomplete {
      * @param newFilter - The new filter value.
      */
     handleFilterChange(newFilter: string) {
+        console.log('kup-autocomplete.handleFilterChange()');
         if (newFilter && newFilter.length >= this.minimumChars) {
             this.openMenu();
         } else {

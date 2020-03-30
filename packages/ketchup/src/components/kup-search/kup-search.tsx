@@ -162,13 +162,11 @@ export class KupSearch {
     render() {
         return (
             <div class="search-component">
-                <kup-text-input
+                <kup-text-field
                     initialValue={this.value}
                     disabled={this.disabled}
-                    onKetchupTextInputChanged={(e) =>
-                        this.onSearchInputChanged(e)
-                    }
-                ></kup-text-input>
+                    onKupTextFieldChange={(e) => this.onSearchInputChanged(e)}
+                ></kup-text-field>
                 <kup-button
                     icon="magnify"
                     onKupButtonClick={(e) => this.onSearchClicked(e)}
@@ -179,12 +177,12 @@ export class KupSearch {
                 >
                     {this.serverHandledFilter ? (
                         <div>
-                            <kup-text-input
+                            <kup-text-field
                                 initialValue={this.value}
-                                onKetchupTextInputChanged={(e) =>
+                                onKupTextFieldChange={(e) =>
                                     this.onSearchInputChanged(e)
                                 }
-                            ></kup-text-input>
+                            ></kup-text-field>
                             <kup-button
                                 icon="magnify"
                                 onKupButtonClick={(e) =>

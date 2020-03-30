@@ -9,8 +9,8 @@ import {
     Method,
 } from '@stencil/core';
 
-import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
+//import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
+//import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import {
     CrudRecordsChanged,
     CrudCallBackOnFormEventResult,
@@ -21,7 +21,7 @@ import {
     KupAutocompleteFilterUpdatePayload,
 } from '../kup-autocomplete/kup-autocomplete-declarations';
 
-import { SearchSelectionUpdatedEventDetail } from '../kup-search/kup-search-declarations';
+//import { SearchSelectionUpdatedEventDetail } from '../kup-search/kup-search-declarations';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -257,10 +257,10 @@ export class KupForm {
     }
 
     private onSimpleValueFieldChanged(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
+        event: CustomEvent,
+        /*    | CustomEvent<KetchupTextInputEvent>
             | CustomEvent<KetchupComboEvent>
-            | CustomEvent<SearchSelectionUpdatedEventDetail>,
+            | CustomEvent<SearchSelectionUpdatedEventDetail>,*/
         fieldKey: string
     ) {
         event.stopPropagation();
@@ -544,27 +544,27 @@ export class KupForm {
                     );
                 } else if (isInputTextInForm(cell, field)) {
                     const wrapperStyle = {};
-                    wrapperStyle['--kup-text-input_border-color--selected'] =
+                    wrapperStyle['--kup-text-field_border-color--selected'] =
                         '#66D3FA';
 
                     // NB: not updated field value using onInput() event, but using onChange().
                     // The onChange of an input text fires when the element loses focus, not immediately after the modification
                     fieldContent = (
-                        <kup-text-input
+                        <kup-text-field
                             style={wrapperStyle}
                             input-type="text"
                             initialValue={cell && cell.value}
                             disabled={field.readonly}
-                            onKetchupTextInputChanged={(e) =>
+                            onKupTextFieldChange={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKetchupTextInputFocused={() =>
+                            onKupTextFieldFocus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKetchupTextInputBlurred={() =>
+                            onKupTextFieldBlur={() =>
                                 this.onFieldBlurred(field.key)
                             }
-                        ></kup-text-input>
+                        ></kup-text-field>
                     );
                 } else {
                     fieldContent =

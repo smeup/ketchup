@@ -3,24 +3,28 @@
     <h3>Basic autocomplete</h3>
     <kup-autocomplete
       :items.prop="items"
-      @kupAutocompleteSelectionUpdate="logEvent"/>
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
 
     <h3>Autocomplete disabled</h3>
     <kup-autocomplete
       :items.prop="items"
       disabled
-      @kupAutocompleteSelectionUpdate="logEvent"/>
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
 
     <h3>Display mode code and mode description</h3>
     <div class="example-container">
       <kup-autocomplete
         :items.prop="items"
         display-mode="code"
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
       <kup-autocomplete
         :items.prop="items"
         display-mode="description"
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
     </div>
 
     <h3>Show clear icon or dropdown icon</h3>
@@ -28,11 +32,13 @@
       <kup-autocomplete
         :items.prop="items"
         show-clear-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
       <kup-autocomplete
         :items.prop="items"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
     </div>
 
     <h3>Show clear icon and dropdown icon</h3>
@@ -40,7 +46,8 @@
       :items.prop="items"
       show-clear-icon
       show-dropdown-icon
-      @kupAutocompleteSelectionUpdate="logEvent"/>
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
 
     <h3>Change number of filter chars necessary to trigger the autocomplete</h3>
     <div class="example-container">
@@ -50,15 +57,17 @@
           :items.prop="items"
           minimum-chars="2"
           show-clear-icon
-          @kupAutocompleteSelectionUpdate="logEvent"/>
+          @kupAutocompleteSelectionUpdate="logEvent"
+        />
       </div>
       <div>
         <p>5 characters necessary</p>
-      <kup-autocomplete
-        :items.prop="items"
-        minimum-chars="5"
-        show-clear-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        <kup-autocomplete
+          :items.prop="items"
+          minimum-chars="5"
+          show-clear-icon
+          @kupAutocompleteSelectionUpdate="logEvent"
+        />
       </div>
     </div>
 
@@ -71,36 +80,40 @@
         display-mode="code"
         sort-by="code"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
       <kup-autocomplete
         :items.prop="items"
         :sortOrder.prop="'decreasing'"
         display-mode="description"
         sort-by="description"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"/>
+        @kupAutocompleteSelectionUpdate="logEvent"
+      />
     </div>
 
     <h3>Limit results to: {{ limitResultsTo }} items</h3>
     <kup-autocomplete
       :items.prop="items"
       :limit-results.prop="limitResultsTo"
-      @kupAutocompleteSelectionUpdate="logEvent"/>
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
 
     <h3>Allow custom items</h3>
     <kup-autocomplete
       :items.prop="items"
       :limit-results.prop="limitResultsTo"
       allow-custom-items
-      @kupAutocompleteSelectionUpdate="logEvent"/>
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
   </div>
 </template>
 
 <script>
-import {AutocompleteItemFactory} from '@/mock/autocomplete';
+import { AutocompleteItemFactory } from '@/mock/autocomplete';
 
 export default {
-  name: "AutocompleteBasic",
+  name: 'AutocompleteBasic',
   data() {
     return {
       items: AutocompleteItemFactory(),
@@ -110,7 +123,7 @@ export default {
   methods: {
     logEvent(e) {
       console.log(e.detail);
-    }
-  }
-}
+    },
+  },
+};
 </script>

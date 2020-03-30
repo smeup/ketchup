@@ -236,9 +236,10 @@ export class KupCheckboxMenu {
                             }}
                         />
                         {this.isFilterable ? (
-                            <kup-text-input
-                                placeholder={this.filterLabel}
-                                onKetchupTextInputUpdated={(e: CustomEvent) => {
+                            <kup-text-field
+                                label={this.filterLabel}
+                                full-width={true}
+                                onKupTextFieldInput={(e: CustomEvent) => {
                                     this.currentFilter = e.detail.value;
                                 }}
                             />
