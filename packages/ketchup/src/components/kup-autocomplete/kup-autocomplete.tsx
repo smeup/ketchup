@@ -21,6 +21,8 @@ import {
 
 import { isEventFromElement } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
+import { errorLogging } from '../../utils/error-logging';
+import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -36,6 +38,14 @@ export class KupAutocomplete {
      * Sets if the autocomplete should be enabled or not
      */
     @Prop({ reflect: true }) disabled: boolean = false;
+
+    /**
+     * Props of the list.
+     */
+    @Prop() listData: Object = {};
+
+    private listEl: any = undefined;
+    private textfieldEl: any = undefined;
     /**
      * Selects how the autocomplete items must display their label and how they can be filtered for
      */
@@ -158,8 +168,40 @@ export class KupAutocomplete {
         KupAutocompleteFilterUpdatePayload
     >;
 
+    openList() {
+        let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
+            '.mdc-text-field'
+        ).clientWidth;
+        this.textfieldEl.classList.add('toggled');
+        this.textfieldEl['icon'] = 'arrow_drop_up';
+        this.listEl.classList.add('visible');
+        let elStyle: any = this.listEl.style;
+        elStyle.height = 'auto';
+        elStyle.minWidth = textFieldWidth + 'px';
+    }
+
+    closeList() {
+        this.textfieldEl.classList.remove('toggled');
+        this.textfieldEl['icon'] = 'arrow_drop_down';
+        this.listEl.classList.remove('visible');
+    }
+
+    prepList() {
+        let comp: HTMLElement = (
+            <kup-list
+                {...this.listData}
+                class="mdc-menu mdc-menu-surface"
+                onKupListClick={() => this.onKupItemClick()}
+                ref={(el) => (this.listEl = el as any)}
+            ></kup-list>
+        );
+
+        return comp;
+    }
+
     //---- Lifecycle hooks ----
     componentDidRender() {
+        positionRecalc(this.listEl, this.textfieldEl);
         if (
             this.listRef &&
             this.keyboardSelectedItem &&

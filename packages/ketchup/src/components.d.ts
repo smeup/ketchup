@@ -1083,6 +1083,10 @@ export namespace Components {
   }
   interface KupTextField {
     /**
+    * Imperatively sets a new value of the input.
+    */
+    'changeValue': (newValue: string, emitEvent?: boolean) => Promise<boolean>;
+    /**
     * Custom style to be passed to the component.
     */
     'customStyle': string;
