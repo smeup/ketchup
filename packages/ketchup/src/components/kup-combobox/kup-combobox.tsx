@@ -188,6 +188,7 @@ export class KupCombobox {
         this.textfieldEl.classList.add('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_up';
         this.listEl.classList.add('visible');
+        this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = textFieldWidth + 'px';
@@ -197,6 +198,7 @@ export class KupCombobox {
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_down';
         this.listEl.classList.remove('visible');
+        this.listEl.classList.remove('dynamic-position-active');
     }
 
     consistencyCheck() {

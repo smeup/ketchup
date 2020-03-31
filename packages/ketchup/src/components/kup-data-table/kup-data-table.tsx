@@ -1878,7 +1878,9 @@ export class KupDataTable {
                 let columnMenu = null;
                 if (columnMenuItems.length !== 0) {
                     const menuClass =
-                        this.openedMenu === column.name ? 'open' : 'closed';
+                        this.openedMenu === column.name
+                            ? 'open dynamic-position-active'
+                            : 'closed';
 
                     columnMenu = (
                         <div class={`column-menu ${menuClass}`}>
@@ -2788,9 +2790,11 @@ export class KupDataTable {
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
+            elPanel.classList.remove('dynamic-position-active');
         } else {
             elButton.classList.add('activated');
             elPanel.classList.add('visible');
+            elPanel.classList.add('dynamic-position-active');
         }
     }
 
