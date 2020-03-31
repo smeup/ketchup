@@ -6,8 +6,19 @@
       <span
         class="code-word"
       >the element to be positioned and its anchor element</span>.
-      <br />Let's take this chip as an example.
+      <br />You can also set a margin in pixels by using the third optional argument.
+      The way this scripts work is pretty straightforward: every time a class is added or remove to the element(
+      <span
+        class="code-word"
+      >el</span>), the script will check whether the element class list contains
+      <span
+        class="code-word"
+      >dynamic-position-active</span>.
+      <br />If it was added, the a setInterval function will be launched that will update the coordinates every few milliseconds.
+      Once that class is removed, the setInterval will be cleared and the function will stop running.
     </p>
+    <br />
+    <p>Let's take this chip as an example.</p>
     <kup-chip :data.prop="data"></kup-chip>
     <br />
     <br />
@@ -33,7 +44,7 @@ export default {
         },
       ],
       codeSample:
-        'positionRecalc(el: HTMLElement, anchorEl: HTMLElement) {...}',
+        'positionRecalc(el: HTMLElement, anchorEl: HTMLElement, margin? : number) {...}',
     };
   },
 };

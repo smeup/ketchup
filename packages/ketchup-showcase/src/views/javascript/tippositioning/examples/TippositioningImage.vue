@@ -31,31 +31,49 @@ export default {
     triggerEl.addEventListener('click', function() {
       el.classList.add('dynamic-position');
       anchorEl.classList.add('dynamic-position-anchor');
-      var positionEl = function(el, anchorEl) {
-        let offsetH = el.clientHeight;
-        let offsetW = el.clientWidth;
-        let margin = 0;
-        const rect = anchorEl.getBoundingClientRect();
-        el.removeAttribute('style');
+      let margin = -25;
+      el['anchorEl'] = anchorEl;
+      el['anchorMargin'] = margin;
 
-        if (window.innerHeight - rect.bottom < offsetH) {
-          el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
+      var observer = new MutationObserver(function(mutations) {
+        let target = mutations[0].target;
+        if (target.classList.contains('dynamic-position-active')) {
+          el['anchorInterval'] = setInterval(
+            function() {
+              let offsetH = el.clientHeight;
+              let offsetW = el.clientWidth;
+              const rect = el.anchorEl.getBoundingClientRect();
+
+              el.style.top = ``;
+              el.style.right = ``;
+              el.style.bottom = ``;
+              el.style.left = ``;
+
+              if (window.innerHeight - rect.bottom < offsetH) {
+                el.style.bottom = `${window.innerHeight -
+                  rect.top +
+                  el['anchorMargin']}px`;
+              } else {
+                el.style.top = `${rect.bottom + el['anchorMargin']}px`;
+              }
+              if (window.innerWidth - rect.left < offsetW) {
+                el.style.right = `${window.innerWidth - rect.right}px`;
+              } else {
+                el.style.left = `${rect.left}px`;
+              }
+            },
+            10,
+            el
+          );
         } else {
-          el.style.top = `${rect.bottom + margin}px`;
+          clearInterval(el['anchorInterval']);
         }
-        if (window.innerWidth - rect.left < offsetW) {
-          el.style.right = `${window.innerWidth - rect.right}px`;
-        } else {
-          el.style.left = `${rect.left}px`;
-        }
-      };
-      positionEl(el, anchorEl);
-      document.addEventListener('scroll', function() {
-        positionEl(el, anchorEl);
       });
-      document.addEventListener('resize', function() {
-        positionEl(el, anchorEl);
+      observer.observe(el, {
+        attributes: true,
+        attributeFilter: ['class'],
       });
+      el.classList.add('dynamic-position-active');
     });
   },
 };
