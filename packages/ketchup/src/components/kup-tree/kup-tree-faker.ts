@@ -263,7 +263,7 @@ function TreeNodeFactory(
 
     expandable: !!childrenCount,
 
-    iconClass: 'account',
+    icon: 'account',
 
     id: depth.path + depthAndIndex + childrenCount.toString(),
 
