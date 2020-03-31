@@ -655,12 +655,11 @@ chipList.data = [
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
             selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
-            //selectBox1.listData.data = [...itemsForListBox];
 
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
             autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
-            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true,};
-            //autocompleteBox1.listData.data = [...itemsForListBox];
+            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            autocompleteBox1.selectMode = 'code';
 
             let once = true;
             // This is a script for testing these elements

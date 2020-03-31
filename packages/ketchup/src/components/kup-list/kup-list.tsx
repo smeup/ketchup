@@ -6,6 +6,7 @@ import {
     Host,
     h,
     Prop,
+    Watch,
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
@@ -14,6 +15,8 @@ import { ComponentListElement } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
+import { errorLogging } from '../../utils/error-logging';
+import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -117,6 +120,17 @@ export class KupList {
         el: EventTarget;
     }>;
 
+    @Watch('filter')
+    watchFilterHandler(newValue: boolean, oldValue: boolean) {
+        let index = 0;
+        this.filteredItems.map((item) => {
+            this.setUnselected(item, index++);
+        });
+        this.log(
+            'watchFilterHandler',
+            'Old value: [' + oldValue + '] new value: [' + newValue + ']'
+        );
+    }
     /**
      * --- Methods ----
      */
@@ -195,16 +209,10 @@ export class KupList {
             item.selected = false;
         }
 
-        let primaryTextTag = [item.value];
-        if (this.displayMode == ItemsDisplayMode.CODE) {
-            primaryTextTag = [item.value];
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
-            primaryTextTag = [item.text];
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
-            primaryTextTag = [item.value + ' - ' + item.text];
-        }
+        let primaryTextTag = [
+            getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
+        ];
+
         let secTextTag = [];
         if (item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
@@ -445,8 +453,10 @@ export class KupList {
     }
 
     log(methodName: string, msg: string) {
-        console.log(
-            'kup-list.' + methodName + '() ' + this.fieldId + ' - ' + msg
+        errorLogging(
+            'kup-list',
+            methodName + '() ' + this.fieldId + ' - ' + msg,
+            'log'
         );
     }
 

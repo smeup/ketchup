@@ -15,6 +15,7 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-text-field',
@@ -312,8 +313,10 @@ export class KupTextField {
     }
 
     log(methodName: string, msg: string) {
-        console.log(
-            'kup-text-field.' + methodName + '() ' + this.fieldId + ' - ' + msg
+        errorLogging(
+            'kup-text-field',
+            methodName + '() ' + this.fieldId + ' - ' + msg,
+            'log'
         );
     }
     //---- Rendering ----

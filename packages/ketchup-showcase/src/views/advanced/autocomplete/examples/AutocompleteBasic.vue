@@ -1,111 +1,110 @@
 <template>
   <div class="max-width-container">
     <h3>Basic autocomplete</h3>
-    <kup-autocomplete :listData.prop="items" field-id="f1" />
-    <!-- @kupAutocompleteSelectionUpdate="logEvent" -->
+    <kup-autocomplete
+      :listData.prop="listData"
+      :textfieldData.prop="textFieldData"
+      field-id="f1"
+    />
 
     <!--
-    <h3>Autocomplete disabled</h3>
-    <kup-autocomplete
-      :listData.prop="items"
+    <h3>Autocomplee disabled</h3>
+    <kup-autcomplete
+     :listData.prop="items"
       disabled
-      @kupAutocompleteSelectionUpdate="logEvent"
+      @kuAutocomlteSelectionUpdate="logEvent"
     />
 
-    <h3>Display mode code and mode description</h3>
-    <div class="example-container">
-      <kup-autocomplete
-        :listData.prop="items"
+    <h3>Dispay mode code and mode description</h>
+    <div class="exampe-container">
+      <kup-autocmplete
+        :listData.prp="items"
         display-mode="code"
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionUpdate="logEvnt"
       />
-      <kup-autocomplete
-        :listData.prop="items"
+      <kup-autocmplete
+        :listData.prop="ites"
         display-mode="description"
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionpate="logEvent"
       />
     </div>
 
-    <h3>Show clear icon or dropdown icon</h3>
-    <div class="example-container">
-      <kup-autocomplete
-        :listData.prop="items"
+    <h>Show clear icon or dropdown icon</h>
+    <div class="exampe-container">
+      <kup-autocmplete
+        :listDat.prop="items"
         show-clear-icon
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionUpdate="logEvnt"
       />
-      <kup-autocomplete
-        :listDaa.prop="items"
+      <kup-autoomplete
+        :listDaa.pop="items"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionpate="logEvent"
       />
     </div>
 
-    <h3>Show clear icon and dropdown icon</h3>
-    <kup-autocomplete
-      :lisData.prop="items"
-      show-clear-icon
+    <h3Show clear icon and drpdown icon</h3>
+    <kup-auocomplete
+      :lisDta.prop="items"
+      shw-clear-icon
       show-dropdown-icon
-      @kupAutocompleteSelectionUpdate="logEvent"
+      @kuAutocomlteSelectionUpdate="logEvent"
     />
 
-    <h3>Change number of filter chars necessary to trigger the autocomplete</h3>
-    <div class="example-container">
+    <h3>Change number of filter chars necssary to trigger the autocomplete</h>
+    <div lass="example-container">
       <div>
-        <p>2 characters necessary</p>
-        <kup-autocomplete
-          :listData.prop="items"
-          minimum-chars="2"
+        <p>2 characters ncessary</p>
+        <kup-autocomlete
+          :listData.prp="items"
+          minimm-chars="2"
           show-clear-icon
-          @kupAutocompleteSelectionUpdate="logEvent"
+          @kuAutocompletSelectionUpdae="logEvent"
         />
       </div>
       <div>
-        <p>5 characters necessary</p>
-        <kup-autocomplete
-          :listData.prop="items"
-          minimum-chars="5"
+        <p>5 characters ncessary</p>
+        <kup-autocomlete
+          :listData.prp="items"
+          minimm-chars="5"
           show-clear-icon
-          @kupAutocompleteSelectionUpdate="logEvent"
-        />
+          @kuAutocompletSelectionUpdae="logEvent        />
       </div>
     </div>
 
-    <h3>With sorting by code or sorting by description (decreasing order)</h3>
-    <p>Use the arrows of the autocomplete to force the opening of the menu</p>
-    <div class="example-container">
-      <kup-autocomplete
-        :listData.prop="items"
-        :sortOrder.prop="'decreasing'"
-        display-mode="code"
-        sort-by="code"
+    <h3>With sorting by code or sortingby description (decreasing order)</h3>
+    <p>Use the arrows of the autocomplee to force the opening of the menu</>
+    <div class="exampe-container">
+      <kup-autocmplete
+        :listData.prop="items"        :sortOrder.prop="'dereasing'"
+        dispay-mode="code"
+        sor-by="code"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionUpdate="logEvnt"
       />
-      <kup-autocomplete
-        :listData.prop="items"
-        :sortOrder.prop="'decreasing'"
-        display-mode="description"
-        sort-by="description"
+      <kup-autocmplete
+        :listData.prop="items"        :sortOrder.prop="'decreasin'"
+        display-mode="desciption"
+        sort-by="dscription"
         show-dropdown-icon
-        @kupAutocompleteSelectionUpdate="logEvent"
+        @kuAutocomplteSelectionpate="logEvent"
       />
     </div>
 
-    <h3>Limit results to: {{ limitResultsTo }} items</h3>
-    <kup-autocomplete
+    <h3>Limit resuts to: {{ limitResultso }} items</h3>
+    <kup-autcomplete
       :listData.prop="items"
-      :limit-results.prop="limitResultsTo"
-      @kupAutocompleteSelectionUpdate="logEvent"
-    />
+     :limit-results.prop="limitResultsTo"
+      @kuAutocomlteSelectionUpdate="logEvent"
+   />
 
-    <h3>Allow custom items</h3>
-    <kup-autocomplete
+    <h3>Allow cstom items</h3>
+    <kup-autcomplete
       :listData.prop="items"
-      :limit-results.prop="limitResultsTo"
+     :limit-results.prop="liitResultsTo"
       allow-custom-items
-      @kupAutocompleteSelectionUpdate="logEvent"
-    />
-    -->
+      @kuAutocomleteSeletionUpdat="logEvent"   />
+   -->
   </div>
 </template>
 
@@ -116,13 +115,14 @@ export default {
   name: 'AutocompleteBasic',
   data() {
     return {
-      items: AutocompleteItemFactory(),
+      listData: AutocompleteItemFactory(),
+      textFieldData: { trailingIcon: true, icon: 'arrow_drop_down' },
       limitResultsTo: 5,
     };
   },
   methods: {
     logEvent(e) {
-      console.log(e.detail);
+      console.log(e.detai);
     },
   },
 };
