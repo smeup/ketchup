@@ -6,7 +6,6 @@ import {
     Host,
     h,
     Prop,
-    State,
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
@@ -14,6 +13,7 @@ import { MDCRipple } from '@material/ripple';
 import { ComponentListElement } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
+import { ItemsDisplayMode } from './kup-list-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -34,14 +34,9 @@ export class KupList {
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
 
-    /**
-     * Marks the list as filterable, allowing an input text to filter the options
-     */
-    @Prop({ reflect: true }) isFilterable: boolean = false;
-
     //---- Internal state ----
     // Keeps string for filtering elements when filter mode is active
-    @State() filter: string = '';
+    @Prop() filter: string = '';
 
     // no-select - items non selezionabili
     // one-select - un solo item selezionabile alla volta
@@ -57,6 +52,12 @@ export class KupList {
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
     static ROLE_CHECKBOX: string = 'group';
+
+    /**
+     * Selects how the items must display their label and how they can be filtered for
+     */
+    @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
+        ItemsDisplayMode.DESCRIPTION;
 
     /**
      * Events.
@@ -120,6 +121,7 @@ export class KupList {
     /**
      * --- Methods ----
      */
+
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
             selected: item,
@@ -139,6 +141,7 @@ export class KupList {
         item: ComponentListElement,
         index: number
     ) {
+        console.log('kup-list.onKupClick()');
         const { target } = e;
         if (this.isMultiSelection()) {
             if (item.selected == true) {
@@ -177,14 +180,6 @@ export class KupList {
         });
     }
 
-    /**
-     * Function which gets triggered when filter changes
-     * @param event
-     */
-    onFilterUpdate(event: CustomEvent) {
-        this.filter = event.detail.value.toLowerCase();
-    }
-
     renderSeparator() {
         return <li role="separator" class="mdc-list-divider"></li>;
     }
@@ -196,7 +191,16 @@ export class KupList {
             item.selected = false;
         }
 
-        let primaryTextTag = [item.text];
+        let primaryTextTag = [item.value];
+        if (this.displayMode == ItemsDisplayMode.CODE) {
+            primaryTextTag = [item.value];
+        }
+        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
+            primaryTextTag = [item.text];
+        }
+        if (this.displayMode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
+            primaryTextTag = [item.value + ' - ' + item.text];
+        }
         let secTextTag = [];
         if (item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
@@ -212,7 +216,6 @@ export class KupList {
         let tabIndexAttr = item.selected == true ? '0' : '-1';
         if (item.selected == true && this.isListBoxRule()) {
             classAttr += ' mdc-list-item--selected';
-            //tabIndexAttr = '0';
         }
         let roleAttr = 'option';
 
@@ -412,6 +415,31 @@ export class KupList {
         }
     }
 
+    itemComplient(item: ComponentListElement): boolean {
+        if (item.isSeparator) {
+            return true;
+        }
+        if (!this.filter) {
+            return true;
+        }
+
+        if (this.displayMode == ItemsDisplayMode.CODE) {
+            return (
+                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            );
+        }
+        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
+            return (
+                item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            );
+        }
+
+        return (
+            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+            item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+        );
+    }
+
     render() {
         this.checkRoleType();
         //---- Rendering ----
@@ -445,14 +473,7 @@ export class KupList {
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data
-                            .filter(
-                                (item) =>
-                                    !this.filter ||
-                                    item.isSeparator ||
-                                    item.text
-                                        .toLowerCase()
-                                        .indexOf(this.filter) >= 0
-                            )
+                            .filter((item) => this.itemComplient(item))
                             .map((item) =>
                                 item.isSeparator
                                     ? this.renderSeparator()

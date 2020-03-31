@@ -1,55 +1,36 @@
+@import '@material/menu/mdc-menu';
+@import '@material/menu-surface/mdc-menu-surface';
+
 :host {
-  display: inline-block;
-}
+  display: var(--kup-display-mode);
 
-// Autocomplete container
-.autocomplete {
-  position: relative;
-  z-index: 1; // Must be greater then 0 otherwise the strange calculation of the browser rendering will place the menu below the other items.
+  #kup-component {
+    & kup-list {
+      animation: fadeInFromNone 0.25s ease-out;
+      max-height: 40vh;
+      transition: height 0.2s;
 
-  // Necessay to avoid unwanted other elemets to overlap the menu.
-  &.is-active {
-    z-index: 1000;
-  }
-
-  // The selection container when multiple elements are selected.
-  &-multiple-selection-container {
-
-  }
-
-  // Change color of the force dropdown icon
-  &__menu-toggle-icon {
-    color: $gray-80;
-    cursor: pointer;
-    transition: color .3s;
-
-    &:hover {
-      color: #{darken($gray-80, 10)};
-    }
-  }
-
-  // When there are no items to display
-  &__no-items {
-    padding: 16px 20px;
-    white-space: pre-wrap;
-  }
-
-  // The list of items to display
-  &__item-list {
-    background-color: #ffffff;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    > li {
-      cursor: pointer;
-      padding: 4px 8px;
-      transition: background-color .2s;
-
-      &.keyboard-selected,
-      &:hover {
-        background-color: $gray-a0;
+      &.visible {
+        display: block;
+        opacity: 1;
       }
     }
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

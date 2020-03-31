@@ -15,12 +15,13 @@ export function AutocompleteItemFactory(
 
   for (let i = 0; i < itemsCount; i++) {
     toRet.push({
-      code: baseCode + i,
-      description: baseDescription + i,
+      value: baseCode + i,
+      text: baseDescription + i,
     });
   }
 
-  return toRet;
+  let pp = { data: toRet };
+  return pp;
 }
 
 export function buildAutocompleteFilterUpdateCallback(itemsCount: number) {

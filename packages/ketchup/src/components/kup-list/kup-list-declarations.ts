@@ -5,3 +5,9 @@ export interface ComponentListElement {
     isSeparator?: boolean;
     selected?: boolean;
 }
+
+export enum ItemsDisplayMode {
+    CODE = 'code',
+    DESCRIPTION = 'description',
+    DESCRIPTION_AND_CODE = 'both',
+}

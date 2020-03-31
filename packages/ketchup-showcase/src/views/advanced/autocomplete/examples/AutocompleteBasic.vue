@@ -1,27 +1,20 @@
 <template>
   <div class="max-width-container">
     <h3>Basic autocomplete</h3>
-    <kup-autocomplete
-      :items.prop="items"
-      @kupAutocompleteSelectionUpdate="logEvent"
-    />
+    <kup-autocomplete :listData.prop="items" @kupAutocompleteSelectionUpdate="logEvent" />
 
     <h3>Autocomplete disabled</h3>
-    <kup-autocomplete
-      :items.prop="items"
-      disabled
-      @kupAutocompleteSelectionUpdate="logEvent"
-    />
+    <kup-autocomplete :listData.prop="items" disabled @kupAutocompleteSelectionUpdate="logEvent" />
 
     <h3>Display mode code and mode description</h3>
     <div class="example-container">
       <kup-autocomplete
-        :items.prop="items"
+        :listData.prop="items"
         display-mode="code"
         @kupAutocompleteSelectionUpdate="logEvent"
       />
       <kup-autocomplete
-        :items.prop="items"
+        :listData.prop="items"
         display-mode="description"
         @kupAutocompleteSelectionUpdate="logEvent"
       />
@@ -30,12 +23,12 @@
     <h3>Show clear icon or dropdown icon</h3>
     <div class="example-container">
       <kup-autocomplete
-        :items.prop="items"
+        :listData.prop="items"
         show-clear-icon
         @kupAutocompleteSelectionUpdate="logEvent"
       />
       <kup-autocomplete
-        :items.prop="items"
+        :listDaa.prop="items"
         show-dropdown-icon
         @kupAutocompleteSelectionUpdate="logEvent"
       />
@@ -43,7 +36,7 @@
 
     <h3>Show clear icon and dropdown icon</h3>
     <kup-autocomplete
-      :items.prop="items"
+      :lisData.prop="items"
       show-clear-icon
       show-dropdown-icon
       @kupAutocompleteSelectionUpdate="logEvent"
@@ -54,7 +47,7 @@
       <div>
         <p>2 characters necessary</p>
         <kup-autocomplete
-          :items.prop="items"
+          :listData.prop="items"
           minimum-chars="2"
           show-clear-icon
           @kupAutocompleteSelectionUpdate="logEvent"
@@ -63,7 +56,7 @@
       <div>
         <p>5 characters necessary</p>
         <kup-autocomplete
-          :items.prop="items"
+          :listData.prop="items"
           minimum-chars="5"
           show-clear-icon
           @kupAutocompleteSelectionUpdate="logEvent"
@@ -75,7 +68,7 @@
     <p>Use the arrows of the autocomplete to force the opening of the menu</p>
     <div class="example-container">
       <kup-autocomplete
-        :items.prop="items"
+        :listData.prop="items"
         :sortOrder.prop="'decreasing'"
         display-mode="code"
         sort-by="code"
@@ -83,7 +76,7 @@
         @kupAutocompleteSelectionUpdate="logEvent"
       />
       <kup-autocomplete
-        :items.prop="items"
+        :listData.prop="items"
         :sortOrder.prop="'decreasing'"
         display-mode="description"
         sort-by="description"
@@ -94,14 +87,14 @@
 
     <h3>Limit results to: {{ limitResultsTo }} items</h3>
     <kup-autocomplete
-      :items.prop="items"
+      :listData.prop="items"
       :limit-results.prop="limitResultsTo"
       @kupAutocompleteSelectionUpdate="logEvent"
     />
 
     <h3>Allow custom items</h3>
     <kup-autocomplete
-      :items.prop="items"
+      :listData.prop="items"
       :limit-results.prop="limitResultsTo"
       allow-custom-items
       @kupAutocompleteSelectionUpdate="logEvent"

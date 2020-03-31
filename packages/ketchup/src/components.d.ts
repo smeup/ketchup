@@ -7,13 +7,6 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
-  AutocompleteDisplayMode,
-  AutocompleteSortBy,
-  AutocompleteSortOrder,
-  KupAutocompleteFilterUpdatePayload,
-  KupAutocompleteOption,
-} from './components/kup-autocomplete/kup-autocomplete-declarations';
-import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
@@ -70,6 +63,10 @@ import {
   FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
+  KupAutocompleteFilterUpdatePayload,
+  KupAutocompleteOption,
+} from './components/kup-autocomplete/kup-autocomplete-declarations';
+import {
   SearchFilterSubmittedEventDetail,
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
@@ -85,6 +82,7 @@ import {
 } from './components/kup-image-button/kup-image-declarations';
 import {
   ComponentListElement,
+  ItemsDisplayMode,
 } from './components/kup-list/kup-list-declarations';
 import {
   PaginatorMode,
@@ -124,79 +122,37 @@ import {
 export namespace Components {
   interface KupAutocomplete {
     /**
-    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
     */
-    'allowCustomItems': boolean;
+    'callBackOnFilterUpdate': (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     /**
-    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    * Custom style to be passed to the component.
     */
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'customStyle': string;
     /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled': boolean;
     /**
-    * Selects how the autocomplete items must display their label and how they can be filtered for
+    * Props of the list.
     */
-    'displayMode': AutocompleteDisplayMode;
-    /**
-    * Any extra info. It will be sent in events payload
-    */
-    'extra': any;
-    /**
-    * The initial selected items set inside component
-    */
-    'initialSelectedItems': KupAutocompleteOption[];
-    /**
-    * Sets the autocomplete items data
-    */
-    'items': KupAutocompleteOption[];
-    /**
-    * When greater than 0, limits the results of the filter to the specified number of elements.
-    */
-    'limitResults': number;
+    'listData': Object;
     /**
     * The minimum number of chars to trigger the autocomplete
     */
     'minimumChars': number;
     /**
-    * Allows more than one option to be selected at the same time.
-    */
-    'multipleSelection': boolean;
-    /**
-    * Label shown when there are no items found with a given filter
-    */
-    'noItemsLabel': string;
-    /**
-    * The placeholder string to set to the input for the autocomplete
-    */
-    'placeholder': string;
-    /**
-    * Programmatically removes all of the selected items and returns them before they are removed.
-    */
-    'removeAllSelectedItems': () => Promise<KupAutocompleteOption[]>;
-    /**
     * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
     */
     'serverHandledFilter': boolean;
     /**
-    * Shows the icon to clear the input
+    * Props of the text field.
     */
-    'showClearIcon': boolean;
-    /**
-    * Shows icon to force the dropdown menu to be opened
-    */
-    'showDropdownIcon': boolean;
-    /**
-    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
-    */
-    'sortBy': AutocompleteSortBy;
-    /**
-    * Decides which type of sort must be applied to the list of rendered items.
-    */
-    'sortOrder': AutocompleteSortOrder;
+    'textfieldData': Object;
   }
   interface KupBadge {
     'icon': string;
@@ -881,9 +837,10 @@ export namespace Components {
   interface KupList {
     'data': ComponentListElement[];
     /**
-    * Marks the list as filterable, allowing an input text to filter the options
+    * Selects how the items must display their label and how they can be filtered for
     */
-    'isFilterable': boolean;
+    'displayMode': ItemsDisplayMode;
+    'filter': string;
     'listId': string;
     'roleType'?: string;
     'selectable': boolean;
@@ -1611,83 +1568,65 @@ declare global {
 declare namespace LocalJSX {
   interface KupAutocomplete extends JSXBase.HTMLAttributes<HTMLKupAutocompleteElement> {
     /**
-    * When true, the user can select custom values by pressing the enter button when the input is focused.
+    * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
     */
-    'allowCustomItems'?: boolean;
+    'callBackOnFilterUpdate'?: (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     /**
-    * /** Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
+    * Custom style to be passed to the component.
     */
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'customStyle'?: string;
     /**
     * Sets if the autocomplete should be enabled or not
     */
     'disabled'?: boolean;
     /**
-    * Selects how the autocomplete items must display their label and how they can be filtered for
+    * Props of the list.
     */
-    'displayMode'?: AutocompleteDisplayMode;
-    /**
-    * Any extra info. It will be sent in events payload
-    */
-    'extra'?: any;
-    /**
-    * The initial selected items set inside component
-    */
-    'initialSelectedItems'?: KupAutocompleteOption[];
-    /**
-    * Sets the autocomplete items data
-    */
-    'items'?: KupAutocompleteOption[];
-    /**
-    * When greater than 0, limits the results of the filter to the specified number of elements.
-    */
-    'limitResults'?: number;
+    'listData'?: Object;
     /**
     * The minimum number of chars to trigger the autocomplete
     */
     'minimumChars'?: number;
     /**
-    * Allows more than one option to be selected at the same time.
+    * Event example.
     */
-    'multipleSelection'?: boolean;
-    /**
-    * Label shown when there are no items found with a given filter
-    */
-    'noItemsLabel'?: string;
-    /**
-    * Fired when the autocomplete filter is updated, but only if in serverHandledFilter mode.
-    */
-    'onKupAutocompleteFilterUpdate'?: (event: CustomEvent<KupAutocompleteFilterUpdatePayload>) => void;
-    /**
-    * Fired when the autocomplete selected items are changed (both in single and multiple mode).
-    */
-    'onKupAutocompleteSelectionUpdate'?: (event: CustomEvent<KupAutocompleteOption[]>) => void;
-    /**
-    * The placeholder string to set to the input for the autocomplete
-    */
-    'placeholder'?: string;
+    'onKupAutocompleteBlur'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteChange'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteFocus'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteIconClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteInput'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupAutocompleteItemClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupFilterChanged'?: (event: CustomEvent<{
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+    }>) => void;
     /**
     * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
     */
     'serverHandledFilter'?: boolean;
     /**
-    * Shows the icon to clear the input
+    * Props of the text field.
     */
-    'showClearIcon'?: boolean;
-    /**
-    * Shows icon to force the dropdown menu to be opened
-    */
-    'showDropdownIcon'?: boolean;
-    /**
-    * If different than 'none', sorts displayed results accordingly to the order provided by sortOrder prop.
-    */
-    'sortBy'?: AutocompleteSortBy;
-    /**
-    * Decides which type of sort must be applied to the list of rendered items.
-    */
-    'sortOrder'?: AutocompleteSortOrder;
+    'textfieldData'?: Object;
   }
   interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
     'icon'?: string;
@@ -2614,9 +2553,10 @@ declare namespace LocalJSX {
   interface KupList extends JSXBase.HTMLAttributes<HTMLKupListElement> {
     'data'?: ComponentListElement[];
     /**
-    * Marks the list as filterable, allowing an input text to filter the options
+    * Selects how the items must display their label and how they can be filtered for
     */
-    'isFilterable'?: boolean;
+    'displayMode'?: ItemsDisplayMode;
+    'filter'?: string;
     'listId'?: string;
     /**
     * Events.
