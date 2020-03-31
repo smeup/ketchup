@@ -1,10 +1,16 @@
 <template>
   <div class="max-width-container">
     <h3>Basic autocomplete</h3>
-    <kup-autocomplete :listData.prop="items" @kupAutocompleteSelectionUpdate="logEvent" />
+    <kup-autocomplete :listData.prop="items" field-id="f1" />
+    <!-- @kupAutocompleteSelectionUpdate="logEvent" -->
 
+    <!--
     <h3>Autocomplete disabled</h3>
-    <kup-autocomplete :listData.prop="items" disabled @kupAutocompleteSelectionUpdate="logEvent" />
+    <kup-autocomplete
+      :listData.prop="items"
+      disabled
+      @kupAutocompleteSelectionUpdate="logEvent"
+    />
 
     <h3>Display mode code and mode description</h3>
     <div class="example-container">
@@ -99,6 +105,7 @@
       allow-custom-items
       @kupAutocompleteSelectionUpdate="logEvent"
     />
+    -->
   </div>
 </template>
 

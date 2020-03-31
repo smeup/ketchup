@@ -107,8 +107,8 @@ export const fldDataWupCombobox = [
       },
     ],
   },
-  { prop: 'selectable', value: 'one-select' },
-  { prop: 'listId', value: 'LISTA' },
+  { prop: 'selectable', value: true },
+  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export const fldDataWupComboboxSeparator = [
@@ -138,8 +138,8 @@ export const fldDataWupComboboxSeparator = [
       },
     ],
   },
-  { prop: 'selectable', value: 'one-select' },
-  { prop: 'listId', value: 'LISTA' },
+  { prop: 'selectable', value: true },
+  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export const fldDataWupComboboxUnselected = [
@@ -164,8 +164,8 @@ export const fldDataWupComboboxUnselected = [
       },
     ],
   },
-  { prop: 'selectable', value: 'one-select' },
-  { prop: 'listId', value: 'LISTA' },
+  { prop: 'selectable', value: true },
+  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export function fldConfigFactory(
@@ -177,8 +177,8 @@ export function fldConfigFactory(
     type: 'cmb',
     showSubmit: true,
     submitLabel: 'Confirm',
-    selectable: 'one-select',
-    listId: 'LISTA',
+    selectable: true,
+    fieldId: 'LISTA',
     textfieldData: [
       { prop: 'trailingIcon', value: true },
       { prop: 'icon', value: 'arrow_drop_down' },

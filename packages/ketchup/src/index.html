@@ -285,14 +285,18 @@
         <kup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></kup-button>
         <kup-chip type="filter"></kup-chip>
         
+        
+        <h4>Material Autocomplete</h4>
+        <kup-autocomplete field-id="paperino"></kup-autocomplete>
+
         <h4>Material ListBox (widget)</h4>
-        <kup-list is-filterable="false" selectable="false" list-id="pippo1"></kup-list>
-        <kup-list is-filterable="false" selectable="true" list-id="pippo2"></kup-list>
-        <kup-list is-filterable="false" selectable="true" role-type="radiogroup" list-id="pippo3"></kup-list>
-        <kup-list is-filterable="false" selectable="true" role-type="group" list-id="pippo4"></kup-list>
+        <kup-list is-filterable="false" selectable="false" field-id="pippo1"></kup-list>
+        <kup-list is-filterable="false" selectable="true" field-id="pippo2"></kup-list>
+        <kup-list is-filterable="false" selectable="true" role-type="radiogroup" field-id="pippo3"></kup-list>
+        <kup-list is-filterable="false" selectable="true" role-type="group" field-id="pippo4"></kup-list>
 
         <h4>Material Select (widget)</h4>
-        <kup-combobox is-filterable="false" list-id="pluto1"></kup-combobox>
+        <kup-combobox is-filterable="false" field-id="pluto1"></kup-combobox>
 
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -613,7 +617,6 @@ chipList.data = [
                 let listBox3 = document.getElementsByTagName('kup-list')[2];
                 let listBox4 = document.getElementsByTagName('kup-list')[3];
 
-
                 let itemsForListBox = [
                     {
                         text: 'Text 1',
@@ -650,8 +653,14 @@ chipList.data = [
             listBox4.data = [...itemsForListBox];
 
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
-            selectBox1.textfieldData = [{prop: "trailingIcon", value:  true} , {prop: "icon", value: "arrow_drop_down"}];
-            selectBox1.listData = [{prop: "data", value: itemsForListBox}, {prop: "selectable", value: "one-select"}, {prop: "listId" , value: "LISTA"}];
+            selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
+            //selectBox1.listData.data = [...itemsForListBox];
+
+            let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
+            autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
+            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true,};
+            //autocompleteBox1.listData.data = [...itemsForListBox];
 
             let once = true;
             // This is a script for testing these elements

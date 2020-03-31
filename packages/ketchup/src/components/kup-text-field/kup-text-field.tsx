@@ -98,6 +98,8 @@ export class KupTextField {
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
 
+    @Prop({ reflect: true }) fieldId: string = 'text-field-id';
+
     private inputEl;
 
     @Event({
@@ -198,7 +200,7 @@ export class KupTextField {
     }
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        console.log('kup-textfield.onKupChange()');
+        this.log('onKupChange', '');
         const { target } = event;
         this.kupChange.emit({
             value: target.value,
@@ -213,7 +215,7 @@ export class KupTextField {
     }
 
     onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        console.log('kup-textfield.onKupFocus()');
+        this.log('onKupFocus', '');
         const { target } = event;
         this.kupFocus.emit({
             value: target.value,
@@ -221,7 +223,7 @@ export class KupTextField {
     }
 
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
-        console.log('kup-textfield.onKupInput()');
+        this.log('onKupInput', '');
         const { target } = event;
         this.kupInput.emit({
             value: target.value,
@@ -244,7 +246,7 @@ export class KupTextField {
      * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
      */
     onKeyDown(event: KeyboardEvent) {
-        console.log('kup-textfield.onKeyDown()');
+        this.log('onKeyDown', '');
         if (event.key === 'Enter') {
             event.preventDefault();
             this.kupTextFieldSubmit.emit({
@@ -309,6 +311,11 @@ export class KupTextField {
         }
     }
 
+    log(methodName: string, msg: string) {
+        console.log(
+            'kup-text-field.' + methodName + '() ' + this.fieldId + ' - ' + msg
+        );
+    }
     //---- Rendering ----
 
     render() {

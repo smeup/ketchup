@@ -1365,8 +1365,8 @@ export class KupBox {
             };
             let listData = {
                 data: items,
-                listId: 'LISTA',
-                selectable: 'one-select',
+                fieldId: 'LISTA',
+                selectable: true,
             };
 
             sortPanel = (

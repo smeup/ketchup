@@ -73,7 +73,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'listId',
+          prop: 'fieldId',
           description: 'Identify the component',
           type: 'boolean',
           default: 'KupList-myId',
@@ -146,7 +146,7 @@ export default {
             value: '3',
           },
         ],
-        listId: 'LISTA',
+        fieldId: 'LISTA',
         selectable: true,
       },
     };

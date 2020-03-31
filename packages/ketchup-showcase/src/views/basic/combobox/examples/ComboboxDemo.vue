@@ -132,8 +132,8 @@ export default {
               value: '3',
             },
           ],
-          listId: 'LISTA',
-          selectable: 'one-select',
+          fieldId: 'LISTA',
+          selectable: true,
         },
       },
     };

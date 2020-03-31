@@ -38,12 +38,11 @@ export class KupList {
     // Keeps string for filtering elements when filter mode is active
     @Prop() filter: string = '';
 
-    // no-select - items non selezionabili
-    // one-select - un solo item selezionabile alla volta
-    // multi-select - più di un item selezionabile alla volta
+    // false - items non selezionabili
+    // true  - items selezionabili
     @Prop({ reflect: true }) selectable: boolean = true;
 
-    @Prop({ reflect: true }) listId: string = 'KupList-myId';
+    @Prop({ reflect: true }) fieldId: string = 'list-id';
 
     @Prop({ reflect: true }) twoLine: boolean = false;
 
@@ -123,6 +122,7 @@ export class KupList {
      */
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
+        this.log('onKupBlur', '');
         this.kupBlur.emit({
             selected: item,
             el: e.target,
@@ -130,6 +130,7 @@ export class KupList {
     }
 
     onKupChange(e: CustomEvent, item: ComponentListElement) {
+        this.log('onKupChange', '');
         this.kupChange.emit({
             selected: item,
             el: e.target,
@@ -141,7 +142,7 @@ export class KupList {
         item: ComponentListElement,
         index: number
     ) {
-        console.log('kup-list.onKupClick()');
+        this.log('onKupClick', '');
         const { target } = e;
         if (this.isMultiSelection()) {
             if (item.selected == true) {
@@ -167,6 +168,7 @@ export class KupList {
     }
 
     onKupFocus(e: CustomEvent, item: ComponentListElement) {
+        this.log('onKupFocus', '');
         this.kupFocus.emit({
             selected: item,
             el: e.target,
@@ -174,6 +176,7 @@ export class KupList {
     }
 
     onKupInput(e: CustomEvent, item: ComponentListElement) {
+        this.log('onKupInput', '');
         this.kupInput.emit({
             selected: item,
             el: e.target,
@@ -187,6 +190,7 @@ export class KupList {
     renderListItem(item: ComponentListElement, index: number) {
         this.filteredItems[index] = item;
 
+        this.log('renderListItem', 'item: ' + JSON.stringify(item));
         if (item.selected != true) {
             item.selected = false;
         }
@@ -247,15 +251,15 @@ export class KupList {
                 <span class="mdc-list-item__graphic">
                     <input type="radio" style={aaa} />
                     <kup-radio
-                        name={this.listId + 'radio'}
+                        name={this.fieldId + 'radio'}
                         data={dataTmp}
-                        id={this.listId + index}
+                        id={this.fieldId + index}
                         ref={(el) => (this.radios[index] = el as any)}
                     ></kup-radio>
                 </span>,
                 <label
                     class="mdc-list-item__text"
-                    htmlFor={this.listId + index}
+                    htmlFor={this.fieldId + index}
                 >
                     {primaryTextTag}
                     {secTextTag}
@@ -275,14 +279,14 @@ export class KupList {
                     <input type="checkbox" style={aaa} />
                     <kup-checkbox
                         class="mdc-checkbox"
-                        id={this.listId + index}
+                        id={this.fieldId + index}
                         checked={checkedAttr}
                         ref={(el) => (this.checkboxes[index] = el as any)}
                     ></kup-checkbox>
                 </span>,
                 <label
                     class="mdc-list-item__text"
-                    htmlFor={this.listId + index}
+                    htmlFor={this.fieldId + index}
                 >
                     {primaryTextTag}
                     {secTextTag}
@@ -440,8 +444,16 @@ export class KupList {
         );
     }
 
+    log(methodName: string, msg: string) {
+        console.log(
+            'kup-list.' + methodName + '() ' + this.fieldId + ' - ' + msg
+        );
+    }
+
     render() {
         this.checkRoleType();
+        this.log('render', 'selectable: ' + this.selectable);
+
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
@@ -462,14 +474,13 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
         // Host refers to container DOM element - kup-list
-        // Copy your material design markup from https://material.io/develop/web/components/
         return (
             <Host>
                 <div id="kup-component">
                     <ul
                         class={componentClass}
                         role={roleAttr}
-                        id={this.listId}
+                        id={this.fieldId}
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data

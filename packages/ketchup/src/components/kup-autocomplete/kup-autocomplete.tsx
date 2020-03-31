@@ -19,6 +19,7 @@ import { positionRecalc } from '../../utils/recalc-position';
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
 
+    @Prop({ reflect: true }) fieldId: string = 'autocomplete-id';
     /**
      * Custom style to be passed to the component.
      */
@@ -153,6 +154,7 @@ export class KupAutocomplete {
      */
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+        this.log('onKupBlur', '');
         this.closeList();
         const { target } = e;
         this.kupBlur.emit({
@@ -161,6 +163,7 @@ export class KupAutocomplete {
     }
 
     onKupChange(e: CustomEvent) {
+        this.log('onKupChange', 'e.detail.value: ' + e.detail.value);
         this.value = e.detail.value;
         this.kupChange.emit({
             value: this.value,
@@ -168,6 +171,7 @@ export class KupAutocomplete {
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+        this.log('onKupClick', '');
         const { target } = e;
         this.kupClick.emit({
             value: target.value,
@@ -175,6 +179,7 @@ export class KupAutocomplete {
     }
 
     onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+        this.log('onKupFocus', '');
         const { target } = e;
         this.kupFocus.emit({
             value: target.value,
@@ -182,17 +187,20 @@ export class KupAutocomplete {
     }
 
     onKupInput(e: CustomEvent) {
+        this.log('onKupInput', '');
         this.value = e.detail.value;
 
-        this.handleFilterChange(this.value, e.target);
-        this.openList();
+        if (this.openList()) {
+            this.handleFilterChange(this.value, e.target);
+        }
 
-        this.kupChange.emit({
+        this.kupInput.emit({
             value: this.value,
         });
     }
 
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+        this.log('onKupIconClick', '');
         const { target } = event;
 
         if (this.textfieldEl.classList.contains('toggled')) {
@@ -206,7 +214,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick() {
-        console.log('kup-autocomplete.onKupItemClick()');
+        this.log('onKupItemClick', '');
         this.consistencyCheck();
         this.closeList();
 
@@ -220,6 +228,7 @@ export class KupAutocomplete {
     }
 
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
+        this.log('handleFilterChange', 'newFilter: ' + newFilter);
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -227,7 +236,10 @@ export class KupAutocomplete {
             el: eventTarget,
         };
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
-            console.log('Executing callback on filter update');
+            this.log(
+                'handleFilterChange',
+                'Executing callback on filter update'
+            );
             this.callBackOnFilterUpdate(detail)
                 .then((items) => {
                     this.listData['data'] = [...items];
@@ -242,15 +254,10 @@ export class KupAutocomplete {
             this.kupFilterChanged.emit(detail);
         }
     }
-    /**
-     * Updates the currentFilter.
-     * If {@link KupAutocomplete.serverHandledFilter} is true, then it also emits a {@link KupAutocomplete.kupAutocompleteSelectionUpdate}.
-     * @param newFilter - The new filter value.
-     */
 
-    openList() {
+    openList(): boolean {
         if (this.value.length < this.minimumChars) {
-            return;
+            return false;
         }
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
             '.mdc-text-field'
@@ -263,6 +270,7 @@ export class KupAutocomplete {
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = textFieldWidth + 'px';
+        return true;
     }
 
     closeList() {
@@ -274,9 +282,9 @@ export class KupAutocomplete {
     }
 
     consistencyCheck() {
-        console.log(
-            'kup-autocomplete.consistencyCheck() data: ' +
-                JSON.stringify(this.listData['data'])
+        this.log(
+            'consistencyCheck',
+            'data: ' + JSON.stringify(this.listData['data'])
         );
         var firstSelectedFound = false;
 
@@ -294,8 +302,9 @@ export class KupAutocomplete {
                 if (this.listData['data'][i].selected && !firstSelectedFound) {
                     firstSelectedFound = true;
                     this.value = this.listData['data'][i].text;
-                    console.log(
-                        'kup-autocomplete.consistencyCheck() selectedValue: ' +
+                    this.log(
+                        'consistencyCheck',
+                        'selectedValue: ' +
                             this.value +
                             ' this.textfieldEl: ' +
                             JSON.stringify(this.textfieldEl)
@@ -308,6 +317,16 @@ export class KupAutocomplete {
         }
     }
 
+    log(methodName: string, msg: string) {
+        console.log(
+            'kup-autocomplete.' +
+                methodName +
+                '() ' +
+                this.fieldId +
+                ' - ' +
+                msg
+        );
+    }
     //---- Lifecycle hooks ----
 
     componentDidRender() {
@@ -338,6 +357,7 @@ export class KupAutocomplete {
                 {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
+                field-id={this.fieldId + '.text-field'}
                 onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
@@ -357,6 +377,7 @@ export class KupAutocomplete {
                 {...this.listData}
                 class="mdc-menu mdc-menu-surface"
                 onKupListClick={() => this.onKupItemClick()}
+                field-id={this.fieldId + '.list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );

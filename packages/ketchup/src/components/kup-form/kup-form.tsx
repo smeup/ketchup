@@ -436,8 +436,8 @@ export class KupForm {
                     }
                     let listData = {
                         data: field.config.data,
-                        listId: 'LISTA',
-                        selectable: 'one-select',
+                        fieldId: 'LISTA',
+                        selectable: !field.readonly,
                     };
                     fieldContent = (
                         <kup-combobox
