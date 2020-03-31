@@ -7,6 +7,10 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  ComponentListElement,
+  ItemsDisplayMode,
+} from './components/kup-list/kup-list-declarations';
+import {
   BadgePosition,
 } from './components/kup-badge/kup-badge-declarations';
 import {
@@ -81,10 +85,6 @@ import {
   Image,
 } from './components/kup-image-button/kup-image-declarations';
 import {
-  ComponentListElement,
-  ItemsDisplayMode,
-} from './components/kup-list/kup-list-declarations';
-import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
 import {
@@ -146,6 +146,10 @@ export namespace Components {
     * The minimum number of chars to trigger the autocomplete
     */
     'minimumChars': number;
+    /**
+    * Sets how the return the selected item value
+    */
+    'selectMode': ItemsDisplayMode;
     /**
     * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
     */
@@ -1606,6 +1610,10 @@ declare namespace LocalJSX {
     'onKupAutocompleteClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
+    'onKupAutocompleteFilterChanged'?: (event: CustomEvent<{
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+    }>) => void;
     'onKupAutocompleteFocus'?: (event: CustomEvent<{
       value: any;
     }>) => void;
@@ -1618,10 +1626,10 @@ declare namespace LocalJSX {
     'onKupAutocompleteItemClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
-    'onKupFilterChanged'?: (event: CustomEvent<{
-      filter: string;
-      matchesMinimumCharsRequired: boolean;
-    }>) => void;
+    /**
+    * Sets how the return the selected item value
+    */
+    'selectMode'?: ItemsDisplayMode;
     /**
     * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
     */
