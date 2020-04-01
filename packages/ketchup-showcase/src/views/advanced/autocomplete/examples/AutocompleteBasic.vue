@@ -7,15 +7,15 @@
       field-id="f1"
     />
 
-    <!--
-    <h3>Autocomplee disabled</h3>
+    <h3>Autocomplete disabled</h3>
     <kup-autcomplete
-     :listData.prop="items"
+      :listData.prop="listData"
+      :textfieldData.prop="textFieldData"
+      field-id="f2"
       disabled
-      @kuAutocomlteSelectionUpdate="logEvent"
     />
-
-    <h3>Dispay mode code and mode description</h>
+    <!--
+    <h3>Display mode code and mode description</h>
     <div class="exampe-container">
       <kup-autocmplete
         :listData.prp="items"

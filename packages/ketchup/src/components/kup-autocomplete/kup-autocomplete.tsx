@@ -6,6 +6,7 @@ import {
     Element,
     Host,
     h,
+    Listen,
 } from '@stencil/core';
 
 import { errorLogging } from '../../utils/error-logging';
@@ -159,6 +160,12 @@ export class KupAutocomplete {
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
 
+    @Listen('keyup', { target: 'document' })
+    closeListOnEscapeKeyup(e: KeyboardEvent) {
+        if (e.key === 'Escape') {
+            this.closeList();
+        }
+    }
     /**
      * --- Methods ----
      */
@@ -366,10 +373,6 @@ export class KupAutocomplete {
                 height: '100%',
             };
         }
-
-        //if (!this.textfieldData['icon']) {
-        //    this.textfieldData['icon'] = 'arrow_drop_down';
-        //}
 
         let comp: HTMLElement = (
             <kup-text-field
