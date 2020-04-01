@@ -17,6 +17,7 @@ import { GenericObject, } from "./types/GenericTypes";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged, } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
+import { DashData, } from "./components/kup-dash-list/kup-dash-list-declarations";
 import { KetchupFldChangeEvent, KetchupFldSubmitEvent, } from "./components/kup-fld/kup-fld-declarations";
 import { Badge, } from "./components/kup-image/kup-image-declarations";
 import { Image, } from "./components/fields/kup-image-button/kup-image-declarations";
@@ -392,6 +393,12 @@ export namespace Components {
     }
     interface KupDash {
         "active": boolean;
+        "fontsize": string;
+        "layout": string;
+    }
+    interface KupDashList {
+        "active": boolean;
+        "data": DashData;
         "fontsize": string;
         "layout": string;
     }
@@ -1442,6 +1449,12 @@ declare global {
         prototype: HTMLKupDashElement;
         new (): HTMLKupDashElement;
     };
+    interface HTMLKupDashListElement extends Components.KupDashList, HTMLStencilElement {
+    }
+    var HTMLKupDashListElement: {
+        prototype: HTMLKupDashListElement;
+        new (): HTMLKupDashListElement;
+    };
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
     }
     var HTMLKupDataTableElement: {
@@ -1680,6 +1693,7 @@ declare global {
         "kup-combo": HTMLKupComboElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
+        "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-fld": HTMLKupFldElement;
@@ -2207,6 +2221,13 @@ declare namespace LocalJSX {
     }
     interface KupDash {
         "active"?: boolean;
+        "fontsize"?: string;
+        "layout"?: string;
+        "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
+    }
+    interface KupDashList {
+        "active"?: boolean;
+        "data"?: DashData;
         "fontsize"?: string;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
@@ -3520,6 +3541,7 @@ declare namespace LocalJSX {
         "kup-combo": KupCombo;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
+        "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-editor": KupEditor;
         "kup-fld": KupFld;
@@ -3578,6 +3600,7 @@ declare module "@stencil/core" {
             "kup-combo": LocalJSX.KupCombo & JSXBase.HTMLAttributes<HTMLKupComboElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
+            "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-fld": LocalJSX.KupFld & JSXBase.HTMLAttributes<HTMLKupFldElement>;
