@@ -128,9 +128,10 @@ export class KupList {
         });
         this.log(
             'watchFilterHandler',
-            'Old value: [' + oldValue + '] new value: [' + newValue + ']'
+            'old value: [' + oldValue + '] new value: [' + newValue + ']'
         );
     }
+
     /**
      * --- Methods ----
      */
@@ -156,8 +157,15 @@ export class KupList {
         item: ComponentListElement,
         index: number
     ) {
-        this.log('onKupClick', '');
-        const { target } = e;
+        this.onKupClickInternalUse(e.target, item, index);
+    }
+
+    onKupClickInternalUse(
+        target: EventTarget,
+        item: ComponentListElement,
+        index: number
+    ) {
+        this.log('onKupClickInternalUse', '');
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -181,20 +189,24 @@ export class KupList {
         });
     }
 
-    onKupFocus(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupFocus', '');
+    onKupFocus(e: CustomEvent, item: ComponentListElement, index: number) {
+        this.log('onKupFocus', 'index:' + index);
         this.kupFocus.emit({
             selected: item,
             el: e.target,
         });
     }
 
-    onKupInput(e: CustomEvent, item: ComponentListElement) {
+    onKupInput(e: KeyboardEvent, item: ComponentListElement, index: number) {
         this.log('onKupInput', '');
-        this.kupInput.emit({
-            selected: item,
-            el: e.target,
-        });
+        if (e.key == 'Enter') {
+            this.onKupClickInternalUse(e.target, item, index);
+        } else {
+            this.kupInput.emit({
+                selected: item,
+                el: e.target,
+            });
+        }
     }
 
     renderSeparator() {
@@ -309,10 +321,20 @@ export class KupList {
                 data-value={item.value}
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
+                onFocus={
+                    !this.selectable
+                        ? (e: any) => e.stopPropagation()
+                        : (e: any) => this.onKupFocus(e, item, index)
+                }
                 onClick={
                     !this.selectable
                         ? (e: any) => e.stopPropagation()
                         : (e: any) => this.onKupClick(e, item, index)
+                }
+                onKeyUp={
+                    !this.selectable
+                        ? (e: any) => e.stopPropagation()
+                        : (e: any) => this.onKupInput(e, item, index)
                 }
             >
                 {innerSpanTag}
@@ -408,7 +430,18 @@ export class KupList {
 
     //---- Lifecycle hooks ----
 
+    componentDidRender() {
+        this.log('componentDidRender', 'set focus first list item');
+        let firstLi: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.mdc-list-item'
+        ) as HTMLElement;
+        if (firstLi != null) {
+            firstLi.focus();
+        }
+    }
+
     componentDidLoad() {
+        this.log('componentDidLoad', '');
         this.listComponent = null;
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
