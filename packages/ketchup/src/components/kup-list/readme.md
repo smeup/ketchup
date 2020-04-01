@@ -5,14 +5,15 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                | Type                     | Default                |
-| -------------- | --------------- | -------------------------------------------------------------------------- | ------------------------ | ---------------------- |
-| `data`         | --              |                                                                            | `ComponentListElement[]` | `[]`                   |
-| `isFilterable` | `is-filterable` | Marks the list as filterable, allowing an input text to filter the options | `boolean`                | `false`                |
-| `listId`       | `list-id`       |                                                                            | `string`                 | `'KupList-myId'`       |
-| `roleType`     | `role-type`     |                                                                            | `string`                 | `KupList.ROLE_LISTBOX` |
-| `selectable`   | `selectable`    |                                                                            | `boolean`                | `true`                 |
-| `twoLine`      | `two-line`      |                                                                            | `boolean`                | `false`                |
+| Property      | Attribute      | Description                                                                     | Type                                                                                             | Default                        |
+| ------------- | -------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `data`        | --             |                                                                                 | `ComponentListElement[]`                                                                         | `[]`                           |
+| `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `fieldId`     | `field-id`     |                                                                                 | `string`                                                                                         | `'list-id'`                    |
+| `filter`      | `filter`       |                                                                                 | `string`                                                                                         | `''`                           |
+| `roleType`    | `role-type`    |                                                                                 | `string`                                                                                         | `KupList.ROLE_LISTBOX`         |
+| `selectable`  | `selectable`   |                                                                                 | `boolean`                                                                                        | `true`                         |
+| `twoLine`     | `two-line`     |                                                                                 | `boolean`                                                                                        | `false`                        |
 
 
 ## Events
@@ -30,6 +31,7 @@
 
 ### Used by
 
+ - [kup-autocomplete](../kup-autocomplete)
  - [kup-combobox](../kup-combobox)
 
 ### Depends on
@@ -42,6 +44,7 @@
 graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-autocomplete --> kup-list
   kup-combobox --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

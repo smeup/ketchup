@@ -29,7 +29,6 @@
 
 ### Used by
 
- - [kup-autocomplete](../kup-autocomplete)
  - [kup-data-table](../kup-data-table)
 
 ### Depends on
@@ -40,7 +39,6 @@
 ```mermaid
 graph TD;
   kup-chip --> kup-icon
-  kup-autocomplete --> kup-chip
   kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -1,6 +1,4 @@
-# kup-fld
-
-
+# kup-field
 
 <!-- Auto Generated Below -->
 
@@ -49,9 +47,9 @@ Type: `Promise<string | object>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-fld --> kup-button
+  kup-field --> kup-button
   kup-button --> kup-icon
-  style kup-fld fill:#f9f,stroke:#333,stroke-width:4px
+  style kup-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

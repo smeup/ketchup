@@ -34,7 +34,7 @@
 
 ### Depends on
 
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
 - [kup-modal](../kup-modal)
 - [kup-data-table](../kup-data-table)
@@ -42,13 +42,14 @@
 ### Graph
 ```mermaid
 graph TD;
-  kup-search --> kup-text-input
+  kup-search --> kup-text-field
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
+  kup-text-field --> kup-icon
   kup-button --> kup-icon
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-input
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
@@ -64,7 +65,6 @@ graph TD;
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-icon
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-chip --> kup-icon

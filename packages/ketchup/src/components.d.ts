@@ -77,7 +77,7 @@ import {
 import {
   KupFldChangeEvent,
   KupFldSubmitEvent,
-} from './components/kup-fld/kup-fld-declarations';
+} from './components/kup-field/kup-field-declarations';
 import {
   Badge,
 } from './components/kup-image/kup-image-declarations';
@@ -613,7 +613,7 @@ export namespace Components {
     */
     'text': string;
   }
-  interface KupFld {
+  interface KupField {
     /**
     * Custom style to be passed to the component.
     */
@@ -1369,10 +1369,10 @@ declare global {
     new (): HTMLKupEditorElement;
   };
 
-  interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {}
-  var HTMLKupFldElement: {
-    prototype: HTMLKupFldElement;
-    new (): HTMLKupFldElement;
+  interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {}
+  var HTMLKupFieldElement: {
+    prototype: HTMLKupFieldElement;
+    new (): HTMLKupFieldElement;
   };
 
   interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {}
@@ -1542,7 +1542,7 @@ declare global {
     'kup-dash': HTMLKupDashElement;
     'kup-data-table': HTMLKupDataTableElement;
     'kup-editor': HTMLKupEditorElement;
-    'kup-fld': HTMLKupFldElement;
+    'kup-field': HTMLKupFieldElement;
     'kup-form': HTMLKupFormElement;
     'kup-gauge': HTMLKupGaugeElement;
     'kup-graphic-cell': HTMLKupGraphicCellElement;
@@ -2318,7 +2318,7 @@ declare namespace LocalJSX {
     */
     'text'?: string;
   }
-  interface KupFld extends JSXBase.HTMLAttributes<HTMLKupFldElement> {
+  interface KupField extends JSXBase.HTMLAttributes<HTMLKupFieldElement> {
     /**
     * Custom style to be passed to the component.
     */
@@ -3170,7 +3170,7 @@ declare namespace LocalJSX {
     'kup-dash': KupDash;
     'kup-data-table': KupDataTable;
     'kup-editor': KupEditor;
-    'kup-fld': KupFld;
+    'kup-field': KupField;
     'kup-form': KupForm;
     'kup-gauge': KupGauge;
     'kup-graphic-cell': KupGraphicCell;

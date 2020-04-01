@@ -32,7 +32,7 @@
 - [kup-checkbox](../kup-checkbox)
 - [kup-icon](../kup-icon)
 - [kup-menu](../kup-menu)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
@@ -40,7 +40,8 @@ graph TD;
   kup-checkbox-menu --> kup-checkbox
   kup-checkbox-menu --> kup-icon
   kup-checkbox-menu --> kup-menu
-  kup-checkbox-menu --> kup-text-input
+  kup-checkbox-menu --> kup-text-field
+  kup-text-field --> kup-icon
   style kup-checkbox-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

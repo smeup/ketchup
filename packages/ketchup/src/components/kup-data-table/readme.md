@@ -114,8 +114,8 @@ Type: `Promise<Column[]>`
 | `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.                        |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.             |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.           |
-| `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-input elements used to filter rows. |
-| `--dtt_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-input elements used to filter rows.     |
+| `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-field elements used to filter rows. |
+| `--dtt_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-field elements used to filter rows.     |
 | `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                   |
 | `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                |
 | `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                   |
@@ -142,7 +142,7 @@ Type: `Promise<Column[]>`
 ### Depends on
 
 - [kup-checkbox](../kup-checkbox)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 - [kup-icon](../kup-icon)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
@@ -158,7 +158,7 @@ Type: `Promise<Column[]>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-input
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
@@ -169,13 +169,13 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-text-field --> kup-icon
   kup-image --> kup-badge
   kup-button --> kup-icon
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-icon
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-chip --> kup-icon

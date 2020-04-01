@@ -8,16 +8,16 @@ import {
     h,
 } from '@stencil/core';
 
-import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-fld-declarations';
+import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
-    tag: 'kup-fld',
-    styleUrl: 'kup-fld.scss',
+    tag: 'kup-field',
+    styleUrl: 'kup-field.scss',
     shadow: true,
 })
-export class KupFld {
+export class KupField {
     /**
      * Custom style to be passed to the component.
      */
@@ -95,7 +95,7 @@ export class KupFld {
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
         let message = 'Changing!';
-        errorLogging('kup-fld', message);
+        errorLogging('kup-field', message);
         console.log(event);
         const { value, info } = event.detail;
         this.kupChange.emit({
@@ -111,7 +111,7 @@ export class KupFld {
     // When a submit event must be launched as if it's coming from the FLD itself
     onSubmit(event: CustomEvent) {
         let message = 'Submitting!';
-        errorLogging('kup-fld', message);
+        errorLogging('kup-field', message);
         console.log(event);
         this.kupSubmit.emit({
             originalEvent: event,
@@ -141,7 +141,7 @@ export class KupFld {
     //---- Rendering functions ----
     render() {
         let toRender = [];
-        const baseClass = 'kup-fld';
+        const baseClass = 'kup-field';
         let label = null;
         let submit = null;
         let wrapperClass = '';
@@ -211,7 +211,7 @@ export class KupFld {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            errorLogging('kup-fld', message);
+            errorLogging('kup-field', message);
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':

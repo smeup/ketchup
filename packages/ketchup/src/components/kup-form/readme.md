@@ -124,8 +124,9 @@ Type: `Promise<FormCells>`
 - [kup-search](../kup-search)
 - [kup-image](../kup-image)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
+- [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
@@ -136,25 +137,27 @@ graph TD;
   kup-form --> kup-search
   kup-form --> kup-image
   kup-form --> kup-progress-bar
-  kup-form --> kup-text-input
+  kup-form --> kup-text-field
   kup-form --> kup-button
+  kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-text-field --> kup-icon
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-crud --> kup-button
+  kup-crud --> kup-modal
+  kup-crud --> kup-form
   kup-crud --> kup-form
   kup-button --> kup-icon
-  kup-autocomplete --> kup-chip
   kup-autocomplete --> kup-text-field
-  kup-autocomplete --> kup-menu
-  kup-chip --> kup-icon
-  kup-search --> kup-text-input
+  kup-autocomplete --> kup-list
+  kup-search --> kup-text-field
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-input
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
@@ -168,6 +171,7 @@ graph TD;
   kup-image --> kup-badge
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
+  kup-chip --> kup-icon
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
