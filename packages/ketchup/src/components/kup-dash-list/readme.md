@@ -1,4 +1,4 @@
-# kup-tooltip
+# kup-dash-list
 
 
 
@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type       | Default     |
-| ---------- | ---------- | ----------- | ---------- | ----------- |
-| `active`   | `active`   |             | `boolean`  | `false`     |
-| `data`     | --         |             | `DashData` | `undefined` |
-| `fontsize` | `fontsize` |             | `string`   | `''`        |
-| `layout`   | `layout`   |             | `string`   | `'1'`       |
+| Property   | Attribute  | Description | Type        | Default     |
+| ---------- | ---------- | ----------- | ----------- | ----------- |
+| `active`   | `active`   |             | `boolean`   | `false`     |
+| `data`     | --         |             | `TableData` | `undefined` |
+| `fontsize` | `fontsize` |             | `string`    | `''`        |
+| `layout`   | `layout`   |             | `string`    | `'1'`       |
 
 
 ## Events

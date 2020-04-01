@@ -17,7 +17,6 @@ import { GenericObject, } from "./types/GenericTypes";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged, } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
-import { DashData, } from "./components/kup-dash-list/kup-dash-list-declarations";
 import { KetchupFldChangeEvent, KetchupFldSubmitEvent, } from "./components/kup-fld/kup-fld-declarations";
 import { Badge, } from "./components/kup-image/kup-image-declarations";
 import { Image, } from "./components/fields/kup-image-button/kup-image-declarations";
@@ -398,7 +397,7 @@ export namespace Components {
     }
     interface KupDashList {
         "active": boolean;
-        "data": DashData;
+        "data": TableData;
         "fontsize": string;
         "layout": string;
     }
@@ -2227,7 +2226,7 @@ declare namespace LocalJSX {
     }
     interface KupDashList {
         "active"?: boolean;
-        "data"?: DashData;
+        "data"?: TableData;
         "fontsize"?: string;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;

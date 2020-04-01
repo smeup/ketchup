@@ -6,8 +6,7 @@ import {
     EventEmitter,
 } from '@stencil/core';
 
-import { DashData } from './kup-dash-list-declarations';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { Row, TableData } from '../kup-data-table/kup-data-table-declarations';
 
 @Component({
     tag: 'kup-dash-list',
@@ -25,7 +24,7 @@ export class KupDashList {
     active = false;
 
     @Prop()
-    data: DashData;
+    data: TableData;
 
     @Event({
         eventName: 'ketchupDashClicked',
@@ -36,11 +35,13 @@ export class KupDashList {
     ketchupDashClicked: EventEmitter<{}>;
 
     render() { 
+        console.log("Ecchime!!!")
+//        console.log("kup-dash-list data " + JSON.stringify(this.data))
         let rows = [];
         this.data.rows.forEach((r: Row) => {
-            console.log("kup-dash-list rows " + JSON.stringify(r.cells))
+//            console.log("kup-dash-list rows " + JSON.stringify(r.cells))
             const row = 
-            <div>
+            <div class="horizontal">
                 <kup-dash layout= {this.layout} fontsize= {this.fontsize}>
                     <div slot="descr">{r.cells.TEXT.obj.k}</div>
                     <div slot="icon">{r.cells.ICO.obj.k}</div>
