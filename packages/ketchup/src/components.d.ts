@@ -841,7 +841,7 @@ export namespace Components {
   }
   interface KupList {
     /**
-    * Custom style to be passed to the component.
+    * Sets a custom style for the component by feeding this string into a <style> tag.
     */
     'customStyle': string;
     /**
@@ -849,7 +849,7 @@ export namespace Components {
     */
     'data': ComponentListElement[];
     /**
-    * Selects how the items must display their label and how they can be filtered for
+    * Selects how the items must display their label and how they can be filtered for.
     */
     'displayMode': ItemsDisplayMode;
     /**
@@ -857,7 +857,7 @@ export namespace Components {
     */
     'fieldId': string;
     /**
-    * Keeps string for filtering elements when filter mode is active
+    * Keeps string for filtering elements when filter mode is active.
     */
     'filter': string;
     /**
@@ -873,7 +873,7 @@ export namespace Components {
     */
     'roleType'?: string;
     /**
-    * Defines if the list items ar or not selectable.
+    * Defines whether items are selectable or not.
     */
     'selectable': boolean;
     /**
@@ -2592,7 +2592,7 @@ declare namespace LocalJSX {
   }
   interface KupList extends JSXBase.HTMLAttributes<HTMLKupListElement> {
     /**
-    * Custom style to be passed to the component.
+    * Sets a custom style for the component by feeding this string into a <style> tag.
     */
     'customStyle'?: string;
     /**
@@ -2600,7 +2600,7 @@ declare namespace LocalJSX {
     */
     'data'?: ComponentListElement[];
     /**
-    * Selects how the items must display their label and how they can be filtered for
+    * Selects how the items must display their label and how they can be filtered for.
     */
     'displayMode'?: ItemsDisplayMode;
     /**
@@ -2608,7 +2608,7 @@ declare namespace LocalJSX {
     */
     'fieldId'?: string;
     /**
-    * Keeps string for filtering elements when filter mode is active
+    * Keeps string for filtering elements when filter mode is active.
     */
     'filter'?: string;
     /**
@@ -2647,7 +2647,7 @@ declare namespace LocalJSX {
     */
     'roleType'?: string;
     /**
-    * Defines if the list items ar or not selectable.
+    * Defines whether items are selectable or not.
     */
     'selectable'?: boolean;
     /**
