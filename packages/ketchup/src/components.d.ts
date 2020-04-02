@@ -840,15 +840,45 @@ export namespace Components {
     'horizontal': boolean;
   }
   interface KupList {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * The data of the list.
+    */
     'data': ComponentListElement[];
     /**
     * Selects how the items must display their label and how they can be filtered for
     */
     'displayMode': ItemsDisplayMode;
+    /**
+    * Identify the component.
+    */
     'fieldId': string;
+    /**
+    * Keeps string for filtering elements when filter mode is active
+    */
     'filter': string;
+    /**
+    * Defines whether the list is a menu or not.
+    */
+    'isMenu': boolean;
+    /**
+    * Sets the status of the menu, when false it's hidden otherwise it's visible.
+    */
+    'menuVisible': boolean;
+    /**
+    * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+    */
     'roleType'?: string;
+    /**
+    * Defines if the list items ar or not selectable.
+    */
     'selectable': boolean;
+    /**
+    * The list elements descriptions will be arranged in two lines.
+    */
     'twoLine': boolean;
   }
   interface KupMenu {
@@ -1072,7 +1102,6 @@ export namespace Components {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
-    'fieldId': string;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
@@ -2562,13 +2591,34 @@ declare namespace LocalJSX {
     'horizontal'?: boolean;
   }
   interface KupList extends JSXBase.HTMLAttributes<HTMLKupListElement> {
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * The data of the list.
+    */
     'data'?: ComponentListElement[];
     /**
     * Selects how the items must display their label and how they can be filtered for
     */
     'displayMode'?: ItemsDisplayMode;
+    /**
+    * Identify the component.
+    */
     'fieldId'?: string;
+    /**
+    * Keeps string for filtering elements when filter mode is active
+    */
     'filter'?: string;
+    /**
+    * Defines whether the list is a menu or not.
+    */
+    'isMenu'?: boolean;
+    /**
+    * Sets the status of the menu, when false it's hidden otherwise it's visible.
+    */
+    'menuVisible'?: boolean;
     /**
     * Events.
     */
@@ -2592,8 +2642,17 @@ declare namespace LocalJSX {
       selected: ComponentListElement;
       el: EventTarget;
     }>) => void;
+    /**
+    * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+    */
     'roleType'?: string;
+    /**
+    * Defines if the list items ar or not selectable.
+    */
     'selectable'?: boolean;
+    /**
+    * The list elements descriptions will be arranged in two lines.
+    */
     'twoLine'?: boolean;
   }
   interface KupMenu extends JSXBase.HTMLAttributes<HTMLKupMenuElement> {
@@ -2874,7 +2933,6 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
-    'fieldId'?: string;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */

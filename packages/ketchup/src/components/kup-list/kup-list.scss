@@ -1,13 +1,42 @@
-// Imports from material
 @import '@material/list/mdc-list';
+@import '@material/menu/mdc-menu';
+@import '@material/menu-surface/mdc-menu-surface';
 
-// host represent widget DOM element
 :host {
   display: var(--kup-display-mode);
 
   #kup-component {
+    &.mdc-menu {
+      animation: fadeInFromNone 0.25s ease-out;
+      display: none;
+      max-height: 40vh;
+      opacity: 0;
+      position: relative;
+      transition: height 0.2s;
+      &.visible {
+        display: block;
+        opacity: 1;
+      }
+    }
     & .mdc-list {
       @include mdc-list-single-line-density(-4);
     }
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
   }
 }

@@ -15,7 +15,6 @@ import { ComponentListElement } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
-import { errorLogging } from '../../utils/error-logging';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 
 @Component({
@@ -29,37 +28,68 @@ export class KupList {
      */
     @Element() rootElement: HTMLElement;
 
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+
+    /**
+     * The data of the list.
+     */
     @Prop() data: ComponentListElement[] = [];
-
-    private filteredItems: ComponentListElement[] = [];
-    private listComponent: MDCList = null;
-
-    private radios: KupRadio[] = [];
-    private checkboxes: KupCheckbox[] = [];
-
-    //---- Internal state ----
-    // Keeps string for filtering elements when filter mode is active
-    @Prop() filter: string = '';
-
-    // false - items non selezionabili
-    // true  - items selezionabili
-    @Prop({ reflect: true }) selectable: boolean = true;
-
-    @Prop({ reflect: true }) fieldId: string = 'list-id';
-
-    @Prop({ reflect: true }) twoLine: boolean = false;
-
-    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
-
-    static ROLE_LISTBOX: string = 'listbox';
-    static ROLE_RADIOGROUP: string = 'radiogroup';
-    static ROLE_CHECKBOX: string = 'group';
 
     /**
      * Selects how the items must display their label and how they can be filtered for
      */
     @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
         ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * Identify the component.
+     */
+    @Prop({ reflect: true }) fieldId: string = 'list-id';
+
+    /**
+     * Keeps string for filtering elements when filter mode is active
+     */
+    @Prop({ reflect: true }) filter: string = '';
+
+    /**
+     * Defines whether the list is a menu or not.
+     */
+    @Prop({ reflect: true }) isMenu: boolean = false;
+
+    /**
+     * Sets the status of the menu, when false it's hidden otherwise it's visible.
+     */
+    @Prop({ reflect: true }) menuVisible: boolean = false;
+
+    /**
+     * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+     */
+    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
+
+    /**
+     * Defines if the list items ar or not selectable.
+     */
+    @Prop({ reflect: true }) selectable: boolean = true;
+
+    /**
+     * The list elements descriptions will be arranged in two lines.
+     */
+    @Prop({ reflect: true }) twoLine: boolean = false;
+
+    //---- Internal state ----
+
+    static ROLE_LISTBOX: string = 'listbox';
+    static ROLE_RADIOGROUP: string = 'radiogroup';
+    static ROLE_CHECKBOX: string = 'group';
+
+    private filteredItems: ComponentListElement[] = [];
+    private listComponent: MDCList = null;
+
+    private radios: KupRadio[] = [];
+    private checkboxes: KupCheckbox[] = [];
 
     /**
      * Events.
@@ -121,15 +151,11 @@ export class KupList {
     }>;
 
     @Watch('filter')
-    watchFilterHandler(newValue: boolean, oldValue: boolean) {
+    watchFilterHandler() {
         let index = 0;
         this.filteredItems.map((item) => {
             this.setUnselected(item, index++);
         });
-        this.log(
-            'watchFilterHandler',
-            'old value: [' + oldValue + '] new value: [' + newValue + ']'
-        );
     }
 
     /**
@@ -137,7 +163,6 @@ export class KupList {
      */
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupBlur', '');
         this.kupBlur.emit({
             selected: item,
             el: e.target,
@@ -145,7 +170,6 @@ export class KupList {
     }
 
     onKupChange(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupChange', '');
         this.kupChange.emit({
             selected: item,
             el: e.target,
@@ -165,7 +189,6 @@ export class KupList {
         item: ComponentListElement,
         index: number
     ) {
-        this.log('onKupClickInternalUse', '');
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -189,8 +212,7 @@ export class KupList {
         });
     }
 
-    onKupFocus(e: CustomEvent, item: ComponentListElement, index: number) {
-        this.log('onKupFocus', 'index:' + index);
+    onKupFocus(e: CustomEvent, item: ComponentListElement) {
         this.kupFocus.emit({
             selected: item,
             el: e.target,
@@ -198,7 +220,6 @@ export class KupList {
     }
 
     onKupInput(e: KeyboardEvent, item: ComponentListElement, index: number) {
-        this.log('onKupInput', '');
         if (e.key == 'Enter') {
             this.onKupClickInternalUse(e.target, item, index);
         } else {
@@ -216,7 +237,6 @@ export class KupList {
     renderListItem(item: ComponentListElement, index: number) {
         this.filteredItems[index] = item;
 
-        this.log('renderListItem', 'item: ' + JSON.stringify(item));
         if (item.selected != true) {
             item.selected = false;
         }
@@ -324,7 +344,7 @@ export class KupList {
                 onFocus={
                     !this.selectable
                         ? (e: any) => e.stopPropagation()
-                        : (e: any) => this.onKupFocus(e, item, index)
+                        : (e: any) => this.onKupFocus(e, item)
                 }
                 onClick={
                     !this.selectable
@@ -431,7 +451,6 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentDidRender() {
-        this.log('componentDidRender', 'set focus first list item');
         let firstLi: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '.mdc-list-item'
         ) as HTMLElement;
@@ -441,7 +460,6 @@ export class KupList {
     }
 
     componentDidLoad() {
-        this.log('componentDidLoad', '');
         this.listComponent = null;
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
@@ -485,17 +503,22 @@ export class KupList {
         );
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-list',
-            methodName + '() ' + this.fieldId + ' - ' + msg,
-            'log'
-        );
-    }
-
     render() {
+        let wrapperClass = undefined;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.isMenu) {
+            wrapperClass = 'mdc-menu mdc-menu-surface';
+
+            if (this.menuVisible) {
+                wrapperClass += ' visible';
+            }
+        }
+
         this.checkRoleType();
-        this.log('render', 'selectable: ' + this.selectable);
 
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
@@ -516,10 +539,11 @@ export class KupList {
         this.radios = [];
         this.checkboxes = [];
         let index = 0;
-        // Host refers to container DOM element - kup-list
+
         return (
             <Host>
-                <div id="kup-component">
+                {customStyle}
+                <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}
                         role={roleAttr}

@@ -15,7 +15,6 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
-import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-text-field',
@@ -98,8 +97,6 @@ export class KupTextField {
      * Defaults at false. When set to true, the label will be on the right of the component.
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
-
-    @Prop({ reflect: true }) fieldId: string = 'text-field-id';
 
     private inputEl;
 
@@ -201,7 +198,6 @@ export class KupTextField {
     }
 
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupChange', '');
         const { target } = event;
         this.kupChange.emit({
             value: target.value,
@@ -216,7 +212,6 @@ export class KupTextField {
     }
 
     onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupFocus', '');
         const { target } = event;
         this.kupFocus.emit({
             value: target.value,
@@ -224,7 +219,6 @@ export class KupTextField {
     }
 
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupInput', '');
         const { target } = event;
         this.kupInput.emit({
             value: target.value,
@@ -247,7 +241,6 @@ export class KupTextField {
      * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
      */
     onKeyDown(event: KeyboardEvent) {
-        this.log('onKeyDown', '');
         if (event.key === 'Enter') {
             event.preventDefault();
             this.kupTextFieldSubmit.emit({
@@ -310,14 +303,6 @@ export class KupTextField {
                 );
             }
         }
-    }
-
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-text-field',
-            methodName + '() ' + this.fieldId + ' - ' + msg,
-            'log'
-        );
     }
     //---- Rendering ----
 
