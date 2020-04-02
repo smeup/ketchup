@@ -73,13 +73,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'fieldId',
-          description: 'Identify the component.',
-          type: 'string',
-          default: 'list-id',
-          try: 'field',
-        },
-        {
           prop: 'filter',
           description:
             'Keeps string for filtering elements when filter mode is active.',
@@ -169,7 +162,6 @@ export default {
             value: '3',
           },
         ],
-        fieldId: 'LISTA',
         selectable: true,
       },
     };

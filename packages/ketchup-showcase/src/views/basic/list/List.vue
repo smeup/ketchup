@@ -8,7 +8,13 @@
         <list-basic></list-basic>
       </template>
       <template v-slot:2>
+        <list-styling></list-styling>
+      </template>
+      <template v-slot:3>
         <list-selection></list-selection>
+      </template>
+      <template v-slot:4>
+        <list-menu></list-menu>
       </template>
     </comp>
   </div>
@@ -17,13 +23,17 @@
 <script>
 import ListDemo from '@/views/basic/list/examples/ListDemo';
 import ListBasic from '@/views/basic/list/examples/ListBasic';
+import ListStyling from '@/views/basic/list/examples/ListStyling';
 import ListSelection from '@/views/basic/list/examples/ListSelection';
+import ListMenu from '@/views/basic/list/examples/ListMenu';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     ListDemo,
     ListBasic,
+    ListStyling,
     ListSelection,
+    ListMenu,
     Comp,
   },
   data() {
@@ -31,7 +41,13 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-list',
       headtitle: 'List',
-      titles: ['Playground', 'Basic usage', 'Item selection'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'Styling',
+        'Selection',
+        'Menu variant',
+      ],
     };
   },
 };
