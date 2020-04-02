@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
 import { Cell, Column, DataTable, GenericMap, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
@@ -16,10 +17,9 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
 import { KupAutocompleteFilterUpdatePayload, KupAutocompleteOption, } from "./components/kup-autocomplete/kup-autocomplete-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
-import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-fld/kup-fld-declarations";
+import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, } from "./components/kup-image/kup-image-declarations";
 import { Image, } from "./components/kup-image-button/kup-image-declarations";
-import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { JSX, } from "@stencil/core";
 import { ElementOffset, } from "./utils/offset";
@@ -57,6 +57,10 @@ export namespace Components {
           * The minimum number of chars to trigger the autocomplete
          */
         "minimumChars": number;
+        /**
+          * Sets how the return the selected item value
+         */
+        "selectMode": ItemsDisplayMode;
         /**
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
@@ -522,7 +526,7 @@ export namespace Components {
          */
         "text": string;
     }
-    interface KupFld {
+    interface KupField {
         /**
           * Custom style to be passed to the component.
          */
@@ -747,15 +751,45 @@ export namespace Components {
         "horizontal": boolean;
     }
     interface KupList {
+        /**
+          * Sets a custom style for the component by feeding this string into a <style> tag.
+         */
+        "customStyle": string;
+        /**
+          * The data of the list.
+         */
         "data": ComponentListElement[];
         /**
-          * Selects how the items must display their label and how they can be filtered for
+          * Selects how the items must display their label and how they can be filtered for.
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Identify the component.
+         */
         "fieldId": string;
+        /**
+          * Keeps string for filtering elements when filter mode is active.
+         */
         "filter": string;
+        /**
+          * Defines whether the list is a menu or not.
+         */
+        "isMenu": boolean;
+        /**
+          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+         */
+        "menuVisible": boolean;
+        /**
+          * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+         */
         "roleType"?: string;
+        /**
+          * Defines whether items are selectable or not.
+         */
         "selectable": boolean;
+        /**
+          * The list elements descriptions will be arranged in two lines.
+         */
         "twoLine": boolean;
     }
     interface KupMenu {
@@ -986,7 +1020,6 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
-        "fieldId": string;
         /**
           * Defaults at false. When set to true, the component will be rendered at full height.
          */
@@ -1284,11 +1317,11 @@ declare global {
         prototype: HTMLKupEditorElement;
         new (): HTMLKupEditorElement;
     };
-    interface HTMLKupFldElement extends Components.KupFld, HTMLStencilElement {
+    interface HTMLKupFieldElement extends Components.KupField, HTMLStencilElement {
     }
-    var HTMLKupFldElement: {
-        prototype: HTMLKupFldElement;
-        new (): HTMLKupFldElement;
+    var HTMLKupFieldElement: {
+        prototype: HTMLKupFieldElement;
+        new (): HTMLKupFieldElement;
     };
     interface HTMLKupFormElement extends Components.KupForm, HTMLStencilElement {
     }
@@ -1458,7 +1491,7 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-editor": HTMLKupEditorElement;
-        "kup-fld": HTMLKupFldElement;
+        "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-graphic-cell": HTMLKupGraphicCellElement;
@@ -1525,6 +1558,10 @@ declare namespace LocalJSX {
         "onKupAutocompleteClick"?: (event: CustomEvent<{
             value: any;
         }>) => void;
+        "onKupAutocompleteFilterChanged"?: (event: CustomEvent<{
+            filter: string;
+            matchesMinimumCharsRequired: boolean;
+        }>) => void;
         "onKupAutocompleteFocus"?: (event: CustomEvent<{
             value: any;
         }>) => void;
@@ -1537,10 +1574,10 @@ declare namespace LocalJSX {
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
             value: any;
         }>) => void;
-        "onKupFilterChanged"?: (event: CustomEvent<{
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-        }>) => void;
+        /**
+          * Sets how the return the selected item value
+         */
+        "selectMode"?: ItemsDisplayMode;
         /**
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
@@ -2233,7 +2270,7 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
-    interface KupFld {
+    interface KupField {
         /**
           * Custom style to be passed to the component.
          */
@@ -2473,13 +2510,34 @@ declare namespace LocalJSX {
         "horizontal"?: boolean;
     }
     interface KupList {
+        /**
+          * Sets a custom style for the component by feeding this string into a <style> tag.
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the list.
+         */
         "data"?: ComponentListElement[];
         /**
-          * Selects how the items must display their label and how they can be filtered for
+          * Selects how the items must display their label and how they can be filtered for.
          */
         "displayMode"?: ItemsDisplayMode;
+        /**
+          * Identify the component.
+         */
         "fieldId"?: string;
+        /**
+          * Keeps string for filtering elements when filter mode is active.
+         */
         "filter"?: string;
+        /**
+          * Defines whether the list is a menu or not.
+         */
+        "isMenu"?: boolean;
+        /**
+          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+         */
+        "menuVisible"?: boolean;
         /**
           * Events.
          */
@@ -2503,8 +2561,17 @@ declare namespace LocalJSX {
             selected: ComponentListElement;
             el: EventTarget;
         }>) => void;
+        /**
+          * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+         */
         "roleType"?: string;
+        /**
+          * Defines whether items are selectable or not.
+         */
         "selectable"?: boolean;
+        /**
+          * The list elements descriptions will be arranged in two lines.
+         */
         "twoLine"?: boolean;
     }
     interface KupMenu {
@@ -2793,7 +2860,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
-        "fieldId"?: string;
         /**
           * Defaults at false. When set to true, the component will be rendered at full height.
          */
@@ -3097,7 +3163,7 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-data-table": KupDataTable;
         "kup-editor": KupEditor;
-        "kup-fld": KupFld;
+        "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-graphic-cell": KupGraphicCell;
@@ -3146,7 +3212,7 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
-            "kup-fld": LocalJSX.KupFld & JSXBase.HTMLAttributes<HTMLKupFldElement>;
+            "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;

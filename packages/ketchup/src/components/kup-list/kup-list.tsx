@@ -6,6 +6,7 @@ import {
     Host,
     h,
     Prop,
+    Watch,
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
@@ -14,6 +15,7 @@ import { ComponentListElement } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
+import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 
 @Component({
     tag: 'kup-list',
@@ -26,37 +28,68 @@ export class KupList {
      */
     @Element() rootElement: HTMLElement;
 
+    /**
+     * Sets a custom style for the component by feeding this string into a <style> tag.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+
+    /**
+     * The data of the list.
+     */
     @Prop() data: ComponentListElement[] = [];
+
+    /**
+     * Selects how the items must display their label and how they can be filtered for.
+     */
+    @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
+        ItemsDisplayMode.DESCRIPTION;
+
+    /**
+     * Identify the component.
+     */
+    @Prop({ reflect: true }) fieldId: string = 'list-id';
+
+    /**
+     * Keeps string for filtering elements when filter mode is active.
+     */
+    @Prop({ reflect: true }) filter: string = '';
+
+    /**
+     * Defines whether the list is a menu or not.
+     */
+    @Prop({ reflect: true }) isMenu: boolean = false;
+
+    /**
+     * Sets the status of the menu, when false it's hidden otherwise it's visible.
+     */
+    @Prop({ reflect: true }) menuVisible: boolean = false;
+
+    /**
+     * Defines the type of selection. Values accepted: listbox, radiogroup or group.
+     */
+    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
+
+    /**
+     * Defines whether items are selectable or not.
+     */
+    @Prop({ reflect: true }) selectable: boolean = true;
+
+    /**
+     * The list elements descriptions will be arranged in two lines.
+     */
+    @Prop({ reflect: true }) twoLine: boolean = false;
+
+    //---- Internal state ----
+
+    static ROLE_LISTBOX: string = 'listbox';
+    static ROLE_RADIOGROUP: string = 'radiogroup';
+    static ROLE_CHECKBOX: string = 'group';
 
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
 
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
-
-    //---- Internal state ----
-    // Keeps string for filtering elements when filter mode is active
-    @Prop() filter: string = '';
-
-    // false - items non selezionabili
-    // true  - items selezionabili
-    @Prop({ reflect: true }) selectable: boolean = true;
-
-    @Prop({ reflect: true }) fieldId: string = 'list-id';
-
-    @Prop({ reflect: true }) twoLine: boolean = false;
-
-    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
-
-    static ROLE_LISTBOX: string = 'listbox';
-    static ROLE_RADIOGROUP: string = 'radiogroup';
-    static ROLE_CHECKBOX: string = 'group';
-
-    /**
-     * Selects how the items must display their label and how they can be filtered for
-     */
-    @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
-        ItemsDisplayMode.DESCRIPTION;
 
     /**
      * Events.
@@ -117,12 +150,19 @@ export class KupList {
         el: EventTarget;
     }>;
 
+    @Watch('filter')
+    watchFilterHandler() {
+        let index = 0;
+        this.filteredItems.map((item) => {
+            this.setUnselected(item, index++);
+        });
+    }
+
     /**
      * --- Methods ----
      */
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupBlur', '');
         this.kupBlur.emit({
             selected: item,
             el: e.target,
@@ -130,7 +170,6 @@ export class KupList {
     }
 
     onKupChange(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupChange', '');
         this.kupChange.emit({
             selected: item,
             el: e.target,
@@ -142,8 +181,14 @@ export class KupList {
         item: ComponentListElement,
         index: number
     ) {
-        this.log('onKupClick', '');
-        const { target } = e;
+        this.onKupClickInternalUse(e.target, item, index);
+    }
+
+    onKupClickInternalUse(
+        target: EventTarget,
+        item: ComponentListElement,
+        index: number
+    ) {
         if (this.isMultiSelection()) {
             if (item.selected == true) {
                 this.setUnselected(item, index);
@@ -168,19 +213,21 @@ export class KupList {
     }
 
     onKupFocus(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupFocus', '');
         this.kupFocus.emit({
             selected: item,
             el: e.target,
         });
     }
 
-    onKupInput(e: CustomEvent, item: ComponentListElement) {
-        this.log('onKupInput', '');
-        this.kupInput.emit({
-            selected: item,
-            el: e.target,
-        });
+    onKupInput(e: KeyboardEvent, item: ComponentListElement, index: number) {
+        if (e.key == 'Enter') {
+            this.onKupClickInternalUse(e.target, item, index);
+        } else {
+            this.kupInput.emit({
+                selected: item,
+                el: e.target,
+            });
+        }
     }
 
     renderSeparator() {
@@ -190,21 +237,14 @@ export class KupList {
     renderListItem(item: ComponentListElement, index: number) {
         this.filteredItems[index] = item;
 
-        this.log('renderListItem', 'item: ' + JSON.stringify(item));
         if (item.selected != true) {
             item.selected = false;
         }
 
-        let primaryTextTag = [item.value];
-        if (this.displayMode == ItemsDisplayMode.CODE) {
-            primaryTextTag = [item.value];
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
-            primaryTextTag = [item.text];
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION_AND_CODE) {
-            primaryTextTag = [item.value + ' - ' + item.text];
-        }
+        let primaryTextTag = [
+            getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
+        ];
+
         let secTextTag = [];
         if (item.secondaryText && item.secondaryText != '') {
             primaryTextTag = [
@@ -301,10 +341,20 @@ export class KupList {
                 data-value={item.value}
                 aria-selected={ariaSelectedAttr}
                 aria-checked={ariaCheckedAttr}
+                onFocus={
+                    !this.selectable
+                        ? (e: any) => e.stopPropagation()
+                        : (e: any) => this.onKupFocus(e, item)
+                }
                 onClick={
                     !this.selectable
                         ? (e: any) => e.stopPropagation()
                         : (e: any) => this.onKupClick(e, item, index)
+                }
+                onKeyUp={
+                    !this.selectable
+                        ? (e: any) => e.stopPropagation()
+                        : (e: any) => this.onKupInput(e, item, index)
                 }
             >
                 {innerSpanTag}
@@ -314,30 +364,11 @@ export class KupList {
 
     setUnselected(item: ComponentListElement, index: number) {
         item.selected = false;
-        let target = this.listComponent.listElements[index];
-        target.setAttribute('aria-selected', 'false');
-        target.setAttribute('aria-checked', 'false');
-        target.setAttribute('tabindex', '-1');
-        if (this.isListBoxRule()) {
-            target.setAttribute('class', 'mdc-list-item');
-        }
-
         this.sendInfoToSubComponent(index, item);
     }
 
     setSelected(item: ComponentListElement, index: number) {
         item.selected = true;
-        let target = this.listComponent.listElements[index];
-        target.setAttribute('aria-selected', 'true');
-        target.setAttribute('aria-checked', 'true');
-        target.setAttribute('tabindex', '0');
-        if (this.isListBoxRule()) {
-            target.setAttribute(
-                'class',
-                'mdc-list-item' + ' ' + 'mdc-list-item--selected'
-            );
-        }
-
         this.sendInfoToSubComponent(index, item);
     }
 
@@ -400,6 +431,15 @@ export class KupList {
 
     //---- Lifecycle hooks ----
 
+    componentDidRender() {
+        let firstLi: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.mdc-list-item'
+        ) as HTMLElement;
+        if (firstLi != null) {
+            firstLi.focus();
+        }
+    }
+
     componentDidLoad() {
         this.listComponent = null;
         // Called once just after the component fully loaded and the first render() occurs.
@@ -444,15 +484,22 @@ export class KupList {
         );
     }
 
-    log(methodName: string, msg: string) {
-        console.log(
-            'kup-list.' + methodName + '() ' + this.fieldId + ' - ' + msg
-        );
-    }
-
     render() {
+        let wrapperClass = undefined;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.isMenu) {
+            wrapperClass = 'mdc-menu mdc-menu-surface';
+
+            if (this.menuVisible) {
+                wrapperClass += ' visible';
+            }
+        }
+
         this.checkRoleType();
-        this.log('render', 'selectable: ' + this.selectable);
 
         //---- Rendering ----
         let componentClass: string = 'mdc-list';
@@ -473,10 +520,11 @@ export class KupList {
         this.radios = [];
         this.checkboxes = [];
         let index = 0;
-        // Host refers to container DOM element - kup-list
+
         return (
             <Host>
-                <div id="kup-component">
+                {customStyle}
+                <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}
                         role={roleAttr}

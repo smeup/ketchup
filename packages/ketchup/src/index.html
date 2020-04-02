@@ -108,21 +108,6 @@
           <button>Test 2: filler</button>
         </kup-layout>
 
-        <h4>Combo using portal</h4>
-        <h4>FLD 1</h4>
-        <kup-fld id="kfld-1"></kup-fld>
-        <h4>FLD 2</h4>
-        <kup-fld id="kfld-2"></kup-fld>
-        <h4>FLD 3</h4>
-        <kup-fld id="kfld-3"></kup-fld>
-        <h4>FLD 4</h4>
-        <kup-fld id="kfld-4"></kup-fld>
-        <h4>FLD Initial value</h4>
-        <kup-fld id="fld-radio-initialValue"></kup-fld>
-        <h4>FLD 5: text format</h4>
-        <kup-fld id="fld-5-text"></kup-fld>
-        <h4>FLD 6: UPLOAD</h4>
-        <kup-fld id="fld-6-upload"></kup-fld>
 
         <h4>Input text type password</h4>
         <kup-text-field
@@ -655,12 +640,11 @@ chipList.data = [
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
             selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
-            //selectBox1.listData.data = [...itemsForListBox];
 
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
             autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
-            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true,};
-            //autocompleteBox1.listData.data = [...itemsForListBox];
+            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            autocompleteBox1.selectMode = 'code';
 
             let once = true;
             // This is a script for testing these elements

@@ -47,7 +47,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<kup-fld type="itx" id="demo-component"></kup-fld>',
+      demoComp: '<kup-field type="itx" id="demo-component"></kup-field>',
       demoProps: [
         {
           prop: 'customStyle',

@@ -187,7 +187,7 @@ export class KupCombobox {
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_up';
-        this.listEl.classList.add('visible');
+        this.listEl.menuVisible = true;
         this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
@@ -197,7 +197,7 @@ export class KupCombobox {
     closeList() {
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_down';
-        this.listEl.classList.remove('visible');
+        this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }
 
@@ -273,7 +273,7 @@ export class KupCombobox {
         let comp: HTMLElement = (
             <kup-list
                 {...this.listData}
-                class="mdc-menu mdc-menu-surface"
+                is-menu
                 onKupListClick={() => this.onKupItemClick()}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>

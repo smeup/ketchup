@@ -6,10 +6,15 @@ import {
     Element,
     Host,
     h,
+    Listen,
 } from '@stencil/core';
 
 import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
+import {
+    ItemsDisplayMode,
+    getValueOfItemByDisplayMode,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -43,6 +48,12 @@ export class KupAutocomplete {
      * Props of the text field.
      */
     @Prop() textfieldData: Object = {};
+
+    /**
+     * Sets how the return the selected item value
+     */
+    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
+        ItemsDisplayMode.CODE;
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
@@ -124,7 +135,7 @@ export class KupAutocomplete {
     }>;
 
     @Event({
-        eventName: 'kupFilterChanged',
+        eventName: 'kupAutocompleteFilterChanged',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -149,6 +160,12 @@ export class KupAutocomplete {
      */
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
 
+    @Listen('keyup', { target: 'document' })
+    closeListOnEscapeKeyup(e: KeyboardEvent) {
+        if (e.key === 'Escape') {
+            this.closeList();
+        }
+    }
     /**
      * --- Methods ----
      */
@@ -227,8 +244,16 @@ export class KupAutocomplete {
         });
     }
 
+    onKupFilterChanged(e: CustomEvent) {
+        this.log('onKupFilterChanged', 'detail.value: ' + e.detail.value);
+        this.handleFilterChange(e.detail.value, e.target);
+    }
+
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         this.log('handleFilterChange', 'newFilter: ' + newFilter);
+        for (let i = 0; i < this.listData['data'].length; i++) {
+            this.listData['data'][i].selected = false;
+        }
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -263,10 +288,9 @@ export class KupAutocomplete {
             '.mdc-text-field'
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
-        if (this.textfieldEl['icon']) {
-            this.textfieldEl['icon'] = 'arrow_drop_up';
-        }
-        this.listEl.classList.add('visible');
+        this.textfieldEl['icon'] = 'arrow_drop_up';
+        this.listEl.menuVisible = true;
+        this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = textFieldWidth + 'px';
@@ -278,7 +302,8 @@ export class KupAutocomplete {
         if (this.textfieldEl['icon']) {
             this.textfieldEl['icon'] = 'arrow_drop_down';
         }
-        this.listEl.classList.remove('visible');
+        this.listEl.menuVisible = false;
+        this.listEl.classList.remove('dynamic-position-active');
     }
 
     consistencyCheck() {
@@ -301,7 +326,11 @@ export class KupAutocomplete {
                 }
                 if (this.listData['data'][i].selected && !firstSelectedFound) {
                     firstSelectedFound = true;
-                    this.value = this.listData['data'][i].text;
+                    this.value = getValueOfItemByDisplayMode(
+                        this.listData['data'][i],
+                        this.selectMode,
+                        ' - '
+                    );
                     this.log(
                         'consistencyCheck',
                         'selectedValue: ' +
@@ -318,13 +347,10 @@ export class KupAutocomplete {
     }
 
     log(methodName: string, msg: string) {
-        console.log(
-            'kup-autocomplete.' +
-                methodName +
-                '() ' +
-                this.fieldId +
-                ' - ' +
-                msg
+        errorLogging(
+            'kup-autocomplete',
+            methodName + '() ' + this.fieldId + ' - ' + msg,
+            'log'
         );
     }
     //---- Lifecycle hooks ----
@@ -348,17 +374,13 @@ export class KupAutocomplete {
             };
         }
 
-        //if (!this.textfieldData['icon']) {
-        //    this.textfieldData['icon'] = 'arrow_drop_down';
-        //}
-
         let comp: HTMLElement = (
             <kup-text-field
                 {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
                 field-id={this.fieldId + '.text-field'}
-                onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
+                /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
@@ -375,7 +397,7 @@ export class KupAutocomplete {
         let comp: HTMLElement = (
             <kup-list
                 {...this.listData}
-                class="mdc-menu mdc-menu-surface"
+                is-menu
                 onKupListClick={() => this.onKupItemClick()}
                 field-id={this.fieldId + '.list'}
                 ref={(el) => (this.listEl = el as any)}
