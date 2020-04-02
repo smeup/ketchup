@@ -211,7 +211,7 @@ export default {
                 children: [],
                 disabled: false,
                 expandable: false,
-                icon: 'filter_1',
+                npm: 'filter_1',
                 id: '00100',
                 isExpanded: false,
                 obj: { t: 'TN', p: '', k: 'First node' },

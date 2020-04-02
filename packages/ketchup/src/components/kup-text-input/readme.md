@@ -69,27 +69,6 @@ Type: `Promise<void>`
 | `--itx_tr-duration, --kup-text-input_transition-duration`     | Set all transitions duration                    |
 
 
-## Dependencies
-
-### Used by
-
- - [kup-box](../kup-box)
- - [kup-checkbox-menu](../kup-checkbox-menu)
- - [kup-data-table](../kup-data-table)
- - [kup-form](../kup-form)
- - [kup-search](../kup-search)
-
-### Graph
-```mermaid
-graph TD;
-  kup-box --> kup-text-input
-  kup-checkbox-menu --> kup-text-input
-  kup-data-table --> kup-text-input
-  kup-form --> kup-text-input
-  kup-search --> kup-text-input
-  style kup-text-input fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
