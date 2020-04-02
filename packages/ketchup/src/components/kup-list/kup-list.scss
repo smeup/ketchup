@@ -20,6 +20,10 @@
     }
     & .mdc-list {
       @include mdc-list-single-line-density(-4);
+
+      & .mdc-list-item:not(.mdc-list-item--selected) .mdc-list-item__text {
+        color: var(--kup-text-color);
+      }
     }
   }
 }
