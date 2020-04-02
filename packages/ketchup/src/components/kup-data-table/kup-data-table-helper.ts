@@ -14,6 +14,7 @@ import {
 } from './kup-data-table-declarations';
 
 import { isNumber } from '../../utils/object-utils';
+import { isEmpty } from '../../utils/utils';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -620,7 +621,7 @@ export function normalizeTotals(
     columns: Array<Column>,
     totals: TotalsMap
 ): TotalsMap {
-    if (!columns || !totals) {
+    if (isEmpty(columns) || isEmpty(totals)) {
         return {};
     }
 
@@ -646,7 +647,7 @@ export function calcTotals(
     rows: Array<Row> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
-    if (!rows || !totals) {
+    if (isEmpty(rows) || isEmpty(totals)) {
         return {};
     }
     const keys = Object.keys(totals);

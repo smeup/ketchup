@@ -102,3 +102,12 @@ export function getBoolean(value: any) {
             return false;
     }
 }
+
+/**
+ * Check if an object is undefined, null or empty
+ * @param obj the object to check
+ * @return true or false
+ */
+export function isEmpty(obj: any) {
+    return !obj || obj===null || (Object.keys(obj).length === 0 && obj.constructor === Object);
+}
