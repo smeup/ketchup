@@ -28,10 +28,6 @@ export class KupAutocomplete {
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-    /**
-     * Sets if the autocomplete should be enabled or not
-     */
-    @Prop({ reflect: true }) disabled: boolean = false;
 
     /**
      * The minimum number of chars to trigger the autocomplete
@@ -212,7 +208,7 @@ export class KupAutocomplete {
     onKupInput(e: CustomEvent) {
         this.value = e.detail.value;
 
-        if (this.openList()) {
+        if (this.openList(false)) {
             this.handleFilterChange(this.value, e.target);
         }
 
@@ -227,7 +223,7 @@ export class KupAutocomplete {
         if (this.textfieldEl.classList.contains('toggled')) {
             this.closeList();
         } else {
-            this.openList();
+            this.openList(true);
         }
         this.kupIconClick.emit({
             value: target.value,
@@ -281,8 +277,8 @@ export class KupAutocomplete {
         }
     }
 
-    openList(): boolean {
-        if (this.value.length < this.minimumChars) {
+    openList(forceOpen: boolean): boolean {
+        if (forceOpen != true && this.value.length < this.minimumChars) {
             return false;
         }
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
@@ -307,7 +303,6 @@ export class KupAutocomplete {
             this.textfieldEl['icon'] = 'arrow_drop_down';
         }
         this.textfieldEl.emitSubmitEventOnEnter = true;
-        //this.textfieldEl.customedFocus = true;
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
         this.listEl.resetFilter();

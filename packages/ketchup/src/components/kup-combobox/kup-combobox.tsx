@@ -6,10 +6,15 @@ import {
     Element,
     Host,
     h,
+    Listen,
 } from '@stencil/core';
 
 import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
+import {
+    ItemsDisplayMode,
+    getValueOfItemByDisplayMode,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -33,6 +38,12 @@ export class KupCombobox {
      * Props of the text field.
      */
     @Prop() textfieldData: Object = {};
+
+    /**
+     * Sets how the return the selected item value
+     */
+    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
+        ItemsDisplayMode.CODE;
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
@@ -113,6 +124,23 @@ export class KupCombobox {
         value: any;
     }>;
 
+    @Listen('keyup', { target: 'document' })
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            if (e.key === 'Escape') {
+                this.closeList();
+            }
+            if (e.key === 'Enter') {
+                this.closeList();
+            }
+            if (e.key === 'ArrowDown') {
+                this.listEl.arrowDown = true;
+            }
+            if (e.key === 'ArrowUp') {
+                this.listEl.arrowUp = true;
+            }
+        }
+    }
     /**
      * --- Methods ----
      */
@@ -187,6 +215,7 @@ export class KupCombobox {
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_up';
+        this.textfieldEl.emitSubmitEventOnEnter = false;
         this.listEl.menuVisible = true;
         this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
@@ -197,8 +226,13 @@ export class KupCombobox {
     closeList() {
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_down';
+        this.textfieldEl.emitSubmitEventOnEnter = true;
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
+    }
+
+    isListOpened(): boolean {
+        return this.listEl.menuVisible == true;
     }
 
     consistencyCheck() {
@@ -217,7 +251,11 @@ export class KupCombobox {
                 }
                 if (this.listData['data'][i].selected && !firstSelectedFound) {
                     firstSelectedFound = true;
-                    this.value = this.listData['data'][i].text;
+                    this.value = getValueOfItemByDisplayMode(
+                        this.listData['data'][i],
+                        this.selectMode,
+                        ' - '
+                    );
                     if (this.textfieldEl) {
                         this.textfieldEl.initialValue = this.value;
                     }
@@ -256,7 +294,7 @@ export class KupCombobox {
                 {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
-                onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
+                //onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
@@ -275,6 +313,7 @@ export class KupCombobox {
                 {...this.listData}
                 is-menu
                 onKupListClick={() => this.onKupItemClick()}
+                id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
