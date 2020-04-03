@@ -1,10 +1,25 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >When there are multiple elements of the same type it is advised to use
-        the list component.</p
-      >
+      <p>
+        When there are multiple elements of the same type it is advised to use
+        the list component. The actual elements of the list must be defined inside the
+        <span
+          class="code-word"
+        >data</span> prop, following this structure:
+        <br />
+        <br />
+        <span class="code-word">text</span> is mandatory and defines the description.
+        <br />
+        <span class="code-word">secondaryText</span> contains an optional string that will be displayed below
+        <span class="code-word">text</span> when the component's items are arranged in two lines.
+        <br />
+        <span class="code-word">value</span> is mandatory and it's the actual value of the item.
+        <br />
+        <span class="code-word">isSeparator</span> is optional and will set the item to behave as a separator.
+        <br />
+        <span class="code-word">selected</span> is optional and defines whether the tab is selected or not.
+      </p>
       <br />
       <p class="centered">Sample markup</p>
       <code class="flat">{{ markupBasic }}</code>

@@ -65,18 +65,34 @@ export default {
           try: 'json',
         },
         {
-          prop: 'isFilterable',
+          prop: 'displayMode',
           description:
-            'Marks the list as filterable, allowing an input text to filter the options.',
+            'Selects how the items must display their label and how they can be filtered for. Supported values: "description", "code", "both".',
+          type: 'string',
+          default: 'description',
+          try: 'field',
+        },
+        {
+          prop: 'filter',
+          description:
+            'Keeps string for filtering elements when filter mode is active.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'isMenu',
+          description: 'Defines whether the list is a menu or not.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'fieldId',
-          description: 'Identify the component',
+          prop: 'menuVisible',
+          description:
+            "Sets the status of the menu, when false it's hidden otherwise it's visible.",
           type: 'boolean',
-          default: 'KupList-myId',
+          default: 'false',
           try: 'switch',
         },
         {
@@ -89,7 +105,7 @@ export default {
         },
         {
           prop: 'selectable',
-          description: 'Defines if the list items ar or not selectable.',
+          description: 'Defines whether items are selectable or not.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -146,7 +162,6 @@ export default {
             value: '3',
           },
         ],
-        fieldId: 'LISTA',
         selectable: true,
       },
     };

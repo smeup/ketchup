@@ -5,18 +5,18 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                     | Type                                                                                             | Default                        |
-| ------------- | -------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle` | `custom-style` | Custom style to be passed to the component.                                     | `string`                                                                                         | `undefined`                    |
-| `data`        | --             | The data of the list.                                                           | `ComponentListElement[]`                                                                         | `[]`                           |
-| `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `fieldId`     | `field-id`     | Identify the component.                                                         | `string`                                                                                         | `'list-id'`                    |
-| `filter`      | `filter`       | Keeps string for filtering elements when filter mode is active                  | `string`                                                                                         | `''`                           |
-| `isMenu`      | `is-menu`      | Defines whether the list is a menu or not.                                      | `boolean`                                                                                        | `false`                        |
-| `menuVisible` | `menu-visible` | Sets the status of the menu, when false it's hidden otherwise it's visible.     | `boolean`                                                                                        | `false`                        |
-| `roleType`    | `role-type`    | Defines the type of selection. Values accepted: listbox, radiogroup or group.   | `string`                                                                                         | `KupList.ROLE_LISTBOX`         |
-| `selectable`  | `selectable`   | Defines if the list items ar or not selectable.                                 | `boolean`                                                                                        | `true`                         |
-| `twoLine`     | `two-line`     | The list elements descriptions will be arranged in two lines.                   | `boolean`                                                                                        | `false`                        |
+| Property      | Attribute      | Description                                                                      | Type                                                                                             | Default                        |
+| ------------- | -------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle` | `custom-style` | Sets a custom style for the component by feeding this string into a <style> tag. | `string`                                                                                         | `undefined`                    |
+| `data`        | --             | The data of the list.                                                            | `ComponentListElement[]`                                                                         | `[]`                           |
+| `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for. | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `fieldId`     | `field-id`     | Identify the component.                                                          | `string`                                                                                         | `'list-id'`                    |
+| `filter`      | `filter`       | Keeps string for filtering elements when filter mode is active.                  | `string`                                                                                         | `''`                           |
+| `isMenu`      | `is-menu`      | Defines whether the list is a menu or not.                                       | `boolean`                                                                                        | `false`                        |
+| `menuVisible` | `menu-visible` | Sets the status of the menu, when false it's hidden otherwise it's visible.      | `boolean`                                                                                        | `false`                        |
+| `roleType`    | `role-type`    | Defines the type of selection. Values accepted: listbox, radiogroup or group.    | `string`                                                                                         | `KupList.ROLE_LISTBOX`         |
+| `selectable`  | `selectable`   | Defines whether items are selectable or not.                                     | `boolean`                                                                                        | `true`                         |
+| `twoLine`     | `two-line`     | The list elements descriptions will be arranged in two lines.                    | `boolean`                                                                                        | `false`                        |
 
 
 ## Events

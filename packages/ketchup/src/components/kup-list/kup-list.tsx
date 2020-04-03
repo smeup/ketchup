@@ -31,7 +31,7 @@ export class KupList {
     @Element() rootElement: HTMLElement;
 
     /**
-     * Custom style to be passed to the component.
+     * Sets a custom style for the component by feeding this string into a <style> tag.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
 
@@ -41,7 +41,7 @@ export class KupList {
     @Prop() data: ComponentListElement[] = [];
 
     /**
-     * Selects how the items must display their label and how they can be filtered for
+     * Selects how the items must display their label and how they can be filtered for.
      */
     @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
         ItemsDisplayMode.DESCRIPTION;
@@ -67,7 +67,7 @@ export class KupList {
     @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
 
     /**
-     * Defines if the list items ar or not selectable.
+     * Defines whether items are selectable or not.
      */
     @Prop({ reflect: true }) selectable: boolean = true;
 
@@ -465,32 +465,12 @@ export class KupList {
         if (this.isListBoxRule()) {
             target.setAttribute('class', 'mdc-list-item');
         }
-        /*
-        let target = this.listComponent.listElements[index];
-        target.setAttribute('aria-selected', 'false');
-        target.setAttribute('aria-checked', 'false');
-        target.setAttribute('tabindex', '-1');
-        if (this.isListBoxRule()) {
-            target.setAttribute('class', 'mdc-list-item');
-        }*/
 
         this.sendInfoToSubComponent(index, item);
     }
 
     setSelected(item: ComponentListElement, index: number) {
         item.selected = true;
-        /*
-        let target = this.listComponent.listElements[index];
-        target.setAttribute('aria-selected', 'true');
-        target.setAttribute('aria-checked', 'true');
-        target.setAttribute('tabindex', '0');
-        if (this.isListBoxRule()) {
-            target.setAttribute(
-                'class',
-                'mdc-list-item' + ' ' + 'mdc-list-item--selected'
-            );
-        }*/
-
         this.sendInfoToSubComponent(index, item);
     }
 
