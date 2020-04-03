@@ -88,23 +88,11 @@ import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
 import {
-  JSX,
-} from '@stencil/core';
-import {
-  ElementOffset,
-} from './utils/offset';
-import {
   ComponentRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
 import {
   ComponentTabBarElement,
 } from './components/kup-tab-bar/kup-tab-bar-declarations';
-import {
-  GenericObject,
-} from './types/GenericTypes';
-import {
-  KetchupTextInputEvent,
-} from './components/kup-text-input/kup-text-input-declarations';
 import {
   TooltipAction,
   TooltipData,
@@ -412,13 +400,6 @@ export namespace Components {
     * The type of chip. Available types: input, filter, choice or empty for default.
     */
     'type': string;
-  }
-  interface KupChipKnowledge {
-    'closeable'?: boolean;
-    'disabled'?: boolean;
-    'imgUrl': string;
-    'label': string;
-    'name': string;
   }
   interface KupCombobox {
     /**
@@ -915,55 +896,6 @@ export namespace Components {
     'perPage': number;
     'selectedPerPage': number;
   }
-  interface KupPortal {
-    /**
-    * Returns the root node instance of the KetchupPortalInstance element
-    */
-    'getPortalInstance': () => Promise<HTMLElement>;
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible': boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars': string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes': JSX.Element[] | JSX.Element;
-    /**
-    * Reference to the html element which is using the portal. It must be a root of a web component.
-    */
-    'portalParentRef': HTMLElement;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode': HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset': ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement | null;
-  }
-  interface KupPortalInstance {
-    'additionalAdoptedStyleSheets': CSSStyleSheet[];
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible': boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode': HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
   interface KupProgressBar {
     /**
     * FLag to show or hide the progress bar's label
@@ -1173,52 +1105,6 @@ export namespace Components {
     */
     'trailingLabel': boolean;
   }
-  interface KupTextInput {
-    /**
-    * Imperatively sets a new value of the input.
-    */
-    'changeValue': (newValue: string, emitEvent?: boolean) => Promise<boolean>;
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce': number;
-    /**
-    * Sets the input to be disabled
-    */
-    'disabled': boolean;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue': string;
-    /**
-    * Specify the type of input. Allowed values: password, text.
-    */
-    'inputType': string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable': boolean;
-    /**
-    * Label to describe the text-input clear button group
-    */
-    'label': string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength': number;
-    /**
-    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
-    */
-    'obj'?: GenericObject;
-    /**
-    * text for input placeholder
-    */
-    'placeholder': string;
-    /**
-    * Triggers the focus event on the input text
-    */
-    'triggerFocus': () => Promise<void>;
-  }
   interface KupTooltip {
     /**
     * Data for top section
@@ -1368,12 +1254,6 @@ declare global {
     new (): HTMLKupChipElement;
   };
 
-  interface HTMLKupChipKnowledgeElement extends Components.KupChipKnowledge, HTMLStencilElement {}
-  var HTMLKupChipKnowledgeElement: {
-    prototype: HTMLKupChipKnowledgeElement;
-    new (): HTMLKupChipKnowledgeElement;
-  };
-
   interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {}
   var HTMLKupComboboxElement: {
     prototype: HTMLKupComboboxElement;
@@ -1482,18 +1362,6 @@ declare global {
     new (): HTMLKupPaginatorElement;
   };
 
-  interface HTMLKupPortalElement extends Components.KupPortal, HTMLStencilElement {}
-  var HTMLKupPortalElement: {
-    prototype: HTMLKupPortalElement;
-    new (): HTMLKupPortalElement;
-  };
-
-  interface HTMLKupPortalInstanceElement extends Components.KupPortalInstance, HTMLStencilElement {}
-  var HTMLKupPortalInstanceElement: {
-    prototype: HTMLKupPortalInstanceElement;
-    new (): HTMLKupPortalInstanceElement;
-  };
-
   interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {}
   var HTMLKupProgressBarElement: {
     prototype: HTMLKupProgressBarElement;
@@ -1536,12 +1404,6 @@ declare global {
     new (): HTMLKupTextFieldElement;
   };
 
-  interface HTMLKupTextInputElement extends Components.KupTextInput, HTMLStencilElement {}
-  var HTMLKupTextInputElement: {
-    prototype: HTMLKupTextInputElement;
-    new (): HTMLKupTextInputElement;
-  };
-
   interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {}
   var HTMLKupTooltipElement: {
     prototype: HTMLKupTooltipElement;
@@ -1571,7 +1433,6 @@ declare global {
     'kup-checkbox': HTMLKupCheckboxElement;
     'kup-checkbox-menu': HTMLKupCheckboxMenuElement;
     'kup-chip': HTMLKupChipElement;
-    'kup-chip-knowledge': HTMLKupChipKnowledgeElement;
     'kup-combobox': HTMLKupComboboxElement;
     'kup-crud': HTMLKupCrudElement;
     'kup-dash': HTMLKupDashElement;
@@ -1590,8 +1451,6 @@ declare global {
     'kup-menu': HTMLKupMenuElement;
     'kup-modal': HTMLKupModalElement;
     'kup-paginator': HTMLKupPaginatorElement;
-    'kup-portal': HTMLKupPortalElement;
-    'kup-portal-instance': HTMLKupPortalInstanceElement;
     'kup-progress-bar': HTMLKupProgressBarElement;
     'kup-radio': HTMLKupRadioElement;
     'kup-search': HTMLKupSearchElement;
@@ -1599,7 +1458,6 @@ declare global {
     'kup-switch': HTMLKupSwitchElement;
     'kup-tab-bar': HTMLKupTabBarElement;
     'kup-text-field': HTMLKupTextFieldElement;
-    'kup-text-input': HTMLKupTextInputElement;
     'kup-tooltip': HTMLKupTooltipElement;
     'kup-tree': HTMLKupTreeElement;
     'kup-upload': HTMLKupUploadElement;
@@ -2071,15 +1929,6 @@ declare namespace LocalJSX {
     * The type of chip. Available types: input, filter, choice or empty for default.
     */
     'type'?: string;
-  }
-  interface KupChipKnowledge extends JSXBase.HTMLAttributes<HTMLKupChipKnowledgeElement> {
-    'closeable'?: boolean;
-    'disabled'?: boolean;
-    'imgUrl'?: string;
-    'label'?: string;
-    'name'?: string;
-    'onKupChipKnowledgeClick'?: (event: CustomEvent<any>) => void;
-    'onKupChipKnowledgeClose'?: (event: CustomEvent<any>) => void;
   }
   interface KupCombobox extends JSXBase.HTMLAttributes<HTMLKupComboboxElement> {
     /**
@@ -2707,51 +2556,6 @@ declare namespace LocalJSX {
     'perPage'?: number;
     'selectedPerPage'?: number;
   }
-  interface KupPortal extends JSXBase.HTMLAttributes<HTMLKupPortalElement> {
-    /**
-    * Tells the portal instance if it can be visible or not
-    */
-    'isVisible'?: boolean;
-    /**
-    * Array of custom css vars which needs to be mirrored. Their value is computed from cssVarsRef
-    */
-    'mirroredCssVars'?: string[];
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'nodes'?: JSX.Element[] | JSX.Element;
-    /**
-    * Reference to the html element which is using the portal. It must be a root of a web component.
-    */
-    'portalParentRef'?: HTMLElement;
-    /**
-    * The HTML element on which the virtual node must be appended
-    */
-    'portalRootNode'?: HTMLElement;
-    /**
-    * Calculated offset of where the portal must be positioned
-    */
-    'refOffset'?: ElementOffset;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement | null;
-  }
-  interface KupPortalInstance extends JSXBase.HTMLAttributes<HTMLKupPortalInstanceElement> {
-    'additionalAdoptedStyleSheets'?: CSSStyleSheet[];
-    /**
-    * Specifies if the current portal instance should be displayed or not.
-    */
-    'isVisible'?: boolean;
-    /**
-    * A style node to be copied into the KetchupPortalInstance
-    */
-    'styleNode'?: HTMLStyleElement;
-    /**
-    * Virtual node list the KetchupPortalInstance must render
-    */
-    'vNodes'?: JSX.Element[] | JSX.Element;
-  }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
     /**
     * FLag to show or hide the progress bar's label
@@ -3036,64 +2840,6 @@ declare namespace LocalJSX {
     */
     'trailingLabel'?: boolean;
   }
-  interface KupTextInput extends JSXBase.HTMLAttributes<HTMLKupTextInputElement> {
-    /**
-    * Set the amount of time, in milliseconds, to wait to trigger the `ketchupTextInputUpdated` event after each keystroke.
-    */
-    'debounce'?: number;
-    /**
-    * Sets the input to be disabled
-    */
-    'disabled'?: boolean;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'initialValue'?: string;
-    /**
-    * Specify the type of input. Allowed values: password, text.
-    */
-    'inputType'?: string;
-    /**
-    * Marks the field as clearable, allowing an icon to delete its content
-    */
-    'isClearable'?: boolean;
-    /**
-    * Label to describe the text-input clear button group
-    */
-    'label'?: string;
-    /**
-    * The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp
-    */
-    'maxLength'?: number;
-    /**
-    * A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit.
-    */
-    'obj'?: GenericObject;
-    /**
-    * When text field loses focus (blur)
-    */
-    'onKetchupTextInputBlurred'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the input text value gets changed (the onchange event fires when the element loses focus, not immediately after the modification like the oninput)
-    */
-    'onKetchupTextInputChanged'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the text input gains focus
-    */
-    'onKetchupTextInputFocused'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When a keydown enter event occurs it generates
-    */
-    'onKetchupTextInputSubmit'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * When the input text value gets updated
-    */
-    'onKetchupTextInputUpdated'?: (event: CustomEvent<KetchupTextInputEvent>) => void;
-    /**
-    * text for input placeholder
-    */
-    'placeholder'?: string;
-  }
   interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
     /**
     * Data for top section
@@ -3233,7 +2979,6 @@ declare namespace LocalJSX {
     'kup-checkbox': KupCheckbox;
     'kup-checkbox-menu': KupCheckboxMenu;
     'kup-chip': KupChip;
-    'kup-chip-knowledge': KupChipKnowledge;
     'kup-combobox': KupCombobox;
     'kup-crud': KupCrud;
     'kup-dash': KupDash;
@@ -3252,8 +2997,6 @@ declare namespace LocalJSX {
     'kup-menu': KupMenu;
     'kup-modal': KupModal;
     'kup-paginator': KupPaginator;
-    'kup-portal': KupPortal;
-    'kup-portal-instance': KupPortalInstance;
     'kup-progress-bar': KupProgressBar;
     'kup-radio': KupRadio;
     'kup-search': KupSearch;
@@ -3261,7 +3004,6 @@ declare namespace LocalJSX {
     'kup-switch': KupSwitch;
     'kup-tab-bar': KupTabBar;
     'kup-text-field': KupTextField;
-    'kup-text-input': KupTextInput;
     'kup-tooltip': KupTooltip;
     'kup-tree': KupTree;
     'kup-upload': KupUpload;

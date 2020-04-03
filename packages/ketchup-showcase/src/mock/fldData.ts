@@ -108,7 +108,6 @@ export const fldDataWupCombobox = [
     ],
   },
   { prop: 'selectable', value: true },
-  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export const fldDataWupComboboxSeparator = [
@@ -139,7 +138,6 @@ export const fldDataWupComboboxSeparator = [
     ],
   },
   { prop: 'selectable', value: true },
-  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export const fldDataWupComboboxUnselected = [
@@ -165,7 +163,6 @@ export const fldDataWupComboboxUnselected = [
     ],
   },
   { prop: 'selectable', value: true },
-  { prop: 'fieldId', value: 'LISTA' },
 ];
 
 export function fldConfigFactory(
@@ -178,7 +175,6 @@ export function fldConfigFactory(
     showSubmit: true,
     submitLabel: 'Confirm',
     selectable: true,
-    fieldId: 'LISTA',
     textfieldData: [
       { prop: 'trailingIcon', value: true },
       { prop: 'icon', value: 'arrow_drop_down' },
@@ -202,7 +198,6 @@ export function fldConfigItxFactory(
     displayedField: 'value',
     showSubmit: true,
     submitLabel: 'Confirm',
-    usePortal: true,
   };
 
   propToChange.forEach((prop) => {

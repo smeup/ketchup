@@ -166,7 +166,6 @@ export class KupPaginator {
         };
         let listDataPage = {
             data: goToPageItems,
-            fieldId: 'LISTA',
             selectable: true,
         };
 
@@ -177,7 +176,6 @@ export class KupPaginator {
         };
         let listDataRows = {
             data: rowsPerPageItems,
-            fieldId: 'LISTA',
             selectable: true,
         };
 

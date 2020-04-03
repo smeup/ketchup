@@ -438,14 +438,6 @@ export class KupTooltip {
                 <slot />
 
                 {this.createTooltip()}
-
-                {/* <kup-portal
-                    isVisible={this.visible}
-                    nodes={this.createTooltip()}
-                    portalParentRef={this.tooltipEl}
-                    styleNode={this.tooltipEl.shadowRoot.querySelector('style')}
-                    refOffset={this.tooltipPosition}
-                /> */}
             </div>
         );
     }

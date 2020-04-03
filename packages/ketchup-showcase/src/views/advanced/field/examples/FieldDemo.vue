@@ -146,7 +146,6 @@ export default {
                 value: '3',
               },
             ],
-            fieldId: 'LISTA',
             selectable: true,
           },
         },

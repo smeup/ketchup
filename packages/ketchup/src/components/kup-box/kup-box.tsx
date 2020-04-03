@@ -1365,7 +1365,6 @@ export class KupBox {
             };
             let listData = {
                 data: items,
-                fieldId: 'LISTA',
                 selectable: true,
             };
 

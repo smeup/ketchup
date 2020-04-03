@@ -5,11 +5,12 @@
 
 ## Properties
 
-| Property        | Attribute      | Description                                 | Type     | Default     |
-| --------------- | -------------- | ------------------------------------------- | -------- | ----------- |
-| `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string` | `undefined` |
-| `listData`      | --             | Props of the list.                          | `Object` | `{}`        |
-| `textfieldData` | --             | Props of the text field.                    | `Object` | `{}`        |
+| Property        | Attribute      | Description                                 | Type                                                                                             | Default                 |
+| --------------- | -------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
+| `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string`                                                                                         | `undefined`             |
+| `listData`      | --             | Props of the list.                          | `Object`                                                                                         | `{}`                    |
+| `selectMode`    | `select-mode`  | Sets how the return the selected item value | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE` |
+| `textfieldData` | --             | Props of the text field.                    | `Object`                                                                                         | `{}`                    |
 
 
 ## Events

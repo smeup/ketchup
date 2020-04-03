@@ -123,12 +123,6 @@ export default {
         title: 'Advanced',
         advancedItems: [
           {
-            title: 'Autocomplete',
-            to: {
-              name: 'autocomplete',
-            },
-          },
-          {
             title: 'Box',
             to: {
               name: 'box',
@@ -207,12 +201,6 @@ export default {
             },
           },
           {
-            title: `Portal`,
-            to: {
-              name: 'portal',
-            },
-          },
-          {
             title: 'Progress bar',
             to: {
               name: 'progressbar',
@@ -241,6 +229,12 @@ export default {
       {
         title: 'Basic',
         basicItems: [
+          {
+            title: 'Autocomplete',
+            to: {
+              name: 'autocomplete',
+            },
+          },
           {
             title: `Button`,
             to: {

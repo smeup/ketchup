@@ -17,7 +17,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'ComboboxDemo',
+  name: 'AutocompleteDemo',
   data() {
     return {
       demoTabs: [
@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-combobox label="demo" id="demo-component"></kup-combobox>',
+        '<kup-autocomplete minimum-chars="1" select-mode="description" id="demo-component"></kup-autocomplete>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -67,6 +67,22 @@ export default {
           try: 'json',
         },
         {
+          prop: 'minimumChars',
+          description:
+            'The minimum number of chars to trigger the autocomplete.',
+          type: 'number',
+          default: '3',
+          try: 'field',
+        },
+        {
+          prop: 'selectMode',
+          description:
+            'Sets how the return the selected item value. Supported values: "code", "description", "both".',
+          type: 'string',
+          default: 'code',
+          try: 'field',
+        },
+        {
           prop: 'textfieldData',
           description:
             "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
@@ -77,32 +93,36 @@ export default {
       ],
       demoEvents: [
         {
-          name: 'kupComboboxClick',
+          name: 'kupAutocompleteClick',
           type: 'click',
         },
         {
-          name: 'kupComboboxChange',
+          name: 'kupAutocompleteChange',
           type: 'change',
         },
         {
-          name: 'kupComboboxInput',
+          name: 'kupAutocompleteInput',
           type: 'input',
         },
         {
-          name: 'kupComboboxFocus',
+          name: 'kupAutocompleteFocus',
           type: 'focus',
         },
         {
-          name: 'kupComboboxBlur',
+          name: 'kupAutocompleteBlur',
           type: 'blur',
         },
         {
-          name: 'kupComboboxIconClick',
+          name: 'kupAutocompleteIconClick',
           type: 'click',
         },
         {
-          name: 'kupComboboxItemClick',
+          name: 'kupAutocompleteItemClick',
           type: 'click',
+        },
+        {
+          name: 'kupAutocompleteFilterChanged',
+          type: 'customEvent',
         },
       ],
       demoData: {
@@ -114,24 +134,19 @@ export default {
         listData: {
           data: [
             {
-              text: 'First choice',
-              value: '1',
+              text: 'First item',
+              value: 'CODE_1',
             },
             {
-              text: 'Selected choice',
-              value: '2',
-              selected: true,
+              text: 'Second item',
+              value: 'CODE_2',
             },
             {
-              text: null,
-              value: null,
-              isSeparator: true,
-            },
-            {
-              text: 'Third choice (below a separator)',
-              value: '3',
+              text: 'Third item',
+              value: 'CODE_3',
             },
           ],
+          displayMode: 'both',
           selectable: true,
         },
       },

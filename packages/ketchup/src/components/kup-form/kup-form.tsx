@@ -9,8 +9,6 @@ import {
     Method,
 } from '@stencil/core';
 
-//import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
-//import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import {
     CrudRecordsChanged,
     CrudCallBackOnFormEventResult,
@@ -20,8 +18,6 @@ import {
     KupAutocompleteOption,
     KupAutocompleteFilterUpdatePayload,
 } from '../kup-autocomplete/kup-autocomplete-declarations';
-
-//import { SearchSelectionUpdatedEventDetail } from '../kup-search/kup-search-declarations';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -436,7 +432,6 @@ export class KupForm {
                     }
                     let listData = {
                         data: field.config.data,
-                        fieldId: 'LISTA',
                         selectable: !field.readonly,
                     };
                     fieldContent = (
