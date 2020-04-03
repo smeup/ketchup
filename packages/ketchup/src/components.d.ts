@@ -1036,7 +1036,7 @@ export namespace Components {
     */
     'disabled': boolean;
     /**
-    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text-field.
+    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
     */
     'emitSubmitEventOnEnter': boolean;
     /**
@@ -2747,7 +2747,7 @@ declare namespace LocalJSX {
     */
     'disabled'?: boolean;
     /**
-    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text-field.
+    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
     */
     'emitSubmitEventOnEnter'?: boolean;
     /**

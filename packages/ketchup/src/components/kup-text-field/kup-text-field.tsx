@@ -108,7 +108,7 @@ export class KupTextField {
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
 
-    private inputEl;
+    private inputEl = undefined;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -196,6 +196,9 @@ export class KupTextField {
     @Watch('initialValue')
     watchInitialValue() {
         this.value = this.initialValue;
+        if (this.inputEl !== undefined) {
+            this.inputEl.value = this.value;
+        }
     }
 
     @Watch('emitSubmitEventOnEnter')
