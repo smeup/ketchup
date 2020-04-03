@@ -461,10 +461,11 @@ export class KupList {
 
     setUnselected(item: ComponentListElement, index: number) {
         item.selected = false;
+        /*
         let target = this.listComponent.listElements[index];
         if (this.isListBoxRule()) {
             target.setAttribute('class', 'mdc-list-item');
-        }
+        }*/
 
         this.sendInfoToSubComponent(index, item);
     }

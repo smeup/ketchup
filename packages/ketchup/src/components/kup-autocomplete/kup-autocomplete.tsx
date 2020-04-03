@@ -346,7 +346,12 @@ export class KupAutocomplete {
                             JSON.stringify(this.textfieldEl)
                     );*/
                     if (this.textfieldEl) {
-                        this.textfieldEl.initialValue = this.value;
+                        if (this.textfieldEl.initialValue === this.value) {
+                            this.textfieldEl.initialValue = '';
+                            this.textfieldEl.initialValue = this.value;
+                        } else {
+                            this.textfieldEl.initialValue = this.value;
+                        }
                     }
                 }
             }

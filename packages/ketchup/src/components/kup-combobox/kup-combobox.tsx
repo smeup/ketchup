@@ -257,7 +257,12 @@ export class KupCombobox {
                         ' - '
                     );
                     if (this.textfieldEl) {
-                        this.textfieldEl.initialValue = this.value;
+                        if (this.textfieldEl.initialValue === this.value) {
+                            this.textfieldEl.initialValue = '';
+                            this.textfieldEl.initialValue = this.value;
+                        } else {
+                            this.textfieldEl.initialValue = this.value;
+                        }
                     }
                 }
             }

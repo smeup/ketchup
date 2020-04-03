@@ -293,11 +293,7 @@ export class KupTextField {
     }
 
     log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-autocomplete',
-            methodName + '() ' + ' - ' + msg,
-            'log'
-        );
+        errorLogging('kup-text-field', methodName + '() ' + ' - ' + msg, 'log');
     }
 
     //---- Lifecycle hooks ----
