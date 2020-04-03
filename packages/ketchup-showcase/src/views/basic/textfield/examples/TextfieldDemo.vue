@@ -56,6 +56,22 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'emitSubmitEventOnEnter',
+          description:
+            'If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'forceFocus',
+          description:
+            'Defaults at false. When set to true, the component will be focused.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'fullHeight',
           description:
             'Sets the height of the component to fill all the available horizontal space provided by its parent.',

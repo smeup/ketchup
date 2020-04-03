@@ -1031,15 +1031,18 @@ export namespace Components {
     * Custom style to be passed to the component.
     */
     'customStyle': string;
-    'customedFocus': boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
     /**
-    * If text field has autocompelte associated and the list is opened, enter must not execute submit it serves just for set the selected item value of the list in the text-field
+    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text-field.
     */
     'emitSubmitEventOnEnter': boolean;
+    /**
+    * Defaults at false. When set to true, the component will be focused.
+    */
+    'forceFocus': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
@@ -2739,15 +2742,18 @@ declare namespace LocalJSX {
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
-    'customedFocus'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
     /**
-    * If text field has autocompelte associated and the list is opened, enter must not execute submit it serves just for set the selected item value of the list in the text-field
+    * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text-field.
     */
     'emitSubmitEventOnEnter'?: boolean;
+    /**
+    * Defaults at false. When set to true, the component will be focused.
+    */
+    'forceFocus'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */

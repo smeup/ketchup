@@ -35,6 +35,15 @@ export class KupTextField {
      */
     @Prop({ reflect: true }) disabled: boolean = false;
     /**
+     * If text field has autocomplete associated and the list is opened, enter must not execute submit
+     * it serves just to set the selected item value of the list in the text field.
+     */
+    @Prop({ reflect: true }) emitSubmitEventOnEnter: boolean = true;
+    /**
+     * Defaults at false. When set to true, the component will be focused.
+     */
+    @Prop({ reflect: true, mutable: true }) forceFocus: boolean = false;
+    /**
      * Defaults at false. When set to true, the component will be rendered at full height.
      */
     @Prop({ reflect: true }) fullHeight: boolean = false;
@@ -98,13 +107,6 @@ export class KupTextField {
      * Defaults at false. When set to true, the label will be on the right of the component.
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
-
-    @Prop({ mutable: true }) customedFocus: boolean = false;
-    /**
-     * If text field has autocompelte associated and the list is opened, enter must not execute submit
-     * it serves just for set the selected item value of the list in the text-field
-     */
-    @Prop({ reflect: true }) emitSubmitEventOnEnter: boolean = true;
 
     private inputEl;
 
@@ -201,11 +203,11 @@ export class KupTextField {
         this.inputEl.focus();
     }
 
-    @Watch('customedFocus')
-    watchCustomedFocus() {
-        if (this.customedFocus == true) {
+    @Watch('forceFocus')
+    watchForceFocus() {
+        if (this.forceFocus == true) {
             this.inputEl.focus();
-            this.customedFocus = false;
+            this.forceFocus = false;
         }
     }
 
