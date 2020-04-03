@@ -15,6 +15,7 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-text-field',
@@ -97,6 +98,13 @@ export class KupTextField {
      * Defaults at false. When set to true, the label will be on the right of the component.
      */
     @Prop({ reflect: true }) trailingLabel: boolean = false;
+
+    @Prop({ mutable: true }) customedFocus: boolean = false;
+    /**
+     * If text field has autocompelte associated and the list is opened, enter must not execute submit
+     * it serves just for set the selected item value of the list in the text-field
+     */
+    @Prop({ reflect: true }) emitSubmitEventOnEnter: boolean = true;
 
     private inputEl;
 
@@ -184,8 +192,21 @@ export class KupTextField {
     }>;
 
     @Watch('initialValue')
-    onInitialValueChanged() {
+    watchInitialValue() {
         this.value = this.initialValue;
+    }
+
+    @Watch('emitSubmitEventOnEnter')
+    watchEmitSubmitEventOnEnter() {
+        this.inputEl.focus();
+    }
+
+    @Watch('customedFocus')
+    watchCustomedFocus() {
+        if (this.customedFocus == true) {
+            this.inputEl.focus();
+            this.customedFocus = false;
+        }
     }
 
     //---- Methods ----
@@ -242,10 +263,12 @@ export class KupTextField {
      */
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            this.kupTextFieldSubmit.emit({
-                value: this.value,
-            });
+            if (this.emitSubmitEventOnEnter == true) {
+                event.preventDefault();
+                this.kupTextFieldSubmit.emit({
+                    value: this.value,
+                });
+            }
         }
     }
 
@@ -268,10 +291,19 @@ export class KupTextField {
         }
         throw new Error(`The value ${newValue} is not a valid string.`);
     }
+
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-autocomplete',
+            methodName + '() ' + ' - ' + msg,
+            'log'
+        );
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.onInitialValueChanged();
+        this.watchInitialValue();
     }
 
     componentDidRender() {

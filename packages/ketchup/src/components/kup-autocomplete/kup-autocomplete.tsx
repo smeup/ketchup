@@ -24,7 +24,6 @@ import {
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
 
-    @Prop({ reflect: true }) fieldId: string = 'autocomplete-id';
     /**
      * Custom style to be passed to the component.
      */
@@ -161,9 +160,20 @@ export class KupAutocomplete {
     @Prop({ reflect: true }) serverHandledFilter: boolean = false;
 
     @Listen('keyup', { target: 'document' })
-    closeListOnEscapeKeyup(e: KeyboardEvent) {
-        if (e.key === 'Escape') {
-            this.closeList();
+    listenKeyup(e: KeyboardEvent) {
+        if (this.isListOpened()) {
+            if (e.key === 'Escape') {
+                this.closeList();
+            }
+            if (e.key === 'Enter') {
+                this.closeList();
+            }
+            if (e.key === 'ArrowDown') {
+                this.listEl.arrowDown = true;
+            }
+            if (e.key === 'ArrowUp') {
+                this.listEl.arrowUp = true;
+            }
         }
     }
     /**
@@ -171,7 +181,6 @@ export class KupAutocomplete {
      */
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupBlur', '');
         this.closeList();
         const { target } = e;
         this.kupBlur.emit({
@@ -180,7 +189,6 @@ export class KupAutocomplete {
     }
 
     onKupChange(e: CustomEvent) {
-        this.log('onKupChange', 'e.detail.value: ' + e.detail.value);
         this.value = e.detail.value;
         this.kupChange.emit({
             value: this.value,
@@ -188,7 +196,6 @@ export class KupAutocomplete {
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupClick', '');
         const { target } = e;
         this.kupClick.emit({
             value: target.value,
@@ -196,7 +203,6 @@ export class KupAutocomplete {
     }
 
     onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupFocus', '');
         const { target } = e;
         this.kupFocus.emit({
             value: target.value,
@@ -204,7 +210,6 @@ export class KupAutocomplete {
     }
 
     onKupInput(e: CustomEvent) {
-        this.log('onKupInput', '');
         this.value = e.detail.value;
 
         if (this.openList()) {
@@ -217,7 +222,6 @@ export class KupAutocomplete {
     }
 
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
-        this.log('onKupIconClick', '');
         const { target } = event;
 
         if (this.textfieldEl.classList.contains('toggled')) {
@@ -251,9 +255,6 @@ export class KupAutocomplete {
 
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         this.log('handleFilterChange', 'newFilter: ' + newFilter);
-        for (let i = 0; i < this.listData['data'].length; i++) {
-            this.listData['data'][i].selected = false;
-        }
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -288,7 +289,10 @@ export class KupAutocomplete {
             '.mdc-text-field'
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
-        this.textfieldEl['icon'] = 'arrow_drop_up';
+        if (this.textfieldEl['icon']) {
+            this.textfieldEl['icon'] = 'arrow_drop_up';
+        }
+        this.textfieldEl.emitSubmitEventOnEnter = false;
         this.listEl.menuVisible = true;
         this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
@@ -302,15 +306,22 @@ export class KupAutocomplete {
         if (this.textfieldEl['icon']) {
             this.textfieldEl['icon'] = 'arrow_drop_down';
         }
+        this.textfieldEl.emitSubmitEventOnEnter = true;
+        //this.textfieldEl.customedFocus = true;
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
+        this.listEl.resetFilter();
+    }
+
+    isListOpened(): boolean {
+        return this.listEl.menuVisible == true;
     }
 
     consistencyCheck() {
-        this.log(
+        /*this.log(
             'consistencyCheck',
             'data: ' + JSON.stringify(this.listData['data'])
-        );
+        );*/
         var firstSelectedFound = false;
 
         if (this.listData['data']) {
@@ -331,13 +342,14 @@ export class KupAutocomplete {
                         this.selectMode,
                         ' - '
                     );
+                    /*
                     this.log(
                         'consistencyCheck',
                         'selectedValue: ' +
                             this.value +
                             ' this.textfieldEl: ' +
                             JSON.stringify(this.textfieldEl)
-                    );
+                    );*/
                     if (this.textfieldEl) {
                         this.textfieldEl.initialValue = this.value;
                     }
@@ -349,7 +361,7 @@ export class KupAutocomplete {
     log(methodName: string, msg: string) {
         errorLogging(
             'kup-autocomplete',
-            methodName + '() ' + this.fieldId + ' - ' + msg,
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
             'log'
         );
     }
@@ -379,7 +391,7 @@ export class KupAutocomplete {
                 {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
-                field-id={this.fieldId + '.text-field'}
+                id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
@@ -399,7 +411,7 @@ export class KupAutocomplete {
                 {...this.listData}
                 is-menu
                 onKupListClick={() => this.onKupItemClick()}
-                field-id={this.fieldId + '.list'}
+                id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );

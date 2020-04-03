@@ -137,7 +137,6 @@ export namespace Components {
     * Sets if the autocomplete should be enabled or not
     */
     'disabled': boolean;
-    'fieldId': string;
     /**
     * Props of the list.
     */
@@ -841,6 +840,11 @@ export namespace Components {
   }
   interface KupList {
     /**
+    * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+    */
+    'arrowDown': boolean;
+    'arrowUp': boolean;
+    /**
     * Custom style to be passed to the component.
     */
     'customStyle': string;
@@ -853,10 +857,6 @@ export namespace Components {
     */
     'displayMode': ItemsDisplayMode;
     /**
-    * Identify the component.
-    */
-    'fieldId': string;
-    /**
     * Keeps string for filtering elements when filter mode is active
     */
     'filter': string;
@@ -868,6 +868,7 @@ export namespace Components {
     * Sets the status of the menu, when false it's hidden otherwise it's visible.
     */
     'menuVisible': boolean;
+    'resetFilter': () => Promise<void>;
     /**
     * Defines the type of selection. Values accepted: listbox, radiogroup or group.
     */
@@ -1098,10 +1099,15 @@ export namespace Components {
     * Custom style to be passed to the component.
     */
     'customStyle': string;
+    'customedFocus': boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled': boolean;
+    /**
+    * If text field has autocompelte associated and the list is opened, enter must not execute submit it serves just for set the selected item value of the list in the text-field
+    */
+    'emitSubmitEventOnEnter': boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
@@ -1618,7 +1624,6 @@ declare namespace LocalJSX {
     * Sets if the autocomplete should be enabled or not
     */
     'disabled'?: boolean;
-    'fieldId'?: string;
     /**
     * Props of the list.
     */
@@ -2592,6 +2597,11 @@ declare namespace LocalJSX {
   }
   interface KupList extends JSXBase.HTMLAttributes<HTMLKupListElement> {
     /**
+    * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+    */
+    'arrowDown'?: boolean;
+    'arrowUp'?: boolean;
+    /**
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
@@ -2603,10 +2613,6 @@ declare namespace LocalJSX {
     * Selects how the items must display their label and how they can be filtered for
     */
     'displayMode'?: ItemsDisplayMode;
-    /**
-    * Identify the component.
-    */
-    'fieldId'?: string;
     /**
     * Keeps string for filtering elements when filter mode is active
     */
@@ -2929,10 +2935,15 @@ declare namespace LocalJSX {
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
+    'customedFocus'?: boolean;
     /**
     * Defaults at false. When set to true, the component is disabled.
     */
     'disabled'?: boolean;
+    /**
+    * If text field has autocompelte associated and the list is opened, enter must not execute submit it serves just for set the selected item value of the list in the text-field
+    */
+    'emitSubmitEventOnEnter'?: boolean;
     /**
     * Defaults at false. When set to true, the component will be rendered at full height.
     */
