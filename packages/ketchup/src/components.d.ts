@@ -397,8 +397,11 @@ export namespace Components {
     }
     interface KupDashList {
         "active": boolean;
+        "columnsNumber": number;
         "data": TableData;
+        "fillSpace": boolean;
         "fontsize": string;
+        "horizontal": boolean;
         "layout": string;
     }
     interface KupDataTable {
@@ -2226,8 +2229,11 @@ declare namespace LocalJSX {
     }
     interface KupDashList {
         "active"?: boolean;
+        "columnsNumber"?: number;
         "data"?: TableData;
+        "fillSpace"?: boolean;
         "fontsize"?: string;
+        "horizontal"?: boolean;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
     }
