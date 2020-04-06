@@ -24,6 +24,9 @@ export class KupDashList {
     active = false;
 
     @Prop()
+    iconColor = '';
+
+    @Prop()
     columnsNumber: number = 1;
 
     @Prop()
@@ -46,7 +49,6 @@ export class KupDashList {
     render() { 
         let rows = [];
 
-        console.log("Data " + JSON.stringify(this.data))
 
         this.data.rows.forEach((r: Row) => {
 
@@ -56,9 +58,18 @@ export class KupDashList {
             let value = "";
             let valueInt = "";
             let valueDec = "";
+            let color = "";
 
             if (this.data.columns[0]){
-                icon = <div slot="icon">{r.cells[this.data.columns[0].name].obj.k}</div>
+                if (this.iconColor){
+//                    color = `color:` + this.iconColor;
+//                    console.log("Color " + JSON.stringify(color))
+
+                }
+                icon = 
+                <div slot="icon">
+                    <icon class={r.cells[this.data.columns[0].name].obj.k} />
+                </div>
             } else {
                 icon = <div slot="icon"></div>
             }
