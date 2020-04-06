@@ -35,19 +35,18 @@ export class KupDashList {
     ketchupDashClicked: EventEmitter<{}>;
 
     render() { 
-        console.log("Ecchime!!!")
-//        console.log("kup-dash-list data " + JSON.stringify(this.data))
         let rows = [];
         this.data.rows.forEach((r: Row) => {
-//            console.log("kup-dash-list rows " + JSON.stringify(r.cells))
             const row = 
-            <div class="horizontal">
+            <div>
+                <Kup-layout columnsNumber={3} horizontal={true}>
                 <kup-dash layout= {this.layout} fontsize= {this.fontsize}>
                     <div slot="descr">{r.cells.TEXT.obj.k}</div>
                     <div slot="icon">{r.cells.ICO.obj.k}</div>
                     <div slot="unit">{r.cells.UM.obj.k}</div>
                     <div slot="value">{r.cells.VALUE.obj.k}</div>
                 </kup-dash>
+                </Kup-layout>
             </div>
             rows.push(row);
         });
