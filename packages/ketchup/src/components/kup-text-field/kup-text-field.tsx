@@ -377,7 +377,8 @@ export class KupTextField {
                 <kup-icon
                     tabindex="1"
                     class="material-icons mdc-text-field__icon clear-icon"
-                    dimensions="24px"
+                    sizeX="24px"
+                    sizeY="24px"
                     name="clear"
                     onClick={() => this.onKupClearIconClick()}
                 ></kup-icon>
@@ -390,7 +391,8 @@ export class KupTextField {
                 <kup-icon
                     tabindex="0"
                     class="material-icons mdc-text-field__icon"
-                    dimensions="24px"
+                    sizeX="24px"
+                    sizeY="24px"
                     name={this.icon}
                     onClick={(e: any) => this.onKupIconClick(e)}
                 ></kup-icon>

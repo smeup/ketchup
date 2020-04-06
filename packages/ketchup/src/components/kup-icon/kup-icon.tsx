@@ -9,26 +9,27 @@ import { errorLogging } from '../../utils/error-logging';
 export class KupIcon {
     @Element() rootElement: HTMLElement;
     @State() resource: string = undefined;
+
     /**
      * The color of the icon, defaults to the main color of the app.
      */
     @Prop({ reflect: true }) color: string = 'var(--kup-icon-color)';
-
     /**
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
-     * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+     * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
-    @Prop({ reflect: true }) dimensions: string = '100%';
-
+    @Prop({ reflect: true }) sizeX: string = '100%';
+    /**
+     * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     */
+    @Prop({ reflect: true }) sizeY: string = '100%';
     /**
      * The name of the icon.
      */
     @Prop({ reflect: true }) name: string = undefined;
-
     /**
      * The type of the icon, defaults to "svg".
      */
@@ -87,8 +88,8 @@ export class KupIcon {
             return;
         }
         let elStyle = {
-            height: this.dimensions,
-            width: this.dimensions,
+            height: this.sizeY,
+            width: this.sizeX,
             color: this.color,
             fill: this.color,
         };

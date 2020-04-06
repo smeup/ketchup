@@ -222,7 +222,8 @@ export class KupChip {
                         color={iconColor}
                         class={iconClass}
                         name={this.data[i].icon}
-                        dimensions="18px"
+                        sizeX="18px"
+                        sizeY="18px"
                     ></kup-icon>
                 );
             }
@@ -253,7 +254,8 @@ export class KupChip {
                             class="material-icons mdc-chip__icon remove-icon"
                             onClick={(e) => this.onKupIconClick(i, e)}
                             name="cancel"
-                            dimensions="18px"
+                            sizeX="18px"
+                            sizeY="18px"
                         ></kup-icon>
                     </span>
                 );

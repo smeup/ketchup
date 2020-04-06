@@ -671,7 +671,8 @@ export class KupTree {
             treeExpandIcon = (
                 <kup-icon
                     class="expand-icon kup-tree__icon kup-tree__node__expander"
-                    dimensions="1.5rem"
+                    sizeX="1.5rem"
+                    sizeY="1.5rem"
                     name="menu-right"
                     onClick={
                         hasExpandIcon && !treeNodeData.disabled
@@ -717,7 +718,8 @@ export class KupTree {
                     treeNodeIcon = (
                         <kup-icon
                             class="kup-tree__icon"
-                            dimensions="1.5rem"
+                            sizeX="1.5rem"
+                            sizeY="1.5rem"
                             name={treeNodeData.icon}
                             color={treeNodeData.iconColor}
                         ></kup-icon>

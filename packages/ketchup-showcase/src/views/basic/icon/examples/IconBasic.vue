@@ -4,7 +4,9 @@
       <p>
         Icons are used in many Ketch.UP components. After building the library
         a
-        <span class="code-word">dist</span> folder will be created, which will
+        <span
+          class="code-word"
+        >dist</span> folder will be created, which will
         contain all the files needed to run Ketch.UP. Inside it, you'll find an
         <span
           class="code-word"
@@ -27,12 +29,12 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-icon dimensions="48px" name="widgets"></kup-icon>
+          <kup-icon size-x="48px" size-y="48px" name="widgets"></kup-icon>
         </div>
         <p class="centered">SVG icon sample markup</p>
         <code class="flat">{{ markupSVG }}</code>
         <div class="kup-container">
-          <kup-icon type="png" dimension="auto" name="smeup"></kup-icon>
+          <kup-icon type="png" size-x="auto" size-y="auto" name="smeup"></kup-icon>
         </div>
         <p class="centered">PNG image sample markup</p>
         <code class="flat">{{ markupPNG }}</code>
@@ -46,9 +48,10 @@ export default {
   name: 'IconBasic',
   data() {
     return {
-      markupSVG: '<kup-icon dimensions="48px" name="your_icon"></kup-icon>',
+      markupSVG:
+        '<kup-icon size-x="48px" size-y="48px" name="your_icon"></kup-icon>',
       markupPNG:
-        '<kup-icon type="png" dimensions="auto" name="your_icon"></kup-icon>',
+        '<kup-icon type="png" size-x="auto" size-y="auto" name="your_icon"></kup-icon>',
     };
   },
 };

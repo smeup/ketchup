@@ -5,13 +5,14 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                            | Type     | Default                   |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------- |
-| `color`       | `color`        | The color of the icon, defaults to the main color of the app.                                                          | `string` | `'var(--kup-icon-color)'` |
-| `customStyle` | `custom-style` | Custom style to be passed to the component.                                                                            | `string` | `undefined`               |
-| `dimensions`  | `dimensions`   | The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared. | `string` | `'100%'`                  |
-| `name`        | `name`         | The name of the icon.                                                                                                  | `string` | `undefined`               |
-| `type`        | `type`         | The type of the icon, defaults to "svg".                                                                               | `string` | `'svg'`                   |
+| Property      | Attribute      | Description                                                                                | Type     | Default                   |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------ | -------- | ------------------------- |
+| `color`       | `color`        | The color of the icon, defaults to the main color of the app.                              | `string` | `'var(--kup-icon-color)'` |
+| `customStyle` | `custom-style` | Custom style to be passed to the component.                                                | `string` | `undefined`               |
+| `name`        | `name`         | The name of the icon.                                                                      | `string` | `undefined`               |
+| `sizeX`       | `size-x`       | The width of the icon, defaults to 100%. Accepts any CSS width format (px, %, vh, etc.).   | `string` | `'100%'`                  |
+| `sizeY`       | `size-y`       | The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.). | `string` | `'100%'`                  |
+| `type`        | `type`         | The type of the icon, defaults to "svg".                                                   | `string` | `'svg'`                   |
 
 
 ## Dependencies

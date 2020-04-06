@@ -758,13 +758,17 @@ export namespace Components {
     */
     'customStyle': string;
     /**
-    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-    */
-    'dimensions': string;
-    /**
     * The name of the icon.
     */
     'name': string;
+    /**
+    * The width of the icon, defaults to 100%. Accepts any CSS width format (px, %, vh, etc.).
+    */
+    'sizeX': string;
+    /**
+    * The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.).
+    */
+    'sizeY': string;
     /**
     * The type of the icon, defaults to "svg".
     */
@@ -2383,13 +2387,17 @@ declare namespace LocalJSX {
     */
     'customStyle'?: string;
     /**
-    * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-    */
-    'dimensions'?: string;
-    /**
     * The name of the icon.
     */
     'name'?: string;
+    /**
+    * The width of the icon, defaults to 100%. Accepts any CSS width format (px, %, vh, etc.).
+    */
+    'sizeX'?: string;
+    /**
+    * The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.).
+    */
+    'sizeY'?: string;
     /**
     * The type of the icon, defaults to "svg".
     */

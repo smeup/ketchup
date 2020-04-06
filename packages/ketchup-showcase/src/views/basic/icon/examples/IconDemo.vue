@@ -32,7 +32,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-icon id="demo-component" color="var(--kup-icon-color)" dimensions="100%" name="widgets" type="svg" ></kup-icon>',
+        '<kup-icon id="demo-component" color="var(--kup-icon-color)" size-x="100%" size-y="100%" name="widgets" type="svg" ></kup-icon>',
       demoProps: [
         {
           prop: 'color',
@@ -51,9 +51,17 @@ export default {
           try: 'css',
         },
         {
-          prop: 'dimensions',
+          prop: 'sizeX',
           description:
-            'The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared. Accepts any CSS height format (px, %, vh, etc.). ',
+            'The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
+        },
+        {
+          prop: 'sizeY',
+          description:
+            'The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
           type: 'string',
           default: '100%',
           try: 'field',

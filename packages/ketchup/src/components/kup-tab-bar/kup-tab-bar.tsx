@@ -117,7 +117,8 @@ export class KupTabBar {
                     <kup-icon
                         color="var(--kup-main-color)"
                         class="mdc-tab__icon material-icons"
-                        dimensions="24px"
+                        sizeX="24px"
+                        sizeY="24px"
                         name={this.data[i].icon}
                     ></kup-icon>
                 );
