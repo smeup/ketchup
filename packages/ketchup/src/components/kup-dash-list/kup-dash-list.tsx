@@ -24,7 +24,7 @@ export class KupDashList {
     active = false;
 
     @Prop()
-    iconColor = '';
+    iconColor: string = 'var(--kup-icon-color)';
 
     @Prop()
     columnsNumber: number = 1;
@@ -58,17 +58,14 @@ export class KupDashList {
             let value = "";
             let valueInt = "";
             let valueDec = "";
-            let color = "";
 
             if (this.data.columns[0]){
-                if (this.iconColor){
-//                    color = `color:` + this.iconColor;
-//                    console.log("Color " + JSON.stringify(color))
-
-                }
+                  let styleColor = {
+                        color: this.iconColor,
+                    };
                 icon = 
                 <div slot="icon">
-                    <icon class={r.cells[this.data.columns[0].name].obj.k} />
+                    <icon class={r.cells[this.data.columns[0].name].obj.k} style={styleColor}></icon>
                 </div>
             } else {
                 icon = <div slot="icon"></div>
