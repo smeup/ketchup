@@ -293,23 +293,6 @@
   --kup-gauge_second-color: var(--main-yellow);
   --kup-gauge_third-color: var(--main-green);
 
-  /* Combo */
-  --kup-combo_input_font-size: var(--main-font-size);
-  --kup-combo_input_border-color: var(--main-border-color);
-  --kup-combo_input_border-color--selected: var(--main-border-color-hover);
-  --kup-combo_icon_color: var(--main-text-color);
-  --kup-combo_icon_color--hover: var(--main-text-lighter-color);
-  --kup-combo_menu_background: var(--main-background-color);
-  --kup-combo_menu_background--hover: var(--hover-background-color);
-  --kup-combo_menu_text: var(--main-text-color);
-  --kup-combo_menu_text--hover: var(--hover-color);
-  --kup-combo_background-color: var(--input-background-color);
-  --kup-combo_background-color--hover: var(--input-background-color);
-  --kup-combo_text-color: var(--main-text-color);
-  --kup-combo_text-color--hover: var(--main-text-lighter-color);
-  --kup-combo_border-radius: var(--main-border-radius);
-  --kup-combo_box-shadow: var(--main-box-shadow);
-
   /* Tooltip */
   --kup-tlt_background: var(--main-background-color);
   --kup-tlt_border-color: var(--main-border-color);

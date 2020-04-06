@@ -9,4 +9,4 @@ export const boxSelector = boxWrapperSelector + ' .box';
 export const filterSelector =
     baseSelector + '#filter-panel kup-text-field >>> input';
 
-export const sortSelector = baseSelector + '#sort-panel kup-combo';
+export const sortSelector = baseSelector + '#sort-panel kup-combobox';

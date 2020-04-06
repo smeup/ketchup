@@ -20,7 +20,11 @@ export async function getAutocompleteInputField(
 export async function getAutocompleteMenuInstance(
     page: E2EPage
 ): Promise<E2EElement> {
-    return page.find('kup-autocomplete >>> kup-menu');
+    //return page.find('kup-autocomplete >>> kup-menu');
+    const temp = ((await page.evaluateHandle(
+        `document.querySelector("kup-autocomplete").shadowRoot.querySelector("kup-list")`
+    )) as unknown) as E2EElement;
+    return temp;
 }
 
 export async function getAutocompleteClearIcon(

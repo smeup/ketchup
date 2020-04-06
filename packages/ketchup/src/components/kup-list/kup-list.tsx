@@ -170,30 +170,20 @@ export class KupList {
                 ' - this.focIndex: ' +
                 this.focIndex
         );
+        this.filteredItems = [];
         let index = 0;
-        /*
-        this.filteredItems.map((item) => {
-            this.setUnselected(item, index++);
-        });
-        index = 0;*/
         this.data.map((item) => {
             this.setUnselected(item, index++);
         });
+        this.data = [...this.data];
     }
 
     @Watch('arrowDown')
     watchArrowDown() {
         if (this.arrowDown == true) {
             if (this.focIndex < this.listComponent.listElements.length - 1) {
-                this.log('watchArrowDown', 'this.focIndex: ' + this.focIndex);
-                /*
-                let evt: KeyboardEvent = new KeyboardEvent('keydown', {
-                    key: 'ArrowDown',
-                });
-                this.listComponent
-                    .getDefaultFoundation()
-                    .handleKeydown(evt, true, this.focIndex++);
-                */
+                //this.log('watchArrowDown', 'this.focIndex: ' + this.focIndex);
+
                 if (this.focIndex == -1) {
                     this.listComponent
                         .getDefaultFoundation()
@@ -213,14 +203,8 @@ export class KupList {
     watchArrowUp() {
         if (this.arrowUp == true) {
             if (this.focIndex > 0) {
-                this.log('watchArrowUp', 'this.focIndex: ' + this.focIndex);
-                /*
-                let evt: KeyboardEvent = new KeyboardEvent('keydown', {
-                    key: 'ArrowUp', 
-                this.listComponent
-                    .getDefaultFoundation()
-                    .handleKeydown(evt, true, this.focIndex--);
-                    */
+                //this.log('watchArrowUp', 'this.focIndex: ' + this.focIndex);
+
                 this.listComponent
                     .getDefaultFoundation()
                     .focusPrevElement(this.focIndex--);
@@ -229,22 +213,6 @@ export class KupList {
         }
     }
 
-    /*
-    @Listen('keyup', { target: 'document' })
-    listeKeyup(e: KeyboardEvent) {
-        if (e.key === 'Enter') {
-            let index1 = 0;
-            let index = -1;
-            let item: ComponentListElement = null;
-            this.filteredItems.map((item1) => {
-                if (item1.selected) {
-                    item = item1;
-                    index = index1;
-                }
-            });
-            this.onKupClickInternalUse(e.target, item, index);
-        }
-    }*/
     /**
      * --- Methods ----
      */
@@ -317,14 +285,12 @@ export class KupList {
     }
 
     @Method()
-    async resetFilter() {
-        this.focIndex = -1;
-        let index = 0;
-
-        this.data.map((item) => {
-            this.setUnselected(item, index++);
-        });
-        this.filter = '';
+    async resetFilter(newFilter: string) {
+        //this.log('resetFilter', '');
+        if (this.filter == newFilter && newFilter != '') {
+            this.filter = '';
+        }
+        this.filter = newFilter;
     }
 
     renderSeparator() {
@@ -461,12 +427,6 @@ export class KupList {
 
     setUnselected(item: ComponentListElement, index: number) {
         item.selected = false;
-        /*
-        let target = this.listComponent.listElements[index];
-        if (this.isListBoxRule()) {
-            target.setAttribute('class', 'mdc-list-item');
-        }*/
-
         this.sendInfoToSubComponent(index, item);
     }
 
@@ -540,16 +500,6 @@ export class KupList {
         );
     }
     //---- Lifecycle hooks ----
-
-    componentDidRender() {
-        /*
-        let firstElement: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.mdc-list-item'
-        ) as HTMLElement;
-        if (firstElement != null) {
-            firstElement.focus();
-        }*/
-    }
 
     componentDidLoad() {
         this.listComponent = null;
@@ -631,6 +581,7 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
 
+        //this.log('render', JSON.stringify(this.data));
         return (
             <Host>
                 {customStyle}

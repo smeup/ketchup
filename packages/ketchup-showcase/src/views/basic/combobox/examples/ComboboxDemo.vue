@@ -74,6 +74,14 @@ export default {
           default: '{}',
           try: 'json',
         },
+        {
+          prop: 'selectMode',
+          description:
+            'Sets how the return the elected ite value. Suported values: "code", "description","both".',
+          type: 'string',
+          default: 'code',
+          try: 'field',
+        },
       ],
       demoEvents: [
         {
@@ -132,6 +140,7 @@ export default {
               value: '3',
             },
           ],
+          displayMode: 'both',
           selectable: true,
         },
       },
