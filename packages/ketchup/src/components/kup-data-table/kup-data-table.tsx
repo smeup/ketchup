@@ -2579,7 +2579,7 @@ export class KupDataTable {
         let content: any = valueToDisplay;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <kup-icon {...buildIconConfig(cell, valueToDisplay)} />;
+            content = <kup-image {...buildIconConfig(cell, valueToDisplay)} />;
         } else if (isNumber(cell.obj)) {
             content = valueToDisplay;
 
@@ -2595,7 +2595,7 @@ export class KupDataTable {
             if (valueToDisplay) {
                 // Checks if there are badges to set
                 content = (
-                    <kup-icon
+                    <kup-image
                         class="cell-image"
                         badgeData={cell.config ? cell.config.badges : undefined}
                         sizeX="auto"

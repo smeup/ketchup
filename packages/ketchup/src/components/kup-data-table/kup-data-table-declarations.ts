@@ -1,4 +1,4 @@
-import { Badge } from '../kup-icon/kup-icon-declarations';
+import { Badge } from '../kup-image/kup-image-declarations';
 
 export interface DataTable {
     columns?: Array<Column>;

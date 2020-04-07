@@ -77,11 +77,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/html/Html.vue`),
   },
   {
-    path: `/image`,
-    name: 'image',
-    component: () => import(`@/views/advanced/image/Image.vue`),
-  },
-  {
     path: `/imagebutton`,
     name: 'imagebutton',
     component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
@@ -135,9 +130,9 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
-    path: `/icon`,
-    name: 'icon',
-    component: () => import(`@/views/basic/icon/Icon.vue`),
+    path: `/image`,
+    name: 'image',
+    component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
     path: `/list`,

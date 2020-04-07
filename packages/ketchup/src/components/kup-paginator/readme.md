@@ -52,7 +52,11 @@ graph TD;
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-icon
+  kup-text-field --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-badge --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-paginator

@@ -30,7 +30,7 @@
 ### Depends on
 
 - [kup-checkbox](../kup-checkbox)
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 - [kup-menu](../kup-menu)
 - [kup-text-field](../kup-text-field)
 
@@ -38,10 +38,14 @@
 ```mermaid
 graph TD;
   kup-checkbox-menu --> kup-checkbox
-  kup-checkbox-menu --> kup-icon
+  kup-checkbox-menu --> kup-image
   kup-checkbox-menu --> kup-menu
   kup-checkbox-menu --> kup-text-field
-  kup-text-field --> kup-icon
+  kup-image --> kup-badge
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-badge --> kup-image
+  kup-text-field --> kup-image
   style kup-checkbox-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

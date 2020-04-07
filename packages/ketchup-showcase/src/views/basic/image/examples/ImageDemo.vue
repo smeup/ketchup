@@ -11,7 +11,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'IconDemo',
+  name: 'ImageDemo',
   data() {
     return {
       demoTabs: [
@@ -37,7 +37,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-icon id="demo-component" color="var(--kup-icon-color)" size-x="64px" size-y="64px" name="widgets" type="svg" ></kup-icon>',
+        '<kup-image id="demo-component" color="var(--kup-icon-color)" size-x="64px" size-y="64px" name="widgets" type="svg" ></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -49,7 +49,7 @@ export default {
         {
           prop: 'color',
           description:
-            'The color of the icon, defaults to the main color of the app. Accepts any CSS color format (HEX, RGB, etc.).',
+            'The color of the image, defaults to the main color of the app. Accepts any CSS color format (HEX, RGB, etc.). It works only when the image is in a vector format.',
           type: 'boolean',
           default: 'var(--kup-icon-color)',
           try: 'field',
@@ -65,7 +65,7 @@ export default {
         {
           prop: 'name',
           description:
-            'The name of the icon. It can also contain an URL or a path.',
+            'The name of the image. It can also contain an URL or a path.',
           type: 'string',
           default: 'undefined',
           try: 'field',
@@ -73,7 +73,7 @@ export default {
         {
           prop: 'sizeX',
           description:
-            'The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+            'The width of the image, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
           type: 'string',
           default: '100%',
           try: 'field',
@@ -81,15 +81,14 @@ export default {
         {
           prop: 'sizeY',
           description:
-            'The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+            'The height of the image, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
           type: 'string',
           default: '100%',
           try: 'field',
         },
         {
           prop: 'type',
-          description:
-            'The type of the icon, defaults to "svg". Currently it is the only type supported.',
+          description: 'The type of the image, defaults to "svg".',
           type: 'string',
           default: 'svg',
           try: 'field',

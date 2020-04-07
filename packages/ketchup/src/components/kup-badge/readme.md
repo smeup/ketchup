@@ -7,21 +7,12 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                                                                                                           | Default                   |
-| ---------- | ---------- | ----------- | -------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| `icon`     | `icon`     |             | `string`                                                                                                       | `undefined`               |
-| `position` | `position` |             | `BadgePosition.BOTTOM_LEFT \| BadgePosition.BOTTOM_RIGHT \| BadgePosition.TOP_LEFT \| BadgePosition.TOP_RIGHT` | `BadgePosition.TOP_RIGHT` |
-| `text`     | `text`     |             | `string`                                                                                                       | `undefined`               |
-
-
-## CSS Custom Properties
-
-| Name                                                   | Description            |
-| ------------------------------------------------------ | ---------------------- |
-| `--bdg-background-color, --kup-badge_background-color` | badge background color |
-| `--bdg-border-radius, --kup-badge_border-radius`       | badge border radius    |
-| `--bdg-color, --kup-badge_color`                       | badge text color       |
-| `--bdg-dim, --kup-badge_dimension`                     | badge dimension        |
+| Property      | Attribute      | Description                                                                                                                                    | Type                                                                                                           | Default                   |
+| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| `customStyle` | `custom-style` | Custom style to be passed to the component.                                                                                                    | `string`                                                                                                       | `undefined`               |
+| `imageData`   | --             | The data of the image displayed inside the badge.                                                                                              | `{}`                                                                                                           | `undefined`               |
+| `position`    | `position`     | The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left). | `BadgePosition.BOTTOM_LEFT \| BadgePosition.BOTTOM_RIGHT \| BadgePosition.TOP_LEFT \| BadgePosition.TOP_RIGHT` | `BadgePosition.TOP_RIGHT` |
+| `text`        | `text`         | The text displayed inside the badge.                                                                                                           | `string`                                                                                                       | `undefined`               |
 
 
 ## Dependencies
@@ -31,11 +22,19 @@
  - [kup-box](../kup-box)
  - [kup-image](../kup-image)
 
+### Depends on
+
+- [kup-image](../kup-image)
+- [kup-image](../kup-image)
+
 ### Graph
 ```mermaid
 graph TD;
-  kup-box --> kup-badge
+  kup-badge --> kup-image
+  kup-badge --> kup-image
   kup-image --> kup-badge
+  kup-image --> kup-badge
+  kup-box --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

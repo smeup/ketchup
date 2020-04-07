@@ -1,13 +1,13 @@
 import { Component, Prop, Element, Host, State, h } from '@stencil/core';
-import { Badge } from './kup-icon-declarations';
+import { Badge } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
-    tag: 'kup-icon',
-    styleUrl: 'kup-icon.scss',
+    tag: 'kup-image',
+    styleUrl: 'kup-image.scss',
     shadow: true,
 })
-export class KupIcon {
+export class KupImage {
     @Element() rootElement: HTMLElement;
     @State() resource: string = undefined;
 
@@ -57,7 +57,7 @@ export class KupIcon {
             })
             .catch((error) => {
                 let message = error;
-                errorLogging('kup-icon', message);
+                errorLogging('kup-image', message);
             });
     }
 
@@ -73,7 +73,7 @@ export class KupIcon {
                 'Detected an src img path for icon with name(' +
                 this.name +
                 ')! Overriding "svg" with "srcpath".';
-            errorLogging('kup-icon', message);
+            errorLogging('kup-image', message);
             this.resource = this.name;
             this.type = 'srcpath';
         } else {
@@ -89,7 +89,7 @@ export class KupIcon {
     render() {
         if (this.resource === undefined) {
             let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-icon', message);
+            errorLogging('kup-image', message);
             return;
         }
 

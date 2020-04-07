@@ -61,7 +61,7 @@ export class KupBadge {
             if (!this.imageData['color']) {
                 this.imageData['color'] = 'var(--kup-text-on-main-color)';
             }
-            imageEl = <kup-icon {...this.imageData}></kup-icon>;
+            imageEl = <kup-image {...this.imageData}></kup-image>;
         }
 
         return (

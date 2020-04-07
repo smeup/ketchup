@@ -183,12 +183,6 @@ export default {
             },
           },
           {
-            title: `Image`,
-            to: {
-              name: 'image',
-            },
-          },
-          {
             title: `Image button`,
             to: {
               name: 'imagebutton',
@@ -260,9 +254,9 @@ export default {
             },
           },
           {
-            title: `Icon`,
+            title: `Image`,
             to: {
-              name: 'icon',
+              name: 'image',
             },
           },
           {

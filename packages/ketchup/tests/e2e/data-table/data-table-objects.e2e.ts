@@ -100,7 +100,7 @@ it('render objects', async () => {
         switch (i) {
             case 1:
                 // img
-                expect(child.tagName).toBe('KUP-ICON');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 expect(await child.getProperty('src')).toEqual(
                     'https://i.imgur.com/mtbl1cr.jpg'
                 );
@@ -118,7 +118,7 @@ it('render objects', async () => {
 
             case 3:
                 // vo;cod_ver
-                expect(child.tagName).toBe('KUP-ICON');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 break;
 
             case 4:
@@ -128,7 +128,7 @@ it('render objects', async () => {
 
             default:
                 // icon
-                expect(child.tagName).toBe('KUP-ICON');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 break;
         }
     }

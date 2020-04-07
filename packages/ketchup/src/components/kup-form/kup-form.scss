@@ -118,13 +118,13 @@
           text-align: left;
 
           // See the kup-box.scss for an explanation
-          kup-icon {
+          kup-image {
             margin-left: 0;
             margin-right: auto;
           }
 
           kup-checkbox,
-          kup-icon {
+          kup-image {
             justify-content: flex-start;
           }
         }
@@ -135,7 +135,7 @@
           padding: 1px 4px;
 
           kup-checkbox,
-          kup-icon {
+          kup-image {
             display: flex;
           }
 

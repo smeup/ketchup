@@ -143,7 +143,6 @@ Type: `Promise<Column[]>`
 
 - [kup-checkbox](../kup-checkbox)
 - [kup-text-field](../kup-text-field)
-- [kup-icon](../kup-icon)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-graphic-cell](../kup-graphic-cell)
@@ -159,7 +158,6 @@ Type: `Promise<Column[]>`
 graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
@@ -169,16 +167,19 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
-  kup-text-field --> kup-icon
+  kup-text-field --> kup-image
   kup-image --> kup-badge
-  kup-button --> kup-icon
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-badge --> kup-image
+  kup-button --> kup-image
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-icon
+  kup-chip --> kup-image
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

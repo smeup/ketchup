@@ -1275,7 +1275,7 @@ export class KupBox {
                     boContent = <kup-chart-cell {...props} />;
                 } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
                     boContent = (
-                        <kup-icon {...buildIconConfig(cell, cell.value)} />
+                        <kup-image {...buildIconConfig(cell, cell.value)} />
                     );
                 } else if (isEditor(cell, boxObject)) {
                     boContent = <kup-editor text={cell.value}></kup-editor>;

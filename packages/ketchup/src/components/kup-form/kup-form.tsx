@@ -525,7 +525,7 @@ export class KupForm {
                     let height = getFromConfigInForm(cell, field, 'height');
                     let width = getFromConfigInForm(cell, field, 'width');
                     fieldContent = (
-                        <kup-icon
+                        <kup-image
                             name={src}
                             badgeData={badges}
                             sizeX={width}

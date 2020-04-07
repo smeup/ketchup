@@ -2,7 +2,7 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Icons are used in many Ketch.UP components. After building the library
+        Images are used in many Ketch.UP components. After building the library
         a
         <span
           class="code-word"
@@ -29,12 +29,12 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-icon size-x="48px" size-y="48px" name="widgets"></kup-icon>
+          <kup-image size-x="48px" size-y="48px" name="widgets"></kup-image>
         </div>
         <p class="centered">SVG icon sample markup</p>
         <code class="flat">{{ markupSVG }}</code>
         <div class="kup-container">
-          <kup-icon type="png" size-x="auto" size-y="auto" name="smeup"></kup-icon>
+          <kup-image type="png" size-x="auto" size-y="auto" name="smeup"></kup-image>
         </div>
         <p class="centered">PNG image sample markup</p>
         <code class="flat">{{ markupPNG }}</code>
@@ -45,13 +45,13 @@
 
 <script>
 export default {
-  name: 'IconBasic',
+  name: 'ImageBasic',
   data() {
     return {
       markupSVG:
-        '<kup-icon size-x="48px" size-y="48px" name="your_icon"></kup-icon>',
+        '<kup-image size-x="48px" size-y="48px" name="your_icon"></kup-image>',
       markupPNG:
-        '<kup-icon type="png" size-x="auto" size-y="auto" name="your_icon"></kup-icon>',
+        '<kup-image type="png" size-x="auto" size-y="auto" name="your_icon"></kup-image>',
     };
   },
 };
