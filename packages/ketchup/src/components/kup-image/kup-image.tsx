@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 import { Badge } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
 
@@ -40,7 +49,39 @@ export class KupImage {
      */
     @Prop({ reflect: true }) type: string = 'svg';
 
+    @Event({
+        eventName: 'kupImageClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        el: EventTarget;
+    }>;
+
+    @Event({
+        eventName: 'kupImageLoad',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupLoad: EventEmitter<{
+        el: EventTarget;
+    }>;
+
     //---- Methods ----
+
+    onKupClick(e: Event) {
+        this.kupClick.emit({
+            el: e.target,
+        });
+    }
+
+    onKupLoad(e: Event) {
+        this.kupLoad.emit({
+            el: e.target,
+        });
+    }
 
     async fetchResource() {
         var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
@@ -127,6 +168,7 @@ export class KupImage {
                         id="kup-component"
                         innerHTML={el}
                         style={elStyle}
+                        onClick={(e) => this.onKupClick(e)}
                     ></div>
                     {...badgeCollection}
                 </Host>
@@ -136,7 +178,12 @@ export class KupImage {
                 <Host style={elStyle}>
                     {customStyle}
                     <div id="kup-component" style={elStyle}>
-                        <img style={elStyle} src={el}></img>
+                        <img
+                            style={elStyle}
+                            src={el}
+                            onClick={(e) => this.onKupClick(e)}
+                            onLoad={(e) => this.onKupLoad(e)}
+                        ></img>
                     </div>
                     {...badgeCollection}
                 </Host>
