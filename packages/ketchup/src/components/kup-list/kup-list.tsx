@@ -182,8 +182,6 @@ export class KupList {
     watchArrowDown() {
         if (this.arrowDown == true) {
             if (this.focIndex < this.listComponent.listElements.length - 1) {
-                //this.log('watchArrowDown', 'this.focIndex: ' + this.focIndex);
-
                 if (this.focIndex == -1) {
                     this.listComponent
                         .getDefaultFoundation()
@@ -203,8 +201,6 @@ export class KupList {
     watchArrowUp() {
         if (this.arrowUp == true) {
             if (this.focIndex > 0) {
-                //this.log('watchArrowUp', 'this.focIndex: ' + this.focIndex);
-
                 this.listComponent
                     .getDefaultFoundation()
                     .focusPrevElement(this.focIndex--);
@@ -286,7 +282,6 @@ export class KupList {
 
     @Method()
     async resetFilter(newFilter: string) {
-        //this.log('resetFilter', '');
         if (this.filter == newFilter && newFilter != '') {
             this.filter = '';
         }
@@ -581,7 +576,6 @@ export class KupList {
         this.checkboxes = [];
         let index = 0;
 
-        //this.log('render', JSON.stringify(this.data));
         return (
             <Host>
                 {customStyle}

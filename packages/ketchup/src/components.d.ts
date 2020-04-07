@@ -402,6 +402,7 @@ export namespace Components {
     * Custom style to be passed to the component.
     */
     'customStyle': string;
+    'isSelect': boolean;
     /**
     * Props of the list.
     */
@@ -1091,6 +1092,7 @@ export namespace Components {
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined': boolean;
+    'readOnly': boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
@@ -1938,6 +1940,7 @@ declare namespace LocalJSX {
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
+    'isSelect'?: boolean;
     /**
     * Props of the list.
     */
@@ -1964,6 +1967,9 @@ declare namespace LocalJSX {
       value: any;
     }>) => void;
     'onKupComboboxItemClick'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
+    'onKupComboboxTextFieldSubmit'?: (event: CustomEvent<{
       value: any;
     }>) => void;
     /**
@@ -2833,6 +2839,7 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined'?: boolean;
+    'readOnly'?: boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
