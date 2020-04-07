@@ -118,10 +118,6 @@ export default {
       demoData: {
         badgeData: [
           {
-            text: '99+',
-            position: 'TR',
-          },
-          {
             imageData: {
               name: 'widgets',
               sizeX: '1rem',
