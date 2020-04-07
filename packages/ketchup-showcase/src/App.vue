@@ -230,6 +230,12 @@ export default {
             },
           },
           {
+            title: `Badge`,
+            to: {
+              name: 'badge',
+            },
+          },
+          {
             title: `Button`,
             to: {
               name: 'button',

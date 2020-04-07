@@ -115,6 +115,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/autocomplete/Autocomplete.vue`),
   },
   {
+    path: `/badge`,
+    name: 'badge',
+    component: () => import(`@/views/basic/badge/Badge.vue`),
+  },
+  {
     path: `/button`,
     name: 'button',
     component: () => import(`@/views/basic/button/Button.vue`),

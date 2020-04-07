@@ -16,6 +16,14 @@
 | `type`        | `type`         | The type of the icon, defaults to "svg".                                                  | `string`  | `'svg'`                   |
 
 
+## Events
+
+| Event           | Description | Type                                |
+| --------------- | ----------- | ----------------------------------- |
+| `kupImageClick` |             | `CustomEvent<{ el: EventTarget; }>` |
+| `kupImageLoad`  |             | `CustomEvent<{ el: EventTarget; }>` |
+
+
 ## Dependencies
 
 ### Used by

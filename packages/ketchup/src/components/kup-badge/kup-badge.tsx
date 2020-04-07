@@ -1,4 +1,12 @@
-import { Component, Element, Prop, h, Host } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Prop,
+    Event,
+    EventEmitter,
+    h,
+    Host,
+} from '@stencil/core';
 import { BadgePosition } from './kup-badge-declarations';
 import { errorLogging } from '../../utils/error-logging';
 
@@ -21,11 +29,29 @@ export class KupBadge {
     /**
      * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
      */
-    @Prop({ reflect: true }) position: BadgePosition = BadgePosition.TOP_RIGHT;
+    @Prop({ reflect: true }) position: BadgePosition = BadgePosition.TOP_LEFT;
     /**
      * The text displayed inside the badge.
      */
     @Prop({ reflect: true }) text: string = undefined;
+
+    @Event({
+        eventName: 'kupBadgeClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        el: EventTarget;
+    }>;
+
+    //---- Methods ----
+
+    onKupClick(e: Event) {
+        this.kupClick.emit({
+            el: e.target,
+        });
+    }
 
     render() {
         if (this.text === undefined && this.imageData === undefined) {
@@ -67,7 +93,7 @@ export class KupBadge {
         return (
             <Host class={hostClass}>
                 {customStyle}
-                <div id="kup-component">
+                <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}
                 </div>

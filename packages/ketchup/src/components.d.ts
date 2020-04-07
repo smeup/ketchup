@@ -1537,6 +1537,9 @@ declare namespace LocalJSX {
     * The data of the image displayed inside the badge.
     */
     'imageData'?: {};
+    'onKupBadgeClick'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
     /**
     * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
     */
@@ -2401,6 +2404,12 @@ declare namespace LocalJSX {
     * The name of the icon. It can also contain an URL or a path.
     */
     'name'?: string;
+    'onKupImageClick'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
+    'onKupImageLoad'?: (event: CustomEvent<{
+      el: EventTarget;
+    }>) => void;
     /**
     * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
     */
