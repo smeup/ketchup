@@ -112,6 +112,11 @@ export class KupDashList {
         });
         return (
             <div>
+                <link
+                    href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+                    rel="stylesheet"
+                    type="text/css"
+                />
                 <kup-layout columnsNumber={this.columnsNumber} horizontal={this.horizontal} fillSpace={this.fillSpace}>
                     {rows}
                 </kup-layout>
