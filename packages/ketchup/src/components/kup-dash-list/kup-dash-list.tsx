@@ -27,6 +27,12 @@ export class KupDashList {
     iconColor: string = 'var(--kup-icon-color)';
 
     @Prop()
+    valueColor: string = 'var(--kup-icon-color)';
+
+    @Prop()
+    textColor: string = 'var(--kup-icon-color)';
+
+    @Prop()
     columnsNumber: number = 1;
 
     @Prop()
@@ -58,44 +64,50 @@ export class KupDashList {
             let value = "";
             let valueInt = "";
             let valueDec = "";
+            let iconColor = {
+                color: this.iconColor,
+            };
+            let textColor = {
+                color: this.textColor,
+            };
+            let valueColor = {
+                color: this.valueColor,
+            };
 
             if (this.data.columns[0]){
-                  let styleColor = {
-                        color: this.iconColor,
-                    };
                 icon = 
                 <div slot="icon">
-                    <icon class={r.cells[this.data.columns[0].name].obj.k} style={styleColor}></icon>
+                    <icon class={r.cells[this.data.columns[0].name].obj.k} style={iconColor}></icon>
                 </div>
             } else {
                 icon = <div slot="icon"></div>
             }
             
             if (this.data.columns[1]){
-                unit = <div slot="unit">{r.cells[this.data.columns[1].name].obj.k}</div>
+                unit = <div slot="unit" style={valueColor}>{r.cells[this.data.columns[1].name].obj.k} </div>
             } else {
                 unit = <div slot="unit"></div>
             }
 
             if (this.data.columns[2]){
-                descr = <div slot="descr">{r.cells[this.data.columns[2].name].obj.k}</div>
+                descr = <div slot="descr" style={textColor}>{r.cells[this.data.columns[2].name].obj.k}</div>
             } else {
                 descr = <div slot="descr"></div>
             }
 
             if (this.data.columns[3]){
-                value = <div slot="value">{r.cells[this.data.columns[3].name].obj.k}</div>
+                value = <div slot="value" style={valueColor}>{r.cells[this.data.columns[3].name].obj.k}</div>
             } else {
                 value = <div slot="value"></div>
             }
 
             if (this.data.columns[5]){
-                valueInt = <div slot="value-int">{r.cells[this.data.columns[5].name].obj.k}</div>
+                valueInt = <div slot="value-int" style={valueColor}>{r.cells[this.data.columns[5].name].obj.k}</div>
             } else {
                 valueInt = <div slot="value-int"></div>
             }
             if (this.data.columns[6]){
-                valueDec = <div slot="value-dec">{r.cells[this.data.columns[6].name].obj.k}</div>
+                valueDec = <div slot="value-dec" style={valueColor}>{r.cells[this.data.columns[6].name].obj.k}</div>
             } else {
                 valueDec = <div slot="value-dec"></div>
             }

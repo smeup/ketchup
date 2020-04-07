@@ -17,6 +17,8 @@
 | `horizontal`    | `horizontal`     |             | `boolean`   | `false`                   |
 | `iconColor`     | `icon-color`     |             | `string`    | `'var(--kup-icon-color)'` |
 | `layout`        | `layout`         |             | `string`    | `'1'`                     |
+| `textColor`     | `text-color`     |             | `string`    | `'var(--kup-icon-color)'` |
+| `valueColor`    | `value-color`    |             | `string`    | `'var(--kup-icon-color)'` |
 
 
 ## Events
