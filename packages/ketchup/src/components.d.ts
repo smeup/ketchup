@@ -402,10 +402,10 @@ export namespace Components {
         "fillSpace": boolean;
         "fontsize": string;
         "horizontal": boolean;
-        "iconColor": string;
+        "iconColor": "";
         "layout": string;
-        "textColor": string;
-        "valueColor": string;
+        "textColor": "";
+        "valueColor": Array<any>;
     }
     interface KupDataTable {
         /**
@@ -2237,11 +2237,11 @@ declare namespace LocalJSX {
         "fillSpace"?: boolean;
         "fontsize"?: string;
         "horizontal"?: boolean;
-        "iconColor"?: string;
+        "iconColor"?: "";
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
-        "textColor"?: string;
-        "valueColor"?: string;
+        "textColor"?: "";
+        "valueColor"?: Array<any>;
     }
     interface KupDataTable {
         /**

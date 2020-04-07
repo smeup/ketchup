@@ -65,17 +65,17 @@ dashList.data = {
           },
           "UM": {
             "obj": {
-              "k": "KG"
+              "k": "%"
             },
             "options": false,
-            "value": "KG"
+            "value": "%"
           },
           "TEXT": {
             "obj": {
-              "k": "Valore 1"
+              "k": "GIANCRISTOFARO GIULIANO"
             },
             "options": false,
-            "value": "Valore 1"
+            "value": "GIANCRISTOFARO GIULIANO"
           },
           "DECVAL": {
             "obj": {
@@ -106,31 +106,31 @@ dashList.data = {
           },
           "ICO": {
             "obj": {
-              "k": "-smeup-fixed-icon OG-OG-OG"
+              "k": "mdi mdi-arrow-up-bold"
             },
             "options": false,
-            "value": "-smeup-fixed-icon OG-OG-OG"
+            "value": "mdi mdi-arrow-up-bold"
           },
           "INTVAL": {
             "obj": {
-              "k": "3"
+              "k": "10"
             },
             "options": false,
-            "value": "3"
+            "value": "10"
           },
           "UM": {
             "obj": {
-              "k": "LT"
+              "k": "$"
             },
             "options": false,
-            "value": "LT"
+            "value": "$"
           },
           "TEXT": {
             "obj": {
-              "k": "Valore 2"
+              "k": "VERZELETTI FRANCESCO"
             },
             "options": false,
-            "value": "Valore 2"
+            "value": "VERZELETTI FRANCESCO"
           },
           "DECVAL": {
             "obj": {
@@ -141,10 +141,10 @@ dashList.data = {
           },
           "VALUE": {
             "obj": {
-              "k": "3"
+              "k": "10"
             },
             "options": false,
-            "value": "3"
+            "value": "10"
           }
         },
         "object": "",
@@ -161,31 +161,31 @@ dashList.data = {
           },
           "ICO": {
             "obj": {
-              "k": "-smeup-fixed-icon OG-OG-OG"
+              "k": "mdi mdi-trending-down"
             },
             "options": false,
-            "value": "-smeup-fixed-icon OG-OG-OG"
+            "value": "mdi mdi-trending-down"
           },
           "INTVAL": {
             "obj": {
-              "k": "5"
+              "k": "125"
             },
             "options": false,
-            "value": "5"
+            "value": "125"
           },
           "UM": {
             "obj": {
-              "k": "CM"
+              "k": "€"
             },
             "options": false,
-            "value": "CM"
+            "value": "€"
           },
           "TEXT": {
             "obj": {
-              "k": "Valore 3"
+              "k": "DEL BONO GIOVANNI"
             },
             "options": false,
-            "value": "Valore 3"
+            "value": "DEL BONO GIOVANNI"
           },
           "DECVAL": {
             "obj": {
@@ -196,10 +196,10 @@ dashList.data = {
           },
           "VALUE": {
             "obj": {
-              "k": "5"
+              "k": "125"
             },
             "options": false,
-            "value": "5"
+            "value": "125"
           }
         },
         "object": "",

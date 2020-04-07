@@ -24,13 +24,13 @@ export class KupDashList {
     active = false;
 
     @Prop()
-    iconColor: string = 'var(--kup-icon-color)';
+    iconColor: '';
 
     @Prop()
-    valueColor: string = 'var(--kup-icon-color)';
+    valueColor: Array<any> =  [];
 
     @Prop()
-    textColor: string = 'var(--kup-icon-color)';
+    textColor: '';
 
     @Prop()
     columnsNumber: number = 1;
@@ -54,10 +54,9 @@ export class KupDashList {
 
     render() { 
         let rows = [];
-
+        var count = 0;
 
         this.data.rows.forEach((r: Row) => {
-
             let icon = "";
             let unit = "";
             let descr = "";
@@ -71,7 +70,7 @@ export class KupDashList {
                 color: this.textColor,
             };
             let valueColor = {
-                color: this.valueColor,
+                color: this.valueColor[count],
             };
 
             if (this.data.columns[0]){
@@ -121,6 +120,7 @@ export class KupDashList {
                     {valueDec}
                 </kup-dash>
             rows.push(row);
+            count++;
         });
         return (
             <div>

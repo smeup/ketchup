@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type        | Default                   |
-| --------------- | ---------------- | ----------- | ----------- | ------------------------- |
-| `active`        | `active`         |             | `boolean`   | `false`                   |
-| `columnsNumber` | `columns-number` |             | `number`    | `1`                       |
-| `data`          | --               |             | `TableData` | `undefined`               |
-| `fillSpace`     | `fill-space`     |             | `boolean`   | `false`                   |
-| `fontsize`      | `fontsize`       |             | `string`    | `''`                      |
-| `horizontal`    | `horizontal`     |             | `boolean`   | `false`                   |
-| `iconColor`     | `icon-color`     |             | `string`    | `'var(--kup-icon-color)'` |
-| `layout`        | `layout`         |             | `string`    | `'1'`                     |
-| `textColor`     | `text-color`     |             | `string`    | `'var(--kup-icon-color)'` |
-| `valueColor`    | `value-color`    |             | `string`    | `'var(--kup-icon-color)'` |
+| Property        | Attribute        | Description | Type        | Default     |
+| --------------- | ---------------- | ----------- | ----------- | ----------- |
+| `active`        | `active`         |             | `boolean`   | `false`     |
+| `columnsNumber` | `columns-number` |             | `number`    | `1`         |
+| `data`          | --               |             | `TableData` | `undefined` |
+| `fillSpace`     | `fill-space`     |             | `boolean`   | `false`     |
+| `fontsize`      | `fontsize`       |             | `string`    | `''`        |
+| `horizontal`    | `horizontal`     |             | `boolean`   | `false`     |
+| `iconColor`     | `icon-color`     |             | `""`        | `undefined` |
+| `layout`        | `layout`         |             | `string`    | `'1'`       |
+| `textColor`     | `text-color`     |             | `""`        | `undefined` |
+| `valueColor`    | --               |             | `any[]`     | `[]`        |
 
 
 ## Events
