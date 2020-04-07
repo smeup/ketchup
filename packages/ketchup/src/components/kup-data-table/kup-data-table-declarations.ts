@@ -1,4 +1,4 @@
-import { Badge } from '../kup-image/kup-image-declarations';
+import { Badge } from '../kup-icon/kup-icon-declarations';
 
 export interface DataTable {
     columns?: Array<Column>;
@@ -165,10 +165,10 @@ export enum GroupLabelDisplayMode {
 //---- Fixed rows and cells classes ----
 export const FixedCellsClasses = {
     columns: 'fixed-column',
-    rows: 'fixed-row'
+    rows: 'fixed-row',
 };
 
 export const FixedCellsCSSVarsBase = {
-  columns: '--ddt_column-left-',
-  rows: '--ddt_row-top-'
+    columns: '--ddt_column-left-',
+    rows: '--ddt_row-top-',
 };

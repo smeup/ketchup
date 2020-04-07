@@ -2595,14 +2595,12 @@ export class KupDataTable {
             if (valueToDisplay) {
                 // Checks if there are badges to set
                 content = (
-                    <kup-image
+                    <kup-icon
                         class="cell-image"
-                        badges={cell.config ? cell.config.badges : undefined}
-                        height="auto"
-                        limit-width-by-height
-                        max-height="var(--dtt_cell-image_max-height)"
-                        src={valueToDisplay}
-                        width="auto"
+                        badgeData={cell.config ? cell.config.badges : undefined}
+                        sizeX="auto"
+                        sizeY="var(--dtt_cell-image_max-height)"
+                        name={valueToDisplay}
                     />
                 );
             } else {

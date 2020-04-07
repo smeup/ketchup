@@ -1,4 +1,5 @@
 import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import { Badge } from './kup-icon-declarations';
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
@@ -10,6 +11,10 @@ export class KupIcon {
     @Element() rootElement: HTMLElement;
     @State() resource: string = undefined;
 
+    /**
+     * Sets the data of badges.
+     */
+    @Prop() badgeData: Badge[] = undefined;
     /**
      * The color of the icon, defaults to the main color of the app.
      */
@@ -27,7 +32,7 @@ export class KupIcon {
      */
     @Prop({ reflect: true }) sizeY: string = '100%';
     /**
-     * The name of the icon.
+     * The name of the icon. It can also contain an URL or a path.
      */
     @Prop({ reflect: true }) name: string = undefined;
     /**
@@ -87,17 +92,33 @@ export class KupIcon {
             errorLogging('kup-icon', message);
             return;
         }
+
         let elStyle = {
             height: this.sizeY,
             width: this.sizeX,
             color: this.color,
             fill: this.color,
         };
+
         let el: string = this.resource;
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
         }
+
+        let badgeCollection = [];
+        if (this.badgeData) {
+            badgeCollection = this.badgeData.map((badge) => {
+                return (
+                    <kup-badge
+                        imageData={badge.imageData}
+                        text={badge.text}
+                        position={badge.position}
+                    />
+                );
+            });
+        }
+
         if (this.type === 'svg') {
             return (
                 <Host style={elStyle}>
@@ -107,6 +128,7 @@ export class KupIcon {
                         innerHTML={el}
                         style={elStyle}
                     ></div>
+                    {...badgeCollection}
                 </Host>
             );
         } else {
@@ -116,6 +138,7 @@ export class KupIcon {
                     <div id="kup-component" style={elStyle}>
                         <img style={elStyle} src={el}></img>
                     </div>
+                    {...badgeCollection}
                 </Host>
             );
         }

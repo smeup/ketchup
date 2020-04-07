@@ -64,8 +64,6 @@ import {
     isMultipleConfiguratorInForm,
 } from '../../utils/form-cell-utils';
 
-import { KupImage } from '../kup-image/kup-image';
-
 @Component({
     tag: 'kup-form',
     styleUrl: 'kup-form.scss',
@@ -527,15 +525,11 @@ export class KupForm {
                     let height = getFromConfigInForm(cell, field, 'height');
                     let width = getFromConfigInForm(cell, field, 'width');
                     fieldContent = (
-                        <kup-image
-                            src={src}
-                            badges={badges}
-                            width="auto"
-                            height="auto"
-                            maxWidth={width ? width : KupImage.DEFAULT_WIDTH}
-                            maxHeight={
-                                height ? height : KupImage.DEFAULT_HEIGHT
-                            }
+                        <kup-icon
+                            name={src}
+                            badgeData={badges}
+                            sizeX={width}
+                            sizeY={height}
                         />
                     );
                 } else if (isProgressBarInForm(cell, field)) {

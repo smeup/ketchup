@@ -80,10 +80,7 @@ import {
 } from './components/kup-field/kup-field-declarations';
 import {
   Badge,
-} from './components/kup-image/kup-image-declarations';
-import {
-  Image,
-} from './components/kup-image-button/kup-image-declarations';
+} from './components/kup-icon/kup-icon-declarations';
 import {
   PaginatorMode,
 } from './components/kup-paginator/kup-paginator-declarations';
@@ -143,8 +140,21 @@ export namespace Components {
     'textfieldData': Object;
   }
   interface KupBadge {
-    'icon': string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * The data of the image displayed inside the badge.
+    */
+    'imageData': {};
+    /**
+    * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+    */
     'position': BadgePosition;
+    /**
+    * The text displayed inside the badge.
+    */
     'text': string;
   }
   interface KupBox {
@@ -750,6 +760,10 @@ export namespace Components {
   }
   interface KupIcon {
     /**
+    * Sets the data of badges.
+    */
+    'badgeData': Badge[];
+    /**
     * The color of the icon, defaults to the main color of the app.
     */
     'color': string;
@@ -758,34 +772,21 @@ export namespace Components {
     */
     'customStyle': string;
     /**
-    * The name of the icon.
+    * The name of the icon. It can also contain an URL or a path.
     */
     'name': string;
     /**
-    * The width of the icon, defaults to 100%. Accepts any CSS width format (px, %, vh, etc.).
+    * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
     */
     'sizeX': string;
     /**
-    * The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.).
+    * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
     */
     'sizeY': string;
     /**
     * The type of the icon, defaults to "svg".
     */
     'type': string;
-  }
-  interface KupImage {
-    'alt': string;
-    'badges': Badge[];
-    'height': string;
-    /**
-    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
-    */
-    'limitWidthByHeight': boolean;
-    'maxHeight': string;
-    'maxWidth': string;
-    'src': string;
-    'width': string;
   }
   interface KupImageButton {
     /**
@@ -795,7 +796,7 @@ export namespace Components {
     /**
     * urls of the images
     */
-    'images': Image[];
+    'images': any;
     /**
     * If enabled, display the image description below the image
     */
@@ -1327,12 +1328,6 @@ declare global {
     new (): HTMLKupIconElement;
   };
 
-  interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {}
-  var HTMLKupImageElement: {
-    prototype: HTMLKupImageElement;
-    new (): HTMLKupImageElement;
-  };
-
   interface HTMLKupImageButtonElement extends Components.KupImageButton, HTMLStencilElement {}
   var HTMLKupImageButtonElement: {
     prototype: HTMLKupImageButtonElement;
@@ -1451,7 +1446,6 @@ declare global {
     'kup-graphic-cell': HTMLKupGraphicCellElement;
     'kup-html': HTMLKupHtmlElement;
     'kup-icon': HTMLKupIconElement;
-    'kup-image': HTMLKupImageElement;
     'kup-image-button': HTMLKupImageButtonElement;
     'kup-layout': HTMLKupLayoutElement;
     'kup-list': HTMLKupListElement;
@@ -1535,8 +1529,21 @@ declare namespace LocalJSX {
     'textfieldData'?: Object;
   }
   interface KupBadge extends JSXBase.HTMLAttributes<HTMLKupBadgeElement> {
-    'icon'?: string;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * The data of the image displayed inside the badge.
+    */
+    'imageData'?: {};
+    /**
+    * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+    */
     'position'?: BadgePosition;
+    /**
+    * The text displayed inside the badge.
+    */
     'text'?: string;
   }
   interface KupBox extends JSXBase.HTMLAttributes<HTMLKupBoxElement> {
@@ -2379,6 +2386,10 @@ declare namespace LocalJSX {
   }
   interface KupIcon extends JSXBase.HTMLAttributes<HTMLKupIconElement> {
     /**
+    * Sets the data of badges.
+    */
+    'badgeData'?: Badge[];
+    /**
     * The color of the icon, defaults to the main color of the app.
     */
     'color'?: string;
@@ -2387,34 +2398,21 @@ declare namespace LocalJSX {
     */
     'customStyle'?: string;
     /**
-    * The name of the icon.
+    * The name of the icon. It can also contain an URL or a path.
     */
     'name'?: string;
     /**
-    * The width of the icon, defaults to 100%. Accepts any CSS width format (px, %, vh, etc.).
+    * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
     */
     'sizeX'?: string;
     /**
-    * The height of the icon, defaults to 100%. Accepts any CSS height format (px, %, vh, etc.).
+    * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
     */
     'sizeY'?: string;
     /**
     * The type of the icon, defaults to "svg".
     */
     'type'?: string;
-  }
-  interface KupImage extends JSXBase.HTMLAttributes<HTMLKupImageElement> {
-    'alt'?: string;
-    'badges'?: Badge[];
-    'height'?: string;
-    /**
-    * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
-    */
-    'limitWidthByHeight'?: boolean;
-    'maxHeight'?: string;
-    'maxWidth'?: string;
-    'src'?: string;
-    'width'?: string;
   }
   interface KupImageButton extends JSXBase.HTMLAttributes<HTMLKupImageButtonElement> {
     /**
@@ -2424,9 +2422,9 @@ declare namespace LocalJSX {
     /**
     * urls of the images
     */
-    'images'?: Image[];
+    'images'?: any;
     'onKupImageButtonSelected'?: (event: CustomEvent<{
-      selectedImages: Image[];
+      selectedImages: [];
     }>) => void;
     /**
     * If enabled, display the image description below the image
@@ -3004,7 +3002,6 @@ declare namespace LocalJSX {
     'kup-graphic-cell': KupGraphicCell;
     'kup-html': KupHtml;
     'kup-icon': KupIcon;
-    'kup-image': KupImage;
     'kup-image-button': KupImageButton;
     'kup-layout': KupLayout;
     'kup-list': KupList;

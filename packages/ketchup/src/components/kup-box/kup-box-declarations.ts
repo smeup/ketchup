@@ -1,6 +1,6 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 
-import { Badge } from '../kup-image/kup-image-declarations';
+import { Badge } from '../kup-icon/kup-icon-declarations';
 
 export interface BoxRow {
     cells: {
@@ -13,7 +13,7 @@ export interface BoxRow {
 
     layout?: Layout;
 
-    badges?: Badge[];
+    badgeData?: Badge[];
 }
 
 export interface Layout {

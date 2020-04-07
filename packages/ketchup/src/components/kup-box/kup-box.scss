@@ -69,7 +69,7 @@
       & .box-section {
         text-align: center;
 
-        kup-image {
+        kup-icon {
           margin-left: auto;
           margin-right: auto;
         }
@@ -85,7 +85,7 @@
       & .box-section {
         text-align: left;
 
-        kup-image {
+        kup-icon {
           margin-left: 0;
           margin-right: auto;
         }
@@ -101,7 +101,7 @@
       & .box-section {
         text-align: right;
 
-        kup-image {
+        kup-icon {
           margin-left: auto;
           margin-right: 0;
         }
@@ -202,9 +202,8 @@
         .box-object {
           padding: 1px 4px;
 
-          kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
-          kup-checkbox,
-          kup-icon {
+          kup-icon, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
+          kup-checkbox {
             display: flex;
           }
 

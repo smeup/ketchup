@@ -125,14 +125,16 @@ export function isImage(cell: Cell, boxObject: BoxObject) {
 // -------------
 
 export function buildIconConfig(cell: Cell, value: string) {
+    let badgeData = null;
     let color = null;
     let customStyle = null;
     let sizeX = null;
-    let type = null;
     let sizeY = null;
+    let type = null;
 
     if (cell && cell.config) {
         const config = cell.config;
+        badgeData = config.badgeData;
         color = config.color;
         customStyle = config.customStyle;
         sizeX = config.sizeX;
@@ -141,6 +143,7 @@ export function buildIconConfig(cell: Cell, value: string) {
     }
 
     return {
+        badgeData: badgeData,
         color: color,
         customStyle: customStyle,
         sizeX: sizeX,

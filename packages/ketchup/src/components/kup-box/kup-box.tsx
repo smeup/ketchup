@@ -49,8 +49,6 @@ import {
 
 import { buildButtonConfig } from '../../utils/widget-utils';
 
-import { replacePlaceHolders } from '../../utils/utils';
-
 import {
     filterRows,
     sortRows,
@@ -58,7 +56,6 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { KupImage } from '../kup-image/kup-image';
 
 @Component({
     tag: 'kup-box',
@@ -965,12 +962,12 @@ export class KupBox {
         }
 
         let badges = null;
-        if (row.badges && row.badges.length > 0) {
-            badges = row.badges.map((badge) => (
+        if (row.badgeData && row.badgeData.length > 0) {
+            badges = row.badgeData.map((badge) => (
                 <kup-badge
                     text={badge.text}
                     position={badge.position}
-                    icon={badge.icon}
+                    imageData={badge.imageData}
                     class="centered"
                 />
             ));
@@ -1203,34 +1200,7 @@ export class KupBox {
                     boStyle = { ...cell.style };
                 }
 
-                if (isImage(cell, boxObject)) {
-                    let badges = getFromConfig(cell, boxObject, 'badges');
-                    let src = getValue(cell, boxObject);
-                    if (!src) {
-                        let srcTemplate = getFromConfig(
-                            cell,
-                            boxObject,
-                            'srcTemplate'
-                        );
-                        if (srcTemplate) {
-                            src = replacePlaceHolders(srcTemplate, cell);
-                        }
-                    }
-                    let height = getFromConfig(cell, boxObject, 'height');
-                    let width = getFromConfig(cell, boxObject, 'width');
-                    boContent = (
-                        <kup-image
-                            src={src}
-                            badges={badges}
-                            width="auto"
-                            height="auto"
-                            maxWidth={width ? width : KupImage.DEFAULT_WIDTH}
-                            maxHeight={
-                                height ? height : KupImage.DEFAULT_HEIGHT
-                            }
-                        />
-                    );
-                } else if (isButton(cell.obj)) {
+                if (isButton(cell.obj)) {
                     boContent = (
                         <kup-button
                             {...buildButtonConfig(cell.value, cell.config)}
@@ -1303,7 +1273,7 @@ export class KupBox {
                     }
 
                     boContent = <kup-chart-cell {...props} />;
-                } else if (isIcon(cell.obj)) {
+                } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
                     boContent = (
                         <kup-icon {...buildIconConfig(cell, cell.value)} />
                     );

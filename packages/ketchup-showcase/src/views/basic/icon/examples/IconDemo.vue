@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoData="demoData"></demo>
   </div>
 </template>
 
@@ -26,14 +26,26 @@ export default {
           active: false,
         },
         {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
           text: 'CSS',
           icon: '',
           active: false,
         },
       ],
       demoComp:
-        '<kup-icon id="demo-component" color="var(--kup-icon-color)" size-x="100%" size-y="100%" name="widgets" type="svg" ></kup-icon>',
+        '<kup-icon id="demo-component" color="var(--kup-icon-color)" size-x="64px" size-y="64px" name="widgets" type="svg" ></kup-icon>',
       demoProps: [
+        {
+          prop: 'badgeData',
+          description: 'Sets the data of badges.',
+          type: 'Badge',
+          default: '[]',
+          try: 'json',
+        },
         {
           prop: 'color',
           description:
@@ -47,8 +59,16 @@ export default {
           description:
             'Sets a custom style for the component by feeding this string into a <style> tag.',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
+        },
+        {
+          prop: 'name',
+          description:
+            'The name of the icon. It can also contain an URL or a path.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
         },
         {
           prop: 'sizeX',
@@ -67,13 +87,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'name',
-          description: 'The name of the icon.',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'type',
           description:
             'The type of the icon, defaults to "svg". Currently it is the only type supported.',
@@ -82,6 +95,22 @@ export default {
           try: 'field',
         },
       ],
+      demoData: {
+        badgeData: [
+          {
+            text: '99+',
+            position: 'TR',
+          },
+          {
+            imageData: {
+              name: 'widgets',
+              sizeX: '1rem',
+              sizeY: '1rem',
+            },
+            position: 'BL',
+          },
+        ],
+      },
     };
   },
 };
