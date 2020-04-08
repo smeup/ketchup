@@ -24,15 +24,6 @@ export class KupDashList {
     active = false;
 
     @Prop()
-    iconColor: '';
-
-    @Prop()
-    valueColor: Array<any> =  [];
-
-    @Prop()
-    textColor: '';
-
-    @Prop()
     columnsNumber: number = 1;
 
     @Prop()
@@ -40,7 +31,16 @@ export class KupDashList {
 
     @Prop()
     horizontal: boolean = false;
-    
+
+    @Prop()
+    iconColor: Array<any> =  [];
+
+    @Prop()
+    valueColor: Array<any> =  [];
+
+    @Prop()
+    textColor: Array<any> =  [];
+
     @Prop()
     data: TableData;
 
@@ -64,10 +64,10 @@ export class KupDashList {
             let valueInt = "";
             let valueDec = "";
             let iconColor = {
-                color: this.iconColor,
+                color: this.iconColor[count],
             };
             let textColor = {
-                color: this.textColor,
+                color: this.textColor[count],
             };
             let valueColor = {
                 color: this.valueColor[count],

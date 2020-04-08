@@ -15,9 +15,9 @@
 | `fillSpace`     | `fill-space`     |             | `boolean`   | `false`     |
 | `fontsize`      | `fontsize`       |             | `string`    | `''`        |
 | `horizontal`    | `horizontal`     |             | `boolean`   | `false`     |
-| `iconColor`     | `icon-color`     |             | `""`        | `undefined` |
+| `iconColor`     | --               |             | `any[]`     | `[]`        |
 | `layout`        | `layout`         |             | `string`    | `'1'`       |
-| `textColor`     | `text-color`     |             | `""`        | `undefined` |
+| `textColor`     | --               |             | `any[]`     | `[]`        |
 | `valueColor`    | --               |             | `any[]`     | `[]`        |
 
 
