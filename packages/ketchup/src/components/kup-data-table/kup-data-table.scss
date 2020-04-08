@@ -314,6 +314,7 @@ $fixed-row-class: fixed-row;
 
     > thead {
       background: var(--dtt_head-background-color);
+      border: 1px solid var(--dtt_head-background-color);
 
       // Table header styles
       th {
