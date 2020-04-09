@@ -49,20 +49,20 @@ When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payloa
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default     |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
-| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
-| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
+| Property                             | Attribute | Description | Type                                                                                                     | Default     |
+| ------------------------------------ | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                                            | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined` |
+| `cells`                              | --        |             | `FormCells`                                                                                              | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                                             | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`                              | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`                               | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                                                    | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                                          | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                                             | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                                                 | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                                       | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                                            | `undefined` |
 
 
 ## Events
@@ -126,7 +126,6 @@ Type: `Promise<FormCells>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
-- [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
@@ -139,7 +138,6 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-text-field
   kup-form --> kup-button
-  kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-text-field --> kup-image
@@ -149,9 +147,6 @@ graph TD;
   kup-badge --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-crud --> kup-button
-  kup-crud --> kup-modal
-  kup-crud --> kup-form
   kup-crud --> kup-form
   kup-button --> kup-image
   kup-autocomplete --> kup-text-field

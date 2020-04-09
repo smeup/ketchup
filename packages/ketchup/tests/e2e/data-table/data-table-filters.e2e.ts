@@ -36,6 +36,7 @@ describe('kup-data-table with global filter', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', staticData);
+        element.setProperty('globalFilterValue', 'DEL');
 
         await page.waitForChanges();
 
@@ -43,17 +44,31 @@ describe('kup-data-table with global filter', () => {
         const filters = await page.findAll(filtersSelector);
         expect(filters).toHaveLength(0);
 
+        // testing table rows
+        let bodyRows = await page.findAll(
+            'kup-data-table >>> table tbody > tr'
+        );
+        expect(bodyRows).toHaveLength(1);
+
         // getting global filter input and changing value
         let globalFilterInput = await globalFilterSelector(page);
 
         // Read inside the read me for explanations on the different methods of typing characters with puppeteer API
+<<<<<<< HEAD
         await globalFilterInput.type('FRA', { delay: 200 });
+=======
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.press('Backspace');
+        await globalFilterInput.type('FRA', { delay: 1000 });
+>>>>>>> develop
+
+        await globalFilterInput.click();
+
+        await page.waitForChanges();
 
         // testing table rows
-        const bodyRows = await page.findAll(
-            'kup-data-table >>> table tbody > tr'
-        );
-
+        bodyRows = await page.findAll('kup-data-table >>> table tbody > tr');
         expect(bodyRows).toHaveLength(2);
     }, 20000); // Raised default time out to allow computing of filtered table and user keypress
 });

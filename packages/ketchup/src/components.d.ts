@@ -67,10 +67,6 @@ import {
   FormSection,
 } from './components/kup-form/kup-form-declarations';
 import {
-  KupAutocompleteFilterUpdatePayload,
-  KupAutocompleteOption,
-} from './components/kup-autocomplete/kup-autocomplete-declarations';
-import {
   SearchFilterSubmittedEventDetail,
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
@@ -416,6 +412,7 @@ export namespace Components {
     * Custom style to be passed to the component.
     */
     'customStyle': string;
+    'isSelect': boolean;
     /**
     * Props of the list.
     */
@@ -431,9 +428,11 @@ export namespace Components {
   }
   interface KupCrud {
     'actions': FormActions;
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'autocompleteCallBackOnFilterUpdate': (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     'closeForm': () => Promise<void>;
     'config': CrudConfig;
     'crudCallBackOnFormActionSubmitted': (
@@ -643,9 +642,11 @@ export namespace Components {
   }
   interface KupForm {
     'actions': FormActions;
-    'autocompleteCallBackOnFilterUpdate': (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'autocompleteCallBackOnFilterUpdate': (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     'cells': FormCells;
     'config': FormConfig;
     'crudCallBackOnFormActionSubmitted': (
@@ -854,7 +855,7 @@ export namespace Components {
     * Sets the status of the menu, when false it's hidden otherwise it's visible.
     */
     'menuVisible': boolean;
-    'resetFilter': () => Promise<void>;
+    'resetFilter': (newFilter: string) => Promise<void>;
     /**
     * Defines the type of selection. Values accepted: listbox, radiogroup or group.
     */
@@ -1096,6 +1097,7 @@ export namespace Components {
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined': boolean;
+    'readOnly': boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */
@@ -1952,6 +1954,7 @@ declare namespace LocalJSX {
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
+    'isSelect'?: boolean;
     /**
     * Props of the list.
     */
@@ -1980,6 +1983,9 @@ declare namespace LocalJSX {
     'onKupComboboxItemClick'?: (event: CustomEvent<{
       value: any;
     }>) => void;
+    'onKupComboboxTextFieldSubmit'?: (event: CustomEvent<{
+      value: any;
+    }>) => void;
     /**
     * Sets how the return the selected item value
     */
@@ -1991,9 +1997,11 @@ declare namespace LocalJSX {
   }
   interface KupCrud extends JSXBase.HTMLAttributes<HTMLKupCrudElement> {
     'actions'?: FormActions;
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'autocompleteCallBackOnFilterUpdate'?: (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     'config'?: CrudConfig;
     'crudCallBackOnFormActionSubmitted'?: (
     detail: FormActionEventDetail
@@ -2262,9 +2270,11 @@ declare namespace LocalJSX {
   }
   interface KupForm extends JSXBase.HTMLAttributes<HTMLKupFormElement> {
     'actions'?: FormActions;
-    'autocompleteCallBackOnFilterUpdate'?: (
-    detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined;
+    'autocompleteCallBackOnFilterUpdate'?: (detail: {
+      filter: string;
+      matchesMinimumCharsRequired: boolean;
+      el: EventTarget;
+    }) => Promise<any[]> | undefined;
     'cells'?: FormCells;
     'config'?: FormConfig;
     'crudCallBackOnFormActionSubmitted'?: (
@@ -2844,6 +2854,7 @@ declare namespace LocalJSX {
     * Defaults at false. When set to true, the component will be rendered as an outlined field.
     */
     'outlined'?: boolean;
+    'readOnly'?: boolean;
     /**
     * Defaults at false. When set to true, the button will be rendered with shaped edges.
     */

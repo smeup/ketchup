@@ -14,6 +14,7 @@ import {
 import { KupTreeSelectors } from './tree__selectors';
 import { testTreeNodeValue } from './tree__test__helpers';
 import { styleHasBorderRadius } from "../../../src/components/kup-data-table/kup-data-table-helper";
+import { defaultData } from './mocked-data';
 
 const dataTreeConfiguration: {
   depth: number,
@@ -56,7 +57,9 @@ async function testElementStyle(htmlNode: E2EElement, style: GenericMap) {
 describe('kup-tree with data', () => {
   //---- Creates a new batch of data and then cleans it ----
   beforeEach(async () => {
-    const treeData: TreeConfigData = TreeFactory(dataTreeConfiguration.depth,4);
+    //const treeData: TreeConfigData = TreeFactory(dataTreeConfiguration.depth,4);
+    // used a fixed tree generated from TreeFactory (to understand tests failures easily)
+    const treeData = defaultData;
     data = treeData.data;
     columns = treeData.columns;
 
@@ -413,6 +416,11 @@ describe('kup-tree with data', () => {
           await treeElement.setProperty('selectedNode', treeNodePath);
           await page.waitForChanges();
 
+          console.time('Slept for');
+          //await page.waitFor(1000);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          console.timeEnd('Slept for');
+
           // Find element index
           let flatIndex: number = -1;
           for (let k = 0; k < flatTree.length; k++) {
@@ -430,6 +438,12 @@ describe('kup-tree with data', () => {
 
           expect(treeNodeCellContent).toEqualText(selectedTreeNode.value);
           if (!selectedTreeNode.disabled) {
+            console.log(
+              'tmp log: selected node cycle n. ' +
+                  i +
+                  ' ' +
+                  JSON.stringify(selectedE2ENode.outerHTML)
+            );
             expect(selectedE2ENode).toHaveClass('kup-tree__node--selected');
           } else {
             expect(selectedE2ENode).not.toHaveClass('kup-tree__node--selected');
@@ -438,7 +452,7 @@ describe('kup-tree with data', () => {
 
         // Controls that no selection events were generated during this process
         expect(selectedListener).toHaveLength(0);
-      });
+      }, 60000);
 
 
       test('emits a selected event if clicked (not on the expand icon)', async () => {

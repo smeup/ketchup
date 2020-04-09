@@ -39,6 +39,8 @@ export class KupCombobox {
      */
     @Prop() textfieldData: Object = {};
 
+    @Prop() isSelect: boolean = false;
+
     /**
      * Sets how the return the selected item value
      */
@@ -121,6 +123,16 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        value: any;
+    }>;
+
+    @Event({
+        eventName: 'kupComboboxTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
         value: any;
     }>;
 
@@ -209,6 +221,15 @@ export class KupCombobox {
         });
     }
 
+    onKupTextFieldSubmit(event: CustomEvent) {
+        this.kupChange.emit({
+            value: event.detail.value,
+        });
+        this.kupTextFieldSubmit.emit({
+            value: event.detail.value,
+        });
+    }
+
     openList() {
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
             '.mdc-text-field'
@@ -269,6 +290,13 @@ export class KupCombobox {
         }
     }
 
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-combobox',
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
+            'log'
+        );
+    }
     //---- Lifecycle hooks ----
 
     componentDidRender() {
@@ -294,6 +322,9 @@ export class KupCombobox {
             this.textfieldData['icon'] = 'arrow_drop_down';
         }
 
+        if (this.isSelect == true) {
+            this.textfieldData['readOnly'] = true;
+        }
         let comp: HTMLElement = (
             <kup-text-field
                 {...this.textfieldData}
@@ -305,6 +336,7 @@ export class KupCombobox {
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
+                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
