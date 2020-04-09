@@ -5,15 +5,16 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                               | Type      | Default                   |
-| ------------- | -------------- | ----------------------------------------------------------------------------------------- | --------- | ------------------------- |
-| `badgeData`   | --             | Sets the data of badges.                                                                  | `Badge[]` | `undefined`               |
-| `color`       | `color`        | The color of the icon, defaults to the main color of the app.                             | `string`  | `'var(--kup-icon-color)'` |
-| `customStyle` | `custom-style` | Custom style to be passed to the component.                                               | `string`  | `undefined`               |
-| `name`        | `name`         | The name of the icon. It can also contain an URL or a path.                               | `string`  | `undefined`               |
-| `sizeX`       | `size-x`       | The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).  | `string`  | `'100%'`                  |
-| `sizeY`       | `size-y`       | The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.). | `string`  | `'100%'`                  |
-| `type`        | `type`         | The type of the icon, defaults to "svg".                                                  | `string`  | `'svg'`                   |
+| Property      | Attribute      | Description                                                                                               | Type      | Default                   |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------- | --------- | ------------------------- |
+| `badgeData`   | --             | Sets the data of badges.                                                                                  | `Badge[]` | `undefined`               |
+| `color`       | `color`        | The color of the icon, defaults to the main color of the app.                                             | `string`  | `'var(--kup-icon-color)'` |
+| `customStyle` | `custom-style` | Custom style to be passed to the component.                                                               | `string`  | `undefined`               |
+| `feedback`    | `feedback`     | When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs. | `boolean` | `false`                   |
+| `name`        | `name`         | The name of the icon. It can also contain an URL or a path.                                               | `string`  | `undefined`               |
+| `sizeX`       | `size-x`       | The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                  | `string`  | `'100%'`                  |
+| `sizeY`       | `size-y`       | The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                 | `string`  | `'100%'`                  |
+| `type`        | `type`         | The type of the icon, defaults to "svg".                                                                  | `string`  | `'svg'`                   |
 
 
 ## Events
@@ -42,12 +43,14 @@
 ### Depends on
 
 - [kup-badge](../kup-badge)
+- [kup-spinner](../kup-spinner)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-badge --> kup-image

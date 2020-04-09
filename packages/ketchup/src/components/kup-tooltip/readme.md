@@ -42,6 +42,7 @@ graph TD;
   kup-tooltip --> kup-button
   kup-button --> kup-image
   kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-badge --> kup-image

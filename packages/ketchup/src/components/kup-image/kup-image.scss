@@ -6,10 +6,18 @@
   #kup-component {
     margin: auto;
     position: relative;
-  }
 
-  svg,
-  img {
-    display: var(--kup-display-mode);
+    & #feedback {
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      top: calc(50% - 16px);
+      left: calc(50% - 16px);
+    }
+
+    & svg,
+    & img {
+      display: var(--kup-display-mode);
+    }
   }
 }

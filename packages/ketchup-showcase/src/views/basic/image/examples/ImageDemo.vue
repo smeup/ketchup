@@ -74,6 +74,14 @@ export default {
           try: 'css',
         },
         {
+          prop: 'feedback',
+          description:
+            'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'name',
           description:
             'The name of the image. It can also contain an URL or a path.',

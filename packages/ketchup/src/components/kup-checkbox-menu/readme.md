@@ -42,6 +42,7 @@ graph TD;
   kup-checkbox-menu --> kup-menu
   kup-checkbox-menu --> kup-text-field
   kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-badge --> kup-image

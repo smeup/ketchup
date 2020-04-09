@@ -773,6 +773,10 @@ export namespace Components {
     */
     'customStyle': string;
     /**
+    * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+    */
+    'feedback': boolean;
+    /**
     * The name of the icon. It can also contain an URL or a path.
     */
     'name': string;
@@ -2410,6 +2414,10 @@ declare namespace LocalJSX {
     * Custom style to be passed to the component.
     */
     'customStyle'?: string;
+    /**
+    * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+    */
+    'feedback'?: boolean;
     /**
     * The name of the icon. It can also contain an URL or a path.
     */

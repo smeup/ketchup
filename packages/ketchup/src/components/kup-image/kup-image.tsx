@@ -33,6 +33,14 @@ export class KupImage {
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
+     * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+     */
+    @Prop({ reflect: true }) feedback: boolean = false;
+    /**
+     * The name of the icon. It can also contain an URL or a path.
+     */
+    @Prop({ reflect: true }) name: string = undefined;
+    /**
      * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
     @Prop({ reflect: true }) sizeX: string = '100%';
@@ -40,10 +48,6 @@ export class KupImage {
      * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
     @Prop({ reflect: true }) sizeY: string = '100%';
-    /**
-     * The name of the icon. It can also contain an URL or a path.
-     */
-    @Prop({ reflect: true }) name: string = undefined;
     /**
      * The type of the icon, defaults to "svg".
      */
@@ -78,6 +82,14 @@ export class KupImage {
     }
 
     onKupLoad(e: Event) {
+        if (this.feedback) {
+            if (this.rootElement.shadowRoot !== undefined) {
+                let spinner = this.rootElement.shadowRoot.querySelector(
+                    '#feedback'
+                );
+                spinner.remove();
+            }
+        }
         this.kupLoad.emit({
             el: e.target,
         });
@@ -140,8 +152,9 @@ export class KupImage {
             color: this.color,
             fill: this.color,
         };
-
         let el: string = this.resource;
+        let spinnerLayout: number;
+        let feedback: HTMLElement;
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
@@ -158,6 +171,19 @@ export class KupImage {
                     />
                 );
             });
+        }
+
+        if (this.feedback) {
+            spinnerLayout = 14;
+            feedback = (
+                <div id="feedback" title="Image not loaded yet...">
+                    <kup-spinner
+                        dimensions="3px"
+                        active
+                        layout={spinnerLayout}
+                    ></kup-spinner>
+                </div>
+            );
         }
 
         if (this.type === 'svg') {
@@ -178,6 +204,7 @@ export class KupImage {
                 <Host style={elStyle}>
                     {customStyle}
                     <div id="kup-component" style={elStyle}>
+                        {feedback}
                         <img
                             style={elStyle}
                             src={el}
