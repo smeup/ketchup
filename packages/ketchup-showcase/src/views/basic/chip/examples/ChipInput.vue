@@ -1,16 +1,17 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >By setting the <span class="code-word">type</span> prop to
+      <p>
+        By setting the
+        <span class="code-word">type</span> prop to
         <span class="code-word">input</span>, the chip set will behave as a set
         of static elements which can be deleted from the set one by one (by
-        clicking on the trailing icon).</p
-      >
+        clicking on the trailing icon).
+      </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-chip type="input" :data.prop="data"></wup-chip>
+          <kup-chip type="input" :data.prop="data"></kup-chip>
         </div>
         <p class="centered">Sample input markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -44,7 +45,7 @@ export default {
           checked: false,
         },
       ],
-      markupBasic: '<wup-chip type="input"></wup-chip>',
+      markupBasic: '<kup-chip type="input"></kup-chip>',
     };
   },
 };

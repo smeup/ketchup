@@ -27,11 +27,6 @@ const baseRoutes = [
 
 let advancedRoutes = [
   {
-    path: `/autocomplete`,
-    name: 'autocomplete',
-    component: () => import(`@/views/advanced/autocomplete/Autocomplete.vue`),
-  },
-  {
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/advanced/box/Box.vue`),
@@ -50,11 +45,6 @@ let advancedRoutes = [
     path: `/chart`,
     name: 'chart',
     component: () => import(`@/views/advanced/chart/Chart.vue`),
-  },
-  {
-    path: `/chips`,
-    name: 'chips',
-    component: () => import(`@/views/advanced/chips/Chips.vue`),
   },
   {
     path: `/crud`,
@@ -102,11 +92,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/menu/Menu.vue`),
   },
   {
-    path: `/portal`,
-    name: 'portal',
-    component: () => import(`@/views/advanced/portal/Portal.vue`),
-  },
-  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () => import(`@/views/advanced/progressbar/Progressbar.vue`),
@@ -128,27 +113,12 @@ let advancedRoutes = [
   },
 ];
 
-let javascriptRoutes = [
-  {
-    path: `/errorlogging`,
-    name: 'errorlogging',
-    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
-  },
-  {
-    path: `/scrollonhover`,
-    name: 'scrollonhover',
-    component: () =>
-      import(`@/views/javascript/scrollonhover/Scrollonhover.vue`),
-  },
-  {
-    path: `/tippositioning`,
-    name: 'tippositioning',
-    component: () =>
-      import(`@/views/javascript/tippositioning/Tippositioning.vue`),
-  },
-];
-
 let basicRoutes = [
+  {
+    path: `/autocomplete`,
+    name: 'autocomplete',
+    component: () => import(`@/views/basic/autocomplete/Autocomplete.vue`),
+  },
   {
     path: `/button`,
     name: 'button',
@@ -203,6 +173,26 @@ let basicRoutes = [
     path: `/textfield`,
     name: 'textfield',
     component: () => import(`@/views/basic/textfield/Textfield.vue`),
+  },
+];
+
+let javascriptRoutes = [
+  {
+    path: `/errorlogging`,
+    name: 'errorlogging',
+    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+  },
+  {
+    path: `/scrollonhover`,
+    name: 'scrollonhover',
+    component: () =>
+      import(`@/views/javascript/scrollonhover/Scrollonhover.vue`),
+  },
+  {
+    path: `/tippositioning`,
+    name: 'tippositioning',
+    component: () =>
+      import(`@/views/javascript/tippositioning/Tippositioning.vue`),
   },
 ];
 

@@ -10,7 +10,12 @@ import {
 } from '@stencil/core';
 
 import { Row } from '../kup-data-table/kup-data-table-declarations';
-import { TooltipData, TooltipDetailData, TooltipAction, TooltipObject } from './kup-tooltip-declarations';
+import {
+    TooltipData,
+    TooltipDetailData,
+    TooltipAction,
+    TooltipObject,
+} from './kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -41,7 +46,7 @@ export class KupTooltip {
      */
     @Prop()
     detailDataTimeout: number = 800;
-        
+
     @State()
     visible = false;
 
@@ -72,7 +77,7 @@ export class KupTooltip {
     })
     kupActionCommandClicked: EventEmitter<{
         actionCommand: TooltipAction;
-    }>;    
+    }>;
 
     @Event({
         eventName: 'kupDefaultActionClicked',
@@ -80,11 +85,9 @@ export class KupTooltip {
         cancelable: true,
         bubbles: true,
     })
-    
     kupDefaultActionClicked: EventEmitter<{
         obj: TooltipObject;
-    }>;    
-
+    }>;
 
     @Event({
         eventName: 'kupDefaultOptionClicked',
@@ -94,14 +97,17 @@ export class KupTooltip {
     })
     kupDefaultOptionClicked: EventEmitter<{
         obj: TooltipObject;
-    }>;  
+    }>;
 
     @Watch('data')
     onDataChanged() {
         if (this.visible) {
             this.positionRecalc();
             // loading detail
-            this.loadDetailTimeout = setTimeout(() => this.loadDetail(), this.detailDataTimeout);
+            this.loadDetailTimeout = setTimeout(
+                () => this.loadDetail(),
+                this.detailDataTimeout
+            );
         }
     }
 
@@ -123,10 +129,13 @@ export class KupTooltip {
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
     }
-    
 
     private hasActionsData(): boolean {
-        return this.hasDetailData() && !!this.detailData.actions && !!this.detailData.actions.command;        
+        return (
+            this.hasDetailData() &&
+            !!this.detailData.actions &&
+            !!this.detailData.actions.command
+        );
     }
 
     private resetTimeouts() {
@@ -164,19 +173,27 @@ export class KupTooltip {
     }
 
     private getTitle(): string {
-        let datatitle:string = '';
+        let datatitle: string = '';
         if (this.data) {
             datatitle = this.data.title;
         }
-        const title = <div><div class="title" onClick={(event) => this.onDefaultOptionClicked(event)}>
-                {datatitle}
+        const title = (
+            <div>
+                <div
+                    class="title"
+                    onClick={(event) => this.onDefaultOptionClicked(event)}
+                >
+                    {datatitle}
+                </div>
+                <kup-button
+                    flat={true}
+                    icon="open-in-new"
+                    onKupButtonClick={(event) =>
+                        this.onDefaultActionClicked(event)
+                    }
+                ></kup-button>
             </div>
-            <kup-button           
-                flat={true}
-                iconClass="mdi mdi-open-in-new"
-                onKupButtonClicked={(event) => this.onDefaultActionClicked(event)}>
-            </kup-button> 
-        </div>;
+        );
         return title;
     }
 
@@ -184,15 +201,15 @@ export class KupTooltip {
         return this.data ? this.data.content : {};
     }
 
-    private getObj():TooltipObject{
-        const nullObj:TooltipObject = {t:"", p:"", k:"", url:""}
+    private getObj(): TooltipObject {
+        const nullObj: TooltipObject = { t: '', p: '', k: '', url: '' };
         return this.data ? this.data.obj : nullObj;
     }
 
     // ---- Listeners ----
     private onMouseOver() {
         // Cancello il mouseLeaveTimeout così se l'utente
-        // esce e rientra rimanendo nell'intervallo di 500ms 
+        // esce e rientra rimanendo nell'intervallo di 500ms
         // il tip non si chiude
         if (this.mouseLeaveTimeout) {
             clearTimeout(this.mouseLeaveTimeout);
@@ -209,30 +226,30 @@ export class KupTooltip {
         }
     }
 
-    private onActionCommandClicked(event:Event, action:TooltipAction) {        
+    private onActionCommandClicked(event: Event, action: TooltipAction) {
         //console.log("Emit kupActionCommandClicked: " + JSON.stringify(action));
         // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        this.kupActionCommandClicked.emit({actionCommand: action})
+        this.kupActionCommandClicked.emit({ actionCommand: action });
     }
 
-    private onDefaultActionClicked(event:Event) { 
-        //Evento di default al click     
+    private onDefaultActionClicked(event: Event) {
+        //Evento di default al click
         event.stopPropagation();
-        this.kupDefaultActionClicked.emit({obj:this.getObj()})
+        this.kupDefaultActionClicked.emit({ obj: this.getObj() });
     }
 
-    private onDefaultOptionClicked(event:Event) { 
-        //Evento di default al click  
+    private onDefaultOptionClicked(event: Event) {
+        //Evento di default al click
         event.stopPropagation();
-        this.kupDefaultOptionClicked.emit({obj:this.getObj()})
+        this.kupDefaultOptionClicked.emit({ obj: this.getObj() });
     }
 
     private onMouseLeave() {
         // Se non sono presenti azioni si chiude immediatamente, altrimenti
         // lo chiudo dopo 500ms
-        let timeout = this.hasActionsData()?500:0;
+        let timeout = this.hasActionsData() ? 500 : 0;
         this.mouseLeaveTimeout = setTimeout(() => {
             // reset data
             this.data = null;
@@ -243,9 +260,8 @@ export class KupTooltip {
 
             // reset timeouts
             this.resetTimeouts();
-        },timeout)
+        }, timeout);
     }
-    
 
     // ---- Render methods ----
     private getDefaultLayout() {
@@ -349,7 +365,7 @@ export class KupTooltip {
         let detailContent = null;
         let detailActions = null;
         //console.log(this.detailData);
-        if (this.hasDetailData()) {            
+        if (this.hasDetailData()) {
             detailContent = this.rows.map((row) =>
                 row.cells['label'].value === '' ||
                 row.cells['value'].value === '' ? (
@@ -364,21 +380,23 @@ export class KupTooltip {
                         </div>
                     </div>
                 )
-            );                      
-            if (this.hasActionsData()) {  
-          
-                detailActions = this.detailData.actions.command.slice(0,5).map((action) =>
-                    <div class="detail-actions__box">                           
-                        <kup-button           
-                            flat={true}
-                            tooltip={action.text} 
-                            iconClass={action.icon}
-                            onKupButtonClicked={(event) => this.onActionCommandClicked(event, action)}                            
-                        >
-                        </kup-button>                                                                         
-                    </div>                                                    
-                );                  
-            }                                                         
+            );
+            if (this.hasActionsData()) {
+                detailActions = this.detailData.actions.command
+                    .slice(0, 5)
+                    .map((action) => (
+                        <div class="detail-actions__box">
+                            <kup-button
+                                flat={true}
+                                tooltip={action.text}
+                                icon={action.icon}
+                                onKupButtonClick={(event) =>
+                                    this.onActionCommandClicked(event, action)
+                                }
+                            ></kup-button>
+                        </div>
+                    ));
+            }
         }
 
         const detailClass = {
@@ -394,20 +412,17 @@ export class KupTooltip {
                 id="tooltip"
                 hidden={!this.visible || !this.data}
                 style={tooltipStyle}
-                onClick={(e:MouseEvent) => e.stopPropagation()}
+                onClick={(e: MouseEvent) => e.stopPropagation()}
             >
                 <div id="main-content" class={mainContentClass}>
                     {mainContent}
                 </div>
                 <div id="detail" class={detailClass}>
                     {detailContent}
-                </div>                                      
-                <div                     
-                    id="detail-actions"   
-                    hidden={!this.hasActionsData()}
-                >
+                </div>
+                <div id="detail-actions" hidden={!this.hasActionsData()}>
                     {detailActions}
-                </div>          
+                </div>
             </div>
         );
     }
@@ -417,20 +432,12 @@ export class KupTooltip {
             <div
                 id="wrapper"
                 onMouseOver={this.onMouseOver.bind(this)}
-                onMouseLeave={this.onMouseLeave.bind(this)}                
+                onMouseLeave={this.onMouseLeave.bind(this)}
                 ref={(el) => (this.wrapperEl = el)}
             >
                 <slot />
 
                 {this.createTooltip()}
-
-                {/* <kup-portal
-                    isVisible={this.visible}
-                    nodes={this.createTooltip()}
-                    portalParentRef={this.tooltipEl}
-                    styleNode={this.tooltipEl.shadowRoot.querySelector('style')}
-                    refOffset={this.tooltipPosition}
-                /> */}
             </div>
         );
     }

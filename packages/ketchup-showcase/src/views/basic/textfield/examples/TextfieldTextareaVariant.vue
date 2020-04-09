@@ -10,7 +10,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field text-area label="I am a textarea"></wup-text-field>
+          <kup-text-field text-area label="I am a textarea"></kup-text-field>
         </div>
         <p class="centered">Textarea sample markup</p>
         <code class="flat">{{ markupTextarea }}</code>
@@ -24,7 +24,7 @@ export default {
   name: 'TextfieldTextareaVariant',
   data() {
     return {
-      markupTextarea: '<wup-text-field text-area></wup-text-field>',
+      markupTextarea: '<kup-text-field text-area></kup-text-field>',
     };
   },
 };

@@ -57,7 +57,6 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { KupImage } from '../kup-image/kup-image';
 
@@ -479,8 +478,9 @@ export class KupBox {
         };
     }
 
-    private onSortChange(kupComboEvent: KetchupComboEvent) {
-        this.sortBy = kupComboEvent.value.id;
+    private onSortChange(e: CustomEvent) {
+        console.log(e);
+        this.sortBy = e.detail.value;
         this.initRows();
     }
 
@@ -907,11 +907,12 @@ export class KupBox {
         if (this.multiSelection) {
             multiSel = (
                 <div class="box-selection">
-                    <input
-                        type="checkbox"
+                    <kup-checkbox
                         checked={isSelected}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={() => this.onSelectionCheckChange(row)}
+                        onKupCheckboxClick={(e) => e.stopPropagation()}
+                        onKupCheckboxChange={() =>
+                            this.onSelectionCheckChange(row)
+                        }
                     />
                 </div>
             );
@@ -1244,32 +1245,25 @@ export class KupBox {
                         ></kup-checkbox>
                     );
                 } else if (isRadio(cell.obj)) {
-                    let initialValue = {
-                        label: '',
-                        value: '1',
+                    let radioProp = {
+                        data: [
+                            {
+                                label: '',
+                                value: cell.value,
+                                checked: cell.value == '1',
+                            },
+                        ],
+                        disabled: true,
                     };
-                    let items = [
-                        {
-                            label: '',
-                            value: cell.value,
-                        },
-                    ];
 
-                    boContent = (
-                        <kup-radio
-                            disabled={true}
-                            items={items}
-                            initialValue={initialValue}
-                            value-field="value"
-                        />
-                    );
+                    boContent = <kup-radio {...radioProp} />;
                 } else if (isPassword(cell.obj)) {
                     boContent = (
-                        <kup-text-input
+                        <kup-text-field
                             input-type="password"
                             initial-value={cell.value}
                             disabled={true}
-                        ></kup-text-input>
+                        ></kup-text-field>
                     );
                 } else if (isProgressBar(cell, boxObject)) {
                     const value = getValue(cell, boxObject);
@@ -1352,34 +1346,34 @@ export class KupBox {
 
         let sortPanel = null;
         if (this.sortEnabled) {
-            let initialValue = { value: '', id: '' };
-
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
                 const item = {
-                    value: column.title,
-                    id: column.name,
+                    text: column.title,
+                    value: column.name,
+                    selected: column.name === this.sortBy,
                 };
-
-                if (column.name === this.sortBy) {
-                    // setting initial value
-                    initialValue = item;
-                }
 
                 return item;
             });
 
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            let textfieldData = {
+                initialValue: this.sortBy,
+                label: 'Sort by',
+                trailingIcon: true,
+            };
+            let listData = {
+                data: items,
+                selectable: true,
+            };
 
             sortPanel = (
                 <div id="sort-panel">
-                    <kup-combo
-                        displayedField="value"
-                        items={items}
-                        initialValue={initialValue}
-                        onKetchupComboSelected={(e) =>
-                            this.onSortChange(e.detail)
-                        }
+                    <kup-combobox
+                        textfieldData={textfieldData}
+                        listData={listData}
+                        onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>
             );
@@ -1389,9 +1383,10 @@ export class KupBox {
         if (this.filterEnabled) {
             filterPanel = (
                 <div id="filter-panel">
-                    <kup-text-input
-                        placeholder="Cerca" // TODO
-                        onKetchupTextInputUpdated={(event) =>
+                    <kup-text-field
+                        label="Cerca" // TODO
+                        full-width={true}
+                        onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     >
@@ -1404,7 +1399,7 @@ export class KupBox {
                         >
                             <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                         </svg>
-                    </kup-text-input>
+                    </kup-text-field>
                 </div>
             );
         }

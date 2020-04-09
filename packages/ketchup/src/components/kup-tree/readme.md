@@ -95,14 +95,14 @@ open or close the TreeNodes.
 
 - [kup-checkbox](../kup-checkbox)
 - [kup-graphic-cell](../kup-graphic-cell)
-- [wup-icon](../wup-icon)
+- [kup-icon](../kup-icon)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tree --> kup-checkbox
   kup-tree --> kup-graphic-cell
-  kup-tree --> wup-icon
+  kup-tree --> kup-icon
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

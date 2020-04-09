@@ -9,7 +9,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-radio :data.prop="data" disabled></wup-radio>
+          <kup-radio :data.prop="data" disabled></kup-radio>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -35,7 +35,7 @@ export default {
           checked: false,
         },
       ],
-      markupDisabled: '<wup-radio disabled></wup-radio>',
+      markupDisabled: '<kup-radio disabled></kup-radio>',
     };
   },
 };

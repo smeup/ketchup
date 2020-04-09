@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -42,7 +37,7 @@ export default {
         },
       ],
       demoComp:
-        '<wup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></wup-text-field>',
+        '<kup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></kup-text-field>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -56,6 +51,30 @@ export default {
           prop: 'disabled',
           description:
             'Sets the component to disabled state, making it not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'readOnly',
+          description:
+            'Sets the component to read only state, making it not editable, but interactable. Used in combobox component, managed as select.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'emitSubmitEventOnEnter',
+          description:
+            'If text field has autocomplete associated and the list is opened, enter must not execute submit it, serves just to set the seleced item value of the list i the text field.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'forceFocus',
+          description:
+            'Defaults at false. When set to true, the component will be focused.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -95,7 +114,7 @@ export default {
         {
           prop: 'icon',
           description:
-            'The text-field will be rendered with the specified Material Design icon.',
+            "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
           type: 'string',
           default: 'undefined',
           try: 'field',
@@ -114,6 +133,14 @@ export default {
           type: 'string',
           default: 'text',
           try: 'field',
+        },
+        {
+          prop: 'isClearable',
+          description:
+            "Displays a clear-shaped trailing icon which resets the field when clicked. It shouldn't be used in textareas.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'label',
@@ -198,6 +225,14 @@ export default {
         },
         {
           name: 'kupTextFieldIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldClearIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldSubmit',
           type: 'click',
         },
       ],

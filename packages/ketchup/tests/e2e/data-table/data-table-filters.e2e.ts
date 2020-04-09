@@ -13,7 +13,7 @@ import { staticData } from './mocked-data';
  */
 async function globalFilterSelector(page: E2EPage): Promise<E2EElement> {
     const temp = ((await page.evaluateHandle(
-        `document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-input").shadowRoot.querySelector("input")`
+        `document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-field").shadowRoot.querySelector("input")`
     )) as unknown) as E2EElement;
     return temp;
 }
@@ -24,14 +24,14 @@ function delay(time) {
     });
 }
 
-const filtersSelector = 'kup-data-table >>> table > thead kup-text-input';
+const filtersSelector = 'kup-data-table >>> table > thead kup-text-field';
 
 describe('kup-data-table with global filter', () => {
     it('should have global filter', async () => {
         const page = await newE2EPage();
 
         await page.setContent(
-            '<kup-data-table global-filter></kup-data-table><kup-text-input></kup-text-input>'
+            '<kup-data-table global-filter></kup-data-table><kup-text-field></kup-text-field>'
         );
         const element = await page.find('kup-data-table');
 
@@ -54,10 +54,14 @@ describe('kup-data-table with global filter', () => {
         let globalFilterInput = await globalFilterSelector(page);
 
         // Read inside the read me for explanations on the different methods of typing characters with puppeteer API
+<<<<<<< HEAD
+        await globalFilterInput.type('FRA', { delay: 200 });
+=======
         await globalFilterInput.press('Backspace');
         await globalFilterInput.press('Backspace');
         await globalFilterInput.press('Backspace');
         await globalFilterInput.type('FRA', { delay: 1000 });
+>>>>>>> develop
 
         await globalFilterInput.click();
 

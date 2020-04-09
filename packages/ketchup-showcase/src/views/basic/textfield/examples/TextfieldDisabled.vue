@@ -9,8 +9,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-text-field disabled></wup-text-field>
-          <wup-text-field disabled label="I am disabled"></wup-text-field>
+          <kup-text-field disabled></kup-text-field>
+          <kup-text-field disabled label="I am disabled"></kup-text-field>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -24,7 +24,7 @@ export default {
   name: 'TextfieldDisabled',
   data() {
     return {
-      markupDisabled: '<wup-text-field disabled></wup-text-field>',
+      markupDisabled: '<kup-text-field disabled></kup-text-field>',
     };
   },
 };

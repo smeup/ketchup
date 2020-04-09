@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-chip',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-chip',
       headtitle: 'Chip',
       titles: [
         'Playground',

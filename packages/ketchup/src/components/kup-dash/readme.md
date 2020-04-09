@@ -25,7 +25,7 @@
 
 | Name                                                  | Description                             |
 | ----------------------------------------------------- | --------------------------------------- |
-| `--dash_background-color, --kup-text-input_font-size` | Set height of the font and the svg icon |
+| `--dash_background-color, --kup-text-field_font-size` | Set height of the font and the svg icon |
 
 
 ----------------------------------------------

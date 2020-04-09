@@ -33,16 +33,6 @@ import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper'
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 
-/*import {
-  ComboItem,
-  ComboPosition,
-  KetchupComboEvent,
-} from './kup-combo-declarations';
-import { eventFromElement } from '../../utils/utils';
-import { getElementOffset } from '../../utils/offset';
-import { GenericObject } from '../../types/GenericTypes';
-*/
-
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -679,7 +669,7 @@ export class KupTree {
         let treeExpandIcon;
         if (hasExpandIcon) {
             treeExpandIcon = (
-                <wup-icon
+                <kup-icon
                     class="expand-icon kup-tree__icon kup-tree__node__expander"
                     dimensions="1.5rem"
                     name="menu-right"
@@ -694,7 +684,7 @@ export class KupTree {
                               }
                             : null
                     }
-                ></wup-icon>
+                ></kup-icon>
             );
         } else {
             treeExpandIcon = (
@@ -720,27 +710,17 @@ export class KupTree {
         // When TreeNode icons are visible, creates the icon if one is specified
         let treeNodeIcon: any = null;
         if (this.showIcons) {
-            if (treeNodeData.iconSrc) {
-                if (treeNodeData.iconSrc === '') {
+            if (treeNodeData.icon) {
+                if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = (
-                        <img
-                            class="kup-tree__icon"
-                            src={treeNodeData.iconSrc}
-                        />
-                    );
-                }
-            } else if (treeNodeData.iconClass) {
-                if (treeNodeData.iconClass === '') {
-                    treeNodeIcon = <span class="kup-tree__icon" />;
-                } else {
-                    treeNodeIcon = (
-                        <wup-icon
+                        <kup-icon
                             class="kup-tree__icon"
                             dimensions="1.5rem"
-                            name={treeNodeData.iconClass}
-                        ></wup-icon>
+                            name={treeNodeData.icon}
+                            color={treeNodeData.iconColor}
+                        ></kup-icon>
                     );
                 }
             } else {

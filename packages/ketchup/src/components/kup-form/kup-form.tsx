@@ -9,19 +9,10 @@ import {
     Method,
 } from '@stencil/core';
 
-import { KetchupTextInputEvent } from '../kup-text-input/kup-text-input-declarations';
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
 import {
     CrudRecordsChanged,
     CrudCallBackOnFormEventResult,
 } from '../kup-crud/kup-crud-declarations';
-
-import {
-    KupAutocompleteOption,
-    KupAutocompleteFilterUpdatePayload,
-} from '../kup-autocomplete/kup-autocomplete-declarations';
-
-import { SearchSelectionUpdatedEventDetail } from '../kup-search/kup-search-declarations';
 
 import isEmpty from 'lodash/isEmpty';
 
@@ -103,9 +94,11 @@ export class KupForm {
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
 
-    @Prop() autocompleteCallBackOnFilterUpdate: (
-        detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+    @Prop() autocompleteCallBackOnFilterUpdate: (detail: {
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined = undefined;
 
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail
@@ -247,20 +240,17 @@ export class KupForm {
         this.onFieldChanged(fieldKey, value);
     }
 
-    private onAutocompleteFieldChanged(
-        event: CustomEvent<KupAutocompleteOption[]>,
-        fieldKey: string
-    ) {
+    private onAutocompleteFieldChanged(event: CustomEvent, fieldKey: string) {
         event.stopPropagation();
         let value = event.detail;
         this.onFieldChanged(fieldKey, value);
     }
 
     private onSimpleValueFieldChanged(
-        event:
-            | CustomEvent<KetchupTextInputEvent>
+        event: CustomEvent,
+        /*    | CustomEvent<KetchupTextInputEvent>
             | CustomEvent<KetchupComboEvent>
-            | CustomEvent<SearchSelectionUpdatedEventDetail>,
+            | CustomEvent<SearchSelectionUpdatedEventDetail>,*/
         fieldKey: string
     ) {
         event.stopPropagation();
@@ -286,7 +276,7 @@ export class KupForm {
             value
         );
 
-        // added this check because some components (like kup-combo) actually send a change event also when
+        // added this check because some components actually send a change event also when
         // the value is reset into component -> TODO: evaluate other components behaviour
         if (isCellDifferentFromActual) {
             if (!this.actualCells.hasOwnProperty(fieldKey)) {
@@ -425,22 +415,34 @@ export class KupForm {
                 }
 
                 if (isComboInForm(cell, field)) {
+                    let textfieldData = {
+                        disabled: field.readonly,
+                        trailingIcon: true,
+                    };
+                    if (cell) {
+                        if (cell.value) {
+                            textfieldData['initialValue'] = cell.value.text;
+                        }
+                    }
+                    let listData = {
+                        data: field.config.data,
+                        selectable: !field.readonly,
+                    };
                     fieldContent = (
-                        <kup-combo
-                            items={field.config.data}
+                        <kup-combobox
+                            textfieldData={textfieldData}
+                            listData={listData}
                             {...field.config}
-                            initialValue={cell && cell.value}
-                            disabled={field.readonly}
-                            onKetchupComboSelected={(e) =>
+                            onKupComboboxItemClick={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKetchupComboFocused={() =>
+                            onKupComboboxFocus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKetchupComboBlurred={() =>
+                            onKupComboboxBlur={() =>
                                 this.onFieldBlurred(field.key)
                             }
-                        ></kup-combo>
+                        ></kup-combobox>
                     );
                 } else if (
                     isConfiguratorInForm(cell, field) ||
@@ -482,17 +484,37 @@ export class KupForm {
                         ></kup-crud>
                     );
                 } else if (isAutocompleteInForm(cell, field)) {
+                    let textfieldData = {
+                        disabled: field.readonly,
+                        trailingIcon: true,
+                    };
+                    if (cell) {
+                        if (cell.value) {
+                            textfieldData['initialValue'] = cell.value.text;
+                        }
+                    }
+                    let listData = {
+                        data: field.config.data,
+                        selectable: !field.readonly,
+                    };
                     fieldContent = (
                         <kup-autocomplete
-                            extra={field.extra}
-                            initialSelectedItems={cell && cell.value}
-                            disabled={field.readonly}
-                            items={field.config.items}
+                            textfieldData={textfieldData}
+                            listData={listData}
                             {...field.config}
-                            onKupAutocompleteSelectionUpdate={(e) =>
+                            onKupAutocompleteItemClick={(e) =>
                                 this.onAutocompleteFieldChanged(e, field.key)
                             }
-                            autocompleteCallBackOnFilterUpdate={
+                            onKupAutocompleteFocus={() =>
+                                this.onFieldFocused(field.key)
+                            }
+                            onKupAutocompleteBlur={() =>
+                                this.onFieldBlurred(field.key)
+                            }
+                            onKupAutocompleteFilterChanged={(e) =>
+                                this.onAutocompleteFieldChanged(e, field.key)
+                            }
+                            callBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
                             }
                         ></kup-autocomplete>
@@ -544,27 +566,27 @@ export class KupForm {
                     );
                 } else if (isInputTextInForm(cell, field)) {
                     const wrapperStyle = {};
-                    wrapperStyle['--kup-text-input_border-color--selected'] =
+                    wrapperStyle['--kup-text-field_border-color--selected'] =
                         '#66D3FA';
 
                     // NB: not updated field value using onInput() event, but using onChange().
                     // The onChange of an input text fires when the element loses focus, not immediately after the modification
                     fieldContent = (
-                        <kup-text-input
+                        <kup-text-field
                             style={wrapperStyle}
                             input-type="text"
                             initialValue={cell && cell.value}
                             disabled={field.readonly}
-                            onKetchupTextInputChanged={(e) =>
+                            onKupTextFieldChange={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
                             }
-                            onKetchupTextInputFocused={() =>
+                            onKupTextFieldFocus={() =>
                                 this.onFieldFocused(field.key)
                             }
-                            onKetchupTextInputBlurred={() =>
+                            onKupTextFieldBlur={() =>
                                 this.onFieldBlurred(field.key)
                             }
-                        ></kup-text-input>
+                        ></kup-text-field>
                     );
                 } else {
                     fieldContent =
@@ -659,7 +681,7 @@ export class KupForm {
                         actionField.title,
                         actionField.config
                     )}
-                    onKupButtonClicked={() =>
+                    onKupButtonClick={() =>
                         this.onFormActionSubmitted(actionField)
                     }
                 />
@@ -915,7 +937,7 @@ export class KupForm {
     }
 
     private checkField(field: FormField, cell: FormCell) {
-        this.actualMessages = this.actualMessages.filter(function(message) {
+        this.actualMessages = this.actualMessages.filter(function (message) {
             return message.fieldKey != field.key;
         });
         this.actualMessages = [

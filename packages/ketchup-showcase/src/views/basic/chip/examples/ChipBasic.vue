@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p
-        >Chips are commonly used when there is a list of labels or tags. The
+      <p>
+        Chips are commonly used when there is a list of labels or tags. The
         chip set data is containerd in the
-        <span class="code-word">data</span> prop, which is structured like this:
+        <span
+          class="code-word"
+        >data</span> prop, which is structured like this:
         <br />
         <br />
         <span class="code-word">value</span> is mandatory and defines the value
@@ -18,13 +20,15 @@
         <br />
         <span class="code-word">checked</span> defines whether the chip is
         selected or not, this is true for chip set defined as
-        <span class="code-word">choice</span> or
-        <span class="code-word">filter</span>.</p
-      >
+        <span
+          class="code-word"
+        >choice</span> or
+        <span class="code-word">filter</span>.
+      </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-chip :data.prop="data"></wup-chip>
+          <kup-chip :data.prop="data"></kup-chip>
         </div>
         <p class="centered">Sample markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -53,7 +57,7 @@ export default {
           checked: false,
         },
       ],
-      markupBasic: '<wup-chip></wup-chip>',
+      markupBasic: '<kup-chip></kup-chip>',
       markupObject:
         "{ value: 'text', label: 'Text only', checked: false }, { value: 'icon', icon: 'widgets', label: 'With icon', checked: false}",
     };

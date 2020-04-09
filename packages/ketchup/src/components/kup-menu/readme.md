@@ -40,13 +40,11 @@
 
 ### Used by
 
- - [kup-autocomplete](../kup-autocomplete)
  - [kup-checkbox-menu](../kup-checkbox-menu)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-autocomplete --> kup-menu
   kup-checkbox-menu --> kup-menu
   style kup-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```

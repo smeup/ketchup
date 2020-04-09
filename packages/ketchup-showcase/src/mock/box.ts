@@ -236,7 +236,7 @@ export const j4btnData = {
           },
           value: 'Book',
           config: {
-            icon: 'mdi mdi-lead-pencil',
+            icon: 'lead-pencil',
             showtext: true,
           },
         },
@@ -276,7 +276,7 @@ export const j4btnData = {
           },
           value: 'Book',
           config: {
-            icon: 'mdi mdi-lead-pencil',
+            icon: 'lead-pencil',
             showtext: true,
           },
         },
@@ -316,7 +316,7 @@ export const j4btnData = {
           },
           value: 'Book',
           config: {
-            icon: 'mdi mdi-lead-pencil',
+            icon: 'lead-pencil',
             showtext: true,
           },
         },
@@ -356,7 +356,7 @@ export const j4btnData = {
           },
           value: 'Book',
           config: {
-            icon: 'mdi mdi-lead-pencil',
+            icon: 'lead-pencil',
             showtext: true,
           },
         },
@@ -616,7 +616,7 @@ export const imgBadgeData = {
           config: {
             badges: [
               {
-                icon: 'mdi mdi-account',
+                icon: 'account',
                 position: 'BR',
               },
             ],
@@ -664,7 +664,7 @@ export const imgBadgeData = {
                 position: 'TR',
               },
               {
-                icon: 'mdi mdi-pin',
+                icon: 'pin',
                 position: 'BR',
               },
             ],
@@ -712,7 +712,7 @@ export const imgBadgeData = {
                 position: 'TL',
               },
               {
-                icon: 'mdi mdi-account',
+                icon: 'account',
                 position: 'BL',
               },
             ],
@@ -1060,7 +1060,7 @@ export const boxBadgeData = {
       },
       badges: [
         {
-          icon: 'mdi mdi-account',
+          icon: 'account',
           position: 'TL',
         },
       ],
@@ -1147,7 +1147,7 @@ export const shapeData = {
           config: {
             badges: [
               {
-                icon: 'mdi mdi-account',
+                icon: 'account',
                 position: 'BR',
               },
             ],
@@ -1221,7 +1221,7 @@ export const shapeData = {
           config: {
             badges: [
               {
-                icon: 'mdi mdi-account',
+                icon: 'account',
                 position: 'TL',
               },
             ],
@@ -1254,9 +1254,9 @@ export const shapeData = {
             p: 'ART',
             k: 'myhtml',
           },
-          value: '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b> e immagine <img src="https://picsum.photos/100/50"/></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
+          value:
+            '<div>HTML VALIDO con <i>corsivo</i> e <b>grassetto</b> e immagine <img src="https://picsum.photos/100/50"/></div>  <div>HTML NON VALIDO con <i>corsivo e <b>grassetto</b><div>',
         },
-
       },
       layout: {
         sections: [
@@ -1265,14 +1265,14 @@ export const shapeData = {
             dim: '100%',
             content: [
               {
-                    column: 'FLD1',
-                    shape: 'EDT',
+                column: 'FLD1',
+                shape: 'EDT',
               },
             ],
-          }
-        ]
-      }
-    }
+          },
+        ],
+      },
+    },
   ],
 };
 

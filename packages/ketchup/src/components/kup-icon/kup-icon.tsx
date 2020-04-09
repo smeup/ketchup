@@ -1,4 +1,5 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-icon',
@@ -6,40 +7,116 @@ import { Component, Element, Prop, h } from '@stencil/core';
     shadow: true,
 })
 export class KupIcon {
-    public static readonly DEFAULT_ICON_URL =
-        'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css';
+    @Element() rootElement: HTMLElement;
+    @State() resource: string = undefined;
+    /**
+     * The color of the icon, defaults to the main color of the app.
+     */
+    @Prop({ reflect: true }) color: string = 'var(--kup-icon-color)';
 
-    @Element() ketchupIconEl: HTMLElement;
-    @Prop() iconClass: string;
-    @Prop() iconStylesheets = [KupIcon.DEFAULT_ICON_URL];
-    @Prop() iconStyle: {};
-    @Prop() imageSrc: string;
+    /**
+     * Custom style to be passed to the component.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+
+    /**
+     * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+     */
+    @Prop({ reflect: true }) dimensions: string = '100%';
+
+    /**
+     * The name of the icon.
+     */
+    @Prop({ reflect: true }) name: string = undefined;
+
+    /**
+     * The type of the icon, defaults to "svg".
+     */
+    @Prop({ reflect: true }) type: string = 'svg';
+
+    //---- Methods ----
+
+    async fetchResource() {
+        var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
+        return fetch(res)
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Icon( ' + res + ' ) was not loaded!');
+                }
+            })
+            .then((text) => {
+                this.resource = text;
+            })
+            .catch((error) => {
+                let message = error;
+                errorLogging('kup-icon', message);
+            });
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillRender() {
+        if (
+            this.name.indexOf('.') > -1 ||
+            this.name.indexOf('/') > -1 ||
+            this.name.indexOf('\\') > -1
+        ) {
+            let message =
+                'Detected an src img path for icon with name(' +
+                this.name +
+                ')! Overriding "svg" with "srcpath".';
+            errorLogging('kup-icon', message);
+            this.resource = this.name;
+            this.type = 'srcpath';
+        } else {
+            if (this.type === 'svg') {
+                return this.fetchResource();
+            } else {
+                return (this.resource =
+                    'assets/' + this.type + '/' + this.name + '.' + this.type);
+            }
+        }
+    }
 
     render() {
-        let styleSheets = null;
-        if (this.iconStylesheets && this.iconStylesheets.length > 0) {
-            styleSheets = this.iconStylesheets.map((iconStylesheet) => {
-                return [
-                    <link
-                        href={iconStylesheet}
-                        rel="stylesheet"
-                        type="text/css"
-                    />,
-                ];
-            });
+        if (this.resource === undefined) {
+            let message = 'Resource undefined, not rendering!';
+            errorLogging('kup-icon', message);
+            return;
         }
-
-        let iconClass = this.iconClass;
-        let wrapperStyle = this.iconStyle || {};
-
-        if (this.imageSrc) {
-            iconClass = iconClass + ' with-image';
-            wrapperStyle['background-image'] = `url("${this.imageSrc}")`;
+        let elStyle = {
+            height: this.dimensions,
+            width: this.dimensions,
+            color: this.color,
+            fill: this.color,
+        };
+        let el: string = this.resource;
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
         }
-
-        return [
-            styleSheets,
-            <span class={`icon ${iconClass}`} style={wrapperStyle}></span>,
-        ];
+        if (this.type === 'svg') {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div
+                        id="kup-component"
+                        innerHTML={el}
+                        style={elStyle}
+                    ></div>
+                </Host>
+            );
+        } else {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" style={elStyle}>
+                        <img style={elStyle} src={el}></img>
+                    </div>
+                </Host>
+            );
+        }
     }
 }

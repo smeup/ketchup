@@ -11,7 +11,9 @@ export function generateUniqueId(field: string = 'def'): string {
 }
 
 export function generateUuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
+        c
+    ) {
         var r = (Math.random() * 16) | 0,
             v = c == 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
@@ -66,7 +68,7 @@ export function replacePlaceHolders(template: any, data: any) {
 
     if (!data) return template;
 
-    template = template.replace(/\{\{([^}]+)\}\}/g, function(match) {
+    template = template.replace(/\{\{([^}]+)\}\}/g, function (match) {
         match = match.slice(2, -2);
         var val = get(data, match, match);
         if (!val) return '{{' + match + '}}';
@@ -101,4 +103,22 @@ export function getBoolean(value: any) {
         default:
             return false;
     }
+}
+
+/**
+ * Check if an object is undefined, null or empty
+ * @param obj the object to check
+ * @return true or false
+ */
+export function isEmpty(obj: any) {
+    return (
+        !obj ||
+        obj === null ||
+        (Object.keys(obj).length === 0 && obj.constructor === Object)
+    );
+}
+
+export function isNumber(value: any): boolean {
+    //return typeof value === 'number';
+    return !isNaN(value);
 }
