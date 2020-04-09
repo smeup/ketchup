@@ -124,7 +124,7 @@ export class KupTree {
 
     //-------- State --------
     visibleColumns: Column[] = [];
-    selectedNodeString: string = '';
+    @State() selectedNodeString: string = '';
 
     @State() stateSwitcher: boolean = false;
 

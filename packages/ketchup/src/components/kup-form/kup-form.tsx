@@ -14,11 +14,6 @@ import {
     CrudCallBackOnFormEventResult,
 } from '../kup-crud/kup-crud-declarations';
 
-import {
-    KupAutocompleteOption,
-    KupAutocompleteFilterUpdatePayload,
-} from '../kup-autocomplete/kup-autocomplete-declarations';
-
 import isEmpty from 'lodash/isEmpty';
 
 import cloneDeep from 'lodash/cloneDeep';
@@ -99,9 +94,11 @@ export class KupForm {
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
 
-    @Prop() autocompleteCallBackOnFilterUpdate: (
-        detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+    @Prop() autocompleteCallBackOnFilterUpdate: (detail: {
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined = undefined;
 
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail
@@ -243,10 +240,7 @@ export class KupForm {
         this.onFieldChanged(fieldKey, value);
     }
 
-    private onAutocompleteFieldChanged(
-        event: CustomEvent<KupAutocompleteOption[]>,
-        fieldKey: string
-    ) {
+    private onAutocompleteFieldChanged(event: CustomEvent, fieldKey: string) {
         event.stopPropagation();
         let value = event.detail;
         this.onFieldChanged(fieldKey, value);
@@ -490,17 +484,37 @@ export class KupForm {
                         ></kup-crud>
                     );
                 } else if (isAutocompleteInForm(cell, field)) {
+                    let textfieldData = {
+                        disabled: field.readonly,
+                        trailingIcon: true,
+                    };
+                    if (cell) {
+                        if (cell.value) {
+                            textfieldData['initialValue'] = cell.value.text;
+                        }
+                    }
+                    let listData = {
+                        data: field.config.data,
+                        selectable: !field.readonly,
+                    };
                     fieldContent = (
                         <kup-autocomplete
-                            extra={field.extra}
-                            initialSelectedItems={cell && cell.value}
-                            disabled={field.readonly}
-                            items={field.config.items}
+                            textfieldData={textfieldData}
+                            listData={listData}
                             {...field.config}
-                            onKupAutocompleteSelectionUpdate={(e) =>
+                            onKupAutocompleteItemClick={(e) =>
                                 this.onAutocompleteFieldChanged(e, field.key)
                             }
-                            autocompleteCallBackOnFilterUpdate={
+                            onKupAutocompleteFocus={() =>
+                                this.onFieldFocused(field.key)
+                            }
+                            onKupAutocompleteBlur={() =>
+                                this.onFieldBlurred(field.key)
+                            }
+                            onKupAutocompleteFilterChanged={(e) =>
+                                this.onAutocompleteFieldChanged(e, field.key)
+                            }
+                            callBackOnFilterUpdate={
                                 this.autocompleteCallBackOnFilterUpdate
                             }
                         ></kup-autocomplete>
@@ -923,7 +937,7 @@ export class KupForm {
     }
 
     private checkField(field: FormField, cell: FormCell) {
-        this.actualMessages = this.actualMessages.filter(function(message) {
+        this.actualMessages = this.actualMessages.filter(function (message) {
             return message.fieldKey != field.key;
         });
         this.actualMessages = [
