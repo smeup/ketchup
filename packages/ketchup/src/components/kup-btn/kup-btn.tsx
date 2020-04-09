@@ -69,7 +69,7 @@ export class KupBtn {
                     return (
                         <td>
                             <kup-button
-                                label={btn.label}
+                                label={btn.value}
                                 icon={btn.icon}
                                 fullWidth={this.config.fillspace}
                                 shaped={this.config.rounded}

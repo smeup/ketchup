@@ -30,6 +30,8 @@ describe('renders different kind of objects', () => {
 
         await kupButton.click();
 
+        await page.waitForChanges();
+
         expect(kupBoxClicked).toHaveLength(1);
 
         const detail = kupBoxClicked.events[0].detail;
