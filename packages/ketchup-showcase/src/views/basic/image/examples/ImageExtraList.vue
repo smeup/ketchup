@@ -19,6 +19,10 @@
             <kup-image size-x="48px" size-y="48px" name="account-box-outline"></kup-image>
             <div class="icon-label">account-box-outline</div>
           </div>
+          <div class="icon-wrapper" title="account-circle">
+            <kup-image size-x="48px" size-y="48px" name="account-circle"></kup-image>
+            <div class="icon-label">account-circle</div>
+          </div>
           <div class="icon-wrapper" title="account-circle-outline">
             <kup-image size-x="48px" size-y="48px" name="account-circle-outline"></kup-image>
             <div class="icon-label">account-circle-outline</div>
@@ -582,6 +586,14 @@
           <div class="icon-wrapper" title="omega">
             <kup-image size-x="48px" size-y="48px" name="omega"></kup-image>
             <div class="icon-label">omega</div>
+          </div>
+          <div class="icon-wrapper" title="open-in-browser">
+            <kup-image size-x="48px" size-y="48px" name="open-in-browser"></kup-image>
+            <div class="icon-label">open-in-browser</div>
+          </div>
+          <div class="icon-wrapper" title="open-in-new">
+            <kup-image size-x="48px" size-y="48px" name="open-in-new"></kup-image>
+            <div class="icon-label">open-in-new</div>
           </div>
           <div class="icon-wrapper" title="pause-circle">
             <kup-image size-x="48px" size-y="48px" name="pause-circle"></kup-image>
