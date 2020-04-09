@@ -71,7 +71,7 @@ describe('row selection', () => {
         expect(headerCells).toHaveLength(4);
 
         const headerCheckbox = await headerCells[0].findAll(
-            'input[type="checkbox"]'
+            'kup-checkbox'
         );
         expect(headerCheckbox).toHaveLength(1);
 
@@ -79,7 +79,7 @@ describe('row selection', () => {
         const rows = await page.findAll(rowsSelector);
 
         const checkboxPromises = rows.map((row) =>
-            row.findAll('input[type="checkbox"]')
+            row.findAll('kup-checkbox')
         );
 
         const checkboxesMatrix = await Promise.all(checkboxPromises);
