@@ -34,6 +34,8 @@ export class KupTextField {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
+
+    @Prop({ reflect: true }) readOnly: boolean = false;
     /**
      * If text field has autocomplete associated and the list is opened, enter must not execute submit
      * it serves just to set the selected item value of the list in the text field.
@@ -271,7 +273,7 @@ export class KupTextField {
             if (this.emitSubmitEventOnEnter == true) {
                 event.preventDefault();
                 this.kupTextFieldSubmit.emit({
-                    value: this.value,
+                    value: this.inputEl.value,
                 });
             }
         }
@@ -298,7 +300,7 @@ export class KupTextField {
     }
 
     log(methodName: string, msg: string) {
-        errorLogging('kup-text-field', methodName + '() ' + ' - ' + msg, 'log');
+        errorLogging('kup-text-field', methodName + '()' + ' - ' + msg, 'log');
     }
 
     //---- Lifecycle hooks ----
@@ -502,6 +504,7 @@ export class KupTextField {
                     id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
+                    readOnly={this.readOnly}
                     maxlength={this.maxLength}
                     value={this.value}
                     onBlur={(e: any) => this.onKupBlur(e)}
@@ -519,6 +522,7 @@ export class KupTextField {
                     id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
+                    readOnly={this.readOnly}
                     placeholder={placeholderLabel}
                     maxlength={this.maxLength}
                     value={this.value}
@@ -575,6 +579,7 @@ export class KupTextField {
                     id="kup-input"
                     class="mdc-text-field__input"
                     disabled={this.disabled}
+                    readOnly={this.readOnly}
                     placeholder={placeholderLabel}
                     maxlength={this.maxLength}
                     value={this.value}

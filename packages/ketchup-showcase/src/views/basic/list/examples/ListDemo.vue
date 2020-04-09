@@ -118,6 +118,22 @@ export default {
           default: 'false',
           try: 'switch',
         },
+        {
+          prop: 'arrowDown',
+          description:
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoEvents: [
         {

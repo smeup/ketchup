@@ -33,7 +33,7 @@
 
 ## Methods
 
-### `resetFilter() => Promise<void>`
+### `resetFilter(newFilter: string) => Promise<void>`
 
 
 

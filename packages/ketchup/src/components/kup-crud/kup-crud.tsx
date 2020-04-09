@@ -11,11 +11,6 @@ import {
 } from '@stencil/core';
 
 import {
-    KupAutocompleteOption,
-    KupAutocompleteFilterUpdatePayload,
-} from '../kup-autocomplete/kup-autocomplete-declarations';
-
-import {
     FormFields,
     FormCells,
     FormField,
@@ -92,9 +87,11 @@ export class KupCrud {
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
 
-    @Prop() autocompleteCallBackOnFilterUpdate: (
-        detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+    @Prop() autocompleteCallBackOnFilterUpdate: (detail: {
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined = undefined;
 
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail

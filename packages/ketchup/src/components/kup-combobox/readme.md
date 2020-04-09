@@ -8,6 +8,7 @@
 | Property        | Attribute      | Description                                 | Type                                                                                             | Default                 |
 | --------------- | -------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
 | `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string`                                                                                         | `undefined`             |
+| `isSelect`      | `is-select`    |                                             | `boolean`                                                                                        | `false`                 |
 | `listData`      | --             | Props of the list.                          | `Object`                                                                                         | `{}`                    |
 | `selectMode`    | `select-mode`  | Sets how the return the selected item value | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE` |
 | `textfieldData` | --             | Props of the text field.                    | `Object`                                                                                         | `{}`                    |
@@ -15,15 +16,16 @@
 
 ## Events
 
-| Event                  | Description    | Type                           |
-| ---------------------- | -------------- | ------------------------------ |
-| `kupComboboxBlur`      | Event example. | `CustomEvent<{ value: any; }>` |
-| `kupComboboxChange`    |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxClick`     |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxFocus`     |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxIconClick` |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxInput`     |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxItemClick` |                | `CustomEvent<{ value: any; }>` |
+| Event                        | Description    | Type                           |
+| ---------------------------- | -------------- | ------------------------------ |
+| `kupComboboxBlur`            | Event example. | `CustomEvent<{ value: any; }>` |
+| `kupComboboxChange`          |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxClick`           |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxFocus`           |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxIconClick`       |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxItemClick`       |                | `CustomEvent<{ value: any; }>` |
+| `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>` |
 
 
 ## Dependencies

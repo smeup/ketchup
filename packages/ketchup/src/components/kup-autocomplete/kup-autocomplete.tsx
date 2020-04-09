@@ -231,7 +231,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick() {
-        this.log('onKupItemClick', '');
+        //this.log('onKupItemClick', '');
         this.consistencyCheck();
         this.closeList();
 
@@ -245,12 +245,12 @@ export class KupAutocomplete {
     }
 
     onKupFilterChanged(e: CustomEvent) {
-        this.log('onKupFilterChanged', 'detail.value: ' + e.detail.value);
+        //this.log('onKupFilterChanged', 'detail.value: ' + e.detail.value);
         this.handleFilterChange(e.detail.value, e.target);
     }
 
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
-        this.log('handleFilterChange', 'newFilter: ' + newFilter);
+        //this.log('handleFilterChange', 'newFilter: ' + newFilter);
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -272,7 +272,7 @@ export class KupAutocomplete {
                     errorLogging('kup-list', err);
                 });
         } else {
-            this.listEl.filter = newFilter;
+            this.listEl.resetFilter(newFilter);
             this.kupFilterChanged.emit(detail);
         }
     }
@@ -305,7 +305,6 @@ export class KupAutocomplete {
         this.textfieldEl.emitSubmitEventOnEnter = true;
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
-        this.listEl.resetFilter();
     }
 
     isListOpened(): boolean {

@@ -74,6 +74,22 @@ export default {
           default: '{}',
           try: 'json',
         },
+        {
+          prop: 'isSelect',
+          description:
+            'Sets the field as a select field: not editable but selectable throw the list items.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'selectMode',
+          description:
+            'Sets how the return the elected ite value. Suported values: "code", "description","both".',
+          type: 'string',
+          default: 'code',
+          try: 'field',
+        },
       ],
       demoEvents: [
         {
@@ -104,6 +120,10 @@ export default {
           name: 'kupComboboxItemClick',
           type: 'click',
         },
+        {
+          name: 'kupComboboxTextFieldSubmit',
+          type: 'click',
+        },
       ],
       demoData: {
         textfieldData: {
@@ -132,6 +152,7 @@ export default {
               value: '3',
             },
           ],
+          displayMode: 'both',
           selectable: true,
         },
       },
