@@ -6,15 +6,17 @@ import {
     SortObject,
     Cell,
     SortMode,
-    GenericMap,
     GroupObject,
     TotalMode,
     TotalsMap,
     Column,
+    GenericFilter,
+    Filter,
 } from './kup-data-table-declarations';
 
 import { isNumber } from '../../utils/object-utils';
 import { isEmpty } from '../../utils/utils';
+import { errorLogging } from '../../utils/error-logging';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -199,6 +201,145 @@ function matchSpecialFilter(
     return false;
 }
 
+export function hasFilters(filters: GenericFilter = {}) {
+    if (filters == null) {
+        return false;
+    }
+    let keys = Object.keys(filters);
+    if (keys == null || keys.length < 1) {
+        return false;
+    }
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        if (hasFiltersForColumn(filters, key)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export function hasFiltersForColumn(
+    filters: GenericFilter = {},
+    column: string
+) {
+    let textfield = getTextFieldFilterValue(filters, column);
+    if (textfield != null && textfield.trim() != '') {
+        return true;
+    }
+    let checkboxes = getCheckBoxFilterValues(filters, column);
+    if (checkboxes == null || checkboxes.length < 1) {
+        return false;
+    }
+    for (let i = 0; i < checkboxes.length; i++) {
+        let ch = checkboxes[i];
+        if (ch.trim() != '') {
+            return true;
+        }
+    }
+    return false;
+}
+
+export function getCheckBoxFilterValues(
+    filters: GenericFilter = {},
+    column: string
+): Array<string> {
+    let values = [];
+    if (filters == null) {
+        return values;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return values;
+    }
+    if (filter.checkBoxes == null) {
+        return values;
+    }
+    values = filter.checkBoxes;
+    return values;
+}
+
+export function addCheckBoxFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [] };
+        filters[column] = filter;
+    }
+    if (!filter.checkBoxes.includes(newFilter)) {
+        filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+    }
+}
+
+export function removeCheckBoxFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    remFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return;
+    }
+    let index = filter.checkBoxes.indexOf(remFilter.trim());
+    if (index >= 0) {
+        let chs = [];
+        for (let i = 0; i < filter.checkBoxes.length; i++) {
+            if (i != index) {
+                chs[chs.length] = filter.checkBoxes[i];
+            }
+        }
+        filter.checkBoxes = [...chs];
+    }
+}
+
+export function getTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string
+): string {
+    let value = '';
+
+    if (filters == null) {
+        return value;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return value;
+    }
+    value = filter.textField;
+    return value;
+}
+
+export function setTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [] };
+        filters[column] = filter;
+    }
+    filter.textField = newFilter.trim();
+}
+
+export function log(methodName: string, msg: string) {
+    errorLogging(
+        'kup-data-table-helper',
+        methodName + '()' + ' - ' + msg,
+        'log'
+    );
+}
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -211,7 +352,7 @@ function matchSpecialFilter(
  */
 export function filterRows(
     rows: Array<Row> = [],
-    filters: GenericMap = {},
+    filters: GenericFilter = {},
     globalFilter: string = '',
     columns: Array<string> = []
 ): Array<Row> {
@@ -220,112 +361,114 @@ export function filterRows(
     }
 
     // There are rows to filter
-    /**
-     *  Flag to check if current filter is using a global filter.
-     */
+    let filteredRows: Array<Row> = [];
     const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
-    if ((filters && Object.keys(filters).length > 0) || isUsingGlobalFilter) {
-        // Before filtering the rows, we analyze the global filter
-        /**
-         * Holds the RegExp parsed data of the global filter, if an expression filter is set.
-         * @see filterAnalyzer
-         */
-        const analyzedGlobalFilter = isUsingGlobalFilter
-            ? globalFilter.match(filterAnalyzer)
-            : undefined;
-        /**
-         * When using an expression filter, this flag shows if the current global filter is negative.
-         * @see filterAnalyzer
-         */
-        const globalFilterIsNegative: boolean = analyzedGlobalFilter
-            ? analyzedGlobalFilter[1].indexOf('!') >= 0
-            : false;
-
-        // filtering rows
-        return rows.filter((r: Row) => {
-            if (isUsingGlobalFilter) {
-                // There are no columns -> display element
-                if (columns.length === 0) {
-                    return true;
-                }
-
-                // Search among all columns for the global filter
-                let found = false;
-
-                for (let i = 0; i < columns.length; i++) {
-                    let cellValue;
-                    const cell = r.cells[columns[i]];
-
-                    if (cell) cellValue = cell.value;
-
-                    // checks if the value of the filter is contained inside value of the object
-                    // Or is if the filter is a special filter to be matched.
-                    // Since it is a global filter, we do not take into consideration the negative modifier in this control.
-                    if (
-                        (cellValue &&
-                            cellValue
-                                .toLowerCase()
-                                .includes(globalFilter.toLocaleLowerCase())) ||
-                        matchSpecialFilter(
-                            cellValue,
-                            analyzedGlobalFilter,
-                            true
-                        )
-                    ) {
-                        // the element matches the global filter
-                        found = true;
-                        break;
-                    }
-                }
-
-                // If no value matches the global filter and the global filter is not negative
-                // OR we have found a match and the global filter is negative
-                // the current element gets filtered.
-                if (
-                    (!found && !globalFilterIsNegative) ||
-                    (found && globalFilterIsNegative)
-                ) {
-                    return false;
-                }
+    if (hasFilters(filters) || isUsingGlobalFilter) {
+        for (let i = 0; i < rows.length; i++) {
+            let r: Row = rows[i];
+            if (
+                isRowComplient(
+                    r,
+                    filters,
+                    globalFilter,
+                    isUsingGlobalFilter,
+                    columns
+                )
+            ) {
+                filteredRows[filteredRows.length] = r;
             }
-
-            // Controls if we have other filters and gets their scope
-            let keys: Array<string> = filters ? Object.keys(filters) : [];
-
-            // There are no filters to check -> the element is valid
-            if (keys.length === 0) {
-                return true;
-            }
-
-            return (
-                // Filters
-                keys.filter((key) => {
-                    const filterValue = filters[key];
-
-                    // getting cell value
-                    const cellValue = r.cells[key];
-                    if (!cellValue) {
-                        return false;
-                    }
-                    // Same as above with the difference that here we DO take into consideration the negative modifier
-                    if (
-                        cellValue.value
-                            .toLowerCase()
-                            .includes(filterValue.toLowerCase()) ||
-                        matchSpecialFilter(
-                            cellValue.value,
-                            filterValue.match(filterAnalyzer)
-                        )
-                    ) {
-                        return true;
-                    }
-                }).length === keys.length
-            );
-        });
+        }
+    } else {
+        filteredRows = [...rows];
     }
 
-    return rows;
+    return filteredRows;
+}
+
+export function isRowComplient(
+    r: Row,
+    filters: GenericFilter = {},
+    globalFilter: string = '',
+    isUsingGlobalFilter: boolean = false,
+    columns: Array<string> = []
+) {
+    if (isUsingGlobalFilter) {
+        // There are no columns -> display element
+        if (columns.length === 0) {
+            return true;
+        }
+
+        // Search among all columns for the global filter
+        for (let i = 0; i < columns.length; i++) {
+            const cell = r.cells[columns[i]];
+            if (isFilterComplientForCell(cell, globalFilter)) {
+                return true;
+            }
+        }
+    }
+
+    // There are no filters to check -> the element is valid
+    if (!hasFilters(filters)) {
+        return true;
+    }
+
+    let keys = Object.keys(filters);
+
+    // Filters
+    for (let i = 0; i < keys.length; i++) {
+        let key: string = keys[i];
+
+        const cell = r.cells[key];
+        if (!cell) {
+            return false;
+        }
+        let filterValue = getTextFieldFilterValue(filters, key);
+
+        if (isFilterComplientForCell(cell, filterValue)) {
+            return true;
+        }
+
+        let filterValues = getCheckBoxFilterValues(filters, key);
+        for (let i = 0; i < filterValues.length; i++) {
+            let fv = filterValues[i];
+            if (isFilterComplientForCell(cell, fv)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+export function isFilterComplientForCell(cellValue: Cell, filterValue: string) {
+    if (!cellValue) {
+        return false;
+    }
+    if (filterValue == '') {
+        return false;
+    }
+
+    const analyzedFilter = filterValue.match(filterAnalyzer);
+    const filterIsNegative: boolean = analyzedFilter
+        ? analyzedFilter[1].indexOf('!') >= 0
+        : false;
+    // checks if the value of the filter is contained inside value of the object
+    // Or is if the filter is a special filter to be matched.
+    if (
+        cellValue.value.toLowerCase().includes(filterValue.toLowerCase()) ||
+        matchSpecialFilter(
+            cellValue.value.toLowerCase(),
+            filterValue.toLowerCase().match(filterAnalyzer)
+        )
+    ) {
+        // the element matches the field filter
+        if (filterIsNegative == true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    return false;
 }
 
 export function groupRows(
@@ -688,9 +831,7 @@ export function calcTotals(
                 const sum: number = footerRow[key];
 
                 if (sum && rows.length > 0) {
-                    footerRow[key] = numeral(sum)
-                        .divide(rows.length)
-                        .value();
+                    footerRow[key] = numeral(sum).divide(rows.length).value();
                 }
             } else if (totals[key] === TotalMode.COUNT) {
                 footerRow[key] = rows.length;
@@ -755,11 +896,12 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         }
     }
 
-    return sm * ((obj1.k && obj2.k) ?
-        localCompareAsInJava(obj1.k, obj2.k) : // If there is k set sort by it
-        localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
+    return (
+        sm *
+        (obj1.k && obj2.k
+            ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
+            : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
     );
-
 }
 
 /**
@@ -790,7 +932,6 @@ function localCompareAsInJava(t1: string, t2: string): number {
     }
     return t1.length - t2.length;
 }
-
 
 function adjustGroupId(row: Row): void {
     if (!row.group) {

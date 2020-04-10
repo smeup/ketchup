@@ -20,7 +20,6 @@ import {
     Column,
     FixedCellsClasses,
     FixedCellsCSSVarsBase,
-    GenericMap,
     GroupLabelDisplayMode,
     GroupObject,
     KupDataTableCellButtonClick,
@@ -35,6 +34,7 @@ import {
     SortObject,
     TableData,
     TotalsMap,
+    GenericFilter,
 } from './kup-data-table-declarations';
 
 import {
@@ -48,6 +48,12 @@ import {
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
+    setTextFieldFilterValue,
+    addCheckBoxFilterValue,
+    removeCheckBoxFilterValue,
+    getTextFieldFilterValue,
+    getCheckBoxFilterValues,
+    hasFiltersForColumn,
 } from './kup-data-table-helper';
 
 import {
@@ -75,6 +81,7 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-data-table',
@@ -118,7 +125,7 @@ export class KupDataTable {
      * List of filters set by the user.
      */
     @Prop({ mutable: true })
-    filters: GenericMap = {};
+    filters: GenericFilter = {};
 
     /**
      * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
@@ -840,6 +847,27 @@ export class KupDataTable {
         return null;
     }
 
+    private getColumnValues(column: string): Array<string> {
+        let values = [];
+        /** il valore delle righe attualmente filtrate */
+        this.rows.forEach((row) =>
+            //this.getRows().forEach((row) =>
+            this.addColumnValueFromRow(values, column, row)
+        );
+        return values;
+    }
+
+    private addColumnValueFromRow(
+        values: Array<string>,
+        column: string,
+        row: Row
+    ) {
+        const cell = row.cells[column];
+        if (values.indexOf(cell.value) < 0) {
+            values[values.length] = cell.value;
+        }
+    }
+
     private getRows(): Array<Row> {
         return this.data && this.data.rows ? this.data.rows : [];
     }
@@ -1119,18 +1147,67 @@ export class KupDataTable {
         }
     }
 
+    private onRemouveFilter(column: string) {
+        // resetting current page
+        this.currentPage = 1;
+        const newFilters: GenericFilter = { ...this.filters };
+        newFilters[column] = { textField: '', checkBoxes: [] };
+        this.filters = newFilters;
+    }
+
     private onFilterChange({ detail }, column: string) {
         // resetting current page
         this.currentPage = 1;
 
+        const newFilters: GenericFilter = { ...this.filters };
+        setTextFieldFilterValue(newFilters, column, detail.value);
+        this.filters = newFilters;
+    }
+
+    private onFilterChange2({ detail }, column: string, filterValue: string) {
+        // resetting current page
+        this.currentPage = 1;
+
         const newFilters = { ...this.filters };
-        if (detail.value.length === 0) {
-            delete newFilters[column];
+
+        if (detail.checked == true) {
+            addCheckBoxFilterValue(newFilters, column, filterValue);
         } else {
-            newFilters[column] = detail.value;
+            removeCheckBoxFilterValue(newFilters, column, filterValue);
         }
 
         this.filters = newFilters;
+    }
+
+    private hasFiltersForColumn(column: string): boolean {
+        return hasFiltersForColumn(this.filters, column);
+    }
+
+    private getTextFieldFilterValue(column: string): string {
+        return getTextFieldFilterValue(this.filters, column);
+    }
+
+    private getCheckBoxFilterValues(column: string): Array<string> {
+        return getCheckBoxFilterValues(this.filters, column);
+    }
+
+    private getFilterValueForTooltip(column: string): string {
+        let txtFilter = getTextFieldFilterValue(this.filters, column);
+
+        let chkFilters = getCheckBoxFilterValues(this.filters, column);
+
+        let separator = '';
+        if (txtFilter != '') {
+            separator = ' OR ';
+        }
+
+        let ris = txtFilter;
+        chkFilters.forEach((f) => {
+            ris += separator + f;
+            separator = ' OR ';
+        });
+
+        return ris;
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -1267,8 +1344,27 @@ export class KupDataTable {
         });
     }
 
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+    private openMenu(column: string) {
         this.openedMenu = column;
+    }
+
+    private closeMenu() {
+        this.openedMenu = null;
+    }
+
+    private isOpenedMenu(): boolean {
+        return this.openedMenu != null;
+    }
+
+    private isOpenedMenuForColumn(column: string): boolean {
+        return this.openedMenu === column;
+    }
+
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+        if (this.isOpenedMenu()) {
+            this.closeMenu();
+        }
+        this.openMenu(column);
         // Prevent opening of the default browser menu
         e.preventDefault();
         return false;
@@ -1309,14 +1405,14 @@ export class KupDataTable {
         }
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
-        if (this.openedMenu && !(fromMenu && fromSameTable)) {
-            this.openedMenu = null;
+        if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
+            this.closeMenu();
         }
     }
 
     private switchColumnGroup(group: GroupObject, column: string) {
         // resetting opened menu
-        this.openedMenu = null;
+        this.closeMenu();
 
         // reset group state
         this.groupState = {};
@@ -1575,6 +1671,14 @@ export class KupDataTable {
             .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
     }
 
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-data-table',
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
+            'log'
+        );
+    }
+
     //======== render methods ========
     /**
      * Given the parameters return the classes and style for each table header cell
@@ -1728,12 +1832,7 @@ export class KupDataTable {
 
                 //---- Filter ----
                 let filter = null;
-                // If the current column has a filter, then we take its value
-                let filterValue =
-                    this.filters && this.filters[column.name]
-                        ? this.filters[column.name]
-                        : '';
-
+                /*
                 if (
                     this.showFilters &&
                     (isStringObject(column.obj) || isCheckbox(column.obj))
@@ -1751,8 +1850,11 @@ export class KupDataTable {
                             />
                         </div>
                     );
-                } else if (filterValue) {
-                    const svgLabel = `Rimuovi filtro: '${filterValue}'`;
+                } else */
+                if (this.hasFiltersForColumn(column.name)) {
+                    const svgLabel = `Rimuovi filtro: '${this.getFilterValueForTooltip(
+                        column.name
+                    )}'`;
                     /**
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
@@ -1772,10 +1874,7 @@ export class KupDataTable {
                             x="0px"
                             y="0px"
                             onClick={() => {
-                                this.onFilterChange(
-                                    { detail: { value: '' } },
-                                    column.name
-                                );
+                                this.onRemouveFilter(column.name);
                             }}
                         >
                             <title>{svgLabel}</title>
@@ -1866,25 +1965,70 @@ export class KupDataTable {
                 columnMenuItems.push(
                     <li
                         role="menuitem"
-                        onClick={() =>
-                            this.kupAddColumn.emit({ column: column.name })
-                        }
+                        onClick={() => {
+                            this.kupAddColumn.emit({ column: column.name });
+                            this.closeMenu();
+                        }}
                     >
                         <span class="mdi mdi-table-column-plus-after" />
                         Aggiungi colonna
                     </li>
                 );
 
+                if (
+                    this.showFilters &&
+                    (isStringObject(column.obj) || isCheckbox(column.obj))
+                ) {
+                    columnMenuItems.push(
+                        <li role="menuitem">
+                            <kup-text-field
+                                label="Filtra"
+                                icon="information-variant"
+                                outlined={false}
+                                trailingIcon={true}
+                                initialValue={this.getTextFieldFilterValue(
+                                    column.name
+                                )}
+                                onKupTextFieldSubmit={(e) => {
+                                    this.onFilterChange(e, column.name);
+                                    this.closeMenu();
+                                }}
+                            ></kup-text-field>
+                        </li>
+                    );
+                    let checkBoxesFilter = this.getCheckBoxFilterValues(
+                        column.name
+                    );
+
+                    this.getColumnValues(column.name).forEach((v) => {
+                        columnMenuItems.push(
+                            <li role="menuitem">
+                                <kup-checkbox
+                                    label={v}
+                                    checked={checkBoxesFilter.includes(v)}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(e, column.name, v);
+                                    }}
+                                ></kup-checkbox>
+                            </li>
+                        );
+                    });
+                }
+
                 let columnMenu = null;
                 if (columnMenuItems.length !== 0) {
-                    const menuClass =
-                        this.openedMenu === column.name
-                            ? 'open dynamic-position-active'
-                            : 'closed';
+                    const menuClass = this.isOpenedMenuForColumn(column.name)
+                        ? 'open dynamic-position-active'
+                        : 'closed';
 
                     columnMenu = (
                         <div class={`column-menu ${menuClass}`}>
-                            <ul role="menubar">{columnMenuItems}</ul>
+                            <ul
+                                role="menubar"
+                                onMouseUp={(e) => e.stopPropagation()}
+                            >
+                                {columnMenuItems}
+                            </ul>
                         </div>
                     );
                 }
