@@ -269,7 +269,7 @@ export const j4btnData = {
                     },
                     value: 'View',
                     config: {
-                        icon: 'mdi mdi-magnify',
+                        icon: 'magnify',
                         showtext: true,
                     },
                 },
@@ -648,7 +648,7 @@ export const badgeData = {
             },
             badges: [
                 {
-                    icon: 'mdi mdi-account',
+                    icon: 'account_box',
                     position: 'TL',
                 },
             ],

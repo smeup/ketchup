@@ -61,8 +61,7 @@ describe('box and badges', () => {
                         break;
 
                     case 1:
-                        expect(badge).toHaveClass('mdi');
-                        expect(badge).toHaveClass('mdi-account');
+                        expect(badge.find('svg')).not.toBeNull();
                         break;
 
                     default:

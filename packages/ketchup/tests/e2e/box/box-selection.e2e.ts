@@ -72,7 +72,9 @@ describe('box selection', () => {
 
         const kupBoxSelected = await page.spyOnEvent('kupBoxSelected');
 
-        const checkboxSelector = '.box-selection input[type="checkbox"]';
+        //const checkboxSelector = '.box-selection input[type="checkbox"]';
+        const checkboxSelector =
+            'div > div > kup-checkbox >>> input[type="checkbox"]';
 
         // selecting first row
         let chk = await boxes[0].find(checkboxSelector);
