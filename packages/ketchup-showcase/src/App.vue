@@ -201,12 +201,6 @@ export default {
             },
           },
           {
-            title: 'Progress bar',
-            to: {
-              name: 'progressbar',
-            },
-          },
-          {
             title: 'Search',
             to: {
               name: 'search',
@@ -269,6 +263,12 @@ export default {
             title: `List`,
             to: {
               name: 'list',
+            },
+          },
+          {
+            title: 'Progress bar',
+            to: {
+              name: 'progressbar',
             },
           },
           {
