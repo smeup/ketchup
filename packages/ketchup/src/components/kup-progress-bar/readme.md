@@ -7,17 +7,18 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                             | Type      | Default     |
-| --------------- | ---------------- | ------------------------------------------------------- | --------- | ----------- |
-| `centeredLabel` | `centered-label` | Displays the label in the middle of the progress bar.   | `boolean` | `true`      |
-| `customStyle`   | `custom-style`   | Custom style to be passed to the component.             | `string`  | `undefined` |
-| `hasPadding`    | `has-padding`    | Sets a padding between the bar and its container.       | `boolean` | `false`     |
-| `hasStripes`    | `has-stripes`    | Sets a striped background.                              | `boolean` | `false`     |
-| `hideLabel`     | `hide-label`     | Flag to show or hide the progress bar's label.          | `boolean` | `false`     |
-| `isAnimated`    | `is-animated`    | When striped background is active, it will be animated. | `boolean` | `false`     |
-| `isSlim`        | `is-slim`        | Slim version.                                           | `boolean` | `false`     |
-| `label`         | `label`          | Specifies a text for the bar's label.                   | `string`  | `undefined` |
-| `value`         | `value`          | The current value the progress bar must display.        | `number`  | `0`         |
+| Property        | Attribute        | Description                                                                                   | Type      | Default     |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `centeredLabel` | `centered-label` | Displays the label in the middle of the progress bar.                                         | `boolean` | `true`      |
+| `customStyle`   | `custom-style`   | Custom style to be passed to the component.                                                   | `string`  | `undefined` |
+| `hasPadding`    | `has-padding`    | Sets a padding between the bar and its container. Not supported for the radial variant.       | `boolean` | `false`     |
+| `hasStripes`    | `has-stripes`    | Sets a striped background. Not supported for the radial variant.                              | `boolean` | `false`     |
+| `hideLabel`     | `hide-label`     | Flag to show or hide the progress bar's label.                                                | `boolean` | `false`     |
+| `isAnimated`    | `is-animated`    | When striped background is active, it will be animated. Not supported for the radial variant. | `boolean` | `false`     |
+| `isRadial`      | `is-radial`      | Radial version.                                                                               | `boolean` | `false`     |
+| `isSlim`        | `is-slim`        | Slim version.                                                                                 | `boolean` | `false`     |
+| `label`         | `label`          | Specifies a text for the bar's label. Not supported for the radial variant.                   | `string`  | `undefined` |
+| `value`         | `value`          | The current value the progress bar must display.                                              | `number`  | `0`         |
 
 
 ## Dependencies

@@ -36,7 +36,8 @@ export default {
       demoProps: [
         {
           prop: 'centeredLabel',
-          description: 'Displays the label in the middle of the progress bar.',
+          description:
+            'Displays the label in the middle of the progress bar. Not supported for the radial variant.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -51,21 +52,24 @@ export default {
         },
         {
           prop: 'hideLabel',
-          description: "Flag to show or hide the progress bar's label.",
+          description:
+            "Flag to show or hide the progress bar's label. Not supported for the radial variant.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
           prop: 'hasPadding',
-          description: 'Sets a padding between the bar and its container.',
+          description:
+            'Sets a padding between the bar and its container. Not supported for the radial variant.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
           prop: 'hasStripes',
-          description: 'Sets a striped background.',
+          description:
+            'Sets a striped background. Not supported for the radial variant.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -73,7 +77,14 @@ export default {
         {
           prop: 'isAnimated',
           description:
-            'When striped background is active, it will be animated.',
+            'When striped background is active, it will be animated. Not supported for the radial variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'isRadial',
+          description: 'Radial version.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -87,7 +98,8 @@ export default {
         },
         {
           prop: 'label',
-          description: "Specifies a text for the bar's label.",
+          description:
+            "Specifies a text for the bar's label. Not supported for the radial variant.",
           type: 'string',
           default: 'undefined',
           try: 'field',

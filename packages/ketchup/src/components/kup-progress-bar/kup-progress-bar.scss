@@ -68,6 +68,114 @@
         }
       }
     }
+
+    &.is-radial {
+      box-sizing: border-box;
+      font-size: 10rem;
+      margin: auto;
+      width: 10rem;
+      height: 10rem;
+
+      & .pie-wrapper {
+        height: 10rem;
+        width: 10rem;
+        float: left;
+        margin: auto;
+        position: relative;
+
+        &:nth-child(3n + 1) {
+          clear: both;
+        }
+
+        & .pie {
+          height: 10rem;
+          width: 10rem;
+          clip: rect(0, 1em, 1em, 0.5em);
+          left: 0;
+          position: absolute;
+          top: 0;
+
+          &.has-value {
+            .half-circle {
+              border-color: var(--kup-main-color);
+            }
+
+            &.is-less-than-half {
+              .right-side {
+                display: none;
+              }
+            }
+
+            &.is-more-than-half {
+              clip: rect(auto, auto, auto, auto);
+
+              .right-side {
+                transform: rotate(180deg);
+              }
+            }
+          }
+
+          & .half-circle {
+            height: 10rem;
+            width: 10rem;
+            border: 0.1em solid var(--kup-border-color);
+            border-radius: 50%;
+            clip: rect(0, 0.5em, 1em, 0);
+            left: 0;
+            position: absolute;
+            top: 0;
+          }
+        }
+
+        & .label {
+          background: none;
+          border-radius: 50%;
+          bottom: 0.4em;
+          color: var(--kup-text-color);
+          cursor: default;
+          display: block;
+          font-size: 0.25em;
+          left: 0.4em;
+          line-height: 2.75em;
+          position: absolute;
+          right: 0.4em;
+          text-align: center;
+          top: 0.4em;
+
+          & .smaller {
+            color: var(--kup-text-color);
+            opacity: 0.8;
+            font-size: 0.45em;
+            padding-bottom: 20px;
+            vertical-align: super;
+          }
+        }
+
+        & .shadow {
+          height: 10rem;
+          width: 10rem;
+          border: 0.1em solid var(--kup-border-color);
+          border-radius: 50%;
+        }
+
+        &.is-slim {
+          & .pie {
+            & .half-circle {
+              border-width: 0.05em;
+            }
+          }
+          & .shadow {
+            border-width: 0.05em;
+          }
+        }
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+    }
   }
 }
 
