@@ -47,7 +47,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-list id="demo-component"></wup-list>',
+      demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -65,18 +65,34 @@ export default {
           try: 'json',
         },
         {
-          prop: 'isFilterable',
+          prop: 'displayMode',
           description:
-            'Marks the list as filterable, allowing an input text to filter the options.',
+            'Selects how the items must display their label and how they can be filtered for. Supported values: "description", "code", "both".',
+          type: 'string',
+          default: 'description',
+          try: 'field',
+        },
+        {
+          prop: 'filter',
+          description:
+            'Keeps string for filtering elements when filter mode is active.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'isMenu',
+          description: 'Defines whether the list is a menu or not.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'listId',
-          description: 'Identify the component',
+          prop: 'menuVisible',
+          description:
+            "Sets the status of the menu, when false it's hidden otherwise it's visible.",
           type: 'boolean',
-          default: 'WupList-myId',
+          default: 'false',
           try: 'switch',
         },
         {
@@ -89,7 +105,7 @@ export default {
         },
         {
           prop: 'selectable',
-          description: 'Defines if the list items ar or not selectable.',
+          description: 'Defines whether items are selectable or not.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -98,6 +114,22 @@ export default {
           prop: 'twoLine',
           description:
             'The list elements descriptions will be arranged in two lines.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowDown',
+          description:
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -125,33 +157,29 @@ export default {
           type: 'blur',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              text: 'First choice',
-              value: '1',
-            },
-            {
-              text: 'Selected choice',
-              value: '2',
-              selected: true,
-            },
-            {
-              text: null,
-              value: null,
-              isSeparator: true,
-            },
-            {
-              text: 'Third choice (below a separator)',
-              value: '3',
-            },
-          ],
-        },
-        { prop: 'selectable', value: true },
-        { prop: 'listId', value: 'LISTA' },
-      ],
+      demoData: {
+        data: [
+          {
+            text: 'First choice',
+            value: '1',
+          },
+          {
+            text: 'Selected choice',
+            value: '2',
+            selected: true,
+          },
+          {
+            text: null,
+            value: null,
+            isSeparator: true,
+          },
+          {
+            text: 'Third choice (below a separator)',
+            value: '3',
+          },
+        ],
+        selectable: true,
+      },
     };
   },
 };

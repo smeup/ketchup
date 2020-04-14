@@ -1,0 +1,61 @@
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    & label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
+      font-size: var(--kup-font-size);
+    }
+
+    & .kup-field__component {
+      display: inline-block;
+    }
+
+    &.label-top.submit-top {
+      & label {
+        float: left;
+        margin: auto auto 1rem auto;
+      }
+      & kup-button {
+        float: right;
+        margin: auto auto 1rem auto;
+      }
+    }
+
+    &.label-right {
+      & label {
+        display: inline-block;
+        margin: auto auto auto 1rem;
+      }
+    }
+
+    &.submit-right {
+      & kup-button {
+        display: inline-block;
+        margin: auto auto auto 1rem;
+      }
+    }
+
+    &.label-left {
+      & label {
+        display: inline-block;
+        margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-left {
+      & kup-button {
+        display: inline-block;
+        margin: auto 1rem auto auto;
+      }
+    }
+
+    &.submit-bottom {
+      & kup-button {
+        display: block;
+        margin: 1rem auto auto auto;
+      }
+    }
+  }
+}

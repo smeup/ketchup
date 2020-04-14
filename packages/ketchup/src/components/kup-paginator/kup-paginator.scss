@@ -72,10 +72,9 @@
     margin: 0 0.25rem;
   }
 
-  kup-combo {
+  kup-combobox {
+    display: inline-block;
     margin: 0 0.25rem;
-    --kup-combo_input_border-color: transparent;
-    --kup-combo_input_border-color--selected: transparent;
     z-index: 0;
   }
 }

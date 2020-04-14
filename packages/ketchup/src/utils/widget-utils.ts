@@ -10,66 +10,110 @@ import { CrudRecord } from '../components/kup-crud/kup-crud-declarations';
 import { generateUuidv4 } from './utils';
 
 export interface J4objKupButtonConfig {
+    checked: boolean;
+    customStyle: string;
+    disabled: boolean;
     flat: boolean;
-    buttonStyle: {};
-    imageSrc: string;
-    iconClass: string;
+    fullHeight: boolean;
+    fullWidth: boolean;
+    icon: string;
+    iconColor: string;
+    iconOff: string;
     label: string;
+    outlined: boolean;
+    shaped: boolean;
+    toggable: boolean;
     tooltip: string;
-    textmode: string;
-    showtext: boolean;
-    fillspace: boolean;
+    trailingIcon: boolean;
 }
 
 export function buildButtonConfig(value: string, config): J4objKupButtonConfig {
-    let label = value;
-    let textMode = 'Hint';
-    let buttonStyle = null;
-    let icon = null;
-    let imageSrc = null;
-    let tooltip = null;
+    let checked = false;
+    let customStyle = undefined;
+    let disabled = false;
     let flat = true;
-    let showtext = false;
-    let fillspace = false;
+    let fullHeight = false;
+    let fullWidth = false;
+    let icon = undefined;
+    let iconColor = undefined;
+    let iconOff = null;
+    let label = value;
+    let outlined = false;
+    let shaped = false;
+    let toggable = false;
+    let tooltip = undefined;
+    let trailingIcon = false;
 
     if (config) {
         icon = config.icon;
 
-        imageSrc = config.imageSrc;
-
         tooltip = config.tooltip;
 
-        if (config.hasOwnProperty('showtext')) {
-            showtext = config.showtext;
+        if (config.hasOwnProperty('checked')) {
+            checked = config.checked;
         }
 
-        if (config.hasOwnProperty('fillspace')) {
-            fillspace = config.fillspace;
+        if (config.hasOwnProperty('customStyle')) {
+            customStyle = config.customStyle;
+        }
+
+        if (config.hasOwnProperty('disabled')) {
+            disabled = config.disabled;
         }
 
         if (config.hasOwnProperty('flat')) {
             flat = config.flat;
-
-            if (!flat) {
-                textMode = '';
-            }
         }
 
-        if (config.hasOwnProperty('buttonStyle')) {
-            buttonStyle = config.buttonStyle;
+        if (config.hasOwnProperty('fullHeight')) {
+            fullHeight = config.fullHeight;
+        }
+
+        if (config.hasOwnProperty('fullWidth')) {
+            fullWidth = config.fullWidth;
+        }
+
+        if (config.hasOwnProperty('iconColor')) {
+            iconColor = config.iconColor;
+        }
+
+        if (config.hasOwnProperty('iconOff')) {
+            iconOff = config.iconOff;
+        }
+
+        if (config.hasOwnProperty('outlined')) {
+            outlined = config.outlined;
+        }
+
+        if (config.hasOwnProperty('shaped')) {
+            shaped = config.shaped;
+        }
+
+        if (config.hasOwnProperty('toggable')) {
+            toggable = config.toggable;
+        }
+
+        if (config.hasOwnProperty('trailingIcon')) {
+            trailingIcon = config.trailingIcon;
         }
     }
 
     return {
-        buttonStyle: buttonStyle,
-        label,
-        textmode: textMode,
-        imageSrc: imageSrc,
+        checked: checked,
+        customStyle: customStyle,
+        disabled: disabled,
+        flat: flat,
+        fullHeight: fullHeight,
+        fullWidth: fullWidth,
+        icon: icon,
+        iconColor: iconColor,
+        iconOff: iconOff,
+        label: label,
+        outlined: outlined,
+        shaped: shaped,
+        toggable: toggable,
         tooltip: tooltip,
-        iconClass: icon,
-        flat,
-        showtext,
-        fillspace,
+        trailingIcon: trailingIcon,
     };
 }
 

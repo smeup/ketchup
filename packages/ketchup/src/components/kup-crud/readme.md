@@ -13,21 +13,21 @@ You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events b
 
 ## Properties
 
-| Property                             | Attribute  | Description | Type                                                                               | Default     |
-| ------------------------------------ | ---------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
-| `actions`                            | --         |             | `FormActions`                                                                      | `undefined` |
-| `autocompleteCallBackOnFilterUpdate` | --         |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `config`                             | --         |             | `CrudConfig`                                                                       | `undefined` |
-| `crudCallBackOnFormActionSubmitted`  | --         |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
-| `crudCallBackOnFormFieldChanged`     | --         |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
-| `disabled`                           | `disabled` |             | `boolean`                                                                          | `false`     |
-| `extra`                              | `extra`    |             | `any`                                                                              | `undefined` |
-| `extraMessages`                      | --         |             | `FormMessage[]`                                                                    | `[]`        |
-| `fields`                             | --         |             | `FormFields`                                                                       | `undefined` |
-| `records`                            | --         |             | `CrudRecord[]`                                                                     | `undefined` |
-| `refid`                              | `refid`    |             | `string`                                                                           | `undefined` |
-| `searchCallBackOnFilterSubmitted`    | --         |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
-| `sections`                           | --         |             | `FormSection`                                                                      | `undefined` |
+| Property                             | Attribute  | Description | Type                                                                                                     | Default     |
+| ------------------------------------ | ---------- | ----------- | -------------------------------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --         |             | `FormActions`                                                                                            | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --         |             | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined` |
+| `config`                             | --         |             | `CrudConfig`                                                                                             | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --         |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`                              | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --         |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`                               | `undefined` |
+| `disabled`                           | `disabled` |             | `boolean`                                                                                                | `false`     |
+| `extra`                              | `extra`    |             | `any`                                                                                                    | `undefined` |
+| `extraMessages`                      | --         |             | `FormMessage[]`                                                                                          | `[]`        |
+| `fields`                             | --         |             | `FormFields`                                                                                             | `undefined` |
+| `records`                            | --         |             | `CrudRecord[]`                                                                                           | `undefined` |
+| `refid`                              | `refid`    |             | `string`                                                                                                 | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --         |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                                       | `undefined` |
+| `sections`                           | --         |             | `FormSection`                                                                                            | `undefined` |
 
 
 ## Events
@@ -82,33 +82,35 @@ graph TD;
   kup-crud --> kup-button
   kup-crud --> kup-modal
   kup-crud --> kup-form
+  kup-button --> kup-icon
   kup-form --> kup-crud
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
-  kup-autocomplete --> kup-chip
-  kup-autocomplete --> kup-text-input
-  kup-autocomplete --> kup-menu
-  kup-autocomplete --> kup-icon
-  kup-search --> kup-text-input
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-autocomplete --> kup-text-field
+  kup-autocomplete --> kup-list
+  kup-search --> kup-text-field
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-data-table --> kup-text-input
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
   kup-image --> kup-badge
   kup-tooltip --> kup-button
-  kup-paginator --> kup-combo
+  kup-paginator --> kup-combobox
+  kup-chip --> kup-icon
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

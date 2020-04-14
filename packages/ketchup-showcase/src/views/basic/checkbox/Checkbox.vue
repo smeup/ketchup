@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-checkbox',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-checkbox',
       headtitle: 'Checkbox',
       titles: ['Playground', 'Basic usage', 'Adding labels', 'Disabled'],
     };

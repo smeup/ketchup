@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-tab-bar',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-tab-bar',
       headtitle: 'Tab Bar',
       titles: ['Playground', 'Basic usage', 'Styling'],
     };

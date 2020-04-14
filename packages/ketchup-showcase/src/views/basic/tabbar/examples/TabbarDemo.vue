@@ -48,7 +48,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-tab-bar id="demo-component"></wup-tab-bar>',
+      demoComp: '<kup-tab-bar id="demo-component"></kup-tab-bar>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -81,33 +81,30 @@ export default {
           type: 'blur',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              text: 'First',
-              icon: 'filter_1',
-              active: true,
-            },
-            {
-              text: 'Second',
-              icon: 'filter_2',
-              active: false,
-            },
-            {
-              text: 'Third',
-              icon: 'filter_3',
-              active: false,
-            },
-            {
-              text: 'Fourth',
-              icon: 'filter_4',
-              active: false,
-            },
-          ],
-        },
-      ],
+      demoData: {
+        data: [
+          {
+            text: 'First',
+            icon: 'filter_1',
+            active: true,
+          },
+          {
+            text: 'Second',
+            icon: 'filter_2',
+            active: false,
+          },
+          {
+            text: 'Third',
+            icon: 'filter_3',
+            active: false,
+          },
+          {
+            text: 'Fourth',
+            icon: 'filter_4',
+            active: false,
+          },
+        ],
+      },
     };
   },
 };

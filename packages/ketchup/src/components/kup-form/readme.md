@@ -49,20 +49,20 @@ When a FormActionEvent or a FormFieldEvent is sent you will obtain in the payloa
 
 ## Properties
 
-| Property                             | Attribute | Description | Type                                                                               | Default     |
-| ------------------------------------ | --------- | ----------- | ---------------------------------------------------------------------------------- | ----------- |
-| `actions`                            | --        |             | `FormActions`                                                                      | `undefined` |
-| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: KupAutocompleteFilterUpdatePayload) => Promise<KupAutocompleteOption[]>` | `undefined` |
-| `cells`                              | --        |             | `FormCells`                                                                        | `undefined` |
-| `config`                             | --        |             | `FormConfig`                                                                       | `undefined` |
-| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`        | `undefined` |
-| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`         | `undefined` |
-| `extra`                              | `extra`   |             | `any`                                                                              | `undefined` |
-| `extraMessages`                      | --        |             | `FormMessage[]`                                                                    | `[]`        |
-| `fields`                             | --        |             | `FormFields`                                                                       | `undefined` |
-| `refid`                              | `refid`   |             | `string`                                                                           | `undefined` |
-| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                 | `undefined` |
-| `sections`                           | --        |             | `FormSection`                                                                      | `undefined` |
+| Property                             | Attribute | Description | Type                                                                                                     | Default     |
+| ------------------------------------ | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ----------- |
+| `actions`                            | --        |             | `FormActions`                                                                                            | `undefined` |
+| `autocompleteCallBackOnFilterUpdate` | --        |             | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined` |
+| `cells`                              | --        |             | `FormCells`                                                                                              | `undefined` |
+| `config`                             | --        |             | `FormConfig`                                                                                             | `undefined` |
+| `crudCallBackOnFormActionSubmitted`  | --        |             | `(detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult>`                              | `undefined` |
+| `crudCallBackOnFormFieldChanged`     | --        |             | `(detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult>`                               | `undefined` |
+| `extra`                              | `extra`   |             | `any`                                                                                                    | `undefined` |
+| `extraMessages`                      | --        |             | `FormMessage[]`                                                                                          | `[]`        |
+| `fields`                             | --        |             | `FormFields`                                                                                             | `undefined` |
+| `refid`                              | `refid`   |             | `string`                                                                                                 | `undefined` |
+| `searchCallBackOnFilterSubmitted`    | --        |             | `(detail: SearchFilterSubmittedEventDetail) => Promise<TableData>`                                       | `undefined` |
+| `sections`                           | --        |             | `FormSection`                                                                                            | `undefined` |
 
 
 ## Events
@@ -118,53 +118,55 @@ Type: `Promise<FormCells>`
 
 ### Depends on
 
-- [kup-combo](../kup-combo)
+- [kup-combobox](../kup-combobox)
 - [kup-crud](../kup-crud)
 - [kup-autocomplete](../kup-autocomplete)
 - [kup-search](../kup-search)
 - [kup-image](../kup-image)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-form --> kup-combo
+  kup-form --> kup-combobox
   kup-form --> kup-crud
   kup-form --> kup-autocomplete
   kup-form --> kup-search
   kup-form --> kup-image
   kup-form --> kup-progress-bar
-  kup-form --> kup-text-input
+  kup-form --> kup-text-field
   kup-form --> kup-button
-  kup-combo --> kup-text-input
-  kup-combo --> kup-portal
-  kup-portal --> kup-portal-instance
+  kup-combobox --> kup-text-field
+  kup-combobox --> kup-list
+  kup-text-field --> kup-icon
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-crud --> kup-form
-  kup-autocomplete --> kup-chip
-  kup-autocomplete --> kup-text-input
-  kup-autocomplete --> kup-menu
-  kup-autocomplete --> kup-icon
-  kup-search --> kup-text-input
+  kup-button --> kup-icon
+  kup-autocomplete --> kup-text-field
+  kup-autocomplete --> kup-list
+  kup-search --> kup-text-field
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-data-table --> kup-text-input
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-icon
   kup-data-table --> kup-image
-  kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio-element
+  kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
   kup-image --> kup-badge
   kup-tooltip --> kup-button
-  kup-paginator --> kup-combo
+  kup-paginator --> kup-combobox
+  kup-chip --> kup-icon
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -2,42 +2,65 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Multi selection list is basically a list of checkboxes and to activate
-        it you need to set to
-        <span class="code-word">group</span> the
-        <span class="code-word">role-type</span> prop.
-      </p>
-      <br />
-      <wup-list role-type="group"></wup-list>
-      <p class="centered">Sample multi-selection markup</p>
-      <code class="flat">{{ markupMulti }}</code>
-    </div>
-
-    <div class="demo-wrapper">
-      <p>
-        One selection list could be of two types.
-        <br />If you want view a radio button for each item, used for selection,
-        you need to set to
-        <span class="code-word">radiogroup</span> the
-        <span class="code-word">role-type</span> prop.
-      </p>
-      <br />
-      <wup-list role-type="radiogroup"></wup-list>
-      <p class="centered">Sample one-selection with radio button markup</p>
-      <code class="flat">{{ markupRadio }}</code>
-    </div>
-
-    <div class="demo-wrapper">
-      <p>
-        Otherwise, if you want view just the simple list, set the prop to
+        The are different layouts in which the list component can be displayed. These layouts can be set through the
         <span
           class="code-word"
-        >listbox</span>.
+        >roleType</span> prop. To enable the selection, the
+        <span class="code-word">selectable</span> prop must be set to true.
       </p>
       <br />
-      <wup-list role-type="listbox"></wup-list>
-      <p class="centered">Sample one-selection markup</p>
-      <code class="flat">{{ markupOne }}</code>
+      <p>
+        The basic display layout is a simple list, the value in this case has to be set to
+        <span
+          class="code-word"
+        >listbox</span> , which is also the default of the
+        <span class="code-word">roleType</span> prop.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-list :data.prop="dataLIST" role-type="listbox"></kup-list>
+        </div>
+        <p class="centered">Sample listbox markup</p>
+        <code class="flat">{{ markupListbox }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        The second layout is a list of radio buttons. To activate it the
+        <span
+          class="code-word"
+        >roleType</span> prop must be set to
+        <span class="code-word">radiogroup</span>.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-list :data.prop="dataLIST" role-type="radiogroup"></kup-list>
+        </div>
+        <p class="centered">Sample radiogroup markup</p>
+        <code class="flat">{{ markupRadiogroup }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        The last layout is a list of checkboxes, which behaves as a multi selection list.
+        The value of
+        <span
+          class="code-word"
+        >roleType</span> to activate this layout is
+        <span class="code-word">group</span>.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-list :data.prop="dataLIST" role-type="group"></kup-list>
+        </div>
+        <p class="centered">Sample group markup</p>
+        <code class="flat">{{ markupGroup }}</code>
+      </div>
     </div>
   </div>
 </template>
@@ -47,9 +70,24 @@ export default {
   name: 'ListSelection',
   data() {
     return {
-      markupMulti: '<wup-list role-type="group"></wup-list>',
-      markupRadio: '<wup-list role-type="radiogroup"></wup-list>',
-      markupOne: '<wup-list role-type="listbox"></wup-list>',
+      dataLIST: [
+        {
+          text: 'First item',
+          value: '1',
+          selected: true,
+        },
+        {
+          text: 'Second item',
+          value: '2',
+        },
+        {
+          text: 'Third item',
+          value: '3',
+        },
+      ],
+      markupListbox: '<kup-list role-type="listbox"></kup-list>',
+      markupRadiogroup: '<kup-list role-type="radiogroup"></kup-list>',
+      markupGroup: '<kup-list role-type="group"></kup-list>',
     };
   },
 };

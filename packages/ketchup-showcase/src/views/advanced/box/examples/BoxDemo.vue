@@ -12,13 +12,12 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-import { baseData } from '@/mock/chart';
 
 export default {
   components: {
     Demo,
   },
-  name: 'ChartDemo',
+  name: 'BoxDemo',
   data() {
     return {
       demoTabs: [
@@ -76,7 +75,7 @@ export default {
         },
         {
           prop: 'data',
-          description: 'The actual data of the chart.',
+          description: 'The actual data of the box.',
           type: '{ columns?: Column[]; rows?: BoxRow[]; }',
           default: 'undefined',
           try: 'json',
@@ -223,94 +222,88 @@ export default {
           type: 'CustomEvent',
         },
       ],
-      demoData: [
-        {
-          prop: 'data',
-          value: {
-            columns: [
-              {
-                name: 'FLD1',
-                title: 'Photo',
-                size: '',
-              },
-              {
-                name: 'FLD2',
-                title: 'Name',
-                size: 10,
-              },
-            ],
-            rows: [
-              {
-                id: '1',
-                cells: {
-                  FLD1: {
-                    obj: {
-                      t: 'J4',
-                      p: 'IMG',
-                      k: 'AR;ART;Blue Flowers',
-                    },
-                    value: 'images/blueflowers.JPG',
+      demoData: {
+        columns: '3',
+        data: {
+          columns: [
+            {
+              name: 'FLD1',
+              title: 'Photo',
+              size: '',
+            },
+            {
+              name: 'FLD2',
+              title: 'Name',
+              size: 10,
+            },
+          ],
+          rows: [
+            {
+              id: '1',
+              cells: {
+                FLD1: {
+                  obj: {
+                    t: 'J4',
+                    p: 'IMG',
+                    k: 'AR;ART;Blue Flowers',
                   },
-                  FLD2: {
-                    obj: {
-                      t: 'AR',
-                      p: 'ART',
-                      k: 'Blue Flowers',
-                    },
-                    value: 'Blue flowers',
+                  value: 'images/blueflowers.JPG',
+                },
+                FLD2: {
+                  obj: {
+                    t: 'AR',
+                    p: 'ART',
+                    k: 'Blue Flowers',
                   },
+                  value: 'Blue flowers',
                 },
               },
-              {
-                id: '2',
-                cells: {
-                  FLD1: {
-                    obj: {
-                      t: 'J4',
-                      p: 'IMG',
-                      k: 'AR;ART;Purple flowers',
-                    },
-                    value: 'images/purpleflowers.JPG',
+            },
+            {
+              id: '2',
+              cells: {
+                FLD1: {
+                  obj: {
+                    t: 'J4',
+                    p: 'IMG',
+                    k: 'AR;ART;Purple flowers',
                   },
-                  FLD2: {
-                    obj: {
-                      t: 'AR',
-                      p: 'ART',
-                      k: 'Purple flowers',
-                    },
-                    value: 'Purple flowers',
+                  value: 'images/purpleflowers.JPG',
+                },
+                FLD2: {
+                  obj: {
+                    t: 'AR',
+                    p: 'ART',
+                    k: 'Purple flowers',
                   },
+                  value: 'Purple flowers',
                 },
               },
-              {
-                id: '3',
-                cells: {
-                  FLD1: {
-                    obj: {
-                      t: 'J4',
-                      p: 'IMG',
-                      k: 'AR;ART;Red flowers',
-                    },
-                    value: 'images/redflowers.JPG',
+            },
+            {
+              id: '3',
+              cells: {
+                FLD1: {
+                  obj: {
+                    t: 'J4',
+                    p: 'IMG',
+                    k: 'AR;ART;Red flowers',
                   },
-                  FLD2: {
-                    obj: {
-                      t: 'AR',
-                      p: 'ART',
-                      k: 'Red flowers',
-                    },
-                    value: 'Red flowers',
+                  value: 'images/redflowers.JPG',
+                },
+                FLD2: {
+                  obj: {
+                    t: 'AR',
+                    p: 'ART',
+                    k: 'Red flowers',
                   },
+                  value: 'Red flowers',
                 },
               },
-            ],
-          },
+            },
+          ],
         },
-        {
-          prop: 'columns',
-          value: '3',
-        },
-      ],
+      },
     };
   },
 };

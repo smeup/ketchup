@@ -147,7 +147,7 @@ i.v-icon.material-icons {
   margin-bottom: 30px;
 }
 
-.demo-container wup-text-field {
+.demo-container kup-text-field {
   margin: 0 20px;
 }
 
@@ -466,7 +466,7 @@ table.instruction-table {
   margin: 0;
 }
 
-#sample-wrapper table.instruction-table wup-switch {
+#sample-wrapper table.instruction-table kup-switch {
   text-align: center;
 }
 
@@ -704,7 +704,7 @@ table.instruction-table th {
   width: 0;
 }
 
-#sample-specs wup-tab-bar {
+#sample-specs kup-tab-bar {
   width: 100%;
 }
 
@@ -770,7 +770,7 @@ table.instruction-table th {
   white-space: pre;
 }
 
-.kup-container wup-icon {
+.kup-container kup-icon {
   margin: auto;
 }
 
@@ -800,7 +800,7 @@ table.instruction-table th {
     display: block;
   }
 
-  .demo-container wup-text-field {
+  .demo-container kup-text-field {
     margin: 2rem 0;
   }
 

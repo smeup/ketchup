@@ -2,16 +2,9 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar
-        @kupTabBarClick="tabSelection"
-        :data.prop="demoTabs"
-      ></wup-tab-bar>
+      <kup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></kup-tab-bar>
       <div id="sample-specs-container">
-        <table
-          id="props-tab"
-          v-if="demoProps !== null"
-          class="instruction-table sample-section"
-        >
+        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
           <thead>
             <tr>
               <th>Prop</th>
@@ -33,34 +26,27 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'"
-                >Use the JSON tab to view/change this prop.</td
-              >
-              <td v-if="propList.try === 'css'"
-                >Use the CSS tab to view/change this prop.</td
-              >
+              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
+              <td v-if="propList.try === 'css'">Use the CSS tab to view/change this prop.</td>
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <wup-switch
-                  v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
-                ></wup-switch>
+                <kup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
-                <wup-text-field
+                <kup-text-field
                   full-width
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
-                <wup-text-field
+                <kup-text-field
                   full-width
                   trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
                   @kupTextFieldIconClick="updateDemoFieldArray"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
             </tr>
           </tbody>
@@ -95,16 +81,16 @@
         </table>
         <div id="html-tab" class="sample-section" style="display: none;">
           <div class="code-word sample-html"></div>
-          <wup-button
+          <kup-button
             @kupButtonClick="copyHtml"
             id="copy-html"
             icon="file_copy"
             title="Copy HTML markup"
-          ></wup-button>
+          ></kup-button>
         </div>
         <div id="json-tab" class="sample-section padded" style="display: none;">
           <textarea id="json-textarea" style="display: none;"></textarea>
-          <wup-text-field
+          <kup-text-field
             class="shown"
             label="Prop"
             helper="i.e.: data"
@@ -114,17 +100,17 @@
             helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
-          ></wup-text-field>
-          <wup-button
+          ></kup-text-field>
+          <kup-button
             @kupButtonClick="jsonSetSwitch"
             id="json-setter-opener"
             icon="settings"
             title="Show prop field"
-          ></wup-button>
+          ></kup-button>
         </div>
         <div id="css-tab" class="sample-section padded" style="display: none;">
           <textarea id="css-textarea" style="display: none;"></textarea>
-          <wup-text-field
+          <kup-text-field
             class="shown"
             label="Prop"
             helper="i.e.: customStyle"
@@ -134,13 +120,13 @@
             helper-when-focused
             @kupTextFieldIconClick="cssSetSwitch"
             @kupTextFieldInput="cssSet"
-          ></wup-text-field>
-          <wup-button
+          ></kup-text-field>
+          <kup-button
             @kupButtonClick="cssSetSwitch"
             id="css-setter-opener"
             icon="settings"
             title="Show prop field"
-          ></wup-button>
+          ></kup-button>
         </div>
       </div>
     </div>
@@ -149,7 +135,7 @@
         <div v-html="demoComp" id="sample-comp-wrapper"></div>
       </div>
       <div id="split-container">
-        <wup-button
+        <kup-button
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
@@ -157,8 +143,8 @@
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
-        ></wup-button>
-        <wup-button
+        ></kup-button>
+        <kup-button
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
@@ -166,8 +152,8 @@
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
-        ></wup-button>
-        <wup-button
+        ></kup-button>
+        <kup-button
           @kupButtonClick="splitView"
           id="view-splitter"
           toggable
@@ -175,7 +161,7 @@
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
-        ></wup-button>
+        ></kup-button>
       </div>
     </div>
   </div>
@@ -188,7 +174,7 @@ export default {
     demoComp: String,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Array,
+    demoData: Object,
   },
   methods: {
     initEvents() {
@@ -201,8 +187,10 @@ export default {
         }
       }
       if (this.demoData) {
-        for (let i = 0; i < this.demoData.length; i++) {
-          demoComponent[this.demoData[i].prop] = this.demoData[i].value;
+        const keys = Object.keys(this.demoData);
+
+        for (let k of keys) {
+          demoComponent[k] = this.demoData[k];
         }
       }
     },
@@ -251,13 +239,13 @@ export default {
                 let arrayList = demoComponent[this.demoProps[i].prop];
                 let newEntryId = '' + propName + '-' + j;
                 let newEntry =
-                  '<wup-button data-id="' +
+                  '<kup-button data-id="' +
                   propName +
                   '" id="' +
                   newEntryId +
                   '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
                   arrayList[j] +
-                  '"></wup-button>';
+                  '"></kup-button>';
                 document
                   .querySelector('#' + this.demoProps[i].prop)
                   .insertAdjacentHTML('beforebegin', newEntry);
@@ -358,13 +346,13 @@ export default {
       }
 
       let newEntry =
-        '<wup-button data-id="' +
+        '<kup-button data-id="' +
         e.target.id +
         '" id="' +
         newEntryId +
         '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
         e.detail.value +
-        '"></wup-button>';
+        '"></kup-button>';
       demoComponent[propName] = arrayList;
       e.target.insertAdjacentHTML('beforebegin', newEntry);
       e.target.initialValue = '';
