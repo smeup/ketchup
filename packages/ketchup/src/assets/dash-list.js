@@ -1,4 +1,22 @@
 const dashList = document.getElementById('dash-list');
+dashList.valueColor = [
+  "rgb(0, 255, 0)",
+  "rgb(255, 0, 255)",
+  "rgb(0, 0, 255)",
+  ];
+
+dashList.textColor = [
+  "rgb(0, 255, 0)",
+  "rgb(255, 0, 255)",
+  "rgb(0, 0, 255)",
+  ];
+      
+dashList.iconColor = [
+  "rgb(0, 255, 0)",
+  "rgb(255, 0, 255)",
+  "rgb(0, 0, 255)",
+  ];
+    
 dashList.data = {
     columns: 
     [
