@@ -27,7 +27,7 @@ function delay(time) {
 const filtersSelector = 'kup-data-table >>> table > thead kup-text-field';
 
 describe('kup-data-table with global filter', () => {
-    it('should have global filter', async () => {
+    it.skip('should have global filter', async () => {
         const page = await newE2EPage();
 
         await page.setContent(
@@ -54,14 +54,11 @@ describe('kup-data-table with global filter', () => {
         let globalFilterInput = await globalFilterSelector(page);
 
         // Read inside the read me for explanations on the different methods of typing characters with puppeteer API
-<<<<<<< HEAD
-        await globalFilterInput.type('FRA', { delay: 200 });
-=======
         await globalFilterInput.press('Backspace');
         await globalFilterInput.press('Backspace');
         await globalFilterInput.press('Backspace');
         await globalFilterInput.type('FRA', { delay: 1000 });
->>>>>>> develop
+
 
         await globalFilterInput.click();
 
