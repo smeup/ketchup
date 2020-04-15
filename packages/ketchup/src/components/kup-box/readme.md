@@ -113,6 +113,7 @@ graph TD;
   kup-image --> kup-badge
   kup-button --> kup-image
   kup-text-field --> kup-image
+  kup-progress-bar --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio

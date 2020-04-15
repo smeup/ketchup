@@ -174,6 +174,7 @@ graph TD;
   kup-badge --> kup-image
   kup-badge --> kup-image
   kup-button --> kup-image
+  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field

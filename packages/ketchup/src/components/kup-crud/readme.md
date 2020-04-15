@@ -121,6 +121,7 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
+  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
   kup-chip --> kup-image

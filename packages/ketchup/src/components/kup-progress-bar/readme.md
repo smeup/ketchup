@@ -32,12 +32,17 @@
 
 ### Depends on
 
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-progress-bar --> kup-icon
+  kup-progress-bar --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-badge --> kup-image
   kup-box --> kup-progress-bar
   kup-data-table --> kup-progress-bar
   kup-form --> kup-progress-bar
