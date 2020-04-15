@@ -87,11 +87,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/menu/Menu.vue`),
   },
   {
-    path: `/progressbar`,
-    name: 'progressbar',
-    component: () => import(`@/views/advanced/progressbar/Progressbar.vue`),
-  },
-  {
     path: `/search`,
     name: 'search',
     component: () => import(`@/views/advanced/search/Search.vue`),
@@ -130,6 +125,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/combobox`,
+    name: 'combobox',
+    component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
     path: `/image`,
     name: 'image',
     component: () => import(`@/views/basic/image/Image.vue`),
@@ -145,9 +145,9 @@ let basicRoutes = [
     component: () => import(`@/views/basic/radio/Radio.vue`),
   },
   {
-    path: `/combobox`,
-    name: 'combobox',
-    component: () => import(`@/views/basic/combobox/Combobox.vue`),
+    path: `/progressbar`,
+    name: 'progressbar',
+    component: () => import(`@/views/basic/progressbar/Progressbar.vue`),
   },
   {
     path: `/spinner`,
