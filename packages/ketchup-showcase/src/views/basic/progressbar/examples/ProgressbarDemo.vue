@@ -74,6 +74,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'icon',
+          description: 'Specifies an icon to replace the label.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'isAnimated',
           description:
             'When striped background is active, it will be animated. Not supported for the radial variant.',

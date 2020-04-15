@@ -53,12 +53,34 @@
 
     <div class="demo-wrapper">
       <p>
+        It's also possible to display an icon to replace the label. By setting the
+        <span
+          class="code-word"
+        >icon</span> prop to a valid SVG name supported by the
+        <a
+          href="https://ketchup.smeup.com/ketchup-showcase/#/icon"
+        >Ketch.UP Icon component</a>, the label will be replaced by this icon.
+        <br />Keep in mind that in this case,
+        <span class="code-word">hideLabel</span> and
+        <span class="code-word">label</span> props won't have any effect.
+      </p>
+      <div class="demo-container">
+        <div class="kup-container" style="width: 50%;">
+          <kup-progress-bar icon="widgets" value="50"></kup-progress-bar>
+        </div>
+        <p class="centered">Icon sample markup</p>
+        <code class="flat">{{ markupIcon }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
         By enabling the
         <span class="code-word">hasPadding</span> prop the bar will be displayed with a border.
       </p>
       <div class="demo-container">
         <div class="kup-container" style="width: 50%;">
-          <kup-progress-bar value="50" has-padding></kup-progress-bar>
+          <kup-progress-bar value="60" has-padding></kup-progress-bar>
         </div>
         <p class="centered">Padding sample markup</p>
         <code class="flat">{{ markupPadding }}</code>
@@ -77,8 +99,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container" style="width: 50%;">
-          <kup-progress-bar value="70" has-stripes style="margin-bottom: 1rem;"></kup-progress-bar>
-          <kup-progress-bar value="80" has-stripes is-animated></kup-progress-bar>
+          <kup-progress-bar value="75" has-stripes style="margin-bottom: 1rem;"></kup-progress-bar>
+          <kup-progress-bar value="90" has-stripes is-animated></kup-progress-bar>
         </div>
         <p class="centered">Stripes sample markup</p>
         <code class="flat">{{ markupStripes }}</code>
@@ -114,6 +136,8 @@ export default {
         '<kup-progress-bar centered-label="false" value="your_value"></kup-progress-bar>',
       markupCustomLabel:
         '<kup-progress-bar label="your_label" value="your_value"></kup-progress-bar>',
+      markupIcon:
+        '<kup-progress-bar icon="your_icon" value="your_value"></kup-progress-bar>',
       markupHiddenLabel:
         '<kup-progress-bar hide-label value="your_value"></kup-progress-bar>',
       markupPadding:

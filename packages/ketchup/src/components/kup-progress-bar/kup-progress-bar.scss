@@ -5,6 +5,10 @@
   #kup-component {
     width: 100%;
 
+    & kup-icon {
+      margin: auto;
+    }
+
     & .progress-bar {
       background: var(--kup-disabled-background-color);
       border-radius: 4px;
@@ -75,6 +79,10 @@
       margin: auto;
       width: 10rem;
       height: 10rem;
+
+      & kup-icon {
+        margin-top: 2.25rem;
+      }
 
       & .pie-wrapper {
         height: 10rem;

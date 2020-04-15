@@ -919,6 +919,10 @@ export namespace Components {
     */
     'hideLabel': boolean;
     /**
+    * Specifies an icon to replace the label.
+    */
+    'icon': string;
+    /**
     * When striped background is active, it will be animated. Not supported for the radial variant.
     */
     'isAnimated': boolean;
@@ -2614,6 +2618,10 @@ declare namespace LocalJSX {
     * Flag to show or hide the progress bar's label.
     */
     'hideLabel'?: boolean;
+    /**
+    * Specifies an icon to replace the label.
+    */
+    'icon'?: string;
     /**
     * When striped background is active, it will be animated. Not supported for the radial variant.
     */

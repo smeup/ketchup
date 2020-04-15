@@ -14,6 +14,7 @@
 | `hasPadding`    | `has-padding`    | Sets a padding between the bar and its container. Not supported for the radial variant.                             | `boolean` | `false`     |
 | `hasStripes`    | `has-stripes`    | Sets a striped background. Not supported for the radial variant.                                                    | `boolean` | `false`     |
 | `hideLabel`     | `hide-label`     | Flag to show or hide the progress bar's label.                                                                      | `boolean` | `false`     |
+| `icon`          | `icon`           | Specifies an icon to replace the label.                                                                             | `string`  | `undefined` |
 | `isAnimated`    | `is-animated`    | When striped background is active, it will be animated. Not supported for the radial variant.                       | `boolean` | `false`     |
 | `isRadial`      | `is-radial`      | Radial version.                                                                                                     | `boolean` | `false`     |
 | `isSlim`        | `is-slim`        | Slim version.                                                                                                       | `boolean` | `false`     |
@@ -29,9 +30,14 @@
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
 
+### Depends on
+
+- [kup-icon](../kup-icon)
+
 ### Graph
 ```mermaid
 graph TD;
+  kup-progress-bar --> kup-icon
   kup-box --> kup-progress-bar
   kup-data-table --> kup-progress-bar
   kup-form --> kup-progress-bar

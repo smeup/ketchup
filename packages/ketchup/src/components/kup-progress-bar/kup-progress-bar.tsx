@@ -21,6 +21,10 @@ export class KupProgressBar {
      */
     @Prop({ reflect: true }) hideLabel: boolean = false;
     /**
+     * Specifies an icon to replace the label.
+     */
+    @Prop({ reflect: true }) icon: string = undefined;
+    /**
      * Specifies a text for the bar's label.
      */
     @Prop({ reflect: true }) label: string = undefined;
@@ -103,23 +107,47 @@ export class KupProgressBar {
         }
 
         let label = null;
-        if (!this.hideLabel) {
+        if (this.icon) {
             if (this.isRadial) {
-                if (this.label) {
-                    label = <span class="label">{this.label}</span>;
-                } else {
-                    label = (
-                        <span class="label">
-                            {this.value}
-                            <span class="smaller">%</span>
-                        </span>
-                    );
-                }
+                label = (
+                    <span class="label">
+                        <kup-icon
+                            dimensions="3rem"
+                            color="var(--kup-main-color)"
+                            name={this.icon}
+                        ></kup-icon>
+                    </span>
+                );
             } else {
-                if (this.label) {
-                    label = this.label;
+                label = (
+                    <span class="label">
+                        <kup-icon
+                            dimensions="1.25rem"
+                            color="var(--kup-text-on-main-color)"
+                            name={this.icon}
+                        ></kup-icon>
+                    </span>
+                );
+            }
+        } else {
+            if (!this.hideLabel) {
+                if (this.isRadial) {
+                    if (this.label) {
+                        label = <span class="label">{this.label}</span>;
+                    } else {
+                        label = (
+                            <span class="label">
+                                {this.value}
+                                <span class="smaller">%</span>
+                            </span>
+                        );
+                    }
                 } else {
-                    label = this.value + '%';
+                    if (this.label) {
+                        label = this.label;
+                    } else {
+                        label = this.value + '%';
+                    }
                 }
             }
         }
