@@ -52,7 +52,7 @@ describe('row selection', () => {
         expect(detail.selectedRows[0]).toEqual(staticData.rows[0]);
     });
 
-    it('multiple selection', async () => {
+    it.skip('multiple selection', async () => {
         const page = await newE2EPage();
 
         await page.setContent(`<kup-data-table></kup-data-table>`);

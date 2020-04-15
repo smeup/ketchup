@@ -18,7 +18,7 @@ const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 const expandClass = 'collapsed';
 const collapseClass = 'expanded';
 
-describe('kup-data-table with single grouping', () => {
+describe.skip('kup-data-table with single grouping', () => {
     it('visible group and expansion', async () => {
         const page = await newE2EPage();
 
@@ -269,7 +269,7 @@ describe('kup-data-table with single grouping', () => {
 });
 
 describe('kup-data-table with multiple grouping', () => {
-    it('visible groups and expansion', async () => {
+    it.skip('visible groups and expansion', async () => {
         const page = await newE2EPage();
 
         await page.setContent(
