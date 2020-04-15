@@ -904,17 +904,45 @@ export namespace Components {
   }
   interface KupProgressBar {
     /**
-    * FLag to show or hide the progress bar's label
+    * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+    */
+    'centeredLabel': boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle': string;
+    /**
+    * Sets a padding between the bar and its container. Not supported for the radial variant.
+    */
+    'hasPadding': boolean;
+    /**
+    * Sets a striped background. Not supported for the radial variant.
+    */
+    'hasStripes': boolean;
+    /**
+    * Flag to show or hide the progress bar's label.
     */
     'hideLabel': boolean;
     /**
-    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    * Specifies an icon to replace the label.
     */
-    'isSmall': boolean;
+    'icon': string;
     /**
-    * Specifies a text for the bar's label
+    * When striped background is active, it will be animated. Not supported for the radial variant.
     */
-    'labelText': string;
+    'isAnimated': boolean;
+    /**
+    * Radial version.
+    */
+    'isRadial': boolean;
+    /**
+    * Slim version.
+    */
+    'isSlim': boolean;
+    /**
+    * Specifies a text for the bar's label.
+    */
+    'label': string;
     /**
     * The current value the progress bar must display.
     */
@@ -2583,17 +2611,45 @@ declare namespace LocalJSX {
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
     /**
-    * FLag to show or hide the progress bar's label
+    * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+    */
+    'centeredLabel'?: boolean;
+    /**
+    * Custom style to be passed to the component.
+    */
+    'customStyle'?: string;
+    /**
+    * Sets a padding between the bar and its container. Not supported for the radial variant.
+    */
+    'hasPadding'?: boolean;
+    /**
+    * Sets a striped background. Not supported for the radial variant.
+    */
+    'hasStripes'?: boolean;
+    /**
+    * Flag to show or hide the progress bar's label.
     */
     'hideLabel'?: boolean;
     /**
-    * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+    * Specifies an icon to replace the label.
     */
-    'isSmall'?: boolean;
+    'icon'?: string;
     /**
-    * Specifies a text for the bar's label
+    * When striped background is active, it will be animated. Not supported for the radial variant.
     */
-    'labelText'?: string;
+    'isAnimated'?: boolean;
+    /**
+    * Radial version.
+    */
+    'isRadial'?: boolean;
+    /**
+    * Slim version.
+    */
+    'isSlim'?: boolean;
+    /**
+    * Specifies a text for the bar's label.
+    */
+    'label'?: string;
     /**
     * The current value the progress bar must display.
     */
