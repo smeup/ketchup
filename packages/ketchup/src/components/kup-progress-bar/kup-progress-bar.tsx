@@ -111,21 +111,23 @@ export class KupProgressBar {
             if (this.isRadial) {
                 label = (
                     <span class="label">
-                        <kup-icon
-                            dimensions="3rem"
+                        <kup-image
+                            sizeX="3rem"
+                            sizeY="3rem"
                             color="var(--kup-main-color)"
                             name={this.icon}
-                        ></kup-icon>
+                        ></kup-image>
                     </span>
                 );
             } else {
                 label = (
                     <span class="label">
-                        <kup-icon
-                            dimensions="1.25rem"
+                        <kup-image
+                            sizeX="1.25rem"
+                            sizeY="1.25rem"
                             color="var(--kup-text-on-main-color)"
                             name={this.icon}
-                        ></kup-icon>
+                        ></kup-image>
                     </span>
                 );
             }
