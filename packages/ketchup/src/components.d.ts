@@ -899,7 +899,7 @@ export namespace Components {
   }
   interface KupProgressBar {
     /**
-    * Displays the label in the middle of the progress bar.
+    * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
     */
     'centeredLabel': boolean;
     /**
@@ -931,7 +931,7 @@ export namespace Components {
     */
     'isSlim': boolean;
     /**
-    * Specifies a text for the bar's label. Not supported for the radial variant.
+    * Specifies a text for the bar's label.
     */
     'label': string;
     /**
@@ -2595,7 +2595,7 @@ declare namespace LocalJSX {
   }
   interface KupProgressBar extends JSXBase.HTMLAttributes<HTMLKupProgressBarElement> {
     /**
-    * Displays the label in the middle of the progress bar.
+    * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
     */
     'centeredLabel'?: boolean;
     /**
@@ -2627,7 +2627,7 @@ declare namespace LocalJSX {
     */
     'isSlim'?: boolean;
     /**
-    * Specifies a text for the bar's label. Not supported for the radial variant.
+    * Specifies a text for the bar's label.
     */
     'label'?: string;
     /**

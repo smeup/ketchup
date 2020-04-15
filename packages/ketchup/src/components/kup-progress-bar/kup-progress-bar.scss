@@ -6,7 +6,7 @@
     width: 100%;
 
     & .progress-bar {
-      background: var(--kup-border-color);
+      background: var(--kup-disabled-background-color);
       border-radius: 4px;
       overflow: hidden;
       position: relative;
@@ -24,7 +24,7 @@
         height: 1.25rem;
         padding: 0.5rem 0;
         text-align: center;
-        transition: width 0.2s ease 0s;
+        transition: width 0.2s ease;
 
         & span {
           color: var(--kup-text-on-main-color);
@@ -96,12 +96,15 @@
           top: 0;
 
           &.has-value {
-            .half-circle {
+            & .half-circle {
               border-color: var(--kup-main-color);
+              &.left-side {
+                transition: transform 0.2s ease;
+              }
             }
 
             &.is-less-than-half {
-              .right-side {
+              & .right-side {
                 display: none;
               }
             }
@@ -109,7 +112,7 @@
             &.is-more-than-half {
               clip: rect(auto, auto, auto, auto);
 
-              .right-side {
+              & .right-side {
                 transform: rotate(180deg);
               }
             }
@@ -118,7 +121,7 @@
           & .half-circle {
             height: 10rem;
             width: 10rem;
-            border: 0.1em solid var(--kup-border-color);
+            border: 0.1em solid var(--kup-disabled-background-color);
             border-radius: 50%;
             clip: rect(0, 0.5em, 1em, 0);
             left: 0;
@@ -154,7 +157,7 @@
         & .shadow {
           height: 10rem;
           width: 10rem;
-          border: 0.1em solid var(--kup-border-color);
+          border: 0.1em solid var(--kup-disabled-background-color);
           border-radius: 50%;
         }
 

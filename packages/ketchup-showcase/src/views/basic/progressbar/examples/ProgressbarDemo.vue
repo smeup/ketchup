@@ -37,7 +37,7 @@ export default {
         {
           prop: 'centeredLabel',
           description:
-            'Displays the label in the middle of the progress bar. Not supported for the radial variant.',
+            "Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.",
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -52,8 +52,7 @@ export default {
         },
         {
           prop: 'hideLabel',
-          description:
-            "Flag to show or hide the progress bar's label. Not supported for the radial variant.",
+          description: "Flag to show or hide the progress bar's label.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -98,8 +97,7 @@ export default {
         },
         {
           prop: 'label',
-          description:
-            "Specifies a text for the bar's label. Not supported for the radial variant.",
+          description: "Specifies a text for the bar's label.",
           type: 'string',
           default: 'undefined',
           try: 'field',

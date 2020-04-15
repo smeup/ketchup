@@ -9,7 +9,7 @@ export class KupProgressBar {
     @Element() rootElement: HTMLElement;
 
     /**
-     * Displays the label in the middle of the progress bar.
+     * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
      */
     @Prop({ reflect: true }) centeredLabel: boolean = true;
     /**
@@ -21,7 +21,7 @@ export class KupProgressBar {
      */
     @Prop({ reflect: true }) hideLabel: boolean = false;
     /**
-     * Specifies a text for the bar's label. Not supported for the radial variant.
+     * Specifies a text for the bar's label.
      */
     @Prop({ reflect: true }) label: string = undefined;
     /**
@@ -104,10 +104,23 @@ export class KupProgressBar {
 
         let label = null;
         if (!this.hideLabel) {
-            if (this.label) {
-                label = this.label;
+            if (this.isRadial) {
+                if (this.label) {
+                    label = <span class="label">{this.label}</span>;
+                } else {
+                    label = (
+                        <span class="label">
+                            {this.value}
+                            <span class="smaller">%</span>
+                        </span>
+                    );
+                }
             } else {
-                label = this.value + '%';
+                if (this.label) {
+                    label = this.label;
+                } else {
+                    label = this.value + '%';
+                }
             }
         }
 
@@ -125,10 +138,7 @@ export class KupProgressBar {
             wrapperClass += ' is-radial';
             el = (
                 <div class={componentClass}>
-                    <span class="label">
-                        {this.value}
-                        <span class="smaller">%</span>
-                    </span>
+                    {label}
                     <div class={pieClass}>
                         <div
                             style={radialStyle}
@@ -152,7 +162,7 @@ export class KupProgressBar {
         return (
             <Host>
                 {customStyle}
-                <div id="kup-component" title={label} class={wrapperClass}>
+                <div id="kup-component" class={wrapperClass}>
                     {el}
                 </div>
             </Host>

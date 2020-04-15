@@ -1,36 +1,31 @@
 <template>
   <div>
-    <h3>Without value</h3>
-    <kup-progress-bar></kup-progress-bar>
-
-    <h3>With value 70</h3>
-    <kup-progress-bar :value.prop="70"></kup-progress-bar>
-
-    <h3>With value 50 and custom text</h3>
-    <kup-progress-bar
-      :value.prop="50"
-      :labelText.prop="'My custom label'"
-    ></kup-progress-bar>
-
-    <h3>Custom colors</h3>
-    <kup-progress-bar id="custom-colors" :value.prop="50"></kup-progress-bar>
+    <div class="demo-wrapper">
+      <p>
+        Progress bars are used to give visual feedback of an advancement status. It works in percentage and it value must be set inside the
+        <span
+          class="code-word"
+        >value</span> prop.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container" style="width: 50%;">
+          <kup-progress-bar value="100"></kup-progress-bar>
+        </div>
+        <p class="centered">Sample markup</p>
+        <code class="flat">{{ markupBasic }}</code>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'ProgressbarBasic',
   data() {
     return {
-      value: 0,
+      markupBasic: '<kup-progress-bar value="your_value"></kup-progress-bar>',
     };
   },
 };
 </script>
-
-<style scoped>
-#custom-colors {
-  --pgb_background-color: black;
-  --pgb_foreground-color: green;
-}
-</style>
-
