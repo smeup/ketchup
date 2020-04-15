@@ -19,6 +19,7 @@ import { MDCIconButtonToggle } from '@material/icon-button';
 export class KupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+
     /**
      * Defaults at false. When set to true, the icon button state will be on.
      */

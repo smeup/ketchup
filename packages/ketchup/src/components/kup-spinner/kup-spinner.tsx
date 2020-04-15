@@ -13,37 +13,30 @@ export class KupSpinner {
      * When set to true the spinner is animating.
      */
     @Prop({ reflect: true }) active: boolean = false;
-
     /**
      * Decides whether the component is a bar or a spinner.
      */
     @Prop({ reflect: true }) barVariant: boolean = false;
-
     /**
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
     @Prop({ reflect: true }) dimensions: string = undefined;
-
     /**
      * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
      */
     @Prop({ reflect: true }) fader: boolean = false;
-
     /**
      * The time required for the "fader" to trigger.
      */
     @Prop({ reflect: true }) faderTimeout: number = 3500;
-
     /**
      * When set to true the component will fill the whole viewport.
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
-
     /**
      * Sets the layout of the spinner.
      */
@@ -67,7 +60,7 @@ export class KupSpinner {
 
         if (root) {
             if (this.fader) {
-                setTimeout(function() {
+                setTimeout(function () {
                     root.querySelector('#loading-wrapper-master').classList.add(
                         'loading-wrapper-big-wait'
                     );

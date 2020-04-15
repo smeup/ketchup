@@ -135,6 +135,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/combobox`,
+    name: 'combobox',
+    component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
     path: `/icon`,
     name: 'icon',
     component: () => import(`@/views/basic/icon/Icon.vue`),
@@ -148,11 +153,6 @@ let basicRoutes = [
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
-  },
-  {
-    path: `/combobox`,
-    name: 'combobox',
-    component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
     path: `/spinner`,
