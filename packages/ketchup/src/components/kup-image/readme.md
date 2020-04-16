@@ -45,15 +45,12 @@
 
 - [kup-badge](../kup-badge)
 - [kup-spinner](../kup-spinner)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-image --> kup-badge
   kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-badge --> kup-image
   kup-box --> kup-image
   kup-button --> kup-image

@@ -32,15 +32,11 @@
 ### Depends on
 
 - [kup-image](../kup-image)
-- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-badge --> kup-image
-  kup-badge --> kup-image
-  kup-image --> kup-badge
-  kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-box --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px

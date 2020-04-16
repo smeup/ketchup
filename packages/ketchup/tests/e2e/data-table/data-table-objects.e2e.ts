@@ -101,7 +101,7 @@ it('render objects', async () => {
             case 1:
                 // img
                 expect(child.tagName).toBe('KUP-IMAGE');
-                expect(await child.getProperty('src')).toEqual(
+                expect(await child.getProperty('name')).toEqual(
                     'https://i.imgur.com/mtbl1cr.jpg'
                 );
                 break;

@@ -75,7 +75,6 @@ Type: `Promise<void>`
 - [kup-button](../kup-button)
 - [kup-modal](../kup-modal)
 - [kup-form](../kup-form)
-- [kup-form](../kup-form)
 
 ### Graph
 ```mermaid
@@ -83,21 +82,10 @@ graph TD;
   kup-crud --> kup-button
   kup-crud --> kup-modal
   kup-crud --> kup-form
-  kup-crud --> kup-form
   kup-button --> kup-image
   kup-image --> kup-badge
   kup-image --> kup-spinner
-  kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-badge --> kup-image
-  kup-form --> kup-combobox
-  kup-form --> kup-crud
-  kup-form --> kup-autocomplete
-  kup-form --> kup-search
-  kup-form --> kup-image
-  kup-form --> kup-progress-bar
-  kup-form --> kup-text-field
-  kup-form --> kup-button
   kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
