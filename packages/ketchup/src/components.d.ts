@@ -678,28 +678,6 @@ export namespace Components {
          */
         "src": string;
     }
-    interface KupIcon {
-        /**
-          * The color of the icon, defaults to the main color of the app.
-         */
-        "color": string;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle": string;
-        /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-         */
-        "dimensions": string;
-        /**
-          * The name of the icon.
-         */
-        "name": string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type": string;
-    }
     interface KupImage {
         "alt": string;
         "badges": Badge[];
@@ -1255,12 +1233,6 @@ declare global {
         prototype: HTMLKupHtmlElement;
         new (): HTMLKupHtmlElement;
     };
-    interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {
-    }
-    var HTMLKupIconElement: {
-        prototype: HTMLKupIconElement;
-        new (): HTMLKupIconElement;
-    };
     interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {
     }
     var HTMLKupImageElement: {
@@ -1385,7 +1357,6 @@ declare global {
         "kup-gauge": HTMLKupGaugeElement;
         "kup-graphic-cell": HTMLKupGraphicCellElement;
         "kup-html": HTMLKupHtmlElement;
-        "kup-icon": HTMLKupIconElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
@@ -2326,28 +2297,6 @@ declare namespace LocalJSX {
          */
         "src"?: string;
     }
-    interface KupIcon {
-        /**
-          * The color of the icon, defaults to the main color of the app.
-         */
-        "color"?: string;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle"?: string;
-        /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-         */
-        "dimensions"?: string;
-        /**
-          * The name of the icon.
-         */
-        "name"?: string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type"?: string;
-    }
     interface KupImage {
         "alt"?: string;
         "badges"?: Badge[];
@@ -2968,7 +2917,6 @@ declare namespace LocalJSX {
         "kup-gauge": KupGauge;
         "kup-graphic-cell": KupGraphicCell;
         "kup-html": KupHtml;
-        "kup-icon": KupIcon;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
@@ -3013,7 +2961,6 @@ declare module "@stencil/core" {
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
             "kup-html": LocalJSX.KupHtml & JSXBase.HTMLAttributes<HTMLKupHtmlElement>;
-            "kup-icon": LocalJSX.KupIcon & JSXBase.HTMLAttributes<HTMLKupIconElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
