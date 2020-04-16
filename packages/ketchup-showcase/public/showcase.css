@@ -187,6 +187,7 @@ code.flat {
   font-family: Roboto Mono, consolas, monospace;
   font-size: 1.2rem;
   font-weight: 600;
+  word-break: break-word;
 }
 
 .sample-section .code-word {
