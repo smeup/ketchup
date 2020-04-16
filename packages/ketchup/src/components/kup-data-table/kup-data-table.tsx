@@ -848,10 +848,22 @@ export class KupDataTable {
     }
 
     private getColumnValues(column: string): Array<string> {
+        /** è necessario estrarre i valori della colonna di tutte le righe
+         * filtrate SENZA il filtro della colonna stessa corrente */
         let values = [];
+
+        let tmpFilters: GenericFilter = { ...this.filters };
+        tmpFilters[column] = null;
+
+        let tmpRows = filterRows(
+            this.getRows(),
+            tmpFilters,
+            this.globalFilterValue,
+            this.getVisibleColumns().map((c) => c.name)
+        );
+
         /** il valore delle righe attualmente filtrate */
-        this.rows.forEach((row) =>
-            //this.getRows().forEach((row) =>
+        tmpRows.forEach((row) =>
             this.addColumnValueFromRow(values, column, row)
         );
         return values;
@@ -1524,8 +1536,8 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'mdi-sort-ascending'
-                    : 'mdi-sort-descending';
+                    ? 'sort-ascending'
+                    : 'sort-descending';
             }
         }
 
@@ -1845,6 +1857,18 @@ export class KupDataTable {
                      * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                      */
                     filter = (
+                        <kup-image
+                            name="filter-remove"
+                            sizeX="24px"
+                            sizeY="24px"
+                            title={svgLabel}
+                            onClick={() => {
+                                this.onRemouveFilter(column.name);
+                            }}
+                        />
+                    );
+                    /*
+                    filter = (
                         <svg
                             aria-label={svgLabel}
                             class="remove-filter"
@@ -1868,7 +1892,7 @@ export class KupDataTable {
                     l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"
                             />
                         </svg>
-                    );
+                    );*/
                 }
 
                 //---- Sort ----
@@ -1881,10 +1905,11 @@ export class KupDataTable {
                 if (this.sortEnabled && isStringObject(column.obj)) {
                     sortIcon = (
                         <span class="column-sort">
-                            <span
-                                role="button"
-                                aria-label="Sort column" // TODO
-                                class={'mdi ' + this.getSortIcon(column.name)}
+                            <kup-image
+                                name={this.getSortIcon(column.name)}
+                                title="Sort column"
+                                sizeX="24px"
+                                sizeY="24px"
                             />
                         </span>
                     );
@@ -1934,7 +1959,7 @@ export class KupDataTable {
                 columnMenuItems.push(
                     <li role="menuitem">
                         <kup-button
-                            customStyle="display: inline-block"
+                            customStyle="display: inline-block;"
                             icon="book"
                             tooltip={groupLabel}
                             onKupButtonClick={() =>
@@ -1942,7 +1967,7 @@ export class KupDataTable {
                             }
                         />
                         <kup-button
-                            customStyle="display: inline-block"
+                            customStyle="display: inline-block;"
                             icon="table-column-plus-after"
                             tooltip="Aggiungi colonna"
                             onKupButtonClick={() => {

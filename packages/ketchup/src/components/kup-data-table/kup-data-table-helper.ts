@@ -420,6 +420,7 @@ export function isRowComplient(
 
     let keys = Object.keys(filters);
 
+    let retValue: boolean = false;
     // Filters
     for (let i = 0; i < keys.length; i++) {
         let key: string = keys[i];
@@ -431,18 +432,25 @@ export function isRowComplient(
         let filterValue = getTextFieldFilterValue(filters, key);
 
         if (isFilterComplientForCell(cell, filterValue)) {
-            return true;
+            //return true;
+            retValue = true;
         }
 
         let filterValues = getCheckBoxFilterValues(filters, key);
+        if (filterValues.length == 0) {
+            return retValue;
+        }
+        retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
             if (isFilterComplientForCell(cell, fv)) {
-                return true;
+                //return true;
+                retValue = true;
             }
         }
     }
-    return false;
+    //return false;
+    return retValue;
 }
 
 export function isFilterComplientForCell(cellValue: Cell, filterValue: string) {
