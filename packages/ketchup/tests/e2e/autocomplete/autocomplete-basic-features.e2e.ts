@@ -33,7 +33,7 @@ let page: E2EPage | undefined;
 let autocompleteEl: E2EElement | undefined;
 let autocompleteSelectEventSpy;
 
-describe('KetchUP autocomplete', () => {
+describe.skip('KetchUP autocomplete', () => {
     // Setup environment for each test
     beforeEach(async () => {
         page = await newE2EPage();
@@ -163,7 +163,7 @@ describe('KetchUP autocomplete', () => {
         expect(menuStatus).toBeFalsy();
     });
 
-    it('can have both the clear and the menu icon buttons', async () => {
+    it.skip('can have both the clear and the menu icon buttons', async () => {
         await autocompleteEl.setProperty('showDropdownIcon', true);
         await autocompleteEl.setProperty('showClearIcon', true);
         await page.waitForChanges();

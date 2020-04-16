@@ -1227,11 +1227,11 @@ export class KupDataTable {
     }
 
     private onRowClick(event: MouseEvent, row: Row) {
-        // selecting row
-        this.handleRowSelect(row, event.ctrlKey);
-
         // checking target
         const target = event.target;
+
+        // selecting row
+        this.handleRowSelect(target, row, event.ctrlKey);
 
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -1274,9 +1274,12 @@ export class KupDataTable {
         });
     }
 
-    private handleRowSelect(row: Row, ctrlKey: boolean) {
+    private handleRowSelect(target: any, row: Row, ctrlKey: boolean) {
         if (this.multiSelection) {
-            if (ctrlKey && this.selectedRows) {
+            if (
+                (ctrlKey && this.selectedRows) ||
+                target.tagName === 'KUP-CHECKBOX'
+            ) {
                 const index = this.selectedRows.indexOf(row);
 
                 if (index < 0) {
@@ -1293,28 +1296,6 @@ export class KupDataTable {
         } else {
             this.selectedRows = [row];
         }
-    }
-
-    private onRowCheckboxSelection({ target }, row: Row) {
-        if (target.checked) {
-            if (this.selectedRows.length > 0) {
-                this.selectedRows = [...this.selectedRows, row];
-            } else {
-                this.selectedRows = [row];
-            }
-        } else {
-            const index = this.selectedRows.indexOf(row);
-
-            if (index >= 0) {
-                this.selectedRows.splice(index, 1);
-                this.selectedRows = [...this.selectedRows];
-            }
-        }
-
-        this.kupRowSelected.emit({
-            selectedRows: this.selectedRows,
-            clickedColumn: null,
-        });
     }
 
     private onRowExpand(row: Row) {
@@ -2465,9 +2446,6 @@ export class KupDataTable {
                         }
                     >
                         <kup-checkbox
-                            onKupCheckboxChange={(e) =>
-                                this.onRowCheckboxSelection(e, row)
-                            }
                             onKupCheckboxClick={(e) => e.stopPropagation()}
                             checked={this.selectedRows.includes(row)}
                         />

@@ -5,7 +5,7 @@ import { j4btnData, pgbData } from './mocked-data';
 import { boxSelector } from './box-selectors';
 
 describe('renders different kind of objects', () => {
-    it('buttons', async () => {
+    it.skip('buttons', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-box></kup-box>');
