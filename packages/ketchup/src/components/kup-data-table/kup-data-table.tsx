@@ -1934,6 +1934,7 @@ export class KupDataTable {
                 columnMenuItems.push(
                     <li role="menuitem">
                         <kup-button
+                            customStyle="display: inline-block"
                             icon="book"
                             tooltip={groupLabel}
                             onKupButtonClick={() =>
@@ -1941,7 +1942,8 @@ export class KupDataTable {
                             }
                         />
                         <kup-button
-                            icon="plus"
+                            customStyle="display: inline-block"
+                            icon="table-column-plus-after"
                             tooltip="Aggiungi colonna"
                             onKupButtonClick={() => {
                                 this.kupAddColumn.emit({ column: column.name });
