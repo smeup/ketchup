@@ -367,6 +367,18 @@ export namespace Components {
         "fontsize": string;
         "layout": string;
     }
+    interface KupDashList {
+        "active": boolean;
+        "columnsNumber": number;
+        "data": TableData;
+        "fillSpace": boolean;
+        "fontsize": string;
+        "horizontal": boolean;
+        "iconColor": Array<any>;
+        "layout": string;
+        "textColor": Array<any>;
+        "valueColor": Array<any>;
+    }
     interface KupDataTable {
         /**
           * Used to set custom columns width.
@@ -1207,6 +1219,12 @@ declare global {
         prototype: HTMLKupDashElement;
         new (): HTMLKupDashElement;
     };
+    interface HTMLKupDashListElement extends Components.KupDashList, HTMLStencilElement {
+    }
+    var HTMLKupDashListElement: {
+        prototype: HTMLKupDashListElement;
+        new (): HTMLKupDashListElement;
+    };
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
     }
     var HTMLKupDataTableElement: {
@@ -1372,6 +1390,7 @@ declare global {
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
+        "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
@@ -1943,6 +1962,19 @@ declare namespace LocalJSX {
         "fontsize"?: string;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
+    }
+    interface KupDashList {
+        "active"?: boolean;
+        "columnsNumber"?: number;
+        "data"?: TableData;
+        "fillSpace"?: boolean;
+        "fontsize"?: string;
+        "horizontal"?: boolean;
+        "iconColor"?: Array<any>;
+        "layout"?: string;
+        "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
+        "textColor"?: Array<any>;
+        "valueColor"?: Array<any>;
     }
     interface KupDataTable {
         /**
@@ -2949,6 +2981,7 @@ declare namespace LocalJSX {
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
+        "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-editor": KupEditor;
         "kup-field": KupField;
@@ -2994,6 +3027,7 @@ declare module "@stencil/core" {
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
+            "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;

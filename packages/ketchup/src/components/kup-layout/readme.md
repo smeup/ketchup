@@ -40,6 +40,19 @@ More about this issue inside the SCSS file of this component.
 | `--lyo_grid-gap, --kup-layout_grid-gap`           | Space between two adjacent cells (on columns and rows).                                                                        |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-dash-list](../kup-dash-list)
+
+### Graph
+```mermaid
+graph TD;
+  kup-dash-list --> kup-layout
+  style kup-layout fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
