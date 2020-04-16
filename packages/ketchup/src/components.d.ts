@@ -18,7 +18,6 @@ import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEve
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, } from "./components/kup-image/kup-image-declarations";
-import { Image, } from "./components/kup-image-button/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -61,8 +60,21 @@ export namespace Components {
         "textfieldData": Object;
     }
     interface KupBadge {
-        "icon": string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The data of the image displayed inside the badge.
+         */
+        "imageData": {};
+        /**
+          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+         */
         "position": BadgePosition;
+        /**
+          * The text displayed inside the badge.
+         */
         "text": string;
     }
     interface KupBox {
@@ -679,17 +691,38 @@ export namespace Components {
         "src": string;
     }
     interface KupImage {
-        "alt": string;
-        "badges": Badge[];
-        "height": string;
         /**
-          * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+          * Sets the data of badges.
          */
-        "limitWidthByHeight": boolean;
-        "maxHeight": string;
-        "maxWidth": string;
-        "src": string;
-        "width": string;
+        "badgeData": Badge[];
+        /**
+          * The color of the icon, defaults to the main color of the app.
+         */
+        "color": string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+         */
+        "feedback": boolean;
+        /**
+          * The name of the icon. It can also contain an URL or a path.
+         */
+        "name": string;
+        /**
+          * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX": string;
+        /**
+          * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY": string;
+        /**
+          * The type of the icon, defaults to "svg".
+         */
+        "type": string;
     }
     interface KupImageButton {
         /**
@@ -699,7 +732,7 @@ export namespace Components {
         /**
           * urls of the images
          */
-        "images": Image[];
+        "images": any;
         /**
           * If enabled, display the image description below the image
          */
@@ -812,17 +845,45 @@ export namespace Components {
     }
     interface KupProgressBar {
         /**
-          * FLag to show or hide the progress bar's label
+          * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+         */
+        "centeredLabel": boolean;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * Sets a padding between the bar and its container. Not supported for the radial variant.
+         */
+        "hasPadding": boolean;
+        /**
+          * Sets a striped background. Not supported for the radial variant.
+         */
+        "hasStripes": boolean;
+        /**
+          * Flag to show or hide the progress bar's label.
          */
         "hideLabel": boolean;
         /**
-          * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+          * Specifies an icon to replace the label.
          */
-        "isSmall": boolean;
+        "icon": string;
         /**
-          * Specifies a text for the bar's label
+          * When striped background is active, it will be animated. Not supported for the radial variant.
          */
-        "labelText": string;
+        "isAnimated": boolean;
+        /**
+          * Radial version.
+         */
+        "isRadial": boolean;
+        /**
+          * Slim version.
+         */
+        "isSlim": boolean;
+        /**
+          * Specifies a text for the bar's label.
+         */
+        "label": string;
         /**
           * The current value the progress bar must display.
          */
@@ -1440,8 +1501,24 @@ declare namespace LocalJSX {
         "textfieldData"?: Object;
     }
     interface KupBadge {
-        "icon"?: string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the image displayed inside the badge.
+         */
+        "imageData"?: {};
+        "onKupBadgeClick"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        /**
+          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+         */
         "position"?: BadgePosition;
+        /**
+          * The text displayed inside the badge.
+         */
         "text"?: string;
     }
     interface KupBox {
@@ -2298,17 +2375,44 @@ declare namespace LocalJSX {
         "src"?: string;
     }
     interface KupImage {
-        "alt"?: string;
-        "badges"?: Badge[];
-        "height"?: string;
         /**
-          * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
+          * Sets the data of badges.
          */
-        "limitWidthByHeight"?: boolean;
-        "maxHeight"?: string;
-        "maxWidth"?: string;
-        "src"?: string;
-        "width"?: string;
+        "badgeData"?: Badge[];
+        /**
+          * The color of the icon, defaults to the main color of the app.
+         */
+        "color"?: string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+         */
+        "feedback"?: boolean;
+        /**
+          * The name of the icon. It can also contain an URL or a path.
+         */
+        "name"?: string;
+        "onKupImageClick"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        "onKupImageLoad"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        /**
+          * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX"?: string;
+        /**
+          * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY"?: string;
+        /**
+          * The type of the icon, defaults to "svg".
+         */
+        "type"?: string;
     }
     interface KupImageButton {
         /**
@@ -2318,9 +2422,9 @@ declare namespace LocalJSX {
         /**
           * urls of the images
          */
-        "images"?: Image[];
+        "images"?: any;
         "onKupImageButtonSelected"?: (event: CustomEvent<{
-            selectedImages: Image[];
+            selectedImages: [];
         }>) => void;
         /**
           * If enabled, display the image description below the image
@@ -2473,17 +2577,45 @@ declare namespace LocalJSX {
     }
     interface KupProgressBar {
         /**
-          * FLag to show or hide the progress bar's label
+          * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+         */
+        "centeredLabel"?: boolean;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * Sets a padding between the bar and its container. Not supported for the radial variant.
+         */
+        "hasPadding"?: boolean;
+        /**
+          * Sets a striped background. Not supported for the radial variant.
+         */
+        "hasStripes"?: boolean;
+        /**
+          * Flag to show or hide the progress bar's label.
          */
         "hideLabel"?: boolean;
         /**
-          * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+          * Specifies an icon to replace the label.
          */
-        "isSmall"?: boolean;
+        "icon"?: string;
         /**
-          * Specifies a text for the bar's label
+          * When striped background is active, it will be animated. Not supported for the radial variant.
          */
-        "labelText"?: string;
+        "isAnimated"?: boolean;
+        /**
+          * Radial version.
+         */
+        "isRadial"?: boolean;
+        /**
+          * Slim version.
+         */
+        "isSlim"?: boolean;
+        /**
+          * Specifies a text for the bar's label.
+         */
+        "label"?: string;
         /**
           * The current value the progress bar must display.
          */

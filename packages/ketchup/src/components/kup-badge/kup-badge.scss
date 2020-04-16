@@ -1,82 +1,46 @@
-@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
-
-/**
-* @prop --bdg-background-color, --kup-badge_background-color: badge background color
-* @prop --bdg-border-radius,    --kup-badge_border-radius:    badge border radius
-* @prop --bdg-color,            --kup-badge_color:            badge text color
-* @prop --bdg-dim,              --kup-badge_dimension:        badge dimension
-*/
-
 :host {
-  // variables
-  --bdg_background-color: var(--kup-badge_background-color, #95a5a6);
-  --bdg_border-radius: var(--kup-badge_background-color, 15px);
-  --bdg_color: var(--kup-badge_color, #fff);
-  --bdg_dim: var(--kup-badge_dimension, 25px);
-
+  display: var(--kup-display-mode);
   position: absolute;
-  max-width: 70%;
 
-  #badge {
-    background-color: var(--bdg_background-color);
-    color: var(--bdg_color);
-    padding: 0 3px;
+  #kup-component {
+    background-color: var(--kup-main-color);
+    border-radius: 30px;
+    color: var(--kup-text-on-main-color);
     font-size: 0.8rem;
-    border-radius: var(--bdg_border-radius);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:before {
-      vertical-align: middle;
-      margin: auto;
+    min-height: 1.35rem;
+    min-width: 1.35rem;
+    padding: 0.2rem;
+    text-align: center;
+
+    & kup-image {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
 
 :host(.top-right) {
-  top: -3px;
-  right: -4px;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
 }
 
 :host(.top-left) {
-  top: -3px;
-  left: -4px;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
 }
 
 :host(.bottom-right) {
-  bottom: -3px;
-  right: -4px;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
 }
 
 :host(.bottom-left) {
-  bottom: -3px;
-  left: -4px;
-}
-
-:host(.centered) {
-  #badge {
-    box-sizing: border-box;
-    min-width: var(--bdg_dim);
-    height: var(--bdg_dim);
-  }
-}
-
-:host(.centered.top-right) {
-  top: -10px;
-  right: -10px;
-}
-
-:host(.centered.top-left) {
-  top: -10px;
-  left: -10px;
-}
-
-:host(.centered.bottom-right) {
-  bottom: -10px;
-  right: -10px;
-}
-
-:host(.centered.bottom-left) {
-  bottom: -10px;
-  left: -10px;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
 }

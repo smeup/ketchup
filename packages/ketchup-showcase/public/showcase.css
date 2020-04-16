@@ -770,8 +770,22 @@ table.instruction-table th {
   white-space: pre;
 }
 
-.kup-container kup-icon {
+.kup-container kup-image {
   margin: auto;
+}
+
+.badge-anchor {
+  width: 250px;
+  height: 50px;
+  text-align: center;
+  margin: auto;
+  position: relative;
+  box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+}
+
+.badge-anchor span {
+  line-height: 50px;
+  letter-spacing: 2px;
 }
 
 @media screen and (max-width: 767px) {

@@ -71,12 +71,15 @@ Type: `Promise<boolean>`
 
 ### Depends on
 
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-text-field --> kup-icon
+  kup-text-field --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
   kup-checkbox-menu --> kup-text-field

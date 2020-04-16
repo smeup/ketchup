@@ -2720,7 +2720,7 @@ export class KupDataTable {
         let content: any = valueToDisplay;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <kup-icon {...buildIconConfig(cell, valueToDisplay)} />;
+            content = <kup-image {...buildIconConfig(cell, valueToDisplay)} />;
         } else if (isNumber(cell.obj)) {
             content = valueToDisplay;
 
@@ -2738,12 +2738,10 @@ export class KupDataTable {
                 content = (
                     <kup-image
                         class="cell-image"
-                        badges={cell.config ? cell.config.badges : undefined}
-                        height="auto"
-                        limit-width-by-height
-                        max-height="var(--dtt_cell-image_max-height)"
-                        src={valueToDisplay}
-                        width="auto"
+                        badgeData={cell.config ? cell.config.badges : undefined}
+                        sizeX="auto"
+                        sizeY="var(--dtt_cell-image_max-height)"
+                        name={valueToDisplay}
                     />
                 );
             } else {

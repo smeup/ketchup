@@ -46,11 +46,13 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-text-field --> kup-icon
-  kup-button --> kup-icon
+  kup-text-field --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
+  kup-button --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
@@ -60,14 +62,14 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
-  kup-image --> kup-badge
+  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-icon
+  kup-chip --> kup-image
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px
 ```

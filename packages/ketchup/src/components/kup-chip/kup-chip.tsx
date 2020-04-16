@@ -216,12 +216,13 @@ export class KupChip {
 
             if (this.data[i].icon) {
                 iconEl.push(
-                    <kup-icon
+                    <kup-image
                         color={iconColor}
                         class={iconClass}
                         name={this.data[i].icon}
-                        dimensions="18px"
-                    ></kup-icon>
+                        sizeX="18px"
+                        sizeY="18px"
+                    ></kup-image>
                 );
             }
 
@@ -246,13 +247,14 @@ export class KupChip {
             if (this.type === 'input') {
                 cancelIcon = (
                     <span role="gridcell">
-                        <kup-icon
+                        <kup-image
                             tabindex="-1"
                             class="material-icons mdc-chip__icon remove-icon"
                             onClick={(e) => this.onKupIconClick(i, e)}
                             name="cancel"
-                            dimensions="18px"
-                        ></kup-icon>
+                            sizeX="18px"
+                            sizeY="18px"
+                        ></kup-image>
                     </span>
                 );
             }

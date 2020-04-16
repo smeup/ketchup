@@ -77,11 +77,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/html/Html.vue`),
   },
   {
-    path: `/image`,
-    name: 'image',
-    component: () => import(`@/views/advanced/image/Image.vue`),
-  },
-  {
     path: `/imagebutton`,
     name: 'imagebutton',
     component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
@@ -90,11 +85,6 @@ let advancedRoutes = [
     path: `/menu`,
     name: 'menu',
     component: () => import(`@/views/advanced/menu/Menu.vue`),
-  },
-  {
-    path: `/progressbar`,
-    name: 'progressbar',
-    component: () => import(`@/views/advanced/progressbar/Progressbar.vue`),
   },
   {
     path: `/search`,
@@ -120,6 +110,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/autocomplete/Autocomplete.vue`),
   },
   {
+    path: `/badge`,
+    name: 'badge',
+    component: () => import(`@/views/basic/badge/Badge.vue`),
+  },
+  {
     path: `/button`,
     name: 'button',
     component: () => import(`@/views/basic/button/Button.vue`),
@@ -140,9 +135,9 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
-    path: `/icon`,
-    name: 'icon',
-    component: () => import(`@/views/basic/icon/Icon.vue`),
+    path: `/image`,
+    name: 'image',
+    component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
     path: `/list`,
@@ -153,6 +148,11 @@ let basicRoutes = [
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
+  },
+  {
+    path: `/progressbar`,
+    name: 'progressbar',
+    component: () => import(`@/views/basic/progressbar/Progressbar.vue`),
   },
   {
     path: `/spinner`,
