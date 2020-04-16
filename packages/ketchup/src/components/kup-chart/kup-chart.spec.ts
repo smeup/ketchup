@@ -163,9 +163,9 @@ describe('data conversion', () => {
         const rows = convertRows(dataMock, columns, true);
 
         expect(rows).toEqual([
-            ['CASFRA', "10", "100.6"],
-            ['DELGIO', "6", "67.8"],
-            ['PARFRA', "5", "120.06"],
+            ['CASFRA', 10, 100.6],
+            ['DELGIO', 6, 67.8],
+            ['PARFRA', 5, 120.06],
         ]);
     });
 });
