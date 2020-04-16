@@ -1170,7 +1170,7 @@ export class KupDataTable {
 
         const newFilters = { ...this.filters };
 
-        if (detail.checked == true) {
+        if (detail.checked == true || filterValue == null) {
             addCheckBoxFilterValue(newFilters, column, filterValue);
         } else {
             removeCheckBoxFilterValue(newFilters, column, filterValue);
@@ -1932,27 +1932,22 @@ export class KupDataTable {
                         : 'Attiva raggruppamento';
 
                 columnMenuItems.push(
-                    <li
-                        role="menuitem"
-                        onClick={() =>
-                            this.switchColumnGroup(group, column.name)
-                        }
-                    >
-                        <span class="mdi mdi-book" />
-                        {groupLabel}
-                    </li>
-                );
-
-                columnMenuItems.push(
-                    <li
-                        role="menuitem"
-                        onClick={() => {
-                            this.kupAddColumn.emit({ column: column.name });
-                            this.closeMenu();
-                        }}
-                    >
-                        <span class="mdi mdi-table-column-plus-after" />
-                        Aggiungi colonna
+                    <li role="menuitem">
+                        <kup-button
+                            icon="book"
+                            tooltip={groupLabel}
+                            onKupButtonClick={() =>
+                                this.switchColumnGroup(group, column.name)
+                            }
+                        />
+                        <kup-button
+                            icon="plus"
+                            tooltip="Aggiungi colonna"
+                            onKupButtonClick={() => {
+                                this.kupAddColumn.emit({ column: column.name });
+                                this.closeMenu();
+                            }}
+                        />
                     </li>
                 );
 
@@ -1980,8 +1975,32 @@ export class KupDataTable {
                     let checkBoxesFilter = this.getCheckBoxFilterValues(
                         column.name
                     );
-
-                    this.getColumnValues(column.name).forEach((v) => {
+                    let columnValues: string[] = this.getColumnValues(
+                        column.name
+                    );
+                    if (columnValues.length > 0) {
+                        this.log(
+                            'renderHeader',
+                            "add checkbox 'tutti' checkBoxesFilter.length=" +
+                                checkBoxesFilter.length
+                        );
+                        columnMenuItems.push(
+                            <li role="menuitem">
+                                <kup-checkbox
+                                    label={'(Tutti)'}
+                                    checked={checkBoxesFilter.length == 0}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(
+                                            e,
+                                            column.name,
+                                            null
+                                        );
+                                    }}
+                                ></kup-checkbox>
+                            </li>
+                        );
+                    }
+                    columnValues.forEach((v) => {
                         columnMenuItems.push(
                             <li role="menuitem">
                                 <kup-checkbox

@@ -271,8 +271,13 @@ export function addCheckBoxFilterValue(
         filter = { textField: '', checkBoxes: [] };
         filters[column] = filter;
     }
-    if (!filter.checkBoxes.includes(newFilter)) {
-        filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+    if (newFilter == null) {
+        //filter.textField = '';
+        filter.checkBoxes = [];
+    } else {
+        if (!filter.checkBoxes.includes(newFilter)) {
+            filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+        }
     }
 }
 
