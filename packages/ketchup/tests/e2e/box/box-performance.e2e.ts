@@ -32,7 +32,7 @@ const perfTest = async (): Promise<number> => {
     return diff;
 };
 
-it('kup-box performance logger', async (done) => {
+it.skip('kup-box performance logger', async (done) => {
     const MAX_ITER = 5;
 
     let iter = MAX_ITER;

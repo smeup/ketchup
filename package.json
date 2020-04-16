@@ -30,5 +30,8 @@
     "ksc:test:cy:run": "lerna run test:cy:run --scope ketchup-showcase --stream",
     "ksc:test:e2e:open": "lerna run test:e2e:open --scope ketchup-showcase --stream",
     "ksc:test:e2e:run": "lerna run test:e2e:run --scope ketchup-showcase --stream"
+  },
+  "dependencies": {
+    "@types/jest": "^25.2.1"
   }
 }

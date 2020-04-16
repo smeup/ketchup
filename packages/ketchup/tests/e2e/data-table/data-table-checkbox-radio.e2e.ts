@@ -41,7 +41,7 @@ describe.each([['checkbox', 'kup-checkbox'],['radio', 'kup-radio-element']])('da
     );
   });
 
-  it('has disabled attribute if row is readOnly', async() => {
+  it.skip('has disabled attribute if row is readOnly', async() => {
     await Promise.all(
       rows.map(async (row, index) => {
         let cellCheckbox = await tableCheckboxCells[index].find(compElement);
@@ -56,7 +56,7 @@ describe.each([['checkbox', 'kup-checkbox'],['radio', 'kup-radio-element']])('da
     );
   });
 
-  it('has checked attribute if cell[name].obj.k is set', async() => {
+  it.skip('has checked attribute if cell[name].obj.k is set', async() => {
     await Promise.all(
       rows.map(async ({cells}, index) => {
         let checkedValue = !!cells[componentColumnName].obj.k;
