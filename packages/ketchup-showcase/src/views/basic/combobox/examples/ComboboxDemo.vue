@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-combobox label="demo" id="demo-component"></kup-combobox>',
+        '<kup-combobox select-mode="description" label="demo" id="demo-component"></kup-combobox>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -57,6 +57,13 @@ export default {
           type: 'string',
           default: 'null',
           try: 'css',
+        },
+        {
+          prop: 'isSelect',
+          description: 'Lets the combobox behave as a select element.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'listData',
@@ -75,19 +82,11 @@ export default {
           try: 'json',
         },
         {
-          prop: 'isSelect',
-          description:
-            'Sets the field as a select field: not editable but selectable throw the list items.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'selectMode',
           description:
-            'Sets how the return the elected ite value. Suported values: "code", "description","both".',
+            'Sets how the return the elected item value. Suported values: "code", "description", "both".',
           type: 'string',
-          default: 'code',
+          default: 'description',
           try: 'field',
         },
       ],
