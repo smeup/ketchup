@@ -451,6 +451,7 @@ export class KupDataTable {
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
     private customizePanelRef: any;
+    private customizeButtonRef: any;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -708,11 +709,8 @@ export class KupDataTable {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
         }
-        if (this.customizePanelRef) {
-            let customizeAnchor = this.customizePanelRef
-                .closest('.paginator-wrapper')
-                .getElementsByClassName('custom-settings')[0];
-            positionRecalc(this.customizePanelRef, customizeAnchor);
+        if (this.customizePanelRef && this.customizeButtonRef) {
+            positionRecalc(this.customizePanelRef, this.customizeButtonRef);
         }
 
         if (root != null) {
@@ -1264,7 +1262,7 @@ export class KupDataTable {
     }
 
     private onDefaultRowActionClick(
-        e: MouseEvent,
+        e: CustomEvent,
         { action, row, type, index }
     ) {
         e.stopPropagation();
@@ -1277,7 +1275,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
+    private onRowActionExpanderClick(e: CustomEvent, row: Row) {
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
@@ -1542,7 +1540,7 @@ export class KupDataTable {
         }
 
         // default
-        return 'mdi-sort';
+        return 'sort';
     }
 
     private calculateColspan() {
@@ -1646,7 +1644,7 @@ export class KupDataTable {
         }
     }
 
-    private toggleDensityVisibility(event: MouseEvent, top: boolean) {
+    private toggleDensityVisibility(top: boolean) {
         event.stopPropagation();
         if (top) {
             this.topDensityPanelVisible = !this.topDensityPanelVisible;
@@ -1736,6 +1734,7 @@ export class KupDataTable {
     }
 
     private renderHeader() {
+        this.log('renderHeader', '1');
         let specialExtraCellsCount: number = 0;
 
         // Renders multiple selection column
@@ -1809,6 +1808,11 @@ export class KupDataTable {
             );
         }
 
+        this.log(
+            'renderHeader',
+            '2 this.getVisibleColumns().length=' +
+                this.getVisibleColumns().length
+        );
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
@@ -1825,25 +1829,7 @@ export class KupDataTable {
 
                 //---- Filter ----
                 let filter = null;
-                /*
-                if (
-                    this.showFilters &&
-                    (isStringObject(column.obj) || isCheckbox(column.obj))
-                ) {
-                    // When showing filters, displays input box to update them.
-                    filter = (
-                        <div>
-                            <kup-text-field
-                                class="datatable-filter"
-                                initialValue={filterValue}
-                                data-col={column.name}
-                                onKupTextFieldInput={(e) => {
-                                    this.onFilterChange(e, column.name);
-                                }}
-                            />
-                        </div>
-                    );
-                } else */
+
                 if (this.hasFiltersForColumn(column.name)) {
                     const svgLabel = `Rimuovi filtro: '${this.getFilterValueForTooltip(
                         column.name
@@ -1859,40 +1845,14 @@ export class KupDataTable {
                     filter = (
                         <kup-image
                             name="filter-remove"
-                            sizeX="24px"
-                            sizeY="24px"
+                            sizeX="18px"
+                            sizeY="18px"
                             title={svgLabel}
                             onClick={() => {
                                 this.onRemouveFilter(column.name);
                             }}
                         />
                     );
-                    /*
-                    filter = (
-                        <svg
-                            aria-label={svgLabel}
-                            class="remove-filter"
-                            role="button"
-                            tab-index="0"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                            x="0px"
-                            y="0px"
-                            onClick={() => {
-                                this.onRemouveFilter(column.name);
-                            }}
-                        >
-                            <title>{svgLabel}</title>
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
-                    c0.042,0.3-0.06,0.62-0.289,0.828c-0.392,0.391-1.021,0.391-1.411,0l-2.008-2.008c-0.232-0.228-0.331-0.541-0.292-0.83v-5.871
-                    h-0.028l-5.25-6.726L2,2.943L2.943,2L8.82,7.877L14.667,13.726z M20.287,4.276c0.43,0.34,0.51,0.97,0.172,1.399l-5.242,6.713
-                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"
-                            />
-                        </svg>
-                    );*/
                 }
 
                 //---- Sort ----
@@ -1908,8 +1868,8 @@ export class KupDataTable {
                             <kup-image
                                 name={this.getSortIcon(column.name)}
                                 title="Sort column"
-                                sizeX="24px"
-                                sizeY="24px"
+                                sizeX="18px"
+                                sizeY="18px"
                             />
                         </span>
                     );
@@ -1959,7 +1919,6 @@ export class KupDataTable {
                 columnMenuItems.push(
                     <li role="menuitem">
                         <kup-button
-                            customStyle="display: inline-block;"
                             icon="book"
                             tooltip={groupLabel}
                             onKupButtonClick={() =>
@@ -1967,7 +1926,6 @@ export class KupDataTable {
                             }
                         />
                         <kup-button
-                            customStyle="display: inline-block;"
                             icon="table-column-plus-after"
                             tooltip="Aggiungi colonna"
                             onKupButtonClick={() => {
@@ -2006,11 +1964,6 @@ export class KupDataTable {
                         column.name
                     );
                     if (columnValues.length > 0) {
-                        this.log(
-                            'renderHeader',
-                            "add checkbox 'tutti' checkBoxesFilter.length=" +
-                                checkBoxesFilter.length
-                        );
                         columnMenuItems.push(
                             <li role="menuitem">
                                 <kup-checkbox
@@ -2351,9 +2304,10 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded
-                ? 'mdi mdi-menu-down expanded'
-                : 'mdi mdi-menu-right collapsed';
+            //const icon = row.group.expanded
+            //    ? 'mdi mdi-menu-down expanded'
+            //    : 'mdi mdi-menu-right collapsed';
+            const icon = row.group.expanded ? 'expand_less' : 'expand_more';
 
             const jsxRows = [];
 
@@ -2370,17 +2324,15 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <span
-                                class={icon}
-                                role="button"
-                                aria-label="Row expander" // TODO change this label
-                                title="Expand/collapse group"
-                                tabindex="0"
-                                onClick={(e) => {
+                            <kup-button
+                                icon={icon}
+                                label="Row expander"
+                                tooltip="Expand/collapse group"
+                                onKupButtonClick={(e) => {
                                     e.stopPropagation();
                                     this.onRowExpand(row);
                                 }}
-                            ></span>
+                            />
                             {composedGroupLabel}
                         </span>
                     </td>
@@ -2416,17 +2368,15 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <span
-                                    class={icon}
-                                    role="button"
-                                    aria-label="Row expander" // TODO change this label
-                                    title="Expand/collapse group"
-                                    tabindex="0"
-                                    onClick={(e) => {
+                                <kup-button
+                                    icon={icon}
+                                    label="Row expander"
+                                    tooltip="Expand/collapse group"
+                                    onKupButtonClick={(e) => {
                                         e.stopPropagation();
                                         this.onRowExpand(row);
                                     }}
-                                ></span>
+                                />
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
@@ -2529,14 +2479,13 @@ export class KupDataTable {
                 } else {
                     // adding expander
                     rowActionExpander = (
-                        <span
-                            title="Espandi voci"
-                            class={`row-action mdi mdi-chevron-right`}
-                            onClick={(e) =>
-                                this.onRowActionExpanderClick(e, row)
-                            }
-                            role="button"
-                            aria-label="Espandi voci"
+                        <kup-button
+                            icon="chevron-right"
+                            label="Espandi voci"
+                            tooltip="Espandi voci"
+                            onKupButtonClick={(e) => {
+                                this.onRowActionExpanderClick(e, row);
+                            }}
                         />
                     );
                 }
@@ -2700,19 +2649,18 @@ export class KupDataTable {
     ): JSX.Element[] {
         return actions.map((action, index) => {
             return (
-                <span
-                    title={action.text}
-                    class={`row-action ${action.icon}`}
-                    onClick={(e) =>
+                <kup-button
+                    icon={action.icon}
+                    label={action.text}
+                    tooltip={action.text}
+                    onKupButtonClick={(e) => {
                         this.onDefaultRowActionClick(e, {
                             action,
                             index,
                             row,
                             type,
-                        })
-                    }
-                    role="button"
-                    aria-label={action.text}
+                        });
+                    }}
                 />
             );
         });
@@ -2930,7 +2878,18 @@ export class KupDataTable {
     private renderLoadMoreButton(isSlotted: boolean = true) {
         const label = 'Mostra altri dati';
         return (
-            <button
+            <kup-button
+                label={label}
+                icon="more"
+                tooltip={label}
+                slot={isSlotted ? 'more-results' : null}
+                onKupButtonClick={() => {
+                    this.onLoadMoreClick();
+                }}
+            />
+        );
+        /*
+         <button
                 aria-label={label}
                 class="loadmore-button mdi mdi-plus"
                 role="button"
@@ -2941,10 +2900,11 @@ export class KupDataTable {
             >
                 <span class="paginator-tab-text">Più risultati</span>{' '}
             </button>
-        );
+            */
     }
 
     private onCustomSettingsClick(event: any) {
+        /*
         let t = event.target;
         let elPanel = t
             .closest('.paginator-wrapper')
@@ -2952,7 +2912,9 @@ export class KupDataTable {
         let elButton = t
             .closest('.paginator-wrapper')
             .getElementsByClassName('custom-settings')[0];
-
+        */
+        let elPanel = this.customizePanelRef;
+        let elButton = this.customizeButtonRef;
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
@@ -2966,15 +2928,14 @@ export class KupDataTable {
 
     private closeCustomSettings() {
         let elPanel = this.customizePanelRef;
-        let elButton = elPanel
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('custom-settings')[0];
+        let elButton = this.customizeButtonRef;
         if (elButton.classList.contains('activated')) {
             elButton.classList.remove('activated');
             elPanel.classList.remove('visible');
         }
     }
 
+    //tochange
     private renderPaginator(top: boolean) {
         return (
             <div class="paginator-wrapper">
@@ -2992,20 +2953,24 @@ export class KupDataTable {
                             }
                         />
                     ) : null}
-                    <button
-                        title="Mostra opzioni di personalizzazione"
-                        class="paginator-button mdi mdi-settings custom-settings"
-                        onClick={(e) => this.onCustomSettingsClick(e)}
+
+                    <kup-button
+                        icon="settings"
+                        label=""
+                        tooltip="Mostra opzioni di personalizzazione"
+                        onKupButtonClick={(e) => {
+                            this.onCustomSettingsClick(e);
+                        }}
+                        ref={(el) => (this.customizeButtonRef = el as any)}
+                    />
+                    <div
+                        onMouseLeave={() => this.closeCustomSettings()}
+                        class="customize-panel"
+                        ref={(el) => (this.customizePanelRef = el as any)}
                     >
-                        <div
-                            onMouseLeave={() => this.closeCustomSettings()}
-                            class="customize-panel"
-                            ref={(el) => (this.customizePanelRef = el as any)}
-                        >
-                            {this.renderDensityPanel(top)}
-                            {this.renderFontSizePanel(top)}
-                        </div>
-                    </button>
+                        {this.renderDensityPanel(top)}
+                        {this.renderFontSizePanel(top)}
+                    </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
@@ -3131,6 +3096,91 @@ export class KupDataTable {
                 <span title={densityTypeString} class="panel-label">
                     Densità righe
                 </span>
+                <kup-button
+                    icon="arrow_drop_down"
+                    label={densityType}
+                    trailingIcon={true}
+                    onKupButtonClick={(e) => {
+                        e.stopPropagation();
+                        this.toggleDensityVisibility(top);
+                    }}
+                />
+
+                <div
+                    class={{
+                        'density-panel-overlay': true,
+                        open: top
+                            ? this.topDensityPanelVisible
+                            : this.botDensityPanelVisible,
+                    }}
+                >
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'small',
+                        }}
+                        onClick={() => (this.density = 'small')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.density === 'small' ? 'true' : 'false'
+                        }
+                    >
+                        <kup-image
+                            name="format-align-justify"
+                            title="Compatta"
+                        />
+                    </div>
+
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'medium',
+                        }}
+                        onClick={() => (this.density = 'medium')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={
+                            this.density === 'medium' ? 'true' : 'false'
+                        }
+                    >
+                        <kup-image name="reorder-horizontal" title="Normale" />
+                    </div>
+                    <div
+                        class={{
+                            wrapper: true,
+                            active: this.density === 'big',
+                        }}
+                        onClick={() => (this.density = 'big')}
+                        role="button"
+                        tabindex="0"
+                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
+                    >
+                        <kup-image name="view-sequential" title="Ampia" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    /*
+    renderDensityPanel_original(top: boolean) {
+        let densityType: string;
+        {
+            this.density === 'medium'
+                ? (densityType = 'Normale')
+                : this.density === 'big'
+                ? (densityType = 'Ampia')
+                : this.density === 'small'
+                ? (densityType = 'Compatta')
+                : (densityType = '');
+        }
+        let densityTypeString = 'Densità righe: ' + densityType;
+        return (
+            <div class="density-panel">
+                <span title={densityTypeString} class="panel-label">
+                    Densità righe
+                </span>
                 <span
                     class="density-label"
                     onClick={(e) => this.toggleDensityVisibility(e, top)}
@@ -3213,7 +3263,7 @@ export class KupDataTable {
             </div>
         );
     }
-
+*/
     render() {
         // resetting rows
         this.renderedRows = [];

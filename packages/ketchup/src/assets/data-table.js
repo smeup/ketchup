@@ -697,16 +697,12 @@ const defaultData = {
 };
 
 const sortData = {
-    data: {
-        columns: mockedColumns,
-        rows: sortRows,
-    },
+    columns: mockedColumns,
+    rows: sortRows,
 };
 
 document.getElementById('only-cols').data = {
-    data: {
-        columns: mockedColumns,
-    },
+    columns: mockedColumns,
 };
 
 document.getElementById('basic-data').data = defaultData;
@@ -780,10 +776,8 @@ function createDataForPagination(id, colSize, rowSize) {
 
     const pagination = document.getElementById(id);
     pagination.data = {
-        data: {
-            columns,
-            rows,
-        },
+        columns,
+        rows,
     };
     pagination.config = {
         ...pagination.config,

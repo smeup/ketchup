@@ -272,7 +272,6 @@ export function addCheckBoxFilterValue(
         filters[column] = filter;
     }
     if (newFilter == null) {
-        //filter.textField = '';
         filter.checkBoxes = [];
     } else {
         if (!filter.checkBoxes.includes(newFilter)) {
@@ -427,29 +426,26 @@ export function isRowComplient(
 
         const cell = r.cells[key];
         if (!cell) {
-            return false;
+            continue;
         }
-        let filterValue = getTextFieldFilterValue(filters, key);
 
+        let filterValue = getTextFieldFilterValue(filters, key);
         if (isFilterComplientForCell(cell, filterValue)) {
-            //return true;
             retValue = true;
         }
 
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
-            return retValue;
+            continue;
         }
         retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
             if (isFilterComplientForCell(cell, fv)) {
-                //return true;
                 retValue = true;
             }
         }
     }
-    //return false;
     return retValue;
 }
 
