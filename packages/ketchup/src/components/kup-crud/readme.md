@@ -101,6 +101,7 @@ graph TD;
   kup-data-table --> kup-chip
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
   kup-paginator --> kup-combobox
   kup-chip --> kup-image
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px

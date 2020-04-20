@@ -39,6 +39,7 @@
  - [kup-progress-bar](../kup-progress-bar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
+ - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -61,6 +62,7 @@ graph TD;
   kup-progress-bar --> kup-image
   kup-tab-bar --> kup-image
   kup-text-field --> kup-image
+  kup-tooltip --> kup-image
   kup-tree --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

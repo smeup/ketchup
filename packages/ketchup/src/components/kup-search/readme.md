@@ -64,6 +64,7 @@ graph TD;
   kup-data-table --> kup-chip
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list

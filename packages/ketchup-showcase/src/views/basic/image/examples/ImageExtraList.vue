@@ -451,13 +451,29 @@
             <kup-image size-x="48px" size-y="48px" name="format-align-left"></kup-image>
             <div class="icon-label">format-align-left</div>
           </div>
+          <div class="icon-wrapper" title="format-align-justify">
+            <kup-image size-x="48px" size-y="48px" name="format-align-justify"></kup-image>
+            <div class="icon-label">format-align-justify</div>
+          </div>
           <div class="icon-wrapper" title="format-align-right">
             <kup-image size-x="48px" size-y="48px" name="format-align-right"></kup-image>
             <div class="icon-label">format-align-right</div>
           </div>
+          <div class="icon-wrapper" title="format-color-text">
+            <kup-image size-x="48px" size-y="48px" name="format-color-text"></kup-image>
+            <div class="icon-label">format-color-text</div>
+          </div>
           <div class="icon-wrapper" title="format-float-left">
             <kup-image size-x="48px" size-y="48px" name="format-float-left"></kup-image>
             <div class="icon-label">format-float-left</div>
+          </div>
+          <div class="icon-wrapper" title="format-font-size-decrease">
+            <kup-image size-x="48px" size-y="48px" name="format-font-size-decrease"></kup-image>
+            <div class="icon-label">format-font-size-decrease</div>
+          </div>
+          <div class="icon-wrapper" title="format-font-size-increase">
+            <kup-image size-x="48px" size-y="48px" name="format-font-size-increase"></kup-image>
+            <div class="icon-label">format-font-size-increase</div>
           </div>
           <div class="icon-wrapper" title="format-list-bulleted">
             <kup-image size-x="48px" size-y="48px" name="format-list-bulleted"></kup-image>
@@ -659,6 +675,10 @@
             <kup-image size-x="48px" size-y="48px" name="rename-box"></kup-image>
             <div class="icon-label">rename-box</div>
           </div>
+          <div class="icon-wrapper" title="reorder-horizontal">
+            <kup-image size-x="48px" size-y="48px" name="reorder-horizontal"></kup-image>
+            <div class="icon-label">reorder-horizontal</div>
+          </div>
           <div class="icon-wrapper" title="room-service">
             <kup-image size-x="48px" size-y="48px" name="room-service"></kup-image>
             <div class="icon-label">room-service</div>
@@ -854,6 +874,10 @@
           <div class="icon-wrapper" title="view-quilt">
             <kup-image size-x="48px" size-y="48px" name="view-quilt"></kup-image>
             <div class="icon-label">view-quilt</div>
+          </div>
+          <div class="icon-wrapper" title="view-sequential">
+            <kup-image size-x="48px" size-y="48px" name="view-sequential"></kup-image>
+            <div class="icon-label">view-sequential</div>
           </div>
           <div class="icon-wrapper" title="volume-high">
             <kup-image size-x="48px" size-y="48px" name="volume-high"></kup-image>
