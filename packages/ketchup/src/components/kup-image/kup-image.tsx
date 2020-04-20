@@ -117,6 +117,13 @@ export class KupImage {
     //---- Lifecycle hooks ----
 
     componentWillRender() {
+        if (this.name === undefined || this.name === null || this.name === '') {
+            this.resource = undefined;
+            let message = 'Name not set, not rendering!';
+            errorLogging('kup-image', message);
+            return;
+        }
+
         if (
             this.name.indexOf('.') > -1 ||
             this.name.indexOf('/') > -1 ||
@@ -140,7 +147,11 @@ export class KupImage {
     }
 
     render() {
-        if (this.resource === undefined) {
+        if (
+            this.resource === undefined ||
+            this.resource === null ||
+            this.resource === ''
+        ) {
             let message = 'Resource undefined, not rendering!';
             errorLogging('kup-image', message);
             return;
