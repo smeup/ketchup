@@ -27,7 +27,7 @@ export class KupDashList {
     columnsNumber: number = 1;
 
     @Prop()
-    fillSpace: boolean = false;
+    fullWidth: boolean = true;
 
     @Prop()
     horizontal: boolean = false;
@@ -50,7 +50,9 @@ export class KupDashList {
         cancelable: true,
         bubbles: true,
     })
-    ketchupDashClicked: EventEmitter<{}>;
+    dashClicked: EventEmitter<{
+        idx: number;
+    }>;
 
     render() { 
         let rows = [];
@@ -111,7 +113,7 @@ export class KupDashList {
                 valueDec = <div slot="value-dec"></div>
             }
             const row = 
-                <kup-dash layout= {this.layout} fontsize= {this.fontsize}>
+                <kup-dash layout= {this.layout} fontsize= {this.fontsize} index={count} active={this.active}>
                     {icon}
                     {unit}
                     {descr}
@@ -119,6 +121,7 @@ export class KupDashList {
                     {valueInt}
                     {valueDec}
                 </kup-dash>
+                console.log("ecchime " + JSON.stringify(row))
             rows.push(row);
             count++;
         });
@@ -129,7 +132,7 @@ export class KupDashList {
                     rel="stylesheet"
                     type="text/css"
                 />
-                <kup-layout columnsNumber={this.columnsNumber} horizontal={this.horizontal} fillSpace={this.fillSpace}>
+                <kup-layout columnsNumber={this.columnsNumber} horizontal={this.horizontal} fillSpace={this.fullWidth}>
                     {rows}
                 </kup-layout>
            </div>

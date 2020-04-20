@@ -365,14 +365,15 @@ export namespace Components {
     interface KupDash {
         "active": boolean;
         "fontsize": string;
+        "index": number;
         "layout": string;
     }
     interface KupDashList {
         "active": boolean;
         "columnsNumber": number;
         "data": TableData;
-        "fillSpace": boolean;
         "fontsize": string;
+        "fullWidth": boolean;
         "horizontal": boolean;
         "iconColor": Array<any>;
         "layout": string;
@@ -1960,19 +1961,24 @@ declare namespace LocalJSX {
     interface KupDash {
         "active"?: boolean;
         "fontsize"?: string;
+        "index"?: number;
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
+        "onKetchupDashClicked"?: (event: CustomEvent<{
+            id: number;
+        }>) => void;
     }
     interface KupDashList {
         "active"?: boolean;
         "columnsNumber"?: number;
         "data"?: TableData;
-        "fillSpace"?: boolean;
         "fontsize"?: string;
+        "fullWidth"?: boolean;
         "horizontal"?: boolean;
         "iconColor"?: Array<any>;
         "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{}>) => void;
+        "onKetchupDashClicked"?: (event: CustomEvent<{
+            idx: number;
+        }>) => void;
         "textColor"?: Array<any>;
         "valueColor"?: Array<any>;
     }

@@ -15,16 +15,23 @@ export class KupDash {
     @Prop()
     active = false;
 
+    @Prop()
+    index = 0;
+
     @Event({
         eventName: 'ketchupDashClicked',
         composed: true,
-        cancelable: true,
+        cancelable: false,
         bubbles: true,
     })
-    ketchupDashClicked: EventEmitter<{}>;
+    dashClicked: EventEmitter<{
+        id: number;
+    }>;
 
     onDshClickedHandler() {
-        this.ketchupDashClicked.emit();
+        this.dashClicked.emit({
+            id: this.index,
+        });
     }
 
     render() {

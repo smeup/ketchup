@@ -11,14 +11,15 @@
 | ---------- | ---------- | ----------- | --------- | ------- |
 | `active`   | `active`   |             | `boolean` | `false` |
 | `fontsize` | `fontsize` |             | `string`  | `''`    |
+| `index`    | `index`    |             | `number`  | `0`     |
 | `layout`   | `layout`   |             | `string`  | `'1'`   |
 
 
 ## Events
 
-| Event                | Description | Type              |
-| -------------------- | ----------- | ----------------- |
-| `ketchupDashClicked` |             | `CustomEvent<{}>` |
+| Event                | Description | Type                           |
+| -------------------- | ----------- | ------------------------------ |
+| `ketchupDashClicked` |             | `CustomEvent<{ id: number; }>` |
 
 
 ## CSS Custom Properties

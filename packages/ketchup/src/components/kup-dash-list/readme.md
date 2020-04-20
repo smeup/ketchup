@@ -12,8 +12,8 @@
 | `active`        | `active`         |             | `boolean`   | `false`     |
 | `columnsNumber` | `columns-number` |             | `number`    | `1`         |
 | `data`          | --               |             | `TableData` | `undefined` |
-| `fillSpace`     | `fill-space`     |             | `boolean`   | `false`     |
 | `fontsize`      | `fontsize`       |             | `string`    | `''`        |
+| `fullWidth`     | `full-width`     |             | `boolean`   | `true`      |
 | `horizontal`    | `horizontal`     |             | `boolean`   | `false`     |
 | `iconColor`     | --               |             | `any[]`     | `[]`        |
 | `layout`        | `layout`         |             | `string`    | `'1'`       |
@@ -23,9 +23,9 @@
 
 ## Events
 
-| Event                | Description | Type              |
-| -------------------- | ----------- | ----------------- |
-| `ketchupDashClicked` |             | `CustomEvent<{}>` |
+| Event                | Description | Type                            |
+| -------------------- | ----------- | ------------------------------- |
+| `ketchupDashClicked` |             | `CustomEvent<{ idx: number; }>` |
 
 
 ## Dependencies
