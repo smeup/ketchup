@@ -93,8 +93,7 @@ export class KupDataTable {
     /**
      * Used to set custom columns width.
      */
-    @Prop()
-    columnsWidth: Array<{
+    @Prop() columnsWidth: Array<{
         column: string;
         width: number;
     }> = [];
@@ -102,8 +101,7 @@ export class KupDataTable {
     /**
      * Expands groups when set to true.
      */
-    @Prop({ reflect: true })
-    expandGroups = false;
+    @Prop({ reflect: true }) expandGroups = false;
 
     /**
      * The data of the table.
@@ -113,8 +111,7 @@ export class KupDataTable {
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop({ reflect: true })
-    density: string = 'small';
+    @Prop({ reflect: true }) density: string = 'small';
 
     /**
      * Enables the sorting of columns by dragging them into different columns.
@@ -124,8 +121,7 @@ export class KupDataTable {
     /**
      * List of filters set by the user.
      */
-    @Prop({ mutable: true })
-    filters: GenericFilter = {};
+    @Prop({ mutable: true }) filters: GenericFilter = {};
 
     /**
      * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
@@ -133,8 +129,7 @@ export class KupDataTable {
      * Can be combined with fixedRows.
      * @see fixedRows
      */
-    @Prop({ reflect: true })
-    fixedColumns: number = 0;
+    @Prop({ reflect: true }) fixedColumns: number = 0;
 
     /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
@@ -142,46 +137,40 @@ export class KupDataTable {
      * Can be combined with fixedColumns.
      * @see fixedColumns
      */
-    @Prop({ reflect: true })
-    fixedRows: number = 0;
+    @Prop({ reflect: true }) fixedRows: number = 0;
 
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
      * The reflect attribute is mandatory to allow styling.
      */
-    @Prop({ reflect: true })
-    forceOneLine: boolean = false;
+    @Prop({ reflect: true }) forceOneLine: boolean = false;
 
     /**
      * When set to true it activates the global filter.
      */
-    @Prop({ reflect: true })
-    globalFilter = false;
+    @Prop({ reflect: true }) globalFilter = false;
 
     /**
      * The value of the global filter.
      */
-    @Prop({ reflect: true, mutable: true })
-    globalFilterValue = '';
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
 
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
      */
-    @Prop({ reflect: true })
-    groupLabelDisplay: GroupLabelDisplayMode = GroupLabelDisplayMode.BOTH;
+    @Prop({ reflect: true }) groupLabelDisplay: GroupLabelDisplayMode =
+        GroupLabelDisplayMode.BOTH;
 
     /**
      * The list of groups.
      */
-    @Prop({ mutable: true })
-    groups: Array<GroupObject> = [];
+    @Prop({ mutable: true }) groups: Array<GroupObject> = [];
 
     /**
      * When set to true the header will stick on top of the table when scrolling.
      */
-    @Prop({ reflect: true })
-    headerIsPersistent = true;
+    @Prop({ reflect: true }) headerIsPersistent = true;
 
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
@@ -209,51 +198,43 @@ export class KupDataTable {
     /**
      * When set to true enables rows multi selection.
      */
-    @Prop({ reflect: true })
-    multiSelection = false;
+    @Prop({ reflect: true }) multiSelection = false;
 
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop({ reflect: true })
-    paginatorPos: PaginatorPos = PaginatorPos.TOP;
+    @Prop({ reflect: true }) paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
     /**
      * Sets the actions of the rows.
      */
-    @Prop()
-    rowActions: Array<RowAction>;
+    @Prop() rowActions: Array<RowAction>;
 
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ reflect: true })
-    rowsPerPage = 10;
+    @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
      * Selects the specified row.
      */
-    @Prop({ reflect: true })
-    selectRow: number;
+    @Prop({ reflect: true }) selectRow: number;
 
     /**
      * When set to true enables the column filters.
      */
-    @Prop({ reflect: true })
-    showFilters = false;
+    @Prop({ reflect: true }) showFilters = false;
 
     /**
      * Can be used to customize the grid view of the table.
      */
-    @Prop({ reflect: true })
-    showGrid: ShowGrid = ShowGrid.ROW;
+    @Prop({ reflect: true }) showGrid: ShowGrid = ShowGrid.ROW;
 
     /**
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop({ reflect: true })
-    showHeader = true;
+    @Prop({ reflect: true }) showHeader = true;
 
     /**
      * If set to true, displays the button to load more records.
@@ -263,14 +244,12 @@ export class KupDataTable {
     /**
      * When set to true enables the sorting of the columns.
      */
-    @Prop({ reflect: true })
-    sortEnabled = true;
+    @Prop({ reflect: true }) sortEnabled = true;
 
     /**
      * Defines the current sorting options.
      */
-    @Prop({ mutable: true })
-    sort: Array<SortObject> = [];
+    @Prop({ mutable: true }) sort: Array<SortObject> = [];
 
     /**
      * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
@@ -281,20 +260,17 @@ export class KupDataTable {
     /**
      * Sets the height of the table.
      */
-    @Prop({ reflect: true })
-    tableHeight: string = undefined;
+    @Prop({ reflect: true }) tableHeight: string = undefined;
 
     /**
      * Sets the width of the table.
      */
-    @Prop({ reflect: true })
-    tableWidth: string = undefined;
+    @Prop({ reflect: true }) tableWidth: string = undefined;
 
     /**
      * Defines the current totals options.
      */
-    @Prop()
-    totals: TotalsMap;
+    @Prop() totals: TotalsMap;
 
     /**
      * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
@@ -326,19 +302,13 @@ export class KupDataTable {
     private openedMenu: string = null;
 
     @State()
-    private topFontSizePanelVisible = false;
-
-    @State()
-    private botFontSizePanelVisible = false;
-
-    @State()
     private fontsize: string = 'medium';
 
     @State()
-    private topDensityPanelVisible = false;
+    private topPanelVisible = false;
 
     @State()
-    private botDensityPanelVisible = false;
+    private botPanelVisible = false;
 
     /**
      * This is a flag to be used for the draggable columns to force rerender
@@ -450,8 +420,10 @@ export class KupDataTable {
      */
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
-    private customizePanelRef: any;
-    private customizeButtonRef: any;
+    private customizeTopButtonRef: any;
+    private customizeBottomButtonRef: any;
+    private customizeTopPanelRef: any;
+    private customizeBottomPanelRef: any;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -576,10 +548,9 @@ export class KupDataTable {
     }>;
 
     onDocumentClick = () => {
-        this.topFontSizePanelVisible = false;
-        this.botFontSizePanelVisible = false;
-        this.topDensityPanelVisible = false;
-        this.botDensityPanelVisible = false;
+        //this.topPanelVisible = false;
+        //this.botPanelVisible = false;
+        //this.log('onDocumentClick', 'top: ' + this.topPanelVisible);
     };
 
     stickyHeaderPosition = () => {
@@ -709,8 +680,18 @@ export class KupDataTable {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
         }
-        if (this.customizePanelRef && this.customizeButtonRef) {
-            positionRecalc(this.customizePanelRef, this.customizeButtonRef);
+
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
         }
 
         if (root != null) {
@@ -1633,25 +1614,13 @@ export class KupDataTable {
         return toSort;
     }
 
-    private toggleFontSizeVisibility(event: MouseEvent, top: boolean) {
-        event.stopPropagation();
+    private togglePanelVisibility(top: boolean) {
         if (top) {
-            this.topFontSizePanelVisible = !this.topFontSizePanelVisible;
-            this.botFontSizePanelVisible = false;
+            this.topPanelVisible = !this.topPanelVisible;
+            this.botPanelVisible = false;
         } else {
-            this.topFontSizePanelVisible = false;
-            this.botFontSizePanelVisible = !this.botFontSizePanelVisible;
-        }
-    }
-
-    private toggleDensityVisibility(top: boolean) {
-        event.stopPropagation();
-        if (top) {
-            this.topDensityPanelVisible = !this.topDensityPanelVisible;
-            this.botDensityPanelVisible = false;
-        } else {
-            this.topDensityPanelVisible = false;
-            this.botDensityPanelVisible = !this.botDensityPanelVisible;
+            this.topPanelVisible = false;
+            this.botPanelVisible = !this.botPanelVisible;
         }
     }
 
@@ -1734,7 +1703,6 @@ export class KupDataTable {
     }
 
     private renderHeader() {
-        this.log('renderHeader', '1');
         let specialExtraCellsCount: number = 0;
 
         // Renders multiple selection column
@@ -1808,11 +1776,6 @@ export class KupDataTable {
             );
         }
 
-        this.log(
-            'renderHeader',
-            '2 this.getVisibleColumns().length=' +
-                this.getVisibleColumns().length
-        );
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map(
             (column, columnIndex) => {
@@ -2903,36 +2866,41 @@ export class KupDataTable {
             */
     }
 
-    private onCustomSettingsClick(event: any) {
-        /*
-        let t = event.target;
-        let elPanel = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('customize-panel')[0];
-        let elButton = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('custom-settings')[0];
-        */
-        let elPanel = this.customizePanelRef;
-        let elButton = this.customizeButtonRef;
-        if (elButton.classList.contains('activated')) {
-            elButton.classList.remove('activated');
-            elPanel.classList.remove('visible');
-            elPanel.classList.remove('dynamic-position-active');
-        } else {
-            elButton.classList.add('activated');
-            elPanel.classList.add('visible');
-            elPanel.classList.add('dynamic-position-active');
-        }
+    private onCustomSettingsClick(top: boolean) {
+        top ? (this.topPanelVisible = false) : (this.botPanelVisible = false);
+        this.openCustomSettings(top);
     }
 
-    private closeCustomSettings() {
-        let elPanel = this.customizePanelRef;
-        let elButton = this.customizeButtonRef;
-        if (elButton.classList.contains('activated')) {
-            elButton.classList.remove('activated');
-            elPanel.classList.remove('visible');
-        }
+    private openCustomSettings(top: boolean) {
+        this.closeCustomSettings(!top);
+
+        /*
+        let elButton = top
+            ? this.customizeTopButtonRef
+            : this.customizeBottomButtonRef;
+            */
+        let elPanel = top
+            ? this.customizeTopPanelRef
+            : this.customizeBottomPanelRef;
+
+        elPanel.classList.add('visible');
+        elPanel.classList.add('dynamic-position-active');
+        //top ? (this.topPanelVisible = true) : (this.botPanelVisible = true);
+    }
+
+    private closeCustomSettings(top: boolean) {
+        /*
+        let elButton = top
+            ? this.customizeTopButtonRef
+            : this.customizeBottomButtonRef;
+            */
+        let elPanel = top
+            ? this.customizeTopPanelRef
+            : this.customizeBottomPanelRef;
+
+        elPanel.classList.remove('visible');
+        elPanel.classList.remove('dynamic-position-active');
+        //top ? (this.topPanelVisible = false) : (this.botPanelVisible = false);
     }
 
     //tochange
@@ -2958,15 +2926,23 @@ export class KupDataTable {
                         icon="settings"
                         label=""
                         tooltip="Mostra opzioni di personalizzazione"
-                        onKupButtonClick={(e) => {
-                            this.onCustomSettingsClick(e);
+                        onKupButtonClick={() => {
+                            this.onCustomSettingsClick(top);
                         }}
-                        ref={(el) => (this.customizeButtonRef = el as any)}
+                        ref={(el) => {
+                            top
+                                ? (this.customizeTopButtonRef = el as any)
+                                : (this.customizeBottomButtonRef = el as any);
+                        }}
                     />
                     <div
-                        onMouseLeave={() => this.closeCustomSettings()}
+                        onMouseLeave={() => this.closeCustomSettings(top)}
                         class="customize-panel"
-                        ref={(el) => (this.customizePanelRef = el as any)}
+                        ref={(el) => {
+                            top
+                                ? (this.customizeTopPanelRef = el as any)
+                                : (this.customizeBottomPanelRef = el as any);
+                        }}
                     >
                         {this.renderDensityPanel(top)}
                         {this.renderFontSizePanel(top)}
@@ -2977,6 +2953,7 @@ export class KupDataTable {
         );
     }
 
+    // cacca - da modificare
     private renderFontSizePanel(top: boolean) {
         let fontSize: string;
         {
@@ -2996,13 +2973,13 @@ export class KupDataTable {
                 </span>
                 <span
                     class="fontsize-label"
-                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
+                    onClick={() => this.togglePanelVisibility(top)}
                 >
                     {fontSize}
                 </span>
                 <div
                     role="button"
-                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
+                    onClick={() => this.togglePanelVisibility(top)}
                     tabindex="0"
                 >
                     <svg
@@ -3017,9 +2994,7 @@ export class KupDataTable {
                 <div
                     class={{
                         'fontsize-panel-overlay': true,
-                        open: top
-                            ? this.topFontSizePanelVisible
-                            : this.botFontSizePanelVisible,
+                        open: top ? this.topPanelVisible : this.botPanelVisible,
                     }}
                 >
                     <div
@@ -3102,16 +3077,14 @@ export class KupDataTable {
                     trailingIcon={true}
                     onKupButtonClick={(e) => {
                         e.stopPropagation();
-                        this.toggleDensityVisibility(top);
+                        this.togglePanelVisibility(top);
                     }}
                 />
 
                 <div
                     class={{
                         'density-panel-overlay': true,
-                        open: top
-                            ? this.topDensityPanelVisible
-                            : this.botDensityPanelVisible,
+                        open: top ? this.topPanelVisible : this.botPanelVisible,
                     }}
                 >
                     <div
