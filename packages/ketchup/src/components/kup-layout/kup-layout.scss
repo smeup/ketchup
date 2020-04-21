@@ -16,7 +16,7 @@ $content-based-col-width: content-based-columns-width;
 // When no options are set
 :host {
   --lyo_column-number: var(--kup-layout_column-number, 1);
-  --lyo_grid-gap: var(--kup-layout_grid-gap, 2px);
+  --lyo_grid-gap: var(--kup-layout_grid-gap, 2rem);
 
   //-- Basic style --
   display: inline-grid;
