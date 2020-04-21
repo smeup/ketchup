@@ -140,11 +140,14 @@ graph TD;
   kup-form --> kup-button
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-icon
+  kup-text-field --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-crud --> kup-form
-  kup-button --> kup-icon
+  kup-button --> kup-image
   kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-list
   kup-search --> kup-text-field
@@ -153,7 +156,6 @@ graph TD;
   kup-search --> kup-data-table
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-graphic-cell
@@ -163,10 +165,11 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-chip
-  kup-image --> kup-badge
+  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
   kup-paginator --> kup-combobox
-  kup-chip --> kup-icon
+  kup-chip --> kup-image
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

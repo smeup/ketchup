@@ -56,7 +56,8 @@
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
           "value": "https://via.placeholder.com/128?text=CF",
           "config": {
-            "dimensions": "64px"
+            "sizeX": "64px",
+            "sizeY": "64px"
           }
         }
       }

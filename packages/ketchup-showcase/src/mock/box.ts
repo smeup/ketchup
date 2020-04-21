@@ -37,6 +37,10 @@ export const defaultData = {
             k: 'AR;ART;Blue Flowers',
           },
           value: 'images/blueflowers.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -74,6 +78,10 @@ export const defaultData = {
             k: 'AR;ART;Wooden heart',
           },
           value: 'images/woodheart.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -111,6 +119,10 @@ export const defaultData = {
             k: 'AR;ART;Purple flowers',
           },
           value: 'images/purpleflowers.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -148,6 +160,10 @@ export const defaultData = {
             k: 'AR;ART;Red flowers',
           },
           value: 'images/redflowers.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -211,6 +227,10 @@ export const j4btnData = {
             k: 'AR;ART;Florence',
           },
           value: 'images/florence.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -251,6 +271,10 @@ export const j4btnData = {
             k: 'AR;ART;Parme',
           },
           value: 'images/parme.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -291,6 +315,10 @@ export const j4btnData = {
             k: 'AR;ART;Milan',
           },
           value: 'images/milan.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -331,6 +359,10 @@ export const j4btnData = {
             k: 'AR;ART;Rome',
           },
           value: 'images/rome.JPG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -570,7 +602,9 @@ export const imgBadgeData = {
           },
           value: 'images/purpleflowers.JPG',
           config: {
-            badges: [
+            sizeX: '64px',
+            sizeY: '64px',
+            badgeData: [
               {
                 text: '12',
                 position: 'TR',
@@ -614,9 +648,11 @@ export const imgBadgeData = {
           },
           value: 'images/milan.JPG',
           config: {
-            badges: [
+            sizeX: '64px',
+            sizeY: '64px',
+            badgeData: [
               {
-                icon: 'account',
+                imageData: { name: 'account' },
                 position: 'BR',
               },
             ],
@@ -658,13 +694,15 @@ export const imgBadgeData = {
           },
           value: 'images/parme.JPG',
           config: {
-            badges: [
+            sizeX: '64px',
+            sizeY: '64px',
+            badgeData: [
               {
                 text: '33',
                 position: 'TR',
               },
               {
-                icon: 'pin',
+                imageData: { name: 'widgets' },
                 position: 'BR',
               },
             ],
@@ -706,13 +744,15 @@ export const imgBadgeData = {
           },
           value: 'https://via.placeholder.com/64?text=SC',
           config: {
-            badges: [
+            sizeX: '64px',
+            sizeY: '64px',
+            badgeData: [
               {
                 text: '23',
                 position: 'TL',
               },
               {
-                icon: 'account',
+                imageData: { name: 'account' },
                 position: 'BL',
               },
             ],
@@ -775,6 +815,10 @@ export const pgbData = {
             k: 'CN;COL;SANCOS',
           },
           value: 'https://via.placeholder.com/64?text=SC',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -803,6 +847,7 @@ export const pgbData = {
             k: 'CN;COL;CASFRA',
           },
           value: 'https://via.placeholder.com/64?text=CF',
+          config: { sizeX: '64px', sizeY: '64px' },
         },
         FLD2: {
           obj: {
@@ -834,6 +879,10 @@ export const pgbData = {
             k: 'CN;COL;DELGIO',
           },
           value: 'https://via.placeholder.com/64?text=DG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -865,6 +914,10 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=PF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -897,6 +950,10 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=PF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -930,6 +987,10 @@ export const pgbData = {
             k: 'CN;COL;PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=PF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -990,6 +1051,10 @@ export const boxBadgeData = {
             k: 'CN;COL;CASFRA',
           },
           value: 'https://via.placeholder.com/64?text=CF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1016,7 +1081,7 @@ export const boxBadgeData = {
           value: '01/01/2018',
         },
       },
-      badges: [
+      badgeData: [
         {
           text: '1',
         },
@@ -1032,6 +1097,10 @@ export const boxBadgeData = {
             k: 'CN;COL;PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=PF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1058,9 +1127,9 @@ export const boxBadgeData = {
           value: '02/01/2018',
         },
       },
-      badges: [
+      badgeData: [
         {
-          icon: 'account',
+          imageData: { name: 'account' },
           position: 'TL',
         },
       ],
@@ -1075,6 +1144,10 @@ export const boxBadgeData = {
             k: 'CN;COL;DELGIO',
           },
           value: 'https://via.placeholder.com/64?text=DG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1101,7 +1174,7 @@ export const boxBadgeData = {
           value: '03/01/2018',
         },
       },
-      badges: [
+      badgeData: [
         {
           text: 'long teeeeeeeeeeeeext',
         },
@@ -1145,9 +1218,9 @@ export const shapeData = {
           },
           value: 'https://via.placeholder.com/64?text=CUSTOM',
           config: {
-            badges: [
+            badgeData: [
               {
-                icon: 'account',
+                imageData: { name: 'account' },
                 position: 'BR',
               },
             ],
@@ -1219,9 +1292,9 @@ export const shapeData = {
           },
           value: '',
           config: {
-            badges: [
+            badgeData: [
               {
-                icon: 'account',
+                imageData: { name: 'account' },
                 position: 'TL',
               },
             ],
@@ -1316,6 +1389,10 @@ export function createData(rows: number) {
             k: 'CN;COL;CASFRA',
           },
           value: 'https://via.placeholder.com/64?text=CF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1354,6 +1431,10 @@ export function createData(rows: number) {
             k: 'CN;COL;PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=PF',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1392,6 +1473,10 @@ export function createData(rows: number) {
             k: 'CN;COL;DELGIO',
           },
           value: 'https://via.placeholder.com/64?text=DG',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -1430,6 +1515,10 @@ export function createData(rows: number) {
             k: 'CN;COL;SANCOS',
           },
           value: 'https://via.placeholder.com/64?text=SC',
+          config: {
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {

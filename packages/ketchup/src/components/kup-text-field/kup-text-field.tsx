@@ -376,26 +376,28 @@ export class KupTextField {
 
         if (this.isClearable) {
             clearIconEl = (
-                <kup-icon
+                <kup-image
                     tabindex="1"
                     class="material-icons mdc-text-field__icon clear-icon"
-                    dimensions="24px"
+                    sizeX="24px"
+                    sizeY="24px"
                     name="clear"
                     onClick={() => this.onKupClearIconClick()}
-                ></kup-icon>
+                ></kup-image>
             );
             componentClass += ' is-clearable';
         }
 
         if (this.icon) {
             iconEl = (
-                <kup-icon
+                <kup-image
                     tabindex="0"
                     class="material-icons mdc-text-field__icon"
-                    dimensions="24px"
+                    sizeX="24px"
+                    sizeY="24px"
                     name={this.icon}
                     onClick={(e: any) => this.onKupIconClick(e)}
-                ></kup-icon>
+                ></kup-image>
             );
             if (this.trailingIcon) {
                 componentClass += ' mdc-text-field--with-trailing-icon';

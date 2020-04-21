@@ -165,10 +165,10 @@ export enum GroupLabelDisplayMode {
 //---- Fixed rows and cells classes ----
 export const FixedCellsClasses = {
     columns: 'fixed-column',
-    rows: 'fixed-row'
+    rows: 'fixed-row',
 };
 
 export const FixedCellsCSSVarsBase = {
-  columns: '--ddt_column-left-',
-  rows: '--ddt_row-top-'
+    columns: '--ddt_column-left-',
+    rows: '--ddt_row-top-',
 };
