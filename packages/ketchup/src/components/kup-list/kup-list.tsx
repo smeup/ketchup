@@ -17,7 +17,6 @@ import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
-import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-list',
@@ -25,59 +24,47 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupList {
-    /**
-     * Following default props and elements common to all widgets
-     */
     @Element() rootElement: HTMLElement;
 
     /**
      * Sets a custom style for the component by feeding this string into a <style> tag.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
      * The data of the list.
      */
     @Prop() data: ComponentListElement[] = [];
-
     /**
      * Selects how the items must display their label and how they can be filtered for.
      */
     @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
         ItemsDisplayMode.DESCRIPTION;
-
     /**
      * Keeps string for filtering elements when filter mode is active
      */
     @Prop({ reflect: true }) filter: string = '';
-
     /**
      * Defines whether the list is a menu or not.
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
-
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      */
     @Prop({ reflect: true }) menuVisible: boolean = false;
-
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
      */
     @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
-
     /**
      * Defines whether items are selectable or not.
      */
     @Prop({ reflect: true }) selectable: boolean = true;
-
     /**
      * The list elements descriptions will be arranged in two lines.
      */
     @Prop({ reflect: true }) twoLine: boolean = false;
-
     /**
-     * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
      */
     @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
     @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
@@ -161,20 +148,8 @@ export class KupList {
     }>;
 
     @Watch('filter')
-    watchFilter(newValue: string, oldValue: string) {
+    watchFilter() {
         this.focIndex = -1;
-        this.log(
-            'watchFilter',
-            'newValue: ' +
-                newValue +
-                '[' +
-                this.filter +
-                ']' +
-                ' != ' +
-                oldValue +
-                ' - this.focIndex: ' +
-                this.focIndex
-        );
         this.filteredItems = [];
         let index = 0;
         this.data.map((item) => {
@@ -509,13 +484,6 @@ export class KupList {
         }
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-list',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
     //---- Lifecycle hooks ----
 
     componentDidLoad() {

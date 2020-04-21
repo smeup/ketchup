@@ -1,12 +1,6 @@
 # kup-crud
 
-Kup-crud is a web component that allows to configure a record or a set of records, in a classic CRUD style (create, read, update, delete).
 
-## Callbacks and events
-
-When a crud form action is submitted or a crud form field is changed you can use related callback function for your backend logic. In this way you can update directly the crud component related to that events.
-
-You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events but if you have a crud inside a crud they can be sent by a crud child component. You can understand which crud component send them setting refid prop for each crud field and reading them from events.
 
 <!-- Auto Generated Below -->
 
@@ -90,6 +84,7 @@ graph TD;
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-text-field --> kup-image
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-autocomplete --> kup-text-field

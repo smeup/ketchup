@@ -94,9 +94,6 @@ export class KupField {
 
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
-        let message = 'Changing!';
-        errorLogging('kup-field', message);
-        console.log(event);
         const { value, info } = event.detail;
         this.kupChange.emit({
             originalEvent: event,
@@ -110,9 +107,6 @@ export class KupField {
 
     // When a submit event must be launched as if it's coming from the FLD itself
     onSubmit(event: CustomEvent) {
-        let message = 'Submitting!';
-        errorLogging('kup-field', message);
-        console.log(event);
         this.kupSubmit.emit({
             originalEvent: event,
             oldValue: this.previousValue,

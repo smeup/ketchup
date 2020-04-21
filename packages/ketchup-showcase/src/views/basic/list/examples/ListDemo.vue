@@ -50,6 +50,22 @@ export default {
       demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
+          prop: 'arrowDown',
+          description:
+            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Sets a custom style for the component by feeding this string into a <style> tag.',
@@ -111,32 +127,17 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showIcon',
+          description:
+            'Displays the icons associated to each row when set to true.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'twoLine',
           description:
             'The list elements descriptions will be arranged in two lines.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowDown',
-          description:
-            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowUp',
-          description:
-            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'showIcon',
-          description: 'Allows to view an icon image for each list item',
           type: 'boolean',
           default: 'false',
           try: 'switch',

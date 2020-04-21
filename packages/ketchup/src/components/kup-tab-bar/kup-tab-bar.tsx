@@ -18,6 +18,7 @@ import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLElement;
+
     /**
      * Custom style to be passed to the component.
      */
