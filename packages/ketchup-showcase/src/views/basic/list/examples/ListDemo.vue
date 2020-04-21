@@ -50,6 +50,22 @@ export default {
       demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
+          prop: 'arrowDown',
+          description:
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Sets a custom style for the component by feeding this string into a <style> tag.',
@@ -114,22 +130,6 @@ export default {
           prop: 'twoLine',
           description:
             'The list elements descriptions will be arranged in two lines.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowDown',
-          description:
-            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowUp',
-          description:
-            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
