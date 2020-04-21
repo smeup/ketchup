@@ -127,7 +127,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'showIcon',
+          prop: 'showIcons',
           description:
             'Displays the icons associated to each row when set to true.',
           type: 'boolean',

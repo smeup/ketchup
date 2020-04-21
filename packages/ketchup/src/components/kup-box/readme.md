@@ -114,6 +114,7 @@ graph TD;
   kup-progress-bar --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
