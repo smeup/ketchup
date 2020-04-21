@@ -134,6 +134,29 @@ export default {
           default: 'false',
           try: 'switch',
         },
+        {
+          prop: 'arrowDown',
+          description:
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showIcon',
+          description: 'Allows to view an icon image for each list item',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoEvents: [
         {
@@ -162,11 +185,14 @@ export default {
           {
             text: 'First choice',
             value: '1',
+            icon: 'add_alert',
+            trailingIcon: true,
           },
           {
             text: 'Selected choice',
             value: '2',
             selected: true,
+            icon: 'ac_unit',
           },
           {
             text: null,
@@ -176,6 +202,7 @@ export default {
           {
             text: 'Third choice (below a separator)',
             value: '3',
+            icon: '3d_rotation',
           },
         ],
         selectable: true,

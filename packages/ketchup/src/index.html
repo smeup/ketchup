@@ -89,6 +89,8 @@
         <br />
         <a href="data-table.html">Ketchup data table</a>
         <br />
+        <a href="dash-list.html">Ketchup dash list</a>
+        <br />
         <kup-text-field
             id="int1"
             is-clearable
@@ -279,6 +281,7 @@
         <kup-list is-filterable="false" selectable="true" field-id="pippo2"></kup-list>
         <kup-list is-filterable="false" selectable="true" role-type="radiogroup" field-id="pippo3"></kup-list>
         <kup-list is-filterable="false" selectable="true" role-type="group" field-id="pippo4"></kup-list>
+        <kup-list is-filterable="false" selectable="true" field-id="pippo5" show-icon="true"></kup-list>
 
         <h4>Material Select (widget)</h4>
         <kup-combobox is-filterable="false" field-id="pluto1" is-select="true"></kup-combobox>
@@ -601,20 +604,24 @@ chipList.data = [
                 let listBox2 = document.getElementsByTagName('kup-list')[1];
                 let listBox3 = document.getElementsByTagName('kup-list')[2];
                 let listBox4 = document.getElementsByTagName('kup-list')[3];
+                let listBox5 = document.getElementsByTagName('kup-list')[4];
 
                 let itemsForListBox = [
                     {
                         text: 'Text 1',
                         secondaryText: 'Secondary text 1',
                         value: 'txt1',
+                        icon: '3d_rotation'
                     },
                     {
                         text: 'Text 2',
                         value: 'txt2',
+                        icon: 'ac_unit'
                     },
                     {
                         text: 'Text 3',
                         value: 'txt3',
+                        icon: 'accessibility'
                     },
                     {
                         text: null,
@@ -624,11 +631,13 @@ chipList.data = [
                     {
                         text: 'Text 4',
                         value: 'txt4',
+                        icon: 'account_box'
                     },
                     {
                         text: 'Text 5',
                         value: 'txt5',
                         selected: true,
+                        /*icon: 'add_alert'*/
                     },
                 ];
 
@@ -636,6 +645,7 @@ chipList.data = [
             listBox2.data = [...itemsForListBox];
             listBox3.data = [...itemsForListBox];
             listBox4.data = [...itemsForListBox];
+            listBox5.data = [...itemsForListBox];
 
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
