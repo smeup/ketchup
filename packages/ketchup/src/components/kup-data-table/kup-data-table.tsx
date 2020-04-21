@@ -82,6 +82,10 @@ import { GenericObject } from '../../types/GenericTypes';
 import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import {
+    ComponentListElement,
+    ItemsDisplayMode,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -303,18 +307,6 @@ export class KupDataTable {
 
     @State()
     private fontsize: string = 'medium';
-
-    @State()
-    private topPanelDensityVisible = false;
-
-    @State()
-    private botPanelDensityVisible = false;
-
-    @State()
-    private topPanelFontSizeVisible = false;
-
-    @State()
-    private botPanelFontSizeVisible = false;
 
     /**
      * This is a flag to be used for the draggable columns to force rerender
@@ -553,11 +545,7 @@ export class KupDataTable {
         tooltip: EventTarget;
     }>;
 
-    onDocumentClick = () => {
-        //this.topPanelVisible = false;
-        //this.botPanelVisible = false;
-        //this.log('onDocumentClick', 'top: ' + this.topPanelVisible);
-    };
+    onDocumentClick = () => {};
 
     stickyHeaderPosition = () => {
         if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
@@ -1618,38 +1606,6 @@ export class KupDataTable {
         this.moveSortedColumns(toSort, receivingColumnIndex, sortedColumnIndex);
 
         return toSort;
-    }
-
-    private closeDensityPanel(top: boolean) {
-        if (top) {
-            this.topPanelDensityVisible = false;
-        } else {
-            this.botPanelDensityVisible = false;
-        }
-    }
-
-    private openCloseDensityPanel(top: boolean) {
-        if (top) {
-            this.topPanelDensityVisible = !this.topPanelDensityVisible;
-        } else {
-            this.botPanelDensityVisible = !this.botPanelDensityVisible;
-        }
-    }
-
-    private closeFontSizePanel(top: boolean) {
-        if (top) {
-            this.topPanelFontSizeVisible = false;
-        } else {
-            this.botPanelFontSizeVisible = false;
-        }
-    }
-
-    private openCloseFontSizePanel(top: boolean) {
-        if (top) {
-            this.topPanelFontSizeVisible = !this.topPanelFontSizeVisible;
-        } else {
-            this.botPanelFontSizeVisible = !this.botPanelFontSizeVisible;
-        }
     }
 
     private applyLineBreaks(content: string) {
@@ -2879,28 +2835,9 @@ export class KupDataTable {
                 }}
             />
         );
-        /*
-         <button
-                aria-label={label}
-                class="loadmore-button mdi mdi-plus"
-                role="button"
-                slot={isSlotted ? 'more-results' : null}
-                tabindex="0"
-                title={label}
-                onClick={() => this.onLoadMoreClick()}
-            >
-                <span class="paginator-tab-text">Più risultati</span>{' '}
-            </button>
-            */
     }
 
     private onCustomSettingsClick(top: boolean) {
-        top
-            ? (this.topPanelDensityVisible = false)
-            : (this.botPanelDensityVisible = false);
-        top
-            ? (this.topPanelFontSizeVisible = false)
-            : (this.botPanelFontSizeVisible = false);
         this.openCustomSettings(top);
     }
 
@@ -2918,14 +2855,13 @@ export class KupDataTable {
         let elPanel = top
             ? this.customizeTopPanelRef
             : this.customizeBottomPanelRef;
-
+        if (elPanel == null) {
+            return;
+        }
         elPanel.classList.remove('visible');
         elPanel.classList.remove('dynamic-position-active');
-        this.closeDensityPanel(top);
-        this.closeFontSizePanel(top);
     }
 
-    //tochange
     private renderPaginator(top: boolean) {
         return (
             <div class="paginator-wrapper">
@@ -2965,8 +2901,8 @@ export class KupDataTable {
                                 : (this.customizeBottomPanelRef = el as any);
                         }}
                     >
-                        {this.renderDensityPanel(top)}
-                        {this.renderFontSizePanel(top)}
+                        {this.renderDensityPanel()}
+                        {this.renderFontSizePanel()}
                     </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
@@ -2974,227 +2910,149 @@ export class KupDataTable {
         );
     }
 
-    private renderFontSizePanel(top: boolean) {
-        let fontSize: string;
-        {
-            this.fontsize === 'medium'
-                ? (fontSize = 'Media')
-                : this.fontsize === 'big'
-                ? (fontSize = 'Grande')
-                : this.fontsize === 'small'
-                ? (fontSize = 'Piccolo')
-                : (fontSize = '');
+    private getFontSizeDecodeFromCode(code: string): string {
+        if (code.toLowerCase() == 'small') {
+            return 'Piccolo';
         }
-        let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
-        return (
-            <div class="fontsize-panel">
-                <span title={fontSizeTypeString} class="panel-label">
-                    Dimensione carattere
-                </span>
-                <kup-button
-                    icon="arrow_drop_down"
-                    label={fontSize}
-                    trailingIcon={true}
-                    onKupButtonClick={(e) => {
-                        e.stopPropagation();
-                        this.closeDensityPanel(top);
-                        this.openCloseFontSizePanel(top);
-                    }}
-                />
-
-                <div
-                    class={{
-                        'fontsize-panel-overlay': true,
-                        open: top
-                            ? this.topPanelFontSizeVisible
-                            : this.botPanelFontSizeVisible,
-                    }}
-                >
-                    <kup-button
-                        checked={this.fontsize === 'small'}
-                        icon="format-font-size-decrease"
-                        tooltip="Piccolo"
-                        onKupButtonClick={() => (this.fontsize = 'small')}
-                    />
-
-                    <kup-button
-                        checked={this.fontsize === 'medium'}
-                        icon="format-color-text"
-                        tooltip="Normale"
-                        onKupButtonClick={() => (this.fontsize = 'medium')}
-                    />
-
-                    <kup-button
-                        checked={this.fontsize === 'big'}
-                        icon="format-font-size-increase"
-                        tooltip="Grande"
-                        onKupButtonClick={() => (this.fontsize = 'big')}
-                    />
-                </div>
-            </div>
-        );
+        if (code.toLowerCase() == 'medium') {
+            return 'Media';
+        }
+        if (code.toLowerCase() == 'big') {
+            return 'Grande';
+        }
+        return code;
     }
 
-    private renderDensityPanel(top: boolean) {
-        let densityType: string;
-        {
-            this.density === 'medium'
-                ? (densityType = 'Normale')
-                : this.density === 'big'
-                ? (densityType = 'Ampia')
-                : this.density === 'small'
-                ? (densityType = 'Compatta')
-                : (densityType = '');
+    private getFontSizeCodeFromDecode(decode: string): string {
+        if (decode.toLowerCase() == 'piccolo') {
+            return 'small';
         }
-        let densityTypeString = 'Densità righe: ' + densityType;
+        if (decode.toLowerCase() == 'media') {
+            return 'medium';
+        }
+        if (decode.toLowerCase() == 'grande') {
+            return 'big';
+        }
+        return decode;
+    }
+
+    private renderFontSizePanel() {
+        let listItems: ComponentListElement[] = [];
+        listItems[0] = {
+            text: 'Piccolo',
+            value: 'small',
+            selected: this.fontsize == 'small',
+            icon: 'format-font-size-decrease',
+        };
+        listItems[1] = {
+            text: 'Media',
+            value: 'medium',
+            selected: this.fontsize == 'medium',
+            icon: 'format-color-text',
+        };
+        listItems[2] = {
+            text: 'Grande',
+            value: 'big',
+            selected: this.fontsize == 'big',
+            icon: 'format-font-size-increase',
+        };
+        let listData = { data: listItems, showIcon: true };
+
+        let textfieldData = {
+            trailingIcon: true,
+            initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
+            label: 'Dimensione carattere:',
+            icon: 'arrow_drop_down',
+        };
         return (
             <div class="density-panel">
-                <span title={densityTypeString} class="panel-label">
-                    Densità righe
-                </span>
-                <kup-button
-                    icon="arrow_drop_down"
-                    label={densityType}
-                    trailingIcon={true}
-                    onKupButtonClick={(e) => {
+                <kup-combobox
+                    isSelect={true}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
-                        this.closeFontSizePanel(top);
-                        this.openCloseDensityPanel(top);
+                        this.fontsize = this.getFontSizeCodeFromDecode(
+                            e.detail.value
+                        );
                     }}
                 />
-
-                <div
-                    class={{
-                        'density-panel-overlay': true,
-                        open: top
-                            ? this.topPanelDensityVisible
-                            : this.botPanelDensityVisible,
-                    }}
-                >
-                    <kup-button
-                        checked={this.density === 'small'}
-                        icon="format-align-justify"
-                        tooltip="Compatta"
-                        onKupButtonClick={() => (this.density = 'small')}
-                    />
-                    <kup-button
-                        checked={this.density === 'medium'}
-                        icon="reorder-horizontal"
-                        tooltip="Normale"
-                        onKupButtonClick={() => (this.density = 'medium')}
-                    />
-                    <kup-button
-                        checked={this.density === 'big'}
-                        icon="view-sequential"
-                        tooltip="Ampia"
-                        onKupButtonClick={() => (this.density = 'big')}
-                    />
-                </div>
             </div>
         );
     }
 
-    /*
-    renderDensityPanel_original(top: boolean) {
-        let densityType: string;
-        {
-            this.density === 'medium'
-                ? (densityType = 'Normale')
-                : this.density === 'big'
-                ? (densityType = 'Ampia')
-                : this.density === 'small'
-                ? (densityType = 'Compatta')
-                : (densityType = '');
+    private getDensityDecodeFromCode(code: string): string {
+        if (code.toLowerCase() == 'small') {
+            return 'Compatta';
         }
-        let densityTypeString = 'Densità righe: ' + densityType;
+        if (code.toLowerCase() == 'medium') {
+            return 'Normale';
+        }
+        if (code.toLowerCase() == 'big') {
+            return 'Ampia';
+        }
+        return code;
+    }
+
+    private getDensityCodeFromDecode(decode: string): string {
+        if (decode.toLowerCase() == 'compatta') {
+            return 'small';
+        }
+        if (decode.toLowerCase() == 'normale') {
+            return 'medium';
+        }
+        if (decode.toLowerCase() == 'ampia') {
+            return 'big';
+        }
+        return decode;
+    }
+
+    private renderDensityPanel() {
+        let listItems: ComponentListElement[] = [];
+        listItems[0] = {
+            text: 'Compatta',
+            value: 'small',
+            selected: this.density == 'small',
+            icon: 'format-align-justify',
+        };
+        listItems[1] = {
+            text: 'Normale',
+            value: 'medium',
+            selected: this.density == 'medium',
+            icon: 'reorder-horizontal',
+        };
+        listItems[2] = {
+            text: 'Ampia',
+            value: 'big',
+            selected: this.density == 'big',
+            icon: 'view-sequential',
+        };
+        let listData = { data: listItems, showIcon: true };
+
+        let textfieldData = {
+            trailingIcon: true,
+            initialValue: this.getDensityDecodeFromCode(this.density),
+            label: 'Densità righe:',
+            icon: 'arrow_drop_down',
+        };
         return (
             <div class="density-panel">
-                <span title={densityTypeString} class="panel-label">
-                    Densità righe
-                </span>
-                <span
-                    class="density-label"
-                    onClick={(e) => this.toggleDensityVisibility(e, top)}
-                >
-                    {densityType}
-                </span>
-                <div
-                    role="button"
-                    onClick={(e) => this.toggleDensityVisibility(e, top)}
-                    tabindex="0"
-                >
-                    <svg
-                        version="1.1"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M7,10L12,15L17,10H7Z" />
-                    </svg>
-                </div>
-                <div
-                    class={{
-                        'density-panel-overlay': true,
-                        open: top
-                            ? this.topDensityPanelVisible
-                            : this.botDensityPanelVisible,
+                <kup-combobox
+                    isSelect={true}
+                    selectMode={ItemsDisplayMode.DESCRIPTION}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        this.density = this.getDensityCodeFromDecode(
+                            e.detail.value
+                        );
                     }}
-                >
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'small',
-                        }}
-                        onClick={() => (this.density = 'small')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'small' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Compatta"
-                            class="density-icon-panel mdi mdi-format-align-justify"
-                        ></span>
-                    </div>
-
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'medium',
-                        }}
-                        onClick={() => (this.density = 'medium')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'medium' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Normale"
-                            class="density-icon-panel mdi mdi-reorder-horizontal"
-                        ></span>
-                    </div>
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'big',
-                        }}
-                        onClick={() => (this.density = 'big')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
-                    >
-                        <span
-                            title="Ampia"
-                            class="density-icon-panel mdi mdi-view-sequential"
-                        ></span>
-                    </div>
-                </div>
+                />
             </div>
         );
     }
-*/
+
     render() {
         // resetting rows
         this.renderedRows = [];
