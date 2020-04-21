@@ -135,7 +135,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'showIcon',
+          prop: 'showIcons',
           description: 'Allows to view an icon image for each list item',
           type: 'boolean',
           default: 'false',
