@@ -50,22 +50,6 @@ export default {
       demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
-          prop: 'arrowDown',
-          description:
-            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'arrowUp',
-          description:
-            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'customStyle',
           description:
             'Sets a custom style for the component by feeding this string into a <style> tag.',
@@ -136,68 +120,78 @@ export default {
         },
         {
           prop: 'arrowDown',
-          prop: 'showIons',
           description:
-            'Displays the icons associated to each row when set to true.',
-          type: 'boolean',
-         default: 'false',
-         try: 'switch',
-       },
-        {
-         prop: 'twoine',
-         description:
-           'The list elements escriptions will be arranged in two lines.',
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        ,
+        },
+        {
+          prop: 'arrowUp',
+          description:
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showIcon',
+          description: 'Allows to view an icon image for each list item',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
-      demoEvens: [
+      demoEvents: [
         {
-          nme: 'kupListClick',
-         type: click',
-       },
+          name: 'kupListClick',
+          type: 'click',
+        },
         {
-         name: 'kupListChange',
+          name: 'kupListChange',
           type: 'change',
         },
         {
-          name: 'kupListInut',
-          type: 'input,
-        },
-        {          nme: 'kupLstFocus',
-         type: 'focs',
+          name: 'kupListInput',
+          type: 'input',
         },
         {
-         name: 'kupListBlur',
-          ype: 'blur,
+          name: 'kupListFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupListBlur',
+          type: 'blur',
         },
       ],
-      deoData: {
-        data: [          {
-           text: 'First choice',
-           value: '1',
-           icon: 'ad_alert',            trailingIcon: true,          },
+      demoData: {
+        data: [
           {
-           text: 'Seected choice',
-            vale: '2',
-            selcted: true,
-           icon: 'ac_unit'
+            text: 'First choice',
+            value: '1',
+            icon: 'add_alert',
+            trailingIcon: true,
           },
-         {
-           text: null,
-           value: null,
-           isSeparator: true,
-         },
           {
-            tex: 'Third choie (below a sparator)',
+            text: 'Selected choice',
+            value: '2',
+            selected: true,
+            icon: 'ac_unit',
+          },
+          {
+            text: null,
+            value: null,
+            isSeparator: true,
+          },
+          {
+            text: 'Third choice (below a separator)',
             value: '3',
-           icon: '3d_rottion',
+            icon: '3d_rotation',
           },
-       ],
-        selectable: true
+        ],
+        selectable: true,
       },
-   };
+    };
   },
-;
+};
 </script>
