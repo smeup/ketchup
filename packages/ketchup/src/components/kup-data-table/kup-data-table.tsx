@@ -305,10 +305,16 @@ export class KupDataTable {
     private fontsize: string = 'medium';
 
     @State()
-    private topPanelVisible = false;
+    private topPanelDensityVisible = false;
 
     @State()
-    private botPanelVisible = false;
+    private botPanelDensityVisible = false;
+
+    @State()
+    private topPanelFontSizeVisible = false;
+
+    @State()
+    private botPanelFontSizeVisible = false;
 
     /**
      * This is a flag to be used for the draggable columns to force rerender
@@ -1614,13 +1620,35 @@ export class KupDataTable {
         return toSort;
     }
 
-    private togglePanelVisibility(top: boolean) {
+    private closeDensityPanel(top: boolean) {
         if (top) {
-            this.topPanelVisible = !this.topPanelVisible;
-            this.botPanelVisible = false;
+            this.topPanelDensityVisible = false;
         } else {
-            this.topPanelVisible = false;
-            this.botPanelVisible = !this.botPanelVisible;
+            this.botPanelDensityVisible = false;
+        }
+    }
+
+    private openCloseDensityPanel(top: boolean) {
+        if (top) {
+            this.topPanelDensityVisible = !this.topPanelDensityVisible;
+        } else {
+            this.botPanelDensityVisible = !this.botPanelDensityVisible;
+        }
+    }
+
+    private closeFontSizePanel(top: boolean) {
+        if (top) {
+            this.topPanelFontSizeVisible = false;
+        } else {
+            this.botPanelFontSizeVisible = false;
+        }
+    }
+
+    private openCloseFontSizePanel(top: boolean) {
+        if (top) {
+            this.topPanelFontSizeVisible = !this.topPanelFontSizeVisible;
+        } else {
+            this.botPanelFontSizeVisible = !this.botPanelFontSizeVisible;
         }
     }
 
@@ -2867,40 +2895,34 @@ export class KupDataTable {
     }
 
     private onCustomSettingsClick(top: boolean) {
-        top ? (this.topPanelVisible = false) : (this.botPanelVisible = false);
+        top
+            ? (this.topPanelDensityVisible = false)
+            : (this.botPanelDensityVisible = false);
+        top
+            ? (this.topPanelFontSizeVisible = false)
+            : (this.botPanelFontSizeVisible = false);
         this.openCustomSettings(top);
     }
 
     private openCustomSettings(top: boolean) {
         this.closeCustomSettings(!top);
-
-        /*
-        let elButton = top
-            ? this.customizeTopButtonRef
-            : this.customizeBottomButtonRef;
-            */
         let elPanel = top
             ? this.customizeTopPanelRef
             : this.customizeBottomPanelRef;
 
         elPanel.classList.add('visible');
         elPanel.classList.add('dynamic-position-active');
-        //top ? (this.topPanelVisible = true) : (this.botPanelVisible = true);
     }
 
     private closeCustomSettings(top: boolean) {
-        /*
-        let elButton = top
-            ? this.customizeTopButtonRef
-            : this.customizeBottomButtonRef;
-            */
         let elPanel = top
             ? this.customizeTopPanelRef
             : this.customizeBottomPanelRef;
 
         elPanel.classList.remove('visible');
         elPanel.classList.remove('dynamic-position-active');
-        //top ? (this.topPanelVisible = false) : (this.botPanelVisible = false);
+        this.closeDensityPanel(top);
+        this.closeFontSizePanel(top);
     }
 
     //tochange
@@ -2924,7 +2946,6 @@ export class KupDataTable {
 
                     <kup-button
                         icon="settings"
-                        label=""
                         tooltip="Mostra opzioni di personalizzazione"
                         onKupButtonClick={() => {
                             this.onCustomSettingsClick(top);
@@ -2971,84 +2992,45 @@ export class KupDataTable {
                 <span title={fontSizeTypeString} class="panel-label">
                     Dimensione carattere
                 </span>
-                <span
-                    class="fontsize-label"
-                    onClick={() => this.togglePanelVisibility(top)}
-                >
-                    {fontSize}
-                </span>
-                <div
-                    role="button"
-                    onClick={() => this.togglePanelVisibility(top)}
-                    tabindex="0"
-                >
-                    <svg
-                        version="1.1"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M7,10L12,15L17,10H7Z" />
-                    </svg>
-                </div>
+                <kup-button
+                    icon="arrow_drop_down"
+                    label={fontSize}
+                    trailingIcon={true}
+                    onKupButtonClick={(e) => {
+                        e.stopPropagation();
+                        this.closeDensityPanel(top);
+                        this.openCloseFontSizePanel(top);
+                    }}
+                />
+
                 <div
                     class={{
                         'fontsize-panel-overlay': true,
-                        open: top ? this.topPanelVisible : this.botPanelVisible,
+                        open: top
+                            ? this.topPanelFontSizeVisible
+                            : this.botPanelFontSizeVisible,
                     }}
                 >
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'small',
-                        }}
-                        onClick={() => (this.fontsize = 'small')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'small' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Piccolo"
-                            class="fontsize-icon-panel mdi mdi-format-font-size-decrease"
-                        ></span>
-                    </div>
+                    <kup-button
+                        checked={this.fontsize === 'small'}
+                        icon="format-font-size-decrease"
+                        tooltip="Piccolo"
+                        onKupButtonClick={() => (this.fontsize = 'small')}
+                    />
 
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'medium',
-                        }}
-                        onClick={() => (this.fontsize = 'medium')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'medium' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Normale"
-                            class="fontsize-icon-panel mdi mdi-format-color-text"
-                        ></span>
-                    </div>
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'big',
-                        }}
-                        onClick={() => (this.fontsize = 'big')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'big' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Grande"
-                            class="fontsize-icon-panel mdi mdi-format-font-size-increase"
-                        ></span>
-                    </div>
+                    <kup-button
+                        checked={this.fontsize === 'medium'}
+                        icon="format-color-text"
+                        tooltip="Normale"
+                        onKupButtonClick={() => (this.fontsize = 'medium')}
+                    />
+
+                    <kup-button
+                        checked={this.fontsize === 'big'}
+                        icon="format-font-size-increase"
+                        tooltip="Grande"
+                        onKupButtonClick={() => (this.fontsize = 'big')}
+                    />
                 </div>
             </div>
         );
@@ -3077,60 +3059,37 @@ export class KupDataTable {
                     trailingIcon={true}
                     onKupButtonClick={(e) => {
                         e.stopPropagation();
-                        this.togglePanelVisibility(top);
+                        this.closeFontSizePanel(top);
+                        this.openCloseDensityPanel(top);
                     }}
                 />
 
                 <div
                     class={{
                         'density-panel-overlay': true,
-                        open: top ? this.topPanelVisible : this.botPanelVisible,
+                        open: top
+                            ? this.topPanelDensityVisible
+                            : this.botPanelDensityVisible,
                     }}
                 >
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'small',
-                        }}
-                        onClick={() => (this.density = 'small')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'small' ? 'true' : 'false'
-                        }
-                    >
-                        <kup-image
-                            name="format-align-justify"
-                            title="Compatta"
-                        />
-                    </div>
-
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'medium',
-                        }}
-                        onClick={() => (this.density = 'medium')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'medium' ? 'true' : 'false'
-                        }
-                    >
-                        <kup-image name="reorder-horizontal" title="Normale" />
-                    </div>
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'big',
-                        }}
-                        onClick={() => (this.density = 'big')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
-                    >
-                        <kup-image name="view-sequential" title="Ampia" />
-                    </div>
+                    <kup-button
+                        checked={this.density === 'small'}
+                        icon="format-align-justify"
+                        tooltip="Compatta"
+                        onKupButtonClick={() => (this.density = 'small')}
+                    />
+                    <kup-button
+                        checked={this.density === 'medium'}
+                        icon="reorder-horizontal"
+                        tooltip="Normale"
+                        onKupButtonClick={() => (this.density = 'medium')}
+                    />
+                    <kup-button
+                        checked={this.density === 'big'}
+                        icon="view-sequential"
+                        tooltip="Ampia"
+                        onKupButtonClick={() => (this.density = 'big')}
+                    />
                 </div>
             </div>
         );
