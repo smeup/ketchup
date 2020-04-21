@@ -368,18 +368,6 @@ export namespace Components {
         "index": number;
         "layout": string;
     }
-    interface KupDashList {
-        "active": boolean;
-        "columnsNumber": number;
-        "data": TableData;
-        "fontsize": string;
-        "fullWidth": boolean;
-        "horizontal": boolean;
-        "iconColor": Array<any>;
-        "layout": string;
-        "textColor": Array<any>;
-        "valueColor": Array<any>;
-    }
     interface KupDataTable {
         /**
           * Used to set custom columns width.
@@ -687,28 +675,6 @@ export namespace Components {
           * The address which must be referenced by the iframe
          */
         "src": string;
-    }
-    interface KupIcon {
-        /**
-          * The color of the icon, defaults to the main color of the app.
-         */
-        "color": string;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle": string;
-        /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-         */
-        "dimensions": string;
-        /**
-          * The name of the icon.
-         */
-        "name": string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type": string;
     }
     interface KupImage {
         "alt": string;
@@ -1220,12 +1186,6 @@ declare global {
         prototype: HTMLKupDashElement;
         new (): HTMLKupDashElement;
     };
-    interface HTMLKupDashListElement extends Components.KupDashList, HTMLStencilElement {
-    }
-    var HTMLKupDashListElement: {
-        prototype: HTMLKupDashListElement;
-        new (): HTMLKupDashListElement;
-    };
     interface HTMLKupDataTableElement extends Components.KupDataTable, HTMLStencilElement {
     }
     var HTMLKupDataTableElement: {
@@ -1267,12 +1227,6 @@ declare global {
     var HTMLKupHtmlElement: {
         prototype: HTMLKupHtmlElement;
         new (): HTMLKupHtmlElement;
-    };
-    interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {
-    }
-    var HTMLKupIconElement: {
-        prototype: HTMLKupIconElement;
-        new (): HTMLKupIconElement;
     };
     interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {
     }
@@ -1391,7 +1345,6 @@ declare global {
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
-        "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
@@ -1399,7 +1352,6 @@ declare global {
         "kup-gauge": HTMLKupGaugeElement;
         "kup-graphic-cell": HTMLKupGraphicCellElement;
         "kup-html": HTMLKupHtmlElement;
-        "kup-icon": HTMLKupIconElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
@@ -1967,21 +1919,6 @@ declare namespace LocalJSX {
             id: number;
         }>) => void;
     }
-    interface KupDashList {
-        "active"?: boolean;
-        "columnsNumber"?: number;
-        "data"?: TableData;
-        "fontsize"?: string;
-        "fullWidth"?: boolean;
-        "horizontal"?: boolean;
-        "iconColor"?: Array<any>;
-        "layout"?: string;
-        "onKetchupDashClicked"?: (event: CustomEvent<{
-            idx: number;
-        }>) => void;
-        "textColor"?: Array<any>;
-        "valueColor"?: Array<any>;
-    }
     interface KupDataTable {
         /**
           * Used to set custom columns width.
@@ -2354,28 +2291,6 @@ declare namespace LocalJSX {
           * The address which must be referenced by the iframe
          */
         "src"?: string;
-    }
-    interface KupIcon {
-        /**
-          * The color of the icon, defaults to the main color of the app.
-         */
-        "color"?: string;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle"?: string;
-        /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
-         */
-        "dimensions"?: string;
-        /**
-          * The name of the icon.
-         */
-        "name"?: string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type"?: string;
     }
     interface KupImage {
         "alt"?: string;
@@ -2987,7 +2902,6 @@ declare namespace LocalJSX {
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
-        "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-editor": KupEditor;
         "kup-field": KupField;
@@ -2995,7 +2909,6 @@ declare namespace LocalJSX {
         "kup-gauge": KupGauge;
         "kup-graphic-cell": KupGraphicCell;
         "kup-html": KupHtml;
-        "kup-icon": KupIcon;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
@@ -3033,7 +2946,6 @@ declare module "@stencil/core" {
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
-            "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
@@ -3041,7 +2953,6 @@ declare module "@stencil/core" {
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
             "kup-html": LocalJSX.KupHtml & JSXBase.HTMLAttributes<HTMLKupHtmlElement>;
-            "kup-icon": LocalJSX.KupIcon & JSXBase.HTMLAttributes<HTMLKupIconElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;

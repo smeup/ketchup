@@ -87,6 +87,7 @@ export class KupList {
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
     static ROLE_CHECKBOX: string = 'group';
+    static ROLE_IMAGELISTBOX: string = 'imagelistbox';
 
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
@@ -316,7 +317,7 @@ export class KupList {
         }
         let classAttr = 'mdc-list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
-        if (item.selected == true && this.isListBoxRule()) {
+        if (item.selected == true && this.isLikeListBoxRuleManaged()) {
             classAttr += ' mdc-list-item--selected';
         }
         let roleAttr = 'option';
@@ -390,6 +391,12 @@ export class KupList {
                     {secTextTag}
                 </label>,
             ];
+        } else if (this.isImageListBoxRule()) {
+            innerSpanTag = [
+                <span class="mdc-list-item__graphic">
+                    <kup-image />
+                </span>,
+            ];
         }
         return (
             <li
@@ -462,7 +469,7 @@ export class KupList {
     }
 
     isSingleSelection(): boolean {
-        return this.isRadioButtonRule() || this.isListBoxRule();
+        return this.isRadioButtonRule() || this.isLikeListBoxRuleManaged();
     }
 
     isMultiSelection(): boolean {
@@ -481,8 +488,20 @@ export class KupList {
         return this.roleType == KupList.ROLE_LISTBOX;
     }
 
+    isImageListBoxRule(): boolean {
+        return this.roleType == KupList.ROLE_IMAGELISTBOX;
+    }
+
+    isLikeListBoxRuleManaged(): boolean {
+        return this.isListBoxRule() || this.isImageListBoxRule();
+    }
+
     checkRoleType() {
-        if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
+        if (
+            !this.isCheckBoxRule() &&
+            !this.isRadioButtonRule() &&
+            !this.isImageListBoxRule()
+        ) {
             this.roleType = KupList.ROLE_LISTBOX;
         }
     }
