@@ -2956,7 +2956,7 @@ export class KupDataTable {
             selected: this.fontsize == 'big',
             icon: 'format-font-size-increase',
         };
-        let listData = { data: listItems, showIcon: true };
+        let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
             trailingIcon: true,
@@ -3027,7 +3027,7 @@ export class KupDataTable {
             selected: this.density == 'big',
             icon: 'view-sequential',
         };
-        let listData = { data: listItems, showIcon: true };
+        let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
             trailingIcon: true,
