@@ -813,9 +813,9 @@ export namespace Components {
          */
         "selectable": boolean;
         /**
-          * Used for enable image showing for each list item
+          * Displays the icons associated to each row when set to true.
          */
-        "showIcon": boolean;
+        "showIcons": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -2557,9 +2557,9 @@ declare namespace LocalJSX {
          */
         "selectable"?: boolean;
         /**
-          * Used for enable image showing for each list item
+          * Displays the icons associated to each row when set to true.
          */
-        "showIcon"?: boolean;
+        "showIcons"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */

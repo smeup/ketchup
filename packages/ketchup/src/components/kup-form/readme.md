@@ -126,7 +126,6 @@ Type: `Promise<FormCells>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-text-field](../kup-text-field)
 - [kup-button](../kup-button)
-- [kup-crud](../kup-crud)
 
 ### Graph
 ```mermaid
@@ -139,18 +138,15 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-text-field
   kup-form --> kup-button
-  kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-text-field --> kup-image
   kup-image --> kup-badge
   kup-image --> kup-spinner
   kup-badge --> kup-image
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-crud --> kup-button
-  kup-crud --> kup-modal
-  kup-crud --> kup-form
   kup-crud --> kup-form
   kup-button --> kup-image
   kup-autocomplete --> kup-text-field

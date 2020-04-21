@@ -136,78 +136,68 @@ export default {
         },
         {
           prop: 'arrowDown',
+          prop: 'showIons',
           description:
-            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
+            'Displays the icons associated to each row when set to true.',
           type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
+         default: 'false',
+         try: 'switch',
+       },
         {
-          prop: 'arrowUp',
-          description:
-            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
+         prop: 'twoine',
+         description:
+           'The list elements escriptions will be arranged in two lines.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'showIcon',
-          description: 'Allows to view an icon image for each list item',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
+        ,
       ],
-      demoEvents: [
+      demoEvens: [
         {
-          name: 'kupListClick',
-          type: 'click',
-        },
+          nme: 'kupListClick',
+         type: click',
+       },
         {
-          name: 'kupListChange',
+         name: 'kupListChange',
           type: 'change',
         },
         {
-          name: 'kupListInput',
-          type: 'input',
+          name: 'kupListInut',
+          type: 'input,
+        },
+        {          nme: 'kupLstFocus',
+         type: 'focs',
         },
         {
-          name: 'kupListFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupListBlur',
-          type: 'blur',
+         name: 'kupListBlur',
+          ype: 'blur,
         },
       ],
-      demoData: {
-        data: [
+      deoData: {
+        data: [          {
+           text: 'First choice',
+           value: '1',
+           icon: 'ad_alert',            trailingIcon: true,          },
           {
-            text: 'First choice',
-            value: '1',
-            icon: 'add_alert',
-            trailingIcon: true,
+           text: 'Seected choice',
+            vale: '2',
+            selcted: true,
+           icon: 'ac_unit'
           },
+         {
+           text: null,
+           value: null,
+           isSeparator: true,
+         },
           {
-            text: 'Selected choice',
-            value: '2',
-            selected: true,
-            icon: 'ac_unit',
-          },
-          {
-            text: null,
-            value: null,
-            isSeparator: true,
-          },
-          {
-            text: 'Third choice (below a separator)',
+            tex: 'Third choie (below a sparator)',
             value: '3',
-            icon: '3d_rotation',
+           icon: '3d_rottion',
           },
-        ],
-        selectable: true,
+       ],
+        selectable: true
       },
-    };
+   };
   },
-};
+;
 </script>

@@ -27,6 +27,11 @@ export class KupList {
     @Element() rootElement: HTMLElement;
 
     /**
+     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
+     */
+    @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
+    @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
+    /**
      * Sets a custom style for the component by feeding this string into a <style> tag.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
@@ -60,19 +65,13 @@ export class KupList {
      */
     @Prop({ reflect: true }) selectable: boolean = true;
     /**
+     * Displays the icons associated to each row when set to true.
+     */
+    @Prop({ reflect: true }) showIcons: boolean = false;
+    /**
      * The list elements descriptions will be arranged in two lines.
      */
     @Prop({ reflect: true }) twoLine: boolean = false;
-    /**
-     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-     */
-    @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
-    @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
-
-    /**
-     * Used for enable image showing for each list item
-     */
-    @Prop({ reflect: true }) showIcon: boolean = false;
 
     //---- Internal state ----
 
@@ -279,20 +278,13 @@ export class KupList {
             item.selected = false;
         }
 
-        let imageTag = [];
+        let imageTag: HTMLElement = undefined;
         if (
-            this.showIcon == true &&
+            this.showIcons == true &&
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            imageTag = [
-                <kup-image
-                    name={item.icon}
-                    sizeX={item.iconSizeX ? item.iconSizeX : '24px'}
-                    sizeY={item.iconSizeY ? item.iconSizeY : '24px'}
-                    title={item.iconTip ? item.iconTip : item.text}
-                />,
-            ];
+            imageTag = <kup-image name={item.icon} sizeX="24px" sizeY="24px" />;
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -337,12 +329,12 @@ export class KupList {
                     checked: item.selected == true ? true : false,
                 },
             ];
-            let aaa = {
+            let trickForMDC = {
                 display: 'none',
             };
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <input type="radio" style={aaa} />
+                    <input type="radio" style={trickForMDC} />
                     <kup-radio
                         name={this.rootElement.id + '_radio'}
                         data={dataTmp}
@@ -363,13 +355,13 @@ export class KupList {
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let checkedAttr: boolean = item.selected == true ? true : false;
 
-            let aaa = {
+            let trickForMDC = {
                 display: 'none',
             };
 
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <input type="checkbox" style={aaa} />
+                    <input type="checkbox" style={trickForMDC} />
                     <kup-checkbox
                         class="mdc-checkbox"
                         id={this.rootElement.id + '_' + index}
@@ -410,9 +402,8 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
-                {item.trailingIcon == true ? innerSpanTag : ''}
                 {imageTag}
-                {item.trailingIcon != true ? innerSpanTag : ''}
+                {innerSpanTag}
             </li>
         );
     }
