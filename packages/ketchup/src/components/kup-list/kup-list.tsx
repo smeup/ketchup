@@ -82,12 +82,16 @@ export class KupList {
     @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
     @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
 
+    /**
+     * Used for enable image showing for each list item
+     */
+    @Prop({ reflect: true }) showIcon: boolean = false;
+
     //---- Internal state ----
 
     static ROLE_LISTBOX: string = 'listbox';
     static ROLE_RADIOGROUP: string = 'radiogroup';
     static ROLE_CHECKBOX: string = 'group';
-    static ROLE_IMAGELISTBOX: string = 'imagelistbox';
 
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
@@ -300,6 +304,21 @@ export class KupList {
             item.selected = false;
         }
 
+        let imageTag = [];
+        if (
+            this.showIcon == true &&
+            item.icon != null &&
+            item.icon.trim() != ''
+        ) {
+            imageTag = [
+                <kup-image
+                    name={item.icon}
+                    sizeX={item.iconSizeX ? item.iconSizeX : '24px'}
+                    sizeY={item.iconSizeY ? item.iconSizeY : '24px'}
+                    title={item.iconTip ? item.iconTip : item.text}
+                />,
+            ];
+        }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
         ];
@@ -317,7 +336,7 @@ export class KupList {
         }
         let classAttr = 'mdc-list-item';
         let tabIndexAttr = item.selected == true ? '0' : '-1';
-        if (item.selected == true && this.isLikeListBoxRuleManaged()) {
+        if (item.selected == true && this.isListBoxRule()) {
             classAttr += ' mdc-list-item--selected';
         }
         let roleAttr = 'option';
@@ -391,12 +410,6 @@ export class KupList {
                     {secTextTag}
                 </label>,
             ];
-        } else if (this.isImageListBoxRule()) {
-            innerSpanTag = [
-                <span class="mdc-list-item__graphic">
-                    <kup-image />
-                </span>,
-            ];
         }
         return (
             <li
@@ -422,7 +435,9 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
-                {innerSpanTag}
+                {item.trailingIcon == true ? innerSpanTag : ''}
+                {imageTag}
+                {item.trailingIcon != true ? innerSpanTag : ''}
             </li>
         );
     }
@@ -469,7 +484,7 @@ export class KupList {
     }
 
     isSingleSelection(): boolean {
-        return this.isRadioButtonRule() || this.isLikeListBoxRuleManaged();
+        return this.isRadioButtonRule() || this.isListBoxRule();
     }
 
     isMultiSelection(): boolean {
@@ -488,20 +503,8 @@ export class KupList {
         return this.roleType == KupList.ROLE_LISTBOX;
     }
 
-    isImageListBoxRule(): boolean {
-        return this.roleType == KupList.ROLE_IMAGELISTBOX;
-    }
-
-    isLikeListBoxRuleManaged(): boolean {
-        return this.isListBoxRule() || this.isImageListBoxRule();
-    }
-
     checkRoleType() {
-        if (
-            !this.isCheckBoxRule() &&
-            !this.isRadioButtonRule() &&
-            !this.isImageListBoxRule()
-        ) {
+        if (!this.isCheckBoxRule() && !this.isRadioButtonRule()) {
             this.roleType = KupList.ROLE_LISTBOX;
         }
     }

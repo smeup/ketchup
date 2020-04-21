@@ -5,17 +5,16 @@ export interface ComponentListElement {
     isSeparator?: boolean;
     selected?: boolean;
     icon?: string;
-    iconHeight?: string;
-    iconWidth?: string;
+    iconSizeX?: string;
+    iconSizeY?: string;
     iconTip?: string;
+    trailingIcon?: boolean;
 }
 
 export enum ItemsDisplayMode {
     CODE = 'code',
     DESCRIPTION = 'description',
     DESCRIPTION_AND_CODE = 'both',
-    ICON = 'icon',
-    DESCRIPTION_AND_ICON = 'icon_description',
 }
 
 export function getValueOfItemByDisplayMode(
