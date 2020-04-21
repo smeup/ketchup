@@ -2974,7 +2974,6 @@ export class KupDataTable {
         );
     }
 
-    // cacca - da modificare
     private renderFontSizePanel(top: boolean) {
         let fontSize: string;
         {
