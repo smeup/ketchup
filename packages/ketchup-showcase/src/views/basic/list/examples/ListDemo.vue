@@ -97,6 +97,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'hideText',
+          description:
+            "Hides rows' text, ideally to display a list of icons only.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'isMenu',
           description: 'Defines whether the list is a menu or not.',
           type: 'boolean',

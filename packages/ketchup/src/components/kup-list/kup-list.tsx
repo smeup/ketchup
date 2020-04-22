@@ -17,6 +17,7 @@ import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
+import { KupImage } from '../kup-image/kup-image';
 
 @Component({
     tag: 'kup-list',
@@ -48,6 +49,10 @@ export class KupList {
      * Keeps string for filtering elements when filter mode is active
      */
     @Prop({ reflect: true }) filter: string = '';
+    /**
+     * Hides rows' text, ideally to display a list of icons only.
+     */
+    @Prop({ reflect: true }) hideText: boolean = false;
     /**
      * Defines whether the list is a menu or not.
      */
@@ -191,6 +196,7 @@ export class KupList {
     /**
      * --- Methods ----
      */
+
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
             selected: item,
@@ -278,7 +284,7 @@ export class KupList {
             item.selected = false;
         }
 
-        let imageTag: HTMLElement = undefined;
+        let imageTag: KupImage = undefined;
         if (
             this.showIcons == true &&
             item.icon != null &&
@@ -314,6 +320,7 @@ export class KupList {
             ariaSelectedAttr = null;
         }
         let innerSpanTag = [
+            <span class="row-icon">{imageTag}</span>,
             <span class="mdc-list-item__text">
                 {primaryTextTag}
                 {secTextTag}
@@ -342,6 +349,7 @@ export class KupList {
                         ref={(el) => (this.radios[index] = el as any)}
                     ></kup-radio>
                 </span>,
+                <span class="row-icon">{imageTag}</span>,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -369,6 +377,7 @@ export class KupList {
                         ref={(el) => (this.checkboxes[index] = el as any)}
                     ></kup-checkbox>
                 </span>,
+                <span class="row-icon">{imageTag}</span>,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -402,7 +411,6 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
-                {imageTag}
                 {innerSpanTag}
             </li>
         );
@@ -495,7 +503,7 @@ export class KupList {
         }
     }
 
-    itemComplient(item: ComponentListElement): boolean {
+    itemCompliant(item: ComponentListElement): boolean {
         if (item.isSeparator) {
             return true;
         }
@@ -521,6 +529,7 @@ export class KupList {
     }
 
     render() {
+        let componentClass: string = 'mdc-list';
         let wrapperClass = undefined;
         let customStyle = undefined;
         if (this.customStyle) {
@@ -537,14 +546,18 @@ export class KupList {
 
         this.checkRoleType();
 
-        //---- Rendering ----
-        let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
             componentClass += ' mdc-list--non-interactive';
         }
+
         if (this.twoLine) {
             componentClass += ' mdc-list--two-line';
         }
+
+        if (this.hideText) {
+            componentClass += ' text-hidden';
+        }
+
         let roleAttr = this.roleType;
 
         let ariaMultiSelectable: string = 'false';
@@ -568,7 +581,7 @@ export class KupList {
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data
-                            .filter((item) => this.itemComplient(item))
+                            .filter((item) => this.itemCompliant(item))
                             .map((item) =>
                                 item.isSeparator
                                     ? this.renderSeparator()

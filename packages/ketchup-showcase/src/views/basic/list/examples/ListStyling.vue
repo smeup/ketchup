@@ -29,8 +29,31 @@
         <div class="kup-container">
           <kup-list show-icons selectable="false" :data.prop="dataLIST" role-type="listbox"></kup-list>
         </div>
-        <p class="centered">Sample two line markup</p>
+        <p class="centered">Sample icons markup</p>
         <code class="flat">{{ markupIcons }}</code>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        Icons can be also displayed without any text beside them by setting to true the
+        <span
+          class="code-word"
+        >hideText</span> prop.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-list
+            hide-text
+            show-icons
+            selectable="false"
+            :data.prop="dataLIST"
+            role-type="listbox"
+          ></kup-list>
+        </div>
+        <p class="centered">Sample icons without text markup</p>
+        <code class="flat">{{ markupIconsHideText }}</code>
       </div>
     </div>
   </div>
@@ -63,6 +86,7 @@ export default {
       ],
       markupTwoline: '<kup-list two-line></kup-list>',
       markupIcons: '<kup-list show-icons></kup-list>',
+      markupIconsHideText: '<kup-list hide-text show-icons></kup-list>',
     };
   },
 };
