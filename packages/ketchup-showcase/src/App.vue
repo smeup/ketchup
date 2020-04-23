@@ -16,6 +16,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
+
           <v-list dense>
             <v-list-group v-for="(section, j) in group.items" :key="j">
               <template v-slot:activator>
@@ -33,6 +34,25 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
+
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
+
+            <v-list-tile v-for="route in group.cssItems" :key="route.to.name" :to="route.to">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
           <v-list dense>
             <v-list-group v-for="(section, j) in group.items" :key="j">
               <template v-slot:activator>
@@ -69,15 +89,6 @@
             </v-list-tile>
           </v-list>
         </v-list-group>
-        <v-list>
-          <v-list-tile :to="{
-              name: 'theming',
-            }">
-            <v-list-tile-content>
-              <v-list-tile-title>Theming</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
       </v-list>
     </v-navigation-drawer>
 
@@ -304,7 +315,24 @@ export default {
         ],
       },
       {
-        title: 'Javascript',
+        title: 'CSS',
+        cssItems: [
+          {
+            title: 'Customization',
+            to: {
+              name: 'customization',
+            },
+          },
+          {
+            title: 'Theming',
+            to: {
+              name: 'theming',
+            },
+          },
+        ],
+      },
+      {
+        title: 'JavaScript',
         javascriptItems: [
           {
             title: 'Error logging',
