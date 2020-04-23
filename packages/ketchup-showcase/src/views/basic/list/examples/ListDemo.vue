@@ -135,16 +135,16 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'twoLine',
-          description:
-            'The list elements descriptions will be arranged in two lines.',
+          prop: 'showIcons',
+          description: 'Allows to view an icon image for each list item',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'showIcons',
-          description: 'Allows to view an icon image for each list item',
+          prop: 'twoLine',
+          description:
+            'The list elements descriptions will be arranged in two lines.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
