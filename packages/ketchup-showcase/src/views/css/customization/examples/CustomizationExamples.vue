@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>Text field with Courier font. Both input and label elements were selected and the !important notation was used to override defaults.</p>
+      <p>Text field with Courier font.</p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
-            custom-style="#kup-component input, #kup-component label{ font-family: Courier, sans-serif !important; }"
+            custom-style="#kup-component input, #kup-component label{ font-family: Courier, sans-serif; }"
             label="Courier font"
           ></kup-text-field>
         </div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="demo-wrapper">
-      <p>Flat button with underlined text. No need for !important here because the text-decoration rule was not set by the component's default.</p>
+      <p>Flat button with underlined text.</p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
@@ -38,7 +38,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip kup-image { --kup-icon-color: pink; }"
+            custom-style="#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component .mdc-chip kup-image { --kup-icon-color: pink; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -53,7 +53,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }"
+            custom-style="#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -112,7 +112,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
-            custom-style="#kup-component input { color: blue !important; font-weight: bold !important; }"
+            custom-style="#kup-component input { color: blue; font-weight: bold; }"
             initial-value="Blue and bold"
           ></kup-text-field>
         </div>
@@ -170,20 +170,19 @@ export default {
         },
       ],
       markup1:
-        '#kup-component input, #kup-component label{ font-family: Courier, sans-serif !important; }',
+        '#kup-component input, #kup-component label{ font-family: Courier, sans-serif; }',
       markup2: '#kup-component button { text-decoration: underline; }',
       markup3:
-        '#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component kup-image { --kup-icon-color: pink; }',
+        '#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component kup-image { --kup-icon-color: pink; }',
       markup4:
-        '#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }',
+        '#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }',
 
       markup5:
         '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-main-color); }',
       markup6:
         '#kup-component .mdc-checkbox.mdc-checkbox--checked .mdc-checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }',
       markup7: '#kup-component .mdc-tab__text-label { font-style: italic; }',
-      markup8:
-        '#kup-component input { color: blue !important; font-weight: bold !important; }',
+      markup8: '#kup-component input { color: blue; font-weight: bold; }',
       markup9:
         '#kup-component { box-shadow: 0 0 0 purple; animation: pulse 2s infinite; border-radius: 4px; } #kup-component:hover { animation: none; } #kup-component button { background-color: purple; } @-webkit-keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 purple; } 70% { -webkit-box-shadow: 0 0 5px 5px transparent; } 100% { -webkit-box-shadow: 0 0 0 0 transparent; }}@keyframes pulse { 0% { -moz-box-shadow: 0 0 0 0 purple; box-shadow: 0 0 0 0 purple; }  70% { -moz-box-shadow: 0 0 5px 5px transparent; box-shadow: 0 0 5px 5px transparent; }  100% { -moz-box-shadow: 0 0 0 0 transparent; box-shadow: 0 0 0 0 transparent; }}',
     };

@@ -11,13 +11,6 @@
     min-width: 1.35rem;
     padding: 0.2rem;
     text-align: center;
-
-    & kup-image {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 }
 
@@ -43,4 +36,11 @@
   bottom: 0;
   left: 0;
   transform: translate(-50%, 50%);
+}
+
+kup-image {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

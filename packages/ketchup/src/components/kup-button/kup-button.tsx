@@ -307,7 +307,7 @@ export class KupButton {
 
                 leadingEl = (
                     <kup-image
-                        color={this.iconColor}
+                        color={iconColor}
                         class="material-icons mdc-icon-button__icon"
                         sizeX="18px"
                         sizeY="18px"
