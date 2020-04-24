@@ -60,10 +60,6 @@ describe('kup-btn', () => {
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('kup-image >>> div > svg');
-            expect(icon).toBeNull();
-
             expect(button).toHaveClasses(['kup-button', 'mdc-button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
@@ -113,9 +109,6 @@ describe('kup-btn', () => {
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('kup-image >>> div');
-            expect(icon).not.toBeNull();
             //expect(icon.innerHTML).toContain(buttons[i].icon);
 
             expect(button).toHaveClasses(['kup-button', 'mdc-button']);

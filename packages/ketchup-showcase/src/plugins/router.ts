@@ -26,6 +26,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/autocomplete/Autocomplete.vue`),
   },
   {
+    path: `/badge`,
+    name: 'badge',
+    component: () => import(`@/views/basic/badge/Badge.vue`),
+  },
+  {
     path: `/button`,
     name: 'button',
     component: () => import(`@/views/basic/button/Button.vue`),
@@ -46,14 +51,19 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
-    path: `/icon`,
-    name: 'icon',
-    component: () => import(`@/views/basic/icon/Icon.vue`),
+    path: `/image`,
+    name: 'image',
+    component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
     path: `/list`,
     name: 'list',
     component: () => import(`@/views/basic/list/List.vue`),
+  },
+  {
+    path: `/progressbar`,
+    name: 'progressbar',
+    component: () => import(`@/views/basic/progressbar/Progressbar.vue`),
   },
   {
     path: `/radio`,
