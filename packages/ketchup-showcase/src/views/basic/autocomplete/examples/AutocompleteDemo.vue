@@ -71,7 +71,7 @@ export default {
           description:
             'The minimum number of chars to trigger the autocomplete.',
           type: 'number',
-          default: '3',
+          default: '1',
           try: 'field',
         },
         {

@@ -339,13 +339,16 @@ export namespace Components {
           * Custom style to be passed to the component.
          */
         "customStyle": string;
+        /**
+          * Lets the combobox behave as a select element.
+         */
         "isSelect": boolean;
         /**
           * Props of the list.
          */
         "listData": Object;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -772,7 +775,7 @@ export namespace Components {
     }
     interface KupList {
         /**
-          * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
          */
         "arrowDown": boolean;
         "arrowUp": boolean;
@@ -1022,7 +1025,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
+          * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
          */
         "emitSubmitEventOnEnter": boolean;
         /**
@@ -1077,6 +1080,9 @@ export namespace Components {
           * Defaults at false. When set to true, the component will be rendered as an outlined field.
          */
         "outlined": boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+         */
         "readOnly": boolean;
         /**
           * Defaults at false. When set to true, the button will be rendered with shaped edges.
@@ -1941,6 +1947,9 @@ declare namespace LocalJSX {
           * Custom style to be passed to the component.
          */
         "customStyle"?: string;
+        /**
+          * Lets the combobox behave as a select element.
+         */
         "isSelect"?: boolean;
         /**
           * Props of the list.
@@ -1974,7 +1983,7 @@ declare namespace LocalJSX {
             value: any;
         }>) => void;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -2484,7 +2493,7 @@ declare namespace LocalJSX {
     }
     interface KupList {
         /**
-          * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
          */
         "arrowDown"?: boolean;
         "arrowUp"?: boolean;
@@ -2818,7 +2827,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
+          * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
          */
         "emitSubmitEventOnEnter"?: boolean;
         /**
@@ -2900,6 +2909,9 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component will be rendered as an outlined field.
          */
         "outlined"?: boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+         */
         "readOnly"?: boolean;
         /**
           * Defaults at false. When set to true, the button will be rendered with shaped edges.
