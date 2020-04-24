@@ -18,6 +18,13 @@
         opacity: 1;
       }
     }
+
+    & .mdc-list.text-hidden {
+      & .mdc-list-item__text {
+        display: none;
+      }
+    }
+
     & .mdc-list:not(.mdc-list--two-line) {
       @include mdc-list-single-line-density(-4);
 
@@ -29,6 +36,15 @@
     & .mdc-list-item__secondary-text {
       color: var(--kup-text-color);
       opacity: 0.75;
+    }
+
+    & kup-image {
+      margin-right: 6px;
+      --kup-icon-color: var(--kup-text-color);
+    }
+
+    & .mdc-list-item--selected kup-image {
+      --kup-icon-color: var(--kup-main-color);
     }
   }
 }

@@ -796,6 +796,10 @@ export namespace Components {
          */
         "filter": string;
         /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText": boolean;
+        /**
           * Defines whether the list is a menu or not.
          */
         "isMenu": boolean;
@@ -812,6 +816,10 @@ export namespace Components {
           * Defines whether items are selectable or not.
          */
         "selectable": boolean;
+        /**
+          * Displays the icons associated to each row when set to true.
+         */
+        "showIcons": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -2514,6 +2522,10 @@ declare namespace LocalJSX {
          */
         "filter"?: string;
         /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText"?: boolean;
+        /**
           * Defines whether the list is a menu or not.
          */
         "isMenu"?: boolean;
@@ -2552,6 +2564,10 @@ declare namespace LocalJSX {
           * Defines whether items are selectable or not.
          */
         "selectable"?: boolean;
+        /**
+          * Displays the icons associated to each row when set to true.
+         */
+        "showIcons"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */

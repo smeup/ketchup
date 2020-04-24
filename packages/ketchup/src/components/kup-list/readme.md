@@ -13,10 +13,12 @@
 | `data`        | --             | The data of the list.                                                            | `ComponentListElement[]`                                                                         | `[]`                           |
 | `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for. | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
 | `filter`      | `filter`       | Keeps string for filtering elements when filter mode is active                   | `string`                                                                                         | `''`                           |
+| `hideText`    | `hide-text`    | Hides rows' text, ideally to display a list of icons only.                       | `boolean`                                                                                        | `false`                        |
 | `isMenu`      | `is-menu`      | Defines whether the list is a menu or not.                                       | `boolean`                                                                                        | `false`                        |
 | `menuVisible` | `menu-visible` | Sets the status of the menu, when false it's hidden otherwise it's visible.      | `boolean`                                                                                        | `false`                        |
 | `roleType`    | `role-type`    | Defines the type of selection. Values accepted: listbox, radiogroup or group.    | `string`                                                                                         | `KupList.ROLE_LISTBOX`         |
 | `selectable`  | `selectable`   | Defines whether items are selectable or not.                                     | `boolean`                                                                                        | `true`                         |
+| `showIcons`   | `show-icons`   | Displays the icons associated to each row when set to true.                      | `boolean`                                                                                        | `false`                        |
 | `twoLine`     | `two-line`     | The list elements descriptions will be arranged in two lines.                    | `boolean`                                                                                        | `false`                        |
 
 
@@ -53,14 +55,19 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-image](../kup-image)
 - [kup-radio](../kup-radio)
 - [kup-checkbox](../kup-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px

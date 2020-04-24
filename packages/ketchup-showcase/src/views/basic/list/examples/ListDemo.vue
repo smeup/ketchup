@@ -52,7 +52,7 @@ export default {
         {
           prop: 'arrowDown',
           description:
-            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+            'Allows to execute arrow down operation on th list, from external component. Used in autocomplete field and combobox field.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -60,7 +60,7 @@ export default {
         {
           prop: 'arrowUp',
           description:
-            "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+            'Allows to execute arrow up operation on the list, from external component. Used in autocomplete field and combobox field.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -97,6 +97,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'hideText',
+          description:
+            "Hides rows' text, ideally to display a list of icons only.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'isMenu',
           description: 'Defines whether the list is a menu or not.',
           type: 'boolean',
@@ -124,6 +132,13 @@ export default {
           description: 'Defines whether items are selectable or not.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showIcons',
+          description: 'Allows to view an icon image for each list item',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {
@@ -162,11 +177,14 @@ export default {
           {
             text: 'First choice',
             value: '1',
+            icon: 'add_alert',
+            trailingIcon: true,
           },
           {
             text: 'Selected choice',
             value: '2',
             selected: true,
+            icon: 'ac_unit',
           },
           {
             text: null,
@@ -176,6 +194,7 @@ export default {
           {
             text: 'Third choice (below a separator)',
             value: '3',
+            icon: '3d_rotation',
           },
         ],
         selectable: true,

@@ -17,6 +17,7 @@ import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
+import { KupImage } from '../kup-image/kup-image';
 
 @Component({
     tag: 'kup-list',
@@ -26,6 +27,11 @@ import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 export class KupList {
     @Element() rootElement: HTMLElement;
 
+    /**
+     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
+     */
+    @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
+    @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
     /**
      * Sets a custom style for the component by feeding this string into a <style> tag.
      */
@@ -44,6 +50,10 @@ export class KupList {
      */
     @Prop({ reflect: true }) filter: string = '';
     /**
+     * Hides rows' text, ideally to display a list of icons only.
+     */
+    @Prop({ reflect: true }) hideText: boolean = false;
+    /**
      * Defines whether the list is a menu or not.
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
@@ -60,14 +70,13 @@ export class KupList {
      */
     @Prop({ reflect: true }) selectable: boolean = true;
     /**
+     * Displays the icons associated to each row when set to true.
+     */
+    @Prop({ reflect: true }) showIcons: boolean = false;
+    /**
      * The list elements descriptions will be arranged in two lines.
      */
     @Prop({ reflect: true }) twoLine: boolean = false;
-    /**
-     * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
-     */
-    @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
-    @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
 
     //---- Internal state ----
 
@@ -187,6 +196,7 @@ export class KupList {
     /**
      * --- Methods ----
      */
+
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
             selected: item,
@@ -274,6 +284,14 @@ export class KupList {
             item.selected = false;
         }
 
+        let imageTag: KupImage = undefined;
+        if (
+            this.showIcons == true &&
+            item.icon != null &&
+            item.icon.trim() != ''
+        ) {
+            imageTag = <kup-image name={item.icon} sizeX="24px" sizeY="24px" />;
+        }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
         ];
@@ -302,6 +320,7 @@ export class KupList {
             ariaSelectedAttr = null;
         }
         let innerSpanTag = [
+            <span class="row-icon">{imageTag}</span>,
             <span class="mdc-list-item__text">
                 {primaryTextTag}
                 {secTextTag}
@@ -317,12 +336,12 @@ export class KupList {
                     checked: item.selected == true ? true : false,
                 },
             ];
-            let aaa = {
+            let trickForMDC = {
                 display: 'none',
             };
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <input type="radio" style={aaa} />
+                    <input type="radio" style={trickForMDC} />
                     <kup-radio
                         name={this.rootElement.id + '_radio'}
                         data={dataTmp}
@@ -330,6 +349,7 @@ export class KupList {
                         ref={(el) => (this.radios[index] = el as any)}
                     ></kup-radio>
                 </span>,
+                <span class="row-icon">{imageTag}</span>,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -343,13 +363,13 @@ export class KupList {
             ariaCheckedAttr = item.selected == true ? 'true' : 'false';
             let checkedAttr: boolean = item.selected == true ? true : false;
 
-            let aaa = {
+            let trickForMDC = {
                 display: 'none',
             };
 
             innerSpanTag = [
                 <span class="mdc-list-item__graphic">
-                    <input type="checkbox" style={aaa} />
+                    <input type="checkbox" style={trickForMDC} />
                     <kup-checkbox
                         class="mdc-checkbox"
                         id={this.rootElement.id + '_' + index}
@@ -357,6 +377,7 @@ export class KupList {
                         ref={(el) => (this.checkboxes[index] = el as any)}
                     ></kup-checkbox>
                 </span>,
+                <span class="row-icon">{imageTag}</span>,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -482,7 +503,7 @@ export class KupList {
         }
     }
 
-    itemComplient(item: ComponentListElement): boolean {
+    itemCompliant(item: ComponentListElement): boolean {
         if (item.isSeparator) {
             return true;
         }
@@ -508,6 +529,7 @@ export class KupList {
     }
 
     render() {
+        let componentClass: string = 'mdc-list';
         let wrapperClass = undefined;
         let customStyle = undefined;
         if (this.customStyle) {
@@ -524,14 +546,18 @@ export class KupList {
 
         this.checkRoleType();
 
-        //---- Rendering ----
-        let componentClass: string = 'mdc-list';
         if (this.selectable != true) {
             componentClass += ' mdc-list--non-interactive';
         }
+
         if (this.twoLine) {
             componentClass += ' mdc-list--two-line';
         }
+
+        if (this.hideText) {
+            componentClass += ' text-hidden';
+        }
+
         let roleAttr = this.roleType;
 
         let ariaMultiSelectable: string = 'false';
@@ -555,7 +581,7 @@ export class KupList {
                         aria-multiselectable={ariaMultiSelectable}
                     >
                         {this.data
-                            .filter((item) => this.itemComplient(item))
+                            .filter((item) => this.itemCompliant(item))
                             .map((item) =>
                                 item.isSeparator
                                     ? this.renderSeparator()
