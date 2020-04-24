@@ -19,6 +19,19 @@
 | `layout`       | `layout`        | Sets the layout of the spinner.                                                                | `number`  | `1`         |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-image](../kup-image)
+
+### Graph
+```mermaid
+graph TD;
+  kup-image --> kup-spinner
+  style kup-spinner fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -50,12 +50,15 @@
 
 ### Depends on
 
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-button --> kup-icon
+  kup-button --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button

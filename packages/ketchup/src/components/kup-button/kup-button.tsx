@@ -206,12 +206,13 @@ export class KupButton {
                     }
                 }
                 iconEl = (
-                    <kup-icon
+                    <kup-image
                         color={iconColor}
                         class="material-icons mdc-button__icon"
-                        dimensions="18px"
+                        sizeX="18px"
+                        sizeY="18px"
                         name={this.icon}
-                    ></kup-icon>
+                    ></kup-image>
                 );
             }
 
@@ -273,22 +274,24 @@ export class KupButton {
             }
             componentClass += ' mdc-icon-button';
             trailingEl = (
-                <kup-icon
+                <kup-image
                     color={iconColor}
                     class="material-icons mdc-icon-button__icon"
-                    dimensions="18px"
+                    sizeX="18px"
+                    sizeY="18px"
                     name={this.icon}
-                ></kup-icon>
+                ></kup-image>
             );
             if (this.toggable) {
                 componentClass += ' toggable';
                 trailingEl = (
-                    <kup-icon
+                    <kup-image
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        dimensions="18px"
+                        sizeX="18px"
+                        sizeY="18px"
                         name={this.icon}
-                    ></kup-icon>
+                    ></kup-image>
                 );
                 if (this.checked) {
                     componentClass += ' mdc-icon-button--on';
@@ -302,12 +305,13 @@ export class KupButton {
                 }
 
                 leadingEl = (
-                    <kup-icon
+                    <kup-image
                         color={this.iconColor}
                         class="material-icons mdc-icon-button__icon"
-                        dimensions="18px"
+                        sizeX="18px"
+                        sizeY="18px"
                         name={iconOff}
-                    ></kup-icon>
+                    ></kup-image>
                 );
             }
             return (

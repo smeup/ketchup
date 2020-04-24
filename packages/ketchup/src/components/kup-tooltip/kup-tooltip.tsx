@@ -267,7 +267,11 @@ export class KupTooltip {
     private getDefaultLayout() {
         return [
             <div class="left">
-                <img src={this.getImage()} width="75" height="75" />
+                <kup-image
+                    name={this.getImage()}
+                    sizeX="75px"
+                    sizeY="75px"
+                ></kup-image>
             </div>,
             <div class="right">
                 <h3>{this.getTitle()}</h3>
@@ -328,9 +332,9 @@ export class KupTooltip {
 
         // vertical position
         if (window.innerHeight - rect.bottom < threshold) {
-            this.tooltipPosition.bottom = `${window.innerHeight -
-                rect.top +
-                3}px`;
+            this.tooltipPosition.bottom = `${
+                window.innerHeight - rect.top + 3
+            }px`;
         } else {
             this.tooltipPosition.top = `${rect.bottom + 3}px`;
         }

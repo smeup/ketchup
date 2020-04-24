@@ -183,12 +183,6 @@ export default {
             },
           },
           {
-            title: `Image`,
-            to: {
-              name: 'image',
-            },
-          },
-          {
             title: `Image button`,
             to: {
               name: 'imagebutton',
@@ -198,12 +192,6 @@ export default {
             title: `Menu`,
             to: {
               name: 'menu',
-            },
-          },
-          {
-            title: 'Progress bar',
-            to: {
-              name: 'progressbar',
             },
           },
           {
@@ -236,6 +224,12 @@ export default {
             },
           },
           {
+            title: `Badge`,
+            to: {
+              name: 'badge',
+            },
+          },
+          {
             title: `Button`,
             to: {
               name: 'button',
@@ -260,15 +254,21 @@ export default {
             },
           },
           {
-            title: `Icon`,
+            title: `Image`,
             to: {
-              name: 'icon',
+              name: 'image',
             },
           },
           {
             title: `List`,
             to: {
               name: 'list',
+            },
+          },
+          {
+            title: 'Progress bar',
+            to: {
+              name: 'progressbar',
             },
           },
           {
