@@ -74,20 +74,20 @@ export default {
           try: 'json',
         },
         {
-          prop: 'textfieldData',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
-        },
-        {
           prop: 'selectMode',
           description:
             'Sets how the return the elected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
+        },
+        {
+          prop: 'textfieldData',
+          description:
+            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          type: 'Object',
+          default: '{}',
+          try: 'json',
         },
       ],
       demoEvents: [

@@ -76,7 +76,7 @@
           class="code-word"
         >icon</span> and specify a value supported by the
         <a
-          href="https://ketchup.smeup.com/ketchup-showcase/#/icon"
+          href="https://ketchup.smeup.com/ketchup-showcase/#/image"
         >Ketch.UP Icon component</a>. It's important to specify both
         <span class="code-word">label</span> and
         <span class="code-word">icon</span> attributes in this case, because

@@ -51,13 +51,6 @@ export default {
           try: 'css',
         },
         {
-          prop: 'hideLabel',
-          description: "Flag to show or hide the progress bar's label.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'hasPadding',
           description:
             'Sets a padding between the bar and its container. Not supported for the radial variant.',
@@ -69,6 +62,13 @@ export default {
           prop: 'hasStripes',
           description:
             'Sets a striped background. Not supported for the radial variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'hideLabel',
+          description: "Flag to show or hide the progress bar's label.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
