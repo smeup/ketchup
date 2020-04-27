@@ -689,17 +689,17 @@ export namespace Components {
         "value": string;
         "width": number;
     }
-    interface KupHtml {
+    interface KupIframe {
         /**
-          * If true, the kup-html takes the shape of a button
+          * Props of the button (when isButton is set to true).
+         */
+        "buttonData": Object;
+        /**
+          * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton": boolean;
         /**
-          * The label to show when button isButton is active
-         */
-        "label": string;
-        /**
-          * The address which must be referenced by the iframe
+          * The address the iframe should be referencing to.
          */
         "src": string;
     }
@@ -1315,11 +1315,11 @@ declare global {
         prototype: HTMLKupGraphicCellElement;
         new (): HTMLKupGraphicCellElement;
     };
-    interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {
+    interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
     }
-    var HTMLKupHtmlElement: {
-        prototype: HTMLKupHtmlElement;
-        new (): HTMLKupHtmlElement;
+    var HTMLKupIframeElement: {
+        prototype: HTMLKupIframeElement;
+        new (): HTMLKupIframeElement;
     };
     interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {
     }
@@ -1445,7 +1445,7 @@ declare global {
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
         "kup-graphic-cell": HTMLKupGraphicCellElement;
-        "kup-html": HTMLKupHtmlElement;
+        "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
@@ -2398,25 +2398,19 @@ declare namespace LocalJSX {
         "value"?: string;
         "width"?: number;
     }
-    interface KupHtml {
+    interface KupIframe {
         /**
-          * If true, the kup-html takes the shape of a button
+          * Props of the button (when isButton is set to true).
+         */
+        "buttonData"?: Object;
+        /**
+          * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
         "isButton"?: boolean;
+        "onKupIframeError"?: (event: CustomEvent<any>) => void;
+        "onKupIframeLoad"?: (event: CustomEvent<any>) => void;
         /**
-          * The label to show when button isButton is active
-         */
-        "label"?: string;
-        /**
-          * When loading the frame has thrown an error
-         */
-        "onKetchupHtmlError"?: (event: CustomEvent<any>) => void;
-        /**
-          * When the iframe has been loaded
-         */
-        "onKetchupHtmlLoaded"?: (event: CustomEvent<any>) => void;
-        /**
-          * The address which must be referenced by the iframe
+          * The address the iframe should be referencing to.
          */
         "src"?: string;
     }
@@ -3103,7 +3097,7 @@ declare namespace LocalJSX {
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
         "kup-graphic-cell": KupGraphicCell;
-        "kup-html": KupHtml;
+        "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
@@ -3148,7 +3142,7 @@ declare module "@stencil/core" {
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
-            "kup-html": LocalJSX.KupHtml & JSXBase.HTMLAttributes<HTMLKupHtmlElement>;
+            "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
