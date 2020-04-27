@@ -2600,7 +2600,6 @@ export class KupDataTable {
             return (
                 <kup-button
                     icon={action.icon}
-                    label={action.text}
                     tooltip={action.text}
                     onKupButtonClick={(e) => {
                         this.onDefaultRowActionClick(e, {
