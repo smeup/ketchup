@@ -19,6 +19,12 @@
       }
     }
 
+    & .mdc-list.text-hidden {
+      & .mdc-list-item__text {
+        display: none;
+      }
+    }
+
     & .mdc-list:not(.mdc-list--two-line) {
       @include mdc-list-single-line-density(-4);
 

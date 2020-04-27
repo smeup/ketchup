@@ -19,6 +19,11 @@
         <span class="code-word">isSeparator</span> is optional and will set the item to behave as a separator.
         <br />
         <span class="code-word">selected</span> is optional and defines whether the tab is selected or not.
+        <br />
+        <span class="code-word">icon</span> is optional and it's the icon associated to the row, it will be displayed through the Image component: any value supported can be found in the
+        <a
+          href="https://ketchup.smeup.com/ketchup-showcase/#/image"
+        >Image</a> page.
       </p>
       <br />
       <p class="centered">Sample markup</p>

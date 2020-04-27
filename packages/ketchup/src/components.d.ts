@@ -796,6 +796,10 @@ export namespace Components {
          */
         "filter": string;
         /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText": boolean;
+        /**
           * Defines whether the list is a menu or not.
          */
         "isMenu": boolean;
@@ -2517,6 +2521,10 @@ declare namespace LocalJSX {
           * Keeps string for filtering elements when filter mode is active
          */
         "filter"?: string;
+        /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText"?: boolean;
         /**
           * Defines whether the list is a menu or not.
          */
