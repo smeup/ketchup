@@ -1518,6 +1518,18 @@ export class KupDataTable {
         return 'sort';
     }
 
+    private getSortDecode(columnName: string): string {
+        // check if column in sort array
+        for (let sortObj of this.sort) {
+            if (sortObj.column === columnName) {
+                return 'A' === sortObj.sortMode ? 'Ascending' : 'Descending';
+            }
+        }
+
+        // default
+        return 'Sort column';
+    }
+
     private calculateColspan() {
         let colSpan = this.getVisibleColumns().length;
 
@@ -1771,14 +1783,14 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    column.obj ? isNumber(column.obj) : false
+                    isNumber(column.obj)
                 );
 
                 //---- Filter ----
                 let filter = null;
 
                 if (this.hasFiltersForColumn(column.name)) {
-                    const svgLabel = `Rimuovi filtro: '${this.getFilterValueForTooltip(
+                    const svgLabel = `Remouve filter(s): '${this.getFilterValueForTooltip(
                         column.name
                     )}'`;
                     /**
@@ -1814,7 +1826,7 @@ export class KupDataTable {
                         <span class="column-sort">
                             <kup-image
                                 name={this.getSortIcon(column.name)}
-                                title="Sort column"
+                                title={this.getSortDecode(column.name)}
                                 sizeX="18px"
                                 sizeY="18px"
                             />
@@ -1859,9 +1871,7 @@ export class KupDataTable {
                 //---- adding grouping ----
                 const group = this.getGroupByName(column.name);
                 const groupLabel =
-                    group != null
-                        ? 'Disattiva raggruppamento'
-                        : 'Attiva raggruppamento';
+                    group != null ? 'Disable grouping' : 'Enable grouping';
 
                 columnMenuItems.push(
                     <li role="menuitem">
@@ -1874,7 +1884,7 @@ export class KupDataTable {
                         />
                         <kup-button
                             icon="table-column-plus-after"
-                            tooltip="Aggiungi colonna"
+                            tooltip="Add column"
                             onKupButtonClick={() => {
                                 this.kupAddColumn.emit({ column: column.name });
                                 this.closeMenu();
@@ -1890,7 +1900,7 @@ export class KupDataTable {
                     columnMenuItems.push(
                         <li role="menuitem">
                             <kup-text-field
-                                label="Filtra"
+                                label="Filter"
                                 icon="information-variant"
                                 outlined={false}
                                 trailingIcon={true}
@@ -1914,7 +1924,7 @@ export class KupDataTable {
                         columnMenuItems.push(
                             <li role="menuitem">
                                 <kup-checkbox
-                                    label={'(Tutti)'}
+                                    label={'(*All)'}
                                     checked={checkBoxesFilter.length == 0}
                                     onKupCheckboxChange={(e) => {
                                         this.onFilterChange2(
@@ -2061,9 +2071,7 @@ export class KupDataTable {
                     };
                 }
 
-                if (column.obj) {
-                    columnClass.number = isNumber(column.obj);
-                }
+                columnClass.number = isNumber(column.obj);
 
                 return (
                     <th
@@ -2172,7 +2180,7 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    column.obj ? isNumber(column.obj) : false
+                    isNumber(column.obj)
                 );
 
                 return (
@@ -2428,8 +2436,8 @@ export class KupDataTable {
                     rowActionExpander = (
                         <kup-button
                             icon="chevron-right"
-                            label="Espandi voci"
-                            tooltip="Espandi voci"
+                            label="Expand items"
+                            tooltip="Expand items"
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
@@ -2823,7 +2831,7 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = 'Mostra altri dati';
+        const label = 'Show more data';
         return (
             <kup-button
                 label={label}
@@ -2882,7 +2890,7 @@ export class KupDataTable {
 
                     <kup-button
                         icon="settings"
-                        tooltip="Mostra opzioni di personalizzazione"
+                        tooltip="Show personalize settings"
                         onKupButtonClick={() => {
                             this.onCustomSettingsClick(top);
                         }}
@@ -2910,58 +2918,75 @@ export class KupDataTable {
         );
     }
 
+    private transcodeItem(
+        item: string,
+        searchIn: Array<string>,
+        returnFrom: Array<string>
+    ): string {
+        for (let i = 0; i < searchIn.length; i++) {
+            let tmpCode = searchIn[i];
+            if (tmpCode == item && i < returnFrom.length) {
+                return returnFrom[i];
+            }
+        }
+        return item;
+    }
+
+    private createListData(
+        codes: Array<string>,
+        decodes: Array<string>,
+        icons: Array<string>,
+        selectedCode: string
+    ): ComponentListElement[] {
+        let listItems: ComponentListElement[] = [];
+        for (let i = 0; i < codes.length; i++) {
+            listItems[i] = {
+                text: decodes[i],
+                value: codes[i],
+                selected: selectedCode == codes[i],
+                icon: icons[i],
+            };
+        }
+        return listItems;
+    }
+
+    private FONTSIZE_CODES: Array<string> = ['small', 'medium', 'big'];
+    private FONTSIZE_DECODES: Array<string> = ['Small', 'Medium', 'Big'];
+    private FONTSIZE_ICONS: Array<string> = [
+        'format-font-size-decrease',
+        'format-color-text',
+        'format-font-size-increase',
+    ];
     private getFontSizeDecodeFromCode(code: string): string {
-        if (code.toLowerCase() == 'small') {
-            return 'Piccolo';
-        }
-        if (code.toLowerCase() == 'medium') {
-            return 'Media';
-        }
-        if (code.toLowerCase() == 'big') {
-            return 'Grande';
-        }
-        return code;
+        return this.transcodeItem(
+            code,
+            this.FONTSIZE_CODES,
+            this.FONTSIZE_DECODES
+        );
     }
 
     private getFontSizeCodeFromDecode(decode: string): string {
-        if (decode.toLowerCase() == 'piccolo') {
-            return 'small';
-        }
-        if (decode.toLowerCase() == 'media') {
-            return 'medium';
-        }
-        if (decode.toLowerCase() == 'grande') {
-            return 'big';
-        }
-        return decode;
+        return this.transcodeItem(
+            decode,
+            this.FONTSIZE_DECODES,
+            this.FONTSIZE_CODES
+        );
     }
 
     private renderFontSizePanel() {
-        let listItems: ComponentListElement[] = [];
-        listItems[0] = {
-            text: 'Piccolo',
-            value: 'small',
-            selected: this.fontsize == 'small',
-            icon: 'format-font-size-decrease',
-        };
-        listItems[1] = {
-            text: 'Media',
-            value: 'medium',
-            selected: this.fontsize == 'medium',
-            icon: 'format-color-text',
-        };
-        listItems[2] = {
-            text: 'Grande',
-            value: 'big',
-            selected: this.fontsize == 'big',
-            icon: 'format-font-size-increase',
-        };
+        let listItems: ComponentListElement[] = this.createListData(
+            this.FONTSIZE_CODES,
+            this.FONTSIZE_DECODES,
+            this.FONTSIZE_ICONS,
+            this.fontsize
+        );
+
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
             trailingIcon: true,
             initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
-            label: 'Dimensione carattere:',
+            label: 'Font size:',
             icon: 'arrow_drop_down',
         };
         return (
@@ -2981,58 +3006,43 @@ export class KupDataTable {
         );
     }
 
+    private DENSITY_CODES: Array<string> = ['small', 'medium', 'big'];
+    private DENSITY_DECODES: Array<string> = ['Dense', 'Normal', 'Wide'];
+    private DENSITY_ICONS: Array<string> = [
+        'format-align-justify',
+        'reorder-horizontal',
+        'view-sequential',
+    ];
     private getDensityDecodeFromCode(code: string): string {
-        if (code.toLowerCase() == 'small') {
-            return 'Compatta';
-        }
-        if (code.toLowerCase() == 'medium') {
-            return 'Normale';
-        }
-        if (code.toLowerCase() == 'big') {
-            return 'Ampia';
-        }
-        return code;
+        return this.transcodeItem(
+            code,
+            this.DENSITY_CODES,
+            this.DENSITY_DECODES
+        );
     }
 
     private getDensityCodeFromDecode(decode: string): string {
-        if (decode.toLowerCase() == 'compatta') {
-            return 'small';
-        }
-        if (decode.toLowerCase() == 'normale') {
-            return 'medium';
-        }
-        if (decode.toLowerCase() == 'ampia') {
-            return 'big';
-        }
-        return decode;
+        return this.transcodeItem(
+            decode,
+            this.DENSITY_DECODES,
+            this.DENSITY_CODES
+        );
     }
 
     private renderDensityPanel() {
-        let listItems: ComponentListElement[] = [];
-        listItems[0] = {
-            text: 'Compatta',
-            value: 'small',
-            selected: this.density == 'small',
-            icon: 'format-align-justify',
-        };
-        listItems[1] = {
-            text: 'Normale',
-            value: 'medium',
-            selected: this.density == 'medium',
-            icon: 'reorder-horizontal',
-        };
-        listItems[2] = {
-            text: 'Ampia',
-            value: 'big',
-            selected: this.density == 'big',
-            icon: 'view-sequential',
-        };
+        let listItems: ComponentListElement[] = this.createListData(
+            this.DENSITY_CODES,
+            this.DENSITY_DECODES,
+            this.DENSITY_ICONS,
+            this.density
+        );
+
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
             trailingIcon: true,
             initialValue: this.getDensityDecodeFromCode(this.density),
-            label: 'Densità righe:',
+            label: 'Rows density:',
             icon: 'arrow_drop_down',
         };
         return (

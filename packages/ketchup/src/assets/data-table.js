@@ -728,24 +728,19 @@ globalFilter.globalFilter = 'true';
 // sort
 const noSort = document.getElementById('no-sort');
 noSort.data = sortData;
-noSort.config = {
-    enableSort: false,
-};
 
 const dftSort = document.getElementById('dft-sort');
 dftSort.data = sortData;
-dftSort.config = {
-    sort: [
-        {
-            column: 'FLD1',
-            sortMode: 'A',
-        },
-        {
-            column: 'FLD2',
-            sortMode: 'D',
-        },
-    ],
-};
+dftSort.sort = [
+    {
+        column: 'FLD1',
+        sortMode: 'A',
+    },
+    {
+        column: 'FLD2',
+        sortMode: 'D',
+    },
+];
 
 // pagination
 function createDataForPagination(id, colSize, rowSize) {
@@ -776,15 +771,19 @@ function createDataForPagination(id, colSize, rowSize) {
 
     const pagination = document.getElementById(id);
     pagination.data = {
-        columns,
-        rows,
+        columns: columns,
+        rows: rows,
     };
+    pagination.showFilter = true;
+    pagination.globalFilter = true;
+    pagination.rowsPerPage = 20;
+    /*
     pagination.config = {
         ...pagination.config,
         showFilter: true,
         globalFilter: true,
         rowsPerPage: 20,
-    };
+    };*/
 }
 
 function createDataForTestTotals() {
@@ -846,54 +845,57 @@ function updatePaginationTable() {
 createDataForPagination('pagination', 10, 100);
 
 const pagBottom = document.getElementById('pagination-bottom');
+/*
 pagBottom.config = {
     paginatorPos: 'Bottom',
-};
+};*/
 createDataForPagination('pagination-bottom', 10, 100);
 
 const pagBoth = document.getElementById('pagination-both');
+/*
 pagBoth.config = {
     paginatorPos: 'Both',
-};
+};*/
 createDataForPagination('pagination-both', 10, 100);
 
 createDataForTestTotals();
 // custom columns width
 const customColWidth = document.getElementById('custom-columns-width');
 customColWidth.data = defaultData;
-customColWidth.config = {
-    columnsWidth: [
-        {
-            column: 'FLD1',
-            width: 100,
-        },
-        {
-            column: 'FLD3',
-            width: 300,
-        },
-    ],
-};
+customColWidth.columnsWidth = [
+    {
+        column: 'FLD1',
+        width: 100,
+    },
+    {
+        column: 'FLD3',
+        width: 300,
+    },
+];
 
 // hidden header
 const hiddenHeader = document.getElementById('hidden-header');
 hiddenHeader.data = defaultData;
+/*
 hiddenHeader.config = {
     showHeader: false,
-};
+};*/
 
 // hidden grid
 const hiddenGrid = document.getElementById('hidden-grid');
 hiddenGrid.data = defaultData;
+/*
 hiddenGrid.config = {
     showGrid: false,
-};
+};*/
 
 // selectRow
 const selectRow = document.getElementById('select-row');
 selectRow.data = defaultData;
+/*
 selectRow.config = {
     selectRow: 3,
-};
+};*/
 
 // graphic cells
 document.getElementById('graphic-cells').data = {

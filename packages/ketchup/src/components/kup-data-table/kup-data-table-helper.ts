@@ -14,7 +14,7 @@ import {
     Filter,
 } from './kup-data-table-declarations';
 
-import { isNumber } from '../../utils/object-utils';
+import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty } from '../../utils/utils';
 import { errorLogging } from '../../utils/error-logging';
 
@@ -632,9 +632,7 @@ function updateGroupTotal(
         const cell = addedRow.cells[key];
 
         if (cell) {
-            let isNumber = false;
-
-            if (cell && cell.obj) isNumber = cell.obj.t === 'NR';
+            let _isNumber = isNumber(cell.obj);
 
             const totalMode = totals[key];
 
@@ -656,7 +654,7 @@ function updateGroupTotal(
 
                 case TotalMode.SUM:
                 case TotalMode.AVARAGE:
-                    if (isNumber) {
+                    if (_isNumber) {
                         const cellValue = numeral(cell.obj.k);
 
                         groupRow.group.totals[key] = cellValue
@@ -783,7 +781,7 @@ export function normalizeTotals(
     k.forEach((key) => {
         if (key === '*ALL') {
             columns.forEach((c) => {
-                if (c.obj && isNumber(c.obj)) {
+                if (isNumber(c.obj)) {
                     rettotals[c.name] = totals[key];
                 }
             });
@@ -821,7 +819,7 @@ export function calcTotals(
                     const cell = r.cells[key];
 
                     // check if number
-                    if (cell && cell.obj && cell.obj.t === 'NR') {
+                    if (cell && isNumber(cell.obj)) {
                         const cellValue = numeral(cell.obj.k);
 
                         const currentFooterValue = footerRow[key] || 0;
@@ -857,6 +855,10 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     const obj1 = cell1.obj;
     const obj2 = cell2.obj;
 
+    if (obj1 == null || obj2 == null) {
+        return localCompareAsInJava(cell1.value, cell2.value);
+    }
+
     // If either the type or the parameter of the current object are not equal.
     if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
         let compare = localCompareAsInJava(obj1.t, obj2.t);
@@ -867,7 +869,7 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     }
 
     // number
-    if ('NR' === obj1.t) {
+    if (isNumber(obj1)) {
         const n1: number = numeral(obj1.k).value();
         const n2: number = numeral(obj2.k).value();
 
@@ -879,7 +881,7 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     }
 
     // date
-    if ('D8' === obj1.t) {
+    if (isDate(obj1)) {
         let m1: moment.Moment;
         let m2: moment.Moment;
 
