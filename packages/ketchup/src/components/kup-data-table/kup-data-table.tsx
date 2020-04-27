@@ -2279,14 +2279,11 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <kup-button
-                                icon={icon}
-                                label="Row expander"
-                                tooltip="Expand/collapse group"
-                                onKupButtonClick={(e) => {
-                                    e.stopPropagation();
-                                    this.onRowExpand(row);
-                                }}
+                            <kup-image
+                                name={icon}
+                                title="Expand/collapse group"
+                                sizeX="18px"
+                                sizeY="18px"
                             />
                             {composedGroupLabel}
                         </span>
@@ -2323,14 +2320,11 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <kup-button
-                                    icon={icon}
-                                    label="Row expander"
-                                    tooltip="Expand/collapse group"
-                                    onKupButtonClick={(e) => {
-                                        e.stopPropagation();
-                                        this.onRowExpand(row);
-                                    }}
+                                <kup-image
+                                    name={icon}
+                                    title="Expand/collapse group"
+                                    sizeX="18px"
+                                    sizeY="18px"
                                 />
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
