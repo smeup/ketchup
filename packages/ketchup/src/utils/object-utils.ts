@@ -3,56 +3,71 @@ interface Object {
     p: string;
 }
 
-export function isBar({ t, p }: Object): boolean {
-    return 'J4' === t && 'BAR' === p;
+export function isBar(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'BAR' === smeupObj.p;
 }
 
-export function isChart({ t, p }: Object): boolean {
-    return 'J4' === t && p.toLocaleUpperCase().startsWith('GRA_');
+export function isChart(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return (
+        'J4' === smeupObj.t && smeupObj.p.toLocaleUpperCase().startsWith('GRA_')
+    );
 }
 
-export function isButton({ t, p }: Object): boolean {
-    return 'J4' === t && 'BTN' === p;
+export function isButton(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'BTN' === smeupObj.p;
 }
 
-export function isRadio({ t, p }: Object): boolean {
-    return 'V2' === t && 'RADIO' === p;
+export function isRadio(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'V2' === smeupObj.t && 'RADIO' === smeupObj.p;
 }
 
-export function isPassword({ t, p }: Object): boolean {
-    return 'J1' === t && 'PWD' === p;
+export function isPassword(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J1' === smeupObj.t && 'PWD' === smeupObj.p;
 }
 
-export function isCheckbox({ t, p }: Object): boolean {
-    return 'V2' === t && 'SI/NO' === p.toUpperCase();
+export function isCheckbox(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'V2' === smeupObj.t && 'SI/NO' === smeupObj.p.toUpperCase();
 }
 
-export function isDate({ t }: Object): boolean {
-    return 'D8' === t;
+export function isDate(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'D8' === smeupObj.t;
 }
 
-export function isIcon({ t, p }: Object): boolean {
-    return 'J4' === t && 'ICO' === p;
+export function isIcon(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'ICO' === smeupObj.p;
 }
 
-export function isImage({ t, p }: Object): boolean {
-    return 'J4' === t && 'IMG' === p;
+export function isImage(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'IMG' === smeupObj.p;
 }
 
-export function isLink({ t, p }: Object): boolean {
-    return 'J1' === t && 'URL' === p;
+export function isLink(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J1' === smeupObj.t && 'URL' === smeupObj.p;
 }
 
-export function isNumber({ t }: Object): boolean {
-    return 'NR' === t;
+export function isNumber(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'NR' === smeupObj.t;
 }
 
-export function isProgressBar({ t, p }: Object): boolean {
-    return 'J4' === t && 'PGB' === p;
+export function isProgressBar(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'PGB' === smeupObj.p;
 }
 
-export function isVoCodver({ t, p }: Object): boolean {
-    return 'VO' === t && 'COD_VER' === p;
+export function isVoCodver(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'VO' === smeupObj.t && 'COD_VER' === smeupObj.p;
 }
 
 export function isStringObject(obj: any): boolean {
