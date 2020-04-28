@@ -1132,7 +1132,7 @@ export class KupDataTable {
         }
     }
 
-    private onRemouveFilter(column: string) {
+    private onRemoveFilter(column: string) {
         // resetting current page
         this.currentPage = 1;
         const newFilters: GenericFilter = { ...this.filters };
@@ -1808,7 +1808,7 @@ export class KupDataTable {
                             sizeY="18px"
                             title={svgLabel}
                             onClick={() => {
-                                this.onRemouveFilter(column.name);
+                                this.onRemoveFilter(column.name);
                             }}
                         />
                     );
