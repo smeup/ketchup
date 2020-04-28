@@ -1509,8 +1509,8 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'arrow_drop_up'
-                    : 'arrow_drop_down';
+                    ? 'arrow_drop_down'
+                    : 'arrow_drop_up';
             }
         }
 
@@ -2287,10 +2287,10 @@ export class KupDataTable {
                             <kup-image
                                 name={icon}
                                 title="Expand/collapse group"
-                                sizeX="18px"
-                                sizeY="18px"
+                                sizeX="1.25rem"
+                                sizeY="1.25rem"
                             />
-                            {composedGroupLabel}
+                            <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
                 );
@@ -2328,8 +2328,8 @@ export class KupDataTable {
                                 <kup-image
                                     name={icon}
                                     title="Expand/collapse group"
-                                    sizeX="18px"
-                                    sizeY="18px"
+                                    sizeX="1.25rem"
+                                    sizeY="1.25rem"
                                 />
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
@@ -2990,7 +2990,7 @@ export class KupDataTable {
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="density-panel">
+            <div class="fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     listData={listData}
