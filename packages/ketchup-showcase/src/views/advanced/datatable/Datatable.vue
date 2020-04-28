@@ -3,7 +3,6 @@
     <template v-slot:0>
       <datatable-demo></datatable-demo>
     </template>
-
     <template v-slot:1>
       <datatable-basic></datatable-basic>
     </template>
@@ -64,7 +63,7 @@
     <template v-slot:20>
       <datatable-j4ico></datatable-j4ico>
     </template>
-    <template v-slot:20>
+    <template v-slot:21>
       <datatable-images-and-badges />
     </template>
   </comp>
