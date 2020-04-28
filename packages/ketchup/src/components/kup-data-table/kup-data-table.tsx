@@ -1790,7 +1790,7 @@ export class KupDataTable {
                 let filter = null;
 
                 if (this.hasFiltersForColumn(column.name)) {
-                    const svgLabel = `Remouve filter(s): '${this.getFilterValueForTooltip(
+                    const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
                         column.name
                     )}'`;
                     /**
@@ -1867,6 +1867,7 @@ export class KupDataTable {
                 }
 
                 const columnMenuItems: JSX.Element[] = [];
+                let checkboxWrapper: JSX.Element[] = [];
 
                 //---- adding grouping ----
                 const group = this.getGroupByName(column.name);
@@ -1874,7 +1875,7 @@ export class KupDataTable {
                     group != null ? 'Disable grouping' : 'Enable grouping';
 
                 columnMenuItems.push(
-                    <li role="menuitem">
+                    <li role="menuitem" class="button-row">
                         <kup-button
                             icon="book"
                             tooltip={groupLabel}
@@ -1898,7 +1899,7 @@ export class KupDataTable {
                     (isStringObject(column.obj) || isCheckbox(column.obj))
                 ) {
                     columnMenuItems.push(
-                        <li role="menuitem">
+                        <li role="menuitem" class="textfield-row">
                             <kup-text-field
                                 label="Filter"
                                 icon="information-variant"
@@ -1920,36 +1921,37 @@ export class KupDataTable {
                     let columnValues: string[] = this.getColumnValues(
                         column.name
                     );
+                    let checkboxItems: JSX.Element[] = [];
                     if (columnValues.length > 0) {
-                        columnMenuItems.push(
-                            <li role="menuitem">
-                                <kup-checkbox
-                                    label={'(*All)'}
-                                    checked={checkBoxesFilter.length == 0}
-                                    onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(
-                                            e,
-                                            column.name,
-                                            null
-                                        );
-                                    }}
-                                ></kup-checkbox>
-                            </li>
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={'(*All)'}
+                                checked={checkBoxesFilter.length == 0}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, null);
+                                }}
+                            ></kup-checkbox>
                         );
                     }
                     columnValues.forEach((v) => {
-                        columnMenuItems.push(
-                            <li role="menuitem">
-                                <kup-checkbox
-                                    label={v}
-                                    checked={checkBoxesFilter.includes(v)}
-                                    onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(e, column.name, v);
-                                    }}
-                                ></kup-checkbox>
-                            </li>
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={v}
+                                checked={checkBoxesFilter.includes(v)}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, v);
+                                }}
+                            ></kup-checkbox>
                         );
                     });
+
+                    if (checkboxItems.length > 0) {
+                        checkboxWrapper = (
+                            <li role="menuitem" class="checkbox-row">
+                                {checkboxItems}
+                            </li>
+                        );
+                    }
                 }
 
                 let columnMenu = null;
@@ -1965,6 +1967,7 @@ export class KupDataTable {
                                 onMouseUp={(e) => e.stopPropagation()}
                             >
                                 {columnMenuItems}
+                                {checkboxWrapper}
                             </ul>
                         </div>
                     );
@@ -2827,8 +2830,10 @@ export class KupDataTable {
         const label = 'Show more data';
         return (
             <kup-button
+                class="loadmore-button"
                 label={label}
-                icon="more"
+                flat
+                icon="plus"
                 tooltip={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
@@ -2882,6 +2887,7 @@ export class KupDataTable {
                     ) : null}
 
                     <kup-button
+                        class="paginator-button custom-settings"
                         icon="settings"
                         tooltip="Show personalize settings"
                         onKupButtonClick={() => {
