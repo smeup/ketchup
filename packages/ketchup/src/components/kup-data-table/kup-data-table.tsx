@@ -1132,7 +1132,7 @@ export class KupDataTable {
         }
     }
 
-    private onRemouveFilter(column: string) {
+    private onRemoveFilter(column: string) {
         // resetting current page
         this.currentPage = 1;
         const newFilters: GenericFilter = { ...this.filters };
@@ -1509,13 +1509,13 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'sort-ascending'
-                    : 'sort-descending';
+                    ? 'arrow_drop_down'
+                    : 'arrow_drop_up';
             }
         }
 
         // default
-        return 'sort';
+        return '';
     }
 
     private getSortDecode(columnName: string): string {
@@ -1790,7 +1790,7 @@ export class KupDataTable {
                 let filter = null;
 
                 if (this.hasFiltersForColumn(column.name)) {
-                    const svgLabel = `Remouve filter(s): '${this.getFilterValueForTooltip(
+                    const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
                         column.name
                     )}'`;
                     /**
@@ -1808,7 +1808,7 @@ export class KupDataTable {
                             sizeY="18px"
                             title={svgLabel}
                             onClick={() => {
-                                this.onRemouveFilter(column.name);
+                                this.onRemoveFilter(column.name);
                             }}
                         />
                     );
@@ -1822,16 +1822,18 @@ export class KupDataTable {
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
                 if (this.sortEnabled && isStringObject(column.obj)) {
-                    sortIcon = (
-                        <span class="column-sort">
+                    let iconName = this.getSortIcon(column.name);
+                    if (iconName !== '') {
+                        sortIcon = (
                             <kup-image
-                                name={this.getSortIcon(column.name)}
+                                class="column-sort"
+                                name={iconName}
                                 title={this.getSortDecode(column.name)}
                                 sizeX="18px"
                                 sizeY="18px"
                             />
-                        </span>
-                    );
+                        );
+                    }
 
                     // The handler for triggering the sorting of a column
                     sortEventHandler = (e: MouseEvent) => {
@@ -1867,6 +1869,7 @@ export class KupDataTable {
                 }
 
                 const columnMenuItems: JSX.Element[] = [];
+                let checkboxWrapper: JSX.Element[] = [];
 
                 //---- adding grouping ----
                 const group = this.getGroupByName(column.name);
@@ -1874,7 +1877,7 @@ export class KupDataTable {
                     group != null ? 'Disable grouping' : 'Enable grouping';
 
                 columnMenuItems.push(
-                    <li role="menuitem">
+                    <li role="menuitem" class="button-row">
                         <kup-button
                             icon="book"
                             tooltip={groupLabel}
@@ -1898,7 +1901,7 @@ export class KupDataTable {
                     (isStringObject(column.obj) || isCheckbox(column.obj))
                 ) {
                     columnMenuItems.push(
-                        <li role="menuitem">
+                        <li role="menuitem" class="textfield-row">
                             <kup-text-field
                                 label="Filter"
                                 icon="information-variant"
@@ -1920,36 +1923,37 @@ export class KupDataTable {
                     let columnValues: string[] = this.getColumnValues(
                         column.name
                     );
+                    let checkboxItems: JSX.Element[] = [];
                     if (columnValues.length > 0) {
-                        columnMenuItems.push(
-                            <li role="menuitem">
-                                <kup-checkbox
-                                    label={'(*All)'}
-                                    checked={checkBoxesFilter.length == 0}
-                                    onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(
-                                            e,
-                                            column.name,
-                                            null
-                                        );
-                                    }}
-                                ></kup-checkbox>
-                            </li>
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={'(*All)'}
+                                checked={checkBoxesFilter.length == 0}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, null);
+                                }}
+                            ></kup-checkbox>
                         );
                     }
                     columnValues.forEach((v) => {
-                        columnMenuItems.push(
-                            <li role="menuitem">
-                                <kup-checkbox
-                                    label={v}
-                                    checked={checkBoxesFilter.includes(v)}
-                                    onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(e, column.name, v);
-                                    }}
-                                ></kup-checkbox>
-                            </li>
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={v}
+                                checked={checkBoxesFilter.includes(v)}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, v);
+                                }}
+                            ></kup-checkbox>
                         );
                     });
+
+                    if (checkboxItems.length > 0) {
+                        checkboxWrapper = (
+                            <li role="menuitem" class="checkbox-row">
+                                {checkboxItems}
+                            </li>
+                        );
+                    }
                 }
 
                 let columnMenu = null;
@@ -1965,6 +1969,7 @@ export class KupDataTable {
                                 onMouseUp={(e) => e.stopPropagation()}
                             >
                                 {columnMenuItems}
+                                {checkboxWrapper}
                             </ul>
                         </div>
                     );
@@ -2282,10 +2287,10 @@ export class KupDataTable {
                             <kup-image
                                 name={icon}
                                 title="Expand/collapse group"
-                                sizeX="18px"
-                                sizeY="18px"
+                                sizeX="1.25rem"
+                                sizeY="1.25rem"
                             />
-                            {composedGroupLabel}
+                            <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
                 );
@@ -2323,8 +2328,8 @@ export class KupDataTable {
                                 <kup-image
                                     name={icon}
                                     title="Expand/collapse group"
-                                    sizeX="18px"
-                                    sizeY="18px"
+                                    sizeX="1.25rem"
+                                    sizeY="1.25rem"
                                 />
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
@@ -2826,8 +2831,10 @@ export class KupDataTable {
         const label = 'Show more data';
         return (
             <kup-button
+                class="loadmore-button"
                 label={label}
-                icon="more"
+                flat
+                icon="plus"
                 tooltip={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
@@ -2881,6 +2888,7 @@ export class KupDataTable {
                     ) : null}
 
                     <kup-button
+                        class="paginator-button custom-settings"
                         icon="settings"
                         tooltip="Show personalize settings"
                         onKupButtonClick={() => {
@@ -2982,7 +2990,7 @@ export class KupDataTable {
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="density-panel">
+            <div class="fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     listData={listData}
