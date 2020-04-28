@@ -2433,7 +2433,6 @@ export class KupDataTable {
                     rowActionExpander = (
                         <kup-button
                             icon="chevron-right"
-                            label="Expand items"
                             tooltip="Expand items"
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
