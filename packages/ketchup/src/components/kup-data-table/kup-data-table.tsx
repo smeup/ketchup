@@ -3056,6 +3056,8 @@ export class KupDataTable {
     }
 
     render() {
+        let lcltime = new Date();
+        let starttime = lcltime.getTime();
         // resetting rows
         this.renderedRows = [];
         let elStyle = undefined;
@@ -3223,7 +3225,7 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        return (
+        let compCreated = (
             <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
                     {paginatorTop}
@@ -3252,5 +3254,10 @@ export class KupDataTable {
                 {paginatorBottom}
             </div>
         );
+        lcltime = new Date();
+        let endtime = lcltime.getTime();
+        this.log('render', 'time spent [' + (endtime - starttime) + ']');
+
+        return compCreated;
     }
 }

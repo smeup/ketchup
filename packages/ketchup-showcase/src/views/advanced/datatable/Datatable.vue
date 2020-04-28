@@ -3,6 +3,7 @@
     <template v-slot:0>
       <datatable-demo></datatable-demo>
     </template>
+
     <template v-slot:1>
       <datatable-basic></datatable-basic>
     </template>
@@ -25,7 +26,7 @@
       <datatable-groups></datatable-groups>
     </template>
     <template v-slot:8>
-      <datatable-fixed-columns-rows/>
+      <datatable-fixed-columns-rows />
     </template>
     <template v-slot:9>
       <datatable-j4btn></datatable-j4btn>
@@ -64,7 +65,7 @@
       <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:20>
-      <datatable-images-and-badges/>
+      <datatable-images-and-badges />
     </template>
   </comp>
 </template>
@@ -147,7 +148,7 @@ export default {
         'With tooltip',
         'With totals',
         'With J4Ico',
-        'Images and badges'
+        'Images and badges',
       ],
     };
   },
