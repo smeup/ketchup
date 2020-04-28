@@ -394,7 +394,8 @@ $fixed-row-class: fixed-row;
         }
 
         .column-sort {
-          cursor: pointer;
+          display: inline-block;
+          float: left;
           margin-left: $column-sort-margin;
 
           .mdi {

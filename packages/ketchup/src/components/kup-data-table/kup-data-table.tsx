@@ -1509,13 +1509,13 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'sort-ascending'
-                    : 'sort-descending';
+                    ? 'arrow_drop_up'
+                    : 'arrow_drop_down';
             }
         }
 
         // default
-        return 'sort';
+        return '';
     }
 
     private getSortDecode(columnName: string): string {
@@ -1822,16 +1822,18 @@ export class KupDataTable {
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
                 if (this.sortEnabled && isStringObject(column.obj)) {
-                    sortIcon = (
-                        <span class="column-sort">
+                    let iconName = this.getSortIcon(column.name);
+                    if (iconName !== '') {
+                        sortIcon = (
                             <kup-image
-                                name={this.getSortIcon(column.name)}
+                                class="column-sort"
+                                name={iconName}
                                 title={this.getSortDecode(column.name)}
                                 sizeX="18px"
                                 sizeY="18px"
                             />
-                        </span>
-                    );
+                        );
+                    }
 
                     // The handler for triggering the sorting of a column
                     sortEventHandler = (e: MouseEvent) => {
