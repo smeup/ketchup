@@ -252,7 +252,6 @@ $fixed-row-class: fixed-row;
   .below-wrapper {
     height: var(--dtt_table-wrapper-height);
     overflow: auto;
-    position: relative;
     z-index: $table-below-wrapper--z-index;
   }
 
@@ -302,7 +301,6 @@ $fixed-row-class: fixed-row;
      * [3] - Mandatory for width property to take effect.
      */
     &.auto-width {
-      margin: auto;
       min-width: auto; // [mandatory] See [1] [2]
       width: 0; // [mandatory] See [1] [2]
     }
@@ -323,12 +321,11 @@ $fixed-row-class: fixed-row;
         border-right: 1px solid var(--dtt_border-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
-        position: sticky; // This is used for sticky positioning the header when table is short
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
         top: 0; // This is mandatory for the sticky
         // Enforce consistent vertical alignment with sibiling header cells
         //  when filter field or sort/filter icons are present.
-        vertical-align: bottom;
+        vertical-align: middle;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
 
         // The after for the rows separator element fallback for Firefox and sticky rows
@@ -394,7 +391,7 @@ $fixed-row-class: fixed-row;
         }
 
         .column-sort {
-          cursor: pointer;
+          float: left;
           margin-left: $column-sort-margin;
 
           .mdi {
@@ -461,19 +458,26 @@ $fixed-row-class: fixed-row;
             text-align: left;
 
             > li {
-              padding: 0.8rem;
+              padding: 0 0.5rem;
               transition: color 0.2s ease-in-out;
               color: var(--dtt_color);
               transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
-              &:hover {
-                cursor: pointer;
-                color: var(--dtt_hover-color);
-                background-color: var(--dtt_hover-background-color);
+              &.textfield-row {
+                padding: 0.5rem 0.5rem;
               }
 
-              .mdi {
-                margin-right: 0.5rem;
+              &.button-row {
+                border-bottom: 1px solid var(--kup-border-color);
+              }
+
+              &.checkbox-row {
+                max-height: 20vh;
+                overflow: auto;
+              }
+
+              & kup-button {
+                display: inline-block;
               }
             }
           }
@@ -505,6 +509,10 @@ $fixed-row-class: fixed-row;
       cursor: auto;
 
       > tr {
+        kup-button {
+          display: inline-block;
+        }
+
         &:not(.group-total):hover,
         &:hover + .group-total,
         &.selected {
@@ -536,14 +544,17 @@ $fixed-row-class: fixed-row;
             padding: 0.5rem 0;
 
             .group-cell-content {
+              kup-image {
+                margin-right: 0.25rem;
+              }
+              kup-image,
+              .indent {
+                float: left;
+              }
               > span {
                 display: inline-flex;
                 outline: none;
                 margin-left: 0.25rem;
-
-                &:before {
-                  font-size: calc(var(--dtt_font-size) * 1.25);
-                }
               }
               > span.text {
                 vertical-align: text-bottom;
@@ -700,8 +711,10 @@ $fixed-row-class: fixed-row;
         .column-title {
           width: 100%;
           font-weight: bold;
-          margin: 0 0.3125rem;
+          margin: auto;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         // The element holding the icon for the sort
@@ -839,8 +852,7 @@ $fixed-row-class: fixed-row;
     height: 100%;
     cursor: pointer;
     outline: none;
-    margin-left: 0.25rem;
-    margin-right: 2rem; //For WebUP Toolbar
+    margin: 0.5rem 0 0;
     padding: 0 0.25rem;
     float: right;
 
@@ -866,7 +878,6 @@ $fixed-row-class: fixed-row;
     cursor: default;
     opacity: 0;
     pointer-events: none;
-    padding: 1rem;
     width: 200px; //I.E.
     width: fit-content;
     background: var(--dtt_background-color);
@@ -940,7 +951,7 @@ $fixed-row-class: fixed-row;
 .density-panel,
 .fontsize-panel {
   position: relative;
-  margin: 0;
+  margin: 0.7rem;
   display: flex;
   align-items: center;
   box-shadow: var(--dtt_density-box-shadow);

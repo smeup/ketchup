@@ -20,7 +20,6 @@ import {
     Column,
     FixedCellsClasses,
     FixedCellsCSSVarsBase,
-    GenericMap,
     GroupLabelDisplayMode,
     GroupObject,
     KupDataTableCellButtonClick,
@@ -35,6 +34,7 @@ import {
     SortObject,
     TableData,
     TotalsMap,
+    GenericFilter,
 } from './kup-data-table-declarations';
 
 import {
@@ -48,6 +48,12 @@ import {
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
+    setTextFieldFilterValue,
+    addCheckBoxFilterValue,
+    removeCheckBoxFilterValue,
+    getTextFieldFilterValue,
+    getCheckBoxFilterValues,
+    hasFiltersForColumn,
 } from './kup-data-table-helper';
 
 import {
@@ -75,6 +81,11 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
+import { errorLogging } from '../../utils/error-logging';
+import {
+    ComponentListElement,
+    ItemsDisplayMode,
+} from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -86,8 +97,7 @@ export class KupDataTable {
     /**
      * Used to set custom columns width.
      */
-    @Prop()
-    columnsWidth: Array<{
+    @Prop() columnsWidth: Array<{
         column: string;
         width: number;
     }> = [];
@@ -95,8 +105,7 @@ export class KupDataTable {
     /**
      * Expands groups when set to true.
      */
-    @Prop({ reflect: true })
-    expandGroups = false;
+    @Prop({ reflect: true }) expandGroups = false;
 
     /**
      * The data of the table.
@@ -106,8 +115,7 @@ export class KupDataTable {
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop({ reflect: true })
-    density: string = 'small';
+    @Prop({ reflect: true }) density: string = 'small';
 
     /**
      * Enables the sorting of columns by dragging them into different columns.
@@ -117,8 +125,7 @@ export class KupDataTable {
     /**
      * List of filters set by the user.
      */
-    @Prop({ mutable: true })
-    filters: GenericMap = {};
+    @Prop({ mutable: true }) filters: GenericFilter = {};
 
     /**
      * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
@@ -126,8 +133,7 @@ export class KupDataTable {
      * Can be combined with fixedRows.
      * @see fixedRows
      */
-    @Prop({ reflect: true })
-    fixedColumns: number = 0;
+    @Prop({ reflect: true }) fixedColumns: number = 0;
 
     /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
@@ -135,46 +141,40 @@ export class KupDataTable {
      * Can be combined with fixedColumns.
      * @see fixedColumns
      */
-    @Prop({ reflect: true })
-    fixedRows: number = 0;
+    @Prop({ reflect: true }) fixedRows: number = 0;
 
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
      * The reflect attribute is mandatory to allow styling.
      */
-    @Prop({ reflect: true })
-    forceOneLine: boolean = false;
+    @Prop({ reflect: true }) forceOneLine: boolean = false;
 
     /**
      * When set to true it activates the global filter.
      */
-    @Prop({ reflect: true })
-    globalFilter = false;
+    @Prop({ reflect: true }) globalFilter = false;
 
     /**
      * The value of the global filter.
      */
-    @Prop({ reflect: true, mutable: true })
-    globalFilterValue = '';
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
 
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
      */
-    @Prop({ reflect: true })
-    groupLabelDisplay: GroupLabelDisplayMode = GroupLabelDisplayMode.BOTH;
+    @Prop({ reflect: true }) groupLabelDisplay: GroupLabelDisplayMode =
+        GroupLabelDisplayMode.BOTH;
 
     /**
      * The list of groups.
      */
-    @Prop({ mutable: true })
-    groups: Array<GroupObject> = [];
+    @Prop({ mutable: true }) groups: Array<GroupObject> = [];
 
     /**
      * When set to true the header will stick on top of the table when scrolling.
      */
-    @Prop({ reflect: true })
-    headerIsPersistent = true;
+    @Prop({ reflect: true }) headerIsPersistent = true;
 
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
@@ -202,51 +202,43 @@ export class KupDataTable {
     /**
      * When set to true enables rows multi selection.
      */
-    @Prop({ reflect: true })
-    multiSelection = false;
+    @Prop({ reflect: true }) multiSelection = false;
 
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop({ reflect: true })
-    paginatorPos: PaginatorPos = PaginatorPos.TOP;
+    @Prop({ reflect: true }) paginatorPos: PaginatorPos = PaginatorPos.TOP;
 
     /**
      * Sets the actions of the rows.
      */
-    @Prop()
-    rowActions: Array<RowAction>;
+    @Prop() rowActions: Array<RowAction>;
 
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ reflect: true })
-    rowsPerPage = 10;
+    @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
      * Selects the specified row.
      */
-    @Prop({ reflect: true })
-    selectRow: number;
+    @Prop({ reflect: true }) selectRow: number;
 
     /**
      * When set to true enables the column filters.
      */
-    @Prop({ reflect: true })
-    showFilters = false;
+    @Prop({ reflect: true }) showFilters = false;
 
     /**
      * Can be used to customize the grid view of the table.
      */
-    @Prop({ reflect: true })
-    showGrid: ShowGrid = ShowGrid.ROW;
+    @Prop({ reflect: true }) showGrid: ShowGrid = ShowGrid.ROW;
 
     /**
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop({ reflect: true })
-    showHeader = true;
+    @Prop({ reflect: true }) showHeader = true;
 
     /**
      * If set to true, displays the button to load more records.
@@ -256,14 +248,12 @@ export class KupDataTable {
     /**
      * When set to true enables the sorting of the columns.
      */
-    @Prop({ reflect: true })
-    sortEnabled = true;
+    @Prop({ reflect: true }) sortEnabled = true;
 
     /**
      * Defines the current sorting options.
      */
-    @Prop({ mutable: true })
-    sort: Array<SortObject> = [];
+    @Prop({ mutable: true }) sort: Array<SortObject> = [];
 
     /**
      * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
@@ -274,20 +264,17 @@ export class KupDataTable {
     /**
      * Sets the height of the table.
      */
-    @Prop({ reflect: true })
-    tableHeight: string = undefined;
+    @Prop({ reflect: true }) tableHeight: string = undefined;
 
     /**
      * Sets the width of the table.
      */
-    @Prop({ reflect: true })
-    tableWidth: string = undefined;
+    @Prop({ reflect: true }) tableWidth: string = undefined;
 
     /**
      * Defines the current totals options.
      */
-    @Prop()
-    totals: TotalsMap;
+    @Prop() totals: TotalsMap;
 
     /**
      * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
@@ -319,19 +306,7 @@ export class KupDataTable {
     private openedMenu: string = null;
 
     @State()
-    private topFontSizePanelVisible = false;
-
-    @State()
-    private botFontSizePanelVisible = false;
-
-    @State()
     private fontsize: string = 'medium';
-
-    @State()
-    private topDensityPanelVisible = false;
-
-    @State()
-    private botDensityPanelVisible = false;
 
     /**
      * This is a flag to be used for the draggable columns to force rerender
@@ -443,7 +418,10 @@ export class KupDataTable {
      */
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
-    private customizePanelRef: any;
+    private customizeTopButtonRef: any;
+    private customizeBottomButtonRef: any;
+    private customizeTopPanelRef: any;
+    private customizeBottomPanelRef: any;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -567,12 +545,7 @@ export class KupDataTable {
         tooltip: EventTarget;
     }>;
 
-    onDocumentClick = () => {
-        this.topFontSizePanelVisible = false;
-        this.botFontSizePanelVisible = false;
-        this.topDensityPanelVisible = false;
-        this.botDensityPanelVisible = false;
-    };
+    onDocumentClick = () => {};
 
     stickyHeaderPosition = () => {
         if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
@@ -701,11 +674,18 @@ export class KupDataTable {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
         }
-        if (this.customizePanelRef) {
-            let customizeAnchor = this.customizePanelRef
-                .closest('.paginator-wrapper')
-                .getElementsByClassName('custom-settings')[0];
-            positionRecalc(this.customizePanelRef, customizeAnchor);
+
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
         }
 
         if (root != null) {
@@ -838,6 +818,39 @@ export class KupDataTable {
         }
 
         return null;
+    }
+
+    private getColumnValues(column: string): Array<string> {
+        /** è necessario estrarre i valori della colonna di tutte le righe
+         * filtrate SENZA il filtro della colonna stessa corrente */
+        let values = [];
+
+        let tmpFilters: GenericFilter = { ...this.filters };
+        tmpFilters[column] = null;
+
+        let tmpRows = filterRows(
+            this.getRows(),
+            tmpFilters,
+            this.globalFilterValue,
+            this.getVisibleColumns().map((c) => c.name)
+        );
+
+        /** il valore delle righe attualmente filtrate */
+        tmpRows.forEach((row) =>
+            this.addColumnValueFromRow(values, column, row)
+        );
+        return values;
+    }
+
+    private addColumnValueFromRow(
+        values: Array<string>,
+        column: string,
+        row: Row
+    ) {
+        const cell = row.cells[column];
+        if (values.indexOf(cell.value) < 0) {
+            values[values.length] = cell.value;
+        }
     }
 
     private getRows(): Array<Row> {
@@ -1119,18 +1132,67 @@ export class KupDataTable {
         }
     }
 
+    private onRemoveFilter(column: string) {
+        // resetting current page
+        this.currentPage = 1;
+        const newFilters: GenericFilter = { ...this.filters };
+        newFilters[column] = { textField: '', checkBoxes: [] };
+        this.filters = newFilters;
+    }
+
     private onFilterChange({ detail }, column: string) {
         // resetting current page
         this.currentPage = 1;
 
+        const newFilters: GenericFilter = { ...this.filters };
+        setTextFieldFilterValue(newFilters, column, detail.value);
+        this.filters = newFilters;
+    }
+
+    private onFilterChange2({ detail }, column: string, filterValue: string) {
+        // resetting current page
+        this.currentPage = 1;
+
         const newFilters = { ...this.filters };
-        if (detail.value.length === 0) {
-            delete newFilters[column];
+
+        if (detail.checked == true || filterValue == null) {
+            addCheckBoxFilterValue(newFilters, column, filterValue);
         } else {
-            newFilters[column] = detail.value;
+            removeCheckBoxFilterValue(newFilters, column, filterValue);
         }
 
         this.filters = newFilters;
+    }
+
+    private hasFiltersForColumn(column: string): boolean {
+        return hasFiltersForColumn(this.filters, column);
+    }
+
+    private getTextFieldFilterValue(column: string): string {
+        return getTextFieldFilterValue(this.filters, column);
+    }
+
+    private getCheckBoxFilterValues(column: string): Array<string> {
+        return getCheckBoxFilterValues(this.filters, column);
+    }
+
+    private getFilterValueForTooltip(column: string): string {
+        let txtFilter = getTextFieldFilterValue(this.filters, column);
+
+        let chkFilters = getCheckBoxFilterValues(this.filters, column);
+
+        let separator = '';
+        if (txtFilter != '') {
+            separator = ' OR ';
+        }
+
+        let ris = txtFilter;
+        chkFilters.forEach((f) => {
+            ris += separator + f;
+            separator = ' OR ';
+        });
+
+        return ris;
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -1175,7 +1237,7 @@ export class KupDataTable {
     }
 
     private onDefaultRowActionClick(
-        e: MouseEvent,
+        e: CustomEvent,
         { action, row, type, index }
     ) {
         e.stopPropagation();
@@ -1188,7 +1250,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
+    private onRowActionExpanderClick(e: CustomEvent, row: Row) {
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
@@ -1248,8 +1310,27 @@ export class KupDataTable {
         });
     }
 
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+    private openMenu(column: string) {
         this.openedMenu = column;
+    }
+
+    private closeMenu() {
+        this.openedMenu = null;
+    }
+
+    private isOpenedMenu(): boolean {
+        return this.openedMenu != null;
+    }
+
+    private isOpenedMenuForColumn(column: string): boolean {
+        return this.openedMenu === column;
+    }
+
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+        if (this.isOpenedMenu()) {
+            this.closeMenu();
+        }
+        this.openMenu(column);
         // Prevent opening of the default browser menu
         e.preventDefault();
         return false;
@@ -1290,14 +1371,14 @@ export class KupDataTable {
         }
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
-        if (this.openedMenu && !(fromMenu && fromSameTable)) {
-            this.openedMenu = null;
+        if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
+            this.closeMenu();
         }
     }
 
     private switchColumnGroup(group: GroupObject, column: string) {
         // resetting opened menu
-        this.openedMenu = null;
+        this.closeMenu();
 
         // reset group state
         this.groupState = {};
@@ -1428,13 +1509,25 @@ export class KupDataTable {
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
                 return 'A' === sortObj.sortMode
-                    ? 'mdi-sort-ascending'
-                    : 'mdi-sort-descending';
+                    ? 'arrow_drop_down'
+                    : 'arrow_drop_up';
             }
         }
 
         // default
-        return 'mdi-sort';
+        return '';
+    }
+
+    private getSortDecode(columnName: string): string {
+        // check if column in sort array
+        for (let sortObj of this.sort) {
+            if (sortObj.column === columnName) {
+                return 'A' === sortObj.sortMode ? 'Ascending' : 'Descending';
+            }
+        }
+
+        // default
+        return 'Sort column';
     }
 
     private calculateColspan() {
@@ -1527,33 +1620,19 @@ export class KupDataTable {
         return toSort;
     }
 
-    private toggleFontSizeVisibility(event: MouseEvent, top: boolean) {
-        event.stopPropagation();
-        if (top) {
-            this.topFontSizePanelVisible = !this.topFontSizePanelVisible;
-            this.botFontSizePanelVisible = false;
-        } else {
-            this.topFontSizePanelVisible = false;
-            this.botFontSizePanelVisible = !this.botFontSizePanelVisible;
-        }
-    }
-
-    private toggleDensityVisibility(event: MouseEvent, top: boolean) {
-        event.stopPropagation();
-        if (top) {
-            this.topDensityPanelVisible = !this.topDensityPanelVisible;
-            this.botDensityPanelVisible = false;
-        } else {
-            this.topDensityPanelVisible = false;
-            this.botDensityPanelVisible = !this.botDensityPanelVisible;
-        }
-    }
-
     private applyLineBreaks(content: string) {
         // We add a break line before every chunk
         return content
             .split(this.lineBreakCharacter)
             .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
+    }
+
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-data-table',
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
+            'log'
+        );
     }
 
     //======== render methods ========
@@ -1704,36 +1783,16 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    column.obj ? isNumber(column.obj) : false
+                    isNumber(column.obj)
                 );
 
                 //---- Filter ----
                 let filter = null;
-                // If the current column has a filter, then we take its value
-                let filterValue =
-                    this.filters && this.filters[column.name]
-                        ? this.filters[column.name]
-                        : '';
 
-                if (
-                    this.showFilters &&
-                    (isStringObject(column.obj) || isCheckbox(column.obj))
-                ) {
-                    // When showing filters, displays input box to update them.
-                    filter = (
-                        <div>
-                            <kup-text-field
-                                class="datatable-filter"
-                                initialValue={filterValue}
-                                data-col={column.name}
-                                onKupTextFieldInput={(e) => {
-                                    this.onFilterChange(e, column.name);
-                                }}
-                            />
-                        </div>
-                    );
-                } else if (filterValue) {
-                    const svgLabel = `Rimuovi filtro: '${filterValue}'`;
+                if (this.hasFiltersForColumn(column.name)) {
+                    const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
+                        column.name
+                    )}'`;
                     /**
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
@@ -1743,32 +1802,15 @@ export class KupDataTable {
                      * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                      */
                     filter = (
-                        <svg
-                            aria-label={svgLabel}
-                            class="remove-filter"
-                            role="button"
-                            tab-index="0"
-                            version="1.1"
-                            viewBox="0 0 24 24"
-                            x="0px"
-                            y="0px"
+                        <kup-image
+                            name="filter-remove"
+                            sizeX="18px"
+                            sizeY="18px"
+                            title={svgLabel}
                             onClick={() => {
-                                this.onFilterChange(
-                                    { detail: { value: '' } },
-                                    column.name
-                                );
+                                this.onRemoveFilter(column.name);
                             }}
-                        >
-                            <title>{svgLabel}</title>
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M14.667,13.726l5.247,5.249l-0.941,0.942l-4.306-4.304v5.325
-                    c0.042,0.3-0.06,0.62-0.289,0.828c-0.392,0.391-1.021,0.391-1.411,0l-2.008-2.008c-0.232-0.228-0.331-0.541-0.292-0.83v-5.871
-                    h-0.028l-5.25-6.726L2,2.943L2.943,2L8.82,7.877L14.667,13.726z M20.287,4.276c0.43,0.34,0.51,0.97,0.172,1.399l-5.242,6.713
-                    l-8.33-8.332h12.78C19.889,4.057,20.098,4.136,20.287,4.276z"
-                            />
-                        </svg>
+                        />
                     );
                 }
 
@@ -1780,15 +1822,18 @@ export class KupDataTable {
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
                 if (this.sortEnabled && isStringObject(column.obj)) {
-                    sortIcon = (
-                        <span class="column-sort">
-                            <span
-                                role="button"
-                                aria-label="Sort column" // TODO
-                                class={'mdi ' + this.getSortIcon(column.name)}
+                    let iconName = this.getSortIcon(column.name);
+                    if (iconName !== '') {
+                        sortIcon = (
+                            <kup-image
+                                class="column-sort"
+                                name={iconName}
+                                title={this.getSortDecode(column.name)}
+                                sizeX="18px"
+                                sizeY="18px"
                             />
-                        </span>
-                    );
+                        );
+                    }
 
                     // The handler for triggering the sorting of a column
                     sortEventHandler = (e: MouseEvent) => {
@@ -1824,48 +1869,112 @@ export class KupDataTable {
                 }
 
                 const columnMenuItems: JSX.Element[] = [];
+                let checkboxWrapper: JSX.Element[] = [];
 
                 //---- adding grouping ----
                 const group = this.getGroupByName(column.name);
                 const groupLabel =
-                    group != null
-                        ? 'Disattiva raggruppamento'
-                        : 'Attiva raggruppamento';
+                    group != null ? 'Disable grouping' : 'Enable grouping';
 
                 columnMenuItems.push(
-                    <li
-                        role="menuitem"
-                        onClick={() =>
-                            this.switchColumnGroup(group, column.name)
-                        }
-                    >
-                        <span class="mdi mdi-book" />
-                        {groupLabel}
+                    <li role="menuitem" class="button-row">
+                        <kup-image
+                            name="book"
+                            sizeX="18px"
+                            sizeY="18px"
+                            title={groupLabel}
+                            onKupImageClick={() =>
+                                this.switchColumnGroup(group, column.name)
+                            }
+                        />
+                        <kup-image
+                            name="table-column-plus-after"
+                            sizeX="18px"
+                            sizeY="18px"
+                            title="Add column"
+                            onKupImageClick={() => {
+                                this.kupAddColumn.emit({ column: column.name });
+                                this.closeMenu();
+                            }}
+                        />
                     </li>
                 );
 
-                columnMenuItems.push(
-                    <li
-                        role="menuitem"
-                        onClick={() =>
-                            this.kupAddColumn.emit({ column: column.name })
-                        }
-                    >
-                        <span class="mdi mdi-table-column-plus-after" />
-                        Aggiungi colonna
-                    </li>
-                );
+                if (
+                    this.showFilters &&
+                    (isStringObject(column.obj) || isCheckbox(column.obj))
+                ) {
+                    columnMenuItems.push(
+                        <li role="menuitem" class="textfield-row">
+                            <kup-text-field
+                                label="Filter"
+                                icon="information-variant"
+                                outlined={false}
+                                trailingIcon={true}
+                                initialValue={this.getTextFieldFilterValue(
+                                    column.name
+                                )}
+                                onKupTextFieldSubmit={(e) => {
+                                    this.onFilterChange(e, column.name);
+                                    this.closeMenu();
+                                }}
+                            ></kup-text-field>
+                        </li>
+                    );
+                    let checkBoxesFilter = this.getCheckBoxFilterValues(
+                        column.name
+                    );
+                    let columnValues: string[] = this.getColumnValues(
+                        column.name
+                    );
+                    let checkboxItems: JSX.Element[] = [];
+                    if (columnValues.length > 0) {
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={'(*All)'}
+                                checked={checkBoxesFilter.length == 0}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, null);
+                                }}
+                            ></kup-checkbox>
+                        );
+                    }
+                    columnValues.forEach((v) => {
+                        checkboxItems.push(
+                            <kup-checkbox
+                                label={v}
+                                checked={checkBoxesFilter.includes(v)}
+                                onKupCheckboxChange={(e) => {
+                                    this.onFilterChange2(e, column.name, v);
+                                }}
+                            ></kup-checkbox>
+                        );
+                    });
+
+                    if (checkboxItems.length > 0) {
+                        checkboxWrapper = (
+                            <li role="menuitem" class="checkbox-row">
+                                {checkboxItems}
+                            </li>
+                        );
+                    }
+                }
 
                 let columnMenu = null;
                 if (columnMenuItems.length !== 0) {
-                    const menuClass =
-                        this.openedMenu === column.name
-                            ? 'open dynamic-position-active'
-                            : 'closed';
+                    const menuClass = this.isOpenedMenuForColumn(column.name)
+                        ? 'open dynamic-position-active'
+                        : 'closed';
 
                     columnMenu = (
                         <div class={`column-menu ${menuClass}`}>
-                            <ul role="menubar">{columnMenuItems}</ul>
+                            <ul
+                                role="menubar"
+                                onMouseUp={(e) => e.stopPropagation()}
+                            >
+                                {columnMenuItems}
+                                {checkboxWrapper}
+                            </ul>
                         </div>
                     );
                 }
@@ -1971,9 +2080,7 @@ export class KupDataTable {
                     };
                 }
 
-                if (column.obj) {
-                    columnClass.number = isNumber(column.obj);
-                }
+                columnClass.number = isNumber(column.obj);
 
                 return (
                     <th
@@ -2082,7 +2189,7 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    column.obj ? isNumber(column.obj) : false
+                    isNumber(column.obj)
                 );
 
                 return (
@@ -2161,9 +2268,10 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded
-                ? 'mdi mdi-menu-down expanded'
-                : 'mdi mdi-menu-right collapsed';
+            //const icon = row.group.expanded
+            //    ? 'mdi mdi-menu-down expanded'
+            //    : 'mdi mdi-menu-right collapsed';
+            const icon = row.group.expanded ? 'expand_less' : 'expand_more';
 
             const jsxRows = [];
 
@@ -2180,18 +2288,13 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <span
-                                class={icon}
-                                role="button"
-                                aria-label="Row expander" // TODO change this label
+                            <kup-image
+                                name={icon}
                                 title="Expand/collapse group"
-                                tabindex="0"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.onRowExpand(row);
-                                }}
-                            ></span>
-                            {composedGroupLabel}
+                                sizeX="1.25rem"
+                                sizeY="1.25rem"
+                            />
+                            <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
                 );
@@ -2226,17 +2329,12 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <span
-                                    class={icon}
-                                    role="button"
-                                    aria-label="Row expander" // TODO change this label
+                                <kup-image
+                                    name={icon}
                                     title="Expand/collapse group"
-                                    tabindex="0"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        this.onRowExpand(row);
-                                    }}
-                                ></span>
+                                    sizeX="1.25rem"
+                                    sizeY="1.25rem"
+                                />
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
@@ -2339,14 +2437,14 @@ export class KupDataTable {
                 } else {
                     // adding expander
                     rowActionExpander = (
-                        <span
-                            title="Espandi voci"
-                            class={`row-action mdi mdi-chevron-right`}
-                            onClick={(e) =>
-                                this.onRowActionExpanderClick(e, row)
-                            }
-                            role="button"
-                            aria-label="Espandi voci"
+                        <kup-image
+                            name="chevron-right"
+                            title="Expand items"
+                            sizeX="1.25rem"
+                            sizeY="1.25rem"
+                            onKupImageClick={(e) => {
+                                this.onRowActionExpanderClick(e, row);
+                            }}
                         />
                     );
                 }
@@ -2510,19 +2608,19 @@ export class KupDataTable {
     ): JSX.Element[] {
         return actions.map((action, index) => {
             return (
-                <span
+                <kup-image
+                    name={action.icon}
                     title={action.text}
-                    class={`row-action ${action.icon}`}
-                    onClick={(e) =>
+                    sizeX="1.25rem"
+                    sizeY="1.25rem"
+                    onKupImageClick={(e) => {
                         this.onDefaultRowActionClick(e, {
                             action,
                             index,
                             row,
                             type,
-                        })
-                    }
-                    role="button"
-                    aria-label={action.text}
+                        });
+                    }}
                 />
             );
         });
@@ -2738,51 +2836,45 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = 'Mostra altri dati';
+        const label = 'Show more data';
         return (
-            <button
-                aria-label={label}
-                class="loadmore-button mdi mdi-plus"
-                role="button"
+            <kup-button
+                class="loadmore-button"
+                label={label}
+                flat
+                icon="plus"
+                tooltip={label}
                 slot={isSlotted ? 'more-results' : null}
-                tabindex="0"
-                title={label}
-                onClick={() => this.onLoadMoreClick()}
-            >
-                <span class="paginator-tab-text">Più risultati</span>{' '}
-            </button>
+                onKupButtonClick={() => {
+                    this.onLoadMoreClick();
+                }}
+            />
         );
     }
 
-    private onCustomSettingsClick(event: any) {
-        let t = event.target;
-        let elPanel = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('customize-panel')[0];
-        let elButton = t
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('custom-settings')[0];
-
-        if (elButton.classList.contains('activated')) {
-            elButton.classList.remove('activated');
-            elPanel.classList.remove('visible');
-            elPanel.classList.remove('dynamic-position-active');
-        } else {
-            elButton.classList.add('activated');
-            elPanel.classList.add('visible');
-            elPanel.classList.add('dynamic-position-active');
-        }
+    private onCustomSettingsClick(top: boolean) {
+        this.openCustomSettings(top);
     }
 
-    private closeCustomSettings() {
-        let elPanel = this.customizePanelRef;
-        let elButton = elPanel
-            .closest('.paginator-wrapper')
-            .getElementsByClassName('custom-settings')[0];
-        if (elButton.classList.contains('activated')) {
-            elButton.classList.remove('activated');
-            elPanel.classList.remove('visible');
+    private openCustomSettings(top: boolean) {
+        this.closeCustomSettings(!top);
+        let elPanel = top
+            ? this.customizeTopPanelRef
+            : this.customizeBottomPanelRef;
+
+        elPanel.classList.add('visible');
+        elPanel.classList.add('dynamic-position-active');
+    }
+
+    private closeCustomSettings(top: boolean) {
+        let elPanel = top
+            ? this.customizeTopPanelRef
+            : this.customizeBottomPanelRef;
+        if (elPanel == null) {
+            return;
         }
+        elPanel.classList.remove('visible');
+        elPanel.classList.remove('dynamic-position-active');
     }
 
     private renderPaginator(top: boolean) {
@@ -2802,229 +2894,188 @@ export class KupDataTable {
                             }
                         />
                     ) : null}
-                    <button
-                        title="Mostra opzioni di personalizzazione"
-                        class="paginator-button mdi mdi-settings custom-settings"
-                        onClick={(e) => this.onCustomSettingsClick(e)}
+
+                    <kup-image
+                        class="paginator-button custom-settings"
+                        name="settings"
+                        sizeX="18px"
+                        sizeY="18px"
+                        title="Show personalize settings"
+                        onKupImageClick={() => {
+                            this.onCustomSettingsClick(top);
+                        }}
+                        ref={(el) => {
+                            top
+                                ? (this.customizeTopButtonRef = el as any)
+                                : (this.customizeBottomButtonRef = el as any);
+                        }}
+                    />
+                    <div
+                        onMouseLeave={() => this.closeCustomSettings(top)}
+                        class="customize-panel"
+                        ref={(el) => {
+                            top
+                                ? (this.customizeTopPanelRef = el as any)
+                                : (this.customizeBottomPanelRef = el as any);
+                        }}
                     >
-                        <div
-                            onMouseLeave={() => this.closeCustomSettings()}
-                            class="customize-panel"
-                            ref={(el) => (this.customizePanelRef = el as any)}
-                        >
-                            {this.renderDensityPanel(top)}
-                            {this.renderFontSizePanel(top)}
-                        </div>
-                    </button>
+                        {this.renderDensityPanel()}
+                        {this.renderFontSizePanel()}
+                    </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
         );
     }
 
-    private renderFontSizePanel(top: boolean) {
-        let fontSize: string;
-        {
-            this.fontsize === 'medium'
-                ? (fontSize = 'Media')
-                : this.fontsize === 'big'
-                ? (fontSize = 'Grande')
-                : this.fontsize === 'small'
-                ? (fontSize = 'Piccolo')
-                : (fontSize = '');
+    private transcodeItem(
+        item: string,
+        searchIn: Array<string>,
+        returnFrom: Array<string>
+    ): string {
+        for (let i = 0; i < searchIn.length; i++) {
+            let tmpCode = searchIn[i];
+            if (tmpCode == item && i < returnFrom.length) {
+                return returnFrom[i];
+            }
         }
-        let fontSizeTypeString = 'Dimensione carattere: ' + fontSize;
+        return item;
+    }
+
+    private createListData(
+        codes: Array<string>,
+        decodes: Array<string>,
+        icons: Array<string>,
+        selectedCode: string
+    ): ComponentListElement[] {
+        let listItems: ComponentListElement[] = [];
+        for (let i = 0; i < codes.length; i++) {
+            listItems[i] = {
+                text: decodes[i],
+                value: codes[i],
+                selected: selectedCode == codes[i],
+                icon: icons[i],
+            };
+        }
+        return listItems;
+    }
+
+    private FONTSIZE_CODES: Array<string> = ['small', 'medium', 'big'];
+    private FONTSIZE_DECODES: Array<string> = ['Small', 'Medium', 'Big'];
+    private FONTSIZE_ICONS: Array<string> = [
+        'format-font-size-decrease',
+        'format-color-text',
+        'format-font-size-increase',
+    ];
+    private getFontSizeDecodeFromCode(code: string): string {
+        return this.transcodeItem(
+            code,
+            this.FONTSIZE_CODES,
+            this.FONTSIZE_DECODES
+        );
+    }
+
+    private getFontSizeCodeFromDecode(decode: string): string {
+        return this.transcodeItem(
+            decode,
+            this.FONTSIZE_DECODES,
+            this.FONTSIZE_CODES
+        );
+    }
+
+    private renderFontSizePanel() {
+        let listItems: ComponentListElement[] = this.createListData(
+            this.FONTSIZE_CODES,
+            this.FONTSIZE_DECODES,
+            this.FONTSIZE_ICONS,
+            this.fontsize
+        );
+
+        let listData = { data: listItems, showIcons: true };
+
+        let textfieldData = {
+            trailingIcon: true,
+            initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
+            label: 'Font size:',
+            icon: 'arrow_drop_down',
+        };
         return (
             <div class="fontsize-panel">
-                <span title={fontSizeTypeString} class="panel-label">
-                    Dimensione carattere
-                </span>
-                <span
-                    class="fontsize-label"
-                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
-                >
-                    {fontSize}
-                </span>
-                <div
-                    role="button"
-                    onClick={(e) => this.toggleFontSizeVisibility(e, top)}
-                    tabindex="0"
-                >
-                    <svg
-                        version="1.1"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M7,10L12,15L17,10H7Z" />
-                    </svg>
-                </div>
-                <div
-                    class={{
-                        'fontsize-panel-overlay': true,
-                        open: top
-                            ? this.topFontSizePanelVisible
-                            : this.botFontSizePanelVisible,
+                <kup-combobox
+                    isSelect={true}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        this.fontsize = this.getFontSizeCodeFromDecode(
+                            e.detail.value
+                        );
                     }}
-                >
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'small',
-                        }}
-                        onClick={() => (this.fontsize = 'small')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'small' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Piccolo"
-                            class="fontsize-icon-panel mdi mdi-format-font-size-decrease"
-                        ></span>
-                    </div>
-
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'medium',
-                        }}
-                        onClick={() => (this.fontsize = 'medium')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'medium' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Normale"
-                            class="fontsize-icon-panel mdi mdi-format-color-text"
-                        ></span>
-                    </div>
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.fontsize === 'big',
-                        }}
-                        onClick={() => (this.fontsize = 'big')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.fontsize === 'big' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Grande"
-                            class="fontsize-icon-panel mdi mdi-format-font-size-increase"
-                        ></span>
-                    </div>
-                </div>
+                />
             </div>
         );
     }
 
-    private renderDensityPanel(top: boolean) {
-        let densityType: string;
-        {
-            this.density === 'medium'
-                ? (densityType = 'Normale')
-                : this.density === 'big'
-                ? (densityType = 'Ampia')
-                : this.density === 'small'
-                ? (densityType = 'Compatta')
-                : (densityType = '');
-        }
-        let densityTypeString = 'Densità righe: ' + densityType;
+    private DENSITY_CODES: Array<string> = ['small', 'medium', 'big'];
+    private DENSITY_DECODES: Array<string> = ['Dense', 'Normal', 'Wide'];
+    private DENSITY_ICONS: Array<string> = [
+        'format-align-justify',
+        'reorder-horizontal',
+        'view-sequential',
+    ];
+    private getDensityDecodeFromCode(code: string): string {
+        return this.transcodeItem(
+            code,
+            this.DENSITY_CODES,
+            this.DENSITY_DECODES
+        );
+    }
+
+    private getDensityCodeFromDecode(decode: string): string {
+        return this.transcodeItem(
+            decode,
+            this.DENSITY_DECODES,
+            this.DENSITY_CODES
+        );
+    }
+
+    private renderDensityPanel() {
+        let listItems: ComponentListElement[] = this.createListData(
+            this.DENSITY_CODES,
+            this.DENSITY_DECODES,
+            this.DENSITY_ICONS,
+            this.density
+        );
+
+        let listData = { data: listItems, showIcons: true };
+
+        let textfieldData = {
+            trailingIcon: true,
+            initialValue: this.getDensityDecodeFromCode(this.density),
+            label: 'Rows density:',
+            icon: 'arrow_drop_down',
+        };
         return (
             <div class="density-panel">
-                <span title={densityTypeString} class="panel-label">
-                    Densità righe
-                </span>
-                <span
-                    class="density-label"
-                    onClick={(e) => this.toggleDensityVisibility(e, top)}
-                >
-                    {densityType}
-                </span>
-                <div
-                    role="button"
-                    onClick={(e) => this.toggleDensityVisibility(e, top)}
-                    tabindex="0"
-                >
-                    <svg
-                        version="1.1"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M7,10L12,15L17,10H7Z" />
-                    </svg>
-                </div>
-                <div
-                    class={{
-                        'density-panel-overlay': true,
-                        open: top
-                            ? this.topDensityPanelVisible
-                            : this.botDensityPanelVisible,
+                <kup-combobox
+                    isSelect={true}
+                    selectMode={ItemsDisplayMode.DESCRIPTION}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        this.density = this.getDensityCodeFromDecode(
+                            e.detail.value
+                        );
                     }}
-                >
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'small',
-                        }}
-                        onClick={() => (this.density = 'small')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'small' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Compatta"
-                            class="density-icon-panel mdi mdi-format-align-justify"
-                        ></span>
-                    </div>
-
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'medium',
-                        }}
-                        onClick={() => (this.density = 'medium')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={
-                            this.density === 'medium' ? 'true' : 'false'
-                        }
-                    >
-                        <span
-                            title="Normale"
-                            class="density-icon-panel mdi mdi-reorder-horizontal"
-                        ></span>
-                    </div>
-                    <div
-                        class={{
-                            wrapper: true,
-                            active: this.density === 'big',
-                        }}
-                        onClick={() => (this.density = 'big')}
-                        role="button"
-                        tabindex="0"
-                        aria-pressed={this.density === 'big' ? 'true' : 'false'}
-                    >
-                        <span
-                            title="Ampia"
-                            class="density-icon-panel mdi mdi-view-sequential"
-                        ></span>
-                    </div>
-                </div>
+                />
             </div>
         );
     }
 
     render() {
+        let lcltime = new Date();
+        let starttime = lcltime.getTime();
         // resetting rows
         this.renderedRows = [];
         let elStyle = undefined;
@@ -3192,7 +3243,7 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        return (
+        let compCreated = (
             <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
                     {paginatorTop}
@@ -3221,5 +3272,10 @@ export class KupDataTable {
                 {paginatorBottom}
             </div>
         );
+        lcltime = new Date();
+        let endtime = lcltime.getTime();
+        this.log('render', 'time spent [' + (endtime - starttime) + ']');
+
+        return compCreated;
     }
 }
