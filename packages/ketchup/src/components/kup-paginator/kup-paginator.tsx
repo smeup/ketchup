@@ -2,6 +2,7 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-paginator',
@@ -165,7 +166,13 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
+    log(methodName: string, msg: string) {
+        errorLogging('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+    }
+
     render() {
+        let lcltime = new Date();
+        let starttime = lcltime.getTime();
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
@@ -196,7 +203,7 @@ export class KupPaginator {
             selectable: true,
         };
 
-        return (
+        let compCreated = (
             <div id="paginator">
                 <div class="align-left">
                     <div class="nav-section">
@@ -242,5 +249,10 @@ export class KupPaginator {
                 <div class="align-left"></div>
             </div>
         );
+        lcltime = new Date();
+        let endtime = lcltime.getTime();
+        this.log('render', 'time spent [' + (endtime - starttime) + ']');
+
+        return compCreated;
     }
 }
