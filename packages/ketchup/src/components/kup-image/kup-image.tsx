@@ -3,7 +3,6 @@ import {
     Prop,
     Element,
     Host,
-    State,
     Event,
     EventEmitter,
     h,
@@ -18,7 +17,6 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
-    @State() resource: string = undefined;
 
     /**
      * Sets the data of badges.
@@ -52,6 +50,9 @@ export class KupImage {
      * The type of the icon, defaults to "svg".
      */
     @Prop({ reflect: true }) type: string = 'svg';
+
+    private resource: string = undefined;
+    private isUrl: boolean = false;
 
     @Event({
         eventName: 'kupImageClick',
@@ -95,35 +96,9 @@ export class KupImage {
         });
     }
 
-    async fetchResource() {
-        var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
-        return fetch(res)
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Icon( ' + res + ' ) was not loaded!');
-                }
-            })
-            .then((text) => {
-                this.resource = text;
-            })
-            .catch((error) => {
-                let message = error;
-                errorLogging('kup-image', message);
-            });
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.name === undefined || this.name === null || this.name === '') {
-            this.resource = undefined;
-            let message = 'Name not set, not rendering!';
-            errorLogging('kup-image', message);
-            return;
-        }
-
         if (
             this.name.indexOf('.') > -1 ||
             this.name.indexOf('/') > -1 ||
@@ -135,23 +110,59 @@ export class KupImage {
                 ')! Overriding "svg" with "srcpath".';
             errorLogging('kup-image', message);
             this.resource = this.name;
-            this.type = 'srcpath';
+            this.isUrl = true;
         } else {
+            this.isUrl = false;
             if (this.type === 'svg') {
-                return this.fetchResource();
+                let fetchedSVG = document.documentElement['kupSVG'];
+                if (!fetchedSVG) {
+                    let message = 'Creating SVG resource on HTML element.';
+                    errorLogging('kup-image', message);
+                    document.documentElement['kupSVG'] = {};
+                } else if (fetchedSVG[this.name]) {
+                    this.resource = fetchedSVG[this.name];
+                }
+                var res =
+                    'assets/' + this.type + '/' + this.name + '.' + this.type;
+                return fetch(res)
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error(
+                                'Icon( ' + res + ' ) was not loaded!'
+                            );
+                        }
+                    })
+                    .then((text) => {
+                        this.resource = text;
+                        let svgs = document.documentElement['kupSVG'];
+                        if (svgs) {
+                            let message =
+                                'Loading SVG resource on HTML element(' +
+                                this.name +
+                                ').';
+                            errorLogging('kup-image', message);
+                            svgs[this.name] = this.resource;
+                        } else {
+                            document.documentElement['kupSVG'] = {
+                                [this.name]: this.resource,
+                            };
+                        }
+                    })
+                    .catch((error) => {
+                        let message = error;
+                        errorLogging('kup-image', message);
+                    });
             } else {
-                return (this.resource =
-                    'assets/' + this.type + '/' + this.name + '.' + this.type);
+                this.resource =
+                    'assets/' + this.type + '/' + this.name + '.' + this.type;
             }
         }
     }
 
     render() {
-        if (
-            this.resource === undefined ||
-            this.resource === null ||
-            this.resource === ''
-        ) {
+        if (this.resource === undefined) {
             let message = 'Resource undefined, not rendering!';
             errorLogging('kup-image', message);
             return;
@@ -197,7 +208,7 @@ export class KupImage {
             );
         }
 
-        if (this.type === 'svg') {
+        if (this.type === 'svg' && !this.isUrl) {
             return (
                 <Host style={elStyle}>
                     {customStyle}
