@@ -1,8 +1,7 @@
-import { KupStateEvent } from './kup-state-event';
-import { KupStateModel } from './kup-state-model';
-
 // TODO: I'd probably put this in a separate, specialized, package.
 import { KupStateRedux } from './kup-state-redux';
+import { KupTextInputStateEvent } from '../kup-text-input/kup-text-input-state-event';
+import { KupTextInputState } from '../kup-text-input/kup-text-input-state';
 
 // TODO: cannot enforce generic here, as Typescript singleton pattern is poorly defined.
 // KupStateManager decouples components from state management.
@@ -17,7 +16,7 @@ export class KupStateManager {
 
     // This is a singleton.
     private constructor() {
-        console.log("Inited KupStateManager");
+        console.log('Inited KupStateManager');
     }
 
     // Get an instance.
@@ -37,14 +36,21 @@ export class KupStateManager {
         return KupStateManager.instance;
     }
 
-    // Register a listener to decouple the state management from the component business logic.
-    public registerListener(event: KupStateEvent<any>) {
+    public registerListener4KupTextInputStateEvent(
+        event: KupTextInputStateEvent
+    ) {
         console.log(`Registered event: ${event.getEventName()}`);
 
-        window.addEventListener(event.getEventName(), (ev: CustomEvent<KupStateModel>) => {
-            console.log(`Received an event(${event.getEventName()}): ` + ev.detail.toDebugString());
-            this._store.persist(ev.detail);
-        });
+        window.addEventListener(
+            event.getEventName(),
+            (ev: CustomEvent<KupTextInputState>) => {
+                console.log(
+                    `Received an event(${event.getEventName()}): ` +
+                        ev.detail.toDebugString()
+                );
+                this._store.persist(ev.detail);
+            }
+        );
     }
 
     // Retrieve the store state.

@@ -15,29 +15,16 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { debounceEvent } from '../../utils/helpers';
 
-import {
-    KupStatePersisted,
-    KupStateManager,
-    KupStateEvent,
-    KupStateModel,
-} from '../kup-state';
-
-// This class models our component state.
-class ComponentState extends KupStateModel {
-    // TODO: define common attributes
-    public name:string = "Ale";
-
-    public toDebugString() {
-        return `name=${this.name}`;
-    }
-}
+import { KupTextInputState } from './kup-text-input-state';
+import { KupTextInputStateEvent } from './kup-text-input-state-event';
+import { KupStateManager } from '../kup-state/kup-state-manager';
 
 @Component({
     tag: 'kup-text-input',
     styleUrl: 'kup-text-input.scss',
     shadow: true,
 })
-export class KupTextInput implements KupStatePersisted<ComponentState> {
+export class KupTextInput {
 
     //////////////////////////////
     // Begin state management
@@ -51,24 +38,24 @@ export class KupTextInput implements KupStatePersisted<ComponentState> {
     // as that hack would only be needed by the stencil build pipeline.
     //////////////////////////////
 
-    state: ComponentState = new ComponentState();
+    state: KupTextInputState = new KupTextInputState();
     // Cannot use stencil built-in @Event or EventEmitter
     // as they break our KupStateManager registration being
     // outside of Stencil components.
-    // @Event() stateChange: EventEmitter<ComponentState>; // Would be null for ksm.registerEvent()
-
-    stateChange: KupStateEvent<ComponentState> = new KupStateEvent<ComponentState>(ComponentState);
+    // @Event() stateChange: EventEmitter<KupTextInputState>; // Would be null for ksm.registerEvent()
+    stateChange: KupTextInputStateEvent = new KupTextInputStateEvent();
+    // it would be good if can avoid KupTextInputStateEvent and can be used new KupStateEvent<KupTextInputState>
 
     // Get a singleton instance, register our custom event emitter to start
     // a listener.
     registerState() {
         const ksm = KupStateManager.getInstance();
-        ksm.registerListener(this.stateChange);
+        ksm.registerListener4KupTextInputStateEvent(this.stateChange);
     }
 
     getValue() {
         const ksm = KupStateManager.getInstance();
-        console.log("store contains: ");
+        console.log('store contains: ');
         console.log(ksm.getStore());
     }
 
@@ -81,7 +68,7 @@ export class KupTextInput implements KupStatePersisted<ComponentState> {
     // This method cannot be abstracted started in stencil 0.12 as @Component
     // annotated components cannot derive from abstracted classes.
     stateChanged() {
-        console.log("state changed:", this.state);
+        console.log('state changed:', this.state);
         this.stateChange.emit(this.state);
 
         // simulate a delay to retrieve the values from the store
@@ -202,7 +189,7 @@ export class KupTextInput implements KupStatePersisted<ComponentState> {
                     value: newValue,
                     oldValue: this.value,
                     info: {
-                      obj: this.obj,
+                        obj: this.obj,
                     },
                 });
             }
@@ -414,7 +401,7 @@ export class KupTextInput implements KupStatePersisted<ComponentState> {
                         placeholder={this.placeholder}
                     />
 
-                  <slot name="right"/>
+                    <slot name="right" />
 
                     {this.isClearable ? (
                         <button
