@@ -2890,7 +2890,7 @@ export class KupDataTable {
                     <kup-button
                         class="paginator-button custom-settings"
                         icon="settings"
-                        tooltip="Show personalize settings"
+                        tooltip="Show customization options"
                         onKupButtonClick={() => {
                             this.onCustomSettingsClick(top);
                         }}
