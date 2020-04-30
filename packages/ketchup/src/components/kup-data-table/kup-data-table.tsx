@@ -1878,21 +1878,17 @@ export class KupDataTable {
 
                 columnMenuItems.push(
                     <li role="menuitem" class="button-row">
-                        <kup-image
-                            name="book"
-                            sizeX="18px"
-                            sizeY="18px"
-                            title={groupLabel}
-                            onKupImageClick={() =>
+                        <kup-button
+                            icon="book"
+                            tooltip={groupLabel}
+                            onKupButtonClick={() =>
                                 this.switchColumnGroup(group, column.name)
                             }
                         />
-                        <kup-image
-                            name="table-column-plus-after"
-                            sizeX="18px"
-                            sizeY="18px"
-                            title="Add column"
-                            onKupImageClick={() => {
+                        <kup-button
+                            icon="table-column-plus-after"
+                            tooltip="Add column"
+                            onKupButtonClick={() => {
                                 this.kupAddColumn.emit({ column: column.name });
                                 this.closeMenu();
                             }}
@@ -2437,12 +2433,10 @@ export class KupDataTable {
                 } else {
                     // adding expander
                     rowActionExpander = (
-                        <kup-image
-                            name="chevron-right"
-                            title="Expand items"
-                            sizeX="1.25rem"
-                            sizeY="1.25rem"
-                            onKupImageClick={(e) => {
+                        <kup-button
+                            icon="chevron-right"
+                            tooltip="Expand items"
+                            onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
                         />
@@ -2608,12 +2602,10 @@ export class KupDataTable {
     ): JSX.Element[] {
         return actions.map((action, index) => {
             return (
-                <kup-image
-                    name={action.icon}
-                    title={action.text}
-                    sizeX="1.25rem"
-                    sizeY="1.25rem"
-                    onKupImageClick={(e) => {
+                <kup-button
+                    icon={action.icon}
+                    tooltip={action.text}
+                    onKupButtonClick={(e) => {
                         this.onDefaultRowActionClick(e, {
                             action,
                             index,
@@ -2895,13 +2887,11 @@ export class KupDataTable {
                         />
                     ) : null}
 
-                    <kup-image
+                    <kup-button
                         class="paginator-button custom-settings"
-                        name="settings"
-                        sizeX="18px"
-                        sizeY="18px"
-                        title="Show personalize settings"
-                        onKupImageClick={() => {
+                        icon="settings"
+                        tooltip="Show customization options"
+                        onKupButtonClick={() => {
                             this.onCustomSettingsClick(top);
                         }}
                         ref={(el) => {
@@ -3052,7 +3042,7 @@ export class KupDataTable {
         let textfieldData = {
             trailingIcon: true,
             initialValue: this.getDensityDecodeFromCode(this.density),
-            label: 'Rows density:',
+            label: 'Row density:',
             icon: 'arrow_drop_down',
         };
         return (
