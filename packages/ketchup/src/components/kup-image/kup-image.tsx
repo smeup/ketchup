@@ -113,7 +113,11 @@ export class KupImage {
             this.isUrl = true;
         } else {
             this.isUrl = false;
+            this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type;
+            /*
             if (this.type === 'svg') {
+                this.resource = getSvg(this.name);
                 let fetchedSVG = document.documentElement['kupSVG'];
                 if (!fetchedSVG) {
                     let message = 'Creating SVG resource on HTML element.';
@@ -166,6 +170,7 @@ export class KupImage {
                 this.resource =
                     'assets/' + this.type + '/' + this.name + '.' + this.type;
             }
+            */
         }
     }
 
@@ -217,12 +222,20 @@ export class KupImage {
         }
 
         if (this.type === 'svg' && !this.isUrl) {
+            let str = `url(${this.resource}) no-repeat center`;
+            let elStyle = {
+                height: this.sizeY,
+                width: this.sizeX,
+                mask: str,
+                background: this.color,
+                webkitMask: str,
+            };
+
             return (
                 <Host style={elStyle}>
                     {customStyle}
                     <div
                         id="kup-component"
-                        innerHTML={el}
                         style={elStyle}
                         onClick={(e) => this.onKupClick(e)}
                     ></div>
