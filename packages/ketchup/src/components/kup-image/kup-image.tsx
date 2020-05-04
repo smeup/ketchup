@@ -184,8 +184,6 @@ export class KupImage {
         let elStyle = {
             height: this.sizeY,
             width: this.sizeX,
-            color: this.color,
-            fill: this.color,
         };
         let el: string = this.resource;
         let spinnerLayout: number;
@@ -223,9 +221,8 @@ export class KupImage {
 
         if (this.type === 'svg' && !this.isUrl) {
             let str = `url(${this.resource}) no-repeat center`;
-            let elStyle = {
-                height: this.sizeY,
-                width: this.sizeX,
+            let elStyleSVG = {
+                ...elStyle,
                 mask: str,
                 background: this.color,
                 webkitMask: str,
@@ -236,7 +233,7 @@ export class KupImage {
                     {customStyle}
                     <div
                         id="kup-component"
-                        style={elStyle}
+                        style={elStyleSVG}
                         onClick={(e) => this.onKupClick(e)}
                     ></div>
                     {...badgeCollection}
