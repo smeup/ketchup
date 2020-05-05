@@ -721,6 +721,10 @@ export namespace Components {
          */
         "feedback": boolean;
         /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas": boolean;
+        /**
           * The name of the icon. It can also contain an URL or a path.
          */
         "name": string;
@@ -2437,6 +2441,10 @@ declare namespace LocalJSX {
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback"?: boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas"?: boolean;
         /**
           * The name of the icon. It can also contain an URL or a path.
          */

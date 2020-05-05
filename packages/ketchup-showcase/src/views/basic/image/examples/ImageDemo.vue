@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-image id="demo-component" color="var(--kup-icon-color)" size-x="64px" size-y="64px" name="widgets" type="svg" ></kup-image>',
+        '<kup-image is-canvas id="demo-component" color="var(--kup-icon-color)" size-x="230px" size-y="140px" type="svg" ></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -77,6 +77,14 @@ export default {
           prop: 'feedback',
           description:
             'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'isCanvas',
+          description:
+            "The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -124,6 +132,7 @@ export default {
         },
       ],
       demoData: {
+        name: 'R000G140B069;33,3\\\\R244G245B240;66,5\\\\R205G033B042;100,0',
         badgeData: [
           {
             imageData: {

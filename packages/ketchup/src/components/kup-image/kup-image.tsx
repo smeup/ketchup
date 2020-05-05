@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { Badge } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { imageCanvas } from './canvas/kup-image-canvas';
 
 @Component({
     tag: 'kup-image',
@@ -35,6 +36,10 @@ export class KupImage {
      */
     @Prop({ reflect: true }) feedback: boolean = false;
     /**
+     * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+     */
+    @Prop({ reflect: true }) isCanvas: boolean = false;
+    /**
      * The name of the icon. It can also contain an URL or a path.
      */
     @Prop({ reflect: true }) name: string = undefined;
@@ -53,6 +58,8 @@ export class KupImage {
 
     private resource: string = undefined;
     private isUrl: boolean = false;
+    private imageCanvas: imageCanvas;
+    canvas: HTMLCanvasElement;
 
     @Event({
         eventName: 'kupImageClick',
@@ -98,8 +105,22 @@ export class KupImage {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        if (this.isCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas) {
+            this.imageCanvas.drawCanvas(this.name, this.canvas);
+        }
+    }
+
     componentWillRender() {
-        if (
+        if (this.isCanvas) {
+            this.resource = this.name;
+        } else if (
             this.name.indexOf('.') > -1 ||
             this.name.indexOf('/') > -1 ||
             this.name.indexOf('\\') > -1
@@ -115,62 +136,6 @@ export class KupImage {
             this.isUrl = false;
             this.resource =
                 'assets/' + this.type + '/' + this.name + '.' + this.type;
-            /*
-            if (this.type === 'svg') {
-                this.resource = getSvg(this.name);
-                let fetchedSVG = document.documentElement['kupSVG'];
-                if (!fetchedSVG) {
-                    let message = 'Creating SVG resource on HTML element.';
-                    errorLogging('kup-image', message);
-                    document.documentElement['kupSVG'] = {};
-                    fetchedSVG = document.documentElement['kupSVG'];
-                }
-                if (fetchedSVG[this.name]) {
-                    this.resource = fetchedSVG[this.name];
-                } else {
-                    var res =
-                        'assets/' +
-                        this.type +
-                        '/' +
-                        this.name +
-                        '.' +
-                        this.type;
-                    return fetch(res)
-                        .then((response) => {
-                            if (response.ok) {
-                                return response.text();
-                            } else {
-                                throw new Error(
-                                    'Icon( ' + res + ' ) was not loaded!'
-                                );
-                            }
-                        })
-                        .then((text) => {
-                            this.resource = text;
-                            let svgs = document.documentElement['kupSVG'];
-                            if (svgs) {
-                                let message =
-                                    'Loading SVG resource on HTML element(' +
-                                    this.name +
-                                    ').';
-                                errorLogging('kup-image', message);
-                                svgs[this.name] = this.resource;
-                            } else {
-                                document.documentElement['kupSVG'] = {
-                                    [this.name]: this.resource,
-                                };
-                            }
-                        })
-                        .catch((error) => {
-                            let message = error;
-                            errorLogging('kup-image', message);
-                        });
-                }
-            } else {
-                this.resource =
-                    'assets/' + this.type + '/' + this.name + '.' + this.type;
-            }
-            */
         }
     }
 
@@ -219,10 +184,21 @@ export class KupImage {
             );
         }
 
-        if (this.type === 'svg' && !this.isUrl) {
+        if (this.isCanvas) {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                        <canvas ref={(el) => (this.canvas = el)}>
+                            {this.resource}
+                        </canvas>
+                    </div>
+                    {...badgeCollection}
+                </Host>
+            );
+        } else if (this.type === 'svg' && !this.isUrl) {
             let str = `url(${this.resource}) no-repeat center`;
             let elStyleSVG = {
-                ...elStyle,
                 mask: str,
                 background: this.color,
                 webkitMask: str,
@@ -243,7 +219,7 @@ export class KupImage {
             return (
                 <Host style={elStyle}>
                     {customStyle}
-                    <div id="kup-component" style={elStyle}>
+                    <div id="kup-component">
                         {feedback}
                         <img
                             style={elStyle}

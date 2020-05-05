@@ -7,6 +7,8 @@
     margin: auto;
     position: relative;
     transition: color 0.2s ease;
+    height: 100%;
+    width: 100%;
   }
 
   #feedback {
@@ -15,6 +17,13 @@
     position: absolute;
     top: calc(50% - 16px);
     left: calc(50% - 16px);
+  }
+}
+
+:host([is-canvas]) {
+  canvas {
+    height: 100%;
+    width: 100%;
   }
 }
 
