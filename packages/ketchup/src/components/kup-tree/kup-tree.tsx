@@ -32,6 +32,7 @@ import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper'
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-tree',
@@ -56,6 +57,14 @@ export class KupTree {
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
     @Prop() data: TreeNode[] = [];
+
+    /**
+     * When set to true enables the tree nodes filter.
+     */
+    @Prop({ reflect: true }) showFilter: boolean = false;
+
+    @State() filterValue: string = '';
+
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
@@ -467,7 +476,7 @@ export class KupTree {
 
     // Handler for clicking onto the cells option object
     hdlOptionClicked(
-        e: UIEvent,
+        e: CustomEvent,
         cell: Cell,
         column: Column,
         treeNode: TreeNode
@@ -497,8 +506,161 @@ export class KupTree {
         return strToRet;
     }
 
+    onFilterChange(event: CustomEvent) {
+        this.log('onFilterChange', 'event.detail.value=' + event.detail.value);
+        this.filterValue = event.detail.value;
+    }
+
+    private setAllVisible(items: TreeNode[]) {
+        items.forEach((element) => {
+            element.visible = true;
+            this.setAllVisible(element.children);
+        });
+    }
+    private filterNodes() {
+        if (this.filterValue.trim() == '') {
+            this.setAllVisible(this.data);
+            return;
+        }
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.setNodeVisibility(this.data[i])) {
+            }
+        }
+    }
+
+    private setNodeVisibility(node: TreeNode): boolean {
+        let visibility: boolean = this.isFilterComplientForNode(
+            node,
+            this.filterValue
+        );
+        if (node.disabled != true && node.expandable == true) {
+            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
+            if (visibility == true) {
+                this.setAllVisible(node.children);
+            } else {
+                for (let i = 0; i < node.children.length; i++) {
+                    if (this.setNodeVisibility(node.children[i])) {
+                        visibility = true;
+                    }
+                }
+            }
+        }
+        node.visible = visibility;
+        return visibility;
+    }
+
+    private isFilterComplientForNode(
+        node: TreeNode,
+        filterValue: string
+    ): boolean {
+        if (!node) {
+            return false;
+        }
+        if (filterValue == '') {
+            return false;
+        }
+
+        const analyzedFilter = filterValue.match(this.filterAnalyzer);
+        const filterIsNegative: boolean = analyzedFilter
+            ? analyzedFilter[1].indexOf('!') >= 0
+            : false;
+        // checks if the value of the filter is contained inside value of the object
+        // Or is if the filter is a special filter to be matched.
+        if (
+            node.value.toLowerCase().includes(filterValue.toLowerCase()) ||
+            this.matchSpecialFilter(
+                node.value.toLowerCase(),
+                filterValue.toLowerCase().match(this.filterAnalyzer)
+            )
+        ) {
+            // the element matches the field filter
+            if (filterIsNegative == true) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This regular expressions returns a match like this one:
+     * if the string does not match is null, otherwise the indexes are equal to the object below:
+     *
+     * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
+     * @property {string} 1 - Either !' or ' it's the start of the regexp.
+     * @property {string} 2 - Either % or null: means the string must start with the given string.
+     * @property {string} 3 - Either "" or a string with a length.
+     * @property {string} 4 - Either % or null: means the string must finish with the given string.
+     * @property {string} 5 - Always equal to ': it's the end of the filter.
+     */
+    filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
+
+    /**
+     * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
+     * if the filter is matched.
+     *
+     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
+     * Valid syntax:
+     * 'filter' = search for exact phrase;
+     * '' = match when value is empty;
+     * 'filter%' = match when a string starts with "filter";
+     * '%filter' = match when a string ends with "filter";
+     * '%filter%' = match when a string contains "filter".
+     *
+     * It is also possible to negate the expression by prepending "!" in front of the expression.
+     * For example: !'' = value in the cell must not be empty.
+     *
+     * With no expression set, the filter is by default set to '%filter%'.
+     *
+     * @param cellValue - The value of the current cell.
+     * @param parsedFilter - The value of the current filter.
+     * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
+     * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
+     */
+    private matchSpecialFilter(
+        nodeValue: string,
+        parsedFilter: RegExpMatchArray | null,
+        ignoreNegativeFlag: boolean = false
+    ): boolean {
+        // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
+        if (parsedFilter) {
+            // endsWith and startWith are not supported by IE 11
+            // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
+            const toRet: boolean =
+                (parsedFilter[3] === '' && !nodeValue.trim()) ||
+                (!parsedFilter[2] &&
+                    parsedFilter[4] &&
+                    nodeValue.startsWith(parsedFilter[3])) ||
+                (parsedFilter[2] &&
+                    !parsedFilter[4] &&
+                    nodeValue.endsWith(parsedFilter[3])) ||
+                (!parsedFilter[2] &&
+                    !parsedFilter[4] &&
+                    nodeValue === parsedFilter[3]) ||
+                (parsedFilter[2] &&
+                    parsedFilter[4] &&
+                    nodeValue.indexOf(parsedFilter[3]) >= 0);
+            return !ignoreNegativeFlag
+                ? parsedFilter[1].indexOf('!') < 0
+                    ? toRet
+                    : !toRet
+                : toRet;
+        }
+        return false;
+    }
+
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-tree',
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
+            'log'
+        );
+    }
+
     //-------- Rendering --------
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
+        /*
         return (
             <span
                 aria-label="Opzioni oggetto"
@@ -506,6 +668,16 @@ export class KupTree {
                 role="button"
                 title="Opzioni oggetto"
                 onClick={(e: UIEvent) =>
+                    this.hdlOptionClicked(e, cell, column, treeNode)
+                }
+            />
+        );
+        */
+        return (
+            <kup-button
+                icon="settings"
+                tooltip="Options"
+                onKupButtonClick={(e: CustomEvent) =>
                     this.hdlOptionClicked(e, cell, column, treeNode)
                 }
             />
@@ -833,7 +1005,7 @@ export class KupTree {
     ): JSX.Element[] {
         let treeNodes = [];
 
-        if (treeNodeData) {
+        if (treeNodeData && treeNodeData.visible == true) {
             // Creates and adds the root of the current tree
             treeNodes.push(
                 this.renderTreeNode(treeNodeData, treeNodePath, treeNodeDepth)
@@ -874,6 +1046,9 @@ export class KupTree {
             );
         }
 
+        this.log('render', 'filter');
+        this.filterNodes();
+
         // Composes TreeNodes
         let treeNodes: JSX.Element[] = [];
         if (this.data && this.data.length) {
@@ -894,6 +1069,26 @@ export class KupTree {
         // Calculates if header must be shown or not
         const visibleHeader = this.showHeader && this.showColumns;
 
+        let filterField = null;
+        if (
+            this.showFilter &&
+            this.data &&
+            this.data.length &&
+            this.data.length > 0
+        ) {
+            filterField = (
+                <kup-text-field
+                    label="Filter"
+                    icon="information-variant"
+                    outlined={false}
+                    trailingIcon={true}
+                    initialValue={this.filterValue}
+                    onKupTextFieldSubmit={(e) => {
+                        this.onFilterChange(e);
+                    }}
+                ></kup-text-field>
+            );
+        }
         return (
             <Host>
                 {customStyle}
@@ -902,6 +1097,7 @@ export class KupTree {
                         class="wrapper"
                         ref={(el) => (this.treeWrapperRef = el as any)}
                     >
+                        {filterField}
                         <table
                             class="kup-tree"
                             ref={(el) => (this.treeRef = el as any)}

@@ -1166,6 +1166,10 @@ export namespace Components {
          */
         "showColumns": boolean;
         /**
+          * When set to true enables the tree nodes filter.
+         */
+        "showFilter": boolean;
+        /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
          */
@@ -3054,6 +3058,10 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
+        /**
+          * When set to true enables the tree nodes filter.
+         */
+        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
