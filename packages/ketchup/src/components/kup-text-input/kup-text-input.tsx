@@ -18,6 +18,7 @@ import { debounceEvent } from '../../utils/helpers';
 import { KupTextInputState } from './kup-text-input-state';
 import { KupTextInputStateEvent } from './kup-text-input-state-event';
 import { KupStateManager } from '../kup-state/kup-state-manager';
+import { KupStore } from '../kup-state/kup-store';
 
 @Component({
     tag: 'kup-text-input',
@@ -25,61 +26,58 @@ import { KupStateManager } from '../kup-state/kup-state-manager';
     shadow: true,
 })
 export class KupTextInput {
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
 
-    //////////////////////////////
-    // Begin state management
-    // NOTE: I'd have loved to avoid this level of verbosity in Stencil.js
-    // but starting with 0.12 we cannot make a @Component extend a class without
-    // some sort of hack which would indeed make the code more hard to understand.
-    // TODO: evaluate if it makes sense to exploit Object.setPrototypeOf to
-    // enforce the inheritance through an abstract class to make it smoother.
-    // In that case remember you should check if the environment is Stencil.js
-    // to avoid breaking the "Do not depend on any Stencil.js-specific logic" goal,
-    // as that hack would only be needed by the stencil build pipeline.
-    //////////////////////////////
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
 
     state: KupTextInputState = new KupTextInputState();
-    // Cannot use stencil built-in @Event or EventEmitter
-    // as they break our KupStateManager registration being
-    // outside of Stencil components.
-    // @Event() stateChange: EventEmitter<KupTextInputState>; // Would be null for ksm.registerEvent()
+    // it would be good if we can avoid KupTextInputStateEvent and we can use new KupStateEvent<KupTextInputState>
     stateChange: KupTextInputStateEvent = new KupTextInputStateEvent();
-    // it would be good if can avoid KupTextInputStateEvent and can be used new KupStateEvent<KupTextInputState>
 
     // Get a singleton instance, register our custom event emitter to start
     // a listener.
-    registerState() {
-        const ksm = KupStateManager.getInstance();
-        ksm.registerListener4KupTextInputStateEvent(this.stateChange);
+    registerStateListener() {
+        if (this.store && this.stateId) {
+            console.log('Register state listener for stateId ' + this.stateId);
+            const ksm = KupStateManager.getInstance(this.store);
+            ksm.registerListener4KupTextInputStateEvent(
+                this.stateId,
+                this.stateChange
+            );
+        }
     }
 
-    getValue() {
-        const ksm = KupStateManager.getInstance();
-        console.log('store contains: ');
-        console.log(ksm.getStore());
+    initWithState() {
+        if (this.getState() != null) {
+            console.log('Initialize with state for stateId ' + this.stateId);
+            this.initialValue = this.getState().name;
+        }
     }
 
-    // NOTE: with live-reload this might be triggered multiple time
-    // TODO: exercise for the reader is to ensure this gets called only once.
-    constructor() {
-        this.registerState();
+    getState() {
+        if (this.store && this.stateId) {
+            const ksm = KupStateManager.getInstance(this.store);
+            console.log(
+                'Search state for stateId ' + this.stateId + ': ',
+                ksm.getState(this.stateId)
+            );
+            return ksm.getState(this.stateId);
+        }
+        return null;
     }
 
-    // This method cannot be abstracted started in stencil 0.12 as @Component
-    // annotated components cannot derive from abstracted classes.
     stateChanged() {
-        console.log('state changed:', this.state);
-        this.stateChange.emit(this.state);
-
-        // simulate a delay to retrieve the values from the store
-        // TODO: remove me
-        setTimeout(() => {
-            this.getValue();
-        }, 2000);
+        if (this.store && this.stateId) {
+            console.log('State changed: ', this.state);
+            this.stateChange.emit(this.state);
+        }
     }
 
     //////////////////////////////
-    // End state management
+    // End state stuff
     //////////////////////////////
 
     /**
@@ -148,6 +146,16 @@ export class KupTextInput {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
+        ////////////////////////////////////////////////////////////
+        // Begin state init
+        ////////////////////////////////////////////////////////////
+        // // NOTE: with live-reload this might be triggered multiple time
+        // // TODO: exercise for the reader is to ensure this gets called only once.
+        this.registerStateListener();
+        this.initWithState();
+        //////////////////////////////
+        // End state init
+        //////////////////////////////
         this.onInitialValueChanged();
     }
 
@@ -333,7 +341,7 @@ export class KupTextInput {
         const { target } = event;
 
         //////////////////////////////
-        // Trigger state change
+        // Begin state change
         //////////////////////////////
 
         // Update the model and trigger a stateChanged event.

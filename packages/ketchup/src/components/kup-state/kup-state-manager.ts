@@ -1,7 +1,7 @@
 // TODO: I'd probably put this in a separate, specialized, package.
-import { KupStateRedux } from './kup-state-redux';
 import { KupTextInputStateEvent } from '../kup-text-input/kup-text-input-state-event';
 import { KupTextInputState } from '../kup-text-input/kup-text-input-state';
+import { KupStore } from './kup-store';
 
 // TODO: cannot enforce generic here, as Typescript singleton pattern is poorly defined.
 // KupStateManager decouples components from state management.
@@ -12,7 +12,7 @@ export class KupStateManager {
     // (XXX: this line seems ignored by the build pipeline, so I had to disable it
     // globally, excercise for the reader is to re-enable the global `noUnusedLocal`).
     // tslint:disable-next-line
-    private _store: KupStateRedux; // make sure class extends this one
+    private _store: KupStore; // make sure class extends this one
 
     // This is a singleton.
     private constructor() {
@@ -21,7 +21,7 @@ export class KupStateManager {
 
     // Get an instance.
     // TODO: maybe allow a dynamic injection of the "_store"
-    public static getInstance(): KupStateManager {
+    public static getInstance(store: KupStore): KupStateManager {
         if (!KupStateManager.instance) {
             // TODO: make sure to only init with kup-state derived classes.
             // We must enforce type checking here as typescript does not support generics
@@ -30,13 +30,14 @@ export class KupStateManager {
 
             // TODO: we can do better here to support dynamic instantiation
             // e.g. using a registry.
-            KupStateManager.instance._store = new KupStateRedux();
+            KupStateManager.instance._store = store;
         }
 
         return KupStateManager.instance;
     }
 
     public registerListener4KupTextInputStateEvent(
+        stateId: string,
         event: KupTextInputStateEvent
     ) {
         console.log(`Registered event: ${event.getEventName()}`);
@@ -48,13 +49,12 @@ export class KupStateManager {
                     `Received an event(${event.getEventName()}): ` +
                         ev.detail.toDebugString()
                 );
-                this._store.persist(ev.detail);
+                this._store.persistState(stateId, ev.detail);
             }
         );
     }
 
-    // Retrieve the store state.
-    public getStore(): object {
-        return this._store.rehydrate();
+    public getState(stateId: string): any {
+        return this._store.getState(stateId);
     }
 }

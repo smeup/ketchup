@@ -101,6 +101,9 @@ import {
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
 import {
+  KupStore,
+} from './components/kup-state/kup-store';
+import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
 import {
@@ -976,6 +979,8 @@ export namespace Components {
     * text for input placeholder
     */
     'placeholder': string;
+    'stateId': string;
+    'store': KupStore;
     /**
     * Triggers the focus event on the input text
     */
@@ -2664,6 +2669,8 @@ declare namespace LocalJSX {
     * text for input placeholder
     */
     'placeholder'?: string;
+    'stateId'?: string;
+    'store'?: KupStore;
   }
   interface KupTooltip extends JSXBase.HTMLAttributes<HTMLKupTooltipElement> {
     /**

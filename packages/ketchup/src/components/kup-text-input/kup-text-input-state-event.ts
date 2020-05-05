@@ -1,4 +1,4 @@
-import { KupTextInputState } from './kup-text-input-state';
+import { KupTextInputState } from '../kup-text-input/kup-text-input-state';
 
 export class KupTextInputStateEvent {
     getEventName(): string {

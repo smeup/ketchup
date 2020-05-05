@@ -1,9 +1,9 @@
-import { KupStateModel } from '../kup-state/kup-state-model';
+import { KupState } from '../kup-state/kup-state';
 
-export class KupTextInputState implements KupStateModel {
+export class KupTextInputState implements KupState {
     public detail = this;
 
-    public name: string = 'Ale';
+    public name: string = '';
 
     public toDebugString() {
         return `name=${this.name}`;

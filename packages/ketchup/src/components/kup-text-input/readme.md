@@ -18,6 +18,8 @@
 | `maxLength`    | `max-length`    | The max length of the text field. Default value copied from here: https://www.w3schools.com/tags/att_input_maxlength.asp                                                                    | `number`        | `524288`    |
 | `obj`          | --              | A generic object which can be passed to the component. Once this object is set, it will always be returned inside the info field of the ketchupTextInputUpdated and ketchupTextInputSubmit. | `GenericObject` | `undefined` |
 | `placeholder`  | `placeholder`   | text for input placeholder                                                                                                                                                                  | `string`        | `''`        |
+| `stateId`      | `state-id`      |                                                                                                                                                                                             | `string`        | `''`        |
+| `store`        | --              |                                                                                                                                                                                             | `KupStore`      | `undefined` |
 
 
 ## Events
