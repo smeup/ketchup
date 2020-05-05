@@ -1,6 +1,6 @@
 // TODO: I'd probably put this in a separate, specialized, package.
-import { KupTextInputStateEvent } from '../kup-text-input/kup-text-input-state-event';
-import { KupTextInputState } from '../kup-text-input/kup-text-input-state';
+import { KupTextInputStateEvent } from './kup-text-input-state-event';
+import { KupTextInputState } from './kup-text-input-state';
 import { KupStore } from './kup-store';
 
 // TODO: cannot enforce generic here, as Typescript singleton pattern is poorly defined.

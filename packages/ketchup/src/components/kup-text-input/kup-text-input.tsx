@@ -15,8 +15,8 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { debounceEvent } from '../../utils/helpers';
 
-import { KupTextInputState } from './kup-text-input-state';
-import { KupTextInputStateEvent } from './kup-text-input-state-event';
+import { KupTextInputState } from '../kup-state/kup-text-input-state';
+import { KupTextInputStateEvent } from '../kup-state/kup-text-input-state-event';
 import { KupStateManager } from '../kup-state/kup-state-manager';
 import { KupStore } from '../kup-state/kup-store';
 

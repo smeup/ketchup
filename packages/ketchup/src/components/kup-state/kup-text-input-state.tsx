@@ -1,4 +1,4 @@
-import { KupState } from '../kup-state/kup-state';
+import { KupState } from './kup-state';
 
 export class KupTextInputState implements KupState {
     public detail = this;
