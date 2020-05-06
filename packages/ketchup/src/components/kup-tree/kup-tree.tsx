@@ -33,6 +33,7 @@ import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper'
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { errorLogging } from '../../utils/error-logging';
+import { isFilterComplientForValue } from '../../utils/filters';
 
 @Component({
     tag: 'kup-tree',
@@ -218,14 +219,13 @@ export class KupTree {
     //-------- Lifecycle hooks --------
     componentWillLoad() {
         if (this.data) {
+            this.filterNodes();
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
             // the default value of the treeExpandedPropName is set to true
             this.data.forEach((rootNode) => {
-                this.enrichWithIsExpanded(
+                this.expandCollapseAllNodes(
                     rootNode,
-                    this.expanded &&
-                        !this.useDynamicExpansion &&
-                        !rootNode.disabled
+                    this.expanded && !this.useDynamicExpansion
                 );
             });
         }
@@ -273,11 +273,9 @@ export class KupTree {
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
             newData.forEach((rootNode) => {
-                this.enrichWithIsExpanded(
+                this.expandCollapseAllNodes(
                     rootNode,
-                    this.expanded &&
-                        !this.useDynamicExpansion &&
-                        !rootNode.disabled
+                    this.expanded && !this.useDynamicExpansion
                 );
             });
         }
@@ -291,7 +289,7 @@ export class KupTree {
     }
 
     //-------- Methods --------
-    enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
+    expandCollapseNode(treeNode: TreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable) {
             // If the node does not already have the property to toggle expansion we add it
@@ -303,17 +301,21 @@ export class KupTree {
             )
                 ? treeNode[treeExpandedPropName] || expandNode
                 : expandNode;
+        }
+    }
 
+    expandCollapseAllNodes(treeNode: TreeNode, expandNode: boolean = false) {
+        // The node is expandable, which means there are sub trees
+        if (treeNode.expandable && !treeNode.disabled) {
+            this.expandCollapseNode(treeNode, expandNode);
             // Enriches also direct subtrees recursively (if it has children)
             if (treeNode.children && treeNode.children.length) {
                 // To save some function calls, only child elements which are expandable will be enriched
                 for (let i = 0; i < treeNode.children.length; i++) {
-                    if (treeNode.children[i].expandable) {
-                        this.enrichWithIsExpanded(
-                            treeNode.children[i],
-                            expandNode && !treeNode.children[i].disabled
-                        );
-                    }
+                    this.expandCollapseAllNodes(
+                        treeNode.children[i],
+                        expandNode
+                    );
                 }
             }
         }
@@ -509,6 +511,8 @@ export class KupTree {
     onFilterChange(event: CustomEvent) {
         this.log('onFilterChange', 'event.detail.value=' + event.detail.value);
         this.filterValue = event.detail.value;
+        this.log('onFilterChange', 'filter');
+        this.filterNodes();
     }
 
     private setAllVisible(items: TreeNode[]) {
@@ -517,6 +521,7 @@ export class KupTree {
             this.setAllVisible(element.children);
         });
     }
+
     private filterNodes() {
         if (this.filterValue.trim() == '') {
             this.setAllVisible(this.data);
@@ -529,8 +534,8 @@ export class KupTree {
     }
 
     private setNodeVisibility(node: TreeNode): boolean {
-        let visibility: boolean = this.isFilterComplientForNode(
-            node,
+        let visibility: boolean = isFilterComplientForValue(
+            node.value,
             this.filterValue
         );
         if (node.disabled != true && node.expandable == true) {
@@ -541,113 +546,13 @@ export class KupTree {
                 for (let i = 0; i < node.children.length; i++) {
                     if (this.setNodeVisibility(node.children[i])) {
                         visibility = true;
+                        this.expandCollapseNode(node, true);
                     }
                 }
             }
         }
         node.visible = visibility;
         return visibility;
-    }
-
-    private isFilterComplientForNode(
-        node: TreeNode,
-        filterValue: string
-    ): boolean {
-        if (!node) {
-            return false;
-        }
-        if (filterValue == '') {
-            return false;
-        }
-
-        const analyzedFilter = filterValue.match(this.filterAnalyzer);
-        const filterIsNegative: boolean = analyzedFilter
-            ? analyzedFilter[1].indexOf('!') >= 0
-            : false;
-        // checks if the value of the filter is contained inside value of the object
-        // Or is if the filter is a special filter to be matched.
-        if (
-            node.value.toLowerCase().includes(filterValue.toLowerCase()) ||
-            this.matchSpecialFilter(
-                node.value.toLowerCase(),
-                filterValue.toLowerCase().match(this.filterAnalyzer)
-            )
-        ) {
-            // the element matches the field filter
-            if (filterIsNegative == true) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * This regular expressions returns a match like this one:
-     * if the string does not match is null, otherwise the indexes are equal to the object below:
-     *
-     * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
-     * @property {string} 1 - Either !' or ' it's the start of the regexp.
-     * @property {string} 2 - Either % or null: means the string must start with the given string.
-     * @property {string} 3 - Either "" or a string with a length.
-     * @property {string} 4 - Either % or null: means the string must finish with the given string.
-     * @property {string} 5 - Always equal to ': it's the end of the filter.
-     */
-    filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
-
-    /**
-     * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
-     * if the filter is matched.
-     *
-     * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
-     * Valid syntax:
-     * 'filter' = search for exact phrase;
-     * '' = match when value is empty;
-     * 'filter%' = match when a string starts with "filter";
-     * '%filter' = match when a string ends with "filter";
-     * '%filter%' = match when a string contains "filter".
-     *
-     * It is also possible to negate the expression by prepending "!" in front of the expression.
-     * For example: !'' = value in the cell must not be empty.
-     *
-     * With no expression set, the filter is by default set to '%filter%'.
-     *
-     * @param cellValue - The value of the current cell.
-     * @param parsedFilter - The value of the current filter.
-     * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
-     * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
-     */
-    private matchSpecialFilter(
-        nodeValue: string,
-        parsedFilter: RegExpMatchArray | null,
-        ignoreNegativeFlag: boolean = false
-    ): boolean {
-        // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
-        if (parsedFilter) {
-            // endsWith and startWith are not supported by IE 11
-            // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-            const toRet: boolean =
-                (parsedFilter[3] === '' && !nodeValue.trim()) ||
-                (!parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    nodeValue.startsWith(parsedFilter[3])) ||
-                (parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    nodeValue.endsWith(parsedFilter[3])) ||
-                (!parsedFilter[2] &&
-                    !parsedFilter[4] &&
-                    nodeValue === parsedFilter[3]) ||
-                (parsedFilter[2] &&
-                    parsedFilter[4] &&
-                    nodeValue.indexOf(parsedFilter[3]) >= 0);
-            return !ignoreNegativeFlag
-                ? parsedFilter[1].indexOf('!') < 0
-                    ? toRet
-                    : !toRet
-                : toRet;
-        }
-        return false;
     }
 
     log(methodName: string, msg: string) {
@@ -660,19 +565,6 @@ export class KupTree {
 
     //-------- Rendering --------
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
-        /*
-        return (
-            <span
-                aria-label="Opzioni oggetto"
-                class="options mdi mdi-settings"
-                role="button"
-                title="Opzioni oggetto"
-                onClick={(e: UIEvent) =>
-                    this.hdlOptionClicked(e, cell, column, treeNode)
-                }
-            />
-        );
-        */
         return (
             <kup-button
                 icon="settings"
@@ -1045,9 +937,6 @@ export class KupTree {
                 column.hasOwnProperty('visible') ? column.visible : true
             );
         }
-
-        this.log('render', 'filter');
-        this.filterNodes();
 
         // Composes TreeNodes
         let treeNodes: JSX.Element[] = [];
