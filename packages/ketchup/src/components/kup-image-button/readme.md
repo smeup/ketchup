@@ -22,6 +22,13 @@
 | `kupImageButtonSelected` |             | `CustomEvent<{ selectedImages: []; }>` |
 
 
+## CSS Custom Properties
+
+| Name                           | Description         |
+| ------------------------------ | ------------------- |
+| `--imb_color, --kup-imb_color` | Sets the text color |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

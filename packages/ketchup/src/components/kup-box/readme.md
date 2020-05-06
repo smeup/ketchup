@@ -57,6 +57,25 @@ Type: `Promise<void>`
 
 
 
+## CSS Custom Properties
+
+| Name                                                                 | Description                          |
+| -------------------------------------------------------------------- | ------------------------------------ |
+| `--box_badge-background, --kup-box_badge-background`                 | badge background color               |
+| `--box_badge-border-radius, --kup-box_badge-border-radius`           | badge border radius                  |
+| `--box_badge-dimension, --kup-box_badge-dimension`                   | badge dimension                      |
+| `--box_badge-text, --kup-box_badge-text`                             | badge text color                     |
+| `--box_border-color, --kup-box_border-color`                         | single box border color              |
+| `--box_border-radius, --kup-box_border-radius`                       | single box border radius             |
+| `--box_color, --kup-box_color`                                       | text color                           |
+| `--box_expand-panel-color, --kup-box_expand-panel-color`             | text color for collapse header panel |
+| `--box_hover-box-shadow, --kup-box_hover-box-shadow`                 | shadow when hovering on a box        |
+| `--box_img-border-radius, --kup-box_img-border-radius`               | box image border radius              |
+| `--box_titled-section-bg-color, --kup-box_titled-section-bg-color`   | background color for section title   |
+| `--box_titled-section-font-size, --kup-box_titled-section-font-size` | font size for section title          |
+| `--box_titled-section-top, --kup-box_titled-section-top`             | top position for section title       |
+
+
 ## Dependencies
 
 ### Depends on

@@ -23,6 +23,19 @@
 | `kupMenuClose` | When the menu gets closed. | `CustomEvent<void>` |
 
 
+## CSS Custom Properties
+
+| Name                                                      | Description                                                         |
+| --------------------------------------------------------- | ------------------------------------------------------------------- |
+| `--mnu_background, --kup-menu_background`                 | The menu background color.                                          |
+| `--mnu_border-radius, --kup-menu_border-radius`           | The border radius of the external menu.                             |
+| `--mnu_content-max-height, --kup-menu_content-max-height` | The maximum height of the area reserved to the menu content.        |
+| `--mnu_content-max-width, --kup-menu_content-max-width`   | The maximum width of the the area reserved to the menu content.     |
+| `--mnu_shadow, --kup-menu_shadow`                         | The shadow box of the menu.                                         |
+| `--mnu_tr-duration, --kup-menu_transition-duration`       | The duration of all menu transitions. Does not influence its slots. |
+| `--mnu_z-index, --kup-menu_z-index`                       | the z-index of the menu.                                            |
+
+
 ## Dependencies
 
 ### Used by

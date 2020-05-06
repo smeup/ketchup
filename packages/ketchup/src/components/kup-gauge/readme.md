@@ -99,6 +99,19 @@ Fundamentally, the main problem here is that that if
 | `widthComponent`  | `width-component`  | Set Width gauge.                                                                                                                     | `string`   | `'22vw'`                                                                                                         |
 
 
+## CSS Custom Properties
+
+| Name                                                         | Description                                                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `--gau_first-color, --kup-gauge_first-color`                 | Sets the color of the first area.                                                                |
+| `--gau_needle-color, --kup-gauge_needle-color`               | Sets color of the needle.                                                                        |
+| `--gau_second-color, --kup-gauge_second-color`               | Sets the color of the second area.                                                               |
+| `--gau_third-color, --kup-gauge_third-color`                 | Sets the color of the third area.                                                                |
+| `--gau_threshold-color, --kup-gauge_threshold-color`         | Sets the color of the threshold labels.                                                          |
+| `--gau_top-lateral-padding, --kup-gauge_top-lateral-padding` | Set a top and lateral padding for the svg to prevent threshold labels to overlap other elements. |
+| `--gau_value-color, --kup-gauge_value-color`                 | Sets the color of the value label.                                                               |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
