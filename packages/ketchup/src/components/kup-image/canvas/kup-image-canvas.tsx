@@ -81,8 +81,8 @@ export class imageCanvas {
                 this.drawRect(
                     0,
                     0,
-                    this.canvas.width,
-                    this.canvas.height,
+                    this.canvas.clientWidth,
+                    this.canvas.clientHeight,
                     bgColor
                 );
             }
@@ -149,9 +149,12 @@ export class imageCanvas {
     }
 
     getNewStarXFromBar(startX: number, elem: GraphicElement): number {
-        const elemWidth = this.getDim(this.canvas.width, elem.getWidth());
-        const elemHeight = this.getDim(this.canvas.height, elem.getHeight());
-        const y = this.canvas.height - elemHeight;
+        const elemWidth = this.getDim(this.canvas.clientWidth, elem.getWidth());
+        const elemHeight = this.getDim(
+            this.canvas.clientHeight,
+            elem.getHeight()
+        );
+        const y = this.canvas.clientHeight - elemHeight;
 
         if (!elem.isTrasparent()) {
             this.drawRect(startX, y, elemWidth, elemHeight, elem.getColor());
@@ -161,26 +164,32 @@ export class imageCanvas {
     }
 
     getNewStarXFromCircle(startX: number, circle: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, circle.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            circle.getWidth()
+        );
 
         const x = (startX + newStartX) / 2;
 
         if (!circle.isTrasparent()) {
-            this.drawArc(x, this.canvas.height / 2, circle.getColor());
+            this.drawArc(x, this.canvas.clientHeight / 2, circle.getColor());
         }
 
         return newStartX;
     }
 
     getNewStarXFromTril(startX: number, triLeft: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, triLeft.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            triLeft.getWidth()
+        );
 
         if (!triLeft.isTrasparent()) {
             this.drawTri(
                 newStartX,
                 0,
                 startX,
-                this.canvas.height / 2,
+                this.canvas.clientHeight / 2,
                 triLeft.getColor()
             );
         }
@@ -189,14 +198,17 @@ export class imageCanvas {
     }
 
     getNewStarXFromTrir(startX: number, triRight: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, triRight.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            triRight.getWidth()
+        );
 
         if (!triRight.isTrasparent()) {
             this.drawTri(
                 startX,
                 0,
                 newStartX,
-                this.canvas.height / 2,
+                this.canvas.clientHeight / 2,
                 triRight.getColor()
             );
         }
@@ -233,7 +245,7 @@ export class imageCanvas {
         this.ctx.beginPath();
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);
-        this.ctx.lineTo(x1, this.canvas.height);
+        this.ctx.lineTo(x1, this.canvas.clientHeight);
         this.ctx.fill();
     }
 
@@ -246,8 +258,8 @@ export class imageCanvas {
 
         this.ctx.fillStyle = this.default_color.toString();
 
-        const startX = this.getDim(this.canvas.width, parseFloat(vPart));
-        const height = this.canvas.height;
+        const startX = this.getDim(this.canvas.clientWidth, parseFloat(vPart));
+        const height = this.canvas.clientHeight;
         const arrSpan = Math.floor(height / 3);
         const arrSpanHalf = arrSpan / 2;
 
@@ -268,13 +280,17 @@ export class imageCanvas {
             vPart = vPart.replace(',', '.');
         }
         const vTickNum = parseInt(vPart);
-        const vTickDist = this.canvas.width / vTickNum;
+        const vTickDist = this.canvas.clientWidth / vTickNum;
 
-        const tickH = this.canvas.height / 5;
-        const y = this.canvas.height - tickH;
+        const tickH = this.canvas.clientHeight / 5;
+        const y = this.canvas.clientHeight - tickH;
 
         const tickW = 1;
-        for (let i = vTickDist; i < this.canvas.width; i = i + vTickDist) {
+        for (
+            let i = vTickDist;
+            i < this.canvas.clientWidth;
+            i = i + vTickDist
+        ) {
             this.drawRect(i, y, tickW, tickH, this.default_color);
         }
     }
@@ -297,13 +313,16 @@ export class imageCanvas {
             vPositionPart = vPositionPart.replace(',', '.');
         }
 
-        const x = this.getDim(this.canvas.width, parseFloat(vPositionPart));
+        const x = this.getDim(
+            this.canvas.clientWidth,
+            parseFloat(vPositionPart)
+        );
 
         this.drawRect(
             x,
             0,
             vThickness,
-            this.canvas.height,
+            this.canvas.clientHeight,
             getColorFromString(vColor)
         );
     }

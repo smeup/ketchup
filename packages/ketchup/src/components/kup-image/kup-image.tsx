@@ -113,6 +113,8 @@ export class KupImage {
 
     componentDidRender() {
         if (this.isCanvas) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
             this.imageCanvas.drawCanvas(this.name, this.canvas);
         }
     }

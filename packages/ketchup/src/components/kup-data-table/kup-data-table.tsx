@@ -2721,20 +2721,22 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
-            const columnWidth = this.columnsWidth.find(
-                ({ column: columnName }) => columnName === column.name
-            );
-
-            const props: { value: string; width?: number } = {
-                value: cell.value,
-                width:
-                    columnWidth !== undefined ? columnWidth.width : undefined,
+            const props: {
+                isCanvas: boolean;
+                name: string;
+                sizeX?: string;
+                sizeY: string;
+            } = {
+                isCanvas: true,
+                name: cell.value,
+                sizeX: '200px',
+                sizeY: '35px',
             };
 
             // Controls if we should display this cell value
             content =
                 !column.hideValuesRepetitions || valueToDisplay ? (
-                    <kup-graphic-cell {...props} />
+                    <kup-image {...props} />
                 ) : null;
         } else if (isChart(cell.obj)) {
             const columnWidth = this.columnsWidth.find(
