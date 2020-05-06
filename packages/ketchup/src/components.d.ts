@@ -397,13 +397,6 @@ export namespace Components {
     }
     interface KupDataTable {
         /**
-          * Used to set custom columns width.
-         */
-        "columnsWidth": Array<{
-            column: string;
-            width: number;
-        }>;
-        /**
           * The data of the table.
          */
         "data": TableData;
@@ -683,11 +676,6 @@ export namespace Components {
           * Set Width gauge.
          */
         "widthComponent": string;
-    }
-    interface KupGraphicCell {
-        "height": number;
-        "value": string;
-        "width": number;
     }
     interface KupHtml {
         /**
@@ -1313,12 +1301,6 @@ declare global {
         prototype: HTMLKupGaugeElement;
         new (): HTMLKupGaugeElement;
     };
-    interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {
-    }
-    var HTMLKupGraphicCellElement: {
-        prototype: HTMLKupGraphicCellElement;
-        new (): HTMLKupGraphicCellElement;
-    };
     interface HTMLKupHtmlElement extends Components.KupHtml, HTMLStencilElement {
     }
     var HTMLKupHtmlElement: {
@@ -1448,7 +1430,6 @@ declare global {
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
-        "kup-graphic-cell": HTMLKupGraphicCellElement;
         "kup-html": HTMLKupHtmlElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
@@ -2053,13 +2034,6 @@ declare namespace LocalJSX {
     }
     interface KupDataTable {
         /**
-          * Used to set custom columns width.
-         */
-        "columnsWidth"?: Array<{
-            column: string;
-            width: number;
-        }>;
-        /**
           * The data of the table.
          */
         "data"?: TableData;
@@ -2396,11 +2370,6 @@ declare namespace LocalJSX {
           * Set Width gauge.
          */
         "widthComponent"?: string;
-    }
-    interface KupGraphicCell {
-        "height"?: number;
-        "value"?: string;
-        "width"?: number;
     }
     interface KupHtml {
         /**
@@ -3110,7 +3079,6 @@ declare namespace LocalJSX {
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
-        "kup-graphic-cell": KupGraphicCell;
         "kup-html": KupHtml;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
@@ -3155,7 +3123,6 @@ declare module "@stencil/core" {
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
-            "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
             "kup-html": LocalJSX.KupHtml & JSXBase.HTMLAttributes<HTMLKupHtmlElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;

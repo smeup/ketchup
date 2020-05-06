@@ -566,14 +566,19 @@ export class KupTree {
             // This constant keeps the possible width type to keep a certain degree of compatibility with kup-data-table,
             // From which this type of content was taken
             const props: {
-                value: string;
-                width?: number;
+                isCanvas: boolean;
+                name: string;
+                sizeX?: string;
+                sizeY: string;
             } = {
-                value: cell.value,
+                isCanvas: true,
+                name: cell.value,
+                sizeX: '100%',
+                sizeY: '35px',
             };
 
             // Controls if we should display this cell value
-            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+            content = valueToDisplay ? <kup-image {...props} /> : null;
         }
 
         // TODO add this once the progressbar has been implemented among the graphics forms.

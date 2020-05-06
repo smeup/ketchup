@@ -94,13 +94,6 @@ import {
 })
 export class KupDataTable {
     @Element() rootElement!: HTMLElement;
-    /**
-     * Used to set custom columns width.
-     */
-    @Prop() columnsWidth: Array<{
-        column: string;
-        width: number;
-    }> = [];
 
     /**
      * Expands groups when set to true.
@@ -769,7 +762,26 @@ export class KupDataTable {
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
-            : [{ title: '', name: '', size: 0 }];
+            : [{ title: '', name: '', size: undefined }];
+    }
+
+    private getSizedColumns() {
+        let columns = this.getColumns();
+        let sizedColumns = [];
+        for (let j = 0; j < columns.length; j++) {
+            if (
+                columns[j].size !== null &&
+                columns[j].size !== undefined &&
+                columns[j].size !== ''
+            ) {
+                sizedColumns.push(columns[j]);
+            }
+        }
+        if (sizedColumns.length > 0) {
+            return sizedColumns;
+        } else {
+            return false;
+        }
     }
 
     private getVisibleColumns(): Array<Column> {
@@ -912,17 +924,21 @@ export class KupDataTable {
      * Table margin gets set to auto to center it.
      */
     private tableHasAutoWidth(): boolean {
+        let sizedCols = this.getSizedColumns();
+        if (!sizedCols) {
+            return;
+        }
         const visibleCols = this.getVisibleColumns();
-        // Before checking each column, simply control that visible columns are at maximum as many as the custom columnsWidth items.
+        // Before checking each column, controls that visible columns are as many as items with custom sizes.
         // If there are more visible columns, it means that the width of the table will be set to auto.
-        if (visibleCols.length <= this.columnsWidth.length) {
+        if (visibleCols.length <= sizedCols.length) {
             let found = false;
 
             // Each visible column must have its own width for the table to have a auto width
             for (let i = 0; i < visibleCols.length; i++) {
                 found = false;
-                for (let j = 0; j < this.columnsWidth.length; j++) {
-                    if (visibleCols[i].name === this.columnsWidth[j].column) {
+                for (let j = 0; j < sizedCols.length; j++) {
+                    if (visibleCols[i].name === sizedCols[j].name) {
                         found = true;
                         break;
                     }
@@ -1656,9 +1672,10 @@ export class KupDataTable {
             thStyle: GenericObject = {};
 
         // Checks if data table columns have custom width
-        if (this.columnsWidth.length > 0) {
-            for (let i = 0; i < this.columnsWidth.length; i++) {
-                const currentCol = this.columnsWidth[i];
+        let sizedCols = this.getSizedColumns();
+        if (sizedCols) {
+            for (let i = 0; i < sizedCols.length; i++) {
+                const currentCol = sizedCols[i];
 
                 if (currentCol.column === columnName) {
                     const width = currentCol.width.toString() + 'px';
@@ -1854,15 +1871,17 @@ export class KupDataTable {
                 }
 
                 // Sets custom columns width
-                if (this.columnsWidth && this.columnsWidth.length) {
-                    for (let i = 0; i < this.columnsWidth.length; i++) {
-                        const currentCol = this.columnsWidth[i];
+                let sizedCols = this.getSizedColumns();
+                if (sizedCols) {
+                    for (let i = 0; i < sizedCols.length; i++) {
+                        const currentCol = sizedCols[i];
 
-                        if (currentCol.column === column.name) {
-                            const width = currentCol.width.toString() + 'px';
+                        if (currentCol.name === column.name) {
+                            const width = currentCol.size;
                             thStyle.width = width;
                             thStyle.minWidth = width;
                             thStyle.maxWidth = width;
+                            thStyle.overflow = 'hidden';
                             break;
                         }
                     }
@@ -2546,13 +2565,14 @@ export class KupDataTable {
                 }
 
                 // Controls if there are columns with a specified width
-                if (this.columnsWidth.length > 0) {
+                let sizedCols = this.getSizedColumns();
+                if (sizedCols) {
                     let colWidth: string = '';
 
                     // Search if this column has a specified width
-                    for (let j = 0; j < this.columnsWidth.length; j++) {
-                        if (name === this.columnsWidth[j].column) {
-                            colWidth = this.columnsWidth[j].width + 'px';
+                    for (let j = 0; j < sizedCols.length; j++) {
+                        if (name === sizedCols[j].name) {
+                            colWidth = sizedCols[j].size;
                             break;
                         }
                     }
@@ -2721,6 +2741,17 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
+            let columnWidth = '100%';
+            let sizedCols = this.getSizedColumns();
+            if (sizedCols) {
+                for (let i = 0; i < sizedCols.length; i++) {
+                    const currentCol = sizedCols[i];
+
+                    if (currentCol.column === column.name) {
+                        columnWidth = currentCol.size;
+                    }
+                }
+            }
             const props: {
                 isCanvas: boolean;
                 name: string;
@@ -2729,7 +2760,7 @@ export class KupDataTable {
             } = {
                 isCanvas: true,
                 name: cell.value,
-                sizeX: '200px',
+                sizeX: columnWidth,
                 sizeY: '35px',
             };
 
@@ -2739,9 +2770,13 @@ export class KupDataTable {
                     <kup-image {...props} />
                 ) : null;
         } else if (isChart(cell.obj)) {
-            const columnWidth = this.columnsWidth.find(
-                ({ column: columnName }) => columnName === column.name
-            );
+            let columnWidth;
+            let sizedCols = this.getSizedColumns();
+            if (sizedCols) {
+                columnWidth = sizedCols.find(
+                    ({ name: columnName }) => columnName === column.name
+                );
+            }
 
             const props: {
                 cellConfig: any;
@@ -3168,12 +3203,11 @@ export class KupDataTable {
                 );
             }
         }
+        let sizedCols = this.getSizedColumns();
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
-            'auto-width': !!(
-                this.columnsWidth.length > 0 && this.tableHasAutoWidth()
-            ),
+            'auto-width': !!(sizedCols && this.tableHasAutoWidth()),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,

@@ -6,9 +6,6 @@
     <h3>Hidden columns</h3>
     <kup-data-table :data.prop="hiddenColumnsData"></kup-data-table>
 
-    <h3>Columns width</h3>
-    <kup-data-table :data.prop="data" :columnsWidth.prop="columnsWidth"></kup-data-table>
-
     <h3>Without header</h3>
     <kup-data-table :data.prop="data" :showHeader.prop="false"></kup-data-table>
 
@@ -55,16 +52,6 @@ export default {
       cellStyleData: { ...cellStyleDataTable },
       cellStyleData2: { ...cellStyleDataTable2 },
       iconImagesDataTable: { ...iconImagesDataTable },
-      columnsWidth: [
-        {
-          column: 'FLD1',
-          width: 100,
-        },
-        {
-          column: 'FLD3',
-          width: 300,
-        },
-      ],
       loadQuantity: '',
       progressbarData: pgbData,
     };

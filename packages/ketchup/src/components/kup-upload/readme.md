@@ -23,16 +23,6 @@ Supported `vaadin-upload` version:
 | `ketchupFileUploaded` | Launched when file upload succeed | `CustomEvent<any>` |
 
 
-## CSS Custom Properties
-
-| Name                            | Description                                 |
-| ------------------------------- | ------------------------------------------- |
-| `--kup-upload_background-color` | Sets the background color of the input text |
-| `--kup-upload_border-radius`    | Specify border radius                       |
-| `--kup-upload_color`            | Set color of text                           |
-| `--kup-upload_font-size`        | Set height of the font and the svg icon     |
-
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

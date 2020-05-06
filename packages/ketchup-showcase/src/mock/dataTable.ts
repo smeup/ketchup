@@ -153,22 +153,18 @@ export const defaultDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
-      title: 'Working|License',
-      size: 10,
+      title: 'Working License',
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
