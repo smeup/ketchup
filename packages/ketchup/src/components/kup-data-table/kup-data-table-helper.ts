@@ -17,6 +17,7 @@ import {
 import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty } from '../../utils/utils';
 import { errorLogging } from '../../utils/error-logging';
+import { isFilterComplientForValue } from '../../utils/filters';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -134,73 +135,6 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 }
 
 //-------- FILTER FUNCTIONS --------
-/**
- * This regular expressions returns a match like this one:
- * if the string does not match is null, otherwise the indexes are equal to the object below:
- *
- * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
- * @property {string} 1 - Either !' or ' it's the start of the regexp.
- * @property {string} 2 - Either % or null: means the string must start with the given string.
- * @property {string} 3 - Either "" or a string with a length.
- * @property {string} 4 - Either % or null: means the string must finish with the given string.
- * @property {string} 5 - Always equal to ': it's the end of the filter.
- */
-const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
-
-/**
- * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
- * if the filter is matched.
- *
- * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
- * Valid syntax:
- * 'filter' = search for exact phrase;
- * '' = match when value is empty;
- * 'filter%' = match when a string starts with "filter";
- * '%filter' = match when a string ends with "filter";
- * '%filter%' = match when a string contains "filter".
- *
- * It is also possible to negate the expression by prepending "!" in front of the expression.
- * For example: !'' = value in the cell must not be empty.
- *
- * With no expression set, the filter is by default set to '%filter%'.
- *
- * @param cellValue - The value of the current cell.
- * @param parsedFilter - The value of the current filter.
- * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
- * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
- */
-function matchSpecialFilter(
-    cellValue: string,
-    parsedFilter: RegExpMatchArray | null,
-    ignoreNegativeFlag: boolean = false
-): boolean {
-    // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
-    if (parsedFilter) {
-        // endsWith and startWith are not supported by IE 11
-        // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-        const toRet: boolean =
-            (parsedFilter[3] === '' && !cellValue.trim()) ||
-            (!parsedFilter[2] &&
-                parsedFilter[4] &&
-                cellValue.startsWith(parsedFilter[3])) ||
-            (parsedFilter[2] &&
-                !parsedFilter[4] &&
-                cellValue.endsWith(parsedFilter[3])) ||
-            (!parsedFilter[2] &&
-                !parsedFilter[4] &&
-                cellValue === parsedFilter[3]) ||
-            (parsedFilter[2] &&
-                parsedFilter[4] &&
-                cellValue.indexOf(parsedFilter[3]) >= 0);
-        return !ignoreNegativeFlag
-            ? parsedFilter[1].indexOf('!') < 0
-                ? toRet
-                : !toRet
-            : toRet;
-    }
-    return false;
-}
-
 export function hasFilters(filters: GenericFilter = {}) {
     if (filters == null) {
         return false;
@@ -453,31 +387,7 @@ export function isFilterComplientForCell(cellValue: Cell, filterValue: string) {
     if (!cellValue) {
         return false;
     }
-    if (filterValue == '') {
-        return false;
-    }
-
-    const analyzedFilter = filterValue.match(filterAnalyzer);
-    const filterIsNegative: boolean = analyzedFilter
-        ? analyzedFilter[1].indexOf('!') >= 0
-        : false;
-    // checks if the value of the filter is contained inside value of the object
-    // Or is if the filter is a special filter to be matched.
-    if (
-        cellValue.value.toLowerCase().includes(filterValue.toLowerCase()) ||
-        matchSpecialFilter(
-            cellValue.value.toLowerCase(),
-            filterValue.toLowerCase().match(filterAnalyzer)
-        )
-    ) {
-        // the element matches the field filter
-        if (filterIsNegative == true) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    return false;
+    return isFilterComplientForValue(cellValue.value, filterValue);
 }
 
 export function groupRows(
