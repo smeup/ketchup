@@ -188,12 +188,6 @@ export default {
             },
           },
           {
-            title: `Html`,
-            to: {
-              name: 'html',
-            },
-          },
-          {
             title: `Image button`,
             to: {
               name: 'imagebutton',
@@ -262,6 +256,12 @@ export default {
             title: `Combobox`,
             to: {
               name: 'combobox',
+            },
+          },
+          {
+            title: `Iframe`,
+            to: {
+              name: 'iframe',
             },
           },
           {
