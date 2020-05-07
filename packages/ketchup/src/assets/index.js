@@ -13,43 +13,43 @@ const btnlist = JSON.parse(`{
         "value": "label bottone #1",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-account",
+        "icon": "account",
         "children": []
       },{
         "value": "label bottone #2",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #3",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #4",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #5",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #6",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #7",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "icon": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       }],
       "messages": [],
@@ -57,7 +57,7 @@ const btnlist = JSON.parse(`{
         "row": [
           {
             "exec": "...",
-            "icon": "mdi-clock",
+            "icon": "clock",
             "text": "Scheda orologio"
           }
         ],
@@ -71,7 +71,7 @@ const btnlist = JSON.parse(`{
         "command": [
           {
             "exec": "...",
-            "icon": "mdi-play",
+            "icon": "play",
             "text": "Spotify"
           }
         ]

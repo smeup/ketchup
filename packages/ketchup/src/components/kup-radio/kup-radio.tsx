@@ -28,10 +28,6 @@ export class KupRadio {
      */
     @Prop() data: ComponentRadioElement[] = [];
     /**
-     * Defaults at null. It's the name that binds the radio buttons together.
-     */
-    @Prop({ reflect: true }) name: string = 'radio-list';
-    /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
@@ -39,6 +35,10 @@ export class KupRadio {
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
     @Prop({ reflect: true }) leadingLabel: boolean = false;
+    /**
+     * Defaults at null. It's the name that binds the radio buttons together.
+     */
+    @Prop({ reflect: true }) name: string = 'radio-list';
 
     @Event({
         eventName: 'kupRadioBlur',

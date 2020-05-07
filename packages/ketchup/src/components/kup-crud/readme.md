@@ -1,13 +1,5 @@
 # kup-crud
 
-Kup-crud is a web component that allows to configure a record or a set of records, in a classic CRUD style (create, read, update, delete).
-
-## Callbacks and events
-
-When a crud form action is submitted or a crud form field is changed you can use related callback function for your backend logic. In this way you can update directly the crud component related to that events.
-
-You can also use kupCrudFormFieldChanged and kupCrudFormActionSubmitted events but if you have a crud inside a crud they can be sent by a crud child component. You can understand which crud component send them setting refid prop for each crud field and reading them from events.
-
 <!-- Auto Generated Below -->
 
 
@@ -82,11 +74,15 @@ graph TD;
   kup-crud --> kup-button
   kup-crud --> kup-modal
   kup-crud --> kup-form
-  kup-button --> kup-icon
+  kup-button --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-icon
+  kup-text-field --> kup-image
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-autocomplete --> kup-text-field
@@ -96,21 +92,23 @@ graph TD;
   kup-search --> kup-modal
   kup-search --> kup-data-table
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-icon
   kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
-  kup-image --> kup-badge
+  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-chip --> kup-icon
+  kup-chip --> kup-image
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

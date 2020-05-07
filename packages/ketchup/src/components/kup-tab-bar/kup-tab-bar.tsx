@@ -18,6 +18,7 @@ import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLElement;
+
     /**
      * Custom style to be passed to the component.
      */
@@ -114,12 +115,13 @@ export class KupTabBar {
 
             if (this.data[i].icon !== '') {
                 iconEl = (
-                    <kup-icon
+                    <kup-image
                         color="var(--kup-main-color)"
                         class="mdc-tab__icon material-icons"
-                        dimensions="24px"
+                        sizeX="24px"
+                        sizeY="24px"
                         name={this.data[i].icon}
-                    ></kup-icon>
+                    ></kup-image>
                 );
             }
 

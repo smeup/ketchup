@@ -1,7 +1,5 @@
 import { Component, Prop, h, State, Event, EventEmitter } from '@stencil/core';
 
-import { Image } from './kup-image-declarations';
-
 @Component({
     tag: 'kup-image-button',
     styleUrl: 'kup-image-button.scss',
@@ -11,7 +9,7 @@ export class KupImageButton {
     /**
      * urls of the images
      */
-    @Prop() images: Image[] = [];
+    @Prop() images: any = [];
 
     /**
      * image dimension
@@ -28,7 +26,7 @@ export class KupImageButton {
      */
     @Prop({ reflect: true }) allowMultiSelection = false;
 
-    @State() selectedImages: Image[] = [];
+    @State() selectedImages: any = [];
 
     @Event({
         eventName: 'kupImageButtonSelected',
@@ -37,11 +35,11 @@ export class KupImageButton {
         bubbles: true,
     })
     kupImageButtonSelected: EventEmitter<{
-        selectedImages: Image[];
+        selectedImages: [];
     }>;
 
     // ---- Listeners ----
-    onImageClick(image: Image) {
+    onImageClick(image: any) {
         const imageIndex = this.selectedImages.indexOf(image);
 
         if (this.allowMultiSelection) {

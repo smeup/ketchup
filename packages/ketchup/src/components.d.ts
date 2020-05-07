@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
-import { Cell, Column, DataTable, GenericMap, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
@@ -18,7 +18,6 @@ import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEve
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, } from "./components/kup-image/kup-image-declarations";
-import { Image, } from "./components/kup-image-button/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -61,8 +60,21 @@ export namespace Components {
         "textfieldData": Object;
     }
     interface KupBadge {
-        "icon": string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The data of the image displayed inside the badge.
+         */
+        "imageData": {};
+        /**
+          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+         */
         "position": BadgePosition;
+        /**
+          * The text displayed inside the badge.
+         */
         "text": string;
     }
     interface KupBox {
@@ -327,13 +339,16 @@ export namespace Components {
           * Custom style to be passed to the component.
          */
         "customStyle": string;
+        /**
+          * Lets the combobox behave as a select element.
+         */
         "isSelect": boolean;
         /**
           * Props of the list.
          */
         "listData": Object;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -408,7 +423,7 @@ export namespace Components {
         /**
           * List of filters set by the user.
          */
-        "filters": GenericMap;
+        "filters": GenericFilter;
         /**
           * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
           * @see fixedRows
@@ -688,7 +703,11 @@ export namespace Components {
          */
         "src": string;
     }
-    interface KupIcon {
+    interface KupImage {
+        /**
+          * Sets the data of badges.
+         */
+        "badgeData": Badge[];
         /**
           * The color of the icon, defaults to the main color of the app.
          */
@@ -698,30 +717,25 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+          * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
-        "dimensions": string;
+        "feedback": boolean;
         /**
-          * The name of the icon.
+          * The name of the icon. It can also contain an URL or a path.
          */
         "name": string;
+        /**
+          * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX": string;
+        /**
+          * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY": string;
         /**
           * The type of the icon, defaults to "svg".
          */
         "type": string;
-    }
-    interface KupImage {
-        "alt": string;
-        "badges": Badge[];
-        "height": string;
-        /**
-          * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
-         */
-        "limitWidthByHeight": boolean;
-        "maxHeight": string;
-        "maxWidth": string;
-        "src": string;
-        "width": string;
     }
     interface KupImageButton {
         /**
@@ -731,7 +745,7 @@ export namespace Components {
         /**
           * urls of the images
          */
-        "images": Image[];
+        "images": any;
         /**
           * If enabled, display the image description below the image
          */
@@ -761,7 +775,7 @@ export namespace Components {
     }
     interface KupList {
         /**
-          * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
          */
         "arrowDown": boolean;
         "arrowUp": boolean;
@@ -782,6 +796,10 @@ export namespace Components {
          */
         "filter": string;
         /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText": boolean;
+        /**
           * Defines whether the list is a menu or not.
          */
         "isMenu": boolean;
@@ -798,6 +816,10 @@ export namespace Components {
           * Defines whether items are selectable or not.
          */
         "selectable": boolean;
+        /**
+          * Displays the icons associated to each row when set to true.
+         */
+        "showIcons": boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -844,17 +866,45 @@ export namespace Components {
     }
     interface KupProgressBar {
         /**
-          * FLag to show or hide the progress bar's label
+          * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+         */
+        "centeredLabel": boolean;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * Sets a padding between the bar and its container. Not supported for the radial variant.
+         */
+        "hasPadding": boolean;
+        /**
+          * Sets a striped background. Not supported for the radial variant.
+         */
+        "hasStripes": boolean;
+        /**
+          * Flag to show or hide the progress bar's label.
          */
         "hideLabel": boolean;
         /**
-          * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+          * Specifies an icon to replace the label.
          */
-        "isSmall": boolean;
+        "icon": string;
         /**
-          * Specifies a text for the bar's label
+          * When striped background is active, it will be animated. Not supported for the radial variant.
          */
-        "labelText": string;
+        "isAnimated": boolean;
+        /**
+          * Radial version.
+         */
+        "isRadial": boolean;
+        /**
+          * Slim version.
+         */
+        "isSlim": boolean;
+        /**
+          * Specifies a text for the bar's label.
+         */
+        "label": string;
         /**
           * The current value the progress bar must display.
          */
@@ -983,7 +1033,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
+          * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
          */
         "emitSubmitEventOnEnter": boolean;
         /**
@@ -1038,6 +1088,9 @@ export namespace Components {
           * Defaults at false. When set to true, the component will be rendered as an outlined field.
          */
         "outlined": boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+         */
         "readOnly": boolean;
         /**
           * Defaults at false. When set to true, the button will be rendered with shaped edges.
@@ -1268,12 +1321,6 @@ declare global {
         prototype: HTMLKupHtmlElement;
         new (): HTMLKupHtmlElement;
     };
-    interface HTMLKupIconElement extends Components.KupIcon, HTMLStencilElement {
-    }
-    var HTMLKupIconElement: {
-        prototype: HTMLKupIconElement;
-        new (): HTMLKupIconElement;
-    };
     interface HTMLKupImageElement extends Components.KupImage, HTMLStencilElement {
     }
     var HTMLKupImageElement: {
@@ -1399,7 +1446,6 @@ declare global {
         "kup-gauge": HTMLKupGaugeElement;
         "kup-graphic-cell": HTMLKupGraphicCellElement;
         "kup-html": HTMLKupHtmlElement;
-        "kup-icon": HTMLKupIconElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
@@ -1483,8 +1529,24 @@ declare namespace LocalJSX {
         "textfieldData"?: Object;
     }
     interface KupBadge {
-        "icon"?: string;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The data of the image displayed inside the badge.
+         */
+        "imageData"?: {};
+        "onKupBadgeClick"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        /**
+          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
+         */
         "position"?: BadgePosition;
+        /**
+          * The text displayed inside the badge.
+         */
         "text"?: string;
     }
     interface KupBox {
@@ -1893,6 +1955,9 @@ declare namespace LocalJSX {
           * Custom style to be passed to the component.
          */
         "customStyle"?: string;
+        /**
+          * Lets the combobox behave as a select element.
+         */
         "isSelect"?: boolean;
         /**
           * Props of the list.
@@ -1926,7 +1991,7 @@ declare namespace LocalJSX {
             value: any;
         }>) => void;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -2009,7 +2074,7 @@ declare namespace LocalJSX {
         /**
           * List of filters set by the user.
          */
-        "filters"?: GenericMap;
+        "filters"?: GenericFilter;
         /**
           * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
           * @see fixedRows
@@ -2355,7 +2420,11 @@ declare namespace LocalJSX {
          */
         "src"?: string;
     }
-    interface KupIcon {
+    interface KupImage {
+        /**
+          * Sets the data of badges.
+         */
+        "badgeData"?: Badge[];
         /**
           * The color of the icon, defaults to the main color of the app.
          */
@@ -2365,30 +2434,31 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The width and height of the icon, defaults to 100%. They are bound together because icons should generally be squared.
+          * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
-        "dimensions"?: string;
+        "feedback"?: boolean;
         /**
-          * The name of the icon.
+          * The name of the icon. It can also contain an URL or a path.
          */
         "name"?: string;
+        "onKupImageClick"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        "onKupImageLoad"?: (event: CustomEvent<{
+            el: EventTarget;
+        }>) => void;
+        /**
+          * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX"?: string;
+        /**
+          * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY"?: string;
         /**
           * The type of the icon, defaults to "svg".
          */
         "type"?: string;
-    }
-    interface KupImage {
-        "alt"?: string;
-        "badges"?: Badge[];
-        "height"?: string;
-        /**
-          * When the image width should be decided by limiting its height. This leverages the browser default image handling mechanism. Have a look at the CSS part for more details.
-         */
-        "limitWidthByHeight"?: boolean;
-        "maxHeight"?: string;
-        "maxWidth"?: string;
-        "src"?: string;
-        "width"?: string;
     }
     interface KupImageButton {
         /**
@@ -2398,9 +2468,9 @@ declare namespace LocalJSX {
         /**
           * urls of the images
          */
-        "images"?: Image[];
+        "images"?: any;
         "onKupImageButtonSelected"?: (event: CustomEvent<{
-            selectedImages: Image[];
+            selectedImages: [];
         }>) => void;
         /**
           * If enabled, display the image description below the image
@@ -2431,7 +2501,7 @@ declare namespace LocalJSX {
     }
     interface KupList {
         /**
-          * Used for navigate throw the list items when list is associated to o text-file, like autocomplete
+          * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
          */
         "arrowDown"?: boolean;
         "arrowUp"?: boolean;
@@ -2451,6 +2521,10 @@ declare namespace LocalJSX {
           * Keeps string for filtering elements when filter mode is active
          */
         "filter"?: string;
+        /**
+          * Hides rows' text, ideally to display a list of icons only.
+         */
+        "hideText"?: boolean;
         /**
           * Defines whether the list is a menu or not.
          */
@@ -2490,6 +2564,10 @@ declare namespace LocalJSX {
           * Defines whether items are selectable or not.
          */
         "selectable"?: boolean;
+        /**
+          * Displays the icons associated to each row when set to true.
+         */
+        "showIcons"?: boolean;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -2553,17 +2631,45 @@ declare namespace LocalJSX {
     }
     interface KupProgressBar {
         /**
-          * FLag to show or hide the progress bar's label
+          * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
+         */
+        "centeredLabel"?: boolean;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * Sets a padding between the bar and its container. Not supported for the radial variant.
+         */
+        "hasPadding"?: boolean;
+        /**
+          * Sets a striped background. Not supported for the radial variant.
+         */
+        "hasStripes"?: boolean;
+        /**
+          * Flag to show or hide the progress bar's label.
          */
         "hideLabel"?: boolean;
         /**
-          * Determines if the progress bar must be drawn in small mode For SmeUP users, this corresponds to V2fogog style.
+          * Specifies an icon to replace the label.
          */
-        "isSmall"?: boolean;
+        "icon"?: string;
         /**
-          * Specifies a text for the bar's label
+          * When striped background is active, it will be animated. Not supported for the radial variant.
          */
-        "labelText"?: string;
+        "isAnimated"?: boolean;
+        /**
+          * Radial version.
+         */
+        "isRadial"?: boolean;
+        /**
+          * Slim version.
+         */
+        "isSlim"?: boolean;
+        /**
+          * Specifies a text for the bar's label.
+         */
+        "label"?: string;
         /**
           * The current value the progress bar must display.
          */
@@ -2737,7 +2843,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * If text field has autocomplete associated and the list is opened, enter must not execute submit it serves just to set the selected item value of the list in the text field.
+          * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
          */
         "emitSubmitEventOnEnter"?: boolean;
         /**
@@ -2819,6 +2925,9 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component will be rendered as an outlined field.
          */
         "outlined"?: boolean;
+        /**
+          * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+         */
         "readOnly"?: boolean;
         /**
           * Defaults at false. When set to true, the button will be rendered with shaped edges.
@@ -2995,7 +3104,6 @@ declare namespace LocalJSX {
         "kup-gauge": KupGauge;
         "kup-graphic-cell": KupGraphicCell;
         "kup-html": KupHtml;
-        "kup-icon": KupIcon;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
@@ -3041,7 +3149,6 @@ declare module "@stencil/core" {
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
             "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
             "kup-html": LocalJSX.KupHtml & JSXBase.HTMLAttributes<HTMLKupHtmlElement>;
-            "kup-icon": LocalJSX.KupIcon & JSXBase.HTMLAttributes<HTMLKupIconElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;

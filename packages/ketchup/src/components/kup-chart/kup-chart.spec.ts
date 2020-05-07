@@ -144,12 +144,12 @@ describe('data conversion', () => {
         expect(columns).toEqual(dataMock.columns);
     });
 
-    it.skip('rows conversion (one serie)', () => {
+    it('rows conversion (one serie)', () => {
         const columns = convertColumns(dataMock, {
             axis: axis,
             series: ['Col2'],
         });
-        const rows = convertRows(dataMock, columns, true);
+        const rows = convertRows(dataMock, columns, false);
 
         expect(rows).toEqual([
             ['CASFRA', 10],
@@ -158,14 +158,14 @@ describe('data conversion', () => {
         ]);
     });
 
-    it.skip('rows conversion (two series)', () => {
+    it('rows conversion (two series)', () => {
         const columns = convertColumns(dataMock, { axis: axis, series });
         const rows = convertRows(dataMock, columns, true);
 
         expect(rows).toEqual([
-            ['CASFRA', "10", "100.6"],
-            ['DELGIO', "6", "67.8"],
-            ['PARFRA', "5", "120.06"],
+            ['CASFRA', 10, '10', 100.6, '100.6'],
+            ['DELGIO', 6, '6', 67.8, '67.8'],
+            ['PARFRA', 5, '5', 120.06, '120.06'],
         ]);
     });
 });

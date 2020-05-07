@@ -8,9 +8,7 @@
     ></kup-data-table>
 
     <ul>
-      <li v-if="action"
-        >Clicked action: text: {{ action.text }} - icon: {{ action.icon }}</li
-      >
+      <li v-if="action">Clicked action: text: {{ action.text }} - icon: {{ action.icon }}</li>
       <li v-if="actionIndex >= 0">Action index: {{ actionIndex }}</li>
       <li v-if="actionType">Action type: {{ actionType }}</li>
       <li v-if="row">Row: {{ row }}</li>
@@ -28,11 +26,11 @@ export default {
       rowActions: [
         {
           text: 'Action #1',
-          icon: 'mdi mdi-folder',
+          icon: 'folder',
         },
         {
           text: 'Action #2',
-          icon: 'mdi mdi-account',
+          icon: 'account',
         },
       ],
       action: null,

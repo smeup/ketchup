@@ -50,20 +50,20 @@ export default {
       demoComp: '<kup-radio id="demo-component"></kup-radio>',
       demoProps: [
         {
-          prop: 'data',
-          description:
-            'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
-          type: 'ComponentRadioElement[]',
-          default: '[]',
-          try: 'json',
-        },
-        {
           prop: 'customStyle',
           description:
             'Sets a custom style for the component by feeding this string into a <style> tag.',
           type: 'string',
           default: 'null',
           try: 'css',
+        },
+        {
+          prop: 'data',
+          description:
+            'Object array containing the data of the radio list: value, label to be shown and status (if checked or not).',
+          type: 'ComponentRadioElement[]',
+          default: '[]',
+          try: 'json',
         },
         {
           prop: 'disabled',

@@ -28,24 +28,23 @@ export class KupCombobox {
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
+    /**
+     * Lets the combobox behave as a select element.
+     */
+    @Prop({ reflect: true }) isSelect: boolean = false;
     /**
      * Props of the list.
      */
     @Prop() listData: Object = {};
-
+    /**
+     * Sets how the return the elected item value. Suported values: "code", "description", "both".
+     */
+    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
+        ItemsDisplayMode.DESCRIPTION;
     /**
      * Props of the text field.
      */
     @Prop() textfieldData: Object = {};
-
-    @Prop() isSelect: boolean = false;
-
-    /**
-     * Sets how the return the selected item value
-     */
-    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
-        ItemsDisplayMode.CODE;
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
@@ -175,6 +174,15 @@ export class KupCombobox {
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
+
+        if (this.isSelect) {
+            if (this.textfieldEl.classList.contains('toggled')) {
+                this.closeList();
+            } else {
+                this.openList();
+            }
+        }
+
         this.kupClick.emit({
             value: target.value,
         });
@@ -290,13 +298,6 @@ export class KupCombobox {
         }
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-combobox',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
     //---- Lifecycle hooks ----
 
     componentDidRender() {
@@ -330,7 +331,6 @@ export class KupCombobox {
                 {...this.textfieldData}
                 style={this.elStyle}
                 initial-value={this.value}
-                //onKupTextFieldBlur={(e: any) => this.onKupBlur(e)}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}

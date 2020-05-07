@@ -4,6 +4,7 @@ export interface ComponentListElement {
     value: string;
     isSeparator?: boolean;
     selected?: boolean;
+    icon?: string;
 }
 
 export enum ItemsDisplayMode {

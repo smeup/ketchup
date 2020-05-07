@@ -19,7 +19,7 @@ describe('kup-btn', () => {
         expect(buttons).toHaveLength(0);
     });
 
-    it.skip('renders buttons with only text', async () => {
+    it('renders buttons with only text', async () => {
         // only buttons
         const page = await newE2EPage();
 
@@ -60,17 +60,13 @@ describe('kup-btn', () => {
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('kup-icon >>> div > svg');
-            expect(icon).toBeNull();
-
             expect(button).toHaveClasses(['kup-button', 'mdc-button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
         }
     });
 
-    it.skip('renders buttons with icons', async () => {
+    it('renders buttons with icons', async () => {
         // only buttons
         const page = await newE2EPage();
 
@@ -113,9 +109,6 @@ describe('kup-btn', () => {
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('kup-icon >>> div');
-            expect(icon).not.toBeNull();
             //expect(icon.innerHTML).toContain(buttons[i].icon);
 
             expect(button).toHaveClasses(['kup-button', 'mdc-button']);
