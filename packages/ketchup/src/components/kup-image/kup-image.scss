@@ -1,15 +1,24 @@
-// host represent widget DOM element
 :host {
   display: var(--kup-display-mode);
   position: relative;
+  transition: color 0.2s ease;
 
   #kup-component {
     margin: auto;
     position: relative;
+    transition: color 0.2s ease;
   }
 
-  svg,
-  img {
-    display: var(--kup-display-mode);
+  #feedback {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    left: calc(50% - 16px);
   }
+}
+
+svg,
+img {
+  display: var(--kup-display-mode);
 }

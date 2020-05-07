@@ -23,12 +23,10 @@ export class KupChip {
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
      * List of elements.
      */
     @Prop() data: ComponentChipElement[] = [];
-
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      */

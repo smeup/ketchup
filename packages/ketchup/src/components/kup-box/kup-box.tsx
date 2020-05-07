@@ -907,9 +907,6 @@ export class KupBox {
                     <kup-checkbox
                         checked={isSelected}
                         onKupCheckboxClick={(e) => e.stopPropagation()}
-                        onKupCheckboxChange={() =>
-                            this.onSelectionCheckChange(row)
-                        }
                     />
                 </div>
             );

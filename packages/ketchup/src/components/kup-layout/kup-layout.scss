@@ -16,7 +16,7 @@ $content-based-col-width: content-based-columns-width;
 // When no options are set
 :host {
   --lyo_column-number: var(--kup-layout_column-number, 1);
-  --lyo_grid-gap: var(--kup-layout_grid-gap, 2px);
+  --lyo_grid-gap: var(--kup-layout_grid-gap, 2rem);
 
   //-- Basic style --
   display: inline-grid;
@@ -31,7 +31,10 @@ $content-based-col-width: content-based-columns-width;
 
 // When columns size must be decided by the column content.
 :host([content-based-columns-width]) {
-  grid-template-columns: repeat(var(--lyo_column-number), minmax(min-content, auto));
+  grid-template-columns: repeat(
+    var(--lyo_column-number),
+    minmax(min-content, auto)
+  );
 }
 
 // WHen there are multiple columns, elements are placed one cell after the other and going on to rows.
@@ -54,7 +57,7 @@ $content-based-col-width: content-based-columns-width;
   padding: 10px;
 }
 
-//-- auto set width cell 
+//-- auto set width cell
 :host([#{$content-based-col-width}]) {
   //white-space: nowrap;
   table-layout: auto;
@@ -85,6 +88,5 @@ $content-based-col-width: content-based-columns-width;
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  grid-template-columns: 0; // [2]
   width: 100%;
 }

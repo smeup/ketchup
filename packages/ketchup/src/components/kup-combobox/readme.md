@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property        | Attribute      | Description                                 | Type                                                                                             | Default                 |
-| --------------- | -------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
-| `customStyle`   | `custom-style` | Custom style to be passed to the component. | `string`                                                                                         | `undefined`             |
-| `isSelect`      | `is-select`    |                                             | `boolean`                                                                                        | `false`                 |
-| `listData`      | --             | Props of the list.                          | `Object`                                                                                         | `{}`                    |
-| `selectMode`    | `select-mode`  | Sets how the return the selected item value | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE` |
-| `textfieldData` | --             | Props of the text field.                    | `Object`                                                                                         | `{}`                    |
+| Property        | Attribute      | Description                                                                                 | Type                                                                                             | Default                        |
+| --------------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`   | `custom-style` | Custom style to be passed to the component.                                                 | `string`                                                                                         | `undefined`                    |
+| `isSelect`      | `is-select`    | Lets the combobox behave as a select element.                                               | `boolean`                                                                                        | `false`                        |
+| `listData`      | --             | Props of the list.                                                                          | `Object`                                                                                         | `{}`                           |
+| `selectMode`    | `select-mode`  | Sets how the return the elected item value. Suported values: "code", "description", "both". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `textfieldData` | --             | Props of the text field.                                                                    | `Object`                                                                                         | `{}`                           |
 
 
 ## Events
@@ -33,6 +33,7 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
 
@@ -48,12 +49,13 @@ graph TD;
   kup-combobox --> kup-list
   kup-text-field --> kup-image
   kup-image --> kup-badge
-  kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-badge --> kup-image
-  kup-badge --> kup-image
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-combobox
+  kup-data-table --> kup-combobox
   kup-form --> kup-combobox
   kup-paginator --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px

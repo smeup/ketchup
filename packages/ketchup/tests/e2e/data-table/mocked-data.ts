@@ -1139,7 +1139,7 @@ export const tableButtonData = {
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112)",
@@ -1280,7 +1280,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) T(Edit)",
@@ -1424,7 +1424,7 @@ export const tableButtonData = {
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) H(Edit)",
@@ -1565,7 +1565,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
@@ -1706,7 +1706,7 @@ export const tableButtonData = {
         },
         "BTN": {
           "config": {
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -1778,7 +1778,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -1851,7 +1851,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "showtext": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -1924,7 +1924,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112)",
@@ -2068,7 +2068,7 @@ export const tableButtonData = {
           "config": {
             "showtext": true,
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
@@ -2214,7 +2214,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
@@ -2357,7 +2357,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -2646,7 +2646,7 @@ export const tableButtonData = {
         "BTN": {
           "config": {
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
@@ -2719,7 +2719,7 @@ export const tableButtonData = {
           "config": {
             "showtext": true,
             "flat": false,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
@@ -2867,7 +2867,7 @@ export const tableButtonData = {
             "showtext": true,
             "flat": false,
             "fillspace": true,
-            "icon": "mdi mdi-pencil"
+            "icon": "pencil"
           },
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",

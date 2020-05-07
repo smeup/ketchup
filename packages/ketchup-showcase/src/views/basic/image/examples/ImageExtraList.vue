@@ -2,8 +2,8 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        List of extra icons. Some of these icons might overlap with the
-        official MD icons but with different names.
+        List of extra icons. Some of these icons might overlap with the official
+        MD icons but with different names.
       </p>
       <div class="demo-container">
         <div class="kup-container">
@@ -18,6 +18,10 @@
           <div class="icon-wrapper" title="account-box-outline">
             <kup-image size-x="48px" size-y="48px" name="account-box-outline"></kup-image>
             <div class="icon-label">account-box-outline</div>
+          </div>
+          <div class="icon-wrapper" title="account-circle">
+            <kup-image size-x="48px" size-y="48px" name="account-circle"></kup-image>
+            <div class="icon-label">account-circle</div>
           </div>
           <div class="icon-wrapper" title="account-circle-outline">
             <kup-image size-x="48px" size-y="48px" name="account-circle-outline"></kup-image>
@@ -447,13 +451,29 @@
             <kup-image size-x="48px" size-y="48px" name="format-align-left"></kup-image>
             <div class="icon-label">format-align-left</div>
           </div>
+          <div class="icon-wrapper" title="format-align-justify">
+            <kup-image size-x="48px" size-y="48px" name="format-align-justify"></kup-image>
+            <div class="icon-label">format-align-justify</div>
+          </div>
           <div class="icon-wrapper" title="format-align-right">
             <kup-image size-x="48px" size-y="48px" name="format-align-right"></kup-image>
             <div class="icon-label">format-align-right</div>
           </div>
+          <div class="icon-wrapper" title="format-color-text">
+            <kup-image size-x="48px" size-y="48px" name="format-color-text"></kup-image>
+            <div class="icon-label">format-color-text</div>
+          </div>
           <div class="icon-wrapper" title="format-float-left">
             <kup-image size-x="48px" size-y="48px" name="format-float-left"></kup-image>
             <div class="icon-label">format-float-left</div>
+          </div>
+          <div class="icon-wrapper" title="format-font-size-decrease">
+            <kup-image size-x="48px" size-y="48px" name="format-font-size-decrease"></kup-image>
+            <div class="icon-label">format-font-size-decrease</div>
+          </div>
+          <div class="icon-wrapper" title="format-font-size-increase">
+            <kup-image size-x="48px" size-y="48px" name="format-font-size-increase"></kup-image>
+            <div class="icon-label">format-font-size-increase</div>
           </div>
           <div class="icon-wrapper" title="format-list-bulleted">
             <kup-image size-x="48px" size-y="48px" name="format-list-bulleted"></kup-image>
@@ -583,6 +603,14 @@
             <kup-image size-x="48px" size-y="48px" name="omega"></kup-image>
             <div class="icon-label">omega</div>
           </div>
+          <div class="icon-wrapper" title="open-in-browser">
+            <kup-image size-x="48px" size-y="48px" name="open-in-browser"></kup-image>
+            <div class="icon-label">open-in-browser</div>
+          </div>
+          <div class="icon-wrapper" title="open-in-new">
+            <kup-image size-x="48px" size-y="48px" name="open-in-new"></kup-image>
+            <div class="icon-label">open-in-new</div>
+          </div>
           <div class="icon-wrapper" title="pause-circle">
             <kup-image size-x="48px" size-y="48px" name="pause-circle"></kup-image>
             <div class="icon-label">pause-circle</div>
@@ -646,6 +674,10 @@
           <div class="icon-wrapper" title="rename-box">
             <kup-image size-x="48px" size-y="48px" name="rename-box"></kup-image>
             <div class="icon-label">rename-box</div>
+          </div>
+          <div class="icon-wrapper" title="reorder-horizontal">
+            <kup-image size-x="48px" size-y="48px" name="reorder-horizontal"></kup-image>
+            <div class="icon-label">reorder-horizontal</div>
           </div>
           <div class="icon-wrapper" title="room-service">
             <kup-image size-x="48px" size-y="48px" name="room-service"></kup-image>
@@ -722,6 +754,26 @@
           <div class="icon-wrapper" title="table">
             <kup-image size-x="48px" size-y="48px" name="table"></kup-image>
             <div class="icon-label">table</div>
+          </div>
+          <div class="icon-wrapper" title="table-column">
+            <kup-image size-x="48px" size-y="48px" name="table-column"></kup-image>
+            <div class="icon-label">table-column</div>
+          </div>
+          <div class="icon-wrapper" title="table-column-plus-after">
+            <kup-image size-x="48px" size-y="48px" name="table-column-plus-after"></kup-image>
+            <div class="icon-label">table-column-plus-after</div>
+          </div>
+          <div class="icon-wrapper" title="table-column-plus-before">
+            <kup-image size-x="48px" size-y="48px" name="table-column-plus-before"></kup-image>
+            <div class="icon-label">table-column-plus-before</div>
+          </div>
+          <div class="icon-wrapper" title="table-column-remove">
+            <kup-image size-x="48px" size-y="48px" name="table-column-remove"></kup-image>
+            <div class="icon-label">table-column-remove</div>
+          </div>
+          <div class="icon-wrapper" title="table-column-width">
+            <kup-image size-x="48px" size-y="48px" name="table-column-width"></kup-image>
+            <div class="icon-label">table-column-width</div>
           </div>
           <div class="icon-wrapper" title="table-edit">
             <kup-image size-x="48px" size-y="48px" name="table-edit"></kup-image>
@@ -822,6 +874,10 @@
           <div class="icon-wrapper" title="view-quilt">
             <kup-image size-x="48px" size-y="48px" name="view-quilt"></kup-image>
             <div class="icon-label">view-quilt</div>
+          </div>
+          <div class="icon-wrapper" title="view-sequential">
+            <kup-image size-x="48px" size-y="48px" name="view-sequential"></kup-image>
+            <div class="icon-label">view-sequential</div>
           </div>
           <div class="icon-wrapper" title="volume-high">
             <kup-image size-x="48px" size-y="48px" name="volume-high"></kup-image>

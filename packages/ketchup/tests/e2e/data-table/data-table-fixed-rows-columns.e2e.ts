@@ -157,7 +157,7 @@ describe.each([
             await page.waitForChanges();
         });
 
-        it.each([[1], [2], [3]])(
+        it.skip.each([[1], [2], [3]])(
             `set to a value > 0 and < columns.number, sticky position the correct number (currently %i) of ${currentDirection} starting from the ${startDirection} of the table`,
             async (fixedCount: number) => {
                 // Gets basic information
@@ -314,7 +314,7 @@ describe.each([
     }
 );
 
-it(`kup-data-table with fixed rows and columns both > 0 have a matrix of cells with both fixed behaviors`, async () => {
+it.skip(`kup-data-table with fixed rows and columns both > 0 have a matrix of cells with both fixed behaviors`, async () => {
     // Constants
     const fixedRows = 3;
     const fixedColumns = 2;

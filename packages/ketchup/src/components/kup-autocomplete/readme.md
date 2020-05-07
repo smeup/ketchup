@@ -12,7 +12,7 @@
 | `callBackOnFilterUpdate` | --                      | Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.                     | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined`             |
 | `customStyle`            | `custom-style`          | Custom style to be passed to the component.                                                                                                          | `string`                                                                                                 | `undefined`             |
 | `listData`               | --                      | Props of the list.                                                                                                                                   | `Object`                                                                                                 | `{}`                    |
-| `minimumChars`           | `minimum-chars`         | The minimum number of chars to trigger the autocomplete                                                                                              | `number`                                                                                                 | `3`                     |
+| `minimumChars`           | `minimum-chars`         | The minimum number of chars to trigger the autocomplete                                                                                              | `number`                                                                                                 | `1`                     |
 | `selectMode`             | `select-mode`           | Sets how the return the selected item value                                                                                                          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.CODE` |
 | `serverHandledFilter`    | `server-handled-filter` | When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled. | `boolean`                                                                                                | `false`                 |
 | `textfieldData`          | --                      | Props of the text field.                                                                                                                             | `Object`                                                                                                 | `{}`                    |
@@ -50,9 +50,9 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-text-field --> kup-image
   kup-image --> kup-badge
-  kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-badge --> kup-image
-  kup-badge --> kup-image
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-form --> kup-autocomplete

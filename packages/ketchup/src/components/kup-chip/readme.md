@@ -40,8 +40,7 @@
 graph TD;
   kup-chip --> kup-image
   kup-image --> kup-badge
-  kup-image --> kup-badge
-  kup-badge --> kup-image
+  kup-image --> kup-spinner
   kup-badge --> kup-image
   kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px

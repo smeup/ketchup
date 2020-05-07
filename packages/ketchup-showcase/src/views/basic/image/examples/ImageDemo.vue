@@ -61,7 +61,7 @@ export default {
           prop: 'color',
           description:
             'The color of the image, defaults to the main color of the app. Accepts any CSS color format (HEX, RGB, etc.). It works only when the image is in a vector format.',
-          type: 'boolean',
+          type: 'string',
           default: 'var(--kup-icon-color)',
           try: 'field',
         },
@@ -72,6 +72,14 @@ export default {
           type: 'string',
           default: 'undefined',
           try: 'css',
+        },
+        {
+          prop: 'feedback',
+          description:
+            'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'name',
@@ -117,10 +125,6 @@ export default {
       ],
       demoData: {
         badgeData: [
-          {
-            text: '99+',
-            position: 'TR',
-          },
           {
             imageData: {
               name: 'widgets',

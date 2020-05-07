@@ -107,15 +107,17 @@ graph TD;
   kup-box --> kup-combobox
   kup-box --> kup-paginator
   kup-badge --> kup-image
-  kup-badge --> kup-image
   kup-image --> kup-badge
-  kup-image --> kup-badge
+  kup-image --> kup-spinner
   kup-button --> kup-image
   kup-text-field --> kup-image
+  kup-progress-bar --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -5,129 +5,129 @@
 
   #kup-component {
     color: var(--kup-text-color);
+  }
+}
 
-    .wrapper {
-      overflow-x: auto;
+.wrapper {
+  overflow-x: auto;
 
-      .kup-tree {
-        border-collapse: collapse;
-        width: max-content;
+  .kup-tree {
+    border-collapse: collapse;
+    width: max-content;
 
-        thead {
-          display: none;
-          &.header--is-visible {
-            display: table-header-group;
+    thead {
+      display: none;
+      &.header--is-visible {
+        display: table-header-group;
 
-            th {
-              padding: 0.8rem 0.5rem;
-              font-size: 1.1rem;
-            }
-          }
-
-          th {
-            text-align: left;
-          }
-        }
-
-        tr,
-        td {
-          font-size: 1rem;
-          line-height: 1rem;
-
-          &.mdc-ripple-surface {
-            --mdc-ripple-fg-opacity: 0.24;
-
-            &:before,
-            &:after {
-              background-color: var(--kup-main-color);
-            }
-          }
-
-          & .cell-content {
-            display: inline-block;
-            line-height: 1rem;
-            vertical-align: 0.325rem;
-          }
-        }
-
-        td,
         th {
-          transition: color 0.25s, background-color 0.25s;
-          padding: 0.4rem 0.5rem;
+          padding: 0.8rem 0.5rem;
+          font-size: 1.1rem;
         }
+      }
 
-        &__indent {
-          display: inline-block;
-          width: calc(1.5rem * var(--tree-node_depth, 0));
+      th {
+        text-align: left;
+      }
+    }
+
+    tr,
+    td {
+      font-size: 1rem;
+      line-height: 1rem;
+
+      &.mdc-ripple-surface {
+        --mdc-ripple-fg-opacity: 0.24;
+
+        &:before,
+        &:after {
+          background-color: var(--kup-main-color);
         }
+      }
 
-        .options,
-        &__icon {
-          display: inline-block;
-          margin-right: 0.4rem;
-          height: 1.5rem;
-          width: 1.5rem;
-          transition: transform 0.1s;
+      & .cell-content {
+        display: inline-block;
+        line-height: 1rem;
+        vertical-align: 0.325rem;
+      }
+    }
+
+    td,
+    th {
+      transition: color 0.25s, background-color 0.25s;
+      padding: 0.4rem 0.5rem;
+    }
+
+    &__indent {
+      display: inline-block;
+      width: calc(1.5rem * var(--tree-node_depth, 0));
+    }
+
+    .options,
+    &__icon {
+      display: inline-block;
+      margin-right: 0.4rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      transition: transform 0.1s;
+    }
+
+    &__node {
+      cursor: default;
+
+      &.with-dyn:not(.kup-tree__node--disabled) {
+        cursor: pointer;
+      }
+
+      &:not(.kup-tree__node--disabled) &__expander {
+        cursor: pointer;
+      }
+
+      &--disabled {
+        opacity: 0.4;
+
+        &__expander {
+          pointer-events: none;
         }
+      }
 
-        &__node {
-          cursor: default;
+      &[data-is-expanded] .expand-icon {
+        transform: rotate(90deg);
+      }
 
-          &.with-dyn:not(.kup-tree__node--disabled) {
-            cursor: pointer;
-          }
+      .options {
+        cursor: pointer;
+        float: right;
+        margin-left: 0.6rem;
+        opacity: 0;
+        transition: opacity 0.6s, visibility 0.6s;
 
-          &:not(.kup-tree__node--disabled) &__expander {
-            cursor: pointer;
-          }
-
-          &--disabled {
-            opacity: 0.4;
-
-            &__expander {
-              pointer-events: none;
-            }
-          }
-
-          &[data-is-expanded] .expand-icon {
-            transform: rotate(90deg);
-          }
-
-          .options {
-            cursor: pointer;
-            float: right;
-            margin-left: 0.6rem;
-            opacity: 0;
-            transition: opacity 0.6s, visibility 0.6s;
-
-            &:before {
-              height: inherit;
-              width: inherit;
-            }
-          }
-
-          &--selected:not(.kup-tree__node--disabled),
-          &:hover:not(.kup-tree__node--disabled) {
-            > td {
-              color: var(--kup-hover-color);
-              background-color: var(--kup-hover-background-color);
-            }
-          }
+        &:before {
+          height: inherit;
+          width: inherit;
         }
+      }
 
-        &[data-show-columns] .kup-tree__node {
-          border-bottom: solid 1px var(--kup-border-color);
+      &--selected:not(.kup-tree__node--disabled),
+      &:hover:not(.kup-tree__node--disabled) {
+        > td {
+          color: var(--kup-hover-color);
+          background-color: var(--kup-hover-background-color);
         }
+      }
+    }
 
-        &[data-show-object-navigation] .kup-tree__node {
-          &:hover .options {
-            opacity: 1;
-            visibility: visible;
+    &[data-show-columns] .kup-tree__node {
+      border-bottom: solid 1px var(--kup-border-color);
+    }
 
-            &:hover {
-              opacity: 0.54;
-            }
-          }
+    &[data-show-object-navigation] .kup-tree__node {
+      &:hover .options {
+        opacity: 1;
+        visibility: visible;
+
+        &:hover {
+          opacity: 0.54;
         }
       }
     }
