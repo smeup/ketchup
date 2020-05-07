@@ -3203,11 +3203,10 @@ export class KupDataTable {
                 );
             }
         }
-        let sizedCols = this.getSizedColumns();
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
-            'auto-width': !!(sizedCols && this.tableHasAutoWidth()),
+            'auto-width': this.tableHasAutoWidth(),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
