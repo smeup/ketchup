@@ -33,7 +33,6 @@
 ## Dependencies
 
 ### Used by
-
 -   [kup-box](../kup-box)
 -   [kup-btn](../kup-btn)
 -   [kup-calendar](../kup-calendar)

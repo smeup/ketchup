@@ -56,11 +56,11 @@ export default {
         row.actions = [
           {
             text: 'Variable action #1',
-            icon: 'mdi mdi-plus',
+            icon: 'plus',
           },
           {
             text: 'Variable action #2',
-            icon: 'mdi mdi-pencil',
+            icon: 'pencil',
           },
         ];
 

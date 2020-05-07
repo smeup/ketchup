@@ -113,59 +113,8 @@ export class KupImage {
             this.isUrl = true;
         } else {
             this.isUrl = false;
-            if (this.type === 'svg') {
-                let fetchedSVG = document.documentElement['kupSVG'];
-                if (!fetchedSVG) {
-                    let message = 'Creating SVG resource on HTML element.';
-                    errorLogging('kup-image', message);
-                    document.documentElement['kupSVG'] = {};
-                    fetchedSVG = document.documentElement['kupSVG'];
-                }
-                if (fetchedSVG[this.name]) {
-                    this.resource = fetchedSVG[this.name];
-                } else {
-                    var res =
-                        'assets/' +
-                        this.type +
-                        '/' +
-                        this.name +
-                        '.' +
-                        this.type;
-                    return fetch(res)
-                        .then((response) => {
-                            if (response.ok) {
-                                return response.text();
-                            } else {
-                                throw new Error(
-                                    'Icon( ' + res + ' ) was not loaded!'
-                                );
-                            }
-                        })
-                        .then((text) => {
-                            this.resource = text;
-                            let svgs = document.documentElement['kupSVG'];
-                            if (svgs) {
-                                let message =
-                                    'Loading SVG resource on HTML element(' +
-                                    this.name +
-                                    ').';
-                                errorLogging('kup-image', message);
-                                svgs[this.name] = this.resource;
-                            } else {
-                                document.documentElement['kupSVG'] = {
-                                    [this.name]: this.resource,
-                                };
-                            }
-                        })
-                        .catch((error) => {
-                            let message = error;
-                            errorLogging('kup-image', message);
-                        });
-                }
-            } else {
-                this.resource =
-                    'assets/' + this.type + '/' + this.name + '.' + this.type;
-            }
+            this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type;
         }
     }
 
@@ -179,8 +128,6 @@ export class KupImage {
         let elStyle = {
             height: this.sizeY,
             width: this.sizeX,
-            color: this.color,
-            fill: this.color,
         };
         let el: string = this.resource;
         let spinnerLayout: number;
@@ -215,15 +162,20 @@ export class KupImage {
                 </div>
             );
         }
-
         if (this.type === 'svg' && !this.isUrl) {
+            let str = `url(${this.resource}) no-repeat center`;
+            let elStyleSVG = {
+                ...elStyle,
+                mask: str,
+                background: this.color,
+                webkitMask: str,
+            };
             return (
                 <Host style={elStyle}>
                     {customStyle}
                     <div
                         id="kup-component"
-                        innerHTML={el}
-                        style={elStyle}
+                        style={elStyleSVG}
                         onClick={(e) => this.onKupClick(e)}
                     ></div>
                     {...badgeCollection}
