@@ -3301,7 +3301,6 @@ export class KupDataTable {
         //lcltime = new Date();
         //let endtime = lcltime.getTime();
         //this.log('render', 'time spent [' + (endtime - starttime) + ']');
-
         return compCreated;
     }
 }

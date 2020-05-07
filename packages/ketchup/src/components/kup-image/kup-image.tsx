@@ -205,7 +205,6 @@ export class KupImage {
                 background: this.color,
                 webkitMask: str,
             };
-
             return (
                 <Host style={elStyle}>
                     {customStyle}
