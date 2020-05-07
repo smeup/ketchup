@@ -699,8 +699,9 @@ $fixed-row-class: fixed-row;
         }
 
         th-sticky {
-          padding: 0.5rem 0;
+          box-sizing: border-box;
           display: inline-flex;
+          padding: 0.5rem 0.3125rem;
 
           &.number {
             text-align: right;
