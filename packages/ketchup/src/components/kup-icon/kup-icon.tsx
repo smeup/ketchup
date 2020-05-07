@@ -34,6 +34,8 @@ export class KupIcon {
      */
     @Prop({ reflect: true }) type: string = 'svg';
 
+    private isUrl: boolean = false;
+
     //---- Methods ----
 
     async fetchResource() {
@@ -63,14 +65,10 @@ export class KupIcon {
             this.name.indexOf('/') > -1 ||
             this.name.indexOf('\\') > -1
         ) {
-            let message =
-                'Detected an src img path for icon with name(' +
-                this.name +
-                ')! Overriding "svg" with "srcpath".';
-            errorLogging('kup-icon', message);
             this.resource = this.name;
-            this.type = 'srcpath';
+            this.isUrl = true;
         } else {
+            this.isUrl = false;
             if (this.type === 'svg') {
                 return this.fetchResource();
             } else {
@@ -97,7 +95,7 @@ export class KupIcon {
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
         }
-        if (this.type === 'svg') {
+        if (this.type === 'svg' && !this.isUrl) {
             return (
                 <Host style={elStyle}>
                     {customStyle}
