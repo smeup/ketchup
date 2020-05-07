@@ -17,7 +17,10 @@ import {
 import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty } from '../../utils/utils';
 import { errorLogging } from '../../utils/error-logging';
-import { isFilterComplientForValue } from '../../utils/filters';
+import {
+    isFilterComplientForValue,
+    filterIsNegative,
+} from '../../utils/filters';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -294,7 +297,7 @@ export function filterRows(
     globalFilter: string = '',
     columns: Array<string> = []
 ): Array<Row> {
-    if (!rows) {
+    if (!rows || rows == null) {
         return [];
     }
 
@@ -332,17 +335,26 @@ export function isRowComplient(
     columns: Array<string> = []
 ) {
     if (isUsingGlobalFilter) {
+        let retValue = true;
         // There are no columns -> display element
-        if (columns.length === 0) {
-            return true;
-        }
+        if (columns && columns != null && columns.length > 0) {
+            retValue = false;
+            let _filterIsNegative = filterIsNegative(globalFilter);
 
-        // Search among all columns for the global filter
-        for (let i = 0; i < columns.length; i++) {
-            const cell = r.cells[columns[i]];
-            if (isFilterComplientForCell(cell, globalFilter)) {
-                return true;
+            // Search among all columns for the global filter
+            for (let i = 0; i < columns.length; i++) {
+                const cell = r.cells[columns[i]];
+                retValue = isFilterComplientForCell(cell, globalFilter);
+                if (retValue == true && !_filterIsNegative) {
+                    break;
+                }
+                if (retValue == false && _filterIsNegative) {
+                    break;
+                }
             }
+        }
+        if (!retValue) {
+            return false;
         }
     }
 
@@ -353,34 +365,32 @@ export function isRowComplient(
 
     let keys = Object.keys(filters);
 
-    let retValue: boolean = false;
     // Filters
     for (let i = 0; i < keys.length; i++) {
         let key: string = keys[i];
 
         const cell = r.cells[key];
         if (!cell) {
-            continue;
+            return false;
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        if (isFilterComplientForCell(cell, filterValue)) {
-            retValue = true;
+        if (!isFilterComplientForCell(cell, filterValue)) {
+            return false;
         }
 
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
         }
-        retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (isFilterComplientForCell(cell, fv)) {
-                retValue = true;
+            if (!isFilterComplientForCell(cell, fv)) {
+                return false;
             }
         }
     }
-    return retValue;
+    return true;
 }
 
 export function isFilterComplientForCell(cellValue: Cell, filterValue: string) {
