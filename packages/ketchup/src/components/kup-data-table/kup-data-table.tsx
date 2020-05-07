@@ -2283,10 +2283,9 @@ export class KupDataTable {
                 return null;
             }
 
-            //const icon = row.group.expanded
-            //    ? 'mdi mdi-menu-down expanded'
-            //    : 'mdi mdi-menu-right collapsed';
-            const icon = row.group.expanded ? 'expand_less' : 'expand_more';
+            const icon = row.group.expanded
+                ? 'arrow_drop_up'
+                : 'arrow_drop_down';
 
             const jsxRows = [];
 

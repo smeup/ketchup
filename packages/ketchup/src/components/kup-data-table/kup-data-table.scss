@@ -531,7 +531,6 @@ $fixed-row-class: fixed-row;
 
           &.group-label {
             border-bottom: none;
-            line-height: 0.75rem;
           }
 
           &.group-total {
@@ -544,19 +543,16 @@ $fixed-row-class: fixed-row;
 
             .group-cell-content {
               kup-image {
-                margin-right: 0.25rem;
-              }
-              kup-image,
-              .indent {
                 float: left;
+                margin: 0 0.25rem;
+              }
+              .indent {
+                margin-left: 0.25rem;
               }
               > span {
                 display: inline-flex;
                 outline: none;
                 margin-left: 0.25rem;
-              }
-              > span.text {
-                vertical-align: text-bottom;
               }
             }
 

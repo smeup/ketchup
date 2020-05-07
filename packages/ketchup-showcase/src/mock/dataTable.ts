@@ -35,7 +35,6 @@ export function createDataForPagination(
     columns.push({
       name: 'FLD' + i,
       title: 'Column ' + i,
-      size: 10,
       hideValuesRepetitions:
         useStepValues &&
         (Math.random() > 0.5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0),
