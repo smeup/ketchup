@@ -13,7 +13,7 @@ export interface BoxRow {
 
     layout?: Layout;
 
-    badges?: Badge[];
+    badgeData?: Badge[];
 }
 
 export interface Layout {

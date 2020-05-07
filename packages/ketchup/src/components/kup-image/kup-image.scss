@@ -1,25 +1,24 @@
-@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
-
-* {
-  box-sizing: border-box;
-}
-
 :host {
+  display: var(--kup-display-mode);
   position: relative;
-  display: inline-block;
-  z-index: 0;
+  transition: color 0.2s ease;
 
-  img {
-    width: 100%;
-    height: 100%;
+  #kup-component {
+    margin: auto;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  #feedback {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: calc(50% - 16px);
+    left: calc(50% - 16px);
   }
 }
 
-// This is done to limit automatically width of the image based on its height, like the browser normally do
-// This is also why the internal wrapper was removed: to enable this behavior.
-:host([limit-width-by-height]) {
-  img {
-    max-height: inherit;
-    width: auto;
-  }
+svg,
+img {
+  display: var(--kup-display-mode);
 }

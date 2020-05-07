@@ -115,7 +115,7 @@ const series = ['Col2', 'Col3'];
 describe('data conversion', () => {
     it('can convert null', () => {
         const columns = convertColumns(null, { axis: null, series: null });
-        const rows = convertRows(null, null);
+        const rows = convertRows(null, null, false);
 
         expect(columns).toEqual([]);
         expect(rows).toEqual([]);
@@ -129,7 +129,7 @@ describe('data conversion', () => {
                 axis: null,
             }
         );
-        const rows = convertRows({}, []);
+        const rows = convertRows({}, [], false);
 
         expect(columns).toEqual([]);
         expect(rows).toEqual([]);
@@ -149,19 +149,23 @@ describe('data conversion', () => {
             axis: axis,
             series: ['Col2'],
         });
-        const rows = convertRows(dataMock, columns);
+        const rows = convertRows(dataMock, columns, false);
 
-        expect(rows).toEqual([['CASFRA', 10], ['DELGIO', 6], ['PARFRA', 5]]);
+        expect(rows).toEqual([
+            ['CASFRA', 10],
+            ['DELGIO', 6],
+            ['PARFRA', 5],
+        ]);
     });
 
     it('rows conversion (two series)', () => {
         const columns = convertColumns(dataMock, { axis: axis, series });
-        const rows = convertRows(dataMock, columns);
+        const rows = convertRows(dataMock, columns, true);
 
         expect(rows).toEqual([
-            ['CASFRA', 10, 100.6],
-            ['DELGIO', 6, 67.8],
-            ['PARFRA', 5, 120.06],
+            ['CASFRA', 10, '10', 100.6, '100.6'],
+            ['DELGIO', 6, '6', 67.8, '67.8'],
+            ['PARFRA', 5, '5', 120.06, '120.06'],
         ]);
     });
 });

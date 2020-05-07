@@ -47,26 +47,22 @@ describe('kup-btn', () => {
             const row = rows[i];
 
             const kupBtn = await row.find('kup-button');
+            expect(kupBtn).toHaveAttribute('data-id');
 
-            expect(kupBtn).toHaveClass('fillspace');
+            /** non ha una classe */
+            //expect(kupBtn).toHaveClass('fillspace');
 
             const button = await row.find('kup-button >>> button');
             expect(button).not.toBeNull();
 
             // testint text
-            const text = await button.find('.button-text');
+            const text = await button.find('.mdc-button__label');
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('.button-icon');
-            expect(icon).toBeNull();
-
-            // no classes
-            expect(button.getAttribute('class')).toEqual('');
-
+            expect(button).toHaveClasses(['kup-button', 'mdc-button']);
             // no title
-            expect(button.getAttribute('title')).toEqual('');
+            expect(button.getAttribute('title')).toBeNull();
         }
     });
 
@@ -81,11 +77,11 @@ describe('kup-btn', () => {
         const buttons = [
             {
                 value: 'Btn #1',
-                iconClass: 'mdi mdi-xxx',
+                icon: 'grid_on',
             },
             {
                 value: 'Btn #2',
-                iconClass: 'mdi mdi-yyy',
+                icon: 'grid_off',
             },
         ];
 
@@ -100,27 +96,24 @@ describe('kup-btn', () => {
             const row = rows[i];
 
             const kupBtn = await row.find('kup-button');
+            expect(kupBtn).toHaveAttribute('data-id');
 
-            expect(kupBtn).toHaveClass('fillspace');
+            /** non ha una classe */
+            //expect(kupBtn).toHaveClass('fillspace');
 
             const button = await row.find('kup-button >>> button');
             expect(button).not.toBeNull();
 
             // testint text
-            const text = await button.find('.button-text');
+            const text = await button.find('.mdc-button__label');
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            // testing icon
-            const icon = await button.find('.button-icon');
-            expect(icon).not.toBeNull();
-            expect(icon).toHaveClasses(buttons[i].iconClass.split(' '));
+            //expect(icon.innerHTML).toContain(buttons[i].icon);
 
-            // no classes
-            expect(button.getAttribute('class')).toEqual('');
-
+            expect(button).toHaveClasses(['kup-button', 'mdc-button']);
             // no title
-            expect(button.getAttribute('title')).toEqual('');
+            expect(button.getAttribute('title')).toBeNull();
         }
     });
 
@@ -135,11 +128,11 @@ describe('kup-btn', () => {
         const buttons = [
             {
                 value: 'Btn #1',
-                iconClass: 'mdi mdi-xxx',
+                icon: 'grid_on',
             },
             {
                 value: 'Btn #2',
-                iconClass: 'mdi mdi-yyy',
+                icon: 'grid_off',
             },
         ];
 
@@ -172,19 +165,19 @@ describe('kup-btn', () => {
         const buttons = [
             {
                 value: 'Btn #1',
-                iconClass: 'mdi mdi-xxx',
+                icon: 'grid_on',
             },
             {
                 value: 'Btn #2',
-                iconClass: 'mdi mdi-yyy',
+                icon: 'grid_off',
             },
             {
                 value: 'Btn #3',
-                iconClass: 'mdi mdi-zzz',
+                iconClass: 'hdr_on',
             },
             {
                 value: 'Btn #4',
-                iconClass: 'mdi mdi-aaa',
+                iconClass: 'hdr_off',
             },
         ];
 
@@ -221,11 +214,11 @@ describe('kup-btn', () => {
         const buttons = [
             {
                 value: 'Btn #1',
-                iconClass: 'mdi mdi-xxx',
+                icon: 'grid_on',
             },
             {
                 value: 'Btn #2',
-                iconClass: 'mdi mdi-yyy',
+                icon: 'grid_off',
             },
         ];
 
@@ -249,7 +242,7 @@ describe('kup-btn', () => {
         for (let i = 0; i < cells.length; i++) {
             const kupBtn = await cells[i].find('kup-button');
             expect(kupBtn).not.toBeNull();
-            expect(kupBtn).toHaveClass('fillspace');
+            //expect(kupBtn).toHaveAttribute('full-width');
         }
     });
 });

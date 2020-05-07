@@ -45,17 +45,21 @@
  - [kup-field](../kup-field)
  - [kup-form](../kup-form)
  - [kup-html](../kup-html)
+ - [kup-paginator](../kup-paginator)
  - [kup-search](../kup-search)
  - [kup-tooltip](../kup-tooltip)
 
 ### Depends on
 
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-button --> kup-icon
+  kup-button --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
@@ -64,6 +68,7 @@ graph TD;
   kup-field --> kup-button
   kup-form --> kup-button
   kup-html --> kup-button
+  kup-paginator --> kup-button
   kup-search --> kup-button
   kup-tooltip --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px

@@ -248,6 +248,10 @@ export default {
                     k: 'AR;ART;Blue Flowers',
                   },
                   value: 'images/blueflowers.JPG',
+                  config: {
+                    sizeX: '64px',
+                    sizeY: '64px',
+                  },
                 },
                 FLD2: {
                   obj: {
@@ -269,6 +273,10 @@ export default {
                     k: 'AR;ART;Purple flowers',
                   },
                   value: 'images/purpleflowers.JPG',
+                  config: {
+                    sizeX: '64px',
+                    sizeY: '64px',
+                  },
                 },
                 FLD2: {
                   obj: {
@@ -290,6 +298,10 @@ export default {
                     k: 'AR;ART;Red flowers',
                   },
                   value: 'images/redflowers.JPG',
+                  config: {
+                    sizeX: '64px',
+                    sizeY: '64px',
+                  },
                 },
                 FLD2: {
                   obj: {

@@ -40,7 +40,10 @@
 ```mermaid
 graph TD;
   kup-html --> kup-button
-  kup-button --> kup-icon
+  kup-button --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   style kup-html fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

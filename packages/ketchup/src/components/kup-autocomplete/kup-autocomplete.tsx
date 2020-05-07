@@ -28,22 +28,18 @@ export class KupAutocomplete {
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
-    /**
-     * The minimum number of chars to trigger the autocomplete
-     */
-    @Prop({ reflect: true }) minimumChars: number = 3;
-
     /**
      * Props of the list.
      */
     @Prop() listData: Object = {};
-
     /**
      * Props of the text field.
      */
     @Prop() textfieldData: Object = {};
-
+    /**
+     * The minimum number of chars to trigger the autocomplete
+     */
+    @Prop({ reflect: true }) minimumChars: number = 1;
     /**
      * Sets how the return the selected item value
      */
@@ -231,7 +227,6 @@ export class KupAutocomplete {
     }
 
     onKupItemClick() {
-        //this.log('onKupItemClick', '');
         this.consistencyCheck();
         this.closeList();
 
@@ -245,12 +240,10 @@ export class KupAutocomplete {
     }
 
     onKupFilterChanged(e: CustomEvent) {
-        //this.log('onKupFilterChanged', 'detail.value: ' + e.detail.value);
         this.handleFilterChange(e.detail.value, e.target);
     }
 
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
-        //this.log('handleFilterChange', 'newFilter: ' + newFilter);
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -258,10 +251,6 @@ export class KupAutocomplete {
             el: eventTarget,
         };
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
-            this.log(
-                'handleFilterChange',
-                'Executing callback on filter update'
-            );
             this.callBackOnFilterUpdate(detail)
                 .then((items) => {
                     this.listData['data'] = [...items];
@@ -312,10 +301,6 @@ export class KupAutocomplete {
     }
 
     consistencyCheck() {
-        /*this.log(
-            'consistencyCheck',
-            'data: ' + JSON.stringify(this.listData['data'])
-        );*/
         var firstSelectedFound = false;
 
         if (this.listData['data']) {
@@ -336,14 +321,6 @@ export class KupAutocomplete {
                         this.selectMode,
                         ' - '
                     );
-                    /*
-                    this.log(
-                        'consistencyCheck',
-                        'selectedValue: ' +
-                            this.value +
-                            ' this.textfieldEl: ' +
-                            JSON.stringify(this.textfieldEl)
-                    );*/
                     if (this.textfieldEl) {
                         if (this.textfieldEl.initialValue === this.value) {
                             this.textfieldEl.initialValue = '';
@@ -357,13 +334,6 @@ export class KupAutocomplete {
         }
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-autocomplete',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
     //---- Lifecycle hooks ----
 
     componentDidRender() {

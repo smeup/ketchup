@@ -19,6 +19,7 @@ import { MDCFormField } from '@material/form-field';
 export class KupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */

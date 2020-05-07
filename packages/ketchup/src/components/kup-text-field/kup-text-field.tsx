@@ -15,7 +15,6 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
-import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-text-field',
@@ -34,11 +33,8 @@ export class KupTextField {
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
-
-    @Prop({ reflect: true }) readOnly: boolean = false;
     /**
-     * If text field has autocomplete associated and the list is opened, enter must not execute submit
-     * it serves just to set the selected item value of the list in the text field.
+     * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
      */
     @Prop({ reflect: true }) emitSubmitEventOnEnter: boolean = true;
     /**
@@ -93,6 +89,10 @@ export class KupTextField {
      * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
     @Prop({ reflect: true }) outlined: boolean = false;
+    /**
+     * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+     */
+    @Prop({ reflect: true }) readOnly: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with shaped edges.
      */
@@ -299,10 +299,6 @@ export class KupTextField {
         throw new Error(`The value ${newValue} is not a valid string.`);
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging('kup-text-field', methodName + '()' + ' - ' + msg, 'log');
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -376,28 +372,28 @@ export class KupTextField {
 
         if (this.isClearable) {
             clearIconEl = (
-                <kup-icon
+                <kup-image
                     tabindex="1"
                     class="material-icons mdc-text-field__icon clear-icon"
                     sizeX="24px"
                     sizeY="24px"
                     name="clear"
                     onClick={() => this.onKupClearIconClick()}
-                ></kup-icon>
+                ></kup-image>
             );
             componentClass += ' is-clearable';
         }
 
         if (this.icon) {
             iconEl = (
-                <kup-icon
+                <kup-image
                     tabindex="0"
                     class="material-icons mdc-text-field__icon"
                     sizeX="24px"
                     sizeY="24px"
                     name={this.icon}
                     onClick={(e: any) => this.onKupIconClick(e)}
-                ></kup-icon>
+                ></kup-image>
             );
             if (this.trailingIcon) {
                 componentClass += ' mdc-text-field--with-trailing-icon';

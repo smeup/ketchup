@@ -82,13 +82,12 @@ Type: `Promise<void>`
 
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
-- [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-radio](../kup-radio)
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart-cell](../kup-chart-cell)
-- [kup-icon](../kup-icon)
+- [kup-image](../kup-image)
 - [kup-editor](../kup-editor)
 - [kup-combobox](../kup-combobox)
 - [kup-paginator](../kup-paginator)
@@ -98,23 +97,27 @@ Type: `Promise<void>`
 graph TD;
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-image
   kup-box --> kup-button
   kup-box --> kup-radio
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-chart-cell
-  kup-box --> kup-icon
+  kup-box --> kup-image
   kup-box --> kup-editor
   kup-box --> kup-combobox
   kup-box --> kup-paginator
+  kup-badge --> kup-image
   kup-image --> kup-badge
-  kup-button --> kup-icon
-  kup-text-field --> kup-icon
+  kup-image --> kup-spinner
+  kup-button --> kup-image
+  kup-text-field --> kup-image
+  kup-progress-bar --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
+  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```

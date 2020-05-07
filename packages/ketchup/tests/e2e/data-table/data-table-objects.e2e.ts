@@ -35,7 +35,7 @@ const objData = {
                         p: 'ICO',
                         k: '1234567',
                     },
-                    value: 'mdi mdi-account',
+                    value: 'account',
                 },
                 FLD2: {
                     obj: {
@@ -59,7 +59,7 @@ const objData = {
                         p: 'COD_VER',
                         k: '000112',
                     },
-                    value: 'mdi mdi-pencil',
+                    value: 'pencil',
                 },
                 FLD5: {
                     obj: {
@@ -101,7 +101,9 @@ it('render objects', async () => {
             case 1:
                 // img
                 expect(child.tagName).toBe('KUP-IMAGE');
-                expect(await child.getProperty('src')).toEqual('https://i.imgur.com/mtbl1cr.jpg');
+                expect(await child.getProperty('name')).toEqual(
+                    'https://i.imgur.com/mtbl1cr.jpg'
+                );
                 break;
 
             case 2:
@@ -116,7 +118,7 @@ it('render objects', async () => {
 
             case 3:
                 // vo;cod_ver
-                expect(child.tagName).toBe('KUP-ICON');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 break;
 
             case 4:
@@ -126,7 +128,7 @@ it('render objects', async () => {
 
             default:
                 // icon
-                expect(child.tagName).toBe('KUP-ICON');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 break;
         }
     }

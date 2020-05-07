@@ -824,7 +824,7 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'OG;J1;PATHFILE',
           },
-          value: 'mdi mdi-folder',
+          value: 'folder',
         },
         FLD3: {
           obj: {

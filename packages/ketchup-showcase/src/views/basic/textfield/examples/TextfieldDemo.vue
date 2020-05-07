@@ -56,17 +56,9 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'readOnly',
-          description:
-            'Sets the component to read only state, making it not editable, but interactable. Used in combobox component, managed as select.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'emitSubmitEventOnEnter',
           description:
-            'If text field has autocomplete associated and the list is opened, enter must not execute submit it, serves just to set the seleced item value of the list i the text field.',
+            "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -168,6 +160,14 @@ export default {
         {
           prop: 'outlined',
           description: 'Renders an outlined text field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'readOnly',
+          description:
+            'Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

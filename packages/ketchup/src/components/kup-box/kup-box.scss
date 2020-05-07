@@ -75,7 +75,7 @@
         }
 
         kup-checkbox,
-        kup-icon {
+        kup-image {
           justify-content: center;
         }
       }
@@ -91,7 +91,7 @@
         }
 
         kup-checkbox,
-        kup-icon {
+        kup-image {
           justify-content: flex-start;
         }
       }
@@ -107,7 +107,7 @@
         }
 
         kup-checkbox,
-        kup-icon {
+        kup-image {
           justify-content: flex-end;
         }
       }
@@ -203,8 +203,7 @@
           padding: 1px 4px;
 
           kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
-          kup-checkbox,
-          kup-icon {
+          kup-checkbox {
             display: flex;
           }
 

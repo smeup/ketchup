@@ -3,7 +3,7 @@
     <br />
     <p class="test-anchor">Chip component will be anchored to the image.</p>
     <kup-button id="test-image-button" label="Reposition!"></kup-button>
-    <kup-image :src.prop="'images/woodheart.JPG'"></kup-image>
+    <kup-image :sizeX.prop="'128px'" :sizeY.prop="'128px'" :name.prop="'images/woodheart.JPG'"></kup-image>
   </div>
 </template>
 

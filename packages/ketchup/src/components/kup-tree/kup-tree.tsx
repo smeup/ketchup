@@ -669,7 +669,7 @@ export class KupTree {
         let treeExpandIcon;
         if (hasExpandIcon) {
             treeExpandIcon = (
-                <kup-icon
+                <kup-image
                     class="expand-icon kup-tree__icon kup-tree__node__expander"
                     sizeX="1.5rem"
                     sizeY="1.5rem"
@@ -685,7 +685,7 @@ export class KupTree {
                               }
                             : null
                     }
-                ></kup-icon>
+                ></kup-image>
             );
         } else {
             treeExpandIcon = (
@@ -716,13 +716,13 @@ export class KupTree {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = (
-                        <kup-icon
+                        <kup-image
                             class="kup-tree__icon"
                             sizeX="1.5rem"
                             sizeY="1.5rem"
                             name={treeNodeData.icon}
                             color={treeNodeData.iconColor}
-                        ></kup-icon>
+                        ></kup-image>
                     );
                 }
             } else {

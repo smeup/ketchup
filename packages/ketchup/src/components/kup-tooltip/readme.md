@@ -35,12 +35,17 @@
 ### Depends on
 
 - [kup-button](../kup-button)
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tooltip --> kup-button
-  kup-button --> kup-icon
+  kup-tooltip --> kup-image
+  kup-button --> kup-image
+  kup-image --> kup-badge
+  kup-image --> kup-spinner
+  kup-badge --> kup-image
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
