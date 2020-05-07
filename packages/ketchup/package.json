@@ -58,7 +58,7 @@
         "numeral": "^2.0.6"
     },
     "devDependencies": {
-        "@stencil/core": "1.1.7",
+        "@stencil/core": "^1.12.7",
         "@stencil/sass": "^1.1.1",
         "@types/jest": "^24.9.0",
         "@types/jest-cli": "^24.3.0",

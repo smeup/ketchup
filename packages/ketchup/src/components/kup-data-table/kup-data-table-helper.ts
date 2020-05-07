@@ -173,6 +173,44 @@ export function hasFiltersForColumn(
     return false;
 }
 
+export function hasFilters(filters: GenericFilter = {}) {
+    if (filters == null) {
+        return false;
+    }
+    let keys = Object.keys(filters);
+    if (keys == null || keys.length < 1) {
+        return false;
+    }
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        if (hasFiltersForColumn(filters, key)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export function hasFiltersForColumn(
+    filters: GenericFilter = {},
+    column: string
+) {
+    let textfield = getTextFieldFilterValue(filters, column);
+    if (textfield != null && textfield.trim() != '') {
+        return true;
+    }
+    let checkboxes = getCheckBoxFilterValues(filters, column);
+    if (checkboxes == null || checkboxes.length < 1) {
+        return false;
+    }
+    for (let i = 0; i < checkboxes.length; i++) {
+        let ch = checkboxes[i];
+        if (ch.trim() != '') {
+            return true;
+        }
+    }
+    return false;
+}
+
 export function getCheckBoxFilterValues(
     filters: GenericFilter = {},
     column: string

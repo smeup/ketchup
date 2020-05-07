@@ -115,62 +115,6 @@ export class KupImage {
             this.isUrl = false;
             this.resource =
                 'assets/' + this.type + '/' + this.name + '.' + this.type;
-            /*
-            if (this.type === 'svg') {
-                this.resource = getSvg(this.name);
-                let fetchedSVG = document.documentElement['kupSVG'];
-                if (!fetchedSVG) {
-                    let message = 'Creating SVG resource on HTML element.';
-                    errorLogging('kup-image', message);
-                    document.documentElement['kupSVG'] = {};
-                    fetchedSVG = document.documentElement['kupSVG'];
-                }
-                if (fetchedSVG[this.name]) {
-                    this.resource = fetchedSVG[this.name];
-                } else {
-                    var res =
-                        'assets/' +
-                        this.type +
-                        '/' +
-                        this.name +
-                        '.' +
-                        this.type;
-                    return fetch(res)
-                        .then((response) => {
-                            if (response.ok) {
-                                return response.text();
-                            } else {
-                                throw new Error(
-                                    'Icon( ' + res + ' ) was not loaded!'
-                                );
-                            }
-                        })
-                        .then((text) => {
-                            this.resource = text;
-                            let svgs = document.documentElement['kupSVG'];
-                            if (svgs) {
-                                let message =
-                                    'Loading SVG resource on HTML element(' +
-                                    this.name +
-                                    ').';
-                                errorLogging('kup-image', message);
-                                svgs[this.name] = this.resource;
-                            } else {
-                                document.documentElement['kupSVG'] = {
-                                    [this.name]: this.resource,
-                                };
-                            }
-                        })
-                        .catch((error) => {
-                            let message = error;
-                            errorLogging('kup-image', message);
-                        });
-                }
-            } else {
-                this.resource =
-                    'assets/' + this.type + '/' + this.name + '.' + this.type;
-            }
-            */
         }
     }
 
@@ -218,7 +162,6 @@ export class KupImage {
                 </div>
             );
         }
-
         if (this.type === 'svg' && !this.isUrl) {
             let str = `url(${this.resource}) no-repeat center`;
             let elStyleSVG = {
@@ -227,7 +170,6 @@ export class KupImage {
                 background: this.color,
                 webkitMask: str,
             };
-
             return (
                 <Host style={elStyle}>
                     {customStyle}
