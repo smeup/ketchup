@@ -64,7 +64,10 @@ export class KupTree {
      */
     @Prop({ reflect: true }) showFilter: boolean = false;
 
-    @State() filterValue: string = '';
+    /**
+     * Allows to set initial filter for tree nodes, manages the filter on tree nodes
+     */
+    @Prop({ reflect: true }) filterValue: string = '';
 
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
@@ -509,9 +512,7 @@ export class KupTree {
     }
 
     onFilterChange(event: CustomEvent) {
-        this.log('onFilterChange', 'event.detail.value=' + event.detail.value);
         this.filterValue = event.detail.value;
-        this.log('onFilterChange', 'filter');
         this.filterNodes();
     }
 
@@ -523,6 +524,7 @@ export class KupTree {
     }
 
     private filterNodes() {
+        this.log('filterNodes', 'this.filterValue=' + this.filterValue);
         if (this.filterValue.trim() == '') {
             this.setAllVisible(this.data);
             return;

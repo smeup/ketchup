@@ -1154,6 +1154,10 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes
+         */
+        "filterValue": string;
+        /**
           * Activates the scroll on hover function
          */
         "hoverScroll": boolean;
@@ -3005,6 +3009,10 @@ declare namespace LocalJSX {
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded"?: boolean;
+        /**
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes
+         */
+        "filterValue"?: string;
         /**
           * Activates the scroll on hover function
          */

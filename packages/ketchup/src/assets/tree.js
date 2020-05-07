@@ -11349,7 +11349,22 @@ let treeData = [
 ];
 
 let treeEl = document.getElementById('tree');
-treeEl.data = [...treeData];
+if (treeEl != null) {
+    treeEl.data = [...treeData];
+}
 
 let treeFilterEl = document.getElementById('tree-show-filter');
-treeFilterEl.data = [...treeData];
+if (treeFilterEl != null) {
+    let td2 = [];
+    copyTreeData(treeData, td2);
+    treeFilterEl.data = td2;
+}
+
+function copyTreeData(copyFrom, copyTo) {
+    copyFrom.forEach((element) => {
+        let n = { ...element };
+        n.children = [];
+        copyTo[copyTo.length] = n;
+        copyTreeData(element.children, n.children);
+    });
+}
