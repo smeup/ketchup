@@ -542,8 +542,11 @@ $fixed-row-class: fixed-row;
             padding: 0.5rem 0;
 
             .group-cell-content {
-              kup-image {
+              kup-image,
+              .indent {
                 float: left;
+              }
+              kup-image {
                 margin: 0 0.25rem;
               }
               .indent {
