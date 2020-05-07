@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
-import { Cell, Column, DataTable, GenericMap, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
@@ -423,7 +423,7 @@ export namespace Components {
         /**
           * List of filters set by the user.
          */
-        "filters": GenericMap;
+        "filters": GenericFilter;
         /**
           * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
           * @see fixedRows
@@ -2074,7 +2074,7 @@ declare namespace LocalJSX {
         /**
           * List of filters set by the user.
          */
-        "filters"?: GenericMap;
+        "filters"?: GenericFilter;
         /**
           * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.
           * @see fixedRows

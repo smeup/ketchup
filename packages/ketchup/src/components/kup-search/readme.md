@@ -52,19 +52,21 @@ graph TD;
   kup-badge --> kup-image
   kup-button --> kup-image
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list

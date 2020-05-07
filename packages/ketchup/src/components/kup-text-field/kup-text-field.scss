@@ -149,6 +149,12 @@
     }
   }
 
+  &:not(.mdc-text-field--focused)
+    + .mdc-text-field-helper-line
+    .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--persistent) {
+    opacity: 0;
+  }
+
   &.mdc-text-field--focused:not(.mdc-text-field-disabled)
     .mdc-floating-label--float-above {
     color: var(--kup-main-color);
