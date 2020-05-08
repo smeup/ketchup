@@ -2283,9 +2283,7 @@ export class KupDataTable {
                 return null;
             }
 
-            const icon = row.group.expanded
-                ? 'arrow_drop_up'
-                : 'arrow_drop_down';
+            const iconClass = row.group.expanded ? 'expanded' : 'collapsed';
 
             const jsxRows = [];
 
@@ -2303,7 +2301,8 @@ export class KupDataTable {
                         <span class="group-cell-content">
                             {indent}
                             <kup-image
-                                name={icon}
+                                name="arrow_drop_up"
+                                class={iconClass}
                                 title="Expand/collapse group"
                                 sizeX="1.25rem"
                                 sizeY="1.25rem"
@@ -2344,7 +2343,8 @@ export class KupDataTable {
                             <span class="group-cell-content">
                                 {indent}
                                 <kup-image
-                                    name={icon}
+                                    name="arrow_drop_up"
+                                    class={iconClass}
                                     title="Expand/collapse group"
                                     sizeX="1.25rem"
                                     sizeY="1.25rem"
