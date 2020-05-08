@@ -51,6 +51,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
+    path: `/iframe`,
+    name: 'iframe',
+    component: () => import(`@/views/basic/iframe/Iframe.vue`),
+  },
+  {
     path: `/image`,
     name: 'image',
     component: () => import(`@/views/basic/image/Image.vue`),
@@ -137,11 +142,6 @@ let advancedRoutes = [
     path: `/form`,
     name: 'form',
     component: () => import(`@/views/advanced/form/Form.vue`),
-  },
-  {
-    path: `/html`,
-    name: 'html',
-    component: () => import(`@/views/advanced/html/Html.vue`),
   },
   {
     path: `/imagebutton`,

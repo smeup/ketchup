@@ -2,8 +2,8 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        List of extra icons. Some of these icons might overlap with the
-        official MD icons but with different names.
+        List of extra icons. Some of these icons might overlap with the official
+        MD icons but with different names.
       </p>
       <div class="demo-container">
         <div class="kup-container">

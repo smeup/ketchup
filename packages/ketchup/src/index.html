@@ -391,38 +391,6 @@
         name: '--kup-title-background-color',
         value: '#111111',
       },
-      {
-        name: '--mdc-theme-primary',
-        value: 'var(--kup-main-color)',
-      },
-      {
-        name: '--mdc-theme-on-primary',
-        value: 'var(--kup-text-on-main-color)',
-      },
-      {
-        name: '--mdc-theme-secondary',
-        value: 'var(--kup-main-color)',
-      },
-      {
-        name: '--mdc-theme-on-secondary',
-        value: 'var(--kup-text-on-main-color)',
-      },
-      {
-        name: '--mdc-theme-surface',
-        value: 'var(--kup-background-color)',
-      },
-      {
-        name: '--mdc-theme-on-surface',
-        value: 'var(--kup-text-color)',
-      },
-      {
-        name: '--mdc-theme-background',
-        value: 'var(--kup-background-color)',
-      },
-      {
-        name: '--mdc-theme-text-primary-on-background',
-        value: 'var(--kup-text-color)',
-      },
     ];
 
     let treeEl = document.getElementById('tree');
@@ -707,207 +675,221 @@ chipList.data = [
                     once = false;
 
                     const fld_1 = document.querySelector('#kfld-1');
-                    fld_1.config = {
-                        type: 'cmb',
-                        showSubmit: true,
-                        submitLabel: 'Invia',
-                        submitPos: 'right',
-                        label: 'Seleziona pagina',
-                        labelPos: 'top',
-                        initialValue: {
-                            value: 'label bottone #2',
-                            options: true,
-                            obj: 'J2KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                    };
-                    fld_1.data = [
-                        {
-                            value: 'label bottone #1',
-                            options: true,
-                            obj: 'J1KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #2',
-                            options: true,
-                            obj: 'J2KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #3',
-                            options: true,
-                            obj: 'J3KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #4',
-                            options: true,
-                            obj: 'J4KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                    ];
-                    fld_1.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_1.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('ketchupFldSubmit', payload);
-                    });
+                    if (fld_1 != null) {
+                        fld_1.config = {
+                            type: 'cmb',
+                            showSubmit: true,
+                            submitLabel: 'Invia',
+                            submitPos: 'right',
+                            label: 'Seleziona pagina',
+                            labelPos: 'top',
+                            initialValue: {
+                                value: 'label bottone #2',
+                                options: true,
+                                obj: 'J2KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            extensions: {
+                                minQueryLength: 4,
+                                forceSelection: true,
+                            },
+                        };
+                        fld_1.data = [
+                            {
+                                value: 'label bottone #1',
+                                options: true,
+                                obj: 'J1KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #2',
+                                options: true,
+                                obj: 'J2KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #3',
+                                options: true,
+                                obj: 'J3KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #4',
+                                options: true,
+                                obj: 'J4KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                        ];
+                        fld_1.addEventListener('ketchupFldChanged', (payload) => {
+                            console.log('Text FLD change', payload);
+                        });
+                        fld_1.addEventListener('ketchupFldSubmit', (payload) => {
+                            console.log('ketchupFldSubmit', payload);
+                        });
+                    }
 
                     // Radio version
                     const fld_2 = document.querySelector('#kfld-2');
-                    fld_2.config = {
-                        type: 'rad',
-                        displayedField: 'obj',
-                        initialValue: {
-                            value: 'label bottone #4',
-                            options: true,
-                            obj: 'J4KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        showSubmit: true,
-                        submitLabel: 'Conferma 1',
-                        valueField: 'obj',
-                    };
-                    fld_2.data = [
-                        {
-                            value: 'label bottone #1',
-                            options: true,
-                            obj: 'J1KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #2',
-                            options: true,
-                            obj: 'J2KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #3',
-                            options: true,
-                            obj: 'J3KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                        {
-                            value: 'label bottone #4',
-                            options: true,
-                            obj: 'J4KEY',
-                            icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
-                            children: [],
-                        },
-                    ];
-                    fld_2.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_2.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('ketchupFldSubmit', payload);
-                    });
+                    if (fld_2 != null) {
+                        fld_2.config = {
+                            type: 'rad',
+                            displayedField: 'obj',
+                            initialValue: {
+                                value: 'label bottone #4',
+                                options: true,
+                                obj: 'J4KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            showSubmit: true,
+                            submitLabel: 'Conferma 1',
+                            valueField: 'obj',
+                        };
+                        fld_2.data = [
+                            {
+                                value: 'label bottone #1',
+                                options: true,
+                                obj: 'J1KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #2',
+                                options: true,
+                                obj: 'J2KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #3',
+                                options: true,
+                                obj: 'J3KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                            {
+                                value: 'label bottone #4',
+                                options: true,
+                                obj: 'J4KEY',
+                                icon: '-smeup-fixed-icon TA-B-AMO-A-BASE',
+                                children: [],
+                            },
+                        ];
+                        fld_2.addEventListener('ketchupFldChanged', (payload) => {
+                            console.log('Text FLD change', payload);
+                        });
+                        fld_2.addEventListener('ketchupFldSubmit', (payload) => {
+                            console.log('ketchupFldSubmit', payload);
+                        });
+                    }
 
                     // Text version
                     const fld_3 = document.querySelector('#kfld-3');
-                    fld_3.config = {
-                        type: 'Itx',
-                        initialValue: 'PRVSHO',
-                        showSubmit: true,
-                        submitLabel: 'Submit',
-                    };
-                    fld_3.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_3.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
+                    if (fld_3 != null) {
+                        fld_3.config = {
+                            type: 'Itx',
+                            initialValue: 'PRVSHO',
+                            showSubmit: true,
+                            submitLabel: 'Submit',
+                        };
+                        fld_3.addEventListener('ketchupFldChanged', (payload) => {
+                            console.log('Text FLD change', payload);
+                        });
+                        fld_3.addEventListener('ketchupFldSubmit', (payload) => {
+                            console.log('Text FLD submit', payload);
+                        });
+                    }
 
                     // Example 4
                     const fld_4 = document.querySelector('#kfld-4');
-                    fld_4.config = {
-                        type: 'cmb',
-                        displayedField: 'value',
-                        isClearable: true,
-                        initialValue: { value: 'PRVSHO' },
-                        showSubmit: true,
-                        submitLabel: 'Conferma',
-                    };
-                    fld_4.data = [
-                        { value: 'PRVSHO' },
-                        { value: 'PRV123' },
-                        { value: 'PRV456' },
-                    ];
-                    fld_4.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    fld_4.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
+                    if (fld_4 != null) {
+                        fld_4.config = {
+                            type: 'cmb',
+                            displayedField: 'value',
+                            isClearable: true,
+                            initialValue: { value: 'PRVSHO' },
+                            showSubmit: true,
+                            submitLabel: 'Conferma',
+                        };
+                        fld_4.data = [
+                            { value: 'PRVSHO' },
+                            { value: 'PRV123' },
+                            { value: 'PRV456' },
+                        ];
+                        fld_4.addEventListener('ketchupFldChanged', (payload) => {
+                            console.log('Text FLD change', payload);
+                        });
+                        fld_4.addEventListener('ketchupFldSubmit', (payload) => {
+                            console.log('Text FLD submit', payload);
+                        });
+                    }
 
                     // Radio FLD
                     const fldRadioInitial = document.querySelector(
                         '#fld-radio-initialValue'
                     );
-                    fldRadioInitial.addEventListener(
-                        'ketchupFldChanged',
-                        (payload) => {
-                            console.log('Radio FLD change', payload);
-                        }
-                    );
-                    fldRadioInitial.config = {
-                        type: 'rad',
-                        showSubmit: false,
-                        valueField: 'value',
-                        displayedField: 'value',
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                        initialValue: {
-                            value: 'PRVSHO',
-                        },
-                    };
-                    fldRadioInitial.data = [
-                        { value: 'PRVSHO' },
-                        { value: 'PRV123' },
-                        { value: 'PRV456' },
-                    ];
+                    if (fldRadioInitial != null) {
+                        fldRadioInitial.addEventListener(
+                            'ketchupFldChanged',
+                            (payload) => {
+                                console.log('Radio FLD change', payload);
+                            }
+                        );
+                        fldRadioInitial.config = {
+                            type: 'rad',
+                            showSubmit: false,
+                            valueField: 'value',
+                            displayedField: 'value',
+                            extensions: {
+                                minQueryLength: 4,
+                                forceSelection: true,
+                            },
+                            initialValue: {
+                                value: 'PRVSHO',
+                            },
+                        };
+                        fldRadioInitial.data = [
+                            { value: 'PRVSHO' },
+                            { value: 'PRV123' },
+                            { value: 'PRV456' },
+                        ];
+                    }
 
                     // Text FLD
                     const textFld = document.querySelector('#fld-5-text');
-                    textFld.config = {
-                        type: 'itx',
-                        showSubmit: true,
-                        valueField: 'value',
-                        displayedField: 'value',
-                        extensions: {
-                            minQueryLength: 4,
-                            forceSelection: true,
-                        },
-                        submitLabel: 'Prova submit',
-                    };
-                    textFld.addEventListener('ketchupFldChanged', (payload) => {
-                        console.log('Text FLD change', payload);
-                    });
-                    textFld.addEventListener('ketchupFldSubmit', (payload) => {
-                        console.log('Text FLD submit', payload);
-                    });
+                    if (textFld != null) {
+                        textFld.config = {
+                            type: 'itx',
+                            showSubmit: true,
+                            valueField: 'value',
+                            displayedField: 'value',
+                            extensions: {
+                                minQueryLength: 4,
+                                forceSelection: true,
+                            },
+                            submitLabel: 'Prova submit',
+                        };
+                        textFld.addEventListener('ketchupFldChanged', (payload) => {
+                            console.log('Text FLD change', payload);
+                        });
+                        textFld.addEventListener('ketchupFldSubmit', (payload) => {
+                            console.log('Text FLD submit', payload);
+                        });
+                    }
                     /**/
                     const textFld_6_upload = document.querySelector(
                         '#fld-6-upload'
                     );
-                    textFld_6_upload.config = {
-                        type: 'fup',
-                    };
+                    if (textFld_6_upload != null) {
+                        textFld_6_upload.config = {
+                            type: 'fup',
+                        };
+                    }
                     /**/
 
                     // For the password field
@@ -1265,15 +1247,6 @@ chipList.data = [
             --kup-chip-background-color: #eaeaea;
             --kup-spinner-color: #eaa710;
             --kup-title-background-color: #f1f3f4;
-
-            --mdc-theme-primary: var(--kup-main-color);
-            --mdc-theme-on-primary: var(--kup-text-on-main-color);
-            --mdc-theme-secondary: var(--kup-main-color);
-            --mdc-theme-on-secondary: var(--kup-text-on-main-color);
-            --mdc-theme-surface: var(--kup-background-color);
-            --mdc-theme-on-surface: var(--kup-text-color);
-            --mdc-theme-background: var(--kup-background-color);
-            --mdc-theme-text-primary-on-background: var(--kup-text-color);
         }
         </style>
     </body>

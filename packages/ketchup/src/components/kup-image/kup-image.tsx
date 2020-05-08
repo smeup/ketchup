@@ -3,7 +3,6 @@ import {
     Prop,
     Element,
     Host,
-    State,
     Event,
     EventEmitter,
     h,
@@ -18,7 +17,6 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
-    @State() resource: string = undefined;
 
     /**
      * Sets the data of badges.
@@ -52,6 +50,9 @@ export class KupImage {
      * The type of the icon, defaults to "svg".
      */
     @Prop({ reflect: true }) type: string = 'svg';
+
+    private resource: string = undefined;
+    private isUrl: boolean = false;
 
     @Event({
         eventName: 'kupImageClick',
@@ -95,35 +96,9 @@ export class KupImage {
         });
     }
 
-    async fetchResource() {
-        var res = 'assets/' + this.type + '/' + this.name + '.' + this.type;
-        return fetch(res)
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error('Icon( ' + res + ' ) was not loaded!');
-                }
-            })
-            .then((text) => {
-                this.resource = text;
-            })
-            .catch((error) => {
-                let message = error;
-                errorLogging('kup-image', message);
-            });
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillRender() {
-        if (this.name === undefined || this.name === null || this.name === '') {
-            this.resource = undefined;
-            let message = 'Name not set, not rendering!';
-            errorLogging('kup-image', message);
-            return;
-        }
-
         if (
             this.name.indexOf('.') > -1 ||
             this.name.indexOf('/') > -1 ||
@@ -135,23 +110,16 @@ export class KupImage {
                 ')! Overriding "svg" with "srcpath".';
             errorLogging('kup-image', message);
             this.resource = this.name;
-            this.type = 'srcpath';
+            this.isUrl = true;
         } else {
-            if (this.type === 'svg') {
-                return this.fetchResource();
-            } else {
-                return (this.resource =
-                    'assets/' + this.type + '/' + this.name + '.' + this.type);
-            }
+            this.isUrl = false;
+            this.resource =
+                'assets/' + this.type + '/' + this.name + '.' + this.type;
         }
     }
 
     render() {
-        if (
-            this.resource === undefined ||
-            this.resource === null ||
-            this.resource === ''
-        ) {
+        if (this.resource === undefined) {
             let message = 'Resource undefined, not rendering!';
             errorLogging('kup-image', message);
             return;
@@ -160,8 +128,6 @@ export class KupImage {
         let elStyle = {
             height: this.sizeY,
             width: this.sizeX,
-            color: this.color,
-            fill: this.color,
         };
         let el: string = this.resource;
         let spinnerLayout: number;
@@ -196,15 +162,20 @@ export class KupImage {
                 </div>
             );
         }
-
-        if (this.type === 'svg') {
+        if (this.type === 'svg' && !this.isUrl) {
+            let str = `url(${this.resource}) no-repeat center`;
+            let elStyleSVG = {
+                ...elStyle,
+                mask: str,
+                background: this.color,
+                webkitMask: str,
+            };
             return (
                 <Host style={elStyle}>
                     {customStyle}
                     <div
                         id="kup-component"
-                        innerHTML={el}
-                        style={elStyle}
+                        style={elStyleSVG}
                         onClick={(e) => this.onKupClick(e)}
                     ></div>
                     {...badgeCollection}

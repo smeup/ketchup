@@ -39,6 +39,17 @@ export function basicListFilter(
 const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
 
 /**
+ * Given a filter value, check if is a negative filter
+ * @param filterValue the filter value to use for check
+ */
+export function filterIsNegative(filterValue: string) {
+    const analyzedFilter = filterValue.match(filterAnalyzer);
+    const filterIsNegative: boolean = analyzedFilter
+        ? analyzedFilter[1].indexOf('!') >= 0
+        : false;
+    return filterIsNegative;
+}
+/**
 * Given a value and a filter value, returns if that value matches the filter.
 *
 * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
@@ -65,32 +76,33 @@ export function isFilterCompliantForValue(
     value: string,
     filterValue: string
 ): boolean {
-    if (!value || value.trim() == '') {
+    if (value == null) {
         return false;
     }
-    if (!filterValue || filterValue.trim() == '') {
+    if (filterValue == null) {
         return false;
     }
 
-    const analyzedFilter = filterValue.match(filterAnalyzer);
-    const filterIsNegative: boolean = analyzedFilter
-        ? analyzedFilter[1].indexOf('!') >= 0
-        : false;
+    const _filterIsNegative: boolean = filterIsNegative(filterValue);
+
     // checks if the value of the filter is contained inside value of the object
     // Or is if the filter is a special filter to be matched.
     if (
         value.toLowerCase().includes(filterValue.toLowerCase()) ||
         matchSpecialFilter(
             value.toLowerCase(),
-            filterValue.toLowerCase().match(filterAnalyzer)
+            filterValue.toLowerCase().match(filterAnalyzer),
+            true
         )
     ) {
         // the element matches the field filter
-        if (filterIsNegative == true) {
+        if (_filterIsNegative) {
             return false;
-        } else {
-            return true;
         }
+        return true;
+    }
+    if (_filterIsNegative) {
+        return true;
     }
     return false;
 }
@@ -121,7 +133,7 @@ export function matchSpecialFilter(
     parsedFilter: RegExpMatchArray | null,
     ignoreNegativeFlag: boolean = false
 ): boolean {
-    if (parsedFilter) {
+    if (parsedFilter != null) {
         // endsWith and startWith are not supported by IE 11
         // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
         const toRet: boolean =

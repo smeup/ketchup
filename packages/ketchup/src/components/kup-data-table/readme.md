@@ -40,7 +40,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'small'`                            |
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables the sorting of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                        | `false`                              |
 | `expandGroups`              | `expand-groups`                | Expands groups when set to true.                                                                                                                                                                                               | `boolean`                                                                                        | `false`                              |
-| `filters`                   | --                             | List of filters set by the user.                                                                                                                                                                                               | `GenericMap`                                                                                     | `{}`                                 |
+| `filters`                   | --                             | List of filters set by the user.                                                                                                                                                                                               | `GenericFilter`                                                                                  | `{}`                                 |
 | `fixedColumns`              | `fixed-columns`                | Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows. | `number`                                                                                         | `0`                                  |
 | `fixedRows`                 | `fixed-rows`                   | Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.   | `number`                                                                                         | `0`                                  |
 | `forceOneLine`              | `force-one-line`               | Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.                                                                                | `boolean`                                                                                        | `false`                              |
@@ -142,39 +142,42 @@ Type: `Promise<Column[]>`
 ### Depends on
 
 - [kup-checkbox](../kup-checkbox)
-- [kup-text-field](../kup-text-field)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
+- [kup-text-field](../kup-text-field)
 - [kup-graphic-cell](../kup-graphic-cell)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
+- [kup-combobox](../kup-combobox)
 - [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-text-field
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
-  kup-text-field --> kup-image
   kup-image --> kup-badge
   kup-image --> kup-spinner
   kup-badge --> kup-image
   kup-button --> kup-image
+  kup-text-field --> kup-image
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list

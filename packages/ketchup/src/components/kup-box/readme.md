@@ -117,6 +117,7 @@ graph TD;
   kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
