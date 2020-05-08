@@ -8,7 +8,7 @@
           href="https://ketchup.smeup.com/ketchup-showcase/#/badge"
         >Badge</a> page.
         <br />The prop which contains the badges' data is
-        <span class="code-word">dataBadge</span>.
+        <span class="code-word">badgeData</span>.
       </p>
       <div class="demo-container">
         <div class="kup-container">

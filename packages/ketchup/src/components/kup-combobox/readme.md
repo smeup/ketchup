@@ -33,6 +33,7 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
 
@@ -54,6 +55,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-combobox
+  kup-data-table --> kup-combobox
   kup-form --> kup-combobox
   kup-paginator --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
