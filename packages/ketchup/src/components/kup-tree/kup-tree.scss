@@ -73,7 +73,6 @@
       width: calc(1.5rem * var(--tree-node_depth, 0));
     }
 
-    .options,
     &__icon {
       display: inline-block;
       margin-right: 0.4rem;
@@ -105,19 +104,6 @@
         transform: rotate(90deg);
       }
 
-      .options {
-        cursor: pointer;
-        float: right;
-        margin-left: 0.6rem;
-        opacity: 0;
-        transition: opacity 0.6s, visibility 0.6s;
-
-        &:before {
-          height: inherit;
-          width: inherit;
-        }
-      }
-
       &--selected:not(.kup-tree__node--disabled),
       &:hover:not(.kup-tree__node--disabled) {
         > td {
@@ -129,17 +115,6 @@
 
     &[data-show-columns] .kup-tree__node {
       border-bottom: solid 1px var(--kup-border-color);
-    }
-
-    &[data-show-object-navigation] .kup-tree__node {
-      &:hover .options {
-        opacity: 1;
-        visibility: visible;
-
-        &:hover {
-          opacity: 0.54;
-        }
-      }
     }
   }
 }
