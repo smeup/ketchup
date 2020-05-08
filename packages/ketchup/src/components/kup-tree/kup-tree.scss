@@ -11,6 +11,10 @@
 .wrapper {
   overflow-x: auto;
 
+  .filter {
+    margin-bottom: 1rem;
+  }
+
   .kup-tree {
     border-collapse: collapse;
     width: max-content;
@@ -49,6 +53,12 @@
         display: inline-block;
         line-height: 1rem;
         vertical-align: 0.325rem;
+      }
+
+      & .options {
+        --kup-main-color: var(--kup-text-color);
+        display: inline-block;
+        margin-left: 0.25rem;
       }
     }
 

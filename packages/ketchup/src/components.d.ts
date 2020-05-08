@@ -1133,7 +1133,7 @@ export namespace Components {
          */
         "autoSelectionNodeMode": boolean;
         /**
-          * The columns of the tree when tree visualization is active
+          * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
@@ -1154,7 +1154,7 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue": string;
         /**
@@ -2989,7 +2989,7 @@ declare namespace LocalJSX {
          */
         "autoSelectionNodeMode"?: boolean;
         /**
-          * The columns of the tree when tree visualization is active
+          * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
@@ -3010,7 +3010,7 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue"?: string;
         /**

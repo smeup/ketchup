@@ -33,7 +33,7 @@ import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper'
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { errorLogging } from '../../utils/error-logging';
-import { isFilterComplientForValue } from '../../utils/filters';
+import { isFilterCompliantForValue } from '../../utils/filters';
 
 @Component({
     tag: 'kup-tree',
@@ -42,12 +42,13 @@ import { isFilterComplientForValue } from '../../utils/filters';
 })
 export class KupTree {
     @Element() rootElement: HTMLElement;
+
     /**
      * Auto select programmatic selectic node
      */
     @Prop({ reflect: true }) autoSelectionNodeMode: boolean = true;
     /**
-     * The columns of the tree when tree visualization is active
+     * The columns of the tree when tree visualization is active.
      */
     @Prop() columns?: Column[];
     /**
@@ -58,17 +59,6 @@ export class KupTree {
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
     @Prop() data: TreeNode[] = [];
-
-    /**
-     * When set to true enables the tree nodes filter.
-     */
-    @Prop({ reflect: true }) showFilter: boolean = false;
-
-    /**
-     * Allows to set initial filter for tree nodes, manages the filter on tree nodes
-     */
-    @Prop({ reflect: true }) filterValue: string = '';
-
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
@@ -90,6 +80,10 @@ export class KupTree {
      */
     @Prop({ reflect: true }) expanded: boolean = false;
     /**
+     * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+     */
+    @Prop({ reflect: true }) filterValue: string = '';
+    /**
      * Activates the scroll on hover function
      */
     @Prop({ reflect: true }) hoverScroll: boolean = true;
@@ -102,6 +96,10 @@ export class KupTree {
      * Shows the tree data as a table.
      */
     @Prop({ reflect: true }) showColumns: boolean = false;
+    /**
+     * When set to true enables the tree nodes filter.
+     */
+    @Prop({ reflect: true }) showFilter: boolean = false;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
@@ -536,7 +534,7 @@ export class KupTree {
     }
 
     private setNodeVisibility(node: TreeNode): boolean {
-        let visibility: boolean = isFilterComplientForValue(
+        let visibility: boolean = isFilterCompliantForValue(
             node.value,
             this.filterValue
         );
@@ -569,6 +567,7 @@ export class KupTree {
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
         return (
             <kup-button
+                class="options"
                 icon="settings"
                 tooltip="Options"
                 onKupButtonClick={(e: CustomEvent) =>
@@ -969,6 +968,7 @@ export class KupTree {
         ) {
             filterField = (
                 <kup-text-field
+                    class="filter"
                     label="Filter"
                     icon="information-variant"
                     outlined={false}

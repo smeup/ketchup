@@ -61,7 +61,7 @@ const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
            true if value matches special filter created on filterValue; 
            false otherwise.
 */
-export function isFilterComplientForValue(
+export function isFilterCompliantForValue(
     value: string,
     filterValue: string
 ): boolean {
