@@ -47,6 +47,7 @@
  - [kup-html](../kup-html)
  - [kup-search](../kup-search)
  - [kup-tooltip](../kup-tooltip)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -69,6 +70,7 @@ graph TD;
   kup-html --> kup-button
   kup-search --> kup-button
   kup-tooltip --> kup-button
+  kup-tree --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -68,6 +68,7 @@ Type: `Promise<boolean>`
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-search](../kup-search)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -87,6 +88,7 @@ graph TD;
   kup-data-table --> kup-text-field
   kup-form --> kup-text-field
   kup-search --> kup-text-field
+  kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
