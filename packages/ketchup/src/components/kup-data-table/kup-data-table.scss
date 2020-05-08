@@ -391,21 +391,7 @@ $fixed-row-class: fixed-row;
 
         .column-sort {
           float: left;
-          margin-left: $column-sort-margin;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-
-            &:hover {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
-
-          .mdi-sort-ascending,
-          .mdi-sort-descending {
-            color: var(--dtt_main-color);
-          }
+          margin: 0 $column-sort-margin;
         }
 
         .remove-filter {
@@ -721,22 +707,6 @@ $fixed-row-class: fixed-row;
           overflow: hidden;
           text-overflow: ellipsis;
         }
-
-        // The element holding the icon for the sort
-        .column-sort {
-          cursor: pointer;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-          }
-
-          &:hover {
-            .mdi {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
-        }
       }
     }
 
@@ -962,12 +932,6 @@ $fixed-row-class: fixed-row;
   box-shadow: var(--dtt_density-box-shadow);
   width: 200px; //I.E.
   width: max-content;
-
-  .mdi:before,
-  &:before {
-    color: var(--dtt_density-icon-color);
-    font-size: 120%;
-  }
 
   .density-label,
   .fontsize-label {
