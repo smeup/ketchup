@@ -52,8 +52,8 @@ graph TD;
   kup-badge --> kup-image
   kup-button --> kup-image
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-image
   kup-data-table --> kup-text-field
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar

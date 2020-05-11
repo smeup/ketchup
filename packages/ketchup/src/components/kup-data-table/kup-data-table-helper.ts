@@ -383,11 +383,15 @@ export function isRowComplient(
         if (filterValues.length == 0) {
             continue;
         }
+        let retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (!isFilterComplientForCell(cell, fv)) {
-                return false;
+            if (isFilterComplientForCell(cell, fv)) {
+                retValue = true;
             }
+        }
+        if (!retValue) {
+            return false;
         }
     }
     return true;

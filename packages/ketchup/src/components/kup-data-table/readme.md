@@ -141,8 +141,8 @@ Type: `Promise<Column[]>`
 ### Depends on
 
 - [kup-checkbox](../kup-checkbox)
-- [kup-image](../kup-image)
 - [kup-button](../kup-button)
+- [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-progress-bar](../kup-progress-bar)
@@ -156,8 +156,8 @@ Type: `Promise<Column[]>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-image
   kup-data-table --> kup-text-field
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
@@ -166,10 +166,10 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
+  kup-button --> kup-image
   kup-image --> kup-badge
   kup-image --> kup-spinner
   kup-badge --> kup-image
-  kup-button --> kup-image
   kup-text-field --> kup-image
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button

@@ -125,7 +125,10 @@
       <p>Pulsating purple button which stops pulsating on mouse hover.</p>
       <br />
       <div class="demo-container">
-        <div class="kup-container">
+        <div
+          class="kup-container"
+          style="width: fit-content; margin-left: auto; margin-right: auto;"
+        >
           <kup-button
             custom-style="#kup-component { box-shadow: 0 0 0 purple; animation: pulse 2s infinite; border-radius: 4px; } #kup-component:hover { animation: none; } #kup-component button { background-color: purple; } @-webkit-keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 purple; } 70% { -webkit-box-shadow: 0 0 5px 5px transparent; } 100% { -webkit-box-shadow: 0 0 0 0 transparent; }}@keyframes pulse { 0% { -moz-box-shadow: 0 0 0 0 purple; box-shadow: 0 0 0 0 purple; }  70% { -moz-box-shadow: 0 0 5px 5px transparent; box-shadow: 0 0 5px 5px transparent; }  100% { -moz-box-shadow: 0 0 0 0 transparent; box-shadow: 0 0 0 0 transparent; }}"
             label="Pulsating"
