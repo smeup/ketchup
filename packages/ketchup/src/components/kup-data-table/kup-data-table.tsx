@@ -1802,12 +1802,12 @@ export class KupDataTable {
                      * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                      */
                     filter = (
-                        <kup-image
-                            name="filter-remove"
-                            sizeX="18px"
-                            sizeY="18px"
+                        <kup-button
+                            class="filter-remove"
+                            icon="filter-remove"
+                            custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
                             title={svgLabel}
-                            onClick={() => {
+                            onKupButtonClick={() => {
                                 this.onRemoveFilter(column.name);
                             }}
                         />

@@ -156,8 +156,8 @@ graph TD;
   kup-search --> kup-modal
   kup-search --> kup-data-table
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-image
   kup-data-table --> kup-button
+  kup-data-table --> kup-image
   kup-data-table --> kup-text-field
   kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
