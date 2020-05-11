@@ -18,7 +18,7 @@ import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty } from '../../utils/utils';
 import { errorLogging } from '../../utils/error-logging';
 import {
-    isFilterComplientForValue,
+    isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
 
@@ -309,7 +309,7 @@ export function filterRows(
         for (let i = 0; i < rows.length; i++) {
             let r: Row = rows[i];
             if (
-                isRowComplient(
+                isRowCompliant(
                     r,
                     filters,
                     globalFilter,
@@ -327,7 +327,7 @@ export function filterRows(
     return filteredRows;
 }
 
-export function isRowComplient(
+export function isRowCompliant(
     r: Row,
     filters: GenericFilter = {},
     globalFilter: string = '',
@@ -344,7 +344,7 @@ export function isRowComplient(
             // Search among all columns for the global filter
             for (let i = 0; i < columns.length; i++) {
                 const cell = r.cells[columns[i]];
-                retValue = isFilterComplientForCell(cell, globalFilter);
+                retValue = isFilterCompliantForCell(cell, globalFilter);
                 if (retValue == true && !_filterIsNegative) {
                     break;
                 }
@@ -375,7 +375,7 @@ export function isRowComplient(
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        if (!isFilterComplientForCell(cell, filterValue)) {
+        if (!isFilterCompliantForCell(cell, filterValue)) {
             return false;
         }
 
@@ -385,7 +385,7 @@ export function isRowComplient(
         }
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (!isFilterComplientForCell(cell, fv)) {
+            if (!isFilterCompliantForCell(cell, fv)) {
                 return false;
             }
         }
@@ -393,11 +393,11 @@ export function isRowComplient(
     return true;
 }
 
-export function isFilterComplientForCell(cellValue: Cell, filterValue: string) {
+export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     if (!cellValue) {
         return false;
     }
-    return isFilterComplientForValue(cellValue.value, filterValue);
+    return isFilterCompliantForValue(cellValue.value, filterValue);
 }
 
 export function groupRows(
