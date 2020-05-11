@@ -49,7 +49,9 @@
         }
       }
 
-      & .cell-content {
+      & .kup-tree__icon ~ .cell-content,
+      & .kup-tree__icon + .cell-content,
+      & .cell-content.has-options {
         display: inline-block;
         line-height: 1rem;
         vertical-align: 0.325rem;

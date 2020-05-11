@@ -650,9 +650,18 @@ export class KupTree {
         // Elements of the cell
         let cellElements = [];
 
+        let cellClass = 'cell-content';
+        let showOptions =
+            !cellData.treeNode.disabled &&
+            cell.options &&
+            this.showObjectNavigation;
+        if (showOptions) {
+            cellClass += ' has-options';
+        }
+
         cellElements.push(
             <span
-                class="cell-content"
+                class={cellClass}
                 style={styleHasBorderRadius(cell) ? cell.style : null}
             >
                 {content}
@@ -670,11 +679,7 @@ export class KupTree {
          *
          * @namespace KupTree.renderCellOption
          */
-        if (
-            !cellData.treeNode.disabled &&
-            cell.options &&
-            this.showObjectNavigation
-        ) {
+        if (showOptions) {
             cellElements.push(
                 this.renderOptionElement(
                     cell,
