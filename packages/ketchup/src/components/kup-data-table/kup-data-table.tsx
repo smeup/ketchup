@@ -1923,9 +1923,7 @@ export class KupDataTable {
                         <li role="menuitem" class="textfield-row">
                             <kup-text-field
                                 label="Filter"
-                                icon="information-variant"
                                 outlined={false}
-                                trailingIcon={true}
                                 initialValue={this.getTextFieldFilterValue(
                                     column.name
                                 )}
