@@ -976,9 +976,7 @@ export class KupTree {
                 <kup-text-field
                     class="filter"
                     label="Filter"
-                    icon="information-variant"
                     outlined={false}
-                    trailingIcon={true}
                     initialValue={this.filterValue}
                     onKupTextFieldSubmit={(e) => {
                         this.onFilterChange(e);
