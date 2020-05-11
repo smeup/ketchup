@@ -340,6 +340,12 @@ $fixed-row-class: fixed-row;
           right: -1px;
         }
 
+        & .filter-remove {
+          --kup-main-color: var(--kup-icon-color);
+          display: inline-block;
+          margin-left: 0.25rem;
+        }
+
         // On Firefox, things changes
         @supports (-moz-appearance: none) {
           // Remove the border bottom, because it causes too much trouble
