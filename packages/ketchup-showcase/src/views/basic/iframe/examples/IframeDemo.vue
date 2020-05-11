@@ -38,7 +38,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-iframe src="http://ketchup.smeup.com" id="demo-component"></kup-iframe>',
+        '<kup-iframe src="https://ketchup.smeup.com" id="demo-component"></kup-iframe>',
       demoProps: [
         {
           prop: 'buttonData',
