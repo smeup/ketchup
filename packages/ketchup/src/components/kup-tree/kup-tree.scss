@@ -50,17 +50,21 @@
       }
 
       & .kup-tree__icon ~ .cell-content,
-      & .kup-tree__icon + .cell-content,
-      & .cell-content.has-options {
+      & .kup-tree__icon + .cell-content {
         display: inline-block;
         line-height: 1rem;
         vertical-align: 0.325rem;
+      }
+
+      & .cell-content.has-options {
+        vertical-align: 0.4rem;
       }
 
       & .options {
         --kup-main-color: var(--kup-icon-color);
         display: inline-block;
         margin-left: 0.25rem;
+        vertical-align: 0.1rem;
       }
     }
 
