@@ -386,8 +386,8 @@ export function isRowCompliant(
         let retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (!isFilterCompliantForCell(cell, fv)) {
-                return false;
+            if (isFilterCompliantForCell(cell, fv)) {
+                retValue = true;
             }
         }
         if (!retValue) {
