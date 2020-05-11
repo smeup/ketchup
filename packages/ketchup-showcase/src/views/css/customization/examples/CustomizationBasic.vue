@@ -65,7 +65,10 @@
           label="Your button"
         ></kup-button>
       </div>
+      <p class="centered">Sample markup of the component</p>
+      <code class="flat">{{ markupBlueButtonProps }}</code>
     </div>
+
     <p>Your button is now ready to be used!</p>
   </div>
 </template>
@@ -79,6 +82,8 @@ export default {
         'button { background-color: blue !important; color: yellow !important; border-radius: 0px !important; }',
       markupBlueButton:
         '#kup-component button { background-color: blue; color: yellow; border-radius: 0px; }',
+      markupBlueButtonProps:
+        '<kup-button custom-style="#kup-component button { background-color: blue; color: yellow; border-radius: 0px; }" label="Your button"></kup-button>',
     };
   },
 };

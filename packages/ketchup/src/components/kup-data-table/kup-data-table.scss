@@ -311,13 +311,13 @@ $fixed-row-class: fixed-row;
 
     > thead {
       background: var(--dtt_head-background-color);
-      border: 1px solid var(--dtt_head-background-color);
+      border: 1px solid var(--kup-border-color);
 
       // Table header styles
       th {
         background: var(--dtt_head-background-color);
-        border-bottom: 2px solid var(--dtt_border-color);
-        border-right: 1px solid var(--dtt_border-color);
+        border-bottom: 2px solid var(--kup-border-color);
+        border-right: 1px solid var(--kup-border-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
@@ -330,7 +330,7 @@ $fixed-row-class: fixed-row;
         // The after for the rows separator element fallback for Firefox and sticky rows
         &::after {
           @include fixedRowSeparator(0);
-          border-bottom: 2px solid var(--dtt_border-color);
+          border-bottom: 2px solid var(--kup-border-color);
           bottom: -2px;
         }
 
@@ -340,10 +340,17 @@ $fixed-row-class: fixed-row;
           right: -1px;
         }
 
+        & .filter-remove {
+          --kup-main-color: var(--kup-icon-color);
+          display: inline-block;
+          margin-left: 0.25rem;
+        }
+
         // On Firefox, things changes
         @supports (-moz-appearance: none) {
           // Remove the border bottom, because it causes too much trouble
-          border-bottom: 0;
+          // FFS, tried re-enabling it on 05/11/2020
+          // border-bottom: 0;
 
           // The row separator:
           &::after {
