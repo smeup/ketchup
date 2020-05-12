@@ -120,6 +120,7 @@ export class KupImage {
     }
 
     componentWillRender() {
+        this.isUrl = false;
         if (this.isCanvas) {
             this.resource = this.name;
         } else if (
@@ -127,15 +128,9 @@ export class KupImage {
             this.name.indexOf('/') > -1 ||
             this.name.indexOf('\\') > -1
         ) {
-            let message =
-                'Detected an src img path for icon with name(' +
-                this.name +
-                ')! Overriding "svg" with "srcpath".';
-            errorLogging('kup-image', message);
-            this.resource = this.name;
             this.isUrl = true;
+            this.resource = this.name;
         } else {
-            this.isUrl = false;
             this.resource =
                 'assets/' + this.type + '/' + this.name + '.' + this.type;
         }

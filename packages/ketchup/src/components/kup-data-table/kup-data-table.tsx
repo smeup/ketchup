@@ -2298,13 +2298,13 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <kup-image
-                                name="arrow_drop_up"
-                                class={iconClass}
-                                title="Expand/collapse group"
-                                sizeX="1.25rem"
-                                sizeY="1.25rem"
-                            />
+                            <span class="icon-container">
+                                <kup-image
+                                    name="arrow_drop_up"
+                                    class={iconClass}
+                                    title="Expand/collapse group"
+                                />
+                            </span>
                             <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
@@ -2340,13 +2340,13 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <kup-image
-                                    name="arrow_drop_up"
-                                    class={iconClass}
-                                    title="Expand/collapse group"
-                                    sizeX="1.25rem"
-                                    sizeY="1.25rem"
-                                />
+                                <span class="icon-container">
+                                    <kup-image
+                                        name="arrow_drop_up"
+                                        class={iconClass}
+                                        title="Expand/collapse group"
+                                    />
+                                </span>
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
