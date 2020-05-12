@@ -278,8 +278,8 @@ export class KupButton {
                 <kup-image
                     color={iconColor}
                     class="material-icons mdc-icon-button__icon"
-                    sizeX="18px"
-                    sizeY="18px"
+                    sizeX="24px"
+                    sizeY="24px"
                     name={this.icon}
                 ></kup-image>
             );
@@ -289,8 +289,8 @@ export class KupButton {
                     <kup-image
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        sizeX="18px"
-                        sizeY="18px"
+                        sizeX="24px"
+                        sizeY="24px"
                         name={this.icon}
                     ></kup-image>
                 );
@@ -309,8 +309,8 @@ export class KupButton {
                     <kup-image
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon"
-                        sizeX="18px"
-                        sizeY="18px"
+                        sizeX="24px"
+                        sizeY="24px"
                         name={iconOff}
                     ></kup-image>
                 );
