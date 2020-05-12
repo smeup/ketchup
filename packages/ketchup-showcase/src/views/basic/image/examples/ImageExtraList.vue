@@ -407,6 +407,10 @@
             <kup-image size-x="48px" size-y="48px" name="file-word"></kup-image>
             <div class="icon-label">file-word</div>
           </div>
+          <div class="icon-wrapper" title="file-xml">
+            <kup-image size-x="48px" size-y="48px" name="file-xml"></kup-image>
+            <div class="icon-label">file-xml</div>
+          </div>
           <div class="icon-wrapper" title="filter-remove">
             <kup-image size-x="48px" size-y="48px" name="filter-remove"></kup-image>
             <div class="icon-label">filter-remove</div>
