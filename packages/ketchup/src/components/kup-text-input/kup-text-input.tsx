@@ -15,9 +15,7 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { debounceEvent } from '../../utils/helpers';
 
-import { KupTextInputState } from '../kup-state/kup-text-input-state';
-import { KupTextInputStateEvent } from '../kup-state/kup-text-input-state-event';
-import { KupStateManager } from '../kup-state/kup-state-manager';
+import { KupTextInputState } from './kup-text-input-state';
 import { KupStore } from '../kup-state/kup-store';
 
 @Component({
@@ -34,45 +32,28 @@ export class KupTextInput {
     @Prop() store: KupStore;
 
     state: KupTextInputState = new KupTextInputState();
-    // it would be good if we can avoid KupTextInputStateEvent and we can use new KupStateEvent<KupTextInputState>
-    stateChange: KupTextInputStateEvent = new KupTextInputStateEvent();
 
-    // Get a singleton instance, register our custom event emitter to start
-    // a listener.
-    registerStateListener() {
+    initWithPersistedState(): void {
         if (this.store && this.stateId) {
-            console.log('Register state listener for stateId ' + this.stateId);
-            const ksm = KupStateManager.getInstance(this.store);
-            ksm.registerListener4KupTextInputStateEvent(
-                this.stateId,
-                this.stateChange
-            );
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                this.value = state.name;
+            }
         }
     }
 
-    initWithState() {
-        if (this.getState() != null) {
-            console.log('Initialize with state for stateId ' + this.stateId);
-            this.initialValue = this.getState().name;
-        }
-    }
-
-    getState() {
+    persistState(): void {
         if (this.store && this.stateId) {
-            const ksm = KupStateManager.getInstance(this.store);
+            this.state.name = this.value;
             console.log(
-                'Search state for stateId ' + this.stateId + ': ',
-                ksm.getState(this.stateId)
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
             );
-            return ksm.getState(this.stateId);
-        }
-        return null;
-    }
-
-    stateChanged() {
-        if (this.store && this.stateId) {
-            console.log('State changed: ', this.state);
-            this.stateChange.emit(this.state);
+            this.store.persistState(this.stateId, this.state);
         }
     }
 
@@ -146,17 +127,8 @@ export class KupTextInput {
 
     //---- Lifecycle Hooks  ----
     componentWillLoad() {
-        ////////////////////////////////////////////////////////////
-        // Begin state init
-        ////////////////////////////////////////////////////////////
-        // // NOTE: with live-reload this might be triggered multiple time
-        // // TODO: exercise for the reader is to ensure this gets called only once.
-        this.registerStateListener();
-        this.initWithState();
-        //////////////////////////////
-        // End state init
-        //////////////////////////////
         this.onInitialValueChanged();
+        this.initWithPersistedState();
     }
 
     @Watch('initialValue')
@@ -167,6 +139,10 @@ export class KupTextInput {
 
     componentDidLoad() {
         this.debounceChanged();
+    }
+
+    componentDidUnload() {
+        this.persistState();
     }
 
     //---- Public Methods ----
@@ -339,22 +315,6 @@ export class KupTextInput {
 
     onInputChanged(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
-
-        //////////////////////////////
-        // Begin state change
-        //////////////////////////////
-
-        // Update the model and trigger a stateChanged event.
-        this.state.name = target.value;
-        // By using this trigger you can effectively trigger a
-        // state change from everywhere in the lifecycle of your
-        // component, even using custom logic to detect
-        // whether to trigger it or not.
-        this.stateChanged();
-
-        //////////////////////////////
-        // End state change
-        //////////////////////////////
 
         this.ketchupTextInputChanged.emit({
             value: target.value,
