@@ -220,7 +220,6 @@ export class KupTree {
     //-------- Lifecycle hooks --------
     componentWillLoad() {
         if (this.data) {
-            this.filterNodes();
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
             // the default value of the treeExpandedPropName is set to true
             this.data.forEach((rootNode) => {
@@ -235,6 +234,10 @@ export class KupTree {
         if (Array.isArray(this.selectedNode)) {
             this.selectedNodeString = this.selectedNode.toString();
         }
+    }
+
+    componentWillRender() {
+        this.filterNodes();
     }
 
     componentDidRender() {
@@ -279,6 +282,7 @@ export class KupTree {
                     this.expanded && !this.useDynamicExpansion
                 );
             });
+            this.filterNodes();
         }
     }
 
@@ -511,7 +515,6 @@ export class KupTree {
 
     onFilterChange(event: CustomEvent) {
         this.filterValue = event.detail.value;
-        this.filterNodes();
     }
 
     private setAllVisible(items: TreeNode[]) {
@@ -522,7 +525,9 @@ export class KupTree {
     }
 
     private filterNodes() {
-        this.log('filterNodes', 'this.filterValue=' + this.filterValue);
+        if (this.data == null || this.data.length == 0) {
+            return;
+        }
         if (this.filterValue.trim() == '') {
             this.setAllVisible(this.data);
             return;
