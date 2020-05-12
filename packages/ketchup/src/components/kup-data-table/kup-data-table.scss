@@ -335,10 +335,11 @@ $fixed-row-class: fixed-row;
         }
 
         // The before for the columns separator element fallback for Firefox and sticky columns
-        &::before {
-          @include fixedColumnSeparator(0);
-          right: -1px;
-        }
+        // Not clear why it's needed, removing on 05/12/2020
+        //&::before {
+        //  @include fixedColumnSeparator(0);
+        //  right: -1px;
+        //}
 
         & .filter-remove {
           --kup-main-color: var(--kup-icon-color);
