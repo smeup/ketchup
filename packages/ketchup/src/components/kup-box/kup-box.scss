@@ -201,6 +201,7 @@
 
         .box-object {
           padding: 1px 4px;
+          min-height: 16px;
 
           kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
           kup-checkbox {

@@ -2664,7 +2664,18 @@ export class KupDataTable {
         let content: any = valueToDisplay;
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <kup-image {...buildIconConfig(cell, valueToDisplay)} />;
+            let iconStyle = {};
+            if (cell.config.sizeX) {
+                iconStyle = { ...iconStyle, width: cell.config.sizeX };
+            }
+            if (cell.config.sizeY) {
+                iconStyle = { ...iconStyle, height: cell.config.sizeY };
+            }
+            content = (
+                <span class="icon-container" style={iconStyle}>
+                    <kup-image {...buildIconConfig(cell, valueToDisplay)} />
+                </span>
+            );
         } else if (isNumber(cell.obj)) {
             content = valueToDisplay;
 
