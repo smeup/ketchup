@@ -92,8 +92,6 @@ it('render objects', async () => {
         cellContentSelector + ' > *'
     );
 
-    expect(cellContentChildren).toHaveLength(objData.columns.length);
-
     for (let i = 0; i < cellContentChildren.length; i++) {
         const child = cellContentChildren[i];
 
