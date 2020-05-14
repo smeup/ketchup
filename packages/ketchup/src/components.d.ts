@@ -3012,12 +3012,33 @@ declare namespace LocalJSX {
          */
         "hoverScroll"?: boolean;
         /**
+          * When a tooltip request detail data
+         */
+        "onKupDetailRequest"?: (event: CustomEvent<{
+            cell: Cell;
+            tooltip: EventTarget;
+        }>) => void;
+        /**
+          * When a tooltip request initial data
+         */
+        "onKupLoadRequest"?: (event: CustomEvent<{
+            cell: Cell;
+            tooltip: EventTarget;
+        }>) => void;
+        /**
           * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
          */
         "onKupOptionClicked"?: (event: CustomEvent<{
             cell: Cell;
             column: Column;
             treeNode: TreeNode;
+        }>) => void;
+        "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
+            treeNodePath: TreeNodePath;
+            treeNode: TreeNode;
+            column: Column;
+            columnName: string;
+            auto: boolean;
         }>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).

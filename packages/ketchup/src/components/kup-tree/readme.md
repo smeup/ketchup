@@ -83,12 +83,15 @@ open or close the TreeNodes.
 
 ## Events
 
-| Event                 | Description                                                                                                                                                                 | Type                                                                                                                                          |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `kupOptionClicked`    | When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}. | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>`                                                                            |
-| `kupTreeNodeCollapse` | Fired when a TreeNode gets collapsed (closed).                                                                                                                              | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                            |
-| `kupTreeNodeExpand`   | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.                                           | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; }>` |
-| `kupTreeNodeSelected` | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; auto: boolean; }>`                                                             |
+| Event                      | Description                                                                                                                                                                 | Type                                                                                                                                          |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `kupDetailRequest`         | When a tooltip request detail data                                                                                                                                          | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
+| `kupLoadRequest`           | When a tooltip request initial data                                                                                                                                         | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
+| `kupOptionClicked`         | When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}. | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>`                                                                            |
+| `kupTreeNodeButtonClicked` |                                                                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; }>`                         |
+| `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                                                              | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                            |
+| `kupTreeNodeExpand`        | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.                                           | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; }>` |
+| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; auto: boolean; }>`                                                             |
 
 
 ## Dependencies
@@ -96,23 +99,34 @@ open or close the TreeNodes.
 ### Depends on
 
 - [kup-button](../kup-button)
+- [kup-image](../kup-image)
 - [kup-checkbox](../kup-checkbox)
 - [kup-graphic-cell](../kup-graphic-cell)
-- [kup-image](../kup-image)
+- [kup-chart-cell](../kup-chart-cell)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
+- [kup-tooltip](../kup-tooltip)
 - [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tree --> kup-button
+  kup-tree --> kup-image
   kup-tree --> kup-checkbox
   kup-tree --> kup-graphic-cell
-  kup-tree --> kup-image
+  kup-tree --> kup-chart-cell
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-button --> kup-image
   kup-image --> kup-badge
   kup-image --> kup-spinner
   kup-badge --> kup-image
+  kup-progress-bar --> kup-image
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
   kup-text-field --> kup-image
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

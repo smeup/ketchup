@@ -82,3 +82,20 @@ export function isStringObject(obj: any): boolean {
         !isChart(obj)
     );
 }
+
+export function hasTooltip(obj: any) {
+    if (!obj) return false;
+    return (
+        !isBar(obj) &&
+        !isButton(obj) &&
+        !isCheckbox(obj) &&
+        !isIcon(obj) &&
+        !isImage(obj) &&
+        !isLink(obj) &&
+        !isNumber(obj) &&
+        !isProgressBar(obj) &&
+        !isRadio(obj) &&
+        !isVoCodver(obj) &&
+        !isChart(obj)
+    );
+}

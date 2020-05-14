@@ -76,6 +76,7 @@ import {
     isVoCodver,
     isStringObject,
     isCheckbox,
+    hasTooltip,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -748,23 +749,6 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
-    private hasTooltip(cell: Cell) {
-        return (
-            cell.obj &&
-            cell.obj.t !== '' &&
-            !isBar(cell.obj) &&
-            !isButton(cell.obj) &&
-            !isCheckbox(cell.obj) &&
-            !isIcon(cell.obj) &&
-            !isImage(cell.obj) &&
-            !isLink(cell.obj) &&
-            !isNumber(cell.obj) &&
-            !isProgressBar(cell.obj) &&
-            !isRadio(cell.obj) &&
-            !isVoCodver(cell.obj) &&
-            !isChart(cell.obj)
-        );
-    }
 
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -2795,7 +2779,7 @@ export class KupDataTable {
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
-        if (this.hasTooltip(cell)) {
+        if (hasTooltip(cell.obj)) {
             content = (
                 <kup-tooltip
                     class="datatable-tooltip"
