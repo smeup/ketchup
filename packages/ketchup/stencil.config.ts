@@ -18,6 +18,9 @@ export const config: Config = {
         {
             src: 'dash-list.html',
         },
+        {
+            src: 'tree.html',
+        },
     ],
 
     namespace: 'mycomponent',

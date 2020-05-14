@@ -72,7 +72,7 @@ export function filterIsNegative(filterValue: string) {
            true if value matches special filter created on filterValue; 
            false otherwise.
 */
-export function isFilterComplientForValue(
+export function isFilterCompliantForValue(
     value: string,
     filterValue: string
 ): boolean {

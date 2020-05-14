@@ -98,6 +98,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'filterValue',
+          description:
+            'Allows to set initial filter for tree nodes, manages the filter on tree nodes',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'hoverScroll',
           description: 'Activates the scroll on hover function.',
           type: 'boolean',
@@ -115,6 +123,13 @@ export default {
         {
           prop: 'showColumns',
           description: 'Shows the tree data as a table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showFilter',
+          description: 'When set to true enables the tree nodes filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

@@ -1133,7 +1133,7 @@ export namespace Components {
          */
         "autoSelectionNodeMode": boolean;
         /**
-          * The columns of the tree when tree visualization is active
+          * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
@@ -1154,6 +1154,10 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+         */
+        "filterValue": string;
+        /**
           * Activates the scroll on hover function
          */
         "hoverScroll": boolean;
@@ -1165,6 +1169,10 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
+        /**
+          * When set to true enables the tree nodes filter.
+         */
+        "showFilter": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -2975,7 +2983,7 @@ declare namespace LocalJSX {
          */
         "autoSelectionNodeMode"?: boolean;
         /**
-          * The columns of the tree when tree visualization is active
+          * The columns of the tree when tree visualization is active.
          */
         "columns"?: Column[];
         /**
@@ -2996,9 +3004,27 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
+          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+         */
+        "filterValue"?: string;
+        /**
           * Activates the scroll on hover function
          */
         "hoverScroll"?: boolean;
+        /**
+          * When a tooltip request detail data
+         */
+        "onKupDetailRequest"?: (event: CustomEvent<{
+            cell: Cell;
+            tooltip: EventTarget;
+        }>) => void;
+        /**
+          * When a tooltip request initial data
+         */
+        "onKupLoadRequest"?: (event: CustomEvent<{
+            cell: Cell;
+            tooltip: EventTarget;
+        }>) => void;
         /**
           * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
          */
@@ -3006,6 +3032,13 @@ declare namespace LocalJSX {
             cell: Cell;
             column: Column;
             treeNode: TreeNode;
+        }>) => void;
+        "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
+            treeNodePath: TreeNodePath;
+            treeNode: TreeNode;
+            column: Column;
+            columnName: string;
+            auto: boolean;
         }>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
@@ -3048,6 +3081,10 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
+        /**
+          * When set to true enables the tree nodes filter.
+         */
+        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
