@@ -2646,11 +2646,13 @@ export class KupDataTable {
 
         if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             let iconStyle = {};
-            if (cell.config.sizeX) {
-                iconStyle = { ...iconStyle, width: cell.config.sizeX };
-            }
-            if (cell.config.sizeY) {
-                iconStyle = { ...iconStyle, height: cell.config.sizeY };
+            if (cell.config) {
+                if (cell.config.sizeX) {
+                    iconStyle = { ...iconStyle, width: cell.config.sizeX };
+                }
+                if (cell.config.sizeY) {
+                    iconStyle = { ...iconStyle, height: cell.config.sizeY };
+                }
             }
             content = (
                 <span class="icon-container" style={iconStyle}>
