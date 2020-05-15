@@ -49,6 +49,7 @@ import {
 } from '../../utils/cell-utils';
 import { buildButtonConfig } from '../../utils/widget-utils';
 import { getBoolean } from '../../utils/utils';
+import numeral from 'numeral';
 
 @Component({
     tag: 'kup-tree',
