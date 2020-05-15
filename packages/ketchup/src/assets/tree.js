@@ -11351,6 +11351,19 @@ let treeData = [
 let treeEl = document.getElementById('tree');
 if (treeEl != null) {
     treeEl.data = [...treeData];
+    treeEl.columns = [
+        {
+            name: 'Mat',
+            visible: true,
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '00Mat',
+            },
+            value: '00Mat',
+            options: true,
+        },
+    ];
 }
 
 let treeFilterEl = document.getElementById('tree-show-filter');
