@@ -80,21 +80,23 @@ const btnlist = JSON.parse(`{
       "dynamisms": []
     }`);
 
-document.querySelector('kup-btn').buttons = btnlist.data;
+if (document.querySelector('kup-btn')) {
+    document.querySelector('kup-btn').buttons = btnlist.data;
 
-document
-    .querySelector('kup-btn')
-    .addEventListener('kupButtonClicked', (event) => {
-        console.log(event);
+    document
+        .querySelector('kup-btn')
+        .addEventListener('kupButtonClicked', (event) => {
+            console.log(event);
 
-        const btnIndex = event.detail.id;
+            const btnIndex = event.detail.id;
 
-        const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
+            const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
 
-        document.getElementById(
-            'btn-label'
-        ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
-    });
+            document.getElementById(
+                'btn-label'
+            ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
+        });
+}
 
 function toggleBtnFillspace(event) {
     const btn = document.querySelector('kup-btn');
