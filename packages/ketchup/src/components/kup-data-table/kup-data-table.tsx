@@ -683,11 +683,11 @@ export class KupDataTable {
         }
 
         if (root != null) {
-            let menus: any = root.querySelectorAll('.column-menu');
-
-            for (let i = 0; i < menus.length; i++) {
-                let wrapper: any = menus[i].closest('th');
-                positionRecalc(menus[i], wrapper);
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
             }
         }
 
@@ -1871,109 +1871,113 @@ export class KupDataTable {
                     }
                 }
 
-                const columnMenuItems: JSX.Element[] = [];
-                let checkboxWrapper: JSX.Element[] = [];
+                let columnMenu = undefined;
+                if (this.isOpenedMenuForColumn(column.name)) {
+                    const columnMenuItems: JSX.Element[] = [];
+                    let checkboxWrapper: JSX.Element[] = [];
 
-                //---- adding grouping ----
-                const group = this.getGroupByName(column.name);
-                const groupLabel =
-                    group != null ? 'Disable grouping' : 'Enable grouping';
+                    //---- adding grouping ----
+                    const group = this.getGroupByName(column.name);
+                    const groupLabel =
+                        group != null ? 'Disable grouping' : 'Enable grouping';
 
-                columnMenuItems.push(
-                    <li role="menuitem" class="button-row">
-                        <kup-button
-                            icon="book"
-                            tooltip={groupLabel}
-                            onKupButtonClick={() =>
-                                this.switchColumnGroup(group, column.name)
-                            }
-                        />
-                        <kup-button
-                            icon="table-column-plus-after"
-                            tooltip="Add column"
-                            onKupButtonClick={() => {
-                                this.kupAddColumn.emit({ column: column.name });
-                                this.closeMenu();
-                            }}
-                        />
-                    </li>
-                );
-
-                if (
-                    this.showFilters &&
-                    (isStringObject(column.obj) || isCheckbox(column.obj))
-                ) {
                     columnMenuItems.push(
-                        <li role="menuitem" class="textfield-row">
-                            <kup-text-field
-                                label="Filter"
-                                outlined={false}
-                                initialValue={this.getTextFieldFilterValue(
-                                    column.name
-                                )}
-                                onKupTextFieldSubmit={(e) => {
-                                    this.onFilterChange(e, column.name);
+                        <li role="menuitem" class="button-row">
+                            <kup-button
+                                icon="book"
+                                tooltip={groupLabel}
+                                onKupButtonClick={() =>
+                                    this.switchColumnGroup(group, column.name)
+                                }
+                            />
+                            <kup-button
+                                icon="table-column-plus-after"
+                                tooltip="Add column"
+                                onKupButtonClick={() => {
+                                    this.kupAddColumn.emit({
+                                        column: column.name,
+                                    });
                                     this.closeMenu();
                                 }}
-                            ></kup-text-field>
+                            />
                         </li>
                     );
-                    let checkBoxesFilter = this.getCheckBoxFilterValues(
-                        column.name
-                    );
-                    let columnValues: string[] = this.getColumnValues(
-                        column.name
-                    );
-                    let checkboxItems: JSX.Element[] = [];
-                    if (columnValues.length > 0) {
-                        checkboxItems.push(
-                            <kup-checkbox
-                                label={'(*All)'}
-                                checked={checkBoxesFilter.length == 0}
-                                onKupCheckboxChange={(e) => {
-                                    this.onFilterChange2(e, column.name, null);
-                                }}
-                            ></kup-checkbox>
-                        );
-                    }
-                    columnValues.forEach((v) => {
-                        checkboxItems.push(
-                            <kup-checkbox
-                                label={v}
-                                checked={checkBoxesFilter.includes(v)}
-                                onKupCheckboxChange={(e) => {
-                                    this.onFilterChange2(e, column.name, v);
-                                }}
-                            ></kup-checkbox>
-                        );
-                    });
 
-                    if (checkboxItems.length > 0) {
-                        checkboxWrapper = (
-                            <li role="menuitem" class="checkbox-row">
-                                {checkboxItems}
+                    if (
+                        this.showFilters &&
+                        (isStringObject(column.obj) || isCheckbox(column.obj))
+                    ) {
+                        columnMenuItems.push(
+                            <li role="menuitem" class="textfield-row">
+                                <kup-text-field
+                                    label="Filter"
+                                    outlined={false}
+                                    initialValue={this.getTextFieldFilterValue(
+                                        column.name
+                                    )}
+                                    onKupTextFieldSubmit={(e) => {
+                                        this.onFilterChange(e, column.name);
+                                        this.closeMenu();
+                                    }}
+                                ></kup-text-field>
                             </li>
                         );
+                        let checkBoxesFilter = this.getCheckBoxFilterValues(
+                            column.name
+                        );
+                        let columnValues: string[] = this.getColumnValues(
+                            column.name
+                        );
+                        let checkboxItems: JSX.Element[] = [];
+                        if (columnValues.length > 0) {
+                            checkboxItems.push(
+                                <kup-checkbox
+                                    label={'(*All)'}
+                                    checked={checkBoxesFilter.length == 0}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(
+                                            e,
+                                            column.name,
+                                            null
+                                        );
+                                    }}
+                                ></kup-checkbox>
+                            );
+                        }
+                        columnValues.forEach((v) => {
+                            checkboxItems.push(
+                                <kup-checkbox
+                                    label={v}
+                                    checked={checkBoxesFilter.includes(v)}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(e, column.name, v);
+                                    }}
+                                ></kup-checkbox>
+                            );
+                        });
+
+                        if (checkboxItems.length > 0) {
+                            checkboxWrapper = (
+                                <li role="menuitem" class="checkbox-row">
+                                    {checkboxItems}
+                                </li>
+                            );
+                        }
                     }
-                }
 
-                let columnMenu = null;
-                if (columnMenuItems.length !== 0) {
-                    const menuClass = this.isOpenedMenuForColumn(column.name)
-                        ? 'open dynamic-position-active'
-                        : 'closed';
-
-                    columnMenu = (
-                        <div class={`column-menu ${menuClass}`}>
-                            <ul
-                                role="menubar"
-                                onMouseUp={(e) => e.stopPropagation()}
-                            >
-                                {columnMenuItems}
-                                {checkboxWrapper}
-                            </ul>
-                        </div>
-                    );
+                    if (columnMenuItems.length !== 0) {
+                        columnMenu = (
+                            <div class={`column-menu visible`}>
+                                <ul
+                                    role="menubar"
+                                    onMouseUp={(e) => e.stopPropagation()}
+                                >
+                                    {columnMenuItems}
+                                    {checkboxWrapper}
+                                </ul>
+                            </div>
+                        );
+                    }
                 }
 
                 // Check if columns are droppable and sets their handlers
