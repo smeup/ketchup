@@ -82,7 +82,7 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
-import { errorLogging } from '../../utils/error-logging';
+
 import {
     ComponentListElement,
     ItemsDisplayMode,
@@ -1625,14 +1625,6 @@ export class KupDataTable {
         return content
             .split(this.lineBreakCharacter)
             .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
-    }
-
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-data-table',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
     }
 
     //======== render methods ========
