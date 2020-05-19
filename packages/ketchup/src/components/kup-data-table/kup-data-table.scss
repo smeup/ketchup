@@ -419,6 +419,7 @@ $fixed-row-class: fixed-row;
         .column-menu {
           background-color: var(--dtt_background-color);
           box-shadow: var(--dtt_box-shadow);
+          display: none;
           color: var(--dtt_color);
           position: absolute;
           z-index: 100;
