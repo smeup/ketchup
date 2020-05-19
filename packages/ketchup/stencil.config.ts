@@ -23,7 +23,7 @@ export const config: Config = {
         },
     ],
 
-    namespace: 'mycomponent',
+    namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },
         { type: 'docs-readme' },
