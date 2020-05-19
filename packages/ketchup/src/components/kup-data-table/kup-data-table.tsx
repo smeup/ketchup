@@ -1902,7 +1902,8 @@ export class KupDataTable {
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
-                                    label="Filter"
+                                    full-width
+                                    label="Filter column..."
                                     outlined={false}
                                     initialValue={this.getTextFieldFilterValue(
                                         column.name
