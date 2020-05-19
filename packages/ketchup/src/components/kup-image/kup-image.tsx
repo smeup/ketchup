@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { Badge } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { imageCanvas } from './canvas/kup-image-canvas';
 
 @Component({
     tag: 'kup-image',
@@ -35,6 +36,10 @@ export class KupImage {
      */
     @Prop({ reflect: true }) feedback: boolean = false;
     /**
+     * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+     */
+    @Prop({ reflect: true }) isCanvas: boolean = false;
+    /**
      * The name of the icon. It can also contain an URL or a path.
      */
     @Prop({ reflect: true }) name: string = undefined;
@@ -53,6 +58,8 @@ export class KupImage {
 
     private resource: string = undefined;
     private isUrl: boolean = false;
+    private imageCanvas: imageCanvas;
+    canvas: HTMLCanvasElement;
 
     @Event({
         eventName: 'kupImageClick',
@@ -98,21 +105,32 @@ export class KupImage {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        if (this.isCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
+            this.imageCanvas.drawCanvas(this.name, this.canvas);
+        }
+    }
+
     componentWillRender() {
-        if (
+        this.isUrl = false;
+        if (this.isCanvas) {
+            this.resource = this.name;
+        } else if (
             this.name.indexOf('.') > -1 ||
             this.name.indexOf('/') > -1 ||
             this.name.indexOf('\\') > -1
         ) {
-            let message =
-                'Detected an src img path for icon with name(' +
-                this.name +
-                ')! Overriding "svg" with "srcpath".';
-            errorLogging('kup-image', message);
-            this.resource = this.name;
             this.isUrl = true;
+            this.resource = this.name;
         } else {
-            this.isUrl = false;
             this.resource =
                 'assets/' + this.type + '/' + this.name + '.' + this.type;
         }
@@ -162,10 +180,22 @@ export class KupImage {
                 </div>
             );
         }
-        if (this.type === 'svg' && !this.isUrl) {
+
+        if (this.isCanvas) {
+            return (
+                <Host style={elStyle}>
+                    {customStyle}
+                    <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                        <canvas ref={(el) => (this.canvas = el)}>
+                            {this.resource}
+                        </canvas>
+                    </div>
+                    {...badgeCollection}
+                </Host>
+            );
+        } else if (this.type === 'svg' && !this.isUrl) {
             let str = `url(${this.resource}) no-repeat center`;
             let elStyleSVG = {
-                ...elStyle,
                 mask: str,
                 background: this.color,
                 webkitMask: str,
@@ -185,7 +215,7 @@ export class KupImage {
             return (
                 <Host style={elStyle}>
                     {customStyle}
-                    <div id="kup-component" style={elStyle}>
+                    <div id="kup-component">
                         {feedback}
                         <img
                             style={elStyle}

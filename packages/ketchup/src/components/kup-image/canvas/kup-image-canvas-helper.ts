@@ -1,4 +1,4 @@
-import { Color } from './kup-graphic-cell-declarations';
+import { Color } from './kup-image-canvas-declarations';
 
 export function getColorFromString(rgb: string): Color {
     const rIndex = rgb.indexOf('R');

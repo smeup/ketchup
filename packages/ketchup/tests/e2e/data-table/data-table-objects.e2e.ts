@@ -123,7 +123,7 @@ it('render objects', async () => {
 
             case 4:
                 // graphic cell
-                expect(child.tagName).toBe('KUP-GRAPHIC-CELL');
+                expect(child.tagName).toBe('KUP-IMAGE');
                 break;
 
             default:

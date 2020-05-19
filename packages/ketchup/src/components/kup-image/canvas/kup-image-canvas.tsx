@@ -1,41 +1,24 @@
-import { Component, Prop, Watch, h } from '@stencil/core';
-import { GraphicElement, Color } from './kup-graphic-cell-declarations';
-import { getColorFromString } from './kup-graphic-cell-helper';
+import { GraphicElement, Color } from './kup-image-canvas-declarations';
+import { getColorFromString } from './kup-image-canvas-helper';
 
-@Component({
-    tag: 'kup-graphic-cell',
-    shadow: true,
-})
-export class KupGraphicCell {
-    @Prop()
-    value: string;
-
-    @Prop()
-    height = 35;
-
-    @Prop()
-    width = 300;
-
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-
+export class imageCanvas {
     graphic_element_marker_splitter = '\\\\';
     graphic_element_splitter = '\\\\AND\\\\';
     background_color = 'BCOLOR;R255G000B000';
     default_color = new Color(0, 0, 0);
 
-    @Watch('value')
-    onValueChange(): void {
+    value: string;
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+
+    drawCanvas(value: string, canvas: HTMLCanvasElement) {
+        this.value = value;
+        this.canvas = canvas;
         this.draw();
+        return value;
     }
 
-    // lifecycle
-    componentDidLoad(): void {
-        this.draw();
-    }
-
-    // private methods
-    private draw(): void {
+    draw(): void {
         if (!this.value) {
             return;
         }
@@ -46,7 +29,7 @@ export class KupGraphicCell {
         }
     }
 
-    private drawGraphicCell(): void {
+    drawGraphicCell(): void {
         const vGraphicElementDefinitionArr = this.value.split(
             this.graphic_element_splitter
         );
@@ -90,7 +73,6 @@ export class KupGraphicCell {
                 return elem;
             });
 
-            // first element -> setting background
             if (index === 0 && vBGColorMarker !== this.background_color) {
                 const bgColor = getColorFromString(
                     vBGColorMarker.substring('BCOLOR;'.length)
@@ -99,8 +81,8 @@ export class KupGraphicCell {
                 this.drawRect(
                     0,
                     0,
-                    this.canvas.width,
-                    this.canvas.height,
+                    this.canvas.clientWidth,
+                    this.canvas.clientHeight,
                     bgColor
                 );
             }
@@ -167,9 +149,12 @@ export class KupGraphicCell {
     }
 
     getNewStarXFromBar(startX: number, elem: GraphicElement): number {
-        const elemWidth = this.getDim(this.canvas.width, elem.getWidth());
-        const elemHeight = this.getDim(this.canvas.height, elem.getHeight());
-        const y = this.canvas.height - elemHeight;
+        const elemWidth = this.getDim(this.canvas.clientWidth, elem.getWidth());
+        const elemHeight = this.getDim(
+            this.canvas.clientHeight,
+            elem.getHeight()
+        );
+        const y = this.canvas.clientHeight - elemHeight;
 
         if (!elem.isTrasparent()) {
             this.drawRect(startX, y, elemWidth, elemHeight, elem.getColor());
@@ -179,26 +164,32 @@ export class KupGraphicCell {
     }
 
     getNewStarXFromCircle(startX: number, circle: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, circle.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            circle.getWidth()
+        );
 
         const x = (startX + newStartX) / 2;
 
         if (!circle.isTrasparent()) {
-            this.drawArc(x, this.canvas.height / 2, circle.getColor());
+            this.drawArc(x, this.canvas.clientHeight / 2, circle.getColor());
         }
 
         return newStartX;
     }
 
     getNewStarXFromTril(startX: number, triLeft: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, triLeft.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            triLeft.getWidth()
+        );
 
         if (!triLeft.isTrasparent()) {
             this.drawTri(
                 newStartX,
                 0,
                 startX,
-                this.canvas.height / 2,
+                this.canvas.clientHeight / 2,
                 triLeft.getColor()
             );
         }
@@ -207,14 +198,17 @@ export class KupGraphicCell {
     }
 
     getNewStarXFromTrir(startX: number, triRight: GraphicElement): number {
-        const newStartX = this.getDim(this.canvas.width, triRight.getWidth());
+        const newStartX = this.getDim(
+            this.canvas.clientWidth,
+            triRight.getWidth()
+        );
 
         if (!triRight.isTrasparent()) {
             this.drawTri(
                 startX,
                 0,
                 newStartX,
-                this.canvas.height / 2,
+                this.canvas.clientHeight / 2,
                 triRight.getColor()
             );
         }
@@ -251,7 +245,7 @@ export class KupGraphicCell {
         this.ctx.beginPath();
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);
-        this.ctx.lineTo(x1, this.canvas.height);
+        this.ctx.lineTo(x1, this.canvas.clientHeight);
         this.ctx.fill();
     }
 
@@ -264,8 +258,8 @@ export class KupGraphicCell {
 
         this.ctx.fillStyle = this.default_color.toString();
 
-        const startX = this.getDim(this.canvas.width, parseFloat(vPart));
-        const height = this.canvas.height;
+        const startX = this.getDim(this.canvas.clientWidth, parseFloat(vPart));
+        const height = this.canvas.clientHeight;
         const arrSpan = Math.floor(height / 3);
         const arrSpanHalf = arrSpan / 2;
 
@@ -286,13 +280,17 @@ export class KupGraphicCell {
             vPart = vPart.replace(',', '.');
         }
         const vTickNum = parseInt(vPart);
-        const vTickDist = this.canvas.width / vTickNum;
+        const vTickDist = this.canvas.clientWidth / vTickNum;
 
-        const tickH = this.canvas.height / 5;
-        const y = this.canvas.height - tickH;
+        const tickH = this.canvas.clientHeight / 5;
+        const y = this.canvas.clientHeight - tickH;
 
         const tickW = 1;
-        for (let i = vTickDist; i < this.canvas.width; i = i + vTickDist) {
+        for (
+            let i = vTickDist;
+            i < this.canvas.clientWidth;
+            i = i + vTickDist
+        ) {
             this.drawRect(i, y, tickW, tickH, this.default_color);
         }
     }
@@ -315,26 +313,17 @@ export class KupGraphicCell {
             vPositionPart = vPositionPart.replace(',', '.');
         }
 
-        const x = this.getDim(this.canvas.width, parseFloat(vPositionPart));
+        const x = this.getDim(
+            this.canvas.clientWidth,
+            parseFloat(vPositionPart)
+        );
 
         this.drawRect(
             x,
             0,
             vThickness,
-            this.canvas.height,
+            this.canvas.clientHeight,
             getColorFromString(vColor)
-        );
-    }
-
-    render() {
-        return (
-            <canvas
-                ref={(el) => (this.canvas = el)}
-                height={this.height}
-                width={this.width}
-            >
-                {this.value}
-            </canvas>
         );
     }
 }

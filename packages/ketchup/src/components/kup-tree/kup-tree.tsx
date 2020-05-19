@@ -764,20 +764,18 @@ export class KupTree {
                     />
                 );
             } else if (isBar(cell.obj)) {
-                // KupTree cannot have the tree columns resized.
-                // This constant keeps the possible width type to keep a certain degree of compatibility with kup-data-table,
-                // From which this type of content was taken
                 const props: {
-                    cellConfig: any;
-                    value: string;
-                    width?: number;
+                    isCanvas: boolean;
+                    name: string;
+                    sizeX?: string;
+                    sizeY: string;
                 } = {
-                    cellConfig: cell.config,
-                    value: cell.value,
+                    isCanvas: true,
+                    name: cell.value,
+                    sizeX: '100%',
+                    sizeY: '35px',
                 };
-
-                // Controls if we should display this cell value
-                content = <kup-graphic-cell {...props} />;
+                content = valueToDisplay ? <kup-image {...props} /> : null;
             } else if (isChart(cell.obj)) {
                 const props: {
                     cellConfig: any;

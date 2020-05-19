@@ -87,19 +87,6 @@ export default {
               sortMode: 'D',
           },
       ],
-      /*cellStyleData: { ...cellStyleDataTable },
-            iconImagesDataTable: { ...iconImagesDataTable },
-            columnsWidth: [
-                {
-                    column: 'FLD1',
-                    width: 100,
-                },
-                {
-                    column: 'FLD3',
-                    width: 300,
-                },
-            ],
-            loadQuantity: ''*/
     };
   },
 

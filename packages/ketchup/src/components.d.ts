@@ -397,13 +397,6 @@ export namespace Components {
     }
     interface KupDataTable {
         /**
-          * Used to set custom columns width.
-         */
-        "columnsWidth": Array<{
-            column: string;
-            width: number;
-        }>;
-        /**
           * The data of the table.
          */
         "data": TableData;
@@ -684,11 +677,6 @@ export namespace Components {
          */
         "widthComponent": string;
     }
-    interface KupGraphicCell {
-        "height": number;
-        "value": string;
-        "width": number;
-    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -720,6 +708,10 @@ export namespace Components {
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback": boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas": boolean;
         /**
           * The name of the icon. It can also contain an URL or a path.
          */
@@ -1317,12 +1309,6 @@ declare global {
         prototype: HTMLKupGaugeElement;
         new (): HTMLKupGaugeElement;
     };
-    interface HTMLKupGraphicCellElement extends Components.KupGraphicCell, HTMLStencilElement {
-    }
-    var HTMLKupGraphicCellElement: {
-        prototype: HTMLKupGraphicCellElement;
-        new (): HTMLKupGraphicCellElement;
-    };
     interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
     }
     var HTMLKupIframeElement: {
@@ -1452,7 +1438,6 @@ declare global {
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
-        "kup-graphic-cell": HTMLKupGraphicCellElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
@@ -2057,13 +2042,6 @@ declare namespace LocalJSX {
     }
     interface KupDataTable {
         /**
-          * Used to set custom columns width.
-         */
-        "columnsWidth"?: Array<{
-            column: string;
-            width: number;
-        }>;
-        /**
           * The data of the table.
          */
         "data"?: TableData;
@@ -2401,11 +2379,6 @@ declare namespace LocalJSX {
          */
         "widthComponent"?: string;
     }
-    interface KupGraphicCell {
-        "height"?: number;
-        "value"?: string;
-        "width"?: number;
-    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -2439,6 +2412,10 @@ declare namespace LocalJSX {
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback"?: boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas"?: boolean;
         /**
           * The name of the icon. It can also contain an URL or a path.
          */
@@ -3133,7 +3110,6 @@ declare namespace LocalJSX {
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
-        "kup-graphic-cell": KupGraphicCell;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
@@ -3178,7 +3154,6 @@ declare module "@stencil/core" {
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
-            "kup-graphic-cell": LocalJSX.KupGraphicCell & JSXBase.HTMLAttributes<HTMLKupGraphicCellElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;

@@ -7,6 +7,8 @@
     margin: auto;
     position: relative;
     transition: color 0.2s ease;
+    height: 100%;
+    width: 100%;
   }
 
   #feedback {
@@ -18,8 +20,16 @@
   }
 }
 
+:host([is-canvas]) {
+  canvas {
+    height: 100%;
+    width: 100%;
+  }
+}
+
 svg,
-img {
+img,
+canvas {
   display: var(--kup-display-mode);
   width: 100%;
   height: 100%;
