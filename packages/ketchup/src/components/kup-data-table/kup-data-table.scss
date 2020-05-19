@@ -427,7 +427,7 @@ $fixed-row-class: fixed-row;
           min-width: -moz-max-content; /* Firefox/Gecko */
           min-width: -webkit-max-content; /* Chrome */
 
-          &.visible {
+          &.visible.dynamic-position-active {
             display: block;
             -webkit-animation: display-none-transition 0.5s both;
             -webkit-animation-timing-function: cubic-bezier(
