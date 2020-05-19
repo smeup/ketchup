@@ -1,0 +1,302 @@
+#inspire.theme--light {
+  /*  U. I.  */
+
+  /* Colori fissi */
+  --main-blue: #446cb3;
+  --main-blue-light: #6a8fd1;
+  --main-blue-dark: #1d4793;
+  --main-green: #1e824c;
+  --main-green-light: #39ae6f;
+  --main-green-dark: #1d623c;
+  --main-yellow: #ffc107;
+  --main-yellow-light: #ffd454;
+  --main-yellow-dark: #f5a10f;
+  --main-orange: #f89406;
+  --main-orange-light: #f4ab42;
+  --main-orange-dark: #d76f00;
+  --main-red: #d91e18;
+  --main-red-light: #f0423c;
+  --main-red-dark: #ae130e;
+
+  /* Colore principale */
+  --main-color: #888888;
+  --main-color-light: #acacac;
+  --main-color-lighter: #c4c4c4;
+  --main-color-lightest: #ececec;
+  --main-color-dark: #6b6b6b;
+  --main-color-darkest: #505050;
+
+  /* Colore secondario */
+  --second-color: #d91e18;
+  --second-color-light: #f0423c;
+  --second-color-dark: #ae130e;
+
+  /* Finestre e pannelli */
+  --body-background-color: #f0f0f0; /* Colore di sfondo della pagina di WebUP e dello sfondo dei titoli (dialog, ecc.) */
+  --title-background-color: #f0f0f0; /* Colore di sfondo dei titoli delle finestre */
+  --main-background-color: #ffffff; /* Colore di sfondo per schede, pannelli, ecc. */
+  --right-click-panel-background-color: #f0f0f0; /* Colore pannello dinamismi */
+  --main-border-color: #e0e0e0; /* Colore distanziatori, bordi, ecc. */
+  --main-border-color-hover: #f0f0f0; /* Colore distanziatori, bordi, ecc. all'hover */
+  --main-border-stronger-color: #d0d0d0; /* Colore più marcato per distanziatori, bordi, ecc. (i.e.: in footer, header, ecc.) */
+  --main-box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5); /* Box shadow principale finestre e widget */
+  --main-transition: 0.25s ease-in-out; /* Solo per Ketchup attualmente */
+
+  /* Testi e icone */
+  --main-font-size: 1rem; /* Solo per Ketchup attualmente */
+  --main-font-family: 'Roboto', sans-serif; /* Font dei caratteri */
+  --main-border-radius: 0px; /* Border radius principale dei campi */
+  --main-icon-color: #808080; /* Colore delle icone */
+  --main-icon-color-hover: #a0a0a0; /* Colore delle icone all'hover */
+  --main-text-color: #2e2e2e; /* Colore del testo */
+  --main-text-lighter-color: #bebebe; /* Colore del testo più leggero, i.e.: etichette nella form di login */
+  --main-text-stronger-color: #1a1a1a; /* Colore del testo più marcato */
+  --disabled-text-color: #5c5c5c; /* Colore del testo disabilitato */
+  --disabled-background-color: #eaeaea; /* Colore di sfondo per campi input disabilitati */
+  --tags-background-color: #f0f0f0; /* Colore dei tag */
+  --input-background-color: transparent; /* Colore di sfondo dei campi di input */
+  --hover-background-color: #f0f0f0; /* Colore di sfondo elementi selezionati con hover */
+  --hover-color: #545454; /* Colore elementi selezionati con hover */
+  --text-on-main: white; /* Colore testo su sfondo main color */
+  --text-on-main-light: #545454; /* Colore testo su sfondo main color */
+  --text-on-second: white; /* Colore testo su sfondo secondary color */
+  --text-on-blue: white; /* Colore testo su sfondo blu */
+  --text-on-green: white; /* Colore testo su sfondo verde */
+  --text-on-yellow: white; /* Colore testo su sfondo giallo */
+  --text-on-orange: white; /* Colore testo su sfondo arancione */
+  --text-on-red: white; /* Colore testo su sfondo rosso */
+
+  /*  H E A D E R  */
+
+  /* Principali */
+  --header-background-color: #2e2e2e; /* Colore sfondo */
+  --header-color: #ffffff; /* Colore testo */
+  --header-box-shadow: 0 1px 2px rgba(150, 150, 150, 0.5); /* Ombreggiatura */
+
+  /* Icone */
+  --header-icons-color: #ffffff; /* Colore icone */
+  --header-icons-activated-color: var(
+    --second-color
+  ); /* Colore icone attivate */
+  --header-icons-disabled-color: #bdbdbd; /* Colore icone disattivate */
+  --header-icons-badge-background-color: var(
+    --second-color
+  ); /* Colore sfondo badge icone */
+  --header-icons-badge-color: #ffffff; /* Colore testo badge icone */
+
+  /* Spotlight */
+  --header-spotlight-background-color: #ffffff; /* Colore sfondo spotlight */
+  --header-spotlight-color: #ffffff; /* Colore testo spotlight */
+  --header-spotlight-icons-color: #ffffff; /* Colore icone spotlight */
+  --header-spotlight-icons-when-focused-color: #545454; /* Colore icone spotlight, quando quest'ultimo è attivo */
+  --header-spotlight-icons-when-focused-color-hover: #808080; /* Colore icone spotlight, quando quest'ultimo è attivo, all'hover */
+
+  /*  S I D E B A R  */
+
+  /* Principali */
+  --sidebar-background-color: #535353; /* Colore sfondo */
+  --sidebar-box-shadow: 0 1px 2px rgba(150, 150, 150, 0.5); /* Ombreggiatura */
+
+  /* Icone */
+  --sidebar-icons-color: #ffffff; /* Colore icone */
+  --sidebar-icons-border-color: var(
+    --sidebar-background-color
+  ); /* Bordo icone */
+  --sidebar-icons-hover-color: var(--hover-color); /* Colore icone all'hover */
+  --sidebar-icons-hover-border-color: var(
+    --second-color
+  ); /* Bordo icone all'hover */
+  --sidebar-icons-hover-background-color: #bdbdbd; /* Sfondo icone all'hover */
+  --sidebar-icons-activated-color: var(
+    --second-color
+  ); /* Colore icone attivate */
+  --sidebar-icons-badge-background-color: var(
+    --second-color
+  ); /* Colore sfondo badge icone */
+  --sidebar-icons-badge-color: #ffffff; /* Colore testo badge icone */
+
+  /*  B U T T O N S  */
+
+  /* Utility buttons (come il Back To Top) */
+  --button-utility-background-color: #535353; /* Colore sfondo */
+  --button-utility-color: #ffffff; /* Colore testo */
+  --button-utility-size: 44px; /* Dimensione bottone */
+  --button-utility-font-size: 38px; /* Dimensione icona bottone */
+  /* Primary buttons */
+  --button-primary-background-color: var(--main-color); /* Colore sfondo */
+  --button-primary-hover-background-color: var(
+    --main-color-light
+  ); /* Colore sfondo all'hover */
+  /* Success/Submit buttons */
+  --button-success-background-color: var(--main-green); /* Colore sfondo */
+  --button-success-hover-background-color: var(
+    --main-green-light
+  ); /* Colore sfondo all'hover */
+  /* Warning buttons */
+  --button-warning-background-color: var(--main-yellow); /* Colore sfondo */
+  --button-warning-hover-background-color: var(
+    --main-yellow-light
+  ); /* Colore sfondo all'hover */
+  /* Danger/Delete buttons */
+  --button-delete-background-color: var(--main-red); /* Colore sfondo */
+  --button-delete-hover-background-color: var(
+    --main-red-light
+  ); /* Colore sfondo all'hover */
+  /* Info buttons */
+  --button-info-background-color: var(--main-blue); /* Colore sfondo */
+  --button-info-hover-background-color: var(
+    --main-blue-light
+  ); /* Colore sfondo all'hover */
+  /* Popup buttons */
+  --button-popup-color: var(--main-color); /* Colore testo */
+  --button-popup-hover-color: var(
+    --main-color-light
+  ); /* Colore testo all'hover */
+  /* Right-click-gear buttons */
+  --button-right-click-color: var(--main-icon-color); /* Colore */
+  --button-right-click-hover-color: var(
+    --main-icon-color-hover
+  ); /* Colore all'hover */
+  /* Bottoniere */
+  --button-one-many-background-color: #f0f0f0; /* Colore sfondo */
+  --button-one-many-hover-background-color: #cccccc; /* Colore sfondo all'hover */
+  --button-one-many-color: #545454; /* Colore */
+  --button-one-many-hover-color: #8a8a8a; /* Colore all'hover */
+
+  /*  S P I N N E R S  */
+
+  --spinner-primary-color: var(--main-red); /* Colore primario */
+  --spinner-secondary-color: var(
+    --main-red-light
+  ); /* Colore secondario (per transizioni) */
+  --spinner-complete-color: var(
+    --main-green
+  ); /* Colore spinner al completamento (solo barre v2 e v3) */
+
+  /*  K E T C H U P   W E B C O M P O N E N T S  */
+
+  /* Badge */
+  --kup-badge_background-color: var(--header-icons-badge-background-color);
+  --kup-badge_border-radius: 15px;
+  --kup-badge_color: var(--header-icons-badge-color);
+  --kup-badge_dimension: 30px;
+
+  /* Box */
+  --kup-box_color: var(--main-text-color);
+  --kup-box_border-color: var(--main-border-color);
+  --kup-box_border-radius: var(--main-border-radius);
+  --kup-box_img-border-radius: var(--main-border-radius);
+  --kup-box_expand-panel-color: var(--main-text-stronger-color);
+  --kup-box_hover-box-shadow: var(--main-box-shadow);
+  --kup-box_titled-section-font-size: 1.2rem;
+  --kup-box_titled-section-bg-color: transparent;
+  --kup-box_titled-section-top: -9px;
+  --kup-box_badge-background: var(--kup-badge_background-color);
+  --kup-box_badge-border-radius: var(--kup-badge_border-radius);
+  --kup-box_badge-text: var(--kup-badge_color);
+  --kup-box_badge-dimension: var(--kup-badge_dimension);
+
+  /* Button */
+  --kup-button_font-style: normal;
+  --kup-button_font-size: var(--main-font-size);
+  --kup-button_font-weight: 400;
+  --kup-button_font-family: var(--main-font-family);
+  --kup-button_icon-size: var(--main-font-size);
+  --kup-button_main-color: var(--main-color);
+  --kup-button_main-color-hover: var(--main-color-light);
+  --kup-button_main-color-active: var(--main-color-dark);
+  --kup-button_text-color: var(--text-on-main);
+  --kup-button_text-color--transparent: var(--main-color);
+  --kup-button_text-decoration: none;
+  --kup-button_icon-color: var(--text-on-main);
+  --kup-button_icon-color--transparent: var(--main-color);
+  --kup-button_animation-duration: 0.2s;
+  --kup-button_border-color: var(--main-color);
+  --kup-button_opacity: 1;
+  --kup-button_box-shadow: var(--main-box-shadow);
+  --kup-button_border: none;
+  --kup-button_border-radius: var(--main-border-radius);
+
+  /* Calendar */
+  --kup-cal_border-color: var(--main-border-color);
+  --kup-cal_header-background-color: var(--main-color);
+  --kup-cal_header-color: var(--text-on-main);
+  --kup-cal_event-background-color: var(--main-color-lightest);
+  --kup-cal_event-color: var(--text-on-main-light);
+  --kup-cal_today-background-color: var(--main-color-lightest);
+  --kup-cal_today-color: var(--text-on-main-light);
+  --kup-cal_no-work-day-background-color: var(--disabled-background-color);
+  --kup-cal_no-work-day-color: var(--disabled-text-color);
+
+  /* Chips */
+  --kup-chip_color: var(--main-text-color);
+  --kup-chip_icon-color: var(--main-icon-color);
+  --kup-chip_icon-color-hover: var(--main-icon-color-hover);
+  --kup-chip_background: var(--tags-background-color);
+  --kup-chip_background-hover: var(--tags-background-color);
+  --kup-chip_disabled-color: var(--disabled-text-color);
+  --kup-chip_disabled-background-color: var(--disabled-background-color);
+
+  /* Dash */
+  --kup-dash_background-color: transparent;
+  --kup-dash_color: var(--main-text-color);
+  --kup-dash_border-color: transparent;
+
+  /* Paginator */
+  --kup-paginator_text-color: var(--main-text-color);
+  --kup-paginator_font-size: var(--main-font-size);
+  --kup-paginator_box-shadow: none;
+  --kup-paginator_icon-background: transparent;
+  --kup-paginator_icon-color: var(--main-text-color);
+
+  /* Datatable */
+  --kup-data-table_background-color: var(--main-background-color);
+  --kup-data-table_main-color: var(--main-color);
+  --kup-data-table_text-on-main-color: var(--text-on-main);
+  --kup-data-table_color: var(--main-text-color);
+  --kup-data-table_stronger-color: var(--main-text-stronger-color);
+  --kup-data-table_hover-color: var(--hover-color);
+  --kup-data-table_hover-background-color: var(--hover-background-color);
+  --kup-data-table_border-color: var(--main-border-color);
+  --kup-data-table_head-background-color: var(--title-background-color);
+  --kup-data-table_group-background-color: var(--tags-background-color);
+  --kup-data-table_group-border-color: var(--main-color);
+  --kup-data-table_filter-border-color: var(--main-border-color-hover);
+  --kup-data-table_filter-background-color: white;
+  --kup-data-table_icons-color: var(--main-icon-color);
+  --kup-data-table_icons-hover-color: var(--main-icon-color-hover);
+  --kup-data-table_box-shadow: var(--main-box-shadow);
+  --kup-data-table_font-size: var(--main-font-size);
+  --kup-data-table_density-box-shadow: none;
+  --kup-data-table_density-icon-background: transparent;
+  --kup-data-table_density-icon-color: var(--main-text-color);
+  --kup-data-table_remove-icon-color: var(--main-icon-color);
+  --kup-data-table_remove-icon-color-hover: var(--main-icon-color-hover);
+
+  /* Input text */
+  --kup-text-field_color: var(--main-text-color);
+  --kup-text-field_font-size: var(--main-font-size);
+  --kup-text-field_border-color: var(--main-border-color);
+  --kup-text-field_border-color--selected: var(--main-border-color-hover);
+  --kup-text-field_transition-duration: var(--main-transition);
+  --kup-text-field_icon-color: var(--main-icon-color);
+  --kup-text-field_icon-color--hover: var(--main-icon-color-hover);
+  --kup-text-field_background-color: transparent;
+
+  /* Gauge */
+  --kup-gauge_needle-color: var(--main-text-color);
+  --kup-gauge_top-lateral-padding: 30px;
+  --kup-gauge_threshold-color: var(--main-text-color);
+  --kup-gauge_value-color: var(--main-text-color);
+  --kup-gauge_empty-color: #e2e2e2;
+  --kup-gauge_first-color: var(--main-red);
+  --kup-gauge_second-color: var(--main-yellow);
+  --kup-gauge_third-color: var(--main-green);
+
+  /* Tooltip */
+  --kup-tlt_background: var(--main-background-color);
+  --kup-tlt_border-color: var(--main-border-color);
+  --kup-detail-lbl-color: var(--main-text-lighter-color);
+  --kup-detail-txt-color: var(--main-text-color);
+  --kup-tlt_shadow: var(--main-box-shadow);
+}

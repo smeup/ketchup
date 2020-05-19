@@ -1,0 +1,40 @@
+@import '@material/chips/mdc-chips';
+
+:host {
+  display: var(--kup-display-mode);
+}
+
+.mdc-chip {
+  background-color: var(--kup-chip-background-color);
+  color: var(--kup-text-color);
+}
+
+.mdc-chip-set--choice .mdc-chip--selected {
+  color: var(--kup-main-color);
+
+  & .mdc-chip__ripple {
+    background-color: var(--kup-main-color);
+    opacity: 0.25;
+  }
+}
+
+.mdc-chip__primary-action {
+  outline: none;
+}
+
+svg path {
+  color: var(--kup-text-color);
+  stroke: var(--kup-text-color);
+}
+
+.mdc-chip__icon--leading-hidden {
+  display: none;
+}
+
+.remove-icon {
+  margin-left: 4px;
+  margin-right: -4px;
+  &:hover {
+    opacity: 0.75;
+  }
+}

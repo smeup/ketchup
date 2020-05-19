@@ -1,0 +1,444 @@
+{
+  "fields": {
+    "avatar": {
+      "key": "avatar",
+      "title": "Avatar",
+      "hidden": false,
+      "titlePosition": "Top",
+      "description": "Avatar",
+      "shape": "IMG",
+      "tooltip": "avatar"
+    },
+    "score": {
+      "key": "score",
+      "title": "Score",
+      "titlePosition": "Top",
+      "description": "Score",
+      "tooltip": "score"
+    },
+    "firstName": {
+      "key": "firstName",
+      "title": "First name",
+      "titlePosition": "None",
+      "description": "First name",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true,
+        "maxLenght": 10
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      }
+    },
+    "lastName": {
+      "key": "lastName",
+      "title": "Last name",
+      "titlePosition": "None",
+      "description": "Last name",
+      "readonly": true,
+      "shape": "ITX",
+      "config": {
+        "isClearable": true,
+        "maxLenght": 5
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      }
+    },
+    "country": {
+      "key": "country",
+      "title": "Country",
+      "titlePosition": "Left",
+      "description": "Country",
+      "shape": "CMB",
+      "config": {
+        "displayedField": "description",
+        "valueField": "value",
+        "data": [
+          {
+            "value": "CH",
+            "text": "Switzerland"
+          },
+          {
+            "value": "ES",
+            "text": "Spain"
+          },
+          {
+            "value": "IT",
+            "text": "Italy"
+          },
+          {
+            "value": "UK",
+            "text": "United Kingdom"
+          },
+          {
+            "value": "GEM",
+            "text": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "text": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "text": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "text": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "text": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "text": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "text": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "text": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "text": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "text": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "text": "Global readonly unset"
+          }
+        ]
+      },
+      "obj": {
+        "t": "TA",
+        "p": "V§N",
+        "k": ""
+      },
+      "outputValueFunction": "description",
+      "extra": {
+        "liveBackendCheck": true
+      }
+    },
+    "region": {
+      "key": "region",
+      "title": "Region",
+      "titlePosition": "Left",
+      "description": "Region",
+      "shape": "CMB",
+      "config": {
+        "displayedField": "description",
+        "valueField": "value",
+        "data": [
+          {
+            "value": "01",
+            "text": "Val d'Aosta"
+          },
+          {
+            "value": "02",
+            "text": "Piemonte"
+          },
+          {
+            "value": "03",
+            "text": "Lombardia"
+          },
+          {
+            "value": "08",
+            "text": "Lazio"
+          },
+          {
+            "value": "GEM",
+            "text": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "text": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "text": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "text": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "text": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "text": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "text": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "text": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "text": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "text": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "text": "Global readonly unset"
+          }
+        ]
+      },
+      "obj": {
+        "t": "",
+        "p": "V§R"
+      },
+      "outputValueFunction": "description"
+    },
+    "address": {
+      "key": "address",
+      "title": "Address",
+      "titlePosition": "None",
+      "description": "Address",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      },
+      "extra": {
+        "liveBackendCheck": true
+      }
+    },
+    "occupation": {
+      "key": "occupation",
+      "title": "Occupation",
+      "titlePosition": "None",
+      "description": "Occupation",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Occupation"
+      },
+      "outputValueFunction": "description",
+      "config": {
+        "serverHandledFilter": true,
+        "minimumChars": 2,
+        "showClearIcon": true,
+        "showDropdownIcon": true,
+        "displayMode": "description_and_code"
+      }
+    },
+    "company": {
+      "key": "company",
+      "title": "Company",
+      "titlePosition": "None",
+      "description": "Company",
+      "shape": "ACP",
+      "extra": {
+        "aParamForBackend": "Company"
+      },
+      "outputValueFunction": "description",
+      "config": {
+        "serverHandledFilter": true,
+        "minimumChars": 3,
+        "showClearIcon": true,
+        "displayMode": "description"
+      }
+    },
+    "department": {
+      "key": "department",
+      "title": "Department",
+      "titlePosition": "None",
+      "description": "Department",
+      "shape": "SRC",
+      "extra": {
+        "aParamForBackend": "XYZ"
+      },
+      "config": {
+        "serverHandledFilter": true,
+        "valueField": "code"
+      }
+    },
+    "father": {
+      "key": "father",
+      "title": "Father",
+      "titlePosition": "None",
+      "description": "Father",
+      "shape": "CFG",
+      "refid": "father-xxx",
+      "extra": {
+        "aParamForBackend": "BBB",
+        "liveBackendCheck": true
+      },
+      "config": {},
+      "obj": {
+        "t": "J5",
+        "p": "BRARTI",
+        "k": ""
+      },
+      "outputValueFunction": "firstName"
+    }
+  },
+
+  "sections": {
+    "horizontal": false,
+    "sections": [
+      {
+        "horizontal": true,
+        "sections": [
+          { "dim": "40%", "fields": ["avatar"] },
+          { "fields": ["score"] }
+        ]
+      },
+      {
+        "sections": [
+          {
+            "fields": [
+              "firstName",
+              "lastName",
+              "country",
+              "region",
+              "address",
+              "occupation",
+              "company",
+              "department",
+              "father"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "extraMessages": [],
+
+  "rules": {
+    "RULE1": {
+      "conditions": {
+        "any": [
+          {
+            "fact": "gameDuration",
+            "operator": "equal",
+            "value": 40
+          },
+          {
+            "fact": "personalFoulCount",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "changeSchema",
+        "params": {
+          "firstName": {
+            "validate": {
+              "required": false
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "actions": {
+    "fields": {
+      "submit": {
+        "key": "submit",
+        "title": "Confirm",
+        "config": {
+          "showtext": true,
+          "flat": false
+        }
+      },
+      "action1": {
+        "key": "action1",
+        "hidden": false,
+        "title": "Action 1",
+        "tooltip": "action 1",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-settings"
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+          "p": "BTN",
+          "t": "J4"
+        }
+      },
+      "action2": {
+        "key": "action2",
+        "hidden": false,
+        "title": "Action 2",
+        "tooltip": "action 2",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-delete",
+          "buttonStyle": {
+            "backgroundColor": "#8B0000",
+            "color": "#FFF"
+          }
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
+          "p": "BTN",
+          "t": "J4"
+        }
+      },
+      "action3": {
+        "key": "action3",
+        "title": "Action 3",
+        "hidden": false,
+        "tooltip": "action 3",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "imageSrc": "https://via.placeholder.com/64?text=A3"
+        },
+        "obj": {
+          "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "options": false
+      }
+    },
+    "sections": [
+      { "position": "BR", "fields": ["action2"] },
+      { "position": "BL", "fields": ["submit"] },
+      { "position": "TL", "fields": ["submit"] },
+      { "position": "TR", "fields": ["action3", "action1"] }
+    ]
+  }
+}

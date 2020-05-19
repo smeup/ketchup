@@ -1,0 +1,60 @@
+/**
+* @prop
+* @prop --mnu_background, --kup-menu_background: The menu background color.
+* @prop --mnu_border-radius, --kup-menu_border-radius: The border radius of the external menu.
+* @prop --mnu_content-max-height, --kup-menu_content-max-height: The maximum height of the area reserved to the menu content.
+* @prop --mnu_content-max-width, --kup-menu_content-max-width: The maximum width of the the area reserved to the menu content.
+* @prop --mnu_shadow, --kup-menu_shadow: The shadow box of the menu.
+* @prop --mnu_tr-duration, --kup-menu_transition-duration: The duration of all menu transitions. Does not influence its slots.
+* @prop --mnu_z-index, --kup-menu_z-index: the z-index of the menu.
+*/
+
+:host {
+  --mnu_background: var(--kup-menu_background, #ffffff);
+  --mnu_border-radius: var(--kup-menu_border-radius, 4px);
+  --mnu_content-max-height: var(--kup-menu_content-max-height, 200px);
+  --mnu_content-max-width: var(--kup-menu_content-max-width, none);
+  --mnu_shadow: var(--kup-menu_shadow, #{$mainShadow});
+  --mnu_tr-duration: var(--kup-menu_input_transition-duration, #{$trn-time});
+  --mnu_z-index: var(--kup-menu_z-index, 1000);
+
+  //-- Basic style of the container --
+  background-color: var(--mnu_background);
+  border-radius: var(--mnu_border-radius);
+  box-shadow: var(--mnu_shadow);
+  display: inline-block;
+  position: fixed;
+  opacity: 0;
+  transition: opacity var(--mnu_tr-duration), visibility var(--mnu_tr-duration);
+  visibility: hidden !important;
+  z-index: var(--mnu_z-index);
+}
+
+// When the menu is active
+:host([is-active]) {
+  opacity: 1;
+  visibility: visible !important;
+  //display: inline-block;
+}
+
+//-- The effective scrollable menu content --
+.menu-content {
+  display: block;
+  max-height: var(--mnu_content-max-height);
+  max-width: var(--mnu_content-max-width);
+  overflow: auto;
+  width: 100%;
+}
+
+//-- The optional content --
+.menu-optional-container {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  // When one of the optional containers is empty, then it's hidden
+  // The default display of a slot element is contents so this property should not be necessary
+  /*& slot:empty {
+    display: none;
+  }*/
+}

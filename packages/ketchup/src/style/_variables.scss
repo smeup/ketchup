@@ -1,0 +1,46 @@
+//---- Sme.UP default palette ----
+$smeup-primary: #4e908f;
+$smeup-info: #6a8fd1;
+$smeup-danger: #f0423c;
+$smeup-danger--hover: #d91e18;
+$smuup-warning: #ffd454;
+$smeup-selected: #ffc107;
+
+//---- Colors ----
+$gray-11: #111111;
+$gray-1a: #1a1a1a;
+$gray-80: #808080;
+$gray-88: #888888;
+$gray-a0: #a0a0a0;
+$gray-bd: #bdbdbd;
+$gray-d0: #d0d0d0;
+$gray-e0: #e0e0e0;
+$gray-e5: #e5e5e5;
+$gray-f0: #f0f0f0;
+$gray-f5: #f5f5f5;
+$gray-f9: #f9f9f9;
+
+$mainOrange: #f89406;
+
+$mainRed: #d91e18;
+$mainRedLight: #f0423c;
+
+// ---- Text ----
+$mainTextColor: #545454;
+
+// ---- Shadows ----
+$mainShadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+
+//---- Transitions ----
+$trn-time: 0.6s;
+
+:host {
+  --mdc-theme-primary: var(--kup-main-color);
+  --mdc-theme-on-primary: var(--kup-text-on-main-color);
+  --mdc-theme-secondary: var(--kup-main-color);
+  --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+  --mdc-theme-surface: var(--kup-background-color);
+  --mdc-theme-on-surface: var(--kup-text-color);
+  --mdc-theme-background: var(--kup-background-color);
+  --mdc-theme-text-primary-on-background: var(--kup-text-color);
+}

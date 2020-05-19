@@ -1,0 +1,74 @@
+.modal-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(184, 184, 184, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 1;
+}
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 10;
+}
+
+.modal {
+  font-family: var(--font-family, Helvetica);
+  font-size: var(--font-size, 13px);
+  border-radius: var(--border-radius, 0.2em);
+  min-width: 300px;
+  position: relative;
+  margin: auto;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  height: 100vh;
+  padding: 5vh 0;
+  background: none;
+}
+
+.modal-header {
+  font-size: 1.3em;
+  padding: 5px 10px 5px 10px;
+  border-top-left-radius: var(--border-radius, 0.2em);
+  border-top-right-radius: var(--border-radius, 0.2em);
+  background-color: var(--header-bg-color, #fff);
+  color: var(--header-color, #4c4b4b);
+}
+
+.modal-top {
+  padding: 5px 10px 10px 10px;
+  text-align: right;
+  background: #a8a8a8;
+}
+.modal-cancel {
+  cursor: pointer;
+}
+
+.modal-bottom {
+  padding: 5px 10px 10px 10px;
+  text-align: right;
+  background: #a8a8a8;
+}
+
+.modal-cancel:hover {
+  background-color: var(--cancel-hover-bg-color, #6c757d);
+  border-color: var(--cancel-hover-bg-color, #6c757d);
+}
+
+.modal-content {
+  background: var(--kup-background-color);
+  position: relative;
+  top: 0;
+  left: 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 0px 10px 5px 10px;
+}

@@ -1,0 +1,126 @@
+@import '@material/ripple/mdc-ripple';
+
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    color: var(--kup-text-color);
+  }
+}
+
+.wrapper {
+  overflow-x: auto;
+
+  .filter {
+    margin-bottom: 1rem;
+  }
+
+  .kup-tree {
+    border-collapse: collapse;
+    width: max-content;
+
+    thead {
+      display: none;
+      &.header--is-visible {
+        display: table-header-group;
+
+        th {
+          padding: 0.8rem 0.5rem;
+          font-size: 1.1rem;
+        }
+      }
+
+      th {
+        text-align: left;
+      }
+    }
+
+    tr,
+    td {
+      font-size: 1rem;
+      line-height: 1rem;
+
+      &.mdc-ripple-surface {
+        --mdc-ripple-fg-opacity: 0.24;
+
+        &:before,
+        &:after {
+          background-color: var(--kup-main-color);
+        }
+      }
+
+      & .kup-tree__icon ~ .cell-content,
+      & .kup-tree__icon + .cell-content {
+        display: inline-block;
+        line-height: 1rem;
+        vertical-align: 0.4rem;
+      }
+
+      & .cell-content.has-options {
+        vertical-align: 0.4rem;
+      }
+
+      & .options {
+        --kup-main-color: var(--kup-icon-color);
+        display: inline-block;
+        margin-left: 0.25rem;
+        vertical-align: 0.1rem;
+      }
+    }
+
+    td,
+    th {
+      transition: color 0.25s, background-color 0.25s;
+      padding: 0.4rem 0.5rem;
+    }
+
+    &__indent {
+      display: inline-block;
+      width: calc(1.5rem * var(--tree-node_depth, 0));
+    }
+
+    &__icon {
+      display: inline-block;
+      margin-right: 0.4rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      transition: transform 0.1s;
+    }
+
+    &__node {
+      cursor: default;
+
+      &.with-dyn:not(.kup-tree__node--disabled) {
+        cursor: pointer;
+      }
+
+      &:not(.kup-tree__node--disabled) &__expander {
+        cursor: pointer;
+      }
+
+      &--disabled {
+        opacity: 0.4;
+
+        &__expander {
+          pointer-events: none;
+        }
+      }
+
+      &[data-is-expanded] .expand-icon {
+        transform: rotate(90deg);
+      }
+
+      &--selected:not(.kup-tree__node--disabled),
+      &:hover:not(.kup-tree__node--disabled) {
+        > td {
+          color: var(--kup-hover-color);
+          background-color: var(--kup-hover-background-color);
+        }
+      }
+    }
+
+    &[data-show-columns] .kup-tree__node {
+      border-bottom: solid 1px var(--kup-border-color);
+    }
+  }
+}

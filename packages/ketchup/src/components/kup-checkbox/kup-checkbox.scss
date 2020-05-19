@@ -1,0 +1,28 @@
+@import '@material/checkbox/mdc-checkbox';
+@import '@material/form-field/mdc-form-field';
+
+:host {
+  display: var(--kup-display-mode);
+}
+
+.mdc-checkbox {
+  @include mdc-checkbox-container-colors(
+    var(--kup-border-color),
+    transparent,
+    var(--kup-main-color),
+    var(--kup-main-color)
+  );
+  @include mdc-checkbox-disabled-container-colors(
+    var(--kup-border-color),
+    var(--kup-disabled-background-color),
+    var(--kup-border-color),
+    var(--kup-disabled-background-color)
+  );
+  @include mdc-checkbox-disabled-ink-color(var(--kup-disabled-text-color));
+  @include mdc-checkbox-ink-color(var(--kup-text-on-main-color));
+}
+
+label {
+  color: var(--kup-text-color);
+  font-family: var(--kup-font-family);
+}

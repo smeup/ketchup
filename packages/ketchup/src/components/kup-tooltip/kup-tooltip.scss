@@ -1,0 +1,131 @@
+/**
+* @Prop --tlt_background, --kup-tlt_background: tooltip background
+* @Prop --tlt_border_color, --kup-tlt_background: tooltip border
+* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail label color
+* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail text color
+* @Prop --tlt_shadow, --kup-tlt_shadow: tooltip shadow
+* @Prop --tlt_display, --kup-tlt_display: tooltip display
+*/
+
+:host {
+  --tlt_background: var(--kup-tlt_background, #ffffff);
+  --tlt_border_color: var(--kup-tlt_border-color, #cccccc);
+  --tlt_detail-lbl-color: var(--kup-detail-lbl-color, #616161);
+  --tlt_detail-txt-color: var(--kup-detail-txt-color, #888888);
+  --tlt_shadow: var(--kup-tlt_shadow, #{$mainShadow});
+  --tlt_display: var(--kup-tlt_display, inline-block);
+
+  #wrapper {
+    position: relative;
+    display: var(--tlt_display);
+
+    #tooltip {
+      position: fixed;
+      background: var(--tlt_background);
+      z-index: 1000;
+      box-shadow: var(--tlt_shadow);
+      border-radius: 3px;
+      min-width: 350px;
+
+      #main-content {
+        margin: 20px;
+        display: flex;
+        color: var(--tlt_detail-txt-color);
+
+        .left {
+          width: 75px;
+          margin-right: 15px;
+        }
+
+        .title {
+          display: inline-block;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
+        .right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          & kup-button {
+            display: inline-block;
+          }
+        }
+
+        &.layout2 {
+          justify-content: center;
+          align-items: center;
+        }
+
+        &.layout3 {
+          flex-direction: column;
+
+          > div:not(:last-child) {
+            margin-bottom: 6px;
+          }
+        }
+
+        h3,
+        h4 {
+          margin: 0;
+        }
+
+        .label {
+          color: var(--tlt_detail-lbl-color);
+        }
+      }
+
+      #detail {
+        &:not(.visible) {
+          max-height: 0;
+          opacity: 0;
+          transition: max-height 500ms ease-out, opacity 500ms ease-out;
+        }
+
+        &.visible {
+          border-top: 1px solid var(--tlt_border_color);
+          padding: 20px;
+          max-height: 500px;
+          opacity: 1;
+          transition: max-height 500ms ease-in, opacity 500ms ease-in;
+        }
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+
+          &:not(:last-child) {
+            margin-bottom: 6px;
+          }
+
+          &__label {
+            color: var(--tlt_detail-lbl-color);
+          }
+        }
+      }
+
+      #detail-actions {
+        border-top: 1px solid var(--tlt_border_color);
+        padding: 6px {
+          top: 2px;
+          bottom: 2px;
+        }
+
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      #detail-actions[hidden] {
+        display: none;
+      }
+
+      .detail-actions__box {
+        cursor: pointer;
+      }
+    }
+  }
+}

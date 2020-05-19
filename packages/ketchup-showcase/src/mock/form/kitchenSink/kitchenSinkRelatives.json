@@ -1,0 +1,324 @@
+{
+  "config": {
+    "debugMode": true,
+    "multiple": true,
+    "insert": true,
+    "update": true,
+    "delete": true,
+    "liveCheck": true
+  },
+
+  "fields": {
+    "firstName": {
+      "key": "firstName",
+      "title": "First name",
+      "titlePosition": "None",
+      "description": "First name",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "custom": "valid = (input === 'Joe') ? true : 'Your name must be \"Joe\"';",
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true,
+        "maxLenght": 10
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      }
+    },
+    "lastName": {
+      "key": "lastName",
+      "title": "Last name",
+      "titlePosition": "None",
+      "description": "Last name",
+      "readonly": true,
+      "shape": "ITX",
+      "config": {
+        "isClearable": true,
+        "maxLenght": 5
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      }
+    },
+    "country": {
+      "key": "country",
+      "title": "Country",
+      "titlePosition": "Left",
+      "description": "Country",
+      "shape": "CMB",
+      "config": {
+        "displayedField": "description",
+        "valueField": "value",
+        "data": [
+          {
+            "value": "CH",
+            "text": "Switzerland"
+          },
+          {
+            "value": "ES",
+            "text": "Spain"
+          },
+          {
+            "value": "IT",
+            "text": "Italy"
+          },
+          {
+            "value": "UK",
+            "text": "United Kingdom"
+          },
+          {
+            "value": "GEM",
+            "text": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "text": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "text": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "text": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "text": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "text": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "text": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "text": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "text": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "text": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "text": "Global readonly unset"
+          }
+        ]
+      },
+      "obj": {
+        "t": "TA",
+        "p": "V§N",
+        "k": ""
+      },
+      "outputValueFunction": "description",
+      "extra": {
+        "liveBackendCheck": true
+      }
+    },
+    "region": {
+      "key": "region",
+      "title": "Region",
+      "titlePosition": "Left",
+      "description": "Region",
+      "shape": "CMB",
+      "config": {
+        "displayedField": "description",
+        "valueField": "value",
+        "data": [
+          {
+            "value": "01",
+            "text": "Val d'Aosta"
+          },
+          {
+            "value": "02",
+            "text": "Piemonte"
+          },
+          {
+            "value": "03",
+            "text": "Lombardia"
+          },
+          {
+            "value": "08",
+            "text": "Lazio"
+          },
+          {
+            "value": "GEM",
+            "text": "Global error message"
+          },
+          {
+            "value": "GWM",
+            "text": "Global warning message"
+          },
+          {
+            "value": "GIM",
+            "text": "Global info message"
+          },
+          {
+            "value": "FEM",
+            "text": "Field error message"
+          },
+          {
+            "value": "FWM",
+            "text": "Field warning message"
+          },
+          {
+            "value": "FIM",
+            "text": "Field info message"
+          },
+          {
+            "value": "GVM",
+            "text": "Global values modify"
+          },
+          {
+            "value": "FVM",
+            "text": "Field value modify"
+          },
+          {
+            "value": "FVU",
+            "text": "Field value updated"
+          },
+          {
+            "value": "GRS",
+            "text": "Global readonly set"
+          },
+          {
+            "value": "GRU",
+            "text": "Global reaonly unset"
+          }
+        ]
+      },
+      "obj": {
+        "t": "",
+        "p": "V§R",
+        "k": ""
+      },
+      "outputValueFunction": "description"
+    },
+    "address": {
+      "key": "address",
+      "title": "Address",
+      "titlePosition": "None",
+      "description": "Address",
+      "shape": "ITX",
+      "validate": {
+        "required": true,
+        "minLength": 3
+      },
+      "config": {
+        "isClearable": true
+      },
+      "obj": {
+        "t": "",
+        "p": "",
+        "k": ""
+      },
+      "extra": {
+        "liveBackendCheck": true
+      }
+    }
+  },
+
+  "sections": {
+    "horizontal": false,
+    "sections": [
+      {
+        "sections": [
+          {
+            "fields": ["firstName", "lastName", "country", "region", "address"]
+          }
+        ]
+      }
+    ]
+  },
+
+  "extraMessages": [],
+
+  "actions": {
+    "fields": {
+      "submit": {
+        "key": "submit",
+        "title": "Confirm",
+        "config": {
+          "showtext": true,
+          "flat": false
+        }
+      },
+      "action1": {
+        "key": "action1",
+        "hidden": false,
+        "title": "Action 1",
+        "tooltip": "action 1",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-settings"
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+          "p": "BTN",
+          "t": "J4"
+        }
+      },
+      "action2": {
+        "key": "action2",
+        "hidden": false,
+        "title": "Action 2",
+        "tooltip": "action 2",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "icon": "mdi mdi-delete",
+          "buttonStyle": {
+            "backgroundColor": "#8B0000",
+            "color": "#FFF"
+          }
+        },
+        "obj": {
+          "k": "B(Yes) I(VO;COD_VER;000114) T(action2)",
+          "p": "BTN",
+          "t": "J4"
+        }
+      },
+      "action3": {
+        "key": "action3",
+        "hidden": false,
+        "title": "Action 3",
+        "tooltip": "action 3",
+        "shape": "BTN",
+        "config": {
+          "showtext": true,
+          "flat": false,
+          "imageSrc": "https://via.placeholder.com/64?text=A3"
+        },
+        "obj": {
+          "k": "B(Yes) M(CN;COL;CASFRA) T(action3)",
+          "p": "BTN",
+          "t": "J4"
+        },
+        "options": false
+      }
+    },
+    "sections": [
+      { "position": "BR", "fields": ["action2"] },
+      { "position": "BL", "fields": ["submit"] },
+      { "position": "TL", "fields": ["submit"] },
+      { "position": "TR", "fields": ["action3", "action1"] }
+    ]
+  }
+}

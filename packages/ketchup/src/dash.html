@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup dash</title>
+
+        <script type="module" src="/build/mycomponent.esm.js"></script>
+        <script nomodule src="/build/mycomponent.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <style>
+            #container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #container > div {
+                    margin: 1rem;
+                }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div>
+                <h3>Layout 1</h3>
+                <kup-dash id="layout1">
+                    <div slot="descr">Admissions Count</div>
+                    <div slot="value">34,678</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 2</h3>
+                <kup-dash id="layout2" layout="2">
+                    <div slot="icon">
+                        <icon class="mdi mdi-menu-up" style="color: green;" />
+                    </div>
+                    <div slot="value-int">15,</div>
+                    <div slot="value-dec">86</div>
+                    <div slot="unit">%</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 3</h3>
+                <kup-dash id="layout3" layout="3">
+                    <div slot="descr">Admissions Count</div>
+                    <div slot="value">34,678</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 4</h3>
+                <kup-dash id="layout4" layout="4">
+                    <div slot="icon">
+                        <icon class="mdi mdi-menu-down" style="color: red;" />
+                    </div>
+                    <div slot="value-int" style="color: red;">15,</div>
+                    <div slot="value-dec" style="color: red;">86</div>
+                    <div slot="unit"  style="color: red;" >%</div>
+                    <div slot="descr">Admissions Count</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 5</h3>
+                <kup-dash id="layout5" layout="5">
+                    <div slot="icon">
+                        <icon class="mdi mdi-chart-bar" style="color: deepskyblue;" />
+                    </div>
+                    <div slot="value">34,678</div>
+                    <div slot="descr">Admissions Count</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 6</h3>
+                <kup-dash id="layout6" layout="6">
+                    <div slot="icon">
+                        <icon class="mdi mdi-account-outline" style="color: #ffef3c;" />
+                    </div>
+                    <div slot="value">12</div>
+                    <div slot="descr">Admissions Count</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 7</h3>
+                <kup-dash id="layout7" layout="7">
+                    <div slot="icon">
+                        <icon class="mdi mdi-chart-bar" style="color: pink;" />
+                    </div>
+                    <div slot="value">34,678</div>
+                    <div slot="descr">Admissions Count</div>
+                </kup-dash>
+            </div>
+
+            <div>
+                <h3>Layout 8</h3>
+                <kup-dash id="layout8" layout="8">
+                    <div slot="icon">
+                        <icon class="mdi mdi-checkbox-blank-circle" style="color: green;" />
+                    </div>
+                    <div slot="value">35</div>
+                    <div slot="descr">TASKS DONE</div>
+                </kup-dash>
+            </div>
+        </div>
+    </body>
+</html>

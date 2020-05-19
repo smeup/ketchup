@@ -1,0 +1,26 @@
+@import '@material/switch/mdc-switch';
+@import '@material/form-field/mdc-form-field';
+
+:host {
+  display: var(--kup-display-mode);
+}
+
+.mdc-form-field {
+  line-height: 2rem;
+
+  &.mdc-form-field--align-end {
+    & .mdc-switch {
+      margin: 0 1rem 0 1.5rem;
+    }
+  }
+}
+
+.mdc-switch {
+  margin: 0 1.5rem 0 1rem;
+  @include mdc-switch-toggled-off-thumb-color(var(--kup-border-color));
+}
+
+label {
+  color: var(--kup-text-color);
+  font-family: var(--kup-font-family);
+}

@@ -1,0 +1,416 @@
+@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
+
+/**
+* @prop --box_color, --kup-box_color: text color
+* @prop --box_border-color, --kup-box_border-color: single box border color
+* @prop --box_border-radius, --kup-box_border-radius: single box border radius
+* @prop --box_img-border-radius, --kup-box_img-border-radius: box image border radius
+* @prop --box_expand-panel-color, --kup-box_expand-panel-color: text color for collapse header panel
+* @prop --box_hover-box-shadow, --kup-box_hover-box-shadow: shadow when hovering on a box
+* @prop --box_titled-section-font-size, --kup-box_titled-section-font-size: font size for section title
+* @prop --box_titled-section-bg-color, --kup-box_titled-section-bg-color: background color for section title
+* @prop --box_titled-section-top, --kup-box_titled-section-top: top position for section title
+* @prop --box_badge-background, --kup-box_badge-background: badge background color
+* @prop --box_badge-border-radius, --kup-box_badge-border-radius: badge border radius
+* @prop --box_badge-text, --kup-box_badge-text: badge text color
+* @prop --box_badge-dimension, --kup-box_badge-dimension: badge dimension
+*/
+
+:host {
+  // variables
+  --box_color: var(--kup-box_color, #707070);
+  --box_border-color: var(--kup-box_border-color, #d0d0d0);
+  --box_border-radius: var(--kup-box_border-radius, 3px);
+  --box_img-border-radius: var(--kup-box_img-border-radius, 4px);
+  --box_expand-panel-color: var(--kup-box_expand-panel-color, $smeup-primary);
+  --box_hover-box-shadow: var(
+    --kup-box_hover-box-shadow,
+    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
+  );
+  --box_titled-section-font-size: var(--kup-box_titled-section-font-size, 12px);
+  --box_titled-section-bg-color: var(
+    --kup-box_titled-section-bg-color,
+    #ffffff
+  );
+  --box_titled-section-top: var(--kup-box_titled-section-top, -9px);
+  --box_badge-background: var(--kup-box_badge-background, #eb9901);
+  --box_badge-border-radius: var(--kup-box_badge-border-radius, 15px);
+  --box_badge-text: var(--kup-box_badge-text, white);
+  --box_badge-dimension: var(--kup-box_badge-dimension, 30px);
+
+  #kup-component {
+    &.no-border {
+      #box-container {
+        .box {
+          border: none;
+        }
+      }
+    }
+
+    &.no-padding {
+      #box-container {
+        .box {
+          padding: 0;
+
+          .box-section {
+            .box-object {
+              padding: 0;
+            }
+
+            &.last-child {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    &.center-aligned {
+      & .box-section {
+        text-align: center;
+
+        kup-image {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        kup-checkbox,
+        kup-image {
+          justify-content: center;
+        }
+      }
+    }
+
+    &.left-aligned {
+      & .box-section {
+        text-align: left;
+
+        kup-image {
+          margin-left: 0;
+          margin-right: auto;
+        }
+
+        kup-checkbox,
+        kup-image {
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    &.right-aligned {
+      & .box-section {
+        text-align: right;
+
+        kup-image {
+          margin-left: auto;
+          margin-right: 0;
+        }
+
+        kup-checkbox,
+        kup-image {
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
+
+.box-component {
+  &.component-dropover {
+    position: relative;
+    border: 3px solid var(--box_border-color);
+    border-radius: var(--box_border-radius);
+    padding: 5px;
+  }
+}
+
+#box-container {
+  display: grid;
+  grid-gap: 1rem;
+  color: var(--box_color);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .box-wrapper {
+    display: flex;
+    align-items: center;
+
+    .box {
+      padding: 3px;
+      flex-grow: 1;
+      cursor: pointer;
+      position: relative;
+      border-radius: var(--box_border-radius);
+      border: 1px solid var(--box_border-color);
+      display: flex;
+
+      &.column {
+        flex-direction: column;
+      }
+
+      &:hover,
+      &.selected {
+        box-shadow: var(--box_hover-box-shadow);
+        .box-drag-handler {
+          display: inline;
+        }
+      }
+
+      &.item-dragged {
+        opacity: 0.5;
+      }
+
+      &.item-dropover {
+        position: relative;
+        z-index: 2;
+
+        -webkit-transition: all 200ms ease-in;
+        -webkit-transform: scale(1.05);
+
+        -ms-transition: all 200ms ease-in;
+        -ms-transform: scale(1.05);
+
+        -moz-transition: all 200ms ease-in;
+        -moz-transform: scale(1.05);
+
+        transition: all 200ms ease-in;
+        transform: scale(1.05);
+      }
+
+      .box-section {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 1%;
+        flex-wrap: wrap;
+
+        &.column {
+          flex-direction: column;
+          justify-content: center;
+          flex-wrap: unset;
+
+          > .box-section {
+            flex: 0 0 auto;
+          }
+        }
+
+        &.grid {
+          display: grid;
+        }
+
+        .box-object {
+          padding: 1px 4px;
+          min-height: 16px;
+
+          kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
+          kup-checkbox {
+            display: flex;
+          }
+
+          img {
+            border-radius: var(--box_img-border-radius);
+            height: auto;
+          }
+        }
+
+        &.last-child {
+          margin: 3px 4px;
+        }
+
+        // collapsible sections
+        &.collapse-section {
+          .header {
+            border-top: 1px solid var(--box_border-color);
+            color: var(--box_expand-panel-color);
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+
+            .header-content {
+              margin: 0.5rem;
+              display: flex;
+              align-items: center;
+
+              .mdi {
+                margin-left: 5px;
+              }
+            }
+          }
+
+          .content {
+            display: none;
+            width: 100%;
+          }
+
+          &.open {
+            .header {
+              .header-content {
+                .mdi::before {
+                  animation: rotate-icon 500ms ease-out forwards;
+                }
+              }
+            }
+
+            .content {
+              display: block;
+            }
+          }
+        }
+
+        &.titled {
+          border: 1px solid var(--box_border-color);
+          padding-top: 5px;
+          position: relative;
+          margin: 10px;
+
+          > h3 {
+            position: absolute;
+            margin: 0;
+            padding: 0 3px;
+            top: var(--box_titled-section-top);
+            left: 5px;
+            font-size: var(--box_titled-section-font-size);
+            background: var(--box_titled-section-bg-color);
+          }
+        }
+      }
+
+      .box-selection {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+
+      .box-drag-handler {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        cursor: grab;
+        display: none;
+      }
+
+      kup-badge {
+        --bdg_background-color: var(--box_badge-background);
+        --bdg_border-radius: var(--box_badge-border-radius);
+        --bdg_color: var(--box_badge-text);
+        --bdg_dim: var(--box_badge-dimension);
+      }
+    }
+
+    .row-actions-wrapper {
+      .row-actions-toggler {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+
+        svg {
+          cursor: pointer;
+          opacity: 0;
+          fill: $mainTextColor; // TODO var
+          transition: opacity 500ms ease-out;
+        }
+
+        .row-action-menu {
+          position: absolute;
+          top: 0;
+          right: 24px;
+          display: none;
+          border: 1px solid var(--box_border-color);
+          z-index: 10;
+
+          // TODO this should probably be vars
+          background: white;
+          box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+
+          ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            > li {
+              cursor: pointer;
+              white-space: nowrap;
+              padding: 0 12px;
+              display: flex;
+              align-items: center;
+              line-height: 30px;
+
+              &:not(:last-child) {
+                border-bottom: 1px solid var(--box_border-color);
+              }
+            }
+          }
+
+          &.open {
+            display: block;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .row-actions-wrapper {
+        .row-actions-toggler {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+#sort-panel,
+#filter-panel {
+  margin-bottom: 1rem;
+}
+
+#filter-panel {
+  kup-text-field {
+    --kup-text-field_border-color: #d0d0d0;
+    --kup-text-field_color: #545454;
+  }
+
+  svg {
+    fill: #808080;
+    margin-left: 3px;
+  }
+}
+
+@-webkit-keyframes rotate-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@-moz-keyframes rotate-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@-o-keyframes rotate-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate-icon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}

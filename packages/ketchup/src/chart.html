@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup chart</title>
+
+        <script type="module" src="/build/mycomponent.esm.js"></script>
+        <script nomodule src="/build/mycomponent.js"></script>
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
+        <script>
+            if (google) {
+                google.charts.load('45.2', {
+                    packages: [
+                        'corechart',
+                        'gantt',
+                        'gauge',
+                        'geochart',
+                        'calendar',
+                        'sankey',
+                        'treemap',
+                    ],
+                    language: 'en',
+                });
+            }
+        </script>
+
+        <style>
+            .config-panel {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="config-panel">
+            <div class="field">
+                <label for="colors">Custom colors</label>
+                <input id="colors" type="checkbox" />
+            </div>
+
+            <div>
+                <label for="size">Custom size (400x400)</label>
+                <input id="size" type="checkbox" />
+            </div>
+
+            <div>
+                <label for="legend">Legend</label>
+                <input id="legend" type="checkbox" checked />
+            </div>
+
+            <div>
+                <label for="title">Title</label>
+                <input id="title" type="text" value="" />
+            </div>
+
+            <div>
+                <label for="title-color">Title color</label>
+                <input id="title-color" type="color" value="" />
+            </div>
+
+            <div>
+                <label for="title-size">Title size</label>
+                <input id="title-size" type="number" value="" />
+            </div>
+        </div>
+        <hr />
+
+        <h1>Horizontal bars</h1>
+        <kup-chart id="hbar"></kup-chart>
+        <hr />
+
+        <h1>Vertical bars</h1>
+        <label for="vbar-stacked">Stacked</label>
+        <input id="vbar-stacked" type="checkbox" />
+        <kup-chart id="vbar"></kup-chart>
+        <hr />
+
+        <h1>Pie</h1>
+        <label for="pie-aspect">3D</label>
+        <input id="pie-aspect" type="checkbox" />
+        <kup-chart id="pie"></kup-chart>
+        <hr />
+
+        <script src="/assets/chart.js"></script>
+    </body>
+</html>

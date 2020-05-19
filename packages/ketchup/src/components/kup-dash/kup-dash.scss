@@ -1,0 +1,190 @@
+/**
+* @prop --dash_background-color, --kup-text-field_font-size: Set height of the font and the svg icon
+*/
+
+:host {
+  --dash_bkg-color: var(--kup-dash_background-color, transparent);
+  --dash_color: var(--kup-dash_color, #111);
+  --dash_border-color: var(--kup-dash_border-color, transparent);
+}
+
+#dash {
+  background-color: var(--dash_bkg-color);
+  border: 1px solid var(--dash_border-color);
+  color: var(--dash_color);
+  font-size: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  position: relative;
+  word-break: normal;
+  &.with-dyn {
+    cursor: pointer;
+  }
+
+  #content {
+    .icon {
+      margin: auto;
+      font-size: 90%;
+    }
+
+    &.layout-1,
+    &.layout-3 {
+      text-align: center;
+
+      .descr {
+        font-size: 70%;
+        width: 100%;
+      }
+
+      .value {
+        font-size: 220%;
+      }
+    }
+
+    &.layout-2 {
+      > div {
+        display: flex;
+
+        .icon {
+          margin: auto;
+          font-size: 150%;
+          margin-right: 5%;
+        }
+
+        .value-int {
+          font-size: 250%;
+        }
+
+        .value-dec,
+        .unit {
+          font-size: 130%;
+          margin-top: auto;
+          margin-bottom: 7%;
+        }
+
+        .value-dec {
+          margin-left: 2%;
+        }
+
+        .unit {
+          margin-left: 4%;
+        }
+      }
+    }
+
+    &.layout-4 {
+      > div {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+
+        .icon {
+          margin: auto;
+          font-size: 150%;
+          margin-right: 5%;
+        }
+
+        .value-and-unit {
+          display: flex;
+
+          .value-int {
+            font-size: 250%;
+          }
+
+          .value-dec,
+          .unit {
+            font-size: 130%;
+            margin-top: auto;
+            margin-bottom: 7%;
+          }
+
+          .value-dec {
+            margin-left: 2%;
+          }
+
+          .unit {
+            margin-left: 4%;
+          }
+        }
+        .descr {
+          margin-left: 4%;
+          text-align: left;
+          font-size: 80%;
+          width: 100%;
+          min-width: max-content;
+        }
+      }
+    }
+
+    &.layout-5,
+    &.layout-7 {
+      > div {
+        display: flex;
+        .icon {
+          font-size: 150%;
+          margin: auto;
+          margin-left: 10%;
+        }
+
+        .value {
+          font-size: 200%;
+        }
+
+        .descr {
+          text-align: right;
+          font-size: 65%;
+          width: 100%;
+          min-width: max-content;
+        }
+      }
+    }
+
+    &.layout-6 {
+      > div {
+        display: flex;
+        justify-content: space-between;
+
+        .icon {
+          font-size: 150%;
+          margin-right: 10%;
+        }
+
+        .value {
+          font-size: 220%;
+          text-align: right;
+        }
+
+        .descr {
+          font-size: 80%;
+          text-align: right;
+          width: 100%;
+          min-width: max-content;
+        }
+      }
+    }
+
+    &.layout-8 {
+      > div {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 4%;
+          font-size: 75%;
+        }
+
+        .value {
+          margin: 0 10%;
+          font-size: 250%;
+        }
+
+        .descr {
+          font-size: 60%;
+          text-align: left;
+        }
+      }
+    }
+  }
+}

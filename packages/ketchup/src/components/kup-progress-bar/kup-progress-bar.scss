@@ -1,0 +1,200 @@
+:host {
+  display: var(--kup-display-mode);
+  width: 100%;
+
+  #kup-component {
+    width: 100%;
+  }
+}
+
+kup-image {
+  margin: auto;
+}
+
+.progress-bar {
+  background: var(--kup-disabled-background-color);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &.has-padding {
+    padding: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+
+  & .progress-bar-percentage {
+    background: var(--kup-main-color);
+    border-radius: 4px;
+    color: var(--kup-text-on-main-color);
+    height: 1.25rem;
+    padding: 0.5rem 0;
+    text-align: center;
+    transition: width 0.2s ease;
+
+    & span {
+      color: var(--kup-text-on-main-color);
+      display: inline-block;
+      font-size: 1rem;
+      left: 0;
+      line-height: 1.268rem;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  &.has-stripes {
+    & .progress-bar-percentage {
+      background-image: linear-gradient(
+        -45deg,
+        rgba(128, 128, 128, 0.125) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(128, 128, 128, 0.125) 50%,
+        rgba(128, 128, 128, 0.125) 75%,
+        transparent 75%,
+        transparent
+      );
+      background-size: 3rem 3rem;
+    }
+
+    &.is-animated {
+      & .progress-bar-percentage {
+        animation: running-stripes 2s linear infinite;
+      }
+    }
+  }
+
+  &.is-slim {
+    border-radius: 9px;
+
+    & .progress-bar-percentage {
+      border-radius: 9px;
+      padding: 0;
+    }
+  }
+}
+
+.is-radial {
+  box-sizing: border-box;
+  font-size: 10rem;
+  margin: auto;
+  width: 10rem;
+  height: 10rem;
+
+  & kup-image {
+    margin-top: 2.25rem;
+  }
+
+  & .pie-wrapper {
+    height: 10rem;
+    width: 10rem;
+    float: left;
+    margin: auto;
+    position: relative;
+
+    &:nth-child(3n + 1) {
+      clear: both;
+    }
+
+    & .pie {
+      height: 10rem;
+      width: 10rem;
+      clip: rect(0, 1em, 1em, 0.5em);
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      &.has-value {
+        & .half-circle {
+          border-color: var(--kup-main-color);
+          &.left-side {
+            transition: transform 0.2s ease;
+          }
+        }
+
+        &.is-less-than-half {
+          & .right-side {
+            display: none;
+          }
+        }
+
+        &.is-more-than-half {
+          clip: rect(auto, auto, auto, auto);
+
+          & .right-side {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      & .half-circle {
+        height: 10rem;
+        width: 10rem;
+        border: 0.1em solid var(--kup-disabled-background-color);
+        border-radius: 50%;
+        clip: rect(0, 0.5em, 1em, 0);
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    & .label {
+      background: none;
+      border-radius: 50%;
+      bottom: 0.4em;
+      color: var(--kup-text-color);
+      cursor: default;
+      display: block;
+      font-size: 0.25em;
+      left: 0.4em;
+      line-height: 2.75em;
+      position: absolute;
+      right: 0.4em;
+      text-align: center;
+      top: 0.4em;
+
+      & .smaller {
+        color: var(--kup-text-color);
+        opacity: 0.8;
+        font-size: 0.45em;
+        padding-bottom: 20px;
+        vertical-align: super;
+      }
+    }
+
+    & .shadow {
+      height: 10rem;
+      width: 10rem;
+      border: 0.1em solid var(--kup-disabled-background-color);
+      border-radius: 50%;
+    }
+
+    &.is-slim {
+      & .pie {
+        & .half-circle {
+          border-width: 0.05em;
+        }
+      }
+      & .shadow {
+        border-width: 0.05em;
+      }
+    }
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+}
+
+@keyframes running-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 3rem 3rem;
+  }
+}

@@ -1,0 +1,1837 @@
+{
+  "columns": [
+    {
+      "name": "DES",
+      "size": 0,
+      "title": "Descrizione"
+    },
+    {
+      "name": "RAW",
+      "size": 0,
+      "title": "Valore raw"
+    },
+    {
+      "name": "BTN",
+      "size": 0,
+      "title": ""
+    }
+  ],
+  "rows": [
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Solo icona",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Solo icona"
+        },
+        "RAW": {
+          "obj": {
+            "k": "I(VO;COD_VER;000112)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "I(VO;COD_VER;000112)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "I(VO;COD_VER;000112)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "0",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Solo immagine",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Solo immagine"
+        },
+        "RAW": {
+          "obj": {
+            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "M(J1;URL;https://via.placeholder.com/64?text=img)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "https://via.placeholder.com/64?text=img"
+          },
+          "obj": {
+            "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "1",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Icona e testo",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Icona e testo"
+        },
+        "RAW": {
+          "obj": {
+            "k": "I(VO;COD_VER;000112) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "I(VO;COD_VER;000112) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "I(VO;COD_VER;000112) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "2",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Immagine e testo",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Immagine e testo"
+        },
+        "RAW": {
+          "obj": {
+            "k": "M(CN;COL;CASFRA) T(bellicapelli)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "M(CN;COL;CASFRA) T(bellicapelli)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "https://via.placeholder.com/64?text=CF"
+          },
+          "obj": {
+            "k": "M(CN;COL;CASFRA) T(bellicapelli)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "bellicapelli"
+        }
+      },
+      "id": "3",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Icona e tooltip",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Icona e tooltip"
+        },
+        "RAW": {
+          "obj": {
+            "k": "I(VO;COD_VER;000112) H(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "I(VO;COD_VER;000112) H(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil",
+            "tooltip": "Edit"
+          },
+          "obj": {
+            "k": "I(VO;COD_VER;000112) H(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "4",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Immagine e tooltip",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Immagine e tooltip"
+        },
+        "RAW": {
+          "obj": {
+            "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "M(CN;COL;CASFRA) H(Bellicapelli)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Bellicapelli"
+          },
+          "obj": {
+            "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "5",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Icona con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Icona con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Test"
+        }
+      },
+      "id": "6",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Immagine con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Immagine con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))"
+        },
+        "BTN": {
+          "config": {
+            "icon": "https://via.placeholder.com/64?text=CF"
+          },
+          "obj": {
+            "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "7",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Icona con exec e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Icona con exec e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
+          },
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "8",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Icona, testo e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Icona, testo e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "S(a) I(VO;COD_VER;000112) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
+          },
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "9",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Link - Solo testo e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Link - Solo testo e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "S(a) I(VO;COD_VER;000112) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "icon": "pencil",
+            "buttonStyle": {
+              "backgroundColor": "#3063a5",
+              "color": "#FFF"
+            }
+          },
+          "obj": {
+            "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "10",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) I(VO;COD_VER;000112)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "11",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) M(CN;COL;CASFRA)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "https://via.placeholder.com/64?text=CF"
+          },
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "12",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona e testo",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona e testo"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) I(VO;COD_VER;000112) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "13",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine e testo",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine e testo"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "https://via.placeholder.com/64?text=CF"
+          },
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "bellicapelli"
+        }
+      },
+      "id": "14",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona e tooltip",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona e tooltip"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) I(VO;COD_VER;000112) H(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil",
+            "tooltip": "Edit"
+          },
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "15",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine e tooltip",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine e tooltip"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Bellicapelli"
+          },
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "16",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "17",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "https://via.placeholder.com/64?text=CF"
+          },
+          "obj": {
+            "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "18",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "https://via.placeholder.com/64?text=SC"
+          },
+          "obj": {
+            "k": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Run action"
+        }
+      },
+      "id": "19",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Immagine con exec",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Immagine con exec"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))"
+        },
+        "BTN": {
+          "config": {
+            "flat": false
+          },
+          "obj": {
+            "k": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Dettaglio"
+        }
+      },
+      "id": "20",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona con exec e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona con exec e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false
+        }
+      },
+      "id": "21",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona, testo e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona, testo e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "22",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Solo testo e style",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Solo testo e style"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) S(a) T(Edit)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) S(a) T(Edit)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false
+          },
+          "obj": {
+            "k": "B(Yes) S(a) T(Edit)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "23",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": {
+            "k": "Button - Icona, testo e Fill",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "Button - Icona, testo e Fill"
+        },
+        "RAW": {
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
+            "p": "",
+            "t": ""
+          },
+          "options": false,
+          "value": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)"
+        },
+        "BTN": {
+          "config": {
+            "flat": false,
+            "fullWidth": true,
+            "icon": "pencil"
+          },
+          "obj": {
+            "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
+            "p": "BTN",
+            "t": "J4"
+          },
+          "options": false,
+          "value": "Edit"
+        }
+      },
+      "id": "24",
+      "layout": {
+        "horizontal": true,
+        "sections": [
+          {
+            "dim": "100%",
+            "horizontal": false,
+            "sections": [
+              {
+                "content": [
+                  {
+                    "column": "DES"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "RAW"
+                  }
+                ],
+                "horizontal": false
+              },
+              {
+                "content": [
+                  {
+                    "column": "BTN"
+                  }
+                ],
+                "horizontal": false
+              }
+            ]
+          }
+        ]
+      },
+      "object": "",
+      "readOnly": true
+    }
+  ]
+}

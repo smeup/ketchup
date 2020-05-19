@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup data table</title>
+        <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        ></link>
+        <script src="https://d3js.org/d3-path.v1.min.js"></script>
+        <script src="https://d3js.org/d3-shape.v1.min.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <script type="module" src="/build/mycomponent.esm.js"></script>
+        <script nomodule src="/build/mycomponent.js"></script>
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Lato"
+            rel="stylesheet"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+        <style>
+            * {
+                box-sizing: border-box;
+                transition: all .125s ease;
+            }
+
+            :focus {
+                outline: none;
+            }
+
+            html {
+                background-color: var(--kup-background-color);
+                color: var(--kup-text-color);
+                font-family: var(--kup-font-family);
+                font-size: var(--kup-font-size);
+                padding: 1rem;
+            }
+
+            .options {
+                margin-bottom: 1rem;
+            }
+
+            hr {
+                margin: 2rem 0;
+            }
+
+            .btn-options {
+                margin-bottom: 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 0.5rem;
+            }
+
+            .BTN {
+                display: block;
+            }
+
+            #theme-tester {
+                position: fixed;
+                right: 0;
+                top: 0;
+                margin: 5px;
+                padding: 20px 10px 20px 10px;
+                box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+                z-index: 100;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="data-examples">
+            <h1>No data</h1>
+            <kup-data-table density="small" show-load-more></kup-data-table>
+
+            <h1>Only columns</h1>
+            <kup-data-table
+                id="only-cols"
+                paginator-pos="Both"
+            ></kup-data-table>
+
+            <h1>Columns and rows</h1>
+            <div style="width: 300px;">
+                <kup-data-table
+                    id="basic-data"
+                    enable-sortable-columns
+                ></kup-data-table
+            ></div>
+
+            <h1>Radio buttons</h1>
+            <kup-data-table id="radio-buttons"></kup-data-table>
+        </div>
+
+        <div class="filter-examples">
+            <h1>Filters</h1>
+            <kup-data-table id="show-filter"></kup-data-table>
+
+            <h1>Filters with initial value</h1>
+            <kup-data-table id="filter"></kup-data-table>
+
+            <h1>Filters with global filter</h1>
+            <kup-data-table id="global-filter"></kup-data-table>
+        </div>
+
+        <div class="sort-examples">
+            <h1>Sort disabled</h1>
+            <kup-data-table sort-enabled="false" id="no-sort"></kup-data-table>
+
+            <h1>DftSort</h1>
+            <p>
+                Sort ascending on first column, sort descending on second column
+            </p>
+            <kup-data-table id="dft-sort"></kup-data-table>
+        </div>
+
+        <div class="pagination-examples">
+            <h1>Pagination</h1>
+            <div>
+                <label for="cols">Number of columns</label>
+                <input id="cols" type="number" value="10" />
+
+                <label for="rows">Number of rows</label>
+                <input id="rows" type="number" value="100" />
+
+                <button type="button" onclick="updatePaginationTable()"
+                    >Submit</button
+                >
+            </div>
+            <kup-data-table paginator-pos="Top" id="pagination"></kup-data-table>
+
+            <h1>Pagination bottom</h1>
+            <kup-data-table paginator-pos="Bottom" id="pagination-bottom"></kup-data-table>
+
+            <h1>Pagination both</h1>
+            <kup-data-table paginator-pos="Both" id="pagination-both"></kup-data-table>
+
+            <h1>Totals test</h1>
+            <kup-data-table id="totals-test"></kup-data-table>
+        </div>
+
+        <h1>Custom columns width (Column A = 100px / Column C = 300px)</h1>
+        <kup-data-table id="custom-columns-width"></kup-data-table>
+
+        <h1>Hidden header</h1>
+        <kup-data-table show-header="false" id="hidden-header"></kup-data-table>
+
+        <h1>Hidden grid</h1>
+        <kup-data-table show-grid="false" id="hidden-grid"></kup-data-table>
+
+        <h1>SelectRow</h1>
+        <kup-data-table select-row="3" id="select-row"></kup-data-table>
+
+        <h1>Graphic cells</h1>
+        <kup-data-table id="graphic-cells"></kup-data-table>
+
+        <script src="/assets/data-table.js"></script>
+        <!-- <script src="/assets/index.js"></script>-->
+        <style>
+            :root {
+                --kup-background-color: #ffffff;
+                --kup-header-background-color: #2e2e2e;
+                --kup-drawer-background-color: #ffffff;
+                --kup-main-color: #d64325;
+                --kup-display-mode: block;
+                --kup-font-family: 'Oswald', sans-serif;
+                --kup-font-size: 16px;
+                --kup-text-on-main-color: #ffffff;
+                --kup-text-color: #2e2e2e;
+                --kup-icon-color: #505050;
+                --kup-hover-background-color: #f0f0f0;
+                --kup-hover-color: #545454;
+                --kup-border-color: #e0e0e0;
+                --kup-disabled-text-color: #5c5c5c;
+                --kup-disabled-background-color: #eaeaea;
+                --kup-field-background-color: #fafafa;
+                --kup-chip-background-color: #eaeaea;
+                --kup-spinner-color: #eaa710;
+                --kup-title-background-color: #f1f3f4;
+
+                --mdc-theme-primary: var(--kup-main-color);
+                --mdc-theme-on-primary: var(--kup-text-on-main-color);
+                --mdc-theme-secondary: var(--kup-main-color);
+                --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+                --mdc-theme-surface: var(--kup-background-color);
+                --mdc-theme-on-surface: var(--kup-text-color);
+                --mdc-theme-background: var(--kup-background-color);
+                --mdc-theme-text-primary-on-background: var(--kup-text-color);
+            }
+        </style>
+    </body>
+</html>

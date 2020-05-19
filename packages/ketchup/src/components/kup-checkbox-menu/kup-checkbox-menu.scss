@@ -1,0 +1,67 @@
+:host {
+  display: inline-block;
+}
+
+.checkbox-menu {
+  $menu-lateral-padding: 8px;
+
+  border: solid 1px grey;
+  border-radius: 2px;
+  display: inline-block;
+
+  // The label to trigger the opening of the menu
+  &__label {
+    cursor: pointer;
+    display: inline-block;
+    padding: $menu-lateral-padding;
+
+    &--disabled {
+      cursor: initial;
+      opacity: 0.54;
+    }
+
+    > kup-image {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+
+  // Container of the elements to put inside the menu top header
+  &-header {
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    display: inline-flex;
+    padding: $menu-lateral-padding;
+
+    > *:nth-child(1n + 2) {
+      margin-left: $menu-lateral-padding;
+    }
+
+    kup-image {
+      cursor: pointer;
+    }
+  }
+
+  // The list
+  &-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 4px $menu-lateral-padding;
+
+    // Each checkbox list item
+    > li {
+      padding: 4px 0;
+
+      // The label container
+      > span {
+        display: inline-block;
+        margin-left: 8px;
+      }
+
+      // Aligns all elements in the middle of the list element
+      > * {
+        vertical-align: middle;
+      }
+    }
+  }
+}

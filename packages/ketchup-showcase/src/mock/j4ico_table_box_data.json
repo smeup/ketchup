@@ -1,0 +1,66 @@
+{
+  "columns": [
+    { "name": "DES", "title": "Descrizione", "size": 10 },
+    { "name": "RAW", "title": "Valore raw", "size": 10 },
+    { "name": "ICON", "title": "Icona", "size": 10 }
+  ],
+  "rows": [
+    {
+      "cells": {
+        "DES": {
+          "obj": { "k": "Icona material", "p": "", "t": "" },
+          "options": false,
+          "value": "Icona material"
+        },
+        "RAW": {
+          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000115" },
+          "value": "VO;COD_AGG;000115"
+        },
+        "ICON": {
+          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000115" },
+          "value": "magnify",
+          "config": { "color": "blue" }
+        }
+      }
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": { "k": "Icona material con style custom", "p": "", "t": "" },
+          "options": false,
+          "value": "Icona material con style custom"
+        },
+        "RAW": {
+          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000011" },
+          "value": "VO;COD_AGG;000011"
+        },
+        "ICON": {
+          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000011" },
+          "value": "brightness-1",
+          "config": { "color": "#B71817" }
+        }
+      }
+    },
+    {
+      "cells": {
+        "DES": {
+          "obj": { "k": "Icona con immagine custom", "p": "", "t": "" },
+          "options": false,
+          "value": "Icona con immagine custom"
+        },
+        "RAW": {
+          "obj": { "t": "", "p": "", "k": "VO;COD_AGG;000012" },
+          "value": "VO;COD_AGG;000012"
+        },
+        "ICON": {
+          "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
+          "value": "https://via.placeholder.com/128?text=CF",
+          "config": {
+            "sizeX": "64px",
+            "sizeY": "64px"
+          }
+        }
+      }
+    }
+  ]
+}
