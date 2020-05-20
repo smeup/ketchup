@@ -1692,7 +1692,7 @@ export class KupDataTable {
         };
     }
 
-    private renderHeader() {
+    private renderHeader(sizedColumns: Column[]) {
         let specialExtraCellsCount: number = 0;
 
         // Renders multiple selection column
@@ -1735,11 +1735,6 @@ export class KupDataTable {
             );
         }
 
-        //  let groupColumn = null;
-        //  if (this.isGrouping() && this.hasTotals()) {
-        //      groupColumn = <th />;
-        //  }
-
         // Renders action column
         let actionsColumn = null;
         if (this.hasRowActions()) {
@@ -1768,7 +1763,7 @@ export class KupDataTable {
 
         // Renders normal cells
         const dataColumns = this.getVisibleColumns().map(
-            (column, columnIndex, sizedColumns) => {
+            (column, columnIndex) => {
                 // Composes column cell style and classes
                 const {
                     columnClass,
@@ -3131,7 +3126,7 @@ export class KupDataTable {
 
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
-        const header = this.renderHeader();
+        const header = this.renderHeader(sizedColumns);
         const stickyHeader = this.renderStickyHeader(sizedColumns);
 
         // footer
