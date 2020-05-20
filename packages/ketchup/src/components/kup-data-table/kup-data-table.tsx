@@ -1850,8 +1850,6 @@ export class KupDataTable {
 
                 // Sets custom columns width
                 if (sizedColumns) {
-                    console.log(sizedColumns);
-                    console.log('come diavolo passi di qui?');
                     for (let i = 0; i < sizedColumns.length; i++) {
                         const currentCol = sizedColumns[i];
 
