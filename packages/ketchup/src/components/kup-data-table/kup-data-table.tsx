@@ -87,6 +87,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-data-table',
@@ -1918,8 +1919,18 @@ export class KupDataTable {
                         let checkBoxesFilter = this.getCheckBoxFilterValues(
                             column.name
                         );
+                        let lcltime = new Date();
+                        let starttime = lcltime.getTime();
                         let columnValues: string[] = this.getColumnValues(
                             column.name
+                        );
+                        lcltime = new Date();
+                        let endtime = lcltime.getTime();
+                        this.log(
+                            'renderHeader',
+                            'time spent for getColumnValues() [' +
+                                (endtime - starttime) +
+                                ']'
                         );
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
@@ -3092,8 +3103,6 @@ export class KupDataTable {
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
         // resetting rows
         this.renderedRows = [];
         let elStyle = undefined;
@@ -3129,7 +3138,15 @@ export class KupDataTable {
 
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
+        let lcltime = new Date();
+        let starttime = lcltime.getTime();
         const header = this.renderHeader();
+        lcltime = new Date();
+        let endtime = lcltime.getTime();
+        this.log(
+            'render',
+            'time spent for renderHeader [' + (endtime - starttime) + ']'
+        );
         const stickyHeader = this.renderStickyHeader();
 
         // footer
@@ -3292,5 +3309,9 @@ export class KupDataTable {
         //let endtime = lcltime.getTime();
         //this.log('render', 'time spent [' + (endtime - starttime) + ']');
         return compCreated;
+    }
+
+    private log(methodName: string, msg: string) {
+        errorLogging('kup-data-table', methodName + '()' + ' - ' + msg, 'log');
     }
 }
