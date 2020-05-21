@@ -2466,37 +2466,6 @@ export class KupDataTable {
 
                 const cell = row.cells[name];
 
-                //let options = null;
-                /**
-                 * Options must be rendered when the option field is specified AND (one of the following):
-                 * 1 - Column do not have to hide repetitions
-                 * 2 - Column has to hide repetitions but we are printing the first row.
-                 * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
-                 * @todo Move this rendering, if possible, inside renderCell()
-                 */
-                //if (
-                //    cell.options &&
-                //    (!hideValuesRepetitions ||
-                //        (hideValuesRepetitions &&
-                //            (!previousRow ||
-                //                previousRow.cells[name].value !== cell.value)))
-                //) {
-                //    options = (
-                //        <span
-                //            class="options"
-                //            role="button"
-                //            aria-label="Opzioni oggetto"
-                //            title="Opzioni oggetto"
-                //            onClick={(e) => {
-                //               e.stopPropagation();
-                //              this.onOptionClicked(name, row);
-                //           }}
-                //       >
-                //           <i class="mdi mdi-settings" />
-                //       </span>
-                //   );
-                //}
-
                 const jsxCell = this.renderCell(
                     indend,
                     cell,
