@@ -768,7 +768,7 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'CN;COL;Customers module',
           },
-          value: 'mdi mdi-account',
+          value: 'account',
         },
         FLD3: {
           obj: {
@@ -826,7 +826,7 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'J1;KEY;CTRL',
           },
-          value: 'mdi mdi-play',
+          value: 'play',
         },
         FLD3: {
           obj: {
