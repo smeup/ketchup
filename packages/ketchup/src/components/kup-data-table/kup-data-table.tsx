@@ -754,12 +754,10 @@ export class KupDataTable {
         let columns = this.getColumns();
         let sizedColumns = [];
         for (let j = 0; j < columns.length; j++) {
-            let stringifiedSize = columns[j].size + '';
             if (
                 columns[j].size !== null &&
                 columns[j].size !== undefined &&
-                stringifiedSize !== '0' &&
-                stringifiedSize !== ''
+                columns[j].size !== ''
             ) {
                 sizedColumns.push(columns[j]);
             }
