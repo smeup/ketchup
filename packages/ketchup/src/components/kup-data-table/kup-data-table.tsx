@@ -1636,7 +1636,6 @@ export class KupDataTable {
      * @param columnIsNumber - If the current columns contains numeric values
      */
     private composeHeaderCellClassAndStyle(
-        columnName: string,
         columnIndex: number,
         extraCells: number = 0,
         columnIsNumber: boolean = false
@@ -1646,23 +1645,6 @@ export class KupDataTable {
     } {
         let columnClass: GenericObject = {},
             thStyle: GenericObject = {};
-
-        // Checks if data table columns have custom width
-        if (this.sizedColumns) {
-            for (let i = 0; i < this.sizedColumns.length; i++) {
-                const currentCol = this.sizedColumns[i];
-
-                if (currentCol.name === columnName) {
-                    const width = currentCol.size;
-                    thStyle = {
-                        width: width,
-                        minWidth: width,
-                        maxWidth: width,
-                    };
-                    break;
-                }
-            }
-        }
 
         // Special class column hosts numbers
         columnClass.number = columnIsNumber;
@@ -1767,7 +1749,6 @@ export class KupDataTable {
                     columnClass,
                     thStyle,
                 } = this.composeHeaderCellClassAndStyle(
-                    column.name,
                     columnIndex,
                     specialExtraCellsCount,
                     isNumber(column.obj)
@@ -1846,10 +1827,12 @@ export class KupDataTable {
                         const currentCol = this.sizedColumns[i];
 
                         if (currentCol.name === column.name) {
-                            const width = currentCol.size;
-                            thStyle.width = width;
-                            thStyle.minWidth = width;
-                            thStyle.maxWidth = width;
+                            const width = currentCol.size + '';
+                            if (width.indexOf('ch') < 1) {
+                                thStyle.width = width;
+                                thStyle.minWidth = width;
+                                thStyle.maxWidth = width;
+                            }
                             thStyle.overflow = 'hidden';
                             break;
                         }
@@ -2173,7 +2156,6 @@ export class KupDataTable {
                     columnClass,
                     thStyle,
                 } = this.composeHeaderCellClassAndStyle(
-                    column.name,
                     columnIndex,
                     specialExtraCellsCount,
                     isNumber(column.obj)
@@ -2695,26 +2677,12 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
-            let columnWidth = '100%';
-            if (this.sizedColumns) {
-                for (let i = 0; i < this.sizedColumns.length; i++) {
-                    const currentCol = this.sizedColumns[i];
-
-                    if (currentCol.name === column.name) {
-                        columnWidth = currentCol.size;
-                    }
-                }
-            }
             const props: {
                 isCanvas: boolean;
                 name: string;
-                sizeX?: string;
-                sizeY: string;
             } = {
                 isCanvas: true,
                 name: cell.value,
-                sizeX: columnWidth,
-                sizeY: '35px',
             };
 
             // Controls if we should display this cell value
