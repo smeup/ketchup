@@ -416,6 +416,7 @@ export class KupDataTable {
     private customizeBottomButtonRef: any;
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
+    private sizedColumns: Column[] = undefined;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -909,21 +910,21 @@ export class KupDataTable {
      * of the table columns fixed width.
      * Table margin gets set to auto to center it.
      */
-    private tableHasAutoWidth(sizedColumns: Column[]): boolean {
-        if (!sizedColumns) {
+    private tableHasAutoWidth(): boolean {
+        if (!this.sizedColumns) {
             return;
         }
         const visibleCols = this.getVisibleColumns();
         // Before checking each column, controls that visible columns are as many as items with custom sizes.
         // If there are more visible columns, it means that the width of the table will be set to auto.
-        if (visibleCols.length <= sizedColumns.length) {
+        if (visibleCols.length <= this.sizedColumns.length) {
             let found = false;
 
             // Each visible column must have its own width for the table to have a auto width
             for (let i = 0; i < visibleCols.length; i++) {
                 found = false;
-                for (let j = 0; j < sizedColumns.length; j++) {
-                    if (visibleCols[i].name === sizedColumns[j].name) {
+                for (let j = 0; j < this.sizedColumns.length; j++) {
+                    if (visibleCols[i].name === this.sizedColumns[j].name) {
                         found = true;
                         break;
                     }
@@ -1640,8 +1641,7 @@ export class KupDataTable {
         columnName: string,
         columnIndex: number,
         extraCells: number = 0,
-        columnIsNumber: boolean = false,
-        sizedColumns: Column[]
+        columnIsNumber: boolean = false
     ): {
         columnClass: GenericObject;
         thStyle: GenericObject;
@@ -1650,9 +1650,9 @@ export class KupDataTable {
             thStyle: GenericObject = {};
 
         // Checks if data table columns have custom width
-        if (sizedColumns) {
-            for (let i = 0; i < sizedColumns.length; i++) {
-                const currentCol = sizedColumns[i];
+        if (this.sizedColumns) {
+            for (let i = 0; i < this.sizedColumns.length; i++) {
+                const currentCol = this.sizedColumns[i];
 
                 if (currentCol.name === columnName) {
                     const width = currentCol.size;
@@ -1692,7 +1692,7 @@ export class KupDataTable {
         };
     }
 
-    private renderHeader(sizedColumns: Column[]) {
+    private renderHeader() {
         let specialExtraCellsCount: number = 0;
 
         // Renders multiple selection column
@@ -1772,8 +1772,7 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj),
-                    sizedColumns
+                    isNumber(column.obj)
                 );
 
                 //---- Filter ----
@@ -1844,9 +1843,9 @@ export class KupDataTable {
                 }
 
                 // Sets custom columns width
-                if (sizedColumns) {
-                    for (let i = 0; i < sizedColumns.length; i++) {
-                        const currentCol = sizedColumns[i];
+                if (this.sizedColumns) {
+                    for (let i = 0; i < this.sizedColumns.length; i++) {
+                        const currentCol = this.sizedColumns[i];
 
                         if (currentCol.name === column.name) {
                             const width = currentCol.size;
@@ -2097,7 +2096,7 @@ export class KupDataTable {
         //  return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
-    private renderStickyHeader(sizedColumns: Column[]) {
+    private renderStickyHeader() {
         let specialExtraCellsCount: number = 0;
 
         let multiSelectColumn = null;
@@ -2179,8 +2178,7 @@ export class KupDataTable {
                     column.name,
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj),
-                    sizedColumns
+                    isNumber(column.obj)
                 );
 
                 return (
@@ -2233,7 +2231,6 @@ export class KupDataTable {
         row: Row,
         level = 0,
         rowCssIndex: number = 0,
-        sizedColumns: Column[],
         previousRow?: Row
     ) {
         const visibleColumns = this.getVisibleColumns();
@@ -2343,7 +2340,6 @@ export class KupDataTable {
                             row,
                             level + 1,
                             groupRowIndex,
-                            sizedColumns,
                             groupRowIndex > 0
                                 ? currentArray[groupRowIndex - 1]
                                 : undefined
@@ -2508,7 +2504,6 @@ export class KupDataTable {
                     cell,
                     row,
                     currentColumn,
-                    sizedColumns,
                     hideValuesRepetitions && previousRow
                         ? previousRow.cells[name].value
                         : undefined
@@ -2544,13 +2539,13 @@ export class KupDataTable {
                 }
 
                 // Controls if there are columns with a specified width
-                if (sizedColumns) {
+                if (this.sizedColumns) {
                     let colWidth: string = '';
 
                     // Search if this column has a specified width
-                    for (let j = 0; j < sizedColumns.length; j++) {
-                        if (name === sizedColumns[j].name) {
-                            colWidth = sizedColumns[j].size;
+                    for (let j = 0; j < this.sizedColumns.length; j++) {
+                        if (name === this.sizedColumns[j].name) {
+                            colWidth = this.sizedColumns[j].size;
                             break;
                         }
                     }
@@ -2630,7 +2625,6 @@ export class KupDataTable {
         cell: Cell,
         row: Row,
         column: Column,
-        sizedColumns: Column[],
         previousRowCellValue?: string
     ) {
         const classObj: Record<string, boolean> = {
@@ -2734,9 +2728,9 @@ export class KupDataTable {
             );
         } else if (isBar(cell.obj)) {
             let columnWidth = '100%';
-            if (sizedColumns) {
-                for (let i = 0; i < sizedColumns.length; i++) {
-                    const currentCol = sizedColumns[i];
+            if (this.sizedColumns) {
+                for (let i = 0; i < this.sizedColumns.length; i++) {
+                    const currentCol = this.sizedColumns[i];
 
                     if (currentCol.name === column.name) {
                         columnWidth = currentCol.size;
@@ -2762,8 +2756,8 @@ export class KupDataTable {
                 ) : null;
         } else if (isChart(cell.obj)) {
             let columnWidth;
-            if (sizedColumns) {
-                columnWidth = sizedColumns.find(
+            if (this.sizedColumns) {
+                columnWidth = this.sizedColumns.find(
                     ({ name: columnName }) => columnName === column.name
                 );
             }
@@ -3092,7 +3086,7 @@ export class KupDataTable {
     render() {
         this.renderedRows = [];
         let elStyle = undefined;
-        let sizedColumns: Column[] = this.getSizedColumns();
+        this.sizedColumns = this.getSizedColumns();
 
         let rows = null;
         if (this.paginatedRows.length === 0) {
@@ -3111,7 +3105,6 @@ export class KupDataTable {
                         row,
                         0,
                         rowIndex + 1,
-                        sizedColumns,
                         rowIndex > 0 ? currentArray[rowIndex - 1] : null
                     )
                 )
@@ -3126,8 +3119,8 @@ export class KupDataTable {
 
         // header
         // for multi selection purposes, this should be called before this.renderedRows has been evaluated
-        const header = this.renderHeader(sizedColumns);
-        const stickyHeader = this.renderStickyHeader(sizedColumns);
+        const header = this.renderHeader();
+        const stickyHeader = this.renderStickyHeader();
 
         // footer
         const footer = this.renderFooter();
@@ -3194,7 +3187,7 @@ export class KupDataTable {
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
-            'auto-width': this.tableHasAutoWidth(sizedColumns),
+            'auto-width': this.tableHasAutoWidth(),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
