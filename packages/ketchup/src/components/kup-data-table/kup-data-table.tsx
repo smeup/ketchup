@@ -2558,6 +2558,7 @@ export class KupDataTable {
                         // Search for "auto-width" class inside the scss file of this component for more details about this
                         cellStyle['max-width'] = colWidth;
                         cellStyle['min-width'] = colWidth;
+                        cellStyle['width'] = colWidth;
                     }
                 }
 
