@@ -112,16 +112,18 @@ export class KupImage {
     }
 
     componentDidRender() {
-        if (this.isCanvas) {
+        if (this.isCanvas && this.resource) {
             this.canvas.height = this.canvas.clientHeight;
             this.canvas.width = this.canvas.clientWidth;
-            this.imageCanvas.drawCanvas(this.name, this.canvas);
+            this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
     }
 
     componentWillRender() {
         this.isUrl = false;
-        if (this.isCanvas) {
+        if (this.name === undefined || this.name === '' || this.name === null) {
+            this.resource = undefined;
+        } else if (this.isCanvas) {
             this.resource = this.name;
         } else if (
             this.name.indexOf('.') > -1 ||
