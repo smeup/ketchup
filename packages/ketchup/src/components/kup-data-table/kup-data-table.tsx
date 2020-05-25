@@ -2677,19 +2677,23 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
-            const props: {
-                data: any;
-                sizeY: string;
-            } = {
-                data: cell.value,
-                sizeY: '35px',
-            };
+            if (cell.config) {
+                let barData = cell.config.data;
+                if (barData) {
+                    const props: {
+                        data: any;
+                        sizeY: string;
+                    } = {
+                        data: barData,
+                        sizeY: '35px',
+                    };
 
-            // Controls if we should display this cell value
-            content =
-                !column.hideValuesRepetitions || valueToDisplay ? (
-                    <kup-image {...props} />
-                ) : null;
+                    content =
+                        !column.hideValuesRepetitions || valueToDisplay ? (
+                            <kup-image {...props} />
+                        ) : null;
+                }
+            }
         } else if (isChart(cell.obj)) {
             let columnWidth;
             if (this.sizedColumns) {
