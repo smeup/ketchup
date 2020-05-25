@@ -10,6 +10,7 @@ import {
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { imageCanvas } from './canvas/kup-image-canvas';
 
 @Component({
     tag: 'kup-image',
@@ -40,6 +41,10 @@ export class KupImage {
      */
     @Prop({ reflect: true }) feedback: boolean = false;
     /**
+     * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+     */
+    @Prop({ reflect: true }) isCanvas: boolean = false;
+    /**
      * The resource used to fetch the image.
      */
     @Prop({ reflect: true }) resource: string = undefined;
@@ -54,6 +59,8 @@ export class KupImage {
 
     private isUrl: boolean = false;
     private elStyle = undefined;
+    private imageCanvas: imageCanvas;
+    canvas: HTMLCanvasElement;
 
     @Event({
         eventName: 'kupImageClick',
@@ -98,6 +105,19 @@ export class KupImage {
     }
 
     //---- Lifecycle hooks ----
+    componentWillLoad() {
+        if (this.isCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas && this.resource) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
+            this.imageCanvas.drawCanvas(this.resource, this.canvas);
+        }
+    }
 
     componentWillRender() {
         this.isUrl = false;
@@ -110,6 +130,16 @@ export class KupImage {
                 this.isUrl = true;
             }
         }
+    }
+
+    renderCanvas() {
+        return (
+            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                <canvas ref={(el) => (this.canvas = el)}>
+                    {this.resource}
+                </canvas>
+            </div>
+        );
     }
 
     renderFromResource() {
@@ -230,7 +260,9 @@ export class KupImage {
             });
         }
 
-        if (this.resource) {
+        if (this.isCanvas) {
+            el = this.renderCanvas();
+        } else if (this.resource) {
             el = this.renderFromResource();
         } else if (this.data) {
             el = this.renderFromData();

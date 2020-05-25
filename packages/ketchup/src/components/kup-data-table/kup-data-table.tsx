@@ -2693,6 +2693,21 @@ export class KupDataTable {
                             <kup-image {...props} />
                         ) : null;
                 }
+            } else {
+                const props: {
+                    resource: string;
+                    sizeY: string;
+                    isCanvas: boolean;
+                } = {
+                    resource: cell.value,
+                    sizeY: '35px',
+                    isCanvas: true,
+                };
+
+                content =
+                    !column.hideValuesRepetitions || valueToDisplay ? (
+                        <kup-image {...props} />
+                    ) : null;
             }
         } else if (isChart(cell.obj)) {
             let columnWidth;

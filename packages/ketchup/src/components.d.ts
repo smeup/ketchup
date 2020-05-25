@@ -713,6 +713,10 @@ export namespace Components {
          */
         "feedback": boolean;
         /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas": boolean;
+        /**
           * The resource used to fetch the image.
          */
         "resource": string;
@@ -2412,6 +2416,10 @@ declare namespace LocalJSX {
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback"?: boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+         */
+        "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
             el: EventTarget;
         }>) => void;
