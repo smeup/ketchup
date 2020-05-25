@@ -152,8 +152,6 @@ export class KupImage {
 
         for (let i = 0; i < this.data.length; i++) {
             let drawStep: JSX.Element = undefined;
-            let stepStyle: any = undefined;
-            let stepId: string = 'step-' + i;
 
             if (!cssDraw[i].shape) {
                 cssDraw[i].shape = 'bar';
@@ -168,8 +166,9 @@ export class KupImage {
                 cssDraw[i].width = '100%';
             }
 
-            let stepClass = 'css-step bottom-aligned';
-            stepStyle = {
+            let stepId: string = 'step-' + i;
+            let stepClass: string = 'css-step bottom-aligned';
+            let stepStyle: any = {
                 backgroundColor: cssDraw[i].color,
                 left: leftProgression + '%',
                 height: cssDraw[i].height,
@@ -177,6 +176,7 @@ export class KupImage {
             };
 
             leftProgression += parseFloat(cssDraw[i].width);
+
             drawStep = (
                 <span id={stepId} class={stepClass} style={stepStyle}></span>
             );
