@@ -75,7 +75,8 @@ export default {
         },
         {
           prop: 'data',
-          description: 'When present, the component will be drawn using CSS.',
+          description:
+            'When present, the component will be drawn using CSS. Check documentation below for more info.',
           type: 'CssDraw[]',
           default: 'undefined',
           try: 'json',
