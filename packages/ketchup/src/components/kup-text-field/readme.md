@@ -78,8 +78,8 @@ Type: `Promise<boolean>`
 ```mermaid
 graph TD;
   kup-text-field --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field

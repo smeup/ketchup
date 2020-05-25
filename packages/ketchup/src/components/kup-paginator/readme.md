@@ -53,8 +53,8 @@ graph TD;
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-button --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
