@@ -99,10 +99,6 @@ export class KupImage {
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {}
-
-    componentDidRender() {}
-
     componentWillRender() {
         this.isUrl = false;
         if (this.resource) {
@@ -179,17 +175,18 @@ export class KupImage {
                 cssDraw[i].width = '100%';
             }
 
+            let stepClass = 'css-step bottom-aligned';
             stepStyle = {
                 backgroundColor: cssDraw[i].color,
-                bottom: '0',
                 left: leftProgression + '%',
-                position: 'absolute',
                 height: cssDraw[i].height,
                 width: cssDraw[i].width,
             };
 
             leftProgression += parseFloat(cssDraw[i].width);
-            drawStep = <span id={stepId} style={stepStyle}></span>;
+            drawStep = (
+                <span id={stepId} class={stepClass} style={stepStyle}></span>
+            );
             steps.push(drawStep);
         }
 
