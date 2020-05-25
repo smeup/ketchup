@@ -124,13 +124,6 @@ export class KupImage {
                 background: this.color,
                 webkitMask: svgMask,
             };
-            image = (
-                <div
-                    id="kup-component"
-                    style={svgStyle}
-                    onClick={(e) => this.onKupClick(e)}
-                ></div>
-            );
         } else {
             image = (
                 <img
