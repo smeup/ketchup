@@ -3,11 +3,14 @@
     <div class="demo-wrapper">
       <p>
         The progress bar component can be styled in a few different ways, in order to suit different UIs.
-        <br />By default, the label will be displayed in the middle of the bar. You can change this in order to display the label
-        in the middle of the filled area by setting to false the
+        <br />By default, the label will be displayed in the middle of the bar.
+        <br />You can change this to display the label
+        in the middle of the filled area, by setting to false the
         <span
           class="code-word"
         >centeredLabel</span> prop.
+        <br />In this case, when the bar value is at least 3%, the label color will be optimized to be displayed on the filled area.
+        <br />In every other case, this will happen when the bar is filled by an amount equal or greater than 50%.
       </p>
       <div class="demo-container">
         <div class="kup-container" style="width: 50%; margin-left: auto; margin-right: auto;">
