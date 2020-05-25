@@ -212,7 +212,7 @@ export class KupButton {
                         class="material-icons mdc-button__icon"
                         sizeX="18px"
                         sizeY="18px"
-                        name={this.icon}
+                        resource={this.icon}
                     ></kup-image>
                 );
             }
@@ -280,7 +280,7 @@ export class KupButton {
                     class="material-icons mdc-icon-button__icon"
                     sizeX="24px"
                     sizeY="24px"
-                    name={this.icon}
+                    resource={this.icon}
                 ></kup-image>
             );
             if (this.toggable) {
@@ -291,7 +291,7 @@ export class KupButton {
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
                         sizeX="24px"
                         sizeY="24px"
-                        name={this.icon}
+                        resource={this.icon}
                     ></kup-image>
                 );
                 if (this.checked) {
@@ -311,7 +311,7 @@ export class KupButton {
                         class="material-icons mdc-icon-button__icon"
                         sizeX="24px"
                         sizeY="24px"
-                        name={iconOff}
+                        resource={iconOff}
                     ></kup-image>
                 );
             }

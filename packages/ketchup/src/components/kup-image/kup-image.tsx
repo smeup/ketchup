@@ -2,14 +2,14 @@ import {
     Component,
     Prop,
     Element,
+    JSX,
     Host,
     Event,
     EventEmitter,
     h,
 } from '@stencil/core';
-import { Badge } from './kup-image-declarations';
+import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { imageCanvas } from './canvas/kup-image-canvas';
 
 @Component({
     tag: 'kup-image',
@@ -32,17 +32,17 @@ export class KupImage {
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
+     * When present, the component will be drawn using CSS.
+     */
+    @Prop({ reflect: true }) data: CssDraw[] = undefined;
+    /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
      */
     @Prop({ reflect: true }) feedback: boolean = false;
     /**
-     * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+     * The resource used to fetch the image.
      */
-    @Prop({ reflect: true }) isCanvas: boolean = false;
-    /**
-     * The name of the icon. It can also contain an URL or a path.
-     */
-    @Prop({ reflect: true }) name: string = undefined;
+    @Prop({ reflect: true }) resource: string = undefined;
     /**
      * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
@@ -51,15 +51,9 @@ export class KupImage {
      * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
     @Prop({ reflect: true }) sizeY: string = '100%';
-    /**
-     * The type of the icon, defaults to "svg".
-     */
-    @Prop({ reflect: true }) type: string = 'svg';
 
-    private resource: string = undefined;
     private isUrl: boolean = false;
-    private imageCanvas: imageCanvas;
-    canvas: HTMLCanvasElement;
+    private elStyle = undefined;
 
     @Event({
         eventName: 'kupImageClick',
@@ -90,7 +84,7 @@ export class KupImage {
     }
 
     onKupLoad(e: Event) {
-        if (this.feedback) {
+        if (this.feedback && this.isUrl) {
             if (this.rootElement.shadowRoot !== undefined) {
                 let spinner = this.rootElement.shadowRoot.querySelector(
                     '#feedback'
@@ -105,56 +99,122 @@ export class KupImage {
 
     //---- Lifecycle hooks ----
 
-    componentWillLoad() {
-        if (this.isCanvas) {
-            this.imageCanvas = new imageCanvas();
-        }
-    }
-
-    componentDidRender() {
-        if (this.isCanvas && this.resource) {
-            this.canvas.height = this.canvas.clientHeight;
-            this.canvas.width = this.canvas.clientWidth;
-            this.imageCanvas.drawCanvas(this.resource, this.canvas);
-        }
-    }
-
     componentWillRender() {
         this.isUrl = false;
-        if (this.name === undefined || this.name === '' || this.name === null) {
-            this.resource = undefined;
-        } else if (this.isCanvas) {
-            this.resource = this.name;
-        } else if (
-            this.name.indexOf('.') > -1 ||
-            this.name.indexOf('/') > -1 ||
-            this.name.indexOf('\\') > -1
-        ) {
-            this.isUrl = true;
-            this.resource = this.name;
-        } else {
-            this.resource =
-                'assets/' + this.type + '/' + this.name + '.' + this.type;
+        if (this.resource) {
+            if (
+                this.resource.indexOf('.') > -1 ||
+                this.resource.indexOf('/') > -1 ||
+                this.resource.indexOf('\\') > -1
+            ) {
+                this.isUrl = true;
+            }
         }
+    }
+
+    renderFromResource() {
+        let svgMask: string = undefined;
+        let svgStyle: any = undefined;
+        let image: Element = undefined;
+
+        if (!this.isUrl) {
+            svgMask = `url('assets/svg/${this.resource}.svg') no-repeat center`;
+            svgStyle = {
+                mask: svgMask,
+                background: this.color,
+                webkitMask: svgMask,
+            };
+        } else {
+            image = (
+                <img
+                    style={this.elStyle}
+                    src={this.resource}
+                    onLoad={(e) => this.onKupLoad(e)}
+                ></img>
+            );
+        }
+
+        return (
+            <div
+                id="kup-component"
+                style={svgStyle}
+                onClick={(e) => this.onKupClick(e)}
+            >
+                {image}
+            </div>
+        );
+    }
+
+    renderFromData() {
+        const cssDraw = this.data;
+        let steps: JSX.Element[] = [];
+        let leftProgression: number = 0;
+
+        for (let i = 0; i < this.data.length; i++) {
+            let drawStep: JSX.Element = undefined;
+
+            if (!cssDraw[i].shape) {
+                cssDraw[i].shape = 'bar';
+            }
+            if (!cssDraw[i].color) {
+                cssDraw[i].color = 'transparent';
+            }
+            if (!cssDraw[i].height) {
+                cssDraw[i].height = '100%';
+            }
+            if (!cssDraw[i].width) {
+                cssDraw[i].width = '100%';
+            }
+
+            let stepId: string = 'step-' + i;
+            let stepClass: string = 'css-step bottom-aligned';
+            let stepStyle: any = {
+                backgroundColor: cssDraw[i].color,
+                left: leftProgression + '%',
+                height: cssDraw[i].height,
+                width: cssDraw[i].width,
+            };
+
+            leftProgression += parseFloat(cssDraw[i].width);
+
+            drawStep = (
+                <span id={stepId} class={stepClass} style={stepStyle}></span>
+            );
+            steps.push(drawStep);
+        }
+
+        return (
+            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                {steps}
+            </div>
+        );
     }
 
     render() {
-        if (this.resource === undefined) {
-            let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-image', message);
-            return;
-        }
-
-        let elStyle = {
+        let el: Element = undefined;
+        let customStyle: string = undefined;
+        let feedback: HTMLElement = undefined;
+        let spinnerLayout: number = undefined;
+        this.elStyle = {
             height: this.sizeY,
             width: this.sizeX,
         };
-        let el: string = this.resource;
-        let spinnerLayout: number;
-        let feedback: HTMLElement;
-        let customStyle = undefined;
+
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
+        }
+
+        if (this.feedback && this.isUrl) {
+            spinnerLayout = 14;
+            feedback = (
+                <div id="feedback" title="Image not loaded yet...">
+                    <kup-spinner
+                        dimensions="3px"
+                        active
+                        layout={spinnerLayout}
+                    ></kup-spinner>
+                </div>
+            );
         }
 
         let badgeCollection = [];
@@ -170,65 +230,23 @@ export class KupImage {
             });
         }
 
-        if (this.feedback) {
-            spinnerLayout = 14;
-            feedback = (
-                <div id="feedback" title="Image not loaded yet...">
-                    <kup-spinner
-                        dimensions="3px"
-                        active
-                        layout={spinnerLayout}
-                    ></kup-spinner>
-                </div>
-            );
+        if (this.resource) {
+            el = this.renderFromResource();
+        } else if (this.data) {
+            el = this.renderFromData();
+        } else {
+            let message = 'Resource undefined, not rendering!';
+            errorLogging('kup-image', message);
+            return;
         }
 
-        if (this.isCanvas) {
-            return (
-                <Host style={elStyle}>
-                    {customStyle}
-                    <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
-                        <canvas ref={(el) => (this.canvas = el)}>
-                            {this.resource}
-                        </canvas>
-                    </div>
-                    {...badgeCollection}
-                </Host>
-            );
-        } else if (this.type === 'svg' && !this.isUrl) {
-            let str = `url(${this.resource}) no-repeat center`;
-            let elStyleSVG = {
-                mask: str,
-                background: this.color,
-                webkitMask: str,
-            };
-            return (
-                <Host style={elStyle}>
-                    {customStyle}
-                    <div
-                        id="kup-component"
-                        style={elStyleSVG}
-                        onClick={(e) => this.onKupClick(e)}
-                    ></div>
-                    {...badgeCollection}
-                </Host>
-            );
-        } else {
-            return (
-                <Host style={elStyle}>
-                    {customStyle}
-                    <div id="kup-component">
-                        {feedback}
-                        <img
-                            style={elStyle}
-                            src={el}
-                            onClick={(e) => this.onKupClick(e)}
-                            onLoad={(e) => this.onKupLoad(e)}
-                        ></img>
-                    </div>
-                    {...badgeCollection}
-                </Host>
-            );
-        }
+        return (
+            <Host style={this.elStyle}>
+                {customStyle}
+                {feedback}
+                {el}
+                {...badgeCollection}
+            </Host>
+        );
     }
 }

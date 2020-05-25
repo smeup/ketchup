@@ -75,8 +75,8 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-button --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-form --> kup-crud
   kup-combobox --> kup-text-field

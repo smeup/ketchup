@@ -1795,7 +1795,7 @@ export class KupDataTable {
                         sortIcon = (
                             <kup-image
                                 class="column-sort"
-                                name={iconName}
+                                resource={iconName}
                                 title={this.getSortDecode(column.name)}
                                 sizeX="18px"
                                 sizeY="18px"
@@ -2256,7 +2256,7 @@ export class KupDataTable {
                             {indent}
                             <span class="icon-container">
                                 <kup-image
-                                    name="arrow_drop_up"
+                                    resource="arrow_drop_up"
                                     class={iconClass}
                                     title="Expand/collapse group"
                                 />
@@ -2298,7 +2298,7 @@ export class KupDataTable {
                                 {indent}
                                 <span class="icon-container">
                                     <kup-image
-                                        name="arrow_drop_up"
+                                        resource="arrow_drop_up"
                                         class={iconClass}
                                         title="Expand/collapse group"
                                     />
@@ -2624,7 +2624,7 @@ export class KupDataTable {
                         badgeData={cell.config ? cell.config.badges : undefined}
                         sizeX="auto"
                         sizeY="var(--dtt_cell-image_max-height)"
-                        name={valueToDisplay}
+                        resource={valueToDisplay}
                     />
                 );
             } else {
@@ -2678,11 +2678,11 @@ export class KupDataTable {
             );
         } else if (isBar(cell.obj)) {
             const props: {
-                isCanvas: boolean;
-                name: string;
+                data: any;
+                sizeY: string;
             } = {
-                isCanvas: true,
-                name: cell.value,
+                data: cell.value,
+                sizeY: '35px',
             };
 
             // Controls if we should display this cell value

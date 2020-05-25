@@ -290,7 +290,9 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            imageTag = <kup-image name={item.icon} sizeX="24px" sizeY="24px" />;
+            imageTag = (
+                <kup-image resource={item.icon} sizeX="24px" sizeY="24px" />
+            );
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),

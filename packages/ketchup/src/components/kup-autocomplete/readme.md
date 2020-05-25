@@ -49,8 +49,8 @@ graph TD;
   kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-list
   kup-text-field --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-list --> kup-image
   kup-list --> kup-radio
