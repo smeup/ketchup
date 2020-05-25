@@ -90,6 +90,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'isCanvas',
+          description:
+            "The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'resource',
           description:
             'The name of the image. It can also contain an URL or a path.',
