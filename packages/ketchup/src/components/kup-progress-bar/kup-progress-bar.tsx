@@ -115,7 +115,7 @@ export class KupProgressBar {
                             sizeX="3rem"
                             sizeY="3rem"
                             color="var(--kup-main-color)"
-                            name={this.icon}
+                            resource={this.icon}
                         ></kup-image>
                     </span>
                 );
@@ -126,7 +126,7 @@ export class KupProgressBar {
                             sizeX="1.25rem"
                             sizeY="1.25rem"
                             color="var(--kup-text-on-main-color)"
-                            name={this.icon}
+                            resource={this.icon}
                         ></kup-image>
                     </span>
                 );

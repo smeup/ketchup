@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-image is-canvas id="demo-component" color="var(--kup-icon-color)" size-x="230px" size-y="140px" type="svg" ></kup-image>',
+        '<kup-image id="demo-component" color="var(--kup-icon-color)"></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -74,6 +74,13 @@ export default {
           try: 'css',
         },
         {
+          prop: 'data',
+          description: 'When present, the component will be drawn using CSS.',
+          type: 'CssDraw[]',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'feedback',
           description:
             'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
@@ -82,15 +89,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'isCanvas',
-          description:
-            "The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'name',
+          prop: 'resource',
           description:
             'The name of the image. It can also contain an URL or a path.',
           type: 'string',
@@ -113,13 +112,6 @@ export default {
           default: '100%',
           try: 'field',
         },
-        {
-          prop: 'type',
-          description: 'The type of the image, defaults to "svg".',
-          type: 'string',
-          default: 'svg',
-          try: 'field',
-        },
       ],
       demoEvents: [
         {
@@ -132,11 +124,22 @@ export default {
         },
       ],
       demoData: {
-        name: 'R000G140B069;33,3\\\\R244G245B240;66,5\\\\R205G033B042;100,0',
-        badgeData: [
+        data: [
+          {
+            color: 'rgb(255,0,0)',
+            width: '12.4%',
+            height: '80%',
+          },
+          {
+            color: 'rgb(255,255,0)',
+            width: '74%',
+            height: '40%',
+          },
+        ],
+        badgeDataX: [
           {
             imageData: {
-              name: 'widgets',
+              resource: 'widgets',
               sizeX: '1rem',
               sizeY: '1rem',
             },
