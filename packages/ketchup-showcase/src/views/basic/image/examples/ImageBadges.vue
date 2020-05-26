@@ -12,7 +12,12 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-image :badgeData.prop="badgeData" size-x="32px" size-y="32px" name="notifications"></kup-image>
+          <kup-image
+            :badgeData.prop="badgeData"
+            size-x="32px"
+            size-y="32px"
+            resource="notifications"
+          ></kup-image>
         </div>
       </div>
     </div>

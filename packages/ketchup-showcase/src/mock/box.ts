@@ -652,7 +652,7 @@ export const imgBadgeData = {
             sizeY: '64px',
             badgeData: [
               {
-                imageData: { name: 'account' },
+                imageData: { resource: 'account' },
                 position: 'BR',
               },
             ],
@@ -702,7 +702,7 @@ export const imgBadgeData = {
                 position: 'TR',
               },
               {
-                imageData: { name: 'widgets' },
+                imageData: { resource: 'widgets' },
                 position: 'BR',
               },
             ],
@@ -752,7 +752,7 @@ export const imgBadgeData = {
                 position: 'TL',
               },
               {
-                imageData: { name: 'account' },
+                imageData: { resource: 'account' },
                 position: 'BL',
               },
             ],
@@ -1129,7 +1129,7 @@ export const boxBadgeData = {
       },
       badgeData: [
         {
-          imageData: { name: 'account' },
+          imageData: { resource: 'account' },
           position: 'TL',
         },
       ],
@@ -1220,7 +1220,7 @@ export const shapeData = {
           config: {
             badgeData: [
               {
-                imageData: { name: 'account' },
+                imageData: { resource: 'account' },
                 position: 'BR',
               },
             ],
@@ -1294,7 +1294,7 @@ export const shapeData = {
           config: {
             badgeData: [
               {
-                imageData: { name: 'account' },
+                imageData: { resource: 'account' },
                 position: 'TL',
               },
             ],

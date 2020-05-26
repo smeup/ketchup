@@ -725,7 +725,7 @@ export class KupTree {
                         badgeData={cell.config ? cell.config.badges : undefined}
                         sizeX="auto"
                         sizeY="var(--dtt_cell-image_max-height)"
-                        name={valueToDisplay}
+                        resource={valueToDisplay}
                     />
                 );
             } else if (isLink(cell.obj)) {
@@ -765,16 +765,13 @@ export class KupTree {
                 );
             } else if (isBar(cell.obj)) {
                 const props: {
-                    isCanvas: boolean;
-                    name: string;
-                    sizeX?: string;
+                    data: any;
                     sizeY: string;
                 } = {
-                    isCanvas: true,
-                    name: cell.value,
-                    sizeX: '100%',
+                    data: cell.value,
                     sizeY: '35px',
                 };
+
                 content = valueToDisplay ? <kup-image {...props} /> : null;
             } else if (isChart(cell.obj)) {
                 const props: {
@@ -929,7 +926,7 @@ export class KupTree {
                     class="expand-icon kup-tree__icon kup-tree__node__expander"
                     sizeX="1.5rem"
                     sizeY="1.5rem"
-                    name="menu-right"
+                    resource="menu-right"
                     onClick={
                         hasExpandIcon && !treeNodeData.disabled
                             ? (event) => {
@@ -976,7 +973,7 @@ export class KupTree {
                             class="kup-tree__icon"
                             sizeX="1.5rem"
                             sizeY="1.5rem"
-                            name={treeNodeData.icon}
+                            resource={treeNodeData.icon}
                             color={treeNodeData.iconColor}
                         ></kup-image>
                     );

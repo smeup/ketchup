@@ -11,7 +11,7 @@ export class imageCanvas {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
 
-    drawCanvas(value: string, canvas: HTMLCanvasElement) {
+    async drawCanvas(value: string, canvas: HTMLCanvasElement) {
         this.value = value;
         this.canvas = canvas;
         this.draw();

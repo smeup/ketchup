@@ -222,7 +222,7 @@ export class KupCheckboxMenu {
                     onClick={this.menuStateToggle.bind(this)}
                 >
                     {this.label}
-                    <kup-image name="drop_down_arrow" />
+                    <kup-image resource="drop_down_arrow" />
                 </span>
 
                 <kup-menu
@@ -245,7 +245,7 @@ export class KupCheckboxMenu {
                             />
                         ) : null}
                         <kup-image
-                            name="close"
+                            resource="close"
                             onClick={this.closeMenu.bind(this)}
                         />
                     </div>

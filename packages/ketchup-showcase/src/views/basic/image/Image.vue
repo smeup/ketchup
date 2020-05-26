@@ -11,9 +11,12 @@
         <image-badges></image-badges>
       </template>
       <template v-slot:3>
-        <image-material-list></image-material-list>
+        <image-css></image-css>
       </template>
       <template v-slot:4>
+        <image-material-list></image-material-list>
+      </template>
+      <template v-slot:5>
         <image-extra-list></image-extra-list>
       </template>
     </comp>
@@ -24,6 +27,7 @@
 import ImageDemo from '@/views/basic/image/examples/ImageDemo';
 import ImageBasic from '@/views/basic/image/examples/ImageBasic';
 import ImageBadges from '@/views/basic/image/examples/ImageBadges';
+import ImageCss from '@/views/basic/image/examples/ImageCss';
 import ImageMaterialList from '@/views/basic/image/examples/ImageMaterialList';
 import ImageExtraList from '@/views/basic/image/examples/ImageExtraList';
 import Comp from '@/views/advanced/page/templates/Comp';
@@ -32,6 +36,7 @@ export default {
     ImageDemo,
     ImageBasic,
     ImageBadges,
+    ImageCss,
     ImageMaterialList,
     ImageExtraList,
     Comp,
@@ -45,6 +50,7 @@ export default {
         'Playground',
         'Basic usage',
         'Badges',
+        'Drawing with CSS',
         'Material Design SVG List',
         'Extra SVG icons list',
       ],

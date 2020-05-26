@@ -17,7 +17,7 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
-import { Badge, } from "./components/kup-image/kup-image-declarations";
+import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -705,6 +705,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * When present, the component will be drawn using CSS.
+         */
+        "data": CssDraw[];
+        /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback": boolean;
@@ -713,9 +717,9 @@ export namespace Components {
          */
         "isCanvas": boolean;
         /**
-          * The name of the icon. It can also contain an URL or a path.
+          * The resource used to fetch the image.
          */
-        "name": string;
+        "resource": string;
         /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */
@@ -724,10 +728,6 @@ export namespace Components {
           * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */
         "sizeY": string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type": string;
     }
     interface KupImageButton {
         /**
@@ -2409,6 +2409,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * When present, the component will be drawn using CSS.
+         */
+        "data"?: CssDraw[];
+        /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback"?: boolean;
@@ -2416,16 +2420,16 @@ declare namespace LocalJSX {
           * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
          */
         "isCanvas"?: boolean;
-        /**
-          * The name of the icon. It can also contain an URL or a path.
-         */
-        "name"?: string;
         "onKupImageClick"?: (event: CustomEvent<{
             el: EventTarget;
         }>) => void;
         "onKupImageLoad"?: (event: CustomEvent<{
             el: EventTarget;
         }>) => void;
+        /**
+          * The resource used to fetch the image.
+         */
+        "resource"?: string;
         /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */
@@ -2434,10 +2438,6 @@ declare namespace LocalJSX {
           * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */
         "sizeY"?: string;
-        /**
-          * The type of the icon, defaults to "svg".
-         */
-        "type"?: string;
     }
     interface KupImageButton {
         /**

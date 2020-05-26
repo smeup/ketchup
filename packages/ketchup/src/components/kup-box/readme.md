@@ -107,8 +107,8 @@ graph TD;
   kup-box --> kup-combobox
   kup-box --> kup-paginator
   kup-badge --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-button --> kup-image
   kup-text-field --> kup-image
   kup-progress-bar --> kup-image
