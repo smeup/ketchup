@@ -26,7 +26,6 @@
         In the example below we'll draw a bar which occupies the 50% of its container,
         both vertically and horizontally, and which is colored using the main color of the app.
       </p>
-      <br />
       <div class="demo-container">
         <div
           class="kup-container"
