@@ -705,7 +705,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * When present, the component will be drawn using CSS.
+          * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
         "data": CssDraw[];
         /**
@@ -713,7 +713,7 @@ export namespace Components {
          */
         "feedback": boolean;
         /**
-          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+          * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
          */
         "isCanvas": boolean;
         /**
@@ -2409,7 +2409,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * When present, the component will be drawn using CSS.
+          * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
         "data"?: CssDraw[];
         /**
@@ -2417,7 +2417,7 @@ declare namespace LocalJSX {
          */
         "feedback"?: boolean;
         /**
-          * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+          * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
          */
         "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
