@@ -33,7 +33,7 @@ export class KupImage {
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
-     * When present, the component will be drawn using CSS.
+     * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
      */
     @Prop({ reflect: true }) data: CssDraw[] = undefined;
     /**
@@ -41,7 +41,7 @@ export class KupImage {
      */
     @Prop({ reflect: true }) feedback: boolean = false;
     /**
-     * The image component will create a canvas element on which it's possible to draw. Instructions will be added to this page in the future.
+     * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
      */
     @Prop({ reflect: true }) isCanvas: boolean = false;
     /**
@@ -134,7 +134,11 @@ export class KupImage {
 
     renderCanvas() {
         return (
-            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+            <div
+                id="kup-component"
+                onClick={(e) => this.onKupClick(e)}
+                class="is-canvas"
+            >
                 <canvas ref={(el) => (this.canvas = el)}>
                     {this.resource}
                 </canvas>
@@ -167,6 +171,7 @@ export class KupImage {
         return (
             <div
                 id="kup-component"
+                class="is-resource"
                 style={svgStyle}
                 onClick={(e) => this.onKupClick(e)}
             >
@@ -214,7 +219,11 @@ export class KupImage {
         }
 
         return (
-            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+            <div
+                id="kup-component"
+                class="is-css"
+                onClick={(e) => this.onKupClick(e)}
+            >
                 {steps}
             </div>
         );
