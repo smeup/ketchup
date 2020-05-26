@@ -134,7 +134,11 @@ export class KupImage {
 
     renderCanvas() {
         return (
-            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+            <div
+                id="kup-component"
+                onClick={(e) => this.onKupClick(e)}
+                class="is-canvas"
+            >
                 <canvas ref={(el) => (this.canvas = el)}>
                     {this.resource}
                 </canvas>
@@ -167,6 +171,7 @@ export class KupImage {
         return (
             <div
                 id="kup-component"
+                class="is-resource"
                 style={svgStyle}
                 onClick={(e) => this.onKupClick(e)}
             >
@@ -214,7 +219,11 @@ export class KupImage {
         }
 
         return (
-            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+            <div
+                id="kup-component"
+                class="is-css"
+                onClick={(e) => this.onKupClick(e)}
+            >
                 {steps}
             </div>
         );
