@@ -2,7 +2,7 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Another feature of the list is that it can be displayed as a transient menu. In order to activate this feature the
+        Another feature of the list is the displaying of it as a context menu. In order to activate this feature the
         <span
           class="code-word"
         >isMenu</span> prop must be set to true. Considering the nature of this layout, which is usually displayed after an interface action, by default it is hidden.
