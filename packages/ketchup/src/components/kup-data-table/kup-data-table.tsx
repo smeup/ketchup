@@ -2693,7 +2693,7 @@ export class KupDataTable {
                             <kup-image {...props} />
                         ) : null;
                 }
-            } else if (cell.value && cell.value !== '') {
+            } else if (cell.value) {
                 const props: {
                     resource: string;
                     sizeY: string;
