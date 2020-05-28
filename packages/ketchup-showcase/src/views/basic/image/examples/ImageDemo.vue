@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-image id="demo-component" color="var(--kup-icon-color)"></kup-image>',
+        '<kup-image size-x="128px" size-y="128px" id="demo-component" resource="widgets" color="var(--kup-icon-color)"></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -76,7 +76,7 @@ export default {
         {
           prop: 'data',
           description:
-            'When present, the component will be drawn using CSS. Check documentation below for more info.',
+            'When present, the component will be drawn using CSS. Check the "Drawing with CSS" section of the image showcase for more information.',
           type: 'CssDraw[]',
           default: 'undefined',
           try: 'json',
@@ -85,6 +85,14 @@ export default {
           prop: 'feedback',
           description:
             'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'isCanvas',
+          description:
+            "The image component will create a canvas element on which it's possible to draw.  It's a temporary feature that will be fully replaced by CSS drawing in the future.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -125,24 +133,13 @@ export default {
         },
       ],
       demoData: {
-        data: [
-          {
-            color: 'rgb(255,0,0)',
-            width: '12.4%',
-            height: '80%',
-          },
-          {
-            color: 'rgb(255,255,0)',
-            width: '74%',
-            height: '40%',
-          },
-        ],
-        badgeDataX: [
+        badgeData: [
           {
             imageData: {
-              resource: 'widgets',
-              sizeX: '1rem',
-              sizeY: '1rem',
+              resource:
+                'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+              sizeX: '1.75rem',
+              sizeY: 'auto',
             },
             position: 'BL',
           },

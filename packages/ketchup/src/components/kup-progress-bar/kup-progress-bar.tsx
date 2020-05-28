@@ -104,6 +104,11 @@ export class KupProgressBar {
 
         if (!this.centeredLabel) {
             labelStyle = valueStyle;
+            if (this.value > 2) {
+                componentClass += ' text-color-on-main';
+            }
+        } else if (this.value > 49) {
+            componentClass += ' text-color-on-main';
         }
 
         let label = null;

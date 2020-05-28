@@ -2677,19 +2677,46 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
-            const props: {
-                data: any;
-                sizeY: string;
-            } = {
-                data: cell.value,
-                sizeY: '35px',
-            };
+            if (cell.config) {
+                let barData = cell.config.data;
+                let barHeight = '26px';
+                if (this.density === 'medium') {
+                    barHeight = '36px';
+                }
+                if (this.density === 'big') {
+                    barHeight = '50px';
+                }
 
-            // Controls if we should display this cell value
-            content =
-                !column.hideValuesRepetitions || valueToDisplay ? (
-                    <kup-image {...props} />
-                ) : null;
+                if (barData) {
+                    const props: {
+                        data: any;
+                        sizeY: string;
+                    } = {
+                        data: barData,
+                        sizeY: barHeight,
+                    };
+
+                    content =
+                        !column.hideValuesRepetitions || valueToDisplay ? (
+                            <kup-image {...props} />
+                        ) : null;
+                }
+            } else if (cell.value) {
+                const props: {
+                    resource: string;
+                    sizeY: string;
+                    isCanvas: boolean;
+                } = {
+                    resource: cell.value,
+                    sizeY: '35px',
+                    isCanvas: true,
+                };
+
+                content =
+                    !column.hideValuesRepetitions || valueToDisplay ? (
+                        <kup-image {...props} />
+                    ) : null;
+            }
         } else if (isChart(cell.obj)) {
             let columnWidth;
             if (this.sizedColumns) {

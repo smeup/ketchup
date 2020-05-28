@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { imageCanvas } from './canvas/kup-image-canvas';
 
 @Component({
     tag: 'kup-image',
@@ -34,13 +35,17 @@ export class KupImage {
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
-     * When present, the component will be drawn using CSS.
+     * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
      */
     @Prop({ reflect: true }) data: CssDraw[] = undefined;
     /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
      */
     @Prop({ reflect: true }) feedback: boolean = false;
+    /**
+     * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+     */
+    @Prop({ reflect: true }) isCanvas: boolean = false;
     /**
      * The resource used to fetch the image.
      */
@@ -56,6 +61,8 @@ export class KupImage {
 
     private isUrl: boolean = false;
     private elStyle = undefined;
+    private imageCanvas: imageCanvas;
+    canvas: HTMLCanvasElement;
 
     @Event({
         eventName: 'kupImageClick',
@@ -100,6 +107,19 @@ export class KupImage {
     }
 
     //---- Lifecycle hooks ----
+    componentWillLoad() {
+        if (this.isCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas && this.resource) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
+            this.imageCanvas.drawCanvas(this.resource, this.canvas);
+        }
+    }
 
     componentWillRender() {
         this.isUrl = false;
@@ -112,6 +132,20 @@ export class KupImage {
                 this.isUrl = true;
             }
         }
+    }
+
+    renderCanvas() {
+        return (
+            <div
+                id="kup-component"
+                onClick={(e) => this.onKupClick(e)}
+                class="is-canvas"
+            >
+                <canvas ref={(el) => (this.canvas = el)}>
+                    {this.resource}
+                </canvas>
+            </div>
+        );
     }
 
     renderFromResource() {
@@ -127,13 +161,6 @@ export class KupImage {
                 background: this.color,
                 webkitMask: svgMask,
             };
-            image = (
-                <div
-                    id="kup-component"
-                    style={svgStyle}
-                    onClick={(e) => this.onKupClick(e)}
-                ></div>
-            );
         } else {
             image = (
                 <img
@@ -147,6 +174,7 @@ export class KupImage {
         return (
             <div
                 id="kup-component"
+                class="is-resource"
                 style={svgStyle}
                 onClick={(e) => this.onKupClick(e)}
             >
@@ -162,8 +190,6 @@ export class KupImage {
 
         for (let i = 0; i < this.data.length; i++) {
             let drawStep: JSX.Element = undefined;
-            let stepStyle: any = undefined;
-            let stepId: string = 'step-' + i;
 
             if (!cssDraw[i].shape) {
                 cssDraw[i].shape = 'bar';
@@ -178,8 +204,9 @@ export class KupImage {
                 cssDraw[i].width = '100%';
             }
 
-            let stepClass = 'css-step bottom-aligned';
-            stepStyle = {
+            let stepId: string = 'step-' + i;
+            let stepClass: string = 'css-step bottom-aligned';
+            let stepStyle: any = {
                 backgroundColor: cssDraw[i].color,
                 left: leftProgression + '%',
                 height: cssDraw[i].height,
@@ -187,6 +214,7 @@ export class KupImage {
             };
 
             leftProgression += parseFloat(cssDraw[i].width);
+
             drawStep = (
                 <span id={stepId} class={stepClass} style={stepStyle}></span>
             );
@@ -194,7 +222,11 @@ export class KupImage {
         }
 
         return (
-            <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+            <div
+                id="kup-component"
+                class="is-css"
+                onClick={(e) => this.onKupClick(e)}
+            >
                 {steps}
             </div>
         );
@@ -240,13 +272,15 @@ export class KupImage {
             });
         }
 
-        if (this.resource) {
+        if (this.isCanvas) {
+            el = this.renderCanvas();
+        } else if (this.resource) {
             el = this.renderFromResource();
         } else if (this.data) {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-image', message);
+            errorLogging(this.rootElement.tagName, message);
             return;
         }
 

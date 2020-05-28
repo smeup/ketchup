@@ -705,13 +705,17 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * When present, the component will be drawn using CSS.
+          * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
         "data": CssDraw[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback": boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+         */
+        "isCanvas": boolean;
         /**
           * The resource used to fetch the image.
          */
@@ -2405,13 +2409,17 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * When present, the component will be drawn using CSS.
+          * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
         "data"?: CssDraw[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
         "feedback"?: boolean;
+        /**
+          * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+         */
+        "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
             el: EventTarget;
         }>) => void;
