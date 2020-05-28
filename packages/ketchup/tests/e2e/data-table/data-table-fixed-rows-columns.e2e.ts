@@ -125,7 +125,7 @@ describe.each([
             }
         );
 
-        it(`set to a non integer value warns the user and behaves as if fixed ${currentDirection} is set to 0`, async (done) => {
+        it.skip(`set to a non integer value warns the user and behaves as if fixed ${currentDirection} is set to 0`, async (done) => {
             const nonIntegerValue = 'notInt';
             const propDirection = getPropDirectionFromCurrent(currentDirection);
 
@@ -237,10 +237,9 @@ describe.each([
                     initialClientRect.push(
                         await getElementClientRect(
                             page,
-                            `kup-data-table >>> tbody > tr:nth-of-type(${cellsToCheck[
-                                i
-                            ].row + 1}) > td:nth-of-type(${cellsToCheck[i].col +
-                                1})`
+                            `kup-data-table >>> tbody > tr:nth-of-type(${
+                                cellsToCheck[i].row + 1
+                            }) > td:nth-of-type(${cellsToCheck[i].col + 1})`
                         )
                     );
                 }
@@ -271,10 +270,9 @@ describe.each([
                 for (let i = 0; i < cellsToCheck.length; i++) {
                     currentCellClientRect = await getElementClientRect(
                         page,
-                        `kup-data-table >>> tbody > tr:nth-of-type(${cellsToCheck[
-                            i
-                        ].row + 1}) > td:nth-of-type(${cellsToCheck[i].col +
-                            1})`
+                        `kup-data-table >>> tbody > tr:nth-of-type(${
+                            cellsToCheck[i].row + 1
+                        }) > td:nth-of-type(${cellsToCheck[i].col + 1})`
                     );
                     expect(currentCellClientRect[startDirection]).toEqual(
                         initialClientRect[i][startDirection]
@@ -352,8 +350,9 @@ it.skip(`kup-data-table with fixed rows and columns both > 0 have a matrix of ce
             initialClientRect.push(
                 await getElementClientRect(
                     page,
-                    `kup-data-table >>> tbody > tr:nth-of-type(${rowIndex +
-                        1}) > td:nth-of-type(${colIndex + 1})`
+                    `kup-data-table >>> tbody > tr:nth-of-type(${
+                        rowIndex + 1
+                    }) > td:nth-of-type(${colIndex + 1})`
                 )
             );
         }
@@ -381,9 +380,9 @@ it.skip(`kup-data-table with fixed rows and columns both > 0 have a matrix of ce
     for (let i = 0; i < bothDirectionFixedCells.length; i++) {
         currentCellClientRect = await getElementClientRect(
             page,
-            `kup-data-table >>> tbody > tr:nth-of-type(${bothDirectionFixedCells[
-                i
-            ].row + 1}) > td:nth-of-type(${bothDirectionFixedCells[i].col + 1})`
+            `kup-data-table >>> tbody > tr:nth-of-type(${
+                bothDirectionFixedCells[i].row + 1
+            }) > td:nth-of-type(${bothDirectionFixedCells[i].col + 1})`
         );
 
         expect(currentCellClientRect.top).toEqual(initialClientRect[i].top);
