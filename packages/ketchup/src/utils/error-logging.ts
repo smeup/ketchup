@@ -17,6 +17,14 @@ export function errorLogging(comp: string, message: string, type?: string) {
             d.getHours().toString().length == 1
                 ? '0' + d.getHours()
                 : d.getHours(),
+        seconds =
+            d.getSeconds().toString().length == 1
+                ? '0' + d.getSeconds()
+                : d.getSeconds(),
+        milliseconds =
+            d.getMilliseconds().toString().length == 1
+                ? '0' + d.getMilliseconds()
+                : d.getMilliseconds(),
         ampm = d.getHours() >= 12 ? 'pm' : 'am',
         months = [
             'Jan',
@@ -45,6 +53,10 @@ export function errorLogging(comp: string, message: string, type?: string) {
         hours +
         ':' +
         minutes +
+        ':' +
+        seconds +
+        ',' +
+        milliseconds +
         ampm;
 
     switch (type) {
