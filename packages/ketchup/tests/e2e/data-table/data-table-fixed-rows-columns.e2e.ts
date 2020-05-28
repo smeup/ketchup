@@ -125,7 +125,7 @@ describe.each([
             }
         );
 
-        it.skip(`set to a non integer value warns the user and behaves as if fixed ${currentDirection} is set to 0`, async (done) => {
+        it(`set to a non integer value warns the user and behaves as if fixed ${currentDirection} is set to 0`, async (done) => {
             const nonIntegerValue = 'notInt';
             const propDirection = getPropDirectionFromCurrent(currentDirection);
 
