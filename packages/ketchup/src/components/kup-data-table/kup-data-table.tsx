@@ -2679,13 +2679,21 @@ export class KupDataTable {
         } else if (isBar(cell.obj)) {
             if (cell.config) {
                 let barData = cell.config.data;
+                let barHeight = '26px';
+                if (this.density === 'medium') {
+                    barHeight = '36px';
+                }
+                if (this.density === 'big') {
+                    barHeight = '50px';
+                }
+
                 if (barData) {
                     const props: {
                         data: any;
                         sizeY: string;
                     } = {
                         data: barData,
-                        sizeY: '35px',
+                        sizeY: barHeight,
                     };
 
                     content =
