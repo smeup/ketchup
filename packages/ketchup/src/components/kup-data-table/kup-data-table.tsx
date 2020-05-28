@@ -14,7 +14,6 @@ import {
 import numeral from 'numeral';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { positionRecalc } from '../../utils/recalc-position';
-import { errorLogging } from '../../utils/error-logging';
 
 import {
     Cell,
@@ -660,8 +659,6 @@ export class KupDataTable {
     }
 
     componentDidRender() {
-        let message = 'Component did render START';
-        errorLogging('kup-data-table', message);
         const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
         if (
@@ -703,8 +700,6 @@ export class KupDataTable {
             this.scrollOnHoverInstance = undefined;
         }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
-        message = 'Component did render END';
-        errorLogging('kup-data-table', message);
     }
 
     componentDidLoad() {
@@ -2698,7 +2693,7 @@ export class KupDataTable {
                             <kup-image {...props} />
                         ) : null;
                 }
-            } else {
+            } else if (cell.value && cell.value !== '') {
                 const props: {
                     resource: string;
                     sizeY: string;
@@ -3044,8 +3039,6 @@ export class KupDataTable {
     }
 
     render() {
-        let message = 'Component render START';
-        errorLogging('kup-data-table', message);
         this.renderedRows = [];
         let elStyle = undefined;
         this.sizedColumns = this.getSizedColumns();
@@ -3240,8 +3233,6 @@ export class KupDataTable {
                 {paginatorBottom}
             </div>
         );
-        message = 'Component render END';
-        errorLogging('kup-data-table', message);
         return compCreated;
     }
 }
