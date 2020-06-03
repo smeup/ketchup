@@ -76,6 +76,10 @@ export class KupTree {
      */
     @Prop() data: TreeNode[] = [];
     /**
+     * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
+     */
+    @Prop({ reflect: true }) density: string = 'medium';
+    /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
      *
@@ -1116,6 +1120,15 @@ export class KupTree {
     }
 
     render() {
+        let wrapperClass: string = 'density-medium';
+        switch (this.density) {
+            case 'dense':
+                wrapperClass = 'density-dense';
+                break;
+            case 'wide':
+                wrapperClass = 'density-wide';
+                break;
+        }
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
@@ -1170,7 +1183,7 @@ export class KupTree {
         return (
             <Host>
                 {customStyle}
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
                         ref={(el) => (this.treeWrapperRef = el as any)}
