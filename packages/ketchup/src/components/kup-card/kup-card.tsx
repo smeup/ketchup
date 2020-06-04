@@ -88,8 +88,14 @@ export class KupCard {
 
     //---- Lifecycle hooks ----
 
-    componentDidRender() {
+    componentDidLoad() {
         document.addEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    componentDidUnload() {
+        document.removeEventListener('kupButtonClick', (e) => {
             this.onKupEvent(e);
         });
     }
