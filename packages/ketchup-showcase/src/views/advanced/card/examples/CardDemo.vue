@@ -1,6 +1,12 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoData="demoData"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoEvents="demoEvents"
+      :demoData="demoData"
+    ></demo>
   </div>
 </template>
 
@@ -19,6 +25,11 @@ export default {
           text: 'Props',
           icon: '',
           active: true,
+        },
+        {
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
           text: 'HTML',
@@ -90,6 +101,12 @@ export default {
           type: 'string',
           default: '100%',
           try: 'field',
+        },
+      ],
+      demoEvents: [
+        {
+          name: 'kupCardEvent',
+          type: 'custom',
         },
       ],
       demoData: {
