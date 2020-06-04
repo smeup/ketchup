@@ -34,6 +34,7 @@ export function create1(data: ComponentCardElement) {
     let progressBar1: KupProgressBar = (
         <kup-progress-bar
             id="progressBar1"
+            is-slim
             {...data['progressBar1']}
         ></kup-progress-bar>
     );
@@ -95,6 +96,36 @@ export function create2(data: ComponentCardElement) {
                     <div>{data['text1']}</div>
                 </div>
                 {button1}
+            </div>
+        </div>
+    );
+}
+
+export function create3(data: ComponentCardElement) {
+    let componentClass = 'layout-3';
+    let CSSVariables = {
+        ['--color-1']: data['color1'],
+    };
+    let image1: KupImage = (
+        <kup-image
+            id="image1"
+            sizeX="auto"
+            customStyle="img {border-radius: 50%; margin: auto;}"
+            {...data['image2']}
+        ></kup-image>
+    );
+    return (
+        <div class={componentClass} style={CSSVariables}>
+            <div class="section-1"></div>
+            <div class="section-2">
+                <div class="sub-2 image">{image1}</div>
+                <div class="sub-2 text">
+                    <div>{data['text1']}</div>
+                </div>
+            </div>
+            <div class="section-3">
+                <div class="sub-3 emph-text">{data['emphText1']}</div>
+                <div class="sub-3 emph-text">{data['progressBar1'].value}%</div>
             </div>
         </div>
     );
