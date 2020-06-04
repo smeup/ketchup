@@ -40,6 +40,7 @@
  - [kup-box](../kup-box)
  - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
+ - [kup-card](../kup-card)
  - [kup-crud](../kup-crud)
  - [kup-data-table](../kup-data-table)
  - [kup-field](../kup-field)
@@ -64,6 +65,7 @@ graph TD;
   kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
+  kup-card --> kup-button
   kup-crud --> kup-button
   kup-data-table --> kup-button
   kup-field --> kup-button

@@ -27,6 +27,7 @@
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-tree](../kup-tree)
@@ -43,6 +44,7 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-box --> kup-progress-bar
+  kup-card --> kup-progress-bar
   kup-data-table --> kup-progress-bar
   kup-form --> kup-progress-bar
   kup-tree --> kup-progress-bar
