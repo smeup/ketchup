@@ -95,7 +95,7 @@ export default {
       demoData: {
         data: {
           button1: { icon: 'play', flat: true },
-          color1: 'green',
+          color1: '#498204',
           color2: 'var(--kup-title-background-color)',
           emphText1: 'Ketch.UP',
           emphText2: 'High',

@@ -1,0 +1,45 @@
+.layout-2 {
+  box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  .section-1 {
+    background-color: var(--color-1);
+    flex: 0 0 10%;
+    max-width: 10%;
+
+    .emph-text {
+      color: var(--dyn-color-1);
+      height: 100%;
+      text-align: center;
+      writing-mode: vertical-lr;
+      margin: auto;
+      font-size: 1.25rem;
+    }
+  }
+
+  .section-2 {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex: 0 0 90%;
+    flex-direction: column;
+    max-width: 90%;
+
+    .sub-2 {
+      margin: auto;
+
+      kup-progress-bar {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  kup-button {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+  }
+}

@@ -63,10 +63,40 @@ export function create1(data: ComponentCardElement) {
 
 export function create2(data: ComponentCardElement) {
     let componentClass = 'layout-2';
+    let CSSVariables = {
+        ['--color-1']: data['color1'],
+        ['--dyn-color-1']: getContrastYIQ(data['color1']),
+    };
+    let button1: KupButton = <kup-button {...data['button1']}></kup-button>;
+    let progressBar1: KupProgressBar = (
+        <kup-progress-bar
+            is-radial
+            icon={...data['image1'].resource}
+            {...data['progressBar1']}
+        ></kup-progress-bar>
+    );
     return (
-        <div class={componentClass}>
-            <span>{data['title']}</span>
-            <span>{data['subtitle']}</span>
+        <div class={componentClass} style={CSSVariables}>
+            <div class="section-1">
+                <div class="emph-text">{data['emphText1']}</div>
+            </div>
+            <div class="section-2">
+                <div class="sub-2">
+                    {progressBar1}
+                    <div>{data['text1']}</div>
+                </div>
+            </div>
+            {button1}
         </div>
     );
+}
+
+function getContrastYIQ(hexcolor: string) {
+    //Only works when an hex color is the argument
+    hexcolor = hexcolor.replace('#', '');
+    var r = parseInt(hexcolor.substr(0, 2), 16);
+    var g = parseInt(hexcolor.substr(2, 2), 16);
+    var b = parseInt(hexcolor.substr(4, 2), 16);
+    var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 128 ? 'black' : 'white';
 }

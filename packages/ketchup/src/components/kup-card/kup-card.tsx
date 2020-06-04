@@ -52,7 +52,6 @@ export class KupCard {
         }
         let method: string = 'create' + this.layout;
         let card = layout[method](this.data);
-        console.log(card);
 
         return card;
     }
