@@ -1774,12 +1774,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         "onKupButtonBlur"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         "onKupButtonClick"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         "onKupButtonFocus"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         /**
@@ -1866,7 +1869,9 @@ declare namespace LocalJSX {
          */
         "menuVisible"?: boolean;
         "onKupCardEvent"?: (event: CustomEvent<{
+            id: any;
             value: any;
+            event: any;
         }>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).

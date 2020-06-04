@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event          | Description | Type                           |
-| -------------- | ----------- | ------------------------------ |
-| `kupCardEvent` |             | `CustomEvent<{ value: any; }>` |
+| Event          | Description | Type                                                |
+| -------------- | ----------- | --------------------------------------------------- |
+| `kupCardEvent` |             | `CustomEvent<{ id: any; value: any; event: any; }>` |
 
 
 ## Dependencies
