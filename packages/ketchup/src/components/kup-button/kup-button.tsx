@@ -88,6 +88,7 @@ export class KupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -98,6 +99,7 @@ export class KupButton {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -108,6 +110,7 @@ export class KupButton {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -115,6 +118,7 @@ export class KupButton {
 
     onKupBlur() {
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -132,12 +136,14 @@ export class KupButton {
             this.value = 'N/A';
         }
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
