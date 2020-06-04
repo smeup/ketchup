@@ -18,18 +18,24 @@ export function create1(data: ComponentCardElement) {
         ['--color-1']: data['color1'],
         ['--color-2']: data['color2'],
     };
-    let button1: KupButton = <kup-button {...data['button1']}></kup-button>;
-    let image1: KupImage = <kup-image {...data['image1']}></kup-image>;
+    let button1: KupButton = (
+        <kup-button id="button1" {...data['button1']}></kup-button>
+    );
+    let image1: KupImage = (
+        <kup-image id="image1" {...data['image1']}></kup-image>
+    );
     let image2: KupImage = (
         <kup-image
-            sizeX="100%"
-            sizeY="auto"
+            id="image2"
             customStyle="img {object-fit: contain;}"
             {...data['image2']}
         ></kup-image>
     );
     let progressBar1: KupProgressBar = (
-        <kup-progress-bar {...data['progressBar1']}></kup-progress-bar>
+        <kup-progress-bar
+            id="progressBar1"
+            {...data['progressBar1']}
+        ></kup-progress-bar>
     );
     return (
         <div class={componentClass} style={CSSVariables}>
@@ -67,9 +73,12 @@ export function create2(data: ComponentCardElement) {
         ['--color-1']: data['color1'],
         ['--dyn-color-1']: getContrastYIQ(data['color1']),
     };
-    let button1: KupButton = <kup-button {...data['button1']}></kup-button>;
+    let button1: KupButton = (
+        <kup-button id="button1" {...data['button1']}></kup-button>
+    );
     let progressBar1: KupProgressBar = (
         <kup-progress-bar
+            id="progressBar1"
             is-radial
             icon={...data['image1'].resource}
             {...data['progressBar1']}
@@ -85,8 +94,8 @@ export function create2(data: ComponentCardElement) {
                     {progressBar1}
                     <div>{data['text1']}</div>
                 </div>
+                {button1}
             </div>
-            {button1}
         </div>
     );
 }

@@ -1865,6 +1865,9 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
+        "onKupCardEvent"?: (event: CustomEvent<{
+            value: any;
+        }>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */

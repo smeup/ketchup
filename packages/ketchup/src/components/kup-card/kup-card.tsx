@@ -1,4 +1,12 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 import { ComponentCardElement } from './kup-card-declarations';
 import * as layout from './layouts/kup-card-layouts';
 import { errorLogging } from '../../utils/error-logging';
@@ -42,7 +50,29 @@ export class KupCard {
 
     private elStyle = undefined;
 
+    @Event({
+        eventName: 'kupCardEvent',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupEvent: EventEmitter<{
+        id: any;
+        value: any;
+        event: any;
+    }>;
+
     //---- Methods ----
+
+    onKupEvent(e) {
+        console.log('something happened', e);
+
+        this.kupEvent.emit({
+            id: e.detail.id,
+            value: e.detail,
+            event: e,
+        });
+    }
 
     getLayout() {
         if (this.layout === 0) {
@@ -57,6 +87,12 @@ export class KupCard {
     }
 
     //---- Lifecycle hooks ----
+
+    componentDidRender() {
+        document.addEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
+    }
 
     render() {
         if (!this.data || !this.layout) {

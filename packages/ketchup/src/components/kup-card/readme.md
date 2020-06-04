@@ -18,6 +18,13 @@
 | `sizeY`       | `size-y`       | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.). | `string`               | `'100%'`    |
 
 
+## Events
+
+| Event          | Description | Type                           |
+| -------------- | ----------- | ------------------------------ |
+| `kupCardEvent` |             | `CustomEvent<{ value: any; }>` |
+
+
 ## Dependencies
 
 ### Depends on
