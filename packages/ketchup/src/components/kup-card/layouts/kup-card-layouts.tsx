@@ -23,7 +23,11 @@ export function create1(data: ComponentCardElement) {
         <kup-button id="button1" {...data['button1']}></kup-button>
     );
     let image1: KupImage = (
-        <kup-image id="image1" {...data['image1']}></kup-image>
+        <kup-image
+            id="image1"
+            customStyle="img {object-fit: contain;}"
+            {...data['image1']}
+        ></kup-image>
     );
     let image2: KupImage = (
         <kup-image
