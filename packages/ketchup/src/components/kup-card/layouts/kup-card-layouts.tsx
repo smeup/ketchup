@@ -49,7 +49,7 @@ export function create1(data: ComponentCardElement) {
             <div class="section-2">
                 <div class="sub-2 icon">{image1}</div>
                 <div class="sub-2 text">
-                    <div>{data['text1']}</div>
+                    <div class="desc-text">{data['text1']}</div>
                     <div class="emph-text">{data['emphText1']}</div>
                 </div>
                 <div class="sub-2 image">{image2}</div>

@@ -27,6 +27,7 @@
   }
 
   .sub-2 {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -48,6 +49,9 @@
       flex: 0 0 70%;
       max-width: 70%;
       margin: auto;
+      height: 100%;
+      flex-wrap: nowrap;
+      padding: 1rem;
     }
 
     &.image {
@@ -61,6 +65,10 @@
         margin: auto;
         padding: 0 10%;
       }
+    }
+
+    .desc-text {
+      overflow: auto;
     }
 
     .emph-text {
