@@ -70,12 +70,52 @@ import {
     isCheckbox,
 } from '../../utils/object-utils';
 
+import { KupDataTableState } from './kup-data-table-state';
+import { KupStore } from '../kup-state/kup-store';
+
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
     shadow: true,
 })
 export class KupDataTable {
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupDataTableState = new KupDataTableState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                this.filters = state.filters;
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            this.state.filters = this.filters;
+            console.log(
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
     /**
      * Used to set custom columns width.
