@@ -133,9 +133,10 @@ export default {
           },
           image2: { resource: 'widgets' },
           progressBar1: { value: 75, centeredLabel: false },
-          text1: 'This is the text of this TODO',
-          text2: 'Priority',
-          text3: 'Deadline',
+          text1: 'I am a title',
+          text2: 'I am a subtitle',
+          text3:
+            'I am a description, so I need more words compared to other texts. I will contain some nonsense, apologies.',
         },
       },
     };
