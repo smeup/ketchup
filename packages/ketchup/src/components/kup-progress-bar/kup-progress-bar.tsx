@@ -119,6 +119,7 @@ export class KupProgressBar {
                         <kup-image
                             sizeX="3rem"
                             sizeY="3rem"
+                            customStyle="img { object-fit: cover; }"
                             color="var(--kup-main-color)"
                             resource={this.icon}
                         ></kup-image>
