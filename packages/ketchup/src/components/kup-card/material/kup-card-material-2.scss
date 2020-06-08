@@ -51,7 +51,7 @@
     width: 100%;
     overflow: auto;
 
-    .sub-2.description {
+    .sub-3.description {
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       line-height: 1.25rem;
@@ -59,7 +59,7 @@
       font-size: 0.875rem;
       letter-spacing: 0.0178571429em;
       opacity: 0.6;
-      padding: 0 1rem;
+      padding: 0 1rem 8px;
       padding-bottom: 1rem;
     }
   }

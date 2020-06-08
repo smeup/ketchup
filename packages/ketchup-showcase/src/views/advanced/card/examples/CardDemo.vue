@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-card layoutFamily="material" layoutNumber="1" id="demo-component"></kup-card>',
+        '<kup-card layout-family="material" layout-number="1" id="demo-component"></kup-card>',
       demoProps: [
         {
           prop: 'customStyle',

@@ -57,7 +57,7 @@ export function create2(layout: number, data: ComponentCardElement) {
     var button3: KupButton = undefined;
     let image1: KupImage = (
         <kup-image
-            customStyle="img {border-radius: 4px 4px 0 0; object-fit: cover;}"
+            customStyle="img {object-fit: cover;}"
             id="image1"
             {...data['image1']}
         ></kup-image>
@@ -85,7 +85,7 @@ export function create2(layout: number, data: ComponentCardElement) {
                 </div>
                 <div class="section-2">{image1}</div>
                 <div class="section-3">
-                    <div class="sub-2 description">
+                    <div class="sub-3 description">
                         <div>{data['text3']}</div>
                     </div>
                 </div>
