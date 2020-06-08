@@ -10,7 +10,7 @@
   width: 100%;
 
   &.has-actions {
-    padding-bottom: 48px;
+    padding-bottom: 52px;
     .section-2 .sub-2.description {
       padding-bottom: 0;
     }
@@ -65,9 +65,17 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 0 1rem;
-    height: 48px;
+    padding: 2px 1rem;
+    height: 52px;
     width: 100%;
     text-align: right;
+
+    kup-button {
+      margin-left: 0.25rem;
+    }
+  }
+
+  .mdc-ripple-surface {
+    cursor: pointer;
   }
 }

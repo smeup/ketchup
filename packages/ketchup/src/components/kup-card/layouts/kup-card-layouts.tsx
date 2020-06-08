@@ -161,16 +161,18 @@ export function create4(data: ComponentCardElement) {
     }
     return (
         <div class={componentClass}>
-            <div class="section-1">{image1}</div>
-            <div class="section-2">
-                <div class="sub-2 title">
-                    <div>{data['text1']}</div>
-                </div>
-                <div class="sub-2 subtitle">
-                    <div>{data['text2']}</div>
-                </div>
-                <div class="sub-2 description">
-                    <div>{data['text3']}</div>
+            <div class="mdc-ripple-surface">
+                <div class="section-1">{image1}</div>
+                <div class="section-2">
+                    <div class="sub-2 title">
+                        <div>{data['text1']}</div>
+                    </div>
+                    <div class="sub-2 subtitle">
+                        <div>{data['text2']}</div>
+                    </div>
+                    <div class="sub-2 description">
+                        <div>{data['text3']}</div>
+                    </div>
                 </div>
             </div>
             <div class="section-3">

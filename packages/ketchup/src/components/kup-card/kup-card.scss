@@ -4,6 +4,7 @@
 @import 'layouts/kup-card-layouts-4.scss';
 @import '@material/menu/mdc-menu';
 @import '@material/menu-surface/mdc-menu-surface';
+@import '@material/ripple/mdc-ripple';
 
 :host {
   display: var(--kup-display-mode);
