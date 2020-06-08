@@ -7,7 +7,8 @@ import {
     EventEmitter,
     h,
 } from '@stencil/core';
-import * as layout from './layouts/kup-card-layouts';
+import * as customLayouts from './custom/kup-card-custom';
+import * as materialLayouts from './material/kup-card-material';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { MDCRipple } from '@material/ripple';
@@ -33,9 +34,13 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the layout of the card.
+     * Sets the type of the card. Currently supported values: "material", "custom".
      */
-    @Prop({ reflect: true }) layout: number = 1;
+    @Prop({ reflect: true }) layoutFamily: string = 'material';
+    /**
+     * Sets the number of the layout.
+     */
+    @Prop({ reflect: true }) layoutNumber: number = 1;
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      */
@@ -76,13 +81,23 @@ export class KupCard {
     }
 
     getLayout() {
-        if (this.layout === 0) {
-            let message = 'Layout not available, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
-            return;
+        let card: HTMLElement = undefined;
+        let method: string = 'create' + this.layoutNumber;
+
+        switch (this.layoutFamily) {
+            case 'custom': {
+                card = customLayouts[method](this.layoutNumber, this.data);
+                break;
+            }
+            case 'material': {
+                card = materialLayouts[method](this.layoutNumber, this.data);
+                break;
+            }
+            default: {
+                card = materialLayouts[method](this.layoutNumber, this.data);
+                break;
+            }
         }
-        let method: string = 'create' + this.layout;
-        let card = layout[method](this.data);
 
         return card;
     }
@@ -112,17 +127,19 @@ export class KupCard {
 
     componentDidUnload() {
         const root = this.rootElement.shadowRoot;
-
-        if (root != undefined) {
-            root.removeEventListener('kupButtonClick', (e) => {
-                this.onKupEvent(e);
-            });
-        }
+        root.removeEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
     }
 
     render() {
-        if (!this.data || !this.layout || this.layout < 1) {
-            let message = 'Data or layout missing, not rendering!';
+        if (
+            !this.data ||
+            !this.layoutNumber ||
+            !this.layoutFamily ||
+            this.layoutNumber < 1
+        ) {
+            let message = 'Data or layout information missing, not rendering!';
             errorLogging(this.rootElement.tagName, message);
             return;
         }

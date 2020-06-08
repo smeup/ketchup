@@ -253,9 +253,13 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
-          * Sets the layout of the card.
+          * Sets the type of the card. Currently supported values: "material", "custom".
          */
-        "layout": number;
+        "layoutFamily": string;
+        /**
+          * Sets the number of the layout.
+         */
+        "layoutNumber": number;
         /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
@@ -1861,9 +1865,13 @@ declare namespace LocalJSX {
          */
         "isMenu"?: boolean;
         /**
-          * Sets the layout of the card.
+          * Sets the type of the card. Currently supported values: "material", "custom".
          */
-        "layout"?: number;
+        "layoutFamily"?: string;
+        /**
+          * Sets the number of the layout.
+         */
+        "layoutNumber"?: number;
         /**
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
