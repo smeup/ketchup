@@ -8,6 +8,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  overflow: auto;
 
   &.has-actions {
     padding-bottom: 52px;
@@ -22,7 +23,6 @@
   }
 
   .section-2 {
-    height: 40%;
     width: 100%;
     overflow: auto;
 
@@ -78,5 +78,6 @@
 
   .mdc-ripple-surface {
     cursor: pointer;
+    height: 100%;
   }
 }

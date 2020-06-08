@@ -122,15 +122,14 @@ export default {
         data: {
           button1: { icon: 'play', flat: true },
           button2: { icon: 'favorite', flat: true },
-          button3: { icon: 'share', flat: true },
+          button3: { icon: 'share', label: 'share' },
           color1: '#498204',
           color2: 'var(--kup-title-background-color)',
           emphText1: 'Ketch.UP',
           emphText2: 'High',
           emphText3: '12/31/2020',
           image1: {
-            resource:
-              'https://ketchup.smeup.com/ketchup-showcase/images/arthas.jpg',
+            resource: 'images/catz_small.jpg',
           },
           image2: { resource: 'widgets' },
           progressBar1: { value: 75, centeredLabel: false },

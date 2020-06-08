@@ -8,6 +8,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  overflow: auto;
 
   &.has-actions {
     padding-bottom: 52px;
@@ -17,9 +18,7 @@
   }
 
   .section-1 {
-    height: 30%;
     width: 100%;
-    overflow: auto;
 
     .sub-1.title {
       color: var(--kup-text-color);
@@ -42,12 +41,11 @@
   }
 
   .section-2 {
-    height: 50%;
+    height: 75%;
     width: 100%;
   }
 
   .section-3 {
-    height: 20%;
     width: 100%;
     overflow: auto;
 
@@ -60,7 +58,7 @@
       letter-spacing: 0.0178571429em;
       opacity: 0.6;
       padding: 0 1rem 8px;
-      padding-bottom: 1rem;
+      padding-top: 1rem;
     }
   }
 
@@ -84,5 +82,6 @@
 
   .mdc-ripple-surface {
     cursor: pointer;
+    height: 100%;
   }
 }
