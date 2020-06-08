@@ -112,16 +112,18 @@ export default {
       demoData: {
         data: {
           button1: { icon: 'play', flat: true },
+          button2: { icon: 'favorite', flat: true },
+          button3: { icon: 'share', flat: true },
           color1: '#498204',
           color2: 'var(--kup-title-background-color)',
           emphText1: 'Ketch.UP',
           emphText2: 'High',
           emphText3: '12/31/2020',
-          image1: { resource: 'widgets' },
-          image2: {
+          image1: {
             resource:
               'https://ketchup.smeup.com/ketchup-showcase/images/arthas.jpg',
           },
+          image2: { resource: 'widgets' },
           progressBar1: { value: 75, centeredLabel: false },
           text1: 'This is the text of this TODO',
           text2: 'Priority',
