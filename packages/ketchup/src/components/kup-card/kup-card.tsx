@@ -7,9 +7,10 @@ import {
     EventEmitter,
     h,
 } from '@stencil/core';
-import { ComponentCardElement } from './kup-card-declarations';
 import * as layout from './layouts/kup-card-layouts';
+import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { MDCRipple } from '@material/ripple';
 
 @Component({
     tag: 'kup-card',
@@ -88,20 +89,39 @@ export class KupCard {
 
     //---- Lifecycle hooks ----
 
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root != undefined) {
+            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
+            if (rippleEl) {
+                MDCRipple.attachTo(rippleEl);
+            }
+        }
+    }
+
     componentDidLoad() {
-        document.addEventListener('kupButtonClick', (e) => {
-            this.onKupEvent(e);
-        });
+        const root = this.rootElement.shadowRoot;
+
+        if (root != undefined) {
+            root.addEventListener('kupButtonClick', (e) => {
+                this.onKupEvent(e);
+            });
+        }
     }
 
     componentDidUnload() {
-        document.removeEventListener('kupButtonClick', (e) => {
-            this.onKupEvent(e);
-        });
+        const root = this.rootElement.shadowRoot;
+
+        if (root != undefined) {
+            root.removeEventListener('kupButtonClick', (e) => {
+                this.onKupEvent(e);
+            });
+        }
     }
 
     render() {
-        if (!this.data || !this.layout) {
+        if (!this.data || !this.layout || this.layout < 1) {
             let message = 'Data or layout missing, not rendering!';
             errorLogging(this.rootElement.tagName, message);
             return;
