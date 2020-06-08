@@ -78,6 +78,9 @@ import {
   SearchSelectionUpdatedEventDetail,
 } from './components/kup-search/kup-search-declarations';
 import {
+  KupStore,
+} from './components/kup-state/kup-store';
+import {
   KetchupFldChangeEvent,
   KetchupFldSubmitEvent,
 } from './components/kup-fld/kup-fld-declarations';
@@ -100,9 +103,6 @@ import {
   KetchupRadioChangeEvent,
   KetchupRadioElement,
 } from './components/kup-radio/kup-radio-declarations';
-import {
-  KupStore,
-} from './components/kup-state/kup-store';
 import {
   KetchupTextInputEvent,
 } from './components/kup-text-input/kup-text-input-declarations';
@@ -583,6 +583,8 @@ export namespace Components {
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData': boolean;
+    'stateId': string;
+    'store': KupStore;
     /**
     * Defines the current totals options.
     */
@@ -2222,6 +2224,8 @@ declare namespace LocalJSX {
     * If set to true, when a column is dragged to be sorted the component directly mutates the data.columns property and then fires the event
     */
     'sortableColumnsMutateData'?: boolean;
+    'stateId'?: string;
+    'store'?: KupStore;
     /**
     * Defines the current totals options.
     */

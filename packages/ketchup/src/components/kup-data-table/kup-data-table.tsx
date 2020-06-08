@@ -96,14 +96,55 @@ export class KupDataTable {
                     'Initialize with state for stateId ' + this.stateId,
                     state
                 );
+                // *** PROPS ***
                 this.filters = state.filters;
+                this.groups = state.groups;
+                this.columnsWidth = state.columnsWidth;
+                this.expandGroups = state.expandGroups;
+                this.density = state.density;
+                this.enableSortableColumns = state.enableSortableColumns;
+                this.forceOneLine = state.forceOneLine;
+                this.globalFilter = state.globalFilter;
+                this.globalFilterValue = state.globalFilterValue;
+                this.headerIsPersistent = state.headerIsPersistent;
+                this.loadMoreLimit = state.loadMoreLimit;
+                this.multiSelection = state.multiSelection;
+                this.rowsPerPage = state.rowsPerPage;
+                this.showFilters = state.showFilters;
+                this.showHeader = state.showHeader;
+                this.showLoadMore = state.showLoadMore;
+                this.sortEnabled = state.sortEnabled;
+                this.sort = state.sort;
+                this.sortableColumnsMutateData =
+                    state.sortableColumnsMutateData;
+                //
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
+            // *** PROPS ***
             this.state.filters = this.filters;
+            this.state.groups = this.groups;
+            this.state.columnsWidth = this.columnsWidth;
+            this.state.expandGroups = this.expandGroups;
+            this.state.density = this.density;
+            this.state.enableSortableColumns = this.enableSortableColumns;
+            this.state.forceOneLine = this.forceOneLine;
+            this.state.globalFilter = this.globalFilter;
+            this.state.globalFilterValue = this.globalFilterValue;
+            this.state.headerIsPersistent = this.headerIsPersistent;
+            this.state.loadMoreLimit = this.loadMoreLimit;
+            this.state.multiSelection = this.multiSelection;
+            this.state.rowsPerPage = this.rowsPerPage;
+            this.state.showFilters = this.showFilters;
+            this.state.showHeader = this.showHeader;
+            this.state.showLoadMore = this.showLoadMore;
+            this.state.sortEnabled = this.sortEnabled;
+            this.state.sort = this.sort;
+            this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+            //
             console.log(
                 'Persisting state for stateId ' + this.stateId + ': ',
                 this.state
@@ -648,6 +689,9 @@ export class KupDataTable {
 
     // lifecycle
     componentWillLoad() {
+        // *** Store
+        this.initWithPersistedState();
+        // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
 
@@ -703,6 +747,9 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        // *** Store
+        this.persistState();
+        // ***
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
         document.removeEventListener('resize', this.stickyHeaderPosition);
