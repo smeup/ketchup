@@ -1,14 +1,3 @@
-/*
-Common use cases for layouts
-
-Layout 1: Material
-Layout 2: Material
-Layout 3: Custom
-Layout 4: Custom
-Layout 5: Custom
-
-*/
-
 import { h } from '@stencil/core';
 import { ComponentCardElement } from '../kup-card-declarations';
 import { KupImage } from '../../kup-image/kup-image';
