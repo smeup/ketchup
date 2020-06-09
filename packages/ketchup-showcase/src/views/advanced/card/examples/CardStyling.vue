@@ -48,7 +48,7 @@ export default {
           resource: 'images/catz_small.jpg',
         },
         text1: 'sizeX and sizeY',
-        text2: 'This card size was set with props',
+        text2: "This card' size was set with props",
       },
       data2: {
         button1: { icon: 'favorite', flat: true },
@@ -56,7 +56,7 @@ export default {
           resource: 'images/catz_small.jpg',
         },
         text1: 'Default behavior',
-        text2: 'This card size fits the container',
+        text2: "This card' size fits the container",
       },
       markupSize:
         '<kup-card layout-family="material" layout-number="1" sizeX="300px" sizeY="300px"></kup-card>',
