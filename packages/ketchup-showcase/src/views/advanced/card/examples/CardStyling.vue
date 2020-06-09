@@ -58,8 +58,7 @@ export default {
         text1: 'Default behavior',
         text2: "This card' size fits the container",
       },
-      markupSize:
-        '<kup-card layout-family="material" layout-number="1" sizeX="300px" sizeY="300px"></kup-card>',
+      markupSize: '<kup-card sizeX="300px" sizeY="300px"></kup-card>',
     };
   },
 };
