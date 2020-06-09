@@ -125,9 +125,6 @@ export default {
           button3: { icon: 'share', label: 'share' },
           color1: '#498204',
           color2: 'var(--kup-title-background-color)',
-          emphText1: 'Ketch.UP',
-          emphText2: 'High',
-          emphText3: '12/31/2020',
           image1: {
             resource: 'images/catz_small.jpg',
           },
@@ -137,6 +134,9 @@ export default {
           text2: 'I am a subtitle',
           text3:
             'I am a description, so I need more words compared to other texts. I will contain some nonsense, apologies.',
+          text4: 'Text #4',
+          text5: 'Text #5',
+          text6: 'Text #6',
         },
       },
     };

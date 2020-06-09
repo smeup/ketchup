@@ -53,7 +53,7 @@ export default {
       data2: {
         button1: { icon: 'favorite', flat: true },
         image1: {
-          resource: 'images/catz_small.jpg',
+          resource: 'images/catz_small_2.jpg',
         },
         text1: 'Default behavior',
         text2: "This card' size fits the container",

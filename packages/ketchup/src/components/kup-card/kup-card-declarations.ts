@@ -6,10 +6,9 @@ Advised properties, as of June 2020:
 
 button1: kup-button (kup-button props)
 color1: string (when there is a prominent color)
-emphText1: string (emphasized text)
 image1: kup-image (kup-image props)
-text1: string (generic text)
 progressBar1: kup-progress-bar (kup-progress-bar props)
+text1: string (generic text)
 
 */
 

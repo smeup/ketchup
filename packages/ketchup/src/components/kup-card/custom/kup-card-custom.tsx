@@ -41,7 +41,7 @@ export function create1(layout: number, data: ComponentCardElement) {
                 <div class="sub-2 icon">{image1}</div>
                 <div class="sub-2 text">
                     <div class="desc-text">{data['text1']}</div>
-                    <div class="emph-text">{data['emphText1']}</div>
+                    <div class="alt-text">{data['text2']}</div>
                 </div>
                 <div class="sub-2 image">{image2}</div>
             </div>
@@ -52,12 +52,12 @@ export function create1(layout: number, data: ComponentCardElement) {
             </div>
             <div class="section-4">
                 <div class="sub-4 text">
-                    <div>{data['text2']}</div>
-                    <div class="emph-text">{data['emphText2']}</div>
+                    <div>{data['text3']}</div>
+                    <div class="alt-text">{data['text4']}</div>
                 </div>
                 <div class="sub-4 text">
-                    <div>{data['text3']}</div>
-                    <div class="emph-text">{data['emphText3']}</div>
+                    <div>{data['text5']}</div>
+                    <div class="alt-text">{data['text6']}</div>
                 </div>
             </div>
         </div>
@@ -84,12 +84,12 @@ export function create2(layout: number, data: ComponentCardElement) {
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
-                <div class="emph-text">{data['emphText1']}</div>
+                <div class="alt-text">{data['text1']}</div>
             </div>
             <div class="section-2">
                 <div class="sub-2">
                     {progressBar1}
-                    <div>{data['text1']}</div>
+                    <div>{data['text2']}</div>
                 </div>
                 {button1}
             </div>
@@ -120,8 +120,8 @@ export function create3(layout: number, data: ComponentCardElement) {
                 </div>
             </div>
             <div class="section-3">
-                <div class="sub-3 emph-text">{data['emphText1']}</div>
-                <div class="sub-3 emph-text">{data['progressBar1'].value}%</div>
+                <div class="sub-3 alt-text">{data['text2']}</div>
+                <div class="sub-3 alt-text">{data['text3']}</div>
             </div>
         </div>
     );

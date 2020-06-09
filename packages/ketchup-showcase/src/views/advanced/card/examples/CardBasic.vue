@@ -17,8 +17,6 @@
       <br />
       <span class="code-word">color</span> contains a CSS color string.
       <br />
-      <span class="code-word">emphText</span> contains a string to be displayed as emphasized text.
-      <br />
       <span class="code-word">image</span> contains an object reflecting props of
       <a
         href="https://ketchup.smeup.com/ketchup-showcase/#/image"

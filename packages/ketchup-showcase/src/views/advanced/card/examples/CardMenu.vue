@@ -29,11 +29,10 @@ export default {
       data: {
         button1: { icon: 'favorite', flat: true },
         image1: {
-          resource: 'images/catz_small.jpg',
+          resource: 'images/catz_small_3.jpg',
         },
         text1: 'Menu variant',
-        text2:
-          'Take a look at the distinctive box-shadow surrounding the element',
+        text2: 'Note the distinctive box-shadow surrounding the element',
       },
       markupMenu: '<kup-card is-menu menu-visible></kup-card>',
     };
