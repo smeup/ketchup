@@ -39,7 +39,7 @@
         <br />
         <span class="code-word">material</span>, which look was inspired by Material Design (4 layouts).
         <br />
-        <span class="code-word">custom</span>, which cover niche use cases (3 layouts).
+        <span class="code-word">custom</span>, which covers niche use cases (3 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>
