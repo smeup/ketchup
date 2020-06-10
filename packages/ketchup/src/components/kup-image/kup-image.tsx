@@ -277,7 +277,7 @@ export class KupImage {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-image', message);
+            errorLogging(this.rootElement.tagName, message);
             return;
         }
 

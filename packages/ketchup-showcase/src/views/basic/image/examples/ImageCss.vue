@@ -37,7 +37,7 @@
         <code class="flat">{{ markupData }}</code>
       </div>
       <br />
-      <p>In the following example we'll draw the italian flag, which consists in 3 different bars placed inline. Note that in this case the second occurrence will have a slightly bigger width, otherwise a set of three occurrences all set to "33.3%" wouldn't fill the whole container.</p>
+      <p>In the following example we'll draw the italian flag, which consists in 3 different bars placed inline. Note that in this case the last occurrence will have a slightly bigger width, otherwise a set of three occurrences all set to "33.3%" wouldn't fill the whole container. The component will hide overflowing areas, so it will never exceed the 100% of the container.</p>
       <br />
       <div class="demo-container">
         <div
@@ -76,20 +76,20 @@ export default {
         {
           shape: 'bar',
           color: '#ffffff',
-          width: '33.5%',
+          width: '33.3%',
           height: '100%',
         },
         {
           shape: 'bar',
           color: '#d14233',
-          width: '33.3%',
+          width: '34%',
           height: '100%',
         },
       ],
       markupData:
         '[ {"shape": "bar", "color": "var(--kup-main-color)", "width": "50%", "height": "50%" } ]',
       markupDataIT:
-        '[ {"shape": "bar", "color": "#539545", "width": "33.3%", "height": "100%" }, {"shape": "bar", "color": "#ffffff", "width": "33.5%", "height": "100%" }, {"shape": "bar", "color": "#d14233", "width": "33.3%", "height": "100%" } ]',
+        '[ {"shape": "bar", "color": "#539545", "width": "33.3%", "height": "100%" }, {"shape": "bar", "color": "#ffffff", "width": "33.5%", "height": "100%" }, {"shape": "bar", "color": "#d14233", "width": "34%", "height": "100%" } ]',
     };
   },
 };
