@@ -46,9 +46,12 @@ export class WupLayout {
         }
 
         this.elStyle = undefined;
-        this.elStyle = {
-            ['--columns-number']: this.columns,
-        };
+        if (this.columns !== 12) {
+            contentClass += ' custom-grid';
+            this.elStyle = {
+                ['--columns-number']: this.columns,
+            };
+        }
 
         let customStyle: string = undefined;
         if (this.customStyle) {

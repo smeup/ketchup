@@ -28,7 +28,7 @@
 }
 
 @media (min-width: 840px) {
-  .mdc-layout-grid__inner {
+  .mdc-layout-grid__inner.custom-grid {
     grid-template-columns: repeat(var(--columns-number), minmax(0px, 1fr));
   }
 }
