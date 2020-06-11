@@ -36,7 +36,7 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-layout columns="12" id="demo-component"></wup-layout>',
+      demoComp: '<wup-layout columns="6" id="demo-component"></wup-layout>',
       demoProps: [
         {
           prop: 'columns',
