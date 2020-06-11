@@ -1,0 +1,31 @@
+@import '@material/layout-grid/mdc-layout-grid';
+
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+.mdc-layout-grid {
+  height: 100%;
+}
+
+.flex-layout,
+.flex-layout__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.mdc-layout-grid__cell,
+.flex-layout__cell {
+  min-height: 1rem;
+  min-width: 1rem;
+  margin: 0 0.5rem;
+}
+
+@media (min-width: 840px) {
+  .mdc-layout-grid__inner {
+    grid-template-columns: repeat(var(--columns-number), minmax(0px, 1fr));
+  }
+}

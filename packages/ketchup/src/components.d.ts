@@ -25,6 +25,7 @@ import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-de
 import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath, } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps, } from "./components/kup-upload/kup-upload-declarations";
+import { ComponentLayoutElement, } from "./components/wup-layout/wup-layout-declarations";
 export namespace Components {
     interface KupAutocomplete {
         /**
@@ -1226,6 +1227,24 @@ export namespace Components {
     interface KupUpload {
         "typeOptions": UploadProps;
     }
+    interface WupLayout {
+        /**
+          * The actual data of the layout.
+         */
+        "columns": number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the layout.
+         */
+        "data": ComponentLayoutElement[];
+        /**
+          * When set to true forces an horizontal layout.
+         */
+        "horizontal": boolean;
+    }
 }
 declare global {
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
@@ -1462,6 +1481,12 @@ declare global {
         prototype: HTMLKupUploadElement;
         new (): HTMLKupUploadElement;
     };
+    interface HTMLWupLayoutElement extends Components.WupLayout, HTMLStencilElement {
+    }
+    var HTMLWupLayoutElement: {
+        prototype: HTMLWupLayoutElement;
+        new (): HTMLWupLayoutElement;
+    };
     interface HTMLElementTagNameMap {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
@@ -1502,6 +1527,7 @@ declare global {
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
         "kup-upload": HTMLKupUploadElement;
+        "wup-layout": HTMLWupLayoutElement;
     }
 }
 declare namespace LocalJSX {
@@ -3181,6 +3207,24 @@ declare namespace LocalJSX {
         "onKetchupFileUploaded"?: (event: CustomEvent<any>) => void;
         "typeOptions"?: UploadProps;
     }
+    interface WupLayout {
+        /**
+          * The actual data of the layout.
+         */
+        "columns"?: number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the layout.
+         */
+        "data"?: ComponentLayoutElement[];
+        /**
+          * When set to true forces an horizontal layout.
+         */
+        "horizontal"?: boolean;
+    }
     interface IntrinsicElements {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
@@ -3221,6 +3265,7 @@ declare namespace LocalJSX {
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
         "kup-upload": KupUpload;
+        "wup-layout": WupLayout;
     }
 }
 export { LocalJSX as JSX };
@@ -3266,6 +3311,7 @@ declare module "@stencil/core" {
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
             "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;
+            "wup-layout": LocalJSX.WupLayout & JSXBase.HTMLAttributes<HTMLWupLayoutElement>;
         }
     }
 }
