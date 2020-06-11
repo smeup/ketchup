@@ -71,8 +71,15 @@ export class KupCard {
     //---- Methods ----
 
     onKupEvent(e) {
-        console.log('something happened', e);
+        const root = this.rootElement.shadowRoot;
+        if (e.type === 'kupImageLoad') {
+            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
+            if (rippleEl) {
+                MDCRipple.attachTo(rippleEl);
+            }
+        }
 
+        console.log('something happened', e);
         this.kupEvent.emit({
             id: e.detail.id,
             value: e.detail,
@@ -104,22 +111,14 @@ export class KupCard {
 
     //---- Lifecycle hooks ----
 
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root != undefined) {
-            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
-            if (rippleEl) {
-                MDCRipple.attachTo(rippleEl);
-            }
-        }
-    }
-
-    componentDidLoad() {
-        const root = this.rootElement.shadowRoot;
+    componentWillLoad() {
+        const root = this.rootElement;
 
         if (root != undefined) {
             root.addEventListener('kupButtonClick', (e) => {
+                this.onKupEvent(e);
+            });
+            root.addEventListener('kupImageLoad', (e) => {
                 this.onKupEvent(e);
             });
         }
