@@ -6,4 +6,6 @@
 .mdc-ripple-surface {
   cursor: pointer;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
