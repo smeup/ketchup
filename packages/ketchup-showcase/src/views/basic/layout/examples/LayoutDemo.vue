@@ -72,161 +72,159 @@ export default {
         data: [
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '1',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '2',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '3',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
-          },
-          {
-            props: { flat: true, label: 'a' },
-            tagName: 'kup-button',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '4',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '5',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '6',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '7',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
-          },
-          {
-            props: { flat: true, icon: 'widgets' },
-            tagName: 'kup-button',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '8',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
-          },
-          {
-            tagName: 'kup-checkbox',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '9',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '10',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
             props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
                 },
-              ],
+                text1: '11',
+                text2: "This card' size fits the container",
+              },
             },
-            tagName: 'kup-image',
+            tagName: 'kup-card',
           },
           {
-            props: { flat: true, label: 'button' },
-            tagName: 'kup-button',
+            props: {
+              data: {
+                button1: { icon: 'favorite', flat: true },
+                image1: {
+                  resource: 'images/catz_small_2.jpg',
+                },
+                text1: '12',
+                text2: "This card' size fits the container",
+              },
+            },
+            tagName: 'kup-card',
           },
         ],
       },
