@@ -61,6 +61,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
+    path: `/layout`,
+    name: 'layout',
+    component: () => import(`@/views/basic/layout/Layout.vue`),
+  },
+  {
     path: `/list`,
     name: 'list',
     component: () => import(`@/views/basic/list/List.vue`),

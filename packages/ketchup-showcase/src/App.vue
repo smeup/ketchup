@@ -277,6 +277,12 @@ export default {
             },
           },
           {
+            title: 'Layout',
+            to: {
+              name: 'layout',
+            },
+          },
+          {
             title: `List`,
             to: {
               name: 'list',
