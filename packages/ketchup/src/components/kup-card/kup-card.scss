@@ -1,0 +1,14 @@
+@import '@material/menu/mdc-menu';
+@import '@material/menu-surface/mdc-menu-surface';
+@import '@material/ripple/mdc-ripple';
+@import 'custom/kup-card-custom';
+@import 'material/kup-card-material.scss';
+
+:host {
+  display: var(--kup-display-mode);
+
+  #kup-component {
+    height: 100%;
+    width: 100%;
+  }
+}
