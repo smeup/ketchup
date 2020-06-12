@@ -3140,6 +3140,7 @@ declare namespace LocalJSX {
         "onKupTreeNodeSelected"?: (event: CustomEvent<{
             treeNodePath: TreeNodePath;
             treeNode: TreeNode;
+            columnName: string;
             auto: boolean;
         }>) => void;
         /**
