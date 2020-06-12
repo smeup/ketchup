@@ -61,8 +61,16 @@ export default {
           try: 'json',
         },
         {
-          prop: 'horizontal',
-          description: 'When set to true forces an horizontal layout.',
+          prop: 'fullWidth',
+          description:
+            'When set to true forces the width to 100% for the single line layout.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'singleLine',
+          description: 'When set to true forces the content on a single line.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -225,6 +233,78 @@ export default {
               },
             },
             tagName: 'kup-card',
+          },
+          {
+            props: {
+              label: 'button 1',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 2',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 3',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 4',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 5',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 6',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 7',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 8',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 9',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 10',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 11',
+            },
+            tagName: 'kup-button',
+          },
+          {
+            props: {
+              label: 'button 12',
+            },
+            tagName: 'kup-button',
           },
         ],
       },

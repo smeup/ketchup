@@ -22,9 +22,13 @@ export class WupLayout {
      */
     @Prop() data: ComponentLayoutElement[] = undefined;
     /**
-     * When set to true forces an horizontal layout.
+     * When set to true forces the width to 100% for the single line layout.
      */
-    @Prop({ reflect: true }) horizontal: boolean = false;
+    @Prop({ reflect: true }) fullWidth: boolean = false;
+    /**
+     * When set to true forces the content on a single line.
+     */
+    @Prop({ reflect: true }) singleLine: boolean = false;
 
     private elStyle = undefined;
 
@@ -35,14 +39,23 @@ export class WupLayout {
             return;
         }
 
+        let customStyle: string = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+
         let componentClass = '';
         let contentClass = '';
-        if (!this.horizontal) {
-            componentClass = 'mdc-layout-grid';
-            contentClass = 'mdc-layout-grid__inner';
-        } else {
+        if (this.singleLine) {
             componentClass = 'flex-layout';
             contentClass = 'flex-layout__inner';
+        } else {
+            componentClass = 'mdc-layout-grid';
+            contentClass = 'mdc-layout-grid__inner';
+        }
+
+        if (this.fullWidth) {
+            contentClass += ' full-width';
         }
 
         this.elStyle = undefined;
@@ -53,29 +66,25 @@ export class WupLayout {
             };
         }
 
-        let customStyle: string = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
-
         let el: JSX.Element[] = [];
 
         for (let i = 0; i < this.data.length; i++) {
             let Tag = this.data[i].tagName;
-            let elClass = '';
-            if (!this.horizontal) {
-                elClass = 'mdc-layout-grid__cell mdc-layout-grid__cell--span-1';
+            let content = undefined;
+
+            if (this.singleLine) {
+                content = (
+                    <Tag {...this.data[i].props}>{this.data[i].content}</Tag>
+                );
             } else {
-                elClass = 'flex-layout__cell';
+                content = (
+                    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+                        <Tag {...this.data[i].props}>
+                            {this.data[i].content}
+                        </Tag>
+                    </div>
+                );
             }
-            let content = (
-                <div class={elClass}>
-                    <Tag
-                        innerHtml={this.data[i].content}
-                        {...this.data[i].props}
-                    ></Tag>
-                </div>
-            );
             el.push(content);
         }
 

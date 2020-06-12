@@ -1241,9 +1241,13 @@ export namespace Components {
          */
         "data": ComponentLayoutElement[];
         /**
-          * When set to true forces an horizontal layout.
+          * When set to true forces the width to 100% for the single line layout.
          */
-        "horizontal": boolean;
+        "fullWidth": boolean;
+        /**
+          * When set to true forces the content on a single line.
+         */
+        "singleLine": boolean;
     }
 }
 declare global {
@@ -3221,9 +3225,13 @@ declare namespace LocalJSX {
          */
         "data"?: ComponentLayoutElement[];
         /**
-          * When set to true forces an horizontal layout.
+          * When set to true forces the width to 100% for the single line layout.
          */
-        "horizontal"?: boolean;
+        "fullWidth"?: boolean;
+        /**
+          * When set to true forces the content on a single line.
+         */
+        "singleLine"?: boolean;
     }
     interface IntrinsicElements {
         "kup-autocomplete": KupAutocomplete;

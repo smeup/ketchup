@@ -13,18 +13,32 @@
 .flex-layout,
 .flex-layout__inner {
   height: 100%;
-  width: 100%;
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }
 
+.flex-layout__inner {
+  width: auto;
+  & * {
+    margin: 0 1.5rem;
+  }
+  &.full-width {
+    width: 100%;
+    & * {
+      margin: auto;
+    }
+  }
+}
+
 .mdc-layout-grid__cell,
 .flex-layout__cell {
-  min-height: 1rem;
-  min-width: 1rem;
-  margin: 0 0.5rem;
+  display: flex;
+  & * {
+    justify-content: center;
+    margin: auto;
+  }
 }
 
 @media (min-width: 840px) {
