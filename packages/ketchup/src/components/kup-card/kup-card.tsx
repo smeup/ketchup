@@ -150,7 +150,9 @@ export class KupCard {
         this.elStyle = undefined;
         this.elStyle = {
             height: this.sizeY,
+            minHeight: this.sizeY,
             width: this.sizeX,
+            minWidth: this.sizeX,
         };
 
         if (this.isMenu) {
