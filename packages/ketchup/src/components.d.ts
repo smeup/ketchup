@@ -10,6 +10,7 @@ import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
+import { ComponentCardElement, } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxMenuItem, } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
 import { ComponentChipElement, } from "./components/kup-chip/kup-chip-declarations";
@@ -237,6 +238,40 @@ export namespace Components {
         "startCol": string;
         "styleCol": string;
         "weekView": boolean;
+    }
+    interface KupCard {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the card.
+         */
+        "data": ComponentCardElement;
+        /**
+          * Defines whether the card is a menu or not.
+         */
+        "isMenu": boolean;
+        /**
+          * Sets the type of the card. Currently supported values: "material", "custom".
+         */
+        "layoutFamily": string;
+        /**
+          * Sets the number of the layout.
+         */
+        "layoutNumber": number;
+        /**
+          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+         */
+        "menuVisible": boolean;
+        /**
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX": string;
+        /**
+          * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY": string;
     }
     interface KupChart {
         "asp": ChartAspect;
@@ -1137,6 +1172,10 @@ export namespace Components {
          */
         "data": TreeNode[];
         /**
+          * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
+         */
+        "density": string;
+        /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
@@ -1224,6 +1263,12 @@ declare global {
     var HTMLKupCalendarElement: {
         prototype: HTMLKupCalendarElement;
         new (): HTMLKupCalendarElement;
+    };
+    interface HTMLKupCardElement extends Components.KupCard, HTMLStencilElement {
+    }
+    var HTMLKupCardElement: {
+        prototype: HTMLKupCardElement;
+        new (): HTMLKupCardElement;
     };
     interface HTMLKupChartElement extends Components.KupChart, HTMLStencilElement {
     }
@@ -1424,6 +1469,7 @@ declare global {
         "kup-btn": HTMLKupBtnElement;
         "kup-button": HTMLKupButtonElement;
         "kup-calendar": HTMLKupCalendarElement;
+        "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
         "kup-chart-cell": HTMLKupChartCellElement;
         "kup-checkbox": HTMLKupCheckboxElement;
@@ -1732,12 +1778,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         "onKupButtonBlur"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         "onKupButtonClick"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         "onKupButtonFocus"?: (event: CustomEvent<{
+            id: any;
             value: any;
         }>) => void;
         /**
@@ -1801,6 +1850,45 @@ declare namespace LocalJSX {
         "startCol"?: string;
         "styleCol"?: string;
         "weekView"?: boolean;
+    }
+    interface KupCard {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the card.
+         */
+        "data"?: ComponentCardElement;
+        /**
+          * Defines whether the card is a menu or not.
+         */
+        "isMenu"?: boolean;
+        /**
+          * Sets the type of the card. Currently supported values: "material", "custom".
+         */
+        "layoutFamily"?: string;
+        /**
+          * Sets the number of the layout.
+         */
+        "layoutNumber"?: number;
+        /**
+          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+         */
+        "menuVisible"?: boolean;
+        "onKupCardEvent"?: (event: CustomEvent<{
+            id: any;
+            value: any;
+            event: any;
+        }>) => void;
+        /**
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeX"?: string;
+        /**
+          * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
+        "sizeY"?: string;
     }
     interface KupChart {
         "asp"?: ChartAspect;
@@ -2972,6 +3060,10 @@ declare namespace LocalJSX {
          */
         "data"?: TreeNode[];
         /**
+          * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
+         */
+        "density"?: string;
+        /**
           * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
@@ -3048,6 +3140,7 @@ declare namespace LocalJSX {
         "onKupTreeNodeSelected"?: (event: CustomEvent<{
             treeNodePath: TreeNodePath;
             treeNode: TreeNode;
+            columnName: string;
             auto: boolean;
         }>) => void;
         /**
@@ -3096,6 +3189,7 @@ declare namespace LocalJSX {
         "kup-btn": KupBtn;
         "kup-button": KupButton;
         "kup-calendar": KupCalendar;
+        "kup-card": KupCard;
         "kup-chart": KupChart;
         "kup-chart-cell": KupChartCell;
         "kup-checkbox": KupCheckbox;
@@ -3140,6 +3234,7 @@ declare module "@stencil/core" {
             "kup-btn": LocalJSX.KupBtn & JSXBase.HTMLAttributes<HTMLKupBtnElement>;
             "kup-button": LocalJSX.KupButton & JSXBase.HTMLAttributes<HTMLKupButtonElement>;
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
+            "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-chart-cell": LocalJSX.KupChartCell & JSXBase.HTMLAttributes<HTMLKupChartCellElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;

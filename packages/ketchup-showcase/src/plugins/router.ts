@@ -114,6 +114,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/calendar/Calendar.vue`),
   },
   {
+    path: `/card`,
+    name: 'card',
+    component: () => import(`@/views/advanced/card/Card.vue`),
+  },
+  {
     path: `/chart`,
     name: 'chart',
     component: () => import(`@/views/advanced/chart/Chart.vue`),

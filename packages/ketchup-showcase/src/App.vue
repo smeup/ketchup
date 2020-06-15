@@ -152,6 +152,12 @@ export default {
             },
           },
           {
+            title: `Card`,
+            to: {
+              name: 'card',
+            },
+          },
+          {
             title: `Chart`,
             to: {
               name: 'chart',

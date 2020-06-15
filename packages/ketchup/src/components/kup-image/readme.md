@@ -33,6 +33,7 @@
  - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
  - [kup-button](../kup-button)
+ - [kup-card](../kup-card)
  - [kup-checkbox-menu](../kup-checkbox-menu)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
@@ -57,6 +58,7 @@ graph TD;
   kup-badge --> kup-image
   kup-box --> kup-image
   kup-button --> kup-image
+  kup-card --> kup-image
   kup-checkbox-menu --> kup-image
   kup-chip --> kup-image
   kup-data-table --> kup-image
