@@ -1,16 +1,16 @@
 import { Component, Host, Prop, JSX, Element, h } from '@stencil/core';
-import { ComponentLayoutElement } from './wup-layout-declarations';
+import { ComponentGridElement } from './kup-grid-declarations';
 import { errorLogging } from '../../utils/error-logging';
 
 @Component({
-    tag: 'wup-layout',
-    styleUrl: 'wup-layout.scss',
+    tag: 'kup-grid',
+    styleUrl: 'kup-grid.scss',
     shadow: true,
 })
-export class WupLayout {
+export class KupGrid {
     @Element() rootElement: HTMLElement;
     /**
-     * The actual data of the layout, the default behavior is 12.
+     * The number of columns displayed by the grid, the default behavior is 12.
      */
     @Prop({ reflect: true }) columns: number = 12;
     /**
@@ -18,15 +18,15 @@ export class WupLayout {
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
-     * The actual data of the layout.
+     * The actual data of the grid.
      */
-    @Prop() data: ComponentLayoutElement[] = undefined;
+    @Prop() data: ComponentGridElement[] = undefined;
     /**
-     * When set to true forces the width to 100% for the single line layout.
+     * When set to true, forces the width to 100% for the single line layout.
      */
     @Prop({ reflect: true }) fullWidth: boolean = false;
     /**
-     * When set to true forces the content on a single line.
+     * When set to true, forces the content on a single line.
      */
     @Prop({ reflect: true }) singleLine: boolean = false;
 
@@ -77,8 +77,14 @@ export class WupLayout {
                     <Tag {...this.data[i].props}>{this.data[i].content}</Tag>
                 );
             } else {
+                let span: number = 1;
+                let spanClass: string = 'mdc-layout-grid__cell';
+                if (this.data[i].span) {
+                    span = this.data[i].span;
+                }
+                spanClass += ' mdc-layout-grid__cell--span-' + span;
                 content = (
-                    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1">
+                    <div class={spanClass}>
                         <Tag {...this.data[i].props}>
                             {this.data[i].content}
                         </Tag>

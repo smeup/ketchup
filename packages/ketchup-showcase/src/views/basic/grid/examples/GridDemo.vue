@@ -11,7 +11,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'LayoutDemo',
+  name: 'GridDemo',
   data() {
     return {
       demoTabs: [
@@ -36,12 +36,12 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-layout columns="12" id="demo-component"></wup-layout>',
+      demoComp: '<kup-grid columns="12" id="demo-component"></kup-grid>',
       demoProps: [
         {
           prop: 'columns',
           description:
-            'The actual data of the layout, the default behavior is 12.',
+            'The number of columns displayed by the grid, the default behavior is 12.',
           type: 'number',
           default: '12',
           try: 'field',
@@ -56,7 +56,7 @@ export default {
         },
         {
           prop: 'data',
-          description: 'The actual data of the layout.',
+          description: 'The actual data of the grid.',
           type: 'ComponentLayoutElement[]',
           default: 'undefined',
           try: 'json',
@@ -64,14 +64,14 @@ export default {
         {
           prop: 'fullWidth',
           description:
-            'When set to true forces the width to 100% for the single line layout.',
+            'When set to true, forces the width to 100% for the single line layout.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
           prop: 'singleLine',
-          description: 'When set to true forces the content on a single line.',
+          description: 'When set to true, forces the content on a single line.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -89,7 +89,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -104,7 +103,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -119,7 +117,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -134,7 +131,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -149,7 +145,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -164,7 +159,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -179,7 +173,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -194,7 +187,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -209,7 +201,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -224,7 +215,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -239,7 +229,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -254,7 +243,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -269,7 +257,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -284,7 +271,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -299,7 +285,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -314,7 +299,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -329,7 +313,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -344,7 +327,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -359,7 +341,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -374,7 +355,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -389,7 +369,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -404,7 +383,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -419,7 +397,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -434,7 +411,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -449,7 +425,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -464,7 +439,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -479,7 +453,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -494,7 +467,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -509,7 +481,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -524,7 +495,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -539,7 +509,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -554,7 +523,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -569,7 +537,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -584,7 +551,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -599,7 +565,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -614,7 +579,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -629,7 +593,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -644,7 +607,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -659,7 +621,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -674,7 +635,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -689,7 +649,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -704,7 +663,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -719,7 +677,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -734,7 +691,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -749,7 +705,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -764,7 +719,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -779,7 +733,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',
@@ -794,367 +747,6 @@ export default {
                   height: '100%',
                 },
               ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeX: '48px',
               sizeY: '48px',
             },
             tagName: 'kup-image',

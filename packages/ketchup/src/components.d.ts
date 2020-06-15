@@ -18,6 +18,7 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
+import { ComponentGridElement, } from "./components/kup-grid/kup-grid-declarations";
 import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
@@ -25,7 +26,6 @@ import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-de
 import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath, } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps, } from "./components/kup-upload/kup-upload-declarations";
-import { ComponentLayoutElement, } from "./components/wup-layout/wup-layout-declarations";
 export namespace Components {
     interface KupAutocomplete {
         /**
@@ -713,6 +713,28 @@ export namespace Components {
          */
         "widthComponent": string;
     }
+    interface KupGrid {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns": number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the grid.
+         */
+        "data": ComponentGridElement[];
+        /**
+          * When set to true, forces the width to 100% for the single line layout.
+         */
+        "fullWidth": boolean;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine": boolean;
+    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -1227,28 +1249,6 @@ export namespace Components {
     interface KupUpload {
         "typeOptions": UploadProps;
     }
-    interface WupLayout {
-        /**
-          * The actual data of the layout.
-         */
-        "columns": number;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle": string;
-        /**
-          * The actual data of the layout.
-         */
-        "data": ComponentLayoutElement[];
-        /**
-          * When set to true forces the width to 100% for the single line layout.
-         */
-        "fullWidth": boolean;
-        /**
-          * When set to true forces the content on a single line.
-         */
-        "singleLine": boolean;
-    }
 }
 declare global {
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
@@ -1377,6 +1377,12 @@ declare global {
         prototype: HTMLKupGaugeElement;
         new (): HTMLKupGaugeElement;
     };
+    interface HTMLKupGridElement extends Components.KupGrid, HTMLStencilElement {
+    }
+    var HTMLKupGridElement: {
+        prototype: HTMLKupGridElement;
+        new (): HTMLKupGridElement;
+    };
     interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
     }
     var HTMLKupIframeElement: {
@@ -1485,12 +1491,6 @@ declare global {
         prototype: HTMLKupUploadElement;
         new (): HTMLKupUploadElement;
     };
-    interface HTMLWupLayoutElement extends Components.WupLayout, HTMLStencilElement {
-    }
-    var HTMLWupLayoutElement: {
-        prototype: HTMLWupLayoutElement;
-        new (): HTMLWupLayoutElement;
-    };
     interface HTMLElementTagNameMap {
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
@@ -1513,6 +1513,7 @@ declare global {
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
+        "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
@@ -1531,7 +1532,6 @@ declare global {
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
         "kup-upload": HTMLKupUploadElement;
-        "wup-layout": HTMLWupLayoutElement;
     }
 }
 declare namespace LocalJSX {
@@ -2497,6 +2497,28 @@ declare namespace LocalJSX {
          */
         "widthComponent"?: string;
     }
+    interface KupGrid {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns"?: number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the grid.
+         */
+        "data"?: ComponentGridElement[];
+        /**
+          * When set to true, forces the width to 100% for the single line layout.
+         */
+        "fullWidth"?: boolean;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine"?: boolean;
+    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -3211,28 +3233,6 @@ declare namespace LocalJSX {
         "onKetchupFileUploaded"?: (event: CustomEvent<any>) => void;
         "typeOptions"?: UploadProps;
     }
-    interface WupLayout {
-        /**
-          * The actual data of the layout.
-         */
-        "columns"?: number;
-        /**
-          * Custom style to be passed to the component.
-         */
-        "customStyle"?: string;
-        /**
-          * The actual data of the layout.
-         */
-        "data"?: ComponentLayoutElement[];
-        /**
-          * When set to true forces the width to 100% for the single line layout.
-         */
-        "fullWidth"?: boolean;
-        /**
-          * When set to true forces the content on a single line.
-         */
-        "singleLine"?: boolean;
-    }
     interface IntrinsicElements {
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
@@ -3255,6 +3255,7 @@ declare namespace LocalJSX {
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
+        "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
@@ -3273,7 +3274,6 @@ declare namespace LocalJSX {
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
         "kup-upload": KupUpload;
-        "wup-layout": WupLayout;
     }
 }
 export { LocalJSX as JSX };
@@ -3301,6 +3301,7 @@ declare module "@stencil/core" {
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
+            "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
@@ -3319,7 +3320,6 @@ declare module "@stencil/core" {
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
             "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;
-            "wup-layout": LocalJSX.WupLayout & JSXBase.HTMLAttributes<HTMLWupLayoutElement>;
         }
     }
 }

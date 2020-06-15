@@ -265,6 +265,12 @@ export default {
             },
           },
           {
+            title: 'Grid',
+            to: {
+              name: 'grid',
+            },
+          },
+          {
             title: `Iframe`,
             to: {
               name: 'iframe',
@@ -274,12 +280,6 @@ export default {
             title: `Image`,
             to: {
               name: 'image',
-            },
-          },
-          {
-            title: 'Layout',
-            to: {
-              name: 'layout',
             },
           },
           {

@@ -2,25 +2,25 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
-        <layout-demo></layout-demo>
+        <grid-demo></grid-demo>
       </template>
     </comp>
   </div>
 </template>
 
 <script>
-import LayoutDemo from '@/views/basic/layout/examples/LayoutDemo';
+import GridDemo from '@/views/basic/grid/examples/GridDemo';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
-    LayoutDemo,
+    GridDemo,
     Comp,
   },
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-layout',
-      headtitle: 'Layout',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-grid',
+      headtitle: 'Grid',
       titles: ['Playground'],
     };
   },
