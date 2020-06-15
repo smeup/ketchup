@@ -85,9 +85,10 @@ export class KupGrid {
                 spanClass += ' mdc-layout-grid__cell--span-' + span;
                 content = (
                     <div class={spanClass}>
-                        <Tag {...this.data[i].props}>
-                            {this.data[i].content}
-                        </Tag>
+                        <Tag
+                            {...this.data[i].props}
+                            innerHTML={this.data[i].content}
+                        ></Tag>
                     </div>
                 );
             }
