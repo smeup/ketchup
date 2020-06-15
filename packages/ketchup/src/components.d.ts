@@ -20,6 +20,7 @@ import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } 
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
+import { QlikServer, } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
@@ -937,6 +938,11 @@ export namespace Components {
          */
         "value": number;
     }
+    interface KupQlik {
+        "appid": string;
+        "config": QlikServer;
+        "obj": string;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -1408,6 +1414,12 @@ declare global {
         prototype: HTMLKupProgressBarElement;
         new (): HTMLKupProgressBarElement;
     };
+    interface HTMLKupQlikElement extends Components.KupQlik, HTMLStencilElement {
+    }
+    var HTMLKupQlikElement: {
+        prototype: HTMLKupQlikElement;
+        new (): HTMLKupQlikElement;
+    };
     interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {
     }
     var HTMLKupRadioElement: {
@@ -1493,6 +1505,7 @@ declare global {
         "kup-modal": HTMLKupModalElement;
         "kup-paginator": HTMLKupPaginatorElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
+        "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
@@ -2742,6 +2755,11 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    interface KupQlik {
+        "appid"?: string;
+        "config"?: QlikServer;
+        "obj"?: string;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -3213,6 +3231,7 @@ declare namespace LocalJSX {
         "kup-modal": KupModal;
         "kup-paginator": KupPaginator;
         "kup-progress-bar": KupProgressBar;
+        "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
@@ -3258,6 +3277,7 @@ declare module "@stencil/core" {
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
+            "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
