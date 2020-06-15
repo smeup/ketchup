@@ -36,11 +36,12 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<wup-layout columns="6" id="demo-component"></wup-layout>',
+      demoComp: '<wup-layout columns="12" id="demo-component"></wup-layout>',
       demoProps: [
         {
           prop: 'columns',
-          description: 'Sets the number of columns.',
+          description:
+            'The actual data of the layout, the default behavior is 12.',
           type: 'number',
           default: '12',
           try: 'field',
@@ -80,231 +81,1083 @@ export default {
         data: [
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '1',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '2',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '3',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '4',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '5',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '6',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '7',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '8',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '9',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '10',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '11',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              data: {
-                button1: { icon: 'favorite', flat: true },
-                image1: {
-                  resource: 'images/catz_small_2.jpg',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
                 },
-                text1: '12',
-                text2: "This card' size fits the container",
-              },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-card',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 1',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 2',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 3',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 4',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 5',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 6',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 7',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 8',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 9',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 10',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 11',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
           },
           {
             props: {
-              label: 'button 12',
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
             },
-            tagName: 'kup-button',
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
+          },
+          {
+            props: {
+              data: [
+                {
+                  shape: 'bar',
+                  color: 'var(--kup-main-color)',
+                  width: '100%',
+                  height: '100%',
+                },
+              ],
+              sizeX: '48px',
+              sizeY: '48px',
+            },
+            tagName: 'kup-image',
           },
         ],
       },

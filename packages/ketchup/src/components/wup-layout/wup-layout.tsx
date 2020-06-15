@@ -10,7 +10,7 @@ import { errorLogging } from '../../utils/error-logging';
 export class WupLayout {
     @Element() rootElement: HTMLElement;
     /**
-     * The actual data of the layout.
+     * The actual data of the layout, the default behavior is 12.
      */
     @Prop({ reflect: true }) columns: number = 12;
     /**
