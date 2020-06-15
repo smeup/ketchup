@@ -162,6 +162,7 @@ export class KupTree {
     private treeWrapperRef: any;
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
+    private selectedColumn: string;
 
     //-------- Events --------
     /**
@@ -234,6 +235,7 @@ export class KupTree {
     kupTreeNodeSelected: EventEmitter<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        columnName: string;
         auto: boolean;
     }>;
 
@@ -465,6 +467,7 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
                 treeNode: treeNodeData,
+                columnName: this.selectedColumn,
                 auto: auto,
             });
         }
@@ -879,7 +882,7 @@ export class KupTree {
                 )
             );
         }
-        return <td style={style}>{cellElements}</td>;
+        return <td onClick={() => this.selectedColumn = cellData.column.name} style={style}>{cellElements}</td>;
     }
 
     /**

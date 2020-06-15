@@ -386,8 +386,12 @@ export function isRowCompliant(
         let retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (isFilterCompliantForCell(cell, fv)) {
-                retValue = true;
+            if (cell && cell.value != null && fv != null) {
+                if (
+                    cell.value.toLowerCase().trim() == fv.toLowerCase().trim()
+                ) {
+                    retValue = true;
+                }
             }
         }
         if (!retValue) {
