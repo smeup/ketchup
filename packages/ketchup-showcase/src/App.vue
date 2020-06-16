@@ -265,6 +265,12 @@ export default {
             },
           },
           {
+            title: 'Grid',
+            to: {
+              name: 'grid',
+            },
+          },
+          {
             title: `Iframe`,
             to: {
               name: 'iframe',

@@ -51,6 +51,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
+    path: `/grid`,
+    name: 'grid',
+    component: () => import(`@/views/basic/grid/Grid.vue`),
+  },
+  {
     path: `/iframe`,
     name: 'iframe',
     component: () => import(`@/views/basic/iframe/Iframe.vue`),
