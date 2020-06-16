@@ -1,35 +1,31 @@
-import { Component, Prop, h} from '@stencil/core';
+import { Component, Prop, h, State} from '@stencil/core';
 import qApp from './qApp';
-import { QlikServer } from './kup-qlik-declarations'
+import { QlikServer, KupQlikGrid } from './kup-qlik-declarations'
 
 @Component({
   tag: 'kup-qlik',
-  styleUrls: ['kup-qlik.css'],
+  styleUrls: ['kup-qlik.scss'],
   shadow: false
 })
 export class KupQlik {
   
   @Prop() config: QlikServer
   @Prop() appid: string = '';
-  @Prop() obj: string = '';
+  @Prop() grid: Array<KupQlikGrid> = [];
+
+  /* Style prop */
+  @Prop() fluid:  boolean = false
+  @Prop() bordered: boolean = false
+
+  @State() divlist: Array<object> = [];
   
   
 
   /* @Element() private element: HTMLElement; */
 
-  qMatrix = null
-  isload = false
-  app = null
-
-
-  
-  private divref:HTMLDivElement
-
-  constructor(){
-    /* this.config = {host:'itcldsrv017', port:'80', prefix:'', isSecure:false} */
-  }
-
-
+  private isload = false
+  private app = null
+   
   setCapabilityApisJS() {
     return new Promise((resolve) => {
       const capabilityApisJS = document.createElement('script');
@@ -69,31 +65,79 @@ export class KupQlik {
       }
       else
       resolve(true)
+    })   
+  }
+
+  getObjects(grid){
+    return new Promise((resolve)=>{
+      grid.forEach(element => {
+        this.app.getObject(element.obj, element.obj)
+      });
+      resolve(true)
     })
+  }
+
+  setDivList(grid){
+    return new Promise((resolve)=>{
+      grid.forEach(element => {
+        let style = 'qvobject '
+        if(this.bordered) {
+          style = style + 'bordered '
+        }          
+
+        style = style + 'col-'+element.colDim 
+        this.divlist.push(<div id={element.obj} class={style}></div>)     
+      });
       
-    
+      resolve(true)
+    })
   }
 
   componentDidLoad(){
     this.loadApp().then(()=>{
-      Promise.all([
-        this.app.field('Anno').select([0], true, true),
-        this.app.field('Anno').getData()
+      this.getObjects(this.grid)
+/*       Promise.all([
+        this.app.field('Anno').select([0], true, true)
       ]).then((x)=>{
         console.log(x)
-        Promise.all([	
-          this.app.getObject(this.divref, this.obj), 
-        ])
-      })      
+        Promise.all(this.test)
+      })    */   
     })
+  }
+
+  componentWillRender(){
+    this.setDivList(this.grid)
   }
 
   
   render() {
-      return (
-        <div>
-          <div ref={(el: HTMLDivElement) => (this.divref = el)} class="qvobject"></div>
-        </div>      
-      );    
+    let classLayout = null
+    let layoutStyle = null;
+
+    if(this.fluid){
+      classLayout = {
+        ['kup-qlik-container-fluid']: true,
+      }; 
+    }
+    else{
+      classLayout = {
+        ['kup-qlik-container']: true,
+      };
+    }
+
+    layoutStyle = {
+      ['--lyo_obj-height']: '400px',
+    };
+
+    return (
+      <div class={classLayout} style={layoutStyle}>
+        <div class="kup-qlik-row">
+          {this.divlist}
+        </div>       
+      </div>      
+    );    
   }
 }
+
+
+{/* <div ref={(el: HTMLDivElement) => (this.divref = el)} class="qvobject"></div> */}

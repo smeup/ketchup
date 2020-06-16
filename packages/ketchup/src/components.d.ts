@@ -20,7 +20,7 @@ import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } 
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
-import { QlikServer, } from "./components/kup-qlik/kup-qlik-declarations";
+import { KupQlikGrid, QlikServer, } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
@@ -940,8 +940,10 @@ export namespace Components {
     }
     interface KupQlik {
         "appid": string;
+        "bordered": boolean;
         "config": QlikServer;
-        "obj": string;
+        "fluid": boolean;
+        "grid": Array<KupQlikGrid>;
     }
     interface KupRadio {
         /**
@@ -2757,8 +2759,10 @@ declare namespace LocalJSX {
     }
     interface KupQlik {
         "appid"?: string;
+        "bordered"?: boolean;
         "config"?: QlikServer;
-        "obj"?: string;
+        "fluid"?: boolean;
+        "grid"?: Array<KupQlikGrid>;
     }
     interface KupRadio {
         /**

@@ -4,3 +4,8 @@ export interface QlikServer {
     prefix: string,
     isSecure: boolean
 }
+
+export interface KupQlikGrid {
+    obj: string,
+    colDim: number
+}
