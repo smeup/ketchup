@@ -152,6 +152,12 @@ export default {
             },
           },
           {
+            title: `Card`,
+            to: {
+              name: 'card',
+            },
+          },
+          {
             title: `Chart`,
             to: {
               name: 'chart',
@@ -256,6 +262,12 @@ export default {
             title: `Combobox`,
             to: {
               name: 'combobox',
+            },
+          },
+          {
+            title: 'Grid',
+            to: {
+              name: 'grid',
             },
           },
           {

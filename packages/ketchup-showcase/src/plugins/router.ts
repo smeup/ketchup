@@ -51,6 +51,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
+    path: `/grid`,
+    name: 'grid',
+    component: () => import(`@/views/basic/grid/Grid.vue`),
+  },
+  {
     path: `/iframe`,
     name: 'iframe',
     component: () => import(`@/views/basic/iframe/Iframe.vue`),
@@ -112,6 +117,11 @@ let advancedRoutes = [
     path: `/calendar`,
     name: 'calendar',
     component: () => import(`@/views/advanced/calendar/Calendar.vue`),
+  },
+  {
+    path: `/card`,
+    name: 'card',
+    component: () => import(`@/views/advanced/card/Card.vue`),
   },
   {
     path: `/chart`,

@@ -42,13 +42,6 @@ export default {
         '<kup-data-table id="demo-component" sort-enabled density="small" global-filter-value group-label-display="both" header-is-persistent load-more-limit="1000" load-more-step="60" paginator-pos="Top" rows-per-page="10" show-grid="Row" show-header sortable-columns-mutate-data></kup-data-table>',
       demoProps: [
         {
-          prop: 'columnsWidth',
-          description: 'Set a custom width for the specified columns.',
-          type: '[]',
-          default: '[]',
-          try: 'json',
-        },
-        {
           prop: 'data',
           description: 'The data of the table.',
           type: 'TableData',

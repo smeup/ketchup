@@ -1,4 +1,4 @@
-import { getColorFromString } from './kup-graphic-cell-helper';
+import { getColorFromString } from './kup-image-canvas-helper';
 
 export class GraphicElement {
     width = 100.0;

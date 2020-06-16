@@ -10,8 +10,8 @@
 
         <title>Ketchup dash</title>
 
-        <script type="module" src="/build/mycomponent.esm.js"></script>
-        <script nomodule src="/build/mycomponent.js"></script>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
 
         <link
             href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
@@ -26,8 +26,8 @@
             }
 
             #container > div {
-                    margin: 1rem;
-                }
+                margin: 1rem;
+            }
         </style>
     </head>
 
@@ -69,7 +69,7 @@
                     </div>
                     <div slot="value-int" style="color: red;">15,</div>
                     <div slot="value-dec" style="color: red;">86</div>
-                    <div slot="unit"  style="color: red;" >%</div>
+                    <div slot="unit" style="color: red;">%</div>
                     <div slot="descr">Admissions Count</div>
                 </kup-dash>
             </div>
@@ -78,7 +78,10 @@
                 <h3>Layout 5</h3>
                 <kup-dash id="layout5" layout="5">
                     <div slot="icon">
-                        <icon class="mdi mdi-chart-bar" style="color: deepskyblue;" />
+                        <icon
+                            class="mdi mdi-chart-bar"
+                            style="color: deepskyblue;"
+                        />
                     </div>
                     <div slot="value">34,678</div>
                     <div slot="descr">Admissions Count</div>
@@ -89,7 +92,10 @@
                 <h3>Layout 6</h3>
                 <kup-dash id="layout6" layout="6">
                     <div slot="icon">
-                        <icon class="mdi mdi-account-outline" style="color: #ffef3c;" />
+                        <icon
+                            class="mdi mdi-account-outline"
+                            style="color: #ffef3c;"
+                        />
                     </div>
                     <div slot="value">12</div>
                     <div slot="descr">Admissions Count</div>
@@ -111,7 +117,10 @@
                 <h3>Layout 8</h3>
                 <kup-dash id="layout8" layout="8">
                     <div slot="icon">
-                        <icon class="mdi mdi-checkbox-blank-circle" style="color: green;" />
+                        <icon
+                            class="mdi mdi-checkbox-blank-circle"
+                            style="color: green;"
+                        />
                     </div>
                     <div slot="value">35</div>
                     <div slot="descr">TASKS DONE</div>

@@ -35,7 +35,6 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Property                    | Attribute                      | Description                                                                                                                                                                                                                    | Type                                                                                             | Default                              |
 | --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------ |
-| `columnsWidth`              | --                             | Used to set custom columns width.                                                                                                                                                                                              | `{ column: string; width: number; }[]`                                                           | `[]`                                 |
 | `data`                      | --                             | The data of the table.                                                                                                                                                                                                         | `TableData`                                                                                      | `undefined`                          |
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'small'`                            |
 | `enableSortableColumns`     | `enable-sortable-columns`      | Enables the sorting of columns by dragging them into different columns.                                                                                                                                                        | `boolean`                                                                                        | `false`                              |
@@ -145,7 +144,6 @@ Type: `Promise<Column[]>`
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
-- [kup-graphic-cell](../kup-graphic-cell)
 - [kup-chart-cell](../kup-chart-cell)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
@@ -161,7 +159,6 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
@@ -170,8 +167,8 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
   kup-button --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-text-field --> kup-image
   kup-progress-bar --> kup-image

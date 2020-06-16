@@ -88,6 +88,7 @@ export class KupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -98,6 +99,7 @@ export class KupButton {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -108,6 +110,7 @@ export class KupButton {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -115,6 +118,7 @@ export class KupButton {
 
     onKupBlur() {
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -132,12 +136,14 @@ export class KupButton {
             this.value = 'N/A';
         }
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -212,7 +218,7 @@ export class KupButton {
                         class="material-icons mdc-button__icon"
                         sizeX="18px"
                         sizeY="18px"
-                        name={this.icon}
+                        resource={this.icon}
                     ></kup-image>
                 );
             }
@@ -278,9 +284,9 @@ export class KupButton {
                 <kup-image
                     color={iconColor}
                     class="material-icons mdc-icon-button__icon"
-                    sizeX="18px"
-                    sizeY="18px"
-                    name={this.icon}
+                    sizeX="24px"
+                    sizeY="24px"
+                    resource={this.icon}
                 ></kup-image>
             );
             if (this.toggable) {
@@ -289,9 +295,9 @@ export class KupButton {
                     <kup-image
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        sizeX="18px"
-                        sizeY="18px"
-                        name={this.icon}
+                        sizeX="24px"
+                        sizeY="24px"
+                        resource={this.icon}
                     ></kup-image>
                 );
                 if (this.checked) {
@@ -309,9 +315,9 @@ export class KupButton {
                     <kup-image
                         color={iconColor}
                         class="material-icons mdc-icon-button__icon"
-                        sizeX="18px"
-                        sizeY="18px"
-                        name={iconOff}
+                        sizeX="24px"
+                        sizeY="24px"
+                        resource={iconOff}
                     ></kup-image>
                 );
             }

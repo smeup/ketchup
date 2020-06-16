@@ -70,11 +70,11 @@ describe('renders actions', () => {
         element.setProperty('rowActions', [
             {
                 text: 'Action #1',
-                icon: 'mdi mdi-account',
+                icon: 'account',
             },
             {
                 text: 'Action #2',
-                icon: 'mdi mdi-plus',
+                icon: 'plus',
             },
         ]);
 
@@ -118,7 +118,7 @@ describe('renders actions', () => {
         expect(detail.type).toBe('default');
         expect(detail.action).toEqual({
             text: 'Action #1',
-            icon: 'mdi mdi-account',
+            icon: 'account',
         });
         expect(detail.index).toBe(0);
 
@@ -145,11 +145,11 @@ describe('renders actions', () => {
         element.setProperty('rowActions', [
             {
                 text: 'Action #1',
-                icon: 'mdi mdi-account',
+                icon: 'account',
             },
             {
                 text: 'Action #2',
-                icon: 'mdi mdi-plus',
+                icon: 'plus',
             },
         ]);
 

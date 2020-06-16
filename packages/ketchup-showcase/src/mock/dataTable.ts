@@ -35,7 +35,6 @@ export function createDataForPagination(
     columns.push({
       name: 'FLD' + i,
       title: 'Column ' + i,
-      size: 10,
       hideValuesRepetitions:
         useStepValues &&
         (Math.random() > 0.5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0),
@@ -87,12 +86,7 @@ export function filterFakeDepartmentData(filter: string, dataSuffix: string) {
   let rowsFiltered = data.rows;
   if (filter) {
     rowsFiltered = data.rows.filter((row: any) => {
-      let includes =
-        row.cells['code'].value +
-        ' ' +
-        row.cells['desc'].value +
-        ' ' +
-        row.cells['size'].value;
+      let includes = row.cells['code'].value + ' ' + row.cells['desc'].value;
       return includes.toUpperCase().includes(filter.toUpperCase());
     });
   }
@@ -107,17 +101,10 @@ export function createFakeDepartmentData(dataSuffix: string) {
   columns.push({
     name: 'code',
     title: 'Code',
-    size: 10,
   });
   columns.push({
     name: 'desc',
     title: 'Description',
-    size: 10,
-  });
-  columns.push({
-    name: 'size',
-    title: 'Size',
-    size: 10,
   });
   const rows = [];
   for (let i = 0; i < fld3Values.length; i++) {
@@ -129,9 +116,6 @@ export function createFakeDepartmentData(dataSuffix: string) {
     };
     currentRow.cells['desc'] = {
       value: fld3Values[i] + dataSuffix,
-    };
-    currentRow.cells['size'] = {
-      value: '' + fld3Values[i].length + i,
     };
     for (let j = 0; j < columns.length; j++) {
       currentRow.cells[columns[j].name].obj = {
@@ -153,22 +137,18 @@ export const defaultDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
-      title: 'Working|License',
-      size: 10,
+      title: 'Working License',
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -624,24 +604,20 @@ export const hiddenColumnsData = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
       visible: false,
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
       visible: false,
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -763,19 +739,16 @@ export const iconImagesDataTable = {
       title: 'Person',
       // Checks 'clickable' class is not added when present but false
       clickable: false,
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Icon',
-      size: 10,
       // Checks 'clickable' class is added
       clickable: true,
     },
     {
       name: 'FLD3',
       title: 'Image',
-      size: 10,
     },
   ],
   rows: [
@@ -795,7 +768,7 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'CN;COL;Customers module',
           },
-          value: 'mdi mdi-account',
+          value: 'account',
         },
         FLD3: {
           obj: {
@@ -853,7 +826,7 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'J1;KEY;CTRL',
           },
-          value: 'mdi mdi-play',
+          value: 'play',
         },
         FLD3: {
           obj: {
@@ -874,22 +847,18 @@ export const cellStyleDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1042,22 +1011,18 @@ export const cellStyleDataTable2 = {
     {
       name: 'FLD1',
       title: 'Column A',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Column B',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Column C',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Column D',
-      size: 10,
     },
   ],
   rows: [
@@ -1212,22 +1177,18 @@ export const sortDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1586,18 +1547,15 @@ export function dataTableCheckboxFactory(
       columns: [
         {
           name: 'A',
-          size: 0,
           title: 'Numero',
         },
         {
           name: 'B',
-          size: 0,
           title: 'BarCode',
         },
         {
           hideValuesRepetitions,
           name: 'C',
-          size: 0,
           title: 'Si/No',
           obj: {
             k: '',

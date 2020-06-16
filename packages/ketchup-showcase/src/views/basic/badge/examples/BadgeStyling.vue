@@ -54,12 +54,12 @@ export default {
   data() {
     return {
       imageData: {
-        name: 'widgets',
+        resource: 'widgets',
       },
       imageDataURL: {
         sizeX: 'auto',
-        name:
-          'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+        resource:
+          'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
       },
       markupPosition: '<kup-badge position="your_position"></kup-badge>',
     };

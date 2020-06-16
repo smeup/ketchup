@@ -859,19 +859,6 @@ pagBoth.config = {
 createDataForPagination('pagination-both', 10, 100);
 
 createDataForTestTotals();
-// custom columns width
-const customColWidth = document.getElementById('custom-columns-width');
-customColWidth.data = defaultData;
-customColWidth.columnsWidth = [
-    {
-        column: 'FLD1',
-        width: 100,
-    },
-    {
-        column: 'FLD3',
-        width: 300,
-    },
-];
 
 // hidden header
 const hiddenHeader = document.getElementById('hidden-header');
