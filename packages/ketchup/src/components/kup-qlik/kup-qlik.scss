@@ -12,9 +12,7 @@
 	}
 	
 	.kup-qlik-row  > .qvobject {
-		float:left;
-		flex: 1 1 auto;
-		height: var(--lyo_obj-height,300px);
+		flex: 0 0 auto;
 		min-width: 200px;
 		margin: 0;
 	}	
@@ -27,9 +25,7 @@
 	}
 	
 	.kup-qlik-row  > .qvobject {
-		float:left;
-		flex: 1 1 auto;
-		height: var(--lyo_obj-height,300px);
+		flex: 0 0 auto;
 		min-width: 200px;
 		margin: 0;
 	}
@@ -42,9 +38,7 @@
 	}
 	
 	.kup-qlik-row  > .qvobject {
-		float:left;
-		flex: 1 1 auto;
-		height: var(--lyo_obj-height,300px);
+		flex: 0 0 auto;
 		min-width: 200px;
 		margin: 0;
 	}
@@ -57,15 +51,38 @@
 	}
 	
 	.kup-qlik-row  > .qvobject {
-		float:left;
-		flex: 1 1 auto;
-		height: var(--lyo_obj-height,300px);
+		flex: 0 0 auto;
 		min-width: 200px;
 		margin: 0;
 	}
  }
 
  .kup-qlik-row {
+	 display: flex;
+	 display: ms-flexbox;
+	 flex-wrap: wrap;
+	 -ms-flex-wrap: wrap;
+	 margin-bottom: 5px;
+
+	.size-M{
+		height: var(--lyo_obj-height);
+	}
+
+	.size-S{
+		height: calc(var(--lyo_obj-height)/2);
+	}
+
+	.size-XS{
+		height: calc(var(--lyo_obj-height)/3);
+	}
+
+	.size-L{
+		height: calc(var(--lyo_obj-height)*2);
+	}
+
+	.size-XL{
+		height: calc(var(--lyo_obj-height)*3);
+	}
 
 	.bordered {
 		border: 1px solid var(--kup-border-color,#969696);

@@ -70,8 +70,10 @@ export class KupQlik {
 
   getObjects(grid){
     return new Promise((resolve)=>{
-      grid.forEach(element => {
-        this.app.getObject(element.obj, element.obj)
+      grid.rows.forEach(row => {
+        row.columns.forEach(column => {
+          this.app.getObject(column.obj, column.obj)
+        });    
       });
       resolve(true)
     })
@@ -79,14 +81,21 @@ export class KupQlik {
 
   setDivList(grid){
     return new Promise((resolve)=>{
-      grid.forEach(element => {
-        let style = 'qvobject '
-        if(this.bordered) {
-          style = style + 'bordered '
-        }          
+      grid.rows.forEach(row => {
+        let tmp: Array<object> = []      
+        row.columns.forEach(column => {
+          let style = 'qvobject '
+          if(this.bordered) {
+            style = style + 'bordered '
+          }          
 
-        style = style + 'col-'+element.colDim 
-        this.divlist.push(<div id={element.obj} class={style}></div>)     
+          style = style + 'col-'+column.colDim + ' size-'+column.size
+          if(column.obj!='')
+            tmp.push(<div id={column.obj} class={style}></div>)
+          else
+            tmp.push(<div class={style}></div>)
+        });
+      this.divlist.push(<div class="kup-qlik-row">{tmp}</div>)     
       });
       
       resolve(true)
@@ -131,9 +140,7 @@ export class KupQlik {
 
     return (
       <div class={classLayout} style={layoutStyle}>
-        <div class="kup-qlik-row">
-          {this.divlist}
-        </div>       
+          {this.divlist}  
       </div>      
     );    
   }

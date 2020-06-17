@@ -6,6 +6,15 @@ export interface QlikServer {
 }
 
 export interface KupQlikGrid {
-    obj: string,
-    colDim: number
+    rows:[
+        {
+            columns:[
+                {
+                    obj: string,
+                    colDim: number
+                    size: string
+                }
+            ]
+        }
+    ]    
 }
