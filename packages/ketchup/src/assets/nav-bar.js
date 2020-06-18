@@ -16,9 +16,12 @@ const defaultData = {
     ],
 };
 const navBar = document.getElementById('navbar');
-navBar.data = { ...defaultData };
+if (navBar != null) {
+    navBar.data = { ...defaultData };
+}
 
 const navBarShort = document.getElementById('navbar-short');
-//const aa = { ...defaultData };
-navBarShort.data = { ...defaultData };
-navBarShort.data.title = 'navbar with mode';
+if (navBarShort != null) {
+    navBarShort.data = { ...defaultData };
+    navBarShort.data.title = 'navbar with mode';
+}
