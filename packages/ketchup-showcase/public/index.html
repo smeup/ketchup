@@ -95,6 +95,9 @@
             document.documentElement.style.setProperty(key, val);
           }
         }
+        document['kupTheme'] = themes[themeID];
+        var event = new CustomEvent('kupThemeChanged');
+        document.dispatchEvent(event);
       }
 
       function changeTheme() {
