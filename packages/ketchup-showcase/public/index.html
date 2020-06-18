@@ -54,6 +54,7 @@
     <link href="lightTheme.css" rel="stylesheet" type="text/css" />
     <link href="showcase.css" rel="stylesheet" type="text/css" />
     <script src="showcase.js"></script>
+    <script src="kup-themes.js"></script>
     <title>Ketch.UP | Showcase</title>
     <script
       type="text/javascript"
@@ -82,6 +83,34 @@
       integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      setTheme('default');
+
+      function setTheme(themeID) {
+        let variables = themes[themeID].cssVariables;
+        for (var key in variables) {
+          if (variables.hasOwnProperty(key)) {
+            var val = variables[key];
+            document.documentElement.style.setProperty(key, val);
+          }
+        }
+      }
+
+      function changeTheme() {
+        let dom = document.documentElement;
+
+        if (dom.querySelector('#inspire').classList.contains('theme--dark')) {
+          dom.querySelector('#inspire').classList.add('theme--light');
+          dom.querySelector('#inspire').classList.remove('theme--dark');
+          setTheme('default');
+        } else {
+          dom.querySelector('#inspire').classList.remove('theme--light');
+          dom.querySelector('#inspire').classList.add('theme--dark');
+          setTheme('dark');
+        }
+      }
+    </script>
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.js"></script>
     -->
@@ -98,127 +127,4 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-
-  <style>
-    :root {
-      --kup-background-color: #ffffff;
-      --kup-header-background-color: #2e2e2e;
-      --kup-drawer-background-color: #ffffff;
-      --kup-main-color: #d64325;
-      --kup-display-mode: block;
-      --kup-font-family: 'Oswald', sans-serif;
-      --kup-font-size: 14px;
-      --kup-text-on-main-color: #ffffff;
-      --kup-text-color: #2e2e2e;
-      --kup-icon-color: #505050;
-      --kup-hover-background-color: #f0f0f0;
-      --kup-hover-color: #545454;
-      --kup-border-color: #e0e0e0;
-      --kup-disabled-text-color: #5c5c5c;
-      --kup-disabled-background-color: #eaeaea;
-      --kup-field-background-color: #fafafa;
-      --kup-chip-background-color: #eaeaea;
-      --kup-spinner-color: #eaa710;
-      --kup-title-background-color: #f1f3f4;
-    }
-  </style>
-  <script>
-    function changeTheme() {
-      var DOMEl = document.documentElement;
-      var themeArray = DOMEl.themeJSON;
-      if (DOMEl.hasAttribute('style')) {
-        DOMEl.removeAttribute('style');
-      }
-
-      if (DOMEl.querySelector('#inspire').classList.contains('theme--dark')) {
-        DOMEl.querySelector('#inspire').classList.add('theme--light');
-        DOMEl.querySelector('#inspire').classList.remove('theme--dark');
-      } else {
-        DOMEl.querySelector('#inspire').classList.remove('theme--light');
-        DOMEl.querySelector('#inspire').classList.add('theme--dark');
-        for (let i = 0; i < themeArray.length; i++) {
-          DOMEl.style.setProperty(themeArray[i].name, themeArray[i].value);
-        }
-      }
-    }
-
-    document.documentElement.themeJSON = [
-      {
-        name: '--kup-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-header-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-drawer-background-color',
-        value: '#1f1f1f',
-      },
-      {
-        name: '--kup-main-color',
-        value: '#82f0e2',
-      },
-      {
-        name: '--kup-display-mode',
-        value: 'block',
-      },
-      {
-        name: '--kup-font-family',
-        value: 'Roboto, sans-serif',
-      },
-      {
-        name: '--kup-font-size',
-        value: '14px',
-      },
-      {
-        name: '--kup-text-color',
-        value: '#f5f5f5',
-      },
-      {
-        name: '--kup-icon-color',
-        value: '#e0e0e0',
-      },
-      {
-        name: '--kup-hover-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-hover-color',
-        value: '#dddddd',
-      },
-      {
-        name: '--kup-text-on-main-color',
-        value: '#555555',
-      },
-      {
-        name: '--kup-border-color',
-        value: '#535353',
-      },
-      {
-        name: '--kup-disabled-text-color',
-        value: '#7e7e7e',
-      },
-      {
-        name: '--kup-disabled-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-field-background-color',
-        value: '#2a2a2a',
-      },
-      {
-        name: '--kup-chip-background-color',
-        value: '#222222',
-      },
-      {
-        name: '--kup-spinner-color',
-        value: '#f2e114',
-      },
-      {
-        name: '--kup-title-background-color',
-        value: '#111111',
-      },
-    ];
-  </script>
 </html>

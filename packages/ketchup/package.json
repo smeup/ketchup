@@ -1,6 +1,6 @@
 {
     "name": "ketchup",
-    "version": "0.0.1",
+    "version": "0.0.3-SNAPSHOT",
     "keywords": [
         "Sme.UP",
         "KetchUP",
@@ -44,6 +44,7 @@
         "@material/chips": "^4.0.0",
         "@material/form-field": "^4.0.0",
         "@material/icon-button": "^4.0.0",
+        "@material/layout-grid": "^4.0.0",
         "@material/list": "^4.0.0",
         "@material/menu": "^4.0.0",
         "@material/radio": "^4.0.0",
@@ -71,5 +72,9 @@
         "jest-cli": "^24.9.0",
         "jest-environment-node": "^24.9.0",
         "puppeteer": "~2.1.1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/smeup/ketchup.git"
     }
 }

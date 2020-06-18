@@ -236,7 +236,9 @@ export class KupImage {
         let spinnerLayout: number = undefined;
         this.elStyle = {
             height: this.sizeY,
+            minHeight: this.sizeY,
             width: this.sizeX,
+            minWidth: this.sizeX,
         };
 
         if (this.customStyle) {
