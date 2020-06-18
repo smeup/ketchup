@@ -1,3 +1,5 @@
+import { h } from '@stencil/core';
+
 declare global {
     interface Document {
         kupTheme: any;
@@ -21,16 +23,21 @@ export function themeCustomStyle(component: string) {
     return completeStyle;
 }
 
-export function setCustomStyle(themeCustomStyle: string, customStyle: string) {
-    if (themeCustomStyle) {
+export function setCustomStyle(customStyleTheme: string, customStyle: string) {
+    if (customStyleTheme) {
         if (customStyle) {
-            return customStyle + ' ' + themeCustomStyle;
+            return (
+                <style>
+                    {customStyleTheme}
+                    {customStyle}
+                </style>
+            );
         } else {
-            return themeCustomStyle;
+            return <style>{customStyleTheme}</style>;
         }
     } else if (customStyle) {
-        return customStyle;
+        return <style>{customStyle}</style>;
     } else {
-        return undefined;
+        return <style>--no custom style detected--</style>;
     }
 }

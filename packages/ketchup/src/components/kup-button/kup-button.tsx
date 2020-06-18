@@ -20,6 +20,7 @@ import { themeCustomStyle, setCustomStyle } from '../../utils/theming';
 export class KupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Defaults at false. When set to true, the icon button state will be on.
@@ -151,14 +152,10 @@ export class KupButton {
         });
     }
 
-    fetchThemeCustomStyle(shouldRender: boolean) {
-        let previouscustomStyleTheme = this.customStyleTheme;
+    fetchThemeCustomStyle(shouldRefresh: boolean) {
         this.customStyleTheme = themeCustomStyle(this.rootElement.tagName);
-        if (
-            shouldRender &&
-            previouscustomStyleTheme !== this.customStyleTheme
-        ) {
-            this.render();
+        if (shouldRefresh) {
+            this.refresh = !this.refresh;
         }
     }
 
@@ -211,13 +208,10 @@ export class KupButton {
         let trailingEl: HTMLElement = null;
         let elStyle = undefined;
         let iconColor = undefined;
-        let customStyle: string = setCustomStyle(
+        let customStyle: HTMLStyleElement = setCustomStyle(
             this.customStyleTheme,
             this.customStyle
         );
-        if (customStyle) {
-            customStyle = <style>{customStyle}</style>;
-        }
 
         console.log(this.customStyleTheme, this.customStyle, customStyle);
 
