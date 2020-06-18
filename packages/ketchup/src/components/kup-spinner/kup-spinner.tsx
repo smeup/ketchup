@@ -38,6 +38,10 @@ export class KupSpinner {
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
     /**
+     * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
+     */
+    @Prop({ reflect: true }) isUnclickable: boolean = false;
+    /**
      * Sets the layout of the spinner.
      */
     @Prop({ reflect: true }) layout: number = 1;
@@ -82,6 +86,10 @@ export class KupSpinner {
 
         if (this.active) {
             masterClass += ' loading-wrapper-visible';
+        }
+
+        if (this.isUnclickable) {
+            masterClass += ' is-unclickable';
         }
 
         if (this.barVariant) {
