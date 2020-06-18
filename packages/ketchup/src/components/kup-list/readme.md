@@ -52,6 +52,7 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-combobox](../kup-combobox)
+ - [kup-nav-bar](../kup-nav-bar)
 
 ### Depends on
 
@@ -70,6 +71,7 @@ graph TD;
   kup-badge --> kup-image
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
+  kup-nav-bar --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

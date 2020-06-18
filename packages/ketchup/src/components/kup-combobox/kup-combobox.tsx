@@ -9,11 +9,10 @@ import {
     Listen,
 } from '@stencil/core';
 
-import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
-    getValueOfItemByDisplayMode,
+    consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 
 @Component({
@@ -265,6 +264,13 @@ export class KupCombobox {
     }
 
     consistencyCheck() {
+        this.value = consistencyCheck(
+            this.value,
+            this.listData,
+            this.textfieldEl,
+            this.selectMode
+        );
+        /*
         var firstSelectedFound = false;
 
         if (this.listData['data']) {
@@ -296,6 +302,7 @@ export class KupCombobox {
                 }
             }
         }
+        */
     }
 
     //---- Lifecycle hooks ----

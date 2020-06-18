@@ -19,6 +19,7 @@ import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEve
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
 import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
+import { ComponentNavBarData, ComponentNavBarMode, } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -884,6 +885,24 @@ export namespace Components {
         "header": string;
         "visible": boolean;
     }
+    interface KupNavBar {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * Data to render
+         */
+        "data": ComponentNavBarData;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Render mode
+         */
+        "mode": ComponentNavBarMode;
+    }
     interface KupPaginator {
         "currentPage": number;
         "max": number;
@@ -1396,6 +1415,12 @@ declare global {
         prototype: HTMLKupModalElement;
         new (): HTMLKupModalElement;
     };
+    interface HTMLKupNavBarElement extends Components.KupNavBar, HTMLStencilElement {
+    }
+    var HTMLKupNavBarElement: {
+        prototype: HTMLKupNavBarElement;
+        new (): HTMLKupNavBarElement;
+    };
     interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {
     }
     var HTMLKupPaginatorElement: {
@@ -1491,6 +1516,7 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-menu": HTMLKupMenuElement;
         "kup-modal": HTMLKupModalElement;
+        "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-radio": HTMLKupRadioElement;
@@ -2677,6 +2703,30 @@ declare namespace LocalJSX {
         "onKupModalCancel"?: (event: CustomEvent<any>) => void;
         "visible"?: boolean;
     }
+    interface KupNavBar {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * Data to render
+         */
+        "data"?: ComponentNavBarData;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Render mode
+         */
+        "mode"?: ComponentNavBarMode;
+        "onKupMenuItemClick"?: (event: CustomEvent<{
+            value: any;
+        }>) => void;
+        "onKupOptionItemClick"?: (event: CustomEvent<{
+            value: any;
+        }>) => void;
+    }
     interface KupPaginator {
         "currentPage"?: number;
         "max"?: number;
@@ -3211,6 +3261,7 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-menu": KupMenu;
         "kup-modal": KupModal;
+        "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
         "kup-progress-bar": KupProgressBar;
         "kup-radio": KupRadio;
@@ -3256,6 +3307,7 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-menu": LocalJSX.KupMenu & JSXBase.HTMLAttributes<HTMLKupMenuElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
+            "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
