@@ -3014,30 +3014,37 @@ declare namespace LocalJSX {
          */
         "maxLength"?: number;
         "onKupTextFieldBlur"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         "onKupTextFieldChange"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
-            value: string;
+            id: any;
         }>) => void;
         "onKupTextFieldClick"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         "onKupTextFieldFocus"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         "onKupTextFieldIconClick"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         "onKupTextFieldInput"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         /**
           * When a keydown enter event occurs it generates
          */
         "onKupTextFieldSubmit"?: (event: CustomEvent<{
+            id: any;
             value: string;
         }>) => void;
         /**
