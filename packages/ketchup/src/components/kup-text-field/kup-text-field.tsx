@@ -307,6 +307,7 @@ export class KupTextField {
         if (typeof newValue === 'string') {
             if (emitEvent) {
                 this.kupInput.emit({
+                    id: this.rootElement.id,
                     value: newValue,
                 });
             }
