@@ -1,6 +1,8 @@
-//@import '@material/icon-button';
 @import '@material/top-app-bar/mdc-top-app-bar';
 
+.mdc-top-app-bar {
+  background-color: var(--kup-header-background-color);
+}
 //@include icon-button.core-styles;
 
 /**

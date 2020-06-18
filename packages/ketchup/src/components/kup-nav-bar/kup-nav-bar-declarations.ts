@@ -1,5 +1,6 @@
 export interface ComponentNavBarData {
     title: string;
+    menuAction?: ComponentNavBarElement;
     menuActions?: ComponentNavBarElement[];
     optionActions?: ComponentNavBarElement[];
 }
@@ -32,7 +33,6 @@ export function getClassNameByComponentMode(mode: string) {
             value = 'mdc-top-app-bar--short mdc-top-app-bar--short-collapsed';
             break;
         }
-
         default: {
             value = 'mdc-top-app-bar--' + mode;
             break;

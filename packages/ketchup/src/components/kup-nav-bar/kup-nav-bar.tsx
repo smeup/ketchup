@@ -7,6 +7,7 @@ import {
     Listen,
     EventEmitter,
     Event,
+    Host,
 } from '@stencil/core';
 import {
     ComponentNavBarData,
@@ -15,7 +16,6 @@ import {
     ComponentNavBarMode,
 } from './kup-nav-bar-declarations';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
-import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
@@ -100,10 +100,13 @@ export class KupNavBar {
     onKupMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
-        errorLogging(
-            'kup-nav-bar',
-            'onKupMenuItemClick() selectedValue: ' + selectedValue
-        );
+        this.kupMenuItemClick.emit({
+            value: selectedValue,
+        });
+    }
+
+    onKupMenuButtonClick(value: string) {
+        let selectedValue: string = value;
         this.kupMenuItemClick.emit({
             value: selectedValue,
         });
@@ -112,11 +115,6 @@ export class KupNavBar {
     onKupOptionItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
-        errorLogging(
-            'kup-nav-bar',
-            'onKupOptionItemClick() selectedValue: ' + selectedValue
-        );
-
         this.kupOptionItemClick.emit({
             value: selectedValue,
         });
@@ -124,11 +122,6 @@ export class KupNavBar {
 
     onKupOptionButtonClick(value: string) {
         let selectedValue: string = value;
-        errorLogging(
-            'kup-nav-bar',
-            'onKupOptionButtonClick() selectedValue: ' + selectedValue
-        );
-
         this.kupOptionItemClick.emit({
             value: selectedValue,
         });
@@ -161,7 +154,6 @@ export class KupNavBar {
         listEl.classList.add('dynamic-position-active');
         let elStyle: any = listEl.style;
         elStyle.height = 'auto';
-        //elStyle.minWidth = textFieldWidth + 'px';
         return true;
     }
 
@@ -201,8 +193,8 @@ export class KupNavBar {
         const root = this.rootElement.shadowRoot;
         if (root != null) {
             const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            MDCTopAppBar.attachTo(topAppBarElement);
-            //new MDCTopAppBar(topAppBarElement);
+            //MDCTopAppBar.attachTo(topAppBarElement);
+            new MDCTopAppBar(topAppBarElement);
         }
         if (this.menuListEl != null) {
             positionRecalc(this.menuListEl, this.menuButtonEl);
@@ -222,6 +214,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
+                customStyle={this.customStyle}
                 onKupListClick={(e) => this.onKupMenuItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.menuListEl = el as any)}
@@ -241,6 +234,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
+                customStyle={this.customStyle}
                 onKupListClick={(e) => this.onKupOptionItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.optionsListEl = el as any)}
@@ -251,6 +245,12 @@ export class KupNavBar {
     }
 
     render() {
+        let customStyle = undefined;
+        if (this.customStyle) {
+            customStyle = <style>{this.customStyle}</style>;
+        }
+        let wrapperClass = undefined;
+
         let visibleButtons: Array<HTMLElement> = [];
         let optionsButtons: ComponentListElement[] = [];
         let menuButtons: ComponentListElement[] = [];
@@ -264,6 +264,7 @@ export class KupNavBar {
                             icon={action.icon}
                             iconColor="white"
                             tooltip={action.tooltip}
+                            customStyle={this.customStyle}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
@@ -295,7 +296,21 @@ export class KupNavBar {
             visibleButtons.push(button);
         }
 
-        if (this.data.menuActions != null) {
+        let menuButton = null;
+        if (this.data.menuAction != null) {
+            let action = this.data.menuAction;
+            menuButton = (
+                <kup-button
+                    icon={action.icon}
+                    iconColor="white"
+                    tooltip={action.tooltip}
+                    customStyle={this.customStyle}
+                    onKupButtonClick={() =>
+                        this.onKupMenuButtonClick(action.value)
+                    }
+                ></kup-button>
+            );
+        } else if (this.data.menuActions != null) {
             for (let i = 0; i < this.data.menuActions.length; i++) {
                 let action: ComponentNavBarElement = this.data.menuActions[i];
                 let listItem: ComponentListElement = {
@@ -305,39 +320,45 @@ export class KupNavBar {
                 };
                 menuButtons.push(listItem);
             }
+            menuButton = (
+                <kup-button
+                    icon="menu"
+                    iconColor="white"
+                    tooltip="Open navigation menu"
+                    disabled={menuButtons.length == 0}
+                    onKupButtonClick={() => this.openList(this.menuListEl)}
+                    onClick={(e) => e.stopPropagation()}
+                    ref={(el) => (this.menuButtonEl = el as any)}
+                ></kup-button>
+            );
         }
 
         let headerClassName =
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
-        return [
-            <header class={headerClassName}>
-                <div class="mdc-top-app-bar__row">
-                    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                        <kup-button
-                            icon="menu"
-                            iconColor="white"
-                            tooltip="Open navigation menu"
-                            disabled={menuButtons.length == 0}
-                            onKupButtonClick={() =>
-                                this.openList(this.menuListEl)
-                            }
-                            onClick={(e) => e.stopPropagation()}
-                            ref={(el) => (this.menuButtonEl = el as any)}
-                        ></kup-button>
-                        {this.prepMenuList(menuButtons)}
-                        <span class="mdc-top-app-bar__title">
-                            {this.data.title}
-                        </span>
-                    </section>
-                    <section
-                        class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"
-                        role="toolbar"
-                    >
-                        {visibleButtons}
-                        {this.prepOptionsList(optionsButtons)}
-                    </section>
+        return (
+            <Host>
+                {customStyle}
+                <div id="kup-component" class={wrapperClass}>
+                    <header class={headerClassName}>
+                        <div class="mdc-top-app-bar__row">
+                            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                                {menuButton}
+                                {this.prepMenuList(menuButtons)}
+                                <span class="mdc-top-app-bar__title">
+                                    {this.data.title}
+                                </span>
+                            </section>
+                            <section
+                                class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"
+                                role="toolbar"
+                            >
+                                {visibleButtons}
+                                {this.prepOptionsList(optionsButtons)}
+                            </section>
+                        </div>
+                    </header>
                 </div>
-            </header>,
-        ];
+            </Host>
+        );
     }
 }
