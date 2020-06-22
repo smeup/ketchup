@@ -208,12 +208,6 @@ export class KupButton {
         let trailingEl: HTMLElement = null;
         let elStyle = undefined;
         let iconColor = undefined;
-        let customStyle: HTMLStyleElement = setCustomStyle(
-            this.customStyleTheme,
-            this.customStyle
-        );
-
-        console.log(this.customStyleTheme, this.customStyle, customStyle);
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
@@ -278,7 +272,7 @@ export class KupButton {
             }
             return (
                 <Host style={elStyle}>
-                    {customStyle}
+                    {setCustomStyle(this.customStyleTheme, this.customStyle)}
                     <div id="kup-component" style={elStyle}>
                         <button
                             type="button"
@@ -344,7 +338,7 @@ export class KupButton {
             }
             return (
                 <Host>
-                    {customStyle}
+                    {setCustomStyle(this.customStyleTheme, this.customStyle)}
                     <div id="kup-component">
                         {/* 
                             // @ts-ignore */}
