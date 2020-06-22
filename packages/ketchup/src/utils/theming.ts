@@ -157,6 +157,11 @@ async function initThemes() {
 
 function setTheme() {
     dom.kupCurrentTheme = dom.kupThemes[dom.getAttribute('kup-theme')];
+    if (!dom.kupCurrentTheme) {
+        let message = 'Invalid theme name, falling back to default.';
+        errorLogging('theming utility', message);
+        dom.kupCurrentTheme = dom.kupThemes['default'];
+    }
     let variables = dom.kupCurrentTheme.cssVariables;
     for (var key in variables) {
         if (variables.hasOwnProperty(key)) {
