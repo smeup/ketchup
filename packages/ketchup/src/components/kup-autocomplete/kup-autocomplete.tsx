@@ -258,8 +258,11 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    errorLogging('kup-list', 'Executing callback error');
-                    errorLogging('kup-list', err);
+                    errorLogging(
+                        this.rootElement.tagName,
+                        'Executing callback error'
+                    );
+                    errorLogging(this.rootElement.tagName, err);
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -313,7 +316,7 @@ export class KupAutocomplete {
                         i +
                         ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                    errorLogging('kup-autocomplete', message);
+                    errorLogging(this.rootElement.tagName, message);
                 }
                 if (this.listData['data'][i].selected && !firstSelectedFound) {
                     firstSelectedFound = true;
