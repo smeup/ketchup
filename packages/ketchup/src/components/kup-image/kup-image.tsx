@@ -6,11 +6,13 @@ import {
     Host,
     Event,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { imageCanvas } from './canvas/kup-image-canvas';
+import { themeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-image',
@@ -19,6 +21,7 @@ import { imageCanvas } from './canvas/kup-image-canvas';
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Sets the data of badges.
@@ -57,6 +60,7 @@ export class KupImage {
      */
     @Prop({ reflect: true }) sizeY: string = '100%';
 
+    private customStyleTheme: string = undefined;
     private isUrl: boolean = false;
     private elStyle = undefined;
     private imageCanvas: imageCanvas;
@@ -104,8 +108,21 @@ export class KupImage {
         });
     }
 
+    fetchThemeCustomStyle(shouldRefresh: boolean) {
+        this.customStyleTheme = themeCustomStyle(this.rootElement.tagName);
+        if (shouldRefresh) {
+            this.refresh = !this.refresh;
+        }
+    }
+
     //---- Lifecycle hooks ----
     componentWillLoad() {
+        this.fetchThemeCustomStyle(false);
+
+        document.addEventListener('kupThemeChanged', () =>
+            this.fetchThemeCustomStyle(true)
+        );
+
         if (this.isCanvas) {
             this.imageCanvas = new imageCanvas();
         }
@@ -231,7 +248,6 @@ export class KupImage {
 
     render() {
         let el: Element = undefined;
-        let customStyle: string = undefined;
         let feedback: HTMLElement = undefined;
         let spinnerLayout: number = undefined;
         this.elStyle = {
@@ -240,10 +256,6 @@ export class KupImage {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
-
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.feedback && this.isUrl) {
             spinnerLayout = 14;
@@ -285,7 +297,7 @@ export class KupImage {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                {setCustomStyle(this.customStyleTheme, this.customStyle)}
                 {feedback}
                 {el}
                 {...badgeCollection}
