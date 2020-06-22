@@ -54,7 +54,6 @@
     <link href="lightTheme.css" rel="stylesheet" type="text/css" />
     <link href="showcase.css" rel="stylesheet" type="text/css" />
     <script src="showcase.js"></script>
-    <script src="kup-themes.js"></script>
     <title>Ketch.UP | Showcase</title>
     <script
       type="text/javascript"
@@ -85,19 +84,10 @@
     ></script>
 
     <script>
-      setTheme('default');
-
       function setTheme(themeID) {
-        let variables = themes[themeID].cssVariables;
-        for (var key in variables) {
-          if (variables.hasOwnProperty(key)) {
-            var val = variables[key];
-            document.documentElement.style.setProperty(key, val);
-          }
-        }
-        document['kupTheme'] = themes[themeID];
-        var event = new CustomEvent('kupThemeChanged');
-        document.dispatchEvent(event);
+        let dom = document.documentElement;
+
+        dom.setAttribute('kup-theme', themeID);
       }
 
       function changeTheme() {

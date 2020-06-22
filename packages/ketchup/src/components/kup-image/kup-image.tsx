@@ -12,7 +12,7 @@ import {
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { imageCanvas } from './canvas/kup-image-canvas';
-import { themeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-image',
@@ -60,7 +60,6 @@ export class KupImage {
      */
     @Prop({ reflect: true }) sizeY: string = '100%';
 
-    private customStyleTheme: string = undefined;
     private isUrl: boolean = false;
     private elStyle = undefined;
     private imageCanvas: imageCanvas;
@@ -108,20 +107,9 @@ export class KupImage {
         });
     }
 
-    fetchThemeCustomStyle(shouldRefresh: boolean) {
-        this.customStyleTheme = themeCustomStyle(this.rootElement.tagName);
-        if (shouldRefresh) {
-            this.refresh = !this.refresh;
-        }
-    }
-
     //---- Lifecycle hooks ----
     componentWillLoad() {
-        this.fetchThemeCustomStyle(false);
-
-        document.addEventListener('kupThemeChanged', () =>
-            this.fetchThemeCustomStyle(true)
-        );
+        fetchThemeCustomStyle(this, false);
 
         if (this.isCanvas) {
             this.imageCanvas = new imageCanvas();
@@ -297,7 +285,7 @@ export class KupImage {
 
         return (
             <Host style={this.elStyle}>
-                {setCustomStyle(this.customStyleTheme, this.customStyle)}
+                <style>{setCustomStyle(this)}</style>
                 {feedback}
                 {el}
                 {...badgeCollection}

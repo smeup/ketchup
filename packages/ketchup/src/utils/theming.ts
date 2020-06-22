@@ -1,4 +1,15 @@
-const themes = JSON.parse(`{
+import { errorLogging } from '../utils/error-logging';
+
+declare global {
+    interface HTMLElement {
+        'kup-theme': any;
+        kupCurrentTheme: any;
+        kupThemes: any;
+    }
+}
+
+const dom = document.documentElement;
+const kupThemes = JSON.parse(`{
     "dark": {
         "cssVariables": {
             "--kup-background-color": "#2d2d2d",
@@ -118,3 +129,85 @@ const themes = JSON.parse(`{
         }
     }
 }`);
+
+async function initThemes() {
+    if (dom.kupCurrentTheme) {
+        //In case multiple initializing instances are launched
+        return;
+    }
+    if (!dom.kupThemes) {
+        dom['kupThemes'] = kupThemes;
+    } else {
+        let message =
+            'Ketchup themes were already set by a third party application.';
+        errorLogging('theming utility', message);
+    }
+    dom.setAttribute('kup-theme', 'default');
+    setTheme();
+
+    const observer = new MutationObserver(function () {
+        setTheme();
+    });
+    let container = dom || document.body;
+    observer.observe(container, {
+        attributes: true,
+        attributeFilter: ['kup-theme'],
+    });
+}
+
+function setTheme() {
+    dom.kupCurrentTheme = dom.kupThemes[dom.getAttribute('kup-theme')];
+    let variables = dom.kupCurrentTheme.cssVariables;
+    for (var key in variables) {
+        if (variables.hasOwnProperty(key)) {
+            var val = variables[key];
+            dom.style.setProperty(key, val);
+        }
+    }
+    var event = new CustomEvent('kupThemeChanged');
+    document.dispatchEvent(event);
+}
+
+export function fetchThemeCustomStyle(component: any, shouldRefresh: boolean) {
+    if (!dom.kupCurrentTheme) {
+        initThemes();
+    }
+    component.customStyleTheme = themeCustomStyle(
+        component.rootElement.tagName
+    );
+    if (shouldRefresh) {
+        component.refresh = !component.refresh;
+    } else {
+        document.addEventListener('kupThemeChanged', () =>
+            fetchThemeCustomStyle(component, true)
+        );
+    }
+}
+
+export function themeCustomStyle(component: string) {
+    let styles = dom.kupCurrentTheme.customStyles;
+    if (!styles) {
+        return undefined;
+    }
+    let completeStyle: string = undefined;
+
+    if (styles[component]) {
+        completeStyle = styles[component];
+    }
+
+    return completeStyle;
+}
+
+export function setCustomStyle(component: any) {
+    if (component.customStyleTheme) {
+        if (component.customStyle) {
+            return component.customStyleTheme + '' + component.customStyle;
+        } else {
+            return component.customStyleTheme;
+        }
+    } else if (component.customStyle) {
+        return component.customStyle;
+    } else {
+        return undefined;
+    }
+}

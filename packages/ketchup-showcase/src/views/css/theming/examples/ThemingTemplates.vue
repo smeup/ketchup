@@ -20,9 +20,15 @@ export default {
 };
 
 function getThemes() {
-  for (let key in themes) {
-    if (themes.hasOwnProperty(key)) {
-      var variables = themes[key].cssVariables;
+  const dom = document.documentElement;
+  if (!dom.kupCurrentTheme) {
+    //Waiting for kup themes initialization...
+    setTimeout(getThemes, 250);
+    return;
+  }
+  for (let key in dom.kupThemes) {
+    if (dom.kupThemes.hasOwnProperty(key)) {
+      var variables = dom.kupThemes[key].cssVariables;
       let themeContainer = document.querySelector('#theme-container');
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');

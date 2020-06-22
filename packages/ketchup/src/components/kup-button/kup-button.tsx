@@ -10,7 +10,7 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
-import { themeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-button',
@@ -83,8 +83,6 @@ export class KupButton {
      */
     @Prop({ reflect: true }) trailingIcon: boolean = false;
 
-    private customStyleTheme: string = undefined;
-
     @Event({
         eventName: 'kupButtonBlur',
         composed: true,
@@ -152,21 +150,10 @@ export class KupButton {
         });
     }
 
-    fetchThemeCustomStyle(shouldRefresh: boolean) {
-        this.customStyleTheme = themeCustomStyle(this.rootElement.tagName);
-        if (shouldRefresh) {
-            this.refresh = !this.refresh;
-        }
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.fetchThemeCustomStyle(false);
-
-        document.addEventListener('kupThemeChanged', () =>
-            this.fetchThemeCustomStyle(true)
-        );
+        fetchThemeCustomStyle(this, false);
     }
 
     componentWillRender() {
@@ -272,7 +259,7 @@ export class KupButton {
             }
             return (
                 <Host style={elStyle}>
-                    {setCustomStyle(this.customStyleTheme, this.customStyle)}
+                    <style>{setCustomStyle(this)}</style>
                     <div id="kup-component" style={elStyle}>
                         <button
                             type="button"
@@ -338,7 +325,7 @@ export class KupButton {
             }
             return (
                 <Host>
-                    {setCustomStyle(this.customStyleTheme, this.customStyle)}
+                    <style>{setCustomStyle(this)}</style>
                     <div id="kup-component">
                         {/* 
                             // @ts-ignore */}
