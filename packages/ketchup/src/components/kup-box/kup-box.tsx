@@ -56,6 +56,7 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-box',
@@ -63,7 +64,7 @@ import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
     shadow: true,
 })
 export class KupBox {
-    @Element() el: HTMLElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Number of columns
@@ -343,8 +344,10 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
-    // lifecycle hooks
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
         this.onDataChanged();
     }
 
@@ -664,7 +667,7 @@ export class KupBox {
         this.searchParentWithClass(target, 'box').classList.add('item-dragged');
 
         var transferData = {};
-        transferData['fromId'] = this.el.id;
+        transferData['fromId'] = this.rootElement.id;
         transferData['fromRow'] = row;
         transferData['fromSelectedRows'] = this.selectedRows;
         event.dataTransfer.setData('text', JSON.stringify(transferData));
@@ -672,7 +675,7 @@ export class KupBox {
         event.dataTransfer.dropEffect = 'move';
 
         this.kupBoxDragStarted.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -692,7 +695,7 @@ export class KupBox {
         );
 
         this.kupBoxDragEnded.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -748,7 +751,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { toSelectedRows: this.selectedRows }
@@ -804,7 +807,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: null,
         });
     }
@@ -1298,10 +1301,6 @@ export class KupBox {
 
     render() {
         let wrapperClass = this.contentAlign + '-aligned';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.noBorder) {
             wrapperClass += ' no-border';
@@ -1406,7 +1405,7 @@ export class KupBox {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="box-component"
