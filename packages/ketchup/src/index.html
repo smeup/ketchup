@@ -1251,12 +1251,14 @@ chipList.data = [
         </style>
 
         <kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" doconnection = "true" bordered = "true" fluid = "true"></kup-qlik>
+
         <kup-qlik id="qlik-obj2" appid = "52cb8ec5-f27c-4125-830a-3cb8c1c3b376" bordered = "true" fluid = "true"></kup-qlik>
+        
         <script type="text/javascript">
             let ele = document.getElementById('qlik-obj')
             let ele2 = document.getElementById('qlik-obj2')
-            ele.config = {host:'itcldsrv017', port:'80', prefix:'', isSecure:false}
-            ele2.config = {host:'itcldsrv017', port:'80', prefix:'', isSecure:false}
+            ele.config = { host:'itcldsrv017', port:'80', prefix:'', isSecure:false }
+            ele2.config = { host:'itcldsrv017', port:'80', prefix:'', isSecure:false }
             ele.grid = {
                 selections:[
                     {
@@ -1268,7 +1270,7 @@ chipList.data = [
                     {
                         columns:[
                             {
-                                obj:'KvqdmD', colDim:5, size:'L'
+                                obj:'KvqdmD', colDim:5, size:'M'
                             },
                             {
                                 obj:'JjSaVm', colDim:5, size:'S'

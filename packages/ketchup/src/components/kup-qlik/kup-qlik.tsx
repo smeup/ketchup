@@ -28,7 +28,7 @@ export class KupQlik {
    *    colums --> they define the structure of grid
    *      obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)
    *      colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%
-   *      size    --> define size height of div container, it colud have this values XS|S|M|L|XL  
+   *      size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL  
    * Example:
   {
   selections:[
@@ -72,6 +72,11 @@ export class KupQlik {
    * Set gird border 
    */
   @Prop() bordered: boolean = false
+
+  /**
+   * Set default obj's container pixel height
+   */
+  @Prop() defobjsize: string = '400px'
 
   @State() divlist: Array<object> = [];
   
@@ -216,7 +221,7 @@ export class KupQlik {
     }
 
     layoutStyle = {
-      ['--lyo_obj-height']: '400px',
+      ['--lyo_obj-height']: this.defobjsize,
     };
 
     return (
