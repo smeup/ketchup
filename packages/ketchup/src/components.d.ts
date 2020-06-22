@@ -21,6 +21,7 @@ import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/ku
 import { ComponentGridElement, } from "./components/kup-grid/kup-grid-declarations";
 import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
 import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
+import { KupQlikGrid, QlikServer, } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
@@ -960,6 +961,40 @@ export namespace Components {
          */
         "value": number;
     }
+    interface KupQlik {
+        /**
+          * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
+         */
+        "appid": string;
+        /**
+          * Set gird border
+         */
+        "bordered": boolean;
+        /**
+          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+         */
+        "config": QlikServer;
+        /**
+          * Set default obj's container pixel height
+         */
+        "defobjsize": string;
+        /**
+          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
+         */
+        "doconnection": boolean;
+        /**
+          * Define width of grid, with true width = 100% responsive, false 1200px
+         */
+        "fluid": boolean;
+        /**
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+         */
+        "grid": Array<KupQlikGrid>;
+        /**
+          * System prop
+         */
+        "qlik": any;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -1441,6 +1476,12 @@ declare global {
         prototype: HTMLKupProgressBarElement;
         new (): HTMLKupProgressBarElement;
     };
+    interface HTMLKupQlikElement extends Components.KupQlik, HTMLStencilElement {
+    }
+    var HTMLKupQlikElement: {
+        prototype: HTMLKupQlikElement;
+        new (): HTMLKupQlikElement;
+    };
     interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {
     }
     var HTMLKupRadioElement: {
@@ -1527,6 +1568,7 @@ declare global {
         "kup-modal": HTMLKupModalElement;
         "kup-paginator": HTMLKupPaginatorElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
+        "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
@@ -2798,6 +2840,40 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    interface KupQlik {
+        /**
+          * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
+         */
+        "appid"?: string;
+        /**
+          * Set gird border
+         */
+        "bordered"?: boolean;
+        /**
+          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+         */
+        "config"?: QlikServer;
+        /**
+          * Set default obj's container pixel height
+         */
+        "defobjsize"?: string;
+        /**
+          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
+         */
+        "doconnection"?: boolean;
+        /**
+          * Define width of grid, with true width = 100% responsive, false 1200px
+         */
+        "fluid"?: boolean;
+        /**
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+         */
+        "grid"?: Array<KupQlikGrid>;
+        /**
+          * System prop
+         */
+        "qlik"?: any;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -3281,6 +3357,7 @@ declare namespace LocalJSX {
         "kup-modal": KupModal;
         "kup-paginator": KupPaginator;
         "kup-progress-bar": KupProgressBar;
+        "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
@@ -3327,6 +3404,7 @@ declare module "@stencil/core" {
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
+            "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
