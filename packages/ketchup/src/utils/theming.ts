@@ -103,6 +103,9 @@ const kupThemes = JSON.parse(`{
             "--kup-chip-background-color": "#eaeaea",
             "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4"
+        },
+        "customStyles": {
+            "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }"
         }
     },
     "wildlife": {

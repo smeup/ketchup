@@ -15,6 +15,7 @@ import {
     ItemsDisplayMode,
     getValueOfItemByDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -334,12 +335,6 @@ export class KupAutocomplete {
         }
     }
 
-    //---- Lifecycle hooks ----
-
-    componentDidRender() {
-        positionRecalc(this.listEl, this.textfieldEl);
-    }
-
     prepTextfield() {
         if (this.textfieldData['fullWidth']) {
             this.elStyle = {
@@ -388,19 +383,24 @@ export class KupAutocomplete {
         return comp;
     }
 
-    render() {
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+    //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
+    componentDidRender() {
+        positionRecalc(this.listEl, this.textfieldEl);
+    }
+
+    render() {
         this.consistencyCheck();
         let textfieldEl = this.prepTextfield();
         let listEl = this.prepList();
 
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
                     {listEl}
