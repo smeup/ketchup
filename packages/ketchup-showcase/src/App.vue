@@ -289,6 +289,12 @@ export default {
             },
           },
           {
+            title: 'Nav Bar',
+            to: {
+              name: 'navbar',
+            },
+          },
+          {
             title: 'Progress bar',
             to: {
               name: 'progressbar',
