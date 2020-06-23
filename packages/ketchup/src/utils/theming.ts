@@ -117,7 +117,8 @@ const kupThemes = JSON.parse(`{
             "KUP-LIST": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }"
+            "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-SWITCH": "#kup-component { border: 1px solid var(--kup-border-color); }"
         }
     },
     "wildlife": {
