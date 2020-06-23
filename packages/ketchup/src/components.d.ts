@@ -915,11 +915,11 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Data to render
+          * The actual data of the nav bar.
          */
         "data": ComponentNavBarData;
         /**
-          * Render mode
+          * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
     }
@@ -2803,17 +2803,17 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Data to render
+          * The actual data of the nav bar.
          */
         "data"?: ComponentNavBarData;
         /**
-          * Render mode
+          * Defines how the bar will be displayed.
          */
         "mode"?: ComponentNavBarMode;
-        "onKupMenuItemClick"?: (event: CustomEvent<{
+        "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
             value: any;
         }>) => void;
-        "onKupOptionItemClick"?: (event: CustomEvent<{
+        "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
             value: any;
         }>) => void;
     }

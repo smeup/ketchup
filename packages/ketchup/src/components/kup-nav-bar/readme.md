@@ -10,16 +10,16 @@
 | Property      | Attribute      | Description                                 | Type                                                                                                                                                                                         | Default                                   |
 | ------------- | -------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
 | `customStyle` | `custom-style` | Custom style to be passed to the component. | `string`                                                                                                                                                                                     | `undefined`                               |
-| `data`        | --             | Data to render                              | `ComponentNavBarData`                                                                                                                                                                        | `{         title: 'default title',     }` |
-| `mode`        | `mode`         | Render mode                                 | `ComponentNavBarMode.DEFAULT \| ComponentNavBarMode.DENSE \| ComponentNavBarMode.FIXED \| ComponentNavBarMode.PROMINENT \| ComponentNavBarMode.SHORT \| ComponentNavBarMode.SHORT_COLLAPSED` | `ComponentNavBarMode.DEFAULT`             |
+| `data`        | --             | The actual data of the nav bar.             | `ComponentNavBarData`                                                                                                                                                                        | `{         title: 'default title',     }` |
+| `mode`        | `mode`         | Defines how the bar will be displayed.      | `ComponentNavBarMode.DEFAULT \| ComponentNavBarMode.DENSE \| ComponentNavBarMode.FIXED \| ComponentNavBarMode.PROMINENT \| ComponentNavBarMode.SHORT \| ComponentNavBarMode.SHORT_COLLAPSED` | `ComponentNavBarMode.DEFAULT`             |
 
 
 ## Events
 
-| Event                | Description | Type                           |
-| -------------------- | ----------- | ------------------------------ |
-| `kupMenuItemClick`   |             | `CustomEvent<{ value: any; }>` |
-| `kupOptionItemClick` |             | `CustomEvent<{ value: any; }>` |
+| Event                      | Description | Type                           |
+| -------------------------- | ----------- | ------------------------------ |
+| `kupNavbarMenuItemClick`   |             | `CustomEvent<{ value: any; }>` |
+| `kupNavbarOptionItemClick` |             | `CustomEvent<{ value: any; }>` |
 
 
 ## Dependencies

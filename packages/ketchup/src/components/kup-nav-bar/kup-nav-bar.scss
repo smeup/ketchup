@@ -1,37 +1,10 @@
 @import '@material/top-app-bar/mdc-top-app-bar';
 
-.mdc-top-app-bar {
-  background-color: var(--kup-header-background-color);
-}
-//@include icon-button.core-styles;
-
-/**
-@import '@material/checkbox/mdc-checkbox';
-@import '@material/form-field/mdc-form-field';
-
 :host {
-  display: var(--kup-display-mode);
+  --mdc-theme-primary: var(--kup-header-background-color);
+  width: 100%;
 }
 
-.mdc-checkbox {
-  @include mdc-checkbox-container-colors(
-    var(--kup-border-color),
-    transparent,
-    var(--kup-main-color),
-    var(--kup-main-color)
-  );
-  @include mdc-checkbox-disabled-container-colors(
-    var(--kup-border-color),
-    var(--kup-disabled-background-color),
-    var(--kup-border-color),
-    var(--kup-disabled-background-color)
-  );
-  @include mdc-checkbox-disabled-ink-color(var(--kup-disabled-text-color));
-  @include mdc-checkbox-ink-color(var(--kup-text-on-main-color));
+#kup-component {
+  width: 100%;
 }
-
-label {
-  color: var(--kup-text-color);
-  font-family: var(--kup-font-family);
-}
-*/

@@ -1,13 +1,13 @@
-import { MDCTopAppBar } from '@material/top-app-bar';
 import {
     Component,
-    Element,
     Prop,
+    Element,
+    Host,
+    Event,
+    EventEmitter,
+    State,
     h,
     Listen,
-    EventEmitter,
-    Event,
-    Host,
 } from '@stencil/core';
 import {
     ComponentNavBarData,
@@ -15,8 +15,10 @@ import {
     getClassNameByComponentMode,
     ComponentNavBarMode,
 } from './kup-nav-bar-declarations';
+import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -25,21 +27,20 @@ import { positionRecalc } from '../../utils/recalc-position';
 })
 export class KupNavBar {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
-     * Data to render
+     * The actual data of the nav bar.
      */
-    @Prop({ reflect: true }) data: ComponentNavBarData = {
+    @Prop() data: ComponentNavBarData = {
         title: 'default title',
     };
-
     /**
-     * Render mode
+     * Defines how the bar will be displayed.
      */
     @Prop({ reflect: true }) mode: ComponentNavBarMode =
         ComponentNavBarMode.DEFAULT;
@@ -73,52 +74,52 @@ export class KupNavBar {
     }
 
     @Event({
-        eventName: 'kupMenuItemClick',
+        eventName: 'kupNavbarMenuItemClick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupMenuItemClick: EventEmitter<{
+    kupNavbarMenuItemClick: EventEmitter<{
         value: any;
     }>;
 
     @Event({
-        eventName: 'kupOptionItemClick',
+        eventName: 'kupNavbarOptionItemClick',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupOptionItemClick: EventEmitter<{
+    kupNavbarOptionItemClick: EventEmitter<{
         value: any;
     }>;
     //---- Methods ----
 
-    onKupMenuItemClick(e: CustomEvent) {
+    onKupNavbarMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
-        this.kupMenuItemClick.emit({
+        this.kupNavbarMenuItemClick.emit({
             value: selectedValue,
         });
     }
 
-    onKupMenuButtonClick(value: string) {
+    onKupNavbarMenuButtonClick(value: string) {
         let selectedValue: string = value;
-        this.kupMenuItemClick.emit({
+        this.kupNavbarMenuItemClick.emit({
             value: selectedValue,
         });
     }
 
-    onKupOptionItemClick(e: CustomEvent) {
+    onKupNavbarOptionItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
         this.closeList();
-        this.kupOptionItemClick.emit({
+        this.kupNavbarOptionItemClick.emit({
             value: selectedValue,
         });
     }
 
     onKupOptionButtonClick(value: string) {
         let selectedValue: string = value;
-        this.kupOptionItemClick.emit({
+        this.kupNavbarOptionItemClick.emit({
             value: selectedValue,
         });
     }
@@ -185,6 +186,10 @@ export class KupNavBar {
     }
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root != null) {
@@ -210,8 +215,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                customStyle={this.customStyle}
-                onKupListClick={(e) => this.onKupMenuItemClick(e)}
+                onKupListClick={(e) => this.onKupNavbarMenuItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.menuListEl = el as any)}
             ></kup-list>
@@ -230,8 +234,7 @@ export class KupNavBar {
                 data={...listData}
                 is-menu
                 show-icons
-                customStyle={this.customStyle}
-                onKupListClick={(e) => this.onKupOptionItemClick(e)}
+                onKupListClick={(e) => this.onKupNavbarOptionItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.optionsListEl = el as any)}
             ></kup-list>
@@ -241,10 +244,6 @@ export class KupNavBar {
     }
 
     render() {
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
         let wrapperClass = undefined;
 
         let visibleButtons: Array<HTMLElement> = [];
@@ -257,10 +256,10 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
+                            customStyle=":host{ --kup-main-color: white; }"
                             icon={action.icon}
                             iconColor="white"
                             tooltip={action.tooltip}
-                            customStyle={this.customStyle}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
@@ -281,6 +280,7 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
+                    customStyle=":host{ --kup-main-color: white; }"
                     icon="more_vert"
                     iconColor="white"
                     tooltip="Options"
@@ -297,12 +297,12 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
+                    customStyle=":host{ --kup-main-color: white; }"
                     icon={action.icon}
                     iconColor="white"
                     tooltip={action.tooltip}
-                    customStyle={this.customStyle}
                     onKupButtonClick={() =>
-                        this.onKupMenuButtonClick(action.value)
+                        this.onKupNavbarMenuButtonClick(action.value)
                     }
                 ></kup-button>
             );
@@ -318,6 +318,7 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
+                    customStyle=":host{ --kup-main-color: white; }"
                     icon="menu"
                     iconColor="white"
                     tooltip="Open navigation menu"
@@ -333,7 +334,7 @@ export class KupNavBar {
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="mdc-top-app-bar__row">
