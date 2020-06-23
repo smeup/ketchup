@@ -2,14 +2,16 @@ import {
     Component,
     Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
-    Host,
+    State,
     h,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -18,6 +20,7 @@ import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -86,6 +89,10 @@ export class KupTabBar {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -98,10 +105,6 @@ export class KupTabBar {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
         let componentClass: string = 'mdc-tab-bar';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         for (let i = 0; i < this.data.length; i++) {
             let tabClass: string = 'mdc-tab';
@@ -152,7 +155,7 @@ export class KupTabBar {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">
