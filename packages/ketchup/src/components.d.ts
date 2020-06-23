@@ -918,10 +918,6 @@ export namespace Components {
          */
         "data": ComponentNavBarData;
         /**
-          * Defaults at false. When set to true, the component is disabled.
-         */
-        "disabled": boolean;
-        /**
           * Render mode
          */
         "mode": ComponentNavBarMode;
@@ -2764,10 +2760,6 @@ declare namespace LocalJSX {
           * Data to render
          */
         "data"?: ComponentNavBarData;
-        /**
-          * Defaults at false. When set to true, the component is disabled.
-         */
-        "disabled"?: boolean;
         /**
           * Render mode
          */

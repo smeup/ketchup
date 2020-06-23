@@ -30,10 +30,6 @@ export class KupNavBar {
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop({ reflect: true }) disabled: boolean = false;
 
     /**
      * Data to render
