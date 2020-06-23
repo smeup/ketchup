@@ -1,11 +1,12 @@
 import {
     Component,
-    Event,
-    EventEmitter,
+    Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
-    Prop,
     Watch,
     Method,
 } from '@stencil/core';
@@ -18,6 +19,7 @@ import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 import { KupImage } from '../kup-image/kup-image';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-list',
@@ -26,6 +28,7 @@ import { KupImage } from '../kup-image/kup-image';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -487,6 +490,10 @@ export class KupList {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidLoad() {
         this.listComponent = null;
         this.focIndex = -1;
@@ -533,10 +540,6 @@ export class KupList {
     render() {
         let componentClass: string = 'mdc-list';
         let wrapperClass = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.isMenu) {
             wrapperClass = 'mdc-menu mdc-menu-surface';
@@ -574,7 +577,7 @@ export class KupList {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}
