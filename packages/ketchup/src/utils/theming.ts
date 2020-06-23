@@ -103,25 +103,6 @@ const kupThemes = JSON.parse(`{
             "--kup-chip-background-color": "#eaeaea",
             "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4"
-        },
-        "customStyles": {
-            "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-BOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CARD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CHECKBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CHIP": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-COMBOBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-GRID": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-LIST": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-SWITCH": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TAB-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TEXT-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TREE": "#kup-component { border: 1px solid var(--kup-border-color); }"
         }
     },
     "wildlife": {
@@ -145,6 +126,50 @@ const kupThemes = JSON.parse(`{
             "--kup-chip-background-color": "#eaeaea",
             "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4"
+        }
+    },
+    "test": {
+        "cssVariables": {
+            "--kup-background-color": "#ffffff",
+            "--kup-header-background-color": "#2e2e2e",
+            "--kup-drawer-background-color": "#ffffff",
+            "--kup-main-color": "#d64325",
+            "--kup-display-mode": "block",
+            "--kup-font-family": "Roboto, sans-serif",
+            "--kup-font-size": "14px",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-text-color": "#2e2e2e",
+            "--kup-icon-color": "#505050",
+            "--kup-hover-background-color": "#f0f0f0",
+            "--kup-hover-color": "#545454",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-disabled-text-color": "#5c5c5c",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-chip-background-color": "#eaeaea",
+            "--kup-spinner-color": "#eaa710",
+            "--kup-title-background-color": "#f1f3f4"
+        },
+        "customStyles": {
+            "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-BUTTON": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-BOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-CARD": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-CHECKBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-CHIP": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-COMBOBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-GRID": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-IMAGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-LIST": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-SWITCH": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-TAB-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-TEXT-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-TREE": "#kup-component { border: 1px solid var(--kup-border-color); }"
         }
     }
 }`);
