@@ -18,7 +18,11 @@ import {
 import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import {
+    fetchThemeCustomStyle,
+    setCustomStyle,
+    dynColorContrast,
+} from '../../utils/theming';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -49,6 +53,7 @@ export class KupNavBar {
     private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
+    private dynColor: string = 'white';
 
     @Listen('click', { target: 'document' })
     listenClick() {
@@ -203,6 +208,8 @@ export class KupNavBar {
         if (this.optionsListEl != null) {
             positionRecalc(this.optionsListEl, this.optionsButtonEl);
         }
+        const header = this.rootElement.shadowRoot.querySelector('header');
+        dynColorContrast(this, window.getComputedStyle(header).backgroundColor);
     }
 
     prepMenuList(listData: ComponentListElement[]): HTMLElement {
@@ -256,9 +263,9 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
-                            customStyle=":host{ --kup-main-color: white; }"
+                            customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
                             icon={action.icon}
-                            iconColor="white"
+                            iconColor={this.dynColor}
                             tooltip={action.tooltip}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
@@ -280,9 +287,9 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
-                    customStyle=":host{ --kup-main-color: white; }"
+                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
                     icon="more_vert"
-                    iconColor="white"
+                    iconColor={this.dynColor}
                     tooltip="Options"
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
@@ -297,9 +304,9 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
-                    customStyle=":host{ --kup-main-color: white; }"
+                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
                     icon={action.icon}
-                    iconColor="white"
+                    iconColor={this.dynColor}
                     tooltip={action.tooltip}
                     onKupButtonClick={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
@@ -318,9 +325,9 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
-                    customStyle=":host{ --kup-main-color: white; }"
+                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
                     icon="menu"
-                    iconColor="white"
+                    iconColor={this.dynColor}
                     tooltip="Open navigation menu"
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}
@@ -332,6 +339,7 @@ export class KupNavBar {
 
         let headerClassName =
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
+        let titleStyle = { color: this.dynColor };
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
@@ -341,7 +349,10 @@ export class KupNavBar {
                             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                                 {menuButton}
                                 {this.prepMenuList(menuButtons)}
-                                <span class="mdc-top-app-bar__title">
+                                <span
+                                    class="mdc-top-app-bar__title"
+                                    style={titleStyle}
+                                >
                                     {this.data.title}
                                 </span>
                             </section>
