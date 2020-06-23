@@ -5,13 +5,15 @@ import {
     Host,
     Event,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import * as customLayouts from './custom/kup-card-custom';
 import * as materialLayouts from './material/kup-card-material';
+import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { MDCRipple } from '@material/ripple';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-card',
@@ -20,6 +22,7 @@ import { MDCRipple } from '@material/ripple';
 })
 export class KupCard {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -112,6 +115,8 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+
         const root = this.rootElement;
 
         if (root != undefined) {
@@ -143,10 +148,7 @@ export class KupCard {
             return;
         }
         let wrapperClass = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+
         this.elStyle = undefined;
         this.elStyle = {
             height: this.sizeY,
@@ -167,7 +169,7 @@ export class KupCard {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {card}
                 </div>
