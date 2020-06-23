@@ -119,6 +119,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -129,6 +130,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -139,6 +141,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -149,6 +152,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -159,6 +163,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupInput: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -169,6 +174,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -179,7 +185,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupClearIconClick: EventEmitter<{
-        value: string;
+        id: any;
     }>;
 
     /**
@@ -192,6 +198,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -221,6 +228,7 @@ export class KupTextField {
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -228,6 +236,7 @@ export class KupTextField {
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -235,6 +244,7 @@ export class KupTextField {
     onKupClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -242,6 +252,7 @@ export class KupTextField {
     onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -249,6 +260,7 @@ export class KupTextField {
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupInput.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -256,6 +268,7 @@ export class KupTextField {
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -263,6 +276,9 @@ export class KupTextField {
     onKupClearIconClick() {
         this.value = '';
         this.inputEl.value = '';
+        this.kupClearIconClick.emit({
+            id: this.rootElement.id,
+        });
     }
 
     /**
@@ -273,6 +289,7 @@ export class KupTextField {
             if (this.emitSubmitEventOnEnter == true) {
                 event.preventDefault();
                 this.kupTextFieldSubmit.emit({
+                    id: this.rootElement.id,
                     value: this.inputEl.value,
                 });
             }
@@ -290,6 +307,7 @@ export class KupTextField {
         if (typeof newValue === 'string') {
             if (emitEvent) {
                 this.kupInput.emit({
+                    id: this.rootElement.id,
                     value: newValue,
                 });
             }

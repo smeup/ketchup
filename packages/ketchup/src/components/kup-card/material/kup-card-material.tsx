@@ -20,10 +20,10 @@ export function create1(layout: number, data: ComponentCardElement) {
         componentClass += ' has-actions';
     }
     if (data.button2) {
-        button2 = <kup-button id="button1" {...data['button2']}></kup-button>;
+        button2 = <kup-button id="button2" {...data['button2']}></kup-button>;
     }
     if (data.button3) {
-        button3 = <kup-button id="button1" {...data['button3']}></kup-button>;
+        button3 = <kup-button id="button3" {...data['button3']}></kup-button>;
     }
     return (
         <div class={componentClass}>

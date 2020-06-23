@@ -1,10 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
   </div>
 </template>
 
@@ -87,6 +83,14 @@ export default {
           prop: 'fullScreen',
           description:
             'When set to true the component will fill the whole viewport.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'isUnclickable',
+          description:
+            'When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".',
           type: 'boolean',
           default: 'false',
           try: 'switch',
