@@ -1,15 +1,16 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
-    State,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-switch',
@@ -19,6 +20,7 @@ import { MDCFormField } from '@material/form-field';
 export class KupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -132,6 +134,10 @@ export class KupSwitch {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentWillRender() {
         if (this.checked) {
             this.value = 'on';
@@ -158,11 +164,6 @@ export class KupSwitch {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-switch';
         let componentLabel: string = this.label;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
-
         if (this.disabled) {
             componentClass += ' mdc-switch--disabled';
         }
@@ -177,7 +178,7 @@ export class KupSwitch {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>
                         <div class={componentClass}>

@@ -1,12 +1,12 @@
 import {
     Component,
-    Event,
-    Element,
-    EventEmitter,
-    h,
     Prop,
+    Element,
     Host,
+    Event,
+    EventEmitter,
     State,
+    h,
     Watch,
     JSX,
 } from '@stencil/core';
@@ -50,6 +50,7 @@ import {
 import { buildButtonConfig } from '../../utils/widget-utils';
 import { getBoolean } from '../../utils/utils';
 import numeral from 'numeral';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-tree',
@@ -58,6 +59,7 @@ import numeral from 'numeral';
 })
 export class KupTree {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Auto select programmatic selectic node
@@ -283,6 +285,8 @@ export class KupTree {
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
             // the default value of the treeExpandedPropName is set to true
@@ -882,7 +886,14 @@ export class KupTree {
                 )
             );
         }
-        return <td onClick={() => this.selectedColumn = cellData.column.name} style={style}>{cellElements}</td>;
+        return (
+            <td
+                onClick={() => (this.selectedColumn = cellData.column.name)}
+                style={style}
+            >
+                {cellElements}
+            </td>
+        );
     }
 
     /**
@@ -1132,10 +1143,6 @@ export class KupTree {
                 wrapperClass = 'density-wide';
                 break;
         }
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         // Computes the visible columns for later use
         if (this.showColumns && this.columns) {
@@ -1185,7 +1192,7 @@ export class KupTree {
         }
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
