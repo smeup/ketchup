@@ -6,6 +6,7 @@
 
 :host {
   display: var(--kup-display-mode);
+  position: relative;
 
   #kup-component {
     height: 100%;

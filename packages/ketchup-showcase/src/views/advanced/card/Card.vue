@@ -13,6 +13,12 @@
       <template v-slot:3>
         <card-menu></card-menu>
       </template>
+      <template v-slot:4>
+        <card-material></card-material>
+      </template>
+      <template v-slot:5>
+        <card-custom></card-custom>
+      </template>
     </comp>
   </div>
 </template>
@@ -22,6 +28,8 @@ import CardDemo from '@/views/advanced/card/examples/CardDemo';
 import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
+import CardMaterial from '@/views/advanced/card/examples/CardMaterial';
+import CardCustom from '@/views/advanced/card/examples/CardCustom';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
@@ -29,6 +37,8 @@ export default {
     CardBasic,
     CardStyling,
     CardMenu,
+    CardMaterial,
+    CardCustom,
     Comp,
   },
   data() {
@@ -36,7 +46,14 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-card',
       headtitle: 'Card',
-      titles: ['Playground', 'Basic usage', 'Styling', 'Menu variant'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'Styling',
+        'Menu variant',
+        'Material layouts',
+        'Custom layouts',
+      ],
     };
   },
 };
