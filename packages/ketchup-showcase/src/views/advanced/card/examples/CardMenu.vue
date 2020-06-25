@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'ListMenu',
+  name: 'CardMenu',
   data() {
     return {
       data: {
