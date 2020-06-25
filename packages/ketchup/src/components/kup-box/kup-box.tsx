@@ -22,6 +22,7 @@ import {
 
 import {
     BoxRow,
+    CardLayout,
     Layout,
     Section,
     CollapsedSectionsState,
@@ -117,6 +118,11 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     filterEnabled = false;
+
+    /**
+     * Number of columns
+     */
+    @Prop() isCard: CardLayout = undefined;
 
     /**
      * How the field will be displayed. If not present, a default one will be created.
@@ -858,6 +864,16 @@ export class KupBox {
     }
 
     // render methods
+    private renderRowAsCard(row: BoxRow) {
+        let cardData = {
+            image1: row.cells[0]['value'],
+            text1: row.cells[1]['value'],
+            text2: row.cells[2]['value'],
+            text3: row.cells[3]['value'],
+        };
+        return <kup-card data={cardData} {...this.isCard}></kup-card>;
+    }
+
     private renderRow(row: BoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
@@ -1395,7 +1411,11 @@ export class KupBox {
             boxContent = [];
 
             while (size-- > 0) {
-                boxContent.push(this.renderRow(rows[cnt++]));
+                if (!this.isCard) {
+                    boxContent.push(this.renderRow(rows[cnt++]));
+                } else {
+                    boxContent.push(this.renderRowAsCard(rows[cnt++]));
+                }
             }
         }
 

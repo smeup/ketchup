@@ -21,6 +21,11 @@ export interface Layout {
     sections?: Section[];
 }
 
+export interface CardLayout {
+    layoutFamily?: string;
+    layoutNumber?: number;
+}
+
 export interface Section {
     id?: string;
     horizontal?: boolean;
