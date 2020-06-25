@@ -396,7 +396,6 @@ export class KupAutocomplete {
     }
 
     //---- Lifecycle hooks ----
-
     componentWillLoad() {
         fetchThemeCustomStyle(this, false);
     }
