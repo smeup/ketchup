@@ -186,7 +186,9 @@ async function initThemes() {
             'Ketchup themes were already set by a third party application.';
         errorLogging('theme manager', message);
     }
-    dom.setAttribute('kup-theme', 'default');
+    if (!dom.getAttribute('kup-theme')) {
+        dom.setAttribute('kup-theme', 'default');
+    }
     setTheme();
 
     const observer = new MutationObserver(function () {
@@ -202,7 +204,7 @@ async function initThemes() {
 function setTheme() {
     let message = '';
     let themeValue = dom.getAttribute('kup-theme');
-    message = 'Switching theme to: ' + themeValue + '.';
+    message = 'Setting theme to: ' + themeValue + '.';
     errorLogging('theme manager', message);
 
     dom.kupCurrentTheme = dom.kupThemes[themeValue];
