@@ -1,16 +1,19 @@
 import {
     Component,
+    Prop,
+    Element,
+    Host,
     Event,
     EventEmitter,
-    Host,
-    Method,
-    Prop,
+    State,
     h,
+    Method,
 } from '@stencil/core';
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
 import { errorLogging } from '../../utils/error-logging';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-field',
@@ -18,6 +21,9 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupField {
+    @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
+
     /**
      * Custom style to be passed to the component.
      */
@@ -132,17 +138,18 @@ export class KupField {
         return this.currentValue;
     }
 
-    //---- Rendering functions ----
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     render() {
         let toRender = [];
         const baseClass = 'kup-field';
         let label = null;
         let submit = null;
         let wrapperClass = '';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         let propList: any = { ...this.data };
 
@@ -246,7 +253,7 @@ export class KupField {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>

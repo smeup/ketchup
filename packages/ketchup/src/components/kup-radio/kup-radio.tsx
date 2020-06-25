@@ -1,15 +1,17 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-radio',
@@ -18,6 +20,7 @@ import { ComponentRadioElement } from './kup-radio-declarations';
 })
 export class KupRadio {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -139,6 +142,10 @@ export class KupRadio {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -160,10 +167,6 @@ export class KupRadio {
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.disabled) {
             componentClass += ' mdc-radio--disabled';
@@ -211,7 +214,7 @@ export class KupRadio {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{radioList}</div>
             </Host>
         );

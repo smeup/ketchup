@@ -10,6 +10,7 @@ import {
 } from '@stencil/core';
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-checkbox',
@@ -19,6 +20,7 @@ import { MDCFormField } from '@material/form-field';
 export class KupCheckbox {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -146,6 +148,10 @@ export class KupCheckbox {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentWillRender() {
         if (this.checked) {
             this.value = 'on';
@@ -172,10 +178,6 @@ export class KupCheckbox {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
         let componentLabel: string = this.label;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.disabled) {
             componentClass += ' mdc-checkbox--disabled';
@@ -191,7 +193,7 @@ export class KupCheckbox {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>
                         <div id="checkbox-wrapper" class={componentClass}>

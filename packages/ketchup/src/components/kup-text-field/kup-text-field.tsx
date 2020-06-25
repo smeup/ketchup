@@ -2,12 +2,12 @@ import {
     Component,
     Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
     State,
-    Host,
-    Watch,
     h,
+    Watch,
     Method,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
@@ -15,6 +15,7 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-text-field',
@@ -24,6 +25,7 @@ import { MDCTextFieldIcon } from '@material/textfield/icon';
 export class KupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -320,6 +322,7 @@ export class KupTextField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
         this.watchInitialValue();
     }
 
@@ -616,11 +619,7 @@ export class KupTextField {
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
         let wrapperClass: string = '';
-        let customStyle = undefined;
         let elStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.fullWidth) {
             elStyle = {
@@ -642,7 +641,7 @@ export class KupTextField {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass} style={elStyle}>
                     <div class={formClass}>
                         {widgetEl}
@@ -656,11 +655,7 @@ export class KupTextField {
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let wrapperClass: string = '';
-        let customStyle = undefined;
         let elStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.fullWidth) {
             elStyle = {
@@ -678,7 +673,7 @@ export class KupTextField {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass} style={elStyle}>
                     {widgetEl}
                     {helperEl}
