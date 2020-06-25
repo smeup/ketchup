@@ -13,7 +13,7 @@ import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
-    getValueOfItemByDisplayMode,
+    consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
@@ -305,6 +305,14 @@ export class KupAutocomplete {
     }
 
     consistencyCheck() {
+        this.value = consistencyCheck(
+            this.value,
+            this.listData,
+            this.textfieldEl,
+            this.selectMode
+        );
+
+        /*
         var firstSelectedFound = false;
 
         if (this.listData['data']) {
@@ -336,6 +344,7 @@ export class KupAutocomplete {
                 }
             }
         }
+        */
     }
 
     prepTextfield() {
@@ -387,7 +396,6 @@ export class KupAutocomplete {
     }
 
     //---- Lifecycle hooks ----
-
     componentWillLoad() {
         fetchThemeCustomStyle(this, false);
     }

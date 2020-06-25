@@ -131,7 +131,7 @@ const kupThemes = JSON.parse(`{
     "test": {
         "cssVariables": {
             "--kup-background-color": "#ffffff",
-            "--kup-header-background-color": "#2e2e2e",
+            "--kup-header-background-color": "#f5f5f5",
             "--kup-drawer-background-color": "#ffffff",
             "--kup-main-color": "#d64325",
             "--kup-display-mode": "block",
@@ -184,7 +184,7 @@ async function initThemes() {
     } else {
         let message =
             'Ketchup themes were already set by a third party application.';
-        errorLogging('theming utility', message);
+        errorLogging('theme manager', message);
     }
     dom.setAttribute('kup-theme', 'default');
     setTheme();
@@ -200,10 +200,15 @@ async function initThemes() {
 }
 
 function setTheme() {
-    dom.kupCurrentTheme = dom.kupThemes[dom.getAttribute('kup-theme')];
+    let message = '';
+    let themeValue = dom.getAttribute('kup-theme');
+    message = 'Switching theme to: ' + themeValue + '.';
+    errorLogging('theme manager', message);
+
+    dom.kupCurrentTheme = dom.kupThemes[themeValue];
     if (!dom.kupCurrentTheme) {
-        let message = 'Invalid theme name, falling back to default.';
-        errorLogging('theming utility', message);
+        message = 'Invalid theme name, falling back to default.';
+        errorLogging('theme manager', message);
         dom.kupCurrentTheme = dom.kupThemes['default'];
     }
     let variables = dom.kupCurrentTheme.cssVariables;
@@ -258,5 +263,29 @@ export function setCustomStyle(component: any) {
         return component.customStyle;
     } else {
         return undefined;
+    }
+}
+
+export function dynColorContrast(component: any, color: string) {
+    const colorValues = color.replace(/[^\d,.]/g, '').split(',');
+    const brightness = Math.round(
+        (parseInt(colorValues[0]) * 299 +
+            parseInt(colorValues[1]) * 587 +
+            parseInt(colorValues[2]) * 114) /
+            1000
+    );
+    const textColour = brightness > 125 ? 'black' : 'white';
+    if (textColour !== component.dynColor) {
+        let message =
+            'Detected low contrast on ' +
+            component.rootElement.tagName +
+            ', switching to ' +
+            textColour +
+            ' from ' +
+            component.dynColor +
+            '.';
+        errorLogging('theme manager', message);
+        component.dynColor = textColour;
+        component.refresh = !component.refresh;
     }
 }
