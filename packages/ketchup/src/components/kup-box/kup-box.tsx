@@ -45,6 +45,7 @@ import {
     getValue,
     buildProgressBarConfig,
     buildIconConfig,
+    getShape,
 } from '../../utils/cell-utils';
 
 import { buildButtonConfig } from '../../utils/widget-utils';
@@ -1207,7 +1208,7 @@ export class KupBox {
 
         if (boxObject.column) {
             const cell = row.cells[boxObject.column];
-
+            
             if (cell) {
                 // removing column from visibleColumns
                 let index = -1;
@@ -1276,7 +1277,7 @@ export class KupBox {
                             )}
                         />
                     );
-                } else if (isChart(cell.obj)) {
+                } else if (isChart(cell.obj) || getShape(cell, boxObject) === 'GRA') {
                     const props: {
                         value: string;
                         width?: number;
