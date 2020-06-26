@@ -7,10 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
+import { ComponentCardElement, } from "./components/kup-card/kup-card-declarations";
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
-import { ComponentCardElement, } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxMenuItem, } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
 import { ComponentChipElement, } from "./components/kup-chip/kup-chip-declarations";
@@ -82,6 +82,10 @@ export namespace Components {
         "text": string;
     }
     interface KupBox {
+        /**
+          * Number of columns
+         */
+        "cardData": ComponentCardElement;
         /**
           * Number of columns
          */
@@ -1687,6 +1691,10 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface KupBox {
+        /**
+          * Number of columns
+         */
+        "cardData"?: ComponentCardElement;
         /**
           * Number of columns
          */

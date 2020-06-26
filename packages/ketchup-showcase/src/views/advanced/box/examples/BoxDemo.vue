@@ -51,6 +51,14 @@ export default {
         '<kup-box content-align="center" no-border id="demo-component"></kup-box>',
       demoProps: [
         {
+          prop: 'cardData',
+          description:
+            'When present, the box will be rendered using the card component. This prop contains the card props which will be spread on the kup-card.',
+          type: 'ComponentCardElement',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'columns',
           description: 'Number of columns.',
           type: 'number',

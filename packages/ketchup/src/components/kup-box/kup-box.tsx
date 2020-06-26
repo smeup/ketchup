@@ -22,7 +22,6 @@ import {
 
 import {
     BoxRow,
-    CardLayout,
     Layout,
     Section,
     CollapsedSectionsState,
@@ -56,6 +55,7 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
+import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
@@ -70,113 +70,94 @@ export class KupBox {
     /**
      * Number of columns
      */
+    @Prop() cardData: ComponentCardElement = undefined;
+    /**
+     * Number of columns
+     */
     @Prop({ reflect: true }) columns = 1;
-
     /**
      * Alignment of the content. Can be set to left, right or center.
      */
     @Prop({ reflect: true })
     contentAlign: string = 'center';
-
     /**
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
      * Data
      */
     @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
-
     /**
      * Enable dragging
      */
     @Prop({ reflect: true })
     dragEnabled = false;
-
     /**
      * Enable dropping
      */
     @Prop({ reflect: true })
     dropEnabled = false;
-
     /**
      * Drop can be done in section
      */
     @Prop({ reflect: true })
     dropOnSection: false;
-
     /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
      */
     @Prop({ reflect: true })
     enableRowActions = false;
-
     /**
      * Enable filtering
      */
     @Prop({ reflect: true })
     filterEnabled = false;
-
-    /**
-     * Number of columns
-     */
-    @Prop() isCard: CardLayout = undefined;
-
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
     @Prop() layout: Layout;
-
     /**
      * Enable multi selection
      */
     @Prop({ reflect: true })
     multiSelection = false;
-
     /**
      * Removes border
      */
     @Prop({ reflect: true })
     noBorder: boolean = false;
-
     /**
      * Removes padding
      */
     @Prop({ reflect: true })
     noPadding: boolean = false;
-
     /**
      * Number of boxes per page
      */
     @Prop({ reflect: true })
     pageSize = 10;
-
     /**
      * Enables pagination
      */
     @Prop({ reflect: true })
     pagination = false;
-
     /**
      * Automatically selects the box at the specified index
      */
     @Prop({ reflect: true })
     selectBox: number;
-
     /**
      * If enabled, highlights the selected box/boxes
      */
     @Prop({ reflect: true })
     showSelection = true;
-
     /**
      * If sorting is enabled, specifies which column to sort
      */
     @Prop({ mutable: true, reflect: true })
     sortBy: string;
-
     /**
      * Enable sorting
      */
@@ -864,14 +845,42 @@ export class KupBox {
     }
 
     // render methods
-    private renderRowAsCard(row: BoxRow) {
-        let cardData = {
-            image1: row.cells[0]['value'],
-            text1: row.cells[1]['value'],
-            text2: row.cells[2]['value'],
-            text3: row.cells[3]['value'],
-        };
-        return <kup-card data={cardData} {...this.isCard}></kup-card>;
+    private renderSectionAsCard(row: BoxRow) {
+        let cntBTN: number = 0;
+        let cntIMG: number = 0;
+        let cntPGB: number = 0;
+        let cnt: number = 0;
+        let cardData = {};
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                switch (cell.obj.p) {
+                    case 'BTN':
+                        cntBTN++;
+                        cardData['button' + cntBTN] = {
+                            label: cell.value,
+                        };
+                        break;
+                    case 'IMG':
+                        cntIMG++;
+                        cardData['image' + cntIMG] = {
+                            resource: cell.value,
+                        };
+                        break;
+                    case 'PGB':
+                        cntPGB++;
+                        cardData['progressBar' + cntPGB] = {
+                            value: cell.value,
+                        };
+                        break;
+                    default:
+                        cnt++;
+                        cardData['text' + cnt] = cell.value;
+                        break;
+                }
+            }
+        }
+        return <kup-card data={cardData} {...this.cardData}></kup-card>;
     }
 
     private renderRow(row: BoxRow) {
@@ -906,14 +915,18 @@ export class KupBox {
             };
 
             while (size-- > 0) {
-                boxContent.push(
-                    this.renderSection(
-                        sections[cnt++],
-                        parent,
-                        row,
-                        visibleColumns
-                    )
-                );
+                if (!this.cardData) {
+                    boxContent.push(
+                        this.renderSection(
+                            sections[cnt++],
+                            parent,
+                            row,
+                            visibleColumns
+                        )
+                    );
+                } else {
+                    boxContent.push(this.renderSectionAsCard(row));
+                }
             }
         }
 
@@ -1411,11 +1424,7 @@ export class KupBox {
             boxContent = [];
 
             while (size-- > 0) {
-                if (!this.isCard) {
-                    boxContent.push(this.renderRow(rows[cnt++]));
-                } else {
-                    boxContent.push(this.renderRowAsCard(rows[cnt++]));
-                }
+                boxContent.push(this.renderRow(rows[cnt++]));
             }
         }
 

@@ -28,6 +28,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](../kup-box)
+
 ### Depends on
 
 - [kup-button](../kup-button)
@@ -45,6 +49,7 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-progress-bar --> kup-image
+  kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
