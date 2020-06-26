@@ -91,11 +91,11 @@
         <div id="json-tab" class="sample-section padded" style="display: none;">
           <textarea id="json-textarea" style="display: none;"></textarea>
           <kup-text-field
-            class="shown"
+            class="visible"
             label="Prop"
             helper="i.e.: data"
             id="json-setter"
-            icon="close"
+            icon="arrow-collapse"
             trailing-icon
             helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
@@ -107,11 +107,16 @@
             icon="settings"
             title="Show prop field"
           ></kup-button>
+          <kup-button
+            id="json-warning"
+            icon="warning"
+            title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
+          ></kup-button>
         </div>
         <div id="css-tab" class="sample-section padded" style="display: none;">
           <textarea id="css-textarea" style="display: none;"></textarea>
           <kup-text-field
-            class="shown"
+            class="visible"
             label="Prop"
             helper="i.e.: customStyle"
             id="css-setter"
@@ -431,14 +436,14 @@ export default {
       let jsonSetter = document.querySelector('#json-setter');
       let jsonSetterOpener = document.querySelector('#json-setter-opener');
       let jsonTab = document.querySelector('#json-tab');
-      if (jsonSetter.classList.contains('shown')) {
-        jsonSetter.classList.remove('shown');
+      if (jsonSetter.classList.contains('visible')) {
+        jsonSetter.classList.remove('visible');
         jsonTab.classList.remove('padded');
-        jsonSetterOpener.classList.add('shown');
+        jsonSetterOpener.classList.add('visible');
       } else {
-        jsonSetter.classList.add('shown');
+        jsonSetter.classList.add('visible');
         jsonTab.classList.add('padded');
-        jsonSetterOpener.classList.remove('shown');
+        jsonSetterOpener.classList.remove('visible');
       }
     },
 
@@ -446,18 +451,19 @@ export default {
       let cssSetter = document.querySelector('#css-setter');
       let cssSetterOpener = document.querySelector('#css-setter-opener');
       let cssTab = document.querySelector('#css-tab');
-      if (cssSetter.classList.contains('shown')) {
-        cssSetter.classList.remove('shown');
+      if (cssSetter.classList.contains('visible')) {
+        cssSetter.classList.remove('visible');
         cssTab.classList.remove('padded');
-        cssSetterOpener.classList.add('shown');
+        cssSetterOpener.classList.add('visible');
       } else {
-        cssSetter.classList.add('shown');
+        cssSetter.classList.add('visible');
         cssTab.classList.add('padded');
-        cssSetterOpener.classList.remove('shown');
+        cssSetterOpener.classList.remove('visible');
       }
     },
 
     jsonSet(e) {
+      let jsonWarning = document.querySelector('#json-warning');
       let jsonProp = e.detail.value;
       let demoComponent = document.querySelector('#demo-component');
       demoComponent.currentJSONprop = jsonProp;
@@ -478,9 +484,14 @@ export default {
       }).on('change', function(cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
-        let jsonifiedData = JSON.parse(jsonTextarea.value);
-        let prop = demoComponent.currentJSONprop;
-        demoComponent[prop] = jsonifiedData;
+        try {
+          let jsonifiedData = JSON.parse(jsonTextarea.value);
+          let prop = demoComponent.currentJSONprop;
+          demoComponent[prop] = jsonifiedData;
+          jsonWarning.classList.remove('visible');
+        } catch (error) {
+          jsonWarning.classList.add('visible');
+        }
       });
     },
 
