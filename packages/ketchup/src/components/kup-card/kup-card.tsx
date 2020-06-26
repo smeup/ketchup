@@ -82,7 +82,6 @@ export class KupCard {
             }
         }
 
-        console.log('something happened', e);
         this.kupEvent.emit({
             id: e.detail.id,
             value: e.detail,
