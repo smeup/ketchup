@@ -13,3 +13,7 @@
     width: 100%;
   }
 }
+
+#expandable-panel.expanded {
+  height: fit-content;
+}

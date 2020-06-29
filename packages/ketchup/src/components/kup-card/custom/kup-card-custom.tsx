@@ -3,6 +3,7 @@ import { ComponentCardElement } from '../kup-card-declarations';
 import { KupImage } from '../../kup-image/kup-image';
 import { KupButton } from '../../kup-button/kup-button';
 import { KupProgressBar } from '../../kup-progress-bar/kup-progress-bar';
+import { KupChip } from '../../kup-chip/kup-chip';
 
 export function create1(layout: number, data: ComponentCardElement) {
     let componentClass = 'custom-layout-' + layout;
@@ -125,6 +126,50 @@ export function create3(layout: number, data: ComponentCardElement) {
             </div>
         </div>
     );
+}
+
+export function create4(layout: number, data: ComponentCardElement) {
+    let componentClass = 'custom-layout-' + layout;
+    let CSSVariables = {
+        ['--color-1']: data['color1'],
+    };
+    let chip1: KupChip = <kup-chip id="chips1" {...data['chip1']}></kup-chip>;
+    return (
+        <div id="expandable-panel" class={componentClass} style={CSSVariables}>
+            <div class="section-1"></div>
+            <div class="section-2">
+                <div class="sub-1">
+                    <div class="text">{data['text1']}</div>
+                </div>
+                <div class="sub-2">
+                    <div class="text">{data['text2']}</div>
+                </div>
+                <div class="sub-3">
+                    <div class="text">{data['text3']}</div>
+                </div>
+                <div class="sub-4">{chip1}</div>
+            </div>
+            <div class="section-3">
+                <kup-button
+                    toggable
+                    iconOff="keyboard_arrow_up"
+                    onKupButtonClick={(e: any) => expandPanel(e)}
+                    icon="keyboard_arrow_down"
+                ></kup-button>
+            </div>
+        </div>
+    );
+}
+
+function expandPanel(e) {
+    let el = e.target
+        .closest('#kup-component')
+        .querySelector('#expandable-panel');
+    if (e.detail.value === 'on') {
+        el.classList.add('expanded');
+    } else {
+        el.classList.remove('expanded');
+    }
 }
 
 function getContrastYIQ(hexcolor: string) {
