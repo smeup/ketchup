@@ -122,7 +122,7 @@
         <span class="code-word">Layout 5</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the background, its opacity will be set to 10%.
+        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
         <br />
         <span class="code-word">- chip1</span>: Chips.
         <br />
@@ -138,6 +138,34 @@
             size-x="300px"
             size-y="300px"
             layout-number="5"
+            layout-family="custom"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 6</span> settings:
+        <br />
+        <br />
+        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner.
+        <br />
+        <span class="code-word">- chip1</span>: Chips displayed after clicking on the bottom bar.
+        <br />
+        <span class="code-word">- image1</span>: Image on the top right corner, colored with color1.
+        <br />
+        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <br />
+        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to fit its content. The bottom bar containing this button is 50px tall, so keep this in mind when you set the size of the card.
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="6"
             layout-family="custom"
             :data.prop="data"
           ></kup-card>

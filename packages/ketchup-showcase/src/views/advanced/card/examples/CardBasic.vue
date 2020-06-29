@@ -15,6 +15,11 @@
         href="https://ketchup.smeup.com/ketchup-showcase/#/button"
       >kup-button</a>.
       <br />
+      <span class="code-word">chip</span> contains an object reflecting props of
+      <a
+        href="https://ketchup.smeup.com/ketchup-showcase/#/chip"
+      >kup-chip</a>.
+      <br />
       <span class="code-word">color</span> contains a CSS color string.
       <br />
       <span class="code-word">image</span> contains an object reflecting props of
@@ -39,7 +44,7 @@
         <br />
         <span class="code-word">material</span>, which look was inspired by Material Design (4 layouts).
         <br />
-        <span class="code-word">custom</span>, which covers niche use cases (3 layouts).
+        <span class="code-word">custom</span>, which covers niche use cases (6 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>
