@@ -58,6 +58,7 @@ export class KupCard {
     @Prop({ reflect: true }) sizeY: string = '100%';
 
     private elStyle = undefined;
+    private oldSizeY = undefined;
 
     @Event({
         eventName: 'kupCardEvent',
@@ -75,6 +76,7 @@ export class KupCard {
 
     onKupEvent(e) {
         const root = this.rootElement.shadowRoot;
+
         if (e.type === 'kupImageLoad') {
             let rippleEl: any = root.querySelector('.mdc-ripple-surface');
             if (rippleEl) {
@@ -82,7 +84,20 @@ export class KupCard {
             }
         }
 
-        console.log('something happened', e);
+        if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
+            let dynamicEl = root.querySelector('.dynamic-element');
+            let dynamicWrap = root.querySelector('.dynamic-wrapper');
+            if (
+                e.detail.value === 'on' &&
+                dynamicEl.clientHeight > dynamicWrap.clientHeight
+            ) {
+                this.oldSizeY = this.sizeY;
+                this.sizeY = 'auto';
+            } else if (this.oldSizeY) {
+                this.sizeY = this.oldSizeY;
+            }
+        }
+
         this.kupEvent.emit({
             id: e.detail.id,
             value: e.detail,

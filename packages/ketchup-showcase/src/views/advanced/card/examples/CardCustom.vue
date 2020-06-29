@@ -102,7 +102,13 @@
         <br />
         <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
-        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to fit its content. The bottom bar containing this button is 50px tall, so keep this in mind when you set the size of the card.
+        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
+        To set this up inside the layout, the classes
+        <span
+          class="code-word"
+        >dynamic-element</span> and
+        <span class="code-word">dynamic-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively.
+        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card.
       </p>
       <br />
       <div class="demo-container">
@@ -157,7 +163,13 @@
         <br />
         <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
-        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to fit its content. The bottom bar containing this button is 50px tall, so keep this in mind when you set the size of the card.
+        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
+        To set this up inside the layout, the classes
+        <span
+          class="code-word"
+        >dynamic-element</span> and
+        <span class="code-word">dynamic-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively.
+        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card.
       </p>
       <br />
       <div class="demo-container">

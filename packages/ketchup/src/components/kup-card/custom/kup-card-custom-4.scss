@@ -46,9 +46,6 @@
       max-height: 15%;
       overflow: hidden;
     }
-    .sub-4 {
-      overflow: hidden;
-    }
   }
 
   .section-3 {
@@ -64,8 +61,4 @@
       width: 48px;
     }
   }
-}
-
-#expandable-panel.expanded .sub-4 {
-  overflow: auto;
 }

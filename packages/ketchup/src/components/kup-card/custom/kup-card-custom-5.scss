@@ -46,14 +46,14 @@
       color: var(--color-1);
       font-weight: bold;
       text-align: center;
-      padding: 0 1rem 1rem 1rem;
       font-size: 1.8rem;
       position: absolute;
       top: 1rem;
       right: 1rem;
       max-width: 25%;
       text-overflow: ellipsis;
-      max-height: 15%;
+      max-height: calc(24px + 2.25rem);
+      padding: 0 1rem;
       overflow: hidden;
       kup-image {
         margin: auto;

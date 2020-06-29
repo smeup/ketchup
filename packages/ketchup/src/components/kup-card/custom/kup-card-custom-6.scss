@@ -30,22 +30,19 @@
     }
     .sub-3 {
       color: var(--color-1);
-      text-align: left;
-      padding: 0 1rem 1rem 1rem;
+      text-align: center;
       font-size: 1.25rem;
       position: absolute;
       top: 1rem;
       right: 1rem;
       max-width: 25%;
       text-overflow: ellipsis;
-      max-height: 15%;
       overflow: hidden;
+      max-height: calc(24px + 2.25rem);
+      padding: 0 1rem;
       kup-image {
         margin: auto;
       }
-    }
-    .sub-4 {
-      overflow: hidden;
     }
   }
 
@@ -62,8 +59,4 @@
       width: 48px;
     }
   }
-}
-
-#expandable-panel.expanded .sub-4 {
-  overflow: auto;
 }

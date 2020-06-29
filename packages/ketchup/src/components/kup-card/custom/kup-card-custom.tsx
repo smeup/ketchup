@@ -133,9 +133,15 @@ export function create4(layout: number, data: ComponentCardElement) {
     let CSSVariables = {
         ['--color-1']: data['color1'],
     };
-    let chip1: KupChip = <kup-chip id="chips1" {...data['chip1']}></kup-chip>;
+    let chip1: KupChip = (
+        <kup-chip
+            class="dynamic-element"
+            id="chips1"
+            {...data['chip1']}
+        ></kup-chip>
+    );
     return (
-        <div id="expandable-panel" class={componentClass} style={CSSVariables}>
+        <div class={componentClass} style={CSSVariables}>
             <div class="section-1"></div>
             <div class="section-2">
                 <div class="sub-1">
@@ -147,13 +153,13 @@ export function create4(layout: number, data: ComponentCardElement) {
                 <div class="sub-3">
                     <div class="text">{data['text3']}</div>
                 </div>
-                <div class="sub-4">{chip1}</div>
+                <div class="sub-4 dynamic-wrapper">{chip1}</div>
             </div>
             <div class="section-3">
                 <kup-button
+                    id="expand-action"
                     toggable
                     iconOff="keyboard_arrow_down"
-                    onKupButtonClick={(e: any) => expandPanel(e)}
                     icon="keyboard_arrow_up"
                 ></kup-button>
             </div>
@@ -201,7 +207,13 @@ export function create6(layout: number, data: ComponentCardElement) {
     let CSSVariables = {
         ['--color-1']: data['color1'],
     };
-    let chip1: KupChip = <kup-chip id="chips1" {...data['chip1']}></kup-chip>;
+    let chip1: KupChip = (
+        <kup-chip
+            class="dynamic-element"
+            id="chips1"
+            {...data['chip1']}
+        ></kup-chip>
+    );
     let image1: KupImage = (
         <kup-image
             id="image1"
@@ -212,7 +224,7 @@ export function create6(layout: number, data: ComponentCardElement) {
         ></kup-image>
     );
     return (
-        <div id="expandable-panel" class={componentClass} style={CSSVariables}>
+        <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
                 <div class="sub-1">
                     <div class="text">{data['text1']}</div>
@@ -224,29 +236,18 @@ export function create6(layout: number, data: ComponentCardElement) {
                     <div class="image">{image1}</div>
                     <div class="text">{data['text3']}</div>
                 </div>
-                <div class="sub-4">{chip1}</div>
+                <div class="sub-4 dynamic-wrapper">{chip1}</div>
             </div>
             <div class="section-2">
                 <kup-button
+                    id="expand-action"
                     toggable
                     iconOff="keyboard_arrow_down"
-                    onKupButtonClick={(e: any) => expandPanel(e)}
                     icon="keyboard_arrow_up"
                 ></kup-button>
             </div>
         </div>
     );
-}
-
-function expandPanel(e) {
-    let el = e.target
-        .closest('#kup-component')
-        .querySelector('#expandable-panel');
-    if (e.detail.value === 'on') {
-        el.classList.add('expanded');
-    } else {
-        el.classList.remove('expanded');
-    }
 }
 
 function getContrastYIQ(hexcolor: string) {
