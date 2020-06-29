@@ -117,6 +117,33 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 5</span> settings:
+        <br />
+        <br />
+        <span class="code-word">- color1</span>: Sets the color of the background, its opacity will be set to 10%.
+        <br />
+        <span class="code-word">- chip1</span>: Chips.
+        <br />
+        <span class="code-word">- image1</span>: Image on the top right corner, colored with color1.
+        <br />
+        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="5"
+            layout-family="custom"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
