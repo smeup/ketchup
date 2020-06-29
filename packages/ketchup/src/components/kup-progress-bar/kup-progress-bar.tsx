@@ -104,6 +104,11 @@ export class KupProgressBar {
 
         if (!this.centeredLabel) {
             labelStyle = valueStyle;
+            if (this.value > 2) {
+                componentClass += ' text-color-on-main';
+            }
+        } else if (this.value > 49) {
+            componentClass += ' text-color-on-main';
         }
 
         let label = null;
@@ -114,8 +119,9 @@ export class KupProgressBar {
                         <kup-image
                             sizeX="3rem"
                             sizeY="3rem"
+                            customStyle="img { object-fit: cover; }"
                             color="var(--kup-main-color)"
-                            name={this.icon}
+                            resource={this.icon}
                         ></kup-image>
                     </span>
                 );
@@ -126,7 +132,7 @@ export class KupProgressBar {
                             sizeX="1.25rem"
                             sizeY="1.25rem"
                             color="var(--kup-text-on-main-color)"
-                            name={this.icon}
+                            resource={this.icon}
                         ></kup-image>
                     </span>
                 );

@@ -75,8 +75,8 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-button --> kup-image
-  kup-image --> kup-badge
   kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-badge --> kup-image
   kup-form --> kup-crud
   kup-combobox --> kup-text-field
@@ -95,7 +95,6 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-graphic-cell
   kup-data-table --> kup-chart-cell
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio

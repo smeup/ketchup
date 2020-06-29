@@ -3,7 +3,7 @@
     <div class="demo-wrapper">
       <p>
         Chips are commonly used when there is a list of labels or tags. The
-        chip set data is containerd in the
+        chip data must be set inside the
         <span
           class="code-word"
         >data</span> prop, which is structured like this:

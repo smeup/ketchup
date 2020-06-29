@@ -75,7 +75,6 @@ export default class SmeupMatrix extends Vue {
     scrollMode: 0,
     scrollWidth: 0,
     scrollHeight: 0,
-    columnsWidth: [],
     scrollLeft: 0
   };
 

@@ -76,6 +76,10 @@ export class KupTree {
      */
     @Prop() data: TreeNode[] = [];
     /**
+     * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
+     */
+    @Prop({ reflect: true }) density: string = 'medium';
+    /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
      *
@@ -158,6 +162,7 @@ export class KupTree {
     private treeWrapperRef: any;
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
+    private selectedColumn: string;
 
     //-------- Events --------
     /**
@@ -230,6 +235,7 @@ export class KupTree {
     kupTreeNodeSelected: EventEmitter<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        columnName: string;
         auto: boolean;
     }>;
 
@@ -461,6 +467,7 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
                 treeNode: treeNodeData,
+                columnName: this.selectedColumn,
                 auto: auto,
             });
         }
@@ -725,7 +732,7 @@ export class KupTree {
                         badgeData={cell.config ? cell.config.badges : undefined}
                         sizeX="auto"
                         sizeY="var(--dtt_cell-image_max-height)"
-                        name={valueToDisplay}
+                        resource={valueToDisplay}
                     />
                 );
             } else if (isLink(cell.obj)) {
@@ -764,20 +771,15 @@ export class KupTree {
                     />
                 );
             } else if (isBar(cell.obj)) {
-                // KupTree cannot have the tree columns resized.
-                // This constant keeps the possible width type to keep a certain degree of compatibility with kup-data-table,
-                // From which this type of content was taken
                 const props: {
-                    cellConfig: any;
-                    value: string;
-                    width?: number;
+                    data: any;
+                    sizeY: string;
                 } = {
-                    cellConfig: cell.config,
-                    value: cell.value,
+                    data: cell.value,
+                    sizeY: '35px',
                 };
 
-                // Controls if we should display this cell value
-                content = <kup-graphic-cell {...props} />;
+                content = valueToDisplay ? <kup-image {...props} /> : null;
             } else if (isChart(cell.obj)) {
                 const props: {
                     cellConfig: any;
@@ -880,7 +882,7 @@ export class KupTree {
                 )
             );
         }
-        return <td style={style}>{cellElements}</td>;
+        return <td onClick={() => this.selectedColumn = cellData.column.name} style={style}>{cellElements}</td>;
     }
 
     /**
@@ -931,7 +933,7 @@ export class KupTree {
                     class="expand-icon kup-tree__icon kup-tree__node__expander"
                     sizeX="1.5rem"
                     sizeY="1.5rem"
-                    name="menu-right"
+                    resource="menu-right"
                     onClick={
                         hasExpandIcon && !treeNodeData.disabled
                             ? (event) => {
@@ -978,7 +980,7 @@ export class KupTree {
                             class="kup-tree__icon"
                             sizeX="1.5rem"
                             sizeY="1.5rem"
-                            name={treeNodeData.icon}
+                            resource={treeNodeData.icon}
                             color={treeNodeData.iconColor}
                         ></kup-image>
                     );
@@ -1121,6 +1123,15 @@ export class KupTree {
     }
 
     render() {
+        let wrapperClass: string = 'density-medium';
+        switch (this.density) {
+            case 'dense':
+                wrapperClass = 'density-dense';
+                break;
+            case 'wide':
+                wrapperClass = 'density-wide';
+                break;
+        }
         let customStyle = undefined;
         if (this.customStyle) {
             customStyle = <style>{this.customStyle}</style>;
@@ -1175,7 +1186,7 @@ export class KupTree {
         return (
             <Host>
                 {customStyle}
-                <div id="kup-component">
+                <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
                         ref={(el) => (this.treeWrapperRef = el as any)}

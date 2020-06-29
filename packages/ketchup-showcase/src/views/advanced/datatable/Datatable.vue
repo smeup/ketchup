@@ -10,60 +10,57 @@
       <datatable-checkbox></datatable-checkbox>
     </template>
     <template v-slot:3>
-      <datatable-columns-width></datatable-columns-width>
-    </template>
-    <template v-slot:4>
       <datatable-filters></datatable-filters>
     </template>
-    <template v-slot:5>
+    <template v-slot:4>
       <datatable-graphic-cell></datatable-graphic-cell>
     </template>
-    <template v-slot:6>
+    <template v-slot:5>
       <datatable-chart-cell></datatable-chart-cell>
     </template>
-    <template v-slot:7>
+    <template v-slot:6>
       <datatable-groups></datatable-groups>
     </template>
-    <template v-slot:8>
+    <template v-slot:7>
       <datatable-fixed-columns-rows />
     </template>
-    <template v-slot:9>
+    <template v-slot:8>
       <datatable-j4btn></datatable-j4btn>
     </template>
-    <template v-slot:10>
+    <template v-slot:9>
       <datatable-pagination></datatable-pagination>
     </template>
-    <template v-slot:11>
+    <template v-slot:10>
       <datatable-progressbar></datatable-progressbar>
     </template>
-    <template v-slot:12>
+    <template v-slot:11>
       <datatable-radio></datatable-radio>
     </template>
-    <template v-slot:13>
+    <template v-slot:12>
       <datatable-row-actions></datatable-row-actions>
     </template>
-    <template v-slot:14>
+    <template v-slot:13>
       <datatable-row-selection></datatable-row-selection>
     </template>
-    <template v-slot:15>
+    <template v-slot:14>
       <datatable-rows-repetition></datatable-rows-repetition>
     </template>
-    <template v-slot:16>
+    <template v-slot:15>
       <datatable-sort></datatable-sort>
     </template>
-    <template v-slot:17>
+    <template v-slot:16>
       <datatable-sortable-columns></datatable-sortable-columns>
     </template>
-    <template v-slot:18>
+    <template v-slot:17>
       <datatable-tooltip></datatable-tooltip>
     </template>
-    <template v-slot:19>
+    <template v-slot:18>
       <datatable-total></datatable-total>
     </template>
-    <template v-slot:20>
+    <template v-slot:19>
       <datatable-j4ico></datatable-j4ico>
     </template>
-    <template v-slot:21>
+    <template v-slot:20>
       <datatable-images-and-badges />
     </template>
   </comp>
@@ -73,7 +70,6 @@
 import DatatableDemo from '@/views/advanced/datatable/examples/DatatableDemo';
 import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';
 import DatatableCheckbox from '@/views/advanced/datatable/examples/DatatableCheckbox';
-import DatatableColumnsWidth from '@/views/advanced/datatable/examples/DatatableColumnsWidth';
 import DatatableFilters from '@/views/advanced/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/advanced/datatable/examples/DatatableGraphicCell';
 import DatatableChartCell from '@/views/advanced/datatable/examples/DatatableChartCell';
@@ -99,7 +95,6 @@ export default {
     DatatableDemo,
     DatatableBasic,
     DatatableCheckbox,
-    DatatableColumnsWidth,
     DatatableFilters,
     DatatableGraphicCell,
     DatatableChartCell,
@@ -129,7 +124,6 @@ export default {
         'Playground',
         'Basic usage',
         'With checkboxes',
-        'Custom column width',
         'With filters',
         'Graphic cells',
         'Chart cells',

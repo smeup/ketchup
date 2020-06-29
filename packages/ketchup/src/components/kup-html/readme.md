@@ -22,14 +22,6 @@
 | `ketchupHtmlLoaded` | When the iframe has been loaded            | `CustomEvent<any>` |
 
 
-## CSS Custom Properties
-
-| Name                              | Description                                                |
-| --------------------------------- | ---------------------------------------------------------- |
-| `--htm_height, --kup-html_height` | Specifies the height the frame must have. Default: 600px ; |
-| `--htm_width, --kup-html_width`   | Specifies the width of the frame Default: 100% ;           |
-
-
 ## Dependencies
 
 ### Depends on

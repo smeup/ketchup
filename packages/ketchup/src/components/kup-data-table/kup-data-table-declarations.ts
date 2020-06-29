@@ -30,7 +30,7 @@ export interface CellsHolder {
 export interface Column {
     name: string;
     title: string;
-    size?: number;
+    size?: string;
     visible?: boolean;
     clickable?: boolean;
     hideValuesRepetitions?: boolean;

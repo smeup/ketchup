@@ -335,10 +335,11 @@ $fixed-row-class: fixed-row;
         }
 
         // The before for the columns separator element fallback for Firefox and sticky columns
-        &::before {
-          @include fixedColumnSeparator(0);
-          right: -1px;
-        }
+        // Not clear why it's needed, removing on 05/12/2020
+        //&::before {
+        //  @include fixedColumnSeparator(0);
+        //  right: -1px;
+        //}
 
         & .filter-remove {
           --kup-main-color: var(--kup-icon-color);
@@ -398,21 +399,7 @@ $fixed-row-class: fixed-row;
 
         .column-sort {
           float: left;
-          margin-left: $column-sort-margin;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-
-            &:hover {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
-
-          .mdi-sort-ascending,
-          .mdi-sort-descending {
-            color: var(--dtt_main-color);
-          }
+          margin: 0 $column-sort-margin;
         }
 
         .remove-filter {
@@ -432,6 +419,7 @@ $fixed-row-class: fixed-row;
         .column-menu {
           background-color: var(--dtt_background-color);
           box-shadow: var(--dtt_box-shadow);
+          display: none;
           color: var(--dtt_color);
           position: absolute;
           z-index: 100;
@@ -440,11 +428,7 @@ $fixed-row-class: fixed-row;
           min-width: -moz-max-content; /* Firefox/Gecko */
           min-width: -webkit-max-content; /* Chrome */
 
-          &.closed {
-            display: none;
-          }
-
-          &.open {
+          &.visible.dynamic-position-active {
             display: block;
             -webkit-animation: display-none-transition 0.5s both;
             -webkit-animation-timing-function: cubic-bezier(
@@ -538,7 +522,6 @@ $fixed-row-class: fixed-row;
 
           &.group-label {
             border-bottom: none;
-            line-height: 0.75rem;
           }
 
           &.group-total {
@@ -550,20 +533,30 @@ $fixed-row-class: fixed-row;
             padding: 0.5rem 0;
 
             .group-cell-content {
-              kup-image {
-                margin-right: 0.25rem;
-              }
-              kup-image,
+              .icon-container,
               .indent {
                 float: left;
+              }
+              .icon-container {
+                margin: 0 0.25rem;
+                height: 1.25rem;
+                width: 1.25rem;
+              }
+              kup-image {
+                &.collapsed {
+                  transform: rotate(90deg);
+                }
+                &.expanded {
+                  transform: rotate(180deg);
+                }
+              }
+              .indent {
+                margin-left: 0.25rem;
               }
               > span {
                 display: inline-flex;
                 outline: none;
                 margin-left: 0.25rem;
-              }
-              > span.text {
-                vertical-align: text-bottom;
               }
             }
 
@@ -656,7 +649,7 @@ $fixed-row-class: fixed-row;
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-graphic-cell {
+            & kup-image {
               display: flex;
             }
           }
@@ -712,8 +705,9 @@ $fixed-row-class: fixed-row;
         }
 
         th-sticky {
-          padding: 0.5rem 0;
+          box-sizing: border-box;
           display: inline-flex;
+          padding: 0.5rem 0.3125rem;
 
           &.number {
             text-align: right;
@@ -727,22 +721,6 @@ $fixed-row-class: fixed-row;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-        }
-
-        // The element holding the icon for the sort
-        .column-sort {
-          cursor: pointer;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-          }
-
-          &:hover {
-            .mdi {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
         }
       }
     }
@@ -764,26 +742,22 @@ $fixed-row-class: fixed-row;
 
     &.density- {
       &small {
-        tbody > tr > td {
+        tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
-          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding: 0.25rem 0;
-          transition: padding 0.1s;
         }
       }
 
       &big {
-        tbody > tr > td {
+        tbody > tr > td:not(.is-graphic) {
           padding-top: 1rem;
           padding-bottom: 1rem;
-          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding: 0.75rem 0;
-          transition: padding 0.1s;
         }
       }
     }
@@ -969,12 +943,6 @@ $fixed-row-class: fixed-row;
   box-shadow: var(--dtt_density-box-shadow);
   width: 200px; //I.E.
   width: max-content;
-
-  .mdi:before,
-  &:before {
-    color: var(--dtt_density-icon-color);
-    font-size: 120%;
-  }
 
   .density-label,
   .fontsize-label {

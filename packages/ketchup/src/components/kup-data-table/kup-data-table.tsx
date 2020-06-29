@@ -82,11 +82,12 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
-import { errorLogging } from '../../utils/error-logging';
+
 import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import { errorLogging } from '../../utils/error-logging';
 
 @Component({
     tag: 'kup-data-table',
@@ -95,13 +96,6 @@ import {
 })
 export class KupDataTable {
     @Element() rootElement!: HTMLElement;
-    /**
-     * Used to set custom columns width.
-     */
-    @Prop() columnsWidth: Array<{
-        column: string;
-        width: number;
-    }> = [];
 
     /**
      * Expands groups when set to true.
@@ -423,6 +417,7 @@ export class KupDataTable {
     private customizeBottomButtonRef: any;
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
+    private sizedColumns: Column[] = undefined;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -690,11 +685,11 @@ export class KupDataTable {
         }
 
         if (root != null) {
-            let menus: any = root.querySelectorAll('.column-menu');
-
-            for (let i = 0; i < menus.length; i++) {
-                let wrapper: any = menus[i].closest('th');
-                positionRecalc(menus[i], wrapper);
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
             }
         }
 
@@ -753,7 +748,26 @@ export class KupDataTable {
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
-            : [{ title: '', name: '', size: 0 }];
+            : [{ title: '', name: '' }];
+    }
+
+    private getSizedColumns() {
+        let columns = this.getColumns();
+        let sizedColumns = [];
+        for (let j = 0; j < columns.length; j++) {
+            if (
+                columns[j].size !== null &&
+                columns[j].size !== undefined &&
+                columns[j].size !== ''
+            ) {
+                sizedColumns.push(columns[j]);
+            }
+        }
+        if (sizedColumns.length > 0) {
+            return sizedColumns;
+        } else {
+            return undefined;
+        }
     }
 
     private getVisibleColumns(): Array<Column> {
@@ -896,17 +910,20 @@ export class KupDataTable {
      * Table margin gets set to auto to center it.
      */
     private tableHasAutoWidth(): boolean {
+        if (!this.sizedColumns) {
+            return;
+        }
         const visibleCols = this.getVisibleColumns();
-        // Before checking each column, simply control that visible columns are at maximum as many as the custom columnsWidth items.
+        // Before checking each column, controls that visible columns are as many as items with custom sizes.
         // If there are more visible columns, it means that the width of the table will be set to auto.
-        if (visibleCols.length <= this.columnsWidth.length) {
+        if (visibleCols.length <= this.sizedColumns.length) {
             let found = false;
 
             // Each visible column must have its own width for the table to have a auto width
             for (let i = 0; i < visibleCols.length; i++) {
                 found = false;
-                for (let j = 0; j < this.columnsWidth.length; j++) {
-                    if (visibleCols[i].name === this.columnsWidth[j].column) {
+                for (let j = 0; j < this.sizedColumns.length; j++) {
+                    if (visibleCols[i].name === this.sizedColumns[j].name) {
                         found = true;
                         break;
                     }
@@ -1611,14 +1628,6 @@ export class KupDataTable {
             .map((chunk, index) => (index !== 0 ? [<br />, chunk] : chunk));
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-data-table',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
-
     //======== render methods ========
     /**
      * Given the parameters return the classes and style for each table header cell
@@ -1628,7 +1637,6 @@ export class KupDataTable {
      * @param columnIsNumber - If the current columns contains numeric values
      */
     private composeHeaderCellClassAndStyle(
-        columnName: string,
         columnIndex: number,
         extraCells: number = 0,
         columnIsNumber: boolean = false
@@ -1638,23 +1646,6 @@ export class KupDataTable {
     } {
         let columnClass: GenericObject = {},
             thStyle: GenericObject = {};
-
-        // Checks if data table columns have custom width
-        if (this.columnsWidth.length > 0) {
-            for (let i = 0; i < this.columnsWidth.length; i++) {
-                const currentCol = this.columnsWidth[i];
-
-                if (currentCol.column === columnName) {
-                    const width = currentCol.width.toString() + 'px';
-                    thStyle = {
-                        width,
-                        minWidth: width,
-                        maxWidth: width,
-                    };
-                    break;
-                }
-            }
-        }
 
         // Special class column hosts numbers
         columnClass.number = columnIsNumber;
@@ -1725,11 +1716,6 @@ export class KupDataTable {
             );
         }
 
-        //  let groupColumn = null;
-        //  if (this.isGrouping() && this.hasTotals()) {
-        //      groupColumn = <th />;
-        //  }
-
         // Renders action column
         let actionsColumn = null;
         if (this.hasRowActions()) {
@@ -1764,7 +1750,6 @@ export class KupDataTable {
                     columnClass,
                     thStyle,
                 } = this.composeHeaderCellClassAndStyle(
-                    column.name,
                     columnIndex,
                     specialExtraCellsCount,
                     isNumber(column.obj)
@@ -1811,7 +1796,7 @@ export class KupDataTable {
                         sortIcon = (
                             <kup-image
                                 class="column-sort"
-                                name={iconName}
+                                resource={iconName}
                                 title={this.getSortDecode(column.name)}
                                 sizeX="18px"
                                 sizeY="18px"
@@ -1838,123 +1823,141 @@ export class KupDataTable {
                 }
 
                 // Sets custom columns width
-                if (this.columnsWidth && this.columnsWidth.length) {
-                    for (let i = 0; i < this.columnsWidth.length; i++) {
-                        const currentCol = this.columnsWidth[i];
+                if (this.sizedColumns) {
+                    for (let i = 0; i < this.sizedColumns.length; i++) {
+                        const currentCol = this.sizedColumns[i];
 
-                        if (currentCol.column === column.name) {
-                            const width = currentCol.width.toString() + 'px';
-                            thStyle.width = width;
-                            thStyle.minWidth = width;
-                            thStyle.maxWidth = width;
+                        if (currentCol.name === column.name) {
+                            const width = currentCol.size + '';
+                            if (width.indexOf('ch') < 1) {
+                                thStyle.width = width;
+                                thStyle.minWidth = width;
+                                thStyle.maxWidth = width;
+                            }
+                            thStyle.overflow = 'hidden';
                             break;
                         }
                     }
                 }
 
-                const columnMenuItems: JSX.Element[] = [];
-                let checkboxWrapper: JSX.Element[] = [];
+                let columnMenu = undefined;
+                if (this.isOpenedMenuForColumn(column.name)) {
+                    const columnMenuItems: JSX.Element[] = [];
+                    let checkboxWrapper: JSX.Element[] = [];
 
-                //---- adding grouping ----
-                const group = this.getGroupByName(column.name);
-                const groupLabel =
-                    group != null ? 'Disable grouping' : 'Enable grouping';
+                    //---- adding grouping ----
+                    const group = this.getGroupByName(column.name);
+                    const groupLabel =
+                        group != null ? 'Disable grouping' : 'Enable grouping';
 
-                columnMenuItems.push(
-                    <li role="menuitem" class="button-row">
-                        <kup-button
-                            icon="book"
-                            tooltip={groupLabel}
-                            onKupButtonClick={() =>
-                                this.switchColumnGroup(group, column.name)
-                            }
-                        />
-                        <kup-button
-                            icon="table-column-plus-after"
-                            tooltip="Add column"
-                            onKupButtonClick={() => {
-                                this.kupAddColumn.emit({ column: column.name });
-                                this.closeMenu();
-                            }}
-                        />
-                    </li>
-                );
-
-                if (
-                    this.showFilters &&
-                    (isStringObject(column.obj) || isCheckbox(column.obj))
-                ) {
                     columnMenuItems.push(
-                        <li role="menuitem" class="textfield-row">
-                            <kup-text-field
-                                label="Filter"
-                                outlined={false}
-                                initialValue={this.getTextFieldFilterValue(
-                                    column.name
-                                )}
-                                onKupTextFieldSubmit={(e) => {
-                                    this.onFilterChange(e, column.name);
+                        <li role="menuitem" class="button-row">
+                            <kup-button
+                                icon="book"
+                                tooltip={groupLabel}
+                                onKupButtonClick={() =>
+                                    this.switchColumnGroup(group, column.name)
+                                }
+                            />
+                            <kup-button
+                                icon="table-column-plus-after"
+                                tooltip="Add column"
+                                onKupButtonClick={() => {
+                                    this.kupAddColumn.emit({
+                                        column: column.name,
+                                    });
                                     this.closeMenu();
                                 }}
-                            ></kup-text-field>
+                            />
                         </li>
                     );
-                    let checkBoxesFilter = this.getCheckBoxFilterValues(
-                        column.name
-                    );
-                    let columnValues: string[] = this.getColumnValues(
-                        column.name
-                    );
-                    let checkboxItems: JSX.Element[] = [];
-                    if (columnValues.length > 0) {
-                        checkboxItems.push(
-                            <kup-checkbox
-                                label={'(*All)'}
-                                checked={checkBoxesFilter.length == 0}
-                                onKupCheckboxChange={(e) => {
-                                    this.onFilterChange2(e, column.name, null);
-                                }}
-                            ></kup-checkbox>
-                        );
-                    }
-                    columnValues.forEach((v) => {
-                        checkboxItems.push(
-                            <kup-checkbox
-                                label={v}
-                                checked={checkBoxesFilter.includes(v)}
-                                onKupCheckboxChange={(e) => {
-                                    this.onFilterChange2(e, column.name, v);
-                                }}
-                            ></kup-checkbox>
-                        );
-                    });
 
-                    if (checkboxItems.length > 0) {
-                        checkboxWrapper = (
-                            <li role="menuitem" class="checkbox-row">
-                                {checkboxItems}
+                    if (
+                        this.showFilters &&
+                        (isStringObject(column.obj) || isCheckbox(column.obj))
+                    ) {
+                        columnMenuItems.push(
+                            <li role="menuitem" class="textfield-row">
+                                <kup-text-field
+                                    full-width
+                                    label="Filter column..."
+                                    outlined={false}
+                                    initialValue={this.getTextFieldFilterValue(
+                                        column.name
+                                    )}
+                                    onKupTextFieldSubmit={(e) => {
+                                        this.onFilterChange(e, column.name);
+                                        this.closeMenu();
+                                    }}
+                                ></kup-text-field>
                             </li>
                         );
+                        let checkBoxesFilter = this.getCheckBoxFilterValues(
+                            column.name
+                        );
+                        let lcltime = new Date();
+                        let starttime = lcltime.getTime();
+                        let columnValues: string[] = this.getColumnValues(
+                            column.name
+                        );
+                        lcltime = new Date();
+                        let endtime = lcltime.getTime();
+                        this.log(
+                            'renderHeader',
+                            'time spent for getColumnValues() [' +
+                                (endtime - starttime) +
+                                ']'
+                        );
+                        let checkboxItems: JSX.Element[] = [];
+                        if (columnValues.length > 0) {
+                            checkboxItems.push(
+                                <kup-checkbox
+                                    label={'(*All)'}
+                                    checked={checkBoxesFilter.length == 0}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(
+                                            e,
+                                            column.name,
+                                            null
+                                        );
+                                    }}
+                                ></kup-checkbox>
+                            );
+                        }
+                        columnValues.forEach((v) => {
+                            checkboxItems.push(
+                                <kup-checkbox
+                                    label={v}
+                                    checked={checkBoxesFilter.includes(v)}
+                                    onKupCheckboxChange={(e) => {
+                                        this.onFilterChange2(e, column.name, v);
+                                    }}
+                                ></kup-checkbox>
+                            );
+                        });
+
+                        if (checkboxItems.length > 0) {
+                            checkboxWrapper = (
+                                <li role="menuitem" class="checkbox-row">
+                                    {checkboxItems}
+                                </li>
+                            );
+                        }
                     }
-                }
 
-                let columnMenu = null;
-                if (columnMenuItems.length !== 0) {
-                    const menuClass = this.isOpenedMenuForColumn(column.name)
-                        ? 'open dynamic-position-active'
-                        : 'closed';
-
-                    columnMenu = (
-                        <div class={`column-menu ${menuClass}`}>
-                            <ul
-                                role="menubar"
-                                onMouseUp={(e) => e.stopPropagation()}
-                            >
-                                {columnMenuItems}
-                                {checkboxWrapper}
-                            </ul>
-                        </div>
-                    );
+                    if (columnMenuItems.length !== 0) {
+                        columnMenu = (
+                            <div class={`column-menu visible`}>
+                                <ul
+                                    role="menubar"
+                                    onMouseUp={(e) => e.stopPropagation()}
+                                >
+                                    {columnMenuItems}
+                                    {checkboxWrapper}
+                                </ul>
+                            </div>
+                        );
+                    }
                 }
 
                 // Check if columns are droppable and sets their handlers
@@ -2164,7 +2167,6 @@ export class KupDataTable {
                     columnClass,
                     thStyle,
                 } = this.composeHeaderCellClassAndStyle(
-                    column.name,
                     columnIndex,
                     specialExtraCellsCount,
                     isNumber(column.obj)
@@ -2219,8 +2221,8 @@ export class KupDataTable {
     private renderRow(
         row: Row,
         level = 0,
-        previousRow?: Row,
-        rowCssIndex: number = 0
+        rowCssIndex: number = 0,
+        previousRow?: Row
     ) {
         const visibleColumns = this.getVisibleColumns();
 
@@ -2246,10 +2248,7 @@ export class KupDataTable {
                 return null;
             }
 
-            //const icon = row.group.expanded
-            //    ? 'mdi mdi-menu-down expanded'
-            //    : 'mdi mdi-menu-right collapsed';
-            const icon = row.group.expanded ? 'expand_less' : 'expand_more';
+            const iconClass = row.group.expanded ? 'expanded' : 'collapsed';
 
             const jsxRows = [];
 
@@ -2266,12 +2265,13 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <kup-image
-                                name={icon}
-                                title="Expand/collapse group"
-                                sizeX="1.25rem"
-                                sizeY="1.25rem"
-                            />
+                            <span class="icon-container">
+                                <kup-image
+                                    resource="arrow_drop_up"
+                                    class={iconClass}
+                                    title="Expand/collapse group"
+                                />
+                            </span>
                             <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
@@ -2307,12 +2307,13 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <kup-image
-                                    name={icon}
-                                    title="Expand/collapse group"
-                                    sizeX="1.25rem"
-                                    sizeY="1.25rem"
-                                />
+                                <span class="icon-container">
+                                    <kup-image
+                                        resource="arrow_drop_up"
+                                        class={iconClass}
+                                        title="Expand/collapse group"
+                                    />
+                                </span>
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
@@ -2329,6 +2330,7 @@ export class KupDataTable {
                         this.renderRow(
                             row,
                             level + 1,
+                            groupRowIndex,
                             groupRowIndex > 0
                                 ? currentArray[groupRowIndex - 1]
                                 : undefined
@@ -2457,37 +2459,6 @@ export class KupDataTable {
 
                 const cell = row.cells[name];
 
-                //let options = null;
-                /**
-                 * Options must be rendered when the option field is specified AND (one of the following):
-                 * 1 - Column do not have to hide repetitions
-                 * 2 - Column has to hide repetitions but we are printing the first row.
-                 * 3 - Column has to hide repetitions but the value of the previous row is not equal to the current row cell.
-                 * @todo Move this rendering, if possible, inside renderCell()
-                 */
-                //if (
-                //    cell.options &&
-                //    (!hideValuesRepetitions ||
-                //        (hideValuesRepetitions &&
-                //            (!previousRow ||
-                //                previousRow.cells[name].value !== cell.value)))
-                //) {
-                //    options = (
-                //        <span
-                //            class="options"
-                //            role="button"
-                //            aria-label="Opzioni oggetto"
-                //            title="Opzioni oggetto"
-                //            onClick={(e) => {
-                //               e.stopPropagation();
-                //              this.onOptionClicked(name, row);
-                //           }}
-                //       >
-                //           <i class="mdi mdi-settings" />
-                //       </span>
-                //   );
-                //}
-
                 const jsxCell = this.renderCell(
                     indend,
                     cell,
@@ -2528,13 +2499,13 @@ export class KupDataTable {
                 }
 
                 // Controls if there are columns with a specified width
-                if (this.columnsWidth.length > 0) {
+                if (this.sizedColumns) {
                     let colWidth: string = '';
 
                     // Search if this column has a specified width
-                    for (let j = 0; j < this.columnsWidth.length; j++) {
-                        if (name === this.columnsWidth[j].column) {
-                            colWidth = this.columnsWidth[j].width + 'px';
+                    for (let j = 0; j < this.sizedColumns.length; j++) {
+                        if (name === this.sizedColumns[j].name) {
+                            colWidth = this.sizedColumns[j].size;
                             break;
                         }
                     }
@@ -2549,6 +2520,7 @@ export class KupDataTable {
                         // Search for "auto-width" class inside the scss file of this component for more details about this
                         cellStyle['max-width'] = colWidth;
                         cellStyle['min-width'] = colWidth;
+                        cellStyle['width'] = colWidth;
                     }
                 }
 
@@ -2663,7 +2635,7 @@ export class KupDataTable {
                         badgeData={cell.config ? cell.config.badges : undefined}
                         sizeX="auto"
                         sizeY="var(--dtt_cell-image_max-height)"
-                        name={valueToDisplay}
+                        resource={valueToDisplay}
                     />
                 );
             } else {
@@ -2716,25 +2688,53 @@ export class KupDataTable {
                 />
             );
         } else if (isBar(cell.obj)) {
-            const columnWidth = this.columnsWidth.find(
-                ({ column: columnName }) => columnName === column.name
-            );
+            if (cell.config) {
+                let barData = cell.config.data;
+                let barHeight = '26px';
+                if (this.density === 'medium') {
+                    barHeight = '36px';
+                }
+                if (this.density === 'big') {
+                    barHeight = '50px';
+                }
 
-            const props: { value: string; width?: number } = {
-                value: cell.value,
-                width:
-                    columnWidth !== undefined ? columnWidth.width : undefined,
-            };
+                if (barData) {
+                    const props: {
+                        data: any;
+                        sizeY: string;
+                    } = {
+                        data: barData,
+                        sizeY: barHeight,
+                    };
 
-            // Controls if we should display this cell value
-            content =
-                !column.hideValuesRepetitions || valueToDisplay ? (
-                    <kup-graphic-cell {...props} />
-                ) : null;
+                    content =
+                        !column.hideValuesRepetitions || valueToDisplay ? (
+                            <kup-image {...props} />
+                        ) : null;
+                }
+            } else if (cell.value) {
+                const props: {
+                    resource: string;
+                    sizeY: string;
+                    isCanvas: boolean;
+                } = {
+                    resource: cell.value,
+                    sizeY: '35px',
+                    isCanvas: true,
+                };
+
+                content =
+                    !column.hideValuesRepetitions || valueToDisplay ? (
+                        <kup-image {...props} />
+                    ) : null;
+            }
         } else if (isChart(cell.obj)) {
-            const columnWidth = this.columnsWidth.find(
-                ({ column: columnName }) => columnName === column.name
-            );
+            let columnWidth;
+            if (this.sizedColumns) {
+                columnWidth = this.sizedColumns.find(
+                    ({ name: columnName }) => columnName === column.name
+                );
+            }
 
             const props: {
                 cellConfig: any;
@@ -2743,8 +2743,7 @@ export class KupDataTable {
             } = {
                 cellConfig: cell.config,
                 value: cell.value,
-                width:
-                    columnWidth !== undefined ? columnWidth.width : undefined,
+                width: columnWidth !== undefined ? columnWidth.size : undefined,
             };
 
             content = <kup-chart-cell {...props} />;
@@ -3059,11 +3058,9 @@ export class KupDataTable {
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
-        // resetting rows
         this.renderedRows = [];
         let elStyle = undefined;
+        this.sizedColumns = this.getSizedColumns();
 
         let rows = null;
         if (this.paginatedRows.length === 0) {
@@ -3081,8 +3078,8 @@ export class KupDataTable {
                     this.renderRow(
                         row,
                         0,
-                        rowIndex > 0 ? currentArray[rowIndex - 1] : null,
-                        rowIndex + 1
+                        rowIndex + 1,
+                        rowIndex > 0 ? currentArray[rowIndex - 1] : null
                     )
                 )
                 .forEach((jsxRow) => {
@@ -3164,9 +3161,7 @@ export class KupDataTable {
         const tableClass = {
             // Class for specifying if the table should have width: auto.
             // Mandatory to check with custom column size.
-            'auto-width': !!(
-                this.columnsWidth.length > 0 && this.tableHasAutoWidth()
-            ),
+            'auto-width': this.tableHasAutoWidth(),
             'column-separation':
                 ShowGrid.COMPLETE === this.showGrid ||
                 ShowGrid.COL === this.showGrid,
@@ -3257,9 +3252,10 @@ export class KupDataTable {
                 {paginatorBottom}
             </div>
         );
-        //lcltime = new Date();
-        //let endtime = lcltime.getTime();
-        //this.log('render', 'time spent [' + (endtime - starttime) + ']');
         return compCreated;
+    }
+
+    private log(methodName: string, msg: string) {
+        errorLogging('kup-data-table', methodName + '()' + ' - ' + msg, 'log');
     }
 }

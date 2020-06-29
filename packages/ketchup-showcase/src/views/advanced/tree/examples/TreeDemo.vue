@@ -82,6 +82,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'density',
+          description:
+            "The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'",
+          type: 'string',
+          default: 'medium',
+          try: 'field',
+        },
+        {
           prop: 'dynamicExpansionCallback',
           description:
             'Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',

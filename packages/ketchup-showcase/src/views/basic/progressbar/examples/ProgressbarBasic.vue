@@ -9,7 +9,7 @@
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="width: 50%;">
+        <div class="kup-container" style="width: 50%; margin-left: auto; margin-right: auto;">
           <kup-progress-bar value="100"></kup-progress-bar>
         </div>
         <p class="centered">Sample markup</p>

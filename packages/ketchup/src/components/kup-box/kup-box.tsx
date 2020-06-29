@@ -373,7 +373,7 @@ export class KupBox {
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
-            : [{ title: '', name: '', size: 0 }];
+            : [{ title: '', name: '', size: undefined }];
     }
 
     private initVisibleColumns(): void {

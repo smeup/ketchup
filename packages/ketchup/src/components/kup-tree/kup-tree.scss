@@ -8,6 +8,27 @@
   }
 }
 
+.density-dense .wrapper .kup-tree,
+.density-dense .wrapper .kup-tree {
+  td,
+  th {
+    padding: 0 0.5rem;
+
+    & .kup-tree__icon ~ .cell-content,
+    & .kup-tree__icon + .cell-content {
+      vertical-align: 0.4rem;
+    }
+  }
+}
+
+.density-wide .wrapper .kup-tree,
+.density-wide .wrapper .kup-tree {
+  td,
+  th {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
 .wrapper {
   overflow-x: auto;
 
@@ -53,11 +74,11 @@
       & .kup-tree__icon + .cell-content {
         display: inline-block;
         line-height: 1rem;
-        vertical-align: 0.4rem;
+        vertical-align: 0.3rem;
       }
 
       & .cell-content.has-options {
-        vertical-align: 0.4rem;
+        vertical-align: 0.3rem;
       }
 
       & .options {

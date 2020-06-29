@@ -219,7 +219,7 @@ export class KupChip {
                     <kup-image
                         color={iconColor}
                         class={iconClass}
-                        name={this.data[i].icon}
+                        resource={this.data[i].icon}
                         sizeX="18px"
                         sizeY="18px"
                     ></kup-image>
@@ -251,7 +251,7 @@ export class KupChip {
                             tabindex="-1"
                             class="material-icons mdc-chip__icon remove-icon"
                             onClick={(e) => this.onKupIconClick(i, e)}
-                            name="cancel"
+                            resource="cancel"
                             sizeX="18px"
                             sizeY="18px"
                         ></kup-image>

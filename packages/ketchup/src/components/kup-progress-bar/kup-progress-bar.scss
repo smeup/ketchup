@@ -1,10 +1,6 @@
 :host {
   display: var(--kup-display-mode);
   width: 100%;
-
-  #kup-component {
-    width: 100%;
-  }
 }
 
 kup-image {
@@ -26,20 +22,29 @@ kup-image {
   & .progress-bar-percentage {
     background: var(--kup-main-color);
     border-radius: 4px;
-    color: var(--kup-text-on-main-color);
+    color: var(--kup-text-color);
     height: 1.25rem;
     padding: 0.5rem 0;
     text-align: center;
     transition: width 0.2s ease;
 
     & span {
-      color: var(--kup-text-on-main-color);
+      color: var(--kup-text-color);
       display: inline-block;
       font-size: 1rem;
       left: 0;
       line-height: 1.268rem;
       position: absolute;
       width: 100%;
+    }
+  }
+
+  &.text-color-on-main {
+    & .progress-bar-percentage {
+      color: var(--kup-text-on-main-color);
+      & span {
+        color: var(--kup-text-on-main-color);
+      }
     }
   }
 

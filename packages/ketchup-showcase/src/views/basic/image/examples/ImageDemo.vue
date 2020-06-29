@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-image id="demo-component" color="var(--kup-icon-color)" size-x="64px" size-y="64px" name="widgets" type="svg" ></kup-image>',
+        '<kup-image size-x="128px" size-y="128px" id="demo-component" resource="widgets" color="var(--kup-icon-color)"></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -74,6 +74,14 @@ export default {
           try: 'css',
         },
         {
+          prop: 'data',
+          description:
+            'When present, the component will be drawn using CSS. Check the "Drawing with CSS" section of the image showcase for more information.',
+          type: 'CssDraw[]',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'feedback',
           description:
             'When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.',
@@ -82,7 +90,15 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'name',
+          prop: 'isCanvas',
+          description:
+            "The image component will create a canvas element on which it's possible to draw.  It's a temporary feature that will be fully replaced by CSS drawing in the future.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'resource',
           description:
             'The name of the image. It can also contain an URL or a path.',
           type: 'string',
@@ -105,13 +121,6 @@ export default {
           default: '100%',
           try: 'field',
         },
-        {
-          prop: 'type',
-          description: 'The type of the image, defaults to "svg".',
-          type: 'string',
-          default: 'svg',
-          try: 'field',
-        },
       ],
       demoEvents: [
         {
@@ -127,9 +136,10 @@ export default {
         badgeData: [
           {
             imageData: {
-              name: 'widgets',
-              sizeX: '1rem',
-              sizeY: '1rem',
+              resource:
+                'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+              sizeX: '1.75rem',
+              sizeY: 'auto',
             },
             position: 'BL',
           },

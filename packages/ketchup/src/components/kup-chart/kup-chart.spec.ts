@@ -8,17 +8,14 @@ const dataMock: DataTable = {
         {
             name: 'Col1',
             title: 'Person',
-            size: 10,
         },
         {
             name: 'Col2',
             title: 'Value1',
-            size: 10,
         },
         {
             name: 'Col3',
             title: 'Value2',
-            size: 10,
         },
     ],
     rows: [

@@ -120,7 +120,7 @@ export class KupTabBar {
                         class="mdc-tab__icon material-icons"
                         sizeX="24px"
                         sizeY="24px"
-                        name={this.data[i].icon}
+                        resource={this.data[i].icon}
                     ></kup-image>
                 );
             }

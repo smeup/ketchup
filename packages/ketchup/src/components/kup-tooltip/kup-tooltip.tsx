@@ -268,7 +268,7 @@ export class KupTooltip {
         return [
             <div class="left">
                 <kup-image
-                    name={this.getImage()}
+                    resource={this.getImage()}
                     sizeX="75px"
                     sizeY="75px"
                 ></kup-image>
