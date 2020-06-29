@@ -5,29 +5,29 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
-import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
-import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
-import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
-import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
-import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
-import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
-import { Badge, CssDraw } from "./components/kup-image/kup-image-declarations";
-import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
-import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
-import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
-import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
-import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
-import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
+import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
+import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
+import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
+import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
+import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
+import { ComponentCardElement, } from "./components/kup-card/kup-card-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
+import { KupCheckboxMenuItem, } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
+import { ComponentChipElement, } from "./components/kup-chip/kup-chip-declarations";
+import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged, } from "./components/kup-crud/kup-crud-declarations";
+import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
+import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
+import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
+import { ComponentGridElement, } from "./components/kup-grid/kup-grid-declarations";
+import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
+import { ComponentNavBarData, ComponentNavBarMode, } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
+import { KupQlikGrid, QlikServer, } from "./components/kup-qlik/kup-qlik-declarations";
+import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
+import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { TreeNode, TreeNodePath, } from "./components/kup-tree/kup-tree-declarations";
+import { UploadProps, } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAutocomplete {
         /**
@@ -2811,11 +2811,11 @@ declare namespace LocalJSX {
          */
         "mode"?: ComponentNavBarMode;
         "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+            value: any;
+        }>) => void;
         "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
+            value: any;
+        }>) => void;
     }
     interface KupPaginator {
         "currentPage"?: number;
