@@ -112,11 +112,13 @@ graph TD;
   kup-card --> kup-button
   kup-card --> kup-image
   kup-card --> kup-progress-bar
+  kup-card --> kup-chip
   kup-button --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-progress-bar --> kup-image
+  kup-chip --> kup-image
   kup-text-field --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
