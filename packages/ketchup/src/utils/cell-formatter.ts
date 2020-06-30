@@ -26,3 +26,19 @@ export function formatToMomentDate(cell: Cell): any {
 
     return moment(cell.value, 'DD/MM/YYYY');
 }
+
+/** unformat string date DD/MM/YY or DD/MM/YYYY; return Date object */
+export function unformatDate(value: string): Date {
+    value = value.replace(/\//g, '');
+    let day: number = Number(value.substr(0, 2));
+    let month: number = Number(value.substr(2, 2)) - 1;
+    let year: number = Number(value.substr(4));
+    if (year < 100) {
+        if (year > 50) {
+            year += 1900;
+        } else {
+            year += 2000;
+        }
+    }
+    return new Date(year, month, day);
+}

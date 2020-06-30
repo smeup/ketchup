@@ -184,6 +184,10 @@ const mockedColumns = [
         name: 'FLD4',
         title: 'Column D',
         size: 10,
+        obj: {
+            t: 'D8',
+            p: '*YYMD',
+        },
     },
 ];
 
@@ -218,9 +222,9 @@ const mockedRows = [
                 obj: {
                     t: 'D8',
                     p: '*YYMD',
-                    k: '20180101',
+                    k: '20181101',
                 },
-                value: '01/01/2018',
+                value: '01/11/2018',
             },
         },
     },

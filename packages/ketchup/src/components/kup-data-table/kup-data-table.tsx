@@ -77,6 +77,7 @@ import {
     isStringObject,
     isCheckbox,
     hasTooltip,
+    isDate,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -88,6 +89,7 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { unformatDate } from '../../utils/cell-formatter';
 
 @Component({
     tag: 'kup-data-table',
@@ -850,27 +852,22 @@ export class KupDataTable {
 
         if (c != null) {
             values = values.sort((n1: string, n2: string) => {
+                let obj1: any = n1;
+                let obj2: any = n2;
+
                 if (isNumber(c.obj)) {
-                    let number1: Number = Number(n1);
-                    let number2: Number = Number(n2);
-                    if (number1 > number2) {
-                        return 1;
-                    }
-
-                    if (number1 < number2) {
-                        return -1;
-                    }
-
-                    return 0;
+                    obj1 = Number(n1);
+                    obj2 = Number(n2);
+                } else if (isDate(c.obj)) {
+                    obj1 = unformatDate(n1);
+                    obj2 = unformatDate(n2);
                 }
-                if (n1 > n2) {
+                if (obj1 > obj2) {
                     return 1;
                 }
-
-                if (n1 < n2) {
+                if (obj1 < obj2) {
                     return -1;
                 }
-
                 return 0;
             });
         }
