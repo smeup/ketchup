@@ -31,9 +31,6 @@ export function formatToMomentDate(cell: Cell): any {
 export function unformatDate(value: string): Date {
     value = value.replace(/\//g, '');
     let format = 'DDMMYYYY';
-    if (value.length < 8) {
-        format = 'DDMMYY';
-    }
 
     return moment(value, format).toDate();
 
