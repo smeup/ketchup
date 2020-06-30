@@ -232,7 +232,7 @@ export default {
         },
       ],
       demoData: {
-        columns: '3',
+        columns: '4',
         data: defaultData,
       },
     };
