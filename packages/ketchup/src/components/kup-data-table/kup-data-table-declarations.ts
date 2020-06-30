@@ -21,6 +21,7 @@ export interface Cell {
     options?: boolean;
     shape?: string;
     config?: CellConfig;
+    cardID?: string;
 }
 
 export interface CellsHolder {

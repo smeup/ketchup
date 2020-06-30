@@ -109,19 +109,34 @@ export class KupCard {
         let card: HTMLElement = undefined;
         let method: string = 'create' + this.layoutNumber;
 
-        switch (this.layoutFamily) {
-            case 'custom': {
-                card = customLayouts[method](this.layoutNumber, this.data);
-                break;
+        try {
+            switch (this.layoutFamily) {
+                case 'custom': {
+                    card = customLayouts[method](this.layoutNumber, this.data);
+                    break;
+                }
+                case 'material': {
+                    card = materialLayouts[method](
+                        this.layoutNumber,
+                        this.data
+                    );
+                    break;
+                }
+                default: {
+                    card = materialLayouts[method](
+                        this.layoutNumber,
+                        this.data
+                    );
+                    break;
+                }
             }
-            case 'material': {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
-            default: {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
+        } catch (error) {
+            card = (
+                <kup-image
+                    resource="warning"
+                    title="Layout not yet implemented!"
+                ></kup-image>
+            );
         }
 
         return card;

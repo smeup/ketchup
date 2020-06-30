@@ -69,7 +69,7 @@ export function create2(layout: number, data: ComponentCardElement) {
     let componentClass = 'custom-layout-' + layout;
     let CSSVariables = {
         ['--color-1']: data['color1'],
-        ['--dyn-color-1']: getContrastYIQ(data['color1']),
+        ['--dyn-color-1']: 'white',
     };
     let button1: KupButton = (
         <kup-button id="button1" {...data['button1']}></kup-button>
@@ -106,8 +106,7 @@ export function create3(layout: number, data: ComponentCardElement) {
     let image1: KupImage = (
         <kup-image
             id="image1"
-            sizeX="auto"
-            customStyle="img {border-radius: 50%; margin: auto;}"
+            customStyle="img { object-fit: contain; margin: auto;}"
             {...data['image1']}
         ></kup-image>
     );
@@ -248,14 +247,4 @@ export function create6(layout: number, data: ComponentCardElement) {
             </div>
         </div>
     );
-}
-
-function getContrastYIQ(hexcolor: string) {
-    //Only works when an hex color is the argument
-    hexcolor = hexcolor.replace('#', '');
-    var r = parseInt(hexcolor.substr(0, 2), 16);
-    var g = parseInt(hexcolor.substr(2, 2), 16);
-    var b = parseInt(hexcolor.substr(4, 2), 16);
-    var yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 128 ? 'black' : 'white';
 }

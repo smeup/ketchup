@@ -5,9 +5,12 @@ import { KupButton } from '../../kup-button/kup-button';
 
 export function create1(layout: number, data: ComponentCardElement) {
     let componentClass = 'material-layout-' + layout;
-    var button1: KupButton = undefined;
-    var button2: KupButton = undefined;
-    var button3: KupButton = undefined;
+    let buttonEl: HTMLElement = undefined;
+    let button1: KupButton = undefined;
+    let button2: KupButton = undefined;
+    let button3: KupButton = undefined;
+    let button4: KupButton = undefined;
+    let button5: KupButton = undefined;
     let image1: KupImage = (
         <kup-image
             customStyle="img {border-radius: 4px 4px 0 0; object-fit: cover;}"
@@ -25,6 +28,23 @@ export function create1(layout: number, data: ComponentCardElement) {
     if (data.button3) {
         button3 = <kup-button id="button3" {...data['button3']}></kup-button>;
     }
+    if (data.button4) {
+        button4 = <kup-button id="button4" {...data['button4']}></kup-button>;
+    }
+    if (data.button5) {
+        button5 = <kup-button id="button5" {...data['button5']}></kup-button>;
+    }
+    if (button1 || button2 || button3 || button4 || button5) {
+        buttonEl = (
+            <div class="section-3">
+                {button1}
+                {button2}
+                {button3}
+                {button4}
+                {button5}
+            </div>
+        );
+    }
     return (
         <div class={componentClass}>
             <div class="mdc-ripple-surface">
@@ -41,22 +61,19 @@ export function create1(layout: number, data: ComponentCardElement) {
                     </div>
                 </div>
             </div>
-            <div class="section-3">
-                {button1}
-                {button2}
-                {button3}
-            </div>
+            {buttonEl}
         </div>
     );
 }
 
 export function create2(layout: number, data: ComponentCardElement) {
     let componentClass = 'material-layout-' + layout;
-    var button1: KupButton = undefined;
-    var button2: KupButton = undefined;
-    var button3: KupButton = undefined;
-    var button4: KupButton = undefined;
-    var button5: KupButton = undefined;
+    let buttonEl: HTMLElement = undefined;
+    let button1: KupButton = undefined;
+    let button2: KupButton = undefined;
+    let button3: KupButton = undefined;
+    let button4: KupButton = undefined;
+    let button5: KupButton = undefined;
     let image1: KupImage = (
         <kup-image
             customStyle="img {object-fit: cover;}"
@@ -79,6 +96,17 @@ export function create2(layout: number, data: ComponentCardElement) {
     }
     if (data.button5) {
         button5 = <kup-button id="button5" {...data['button5']}></kup-button>;
+    }
+    if (button1 || button2 || button3 || button4 || button5) {
+        buttonEl = (
+            <div class="section-4">
+                {button1}
+                {button2}
+                {button3}
+                {button4}
+                {button5}
+            </div>
+        );
     }
     return (
         <div class={componentClass}>
@@ -98,24 +126,19 @@ export function create2(layout: number, data: ComponentCardElement) {
                     </div>
                 </div>
             </div>
-            <div class="section-4">
-                {button1}
-                {button2}
-                {button3}
-                {button4}
-                {button5}
-            </div>
+            {buttonEl}
         </div>
     );
 }
 
 export function create3(layout: number, data: ComponentCardElement) {
     let componentClass = 'material-layout-' + layout;
-    var button1: KupButton = undefined;
-    var button2: KupButton = undefined;
-    var button3: KupButton = undefined;
-    var button4: KupButton = undefined;
-    var button5: KupButton = undefined;
+    let buttonEl: HTMLElement = undefined;
+    let button1: KupButton = undefined;
+    let button2: KupButton = undefined;
+    let button3: KupButton = undefined;
+    let button4: KupButton = undefined;
+    let button5: KupButton = undefined;
     let image1: KupImage = (
         <kup-image
             customStyle="img {object-fit: cover;}"
@@ -138,6 +161,17 @@ export function create3(layout: number, data: ComponentCardElement) {
     }
     if (data.button5) {
         button5 = <kup-button id="button5" {...data['button5']}></kup-button>;
+    }
+    if (button1 || button2 || button3 || button4 || button5) {
+        buttonEl = (
+            <div class="section-3">
+                {button1}
+                {button2}
+                {button3}
+                {button4}
+                {button5}
+            </div>
+        );
     }
     return (
         <div class={componentClass}>
@@ -161,24 +195,19 @@ export function create3(layout: number, data: ComponentCardElement) {
                     </div>
                 </div>
             </div>
-            <div class="section-3">
-                {button1}
-                {button2}
-                {button3}
-                {button4}
-                {button5}
-            </div>
+            {buttonEl}
         </div>
     );
 }
 
 export function create4(layout: number, data: ComponentCardElement) {
     let componentClass = 'material-layout-' + layout;
-    var button1: KupButton = undefined;
-    var button2: KupButton = undefined;
-    var button3: KupButton = undefined;
-    var button4: KupButton = undefined;
-    var button5: KupButton = undefined;
+    let buttonEl: HTMLElement = undefined;
+    let button1: KupButton = undefined;
+    let button2: KupButton = undefined;
+    let button3: KupButton = undefined;
+    let button4: KupButton = undefined;
+    let button5: KupButton = undefined;
     let image1: KupImage = (
         <kup-image
             customStyle="img {object-fit: cover;}"
@@ -202,6 +231,17 @@ export function create4(layout: number, data: ComponentCardElement) {
     if (data.button5) {
         button5 = <kup-button id="button5" {...data['button5']}></kup-button>;
     }
+    if (button1 || button2 || button3 || button4 || button5) {
+        buttonEl = (
+            <div class="section-2">
+                {button1}
+                {button2}
+                {button3}
+                {button4}
+                {button5}
+            </div>
+        );
+    }
     return (
         <div class={componentClass}>
             <div class="mdc-ripple-surface">
@@ -217,13 +257,7 @@ export function create4(layout: number, data: ComponentCardElement) {
                     </div>
                 </div>
             </div>
-            <div class="section-2">
-                {button1}
-                {button2}
-                {button3}
-                {button4}
-                {button5}
-            </div>
+            {buttonEl}
         </div>
     );
 }

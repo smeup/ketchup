@@ -17,6 +17,8 @@
     height: 80%;
     width: 100%;
     text-align: center;
+    padding: 25px 25%;
+    box-sizing: border-box;
 
     .sub-2 {
       margin: auto;
@@ -25,10 +27,12 @@
     .sub-2.image {
       box-sizing: border-box;
       height: 65%;
-      padding: 3vh 0;
     }
 
     .sub-2.text {
+      font-size: 1.4rem;
+      letter-spacing: 1.2px;
+      padding-top: 1rem;
       height: 35%;
     }
   }
