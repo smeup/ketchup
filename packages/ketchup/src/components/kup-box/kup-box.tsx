@@ -852,35 +852,80 @@ export class KupBox {
         let cntPGB: number = 0;
         let cnt: number = 0;
         let cardData = {};
+
+        //First cycle sets specific binds between cardIDs and cells
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                if (cell.cardID) {
+                    switch (cell.obj.p) {
+                        case 'BTN':
+                            cardData[cell.cardID] = {
+                                label: cell.value,
+                            };
+                            break;
+                        case 'IMG':
+                            cardData[cell.cardID] = {
+                                resource: cell.value,
+                            };
+                            break;
+                        case 'PGB':
+                            cardData[cell.cardID] = {
+                                value: cell.value,
+                            };
+                            break;
+                        default:
+                            cardData[cell.cardID] = cell.value;
+                            break;
+                    }
+                }
+            }
+        }
+        console.log('after first loop: ', cardData);
+
+        //Second cycle sets leftover binds automatically
         for (var key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 var cell = row.cells[key];
                 switch (cell.obj.p) {
                     case 'BTN':
-                        cntBTN++;
+                        do {
+                            cntBTN++;
+                        } while (cardData['button' + cntBTN]);
+
                         cardData['button' + cntBTN] = {
                             label: cell.value,
                         };
                         break;
                     case 'IMG':
-                        cntIMG++;
+                        do {
+                            cntIMG++;
+                        } while (cardData['image' + cntIMG]);
+
                         cardData['image' + cntIMG] = {
                             resource: cell.value,
                         };
                         break;
                     case 'PGB':
-                        cntPGB++;
+                        do {
+                            cntPGB++;
+                        } while (cardData['progressBar' + cntPGB]);
+
                         cardData['progressBar' + cntPGB] = {
                             value: cell.value,
                         };
                         break;
                     default:
-                        cnt++;
+                        do {
+                            cnt++;
+                        } while (cardData['text' + cnt]);
+
                         cardData['text' + cnt] = cell.value;
                         break;
                 }
             }
         }
+        console.log('after second loop: ', cardData);
         return <kup-card data={cardData} {...this.cardData}></kup-card>;
     }
 
@@ -1208,7 +1253,7 @@ export class KupBox {
 
         if (boxObject.column) {
             const cell = row.cells[boxObject.column];
-            
+
             if (cell) {
                 // removing column from visibleColumns
                 let index = -1;
@@ -1277,7 +1322,10 @@ export class KupBox {
                             )}
                         />
                     );
-                } else if (isChart(cell.obj) || getShape(cell, boxObject) === 'GRA') {
+                } else if (
+                    isChart(cell.obj) ||
+                    getShape(cell, boxObject) === 'GRA'
+                ) {
                     const props: {
                         value: string;
                         width?: number;
