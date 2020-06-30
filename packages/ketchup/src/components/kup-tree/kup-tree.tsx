@@ -164,7 +164,7 @@ export class KupTree {
     private treeWrapperRef: any;
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
-    private selectedColumn: string;
+    private selectedColumn: string = '';
 
     //-------- Events --------
     /**
@@ -475,6 +475,7 @@ export class KupTree {
                 auto: auto,
             });
         }
+        this.selectedColumn = '';
     }
 
     // When a TreeNode must be expanded or closed.
