@@ -167,13 +167,7 @@ export function hasFiltersForColumn(
     if (checkboxes == null || checkboxes.length < 1) {
         return false;
     }
-    for (let i = 0; i < checkboxes.length; i++) {
-        let ch = checkboxes[i];
-        if (ch.trim() != '') {
-            return true;
-        }
-    }
-    return false;
+    return true;
 }
 
 export function getCheckBoxFilterValues(
