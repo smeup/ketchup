@@ -881,7 +881,6 @@ export class KupBox {
                 }
             }
         }
-        console.log('after first loop: ', cardData);
 
         //Second cycle sets leftover binds automatically
         for (var key in row.cells) {
@@ -925,7 +924,6 @@ export class KupBox {
                 }
             }
         }
-        console.log('after second loop: ', cardData);
         return <kup-card data={cardData} {...this.cardData}></kup-card>;
     }
 
