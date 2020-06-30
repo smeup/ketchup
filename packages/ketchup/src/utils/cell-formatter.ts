@@ -27,8 +27,17 @@ export function formatToMomentDate(cell: Cell): any {
     return moment(cell.value, 'DD/MM/YYYY');
 }
 
-/** unformat string date DD/MM/YY or DD/MM/YYYY; return Date object */
+/** unformat string date DD/MM/YYYY; return Date object */
 export function unformatDate(value: string): Date {
+    value = value.replace(/\//g, '');
+    let format = 'DDMMYYYY';
+    if (value.length < 8) {
+        format = 'DDMMYY';
+    }
+
+    return moment(value, format).toDate();
+
+    /*
     value = value.replace(/\//g, '');
     let day: number = Number(value.substr(0, 2));
     let month: number = Number(value.substr(2, 2)) - 1;
@@ -41,4 +50,5 @@ export function unformatDate(value: string): Date {
         }
     }
     return new Date(year, month, day);
+    */
 }
