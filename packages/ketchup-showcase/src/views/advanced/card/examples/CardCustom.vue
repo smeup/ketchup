@@ -50,7 +50,7 @@
         <span class="code-word">- text1, text2</span>: Generic text, check the mock-up below to see how they are positioned.
         <span
           class="code-word"
-        >text1</span> is colored dynamically in order to be displayed with the right contrast when color1 is an HEX value, otherwise it will be white.
+        >text1</span> will be white.
         <br />
       </p>
       <br />
