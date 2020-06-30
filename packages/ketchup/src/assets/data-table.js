@@ -74,6 +74,90 @@ const radioRows = [
     },
 ];
 
+const checkboxColumns = [
+    {
+        name: 'FLD1',
+        title: 'Column A',
+        size: '',
+    },
+    {
+        name: 'FLD2',
+        title: 'Column B',
+        size: 10,
+        obj: {
+            t: 'NR',
+        },
+    },
+    {
+        name: 'FLD3',
+        title: 'Column C',
+        size: 10,
+        obj: {
+            t: 'V2',
+            p: 'SI/NO',
+        },
+    },
+];
+
+const checkboxRows = [
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'CASFRA',
+                },
+                value: 'CASFRA',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '10',
+                },
+                value: '10',
+            },
+            FLD3: {
+                obj: {
+                    t: 'V2',
+                    p: 'SI/NO',
+                    k: '1',
+                },
+                value: '1',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'V2',
+                    p: 'SI/NO',
+                    k: '0',
+                },
+                value: '0',
+            },
+        },
+    },
+];
+
 const mockedColumns = [
     {
         name: 'FLD1',
@@ -691,6 +775,11 @@ const radioData = {
     rows: radioRows,
 };
 
+const checkboxData = {
+    columns: checkboxColumns,
+    rows: checkboxRows,
+};
+
 const defaultData = {
     columns: mockedColumns,
     rows: mockedRows,
@@ -713,6 +802,12 @@ document.getElementById('radio-buttons').data = radioData;
 const showFilter = document.getElementById('show-filter');
 showFilter.data = defaultData;
 showFilter.showFilters = 'true';
+
+const showFilterAndCheckbox = document.getElementById(
+    'show-filter-and-checkbox'
+);
+showFilterAndCheckbox.data = checkboxData;
+showFilterAndCheckbox.showFilters = 'true';
 
 const filter = document.getElementById('filter');
 filter.data = defaultData;
