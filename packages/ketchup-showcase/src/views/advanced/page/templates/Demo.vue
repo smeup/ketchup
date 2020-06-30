@@ -120,7 +120,7 @@
             label="Prop"
             helper="i.e.: customStyle"
             id="css-setter"
-            icon="close"
+            icon="arrow-collapse"
             trailing-icon
             helper-when-focused
             @kupTextFieldIconClick="cssSetSwitch"
