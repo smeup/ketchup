@@ -106,7 +106,7 @@ export function create3(layout: number, data: ComponentCardElement) {
     let image1: KupImage = (
         <kup-image
             id="image1"
-            customStyle="img {border-radius: 50%; margin: auto;}"
+            customStyle="img { object-fit: contain; margin: auto;}"
             {...data['image1']}
         ></kup-image>
     );
