@@ -5,7 +5,7 @@
         <span class="code-word">Layout 1</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -28,7 +28,7 @@
         <span class="code-word">Layout 2</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -51,7 +51,7 @@
         <span class="code-word">Layout 3</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -74,7 +74,7 @@
         <span class="code-word">Layout 4</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -101,6 +101,8 @@ export default {
         button1: { icon: 'widgets', flat: true, title: 'button1' },
         button2: { icon: 'widgets', flat: true, title: 'button2' },
         button3: { icon: 'widgets', flat: true, title: 'button3' },
+        button4: { icon: 'widgets', flat: true, title: 'button4' },
+        button5: { icon: 'widgets', flat: true, title: 'button5' },
         image1: {
           data: [
             {
