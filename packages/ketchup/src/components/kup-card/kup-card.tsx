@@ -178,7 +178,6 @@ export class KupCard {
     componentDidLoad() {
         const root = this.rootElement.shadowRoot;
         let collapsibleEl = root.querySelector('.collapsible-element');
-        console.log(collapsibleEl);
 
         if (collapsibleEl) {
             let collapsibleCard = root.querySelector('.collapsible-card');
