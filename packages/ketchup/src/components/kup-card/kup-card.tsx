@@ -85,15 +85,13 @@ export class KupCard {
         }
 
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
-            let dynamicEl = root.querySelector('.dynamic-element');
-            let dynamicWrap = root.querySelector('.dynamic-wrapper');
-            if (
-                e.detail.value === 'on' &&
-                dynamicEl.clientHeight > dynamicWrap.clientHeight
-            ) {
+            let collapsibleCard = root.querySelector('.collapsible-card');
+            if (!collapsibleCard.classList.contains('expanded')) {
+                collapsibleCard.classList.add('expanded');
                 this.oldSizeY = this.sizeY;
                 this.sizeY = 'auto';
             } else if (this.oldSizeY) {
+                collapsibleCard.classList.remove('expanded');
                 this.sizeY = this.oldSizeY;
             }
         }
@@ -142,12 +140,30 @@ export class KupCard {
         return card;
     }
 
+    collapsibleManager(
+        collapsibleEl: Element,
+        collapsibleCard: Element,
+        collapsibleWrap: Element
+    ) {
+        if (!collapsibleCard.classList.contains('expanded')) {
+            if (collapsibleEl.clientHeight > collapsibleWrap.clientHeight) {
+                if (!collapsibleCard.classList.contains('collapsible-active')) {
+                    collapsibleCard.classList.add('collapsible-active');
+                }
+            } else {
+                if (collapsibleCard.classList.contains('collapsible-active')) {
+                    collapsibleCard.classList.remove('collapsible-active');
+                }
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         fetchThemeCustomStyle(this, false);
 
-        const root = this.rootElement;
+        const root = this.rootElement.shadowRoot;
 
         if (root != undefined) {
             root.addEventListener('kupButtonClick', (e) => {
@@ -159,9 +175,29 @@ export class KupCard {
         }
     }
 
+    componentDidLoad() {
+        const root = this.rootElement.shadowRoot;
+        let collapsibleEl = root.querySelector('.collapsible-element');
+
+        if (collapsibleEl) {
+            let collapsibleCard = root.querySelector('.collapsible-card');
+            let collapsibleWrap = root.querySelector('.collapsible-wrapper');
+            setInterval(() => {
+                this.collapsibleManager(
+                    collapsibleEl,
+                    collapsibleCard,
+                    collapsibleWrap
+                );
+            }, 1000);
+        }
+    }
+
     componentDidUnload() {
         const root = this.rootElement.shadowRoot;
         root.removeEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.removeEventListener('kupImageLoad', (e) => {
             this.onKupEvent(e);
         });
     }

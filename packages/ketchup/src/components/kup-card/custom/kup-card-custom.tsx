@@ -128,13 +128,13 @@ export function create3(layout: number, data: ComponentCardElement) {
 }
 
 export function create4(layout: number, data: ComponentCardElement) {
-    let componentClass = 'custom-layout-' + layout;
+    let componentClass = 'custom-layout-' + layout + ' collapsible-card';
     let CSSVariables = {
         ['--color-1']: data['color1'],
     };
     let chip1: KupChip = (
         <kup-chip
-            class="dynamic-element"
+            class="collapsible-element"
             id="chips1"
             {...data['chip1']}
         ></kup-chip>
@@ -144,24 +144,15 @@ export function create4(layout: number, data: ComponentCardElement) {
             <div class="section-1"></div>
             <div class="section-2">
                 <div class="sub-1">
-                    <div class="text">{data['text1']}</div>
+                    <div class="text left">{data['text1']}</div>
+                    <div class="text right">{data['text3']}</div>
                 </div>
                 <div class="sub-2">
                     <div class="text">{data['text2']}</div>
                 </div>
-                <div class="sub-3">
-                    <div class="text">{data['text3']}</div>
-                </div>
-                <div class="sub-4 dynamic-wrapper">{chip1}</div>
+                <div class="sub-3 collapsible-wrapper">{chip1}</div>
             </div>
-            <div class="section-3">
-                <kup-button
-                    id="expand-action"
-                    toggable
-                    iconOff="keyboard_arrow_down"
-                    icon="keyboard_arrow_up"
-                ></kup-button>
-            </div>
+            {collapsibleBar()}
         </div>
     );
 }
@@ -202,13 +193,13 @@ export function create5(layout: number, data: ComponentCardElement) {
 }
 
 export function create6(layout: number, data: ComponentCardElement) {
-    let componentClass = 'custom-layout-' + layout;
+    let componentClass = 'custom-layout-' + layout + ' collapsible-card';
     let CSSVariables = {
         ['--color-1']: data['color1'],
     };
     let chip1: KupChip = (
         <kup-chip
-            class="dynamic-element"
+            class="collapsible-element"
             id="chips1"
             {...data['chip1']}
         ></kup-chip>
@@ -235,16 +226,22 @@ export function create6(layout: number, data: ComponentCardElement) {
                     <div class="image">{image1}</div>
                     <div class="text">{data['text3']}</div>
                 </div>
-                <div class="sub-4 dynamic-wrapper">{chip1}</div>
+                <div class="sub-4 collapsible-wrapper">{chip1}</div>
             </div>
-            <div class="section-2">
-                <kup-button
-                    id="expand-action"
-                    toggable
-                    iconOff="keyboard_arrow_down"
-                    icon="keyboard_arrow_up"
-                ></kup-button>
-            </div>
+            {collapsibleBar()}
+        </div>
+    );
+}
+
+function collapsibleBar() {
+    return (
+        <div class="collapsible-trigger">
+            <kup-button
+                id="expand-action"
+                toggable
+                iconOff="keyboard_arrow_down"
+                icon="keyboard_arrow_up"
+            ></kup-button>
         </div>
     );
 }

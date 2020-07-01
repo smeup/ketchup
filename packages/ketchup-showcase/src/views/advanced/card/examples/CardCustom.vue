@@ -102,20 +102,24 @@
         <br />
         <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
-        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
+        <br />This layout is collapsible, by clicking on the button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
         To set this up inside the layout, the classes
         <span
           class="code-word"
-        >dynamic-element</span> and
-        <span class="code-word">dynamic-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively.
-        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card.
+        >collapsible-element</span> and
+        <span class="code-word">collapsible-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively. Also, the class
+        <span
+          class="code-word"
+        >collapsible-card</span> must be set on the layout-level element.
+        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card. To attach it to your component, use the collapsibleBar() function which returns a JSX element containing the bar itself.
+        <br />Every second, the card will check if the dynamic element is overflowing, if it does the bar will appear.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
             size-x="300px"
-            size-y="300px"
+            size-y="200px"
             layout-number="4"
             layout-family="custom"
             :data.prop="data"
@@ -163,20 +167,24 @@
         <br />
         <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
-        <br />This layout features an expandable view, by clicking on the arrow button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
+        <br />This layout is collapsible, by clicking on the button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
         To set this up inside the layout, the classes
         <span
           class="code-word"
-        >dynamic-element</span> and
-        <span class="code-word">dynamic-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively.
-        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card.
+        >collapsible-element</span> and
+        <span class="code-word">collapsible-wrapper</span> must be assigned to the dynamic element and to its wrapper respectively. Also, the class
+        <span
+          class="code-word"
+        >collapsible-card</span> must be set on the layout-level element.
+        The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card. To attach it to your component, use the collapsibleBar() function which returns a JSX element containing the bar itself.
+        <br />Every second, the card will check if the dynamic element is overflowing, if it does the bar will appear.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
             size-x="300px"
-            size-y="300px"
+            size-y="200px"
             layout-number="6"
             layout-family="custom"
             :data.prop="data"
