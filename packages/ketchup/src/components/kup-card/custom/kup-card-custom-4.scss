@@ -5,7 +5,6 @@
   height: 100%;
   overflow: hidden;
   width: 100%;
-  padding-bottom: 50px;
   box-sizing: border-box;
   position: relative;
 
@@ -25,40 +24,28 @@
     max-width: 90%;
 
     .sub-1 {
-      text-align: left;
-      padding: 1rem 1rem 0 1rem;
-      font-size: 1.4rem;
+      min-height: fit-content;
+      display: flex;
+      padding: 0.6rem 0.8rem 0;
+      font-size: 1rem;
+      font-weight: bold;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .left {
+        text-align: left;
+        width: 80%;
+      }
+      .right {
+        text-align: right;
+        width: 20%;
+      }
     }
     .sub-2 {
       text-align: left;
-      padding: 1rem;
-      font-size: 1rem;
-    }
-    .sub-3 {
-      text-align: left;
-      padding: 0 1rem 1rem 1rem;
-      font-size: 1.25rem;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      max-width: 25%;
-      text-overflow: ellipsis;
-      max-height: 15%;
-      overflow: hidden;
-    }
-  }
-
-  .section-3 {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 50px;
-    width: 100%;
-
-    kup-button {
-      margin: auto;
-      width: 48px;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.875rem;
     }
   }
 }
