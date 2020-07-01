@@ -13,8 +13,9 @@ import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
-    getValueOfItemByDisplayMode,
+    consistencyCheck,
 } from '../kup-list/kup-list-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -257,8 +258,11 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    errorLogging('kup-list', 'Executing callback error');
-                    errorLogging('kup-list', err);
+                    errorLogging(
+                        this.rootElement.tagName,
+                        'Executing callback error'
+                    );
+                    errorLogging(this.rootElement.tagName, err);
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -301,6 +305,14 @@ export class KupAutocomplete {
     }
 
     consistencyCheck() {
+        this.value = consistencyCheck(
+            this.value,
+            this.listData,
+            this.textfieldEl,
+            this.selectMode
+        );
+
+        /*
         var firstSelectedFound = false;
 
         if (this.listData['data']) {
@@ -312,7 +324,7 @@ export class KupAutocomplete {
                         i +
                         ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                    errorLogging('kup-autocomplete', message);
+                    errorLogging(this.rootElement.tagName, message);
                 }
                 if (this.listData['data'][i].selected && !firstSelectedFound) {
                     firstSelectedFound = true;
@@ -332,12 +344,7 @@ export class KupAutocomplete {
                 }
             }
         }
-    }
-
-    //---- Lifecycle hooks ----
-
-    componentDidRender() {
-        positionRecalc(this.listEl, this.textfieldEl);
+        */
     }
 
     prepTextfield() {
@@ -388,19 +395,23 @@ export class KupAutocomplete {
         return comp;
     }
 
-    render() {
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+    //---- Lifecycle hooks ----
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
 
+    componentDidRender() {
+        positionRecalc(this.listEl, this.textfieldEl);
+    }
+
+    render() {
         this.consistencyCheck();
         let textfieldEl = this.prepTextfield();
         let listEl = this.prepList();
 
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
                     {listEl}

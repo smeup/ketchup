@@ -29,6 +29,7 @@
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
 
 ### Depends on
@@ -42,6 +43,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-card --> kup-chip
   kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```

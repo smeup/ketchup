@@ -6,9 +6,14 @@
 
 :host {
   display: var(--kup-display-mode);
+  position: relative;
 
   #kup-component {
     height: 100%;
     width: 100%;
   }
+}
+
+.dynamic-wrapper {
+  overflow: auto;
 }

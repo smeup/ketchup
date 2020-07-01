@@ -69,6 +69,11 @@
         top 0.5s ease-in;
     }
   }
+
+  &.is-unclickable {
+    cursor: wait;
+    pointer-events: all;
+  }
 }
 
 .spinner-v1 {

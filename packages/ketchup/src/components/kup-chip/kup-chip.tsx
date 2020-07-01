@@ -1,15 +1,17 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-chip',
@@ -18,6 +20,7 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupChip {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -135,6 +138,10 @@ export class KupChip {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentWillUpdate() {
         var firstCheckedFound = false;
         if (this.type === 'choice') {
@@ -146,7 +153,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    errorLogging('kup-chip', message);
+                    errorLogging(this.rootElement.tagName, message);
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -168,10 +175,6 @@ export class KupChip {
         let wrapperClass = 'mdc-chip-set';
         let chipList: Array<HTMLElement> = [];
         let chipEl: HTMLElement;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.type) {
             switch (this.type) {
@@ -189,7 +192,7 @@ export class KupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    errorLogging('kup-chip', message);
+                    errorLogging(this.rootElement.tagName, message);
             }
         }
         if (this.data.length === 0) {
@@ -293,7 +296,7 @@ export class KupChip {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass} role="grid">
                         {chipList}

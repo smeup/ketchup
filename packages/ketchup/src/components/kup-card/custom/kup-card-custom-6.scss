@@ -1,0 +1,64 @@
+.custom-layout-6 {
+  color: var(--kup-text-color);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  border-radius: 4px;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+  position: relative;
+
+  .section-1 {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+
+    .sub-1 {
+      text-align: left;
+      padding: 1rem 1rem 0 1rem;
+      font-size: 1.4rem;
+      max-width: 75%;
+    }
+    .sub-2 {
+      text-align: left;
+      padding: 1rem;
+      font-size: 1rem;
+      max-width: 75%;
+    }
+    .sub-3 {
+      color: var(--color-1);
+      text-align: center;
+      font-size: 1.25rem;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      max-width: 25%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-height: calc(24px + 2.25rem);
+      padding: 0 1rem;
+      kup-image {
+        margin: auto;
+      }
+    }
+  }
+
+  .section-2 {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+
+    kup-button {
+      margin: auto;
+      width: 48px;
+    }
+  }
+}

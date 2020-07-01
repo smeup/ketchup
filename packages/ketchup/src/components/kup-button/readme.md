@@ -46,6 +46,7 @@
  - [kup-field](../kup-field)
  - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
+ - [kup-nav-bar](../kup-nav-bar)
  - [kup-paginator](../kup-paginator)
  - [kup-search](../kup-search)
  - [kup-tooltip](../kup-tooltip)
@@ -71,6 +72,7 @@ graph TD;
   kup-field --> kup-button
   kup-form --> kup-button
   kup-iframe --> kup-button
+  kup-nav-bar --> kup-button
   kup-paginator --> kup-button
   kup-search --> kup-button
   kup-tooltip --> kup-button

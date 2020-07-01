@@ -589,6 +589,7 @@ table.instruction-table th {
   right: 0;
 }
 
+#json-warning,
 #json-setter,
 #json-setter-opener,
 #css-setter,
@@ -609,15 +610,21 @@ table.instruction-table th {
 }
 
 #json-setter-opener,
-#css-setter-opener {
+#css-setter-opener,
+#json-warning {
   bottom: 10px;
   right: 10px;
 }
 
-#json-setter.shown,
-#json-setter-opener.shown,
-#css-setter.shown,
-#css-setter-opener.shown {
+#json-setter-opener.visible + #json-warning {
+  right: 50px;
+}
+
+#json-setter.visible,
+#json-setter-opener.visible,
+#css-setter.visible,
+#css-setter-opener.visible,
+#json-warning.visible {
   display: block;
 }
 
@@ -787,6 +794,21 @@ table.instruction-table th {
 .badge-anchor span {
   line-height: 50px;
   letter-spacing: 2px;
+}
+
+.icon-wrapper.theme-wrapper {
+  border-radius: 20px;
+  border-style: outset;
+  border-width: 2px;
+  cursor: pointer;
+  margin: 1rem;
+  opacity: 1;
+  padding: 0.75rem;
+  transition: opacity 0.175s;
+}
+
+.icon-wrapper.theme-wrapper:hover {
+  opacity: 0.75;
 }
 
 @media screen and (max-width: 767px) {

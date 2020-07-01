@@ -71,6 +71,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/list/List.vue`),
   },
   {
+    path: `/navbar`,
+    name: 'navbar',
+    component: () => import(`@/views/basic/navbar/Navbar.vue`),
+  },
+  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () => import(`@/views/basic/progressbar/Progressbar.vue`),

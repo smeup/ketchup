@@ -195,6 +195,10 @@
             <kup-image size-x="48px" size-y="48px" resource="chevron-down"></kup-image>
             <div class="icon-label">chevron-down</div>
           </div>
+          <div class="icon-wrapper" title="chevron-up">
+            <kup-image size-x="48px" size-y="48px" resource="chevron-up"></kup-image>
+            <div class="icon-label">chevron-up</div>
+          </div>
           <div class="icon-wrapper" title="chevron-right">
             <kup-image size-x="48px" size-y="48px" resource="chevron-right"></kup-image>
             <div class="icon-label">chevron-right</div>

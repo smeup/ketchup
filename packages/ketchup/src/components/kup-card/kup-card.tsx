@@ -5,13 +5,15 @@ import {
     Host,
     Event,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import * as customLayouts from './custom/kup-card-custom';
 import * as materialLayouts from './material/kup-card-material';
+import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { MDCRipple } from '@material/ripple';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-card',
@@ -20,6 +22,7 @@ import { MDCRipple } from '@material/ripple';
 })
 export class KupCard {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -55,6 +58,7 @@ export class KupCard {
     @Prop({ reflect: true }) sizeY: string = '100%';
 
     private elStyle = undefined;
+    private oldSizeY = undefined;
 
     @Event({
         eventName: 'kupCardEvent',
@@ -72,6 +76,7 @@ export class KupCard {
 
     onKupEvent(e) {
         const root = this.rootElement.shadowRoot;
+
         if (e.type === 'kupImageLoad') {
             let rippleEl: any = root.querySelector('.mdc-ripple-surface');
             if (rippleEl) {
@@ -79,7 +84,20 @@ export class KupCard {
             }
         }
 
-        console.log('something happened', e);
+        if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
+            let dynamicEl = root.querySelector('.dynamic-element');
+            let dynamicWrap = root.querySelector('.dynamic-wrapper');
+            if (
+                e.detail.value === 'on' &&
+                dynamicEl.clientHeight > dynamicWrap.clientHeight
+            ) {
+                this.oldSizeY = this.sizeY;
+                this.sizeY = 'auto';
+            } else if (this.oldSizeY) {
+                this.sizeY = this.oldSizeY;
+            }
+        }
+
         this.kupEvent.emit({
             id: e.detail.id,
             value: e.detail,
@@ -91,19 +109,34 @@ export class KupCard {
         let card: HTMLElement = undefined;
         let method: string = 'create' + this.layoutNumber;
 
-        switch (this.layoutFamily) {
-            case 'custom': {
-                card = customLayouts[method](this.layoutNumber, this.data);
-                break;
+        try {
+            switch (this.layoutFamily) {
+                case 'custom': {
+                    card = customLayouts[method](this.layoutNumber, this.data);
+                    break;
+                }
+                case 'material': {
+                    card = materialLayouts[method](
+                        this.layoutNumber,
+                        this.data
+                    );
+                    break;
+                }
+                default: {
+                    card = materialLayouts[method](
+                        this.layoutNumber,
+                        this.data
+                    );
+                    break;
+                }
             }
-            case 'material': {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
-            default: {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
+        } catch (error) {
+            card = (
+                <kup-image
+                    resource="warning"
+                    title="Layout not yet implemented!"
+                ></kup-image>
+            );
         }
 
         return card;
@@ -112,6 +145,8 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+
         const root = this.rootElement;
 
         if (root != undefined) {
@@ -143,10 +178,7 @@ export class KupCard {
             return;
         }
         let wrapperClass = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+
         this.elStyle = undefined;
         this.elStyle = {
             height: this.sizeY,
@@ -167,7 +199,7 @@ export class KupCard {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {card}
                 </div>

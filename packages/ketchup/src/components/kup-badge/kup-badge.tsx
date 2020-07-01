@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { BadgePosition } from './kup-badge-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-badge',
@@ -53,18 +54,20 @@ export class KupBadge {
         });
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            errorLogging('kup-badge', message);
+            errorLogging(this.rootElement.tagName, message);
             return;
         }
 
         let imageEl: HTMLElement = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         const isTopRight = BadgePosition.TOP_RIGHT === this.position;
         const isBottomRight = BadgePosition.BOTTOM_RIGHT === this.position;
@@ -92,7 +95,7 @@ export class KupBadge {
 
         return (
             <Host class={hostClass}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}

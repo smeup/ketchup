@@ -1,6 +1,7 @@
-import { Component, Host, Prop, JSX, Element, h } from '@stencil/core';
+import { Component, Prop, Element, Host, State, h, JSX } from '@stencil/core';
 import { ComponentGridElement } from './kup-grid-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-grid',
@@ -9,6 +10,8 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupGrid {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
+
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
      */
@@ -32,16 +35,17 @@ export class KupGrid {
 
     private elStyle = undefined;
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     render() {
         if (!this.data || this.data.length === 0) {
             let message = 'Missing data, not rendering!';
             errorLogging(this.rootElement.tagName, message);
             return;
-        }
-
-        let customStyle: string = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
         }
 
         let componentClass = '';
@@ -97,7 +101,7 @@ export class KupGrid {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class={contentClass}>{el}</div>

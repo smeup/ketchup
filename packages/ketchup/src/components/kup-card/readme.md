@@ -1,4 +1,4 @@
-# kup-spinner
+# kup-card
 
 
 
@@ -28,23 +28,31 @@
 
 ## Dependencies
 
+### Used by
+
+ - [kup-box](../kup-box)
+
 ### Depends on
 
-- [kup-button](../kup-button)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-card --> kup-button
   kup-card --> kup-image
+  kup-card --> kup-button
   kup-card --> kup-progress-bar
-  kup-button --> kup-image
+  kup-card --> kup-chip
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-button --> kup-image
   kup-progress-bar --> kup-image
+  kup-chip --> kup-image
+  kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

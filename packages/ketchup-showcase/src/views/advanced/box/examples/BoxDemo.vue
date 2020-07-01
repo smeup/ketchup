@@ -12,6 +12,7 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
+import { defaultData } from '@/mock/box';
 
 export default {
   components: {
@@ -50,6 +51,14 @@ export default {
       demoComp:
         '<kup-box content-align="center" no-border id="demo-component"></kup-box>',
       demoProps: [
+        {
+          prop: 'cardData',
+          description:
+            'When present, the box will be rendered using the card component. This prop contains the card props which will be spread on the kup-card.',
+          type: 'ComponentCardElement',
+          default: 'undefined',
+          try: 'json',
+        },
         {
           prop: 'columns',
           description: 'Number of columns.',
@@ -223,98 +232,8 @@ export default {
         },
       ],
       demoData: {
-        columns: '3',
-        data: {
-          columns: [
-            {
-              name: 'FLD1',
-              title: 'Photo',
-              size: '',
-            },
-            {
-              name: 'FLD2',
-              title: 'Name',
-              size: 10,
-            },
-          ],
-          rows: [
-            {
-              id: '1',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Blue Flowers',
-                  },
-                  value: 'images/blueflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Blue Flowers',
-                  },
-                  value: 'Blue flowers',
-                },
-              },
-            },
-            {
-              id: '2',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Purple flowers',
-                  },
-                  value: 'images/purpleflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Purple flowers',
-                  },
-                  value: 'Purple flowers',
-                },
-              },
-            },
-            {
-              id: '3',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Red flowers',
-                  },
-                  value: 'images/redflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Red flowers',
-                  },
-                  value: 'Red flowers',
-                },
-              },
-            },
-          ],
-        },
+        columns: '4',
+        data: defaultData,
       },
     };
   },
