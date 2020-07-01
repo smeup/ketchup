@@ -70,7 +70,7 @@
     }
   }
 
-  &.is-unclickable {
+  &.loading-wrapper-visible.is-unclickable {
     cursor: wait;
     pointer-events: all;
   }
