@@ -1884,16 +1884,16 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         "onKupButtonBlur"?: (event: CustomEvent<{
-            id: any;
-            value: any;
+            id: string;
+            value: string;
         }>) => void;
         "onKupButtonClick"?: (event: CustomEvent<{
-            id: any;
-            value: any;
+            id: string;
+            value: string;
         }>) => void;
         "onKupButtonFocus"?: (event: CustomEvent<{
-            id: any;
-            value: any;
+            id: string;
+            value: string;
         }>) => void;
         /**
           * Defaults at false. When set to true, the button will be rendered with a colored outline.
@@ -2116,21 +2116,24 @@ declare namespace LocalJSX {
          */
         "data"?: ComponentChipElement[];
         "onKupChipBlur"?: (event: CustomEvent<{
+            id: string;
+            index: number;
             value: string;
         }>) => void;
         "onKupChipClick"?: (event: CustomEvent<{
+            id: string;
             index: number;
-            el: EventTarget;
-        }>) => void;
-        "onKupChipError"?: (event: CustomEvent<{
-            el: EventTarget;
+            value: string;
         }>) => void;
         "onKupChipFocus"?: (event: CustomEvent<{
+            id: string;
+            index: number;
             value: string;
         }>) => void;
         "onKupChipIconClick"?: (event: CustomEvent<{
+            id: string;
             index: number;
-            el: EventTarget;
+            value: string;
         }>) => void;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.

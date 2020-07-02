@@ -90,8 +90,8 @@ export class KupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -101,8 +101,8 @@ export class KupButton {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -112,8 +112,8 @@ export class KupButton {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     //---- Methods ----
