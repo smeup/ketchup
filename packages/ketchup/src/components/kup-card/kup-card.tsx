@@ -166,13 +166,6 @@ export class KupCard {
                 }
             }
         }
-        setInterval(() => {
-            this.collapsibleManager(
-                collapsibleEl,
-                collapsibleCard,
-                collapsibleWrap
-            );
-        }, 1000);
     }
 
     listenButtonEvents(root: ShadowRoot) {
@@ -249,6 +242,13 @@ export class KupCard {
                 collapsibleCard,
                 collapsibleWrap
             );
+            setInterval(() => {
+                this.collapsibleManager(
+                    collapsibleEl,
+                    collapsibleCard,
+                    collapsibleWrap
+                );
+            }, 1000);
         }
     }
 
