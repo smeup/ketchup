@@ -260,7 +260,7 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom".
+          * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
          */
         "layoutFamily": string;
         /**
@@ -1971,7 +1971,7 @@ declare namespace LocalJSX {
          */
         "isMenu"?: boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom".
+          * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
          */
         "layoutFamily"?: string;
         /**
@@ -1982,6 +1982,9 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
+        "onKupCardClick"?: (event: CustomEvent<{
+            id: any;
+        }>) => void;
         "onKupCardEvent"?: (event: CustomEvent<{
             id: any;
             value: any;

@@ -8,6 +8,7 @@ import {
     State,
     h,
 } from '@stencil/core';
+import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as customLayouts from './custom/kup-card-custom';
 import * as materialLayouts from './material/kup-card-material';
 import { MDCRipple } from '@material/ripple';
@@ -37,7 +38,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "material", "custom".
+     * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
      */
     @Prop({ reflect: true }) layoutFamily: string = 'material';
     /**
@@ -61,6 +62,16 @@ export class KupCard {
     private oldSizeY = undefined;
 
     @Event({
+        eventName: 'kupCardClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        id: any;
+    }>;
+
+    @Event({
         eventName: 'kupCardEvent',
         composed: true,
         cancelable: false,
@@ -73,6 +84,12 @@ export class KupCard {
     }>;
 
     //---- Methods ----
+
+    onKupClick() {
+        this.kupClick.emit({
+            id: this.rootElement.id,
+        });
+    }
 
     onKupEvent(e) {
         const root = this.rootElement.shadowRoot;
@@ -97,7 +114,7 @@ export class KupCard {
         }
 
         this.kupEvent.emit({
-            id: e.detail.id,
+            id: this.rootElement.id,
             value: e.detail,
             event: e,
         });
@@ -109,6 +126,10 @@ export class KupCard {
 
         try {
             switch (this.layoutFamily) {
+                case 'collapsible': {
+                    card = collapsibleLayouts[method](this);
+                    break;
+                }
                 case 'custom': {
                     card = customLayouts[method](this);
                     break;
@@ -152,6 +173,42 @@ export class KupCard {
         }
     }
 
+    listenButtonEvents(root: ShadowRoot) {
+        root.addEventListener('kupButtonBlur', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupButtonFocus', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    listenChipEvents(root: ShadowRoot) {
+        root.addEventListener('kupChipBlur', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipFocus', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipIconClick', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    listenImageEvents(root: ShadowRoot) {
+        root.addEventListener('kupImageClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupImageLoad', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -160,12 +217,21 @@ export class KupCard {
         const root = this.rootElement.shadowRoot;
 
         if (root != undefined) {
-            root.addEventListener('kupButtonClick', (e) => {
-                this.onKupEvent(e);
-            });
-            root.addEventListener('kupImageLoad', (e) => {
-                this.onKupEvent(e);
-            });
+            for (var key in this.data) {
+                if (this.data.hasOwnProperty(key)) {
+                    switch (key) {
+                        case 'button1':
+                            this.listenButtonEvents(root);
+                            break;
+                        case 'chip1':
+                            this.listenChipEvents(root);
+                            break;
+                        case 'image1':
+                            this.listenImageEvents(root);
+                            break;
+                    }
+                }
+            }
         }
     }
 
@@ -176,6 +242,11 @@ export class KupCard {
         if (collapsibleEl) {
             let collapsibleCard = root.querySelector('.collapsible-card');
             let collapsibleWrap = root.querySelector('.collapsible-wrapper');
+            this.collapsibleManager(
+                collapsibleEl,
+                collapsibleCard,
+                collapsibleWrap
+            );
             setInterval(() => {
                 this.collapsibleManager(
                     collapsibleEl,
@@ -184,16 +255,6 @@ export class KupCard {
                 );
             }, 1000);
         }
-    }
-
-    componentDidUnload() {
-        const root = this.rootElement.shadowRoot;
-        root.removeEventListener('kupButtonClick', (e) => {
-            this.onKupEvent(e);
-        });
-        root.removeEventListener('kupImageLoad', (e) => {
-            this.onKupEvent(e);
-        });
     }
 
     render() {
@@ -230,7 +291,11 @@ export class KupCard {
         return (
             <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass}>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onClick={() => this.onKupClick()}
+                >
                     {card}
                 </div>
             </Host>

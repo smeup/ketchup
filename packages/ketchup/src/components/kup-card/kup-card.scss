@@ -1,6 +1,7 @@
 @import '@material/menu/mdc-menu';
 @import '@material/menu-surface/mdc-menu-surface';
 @import '@material/ripple/mdc-ripple';
+@import 'collapsible/kup-card-collapsible';
 @import 'custom/kup-card-custom';
 @import 'material/kup-card-material.scss';
 
@@ -31,9 +32,6 @@
 
   .collapsible-wrapper {
     overflow: auto;
-    &.limited-height {
-      max-height: 45px;
-    }
   }
 
   &.collapsible-active {
@@ -41,12 +39,6 @@
 
     .collapsible-trigger {
       display: block;
-    }
-  }
-
-  &.expanded {
-    .collapsible-wrapper.limited-height {
-      max-height: unset;
     }
   }
 }
