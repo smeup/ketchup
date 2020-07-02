@@ -216,23 +216,9 @@ export class KupCard {
 
         const root = this.rootElement.shadowRoot;
 
-        if (root != undefined) {
-            for (var key in this.data) {
-                if (this.data.hasOwnProperty(key)) {
-                    switch (key) {
-                        case 'button1':
-                            this.listenButtonEvents(root);
-                            break;
-                        case 'chip1':
-                            this.listenChipEvents(root);
-                            break;
-                        case 'image1':
-                            this.listenImageEvents(root);
-                            break;
-                    }
-                }
-            }
-        }
+        this.listenButtonEvents(root);
+        this.listenChipEvents(root);
+        this.listenImageEvents(root);
     }
 
     componentDidLoad() {
