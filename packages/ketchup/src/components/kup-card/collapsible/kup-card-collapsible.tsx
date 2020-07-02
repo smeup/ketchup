@@ -1,34 +1,32 @@
 import { h } from '@stencil/core';
-import { KupImage } from '../../kup-image/kup-image';
-import { KupChip } from '../../kup-chip/kup-chip';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
-    let data = component.data;
-    let layout = component.layoutNumber;
-    let componentClass = 'collapsible-layout-' + layout + ' collapsible-card';
+    let componentClass =
+        'collapsible-layout-' + component.layoutNumber + ' collapsible-card';
     let CSSVariables = {
-        ['--color-1']: data['color1'],
+        ['--color-1']: component.data['color1'],
     };
-    let chip1: KupChip = (
-        <kup-chip
-            class="collapsible-element"
-            id="chips1"
-            {...data['chip1']}
-        ></kup-chip>
-    );
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1"></div>
             <div class="section-2">
                 <div class="sub-1">
-                    <div class="text left">{data['text1']}</div>
-                    <div class="text right">{data['text3']}</div>
+                    <div class="text left">{component.data['text1']}</div>
+                    <div class="text right">{component.data['text3']}</div>
                 </div>
                 <div class="sub-2">
-                    <div class="text">{data['text2']}</div>
+                    <div class="text">{component.data['text2']}</div>
                 </div>
-                <div class="sub-3 collapsible-wrapper">{chip1}</div>
+                <div class="sub-3 collapsible-wrapper">
+                    {component.data['chip1'] && (
+                        <kup-chip
+                            class="collapsible-element"
+                            id="chip1"
+                            {...component.data['chip1']}
+                        ></kup-chip>
+                    )}
+                </div>
             </div>
             {collapsibleBar()}
         </div>
@@ -36,42 +34,43 @@ export function create1(component: KupCard) {
 }
 
 export function create2(component: KupCard) {
-    let data = component.data;
-    let layout = component.layoutNumber;
-    let componentClass = 'collapsible-layout-' + layout + ' collapsible-card';
+    let componentClass =
+        'collapsible-layout-' + component.layoutNumber + ' collapsible-card';
     let CSSVariables = {
-        ['--color-1']: data['color1'],
+        ['--color-1']: component.data['color1'],
     };
-    let chip1: KupChip = (
-        <kup-chip
-            class="collapsible-element"
-            id="chips1"
-            {...data['chip1']}
-        ></kup-chip>
-    );
-    let image1: KupImage = (
-        <kup-image
-            id="image1"
-            color={data['color1']}
-            sizeX="24px"
-            sizeY="24px"
-            {...data['image1']}
-        ></kup-image>
-    );
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
                 <div class="sub-1">
-                    <div class="text">{data['text1']}</div>
+                    <div class="text">{component.data['text1']}</div>
                 </div>
                 <div class="sub-2">
-                    <div class="text">{data['text2']}</div>
+                    <div class="text">{component.data['text2']}</div>
                 </div>
                 <div class="sub-3">
-                    <div class="image">{image1}</div>
-                    <div class="text">{data['text3']}</div>
+                    <div class="image">
+                        {component.data['image1'] && (
+                            <kup-image
+                                id="image1"
+                                color={component.data['color1']}
+                                sizeX="24px"
+                                sizeY="24px"
+                                {...component.data['image1']}
+                            ></kup-image>
+                        )}
+                    </div>
+                    <div class="text">{component.data['text3']}</div>
                 </div>
-                <div class="sub-4 collapsible-wrapper">{chip1}</div>
+                <div class="sub-4 collapsible-wrapper">
+                    {component.data['chip1'] && (
+                        <kup-chip
+                            class="collapsible-element"
+                            id="chip1"
+                            {...component.data['chip1']}
+                        ></kup-chip>
+                    )}
+                </div>
             </div>
             {collapsibleBar()}
         </div>
