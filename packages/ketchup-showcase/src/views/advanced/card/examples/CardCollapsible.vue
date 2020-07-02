@@ -1,36 +1,40 @@
 <template>
   <div>
+    <p>
+      By clicking on the expansion button the height of the card will be set to "auto" when a dynamic element is bigger than its container.
+      To set this up inside the layout, the classes
+      <span
+        class="code-word"
+      >collapsible-element</span> and
+      <span class="code-word">collapsible-wrapper</span> must be assigned to the dynamic element and to its wrapper, respectively. Also, the class
+      <span
+        class="code-word"
+      >collapsible-card</span> must be set on the layout-level element.
+      The bottom bar containing the expand action button is 50px tall, so keep this in mind when you set the size of the card. To attach it to your component, use the collapsibleBar() function which returns a JSX element containing the bar itself.
+      <br />
+      <br />Every second, the card will check if the dynamic element is overflowing, if it does the bar will appear.
+      <br />
+    </p>
     <div class="demo-wrapper">
       <p>
         <span class="code-word">Layout 1</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1</span>: Action button.
+        <span class="code-word">- color1</span>: Sets the color of the side bar.
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the top bar and of text4 and text6.
+        <span class="code-word">- chip1</span>: Chips displayed after clicking on the bottom bar.
         <br />
-        <span class="code-word">- color2</span>: Sets the background color of the bottom section.
-        <br />
-        <span class="code-word">- image1</span>: Left image.
-        <br />
-        <span class="code-word">- image2</span>: Right image.
-        <br />
-        <span class="code-word">- progressBar1</span>: Slim progress bar.
-        <br />
-        <span class="code-word">- text1, text2, text3, text4, text5, text6</span>: Generic text, check the mock-up below to see how they are positioned.
-        <span
-          class="code-word"
-        >text2</span> is colored with the main color of the app.
+        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            size-x="500px"
-            size-y="300px"
+            size-x="300px"
+            size-y="200px"
             layout-number="1"
-            layout-family="custom"
+            layout-family="collapsible"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -41,64 +45,9 @@
         <span class="code-word">Layout 2</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1</span>: Action button.
+        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner.
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the left bar.
-        <br />
-        <span class="code-word">- progressBar1</span>: Radial progress bar.
-        <br />
-        <span class="code-word">- text1, text2</span>: Generic text, check the mock-up below to see how they are positioned.
-        <span
-          class="code-word"
-        >text1</span> will be white.
-        <br />
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-card
-            size-x="500px"
-            size-y="300px"
-            layout-number="2"
-            layout-family="custom"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 3</span> settings:
-        <br />
-        <br />
-        <span class="code-word">- color1</span>: Sets the color of the top bar..
-        <br />
-        <span class="code-word">- image1</span>: Avatar.
-        <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
-        <br />
-      </p>
-      <br />
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-card
-            size-x="300px"
-            size-y="300px"
-            layout-number="3"
-            layout-family="custom"
-            :data.prop="data"
-          ></kup-card>
-        </div>
-      </div>
-    </div>
-    <div class="demo-wrapper">
-      <p>
-        <span class="code-word">Layout 4</span> settings:
-        <br />
-        <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
-        <br />
-        <span class="code-word">- chip1</span>: Chips.
+        <span class="code-word">- chip1</span>: Chips displayed after clicking on the bottom bar.
         <br />
         <span class="code-word">- image1</span>: Image on the top right corner, colored with color1.
         <br />
@@ -110,9 +59,9 @@
         <div class="kup-container">
           <kup-card
             size-x="300px"
-            size-y="300px"
-            layout-number="4"
-            layout-family="custom"
+            size-y="200px"
+            layout-number="2"
+            layout-family="collapsible"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -123,7 +72,7 @@
 
 <script>
 export default {
-  name: 'CardCustom',
+  name: 'CardCollapsible',
   data() {
     return {
       data: {

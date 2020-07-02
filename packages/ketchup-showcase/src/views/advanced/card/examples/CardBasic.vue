@@ -44,7 +44,9 @@
         <br />
         <span class="code-word">material</span>, which look was inspired by Material Design (4 layouts).
         <br />
-        <span class="code-word">custom</span>, which covers niche use cases (6 layouts).
+        <span class="code-word">collapsible</span>, which features card that can be expanded after an action (2 layouts).
+        <br />
+        <span class="code-word">custom</span>, which covers niche use cases (4 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>

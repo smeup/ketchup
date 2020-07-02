@@ -17,6 +17,9 @@
         <card-material></card-material>
       </template>
       <template v-slot:5>
+        <card-collapsible></card-collapsible>
+      </template>
+      <template v-slot:6>
         <card-custom></card-custom>
       </template>
     </comp>
@@ -29,6 +32,7 @@ import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
 import CardMaterial from '@/views/advanced/card/examples/CardMaterial';
+import CardCollapsible from '@/views/advanced/card/examples/CardCollapsible';
 import CardCustom from '@/views/advanced/card/examples/CardCustom';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
@@ -38,6 +42,7 @@ export default {
     CardStyling,
     CardMenu,
     CardMaterial,
+    CardCollapsible,
     CardCustom,
     Comp,
   },
@@ -52,6 +57,7 @@ export default {
         'Styling',
         'Menu variant',
         'Material layouts',
+        'Collapsible layouts',
         'Custom layouts',
       ],
     };

@@ -75,7 +75,7 @@ export default {
         {
           prop: 'layoutFamily',
           description:
-            'Sets the type of the card. Currently supported values: "material", "custom".',
+            'Sets the type of the card. Currently supported values: "material", "custom", "collapsible".',
           type: 'string',
           default: 'material',
           try: 'field',
