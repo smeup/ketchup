@@ -8,6 +8,7 @@ import {
     State,
     h,
 } from '@stencil/core';
+import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as customLayouts from './custom/kup-card-custom';
 import * as materialLayouts from './material/kup-card-material';
 import { MDCRipple } from '@material/ripple';
@@ -37,7 +38,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "material", "custom".
+     * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
      */
     @Prop({ reflect: true }) layoutFamily: string = 'material';
     /**
@@ -125,6 +126,10 @@ export class KupCard {
 
         try {
             switch (this.layoutFamily) {
+                case 'collapsible': {
+                    card = collapsibleLayouts[method](this);
+                    break;
+                }
                 case 'custom': {
                     card = customLayouts[method](this);
                     break;
