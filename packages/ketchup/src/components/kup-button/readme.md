@@ -26,11 +26,11 @@
 
 ## Events
 
-| Event            | Description | Type                                    |
-| ---------------- | ----------- | --------------------------------------- |
-| `kupButtonBlur`  |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupButtonClick` |             | `CustomEvent<{ id: any; value: any; }>` |
-| `kupButtonFocus` |             | `CustomEvent<{ id: any; value: any; }>` |
+| Event            | Description | Type                                          |
+| ---------------- | ----------- | --------------------------------------------- |
+| `kupButtonBlur`  |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupButtonClick` |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupButtonFocus` |             | `CustomEvent<{ id: string; value: string; }>` |
 
 
 ## Dependencies

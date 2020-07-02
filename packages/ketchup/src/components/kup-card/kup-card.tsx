@@ -110,21 +110,15 @@ export class KupCard {
         try {
             switch (this.layoutFamily) {
                 case 'custom': {
-                    card = customLayouts[method](this.layoutNumber, this.data);
+                    card = customLayouts[method](this);
                     break;
                 }
                 case 'material': {
-                    card = materialLayouts[method](
-                        this.layoutNumber,
-                        this.data
-                    );
+                    card = materialLayouts[method](this);
                     break;
                 }
                 default: {
-                    card = materialLayouts[method](
-                        this.layoutNumber,
-                        this.data
-                    );
+                    card = materialLayouts[method](this);
                     break;
                 }
             }

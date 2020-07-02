@@ -16,13 +16,12 @@
 
 ## Events
 
-| Event              | Description | Type                                               |
-| ------------------ | ----------- | -------------------------------------------------- |
-| `kupChipBlur`      |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipClick`     |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
-| `kupChipError`     |             | `CustomEvent<{ el: EventTarget; }>`                |
-| `kupChipFocus`     |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipIconClick` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| Event              | Description | Type                                                         |
+| ------------------ | ----------- | ------------------------------------------------------------ |
+| `kupChipBlur`      |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipClick`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipFocus`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipIconClick` |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
 
 
 ## Dependencies

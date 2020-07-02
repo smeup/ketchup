@@ -1,9 +1,11 @@
 import { h } from '@stencil/core';
-import { ComponentCardElement } from '../kup-card-declarations';
 import { KupImage } from '../../kup-image/kup-image';
 import { KupButton } from '../../kup-button/kup-button';
+import { KupCard } from '../kup-card';
 
-export function create1(layout: number, data: ComponentCardElement) {
+export function create1(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'material-layout-' + layout;
     let buttonEl: HTMLElement = undefined;
     let button1: KupButton = undefined;
@@ -66,7 +68,9 @@ export function create1(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create2(layout: number, data: ComponentCardElement) {
+export function create2(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'material-layout-' + layout;
     let buttonEl: HTMLElement = undefined;
     let button1: KupButton = undefined;
@@ -131,7 +135,9 @@ export function create2(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create3(layout: number, data: ComponentCardElement) {
+export function create3(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'material-layout-' + layout;
     let buttonEl: HTMLElement = undefined;
     let button1: KupButton = undefined;
@@ -200,7 +206,9 @@ export function create3(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create4(layout: number, data: ComponentCardElement) {
+export function create4(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'material-layout-' + layout;
     let buttonEl: HTMLElement = undefined;
     let button1: KupButton = undefined;

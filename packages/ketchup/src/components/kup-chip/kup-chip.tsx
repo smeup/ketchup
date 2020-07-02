@@ -42,6 +42,8 @@ export class KupChip {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: string;
+        index: number;
         value: string;
     }>;
 
@@ -52,8 +54,9 @@ export class KupChip {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         index: number;
-        el: EventTarget;
+        value: string;
     }>;
 
     @Event({
@@ -63,6 +66,8 @@ export class KupChip {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: string;
+        index: number;
         value: string;
     }>;
 
@@ -73,30 +78,22 @@ export class KupChip {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: string;
         index: number;
-        el: EventTarget;
-    }>;
-
-    @Event({
-        eventName: 'kupChipError',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupError: EventEmitter<{
-        el: EventTarget;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupBlur(i: number) {
         this.kupBlur.emit({
-            value: target.value,
+            id: this.rootElement.id,
+            index: i,
+            value: this.data[i].value,
         });
     }
 
-    onKupClick(i: number, e: Event) {
+    onKupClick(i: number) {
         if (this.type === 'choice') {
             for (let j = 0; j < this.data.length; j++) {
                 if (j !== i && this.data[j].checked) {
@@ -114,25 +111,28 @@ export class KupChip {
             this.data = newData;
         }
         this.kupClick.emit({
+            id: this.rootElement.id,
             index: i,
-            el: e.target,
+            value: this.data[i].value,
         });
     }
 
-    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupFocus(i: number) {
         this.kupFocus.emit({
-            value: target.value,
+            id: this.rootElement.id,
+            index: i,
+            value: this.data[i].value,
         });
     }
 
-    onKupIconClick(i: number, e: Event) {
+    onKupIconClick(i: number) {
         this.data.splice(i, 1);
         let newData = [...this.data];
         this.data = newData;
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             index: i,
-            el: e.target,
+            value: this.data[i].value,
         });
     }
 
@@ -253,7 +253,7 @@ export class KupChip {
                         <kup-image
                             tabindex="-1"
                             class="material-icons mdc-chip__icon remove-icon"
-                            onClick={(e) => this.onKupIconClick(i, e)}
+                            onClick={() => this.onKupIconClick(i)}
                             resource="cancel"
                             sizeX="18px"
                             sizeY="18px"
@@ -266,7 +266,7 @@ export class KupChip {
                 <div
                     class={componentClass}
                     role="row"
-                    onClick={(e) => this.onKupClick(i, e)}
+                    onClick={() => this.onKupClick(i)}
                 >
                     <div class="mdc-chip__ripple"></div>
                     {iconEl}
@@ -280,8 +280,8 @@ export class KupChip {
                             // @ts-ignore
                             value={this.data[i].value}
                             checked={this.data[i].checked}
-                            onBlur={(e: any) => this.onKupBlur(e)}
-                            onFocus={(e: any) => this.onKupFocus(e)}
+                            onBlur={() => this.onKupBlur(i)}
+                            onFocus={() => this.onKupFocus(i)}
                         >
                             <span class="mdc-chip__text">
                                 {this.data[i].label}

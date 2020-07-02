@@ -1,11 +1,13 @@
 import { h } from '@stencil/core';
-import { ComponentCardElement } from '../kup-card-declarations';
 import { KupImage } from '../../kup-image/kup-image';
 import { KupButton } from '../../kup-button/kup-button';
 import { KupProgressBar } from '../../kup-progress-bar/kup-progress-bar';
 import { KupChip } from '../../kup-chip/kup-chip';
+import { KupCard } from '../kup-card';
 
-export function create1(layout: number, data: ComponentCardElement) {
+export function create1(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout;
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -65,7 +67,9 @@ export function create1(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create2(layout: number, data: ComponentCardElement) {
+export function create2(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout;
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -98,7 +102,9 @@ export function create2(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create3(layout: number, data: ComponentCardElement) {
+export function create3(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout;
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -127,7 +133,9 @@ export function create3(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create4(layout: number, data: ComponentCardElement) {
+export function create4(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout + ' collapsible-card';
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -139,6 +147,10 @@ export function create4(layout: number, data: ComponentCardElement) {
             {...data['chip1']}
         ></kup-chip>
     );
+    let collapsibleWrapperClass = 'sub-3 collapsible-wrapper';
+    if (component.sizeY !== '100%' && component.sizeY !== 'auto') {
+        collapsibleWrapperClass += ' limited-height';
+    }
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1"></div>
@@ -150,14 +162,16 @@ export function create4(layout: number, data: ComponentCardElement) {
                 <div class="sub-2">
                     <div class="text">{data['text2']}</div>
                 </div>
-                <div class="sub-3 collapsible-wrapper">{chip1}</div>
+                <div class={collapsibleWrapperClass}>{chip1}</div>
             </div>
             {collapsibleBar()}
         </div>
     );
 }
 
-export function create5(layout: number, data: ComponentCardElement) {
+export function create5(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout;
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -192,7 +206,9 @@ export function create5(layout: number, data: ComponentCardElement) {
     );
 }
 
-export function create6(layout: number, data: ComponentCardElement) {
+export function create6(component: KupCard) {
+    let data = component.data;
+    let layout = component.layoutNumber;
     let componentClass = 'custom-layout-' + layout + ' collapsible-card';
     let CSSVariables = {
         ['--color-1']: data['color1'],
@@ -213,6 +229,10 @@ export function create6(layout: number, data: ComponentCardElement) {
             {...data['image1']}
         ></kup-image>
     );
+    let collapsibleWrapperClass = 'sub-4 collapsible-wrapper';
+    if (component.sizeY !== '100%' && component.sizeY !== 'auto') {
+        collapsibleWrapperClass += ' limited-height';
+    }
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
@@ -226,7 +246,7 @@ export function create6(layout: number, data: ComponentCardElement) {
                     <div class="image">{image1}</div>
                     <div class="text">{data['text3']}</div>
                 </div>
-                <div class="sub-4 collapsible-wrapper">{chip1}</div>
+                <div class={collapsibleWrapperClass}>{chip1}</div>
             </div>
             {collapsibleBar()}
         </div>

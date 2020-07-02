@@ -268,6 +268,7 @@ export default {
 
     handleEvent(e) {
       var d = new Date();
+      console.log('Playground event fired: ', e);
       document.querySelector('#on' + e.type).innerText =
         e.type +
         ' event fired at ' +
