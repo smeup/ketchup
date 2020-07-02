@@ -1982,6 +1982,9 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
+        "onKupCardClick"?: (event: CustomEvent<{
+            id: any;
+        }>) => void;
         "onKupCardEvent"?: (event: CustomEvent<{
             id: any;
             value: any;

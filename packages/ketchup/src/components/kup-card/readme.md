@@ -23,6 +23,7 @@
 
 | Event          | Description | Type                                                |
 | -------------- | ----------- | --------------------------------------------------- |
+| `kupCardClick` |             | `CustomEvent<{ id: any; }>`                         |
 | `kupCardEvent` |             | `CustomEvent<{ id: any; value: any; event: any; }>` |
 
 

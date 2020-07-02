@@ -147,10 +147,6 @@ export function create4(component: KupCard) {
             {...data['chip1']}
         ></kup-chip>
     );
-    let collapsibleWrapperClass = 'sub-3 collapsible-wrapper';
-    if (component.sizeY !== '100%' && component.sizeY !== 'auto') {
-        collapsibleWrapperClass += ' limited-height';
-    }
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1"></div>
@@ -162,7 +158,7 @@ export function create4(component: KupCard) {
                 <div class="sub-2">
                     <div class="text">{data['text2']}</div>
                 </div>
-                <div class={collapsibleWrapperClass}>{chip1}</div>
+                <div class="sub-3 collapsible-wrapper">{chip1}</div>
             </div>
             {collapsibleBar()}
         </div>
@@ -229,10 +225,6 @@ export function create6(component: KupCard) {
             {...data['image1']}
         ></kup-image>
     );
-    let collapsibleWrapperClass = 'sub-4 collapsible-wrapper';
-    if (component.sizeY !== '100%' && component.sizeY !== 'auto') {
-        collapsibleWrapperClass += ' limited-height';
-    }
     return (
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
@@ -246,7 +238,7 @@ export function create6(component: KupCard) {
                     <div class="image">{image1}</div>
                     <div class="text">{data['text3']}</div>
                 </div>
-                <div class={collapsibleWrapperClass}>{chip1}</div>
+                <div class="sub-4 collapsible-wrapper">{chip1}</div>
             </div>
             {collapsibleBar()}
         </div>

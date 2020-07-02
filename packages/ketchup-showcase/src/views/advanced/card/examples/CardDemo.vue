@@ -114,6 +114,10 @@ export default {
       ],
       demoEvents: [
         {
+          name: 'kupCardClick',
+          type: 'click',
+        },
+        {
           name: 'kupCardEvent',
           type: 'custom',
         },
