@@ -31,6 +31,9 @@
 
   .collapsible-wrapper {
     overflow: auto;
+    &.limited-height {
+      max-height: 45px;
+    }
   }
 
   &.collapsible-active {
@@ -38,6 +41,12 @@
 
     .collapsible-trigger {
       display: block;
+    }
+  }
+
+  &.expanded {
+    .collapsible-wrapper.limited-height {
+      max-height: unset;
     }
   }
 }
