@@ -155,11 +155,11 @@ export class KupCard {
         return card;
     }
 
-    collapsibleManager(
-        collapsibleEl: Element,
-        collapsibleCard: Element,
-        collapsibleWrap: Element
-    ) {
+    collapsibleManager() {
+        const root = this.rootElement.shadowRoot;
+        let collapsibleEl = root.querySelector('.collapsible-element');
+        let collapsibleCard = root.querySelector('.collapsible-card');
+        let collapsibleWrap = root.querySelector('.collapsible-wrapper');
         if (!collapsibleCard.classList.contains('expanded')) {
             if (collapsibleEl.clientHeight > collapsibleWrap.clientHeight) {
                 if (!collapsibleCard.classList.contains('collapsible-active')) {
@@ -222,23 +222,10 @@ export class KupCard {
     }
 
     componentDidLoad() {
-        const root = this.rootElement.shadowRoot;
-        let collapsibleEl = root.querySelector('.collapsible-element');
-
-        if (collapsibleEl) {
-            let collapsibleCard = root.querySelector('.collapsible-card');
-            let collapsibleWrap = root.querySelector('.collapsible-wrapper');
-            this.collapsibleManager(
-                collapsibleEl,
-                collapsibleCard,
-                collapsibleWrap
-            );
+        if (this.layoutFamily === 'collapsible') {
+            this.collapsibleManager();
             setInterval(() => {
-                this.collapsibleManager(
-                    collapsibleEl,
-                    collapsibleCard,
-                    collapsibleWrap
-                );
+                this.collapsibleManager();
             }, 1000);
         }
     }
