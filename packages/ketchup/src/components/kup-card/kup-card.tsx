@@ -10,6 +10,7 @@ import {
 } from '@stencil/core';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as customLayouts from './custom/kup-card-custom';
+import * as dashboardLayouts from './dashboard/kup-card-dashboard';
 import * as materialLayouts from './material/kup-card-material';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
@@ -38,7 +39,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
+     * Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".
      */
     @Prop({ reflect: true }) layoutFamily: string = 'material';
     /**
@@ -134,6 +135,10 @@ export class KupCard {
                     card = customLayouts[method](this);
                     break;
                 }
+                case 'dashboard': {
+                    card = dashboardLayouts[method](this);
+                    break;
+                }
                 case 'material': {
                     card = materialLayouts[method](this);
                     break;
@@ -171,6 +176,48 @@ export class KupCard {
                 }
             }
         }
+    }
+
+    dashboardManager() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        let dashboardEl: HTMLElement = root.querySelector('.dashboard-element');
+        let dashboardCard: HTMLElement = root.querySelector('.dashboard-card');
+        let multiplier: number = parseFloat(
+            dashboardCard.style.getPropertyValue('--multiplier')
+        );
+        let cardHeight40: number = (40 / 100) * dashboardCard.clientHeight;
+        let cardWidth45: number = (45 / 100) * dashboardCard.clientWidth;
+        let cardWidth55: number = (55 / 100) * dashboardCard.clientWidth;
+        let tooManyAttempts: number = 0;
+        do {
+            tooManyAttempts++;
+            if (
+                dashboardEl.clientWidth < cardWidth45 &&
+                dashboardEl.clientHeight < cardHeight40
+            ) {
+                multiplier = multiplier + 0.05;
+                dashboardCard.style.setProperty(
+                    '--multiplier',
+                    multiplier + ''
+                );
+            } else if (
+                dashboardEl.clientWidth > cardWidth55 ||
+                dashboardEl.clientHeight > cardHeight40
+            ) {
+                multiplier = multiplier - 0.05;
+                dashboardCard.style.setProperty(
+                    '--multiplier',
+                    multiplier + ''
+                );
+            } else {
+                tooManyAttempts = 100;
+            }
+        } while (
+            ((dashboardEl.clientWidth < cardWidth45 ||
+                dashboardEl.clientWidth > cardWidth55) &&
+                dashboardEl.clientHeight < cardHeight40) ||
+            tooManyAttempts < 100
+        );
     }
 
     listenButtonEvents(root: ShadowRoot) {
@@ -226,6 +273,12 @@ export class KupCard {
             this.collapsibleManager();
             setInterval(() => {
                 this.collapsibleManager();
+            }, 1000);
+        }
+        if (this.layoutFamily === 'dashboard') {
+            this.dashboardManager();
+            setInterval(() => {
+                this.dashboardManager();
             }, 1000);
         }
     }

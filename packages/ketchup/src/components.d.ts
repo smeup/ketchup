@@ -260,7 +260,7 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
+          * Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".
          */
         "layoutFamily": string;
         /**
@@ -1971,7 +1971,7 @@ declare namespace LocalJSX {
          */
         "isMenu"?: boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
+          * Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".
          */
         "layoutFamily"?: string;
         /**

@@ -1,0 +1,5 @@
+@import 'kup-card-dashboard-1.scss';
+
+.dashboard-card {
+  font-size: calc(var(--kup-font-size) * var(--multiplier));
+}
