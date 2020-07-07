@@ -8,6 +8,7 @@ import {
     State,
     h,
 } from '@stencil/core';
+import { ResizeObserver } from 'resize-observer';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as customLayouts from './custom/kup-card-custom';
 import * as dashboardLayouts from './dashboard/kup-card-dashboard';
@@ -61,6 +62,7 @@ export class KupCard {
 
     private elStyle = undefined;
     private oldSizeY = undefined;
+    private dashboardRunning = false;
 
     @Event({
         eventName: 'kupCardClick',
@@ -160,7 +162,22 @@ export class KupCard {
         return card;
     }
 
-    collapsibleManager() {
+    layoutManager() {
+        switch (this.layoutFamily) {
+            case 'collapsible':
+                this.collapsible();
+                break;
+            case 'dashboard':
+                if (!this.dashboardRunning) {
+                    this.dashboard();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    collapsible() {
         const root = this.rootElement.shadowRoot;
         let collapsibleEl = root.querySelector('.collapsible-element');
         let collapsibleCard = root.querySelector('.collapsible-card');
@@ -178,7 +195,8 @@ export class KupCard {
         }
     }
 
-    dashboardManager() {
+    async dashboard() {
+        this.dashboardRunning = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
         let dashboardEl: HTMLElement = root.querySelector('.dashboard-element');
         let dashboardCard: HTMLElement = root.querySelector('.dashboard-card');
@@ -189,37 +207,42 @@ export class KupCard {
         let cardHeight: number = (75 / 100) * dashboardCard.clientHeight;
         let cardWidthLow: number = (40 / 100) * dashboardCard.clientWidth;
         let cardWidthHigh: number = (60 / 100) * dashboardCard.clientWidth;
-        let tooManyAttempts: number = 0;
+        let tooManyAttempts: number = 2000;
+        //Cycle to adjust width
         do {
-            tooManyAttempts++;
-            if (
-                dashboardEl.clientWidth < cardWidthLow &&
-                dashboardEl.clientHeight < cardHeight
-            ) {
+            tooManyAttempts--;
+            console.log('width: ', tooManyAttempts, multiplier);
+            if (dashboardEl.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
                 dashboardCard.style.setProperty(
                     '--multiplier',
                     multiplier + ''
                 );
-            } else if (
-                (dashboardEl.clientWidth > cardWidthHigh ||
-                    dashboardEl.clientHeight > cardHeight) &&
-                multiplier > multiplierStep
-            ) {
+            } else if (dashboardEl.clientWidth > cardWidthHigh) {
                 multiplier = multiplier - multiplierStep;
                 dashboardCard.style.setProperty(
                     '--multiplier',
                     multiplier + ''
                 );
             } else {
-                tooManyAttempts = 100;
+                tooManyAttempts = 0;
             }
         } while (
-            ((dashboardEl.clientWidth < cardWidthLow ||
+            (dashboardEl.clientWidth < cardWidthLow ||
                 dashboardEl.clientWidth > cardWidthHigh) &&
-                dashboardEl.clientHeight < cardHeight) ||
-            tooManyAttempts < 100
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
         );
+        //Cycle to adjust height
+        do {
+            console.log('height: ', tooManyAttempts, multiplier);
+            multiplier = multiplier - multiplierStep;
+            dashboardCard.style.setProperty('--multiplier', multiplier + '');
+        } while (
+            dashboardEl.clientHeight > cardHeight &&
+            multiplier > multiplierStep
+        );
+        this.dashboardRunning = false;
     }
 
     listenButtonEvents(root: ShadowRoot) {
@@ -268,21 +291,15 @@ export class KupCard {
         this.listenButtonEvents(root);
         this.listenChipEvents(root);
         this.listenImageEvents(root);
+
+        const observer = new ResizeObserver(() => {
+            this.layoutManager();
+        });
+        observer.observe(this.rootElement);
     }
 
-    componentDidLoad() {
-        if (this.layoutFamily === 'collapsible') {
-            this.collapsibleManager();
-            setInterval(() => {
-                this.collapsibleManager();
-            }, 1000);
-        }
-        if (this.layoutFamily === 'dashboard') {
-            this.dashboardManager();
-            setInterval(() => {
-                this.dashboardManager();
-            }, 1000);
-        }
+    componentDidRender() {
+        this.layoutManager();
     }
 
     render() {
