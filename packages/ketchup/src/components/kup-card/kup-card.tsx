@@ -182,12 +182,13 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         let dashboardEl: HTMLElement = root.querySelector('.dashboard-element');
         let dashboardCard: HTMLElement = root.querySelector('.dashboard-card');
+        let multiplierStep: number = 0.1;
         let multiplier: number = parseFloat(
             dashboardCard.style.getPropertyValue('--multiplier')
         );
         let cardHeight: number = (75 / 100) * dashboardCard.clientHeight;
-        let cardWidthLow: number = (45 / 100) * dashboardCard.clientWidth;
-        let cardWidthHigh: number = (55 / 100) * dashboardCard.clientWidth;
+        let cardWidthLow: number = (40 / 100) * dashboardCard.clientWidth;
+        let cardWidthHigh: number = (60 / 100) * dashboardCard.clientWidth;
         let tooManyAttempts: number = 0;
         do {
             tooManyAttempts++;
@@ -195,16 +196,17 @@ export class KupCard {
                 dashboardEl.clientWidth < cardWidthLow &&
                 dashboardEl.clientHeight < cardHeight
             ) {
-                multiplier = multiplier + 0.05;
+                multiplier = multiplier + multiplierStep;
                 dashboardCard.style.setProperty(
                     '--multiplier',
                     multiplier + ''
                 );
             } else if (
-                dashboardEl.clientWidth > cardWidthHigh ||
-                dashboardEl.clientHeight > cardHeight
+                (dashboardEl.clientWidth > cardWidthHigh ||
+                    dashboardEl.clientHeight > cardHeight) &&
+                multiplier > multiplierStep
             ) {
-                multiplier = multiplier - 0.05;
+                multiplier = multiplier - multiplierStep;
                 dashboardCard.style.setProperty(
                     '--multiplier',
                     multiplier + ''
