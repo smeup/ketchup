@@ -56,3 +56,23 @@ export function create2(component: KupCard) {
         </div>
     );
 }
+
+export function create3(component: KupCard) {
+    let componentClass =
+        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+    let CSSVariables = {
+        ['--multiplier']: '1',
+    };
+    return (
+        <div class={componentClass} style={CSSVariables}>
+            <div>
+                <div class="value dashboard-element">
+                    <div>{component.data['text1']}</div>
+                </div>
+                <div class="descr">
+                    <div>{component.data['text2']}</div>
+                </div>
+            </div>
+        </div>
+    );
+}
