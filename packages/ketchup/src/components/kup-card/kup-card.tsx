@@ -185,15 +185,15 @@ export class KupCard {
         let multiplier: number = parseFloat(
             dashboardCard.style.getPropertyValue('--multiplier')
         );
-        let cardHeight40: number = (40 / 100) * dashboardCard.clientHeight;
-        let cardWidth45: number = (45 / 100) * dashboardCard.clientWidth;
-        let cardWidth55: number = (55 / 100) * dashboardCard.clientWidth;
+        let cardHeight: number = (75 / 100) * dashboardCard.clientHeight;
+        let cardWidthLow: number = (45 / 100) * dashboardCard.clientWidth;
+        let cardWidthHigh: number = (55 / 100) * dashboardCard.clientWidth;
         let tooManyAttempts: number = 0;
         do {
             tooManyAttempts++;
             if (
-                dashboardEl.clientWidth < cardWidth45 &&
-                dashboardEl.clientHeight < cardHeight40
+                dashboardEl.clientWidth < cardWidthLow &&
+                dashboardEl.clientHeight < cardHeight
             ) {
                 multiplier = multiplier + 0.05;
                 dashboardCard.style.setProperty(
@@ -201,8 +201,8 @@ export class KupCard {
                     multiplier + ''
                 );
             } else if (
-                dashboardEl.clientWidth > cardWidth55 ||
-                dashboardEl.clientHeight > cardHeight40
+                dashboardEl.clientWidth > cardWidthHigh ||
+                dashboardEl.clientHeight > cardHeight
             ) {
                 multiplier = multiplier - 0.05;
                 dashboardCard.style.setProperty(
@@ -213,9 +213,9 @@ export class KupCard {
                 tooManyAttempts = 100;
             }
         } while (
-            ((dashboardEl.clientWidth < cardWidth45 ||
-                dashboardEl.clientWidth > cardWidth55) &&
-                dashboardEl.clientHeight < cardHeight40) ||
+            ((dashboardEl.clientWidth < cardWidthLow ||
+                dashboardEl.clientWidth > cardWidthHigh) &&
+                dashboardEl.clientHeight < cardHeight) ||
             tooManyAttempts < 100
         );
     }

@@ -9,11 +9,11 @@ export function create1(component: KupCard) {
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div>
+            <div class="dashboard-element">
                 <div class="description">
                     <div>{component.data['text1']}</div>
                 </div>
-                <div class="value dashboard-element">
+                <div class="value">
                     <div>{component.data['text2']}</div>
                 </div>
             </div>
@@ -65,8 +65,8 @@ export function create3(component: KupCard) {
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div>
-                <div class="value dashboard-element">
+            <div class="dashboard-element">
+                <div class="value">
                     <div>{component.data['text1']}</div>
                 </div>
                 <div class="descr">
