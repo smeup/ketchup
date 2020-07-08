@@ -1,39 +1,27 @@
 .dashboard-layout-6 {
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  position: relative;
-  word-break: normal;
-  height: 100%;
-  width: 100%;
-
   .dashboard-element {
     display: flex;
     justify-content: space-between;
+  }
 
-    .text-wrapper {
-      margin-left: 1em;
-    }
+  .text-wrapper {
+    margin-left: 1em;
+  }
 
-    .icon {
-      font-size: 150%;
-      margin: auto;
-    }
+  .icon {
+    font-size: 150%;
+    margin: auto;
+  }
 
-    .value {
-      font-size: 220%;
-      text-align: right;
-    }
+  .value {
+    font-size: 220%;
+    text-align: right;
+  }
 
-    .descr {
-      font-size: 80%;
-      text-align: right;
-      width: 100%;
-      min-width: max-content;
-    }
+  .descr {
+    font-size: 80%;
+    text-align: right;
+    width: 100%;
+    min-width: max-content;
   }
 }

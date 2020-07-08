@@ -8,5 +8,16 @@
 @import 'kup-card-dashboard-8.scss';
 
 .dashboard-card {
+  align-items: center;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  display: flex;
   font-size: calc(var(--kup-font-size) * var(--multiplier));
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  word-break: normal;
+  width: 100%;
 }

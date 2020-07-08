@@ -1,33 +1,21 @@
 .dashboard-layout-8 {
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  position: relative;
-  word-break: normal;
-  height: 100%;
-  width: 100%;
-
   .dashboard-element {
     display: flex;
     align-items: center;
+  }
 
-    .icon {
-      margin-right: 4%;
-      font-size: 75%;
-    }
+  .icon {
+    margin-right: 4%;
+    font-size: 75%;
+  }
 
-    .value {
-      margin: 0 10%;
-      font-size: 250%;
-    }
+  .value {
+    margin: 0 10%;
+    font-size: 250%;
+  }
 
-    .descr {
-      font-size: 60%;
-      text-align: left;
-    }
+  .descr {
+    font-size: 60%;
+    text-align: left;
   }
 }

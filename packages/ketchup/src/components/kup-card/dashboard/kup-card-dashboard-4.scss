@@ -1,55 +1,44 @@
 .dashboard-layout-4 {
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  position: relative;
-  word-break: normal;
-  height: 100%;
-  width: 100%;
-
   .dashboard-element {
     display: grid;
     grid-template-columns: 2fr 5fr;
+  }
 
-    .icon {
-      margin: auto;
-      font-size: 150%;
-      margin-left: 5%;
+  .icon {
+    margin: auto;
+    font-size: 150%;
+    margin-left: 5%;
+  }
+
+  .value-and-unit {
+    display: flex;
+    color: var(--color-1);
+
+    .value-int {
+      font-size: 250%;
     }
 
-    .value-and-unit {
-      display: flex;
-      color: var(--color-1);
-
-      .value-int {
-        font-size: 250%;
-      }
-
-      .value-dec,
-      .unit {
-        font-size: 130%;
-        margin-top: auto;
-        margin-bottom: 7%;
-      }
-
-      .value-dec {
-        margin-left: 2%;
-      }
-
-      .unit {
-        margin-left: 4%;
-      }
+    .value-dec,
+    .unit {
+      font-size: 130%;
+      margin-top: auto;
+      margin-bottom: 7%;
     }
-    .descr {
+
+    .value-dec {
+      margin-left: 2%;
+    }
+
+    .unit {
       margin-left: 4%;
-      text-align: left;
-      font-size: 80%;
-      width: 100%;
-      min-width: max-content;
     }
+  }
+
+  .descr {
+    margin-left: 4%;
+    text-align: left;
+    font-size: 80%;
+    width: 100%;
+    min-width: max-content;
   }
 }
