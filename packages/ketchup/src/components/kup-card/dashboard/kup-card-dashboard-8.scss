@@ -1,4 +1,4 @@
-.dashboard-layout-1 {
+.dashboard-layout-8 {
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   display: flex;
@@ -11,12 +11,23 @@
   height: 100%;
   width: 100%;
 
-  .descr {
-    font-size: 100%;
-    width: 100%;
-  }
+  .dashboard-element {
+    display: flex;
+    align-items: center;
 
-  .value {
-    font-size: 220%;
+    .icon {
+      margin-right: 4%;
+      font-size: 75%;
+    }
+
+    .value {
+      margin: 0 10%;
+      font-size: 250%;
+    }
+
+    .descr {
+      font-size: 60%;
+      text-align: left;
+    }
   }
 }
