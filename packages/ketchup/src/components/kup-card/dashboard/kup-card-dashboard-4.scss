@@ -18,11 +18,12 @@
     .icon {
       margin: auto;
       font-size: 150%;
-      margin-right: 5%;
+      margin-left: 5%;
     }
 
     .value-and-unit {
       display: flex;
+      color: var(--color-1);
 
       .value-int {
         font-size: 250%;

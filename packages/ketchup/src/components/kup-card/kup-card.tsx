@@ -211,7 +211,6 @@ export class KupCard {
         //Cycle to adjust width
         do {
             tooManyAttempts--;
-            console.log('width: ', tooManyAttempts, multiplier);
             if (dashboardEl.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
                 dashboardCard.style.setProperty(
@@ -235,7 +234,6 @@ export class KupCard {
         );
         //Cycle to adjust height
         do {
-            console.log('height: ', tooManyAttempts, multiplier);
             multiplier = multiplier - multiplierStep;
             dashboardCard.style.setProperty('--multiplier', multiplier + '');
         } while (
