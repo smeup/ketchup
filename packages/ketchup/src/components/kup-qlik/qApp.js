@@ -2,7 +2,7 @@
 const qApp = async (config) =>{
   return new Promise((resolve) => {
     window.require.config({
-      baseUrl: ( config.isSecure ? "https://" : "http://" ) + config.host + (config.port ? ":" + config.port : "") + config.prefix + "/resources",
+      baseUrl: ( config.isSecure ? "https://" : "http://" ) + config.host + (config.port ? ":" + config.port : "") + config.prefix + "resources",
     })
     window.require( ["js/qlik"], function ( qlik ) {
 
@@ -11,8 +11,8 @@ const qApp = async (config) =>{
       for (let index = 0; index < ele.length; index++) {
         ele[index].qlik = qlik        
       }
-      
-      resolve(true)
+
+      resolve(true)        
     })
   })
 }
