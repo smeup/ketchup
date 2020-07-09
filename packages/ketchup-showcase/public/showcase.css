@@ -267,6 +267,28 @@ footer.v-footer {
     0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+.v-footer {
+  display: flex;
+  justify-content: center;
+}
+
+a.first-icon {
+  margin-right: 20px;
+}
+
+a.second-icon {
+  margin-left: 20px;
+}
+
+.footer-icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+}
+
 nav.v-toolbar i.v-icon.material-icons,
 .v-input--selection-controls.v-input .v-label {
   color: #ffffff !important;
@@ -291,7 +313,6 @@ nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
 
 span.company-text {
   text-align: center;
-  width: 100%;
   font-size: 0.8rem;
 }
 
