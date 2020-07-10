@@ -1,0 +1,30 @@
+.dashboard-layout-2 {
+  .dashboard-element {
+    display: flex;
+  }
+
+  .icon {
+    margin: auto;
+    font-size: 150%;
+    margin-right: 5%;
+  }
+
+  .value-int {
+    font-size: 250%;
+  }
+
+  .value-dec,
+  .unit {
+    font-size: 130%;
+    margin-top: auto;
+    margin-bottom: 7%;
+  }
+
+  .value-dec {
+    margin-left: 2%;
+  }
+
+  .unit {
+    margin-left: 4%;
+  }
+}

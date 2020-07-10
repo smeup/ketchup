@@ -1,0 +1,21 @@
+.dashboard-layout-8 {
+  .dashboard-element {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    margin-right: 4%;
+    font-size: 75%;
+  }
+
+  .value {
+    margin: 0 10%;
+    font-size: 250%;
+  }
+
+  .descr {
+    font-size: 60%;
+    text-align: left;
+  }
+}

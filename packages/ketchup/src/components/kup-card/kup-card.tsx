@@ -8,8 +8,10 @@ import {
     State,
     h,
 } from '@stencil/core';
+import { ResizeObserver } from 'resize-observer';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as customLayouts from './custom/kup-card-custom';
+import * as dashboardLayouts from './dashboard/kup-card-dashboard';
 import * as materialLayouts from './material/kup-card-material';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
@@ -38,7 +40,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "material", "custom", "collapsible".
+     * Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".
      */
     @Prop({ reflect: true }) layoutFamily: string = 'material';
     /**
@@ -60,6 +62,7 @@ export class KupCard {
 
     private elStyle = undefined;
     private oldSizeY = undefined;
+    private dashboardRunning = false;
 
     @Event({
         eventName: 'kupCardClick',
@@ -134,6 +137,10 @@ export class KupCard {
                     card = customLayouts[method](this);
                     break;
                 }
+                case 'dashboard': {
+                    card = dashboardLayouts[method](this);
+                    break;
+                }
                 case 'material': {
                     card = materialLayouts[method](this);
                     break;
@@ -155,7 +162,22 @@ export class KupCard {
         return card;
     }
 
-    collapsibleManager() {
+    layoutManager() {
+        switch (this.layoutFamily) {
+            case 'collapsible':
+                this.collapsible();
+                break;
+            case 'dashboard':
+                if (!this.dashboardRunning) {
+                    this.dashboard();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    collapsible() {
         const root = this.rootElement.shadowRoot;
         let collapsibleEl = root.querySelector('.collapsible-element');
         let collapsibleCard = root.querySelector('.collapsible-card');
@@ -171,6 +193,54 @@ export class KupCard {
                 }
             }
         }
+    }
+
+    async dashboard() {
+        this.dashboardRunning = true;
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        let dashboardEl: HTMLElement = root.querySelector('.dashboard-element');
+        let dashboardCard: HTMLElement = root.querySelector('.dashboard-card');
+        let multiplierStep: number = 0.1;
+        let multiplier: number = parseFloat(
+            dashboardCard.style.getPropertyValue('--multiplier')
+        );
+        let cardHeight: number = (75 / 100) * dashboardCard.clientHeight;
+        let cardWidthLow: number = (40 / 100) * dashboardCard.clientWidth;
+        let cardWidthHigh: number = (60 / 100) * dashboardCard.clientWidth;
+        let tooManyAttempts: number = 2000;
+        //Cycle to adjust width
+        do {
+            tooManyAttempts--;
+            if (dashboardEl.clientWidth < cardWidthLow) {
+                multiplier = multiplier + multiplierStep;
+                dashboardCard.style.setProperty(
+                    '--multiplier',
+                    multiplier + ''
+                );
+            } else if (dashboardEl.clientWidth > cardWidthHigh) {
+                multiplier = multiplier - multiplierStep;
+                dashboardCard.style.setProperty(
+                    '--multiplier',
+                    multiplier + ''
+                );
+            } else {
+                tooManyAttempts = 0;
+            }
+        } while (
+            (dashboardEl.clientWidth < cardWidthLow ||
+                dashboardEl.clientWidth > cardWidthHigh) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        );
+        //Cycle to adjust height
+        do {
+            multiplier = multiplier - multiplierStep;
+            dashboardCard.style.setProperty('--multiplier', multiplier + '');
+        } while (
+            dashboardEl.clientHeight > cardHeight &&
+            multiplier > multiplierStep
+        );
+        this.dashboardRunning = false;
     }
 
     listenButtonEvents(root: ShadowRoot) {
@@ -219,15 +289,15 @@ export class KupCard {
         this.listenButtonEvents(root);
         this.listenChipEvents(root);
         this.listenImageEvents(root);
+
+        const observer = new ResizeObserver(() => {
+            this.layoutManager();
+        });
+        observer.observe(this.rootElement);
     }
 
-    componentDidLoad() {
-        if (this.layoutFamily === 'collapsible') {
-            this.collapsibleManager();
-            setInterval(() => {
-                this.collapsibleManager();
-            }, 1000);
-        }
+    componentDidRender() {
+        this.layoutManager();
     }
 
     render() {
