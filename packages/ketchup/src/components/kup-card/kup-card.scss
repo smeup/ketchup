@@ -2,9 +2,8 @@
 @import '@material/menu-surface/mdc-menu-surface';
 @import '@material/ripple/mdc-ripple';
 @import 'collapsible/kup-card-collapsible';
-@import 'custom/kup-card-custom';
-@import 'dashboard/kup-card-dashboard';
-@import 'material/kup-card-material.scss';
+@import 'scalable/kup-card-scalable';
+@import 'standard/kup-card-standard';
 
 :host {
   display: var(--kup-display-mode);
@@ -16,30 +15,10 @@
   }
 }
 
-.collapsible-card {
-  .collapsible-trigger {
-    display: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 50px;
-    width: 100%;
-
-    kup-button {
-      margin: auto;
-      width: 48px;
-    }
-  }
-
-  .collapsible-wrapper {
-    overflow: auto;
-  }
-
-  &.collapsible-active {
-    padding-bottom: 50px;
-
-    .collapsible-trigger {
-      display: block;
-    }
-  }
+.mdc-ripple-surface {
+  cursor: pointer;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  position: relative;
 }

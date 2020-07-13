@@ -3,13 +3,13 @@ import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="descr">
                     <div>{component.data['text2']}</div>
                 </div>
@@ -23,14 +23,14 @@ export function create1(component: KupCard) {
 
 export function create2(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image
@@ -59,13 +59,13 @@ export function create2(component: KupCard) {
 
 export function create3(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="value">
                     <div>{component.data['text1']}</div>
                 </div>
@@ -79,14 +79,14 @@ export function create3(component: KupCard) {
 
 export function create4(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image
@@ -124,14 +124,14 @@ export function create4(component: KupCard) {
 
 export function create5(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="descr">
                         <div>{component.data['text2']}</div>
@@ -161,14 +161,14 @@ export function create5(component: KupCard) {
 
 export function create6(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image
@@ -197,14 +197,14 @@ export function create6(component: KupCard) {
 
 export function create7(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="text-wrapper">
                     <div class="value">
                         <div>{component.data['text1']}</div>
@@ -234,14 +234,14 @@ export function create7(component: KupCard) {
 
 export function create8(component: KupCard) {
     let componentClass =
-        'dashboard-layout-' + component.layoutNumber + ' dashboard-card';
+        'scalable-layout-' + component.layoutNumber + ' scalable-card';
     let CSSVariables = {
         ['--color-1']: component.data['color1'],
         ['--multiplier']: '1',
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="dashboard-element">
+            <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image

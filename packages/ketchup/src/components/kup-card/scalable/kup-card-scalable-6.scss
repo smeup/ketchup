@@ -1,28 +1,27 @@
-.dashboard-layout-5 {
-  .dashboard-element {
+.scalable-layout-6 {
+  .scalable-element {
     display: flex;
+    justify-content: space-between;
   }
 
   .text-wrapper {
-    margin-right: 1em;
+    margin-left: 1em;
   }
 
   .icon {
     font-size: 150%;
     margin: auto;
-    margin-bottom: 0.35em;
   }
 
   .value {
-    font-size: 200%;
+    font-size: 220%;
+    text-align: right;
   }
 
   .descr {
+    font-size: 80%;
     text-align: right;
-    font-size: 65%;
     width: 100%;
     min-width: max-content;
-    position: relative;
-    bottom: -10%;
   }
 }
