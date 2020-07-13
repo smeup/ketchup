@@ -10,9 +10,8 @@ import {
 } from '@stencil/core';
 import { ResizeObserver } from 'resize-observer';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
-import * as customLayouts from './custom/kup-card-custom';
-import * as dashboardLayouts from './dashboard/kup-card-dashboard';
-import * as materialLayouts from './material/kup-card-material';
+import * as scalableLayouts from './scalable/kup-card-scalable';
+import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
@@ -40,9 +39,9 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".
+     * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
      */
-    @Prop({ reflect: true }) layoutFamily: string = 'material';
+    @Prop({ reflect: true }) layoutFamily: string = 'standard';
     /**
      * Sets the number of the layout.
      */
@@ -62,7 +61,7 @@ export class KupCard {
 
     private elStyle = undefined;
     private oldSizeY = undefined;
-    private dashboardRunning = false;
+    private scalingActive = false;
 
     @Event({
         eventName: 'kupCardClick',
@@ -133,20 +132,16 @@ export class KupCard {
                     card = collapsibleLayouts[method](this);
                     break;
                 }
-                case 'custom': {
-                    card = customLayouts[method](this);
+                case 'scalable': {
+                    card = scalableLayouts[method](this);
                     break;
                 }
-                case 'dashboard': {
-                    card = dashboardLayouts[method](this);
-                    break;
-                }
-                case 'material': {
-                    card = materialLayouts[method](this);
+                case 'standard': {
+                    card = standardLayouts[method](this);
                     break;
                 }
                 default: {
-                    card = materialLayouts[method](this);
+                    card = standardLayouts[method](this);
                     break;
                 }
             }
@@ -167,9 +162,9 @@ export class KupCard {
             case 'collapsible':
                 this.collapsible();
                 break;
-            case 'dashboard':
-                if (!this.dashboardRunning) {
-                    this.dashboard();
+            case 'scalable':
+                if (!this.scalingActive) {
+                    this.scalable();
                 }
                 break;
             default:
@@ -195,52 +190,46 @@ export class KupCard {
         }
     }
 
-    async dashboard() {
-        this.dashboardRunning = true;
+    async scalable() {
+        this.scalingActive = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        let dashboardEl: HTMLElement = root.querySelector('.dashboard-element');
-        let dashboardCard: HTMLElement = root.querySelector('.dashboard-card');
+        let scalableEl: HTMLElement = root.querySelector('.scalable-element');
+        let scalableCard: HTMLElement = root.querySelector('.scalable-card');
         let multiplierStep: number = 0.1;
         let multiplier: number = parseFloat(
-            dashboardCard.style.getPropertyValue('--multiplier')
+            scalableCard.style.getPropertyValue('--multiplier')
         );
-        let cardHeight: number = (75 / 100) * dashboardCard.clientHeight;
-        let cardWidthLow: number = (40 / 100) * dashboardCard.clientWidth;
-        let cardWidthHigh: number = (60 / 100) * dashboardCard.clientWidth;
+        let cardHeight: number = (75 / 100) * scalableCard.clientHeight;
+        let cardWidthLow: number = (40 / 100) * scalableCard.clientWidth;
+        let cardWidthHigh: number = (60 / 100) * scalableCard.clientWidth;
         let tooManyAttempts: number = 2000;
         //Cycle to adjust width
         do {
             tooManyAttempts--;
-            if (dashboardEl.clientWidth < cardWidthLow) {
+            if (scalableEl.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
-                dashboardCard.style.setProperty(
-                    '--multiplier',
-                    multiplier + ''
-                );
-            } else if (dashboardEl.clientWidth > cardWidthHigh) {
+                scalableCard.style.setProperty('--multiplier', multiplier + '');
+            } else if (scalableEl.clientWidth > cardWidthHigh) {
                 multiplier = multiplier - multiplierStep;
-                dashboardCard.style.setProperty(
-                    '--multiplier',
-                    multiplier + ''
-                );
+                scalableCard.style.setProperty('--multiplier', multiplier + '');
             } else {
                 tooManyAttempts = 0;
             }
         } while (
-            (dashboardEl.clientWidth < cardWidthLow ||
-                dashboardEl.clientWidth > cardWidthHigh) &&
+            (scalableEl.clientWidth < cardWidthLow ||
+                scalableEl.clientWidth > cardWidthHigh) &&
             tooManyAttempts > 0 &&
             multiplier > multiplierStep
         );
         //Cycle to adjust height
         do {
             multiplier = multiplier - multiplierStep;
-            dashboardCard.style.setProperty('--multiplier', multiplier + '');
+            scalableCard.style.setProperty('--multiplier', multiplier + '');
         } while (
-            dashboardEl.clientHeight > cardHeight &&
+            scalableEl.clientHeight > cardHeight &&
             multiplier > multiplierStep
         );
-        this.dashboardRunning = false;
+        this.scalingActive = false;
     }
 
     listenButtonEvents(root: ShadowRoot) {

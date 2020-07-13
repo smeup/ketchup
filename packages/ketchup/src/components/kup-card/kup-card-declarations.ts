@@ -5,6 +5,7 @@ Ideally the properties should be progressively numbered depending on its positio
 Advised properties, as of June 2020:
 
 button1: kup-button (kup-button props)
+chip1: string (when there is a prominent color)
 color1: string (when there is a prominent color)
 image1: kup-image (kup-image props)
 progressBar1: kup-progress-bar (kup-progress-bar props)

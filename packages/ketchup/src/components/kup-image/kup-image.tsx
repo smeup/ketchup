@@ -5,6 +5,7 @@ import {
     JSX,
     Host,
     Event,
+    getAssetPath,
     EventEmitter,
     State,
     h,
@@ -16,6 +17,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-image',
+    assetsDirs: ['assets'],
     styleUrl: 'kup-image.scss',
     shadow: true,
 })
@@ -155,9 +157,10 @@ export class KupImage {
         let svgMask: string = undefined;
         let svgStyle: any = undefined;
         let image: Element = undefined;
+        let url: string = getAssetPath(`./assets/svg/${this.resource}.svg`);
 
         if (!this.isUrl) {
-            svgMask = `url('assets/svg/${this.resource}.svg') no-repeat center`;
+            svgMask = `url('${url}') no-repeat center`;
             svgStyle = {
                 mask: svgMask,
                 background: this.color,

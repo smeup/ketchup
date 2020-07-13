@@ -119,7 +119,13 @@
     </v-content>
 
     <v-footer app>
-      <a class="first-icon" target="_blank" rel="noopener" href="https://github.com/smeup/ketchup">
+      <a
+        class="first-icon"
+        target="_blank"
+        rel="noopener"
+        title="View Ketch.UP on GitHub"
+        href="https://github.com/smeup/ketchup"
+      >
         <kup-image class="footer-icon" resource="github" color="white" size-x="24px" size-y="24px"></kup-image>
       </a>
       <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
@@ -127,6 +133,7 @@
         class="second-icon"
         target="_blank"
         rel="noopener"
+        title="View Ketch.UP on npm"
         href="https://www.npmjs.com/package/@sme.up/ketchup"
       >
         <kup-image class="footer-icon" resource="npm" color="white" size-x="24px" size-y="24px"></kup-image>
