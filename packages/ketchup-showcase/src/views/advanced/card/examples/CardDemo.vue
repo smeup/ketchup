@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-card layout-family="material" layout-number="1" id="demo-component"></kup-card>',
+        '<kup-card layout-family="standard" layout-number="1" id="demo-component"></kup-card>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -75,9 +75,9 @@ export default {
         {
           prop: 'layoutFamily',
           description:
-            'Sets the type of the card. Currently supported values: "collapsible", "custom", "dashboard", "material".',
+            'Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".',
           type: 'string',
-          default: 'material',
+          default: 'standard',
           try: 'field',
         },
         {

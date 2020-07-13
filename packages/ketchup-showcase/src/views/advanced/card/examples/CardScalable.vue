@@ -4,13 +4,13 @@
       The main feature of this layout family is the automatic fit of the content, the class used is
       <span
         class="code-word"
-      >dashboard-element</span>.
+      >scalable-element</span>.
       Whenever the card' size changes, the ResizeObserver API starts a function which adjusts the size of the content to be included in the range of 40% and 60% of the maximum width.
       <br />
       <br />When the width matches the criteria, a second adjustment will make sure that
       <span
         class="code-word"
-      >dashboard-element</span> doesn't exceed the 80% of the height.
+      >scalable-element</span> doesn't exceed the 80% of the height.
       <br />
     </p>
     <div class="demo-wrapper">
@@ -30,7 +30,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="1"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -59,7 +59,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="2"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -82,7 +82,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="3"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -113,7 +113,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="4"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -140,7 +140,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="5"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -167,7 +167,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="6"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -194,7 +194,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="7"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -221,7 +221,7 @@
             size-x="300px"
             size-y="200px"
             layout-number="8"
-            layout-family="dashboard"
+            layout-family="scalable"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -232,7 +232,7 @@
 
 <script>
 export default {
-  name: 'CardDashboard',
+  name: 'CardScalable',
   data() {
     return {
       data: {
