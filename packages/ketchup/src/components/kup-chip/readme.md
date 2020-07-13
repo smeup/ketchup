@@ -16,19 +16,19 @@
 
 ## Events
 
-| Event              | Description | Type                                               |
-| ------------------ | ----------- | -------------------------------------------------- |
-| `kupChipBlur`      |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipClick`     |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
-| `kupChipError`     |             | `CustomEvent<{ el: EventTarget; }>`                |
-| `kupChipFocus`     |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipIconClick` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| Event              | Description | Type                                                         |
+| ------------------ | ----------- | ------------------------------------------------------------ |
+| `kupChipBlur`      |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipClick`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipFocus`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipIconClick` |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
 
 
 ## Dependencies
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
 
 ### Depends on
@@ -42,6 +42,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-card --> kup-chip
   kup-data-table --> kup-chip
   style kup-chip fill:#f9f,stroke:#333,stroke-width:4px
 ```

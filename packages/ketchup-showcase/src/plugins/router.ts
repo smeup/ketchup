@@ -51,6 +51,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
   },
   {
+    path: `/grid`,
+    name: 'grid',
+    component: () => import(`@/views/basic/grid/Grid.vue`),
+  },
+  {
     path: `/iframe`,
     name: 'iframe',
     component: () => import(`@/views/basic/iframe/Iframe.vue`),
@@ -64,6 +69,11 @@ let basicRoutes = [
     path: `/list`,
     name: 'list',
     component: () => import(`@/views/basic/list/List.vue`),
+  },
+  {
+    path: `/navbar`,
+    name: 'navbar',
+    component: () => import(`@/views/basic/navbar/Navbar.vue`),
   },
   {
     path: `/progressbar`,

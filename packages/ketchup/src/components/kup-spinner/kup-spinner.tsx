@@ -1,4 +1,5 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-spinner',
@@ -8,6 +9,7 @@ import { Component, Prop, Element, Host, h } from '@stencil/core';
 })
 export class KupSpinner {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * When set to true the spinner is animating.
@@ -38,13 +40,19 @@ export class KupSpinner {
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
     /**
+     * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
+     */
+    @Prop({ reflect: true }) isUnclickable: boolean = false;
+    /**
      * Sets the layout of the spinner.
      */
     @Prop({ reflect: true }) layout: number = 1;
 
-    //---- Methods ----
-
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
 
     componentDidUpdate() {
         const root = this.rootElement.shadowRoot;
@@ -75,13 +83,13 @@ export class KupSpinner {
         let spinnerClass = '';
         let spinnerEl: any = '';
         let elStyle = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.active) {
             masterClass += ' loading-wrapper-visible';
+        }
+
+        if (this.isUnclickable) {
+            masterClass += ' is-unclickable';
         }
 
         if (this.barVariant) {
@@ -179,7 +187,7 @@ export class KupSpinner {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"

@@ -1,4 +1,5 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
+import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-progress-bar',
@@ -7,6 +8,7 @@ import { Component, Element, Host, Prop, h } from '@stencil/core';
 })
 export class KupProgressBar {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
@@ -53,6 +55,12 @@ export class KupProgressBar {
      */
     @Prop({ reflect: true }) value: number = 0;
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -93,10 +101,6 @@ export class KupProgressBar {
         }
 
         let labelStyle = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         const valueStyle = {
             width: `${this.value}%`,
@@ -197,7 +201,7 @@ export class KupProgressBar {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {el}
                 </div>

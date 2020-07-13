@@ -9,6 +9,7 @@
 
 | Property           | Attribute            | Description                                                                                        | Type                                       | Default     |
 | ------------------ | -------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `cardData`         | --                   | Number of columns                                                                                  | `ComponentCardElement`                     | `undefined` |
 | `columns`          | `columns`            | Number of columns                                                                                  | `number`                                   | `1`         |
 | `contentAlign`     | `content-align`      | Alignment of the content. Can be set to left, right or center.                                     | `string`                                   | `'center'`  |
 | `customStyle`      | `custom-style`       | Custom style to be passed to the component.                                                        | `string`                                   | `undefined` |
@@ -80,6 +81,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
 - [kup-button](../kup-button)
@@ -95,6 +97,7 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
   kup-box --> kup-button
@@ -106,12 +109,17 @@ graph TD;
   kup-box --> kup-editor
   kup-box --> kup-combobox
   kup-box --> kup-paginator
-  kup-badge --> kup-image
+  kup-card --> kup-image
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-progress-bar
   kup-image --> kup-spinner
   kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-chip --> kup-image
   kup-button --> kup-image
-  kup-text-field --> kup-image
   kup-progress-bar --> kup-image
+  kup-text-field --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-image

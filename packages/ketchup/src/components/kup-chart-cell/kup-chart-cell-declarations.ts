@@ -24,15 +24,18 @@ export class ChartElement {
                 break;
 
             case 'bul':
+            case 'bullet':
                 this.shape = 'bullet';
                 break;
 
             case 'dis':
+            case 'discrete':
                 this.shape = 'discrete';
                 this.width = vChartUltInfoArray.length * 10;
                 break;
 
             case 'lin':
+            case 'line':
                 this.shape = 'line';
                 this.width = vChartUltInfoArray.length * 10;
                 break;
@@ -42,6 +45,7 @@ export class ChartElement {
                 break;
 
             case 'tri':
+            case 'tristate':
                 this.shape = 'tristate';
                 this.barWidth = 4;
                 break;
@@ -58,7 +62,8 @@ export class ChartElement {
         let i = 0;
         strs.forEach((element) => {
             try {
-                ints[i++] = parseInt(element);
+                element = element.replace(',','.');
+                ints[i++] = parseFloat(element);
             } catch (e) {
                 ints[i++] = null;
             }

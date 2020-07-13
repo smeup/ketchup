@@ -2,12 +2,12 @@ import {
     Component,
     Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
     State,
-    Host,
-    Watch,
     h,
+    Watch,
     Method,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
@@ -15,6 +15,7 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-text-field',
@@ -24,6 +25,7 @@ import { MDCTextFieldIcon } from '@material/textfield/icon';
 export class KupTextField {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -119,6 +121,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -129,6 +132,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -139,6 +143,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -149,6 +154,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -159,6 +165,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupInput: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -169,6 +176,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -179,7 +187,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupClearIconClick: EventEmitter<{
-        value: string;
+        id: any;
     }>;
 
     /**
@@ -192,6 +200,7 @@ export class KupTextField {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<{
+        id: any;
         value: string;
     }>;
 
@@ -221,6 +230,7 @@ export class KupTextField {
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -228,6 +238,7 @@ export class KupTextField {
     onKupChange(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -235,6 +246,7 @@ export class KupTextField {
     onKupClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -242,6 +254,7 @@ export class KupTextField {
     onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -249,6 +262,7 @@ export class KupTextField {
     onKupInput(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupInput.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -256,6 +270,7 @@ export class KupTextField {
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -263,6 +278,9 @@ export class KupTextField {
     onKupClearIconClick() {
         this.value = '';
         this.inputEl.value = '';
+        this.kupClearIconClick.emit({
+            id: this.rootElement.id,
+        });
     }
 
     /**
@@ -273,6 +291,7 @@ export class KupTextField {
             if (this.emitSubmitEventOnEnter == true) {
                 event.preventDefault();
                 this.kupTextFieldSubmit.emit({
+                    id: this.rootElement.id,
                     value: this.inputEl.value,
                 });
             }
@@ -290,6 +309,7 @@ export class KupTextField {
         if (typeof newValue === 'string') {
             if (emitEvent) {
                 this.kupInput.emit({
+                    id: this.rootElement.id,
                     value: newValue,
                 });
             }
@@ -302,6 +322,7 @@ export class KupTextField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
         this.watchInitialValue();
     }
 
@@ -598,11 +619,7 @@ export class KupTextField {
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
         let wrapperClass: string = '';
-        let customStyle = undefined;
         let elStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.fullWidth) {
             elStyle = {
@@ -624,7 +641,7 @@ export class KupTextField {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass} style={elStyle}>
                     <div class={formClass}>
                         {widgetEl}
@@ -638,11 +655,7 @@ export class KupTextField {
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let wrapperClass: string = '';
-        let customStyle = undefined;
         let elStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.fullWidth) {
             elStyle = {
@@ -660,7 +673,7 @@ export class KupTextField {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass} style={elStyle}>
                     {widgetEl}
                     {helperEl}

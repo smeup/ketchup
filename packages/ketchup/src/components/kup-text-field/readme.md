@@ -32,16 +32,16 @@
 
 ## Events
 
-| Event                        | Description                                    | Type                              |
-| ---------------------------- | ---------------------------------------------- | --------------------------------- |
-| `kupTextFieldBlur`           |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldChange`         |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldClearIconClick` |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldClick`          |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldFocus`          |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldIconClick`      |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldInput`          |                                                | `CustomEvent<{ value: string; }>` |
-| `kupTextFieldSubmit`         | When a keydown enter event occurs it generates | `CustomEvent<{ value: string; }>` |
+| Event                        | Description                                    | Type                                       |
+| ---------------------------- | ---------------------------------------------- | ------------------------------------------ |
+| `kupTextFieldBlur`           |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldChange`         |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldClearIconClick` |                                                | `CustomEvent<{ id: any; }>`                |
+| `kupTextFieldClick`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldFocus`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldIconClick`      |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldInput`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldSubmit`         | When a keydown enter event occurs it generates | `CustomEvent<{ id: any; value: string; }>` |
 
 
 ## Methods

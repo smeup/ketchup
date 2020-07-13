@@ -5,36 +5,39 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ComponentListElement, ItemsDisplayMode, } from "./components/kup-list/kup-list-declarations";
-import { BadgePosition, } from "./components/kup-badge/kup-badge-declarations";
-import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap, } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxRow, Layout, } from "./components/kup-box/kup-box-declarations";
-import { ButtonConfig, } from "./components/kup-btn/kup-btn-declarations";
-import { ComponentCardElement, } from "./components/kup-card/kup-card-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType, } from "./components/kup-chart/kup-chart-declarations";
-import { KupCheckboxMenuItem, } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
-import { ComponentChipElement, } from "./components/kup-chip/kup-chip-declarations";
-import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged, } from "./components/kup-crud/kup-crud-declarations";
-import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection, } from "./components/kup-form/kup-form-declarations";
-import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail, } from "./components/kup-search/kup-search-declarations";
-import { KupFldChangeEvent, KupFldSubmitEvent, } from "./components/kup-field/kup-field-declarations";
-import { Badge, CssDraw, } from "./components/kup-image/kup-image-declarations";
-import { PaginatorMode, } from "./components/kup-paginator/kup-paginator-declarations";
-import { ComponentRadioElement, } from "./components/kup-radio/kup-radio-declarations";
-import { ComponentTabBarElement, } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { TreeNode, TreeNodePath, } from "./components/kup-tree/kup-tree-declarations";
-import { UploadProps, } from "./components/kup-upload/kup-upload-declarations";
+import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
+import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
+import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
+import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
+import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
+import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
+import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
+import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
+import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
+import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
+import { Badge, CssDraw } from "./components/kup-image/kup-image-declarations";
+import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
+import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
+import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
+import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
+import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
          */
         "callBackOnFilterUpdate": (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         /**
           * Custom style to be passed to the component.
          */
@@ -82,6 +85,10 @@ export namespace Components {
         /**
           * Number of columns
          */
+        "cardData": ComponentCardElement;
+        /**
+          * Number of columns
+         */
         "columns": number;
         /**
           * Alignment of the content. Can be set to left, right or center.
@@ -94,10 +101,7 @@ export namespace Components {
         /**
           * Data
          */
-        "data": {
-            columns?: Column[];
-            rows?: BoxRow[];
-        };
+        "data": { columns?: Column[]; rows?: BoxRow[] };
         /**
           * Enable dragging
          */
@@ -253,7 +257,7 @@ export namespace Components {
          */
         "isMenu": boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom".
+          * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
          */
         "layoutFamily": string;
         /**
@@ -394,14 +398,18 @@ export namespace Components {
     interface KupCrud {
         "actions": FormActions;
         "autocompleteCallBackOnFilterUpdate": (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         "closeForm": () => Promise<void>;
         "config": CrudConfig;
-        "crudCallBackOnFormActionSubmitted": (detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged": (detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormActionSubmitted": (
+        detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormFieldChanged": (
+        detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
         "disabled": boolean;
         "extra": any;
         "extraMessages": FormMessage[];
@@ -409,7 +417,9 @@ export namespace Components {
         "openForm": () => Promise<void>;
         "records": CrudRecord[];
         "refid": string;
-        "searchCallBackOnFilterSubmitted": (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted": (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         "sections": FormSection;
     }
     interface KupDash {
@@ -617,21 +627,27 @@ export namespace Components {
     interface KupForm {
         "actions": FormActions;
         "autocompleteCallBackOnFilterUpdate": (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         "cells": FormCells;
         "config": FormConfig;
-        "crudCallBackOnFormActionSubmitted": (detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged": (detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormActionSubmitted": (
+        detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormFieldChanged": (
+        detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
         "extra": any;
         "extraMessages": FormMessage[];
         "fields": FormFields;
         "getActualCells": () => Promise<FormCells>;
         "getOldCells": () => Promise<FormCells>;
         "refid": string;
-        "searchCallBackOnFilterSubmitted": (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted": (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         "sections": FormSection;
     }
     interface KupGauge {
@@ -711,6 +727,28 @@ export namespace Components {
           * Set Width gauge.
          */
         "widthComponent": string;
+    }
+    interface KupGrid {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns": number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the grid.
+         */
+        "data": ComponentGridElement[];
+        /**
+          * When set to true, forces the width to 100% for the single line layout.
+         */
+        "fullWidth": boolean;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine": boolean;
     }
     interface KupIframe {
         /**
@@ -884,6 +922,20 @@ export namespace Components {
         "header": string;
         "visible": boolean;
     }
+    interface KupNavBar {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the nav bar.
+         */
+        "data": ComponentNavBarData;
+        /**
+          * Defines how the bar will be displayed.
+         */
+        "mode": ComponentNavBarMode;
+    }
     interface KupPaginator {
         "currentPage": number;
         "max": number;
@@ -937,6 +989,40 @@ export namespace Components {
          */
         "value": number;
     }
+    interface KupQlik {
+        /**
+          * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
+         */
+        "appid": string;
+        /**
+          * Set gird border
+         */
+        "bordered": boolean;
+        /**
+          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+         */
+        "config": QlikServer;
+        /**
+          * Set default obj's container pixel height
+         */
+        "defobjsize": string;
+        /**
+          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
+         */
+        "doconnection": boolean;
+        /**
+          * Define width of grid, with true width = 100% responsive, false 1200px
+         */
+        "fluid": boolean;
+        /**
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+         */
+        "grid": Array<KupQlikGrid>;
+        /**
+          * System prop
+         */
+        "qlik": any;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -967,7 +1053,9 @@ export namespace Components {
         /**
           * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
          */
-        "searchCallBackOnFilterSubmitted": (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted": (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         /**
           * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
          */
@@ -1006,6 +1094,10 @@ export namespace Components {
           * When set to true the component will fill the whole viewport.
          */
         "fullScreen": boolean;
+        /**
+          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
+         */
+        "isUnclickable": boolean;
         /**
           * Sets the layout of the spinner.
          */
@@ -1179,7 +1271,10 @@ export namespace Components {
           * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
-        "dynamicExpansionCallback": (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+        "dynamicExpansionCallback": (
+        treeNodeToExpand: TreeNode,
+        treeNodePath: TreeNodePath
+    ) => Promise<TreeNode[]> | undefined;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
@@ -1354,6 +1449,12 @@ declare global {
         prototype: HTMLKupGaugeElement;
         new (): HTMLKupGaugeElement;
     };
+    interface HTMLKupGridElement extends Components.KupGrid, HTMLStencilElement {
+    }
+    var HTMLKupGridElement: {
+        prototype: HTMLKupGridElement;
+        new (): HTMLKupGridElement;
+    };
     interface HTMLKupIframeElement extends Components.KupIframe, HTMLStencilElement {
     }
     var HTMLKupIframeElement: {
@@ -1396,6 +1497,12 @@ declare global {
         prototype: HTMLKupModalElement;
         new (): HTMLKupModalElement;
     };
+    interface HTMLKupNavBarElement extends Components.KupNavBar, HTMLStencilElement {
+    }
+    var HTMLKupNavBarElement: {
+        prototype: HTMLKupNavBarElement;
+        new (): HTMLKupNavBarElement;
+    };
     interface HTMLKupPaginatorElement extends Components.KupPaginator, HTMLStencilElement {
     }
     var HTMLKupPaginatorElement: {
@@ -1407,6 +1514,12 @@ declare global {
     var HTMLKupProgressBarElement: {
         prototype: HTMLKupProgressBarElement;
         new (): HTMLKupProgressBarElement;
+    };
+    interface HTMLKupQlikElement extends Components.KupQlik, HTMLStencilElement {
+    }
+    var HTMLKupQlikElement: {
+        prototype: HTMLKupQlikElement;
+        new (): HTMLKupQlikElement;
     };
     interface HTMLKupRadioElement extends Components.KupRadio, HTMLStencilElement {
     }
@@ -1484,6 +1597,7 @@ declare global {
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
         "kup-gauge": HTMLKupGaugeElement;
+        "kup-grid": HTMLKupGridElement;
         "kup-iframe": HTMLKupIframeElement;
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
@@ -1491,8 +1605,10 @@ declare global {
         "kup-list": HTMLKupListElement;
         "kup-menu": HTMLKupMenuElement;
         "kup-modal": HTMLKupModalElement;
+        "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
+        "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
@@ -1510,10 +1626,10 @@ declare namespace LocalJSX {
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
          */
         "callBackOnFilterUpdate"?: (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         /**
           * Custom style to be passed to the component.
          */
@@ -1530,30 +1646,30 @@ declare namespace LocalJSX {
           * Event example.
          */
         "onKupAutocompleteBlur"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteChange"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteFilterChanged"?: (event: CustomEvent<{
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-        }>) => void;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+    }>) => void;
         "onKupAutocompleteFocus"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteIconClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteInput"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         /**
           * Sets how the return the selected item value
          */
@@ -1577,8 +1693,8 @@ declare namespace LocalJSX {
          */
         "imageData"?: {};
         "onKupBadgeClick"?: (event: CustomEvent<{
-            el: EventTarget;
-        }>) => void;
+        el: EventTarget;
+    }>) => void;
         /**
           * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
          */
@@ -1589,6 +1705,10 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface KupBox {
+        /**
+          * Number of columns
+         */
+        "cardData"?: ComponentCardElement;
         /**
           * Number of columns
          */
@@ -1604,10 +1724,7 @@ declare namespace LocalJSX {
         /**
           * Data
          */
-        "data"?: {
-            columns?: Column[];
-            rows?: BoxRow[];
-        };
+        "data"?: { columns?: Column[]; rows?: BoxRow[] };
         /**
           * Enable dragging
          */
@@ -1648,62 +1765,62 @@ declare namespace LocalJSX {
           * Triggered when a box is auto selected via selectBox prop
          */
         "onKupAutoBoxSelect"?: (event: CustomEvent<{
-            row: BoxRow;
-        }>) => void;
+        row: BoxRow;
+    }>) => void;
         /**
           * Triggered when a box is clicked
          */
         "onKupBoxClicked"?: (event: CustomEvent<{
-            row: BoxRow;
-            column?: string;
-        }>) => void;
+        row: BoxRow;
+        column?: string;
+    }>) => void;
         /**
           * Triggered when a box dragging is ended
          */
         "onKupBoxDragEnded"?: (event: CustomEvent<{
-            fromId: string;
-            fromRow: BoxRow;
-            fromSelectedRows?: BoxRow[];
-        }>) => void;
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+    }>) => void;
         /**
           * Triggered when a box dragging is started
          */
         "onKupBoxDragStarted"?: (event: CustomEvent<{
-            fromId: string;
-            fromRow: BoxRow;
-            fromSelectedRows?: BoxRow[];
-        }>) => void;
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+    }>) => void;
         /**
           * Triggered when a box is dropped
          */
         "onKupBoxDropped"?: (event: CustomEvent<{
-            fromId: string;
-            fromRow: BoxRow;
-            fromSelectedRows?: BoxRow[];
-            toId: string;
-            toRow: BoxRow;
-            toSelectedRows?: BoxRow[];
-        }>) => void;
+        fromId: string;
+        fromRow: BoxRow;
+        fromSelectedRows?: BoxRow[];
+        toId: string;
+        toRow: BoxRow;
+        toSelectedRows?: BoxRow[];
+    }>) => void;
         /**
           * Triggered when the multi selection checkbox changes value
          */
         "onKupBoxSelected"?: (event: CustomEvent<{
-            rows: BoxRow[];
-        }>) => void;
+        rows: BoxRow[];
+    }>) => void;
         /**
           * When the row menu action icon is clicked
          */
         "onKupRowActionClicked"?: (event: CustomEvent<{
-            row: BoxRow;
-            action: RowAction;
-            index: number;
-        }>) => void;
+        row: BoxRow;
+        action: RowAction;
+        index: number;
+    }>) => void;
         /**
           * When the row menu action icon is clicked
          */
         "onKupRowActionMenuClicked"?: (event: CustomEvent<{
-            row: BoxRow;
-        }>) => void;
+        row: BoxRow;
+    }>) => void;
         /**
           * Number of boxes per page
          */
@@ -1733,8 +1850,8 @@ declare namespace LocalJSX {
         "buttons"?: any[];
         "config"?: ButtonConfig;
         "onKupBtnClick"?: (event: CustomEvent<{
-            id: number;
-        }>) => void;
+        id: number;
+    }>) => void;
     }
     interface KupButton {
         /**
@@ -1778,17 +1895,17 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         "onKupButtonBlur"?: (event: CustomEvent<{
-            id: any;
-            value: any;
-        }>) => void;
+        id: string;
+        value: string;
+    }>) => void;
         "onKupButtonClick"?: (event: CustomEvent<{
-            id: any;
-            value: any;
-        }>) => void;
+        id: string;
+        value: string;
+    }>) => void;
         "onKupButtonFocus"?: (event: CustomEvent<{
-            id: any;
-            value: any;
-        }>) => void;
+        id: string;
+        value: string;
+    }>) => void;
         /**
           * Defaults at false. When set to true, the button will be rendered with a colored outline.
          */
@@ -1831,22 +1948,22 @@ declare namespace LocalJSX {
           * When a date is dropped
          */
         "onKupCalendarEventDropped"?: (event: CustomEvent<{
-            fromDate: {
-                start: Date;
-                end: Date;
-            };
-            toDate: {
-                start: Date;
-                end: Date;
-            };
-        }>) => void;
+        fromDate: {
+            start: Date;
+            end: Date;
+        };
+        toDate: {
+            start: Date;
+            end: Date;
+        };
+    }>) => void;
         /**
           * When the navigation change
          */
         "onKupCalendarViewChanged"?: (event: CustomEvent<{
-            from: Date;
-            to: Date;
-        }>) => void;
+        from: Date;
+        to: Date;
+    }>) => void;
         "startCol"?: string;
         "styleCol"?: string;
         "weekView"?: boolean;
@@ -1865,7 +1982,7 @@ declare namespace LocalJSX {
          */
         "isMenu"?: boolean;
         /**
-          * Sets the type of the card. Currently supported values: "material", "custom".
+          * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
          */
         "layoutFamily"?: string;
         /**
@@ -1876,11 +1993,14 @@ declare namespace LocalJSX {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible"?: boolean;
+        "onKupCardClick"?: (event: CustomEvent<{
+        id: any;
+    }>) => void;
         "onKupCardEvent"?: (event: CustomEvent<{
-            id: any;
-            value: any;
-            event: any;
-        }>) => void;
+        id: any;
+        value: any;
+        event: any;
+    }>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
          */
@@ -1946,25 +2066,25 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         "onKupCheckboxBlur"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupCheckboxChange"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupCheckboxClick"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupCheckboxFocus"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupCheckboxInput"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
     }
     interface KupCheckboxMenu {
         /**
@@ -2010,22 +2130,25 @@ declare namespace LocalJSX {
          */
         "data"?: ComponentChipElement[];
         "onKupChipBlur"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: string;
+        index: number;
+        value: string;
+    }>) => void;
         "onKupChipClick"?: (event: CustomEvent<{
-            index: number;
-            el: EventTarget;
-        }>) => void;
-        "onKupChipError"?: (event: CustomEvent<{
-            el: EventTarget;
-        }>) => void;
+        id: string;
+        index: number;
+        value: string;
+    }>) => void;
         "onKupChipFocus"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: string;
+        index: number;
+        value: string;
+    }>) => void;
         "onKupChipIconClick"?: (event: CustomEvent<{
-            index: number;
-            el: EventTarget;
-        }>) => void;
+        id: string;
+        index: number;
+        value: string;
+    }>) => void;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
          */
@@ -2048,29 +2171,29 @@ declare namespace LocalJSX {
           * Event example.
          */
         "onKupComboboxBlur"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxChange"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxFocus"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxIconClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxInput"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxItemClick"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         "onKupComboboxTextFieldSubmit"?: (event: CustomEvent<{
-            value: any;
-        }>) => void;
+        value: any;
+    }>) => void;
         /**
           * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
@@ -2083,13 +2206,17 @@ declare namespace LocalJSX {
     interface KupCrud {
         "actions"?: FormActions;
         "autocompleteCallBackOnFilterUpdate"?: (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         "config"?: CrudConfig;
-        "crudCallBackOnFormActionSubmitted"?: (detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged"?: (detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormActionSubmitted"?: (
+        detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormFieldChanged"?: (
+        detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
         "disabled"?: boolean;
         "extra"?: any;
         "extraMessages"?: FormMessage[];
@@ -2101,7 +2228,9 @@ declare namespace LocalJSX {
         "onKupCrudRecordsChanged"?: (event: CustomEvent<CrudRecordsChanged>) => void;
         "records"?: CrudRecord[];
         "refid"?: string;
-        "searchCallBackOnFilterSubmitted"?: (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted"?: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         "sections"?: FormSection;
     }
     interface KupDash {
@@ -2110,8 +2239,8 @@ declare namespace LocalJSX {
         "index"?: number;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{
-            id: number;
-        }>) => void;
+        id: number;
+    }>) => void;
     }
     interface KupDashList {
         "active"?: boolean;
@@ -2123,8 +2252,8 @@ declare namespace LocalJSX {
         "iconColor"?: Array<any>;
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{
-            idx: number;
-        }>) => void;
+        idx: number;
+    }>) => void;
         "textColor"?: Array<any>;
         "valueColor"?: Array<any>;
     }
@@ -2210,57 +2339,55 @@ declare namespace LocalJSX {
         /**
           * When 'add column' menu item is clicked
          */
-        "onKupAddColumn"?: (event: CustomEvent<{
-            column: string;
-        }>) => void;
+        "onKupAddColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When a row is auto selected via selectRow prop
          */
         "onKupAutoRowSelect"?: (event: CustomEvent<{
-            selectedRow: Row;
-        }>) => void;
+        selectedRow: Row;
+    }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When a tooltip request detail data
          */
         "onKupDetailRequest"?: (event: CustomEvent<{
-            cell: Cell;
-            tooltip: EventTarget;
-        }>) => void;
+        cell: Cell;
+        tooltip: EventTarget;
+    }>) => void;
         "onKupLoadMoreClicked"?: (event: CustomEvent<{
-            loadItems: number;
-        }>) => void;
+        loadItems: number;
+    }>) => void;
         /**
           * When a tooltip request initial data
          */
         "onKupLoadRequest"?: (event: CustomEvent<{
-            cell: Cell;
-            tooltip: EventTarget;
-        }>) => void;
+        cell: Cell;
+        tooltip: EventTarget;
+    }>) => void;
         /**
           * When cell option is clicked
          */
         "onKupOptionClicked"?: (event: CustomEvent<{
-            column: string;
-            row: Row;
-        }>) => void;
+        column: string;
+        row: Row;
+    }>) => void;
         /**
           * When a row action is clicked
          */
         "onKupRowActionClicked"?: (event: CustomEvent<{
-            type: "default" | "variable" | "expander";
-            row: Row;
-            action?: RowAction;
-            index?: number;
-        }>) => void;
+        type: 'default' | 'variable' | 'expander';
+        row: Row;
+        action?: RowAction;
+        index?: number;
+    }>) => void;
         /**
           * When a row is selected
          */
         "onKupRowSelected"?: (event: CustomEvent<{
-            selectedRows: Array<Row>;
-            clickedColumn: string;
-        }>) => void;
+        selectedRows: Array<Row>;
+        clickedColumn: string;
+    }>) => void;
         /**
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
@@ -2370,14 +2497,18 @@ declare namespace LocalJSX {
     interface KupForm {
         "actions"?: FormActions;
         "autocompleteCallBackOnFilterUpdate"?: (detail: {
-            filter: string;
-            matchesMinimumCharsRequired: boolean;
-            el: EventTarget;
-        }) => Promise<any[]> | undefined;
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined;
         "cells"?: FormCells;
         "config"?: FormConfig;
-        "crudCallBackOnFormActionSubmitted"?: (detail: FormActionEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
-        "crudCallBackOnFormFieldChanged"?: (detail: FormFieldEventDetail) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormActionSubmitted"?: (
+        detail: FormActionEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
+        "crudCallBackOnFormFieldChanged"?: (
+        detail: FormFieldEventDetail
+    ) => Promise<CrudCallBackOnFormEventResult> | undefined;
         "extra"?: any;
         "extraMessages"?: FormMessage[];
         "fields"?: FormFields;
@@ -2386,7 +2517,9 @@ declare namespace LocalJSX {
         "onKupFormFieldChanged"?: (event: CustomEvent<FormFieldEventDetail>) => void;
         "onKupFormFieldFocused"?: (event: CustomEvent<FormFieldEventDetail>) => void;
         "refid"?: string;
-        "searchCallBackOnFilterSubmitted"?: (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted"?: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         "sections"?: FormSection;
     }
     interface KupGauge {
@@ -2467,6 +2600,28 @@ declare namespace LocalJSX {
          */
         "widthComponent"?: string;
     }
+    interface KupGrid {
+        /**
+          * The number of columns displayed by the grid, the default behavior is 12.
+         */
+        "columns"?: number;
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the grid.
+         */
+        "data"?: ComponentGridElement[];
+        /**
+          * When set to true, forces the width to 100% for the single line layout.
+         */
+        "fullWidth"?: boolean;
+        /**
+          * When set to true, forces the content on a single line.
+         */
+        "singleLine"?: boolean;
+    }
     interface KupIframe {
         /**
           * Props of the button (when isButton is set to true).
@@ -2509,11 +2664,11 @@ declare namespace LocalJSX {
          */
         "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
-            el: EventTarget;
-        }>) => void;
+        el: EventTarget;
+    }>) => void;
         "onKupImageLoad"?: (event: CustomEvent<{
-            el: EventTarget;
-        }>) => void;
+        el: EventTarget;
+    }>) => void;
         /**
           * The resource used to fetch the image.
          */
@@ -2537,8 +2692,8 @@ declare namespace LocalJSX {
          */
         "images"?: any;
         "onKupImageButtonSelected"?: (event: CustomEvent<{
-            selectedImages: [];
-        }>) => void;
+        selectedImages: [];
+    }>) => void;
         /**
           * If enabled, display the image description below the image
          */
@@ -2604,25 +2759,25 @@ declare namespace LocalJSX {
           * Events.
          */
         "onKupListBlur"?: (event: CustomEvent<{
-            selected: ComponentListElement;
-            el: EventTarget;
-        }>) => void;
+        selected: ComponentListElement;
+        el: EventTarget;
+    }>) => void;
         "onKupListChange"?: (event: CustomEvent<{
-            selected: ComponentListElement;
-            el: EventTarget;
-        }>) => void;
+        selected: ComponentListElement;
+        el: EventTarget;
+    }>) => void;
         "onKupListClick"?: (event: CustomEvent<{
-            selected: ComponentListElement;
-            el: EventTarget;
-        }>) => void;
+        selected: ComponentListElement;
+        el: EventTarget;
+    }>) => void;
         "onKupListFocus"?: (event: CustomEvent<{
-            selected: ComponentListElement;
-            el: EventTarget;
-        }>) => void;
+        selected: ComponentListElement;
+        el: EventTarget;
+    }>) => void;
         "onKupListInput"?: (event: CustomEvent<{
-            selected: ComponentListElement;
-            el: EventTarget;
-        }>) => void;
+        selected: ComponentListElement;
+        el: EventTarget;
+    }>) => void;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
          */
@@ -2677,6 +2832,26 @@ declare namespace LocalJSX {
         "onKupModalCancel"?: (event: CustomEvent<any>) => void;
         "visible"?: boolean;
     }
+    interface KupNavBar {
+        /**
+          * Custom style to be passed to the component.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the nav bar.
+         */
+        "data"?: ComponentNavBarData;
+        /**
+          * Defines how the bar will be displayed.
+         */
+        "mode"?: ComponentNavBarMode;
+        "onKupNavbarMenuItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupNavbarOptionItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+    }
     interface KupPaginator {
         "currentPage"?: number;
         "max"?: number;
@@ -2684,15 +2859,11 @@ declare namespace LocalJSX {
         /**
           * When the current page change
          */
-        "onKupPageChanged"?: (event: CustomEvent<{
-            newPage: number;
-        }>) => void;
+        "onKupPageChanged"?: (event: CustomEvent<{ newPage: number }>) => void;
         /**
           * When the rows per page change
          */
-        "onKupRowsPerPageChanged"?: (event: CustomEvent<{
-            newRowsPerPage: number;
-        }>) => void;
+        "onKupRowsPerPageChanged"?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
         "perPage"?: number;
         "selectedPerPage"?: number;
     }
@@ -2742,6 +2913,40 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    interface KupQlik {
+        /**
+          * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
+         */
+        "appid"?: string;
+        /**
+          * Set gird border
+         */
+        "bordered"?: boolean;
+        /**
+          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+         */
+        "config"?: QlikServer;
+        /**
+          * Set default obj's container pixel height
+         */
+        "defobjsize"?: string;
+        /**
+          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
+         */
+        "doconnection"?: boolean;
+        /**
+          * Define width of grid, with true width = 100% responsive, false 1200px
+         */
+        "fluid"?: boolean;
+        /**
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+         */
+        "grid"?: Array<KupQlikGrid>;
+        /**
+          * System prop
+         */
+        "qlik"?: any;
+    }
     interface KupRadio {
         /**
           * Custom style to be passed to the component.
@@ -2764,25 +2969,25 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         "onKupRadioBlur"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupRadioChange"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupRadioClick"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupRadioFocus"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
         "onKupRadioInput"?: (event: CustomEvent<{
-            value: string;
-            checked: boolean;
-        }>) => void;
+        value: string;
+        checked: boolean;
+    }>) => void;
     }
     interface KupSearch {
         "data"?: TableData;
@@ -2797,7 +3002,9 @@ declare namespace LocalJSX {
         /**
           * /** Function that can be invoked when the filter is submitted, but only if in serverHandledFilter mode. It returns the items filtered.
          */
-        "searchCallBackOnFilterSubmitted"?: (detail: SearchFilterSubmittedEventDetail) => Promise<TableData> | undefined;
+        "searchCallBackOnFilterSubmitted"?: (
+        detail: SearchFilterSubmittedEventDetail
+    ) => Promise<TableData> | undefined;
         /**
           * When true it emits events or makes available callbacks useful to obtain and filter data. When false the data inside data prop will be used and filtered in a static way.
          */
@@ -2837,6 +3044,10 @@ declare namespace LocalJSX {
          */
         "fullScreen"?: boolean;
         /**
+          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
+         */
+        "isUnclickable"?: boolean;
+        /**
           * Sets the layout of the spinner.
          */
         "layout"?: number;
@@ -2863,20 +3074,20 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         "onKupSwitchBlur"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        value: string;
+    }>) => void;
         "onKupSwitchChange"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        value: string;
+    }>) => void;
         "onKupSwitchClick"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        value: string;
+    }>) => void;
         "onKupSwitchFocus"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        value: string;
+    }>) => void;
         "onKupSwitchInput"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        value: string;
+    }>) => void;
     }
     interface KupTabBar {
         /**
@@ -2888,17 +3099,17 @@ declare namespace LocalJSX {
          */
         "data"?: ComponentTabBarElement[];
         "onKupTabBarBlur"?: (event: CustomEvent<{
-            index: number;
-            el: EventTarget;
-        }>) => void;
+        index: number;
+        el: EventTarget;
+    }>) => void;
         "onKupTabBarClick"?: (event: CustomEvent<{
-            index: number;
-            el: EventTarget;
-        }>) => void;
+        index: number;
+        el: EventTarget;
+    }>) => void;
         "onKupTabBarFocus"?: (event: CustomEvent<{
-            index: number;
-            el: EventTarget;
-        }>) => void;
+        index: number;
+        el: EventTarget;
+    }>) => void;
     }
     interface KupTextField {
         /**
@@ -2962,32 +3173,39 @@ declare namespace LocalJSX {
          */
         "maxLength"?: number;
         "onKupTextFieldBlur"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         "onKupTextFieldChange"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+    }>) => void;
         "onKupTextFieldClick"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         "onKupTextFieldFocus"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         "onKupTextFieldIconClick"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         "onKupTextFieldInput"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         /**
           * When a keydown enter event occurs it generates
          */
         "onKupTextFieldSubmit"?: (event: CustomEvent<{
-            value: string;
-        }>) => void;
+        id: any;
+        value: string;
+    }>) => void;
         /**
           * Defaults at false. When set to true, the component will be rendered as an outlined field.
          */
@@ -3031,14 +3249,14 @@ declare namespace LocalJSX {
          */
         "layout"?: string;
         "onKupActionCommandClicked"?: (event: CustomEvent<{
-            actionCommand: TooltipAction;
-        }>) => void;
+        actionCommand: TooltipAction;
+    }>) => void;
         "onKupDefaultActionClicked"?: (event: CustomEvent<{
-            obj: TooltipObject;
-        }>) => void;
+        obj: TooltipObject;
+    }>) => void;
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
-            obj: TooltipObject;
-        }>) => void;
+        obj: TooltipObject;
+    }>) => void;
         "onKupTooltipLoadData"?: (event: CustomEvent<any>) => void;
         "onKupTooltipLoadDetail"?: (event: CustomEvent<any>) => void;
     }
@@ -3067,7 +3285,10 @@ declare namespace LocalJSX {
           * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
-        "dynamicExpansionCallback"?: (treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]> | undefined;
+        "dynamicExpansionCallback"?: (
+        treeNodeToExpand: TreeNode,
+        treeNodePath: TreeNodePath
+    ) => Promise<TreeNode[]> | undefined;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
@@ -3084,38 +3305,38 @@ declare namespace LocalJSX {
           * When a tooltip request detail data
          */
         "onKupDetailRequest"?: (event: CustomEvent<{
-            cell: Cell;
-            tooltip: EventTarget;
-        }>) => void;
+        cell: Cell;
+        tooltip: EventTarget;
+    }>) => void;
         /**
           * When a tooltip request initial data
          */
         "onKupLoadRequest"?: (event: CustomEvent<{
-            cell: Cell;
-            tooltip: EventTarget;
-        }>) => void;
+        cell: Cell;
+        tooltip: EventTarget;
+    }>) => void;
         /**
           * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
          */
         "onKupOptionClicked"?: (event: CustomEvent<{
-            cell: Cell;
-            column: Column;
-            treeNode: TreeNode;
-        }>) => void;
+        cell: Cell;
+        column: Column;
+        treeNode: TreeNode;
+    }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
-            treeNodePath: TreeNodePath;
-            treeNode: TreeNode;
-            column: Column;
-            columnName: string;
-            auto: boolean;
-        }>) => void;
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        column: Column;
+        columnName: string;
+        auto: boolean;
+    }>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
          */
         "onKupTreeNodeCollapse"?: (event: CustomEvent<{
-            treeNodePath: TreeNodePath;
-            treeNode: TreeNode;
-        }>) => void;
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+    }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
           * @event kupTreeNodeExpand
@@ -3129,20 +3350,20 @@ declare namespace LocalJSX {
           * @since 1.0.0
          */
         "onKupTreeNodeExpand"?: (event: CustomEvent<{
-            treeNodePath: TreeNodePath;
-            treeNode: TreeNode;
-            usesDynamicExpansion?: boolean;
-            dynamicExpansionRequireChildren?: boolean;
-        }>) => void;
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        usesDynamicExpansion?: boolean;
+        dynamicExpansionRequireChildren?: boolean;
+    }>) => void;
         /**
           * Fired when a node of the tree has been selected
          */
         "onKupTreeNodeSelected"?: (event: CustomEvent<{
-            treeNodePath: TreeNodePath;
-            treeNode: TreeNode;
-            columnName: string;
-            auto: boolean;
-        }>) => void;
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        columnName: string;
+        auto: boolean;
+    }>) => void;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -3204,6 +3425,7 @@ declare namespace LocalJSX {
         "kup-field": KupField;
         "kup-form": KupForm;
         "kup-gauge": KupGauge;
+        "kup-grid": KupGrid;
         "kup-iframe": KupIframe;
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
@@ -3211,8 +3433,10 @@ declare namespace LocalJSX {
         "kup-list": KupList;
         "kup-menu": KupMenu;
         "kup-modal": KupModal;
+        "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
         "kup-progress-bar": KupProgressBar;
+        "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
@@ -3249,6 +3473,7 @@ declare module "@stencil/core" {
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
             "kup-gauge": LocalJSX.KupGauge & JSXBase.HTMLAttributes<HTMLKupGaugeElement>;
+            "kup-grid": LocalJSX.KupGrid & JSXBase.HTMLAttributes<HTMLKupGridElement>;
             "kup-iframe": LocalJSX.KupIframe & JSXBase.HTMLAttributes<HTMLKupIframeElement>;
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
@@ -3256,8 +3481,10 @@ declare module "@stencil/core" {
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-menu": LocalJSX.KupMenu & JSXBase.HTMLAttributes<HTMLKupMenuElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
+            "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
+            "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;

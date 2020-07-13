@@ -25,6 +25,12 @@
         target="_blank"
         rel="noopener"
       >Ketch.UP repo</a> you can find all the documentation concerning these components.
+      <br />You can install the Ketch.UP library using npm, check
+      <a
+        href="https://www.npmjs.com/package/@sme.up/ketchup"
+        target="_blank"
+        rel="noopener"
+      >this</a> link for more information.
     </p>
 
     <h2>Future development</h2>

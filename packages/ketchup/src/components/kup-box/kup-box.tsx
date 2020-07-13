@@ -45,6 +45,7 @@ import {
     getValue,
     buildProgressBarConfig,
     buildIconConfig,
+    getShape,
 } from '../../utils/cell-utils';
 
 import { buildButtonConfig } from '../../utils/widget-utils';
@@ -55,7 +56,9 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
+import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-box',
@@ -63,113 +66,99 @@ import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
     shadow: true,
 })
 export class KupBox {
-    @Element() el: HTMLElement;
+    @Element() rootElement: HTMLElement;
 
     /**
      * Number of columns
      */
+    @Prop() cardData: ComponentCardElement = undefined;
+    /**
+     * Number of columns
+     */
     @Prop({ reflect: true }) columns = 1;
-
     /**
      * Alignment of the content. Can be set to left, right or center.
      */
     @Prop({ reflect: true })
     contentAlign: string = 'center';
-
     /**
      * Custom style to be passed to the component.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
-
     /**
      * Data
      */
     @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
-
     /**
      * Enable dragging
      */
     @Prop({ reflect: true })
     dragEnabled = false;
-
     /**
      * Enable dropping
      */
     @Prop({ reflect: true })
     dropEnabled = false;
-
     /**
      * Drop can be done in section
      */
     @Prop({ reflect: true })
     dropOnSection: false;
-
     /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
      */
     @Prop({ reflect: true })
     enableRowActions = false;
-
     /**
      * Enable filtering
      */
     @Prop({ reflect: true })
     filterEnabled = false;
-
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
     @Prop() layout: Layout;
-
     /**
      * Enable multi selection
      */
     @Prop({ reflect: true })
     multiSelection = false;
-
     /**
      * Removes border
      */
     @Prop({ reflect: true })
     noBorder: boolean = false;
-
     /**
      * Removes padding
      */
     @Prop({ reflect: true })
     noPadding: boolean = false;
-
     /**
      * Number of boxes per page
      */
     @Prop({ reflect: true })
     pageSize = 10;
-
     /**
      * Enables pagination
      */
     @Prop({ reflect: true })
     pagination = false;
-
     /**
      * Automatically selects the box at the specified index
      */
     @Prop({ reflect: true })
     selectBox: number;
-
     /**
      * If enabled, highlights the selected box/boxes
      */
     @Prop({ reflect: true })
     showSelection = true;
-
     /**
      * If sorting is enabled, specifies which column to sort
      */
     @Prop({ mutable: true, reflect: true })
     sortBy: string;
-
     /**
      * Enable sorting
      */
@@ -343,8 +332,10 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
-    // lifecycle hooks
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
         this.onDataChanged();
     }
 
@@ -664,7 +655,7 @@ export class KupBox {
         this.searchParentWithClass(target, 'box').classList.add('item-dragged');
 
         var transferData = {};
-        transferData['fromId'] = this.el.id;
+        transferData['fromId'] = this.rootElement.id;
         transferData['fromRow'] = row;
         transferData['fromSelectedRows'] = this.selectedRows;
         event.dataTransfer.setData('text', JSON.stringify(transferData));
@@ -672,7 +663,7 @@ export class KupBox {
         event.dataTransfer.dropEffect = 'move';
 
         this.kupBoxDragStarted.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -692,7 +683,7 @@ export class KupBox {
         );
 
         this.kupBoxDragEnded.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -748,7 +739,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { toSelectedRows: this.selectedRows }
@@ -804,7 +795,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: null,
         });
     }
@@ -855,6 +846,87 @@ export class KupBox {
     }
 
     // render methods
+    private renderSectionAsCard(row: BoxRow) {
+        let cntBTN: number = 0;
+        let cntIMG: number = 0;
+        let cntPGB: number = 0;
+        let cnt: number = 0;
+        let cardData = {};
+
+        //First cycle sets specific binds between cardIDs and cells
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                if (cell.cardID) {
+                    switch (cell.obj.p) {
+                        case 'BTN':
+                            cardData[cell.cardID] = {
+                                label: cell.value,
+                            };
+                            break;
+                        case 'IMG':
+                            cardData[cell.cardID] = {
+                                resource: cell.value,
+                            };
+                            break;
+                        case 'PGB':
+                            cardData[cell.cardID] = {
+                                value: cell.value,
+                            };
+                            break;
+                        default:
+                            cardData[cell.cardID] = cell.value;
+                            break;
+                    }
+                }
+            }
+        }
+
+        //Second cycle sets leftover binds automatically
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                switch (cell.obj.p) {
+                    case 'BTN':
+                        do {
+                            cntBTN++;
+                        } while (cardData['button' + cntBTN]);
+
+                        cardData['button' + cntBTN] = {
+                            label: cell.value,
+                        };
+                        break;
+                    case 'IMG':
+                        do {
+                            cntIMG++;
+                        } while (cardData['image' + cntIMG]);
+
+                        cardData['image' + cntIMG] = {
+                            resource: cell.value,
+                        };
+                        break;
+                    case 'PGB':
+                        do {
+                            cntPGB++;
+                        } while (cardData['progressBar' + cntPGB]);
+
+                        cardData['progressBar' + cntPGB] = {
+                            value: cell.value,
+                        };
+                        break;
+                    default:
+                        do {
+                            cnt++;
+                        } while (cardData['text' + cnt]);
+
+                        cardData['text' + cnt] = cell.value;
+                        break;
+                }
+            }
+        }
+        return <kup-card data={cardData} {...this.cardData}></kup-card>;
+    }
+
     private renderRow(row: BoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
@@ -887,14 +959,18 @@ export class KupBox {
             };
 
             while (size-- > 0) {
-                boxContent.push(
-                    this.renderSection(
-                        sections[cnt++],
-                        parent,
-                        row,
-                        visibleColumns
-                    )
-                );
+                if (!this.cardData) {
+                    boxContent.push(
+                        this.renderSection(
+                            sections[cnt++],
+                            parent,
+                            row,
+                            visibleColumns
+                        )
+                    );
+                } else {
+                    boxContent.push(this.renderSectionAsCard(row));
+                }
             }
         }
 
@@ -1244,7 +1320,10 @@ export class KupBox {
                             )}
                         />
                     );
-                } else if (isChart(cell.obj)) {
+                } else if (
+                    isChart(cell.obj) ||
+                    getShape(cell, boxObject) === 'GRA'
+                ) {
                     const props: {
                         value: string;
                         width?: number;
@@ -1298,10 +1377,6 @@ export class KupBox {
 
     render() {
         let wrapperClass = this.contentAlign + '-aligned';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.noBorder) {
             wrapperClass += ' no-border';
@@ -1406,7 +1481,7 @@ export class KupBox {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="box-component"

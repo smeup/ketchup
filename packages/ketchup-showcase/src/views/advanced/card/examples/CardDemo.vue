@@ -48,7 +48,7 @@ export default {
         },
       ],
       demoComp:
-        '<kup-card layout-family="material" layout-number="1" id="demo-component"></kup-card>',
+        '<kup-card layout-family="standard" layout-number="1" id="demo-component"></kup-card>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -75,9 +75,9 @@ export default {
         {
           prop: 'layoutFamily',
           description:
-            'Sets the type of the card. Currently supported values: "material", "custom".',
+            'Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".',
           type: 'string',
-          default: 'material',
+          default: 'standard',
           try: 'field',
         },
         {
@@ -114,6 +114,10 @@ export default {
       ],
       demoEvents: [
         {
+          name: 'kupCardClick',
+          type: 'click',
+        },
+        {
           name: 'kupCardEvent',
           type: 'custom',
         },
@@ -123,6 +127,65 @@ export default {
           button1: { icon: 'play', flat: true },
           button2: { icon: 'favorite', flat: true },
           button3: { icon: 'share', label: 'share' },
+          chip1: {
+            title: 'chip1',
+            data: [
+              {
+                value: '1_chip',
+                icon: 'filter_1',
+                label: 'First chip',
+                checked: false,
+              },
+              {
+                value: '2_chip',
+                icon: 'filter_2',
+                label: 'Second chip',
+                checked: true,
+              },
+              {
+                value: '3_chip',
+                icon: 'filter_3',
+                label: 'Third chip',
+                checked: false,
+              },
+              {
+                value: '4_chip',
+                icon: 'filter_4',
+                label: 'Fourth chip',
+                checked: false,
+              },
+              {
+                value: '5_chip',
+                icon: 'filter_5',
+                label: 'Fifth chip',
+                checked: false,
+              },
+              {
+                value: '6_chip',
+                icon: 'filter_6',
+                label: 'Sixth chip',
+                checked: false,
+              },
+              {
+                value: '7_chip',
+                icon: 'filter_7',
+                label: 'Seventh chip',
+                checked: false,
+              },
+              {
+                value: '8_chip',
+                icon: 'filter_8',
+                label: 'Eighth chip',
+                checked: false,
+              },
+              {
+                value: '9_chip',
+                icon: 'filter_9',
+                label: 'Ninth chip',
+                checked: false,
+              },
+            ],
+          },
           color1: '#498204',
           color2: 'var(--kup-title-background-color)',
           image1: {

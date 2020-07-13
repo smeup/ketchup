@@ -195,6 +195,10 @@
             <kup-image size-x="48px" size-y="48px" resource="chevron-down"></kup-image>
             <div class="icon-label">chevron-down</div>
           </div>
+          <div class="icon-wrapper" title="chevron-up">
+            <kup-image size-x="48px" size-y="48px" resource="chevron-up"></kup-image>
+            <div class="icon-label">chevron-up</div>
+          </div>
           <div class="icon-wrapper" title="chevron-right">
             <kup-image size-x="48px" size-y="48px" resource="chevron-right"></kup-image>
             <div class="icon-label">chevron-right</div>
@@ -495,6 +499,10 @@
             <kup-image size-x="48px" size-y="48px" resource="gauge"></kup-image>
             <div class="icon-label">gauge</div>
           </div>
+          <div class="icon-wrapper" title="github">
+            <kup-image size-x="48px" size-y="48px" resource="github"></kup-image>
+            <div class="icon-label">github</div>
+          </div>
           <div class="icon-wrapper" title="gmail">
             <kup-image size-x="48px" size-y="48px" resource="gmail"></kup-image>
             <div class="icon-label">gmail</div>
@@ -602,6 +610,10 @@
           <div class="icon-wrapper" title="monitor">
             <kup-image size-x="48px" size-y="48px" resource="monitor"></kup-image>
             <div class="icon-label">monitor</div>
+          </div>
+          <div class="icon-wrapper" title="npm">
+            <kup-image size-x="48px" size-y="48px" resource="npm"></kup-image>
+            <div class="icon-label">npm</div>
           </div>
           <div class="icon-wrapper" title="omega">
             <kup-image size-x="48px" size-y="48px" resource="omega"></kup-image>

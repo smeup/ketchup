@@ -15,6 +15,11 @@
         href="https://ketchup.smeup.com/ketchup-showcase/#/button"
       >kup-button</a>.
       <br />
+      <span class="code-word">chip</span> contains an object reflecting props of
+      <a
+        href="https://ketchup.smeup.com/ketchup-showcase/#/chip"
+      >kup-chip</a>.
+      <br />
       <span class="code-word">color</span> contains a CSS color string.
       <br />
       <span class="code-word">image</span> contains an object reflecting props of
@@ -37,9 +42,11 @@
         <span class="code-word">layoutNumber</span> props. Currently, the following layouts families are available:
         <br />
         <br />
-        <span class="code-word">material</span>, which look was inspired by Material Design (4 layouts).
+        <span class="code-word">collapsible</span>, which features card that can be expanded after an action (2 layouts).
         <br />
-        <span class="code-word">custom</span>, which covers niche use cases (3 layouts).
+        <span class="code-word">scalable</span>, which features cards that can fit their container and resize their content accordingly (8 layouts).
+        <br />
+        <span class="code-word">standard</span>, which consists of static layouts without additional features for common use cases (8 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>

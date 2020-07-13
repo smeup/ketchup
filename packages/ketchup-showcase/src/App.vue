@@ -119,7 +119,18 @@
     </v-content>
 
     <v-footer app>
-      <span class="company-text">© Copyright 2020 - SME UP Spa</span>
+      <a class="first-icon" target="_blank" rel="noopener" href="https://github.com/smeup/ketchup">
+        <kup-image class="footer-icon" resource="github" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
+      <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
+      <a
+        class="second-icon"
+        target="_blank"
+        rel="noopener"
+        href="https://www.npmjs.com/package/@sme.up/ketchup"
+      >
+        <kup-image class="footer-icon" resource="npm" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
     </v-footer>
   </v-app>
 </template>
@@ -265,6 +276,12 @@ export default {
             },
           },
           {
+            title: 'Grid',
+            to: {
+              name: 'grid',
+            },
+          },
+          {
             title: `Iframe`,
             to: {
               name: 'iframe',
@@ -280,6 +297,12 @@ export default {
             title: `List`,
             to: {
               name: 'list',
+            },
+          },
+          {
+            title: 'Nav Bar',
+            to: {
+              name: 'navbar',
             },
           },
           {

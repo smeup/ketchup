@@ -77,6 +77,7 @@ import {
     isStringObject,
     isCheckbox,
     hasTooltip,
+    isDate,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -88,6 +89,7 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { errorLogging } from '../../utils/error-logging';
+import { unformatDate } from '../../utils/cell-formatter';
 
 @Component({
     tag: 'kup-data-table',
@@ -826,17 +828,49 @@ export class KupDataTable {
         let tmpFilters: GenericFilter = { ...this.filters };
         tmpFilters[column] = null;
 
+        let visibleColumns = this.getVisibleColumns();
+
         let tmpRows = filterRows(
             this.getRows(),
             tmpFilters,
             this.globalFilterValue,
-            this.getVisibleColumns().map((c) => c.name)
+            visibleColumns.map((c) => c.name)
         );
 
         /** il valore delle righe attualmente filtrate */
         tmpRows.forEach((row) =>
             this.addColumnValueFromRow(values, column, row)
         );
+
+        let c: Column = null;
+        for (let i = 0; i < visibleColumns.length; i++) {
+            if (visibleColumns[i].name == column) {
+                c = visibleColumns[i];
+                break;
+            }
+        }
+
+        if (c != null) {
+            values = values.sort((n1: string, n2: string) => {
+                let obj1: any = n1;
+                let obj2: any = n2;
+
+                if (isNumber(c.obj)) {
+                    obj1 = Number(n1);
+                    obj2 = Number(n2);
+                } else if (isDate(c.obj)) {
+                    obj1 = unformatDate(n1);
+                    obj2 = unformatDate(n2);
+                }
+                if (obj1 > obj2) {
+                    return 1;
+                }
+                if (obj1 < obj2) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
         return values;
     }
 
@@ -1872,10 +1906,7 @@ export class KupDataTable {
                         </li>
                     );
 
-                    if (
-                        this.showFilters &&
-                        (isStringObject(column.obj) || isCheckbox(column.obj))
-                    ) {
+                    if (this.showFilters && isStringObject(column.obj)) {
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
@@ -1892,6 +1923,11 @@ export class KupDataTable {
                                 ></kup-text-field>
                             </li>
                         );
+                    }
+                    if (
+                        this.showFilters &&
+                        (isStringObject(column.obj) || isCheckbox(column.obj))
+                    ) {
                         let checkBoxesFilter = this.getCheckBoxFilterValues(
                             column.name
                         );
@@ -1925,9 +1961,18 @@ export class KupDataTable {
                             );
                         }
                         columnValues.forEach((v) => {
+                            let label = v;
+                            if (isCheckbox(column.obj)) {
+                                if (v == '1') {
+                                    label = '(*checked)';
+                                } else {
+                                    label = '(*unchecked)';
+                                }
+                            }
+
                             checkboxItems.push(
                                 <kup-checkbox
-                                    label={v}
+                                    label={label}
                                     checked={checkBoxesFilter.includes(v)}
                                     onKupCheckboxChange={(e) => {
                                         this.onFilterChange2(e, column.name, v);

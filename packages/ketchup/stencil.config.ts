@@ -21,6 +21,9 @@ export const config: Config = {
         {
             src: 'tree.html',
         },
+        {
+            src: 'nav-bar.html',
+        },
     ],
 
     namespace: 'ketchup',

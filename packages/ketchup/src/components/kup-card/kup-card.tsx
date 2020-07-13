@@ -5,13 +5,17 @@ import {
     Host,
     Event,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
-import * as customLayouts from './custom/kup-card-custom';
-import * as materialLayouts from './material/kup-card-material';
+import { ResizeObserver } from 'resize-observer';
+import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
+import * as scalableLayouts from './scalable/kup-card-scalable';
+import * as standardLayouts from './standard/kup-card-standard';
+import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { MDCRipple } from '@material/ripple';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-card',
@@ -20,6 +24,7 @@ import { MDCRipple } from '@material/ripple';
 })
 export class KupCard {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style to be passed to the component.
@@ -34,9 +39,9 @@ export class KupCard {
      */
     @Prop({ reflect: true }) isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "material", "custom".
+     * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
      */
-    @Prop({ reflect: true }) layoutFamily: string = 'material';
+    @Prop({ reflect: true }) layoutFamily: string = 'standard';
     /**
      * Sets the number of the layout.
      */
@@ -55,6 +60,18 @@ export class KupCard {
     @Prop({ reflect: true }) sizeY: string = '100%';
 
     private elStyle = undefined;
+    private oldSizeY = undefined;
+    private scalingActive = false;
+
+    @Event({
+        eventName: 'kupCardClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        id: any;
+    }>;
 
     @Event({
         eventName: 'kupCardEvent',
@@ -70,11 +87,36 @@ export class KupCard {
 
     //---- Methods ----
 
+    onKupClick() {
+        this.kupClick.emit({
+            id: this.rootElement.id,
+        });
+    }
+
     onKupEvent(e) {
-        console.log('something happened', e);
+        const root = this.rootElement.shadowRoot;
+
+        if (e.type === 'kupImageLoad') {
+            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
+            if (rippleEl) {
+                MDCRipple.attachTo(rippleEl);
+            }
+        }
+
+        if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
+            let collapsibleCard = root.querySelector('.collapsible-card');
+            if (!collapsibleCard.classList.contains('expanded')) {
+                collapsibleCard.classList.add('expanded');
+                this.oldSizeY = this.sizeY;
+                this.sizeY = 'auto';
+            } else if (this.oldSizeY) {
+                collapsibleCard.classList.remove('expanded');
+                this.sizeY = this.oldSizeY;
+            }
+        }
 
         this.kupEvent.emit({
-            id: e.detail.id,
+            id: this.rootElement.id,
             value: e.detail,
             event: e,
         });
@@ -84,52 +126,167 @@ export class KupCard {
         let card: HTMLElement = undefined;
         let method: string = 'create' + this.layoutNumber;
 
-        switch (this.layoutFamily) {
-            case 'custom': {
-                card = customLayouts[method](this.layoutNumber, this.data);
-                break;
+        try {
+            switch (this.layoutFamily) {
+                case 'collapsible': {
+                    card = collapsibleLayouts[method](this);
+                    break;
+                }
+                case 'scalable': {
+                    card = scalableLayouts[method](this);
+                    break;
+                }
+                case 'standard': {
+                    card = standardLayouts[method](this);
+                    break;
+                }
+                default: {
+                    card = standardLayouts[method](this);
+                    break;
+                }
             }
-            case 'material': {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
-            default: {
-                card = materialLayouts[method](this.layoutNumber, this.data);
-                break;
-            }
+        } catch (error) {
+            card = (
+                <kup-image
+                    resource="warning"
+                    title="Layout not yet implemented!"
+                ></kup-image>
+            );
         }
 
         return card;
     }
 
-    //---- Lifecycle hooks ----
+    layoutManager() {
+        switch (this.layoutFamily) {
+            case 'collapsible':
+                this.collapsible();
+                break;
+            case 'scalable':
+                if (!this.scalingActive) {
+                    this.scalable();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-    componentDidRender() {
+    collapsible() {
         const root = this.rootElement.shadowRoot;
-
-        if (root != undefined) {
-            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
-            if (rippleEl) {
-                MDCRipple.attachTo(rippleEl);
+        let collapsibleEl = root.querySelector('.collapsible-element');
+        let collapsibleCard = root.querySelector('.collapsible-card');
+        let collapsibleWrap = root.querySelector('.collapsible-wrapper');
+        if (!collapsibleCard.classList.contains('expanded')) {
+            if (collapsibleEl.clientHeight > collapsibleWrap.clientHeight) {
+                if (!collapsibleCard.classList.contains('collapsible-active')) {
+                    collapsibleCard.classList.add('collapsible-active');
+                }
+            } else {
+                if (collapsibleCard.classList.contains('collapsible-active')) {
+                    collapsibleCard.classList.remove('collapsible-active');
+                }
             }
         }
     }
 
-    componentDidLoad() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root != undefined) {
-            root.addEventListener('kupButtonClick', (e) => {
-                this.onKupEvent(e);
-            });
-        }
+    async scalable() {
+        this.scalingActive = true;
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        let scalableEl: HTMLElement = root.querySelector('.scalable-element');
+        let scalableCard: HTMLElement = root.querySelector('.scalable-card');
+        let multiplierStep: number = 0.1;
+        let multiplier: number = parseFloat(
+            scalableCard.style.getPropertyValue('--multiplier')
+        );
+        let cardHeight: number = (75 / 100) * scalableCard.clientHeight;
+        let cardWidthLow: number = (40 / 100) * scalableCard.clientWidth;
+        let cardWidthHigh: number = (60 / 100) * scalableCard.clientWidth;
+        let tooManyAttempts: number = 2000;
+        //Cycle to adjust width
+        do {
+            tooManyAttempts--;
+            if (scalableEl.clientWidth < cardWidthLow) {
+                multiplier = multiplier + multiplierStep;
+                scalableCard.style.setProperty('--multiplier', multiplier + '');
+            } else if (scalableEl.clientWidth > cardWidthHigh) {
+                multiplier = multiplier - multiplierStep;
+                scalableCard.style.setProperty('--multiplier', multiplier + '');
+            } else {
+                tooManyAttempts = 0;
+            }
+        } while (
+            (scalableEl.clientWidth < cardWidthLow ||
+                scalableEl.clientWidth > cardWidthHigh) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        );
+        //Cycle to adjust height
+        do {
+            multiplier = multiplier - multiplierStep;
+            scalableCard.style.setProperty('--multiplier', multiplier + '');
+        } while (
+            scalableEl.clientHeight > cardHeight &&
+            multiplier > multiplierStep
+        );
+        this.scalingActive = false;
     }
 
-    componentDidUnload() {
-        const root = this.rootElement.shadowRoot;
-        root.removeEventListener('kupButtonClick', (e) => {
+    listenButtonEvents(root: ShadowRoot) {
+        root.addEventListener('kupButtonBlur', (e) => {
             this.onKupEvent(e);
         });
+        root.addEventListener('kupButtonClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupButtonFocus', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    listenChipEvents(root: ShadowRoot) {
+        root.addEventListener('kupChipBlur', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipFocus', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupChipIconClick', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    listenImageEvents(root: ShadowRoot) {
+        root.addEventListener('kupImageClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupImageLoad', (e) => {
+            this.onKupEvent(e);
+        });
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+
+        const root = this.rootElement.shadowRoot;
+
+        this.listenButtonEvents(root);
+        this.listenChipEvents(root);
+        this.listenImageEvents(root);
+
+        const observer = new ResizeObserver(() => {
+            this.layoutManager();
+        });
+        observer.observe(this.rootElement);
+    }
+
+    componentDidRender() {
+        this.layoutManager();
     }
 
     render() {
@@ -144,14 +301,13 @@ export class KupCard {
             return;
         }
         let wrapperClass = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+
         this.elStyle = undefined;
         this.elStyle = {
             height: this.sizeY,
+            minHeight: this.sizeY,
             width: this.sizeX,
+            minWidth: this.sizeX,
         };
 
         if (this.isMenu) {
@@ -166,8 +322,12 @@ export class KupCard {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
-                <div id="kup-component" class={wrapperClass}>
+                <style>{setCustomStyle(this)}</style>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onClick={() => this.onKupClick()}
+                >
                     {card}
                 </div>
             </Host>

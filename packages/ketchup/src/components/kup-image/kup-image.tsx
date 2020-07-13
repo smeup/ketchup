@@ -7,11 +7,13 @@ import {
     Event,
     getAssetPath,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { imageCanvas } from './canvas/kup-image-canvas';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-image',
@@ -21,6 +23,7 @@ import { imageCanvas } from './canvas/kup-image-canvas';
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Sets the data of badges.
@@ -108,6 +111,8 @@ export class KupImage {
 
     //---- Lifecycle hooks ----
     componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+
         if (this.isCanvas) {
             this.imageCanvas = new imageCanvas();
         }
@@ -234,17 +239,14 @@ export class KupImage {
 
     render() {
         let el: Element = undefined;
-        let customStyle: string = undefined;
         let feedback: HTMLElement = undefined;
         let spinnerLayout: number = undefined;
         this.elStyle = {
             height: this.sizeY,
+            minHeight: this.sizeY,
             width: this.sizeX,
+            minWidth: this.sizeX,
         };
-
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.feedback && this.isUrl) {
             spinnerLayout = 14;
@@ -286,7 +288,7 @@ export class KupImage {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 {feedback}
                 {el}
                 {...badgeCollection}

@@ -10,6 +10,7 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-button',
@@ -19,6 +20,7 @@ import { MDCIconButtonToggle } from '@material/icon-button';
 export class KupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() refresh: boolean = false;
 
     /**
      * Defaults at false. When set to true, the icon button state will be on.
@@ -88,8 +90,8 @@ export class KupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -99,8 +101,8 @@ export class KupButton {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -110,8 +112,8 @@ export class KupButton {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     //---- Methods ----
@@ -149,6 +151,10 @@ export class KupButton {
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
 
     componentWillRender() {
         if (this.label === null && this.icon !== null) {
@@ -189,10 +195,6 @@ export class KupButton {
         let trailingEl: HTMLElement = null;
         let elStyle = undefined;
         let iconColor = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
@@ -257,7 +259,7 @@ export class KupButton {
             }
             return (
                 <Host style={elStyle}>
-                    {customStyle}
+                    <style>{setCustomStyle(this)}</style>
                     <div id="kup-component" style={elStyle}>
                         <button
                             type="button"
@@ -323,7 +325,7 @@ export class KupButton {
             }
             return (
                 <Host>
-                    {customStyle}
+                    <style>{setCustomStyle(this)}</style>
                     <div id="kup-component">
                         {/* 
                             // @ts-ignore */}
