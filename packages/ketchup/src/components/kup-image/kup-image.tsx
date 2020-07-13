@@ -157,7 +157,7 @@ export class KupImage {
         let svgMask: string = undefined;
         let svgStyle: any = undefined;
         let image: Element = undefined;
-        let url: string = getAssetPath(`./assets/${this.resource}.svg`);
+        let url: string = getAssetPath(`./assets/svg/${this.resource}.svg`);
 
         if (!this.isUrl) {
             svgMask = `url('${url}') no-repeat center`;
