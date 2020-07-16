@@ -17,7 +17,11 @@ export class ChartElement {
         this.chartUltInfo = configInfo;
         let vChartUltInfoArray = this.getChartUltInfoAsArray();
 
-        let vShapeTypeString = shape.toLocaleLowerCase();
+        let vShapeTypeString:string;
+        
+        if (shape) vShapeTypeString = shape.toLocaleLowerCase()
+        else vShapeTypeString = 'bar';
+
         this.shape = vShapeTypeString;
         switch (vShapeTypeString) {
             case 'box':
