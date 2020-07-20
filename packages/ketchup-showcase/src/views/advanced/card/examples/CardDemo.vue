@@ -12,6 +12,7 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
+import { baseData } from '@/mock/chart';
 
 export default {
   components: {
@@ -127,6 +128,14 @@ export default {
           button1: { icon: 'play', flat: true },
           button2: { icon: 'favorite', flat: true },
           button3: { icon: 'share', label: 'share' },
+          chart1: {
+            data: baseData,
+            series: ['Col2', 'Col3', 'Col4'],
+            width: '300',
+            height: '150',
+            axis: 'Col1',
+            stacked: true,
+          },
           chip1: {
             title: 'chip1',
             data: [

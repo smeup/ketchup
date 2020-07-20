@@ -216,9 +216,9 @@
         <br />
         <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
         <br />
-        <span class="code-word">- chart1</span>: Chart on the right.
+        <span class="code-word">- chart1</span>: Chart on the left.
         <br />
-        <span class="code-word">- image1</span>: Image on the left, colored with color1.
+        <span class="code-word">- image1</span>: Image on the right, colored with color1.
         <br />
         <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
         <br />
@@ -248,8 +248,8 @@ export default {
         chart1: {
           data: baseData,
           series: ['Col2', 'Col3', 'Col4'],
-          width: '300px',
-          height: '150px',
+          width: '300',
+          height: '150',
           axis: 'Col1',
           stacked: true,
         },

@@ -346,7 +346,6 @@ export function create9(component: KupCard) {
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="background"></div>
             <div class="section-1">
                 <div class="sub-1">
                     <div class="text description">
@@ -395,7 +394,6 @@ export function create10(component: KupCard) {
     };
     return (
         <div class={componentClass} style={CSSVariables}>
-            <div class="background"></div>
             <div class="section-1">
                 {component.data['chart1'] && (
                     <kup-chart

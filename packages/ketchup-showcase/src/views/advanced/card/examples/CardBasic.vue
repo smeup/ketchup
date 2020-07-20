@@ -15,6 +15,11 @@
         href="https://ketchup.smeup.com/ketchup-showcase/#/button"
       >kup-button</a>.
       <br />
+      <span class="code-word">chart</span> contains an object reflecting props of
+      <a
+        href="https://ketchup.smeup.com/ketchup-showcase/#/chart"
+      >kup-chart</a>.
+      <br />
       <span class="code-word">chip</span> contains an object reflecting props of
       <a
         href="https://ketchup.smeup.com/ketchup-showcase/#/chip"
