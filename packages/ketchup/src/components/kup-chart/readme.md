@@ -35,6 +35,19 @@
 | `kupChartClicked` | Triggered when a chart serie is clicked | `CustomEvent<ChartClickedEvent>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-card](../kup-card)
+
+### Graph
+```mermaid
+graph TD;
+  kup-card --> kup-chart
+  style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

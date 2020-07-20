@@ -339,6 +339,104 @@ export function create8(component: KupCard) {
     );
 }
 
+export function create9(component: KupCard) {
+    let componentClass = 'standard-layout-' + component.layoutNumber;
+    let CSSVariables = {
+        ['--color-1']: component.data['color1'],
+    };
+    return (
+        <div class={componentClass} style={CSSVariables}>
+            <div class="background"></div>
+            <div class="section-1">
+                <div class="sub-1">
+                    <div class="text description">
+                        {component.data['text1']}
+                    </div>
+                </div>
+                <div class="sub-2">
+                    <div class="icon">
+                        {component.data['image1'] && (
+                            <kup-image
+                                sizeX="3rem"
+                                sizeY="3rem"
+                                color={component.data['color1']}
+                                id="image1"
+                                customStyle="img {object-fit: contain;}"
+                                {...component.data['image1']}
+                            ></kup-image>
+                        )}
+                    </div>
+                    <div class="text-wrapper">
+                        <div class="text title">
+                            <div>{component.data['text2']}</div>
+                        </div>
+                        <div class="text subtitle">
+                            <div>{component.data['text3']}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-2">
+                {component.data['chart1'] && (
+                    <kup-chart
+                        id="chart1"
+                        {...component.data['chart1']}
+                    ></kup-chart>
+                )}
+            </div>
+        </div>
+    );
+}
+
+export function create10(component: KupCard) {
+    let componentClass = 'standard-layout-' + component.layoutNumber;
+    let CSSVariables = {
+        ['--color-1']: component.data['color1'],
+    };
+    return (
+        <div class={componentClass} style={CSSVariables}>
+            <div class="background"></div>
+            <div class="section-1">
+                {component.data['chart1'] && (
+                    <kup-chart
+                        id="chart1"
+                        {...component.data['chart1']}
+                    ></kup-chart>
+                )}
+            </div>
+            <div class="section-2">
+                <div class="sub-1">
+                    <div class="text description">
+                        {component.data['text1']}
+                    </div>
+                </div>
+                <div class="sub-2">
+                    <div class="icon">
+                        {component.data['image1'] && (
+                            <kup-image
+                                sizeX="3rem"
+                                sizeY="3rem"
+                                color={component.data['color1']}
+                                id="image1"
+                                customStyle="img {object-fit: contain;}"
+                                {...component.data['image1']}
+                            ></kup-image>
+                        )}
+                    </div>
+                    <div class="text-wrapper">
+                        <div class="text title">
+                            <div>{component.data['text2']}</div>
+                        </div>
+                        <div class="text subtitle">
+                            <div>{component.data['text3']}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function actionBar(component: KupCard, section: string) {
     return (
         <div class={section}>
