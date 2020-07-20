@@ -46,7 +46,7 @@
         <br />
         <span class="code-word">scalable</span>, which features cards that can fit their container and resize their content accordingly (8 layouts).
         <br />
-        <span class="code-word">standard</span>, which consists of static layouts without additional features for common use cases (8 layouts).
+        <span class="code-word">standard</span>, which consists of static layouts without additional features for common use cases (9 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>
