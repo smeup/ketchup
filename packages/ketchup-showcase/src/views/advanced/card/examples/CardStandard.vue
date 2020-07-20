@@ -192,7 +192,7 @@
         <span class="code-word">Layout 9</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
+        <span class="code-word">- color1</span>: Sets the color of the icon.
         <br />
         <span class="code-word">- chart1</span>: Chart on the right.
         <br />
@@ -214,7 +214,7 @@
         <span class="code-word">Layout 10</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
+        <span class="code-word">- color1</span>: Sets the color of the icon.
         <br />
         <span class="code-word">- chart1</span>: Chart on the left.
         <br />
@@ -246,6 +246,7 @@ export default {
         button4: { icon: 'widgets', flat: true, title: 'button4' },
         button5: { icon: 'widgets', flat: true, title: 'button5' },
         chart1: {
+          title: 'chart1',
           data: baseData,
           series: ['Col2', 'Col3', 'Col4'],
           width: '300',
