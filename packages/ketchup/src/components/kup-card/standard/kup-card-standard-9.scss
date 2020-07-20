@@ -16,10 +16,15 @@
   }
 
   .section-2 {
+    display: flex;
     height: 100%;
     margin-top: auto;
     margin-left: auto;
     margin-bottom: auto;
+  }
+
+  kup-chart-cell {
+    margin: auto;
   }
 
   .sub-2 {

@@ -10,6 +10,7 @@
   position: relative;
 
   .section-1 {
+    display: flex;
     height: 100%;
     margin-top: auto;
     margin-right: auto;
@@ -20,6 +21,10 @@
     margin-top: auto;
     margin-left: auto;
     margin-bottom: auto;
+  }
+
+  kup-chart-cell {
+    margin: auto;
   }
 
   .sub-2 {
