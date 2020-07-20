@@ -1,9 +1,10 @@
 import {
     Component,
+    Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
-    Prop,
     h,
 } from '@stencil/core';
 
@@ -15,6 +16,8 @@ import {
     ChartAxis,
 } from './kup-chart-declarations';
 
+import { ResizeObserver } from 'resize-observer';
+
 import { convertColumns, convertRows } from './kup-chart-builder';
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
@@ -25,9 +28,11 @@ declare const google: any;
 
 @Component({
     tag: 'kup-chart',
+    styleUrl: 'kup-chart.scss',
     shadow: true,
 })
 export class KupChart {
+    @Element() rootElement: HTMLElement;
     @Prop() data: DataTable;
 
     @Prop()
@@ -46,10 +51,10 @@ export class KupChart {
     colors: string[] = [];
 
     @Prop({ reflect: true })
-    width: number;
+    sizeX: string = '100%';
 
     @Prop({ reflect: true })
-    height: number;
+    sizeY: string = '100%';
 
     @Prop({ reflect: true })
     legend = true;
@@ -81,8 +86,6 @@ export class KupChart {
     @Prop()
     version = '45.2';
 
-    @Element() el: HTMLElement;
-
     /**
      * Triggered when a chart serie is clicked
      */
@@ -101,6 +104,7 @@ export class KupChart {
     private gChartDataTable: any;
 
     private gChartView: any;
+    private elStyle = undefined;
 
     componentDidLoad() {
         if (!this.axis || !this.series) {
@@ -116,7 +120,7 @@ export class KupChart {
                     `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
                 )
                 .forEach((node) =>
-                    this.el.shadowRoot.appendChild(node.cloneNode())
+                    this.rootElement.shadowRoot.appendChild(node.cloneNode())
                 );
 
             try {
@@ -125,6 +129,14 @@ export class KupChart {
                 console.error(err);
             }
         }
+    }
+
+    componentWillLoad() {
+        const observer = new ResizeObserver(() => {
+            const options = this.createGoogleChartOptions();
+            this.gChart.draw(this.gChartView, options);
+        });
+        observer.observe(this.rootElement);
     }
 
     componentWillUpdate() {
@@ -221,14 +233,6 @@ export class KupChart {
 
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
-        }
-
-        if (this.width) {
-            opts.width = this.width;
-        }
-
-        if (this.height) {
-            opts.height = this.height;
         }
 
         if (!this.legend) {
@@ -402,6 +406,20 @@ export class KupChart {
     }
 
     render() {
-        return <div id="chart" ref={(el) => (this.chartContainer = el)} />;
+        this.elStyle = undefined;
+        this.elStyle = {
+            height: this.sizeY,
+            minHeight: this.sizeY,
+            width: this.sizeX,
+            minWidth: this.sizeX,
+        };
+        return (
+            <Host style={this.elStyle}>
+                <div
+                    id="kup-component"
+                    ref={(rootElement) => (this.chartContainer = rootElement)}
+                />
+            </Host>
+        );
     }
 }
