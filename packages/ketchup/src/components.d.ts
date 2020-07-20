@@ -286,10 +286,11 @@ export namespace Components {
         "graphTitleColor": string;
         "graphTitleSize": number;
         "hAxis": ChartAxis;
-        "height": number;
         "legend": boolean;
         "series": string[];
         "showMarks": boolean;
+        "sizeX": string;
+        "sizeY": string;
         "stacked": boolean;
         "types": ChartType[];
         "vAxis": ChartAxis;
@@ -297,7 +298,6 @@ export namespace Components {
           * Google chart version to load
          */
         "version": string;
-        "width": number;
     }
     interface KupChartCell {
         "cellConfig"?: any;
@@ -2019,7 +2019,6 @@ declare namespace LocalJSX {
         "graphTitleColor"?: string;
         "graphTitleSize"?: number;
         "hAxis"?: ChartAxis;
-        "height"?: number;
         "legend"?: boolean;
         /**
           * Triggered when a chart serie is clicked
@@ -2027,6 +2026,8 @@ declare namespace LocalJSX {
         "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
         "series"?: string[];
         "showMarks"?: boolean;
+        "sizeX"?: string;
+        "sizeY"?: string;
         "stacked"?: boolean;
         "types"?: ChartType[];
         "vAxis"?: ChartAxis;
@@ -2034,7 +2035,6 @@ declare namespace LocalJSX {
           * Google chart version to load
          */
         "version"?: string;
-        "width"?: number;
     }
     interface KupChartCell {
         "cellConfig"?: any;
