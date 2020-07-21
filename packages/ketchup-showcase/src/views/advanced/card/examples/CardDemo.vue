@@ -99,7 +99,7 @@ export default {
         {
           prop: 'sizeX',
           description:
-            'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+            'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
           type: 'string',
           default: '100%',
           try: 'field',

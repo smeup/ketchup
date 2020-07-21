@@ -51,7 +51,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) menuVisible: boolean = false;
     /**
-     * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      */
     @Prop({ reflect: true }) sizeX: string = '100%';
     /**
