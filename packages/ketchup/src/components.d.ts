@@ -269,7 +269,7 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
-          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
          */
         "sizeX": string;
         /**
@@ -2002,7 +2002,7 @@ declare namespace LocalJSX {
         event: any;
     }>) => void;
         /**
-          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
          */
         "sizeX"?: string;
         /**

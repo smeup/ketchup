@@ -15,7 +15,7 @@
 | `layoutFamily` | `layout-family` | Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard". | `string`               | `'standard'` |
 | `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                | `number`               | `1`          |
 | `menuVisible`  | `menu-visible`  | Sets the status of the menu, when false it's hidden otherwise it's visible.                   | `boolean`              | `false`      |
-| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).      | `string`               | `'100%'`     |
+| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).      | `string`               | `'100%'`     |
 | `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).     | `string`               | `'100%'`     |
 
 
