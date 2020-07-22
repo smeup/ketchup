@@ -129,22 +129,9 @@ export default {
           button2: { icon: 'favorite', flat: true },
           button3: { icon: 'share', label: 'share' },
           chart1: {
-            cellConfig: {
-              cellId: 'lin_example',
-              type: 'lin',
-              width: 300,
-              height: 150,
-            },
-            value: '1;7;-5;6;10;-5;3;4',
-          },
-          //keep this, must be restored when kup-chart-cell will be part of kup-chart
-          chart1tmp: {
             title: 'chart1',
-            data: baseData,
-            series: ['Col2', 'Col3', 'Col4'],
+            offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
             sizeX: '300px',
-            axis: 'Col1',
-            stacked: true,
           },
           chip1: {
             title: 'chip1',

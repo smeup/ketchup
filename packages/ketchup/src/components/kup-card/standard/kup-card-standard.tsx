@@ -377,10 +377,10 @@ export function create9(component: KupCard) {
             </div>
             <div class="section-2">
                 {component.data['chart1'] && (
-                    <kup-chart-cell
+                    <kup-chart
                         id="chart1"
                         {...component.data['chart1']}
-                    ></kup-chart-cell>
+                    ></kup-chart>
                 )}
             </div>
         </div>
@@ -396,10 +396,10 @@ export function create10(component: KupCard) {
         <div class={componentClass} style={CSSVariables}>
             <div class="section-1">
                 {component.data['chart1'] && (
-                    <kup-chart-cell
+                    <kup-chart
                         id="chart1"
                         {...component.data['chart1']}
-                    ></kup-chart-cell>
+                    ></kup-chart>
                 )}
             </div>
             <div class="section-2">

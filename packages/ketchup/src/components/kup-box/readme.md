@@ -113,7 +113,7 @@ graph TD;
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-progress-bar
-  kup-card --> kup-chart-cell
+  kup-card --> kup-chart
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image

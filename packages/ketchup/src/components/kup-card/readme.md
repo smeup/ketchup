@@ -39,7 +39,7 @@
 - [kup-chip](../kup-chip)
 - [kup-button](../kup-button)
 - [kup-progress-bar](../kup-progress-bar)
-- [kup-chart-cell](../kup-chart-cell)
+- [kup-chart](../kup-chart)
 
 ### Graph
 ```mermaid
@@ -48,7 +48,7 @@ graph TD;
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-progress-bar
-  kup-card --> kup-chart-cell
+  kup-card --> kup-chart
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image

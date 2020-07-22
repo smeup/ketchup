@@ -428,8 +428,6 @@ export class KupChart {
             lineColor: this.colors[0],
         };
 
-        console.log(opts);
-
         $(this.chartContainer).sparkline(
             this.complianceCheck(valueAsArray),
             opts
@@ -454,7 +452,6 @@ export class KupChart {
 
     componentDidLoad() {
         const observer = new ResizeObserver(() => {
-            console.log('resize detected');
             if (!this.offlineMode) {
                 const options = this.createGoogleChartOptions();
                 this.gChart.draw(this.gChartView, options);
