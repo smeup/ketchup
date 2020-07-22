@@ -58,3 +58,8 @@ export interface ChartClickedEvent {
     rowindex?: number;
     colindex?: number;
 }
+
+export interface ChartOfflineMode {
+    value: string;
+    shape: string;
+}

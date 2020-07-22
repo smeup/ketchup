@@ -110,6 +110,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'offlineMode',
+          description:
+            'Renders charts without the Google API and using jQuery Sparkline.',
+          type: 'ChartOfflineMode',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',

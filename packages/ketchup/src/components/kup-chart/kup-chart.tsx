@@ -14,6 +14,7 @@ import {
     ChartOptions,
     ChartClickedEvent,
     ChartAxis,
+    ChartOfflineMode,
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
@@ -24,7 +25,10 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
+import { errorLogging } from '../../utils/error-logging';
+
 declare const google: any;
+declare const $: any;
 
 @Component({
     tag: 'kup-chart',
@@ -36,31 +40,13 @@ export class KupChart {
     @Prop() data: DataTable;
 
     @Prop()
-    types: ChartType[] = [ChartType.Hbar];
+    asp: ChartAspect;
 
     @Prop({ reflect: true })
     axis: string;
 
     @Prop()
-    series: string[];
-
-    @Prop()
-    asp: ChartAspect;
-
-    @Prop()
     colors: string[] = [];
-
-    @Prop({ reflect: true })
-    sizeX: string = '100%';
-
-    @Prop({ reflect: true })
-    sizeY: string = '100%';
-
-    @Prop({ reflect: true })
-    legend = true;
-
-    @Prop({ reflect: true })
-    stacked = false;
 
     @Prop({ reflect: true })
     graphTitle: string;
@@ -71,11 +57,32 @@ export class KupChart {
     @Prop({ reflect: true })
     graphTitleSize: number;
 
+    @Prop()
+    hAxis: ChartAxis;
+
+    @Prop({ reflect: true })
+    legend = true;
+
+    @Prop()
+    series: string[];
+
     @Prop({ reflect: true })
     showMarks = false;
 
+    @Prop({ reflect: true })
+    sizeX: string = '100%';
+
+    @Prop({ reflect: true })
+    sizeY: string = '100%';
+
+    @Prop({ reflect: true })
+    offlineMode: ChartOfflineMode = undefined;
+
+    @Prop({ reflect: true })
+    stacked = false;
+
     @Prop()
-    hAxis: ChartAxis;
+    types: ChartType[] = [ChartType.Hbar];
 
     @Prop()
     vAxis: ChartAxis;
@@ -106,48 +113,7 @@ export class KupChart {
     private gChartView: any;
     private elStyle = undefined;
 
-    componentDidLoad() {
-        if (!this.axis || !this.series) {
-            // cannot create chart
-            return;
-        }
-
-        // loading charts
-        if (google) {
-            // getting google charts css from main document
-            document
-                .querySelectorAll(
-                    `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
-                )
-                .forEach((node) =>
-                    this.rootElement.shadowRoot.appendChild(node.cloneNode())
-                );
-
-            try {
-                this.loadGoogleChart();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-
-    componentWillLoad() {
-        const observer = new ResizeObserver(() => {
-            const options = this.createGoogleChartOptions();
-            this.gChart.draw(this.gChartView, options);
-        });
-        observer.observe(this.rootElement);
-    }
-
-    componentWillUpdate() {
-        if (this.gChart) {
-            this.gChart.clearChart();
-        }
-    }
-
-    componentDidUpdate() {
-        this.loadGoogleChart();
-    }
+    //---- Methods ----
 
     private loadGoogleChart() {
         google.charts.setOnLoadCallback(this.createChart.bind(this));
@@ -405,6 +371,142 @@ export class KupChart {
         }
     }
 
+    private loadOfflineChart() {
+        if (!this.offlineMode.value || this.offlineMode.value == '') {
+            let message =
+                "Incorrect or incomplete data, can't render chart in offline mode!";
+            errorLogging(this.rootElement.tagName, message);
+            return;
+        }
+
+        let type: string;
+        let valueAsArray: string[] = this.offlineMode.value.split(';');
+        let isFill: any = false;
+        if (this.colors.length > 1) {
+            isFill = this.colors[1];
+        }
+
+        switch (this.offlineMode.shape) {
+            case 'box':
+                type = 'box';
+                break;
+
+            case 'bul':
+            case 'bullet':
+                type = 'bullet';
+                break;
+
+            case 'dis':
+            case 'discrete':
+                type = 'discrete';
+                break;
+
+            case 'lin':
+            case 'line':
+                type = 'line';
+                break;
+
+            case 'pie':
+                type = 'pie';
+                break;
+
+            case 'tri':
+            case 'tristate':
+                type = 'tristate';
+                break;
+
+            default:
+                type = 'bar';
+        }
+
+        var opts = {
+            type: type,
+            height: this.rootElement.clientHeight,
+            width: this.rootElement.clientWidth,
+            barWidth: this.rootElement.clientWidth / valueAsArray.length,
+            fillColor: isFill,
+            lineColor: this.colors[0],
+        };
+
+        console.log(opts);
+
+        $(this.chartContainer).sparkline(
+            this.complianceCheck(valueAsArray),
+            opts
+        );
+    }
+
+    private complianceCheck(valueAsArray: string[]): number[] {
+        let ints: number[] = [valueAsArray.length];
+        let i = 0;
+        valueAsArray.forEach((element) => {
+            try {
+                element = element.replace(',', '.');
+                ints[i++] = parseFloat(element);
+            } catch (e) {
+                ints[i++] = null;
+            }
+        });
+        return ints;
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentDidLoad() {
+        const observer = new ResizeObserver(() => {
+            console.log('resize detected');
+            if (!this.offlineMode) {
+                const options = this.createGoogleChartOptions();
+                this.gChart.draw(this.gChartView, options);
+            } else {
+                this.loadOfflineChart();
+            }
+        });
+        observer.observe(this.rootElement);
+
+        if (!this.offlineMode && (!this.axis || !this.series)) {
+            return;
+        }
+
+        // loading charts
+        if (google && !this.offlineMode) {
+            // getting google charts css from main document
+            document
+                .querySelectorAll(
+                    `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
+                )
+                .forEach((node) =>
+                    this.rootElement.shadowRoot.appendChild(node.cloneNode())
+                );
+
+            try {
+                this.loadGoogleChart();
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            try {
+                this.loadOfflineChart();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
+    componentWillUpdate() {
+        if (this.gChart) {
+            this.gChart.clearChart();
+        }
+    }
+
+    componentDidUpdate() {
+        if (!this.offlineMode) {
+            this.loadGoogleChart();
+        } else {
+            this.loadOfflineChart();
+        }
+    }
+
     render() {
         this.elStyle = undefined;
         this.elStyle = {
@@ -413,11 +515,14 @@ export class KupChart {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
+
         return (
             <Host style={this.elStyle}>
                 <div
                     id="kup-component"
-                    ref={(rootElement) => (this.chartContainer = rootElement)}
+                    ref={(chartContainer) =>
+                        (this.chartContainer = chartContainer)
+                    }
                 />
             </Host>
         );

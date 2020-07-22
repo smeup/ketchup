@@ -18,6 +18,7 @@
 | `graphTitleSize`  | `graph-title-size`  |                              | `number`                           | `undefined`        |
 | `hAxis`           | --                  |                              | `ChartAxis`                        | `undefined`        |
 | `legend`          | `legend`            |                              | `boolean`                          | `true`             |
+| `offlineMode`     | --                  |                              | `ChartOfflineMode`                 | `undefined`        |
 | `series`          | --                  |                              | `string[]`                         | `undefined`        |
 | `showMarks`       | `show-marks`        |                              | `boolean`                          | `false`            |
 | `sizeX`           | `size-x`            |                              | `string`                           | `'100%'`           |
