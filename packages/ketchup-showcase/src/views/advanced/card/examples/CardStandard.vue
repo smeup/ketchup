@@ -248,7 +248,6 @@ export default {
         chart1: {
           title: 'chart1',
           offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
-          sizeX: '300px',
         },
         chip1: {
           title: 'chip1',

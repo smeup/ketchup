@@ -13,13 +13,16 @@
     display: flex;
     height: 100%;
     margin-top: auto;
-    margin-right: auto;
     margin-bottom: auto;
+    width: 100%;
+    overflow: hidden;
   }
 
   .section-2 {
+    max-width: 90%;
+    overflow: auto;
     margin-top: auto;
-    margin-left: auto;
+    margin-left: 10px;
     margin-bottom: auto;
   }
 
