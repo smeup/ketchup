@@ -247,6 +247,9 @@ export default {
         button5: { icon: 'widgets', flat: true, title: 'button5' },
         chart1: {
           title: 'chart1',
+          data: baseData,
+          series: ['Col2', 'Col3', 'Col4'],
+          axis: 'Col1',
           offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
         },
         chip1: {

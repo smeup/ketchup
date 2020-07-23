@@ -130,6 +130,9 @@ export default {
           button3: { icon: 'share', label: 'share' },
           chart1: {
             title: 'chart1',
+            data: baseData,
+            series: ['Col2', 'Col3', 'Col4'],
+            axis: 'Col1',
             offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
           },
           chip1: {
