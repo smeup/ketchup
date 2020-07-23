@@ -230,6 +230,30 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 11</span> settings:
+        <br />
+        <br />
+        <span class="code-word">- color1</span>: Sets the color of the icon and the color of the left bar.
+        <br />
+        <span class="code-word">- chart1</span>: Chart on the right.
+        <br />
+        <span class="code-word">- image1</span>: Image on the left, hidden unless mouse hovering text1. Colored with color1.
+        <br />
+        <span class="code-word">- text1</span>: Title, positioned vertically on the left. On mouse hover, image1, text2 and text3 will be displayed. Color is dynamic (black or white) depending on the contrast with color1.
+        <br />
+        <span class="code-word">- text2, text3</span>: Generic text, hidden unless mouse hovering text1.
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card size-x="600px" size-y="150px" layout-number="11" :data.prop="data"></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
