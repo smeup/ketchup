@@ -1324,14 +1324,12 @@ export class KupBox {
                     isChart(cell.obj) ||
                     getShape(cell, boxObject) === 'GRA'
                 ) {
-                    const props: {
-                        value: string;
-                        width?: number;
-                        height?: number;
-                        cellConfig: any;
-                    } = {
-                        value: cell.value,
-                        cellConfig: cell.config,
+                    const props = {
+                        id: cell.config.cellId,
+                        offlineMode: {
+                            value: cell.value,
+                            shape: cell.config.type,
+                        },
                     };
 
                     // check if column has width
@@ -1342,13 +1340,13 @@ export class KupBox {
                         getFromConfig(cell, boxObject, 'width')
                     );
                     if (height > 0) {
-                        props.height = height;
+                        props['height'] = height;
                     }
                     if (width > 0) {
-                        props.width = width;
+                        props['width'] = width;
                     }
 
-                    boContent = <kup-chart-cell {...props} />;
+                    boContent = <kup-chart {...props} />;
                 } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
                     boContent = (
                         <kup-image {...buildIconConfig(cell, cell.value)} />

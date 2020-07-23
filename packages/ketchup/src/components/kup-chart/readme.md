@@ -40,11 +40,13 @@
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-chart
   kup-card --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
 ```
