@@ -18,7 +18,7 @@
       <span class="code-word">chart</span> contains an object reflecting props of
       <a
         href="https://ketchup.smeup.com/ketchup-showcase/#/chart"
-      >kup-chart-cell</a> (will become kup-chart in upcoming builds).
+      >kup-chart</a>.
       <br />
       <span class="code-word">chip</span> contains an object reflecting props of
       <a

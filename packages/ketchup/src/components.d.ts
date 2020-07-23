@@ -300,10 +300,6 @@ export namespace Components {
          */
         "version": string;
     }
-    interface KupChartCell {
-        "cellConfig"?: any;
-        "value": string;
-    }
     interface KupCheckbox {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -1372,12 +1368,6 @@ declare global {
         prototype: HTMLKupChartElement;
         new (): HTMLKupChartElement;
     };
-    interface HTMLKupChartCellElement extends Components.KupChartCell, HTMLStencilElement {
-    }
-    var HTMLKupChartCellElement: {
-        prototype: HTMLKupChartCellElement;
-        new (): HTMLKupChartCellElement;
-    };
     interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {
     }
     var HTMLKupCheckboxElement: {
@@ -1585,7 +1575,6 @@ declare global {
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
-        "kup-chart-cell": HTMLKupChartCellElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-checkbox-menu": HTMLKupCheckboxMenuElement;
         "kup-chip": HTMLKupChipElement;
@@ -2037,10 +2026,6 @@ declare namespace LocalJSX {
           * Google chart version to load
          */
         "version"?: string;
-    }
-    interface KupChartCell {
-        "cellConfig"?: any;
-        "value"?: string;
     }
     interface KupCheckbox {
         /**
@@ -3414,7 +3399,6 @@ declare namespace LocalJSX {
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
         "kup-chart": KupChart;
-        "kup-chart-cell": KupChartCell;
         "kup-checkbox": KupCheckbox;
         "kup-checkbox-menu": KupCheckboxMenu;
         "kup-chip": KupChip;
@@ -3462,7 +3446,6 @@ declare module "@stencil/core" {
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
-            "kup-chart-cell": LocalJSX.KupChartCell & JSXBase.HTMLAttributes<HTMLKupChartCellElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-checkbox-menu": LocalJSX.KupCheckboxMenu & JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;

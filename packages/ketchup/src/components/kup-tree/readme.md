@@ -99,7 +99,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
 - [kup-checkbox](../kup-checkbox)
-- [kup-chart-cell](../kup-chart-cell)
+- [kup-chart](../kup-chart)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-tooltip](../kup-tooltip)
@@ -111,7 +111,7 @@ graph TD;
   kup-tree --> kup-button
   kup-tree --> kup-image
   kup-tree --> kup-checkbox
-  kup-tree --> kup-chart-cell
+  kup-tree --> kup-chart
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
