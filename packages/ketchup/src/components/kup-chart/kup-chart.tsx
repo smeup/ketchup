@@ -379,58 +379,67 @@ export class KupChart {
             return;
         }
 
-        let type: string;
         let valueAsArray: string[] = this.offlineMode.value.split(';');
-        let isFill: any = false;
-        if (this.colors.length > 1) {
-            isFill = this.colors[1];
-        }
+
+        var options = {
+            height: this.rootElement.clientHeight,
+            width: this.rootElement.clientWidth,
+        };
 
         switch (this.offlineMode.shape) {
             case 'box':
-                type = 'box';
+                options['type'] = 'box';
+                options['boxLineColor'] = this.colors[0];
+                options['boxFillColor'] = this.colors[1];
                 break;
 
             case 'bul':
             case 'bullet':
-                type = 'bullet';
+                options['type'] = 'bullet';
+                options['rangeColors'] = this.colors;
+                options['targetWidth'] = this.rootElement.clientWidth / 20;
                 break;
 
             case 'dis':
             case 'discrete':
-                type = 'discrete';
+                options['type'] = 'discrete';
+                options['lineColor'] = this.colors[0];
                 break;
 
             case 'lin':
             case 'line':
-                type = 'line';
+                options['type'] = 'line';
+                options['lineColor'] = this.colors[0];
+                options['fillColor'] = this.colors[1];
                 break;
 
             case 'pie':
-                type = 'pie';
+                options['type'] = 'pie';
+                options['sliceColors'] = this.colors;
                 break;
 
             case 'tri':
             case 'tristate':
-                type = 'tristate';
+                options['type'] = 'tristate';
+                options['posBarColor'] = this.colors[0];
+                options['negBarColor'] = this.colors[1];
+                options['zeroBarColor'] = this.colors[2];
+                options['barWidth'] =
+                    this.rootElement.clientWidth / valueAsArray.length;
                 break;
 
             default:
-                type = 'bar';
+                options['type'] = 'bar';
+                options['barColor'] = this.colors[0];
+                options['negBarColor'] = this.colors[1];
+                options['zeroBarColor'] = this.colors[2];
+                options['barWidth'] =
+                    this.rootElement.clientWidth / valueAsArray.length;
         }
-
-        var opts = {
-            type: type,
-            height: this.rootElement.clientHeight,
-            width: this.rootElement.clientWidth,
-            barWidth: this.rootElement.clientWidth / valueAsArray.length,
-            fillColor: isFill,
-            lineColor: this.colors[0],
-        };
 
         $(this.chartContainer).sparkline(
             this.complianceCheck(valueAsArray),
-            opts
+            options
         );
     }
 
