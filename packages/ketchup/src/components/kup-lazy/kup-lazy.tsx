@@ -47,17 +47,20 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentDidLoad() {
-        this.viewportCheck;
+        this.isInViewport = this.isElementPartiallyInViewport();
         if (!this.isInViewport) {
-            window.addEventListener('load', this.viewportCheck);
+            document.addEventListener('DOMContentLoaded', this.viewportCheck);
             document.addEventListener('resize', this.viewportCheck);
             document.addEventListener('scroll', this.viewportCheck);
         }
     }
 
-    componentDidRender() {
+    componentWillUpdate() {
         if (this.isInViewport) {
-            window.removeEventListener('load', this.viewportCheck);
+            document.removeEventListener(
+                'DOMContentLoaded',
+                this.viewportCheck
+            );
             document.removeEventListener('resize', this.viewportCheck);
             document.removeEventListener('scroll', this.viewportCheck);
         }
