@@ -301,6 +301,12 @@ export default {
             },
           },
           {
+            title: 'Lazy',
+            to: {
+              name: 'lazy',
+            },
+          },
+          {
             title: `List`,
             to: {
               name: 'list',
