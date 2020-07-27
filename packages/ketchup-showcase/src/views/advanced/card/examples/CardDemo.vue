@@ -12,6 +12,7 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
+import { baseData } from '@/mock/chart';
 
 export default {
   components: {
@@ -98,7 +99,7 @@ export default {
         {
           prop: 'sizeX',
           description:
-            'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+            'The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
           type: 'string',
           default: '100%',
           try: 'field',
@@ -127,6 +128,13 @@ export default {
           button1: { icon: 'play', flat: true },
           button2: { icon: 'favorite', flat: true },
           button3: { icon: 'share', label: 'share' },
+          chart1: {
+            title: 'chart1',
+            data: baseData,
+            series: ['Col2', 'Col3', 'Col4'],
+            axis: 'Col1',
+            offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
+          },
           chip1: {
             title: 'chip1',
             data: [

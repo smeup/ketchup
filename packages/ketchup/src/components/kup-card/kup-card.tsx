@@ -15,7 +15,11 @@ import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import {
+    fetchThemeCustomStyle,
+    setCustomStyle,
+    colorContrast,
+} from '../../utils/theming';
 
 @Component({
     tag: 'kup-card',
@@ -51,7 +55,7 @@ export class KupCard {
      */
     @Prop({ reflect: true }) menuVisible: boolean = false;
     /**
-     * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      */
     @Prop({ reflect: true }) sizeX: string = '100%';
     /**
@@ -158,6 +162,17 @@ export class KupCard {
     }
 
     layoutManager() {
+        const root = this.rootElement.shadowRoot;
+        let dynColors = root.querySelectorAll('.dyn-color');
+        for (let i = 0; i < dynColors.length; i++) {
+            this.rootElement.style.setProperty(
+                '--dyn-color-' + i,
+                colorContrast(
+                    window.getComputedStyle(dynColors[i]).backgroundColor
+                )
+            );
+        }
+
         switch (this.layoutFamily) {
             case 'collapsible':
                 this.collapsible();

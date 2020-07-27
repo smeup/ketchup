@@ -786,16 +786,15 @@ export class KupTree {
 
                 content = valueToDisplay ? <kup-image {...props} /> : null;
             } else if (isChart(cell.obj)) {
-                const props: {
-                    cellConfig: any;
-                    value: string;
-                    width?: number;
-                } = {
-                    cellConfig: cell.config,
-                    value: cell.value,
+                const props = {
+                    id: cell.config.cellId,
+                    offlineMode: {
+                        value: cell.value,
+                        shape: cell.config.type,
+                    },
                 };
 
-                content = <kup-chart-cell {...props} />;
+                content = <kup-chart {...props} />;
             } else if (isProgressBar(cell.obj)) {
                 content = (
                     <kup-progress-bar

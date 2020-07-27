@@ -15,6 +15,11 @@
         href="https://ketchup.smeup.com/ketchup-showcase/#/button"
       >kup-button</a>.
       <br />
+      <span class="code-word">chart</span> contains an object reflecting props of
+      <a
+        href="https://ketchup.smeup.com/ketchup-showcase/#/chart"
+      >kup-chart</a>.
+      <br />
       <span class="code-word">chip</span> contains an object reflecting props of
       <a
         href="https://ketchup.smeup.com/ketchup-showcase/#/chip"
@@ -46,7 +51,7 @@
         <br />
         <span class="code-word">scalable</span>, which features cards that can fit their container and resize their content accordingly (8 layouts).
         <br />
-        <span class="code-word">standard</span>, which consists of static layouts without additional features for common use cases (8 layouts).
+        <span class="code-word">standard</span>, which consists of static layouts without additional features for common use cases (11 layouts).
       </p>
       <br />
       <p class="centered">Sample markup</p>

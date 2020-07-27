@@ -1,0 +1,80 @@
+.standard-layout-11 {
+  color: var(--kup-text-color);
+  box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+
+  .section-1 {
+    display: flex;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    min-width: 6rem;
+    max-width: 6rem;
+    overflow: hidden;
+    transition: 0.25s ease-in;
+  }
+
+  .section-2 {
+    display: flex;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .sub-1 {
+    background-color: var(--color-1);
+    height: 100%;
+    text-align: center;
+    writing-mode: vertical-lr;
+    font-size: 1.25rem;
+    min-width: 6rem;
+    display: flex;
+    transition: width 0.25s ease-in;
+  }
+
+  .sub-2 {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .text:not(.description) {
+    text-align: left;
+  }
+
+  .text-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .icon {
+    margin: auto;
+    padding: 0 1.25rem;
+  }
+
+  .description {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin: auto;
+    color: var(--dyn-color-0);
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: bold;
+    margin-top: auto;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    opacity: 0.75;
+    margin-bottom: auto;
+  }
+}

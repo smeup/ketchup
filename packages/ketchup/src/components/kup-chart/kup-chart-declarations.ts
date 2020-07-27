@@ -25,8 +25,8 @@ export enum ChartAspect {
 export interface ChartOptions {
     is3D: boolean;
     colors?: string[];
-    width?: number;
-    height?: number;
+    width?: string;
+    height?: string;
     legend?: { position: string };
     isStacked?: boolean;
     title?: string;
@@ -57,4 +57,9 @@ export interface ChartClickedEvent {
     row?: Row;
     rowindex?: number;
     colindex?: number;
+}
+
+export interface ChartOfflineMode {
+    value: string;
+    shape: string;
 }

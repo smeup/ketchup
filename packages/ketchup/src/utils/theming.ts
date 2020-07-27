@@ -269,14 +269,7 @@ export function setCustomStyle(component: any) {
 }
 
 export function dynColorContrast(component: any, color: string) {
-    const colorValues = color.replace(/[^\d,.]/g, '').split(',');
-    const brightness = Math.round(
-        (parseInt(colorValues[0]) * 299 +
-            parseInt(colorValues[1]) * 587 +
-            parseInt(colorValues[2]) * 114) /
-            1000
-    );
-    const textColour = brightness > 125 ? 'black' : 'white';
+    let textColour = colorContrast(color);
     if (textColour !== component.dynColor) {
         let message =
             'Detected low contrast on ' +
@@ -290,4 +283,16 @@ export function dynColorContrast(component: any, color: string) {
         component.dynColor = textColour;
         component.refresh = !component.refresh;
     }
+}
+
+export function colorContrast(color: string) {
+    const colorValues = color.replace(/[^\d,.]/g, '').split(',');
+    const brightness = Math.round(
+        (parseInt(colorValues[0]) * 299 +
+            parseInt(colorValues[1]) * 587 +
+            parseInt(colorValues[2]) * 114) /
+            1000
+    );
+    const textColour = brightness > 125 ? 'black' : 'white';
+    return textColour;
 }

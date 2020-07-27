@@ -2781,17 +2781,16 @@ export class KupDataTable {
                 );
             }
 
-            const props: {
-                cellConfig: any;
-                value: string;
-                width?: number;
-            } = {
-                cellConfig: cell.config,
-                value: cell.value,
+            const props = {
+                id: cell.config.cellId,
+                offlineMode: {
+                    value: cell.value,
+                    shape: cell.config.type,
+                },
                 width: columnWidth !== undefined ? columnWidth.size : undefined,
             };
 
-            content = <kup-chart-cell {...props} />;
+            content = <kup-chart {...props} />;
         } else if (isProgressBar(cell.obj)) {
             if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (

@@ -11,7 +11,7 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
@@ -269,7 +269,7 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
-          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
          */
         "sizeX": string;
         /**
@@ -286,10 +286,12 @@ export namespace Components {
         "graphTitleColor": string;
         "graphTitleSize": number;
         "hAxis": ChartAxis;
-        "height": number;
         "legend": boolean;
+        "offlineMode": ChartOfflineMode;
         "series": string[];
         "showMarks": boolean;
+        "sizeX": string;
+        "sizeY": string;
         "stacked": boolean;
         "types": ChartType[];
         "vAxis": ChartAxis;
@@ -297,11 +299,6 @@ export namespace Components {
           * Google chart version to load
          */
         "version": string;
-        "width": number;
-    }
-    interface KupChartCell {
-        "cellConfig"?: any;
-        "value": string;
     }
     interface KupCheckbox {
         /**
@@ -1371,12 +1368,6 @@ declare global {
         prototype: HTMLKupChartElement;
         new (): HTMLKupChartElement;
     };
-    interface HTMLKupChartCellElement extends Components.KupChartCell, HTMLStencilElement {
-    }
-    var HTMLKupChartCellElement: {
-        prototype: HTMLKupChartCellElement;
-        new (): HTMLKupChartCellElement;
-    };
     interface HTMLKupCheckboxElement extends Components.KupCheckbox, HTMLStencilElement {
     }
     var HTMLKupCheckboxElement: {
@@ -1584,7 +1575,6 @@ declare global {
         "kup-calendar": HTMLKupCalendarElement;
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
-        "kup-chart-cell": HTMLKupChartCellElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-checkbox-menu": HTMLKupCheckboxMenuElement;
         "kup-chip": HTMLKupChipElement;
@@ -2002,7 +1992,7 @@ declare namespace LocalJSX {
         event: any;
     }>) => void;
         /**
-          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
          */
         "sizeX"?: string;
         /**
@@ -2019,14 +2009,16 @@ declare namespace LocalJSX {
         "graphTitleColor"?: string;
         "graphTitleSize"?: number;
         "hAxis"?: ChartAxis;
-        "height"?: number;
         "legend"?: boolean;
+        "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
          */
         "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
         "series"?: string[];
         "showMarks"?: boolean;
+        "sizeX"?: string;
+        "sizeY"?: string;
         "stacked"?: boolean;
         "types"?: ChartType[];
         "vAxis"?: ChartAxis;
@@ -2034,11 +2026,6 @@ declare namespace LocalJSX {
           * Google chart version to load
          */
         "version"?: string;
-        "width"?: number;
-    }
-    interface KupChartCell {
-        "cellConfig"?: any;
-        "value"?: string;
     }
     interface KupCheckbox {
         /**
@@ -3412,7 +3399,6 @@ declare namespace LocalJSX {
         "kup-calendar": KupCalendar;
         "kup-card": KupCard;
         "kup-chart": KupChart;
-        "kup-chart-cell": KupChartCell;
         "kup-checkbox": KupCheckbox;
         "kup-checkbox-menu": KupCheckboxMenu;
         "kup-chip": KupChip;
@@ -3460,7 +3446,6 @@ declare module "@stencil/core" {
             "kup-calendar": LocalJSX.KupCalendar & JSXBase.HTMLAttributes<HTMLKupCalendarElement>;
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
-            "kup-chart-cell": LocalJSX.KupChartCell & JSXBase.HTMLAttributes<HTMLKupChartCellElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-checkbox-menu": LocalJSX.KupCheckboxMenu & JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;

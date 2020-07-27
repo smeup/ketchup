@@ -103,18 +103,19 @@ export default {
           try: 'json',
         },
         {
-          prop: 'height',
-          description: 'Height of the graph (in pixels).',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'legend',
           description: 'Displays the legend of the graph.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'offlineMode',
+          description:
+            'Renders charts without the Google API and using jQuery Sparkline.',
+          type: 'ChartOfflineMode',
+          default: 'undefined',
+          try: 'json',
         },
         {
           prop: 'series',
@@ -130,6 +131,22 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'sizeX',
+          description:
+            'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
+        },
+        {
+          prop: 'sizeY',
+          description:
+            'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
         },
         {
           prop: 'stacked',
@@ -159,13 +176,6 @@ export default {
           description: 'Google Charts version to load.',
           type: 'string',
           default: '45.2',
-          try: 'field',
-        },
-        {
-          prop: 'width',
-          description: 'Width of the graph (in pixels).',
-          type: 'number',
-          default: 'undefined',
           try: 'field',
         },
       ],

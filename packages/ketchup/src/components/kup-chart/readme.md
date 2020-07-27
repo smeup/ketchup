@@ -17,15 +17,16 @@
 | `graphTitleColor` | `graph-title-color` |                              | `string`                           | `undefined`        |
 | `graphTitleSize`  | `graph-title-size`  |                              | `number`                           | `undefined`        |
 | `hAxis`           | --                  |                              | `ChartAxis`                        | `undefined`        |
-| `height`          | `height`            |                              | `number`                           | `undefined`        |
 | `legend`          | `legend`            |                              | `boolean`                          | `true`             |
+| `offlineMode`     | --                  |                              | `ChartOfflineMode`                 | `undefined`        |
 | `series`          | --                  |                              | `string[]`                         | `undefined`        |
 | `showMarks`       | `show-marks`        |                              | `boolean`                          | `false`            |
+| `sizeX`           | `size-x`            |                              | `string`                           | `'100%'`           |
+| `sizeY`           | `size-y`            |                              | `string`                           | `'100%'`           |
 | `stacked`         | `stacked`           |                              | `boolean`                          | `false`            |
 | `types`           | --                  |                              | `ChartType[]`                      | `[ChartType.Hbar]` |
 | `vAxis`           | --                  |                              | `ChartAxis`                        | `undefined`        |
 | `version`         | `version`           | Google chart version to load | `string`                           | `'45.2'`           |
-| `width`           | `width`             |                              | `number`                           | `undefined`        |
 
 
 ## Events
@@ -34,6 +35,25 @@
 | ----------------- | --------------------------------------- | -------------------------------- |
 | `kupChartClicked` | Triggered when a chart serie is clicked | `CustomEvent<ChartClickedEvent>` |
 
+
+## Dependencies
+
+### Used by
+
+ - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
+
+### Graph
+```mermaid
+graph TD;
+  kup-box --> kup-chart
+  kup-card --> kup-chart
+  kup-data-table --> kup-chart
+  kup-tree --> kup-chart
+  style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 
