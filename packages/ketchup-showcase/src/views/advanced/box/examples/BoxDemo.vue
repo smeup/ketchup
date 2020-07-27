@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoProps="demoProps" :demoEvents="demoEvents" :demoComp="demoComp"></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
