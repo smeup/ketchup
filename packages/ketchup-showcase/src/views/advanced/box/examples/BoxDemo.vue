@@ -21,34 +21,41 @@ export default {
   name: 'BoxDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: comp,
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupAutoBoxSelect',
+          type: 'CustomEvent',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupBoxClicked',
+          type: 'CustomEvent',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragEnded',
+          type: 'CustomEvent',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragStarted',
+          type: 'CustomEvent',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupBoxDropped',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupBoxSelected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionClicked',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionMenuClicked',
+          type: 'CustomEvent',
         },
       ],
-      demoComp: comp,
       demoProps: [
         {
           prop: 'cardData',
@@ -196,38 +203,31 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupAutoBoxSelect',
-          type: 'CustomEvent',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupBoxClicked',
-          type: 'CustomEvent',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDragEnded',
-          type: 'CustomEvent',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDragStarted',
-          type: 'CustomEvent',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDropped',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupBoxSelected',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionClicked',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionMenuClicked',
-          type: 'CustomEvent',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
