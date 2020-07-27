@@ -1,18 +1,18 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoProps="demoProps" :demoEvents="demoEvents" :demoComp="demoComp"></demo>
   </div>
 </template>
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
 import { defaultData } from '@/mock/box';
+
+let comp = document.createElement('kup-box');
+comp.columns = '4';
+comp.data = defaultData;
+comp.contentAlign = 'center';
+comp.noBorder = true;
 
 export default {
   components: {
@@ -48,8 +48,7 @@ export default {
           active: false,
         },
       ],
-      demoComp:
-        '<kup-box content-align="center" no-border id="demo-component"></kup-box>',
+      demoComp: comp,
       demoProps: [
         {
           prop: 'cardData',
@@ -231,10 +230,6 @@ export default {
           type: 'CustomEvent',
         },
       ],
-      demoData: {
-        columns: '4',
-        data: defaultData,
-      },
     };
   },
 };
