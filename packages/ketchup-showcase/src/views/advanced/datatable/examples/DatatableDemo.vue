@@ -246,6 +246,7 @@ function createComp() {
   comp.density = 'small';
   comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
+  comp.id = 'demo-component';
   comp.loadMoreLimit = '1000';
   comp.loadMoreStep = '60';
   comp.paginatorPos = 'Top';

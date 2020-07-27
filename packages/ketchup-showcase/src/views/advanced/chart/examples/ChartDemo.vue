@@ -189,6 +189,7 @@ function createComp() {
   comp.axis = 'Col1';
   comp.colors = ['#fc8e1c', 'purple', '#45c4ea'];
   comp.data = baseData;
+  comp.id = 'demo-component';
   comp.legend = true;
   comp.series = ['Col2', 'Col3', 'Col4'];
   comp.type = ['Hbar'];

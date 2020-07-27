@@ -338,6 +338,7 @@ function createComp() {
     },
   ];
   comp.hoverScroll = true;
+  comp.id = 'demo-component';
   comp.showIcons = true;
   return comp;
 }

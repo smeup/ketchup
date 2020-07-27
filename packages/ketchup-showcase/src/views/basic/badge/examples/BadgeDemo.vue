@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -14,35 +14,13 @@ export default {
   name: 'BadgeDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupBadgeClick',
+          type: 'click',
         },
       ],
-      demoComp:
-        '<div class="badge-anchor"><span>YOUR CONTAINER</span><kup-badge position="TR" text="Demo" id="demo-component"></kup-badge></div>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -76,13 +54,48 @@ export default {
           try: 'field',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupBadgeClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('div');
+  let compSurface = document.createElement('span');
+  let compEl = document.createElement('kup-badge');
+  comp.classList.add('badge-anchor');
+  compSurface.innerText = 'YOUR CONTAINER';
+  compEl.id = 'demo-component';
+  compEl.position = 'TR';
+  compEl.text = 'Demo';
+  comp.appendChild(compSurface);
+  comp.appendChild(compEl);
+  return comp;
+}
 </script>

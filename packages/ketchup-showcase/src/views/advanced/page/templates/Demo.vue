@@ -183,7 +183,6 @@ export default {
   methods: {
     initEvents() {
       let demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
-      this.demoComp.id = 'demo-component';
       demoComponentWrapper.appendChild(this.demoComp);
       let demoComponent = document.querySelector('#demo-component');
       if (this.demoEvents) {

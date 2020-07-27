@@ -124,6 +124,7 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-autocomplete');
+  comp.id = 'demo-component';
   comp.listData = {
     data: [
       {

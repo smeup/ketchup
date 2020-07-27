@@ -122,8 +122,6 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-card');
-  comp.layoutFamily = 'standard';
-  comp.layoutNumber = '1';
   comp.data = {
     button1: { icon: 'play', flat: true },
     button2: { icon: 'favorite', flat: true },
@@ -209,6 +207,9 @@ function createComp() {
     text5: 'Text #5',
     text6: 'Text #6',
   };
+  comp.id = 'demo-component';
+  comp.layoutFamily = 'standard';
+  comp.layoutNumber = '1';
   return comp;
 }
 </script>

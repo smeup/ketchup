@@ -231,8 +231,9 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-box');
   comp.columns = '4';
-  comp.data = defaultData;
   comp.contentAlign = 'center';
+  comp.data = defaultData;
+  comp.id = 'demo-component';
   comp.noBorder = true;
   return comp;
 }
