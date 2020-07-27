@@ -7,6 +7,11 @@
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
 
+let comp = document.createElement('kup-lazy');
+let slot = document.createElement('kup-checkbox');
+slot.setAttribute('slot', 'element');
+comp.appendChild(slot);
+
 export default {
   components: {
     Demo,
@@ -36,8 +41,7 @@ export default {
           active: false,
         },
       ],
-      demoComp:
-        '<kup-lazy id="demo-component"><kup-checkbox slot="element"></kup-checkbox></kup-lazy>',
+      demoComp: comp,
       demoProps: [
         {
           prop: 'innerText',
