@@ -8,12 +8,6 @@
 import Demo from '@/views/advanced/page/templates/Demo';
 import { defaultData } from '@/mock/box';
 
-let comp = document.createElement('kup-box');
-comp.columns = '4';
-comp.data = defaultData;
-comp.contentAlign = 'center';
-comp.noBorder = true;
-
 export default {
   components: {
     Demo,
@@ -21,7 +15,7 @@ export default {
   name: 'BoxDemo',
   data() {
     return {
-      demoComp: comp,
+      demoComp: createComp(),
       demoEvents: [
         {
           name: 'kupAutoBoxSelect',
@@ -233,4 +227,13 @@ export default {
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-box');
+  comp.columns = '4';
+  comp.data = defaultData;
+  comp.contentAlign = 'center';
+  comp.noBorder = true;
+  return comp;
+}
 </script>
