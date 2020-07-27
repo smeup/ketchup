@@ -1,16 +1,11 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-
-let comp = document.createElement('kup-lazy');
-let slot = document.createElement('kup-checkbox');
-slot.setAttribute('slot', 'element');
-comp.appendChild(slot);
 
 export default {
   components: {
@@ -19,6 +14,16 @@ export default {
   name: 'LazyDemo',
   data() {
     return {
+      demoComp: createComp(),
+      demoProps: [
+        {
+          prop: 'innerText',
+          description: 'This component works with slots.',
+          type: 'string',
+          default: 'undefined',
+          try: 'json',
+        },
+      ],
       demoTabs: [
         {
           text: 'Props',
@@ -41,17 +46,16 @@ export default {
           active: false,
         },
       ],
-      demoComp: comp,
-      demoProps: [
-        {
-          prop: 'innerText',
-          description: 'This component works with slots.',
-          type: 'string',
-          default: 'undefined',
-          try: 'json',
-        },
-      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-lazy');
+  let slot = document.createElement('kup-checkbox');
+  slot.setAttribute('slot', 'element');
+  comp.appendChild(slot);
+  comp.id = 'demo-component';
+  return comp;
+}
 </script>
