@@ -835,6 +835,8 @@ export namespace Components {
          */
         "horizontal": boolean;
     }
+    interface KupLazy {
+    }
     interface KupList {
         /**
           * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -1470,6 +1472,12 @@ declare global {
         prototype: HTMLKupLayoutElement;
         new (): HTMLKupLayoutElement;
     };
+    interface HTMLKupLazyElement extends Components.KupLazy, HTMLStencilElement {
+    }
+    var HTMLKupLazyElement: {
+        prototype: HTMLKupLazyElement;
+        new (): HTMLKupLazyElement;
+    };
     interface HTMLKupListElement extends Components.KupList, HTMLStencilElement {
     }
     var HTMLKupListElement: {
@@ -1592,6 +1600,7 @@ declare global {
         "kup-image": HTMLKupImageElement;
         "kup-image-button": HTMLKupImageButtonElement;
         "kup-layout": HTMLKupLayoutElement;
+        "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
         "kup-menu": HTMLKupMenuElement;
         "kup-modal": HTMLKupModalElement;
@@ -2708,6 +2717,8 @@ declare namespace LocalJSX {
          */
         "horizontal"?: boolean;
     }
+    interface KupLazy {
+    }
     interface KupList {
         /**
           * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -3416,6 +3427,7 @@ declare namespace LocalJSX {
         "kup-image": KupImage;
         "kup-image-button": KupImageButton;
         "kup-layout": KupLayout;
+        "kup-lazy": KupLazy;
         "kup-list": KupList;
         "kup-menu": KupMenu;
         "kup-modal": KupModal;
@@ -3463,6 +3475,7 @@ declare module "@stencil/core" {
             "kup-image": LocalJSX.KupImage & JSXBase.HTMLAttributes<HTMLKupImageElement>;
             "kup-image-button": LocalJSX.KupImageButton & JSXBase.HTMLAttributes<HTMLKupImageButtonElement>;
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
+            "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
             "kup-menu": LocalJSX.KupMenu & JSXBase.HTMLAttributes<HTMLKupMenuElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
