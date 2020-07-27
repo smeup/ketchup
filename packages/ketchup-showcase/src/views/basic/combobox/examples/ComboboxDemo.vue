@@ -20,35 +20,41 @@ export default {
   name: 'ComboboxDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupComboboxClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupComboboxChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupComboboxInput',
+          type: 'input',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupComboboxFocus',
+          type: 'focus',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupComboboxBlur',
+          type: 'blur',
+        },
+        {
+          name: 'kupComboboxIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupComboboxItemClick',
+          type: 'click',
+        },
+        {
+          name: 'kupComboboxTextFieldSubmit',
+          type: 'click',
         },
       ],
-      demoComp:
-        '<kup-combobox select-mode="description" label="demo" id="demo-component"></kup-combobox>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -90,72 +96,71 @@ export default {
           try: 'json',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupComboboxClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupComboboxChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupComboboxInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupComboboxFocus',
-          type: 'focus',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupComboboxBlur',
-          type: 'blur',
-        },
-        {
-          name: 'kupComboboxIconClick',
-          type: 'click',
-        },
-        {
-          name: 'kupComboboxItemClick',
-          type: 'click',
-        },
-        {
-          name: 'kupComboboxTextFieldSubmit',
-          type: 'click',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        textfieldData: {
-          icon: 'arrow_drop_down',
-          label: 'demo',
-          trailingIcon: true,
-        },
-        listData: {
-          data: [
-            {
-              text: 'First choice',
-              value: '1',
-            },
-            {
-              text: 'Selected choice',
-              value: '2',
-              selected: true,
-            },
-            {
-              text: null,
-              value: null,
-              isSeparator: true,
-            },
-            {
-              text: 'Third choice (below a separator)',
-              value: '3',
-            },
-          ],
-          displayMode: 'both',
-          selectable: true,
-        },
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-combobox');
+  comp.id = 'demo-component';
+  comp.label = 'Demo';
+  comp.listData = {
+    data: [
+      {
+        text: 'First choice',
+        value: '1',
+      },
+      {
+        text: 'Selected choice',
+        value: '2',
+        selected: true,
+      },
+      {
+        text: null,
+        value: null,
+        isSeparator: true,
+      },
+      {
+        text: 'Third choice (below a separator)',
+        value: '3',
+      },
+    ],
+    displayMode: 'both',
+    selectable: true,
+  };
+  comp.selectMode = 'description';
+  comp.textfieldData = {
+    icon: 'arrow_drop_down',
+    label: 'demo',
+    trailingIcon: true,
+  };
+  return comp;
+}
 </script>
