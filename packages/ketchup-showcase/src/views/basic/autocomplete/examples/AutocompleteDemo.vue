@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,35 +14,41 @@ export default {
   name: 'AutocompleteDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupAutocompleteClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupAutocompleteChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupAutocompleteInput',
+          type: 'input',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupAutocompleteFocus',
+          type: 'focus',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupAutocompleteBlur',
+          type: 'blur',
+        },
+        {
+          name: 'kupAutocompleteIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupAutocompleteItemClick',
+          type: 'click',
+        },
+        {
+          name: 'kupAutocompleteFilterChanged',
+          type: 'customEvent',
         },
       ],
-      demoComp:
-        '<kup-autocomplete minimum-chars="1" select-mode="description" id="demo-component"></kup-autocomplete>',
       demoProps: [
         {
           prop: 'customStyle',
@@ -91,66 +91,64 @@ export default {
           try: 'json',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupAutocompleteClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupAutocompleteChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupAutocompleteInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupAutocompleteFocus',
-          type: 'focus',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupAutocompleteBlur',
-          type: 'blur',
-        },
-        {
-          name: 'kupAutocompleteIconClick',
-          type: 'click',
-        },
-        {
-          name: 'kupAutocompleteItemClick',
-          type: 'click',
-        },
-        {
-          name: 'kupAutocompleteFilterChanged',
-          type: 'customEvent',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        textfieldData: {
-          icon: 'arrow_drop_down',
-          label: 'demo',
-          trailingIcon: true,
-        },
-        listData: {
-          data: [
-            {
-              text: 'First item',
-              value: 'CODE_1',
-            },
-            {
-              text: 'Second item',
-              value: 'CODE_2',
-            },
-            {
-              text: 'Third item',
-              value: 'CODE_3',
-            },
-          ],
-          displayMode: 'both',
-          selectable: true,
-        },
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-autocomplete');
+  comp.listData = {
+    data: [
+      {
+        text: 'First item',
+        value: 'CODE_1',
+      },
+      {
+        text: 'Second item',
+        value: 'CODE_2',
+      },
+      {
+        text: 'Third item',
+        value: 'CODE_3',
+      },
+    ],
+    displayMode: 'both',
+    selectable: true,
+  };
+  comp.minimumChars = '1';
+  comp.selectMode = 'description';
+  comp.textfieldData = {
+    icon: 'arrow_drop_down',
+    label: 'demo',
+    trailingIcon: true,
+  };
+  return comp;
+}
 </script>
