@@ -179,7 +179,6 @@ export default {
     demoComp: HTMLElement,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Object,
   },
   methods: {
     initEvents() {
@@ -192,13 +191,6 @@ export default {
           demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
             this.handleEvent(e)
           );
-        }
-      }
-      if (this.demoData) {
-        const keys = Object.keys(this.demoData);
-
-        for (let k of keys) {
-          demoComponent[k] = this.demoData[k];
         }
       }
     },
