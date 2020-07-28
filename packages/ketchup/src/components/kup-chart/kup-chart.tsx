@@ -26,6 +26,7 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
 import { errorLogging } from '../../utils/error-logging';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 declare const google: any;
 declare const $: any;
@@ -47,6 +48,10 @@ export class KupChart {
 
     @Prop()
     colors: string[] = [];
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
 
     @Prop({ reflect: true })
     graphTitle: string;
@@ -194,6 +199,7 @@ export class KupChart {
 
     private createGoogleChartOptions() {
         const opts: ChartOptions = {
+            backgroundColor: 'transparent',
             is3D: ChartAspect.D3 === this.asp,
         };
 
@@ -389,14 +395,11 @@ export class KupChart {
         switch (this.offlineMode.shape) {
             case 'box':
                 options['type'] = 'box';
-                options['boxLineColor'] = this.colors[0];
-                options['boxFillColor'] = this.colors[1];
                 break;
 
             case 'bul':
             case 'bullet':
                 options['type'] = 'bullet';
-                options['rangeColors'] = this.colors;
                 options['targetWidth'] = this.rootElement.clientWidth / 20;
                 break;
 
@@ -421,9 +424,6 @@ export class KupChart {
             case 'tri':
             case 'tristate':
                 options['type'] = 'tristate';
-                options['posBarColor'] = this.colors[0];
-                options['negBarColor'] = this.colors[1];
-                options['zeroBarColor'] = this.colors[2];
                 options['barWidth'] =
                     this.rootElement.clientWidth / valueAsArray.length;
                 break;
@@ -457,13 +457,40 @@ export class KupChart {
         return ints;
     }
 
+    private fetchThemeColors() {
+        const color1 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-1'
+        );
+        const color2 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-2'
+        );
+        const color3 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-3'
+        );
+        const color4 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-4'
+        );
+        if (this.colors) {
+            this.colors.push(color1, color2, color3, color4);
+        } else {
+            this.colors = [color1, color2, color3, color4];
+        }
+    }
+
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidLoad() {
+        this.fetchThemeColors();
         const observer = new ResizeObserver(() => {
             if (!this.offlineMode) {
                 const options = this.createGoogleChartOptions();
-                this.gChart.draw(this.gChartView, options);
+                try {
+                    this.gChart.draw(this.gChartView, options);
+                } catch (error) {}
             } else {
                 this.loadOfflineChart();
             }
@@ -524,6 +551,7 @@ export class KupChart {
 
         return (
             <Host style={this.elStyle}>
+                <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>

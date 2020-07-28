@@ -23,6 +23,7 @@ export enum ChartAspect {
 }
 
 export interface ChartOptions {
+    backgroundColor: string;
     is3D: boolean;
     colors?: string[];
     width?: string;
