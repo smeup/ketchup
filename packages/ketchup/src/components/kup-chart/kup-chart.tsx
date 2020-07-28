@@ -5,6 +5,7 @@ import {
     Host,
     Event,
     EventEmitter,
+    State,
     h,
 } from '@stencil/core';
 
@@ -38,6 +39,8 @@ declare const $: any;
 })
 export class KupChart {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
+
     @Prop() data: DataTable;
 
     @Prop()
@@ -505,7 +508,6 @@ export class KupChart {
     }
 
     componentDidLoad() {
-        this.fetchThemeColors();
         const observer = new ResizeObserver(() => {
             if (!this.offlineMode) {
                 const options = this.createGoogleChartOptions();
@@ -548,6 +550,7 @@ export class KupChart {
     }
 
     componentWillUpdate() {
+        this.fetchThemeColors();
         if (this.gChart) {
             this.gChart.clearChart();
         }
