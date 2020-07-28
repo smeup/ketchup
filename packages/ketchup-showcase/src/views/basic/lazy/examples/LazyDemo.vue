@@ -17,11 +17,34 @@ export default {
       demoComp: createComp(),
       demoProps: [
         {
-          prop: 'innerText',
-          description: 'This component works with slots.',
+          prop: 'componentName',
+          description: 'Sets the tag name of the component to be lazy loaded.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
+          prop: 'data',
+          description: 'Sets the data of the component to be lazy loaded.',
           type: 'string',
           default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'showPlaceholder',
+          description:
+            'Displays an animated SVG placeholder until the component is loaded.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
         },
       ],
       demoTabs: [
@@ -52,10 +75,20 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-lazy');
-  let slot = document.createElement('kup-checkbox');
-  slot.setAttribute('slot', 'element');
-  comp.appendChild(slot);
+  comp.componentName = 'kup-card';
+  comp.data = {
+    data: {
+      button1: { icon: 'favorite', flat: true },
+      image1: {
+        resource: 'images/catz_small.jpg',
+      },
+      text1: 'Lazy loaded!',
+      text2:
+        'This card was rendered as soon as it was partially included inside the viewport.',
+    },
+  };
   comp.id = 'demo-component';
+  comp.showPlaceholder = true;
   return comp;
 }
 </script>

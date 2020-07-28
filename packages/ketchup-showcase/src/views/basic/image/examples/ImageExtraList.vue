@@ -543,6 +543,10 @@
             <kup-image size-x="48px" size-y="48px" resource="key-variant"></kup-image>
             <div class="icon-label">key-variant</div>
           </div>
+          <div class="icon-wrapper" title="lazy">
+            <kup-image size-x="48px" size-y="48px" resource="lazy"></kup-image>
+            <div class="icon-label">lazy</div>
+          </div>
           <div class="icon-wrapper" title="lightbulb-on">
             <kup-image size-x="48px" size-y="48px" resource="lightbulb-on"></kup-image>
             <div class="icon-label">lightbulb-on</div>

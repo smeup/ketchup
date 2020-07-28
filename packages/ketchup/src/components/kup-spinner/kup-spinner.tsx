@@ -20,7 +20,7 @@ export class KupSpinner {
      */
     @Prop({ reflect: true }) barVariant: boolean = false;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**

@@ -8,7 +8,7 @@
         <lazy-basic></lazy-basic>
       </template>
       <template v-slot:2>
-        <lazy-example></lazy-example>
+        <lazy-placeholder></lazy-placeholder>
       </template>
     </comp>
   </div>
@@ -17,13 +17,13 @@
 <script>
 import LazyDemo from '@/views/basic/lazy/examples/LazyDemo';
 import LazyBasic from '@/views/basic/lazy/examples/LazyBasic';
-import LazyExample from '@/views/basic/lazy/examples/LazyExample';
+import LazyPlaceholder from '@/views/basic/lazy/examples/LazyPlaceholder';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     LazyDemo,
     LazyBasic,
-    LazyExample,
+    LazyPlaceholder,
     Comp,
   },
   data() {
@@ -31,7 +31,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-lazy',
       headtitle: 'Lazy',
-      titles: ['Playground', 'Basic usage', 'Example grid'],
+      titles: ['Playground', 'Basic usage', 'Placeholder example'],
     };
   },
 };

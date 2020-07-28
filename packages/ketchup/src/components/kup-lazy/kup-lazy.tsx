@@ -1,5 +1,6 @@
-import { Component, Element, Host, State, h } from '@stencil/core';
+import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { EventListenerCallback } from '@stencil/core/internal';
+import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-lazy',
@@ -9,6 +10,24 @@ import { EventListenerCallback } from '@stencil/core/internal';
 export class KupLazy {
     @Element() rootElement: HTMLElement;
     @State() isInViewport: boolean = false;
+
+    /**
+     * Sets the tag name of the component to be lazy loaded.
+     */
+    @Prop({ reflect: true }) componentName: string = undefined;
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
+    /**
+     * Sets the data of the component to be lazy loaded.
+     */
+    @Prop() data: {} = undefined;
+    /**
+     * Displays an animated SVG placeholder until the component is loaded.
+     */
+
+    @Prop() showPlaceholder: boolean = true;
 
     private viewportCheck: EventListenerCallback = () => {
         this.isInViewport = this.isElementPartiallyInViewport();
@@ -46,6 +65,10 @@ export class KupLazy {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        fetchThemeCustomStyle(this, false);
+    }
+
     componentDidLoad() {
         this.isInViewport = this.isElementPartiallyInViewport();
         if (!this.isInViewport) {
@@ -67,17 +90,32 @@ export class KupLazy {
     }
 
     render() {
-        let content;
+        let content: HTMLElement;
         if (this.isInViewport) {
-            content = <slot name="element" />;
-        } else {
-            content = [
-                <div class="shine"></div>,
-                <kup-image resource="short_text"></kup-image>,
-            ];
+            let Tag = this.componentName;
+            content = <Tag {...this.data}></Tag>;
+        } else if (this.showPlaceholder) {
+            content = (
+                <kup-image
+                    customStyle="#kup-component { animation: shine ease 2s infinite; } 
+            @keyframes shine {
+              0% {
+                opacity: 0.4;
+              }
+              50% {
+                opacity: 0.8;
+              }
+              100% {
+                opacity: 0.4;
+              }
+            }"
+                    resource="lazy"
+                ></kup-image>
+            );
         }
         return (
             <Host>
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{content}</div>
             </Host>
         );
