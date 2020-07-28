@@ -28,7 +28,7 @@ export interface ChartOptions {
     colors?: string[];
     width?: string;
     height?: string;
-    legend?: { position: string };
+    legend?: { position: string; textStyle?: { color?: string } };
     isStacked?: boolean;
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
@@ -41,6 +41,7 @@ export interface ChartAxis {
     ticks?: string[];
     gridlines?: ChartAxisGridlines;
     viewWindow?: ChartAxisViewWindow;
+    textStyle?: { color?: string; fontSize?: number };
 }
 
 export interface ChartAxisGridlines {

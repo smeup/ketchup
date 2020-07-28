@@ -115,6 +115,8 @@ export class KupChart {
 
     private gChartDataTable: any;
 
+    private themeText = undefined;
+    private themeColors = undefined;
     private gChartView: any;
     private elStyle = undefined;
 
@@ -205,11 +207,18 @@ export class KupChart {
 
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
+        } else {
+            opts.colors = this.themeColors;
         }
 
         if (!this.legend) {
             opts.legend = {
                 position: 'none',
+            };
+        } else {
+            opts.legend = {
+                position: 'right',
+                textStyle: { color: this.themeText },
             };
         }
 
@@ -255,10 +264,16 @@ export class KupChart {
 
         if (this.vAxis) {
             opts.vAxis = this.vAxis;
+            opts.vAxis['textStyle'] = { color: this.themeText };
+        } else {
+            opts.vAxis = { textStyle: { color: this.themeText } };
         }
 
         if (this.hAxis) {
             opts.hAxis = this.hAxis;
+            opts.hAxis['textStyle'] = { color: this.themeText };
+        } else {
+            opts.hAxis = { textStyle: { color: this.themeText } };
         }
 
         return opts;
@@ -386,11 +401,18 @@ export class KupChart {
         }
 
         let valueAsArray: string[] = this.offlineMode.value.split(';');
+        let colors: string[] = undefined;
 
         var options = {
             height: this.rootElement.clientHeight,
             width: this.rootElement.clientWidth,
         };
+
+        if (this.colors && this.colors.length > 0) {
+            colors = this.colors;
+        } else {
+            colors = this.themeColors;
+        }
 
         switch (this.offlineMode.shape) {
             case 'box':
@@ -406,19 +428,19 @@ export class KupChart {
             case 'dis':
             case 'discrete':
                 options['type'] = 'discrete';
-                options['lineColor'] = this.colors[0];
+                options['lineColor'] = colors[0];
                 break;
 
             case 'lin':
             case 'line':
                 options['type'] = 'line';
-                options['lineColor'] = this.colors[0];
-                options['fillColor'] = this.colors[1];
+                options['lineColor'] = colors[0];
+                options['fillColor'] = colors[1];
                 break;
 
             case 'pie':
                 options['type'] = 'pie';
-                options['sliceColors'] = this.colors;
+                options['sliceColors'] = colors;
                 break;
 
             case 'tri':
@@ -430,9 +452,9 @@ export class KupChart {
 
             default:
                 options['type'] = 'bar';
-                options['barColor'] = this.colors[0];
-                options['negBarColor'] = this.colors[1];
-                options['zeroBarColor'] = this.colors[2];
+                options['barColor'] = colors[0];
+                options['negBarColor'] = colors[1];
+                options['zeroBarColor'] = colors[2];
                 options['barWidth'] =
                     this.rootElement.clientWidth / valueAsArray.length;
         }
@@ -458,23 +480,22 @@ export class KupChart {
     }
 
     private fetchThemeColors() {
-        const color1 = document.documentElement.style.getPropertyValue(
+        let color1 = document.documentElement.style.getPropertyValue(
             '--kup-chart-color-1'
         );
-        const color2 = document.documentElement.style.getPropertyValue(
+        let color2 = document.documentElement.style.getPropertyValue(
             '--kup-chart-color-2'
         );
-        const color3 = document.documentElement.style.getPropertyValue(
+        let color3 = document.documentElement.style.getPropertyValue(
             '--kup-chart-color-3'
         );
-        const color4 = document.documentElement.style.getPropertyValue(
+        let color4 = document.documentElement.style.getPropertyValue(
             '--kup-chart-color-4'
         );
-        if (this.colors) {
-            this.colors.push(color1, color2, color3, color4);
-        } else {
-            this.colors = [color1, color2, color3, color4];
-        }
+        this.themeText = document.documentElement.style.getPropertyValue(
+            '--kup-text-color'
+        );
+        this.themeColors = [color1, color2, color3, color4];
     }
 
     //---- Lifecycle hooks ----
