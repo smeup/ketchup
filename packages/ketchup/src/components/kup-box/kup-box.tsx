@@ -41,7 +41,6 @@ import {
     isEditor,
     isImage,
     isProgressBar,
-    getFromConfig,
     getValue,
     buildProgressBarConfig,
     buildIconConfig,
@@ -1324,28 +1323,7 @@ export class KupBox {
                     isChart(cell.obj) ||
                     getShape(cell, boxObject) === 'GRA'
                 ) {
-                    const props = {
-                        id: cell.config.cellId,
-                        offlineMode: {
-                            value: cell.value,
-                            shape: cell.config.type,
-                        },
-                    };
-
-                    // check if column has width
-                    const height: number = Number(
-                        getFromConfig(cell, boxObject, 'height')
-                    );
-                    const width: number = Number(
-                        getFromConfig(cell, boxObject, 'width')
-                    );
-                    if (height > 0) {
-                        props['height'] = height;
-                    }
-                    if (width > 0) {
-                        props['width'] = width;
-                    }
-
+                    let props: any = cell.config;
                     boContent = <kup-chart {...props} />;
                 } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
                     boContent = (
