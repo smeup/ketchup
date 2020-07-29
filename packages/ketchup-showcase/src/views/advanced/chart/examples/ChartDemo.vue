@@ -68,6 +68,14 @@ export default {
           try: 'array',
         },
         {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
           prop: 'data',
           description: 'The actual data of the chart.',
           type: 'DataTable',
@@ -188,7 +196,6 @@ export default {
       demoData: {
         asp: '2D',
         axis: 'Col1',
-        colors: ['#fc8e1c', 'Black', '#45c4ea'],
         data: baseData,
         series: ['Col2', 'Col3', 'Col4'],
         types: ['Hbar'],

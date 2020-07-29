@@ -281,6 +281,10 @@ export namespace Components {
         "asp": ChartAspect;
         "axis": string;
         "colors": string[];
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle": string;
         "data": DataTable;
         "graphTitle": string;
         "graphTitleColor": string;
@@ -2004,6 +2008,10 @@ declare namespace LocalJSX {
         "asp"?: ChartAspect;
         "axis"?: string;
         "colors"?: string[];
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle"?: string;
         "data"?: DataTable;
         "graphTitle"?: string;
         "graphTitleColor"?: string;
