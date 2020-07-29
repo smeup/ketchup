@@ -261,7 +261,7 @@ export function fetchThemeCustomStyle(component: any) {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
-    component.customStyleTheme = themeCustomStyle(
+    component.rootElement.customStyleTheme = themeCustomStyle(
         component.rootElement.tagName
     );
 }
