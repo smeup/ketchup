@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
@@ -85,6 +86,11 @@ export class KupChip {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupBlur(i: number) {
         this.kupBlur.emit({
             id: this.rootElement.id,
@@ -139,7 +145,7 @@ export class KupChip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentWillUpdate() {
@@ -295,7 +301,7 @@ export class KupChip {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass} role="grid">

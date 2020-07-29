@@ -20,6 +20,19 @@
 | `kupNavbarOptionItemClick` |             | `CustomEvent<{ value: any; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

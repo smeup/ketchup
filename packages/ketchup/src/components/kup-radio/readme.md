@@ -25,6 +25,19 @@
 | `kupRadioInput`  |             | `CustomEvent<{ value: string; checked: boolean; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

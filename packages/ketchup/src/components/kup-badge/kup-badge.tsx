@@ -5,7 +5,9 @@ import {
     Event,
     EventEmitter,
     h,
+    State,
     Host,
+    Method,
 } from '@stencil/core';
 import { BadgePosition } from './kup-badge-declarations';
 import { errorLogging } from '../../utils/error-logging';
@@ -18,6 +20,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupBadge {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -48,6 +51,11 @@ export class KupBadge {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
@@ -57,7 +65,7 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     render() {
@@ -78,6 +86,7 @@ export class KupBadge {
             'top-right': isTopRight,
             'bottom-right': isBottomRight,
             'bottom-left': isBottomLeft,
+            'handles-custom-style': true,
         };
 
         if (this.text === undefined && this.imageData !== undefined) {

@@ -18,6 +18,19 @@
 | `layout`        | `layout`         | Sets the layout of the spinner.                                                                                  | `number`  | `1`         |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

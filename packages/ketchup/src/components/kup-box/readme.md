@@ -55,6 +55,16 @@ Type: `Promise<void>`
 
 
 
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## CSS Custom Properties
 

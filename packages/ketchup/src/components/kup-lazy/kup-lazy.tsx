@@ -1,5 +1,5 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
-import { EventListenerCallback } from '@stencil/core/internal';
+import { EventListenerCallback, Method } from '@stencil/core/internal';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
@@ -9,6 +9,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupLazy {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
     @State() isInViewport: boolean = false;
 
     /**
@@ -34,6 +35,11 @@ export class KupLazy {
     };
 
     //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     isElementPartiallyInViewport() {
         var rect = this.rootElement.getBoundingClientRect();
@@ -66,7 +72,7 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -114,7 +120,7 @@ export class KupLazy {
             );
         }
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{content}</div>
             </Host>

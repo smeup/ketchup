@@ -26,6 +26,19 @@
 | `kupImageLoad`  |             | `CustomEvent<{ el: EventTarget; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

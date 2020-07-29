@@ -9,6 +9,7 @@ import {
     h,
     Watch,
     JSX,
+    Method,
 } from '@stencil/core';
 
 import { Cell, Column } from './../kup-data-table/kup-data-table-declarations';
@@ -283,9 +284,16 @@ export class KupTree {
         tooltip: EventTarget;
     }>;
 
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     //-------- Lifecycle hooks --------
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
@@ -1191,7 +1199,7 @@ export class KupTree {
             );
         }
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div

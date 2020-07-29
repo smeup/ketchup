@@ -196,9 +196,12 @@ export class KupList {
         }
     }
 
-    /**
-     * --- Methods ----
-     */
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
@@ -491,7 +494,7 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -576,7 +579,7 @@ export class KupList {
         let index = 0;
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <ul

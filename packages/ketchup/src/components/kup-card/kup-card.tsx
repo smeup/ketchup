@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { ResizeObserver } from 'resize-observer';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
@@ -91,6 +92,11 @@ export class KupCard {
     }>;
 
     //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     onKupClick() {
         this.kupClick.emit({
@@ -287,7 +293,7 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
 
         const root = this.rootElement.shadowRoot;
 
@@ -341,7 +347,7 @@ export class KupCard {
         let card = this.getLayout();
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

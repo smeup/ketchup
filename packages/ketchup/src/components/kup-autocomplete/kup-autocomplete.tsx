@@ -5,8 +5,10 @@ import {
     Prop,
     Element,
     Host,
+    State,
     h,
     Listen,
+    Method,
 } from '@stencil/core';
 
 import { errorLogging } from '../../utils/error-logging';
@@ -24,6 +26,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -172,6 +175,10 @@ export class KupAutocomplete {
     /**
      * --- Methods ----
      */
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
         this.closeList();
@@ -311,40 +318,6 @@ export class KupAutocomplete {
             this.textfieldEl,
             this.selectMode
         );
-
-        /*
-        var firstSelectedFound = false;
-
-        if (this.listData['data']) {
-            for (let i = 0; i < this.listData['data'].length; i++) {
-                if (this.listData['data'][i].selected && firstSelectedFound) {
-                    this.listData['data'][i].selected = false;
-                    let message =
-                        'Found occurence of data(' +
-                        i +
-                        ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
-
-                    errorLogging(this.rootElement.tagName, message);
-                }
-                if (this.listData['data'][i].selected && !firstSelectedFound) {
-                    firstSelectedFound = true;
-                    this.value = getValueOfItemByDisplayMode(
-                        this.listData['data'][i],
-                        this.selectMode,
-                        ' - '
-                    );
-                    if (this.textfieldEl) {
-                        if (this.textfieldEl.initialValue === this.value) {
-                            this.textfieldEl.initialValue = '';
-                            this.textfieldEl.initialValue = this.value;
-                        } else {
-                            this.textfieldEl.initialValue = this.value;
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
 
     prepTextfield() {
@@ -397,7 +370,7 @@ export class KupAutocomplete {
 
     //---- Lifecycle hooks ----
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidRender() {
@@ -410,7 +383,11 @@ export class KupAutocomplete {
         let listEl = this.prepList();
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
+            <Host
+                class="handles-custom-style"
+                onBlur={(e: any) => this.onKupBlur(e)}
+                style={this.elStyle}
+            >
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}

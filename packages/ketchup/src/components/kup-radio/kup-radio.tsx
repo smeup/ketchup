@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
@@ -100,6 +101,11 @@ export class KupRadio {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
@@ -143,7 +149,7 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidRender() {
@@ -213,7 +219,7 @@ export class KupRadio {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{radioList}</div>
             </Host>

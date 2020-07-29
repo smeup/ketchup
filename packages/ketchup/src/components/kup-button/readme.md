@@ -33,6 +33,19 @@
 | `kupButtonFocus` |             | `CustomEvent<{ id: string; value: string; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

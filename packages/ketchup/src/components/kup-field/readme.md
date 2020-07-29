@@ -37,6 +37,16 @@ Type: `Promise<string | object>`
 
 
 
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
