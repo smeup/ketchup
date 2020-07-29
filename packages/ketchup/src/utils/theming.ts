@@ -248,7 +248,6 @@ function setTheme() {
     var event = new CustomEvent('kupThemeChanged');
     document.dispatchEvent(event);
     let components: any = document.querySelectorAll('.handles-custom-style');
-    console.log(components);
     for (let i = 0; i < components.length; i++) {
         components[i].customStyleTheme = themeCustomStyle(
             components[i].tagName

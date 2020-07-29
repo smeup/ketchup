@@ -167,7 +167,6 @@ export class KupSwitch {
     }
 
     render() {
-        console.log('rendering switch');
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-switch';
         let componentLabel: string = this.label;
