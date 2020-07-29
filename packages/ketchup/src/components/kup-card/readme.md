@@ -25,6 +25,19 @@
 | `kupCardEvent` |             | `CustomEvent<{ id: any; value: any; event: any; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

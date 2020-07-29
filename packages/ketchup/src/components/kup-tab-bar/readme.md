@@ -20,6 +20,19 @@
 | `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

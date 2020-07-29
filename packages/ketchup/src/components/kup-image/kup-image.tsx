@@ -9,6 +9,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
 import { errorLogging } from '../../utils/error-logging';
@@ -89,6 +90,11 @@ export class KupImage {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
@@ -110,8 +116,9 @@ export class KupImage {
     }
 
     //---- Lifecycle hooks ----
+
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
 
         if (this.isCanvas) {
             this.imageCanvas = new imageCanvas();
@@ -287,7 +294,7 @@ export class KupImage {
         }
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 {feedback}
                 {el}

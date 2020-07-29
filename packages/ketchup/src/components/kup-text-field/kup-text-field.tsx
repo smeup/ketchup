@@ -227,6 +227,11 @@ export class KupTextField {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
@@ -322,7 +327,7 @@ export class KupTextField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
         this.watchInitialValue();
     }
 
@@ -672,7 +677,7 @@ export class KupTextField {
         }
 
         return (
-            <Host style={elStyle}>
+            <Host class="handles-custom-style" style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass} style={elStyle}>
                     {widgetEl}

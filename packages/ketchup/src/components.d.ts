@@ -51,6 +51,10 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
+          * --- Methods ----
+         */
+        "refreshComponent": () => Promise<void>;
+        /**
           * Sets how the return the selected item value
          */
         "selectMode": ItemsDisplayMode;
@@ -76,6 +80,7 @@ export namespace Components {
           * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
          */
         "position": BadgePosition;
+        "refreshComponent": () => Promise<void>;
         /**
           * The text displayed inside the badge.
          */
@@ -147,6 +152,7 @@ export namespace Components {
           * Enables pagination
          */
         "pagination": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * Automatically selects the box at the specified index
          */
@@ -213,6 +219,7 @@ export namespace Components {
           * Defaults at false. When set to true, the button will be rendered with a colored outline.
          */
         "outlined": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * Defaults at false. When set to true, the button will be rendered with rounded edges.
          */
@@ -268,6 +275,7 @@ export namespace Components {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
          */
@@ -292,6 +300,7 @@ export namespace Components {
         "hAxis": ChartAxis;
         "legend": boolean;
         "offlineMode": ChartOfflineMode;
+        "refreshComponent": () => Promise<void>;
         "series": string[];
         "showMarks": boolean;
         "sizeX": string;
@@ -329,6 +338,7 @@ export namespace Components {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel": boolean;
+        "refreshComponent": () => Promise<void>;
     }
     interface KupCheckboxMenu {
         /**
@@ -369,6 +379,7 @@ export namespace Components {
           * List of elements.
          */
         "data": ComponentChipElement[];
+        "refreshComponent": () => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
          */
@@ -387,6 +398,7 @@ export namespace Components {
           * Props of the list.
          */
         "listData": Object;
+        "refreshComponent": () => Promise<void>;
         /**
           * Sets how the return the elected item value. Suported values: "code", "description", "both".
          */
@@ -616,6 +628,7 @@ export namespace Components {
           * Sets the label's position, left right or top.
          */
         "labelPos": string;
+        "refreshComponent": () => Promise<void>;
         /**
           * Sets whether the submit button must be displayed or not.
          */
@@ -754,6 +767,7 @@ export namespace Components {
           * When set to true, forces the width to 100% for the single line layout.
          */
         "fullWidth": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
          */
@@ -798,6 +812,7 @@ export namespace Components {
           * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
          */
         "isCanvas": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * The resource used to fetch the image.
          */
@@ -860,6 +875,7 @@ export namespace Components {
           * Sets the data of the component to be lazy loaded.
          */
         "data": {};
+        "refreshComponent": () => Promise<void>;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
@@ -899,6 +915,7 @@ export namespace Components {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
+        "refreshComponent": () => Promise<void>;
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
@@ -962,6 +979,7 @@ export namespace Components {
           * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
+        "refreshComponent": () => Promise<void>;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -1011,6 +1029,7 @@ export namespace Components {
           * Specifies a text for the bar's label.
          */
         "label": string;
+        "refreshComponent": () => Promise<void>;
         /**
           * The current value the progress bar must display.
          */
@@ -1071,6 +1090,7 @@ export namespace Components {
           * Defaults at null. It's the name that binds the radio buttons together.
          */
         "name": string;
+        "refreshComponent": () => Promise<void>;
     }
     interface KupSearch {
         "data": TableData;
@@ -1129,6 +1149,7 @@ export namespace Components {
           * Sets the layout of the spinner.
          */
         "layout": number;
+        "refreshComponent": () => Promise<void>;
     }
     interface KupSwitch {
         /**
@@ -1151,6 +1172,7 @@ export namespace Components {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel": boolean;
+        "refreshComponent": () => Promise<void>;
     }
     interface KupTabBar {
         /**
@@ -1161,6 +1183,7 @@ export namespace Components {
           * List of elements.
          */
         "data": ComponentTabBarElement[];
+        "refreshComponent": () => Promise<void>;
     }
     interface KupTextField {
         /**
@@ -1238,6 +1261,7 @@ export namespace Components {
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
          */
         "readOnly": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * Defaults at false. When set to true, the button will be rendered with shaped edges.
          */
@@ -1318,6 +1342,7 @@ export namespace Components {
           * Activates the scroll on hover function
          */
         "hoverScroll": boolean;
+        "refreshComponent": () => Promise<void>;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */

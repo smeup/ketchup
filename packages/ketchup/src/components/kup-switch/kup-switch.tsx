@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
@@ -95,6 +96,11 @@ export class KupSwitch {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupBlur() {
         this.kupBlur.emit({
             value: this.value,
@@ -135,7 +141,7 @@ export class KupSwitch {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentWillRender() {
@@ -177,7 +183,7 @@ export class KupSwitch {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>

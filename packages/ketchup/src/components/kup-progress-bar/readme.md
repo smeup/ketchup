@@ -20,6 +20,19 @@
 | `value`         | `value`          | The current value the progress bar must display.                                                                    | `number`  | `0`         |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

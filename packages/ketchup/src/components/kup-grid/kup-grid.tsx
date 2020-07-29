@@ -1,4 +1,13 @@
-import { Component, Prop, Element, Host, State, h, JSX } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    JSX,
+    Method,
+} from '@stencil/core';
 import { ComponentGridElement } from './kup-grid-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
@@ -35,10 +44,17 @@ export class KupGrid {
 
     private elStyle = undefined;
 
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     render() {
@@ -100,7 +116,7 @@ export class KupGrid {
         }
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass}>

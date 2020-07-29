@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
@@ -118,6 +119,11 @@ export class KupButton {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     onKupBlur() {
         this.kupBlur.emit({
             id: this.rootElement.id,
@@ -153,7 +159,7 @@ export class KupButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentWillRender() {
@@ -258,7 +264,7 @@ export class KupButton {
                 trailingEl = labelEl;
             }
             return (
-                <Host style={elStyle}>
+                <Host class="handles-custom-style" style={elStyle}>
                     <style>{setCustomStyle(this)}</style>
                     <div id="kup-component" style={elStyle}>
                         <button
@@ -324,7 +330,7 @@ export class KupButton {
                 );
             }
             return (
-                <Host>
+                <Host class="handles-custom-style">
                     <style>{setCustomStyle(this)}</style>
                     <div id="kup-component">
                         {/* 

@@ -7,6 +7,7 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 
 import {
@@ -125,6 +126,11 @@ export class KupChart {
     private observer: ResizeObserver = undefined;
 
     //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     private loadGoogleChart() {
         google.charts.setOnLoadCallback(this.createChart.bind(this));
@@ -505,7 +511,7 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     disconnectedCallBack() {
@@ -579,7 +585,7 @@ export class KupChart {
         this.fetchThemeColors();
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

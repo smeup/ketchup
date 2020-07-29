@@ -35,6 +35,16 @@
 
 ## Methods
 
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `resetFilter(newFilter: string) => Promise<void>`
 
 

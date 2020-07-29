@@ -92,6 +92,19 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; }>`                                         |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

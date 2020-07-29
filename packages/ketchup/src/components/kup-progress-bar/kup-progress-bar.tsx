@@ -1,4 +1,12 @@
-import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    Method,
+} from '@stencil/core';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
@@ -55,10 +63,17 @@ export class KupProgressBar {
      */
     @Prop({ reflect: true }) value: number = 0;
 
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidRender() {
@@ -200,7 +215,7 @@ export class KupProgressBar {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {el}

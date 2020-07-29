@@ -247,22 +247,22 @@ function setTheme() {
     }
     var event = new CustomEvent('kupThemeChanged');
     document.dispatchEvent(event);
+    let components: any = document.querySelectorAll('.handles-custom-style');
+    for (let i = 0; i < components.length; i++) {
+        components[i].customStyleTheme = themeCustomStyle(
+            components[i].tagName
+        );
+        components[i].refreshComponent();
+    }
 }
 
-export function fetchThemeCustomStyle(component: any, shouldRefresh: boolean) {
+export function fetchThemeCustomStyle(component: any) {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
-    component.customStyleTheme = themeCustomStyle(
+    component.rootElement.customStyleTheme = themeCustomStyle(
         component.rootElement.tagName
     );
-    if (shouldRefresh) {
-        component.refresh = !component.refresh;
-    } else {
-        document.addEventListener('kupThemeChanged', () =>
-            fetchThemeCustomStyle(component, true)
-        );
-    }
 }
 
 export function themeCustomStyle(component: string) {
@@ -280,11 +280,15 @@ export function themeCustomStyle(component: string) {
 }
 
 export function setCustomStyle(component: any) {
-    if (component.customStyleTheme) {
+    if (component.rootElement.customStyleTheme) {
         if (component.customStyle) {
-            return component.customStyleTheme + '' + component.customStyle;
+            return (
+                component.rootElement.customStyleTheme +
+                '' +
+                component.customStyle
+            );
         } else {
-            return component.customStyleTheme;
+            return component.rootElement.customStyleTheme;
         }
     } else if (component.customStyle) {
         return component.customStyle;

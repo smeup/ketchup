@@ -66,6 +66,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupBox {
     @Element() rootElement: HTMLElement;
+    @State() refresh: boolean = false;
 
     /**
      * Number of columns
@@ -331,10 +332,17 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
         this.onDataChanged();
     }
 
@@ -1456,7 +1464,7 @@ export class KupBox {
         };
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div

@@ -30,6 +30,19 @@
 | `kupAutocompleteItemClick`     |                | `CustomEvent<{ value: any; }>`                                           |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+--- Methods ----
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Used by

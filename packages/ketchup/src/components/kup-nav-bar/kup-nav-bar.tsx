@@ -8,6 +8,7 @@ import {
     State,
     h,
     Listen,
+    Method,
 } from '@stencil/core';
 import {
     ComponentNavBarData,
@@ -97,7 +98,13 @@ export class KupNavBar {
     kupNavbarOptionItemClick: EventEmitter<{
         value: any;
     }>;
+
     //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
@@ -192,7 +199,7 @@ export class KupNavBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidRender() {
@@ -341,7 +348,7 @@ export class KupNavBar {
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
         let titleStyle = { color: this.dynColor };
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>

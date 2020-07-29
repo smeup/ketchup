@@ -98,6 +98,11 @@ export class KupField {
 
     //---- Methods ----
 
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
         const { value, info } = event.detail;
@@ -141,7 +146,7 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     render() {
@@ -252,7 +257,7 @@ export class KupField {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}

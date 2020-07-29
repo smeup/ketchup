@@ -1,4 +1,12 @@
-import { Component, Prop, Element, Host, State, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    Method,
+} from '@stencil/core';
 import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
@@ -48,10 +56,17 @@ export class KupSpinner {
      */
     @Prop({ reflect: true }) layout: number = 1;
 
+    //---- Methods ----
+
+    @Method()
+    async refreshComponent() {
+        this.refresh = !this.refresh;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        fetchThemeCustomStyle(this);
     }
 
     componentDidUpdate() {
@@ -186,7 +201,7 @@ export class KupSpinner {
         }
 
         return (
-            <Host style={elStyle}>
+            <Host class="handles-custom-style" style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div

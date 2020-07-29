@@ -14,6 +14,19 @@
 | `singleLine`  | `single-line`  | When set to true, forces the content on a single line.                                                          | `boolean`                | `false`     |
 
 
+## Methods
+
+### `refreshComponent() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
