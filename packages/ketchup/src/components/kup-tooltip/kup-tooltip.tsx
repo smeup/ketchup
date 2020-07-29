@@ -222,7 +222,7 @@ export class KupTooltip {
                 this.visible = true;
 
                 this.kupTooltipLoadData.emit();
-            }, 1500);
+            }, 1000);
         }
     }
 
