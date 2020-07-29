@@ -46,6 +46,14 @@ export default {
           try: 'array',
         },
         {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
           prop: 'data',
           description: 'The actual data of the chart.',
           type: 'DataTable',
@@ -187,7 +195,6 @@ function createComp() {
   let comp = document.createElement('kup-chart');
   comp.asp = '2D';
   comp.axis = 'Col1';
-  comp.colors = ['#fc8e1c', 'purple', '#45c4ea'];
   comp.data = baseData;
   comp.id = 'demo-component';
   comp.legend = true;

@@ -301,6 +301,54 @@
                 ></kup-text-field>
               </td>
             </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-chart-color-1</span>
+              </td>
+              <td>Sets the first color of kup-chart. Offline mode variants: "bar" (positive bar color), "dis" (line color), "lin" (line color), "pie" (first slice).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="chart-color-1" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-chart-color-2</span>
+              </td>
+              <td>Sets the second color of kup-chart. Offline mode variants: "bar" (negative bar color), "lin" (fill color), "pie" (second slice).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="chart-color-2" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-chart-color-3</span>
+              </td>
+              <td>Sets the third color of kup-chart. Offline mode variants: "bar" (neutral bar color), "pie" (third slice).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="chart-color-3" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-chart-color-4</span>
+              </td>
+              <td>Sets the fourth color of kup-chart.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="chart-color-4" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
