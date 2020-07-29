@@ -575,6 +575,14 @@ export namespace Components {
          */
         "tableWidth": string;
         /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
+        /**
           * Defines the current totals options.
          */
         "totals": TotalsMap;
@@ -1259,11 +1267,15 @@ export namespace Components {
         /**
           * Timeout for loadDetail
          */
-        "detailDataTimeout": number;
+        "detailTimeout": number;
         /**
           * Layout used to display the items
          */
         "layout": string;
+        /**
+          * Timeout for tooltip
+         */
+        "loadTimeout": number;
     }
     interface KupTree {
         /**
@@ -2462,6 +2474,14 @@ declare namespace LocalJSX {
          */
         "tableWidth"?: string;
         /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
+        /**
           * Defines the current totals options.
          */
         "totals"?: TotalsMap;
@@ -3281,11 +3301,15 @@ declare namespace LocalJSX {
         /**
           * Timeout for loadDetail
          */
-        "detailDataTimeout"?: number;
+        "detailTimeout"?: number;
         /**
           * Layout used to display the items
          */
         "layout"?: string;
+        /**
+          * Timeout for tooltip
+         */
+        "loadTimeout"?: number;
         "onKupActionCommandClicked"?: (event: CustomEvent<{
         actionCommand: TooltipAction;
     }>) => void;
