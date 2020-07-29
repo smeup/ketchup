@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property            | Attribute             | Description                      | Type                | Default     |
-| ------------------- | --------------------- | -------------------------------- | ------------------- | ----------- |
-| `data`              | --                    | Data for top section             | `TooltipData`       | `undefined` |
-| `detailData`        | --                    | Data for the detail              | `TooltipDetailData` | `undefined` |
-| `detailDataTimeout` | `detail-data-timeout` | Timeout for loadDetail           | `number`            | `800`       |
-| `layout`            | `layout`              | Layout used to display the items | `string`            | `'1'`       |
+| Property        | Attribute        | Description                      | Type                | Default     |
+| --------------- | ---------------- | -------------------------------- | ------------------- | ----------- |
+| `data`          | --               | Data for top section             | `TooltipData`       | `undefined` |
+| `detailData`    | --               | Data for the detail              | `TooltipDetailData` | `undefined` |
+| `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`            | `800`       |
+| `layout`        | `layout`         | Layout used to display the items | `string`            | `'1'`       |
+| `loadTimeout`   | `load-timeout`   | Timeout for tooltip              | `number`            | `1000`      |
 
 
 ## Events
