@@ -245,7 +245,7 @@ export namespace Components {
     }
     interface KupCard {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
         /**
@@ -1989,7 +1989,7 @@ declare namespace LocalJSX {
     }
     interface KupCard {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
         /**

@@ -122,6 +122,7 @@ export class KupChart {
     private themeColors = undefined;
     private gChartView: any;
     private elStyle = undefined;
+    private observer: ResizeObserver = undefined;
 
     //---- Methods ----
 
@@ -507,8 +508,12 @@ export class KupChart {
         fetchThemeCustomStyle(this, false);
     }
 
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
+    }
+
     componentDidLoad() {
-        const observer = new ResizeObserver(() => {
+        this.observer = new ResizeObserver(() => {
             if (!this.offlineMode) {
                 const options = this.createGoogleChartOptions();
                 try {
@@ -518,7 +523,7 @@ export class KupChart {
                 this.loadOfflineChart();
             }
         });
-        observer.observe(this.rootElement);
+        this.observer.observe(this.rootElement);
 
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
@@ -550,7 +555,6 @@ export class KupChart {
     }
 
     componentWillUpdate() {
-        this.fetchThemeColors();
         if (this.gChart) {
             this.gChart.clearChart();
         }
@@ -572,6 +576,7 @@ export class KupChart {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
+        this.fetchThemeColors();
 
         return (
             <Host style={this.elStyle}>

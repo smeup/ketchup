@@ -445,13 +445,11 @@ export function create11(component: KupCard) {
             <div
                 class="section-1"
                 onMouseEnter={(e: MouseEvent) => {
-                    console.log(e);
                     let el: any = e.currentTarget;
                     el.style.minWidth = el.scrollWidth + 10 + 'px';
                     el.style.maxWidth = el.scrollWidth + 10 + 'px';
                 }}
                 onMouseLeave={(e: MouseEvent) => {
-                    console.log(e);
                     let el: any = e.currentTarget;
                     el.style.minWidth = '';
                     el.style.maxWidth = '';
