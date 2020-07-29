@@ -741,7 +741,7 @@ $fixed-row-class: fixed-row;
     }
 
     &.density- {
-      &small {
+      &dense {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
@@ -751,7 +751,7 @@ $fixed-row-class: fixed-row;
         }
       }
 
-      &big {
+      &wide {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 1rem;
           padding-bottom: 1rem;

@@ -112,7 +112,7 @@ export class KupDataTable {
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop({ reflect: true }) density: string = 'small';
+    @Prop({ reflect: true }) density: string = 'dense';
 
     /**
      * Enables the sorting of columns by dragging them into different columns.
@@ -2739,7 +2739,7 @@ export class KupDataTable {
                 if (this.density === 'medium') {
                     barHeight = '36px';
                 }
-                if (this.density === 'big') {
+                if (this.density === 'wide') {
                     barHeight = '50px';
                 }
 
@@ -3044,7 +3044,7 @@ export class KupDataTable {
         );
     }
 
-    private DENSITY_CODES: Array<string> = ['small', 'medium', 'big'];
+    private DENSITY_CODES: Array<string> = ['dense', 'medium', 'wide'];
     private DENSITY_DECODES: Array<string> = ['Dense', 'Normal', 'Wide'];
     private DENSITY_ICONS: Array<string> = [
         'format-align-justify',
