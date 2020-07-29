@@ -1,0 +1,15 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+#kup-component {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  & > * {
+    margin: auto;
+  }
+}

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -21,25 +15,7 @@ export default {
   name: 'DatatableDemo',
   data() {
     return {
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-      ],
-      demoComp:
-        '<kup-data-table id="demo-component" sort-enabled density="small" global-filter-value group-label-display="both" header-is-persistent load-more-limit="1000" load-more-step="60" paginator-pos="Top" rows-per-page="10" show-grid="Row" show-header sortable-columns-mutate-data></kup-data-table>',
+      demoComp: createComp(),
       demoProps: [
         {
           prop: 'data',
@@ -243,11 +219,42 @@ export default {
           try: 'json',
         },
       ],
-      demoEvents: [],
-      demoData: {
-        data: defaultDataTable,
-      },
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-data-table');
+  comp.data = defaultDataTable;
+  comp.density = 'small';
+  comp.groupLabelDisplay = 'both';
+  comp.headerIsPersistent = true;
+  comp.id = 'demo-component';
+  comp.loadMoreLimit = '1000';
+  comp.loadMoreStep = '60';
+  comp.paginatorPos = 'Top';
+  comp.rowsPerPage = '10';
+  comp.showGrid = 'Row';
+  comp.showHeader = true;
+  comp.sortableColumnsMutateData = true;
+  comp.sortEnabled = true;
+  return comp;
+}
 </script>

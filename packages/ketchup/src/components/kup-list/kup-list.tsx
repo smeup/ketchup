@@ -36,7 +36,7 @@ export class KupList {
     @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
     @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
     /**
-     * Sets a custom style for the component by feeding this string into a <style> tag.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**

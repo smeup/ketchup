@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,35 +14,17 @@ export default {
   name: 'ImageDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupImageClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupImageLoad',
+          type: 'load',
         },
       ],
-      demoComp:
-        '<kup-image size-x="128px" size-y="128px" id="demo-component" resource="widgets" color="var(--kup-icon-color)"></kup-image>',
       demoProps: [
         {
           prop: 'badgeData',
@@ -68,7 +44,7 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
           default: 'undefined',
           try: 'css',
@@ -122,30 +98,55 @@ export default {
           try: 'field',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupImageClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupImageLoad',
-          type: 'load',
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        badgeData: [
-          {
-            imageData: {
-              resource:
-                'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
-              sizeX: '1.75rem',
-              sizeY: 'auto',
-            },
-            position: 'BL',
-          },
-        ],
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-image');
+  comp.badgeData = [
+    {
+      imageData: {
+        resource:
+          'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
+        sizeX: '1.75rem',
+        sizeY: 'auto',
+      },
+      position: 'BL',
+    },
+  ];
+  comp.color = 'var(--kup-icon-color)';
+  comp.id = 'demo-component';
+  comp.resource = 'widgets';
+  comp.sizeX = '128px';
+  comp.sizeY = '128px';
+  return comp;
+}
 </script>

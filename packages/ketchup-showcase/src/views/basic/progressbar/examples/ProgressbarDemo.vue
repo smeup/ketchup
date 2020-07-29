@@ -14,25 +14,7 @@ export default {
   name: 'ProgressbarDemo',
   data() {
     return {
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
-        },
-      ],
-      demoComp:
-        '<kup-progress-bar centered-label value="50" id="demo-component"></kup-progress-bar>',
+      demoComp: createComp(),
       demoProps: [
         {
           prop: 'centeredLabel',
@@ -45,9 +27,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -118,7 +100,32 @@ export default {
           try: 'field',
         },
       ],
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-progress-bar');
+  comp.centeredLabel = true;
+  comp.id = 'demo-component';
+  comp.value = '75';
+  return comp;
+}
 </script>

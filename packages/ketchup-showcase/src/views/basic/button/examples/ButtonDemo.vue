@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -14,30 +14,21 @@ export default {
   name: 'ButtonDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupButtonClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupButtonFocus',
+          type: 'focus',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupButtonBlur',
+          type: 'blur',
         },
       ],
-      demoComp:
-        '<kup-button icon="widgets" id="demo-component" label="demo"></kup-button>',
       demoProps: [
         {
           prop: 'checked',
@@ -50,9 +41,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -157,21 +148,37 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupButtonClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupButtonFocus',
-          type: 'focus',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupButtonBlur',
-          type: 'blur',
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-button');
+  comp.icon = 'widgets';
+  comp.id = 'demo-component';
+  comp.label = 'Demo';
+  return comp;
+}
 </script>

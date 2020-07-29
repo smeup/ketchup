@@ -31,7 +31,7 @@ export class KupCard {
     @State() refresh: boolean = false;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -66,6 +66,7 @@ export class KupCard {
     private elStyle = undefined;
     private oldSizeY = undefined;
     private scalingActive = false;
+    private observer: ResizeObserver = undefined;
 
     @Event({
         eventName: 'kupCardClick',
@@ -294,10 +295,14 @@ export class KupCard {
         this.listenChipEvents(root);
         this.listenImageEvents(root);
 
-        const observer = new ResizeObserver(() => {
+        this.observer = new ResizeObserver(() => {
             this.layoutManager();
         });
-        observer.observe(this.rootElement);
+        this.observer.observe(this.rootElement);
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
     }
 
     componentDidRender() {
