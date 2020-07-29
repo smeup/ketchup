@@ -45,7 +45,13 @@ export class KupTooltip {
      * Timeout for loadDetail
      */
     @Prop()
-    detailDataTimeout: number = 800;
+    detailTimeout: number = 800;
+
+    /**
+     * Timeout for tooltip
+     */
+    @Prop()
+    loadTimeout: number = 1000;
 
     @State()
     visible = false;
@@ -106,7 +112,7 @@ export class KupTooltip {
             // loading detail
             this.loadDetailTimeout = setTimeout(
                 () => this.loadDetail(),
-                this.detailDataTimeout
+                this.detailTimeout
             );
         }
     }
@@ -222,7 +228,7 @@ export class KupTooltip {
                 this.visible = true;
 
                 this.kupTooltipLoadData.emit();
-            }, 1500);
+            }, this.loadTimeout);
         }
     }
 
