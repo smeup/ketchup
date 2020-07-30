@@ -249,8 +249,9 @@ function setTheme() {
     document.dispatchEvent(event);
     let components: any = document.querySelectorAll('.handles-custom-style');
     for (let i = 0; i < components.length; i++) {
-        let style = fetchThemeCustomStyle(components[i].tagName);
-        components[i].refreshCustomStyle(style);
+        components[i].refreshCustomStyle(
+            fetchThemeCustomStyle(components[i].tagName)
+        );
     }
 }
 
