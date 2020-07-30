@@ -28,7 +28,7 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
 import { errorLogging } from '../../utils/error-logging';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 declare const google: any;
 declare const $: any;
@@ -40,7 +40,9 @@ declare const $: any;
 })
 export class KupChart {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
+    @State() themeColors: string[] = undefined;
+    @State() themeText: string = undefined;
 
     @Prop() data: DataTable;
 
@@ -118,9 +120,6 @@ export class KupChart {
     private gChart: any;
 
     private gChartDataTable: any;
-
-    private themeText = undefined;
-    private themeColors = undefined;
     private gChartView: any;
     private elStyle = undefined;
     private observer: ResizeObserver = undefined;
@@ -128,8 +127,9 @@ export class KupChart {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
     }
 
     private loadGoogleChart() {
@@ -511,7 +511,8 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
+        this.fetchThemeColors();
     }
 
     disconnectedCallBack() {
@@ -582,7 +583,6 @@ export class KupChart {
             width: this.sizeX,
             minWidth: this.sizeX,
         };
-        this.fetchThemeColors();
 
         return (
             <Host class="handles-custom-style" style={this.elStyle}>

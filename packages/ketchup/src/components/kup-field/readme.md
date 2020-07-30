@@ -37,7 +37,7 @@ Type: `Promise<string | object>`
 
 
 
-### `refreshComponent() => Promise<void>`
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
 

@@ -1,6 +1,6 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { EventListenerCallback, Method } from '@stencil/core/internal';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-lazy',
@@ -9,7 +9,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupLazy {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
     @State() isInViewport: boolean = false;
 
     /**
@@ -37,8 +37,8 @@ export class KupLazy {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     isElementPartiallyInViewport() {
@@ -72,7 +72,7 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {

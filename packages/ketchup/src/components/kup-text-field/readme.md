@@ -56,7 +56,7 @@ Type: `Promise<boolean>`
 
 
 
-### `refreshComponent() => Promise<void>`
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
 

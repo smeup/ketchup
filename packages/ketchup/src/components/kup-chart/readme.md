@@ -39,7 +39,7 @@
 
 ## Methods
 
-### `refreshComponent() => Promise<void>`
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
 

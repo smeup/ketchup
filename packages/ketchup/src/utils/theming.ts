@@ -249,23 +249,13 @@ function setTheme() {
     document.dispatchEvent(event);
     let components: any = document.querySelectorAll('.handles-custom-style');
     for (let i = 0; i < components.length; i++) {
-        components[i].customStyleTheme = themeCustomStyle(
-            components[i].tagName
+        components[i].refreshCustomStyle(
+            fetchThemeCustomStyle(components[i].tagName)
         );
-        components[i].refreshComponent();
     }
 }
 
-export function fetchThemeCustomStyle(component: any) {
-    if (!dom.kupCurrentTheme) {
-        initThemes();
-    }
-    component.rootElement.customStyleTheme = themeCustomStyle(
-        component.rootElement.tagName
-    );
-}
-
-export function themeCustomStyle(component: string) {
+export function fetchThemeCustomStyle(component: string) {
     let styles = dom.kupCurrentTheme.customStyles;
     if (!styles) {
         return undefined;
@@ -279,16 +269,21 @@ export function themeCustomStyle(component: string) {
     return completeStyle;
 }
 
+export function setThemeCustomStyle(component: any) {
+    if (!dom.kupCurrentTheme) {
+        initThemes();
+    }
+    component.customStyleTheme = fetchThemeCustomStyle(
+        component.rootElement.tagName
+    );
+}
+
 export function setCustomStyle(component: any) {
-    if (component.rootElement.customStyleTheme) {
+    if (component.customStyleTheme) {
         if (component.customStyle) {
-            return (
-                component.rootElement.customStyleTheme +
-                '' +
-                component.customStyle
-            );
+            return component.customStyleTheme + '' + component.customStyle;
         } else {
-            return component.rootElement.customStyleTheme;
+            return component.customStyleTheme;
         }
     } else if (component.customStyle) {
         return component.customStyle;
