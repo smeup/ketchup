@@ -578,6 +578,7 @@ $fixed-row-class: fixed-row;
           // tooltip
           kup-tooltip.datatable-tooltip {
             --kup-tlt_display: table-row;
+            writing-mode: horizontal-tb;
           }
 
           &.number {
