@@ -51,7 +51,7 @@ import {
 import { buildButtonConfig } from '../../utils/widget-utils';
 import { getBoolean } from '../../utils/utils';
 import numeral from 'numeral';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-tree',
@@ -60,7 +60,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupTree {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Auto select programmatic selectic node
@@ -287,13 +287,13 @@ export class KupTree {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)

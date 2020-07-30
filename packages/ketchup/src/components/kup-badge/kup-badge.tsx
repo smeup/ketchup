@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { BadgePosition } from './kup-badge-declarations';
 import { errorLogging } from '../../utils/error-logging';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-badge',
@@ -20,7 +20,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupBadge {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -52,8 +52,8 @@ export class KupBadge {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupClick(e: Event) {
@@ -65,7 +65,7 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
     }
 
     render() {

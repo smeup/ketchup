@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-checkbox',
@@ -21,7 +21,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 export class KupCheckbox {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -106,8 +106,8 @@ export class KupCheckbox {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupBlur() {
@@ -155,7 +155,7 @@ export class KupCheckbox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
     }
 
     componentWillRender() {

@@ -94,7 +94,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 ## Methods
 
-### `refreshComponent() => Promise<void>`
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
 

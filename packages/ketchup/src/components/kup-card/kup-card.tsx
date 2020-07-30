@@ -17,7 +17,7 @@ import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import {
-    fetchThemeCustomStyle,
+    setThemeCustomStyle,
     setCustomStyle,
     colorContrast,
 } from '../../utils/theming';
@@ -29,7 +29,7 @@ import {
 })
 export class KupCard {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
@@ -94,8 +94,8 @@ export class KupCard {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupClick() {
@@ -293,7 +293,7 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
 
         const root = this.rootElement.shadowRoot;
 

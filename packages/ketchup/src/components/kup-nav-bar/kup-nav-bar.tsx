@@ -20,7 +20,7 @@ import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
-    fetchThemeCustomStyle,
+    setThemeCustomStyle,
     setCustomStyle,
     dynColorContrast,
 } from '../../utils/theming';
@@ -32,7 +32,7 @@ import {
 })
 export class KupNavBar {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -102,8 +102,8 @@ export class KupNavBar {
     //---- Methods ----
 
     @Method()
-    async refreshComponent() {
-        this.refresh = !this.refresh;
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
@@ -199,7 +199,7 @@ export class KupNavBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this);
+        setThemeCustomStyle(this);
     }
 
     componentDidRender() {

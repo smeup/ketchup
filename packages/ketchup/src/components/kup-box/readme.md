@@ -55,7 +55,7 @@ Type: `Promise<void>`
 
 
 
-### `refreshComponent() => Promise<void>`
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
 
