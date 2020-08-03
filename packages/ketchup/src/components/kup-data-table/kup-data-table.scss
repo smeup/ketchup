@@ -611,7 +611,10 @@ $fixed-row-class: fixed-row;
           // The container of the effective cell content
           .cell-content {
             display: flex;
-            & kup-image {
+            &.has-padding {
+              padding: 1rem;
+            }
+            & .icon-cell {
               margin: auto;
               vertical-align: middle;
             }

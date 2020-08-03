@@ -2669,6 +2669,9 @@ export class KupDataTable {
                 if (!cell.config.sizeY) {
                     cell.config['sizeY'] = '18px';
                 }
+                if (cell.config.badgeData) {
+                    classObj['has-padding'] = true;
+                }
                 content = <kup-image class="cell-icon" {...props} />;
             }
         } else if (isImage(cell.obj)) {
@@ -2679,6 +2682,9 @@ export class KupDataTable {
                 }
                 if (!cell.config.sizeY) {
                     cell.config['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (cell.config.badgeData) {
+                    classObj['has-padding'] = true;
                 }
                 content = <kup-image class="cell-image" {...props} />;
             }
