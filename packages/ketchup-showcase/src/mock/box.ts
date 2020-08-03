@@ -573,22 +573,18 @@ export const imgBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Date',
-      size: 10,
     },
   ],
   rows: [
@@ -600,8 +596,8 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Purple Flowers',
           },
-          value: 'images/purpleflowers.JPG',
           config: {
+            resource: 'images/purpleflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -646,12 +642,12 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: 'images/milan.JPG',
           config: {
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
+                resource: 'images/milan.JPG',
                 imageData: { resource: 'account' },
                 position: 'BR',
               },
@@ -692,8 +688,8 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/parme.JPG',
           config: {
+            resource: 'images/parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -742,8 +738,8 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
           config: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [

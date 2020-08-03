@@ -2,18 +2,15 @@
   "columns": [
     {
       "name": "DES",
-      "title": "Descrizione",
-      "size": 10
+      "title": "Descrizione"
     },
     {
       "name": "RAW",
-      "title": "Valore raw",
-      "size": 10
+      "title": "Valore raw"
     },
     {
       "name": "CHART",
-      "title": "Grafico",
-      "size": 10
+      "title": "Grafico"
     }
   ],
   "rows": [

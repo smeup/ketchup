@@ -1,8 +1,8 @@
 {
   "columns": [
-    { "name": "DES", "title": "Descrizione", "size": 10 },
-    { "name": "RAW", "title": "Valore raw", "size": 10 },
-    { "name": "ICON", "title": "Icona", "size": 10 }
+    { "name": "DES", "title": "Descrizione" },
+    { "name": "RAW", "title": "Valore raw" },
+    { "name": "ICON", "title": "Icona" }
   ],
   "rows": [
     {
@@ -18,8 +18,7 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000115" },
-          "value": "magnify",
-          "config": { "color": "blue" }
+          "config": { "color": "blue", "resource": "magnify" }
         }
       }
     },
@@ -36,8 +35,7 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000011" },
-          "value": "brightness-1",
-          "config": { "color": "#B71817" }
+          "config": { "color": "#B71817", "resource": "brightness-1" }
         }
       }
     },
@@ -54,8 +52,8 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
-          "value": "https://via.placeholder.com/128?text=CF",
           "config": {
+            "resource": "https://via.placeholder.com/128?text=CF",
             "sizeX": "64px",
             "sizeY": "64px"
           }
