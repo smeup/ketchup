@@ -56,8 +56,6 @@ import {
     hasFiltersForColumn,
 } from './kup-data-table-helper';
 
-import { buildProgressBarConfig } from '../../utils/cell-utils';
-
 import {
     isBar,
     isChart,
@@ -2677,6 +2675,8 @@ export class KupDataTable {
                     classObj['has-padding'] = true;
                 }
                 content = <kup-image class="cell-icon" {...props} />;
+            } else {
+                content = undefined;
             }
         } else if (isImage(cell.obj)) {
             if (props) {
@@ -2690,6 +2690,8 @@ export class KupDataTable {
                     classObj['has-padding'] = true;
                 }
                 content = <kup-image class="cell-image" {...props} />;
+            } else {
+                content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
             content = (
@@ -2714,6 +2716,8 @@ export class KupDataTable {
                         )}
                     />
                 );
+            } else {
+                content = undefined;
             }
         } else if (isBar(cell.obj)) {
             if (props) {
@@ -2727,25 +2731,20 @@ export class KupDataTable {
                     }
                 }
                 content = <kup-image class="cell-bar" {...props} />;
+            } else {
+                content = undefined;
             }
         } else if (isChart(cell.obj)) {
             if (props) {
                 content = <kup-chart {...props} />;
+            } else {
+                content = undefined;
             }
         } else if (isProgressBar(cell.obj)) {
-            if (!column.hideValuesRepetitions || valueToDisplay) {
-                content = (
-                    <kup-progress-bar
-                        {...buildProgressBarConfig(
-                            cell,
-                            null,
-                            true,
-                            valueToDisplay
-                        )}
-                    />
-                );
+            if (props) {
+                content = <kup-progress-bar {...props} />;
             } else {
-                content = null;
+                content = undefined;
             }
         } else if (isRadio(cell.obj)) {
             if (!column.hideValuesRepetitions || valueToDisplay) {

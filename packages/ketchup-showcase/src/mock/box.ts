@@ -36,8 +36,8 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Blue Flowers',
           },
-          value: 'images/blueflowers.JPG',
           config: {
+            resource: 'images/blueflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -77,8 +77,8 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Wooden heart',
           },
-          value: 'images/woodheart.JPG',
           config: {
+            resource: 'images/woodheart.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -118,8 +118,8 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Purple flowers',
           },
-          value: 'images/purpleflowers.JPG',
           config: {
+            resource: 'images/purpleflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -159,8 +159,8 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Red flowers',
           },
-          value: 'images/redflowers.JPG',
           config: {
+            resource: 'images/redflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -804,8 +804,8 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
           config: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -824,7 +824,9 @@ export const pgbData = {
             p: 'PGB',
             k: '80',
           },
-          value: '80',
+          config: {
+            value: '80',
+          },
         },
       },
     },
@@ -836,8 +838,11 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
-          config: { sizeX: '64px', sizeY: '64px' },
+          config: {
+            resource: 'https://via.placeholder.com/64?text=CF',
+            sizeX: '64px',
+            sizeY: '64px',
+          },
         },
         FLD2: {
           obj: {
@@ -853,9 +858,9 @@ export const pgbData = {
             p: 'PGB',
             k: '100\\*LAB;Done',
           },
-          value: '100',
           config: {
-            labelText: 'Done',
+            label: 'Done',
+            value: '100',
           },
         },
       },
@@ -868,8 +873,8 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
           config: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -888,9 +893,9 @@ export const pgbData = {
             p: 'PGB',
             k: '75',
           },
-          value: '75',
           config: {
             hideLabel: true,
+            value: '75',
           },
         },
       },
@@ -903,8 +908,8 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -923,10 +928,11 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;33',
           },
-          value: '33',
           config: {
-            foregroundColor: 'rgb(251, 223, 000)',
+            customStyle:
+              ':host{--kup-disabled-background-color: black; --kup-main-color: green}',
             backgroundColor: 'black',
+            value: '33',
           },
         },
       },
@@ -939,8 +945,8 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -959,11 +965,10 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;45',
           },
-          value: '45',
           config: {
-            backgroundColor: 'yellow',
-            foregroundColor: 'magenta',
-            borderRadius: '9px',
+            value: '45',
+            customStyle:
+              ':host{--kup-disabled-background-color: magenta; --kup-main-color: yellow}',
           },
         },
       },
@@ -976,8 +981,8 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -996,10 +1001,8 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;70',
           },
-          value: '70',
           config: {
-            foregroundColor: '#e0e0e0',
-            textColor: 'black',
+            value: '70',
           },
         },
       },
@@ -1040,8 +1043,8 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1086,8 +1089,8 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1133,8 +1136,8 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
           config: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1258,8 +1261,8 @@ export const shapeData = {
                         column: 'FLD3',
                         shape: 'PGB',
                         config: {
-                          labelText: 'Done',
-                          foregroundColor: 'rgb(200, 100, 002)',
+                          value: 100,
+                          label: 'Done',
                         },
                       },
                     ],
@@ -1378,8 +1381,8 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1420,8 +1423,8 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
           config: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1462,8 +1465,8 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
           config: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -1504,8 +1507,8 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
           config: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
