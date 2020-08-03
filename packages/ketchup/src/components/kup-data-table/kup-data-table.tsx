@@ -2758,6 +2758,9 @@ export class KupDataTable {
             style = cell.style;
         }
 
+        if (styleHasWritingMode(cell)) {
+            classObj['is-vertical'] = true;
+        }
         /**
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.

@@ -612,6 +612,13 @@ $fixed-row-class: fixed-row;
           .cell-content {
             display: flex;
 
+            &.is-vertical {
+              margin: auto;
+              & > * {
+                margin: auto;
+              }
+            }
+
             &.has-padding {
               padding: 1rem;
             }
