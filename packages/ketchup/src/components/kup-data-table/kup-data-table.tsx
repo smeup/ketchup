@@ -58,8 +58,6 @@ import {
 
 import { buildProgressBarConfig } from '../../utils/cell-utils';
 
-import { buildButtonConfig } from '../../utils/widget-utils';
-
 import {
     isBar,
     isChart,
@@ -2661,6 +2659,12 @@ export class KupDataTable {
                     classObj['negative-number'] = true;
                 }
             }
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
+            );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
                 if (!props.sizeX) {
@@ -2687,44 +2691,13 @@ export class KupDataTable {
                 }
                 content = <kup-image class="cell-image" {...props} />;
             }
-        } else if (isLink(cell.obj)) {
-            content = (
-                <a href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
-            );
         } else if (isCheckbox(cell.obj)) {
-            let checked = cell.obj.k == '1';
-            content = (
-                <kup-checkbox
-                    checked={checked}
-                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
-                    disabled={row.readOnly !== undefined ? row.readOnly : true}
-                />
-            );
+            content = <kup-checkbox class="cell-checkbox" {...props} />;
         } else if (isButton(cell.obj)) {
-            /**
-             * Here either using .bind() or () => {} function would bring more or less the same result.
-             * Both those syntax would create at run time a new function for each cell on which they're rendered.
-             * (See references below.)
-             *
-             * Another solution would be to simply bind an event handler like this:
-             * onKupButtonClicked={this.onJ4btnClicked}
-             *
-             * The problem here is that, by using that syntax:
-             * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
-             *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
-             * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
-             * 3 - searches those column and row inside the current data for the table;
-             * 4 - once the data is found, creates the custom event with the data to be sent.
-             *
-             * Currently there is no reason to perform such a search, but it may arise if on large data tables
-             * there is a significant performance loss.
-             * @see https://reactjs.org/docs/handling-events.html
-             */
             content = (
                 <kup-button
-                    {...buildButtonConfig(cell.value, cell.config)}
+                    class="cell-button"
+                    {...props}
                     onKupButtonClick={this.onJ4btnClicked.bind(
                         this,
                         row,
