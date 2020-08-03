@@ -616,12 +616,6 @@ $fixed-row-class: fixed-row;
               padding: 1rem;
             }
 
-            & .cell-button,
-            & .cell-checkbox,
-            & .cell-icon {
-              margin: auto;
-              vertical-align: middle;
-            }
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]

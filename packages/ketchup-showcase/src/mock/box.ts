@@ -637,11 +637,11 @@ export const imgBadgeData = {
             k: 'AR;ART;Milan',
           },
           config: {
+            resource: 'images/milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
-                resource: 'images/milan.JPG',
                 imageData: { resource: 'account' },
                 position: 'BR',
               },
