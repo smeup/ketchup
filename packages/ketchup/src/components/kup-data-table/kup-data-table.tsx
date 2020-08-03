@@ -2700,63 +2700,38 @@ export class KupDataTable {
                 />
             );
         } else if (isButton(cell.obj)) {
-            content = (
-                <kup-button
-                    class="cell-button"
-                    disabled={row.readOnly}
-                    {...props}
-                    onKupButtonClick={this.onJ4btnClicked.bind(
-                        this,
-                        row,
-                        column,
-                        cell
-                    )}
-                />
-            );
+            if (props) {
+                content = (
+                    <kup-button
+                        class="cell-button"
+                        disabled={row.readOnly}
+                        {...props}
+                        onKupButtonClick={this.onJ4btnClicked.bind(
+                            this,
+                            row,
+                            column,
+                            cell
+                        )}
+                    />
+                );
+            }
         } else if (isBar(cell.obj)) {
-            if (cell.config) {
-                let barData = cell.config.data;
-                let barHeight = '26px';
-                if (this.density === 'medium') {
-                    barHeight = '36px';
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
-                if (this.density === 'wide') {
-                    barHeight = '50px';
-                }
-
-                if (barData) {
-                    const props: {
-                        data: any;
-                        sizeY: string;
-                    } = {
-                        data: barData,
-                        sizeY: barHeight,
-                    };
-
-                    content =
-                        !column.hideValuesRepetitions || valueToDisplay ? (
-                            <kup-image {...props} />
-                        ) : null;
-                }
-            } else if (cell.value) {
-                const props: {
-                    resource: string;
-                    sizeY: string;
-                    isCanvas: boolean;
-                } = {
-                    resource: cell.value,
-                    sizeY: '35px',
-                    isCanvas: true,
-                };
-
-                content =
-                    !column.hideValuesRepetitions || valueToDisplay ? (
-                        <kup-image {...props} />
-                    ) : null;
+                content = <kup-image class="cell-bar" {...props} />;
             }
         } else if (isChart(cell.obj)) {
-            let props: any = cell.config;
-            content = <kup-chart {...props} />;
+            if (props) {
+                content = <kup-chart {...props} />;
+            }
         } else if (isProgressBar(cell.obj)) {
             if (!column.hideValuesRepetitions || valueToDisplay) {
                 content = (

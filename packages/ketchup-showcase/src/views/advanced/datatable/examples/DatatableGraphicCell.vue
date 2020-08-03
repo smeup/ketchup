@@ -18,10 +18,41 @@ export default {
           {
             name: 'FLD2',
             title: 'Graphic cell',
-            size: '10ch',
+            size: '20ch',
           },
         ],
         rows: [
+          {
+            cells: {
+              FLD1: {
+                obj: {
+                  t: '',
+                  p: '',
+                  k: '',
+                },
+                value:
+                  'This is drawn using CSS. The examples below use canvas.',
+                options: true,
+              },
+              FLD2: {
+                obj: {
+                  t: 'J4',
+                  p: 'BAR',
+                  k: 'R255G128B000;20,58\\\\HEIGHT;60',
+                },
+                config: {
+                  data: [
+                    {
+                      shape: 'bar',
+                      color: 'rgb(255,128,0)',
+                      width: '20%',
+                      height: '60%',
+                    },
+                  ],
+                },
+              },
+            },
+          },
           {
             cells: {
               FLD1: {
@@ -39,7 +70,10 @@ export default {
                   p: 'BAR',
                   k: 'R255G128B000;20,58\\\\HEIGHT;60',
                 },
-                value: 'R255G128B000;20,58\\\\HEIGHT;60',
+                config: {
+                  resource: 'R255G128B000;20,58\\\\HEIGHT;60',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -62,8 +96,11 @@ export default {
                   k:
                     'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
                 },
-                value:
-                  'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                config: {
+                  resource:
+                    'R255G000B000;12,4\\\\SEP;25,00\\\\R255G255B000;74,00\\\\GRID;20',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -86,8 +123,11 @@ export default {
                   k:
                     'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
                 },
-                value:
-                  'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                config: {
+                  resource:
+                    'R000G255B128;33,3\\\\ARW;50,00\\\\R255G255B051;66,5\\\\R220G000B000;100,0\\\\GRID;3',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -110,8 +150,11 @@ export default {
                   k:
                     'SHAPE;CIRCLE\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                 },
-                value:
-                  'SHAPE;CIRCLE\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                config: {
+                  resource:
+                    'SHAPE;CIRCLE\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -134,8 +177,11 @@ export default {
                   k:
                     'SHAPE;TRIR\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                 },
-                value:
-                  'SHAPE;TRIR\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                config: {
+                  resource:
+                    'SHAPE;TRIR\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -158,8 +204,11 @@ export default {
                   k:
                     'SHAPE;TRIL\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
                 },
-                value:
-                  'SHAPE;TRIL\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                config: {
+                  resource:
+                    'SHAPE;TRIL\\\\R000G255B128;33,3\\\\R255G255B051;66,5\\\\R220G000B000;100,0',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -182,8 +231,11 @@ export default {
                   k:
                     'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
                 },
-                value:
-                  'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                config: {
+                  resource:
+                    'SHAPE;TRIR;50\\\\BCOLOR;R102G255B178\\\\*NONE;33,3\\\\R255G255B051;66,5',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -206,8 +258,11 @@ export default {
                   k:
                     'SHAPE;TRIR\\\\R000G255B128;33,3\\\\AND\\\\SHAPE;TRIL\\\\*NONE;33,3\\\\R255G255B051;66,6\\\\AND\\\\SHAPE;CIRCLE\\\\R000G000B255;66,6',
                 },
-                value:
-                  'SHAPE;TRIR\\\\R000G255B128;33,3\\\\AND\\\\SHAPE;TRIL\\\\*NONE;33,3\\\\R255G255B051;66,6\\\\AND\\\\SHAPE;CIRCLE\\\\R000G000B255;66,6',
+                config: {
+                  resource:
+                    'SHAPE;TRIR\\\\R000G255B128;33,3\\\\AND\\\\SHAPE;TRIL\\\\*NONE;33,3\\\\R255G255B051;66,6\\\\AND\\\\SHAPE;CIRCLE\\\\R000G000B255;66,6',
+                  isCanvas: true,
+                },
               },
             },
           },
@@ -228,7 +283,10 @@ export default {
                   p: 'BAR',
                   k: 'SHAPE;CIRCLE\\\\R000G255B128;100',
                 },
-                value: 'SHAPE;CIRCLE\\\\R000G255B128;100',
+                config: {
+                  resource: 'SHAPE;CIRCLE\\\\R000G255B128;100',
+                  isCanvas: true,
+                },
               },
             },
           },
