@@ -611,9 +611,13 @@ $fixed-row-class: fixed-row;
           // The container of the effective cell content
           .cell-content {
             display: flex;
+
             &.has-padding {
               padding: 1rem;
             }
+
+            & .cell-button,
+            & .cell-checkbox,
             & .cell-icon {
               margin: auto;
               vertical-align: middle;

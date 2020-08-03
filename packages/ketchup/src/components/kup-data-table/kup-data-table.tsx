@@ -2692,11 +2692,18 @@ export class KupDataTable {
                 content = <kup-image class="cell-image" {...props} />;
             }
         } else if (isCheckbox(cell.obj)) {
-            content = <kup-checkbox class="cell-checkbox" {...props} />;
+            content = (
+                <kup-checkbox
+                    disabled={row.readOnly}
+                    class="cell-checkbox"
+                    {...props}
+                />
+            );
         } else if (isButton(cell.obj)) {
             content = (
                 <kup-button
                     class="cell-button"
+                    disabled={row.readOnly}
                     {...props}
                     onKupButtonClick={this.onJ4btnClicked.bind(
                         this,

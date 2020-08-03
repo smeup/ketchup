@@ -199,22 +199,18 @@ export const j4btnData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
     },
     {
       name: 'FLD4',
       title: 'Button',
-      size: 10,
     },
   ],
   rows: [
@@ -226,8 +222,8 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Florence',
           },
-          value: 'images/florence.JPG',
           config: {
+            resource: 'images/florence.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -254,10 +250,9 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Florence)',
           },
-          value: 'Book',
           config: {
-            icon: 'lead-pencil',
-            showtext: true,
+            label: 'Book',
+            icon: 'pencil',
           },
         },
       },
@@ -270,8 +265,8 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/parme.JPG',
           config: {
+            resource: 'images/parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -298,9 +293,9 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Parme)',
           },
-          value: 'Book',
           config: {
-            icon: 'lead-pencil',
+            icon: 'pencil',
+            label: 'Book',
             showtext: true,
           },
         },
@@ -314,8 +309,8 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: 'images/milan.JPG',
           config: {
+            resource: 'images/milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -342,9 +337,9 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Milan)',
           },
-          value: 'Book',
           config: {
-            icon: 'lead-pencil',
+            label: 'Book',
+            icon: 'pencil',
             showtext: true,
           },
         },
@@ -358,8 +353,8 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Rome',
           },
-          value: 'images/rome.JPG',
           config: {
+            resource: 'images/rome.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
@@ -386,10 +381,9 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Rome)',
           },
-          value: 'Book',
           config: {
-            icon: 'lead-pencil',
-            showtext: true,
+            label: 'Book',
+            icon: 'pencil',
           },
         },
       },
