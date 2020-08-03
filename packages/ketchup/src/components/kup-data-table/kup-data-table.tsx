@@ -56,10 +56,7 @@ import {
     hasFiltersForColumn,
 } from './kup-data-table-helper';
 
-import {
-    buildProgressBarConfig,
-    buildIconConfig,
-} from '../../utils/cell-utils';
+import { buildProgressBarConfig } from '../../utils/cell-utils';
 
 import { buildButtonConfig } from '../../utils/widget-utils';
 
@@ -279,12 +276,12 @@ export class KupDataTable {
     @Prop() lineBreakCharacter: string = '|';
 
     /**
-     * Defines the timout for tooltip load  
+     * Defines the timout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail  
+     * Defines the timout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -2655,24 +2652,7 @@ export class KupDataTable {
         // Sets the default value
         let content: any = valueToDisplay;
 
-        if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            let iconStyle = {};
-            if (cell.config) {
-                if (cell.config.sizeX) {
-                    iconStyle = { ...iconStyle, width: cell.config.sizeX };
-                }
-                if (cell.config.sizeY) {
-                    iconStyle = { ...iconStyle, height: cell.config.sizeY };
-                }
-            }
-            content = (
-                <span class="icon-container" style={iconStyle}>
-                    <kup-image {...buildIconConfig(cell, valueToDisplay)} />
-                </span>
-            );
-        } else if (isNumber(cell.obj)) {
-            content = valueToDisplay;
-
+        if (isNumber(cell.obj)) {
             if (content) {
                 const cellValue = numeral(cell.obj.k).value();
 
@@ -2680,21 +2660,27 @@ export class KupDataTable {
                     classObj['negative-number'] = true;
                 }
             }
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            let props: any = cell.config;
+            if (cell.config) {
+                if (!cell.config.sizeX) {
+                    cell.config['sizeX'] = '18px';
+                }
+                if (!cell.config.sizeY) {
+                    cell.config['sizeY'] = '18px';
+                }
+                content = <kup-image class="cell-icon" {...props} />;
+            }
         } else if (isImage(cell.obj)) {
-            // If we have a not duplicated image to render
-            if (valueToDisplay) {
-                // Checks if there are badges to set
-                content = (
-                    <kup-image
-                        class="cell-image"
-                        badgeData={cell.config ? cell.config.badges : undefined}
-                        sizeX="auto"
-                        sizeY="var(--dtt_cell-image_max-height)"
-                        resource={valueToDisplay}
-                    />
-                );
-            } else {
-                content = null;
+            let props: any = cell.config;
+            if (cell.config) {
+                if (!cell.config.sizeX) {
+                    cell.config['sizeX'] = 'auto';
+                }
+                if (!cell.config.sizeY) {
+                    cell.config['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                content = <kup-image class="cell-image" {...props} />;
             }
         } else if (isLink(cell.obj)) {
             content = (
@@ -2784,22 +2770,7 @@ export class KupDataTable {
                     ) : null;
             }
         } else if (isChart(cell.obj)) {
-            let columnWidth;
-            if (this.sizedColumns) {
-                columnWidth = this.sizedColumns.find(
-                    ({ name: columnName }) => columnName === column.name
-                );
-            }
-
-            const props = {
-                id: cell.config.cellId,
-                offlineMode: {
-                    value: cell.value,
-                    shape: cell.config.type,
-                },
-                width: columnWidth !== undefined ? columnWidth.size : undefined,
-            };
-
+            let props: any = cell.config;
             content = <kup-chart {...props} />;
         } else if (isProgressBar(cell.obj)) {
             if (!column.hideValuesRepetitions || valueToDisplay) {
