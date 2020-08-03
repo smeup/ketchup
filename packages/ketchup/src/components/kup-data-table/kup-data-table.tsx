@@ -73,8 +73,6 @@ import {
     isDate,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
-
-import { getBoolean } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 import {
@@ -2649,19 +2647,52 @@ export class KupDataTable {
         let content: any = valueToDisplay;
         let props: any = cell.config;
 
-        if (isNumber(cell.obj)) {
-            if (content) {
-                const cellValue = numeral(cell.obj.k).value();
-
-                if (cellValue < 0) {
-                    classObj['negative-number'] = true;
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
+                content = <kup-image class="cell-bar" {...props} />;
+            } else {
+                content = undefined;
             }
-        } else if (isLink(cell.obj)) {
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-button
+                        class="cell-button"
+                        disabled={row.readOnly}
+                        {...props}
+                        onKupButtonClick={this.onJ4btnClicked.bind(
+                            this,
+                            row,
+                            column,
+                            cell
+                        )}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = <kup-chart {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
             content = (
-                <a href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
+                <kup-checkbox
+                    disabled={row.readOnly}
+                    class="cell-checkbox"
+                    {...props}
+                />
             );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
@@ -2693,52 +2724,19 @@ export class KupDataTable {
             } else {
                 content = undefined;
             }
-        } else if (isCheckbox(cell.obj)) {
+        } else if (isLink(cell.obj)) {
             content = (
-                <kup-checkbox
-                    disabled={row.readOnly}
-                    class="cell-checkbox"
-                    {...props}
-                />
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
             );
-        } else if (isButton(cell.obj)) {
-            if (props) {
-                content = (
-                    <kup-button
-                        class="cell-button"
-                        disabled={row.readOnly}
-                        {...props}
-                        onKupButtonClick={this.onJ4btnClicked.bind(
-                            this,
-                            row,
-                            column,
-                            cell
-                        )}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isBar(cell.obj)) {
-            if (props) {
-                if (!props.sizeY) {
-                    props['sizeY'] = '26px';
-                    if (this.density === 'medium') {
-                        props['sizeY'] = '36px';
-                    }
-                    if (this.density === 'wide') {
-                        props['sizeY'] = '50px';
-                    }
+        } else if (isNumber(cell.obj)) {
+            if (content) {
+                const cellValue = numeral(cell.obj.k).value();
+
+                if (cellValue < 0) {
+                    classObj['negative-number'] = true;
                 }
-                content = <kup-image class="cell-bar" {...props} />;
-            } else {
-                content = undefined;
-            }
-        } else if (isChart(cell.obj)) {
-            if (props) {
-                content = <kup-chart {...props} />;
-            } else {
-                content = undefined;
             }
         } else if (isProgressBar(cell.obj)) {
             if (props) {
@@ -2747,21 +2745,10 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
-            if (!column.hideValuesRepetitions || valueToDisplay) {
-                let radioProp = {
-                    data: [
-                        {
-                            label: '',
-                            value: cell.value,
-                            checked: getBoolean(cell.obj.k),
-                        },
-                    ],
-                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
-                    disabled: row.readOnly !== undefined ? row.readOnly : true,
-                };
-                content = <kup-radio {...radioProp} />;
+            if (props) {
+                content = <kup-radio disabled={row.readOnly} {...props} />;
             } else {
-                content = null;
+                content = undefined;
             }
         }
 
