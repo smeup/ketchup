@@ -2651,6 +2651,7 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let props: any = cell.config;
 
         if (isNumber(cell.obj)) {
             if (content) {
@@ -2661,29 +2662,27 @@ export class KupDataTable {
                 }
             }
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            let props: any = cell.config;
-            if (cell.config) {
-                if (!cell.config.sizeX) {
-                    cell.config['sizeX'] = '18px';
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
                 }
-                if (!cell.config.sizeY) {
-                    cell.config['sizeY'] = '18px';
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
                 }
-                if (cell.config.badgeData) {
+                if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
                 content = <kup-image class="cell-icon" {...props} />;
             }
         } else if (isImage(cell.obj)) {
-            let props: any = cell.config;
-            if (cell.config) {
-                if (!cell.config.sizeX) {
-                    cell.config['sizeX'] = 'auto';
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
                 }
-                if (!cell.config.sizeY) {
-                    cell.config['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
                 }
-                if (cell.config.badgeData) {
+                if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
                 content = <kup-image class="cell-image" {...props} />;
