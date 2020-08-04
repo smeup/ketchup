@@ -1138,9 +1138,10 @@ export const tableButtonData = {
                     value: 'I(VO;COD_VER;000112)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         icon: 'pencil',
                     },
+                    value: 'pencil',
                     obj: {
                         k: 'I(VO;COD_VER;000112)',
                         p: 'BTN',
@@ -1211,7 +1212,6 @@ export const tableButtonData = {
                         'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
                 },
                 BTN: {
-                    config: {},
                     obj: {
                         k:
                             'M(J1;PATHFILE;\\\\SRV005\\smeup\\SmeOgg\\TAB£A\\WE\\homer-simpson.svg)',
@@ -1281,7 +1281,7 @@ export const tableButtonData = {
                     value: 'I(VO;COD_VER;000112) T(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         icon: 'pencil',
                     },
@@ -1354,7 +1354,7 @@ export const tableButtonData = {
                     value: 'M(CN;COL;CASFRA) T(bellicapelli)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                     },
                     obj: {
@@ -1426,7 +1426,7 @@ export const tableButtonData = {
                     value: 'I(VO;COD_VER;000112) H(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
@@ -1435,6 +1435,7 @@ export const tableButtonData = {
                         t: 'J4',
                     },
                     options: false,
+                    value: 'pencil',
                 },
             },
             id: '4',
@@ -1497,7 +1498,7 @@ export const tableButtonData = {
                     value: 'M(CN;COL;CASFRA) H(Bellicapelli)',
                 },
                 BTN: {
-                    config: {},
+                    data: {},
                     obj: {
                         k: 'M(CN;COL;CASFRA) H(Bellicapelli)',
                         p: 'BTN',
@@ -1568,7 +1569,7 @@ export const tableButtonData = {
                         'I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         icon: 'pencil',
                     },
@@ -1642,7 +1643,7 @@ export const tableButtonData = {
                     value: 'M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                 },
                 BTN: {
-                    config: {},
+                    data: {},
                     obj: {
                         k: 'M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                         p: 'BTN',
@@ -1713,7 +1714,7 @@ export const tableButtonData = {
                         'S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
@@ -1723,6 +1724,7 @@ export const tableButtonData = {
                         t: 'J4',
                     },
                     options: false,
+                    value: 'pencil',
                 },
             },
             id: '8',
@@ -1785,7 +1787,7 @@ export const tableButtonData = {
                     value: 'S(a) I(VO;COD_VER;000112) T(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         icon: 'pencil',
                     },
@@ -1858,7 +1860,7 @@ export const tableButtonData = {
                     value: 'S(a) I(VO;COD_VER;000112) T(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         icon: 'pencil',
                     },
@@ -1931,7 +1933,7 @@ export const tableButtonData = {
                     value: 'B(Yes) I(VO;COD_VER;000112)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         flat: false,
                         icon: 'pencil',
                     },
@@ -2003,7 +2005,7 @@ export const tableButtonData = {
                     value: 'B(Yes) M(CN;COL;CASFRA)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         flat: false,
                     },
                     obj: {
@@ -2074,7 +2076,7 @@ export const tableButtonData = {
                     value: 'B(Yes) I(VO;COD_VER;000112) T(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         flat: false,
                         icon: 'pencil',
@@ -2148,7 +2150,7 @@ export const tableButtonData = {
                     value: 'B(Yes) M(CN;COL;CASFRA) T(bellicapelli)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         flat: false,
                     },
@@ -2221,7 +2223,7 @@ export const tableButtonData = {
                     value: 'B(Yes) I(VO;COD_VER;000112) H(Edit)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         flat: false,
                         icon: 'pencil',
                     },
@@ -2231,6 +2233,7 @@ export const tableButtonData = {
                         t: 'J4',
                     },
                     options: false,
+                    value: 'pencil',
                 },
             },
             id: '15',
@@ -2293,7 +2296,7 @@ export const tableButtonData = {
                     value: 'B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         flat: false,
                     },
                     obj: {
@@ -2366,8 +2369,7 @@ export const tableButtonData = {
                         'B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
-                    config: {
-                        flat: false,
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
@@ -2377,6 +2379,7 @@ export const tableButtonData = {
                         t: 'J4',
                     },
                     options: false,
+                    value: 'pencil',
                 },
             },
             id: '17',
@@ -2441,7 +2444,7 @@ export const tableButtonData = {
                         'B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         flat: false,
                     },
                     obj: {
@@ -2515,7 +2518,7 @@ export const tableButtonData = {
                         'B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                 },
                 BTN: {
-                    config: {
+                    data: {
                         showtext: true,
                         flat: false,
                     },
@@ -2591,9 +2594,8 @@ export const tableButtonData = {
                         'B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))',
                 },
                 BTN: {
-                    config: {
-                        showtext: true,
-                        flat: false,
+                    data: {
+                        label: 'Dettaglio',
                     },
                     obj: {
                         k:
@@ -2667,8 +2669,7 @@ export const tableButtonData = {
                         'B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))',
                 },
                 BTN: {
-                    config: {
-                        flat: false,
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
@@ -2677,6 +2678,7 @@ export const tableButtonData = {
                         p: 'BTN',
                         t: 'J4',
                     },
+                    value: 'pencil',
                     options: false,
                 },
             },
@@ -2740,9 +2742,7 @@ export const tableButtonData = {
                     value: 'B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)',
                 },
                 BTN: {
-                    config: {
-                        showtext: true,
-                        flat: false,
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
@@ -2814,9 +2814,8 @@ export const tableButtonData = {
                     value: 'B(Yes) S(a) T(Edit)',
                 },
                 BTN: {
-                    config: {
-                        showtext: true,
-                        flat: false,
+                    data: {
+                        label: 'Edit',
                     },
                     obj: {
                         k: 'B(Yes) S(a) T(Edit)',
@@ -2887,10 +2886,7 @@ export const tableButtonData = {
                     value: 'B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)',
                 },
                 BTN: {
-                    config: {
-                        showtext: true,
-                        flat: false,
-                        fillspace: true,
+                    data: {
                         icon: 'pencil',
                     },
                     obj: {
