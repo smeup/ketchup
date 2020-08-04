@@ -2658,23 +2658,30 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                content = <kup-image class="cell-bar" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isButton(cell.obj)) {
             if (props) {
+                props['disabled'] = row.readOnly;
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
                 content = (
-                    <kup-button
+                    <kup-lazy
                         class="cell-button"
-                        disabled={row.readOnly}
-                        {...props}
-                        onKupButtonClick={this.onJ4btnClicked.bind(
-                            this,
-                            row,
-                            column,
-                            cell
-                        )}
+                        componentName="kup-button"
+                        data={...props}
                     />
                 );
             } else {
@@ -2682,16 +2689,27 @@ export class KupDataTable {
             }
         } else if (isChart(cell.obj)) {
             if (props) {
-                content = <kup-chart {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
+            if (props) {
+                props['disabled'] = row.readOnly;
+            } else {
+                props = { disabled: row.readOnly };
+            }
             content = (
-                <kup-checkbox
-                    disabled={row.readOnly}
+                <kup-lazy
                     class="cell-checkbox"
-                    {...props}
+                    componentName="kup-checkbox"
+                    data={...props}
                 />
             );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
@@ -2705,7 +2723,13 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = <kup-image class="cell-icon" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-icon"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
@@ -2720,13 +2744,19 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = <kup-image class="cell-image" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isLink(cell.obj)) {
             content = (
-                <a href={valueToDisplay} target="_blank">
+                <a class="cell-link" href={valueToDisplay} target="_blank">
                     {valueToDisplay}
                 </a>
             );
@@ -2740,13 +2770,26 @@ export class KupDataTable {
             }
         } else if (isProgressBar(cell.obj)) {
             if (props) {
-                content = <kup-progress-bar {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-progress-bar"
+                        componentName="kup-progress-bar"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
             if (props) {
-                content = <kup-radio disabled={row.readOnly} {...props} />;
+                props['disabled'] = row.readOnly;
+                content = (
+                    <kup-lazy
+                        class="cell-radio"
+                        componentName="kup-radio"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }

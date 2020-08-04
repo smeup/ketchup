@@ -30,6 +30,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
 ### Depends on
 
 - [kup-image](../kup-image)
@@ -41,6 +45,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-data-table --> kup-lazy
   style kup-lazy fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -653,7 +653,7 @@ $fixed-row-class: fixed-row;
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-image {
+            & kup-lazy {
               display: flex;
             }
           }
