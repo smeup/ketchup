@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import numeral from 'numeral';
 
 export function format(first: string, middle: string, last: string): string {
     return (
