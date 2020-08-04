@@ -11,7 +11,6 @@ import {
     Watch,
 } from '@stencil/core';
 
-import numeral from 'numeral';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { positionRecalc } from '../../utils/recalc-position';
 
