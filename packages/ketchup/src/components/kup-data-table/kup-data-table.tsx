@@ -2645,7 +2645,7 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let props: any = cell.config;
+        let props: any = cell.data;
 
         if (isBar(cell.obj)) {
             if (props) {
