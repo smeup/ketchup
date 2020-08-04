@@ -40,6 +40,7 @@ export interface Column {
         p: string;
         k: string;
     };
+    decimals?: number;
 }
 
 export interface Row {

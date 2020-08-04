@@ -81,7 +81,13 @@ import {
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
-import { getBoolean } from '../../utils/utils';
+import {
+    getBoolean,
+    stringToNumber,
+    numberToString,
+    formattedStringToUnformattedStringNumber,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 import {
@@ -279,12 +285,12 @@ export class KupDataTable {
     @Prop() lineBreakCharacter: string = '|';
 
     /**
-     * Defines the timout for tooltip load  
+     * Defines the timout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail  
+     * Defines the timout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -839,6 +845,7 @@ export class KupDataTable {
         tmpFilters[column] = null;
 
         let visibleColumns = this.getVisibleColumns();
+        let columnObject = getColumnByName(visibleColumns, column);
 
         let tmpRows = filterRows(
             this.getRows(),
@@ -852,23 +859,15 @@ export class KupDataTable {
             this.addColumnValueFromRow(values, column, row)
         );
 
-        let c: Column = null;
-        for (let i = 0; i < visibleColumns.length; i++) {
-            if (visibleColumns[i].name == column) {
-                c = visibleColumns[i];
-                break;
-            }
-        }
-
-        if (c != null) {
+        if (columnObject != null) {
             values = values.sort((n1: string, n2: string) => {
                 let obj1: any = n1;
                 let obj2: any = n2;
 
-                if (isNumber(c.obj)) {
-                    obj1 = Number(n1);
-                    obj2 = Number(n2);
-                } else if (isDate(c.obj)) {
+                if (isNumber(columnObject.obj)) {
+                    obj1 = stringToNumber(n1);
+                    obj2 = stringToNumber(n2);
+                } else if (isDate(columnObject.obj)) {
                     obj1 = unformatDate(n1);
                     obj2 = unformatDate(n2);
                 }
@@ -1185,25 +1184,30 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private onFilterChange({ detail }, column: string) {
+    private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.currentPage = 1;
 
+        let newFilter = detail.value.trim();
+        if (newFilter != '' && isNumber(column.obj)) {
+            newFilter = formattedStringToUnformattedStringNumber(newFilter);
+        }
+
         const newFilters: GenericFilter = { ...this.filters };
-        setTextFieldFilterValue(newFilters, column, detail.value);
+        setTextFieldFilterValue(newFilters, column.name, newFilter);
         this.filters = newFilters;
     }
 
-    private onFilterChange2({ detail }, column: string, filterValue: string) {
+    private onFilterChange2({ detail }, column: Column, filterValue: string) {
         // resetting current page
         this.currentPage = 1;
 
         const newFilters = { ...this.filters };
 
         if (detail.checked == true || filterValue == null) {
-            addCheckBoxFilterValue(newFilters, column, filterValue);
+            addCheckBoxFilterValue(newFilters, column.name, filterValue);
         } else {
-            removeCheckBoxFilterValue(newFilters, column, filterValue);
+            removeCheckBoxFilterValue(newFilters, column.name, filterValue);
         }
 
         this.filters = newFilters;
@@ -1917,17 +1921,24 @@ export class KupDataTable {
                     );
 
                     if (this.showFilters && isStringObject(column.obj)) {
+                        let filterInitialValue = this.getTextFieldFilterValue(
+                            column.name
+                        );
+                        if (filterInitialValue != '' && isNumber(column.obj)) {
+                            filterInitialValue = unformattedStringToFormattedStringNumber(
+                                filterInitialValue,
+                                column.decimals
+                            );
+                        }
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
                                     full-width
                                     label="Filter column..."
                                     outlined={false}
-                                    initialValue={this.getTextFieldFilterValue(
-                                        column.name
-                                    )}
+                                    initialValue={filterInitialValue}
                                     onKupTextFieldSubmit={(e) => {
-                                        this.onFilterChange(e, column.name);
+                                        this.onFilterChange(e, column);
                                         this.closeMenu();
                                     }}
                                 ></kup-text-field>
@@ -1961,11 +1972,7 @@ export class KupDataTable {
                                     label={'(*All)'}
                                     checked={checkBoxesFilter.length == 0}
                                     onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(
-                                            e,
-                                            column.name,
-                                            null
-                                        );
+                                        this.onFilterChange2(e, column, null);
                                     }}
                                 ></kup-checkbox>
                             );
@@ -1978,6 +1985,11 @@ export class KupDataTable {
                                 } else {
                                     label = '(*unchecked)';
                                 }
+                            } else if (v != '' && isNumber(column.obj)) {
+                                label = unformattedStringToFormattedStringNumber(
+                                    v,
+                                    column.decimals
+                                );
                             }
 
                             checkboxItems.push(
@@ -1985,7 +1997,7 @@ export class KupDataTable {
                                     label={label}
                                     checked={checkBoxesFilter.includes(v)}
                                     onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(e, column.name, v);
+                                        this.onFilterChange2(e, column, v);
                                     }}
                                 ></kup-checkbox>
                             );
@@ -2246,8 +2258,8 @@ export class KupDataTable {
             return null;
         }
 
-        const footerCells = this.getVisibleColumns().map(({ name }) => (
-            <td>{this.footer[name]}</td>
+        const footerCells = this.getVisibleColumns().map((column: Column) => (
+            <td>{numberToString(this.footer[column.name], column.decimals)}</td>
         ));
 
         let selectRowCell = null;
@@ -2335,7 +2347,12 @@ export class KupDataTable {
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
                     cells.push(
-                        <td class="total">{row.group.totals[column.name]}</td>
+                        <td class="total">
+                            {numberToString(
+                                row.group.totals[column.name],
+                                column.decimals
+                            )}
+                        </td>
                     );
                 }
 
@@ -2673,10 +2690,14 @@ export class KupDataTable {
         } else if (isNumber(cell.obj)) {
             content = valueToDisplay;
 
-            if (content) {
-                const cellValue = numeral(cell.obj.k).value();
-
-                if (cellValue < 0) {
+            if (content && content != '') {
+                const cellValueNumber: number = stringToNumber(cell.value);
+                const cellValue = numberToString(
+                    cellValueNumber,
+                    column.decimals ? column.decimals : -1
+                );
+                content = cellValue;
+                if (cellValueNumber < 0) {
                     classObj['negative-number'] = true;
                 }
             }
