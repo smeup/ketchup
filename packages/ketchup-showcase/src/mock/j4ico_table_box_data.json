@@ -18,7 +18,8 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000115" },
-          "config": { "color": "blue", "resource": "magnify" }
+          "data": { "color": "blue", "resource": "magnify" },
+          "value": "magnify"
         }
       }
     },
@@ -35,7 +36,8 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000011" },
-          "config": { "color": "#B71817", "resource": "brightness-1" }
+          "data": { "color": "#B71817", "resource": "brightness-1" },
+          "value": "brightness-1"
         }
       }
     },
@@ -52,11 +54,12 @@
         },
         "ICON": {
           "obj": { "t": "J4", "p": "ICO", "k": "VO;COD_AGG;000012" },
-          "config": {
+          "data": {
             "resource": "https://via.placeholder.com/128?text=CF",
             "sizeX": "64px",
             "sizeY": "64px"
-          }
+          },
+          "value": "https://via.placeholder.com/128?text=CF"
         }
       }
     }
