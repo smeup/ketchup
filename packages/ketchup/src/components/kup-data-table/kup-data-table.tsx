@@ -11,6 +11,7 @@ import {
     Watch,
 } from '@stencil/core';
 
+import numeral from 'numeral';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { positionRecalc } from '../../utils/recalc-position';
 
@@ -57,7 +58,15 @@ import {
 
 import {
     isBar,
+    isChart,
+    isButton,
+    isIcon,
+    isImage,
+    isLink,
     isNumber,
+    isProgressBar,
+    isRadio,
+    isVoCodver,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -72,7 +81,6 @@ import {
 } from '../kup-list/kup-list-declarations';
 import { errorLogging } from '../../utils/error-logging';
 import { unformatDate } from '../../utils/cell-formatter';
-import { getCellShape } from '../../utils/jsx/cell';
 
 @Component({
     tag: 'kup-data-table',
@@ -2626,11 +2634,123 @@ export class KupDataTable {
         column: Column,
         previousRowCellValue?: string
     ) {
+        const classObj: Record<string, boolean> = {
+            'cell-content': true,
+            clickable: !!column.clickable,
+        };
+
         // When the previous row value is different from the current value, we can show the current value.
-        let value = previousRowCellValue !== cell.value ? cell.value : '';
-        let shape = getCellShape(cell, row, column, value);
-        let content: any = shape.cellContent;
-        let cellClass: Record<string, boolean> = shape.cellClass;
+        const valueToDisplay =
+            previousRowCellValue !== cell.value ? cell.value : '';
+
+        // Sets the default value
+        let content: any = valueToDisplay;
+        let props: any = cell.data;
+
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
+                }
+                content = <kup-image class="cell-bar" {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-button
+                        class="cell-button"
+                        disabled={row.readOnly}
+                        {...props}
+                        onKupButtonClick={this.onJ4btnClicked.bind(
+                            this,
+                            row,
+                            column,
+                            cell
+                        )}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = <kup-chart {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
+            content = (
+                <kup-checkbox
+                    disabled={row.readOnly}
+                    class="cell-checkbox"
+                    {...props}
+                />
+            );
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = <kup-image class="cell-icon" {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isImage(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = <kup-image class="cell-image" {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
+            );
+        } else if (isNumber(cell.obj)) {
+            if (content) {
+                const cellValue = numeral(cell.obj.k).value();
+
+                if (cellValue < 0) {
+                    classObj['negative-number'] = true;
+                }
+            }
+        } else if (isProgressBar(cell.obj)) {
+            if (props) {
+                content = <kup-progress-bar {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isRadio(cell.obj)) {
+            if (props) {
+                content = <kup-radio disabled={row.readOnly} {...props} />;
+            } else {
+                content = undefined;
+            }
+        }
 
         // if cell.style has border, apply style to cellcontent
         let style = null;
@@ -2639,7 +2759,7 @@ export class KupDataTable {
         }
 
         if (styleHasWritingMode(cell)) {
-            cellClass['is-vertical'] = true;
+            classObj['is-vertical'] = true;
         }
         /**
          * Controls if current cell needs a tooltip and eventually adds it.
@@ -2670,7 +2790,7 @@ export class KupDataTable {
         }
 
         return (
-            <span class={cellClass} style={style}>
+            <span class={classObj} style={style}>
                 {indend}
                 {content}
             </span>
