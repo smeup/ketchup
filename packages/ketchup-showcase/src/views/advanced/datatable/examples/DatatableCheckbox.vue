@@ -1,23 +1,24 @@
 <template>
   <div>
     <h3>Checkbox data</h3>
-    <kup-data-table
-      :config.prop="baseCheckbox.config"
-      :showFilters.prop="true"
-      :data.prop="baseCheckbox.data"
-      rows-per-page="50"
-    ></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
 <script>
 import { dataTableCheckboxFactory } from '@/mock/dataTable';
+let baseCheckbox = dataTableCheckboxFactory();
 
 export default {
   name: 'DTCheckbox',
   data() {
     return {
-      baseCheckbox: dataTableCheckboxFactory(),
+      data: {
+        config: baseCheckbox.config,
+        data: baseCheckbox.data,
+        rowsPerPage: '50',
+        showFilters: true,
+      },
     };
   },
 };

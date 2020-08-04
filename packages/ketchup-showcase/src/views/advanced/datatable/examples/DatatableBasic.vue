@@ -1,31 +1,31 @@
 <template>
   <div>
     <h3>Without configuration</h3>
-    <kup-data-table :data.prop="data" @kupOptionClicked="handleKupOptionClicked"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="defaultData"></kup-lazy>
 
     <h3>Hidden columns</h3>
-    <kup-data-table :data.prop="hiddenColumnsData"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="hiddenColumnsData"></kup-lazy>
 
     <h3>Without header</h3>
-    <kup-data-table :data.prop="data" :showHeader.prop="false"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="noHeaderData"></kup-lazy>
 
     <h3>Without grid</h3>
-    <kup-data-table :data.prop="data" :showGrid.prop="false"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="noGridData"></kup-lazy>
 
     <h3>Cell style</h3>
-    <kup-data-table :data.prop="cellStyleData"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="cellStyleData"></kup-lazy>
 
     <h3>Border radius and writing mode</h3>
-    <kup-data-table :data.prop="cellStyleData2"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="cellStyleData2"></kup-lazy>
 
     <h3>Icons and images</h3>
-    <kup-data-table :data.prop="iconImagesDataTable"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="iconImagesData"></kup-lazy>
 
     <h3>With load more button</h3>
     <code>Load more elements: {{ loadQuantity }}</code>
-    <kup-data-table :data.prop="data" show-load-more @kupLoadMoreClicked="onLoadMoreClick" />
+    <kup-lazy component-name="kup-data-table" :data.prop="loadMoreData"></kup-lazy>
 
-    <kup-data-table :data.prop="progressbarData" />
+    <kup-lazy component-name="kup-data-table" :data.prop="progressbarData"></kup-lazy>
   </div>
 </template>
 
@@ -37,36 +37,48 @@ import {
   hiddenColumnsData,
   iconImagesDataTable,
 } from '@/mock/dataTable';
-import { j4btnData, pgbData } from '@/mock/box';
+import { pgbData } from '@/mock/box';
 
 export default {
   name: 'dataTableBasic',
 
   data() {
     return {
-      data: {
-        ...defaultDataTable,
+      defaultData: {
+        data: defaultDataTable,
       },
-      j4btnData,
-      hiddenColumnsData: { ...hiddenColumnsData },
-      cellStyleData: { ...cellStyleDataTable },
-      cellStyleData2: { ...cellStyleDataTable2 },
-      iconImagesDataTable: { ...iconImagesDataTable },
+      hiddenColumnsData: {
+        data: hiddenColumnsData,
+      },
+      cellStyleData: {
+        data: cellStyleDataTable,
+      },
+      cellStyleData2: {
+        data: cellStyleDataTable2,
+      },
+      iconImagesData: {
+        data: iconImagesDataTable,
+      },
+      noHeaderData: {
+        data: defaultDataTable,
+        showHeader: false,
+      },
+      noGridData: {
+        data: defaultDataTable,
+        showGrid: false,
+      },
+      loadMoreData: {
+        data: defaultDataTable,
+        showLoadMore: true,
+        onKupLoadMoreClicked: (e) => {
+          this.loadQuantity = e.detail.loadItems.toString();
+        },
+      },
       loadQuantity: '',
-      progressbarData: pgbData,
+      progressbarData: {
+        data: pgbData,
+      },
     };
-  },
-
-  methods: {
-    handleKupOptionClicked({ detail }) {
-      console.log('detail', detail);
-    },
-    onObjMatrix(e) {
-      console.log('the matrix obj', e);
-    },
-    onLoadMoreClick(e) {
-      this.loadQuantity = e.detail.loadItems.toString();
-    },
   },
 };
 </script>
