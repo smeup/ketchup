@@ -14,6 +14,7 @@ export enum ChartType {
     Sankey = 'Sankey',
     Scatter = 'Scatter',
     Unk = 'Unk',
+    ColumnChart = 'ColumnChart',
     Vbar = 'Vbar',
 }
 
