@@ -6,12 +6,15 @@
 }
 
 #kup-component {
+  display: flex;
   height: 100%;
   width: 100%;
+  &.kup-data-table.loaded {
+    display: var(--kup-display-mode);
+  }
 }
 
 .to-be-loaded {
-  display: flex;
   position: absolute;
   & > * {
     margin: auto;
