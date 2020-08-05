@@ -776,8 +776,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'CN;COL;Customers module',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BCN%253BCOL.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
@@ -805,8 +805,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'OG;J1;PATHFILE',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BJ1%253BPATHFILE.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
@@ -834,8 +834,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'J1;KEY;CTRL',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/J1%253BKEY%253BCTRL.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
