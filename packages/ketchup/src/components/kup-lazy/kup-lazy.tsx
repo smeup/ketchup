@@ -122,7 +122,9 @@ export class KupLazy {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">{content}</div>
+                <div id="kup-component" class={this.componentName}>
+                    {content}
+                </div>
             </Host>
         );
     }

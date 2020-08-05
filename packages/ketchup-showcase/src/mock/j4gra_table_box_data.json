@@ -2,18 +2,15 @@
   "columns": [
     {
       "name": "DES",
-      "title": "Descrizione",
-      "size": 10
+      "title": "Descrizione"
     },
     {
       "name": "RAW",
-      "title": "Valore raw",
-      "size": 10
+      "title": "Valore raw"
     },
     {
       "name": "CHART",
-      "title": "Grafico",
-      "size": 10
+      "title": "Grafico"
     }
   ],
   "rows": [
@@ -43,7 +40,7 @@
             "k": "1;2;1"
           },
           "value": "1;2;1",
-          "config": {
+          "data": {
             "colors": ["red", "blue", "purple"],
             "id": "pie_example",
             "sizeX": "100px",
@@ -82,7 +79,7 @@
             "k": "1;7;-5;6;10;-5;3;4"
           },
           "value": "1;7;-5;6;10;-5;3;4",
-          "config": {
+          "data": {
             "colors": ["red", "blue", "purple"],
             "id": "bar_example",
             "sizeX": "100px",
@@ -121,7 +118,7 @@
             "k": "1;7;-5;6;10;-5;3;4"
           },
           "value": "1;7;-5;6;10;-5;3;4",
-          "config": {
+          "data": {
             "colors": ["red", "blue", "purple"],
             "id": "lin_example",
             "sizeX": "100px",
@@ -160,7 +157,7 @@
             "k": "1;7;-5;6;10;-5;3;4"
           },
           "value": "1;7;-5;6;10;-5;3;4",
-          "config": {
+          "data": {
             "colors": ["red", "blue", "purple"],
             "id": "dis_example",
             "sizeX": "100px",
@@ -199,7 +196,7 @@
             "k": "10;12;12;9;7"
           },
           "value": "10;12;12;9;7",
-          "config": {
+          "data": {
             "colors": ["rgba(23,44,151,0.1)", "blue", "purple"],
             "id": "bul_example",
             "sizeX": "100px",
@@ -238,7 +235,7 @@
             "k": "4;27;34;52;54;59;61;68;78;82;85;87;91;93;100"
           },
           "value": "4;27;34;52;54;59;61;68;78;82;85;87;91;93;100",
-          "config": {
+          "data": {
             "id": "box_example",
             "sizeX": "100px",
             "sizeY": "100px",
@@ -276,7 +273,7 @@
             "k": "1;1;-1;1;0;0;-1"
           },
           "value": "1;1;-1;1;0;0;-1",
-          "config": {
+          "data": {
             "id": "tri_example",
             "sizeX": "100px",
             "sizeY": "100px",

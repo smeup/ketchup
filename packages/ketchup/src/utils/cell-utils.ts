@@ -35,8 +35,8 @@ export function getFromConfig(
     propName: string
 ): any {
     let prop = null;
-    if (cell && cell.config) {
-        prop = get(cell.config, propName, null);
+    if (cell && cell.data) {
+        prop = get(cell.data, propName, null);
     }
     if (!prop && boxObject && boxObject.config) {
         prop = get(boxObject.config, propName, null);
@@ -132,8 +132,8 @@ export function buildIconConfig(cell: Cell, value: string) {
     let sizeX = undefined;
     let sizeY = undefined;
 
-    if (cell && cell.config) {
-        const config = cell.config;
+    if (cell && cell.data) {
+        const config = cell.data;
         badgeData = config.badgeData;
         color = config.color;
         customStyle = config.customStyle;

@@ -12,4 +12,11 @@
   & > * {
     margin: auto;
   }
+
+  &.kup-data-table {
+    display: block;
+    & > * {
+      margin: unset;
+    }
+  }
 }

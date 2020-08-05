@@ -610,15 +610,19 @@ $fixed-row-class: fixed-row;
 
           // The container of the effective cell content
           .cell-content {
-            & .icon-container {
-              display: inline-block;
-              width: 16px;
-              height: 16px;
-              vertical-align: middle;
+            display: flex;
+
+            &.is-vertical {
+              margin: auto;
+              & > * {
+                margin: auto;
+              }
             }
-            & kup-image {
-              display: inline-block;
+
+            &.has-padding {
+              padding: 1rem;
             }
+
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]
