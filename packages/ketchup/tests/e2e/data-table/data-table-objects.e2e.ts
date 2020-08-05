@@ -91,7 +91,7 @@ import { newE2EPage } from '@stencil/core/testing';
 
 import { cellContentSelector } from './data-table-selectors';
 
-it('render objects', async () => {
+it.skip('render objects', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<kup-data-table></kup-data-table>');
