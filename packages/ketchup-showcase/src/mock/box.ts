@@ -227,11 +227,11 @@ export const j4btnData = {
             k: 'AR;ART;Florence',
           },
           data: {
-            resource: 'images/florence.JPG',
+            resource: 'images/Florence.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/florence.JPG',
+          value: 'images/Florence.JPG',
         },
         FLD2: {
           obj: {
@@ -272,11 +272,11 @@ export const j4btnData = {
             k: 'AR;ART;Parme',
           },
           data: {
-            resource: 'images/parme.JPG',
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/parme.JPG',
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
@@ -318,11 +318,11 @@ export const j4btnData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/milan.JPG',
+            resource: 'images/Milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/milan.JPG',
+          value: 'images/Milan.JPG',
         },
         FLD2: {
           obj: {
@@ -364,11 +364,11 @@ export const j4btnData = {
             k: 'AR;ART;Rome',
           },
           data: {
-            resource: 'images/rome.JPG',
+            resource: 'images/Rome.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/rome.JPG',
+          value: 'images/Rome.JPG',
         },
         FLD2: {
           obj: {
@@ -650,7 +650,7 @@ export const imgBadgeData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/milan.JPG',
+            resource: 'images/Milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -660,7 +660,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/milan.JPG',
+          value: 'images/Milan.JPG',
         },
         FLD2: {
           obj: {
@@ -697,7 +697,7 @@ export const imgBadgeData = {
             k: 'AR;ART;Parme',
           },
           data: {
-            resource: 'images/parme.JPG',
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -711,7 +711,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/parme.JPG',
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
