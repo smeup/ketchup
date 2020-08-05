@@ -1,22 +1,19 @@
 :host {
+  display: var(--kup-display-mode);
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+#kup-component {
   height: 100%;
   width: 100%;
 }
 
-#kup-component {
+.to-be-loaded {
   display: flex;
-  height: 100%;
-  width: 100%;
-  position: relative;
-
+  position: absolute;
   & > * {
     margin: auto;
-  }
-
-  &.kup-data-table {
-    display: block;
-    & > * {
-      margin: unset;
-    }
   }
 }

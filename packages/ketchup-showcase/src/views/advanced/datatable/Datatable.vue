@@ -66,6 +66,13 @@
   </comp>
 </template>
 
+<style>
+kup-lazy {
+  min-height: 300px;
+  min-width: 300px;
+}
+</style>
+
 <script>
 import DatatableDemo from '@/views/advanced/datatable/examples/DatatableDemo';
 import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';
