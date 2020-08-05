@@ -98,7 +98,7 @@ export class KupLazy {
     render() {
         let content: HTMLElement;
         let resource: string;
-        let className: string = this.componentName;
+        let className: string = 'handles-custom-style ' + this.componentName;
         switch (this.componentName) {
             case 'kup-chart':
                 resource = 'chart-bar';
@@ -138,11 +138,9 @@ export class KupLazy {
             className += ' to-be-loaded';
         }
         return (
-            <Host class="handles-custom-style">
+            <Host class={className}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={className}>
-                    {content}
-                </div>
+                <div id="kup-component">{content}</div>
             </Host>
         );
     }

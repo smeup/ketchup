@@ -67,9 +67,9 @@
 </template>
 
 <style>
-kup-lazy {
+kup-lazy.to-be-loaded {
   min-height: 300px;
-  min-width: 300px;
+  transition: all 0.25s;
 }
 </style>
 
