@@ -234,7 +234,9 @@ export class KupChart {
 
         if (
             this.stacked &&
-            (ChartType.Hbar === this.getMainChartType() ||
+            (ChartType.ColumnChart === this.getMainChartType() ||
+                ChartType.Unk === this.getMainChartType() ||
+                ChartType.Hbar === this.getMainChartType() ||
                 ChartType.Vbar === this.getMainChartType())
         ) {
             opts.isStacked = true;
