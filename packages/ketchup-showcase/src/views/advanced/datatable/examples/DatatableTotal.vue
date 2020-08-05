@@ -12,7 +12,7 @@ h3 {
     <h3>Sum on Column B and Column C</h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data1"></kup-lazy>
 
-    <h3>Avarage on Column B and Column C</h3>
+    <h3>Average on Column B and Column C</h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
 
     <h3>
@@ -51,8 +51,8 @@ export default {
         showFilter: true,
         data: sortDataTable,
         totals: {
-          FLD1: 'Avarage',
-          FLD4: 'Avarage',
+          FLD1: 'Average',
+          FLD4: 'Average',
         },
       },
       data3: {
@@ -61,7 +61,7 @@ export default {
         totals: {
           FLD1: 'Count',
           FLD2: 'Sum',
-          FLD3: 'Avarage',
+          FLD3: 'Average',
           FLD4: 'Count',
         },
       },

@@ -102,7 +102,7 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
-    AVARAGE = 'Avarage',
+    AVERAGE = 'Average',
 }
 
 export enum PaginatorPos {
