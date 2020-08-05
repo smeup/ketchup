@@ -753,6 +753,10 @@ $fixed-row-class: fixed-row;
     }
 
     &.density- {
+      kup-lazy.to-be-loaded {
+        height: 36px;
+      }
+
       &dense {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
@@ -760,6 +764,9 @@ $fixed-row-class: fixed-row;
         }
         tbody > tr.group > td {
           padding: 0.25rem 0;
+        }
+        kup-lazy.to-be-loaded {
+          height: 26px;
         }
       }
 
@@ -770,6 +777,9 @@ $fixed-row-class: fixed-row;
         }
         tbody > tr.group > td {
           padding: 0.75rem 0;
+        }
+        kup-lazy.to-be-loaded {
+          height: 50px;
         }
       }
     }
