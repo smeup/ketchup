@@ -382,6 +382,10 @@ $fixed-row-class: fixed-row;
           text-align: right;
         }
 
+        &.centered {
+          text-align: center;
+        }
+
         //---- Filters ----
         kup-text-field.datatable-filter {
           --kup-text-field_border-color: var(--dtt_filter-border-color);
@@ -715,6 +719,10 @@ $fixed-row-class: fixed-row;
 
           &.number {
             text-align: right;
+          }
+
+          &.centered {
+            text-align: center;
           }
         }
 

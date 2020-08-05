@@ -1669,12 +1669,11 @@ export class KupDataTable {
      * @param columnName - The name of the columns currently being examinated
      * @param columnIndex - The index of the current column
      * @param extraCells - the extra cells rendered into the table
-     * @param columnIsNumber - If the current columns contains numeric values
      */
     private composeHeaderCellClassAndStyle(
         columnIndex: number,
         extraCells: number = 0,
-        columnIsNumber: boolean = false
+        column: Column
     ): {
         columnClass: GenericObject;
         thStyle: GenericObject;
@@ -1682,9 +1681,23 @@ export class KupDataTable {
         let columnClass: GenericObject = {},
             thStyle: GenericObject = {};
 
-        // Special class column hosts numbers
-        columnClass.number = columnIsNumber;
+        if (
+            isBar(column.obj) ||
+            isButton(column.obj) ||
+            isChart(column.obj) ||
+            isCheckbox(column.obj) ||
+            isImage(column.obj) ||
+            isIcon(column.obj) ||
+            isProgressBar(column.obj) ||
+            isRadio(column.obj) ||
+            isVoCodver(column.obj)
+        ) {
+            columnClass.centered = true;
+        }
 
+        if (isNumber(column.obj)) {
+            columnClass.number = true;
+        }
         // For fixed cells styles and classes
         const fixedCellStyle = this.composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
@@ -1787,7 +1800,7 @@ export class KupDataTable {
                 } = this.composeHeaderCellClassAndStyle(
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj)
+                    column
                 );
 
                 //---- Filter ----
@@ -2215,7 +2228,7 @@ export class KupDataTable {
                 } = this.composeHeaderCellClassAndStyle(
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj)
+                    column
                 );
 
                 return (
