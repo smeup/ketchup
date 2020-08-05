@@ -45,7 +45,7 @@ it.skip('kup-box performance logger', async (done) => {
         sum += time;
     }
 
-    const avarage = Math.floor(sum / MAX_ITER);
+    const average = Math.floor(sum / MAX_ITER);
 
     done();
 });

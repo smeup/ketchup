@@ -12,7 +12,7 @@ h3 {
     <h3>Sum on Column B and Column C</h3>
     <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="sumTotals"></kup-data-table>
 
-    <h3>Avarage on Column B and Column C</h3>
+    <h3>Average on Column B and Column C</h3>
     <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="avgTotals"></kup-data-table>
 
     <h3>
@@ -46,13 +46,13 @@ export default {
         FLD3: 'Sum',
       },
       avgTotals: {
-        FLD2: 'Avarage',
-        FLD3: 'Avarage',
+        FLD2: 'Average',
+        FLD3: 'Average',
       },
       mixedTotals: {
         FLD1: 'Count',
         FLD2: 'Sum',
-        FLD3: 'Avarage',
+        FLD3: 'Average',
         FLD4: 'Count',
       },
     };
