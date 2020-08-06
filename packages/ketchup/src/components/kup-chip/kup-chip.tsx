@@ -92,14 +92,22 @@ export class KupChip {
     }
 
     onKupBlur(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.kupBlur.emit({
             id: this.rootElement.id,
             index: i,
-            value: this.data[i].value,
+            value: value,
         });
     }
 
     onKupClick(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         if (this.type === 'choice') {
             for (let j = 0; j < this.data.length; j++) {
                 if (j !== i && this.data[j].checked) {
@@ -119,26 +127,34 @@ export class KupChip {
         this.kupClick.emit({
             id: this.rootElement.id,
             index: i,
-            value: this.data[i].value,
+            value: value,
         });
     }
 
     onKupFocus(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.kupFocus.emit({
             id: this.rootElement.id,
             index: i,
-            value: this.data[i].value,
+            value: value,
         });
     }
 
     onKupIconClick(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.data.splice(i, 1);
         let newData = [...this.data];
         this.data = newData;
         this.kupIconClick.emit({
             id: this.rootElement.id,
             index: i,
-            value: this.data[i].value,
+            value: value,
         });
     }
 
