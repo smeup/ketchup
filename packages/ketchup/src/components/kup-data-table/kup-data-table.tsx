@@ -56,13 +56,6 @@ import {
 } from './kup-data-table-helper';
 
 import {
-    buildProgressBarConfig,
-    buildIconConfig,
-} from '../../utils/cell-utils';
-
-import { buildButtonConfig } from '../../utils/widget-utils';
-
-import {
     isBar,
     isChart,
     isButton,
@@ -81,7 +74,6 @@ import {
 import { GenericObject } from '../../types/GenericTypes';
 
 import {
-    getBoolean,
     stringToNumber,
     numberToString,
     formattedStringToUnformattedStringNumber,
@@ -2670,21 +2662,90 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let props: any = cell.data;
 
-        if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            let iconStyle = {};
-            if (cell.config) {
-                if (cell.config.sizeX) {
-                    iconStyle = { ...iconStyle, width: cell.config.sizeX };
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
-                if (cell.config.sizeY) {
-                    iconStyle = { ...iconStyle, height: cell.config.sizeY };
-                }
+                content = <kup-image class="cell-bar" {...props} />;
+            } else {
+                content = undefined;
             }
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-button
+                        class="cell-button"
+                        disabled={row.readOnly}
+                        {...props}
+                        onKupButtonClick={this.onJ4btnClicked.bind(
+                            this,
+                            row,
+                            column,
+                            cell
+                        )}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = <kup-chart {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
             content = (
-                <span class="icon-container" style={iconStyle}>
-                    <kup-image {...buildIconConfig(cell, valueToDisplay)} />
-                </span>
+                <kup-checkbox
+                    disabled={row.readOnly}
+                    class="cell-checkbox"
+                    {...props}
+                />
+            );
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = <kup-image class="cell-icon" {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isImage(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = <kup-image class="cell-image" {...props} />;
+            } else {
+                content = undefined;
+            }
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
             );
         } else if (isNumber(cell.obj)) {
             content = valueToDisplay;
@@ -2700,158 +2761,17 @@ export class KupDataTable {
                     classObj['negative-number'] = true;
                 }
             }
-        } else if (isImage(cell.obj)) {
-            // If we have a not duplicated image to render
-            if (valueToDisplay) {
-                // Checks if there are badges to set
-                content = (
-                    <kup-image
-                        class="cell-image"
-                        badgeData={cell.config ? cell.config.badges : undefined}
-                        sizeX="auto"
-                        sizeY="var(--dtt_cell-image_max-height)"
-                        resource={valueToDisplay}
-                    />
-                );
-            } else {
-                content = null;
-            }
-        } else if (isLink(cell.obj)) {
-            content = (
-                <a href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
-            );
-        } else if (isCheckbox(cell.obj)) {
-            let checked = cell.obj.k == '1';
-            content = (
-                <kup-checkbox
-                    checked={checked}
-                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
-                    disabled={row.readOnly !== undefined ? row.readOnly : true}
-                />
-            );
-        } else if (isButton(cell.obj)) {
-            /**
-             * Here either using .bind() or () => {} function would bring more or less the same result.
-             * Both those syntax would create at run time a new function for each cell on which they're rendered.
-             * (See references below.)
-             *
-             * Another solution would be to simply bind an event handler like this:
-             * onKupButtonClicked={this.onJ4btnClicked}
-             *
-             * The problem here is that, by using that syntax:
-             * 1 - Each time a cell is rendered with an object item, either the cell or button must have a data-row,
-             *      data-column and data-cell-name attributes which stores the index of cell's and the name of the clicked cell;
-             * 2 - each time a click event is triggered, the handler reads the row and column index set on the element;
-             * 3 - searches those column and row inside the current data for the table;
-             * 4 - once the data is found, creates the custom event with the data to be sent.
-             *
-             * Currently there is no reason to perform such a search, but it may arise if on large data tables
-             * there is a significant performance loss.
-             * @see https://reactjs.org/docs/handling-events.html
-             */
-            content = (
-                <kup-button
-                    {...buildButtonConfig(cell.value, cell.config)}
-                    onKupButtonClick={this.onJ4btnClicked.bind(
-                        this,
-                        row,
-                        column,
-                        cell
-                    )}
-                />
-            );
-        } else if (isBar(cell.obj)) {
-            if (cell.config) {
-                let barData = cell.config.data;
-                let barHeight = '26px';
-                if (this.density === 'medium') {
-                    barHeight = '36px';
-                }
-                if (this.density === 'wide') {
-                    barHeight = '50px';
-                }
-
-                if (barData) {
-                    const props: {
-                        data: any;
-                        sizeY: string;
-                    } = {
-                        data: barData,
-                        sizeY: barHeight,
-                    };
-
-                    content =
-                        !column.hideValuesRepetitions || valueToDisplay ? (
-                            <kup-image {...props} />
-                        ) : null;
-                }
-            } else if (cell.value) {
-                const props: {
-                    resource: string;
-                    sizeY: string;
-                    isCanvas: boolean;
-                } = {
-                    resource: cell.value,
-                    sizeY: '35px',
-                    isCanvas: true,
-                };
-
-                content =
-                    !column.hideValuesRepetitions || valueToDisplay ? (
-                        <kup-image {...props} />
-                    ) : null;
-            }
-        } else if (isChart(cell.obj)) {
-            let columnWidth;
-            if (this.sizedColumns) {
-                columnWidth = this.sizedColumns.find(
-                    ({ name: columnName }) => columnName === column.name
-                );
-            }
-
-            const props = {
-                id: cell.config.cellId,
-                offlineMode: {
-                    value: cell.value,
-                    shape: cell.config.type,
-                },
-                width: columnWidth !== undefined ? columnWidth.size : undefined,
-            };
-
-            content = <kup-chart {...props} />;
         } else if (isProgressBar(cell.obj)) {
-            if (!column.hideValuesRepetitions || valueToDisplay) {
-                content = (
-                    <kup-progress-bar
-                        {...buildProgressBarConfig(
-                            cell,
-                            null,
-                            true,
-                            valueToDisplay
-                        )}
-                    />
-                );
+            if (props) {
+                content = <kup-progress-bar {...props} />;
             } else {
-                content = null;
+                content = undefined;
             }
         } else if (isRadio(cell.obj)) {
-            if (!column.hideValuesRepetitions || valueToDisplay) {
-                let radioProp = {
-                    data: [
-                        {
-                            label: '',
-                            value: cell.value,
-                            checked: getBoolean(cell.obj.k),
-                        },
-                    ],
-                    // TODO: update as `row.readOnly ?? true` when dependencies are updated
-                    disabled: row.readOnly !== undefined ? row.readOnly : true,
-                };
-                content = <kup-radio {...radioProp} />;
+            if (props) {
+                content = <kup-radio disabled={row.readOnly} {...props} />;
             } else {
-                content = null;
+                content = undefined;
             }
         }
 
@@ -2861,6 +2781,9 @@ export class KupDataTable {
             style = cell.style;
         }
 
+        if (styleHasWritingMode(cell)) {
+            classObj['is-vertical'] = true;
+        }
         /**
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.

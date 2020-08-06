@@ -119,13 +119,12 @@ export class KupImage {
 
     componentWillLoad() {
         setThemeCustomStyle(this);
-
-        if (this.isCanvas) {
-            this.imageCanvas = new imageCanvas();
-        }
     }
 
     componentDidRender() {
+        if (this.isCanvas && !this.imageCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
         if (this.isCanvas && this.resource) {
             this.canvas.height = this.canvas.clientHeight;
             this.canvas.width = this.canvas.clientWidth;

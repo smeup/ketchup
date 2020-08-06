@@ -1283,7 +1283,7 @@ export class KupBox {
                 if (isButton(cell.obj)) {
                     boContent = (
                         <kup-button
-                            {...buildButtonConfig(cell.value, cell.config)}
+                            {...buildButtonConfig(cell.value, cell.data)}
                         />
                     );
                 } else if (isCheckbox(cell.obj)) {
@@ -1331,7 +1331,7 @@ export class KupBox {
                     isChart(cell.obj) ||
                     getShape(cell, boxObject) === 'GRA'
                 ) {
-                    let props: any = cell.config;
+                    let props: any = cell.data;
                     boContent = <kup-chart {...props} />;
                 } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
                     boContent = (

@@ -742,7 +742,7 @@ export class KupTree {
                 content = (
                     <kup-image
                         class="cell-image"
-                        badgeData={cell.config ? cell.config.badges : undefined}
+                        badgeData={cell.data ? cell.data.badges : undefined}
                         sizeX="auto"
                         sizeY="var(--dtt_cell-image_max-height)"
                         resource={valueToDisplay}
@@ -770,7 +770,7 @@ export class KupTree {
             } else if (isButton(cell.obj)) {
                 content = (
                     <kup-button
-                        {...buildButtonConfig(cell.value, cell.config)}
+                        {...buildButtonConfig(cell.value, cell.data)}
                         onKupButtonClick={(e: Event) => {
                             e.stopPropagation();
                             this.onJ4btnClicked(
@@ -795,10 +795,10 @@ export class KupTree {
                 content = valueToDisplay ? <kup-image {...props} /> : null;
             } else if (isChart(cell.obj)) {
                 const props = {
-                    id: cell.config.cellId,
+                    id: cell.data.cellId,
                     offlineMode: {
                         value: cell.value,
-                        shape: cell.config.type,
+                        shape: cell.data.type,
                     },
                 };
 

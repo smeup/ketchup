@@ -51,7 +51,7 @@ describe('totals', () => {
         expect(footerCells[2]).toEqualText('865.38');
     });
 
-    it('avarage', async () => {
+    it('average', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -59,9 +59,9 @@ describe('totals', () => {
 
         element.setProperty('data', multiSortMockData);
         element.setProperty('totals', {
-            FLD1: 'Avarage',
-            FLD2: 'Avarage',
-            FLD3: 'Avarage',
+            FLD1: 'Average',
+            FLD2: 'Average',
+            FLD3: 'Average',
         });
 
         await page.waitForChanges();
@@ -84,7 +84,7 @@ describe('totals', () => {
         element.setProperty('totals', {
             FLD1: 'Count',
             FLD2: 'Sum',
-            FLD3: 'Avarage',
+            FLD3: 'Average',
         });
 
         await page.waitForChanges();

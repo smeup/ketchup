@@ -528,7 +528,7 @@ export function groupRows(
         }
     });
 
-    adjustGroupsAvarage(groupRows, totals);
+    adjustGroupsAverage(groupRows, totals);
 
     return groupRows;
 }
@@ -575,7 +575,7 @@ function updateGroupTotal(
                     break;
 
                 case TotalMode.SUM:
-                case TotalMode.AVARAGE:
+                case TotalMode.AVERAGE:
                     if (_isNumber) {
                         const cellValue = numeral(stringToNumber(cell.value));
 
@@ -606,7 +606,7 @@ function updateGroupTotal(
     });
 }
 
-function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
+function adjustGroupsAverage(groupRows: Array<Row>, totals: TotalsMap): void {
     if (!groupRows || !totals) {
         return;
     }
@@ -617,19 +617,19 @@ function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
         return;
     }
 
-    const avarageKeys = keys.filter((key) => TotalMode.AVARAGE === totals[key]);
+    const averageKeys = keys.filter((key) => TotalMode.AVERAGE === totals[key]);
 
-    if (avarageKeys.length > 0) {
+    if (averageKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)
-            .forEach((groupRow) => adjustGroupAvarage(groupRow, avarageKeys));
+            .forEach((groupRow) => adjustGroupAverage(groupRow, averageKeys));
     }
 }
 
 /**
  * @returns number of 'leaf' of group
  */
-function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
+function adjustGroupAverage(row: Row, average: Array<string>): number {
     const children = row.group.children;
 
     if (children.length === 0) {
@@ -641,21 +641,21 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     // check if child is a grouping row
     if (children[0].group) {
         children.forEach((child) => {
-            numberOfLeaf += adjustGroupAvarage(child, avarage);
+            numberOfLeaf += adjustGroupAverage(child, average);
         });
 
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
+        // adjust average
+        average.forEach((averageKey) => {
+            row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
                 .divide(numberOfLeaf)
                 .value();
         });
     } else {
         numberOfLeaf = children.length;
 
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
+        // adjust average
+        average.forEach((averageKey) => {
+            row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
                 .divide(row.group.children.length)
                 .value();
         });
@@ -756,7 +756,7 @@ export function calcTotals(
 
         // fixing count and avg
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVARAGE) {
+            if (totals[key] === TotalMode.AVERAGE) {
                 const sum: number = footerRow[key];
 
                 if (sum && rows.length > 0) {

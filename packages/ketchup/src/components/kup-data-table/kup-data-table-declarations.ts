@@ -1,12 +1,9 @@
-import { Badge } from '../kup-image/kup-image-declarations';
-
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
 }
 
-export interface CellConfig {
-    badges?: Badge[];
+export interface CellData {
     [index: string]: any;
 }
 
@@ -20,7 +17,7 @@ export interface Cell {
     style?: GenericMap;
     options?: boolean;
     shape?: string;
-    config?: CellConfig;
+    data?: CellData;
     cardID?: string;
 }
 
@@ -106,7 +103,7 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
-    AVARAGE = 'Avarage',
+    AVERAGE = 'Average',
 }
 
 export enum PaginatorPos {

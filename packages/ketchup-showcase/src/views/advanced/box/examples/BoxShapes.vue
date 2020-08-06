@@ -25,10 +25,12 @@ export default {
                   {
                     column: 'FLD1',
                     shape: 'IMG',
-                    config: {
+                    data: {
                       srcTemplate:
                         'https://via.placeholder.com/64?text={{obj.k}}',
                     },
+                      value:
+                        'https://via.placeholder.com/64?text={{obj.k}}',
                   },
                 ],
               },
