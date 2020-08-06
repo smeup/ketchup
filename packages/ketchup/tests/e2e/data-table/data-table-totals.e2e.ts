@@ -25,7 +25,14 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('9');
-        expect(footerCells[2]).toEqualText('9,00');
+        //expect(footerCells[2]).toEqualText('9,00');
+        const cellValue = '9,00';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
     it('sums', async () => {
@@ -48,7 +55,14 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('865,38');
+        //expect(footerCells[2]).toEqualText('865,38');
+        const cellValue = '865,38';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
     it('average', async () => {
@@ -71,7 +85,14 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('8');
-        expect(footerCells[2]).toEqualText('96,15');
+        //expect(footerCells[2]).toEqualText('96,15');
+        const cellValue = '96,15';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
     it('mixed', async () => {
@@ -94,6 +115,13 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('96,15');
+        //expect(footerCells[2]).toEqualText('96,15');
+        const cellValue = '96,15';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 });
