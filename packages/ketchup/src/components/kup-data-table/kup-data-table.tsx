@@ -2694,6 +2694,7 @@ export class KupDataTable {
                     <kup-lazy
                         class="cell-button"
                         componentName="kup-button"
+                        showPlaceholder={false}
                         data={...props}
                     />
                 );
@@ -2722,6 +2723,7 @@ export class KupDataTable {
                 <kup-lazy
                     class="cell-checkbox"
                     componentName="kup-checkbox"
+                    showPlaceholder={false}
                     data={...props}
                 />
             );
@@ -2740,6 +2742,7 @@ export class KupDataTable {
                     <kup-lazy
                         class="cell-icon"
                         componentName="kup-image"
+                        showPlaceholder={false}
                         data={...props}
                     />
                 );
@@ -2800,6 +2803,7 @@ export class KupDataTable {
                     <kup-lazy
                         class="cell-radio"
                         componentName="kup-radio"
+                        showPlaceholder={false}
                         data={...props}
                     />
                 );
