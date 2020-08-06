@@ -579,7 +579,7 @@ function updateGroupTotal(
                     if (_isNumber) {
                         const cellValue = numeral(stringToNumber(cell.value));
 
-                        groupRow.group.totals[key] = cellValue
+                        groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
 
@@ -589,7 +589,7 @@ function updateGroupTotal(
                             const currentParentSum =
                                 parent.group.totals[key] || 0;
 
-                            parent.group.totals[key] = cellValue
+                            parent.group.totals[key] = numeral(cellValue)
                                 .add(currentParentSum)
                                 .value();
 
@@ -656,7 +656,7 @@ function adjustGroupAverage(row: Row, average: Array<string>): number {
         // adjust average
         average.forEach((averageKey) => {
             row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
-                .divide(row.group.children.length)
+                .divide(numberOfLeaf)
                 .value();
         });
     }
