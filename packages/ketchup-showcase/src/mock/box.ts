@@ -3,27 +3,32 @@ export const defaultData = {
     {
       name: 'FLD1',
       title: 'Photo',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Ordered quantity',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Delivery date',
-      size: 10,
     },
     {
       name: 'FLD5',
       title: 'HTML',
-      size: 50,
     },
   ],
   rows: [
@@ -203,6 +208,11 @@ export const j4btnData = {
     {
       name: 'FLD1',
       title: 'Image',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
@@ -211,10 +221,20 @@ export const j4btnData = {
     {
       name: 'FLD3',
       title: 'Number',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Button',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -408,12 +428,15 @@ export const v2sinoData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'SiNo',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'SI/NO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -465,12 +488,15 @@ export const v2radioData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Radio',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'RADIO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -522,12 +548,15 @@ export const j1pwdData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Password',
-      size: 10,
+      obj: {
+        t: 'J1',
+        p: 'PWD',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -579,6 +608,11 @@ export const imgBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
@@ -587,6 +621,11 @@ export const imgBadgeData = {
     {
       name: 'FLD3',
       title: 'Number',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -723,11 +762,11 @@ export const imgBadgeData = {
         },
         FLD3: {
           obj: {
-            t: 'AR',
-            p: 'ART',
-            k: 'Via Nazionale, 2',
+            t: 'NR',
+            p: '',
+            k: '16',
           },
-          value: 'Via Nazionale, 2',
+          value: '16',
         },
         FLD4: {
           obj: {
@@ -798,17 +837,24 @@ export const pgbData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'J4',
+        p: 'PGB',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -1043,22 +1089,28 @@ export const boxBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1212,22 +1264,28 @@ export const shapeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Html',
-      size: 10,
     },
   ],
   rows: [
@@ -1379,22 +1437,28 @@ export function createData(rows: number) {
       {
         name: 'FLD1',
         title: 'Image',
-        size: '',
+        obj: {
+          t: 'J4',
+          p: 'IMG',
+          k: '',
+        },
       },
       {
         name: 'FLD2',
         title: 'Name',
-        size: 10,
       },
       {
         name: 'FLD3',
         title: 'Number',
-        size: 10,
+        obj: {
+          t: 'NR',
+          p: '',
+          k: '',
+        },
       },
       {
         name: 'FLD4',
         title: 'Date',
-        size: 10,
       },
     ],
     rows: [],

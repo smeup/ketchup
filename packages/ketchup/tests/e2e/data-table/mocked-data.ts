@@ -587,6 +587,11 @@ function GroupingDataFactory() {
             {
                 name: 'FLD3',
                 title: 'Column C',
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '',
+                },
             },
         ],
         rows: [
@@ -1032,10 +1037,20 @@ export const cellStyleDataTable = {
         {
             name: 'FLD2',
             title: 'Column B',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
         },
         {
             name: 'FLD3',
             title: 'Column C',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
         },
         {
             name: 'FLD4',

@@ -2,7 +2,15 @@
   "columns": [
     { "name": "DES", "title": "Descrizione" },
     { "name": "RAW", "title": "Valore raw" },
-    { "name": "ICON", "title": "Icona" }
+    {
+      "name": "ICON",
+      "title": "Icona",
+      "obj": {
+        "t": "J4",
+        "p": "ICO",
+        "k": ""
+      }
+    }
   ],
   "rows": [
     {

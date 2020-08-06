@@ -44,8 +44,6 @@ export default {
       ...defaultDataTable,
     };
 
-    dataTableWithEmptyValues.rows[0].cells.FLD1.value = '';
-
     return {
       filtersData: { data: defaultDataTable, showFilters: true },
       filtersEnabledData: {

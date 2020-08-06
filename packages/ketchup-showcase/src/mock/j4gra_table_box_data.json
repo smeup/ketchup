@@ -10,7 +10,12 @@
     },
     {
       "name": "CHART",
-      "title": "Grafico"
+      "title": "Grafico",
+      "obj": {
+        "t": "J4",
+        "p": "GRA",
+        "k": ""
+      }
     }
   ],
   "rows": [
