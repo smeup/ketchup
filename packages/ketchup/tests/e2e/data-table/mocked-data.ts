@@ -141,6 +141,7 @@ export const staticData = {
         {
             name: 'FLD3',
             title: 'Column C',
+            decimals: 2,
         },
     ],
     rows: [
@@ -587,6 +588,7 @@ function GroupingDataFactory() {
             {
                 name: 'FLD3',
                 title: 'Column C',
+                decimals: 2,
             },
         ],
         rows: [
@@ -1032,10 +1034,12 @@ export const cellStyleDataTable = {
         {
             name: 'FLD2',
             title: 'Column B',
+            decimals: 0,
         },
         {
             name: 'FLD3',
             title: 'Column C',
+            decimals: 2,
         },
         {
             name: 'FLD4',

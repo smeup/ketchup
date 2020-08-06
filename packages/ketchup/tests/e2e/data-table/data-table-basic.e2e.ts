@@ -94,7 +94,7 @@ describe('kup-data-table', () => {
         expect(firstRowCells).toHaveLength(3);
         expect(firstRowCells[0]).toEqualText('CASFRA');
         expect(firstRowCells[1]).toEqualText('10');
-        expect(firstRowCells[2]).toEqualText('100.60');
+        expect(firstRowCells[2]).toEqualText('100,60');
     });
 
     it('hidden columns', async () => {
