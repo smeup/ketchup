@@ -15,7 +15,7 @@ import {
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
-import { isEmpty } from '../../utils/utils';
+import { isEmpty, stringToNumber } from '../../utils/utils';
 import { errorLogging } from '../../utils/error-logging';
 import {
     isFilterCompliantForValue,
@@ -577,9 +577,9 @@ function updateGroupTotal(
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
                     if (_isNumber) {
-                        const cellValue = numeral(cell.obj.k);
+                        const cellValue = numeral(stringToNumber(cell.value));
 
-                        groupRow.group.totals[key] = cellValue
+                        groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
 
@@ -589,7 +589,7 @@ function updateGroupTotal(
                             const currentParentSum =
                                 parent.group.totals[key] || 0;
 
-                            parent.group.totals[key] = cellValue
+                            parent.group.totals[key] = numeral(cellValue)
                                 .add(currentParentSum)
                                 .value();
 
@@ -656,7 +656,7 @@ function adjustGroupAverage(row: Row, average: Array<string>): number {
         // adjust average
         average.forEach((averageKey) => {
             row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
-                .divide(row.group.children.length)
+                .divide(numberOfLeaf)
                 .value();
         });
     }
@@ -742,7 +742,7 @@ export function calcTotals(
 
                     // check if number
                     if (cell && isNumber(cell.obj)) {
-                        const cellValue = numeral(cell.obj.k);
+                        const cellValue = numeral(stringToNumber(cell.value));
 
                         const currentFooterValue = footerRow[key] || 0;
 
@@ -792,8 +792,8 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
 
     // number
     if (isNumber(obj1)) {
-        const n1: number = numeral(obj1.k).value();
-        const n2: number = numeral(obj2.k).value();
+        const n1: number = stringToNumber(cell1.value);
+        const n2: number = stringToNumber(cell2.value);
 
         if (n1 === n2) {
             return 0;
