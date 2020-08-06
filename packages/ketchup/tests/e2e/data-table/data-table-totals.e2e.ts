@@ -25,7 +25,7 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('9');
-        expect(footerCells[2]).toEqualText('9');
+        expect(footerCells[2]).toEqualText('9,00');
     });
 
     it('sums', async () => {
@@ -48,7 +48,7 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('865.38');
+        expect(footerCells[2]).toEqualText('865,38');
     });
 
     it('average', async () => {
@@ -71,7 +71,7 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('8');
-        expect(footerCells[2]).toEqualText('96.15333333333334');
+        expect(footerCells[2]).toEqualText('96,15');
     });
 
     it('mixed', async () => {
@@ -94,6 +94,6 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('96.15333333333334');
+        expect(footerCells[2]).toEqualText('96,15');
     });
 });
