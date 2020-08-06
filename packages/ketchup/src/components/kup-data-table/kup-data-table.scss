@@ -585,7 +585,10 @@ $fixed-row-class: fixed-row;
           }
 
           &.number {
-            text-align: right;
+            .cell-content {
+              display: block;
+              text-align: right;
+            }
           }
 
           .row-expander {
