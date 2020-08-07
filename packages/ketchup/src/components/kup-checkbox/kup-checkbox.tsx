@@ -169,7 +169,7 @@ export class KupCheckbox {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             const component = MDCCheckbox.attachTo(
                 root.querySelector('.mdc-checkbox')
             );

@@ -155,7 +155,7 @@ export class KupSwitch {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             const component = MDCSwitch.attachTo(
                 root.querySelector('.mdc-switch')
             );
