@@ -146,9 +146,7 @@ Type: `Promise<Column[]>`
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
-- [kup-chart](../kup-chart)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-radio](../kup-radio)
+- [kup-lazy](../kup-lazy)
 - [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
@@ -161,9 +159,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-radio
+  kup-data-table --> kup-lazy
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
@@ -173,7 +169,7 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-text-field --> kup-image
-  kup-progress-bar --> kup-image
+  kup-lazy --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-paginator --> kup-button

@@ -66,6 +66,13 @@
   </comp>
 </template>
 
+<style>
+kup-lazy.to-be-loaded {
+  min-height: 300px;
+  transition: all 0.25s;
+}
+</style>
+
 <script>
 import DatatableDemo from '@/views/advanced/datatable/examples/DatatableDemo';
 import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';

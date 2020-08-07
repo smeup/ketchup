@@ -44,12 +44,6 @@ import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { errorLogging } from '../../utils/error-logging';
 import { isFilterCompliantForValue } from '../../utils/filters';
-import {
-    buildIconConfig,
-    buildProgressBarConfig,
-} from '../../utils/cell-utils';
-import { buildButtonConfig } from '../../utils/widget-utils';
-import { getBoolean } from '../../utils/utils';
 import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
@@ -714,124 +708,158 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let props: any = cell.data;
 
-        if (valueToDisplay) {
-            if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-                content = (
-                    <kup-image
-                        {...buildIconConfig(cell, valueToDisplay)}
-                        onKupImageClick={(e: Event) => {
-                            e.stopPropagation();
-                            this.onJ4btnClicked(
-                                cellData.treeNode,
-                                cellData.treeNodePath,
-                                cellData.column,
-                                false
-                            );
-                        }}
-                        onClick={(e: MouseEvent) => e.stopPropagation()}
-                    />
-                );
-            } else if (isNumber(cell.obj)) {
-                const cellValue = numeral(cell.obj.k).value();
-
-                if (cellValue < 0) {
-                    classObj['negative-number'] = true;
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
-            } else if (isImage(cell.obj)) {
                 content = (
-                    <kup-image
-                        class="cell-image"
-                        badgeData={cell.data ? cell.data.badges : undefined}
-                        sizeX="auto"
-                        sizeY="var(--dtt_cell-image_max-height)"
-                        resource={valueToDisplay}
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
                     />
                 );
-            } else if (isLink(cell.obj)) {
-                content = (
-                    <a href={valueToDisplay} target="_blank">
-                        {valueToDisplay}
-                    </a>
-                );
-            } else if (isCheckbox(cell.obj)) {
-                let checked = cell.obj.k == '1';
-                // A tree currently is not editable. Checkbox are always disabled.
-                content = (
-                    <kup-checkbox
-                        checked={checked}
-                        disabled={
-                            cellData.treeNode.hasOwnProperty('readOnly')
-                                ? cellData.treeNode.readOnly
-                                : true
-                        }
-                    />
-                );
-            } else if (isButton(cell.obj)) {
-                content = (
-                    <kup-button
-                        {...buildButtonConfig(cell.value, cell.data)}
-                        onKupButtonClick={(e: Event) => {
-                            e.stopPropagation();
-                            this.onJ4btnClicked(
-                                cellData.treeNode,
-                                cellData.treeNodePath,
-                                cellData.column,
-                                false
-                            );
-                        }}
-                        onClick={(e: MouseEvent) => e.stopPropagation()}
-                    />
-                );
-            } else if (isBar(cell.obj)) {
-                const props: {
-                    data: any;
-                    sizeY: string;
-                } = {
-                    data: cell.value,
-                    sizeY: '35px',
-                };
-
-                content = valueToDisplay ? <kup-image {...props} /> : null;
-            } else if (isChart(cell.obj)) {
-                const props = {
-                    id: cell.data.cellId,
-                    offlineMode: {
-                        value: cell.value,
-                        shape: cell.data.type,
-                    },
-                };
-
-                content = <kup-chart {...props} />;
-            } else if (isProgressBar(cell.obj)) {
-                content = (
-                    <kup-progress-bar
-                        {...buildProgressBarConfig(
-                            cell,
-                            null,
-                            true,
-                            valueToDisplay
-                        )}
-                    />
-                );
-            } else if (isRadio(cell.obj)) {
-                let radioProp = {
-                    data: [
-                        {
-                            label: '',
-                            value: cell.value,
-                            checked: getBoolean(cell.obj.k),
-                        },
-                    ],
-                    disabled: cellData.treeNode.hasOwnProperty('readOnly')
-                        ? cellData.treeNode.readOnly
-                        : true,
-                };
-
-                content = <kup-radio {...radioProp} />;
+            } else {
+                content = undefined;
             }
-        } else {
-            content = null;
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    cellData.treeNode,
+                    cellData.treeNodePath,
+                    cellData.column,
+                    false
+                );
+                content = (
+                    <kup-lazy
+                        class="cell-button"
+                        componentName="kup-button"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
+            if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                props['disabled'] = cellData.treeNode.readOnly;
+            }
+            content = (
+                <kup-lazy
+                    class="cell-checkbox"
+                    componentName="kup-checkbox"
+                    showPlaceholder={false}
+                    data={...props}
+                />
+            );
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-icon"
+                        componentName="kup-image"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isImage(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a class="cell-link" href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
+            );
+        } else if (isNumber(cell.obj)) {
+            const cellValue = numeral(cell.obj.k).value();
+
+            if (cellValue < 0) {
+                classObj['negative-number'] = true;
+            }
+        } else if (isProgressBar(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-lazy
+                        class="cell-progress-bar"
+                        componentName="kup-progress-bar"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isRadio(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-radio"
+                        componentName="kup-radio"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
         }
 
         // if cell.style has border, apply style to cellcontent

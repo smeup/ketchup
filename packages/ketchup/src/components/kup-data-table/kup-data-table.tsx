@@ -1673,12 +1673,11 @@ export class KupDataTable {
      * @param columnName - The name of the columns currently being examinated
      * @param columnIndex - The index of the current column
      * @param extraCells - the extra cells rendered into the table
-     * @param columnIsNumber - If the current columns contains numeric values
      */
     private composeHeaderCellClassAndStyle(
         columnIndex: number,
         extraCells: number = 0,
-        columnIsNumber: boolean = false
+        column: Column
     ): {
         columnClass: GenericObject;
         thStyle: GenericObject;
@@ -1686,9 +1685,23 @@ export class KupDataTable {
         let columnClass: GenericObject = {},
             thStyle: GenericObject = {};
 
-        // Special class column hosts numbers
-        columnClass.number = columnIsNumber;
+        if (
+            isBar(column.obj) ||
+            isButton(column.obj) ||
+            isChart(column.obj) ||
+            isCheckbox(column.obj) ||
+            isImage(column.obj) ||
+            isIcon(column.obj) ||
+            isProgressBar(column.obj) ||
+            isRadio(column.obj) ||
+            isVoCodver(column.obj)
+        ) {
+            columnClass.centered = true;
+        }
 
+        if (isNumber(column.obj)) {
+            columnClass.number = true;
+        }
         // For fixed cells styles and classes
         const fixedCellStyle = this.composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
@@ -1791,7 +1804,7 @@ export class KupDataTable {
                 } = this.composeHeaderCellClassAndStyle(
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj)
+                    column
                 );
 
                 //---- Filter ----
@@ -2227,7 +2240,7 @@ export class KupDataTable {
                 } = this.composeHeaderCellClassAndStyle(
                     columnIndex,
                     specialExtraCellsCount,
-                    isNumber(column.obj)
+                    column
                 );
 
                 return (
@@ -2675,23 +2688,31 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                content = <kup-image class="cell-bar" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isButton(cell.obj)) {
             if (props) {
+                props['disabled'] = row.readOnly;
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
                 content = (
-                    <kup-button
+                    <kup-lazy
                         class="cell-button"
-                        disabled={row.readOnly}
-                        {...props}
-                        onKupButtonClick={this.onJ4btnClicked.bind(
-                            this,
-                            row,
-                            column,
-                            cell
-                        )}
+                        componentName="kup-button"
+                        showPlaceholder={false}
+                        data={...props}
                     />
                 );
             } else {
@@ -2699,16 +2720,28 @@ export class KupDataTable {
             }
         } else if (isChart(cell.obj)) {
             if (props) {
-                content = <kup-chart {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
+            if (props) {
+                props['disabled'] = row.readOnly;
+            } else {
+                props = { disabled: row.readOnly };
+            }
             content = (
-                <kup-checkbox
-                    disabled={row.readOnly}
+                <kup-lazy
                     class="cell-checkbox"
-                    {...props}
+                    componentName="kup-checkbox"
+                    showPlaceholder={false}
+                    data={...props}
                 />
             );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
@@ -2722,7 +2755,14 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = <kup-image class="cell-icon" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-icon"
+                        componentName="kup-image"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
@@ -2737,13 +2777,19 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = <kup-image class="cell-image" {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isLink(cell.obj)) {
             content = (
-                <a href={valueToDisplay} target="_blank">
+                <a class="cell-link" href={valueToDisplay} target="_blank">
                     {valueToDisplay}
                 </a>
             );
@@ -2763,13 +2809,27 @@ export class KupDataTable {
             }
         } else if (isProgressBar(cell.obj)) {
             if (props) {
-                content = <kup-progress-bar {...props} />;
+                content = (
+                    <kup-lazy
+                        class="cell-progress-bar"
+                        componentName="kup-progress-bar"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
             if (props) {
-                content = <kup-radio disabled={row.readOnly} {...props} />;
+                props['disabled'] = row.readOnly;
+                content = (
+                    <kup-lazy
+                        class="cell-radio"
+                        componentName="kup-radio"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }

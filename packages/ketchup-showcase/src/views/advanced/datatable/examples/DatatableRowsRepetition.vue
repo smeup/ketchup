@@ -9,31 +9,31 @@ h3 {
     <h2>With sorted tables</h2>
 
     <h3>Sort disabled</h3>
-    <kup-data-table :data.prop="sortData" :sortEnabled.prop="false" />
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
     <h3>Sort ascending on first column, descending on second</h3>
-    <kup-data-table :data.prop="sortData" :sort.prop="sort" />
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
     <h2>With pagination</h2>
 
     <h3>20 rows per page (default is 10)</h3>
     <div class="pa-3">
-      <kup-data-table :data.prop="data" :showFilter.prop="true" :rowsPerPage.prop="20"></kup-data-table>
+      <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
     </div>
 
     <h2>Within grouped columns</h2>
 
     <h3>Single group (visible)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group1" :showFilters.prop="true"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data3"></kup-lazy>
 
     <h3>Single group (hidden)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group2"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data4"></kup-lazy>
 
     <h3>Multiple group (hidden)</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group4"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data5"></kup-lazy>
 
     <h3>Single group and totals</h3>
-    <kup-data-table :data.prop="data" :groups.prop="group1" :totals.prop="totals1"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data6"></kup-lazy>
   </div>
 </template>
 
@@ -51,50 +51,73 @@ export default {
 
     return {
       data: {
-        ...repetitionsGroupDataTable,
+        data: sortData,
+        sortEnabled: false,
       },
-      group1: [
-        {
-          column: 'FLD0',
+      data1: {
+        data: sortData,
+        sort: [
+          {
+            column: 'FLD1',
+            sortMode: 'A',
+          },
+          {
+            column: 'FLD2',
+            sortMode: 'D',
+          },
+        ],
+      },
+      data2: {
+        data: repetitionsGroupDataTable,
+        showFilter: true,
+        rowsPerPage: '20',
+      },
+      data3: {
+        data: repetitionsGroupDataTable,
+        showFilter: true,
+        groups: [
+          {
+            column: 'FLD0',
+          },
+        ],
+      },
+      data4: {
+        data: repetitionsGroupDataTable,
+        showFilter: true,
+        groups: [
+          {
+            column: 'FLD0',
+          },
+          {
+            column: 'FLD1',
+          },
+        ],
+      },
+      data5: {
+        data: repetitionsGroupDataTable,
+        showFilter: true,
+        groups: [
+          {
+            column: 'FLD0',
+            visible: false,
+          },
+          {
+            column: 'FLD1',
+            visible: false,
+          },
+        ],
+      },
+      data6: {
+        data: repetitionsGroupDataTable,
+        totals: {
+          FLD2: 'Count',
         },
-      ],
-      group2: [
-        {
-          column: 'FLD0',
-          visible: false,
-        },
-      ],
-      group3: [
-        {
-          column: 'FLD0',
-        },
-        {
-          column: 'FLD1',
-        },
-      ],
-      group4: [
-        {
-          column: 'FLD0',
-          visible: false,
-        },
-        {
-          column: 'FLD1',
-          visible: false,
-        },
-      ],
-      sort: [
-        {
-          column: 'FLD1',
-          sortMode: 'A',
-        },
-        {
-          column: 'FLD2',
-          sortMode: 'D',
-        },
-      ],
-      sortData,
-      totals1: {
-        FLD2: 'Count',
+        groups: [
+          {
+            column: 'FLD0',
+            visible: false,
+          },
+        ],
       },
     };
   },

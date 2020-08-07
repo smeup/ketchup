@@ -382,6 +382,10 @@ $fixed-row-class: fixed-row;
           text-align: right;
         }
 
+        &.centered {
+          text-align: center;
+        }
+
         //---- Filters ----
         kup-text-field.datatable-filter {
           --kup-text-field_border-color: var(--dtt_filter-border-color);
@@ -581,7 +585,10 @@ $fixed-row-class: fixed-row;
           }
 
           &.number {
-            text-align: right;
+            .cell-content {
+              display: block;
+              text-align: right;
+            }
           }
 
           .row-expander {
@@ -653,7 +660,7 @@ $fixed-row-class: fixed-row;
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-image {
+            & kup-lazy {
               display: flex;
             }
           }
@@ -716,6 +723,10 @@ $fixed-row-class: fixed-row;
           &.number {
             text-align: right;
           }
+
+          &.centered {
+            text-align: center;
+          }
         }
 
         .column-title {
@@ -745,6 +756,10 @@ $fixed-row-class: fixed-row;
     }
 
     &.density- {
+      kup-lazy.to-be-loaded {
+        height: 36px;
+      }
+
       &dense {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
@@ -752,6 +767,9 @@ $fixed-row-class: fixed-row;
         }
         tbody > tr.group > td {
           padding: 0.25rem 0;
+        }
+        kup-lazy.to-be-loaded {
+          height: 26px;
         }
       }
 
@@ -762,6 +780,9 @@ $fixed-row-class: fixed-row;
         }
         tbody > tr.group > td {
           padding: 0.75rem 0;
+        }
+        kup-lazy.to-be-loaded {
+          height: 50px;
         }
       }
     }

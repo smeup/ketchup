@@ -4,22 +4,28 @@ sortBox.data = {
         {
             name: 'FLD1',
             title: 'Column A',
-            size: '',
+            obj: {
+                t: 'J4',
+                p: 'IMG',
+                k: '',
+            },
         },
         {
             name: 'FLD2',
             title: 'Column B',
-            size: 10,
         },
         {
             name: 'FLD3',
             title: 'Column C',
-            size: 10,
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
         },
         {
             name: 'FLD4',
             title: 'Column D',
-            size: 10,
         },
     ],
     rows: [

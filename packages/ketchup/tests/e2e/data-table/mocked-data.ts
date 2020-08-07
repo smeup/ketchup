@@ -1034,11 +1034,21 @@ export const cellStyleDataTable = {
         {
             name: 'FLD2',
             title: 'Column B',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
             decimals: 0,
         },
         {
             name: 'FLD3',
             title: 'Column C',
+            obj: {
+                t: 'NR',
+                p: '',
+                k: '',
+            },
             decimals: 2,
         },
         {

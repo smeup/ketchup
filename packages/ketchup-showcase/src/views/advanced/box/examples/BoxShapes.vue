@@ -26,11 +26,9 @@ export default {
                     column: 'FLD1',
                     shape: 'IMG',
                     data: {
-                      srcTemplate:
-                        'https://via.placeholder.com/64?text={{obj.k}}',
+                      resource: 'https://via.placeholder.com/64?text={{obj.k}}',
                     },
-                      value:
-                        'https://via.placeholder.com/64?text={{obj.k}}',
+                    value: 'https://via.placeholder.com/64?text={{obj.k}}',
                   },
                 ],
               },
@@ -41,10 +39,8 @@ export default {
                 ],
               },
               {
-                sections: [
-                  { content: [{ column: 'FLD4', shape: 'EDT' }] }
-                ],
-              }
+                sections: [{ content: [{ column: 'FLD4', shape: 'EDT' }] }],
+              },
             ],
           },
         ],

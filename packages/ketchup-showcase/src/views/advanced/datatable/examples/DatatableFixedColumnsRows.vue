@@ -7,57 +7,23 @@ h3 {
 <template>
   <div>
     <h3>Fixed columns (2 columns and show-grid = Row)</h3>
-    <kup-data-table :data.prop="data" :showFilters.prop="true" fixed-columns="2" />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData"></kup-lazy>
 
     <h3>Fixed columns (2 columns and show-grid = Col)</h3>
-    <kup-data-table :data.prop="data" :showFilters.prop="true" fixed-columns="2" show-grid="Col" />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData2"></kup-lazy>
 
     <h3>Fixed rows (3)</h3>
-    <kup-data-table
-      :data.prop="data"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-rows="3"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData3"></kup-lazy>
 
     <h3>Fixed columns (2) rows (4)</h3>
-    <kup-data-table
-      :data.prop="data"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="4"
-      show-grid="Complete"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData4"></kup-lazy>
 
     <h3>Fixed columns (2) and rows (3) with multiple selection and actions activated</h3>
-    <kup-data-table
-      :data.prop="data"
-      :rowActions.prop="rowActions"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
-      multi-selection
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData5"></kup-lazy>
 
     <h3>When there are fixed columns or rows but groups are active, fixed does not work</h3>
-    <kup-data-table
-      :data.prop="data"
-      :groups.prop="group3"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
-    />
-
-    <kup-data-table
-      :data.prop="data"
-      :groups.prop="group3"
-      :expandGroups.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData6"></kup-lazy>
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData7"></kup-lazy>
   </div>
 </template>
 
@@ -68,32 +34,78 @@ export default {
   name: 'DatatableFixedColumnsRows',
   data() {
     return {
-      data: {
-        ...groupDataTable,
+      fixedData: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
       },
-      group3: [
-        {
-          column: 'FLD0',
-        },
-        {
-          column: 'FLD1',
-        },
-      ],
-      smallTableStyle: {
-        '--dtt_table-wrapper-height': '250px',
+      fixedData2: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        showGrid: 'Col',
       },
-      rowActions: [
-        {
-          text: 'Action #1',
-          icon: 'folder',
-        },
-        {
-          text: 'Action #2',
-          icon: 'account',
-        },
-      ],
-      totals1: {
-        FLD2: 'Count',
+      fixedData3: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedRows: '3',
+        style: { '--dtt_table-wrapper-height': '250px' },
+      },
+      fixedData4: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        style: { '--dtt_table-wrapper-height': '250px' },
+      },
+      fixedData5: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        fixedRows: '3',
+        showGrid: 'Complete',
+        style: { '--dtt_table-wrapper-height': '250px' },
+        rowActions: [
+          {
+            text: 'Action #1',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #2',
+            icon: 'account',
+          },
+        ],
+        multiSelection: true,
+      },
+      fixedData6: {
+        data: groupDataTable,
+        fixedColumns: '2',
+        fixedRows: '3',
+        style: { '--dtt_table-wrapper-height': '250px' },
+        groups: [
+          {
+            column: 'FLD0',
+          },
+          {
+            column: 'FLD1',
+          },
+        ],
+      },
+      fixedData7: {
+        data: groupDataTable,
+        fixedColumns: '2',
+        fixedRows: '3',
+        style: { '--dtt_table-wrapper-height': '250px' },
+        groups: [
+          {
+            column: 'FLD0',
+          },
+          {
+            column: 'FLD1',
+          },
+        ],
+        expandGroups: true,
       },
     };
   },

@@ -10,7 +10,12 @@
     },
     {
       "name": "CHART",
-      "title": "Grafico"
+      "title": "Grafico",
+      "obj": {
+        "t": "J4",
+        "p": "GRA",
+        "k": ""
+      }
     }
   ],
   "rows": [
@@ -46,7 +51,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "1;2;1",
               "shape": "pie"
             }
           }
@@ -85,7 +90,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "1;7;-5;6;10;-5;3;4",
               "shape": "bar"
             }
           }
@@ -124,7 +129,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "1;7;-5;6;10;-5;3;4",
               "shape": "lin"
             }
           }
@@ -146,24 +151,24 @@
           "obj": {
             "t": "",
             "p": "",
-            "k": "J4;GRA_DIS;1;7;-5;6;10;-5;3;4"
+            "k": "J4;GRA_DIS;1;7"
           },
-          "value": "J4;GRA_DIS;1;7;-5;6;10;-5;3;4"
+          "value": "J4;GRA_DIS;1;7"
         },
         "CHART": {
           "obj": {
             "t": "J4",
             "p": "GRA_DIS",
-            "k": "1;7;-5;6;10;-5;3;4"
+            "k": "1;7"
           },
-          "value": "1;7;-5;6;10;-5;3;4",
+          "value": "1;7",
           "data": {
             "colors": ["red", "blue", "purple"],
             "id": "dis_example",
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "1;7",
               "shape": "dis"
             }
           }
@@ -202,7 +207,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "10;12;12;9;7",
               "shape": "bul"
             }
           }
@@ -240,7 +245,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "4;27;34;52;54;59;61;68;78;82;85;87;91;93;100",
               "shape": "box"
             }
           }
@@ -278,7 +283,7 @@
             "sizeX": "100px",
             "sizeY": "100px",
             "offlineMode": {
-              "value": "1;2;3",
+              "value": "1;1;-1;1;0;0;-1",
               "shape": "tri"
             }
           }

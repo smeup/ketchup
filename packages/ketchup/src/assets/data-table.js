@@ -78,23 +78,23 @@ const checkboxColumns = [
     {
         name: 'FLD1',
         title: 'Column A',
-        size: '',
     },
     {
         name: 'FLD2',
         title: 'Column B',
-        size: 10,
         obj: {
             t: 'NR',
+            p: '',
+            k: '',
         },
     },
     {
         name: 'FLD3',
         title: 'Column C',
-        size: 10,
         obj: {
             t: 'V2',
             p: 'SI/NO',
+            k: '',
         },
     },
 ];

@@ -3,27 +3,32 @@ export const defaultData = {
     {
       name: 'FLD1',
       title: 'Photo',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Ordered quantity',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Delivery date',
-      size: 10,
     },
     {
       name: 'FLD5',
       title: 'HTML',
-      size: 50,
     },
   ],
   rows: [
@@ -203,6 +208,11 @@ export const j4btnData = {
     {
       name: 'FLD1',
       title: 'Image',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
@@ -211,10 +221,20 @@ export const j4btnData = {
     {
       name: 'FLD3',
       title: 'Number',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Button',
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -227,11 +247,11 @@ export const j4btnData = {
             k: 'AR;ART;Florence',
           },
           data: {
-            resource: 'images/florence.JPG',
+            resource: 'images/Florence.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/florence.JPG',
+          value: 'images/Florence.JPG',
         },
         FLD2: {
           obj: {
@@ -272,11 +292,11 @@ export const j4btnData = {
             k: 'AR;ART;Parme',
           },
           data: {
-            resource: 'images/parme.JPG',
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/parme.JPG',
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
@@ -318,11 +338,11 @@ export const j4btnData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/milan.JPG',
+            resource: 'images/Milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/milan.JPG',
+          value: 'images/Milan.JPG',
         },
         FLD2: {
           obj: {
@@ -364,11 +384,11 @@ export const j4btnData = {
             k: 'AR;ART;Rome',
           },
           data: {
-            resource: 'images/rome.JPG',
+            resource: 'images/Rome.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/rome.JPG',
+          value: 'images/Rome.JPG',
         },
         FLD2: {
           obj: {
@@ -408,12 +428,15 @@ export const v2sinoData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'SiNo',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'SI/NO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -465,12 +488,15 @@ export const v2radioData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Radio',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'RADIO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -522,12 +548,15 @@ export const j1pwdData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Password',
-      size: 10,
+      obj: {
+        t: 'J1',
+        p: 'PWD',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -579,6 +608,11 @@ export const imgBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
@@ -587,6 +621,11 @@ export const imgBadgeData = {
     {
       name: 'FLD3',
       title: 'Number',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -650,7 +689,7 @@ export const imgBadgeData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/milan.JPG',
+            resource: 'images/Milan.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -660,7 +699,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/milan.JPG',
+          value: 'images/Milan.JPG',
         },
         FLD2: {
           obj: {
@@ -697,7 +736,7 @@ export const imgBadgeData = {
             k: 'AR;ART;Parme',
           },
           data: {
-            resource: 'images/parme.JPG',
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -711,7 +750,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/parme.JPG',
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
@@ -723,11 +762,11 @@ export const imgBadgeData = {
         },
         FLD3: {
           obj: {
-            t: 'AR',
-            p: 'ART',
-            k: 'Via Nazionale, 2',
+            t: 'NR',
+            p: '',
+            k: '16',
           },
-          value: 'Via Nazionale, 2',
+          value: '16',
         },
         FLD4: {
           obj: {
@@ -798,17 +837,24 @@ export const pgbData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'J4',
+        p: 'PGB',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -1043,22 +1089,28 @@ export const boxBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1212,22 +1264,28 @@ export const shapeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Html',
-      size: 10,
     },
   ],
   rows: [
@@ -1242,6 +1300,7 @@ export const shapeData = {
           },
           value: 'https://via.placeholder.com/64?text=CUSTOM',
           data: {
+            resource: 'https://via.placeholder.com/64?text=CUSTOM',
             badgeData: [
               {
                 imageData: { resource: 'account' },
@@ -1379,22 +1438,28 @@ export function createData(rows: number) {
       {
         name: 'FLD1',
         title: 'Image',
-        size: '',
+        obj: {
+          t: 'J4',
+          p: 'IMG',
+          k: '',
+        },
       },
       {
         name: 'FLD2',
         title: 'Name',
-        size: 10,
       },
       {
         name: 'FLD3',
         title: 'Number',
-        size: 10,
+        obj: {
+          t: 'NR',
+          p: '',
+          k: '',
+        },
       },
       {
         name: 'FLD4',
         title: 'Date',
-        size: 10,
       },
     ],
     rows: [],

@@ -54,7 +54,7 @@ export function createDataForPagination(
         (!useStepValues ? i.toString() : stepValue.toString()) + j.toString();
 
       cell.obj = {
-        t: 'NR',
+        t: '',
         p: '',
         k: cell.value,
       };
@@ -141,10 +141,20 @@ export const defaultDataTable = {
     {
       name: 'FLD2',
       title: 'Working License',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -158,9 +168,9 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
+            k: 'Shareholders module',
           },
-          value: 'Customers module',
+          value: 'Shareholders module',
           options: true,
         },
         FLD2: {
@@ -609,11 +619,21 @@ export const hiddenColumnsData = {
     {
       name: 'FLD2',
       title: 'Working License',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
       visible: false,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -627,9 +647,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
+            k: 'Customer module',
           },
-          value: 'Customers module',
+          value: 'Customer module',
         },
         FLD2: {
           obj: {
@@ -745,10 +765,20 @@ export const iconImagesDataTable = {
       title: 'Icon',
       // Checks 'clickable' class is added
       clickable: true,
+      obj: {
+        t: 'J4',
+        p: 'ICO',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Image',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -776,8 +806,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'CN;COL;Customers module',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BCN%253BCOL.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
@@ -805,8 +835,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'OG;J1;PATHFILE',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BJ1%253BPATHFILE.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
@@ -834,8 +864,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'J1;KEY;CTRL',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/J1%253BKEY%253BCTRL.jsf?ln=smeupImages',
+          data: { resource: 'widgets' },
+          value: 'widgets',
         },
       },
     },
@@ -851,10 +881,20 @@ export const cellStyleDataTable = {
     {
       name: 'FLD2',
       title: 'Working License',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -1015,10 +1055,20 @@ export const cellStyleDataTable2 = {
     {
       name: 'FLD2',
       title: 'Column B',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Column C',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
@@ -1181,10 +1231,20 @@ export const sortDataTable = {
     {
       name: 'FLD2',
       title: 'Working License',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',

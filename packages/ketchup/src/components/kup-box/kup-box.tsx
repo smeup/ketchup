@@ -41,13 +41,8 @@ import {
     isEditor,
     isImage,
     isProgressBar,
-    getValue,
-    buildProgressBarConfig,
-    buildIconConfig,
     getShape,
 } from '../../utils/cell-utils';
-
-import { buildButtonConfig } from '../../utils/widget-utils';
 
 import {
     filterRows,
@@ -1251,6 +1246,9 @@ export class KupBox {
         row: BoxRow;
         visibleColumns: Column[];
     }) {
+        let classObj: Record<string, boolean> = {
+            'box-object': true,
+        };
         let boContent = null;
 
         let boStyle = {};
@@ -1279,34 +1277,106 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
+                let props: any = cell.data;
 
                 if (isButton(cell.obj)) {
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-button"
+                                componentName="kup-button"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (
+                    isChart(cell.obj) ||
+                    getShape(cell, boxObject) === 'GRA'
+                ) {
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-chart"
+                                componentName="kup-chart"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isCheckbox(cell.obj)) {
+                    if (props) {
+                        props['disabled'] = row;
+                    } else {
+                        props = { disabled: row };
+                    }
                     boContent = (
-                        <kup-button
-                            {...buildButtonConfig(cell.value, cell.data)}
+                        <kup-lazy
+                            class="cell-checkbox"
+                            componentName="kup-checkbox"
+                            showPlaceholder={false}
+                            data={...props}
                         />
                     );
-                } else if (isCheckbox(cell.obj)) {
-                    let checked = cell.value == '1';
-                    boContent = (
-                        <kup-checkbox
-                            checked={checked}
-                            disabled={true}
-                        ></kup-checkbox>
-                    );
+                } else if (isEditor(cell, boxObject)) {
+                    boContent = <kup-editor text={cell.value}></kup-editor>;
                 } else if (isRadio(cell.obj)) {
-                    let radioProp = {
-                        data: [
-                            {
-                                label: '',
-                                value: cell.value,
-                                checked: cell.value == '1',
-                            },
-                        ],
-                        disabled: true,
-                    };
-
-                    boContent = <kup-radio {...radioProp} />;
+                    if (props) {
+                        props['disabled'] = true;
+                        boContent = (
+                            <kup-lazy
+                                class="cell-radio"
+                                componentName="kup-radio"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isIcon(cell.obj)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = '18px';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '18px';
+                        }
+                        boContent = (
+                            <kup-lazy
+                                class="cell-icon"
+                                componentName="kup-image"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isImage(cell, boxObject)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = 'auto';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '64px';
+                        }
+                        if (props.badgeData) {
+                            classObj['has-padding'] = true;
+                        }
+                        boContent = (
+                            <kup-lazy
+                                class="cell-image"
+                                componentName="kup-image"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else if (isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-field
@@ -1316,29 +1386,17 @@ export class KupBox {
                         ></kup-text-field>
                     );
                 } else if (isProgressBar(cell, boxObject)) {
-                    const value = getValue(cell, boxObject);
-                    boContent = (
-                        <kup-progress-bar
-                            {...buildProgressBarConfig(
-                                cell,
-                                boxObject,
-                                false,
-                                value
-                            )}
-                        />
-                    );
-                } else if (
-                    isChart(cell.obj) ||
-                    getShape(cell, boxObject) === 'GRA'
-                ) {
-                    let props: any = cell.data;
-                    boContent = <kup-chart {...props} />;
-                } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
-                    boContent = (
-                        <kup-image {...buildIconConfig(cell, cell.value)} />
-                    );
-                } else if (isEditor(cell, boxObject)) {
-                    boContent = <kup-editor text={cell.value}></kup-editor>;
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-progress-bar"
+                                componentName="kup-progress-bar"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else {
                     boContent = cell.value;
                 }
@@ -1351,7 +1409,7 @@ export class KupBox {
         return (
             <div
                 data-column={boxObject.column}
-                class="box-object"
+                class={classObj}
                 style={boStyle}
             >
                 {boContent}

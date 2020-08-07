@@ -1,22 +1,27 @@
 :host {
-  height: 100%;
-  width: 100%;
-}
-
-#kup-component {
-  display: flex;
+  display: var(--kup-display-mode);
   height: 100%;
   width: 100%;
   position: relative;
 
-  & > * {
-    margin: auto;
+  #kup-component {
+    display: flex;
+    height: 100%;
+    width: 100%;
   }
+}
 
-  &.kup-data-table {
-    display: block;
+:host(.to-be-loaded) {
+  #kup-component {
+    position: absolute;
     & > * {
-      margin: unset;
+      margin: auto;
     }
+  }
+}
+
+:host(.kup-data-table.loaded) {
+  #kup-component {
+    display: var(--kup-display-mode);
   }
 }

@@ -97,9 +97,29 @@ export class KupLazy {
 
     render() {
         let content: HTMLElement;
+        let resource: string;
+        let className: string = 'handles-custom-style ' + this.componentName;
+        switch (this.componentName) {
+            case 'kup-chart':
+                resource = 'chart-bar';
+                break;
+            case 'kup-data-table':
+                resource = 'table-large';
+                break;
+            case 'kup-image':
+                resource = 'photo';
+                break;
+            case 'kup-progress-bar':
+                resource = 'linear_scale';
+                break;
+            default:
+                resource = 'lazy';
+                break;
+        }
         if (this.isInViewport) {
             let Tag = this.componentName;
             content = <Tag {...this.data}></Tag>;
+            className += ' loaded';
         } else if (this.showPlaceholder) {
             content = (
                 <kup-image
@@ -115,16 +135,15 @@ export class KupLazy {
                 opacity: 0.4;
               }
             }"
-                    resource="lazy"
+                    resource={resource}
                 ></kup-image>
             );
+            className += ' to-be-loaded';
         }
         return (
-            <Host class="handles-custom-style">
+            <Host class={className}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={this.componentName}>
-                    {content}
-                </div>
+                <div id="kup-component">{content}</div>
             </Host>
         );
     }
