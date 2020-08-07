@@ -334,7 +334,7 @@ export class KupTextField {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root) {
             const component = new MDCTextField(
                 root.querySelector('.mdc-text-field')
             );
