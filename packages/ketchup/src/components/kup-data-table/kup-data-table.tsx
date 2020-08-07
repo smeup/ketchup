@@ -2755,8 +2755,13 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
+                let cellStyle = {
+                    width: props['sizeX'],
+                    height: props['sizeY'],
+                };
                 content = (
                     <kup-lazy
+                        style={cellStyle}
                         class="cell-icon"
                         componentName="kup-image"
                         showPlaceholder={false}
@@ -2777,8 +2782,13 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
+                let cellStyle = {
+                    width: props['sizeX'],
+                    height: props['sizeY'],
+                };
                 content = (
                     <kup-lazy
+                        style={cellStyle}
                         class="cell-image"
                         componentName="kup-image"
                         data={...props}
