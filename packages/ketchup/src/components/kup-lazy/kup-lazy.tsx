@@ -109,6 +109,9 @@ export class KupLazy {
             case 'kup-image':
                 resource = 'photo';
                 break;
+            case 'kup-progress-bar':
+                resource = 'linear_scale';
+                break;
             default:
                 resource = 'lazy';
                 break;
