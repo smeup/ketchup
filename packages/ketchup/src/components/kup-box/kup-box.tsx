@@ -1246,6 +1246,9 @@ export class KupBox {
         row: BoxRow;
         visibleColumns: Column[];
     }) {
+        let classObj: Record<string, boolean> = {
+            'box-object': true,
+        };
         let boContent = null;
 
         let boStyle = {};
@@ -1274,7 +1277,6 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
-
                 let props: any = cell.data;
 
                 if (isButton(cell.obj)) {
@@ -1362,6 +1364,9 @@ export class KupBox {
                         if (!props.sizeY) {
                             props['sizeY'] = '64px';
                         }
+                        if (props.badgeData) {
+                            classObj['has-padding'] = true;
+                        }
                         boContent = (
                             <kup-lazy
                                 class="cell-image"
@@ -1404,7 +1409,7 @@ export class KupBox {
         return (
             <div
                 data-column={boxObject.column}
-                class="box-object"
+                class={classObj}
                 style={boStyle}
             >
                 {boContent}
