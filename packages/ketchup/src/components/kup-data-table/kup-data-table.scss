@@ -660,13 +660,17 @@ $fixed-row-class: fixed-row;
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-lazy {
-              display: flex;
-            }
+          }
+
+          kup-lazy {
+            display: flex;
+            margin: auto;
           }
 
           & .indent ~ kup-lazy {
             display: inline-block;
+            margin: 0;
+            vertical-align: middle;
           }
 
           // Class assigned to the image of a cell

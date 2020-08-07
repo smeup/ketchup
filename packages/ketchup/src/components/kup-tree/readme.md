@@ -83,8 +83,6 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 | Event                      | Description                                                                                                                                                                 | Type                                                                                                                                          |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `kupDetailRequest`         | When a tooltip request detail data                                                                                                                                          | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
-| `kupLoadRequest`           | When a tooltip request initial data                                                                                                                                         | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
 | `kupOptionClicked`         | When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}. | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>`                                                                            |
 | `kupTreeNodeButtonClicked` |                                                                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; }>`                         |
 | `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                                                              | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                            |
@@ -111,7 +109,6 @@ Type: `Promise<void>`
 
 - [kup-button](../kup-button)
 - [kup-lazy](../kup-lazy)
-- [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
 
@@ -120,7 +117,6 @@ Type: `Promise<void>`
 graph TD;
   kup-tree --> kup-button
   kup-tree --> kup-lazy
-  kup-tree --> kup-tooltip
   kup-tree --> kup-image
   kup-tree --> kup-text-field
   kup-button --> kup-image
@@ -128,8 +124,6 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-lazy --> kup-image
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-text-field --> kup-image
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
