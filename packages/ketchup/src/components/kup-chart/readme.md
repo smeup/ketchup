@@ -54,16 +54,12 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-card](../kup-card)
- - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-box --> kup-chart
   kup-card --> kup-chart
-  kup-tree --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

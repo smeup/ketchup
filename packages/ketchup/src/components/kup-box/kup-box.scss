@@ -380,6 +380,11 @@
   }
 }
 
+kup-lazy.to-be-loaded {
+  display: flex;
+  height: 36px;
+}
+
 @-webkit-keyframes rotate-icon {
   0% {
     transform: rotate(0deg);
