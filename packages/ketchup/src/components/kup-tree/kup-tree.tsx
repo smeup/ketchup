@@ -40,6 +40,10 @@ import { errorLogging } from '../../utils/error-logging';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import {
+    styleHasBorderRadius,
+    styleHasWritingMode,
+} from '../kup-data-table/kup-data-table-helper';
 
 @Component({
     tag: 'kup-tree',
@@ -830,13 +834,16 @@ export class KupTree {
 
         // Elements of the cell
         let cellElements = [];
+        let tdStyle = undefined;
         let style = undefined;
-        if (cell.style) {
+        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
             style = cell.style;
+        } else {
+            tdStyle = cell.style;
         }
 
         cellElements.push(
-            <span class={classObj} style={style}>
+            <span style={style} class={classObj}>
                 {content}
             </span>
         );
@@ -864,7 +871,7 @@ export class KupTree {
         return (
             <td
                 onClick={() => (this.selectedColumn = cellData.column.name)}
-                style={style}
+                style={tdStyle}
             >
                 {cellElements}
             </td>
