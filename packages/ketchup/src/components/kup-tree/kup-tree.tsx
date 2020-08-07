@@ -32,13 +32,7 @@ import {
     isProgressBar,
     isRadio,
     isNumber,
-    hasTooltip,
 } from '../../utils/object-utils';
-
-import {
-    styleHasBorderRadius,
-    styleHasWritingMode,
-} from './../kup-data-table/kup-data-table-helper';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
@@ -248,34 +242,6 @@ export class KupTree {
         column: Column;
         columnName: string;
         auto: boolean;
-    }>;
-
-    /**
-     * When a tooltip request initial data
-     */
-    @Event({
-        eventName: 'kupLoadRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoadRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
-    }>;
-
-    /**
-     * When a tooltip request detail data
-     */
-    @Event({
-        eventName: 'kupDetailRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDetailRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
     }>;
 
     //---- Methods ----
@@ -862,39 +828,12 @@ export class KupTree {
             }
         }
 
-        // if cell.style has border, apply style to cellcontent
-        let style = null;
-        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
-            style = cell.style;
-        }
-        /**
-         * Controls if current cell needs a tooltip and eventually adds it.
-         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-         */
-        if (hasTooltip(cell.obj)) {
-            content = (
-                <kup-tooltip
-                    class="datatable-tooltip"
-                    onKupTooltipLoadData={(ev) =>
-                        this.kupLoadRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                    onKupTooltipLoadDetail={(ev) =>
-                        this.kupDetailRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                >
-                    {content}
-                </kup-tooltip>
-            );
-        }
-
         // Elements of the cell
         let cellElements = [];
+        let style = undefined;
+        if (cell.style) {
+            style = cell.style;
+        }
 
         cellElements.push(
             <span class={classObj} style={style}>
