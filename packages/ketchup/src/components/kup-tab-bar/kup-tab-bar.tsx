@@ -102,7 +102,7 @@ export class KupTabBar {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
     }

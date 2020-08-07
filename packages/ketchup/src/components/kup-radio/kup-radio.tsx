@@ -155,7 +155,7 @@ export class KupRadio {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             let formFields: any = root.querySelectorAll('.mdc-form-field');
             for (let i = 0; i < formFields.length; i++) {
                 let component = MDCRadio.attachTo(

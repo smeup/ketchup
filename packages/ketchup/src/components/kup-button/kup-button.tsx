@@ -177,7 +177,7 @@ export class KupButton {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             let button = root.querySelector('.kup-button');
             if (button != undefined) {
                 const buttonRipple = MDCRipple.attachTo(button);

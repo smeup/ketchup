@@ -283,7 +283,7 @@ export class KupTree {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
             if (rippleCells) {
                 for (let i = 0; i < rippleCells.length; i++) {
