@@ -100,6 +100,15 @@ export class KupLazy {
         let resource: string;
         let className: string = 'handles-custom-style ' + this.componentName;
         switch (this.componentName) {
+            case 'kup-button':
+                resource = 'call_to_action';
+                break;
+            case 'kup-card':
+                resource = 'art_track';
+                break;
+            case 'kup-checkbox':
+                resource = 'check_box_outline_blank';
+                break;
             case 'kup-chart':
                 resource = 'chart-bar';
                 break;
@@ -111,6 +120,9 @@ export class KupLazy {
                 break;
             case 'kup-progress-bar':
                 resource = 'linear_scale';
+                break;
+            case 'kup-radio':
+                resource = 'radio_button_unchecked';
                 break;
             default:
                 resource = 'lazy';
