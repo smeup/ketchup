@@ -665,6 +665,10 @@ $fixed-row-class: fixed-row;
             }
           }
 
+          & .indent ~ kup-lazy {
+            display: inline-block;
+          }
+
           // Class assigned to the image of a cell
           // Allows regulation of sizes
           .cell-image {
