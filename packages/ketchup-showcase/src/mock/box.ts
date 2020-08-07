@@ -1300,6 +1300,7 @@ export const shapeData = {
           },
           value: 'https://via.placeholder.com/64?text=CUSTOM',
           data: {
+            resource: 'https://via.placeholder.com/64?text=CUSTOM',
             badgeData: [
               {
                 imageData: { resource: 'account' },
