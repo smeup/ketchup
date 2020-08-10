@@ -385,9 +385,9 @@ export default {
         title: 'JavaScript',
         javascriptItems: [
           {
-            title: 'Error logging',
+            title: 'Debugging',
             to: {
-              name: 'logmessage',
+              name: 'debugging',
             },
           },
           {
