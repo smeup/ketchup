@@ -105,6 +105,12 @@
         label="Dark Mode"
         id="theme-switch"
       ></kup-switch>
+      <kup-button
+        onclick="toggleDebug()"
+        id="debug-toggler"
+        icon="bug"
+        custom-style=":host{--kup-main-color: white}"
+      ></kup-button>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -143,6 +149,8 @@
 </template>
 
 <script>
+function toggleDebug() {}
+
 export default {
   data: () => ({
     darkTheme: false,
