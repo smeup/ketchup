@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
   </div>
 </template>
 
@@ -19,24 +14,29 @@ export default {
   name: 'SwitchDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupSwitchClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupSwitchChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupSwitchInput',
+          type: 'input',
+        },
+        {
+          name: 'kupSwitchFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupSwitchBlur',
+          type: 'blur',
         },
       ],
-      demoComp: '<wup-switch id="demo-component"></wup-switch>',
       demoProps: [
         {
           prop: 'checked',
@@ -44,6 +44,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
         },
         {
           prop: 'disabled',
@@ -69,29 +77,35 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupSwitchClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupSwitchChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupSwitchInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupSwitchFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupSwitchBlur',
-          type: 'blur',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-switch');
+  comp.id = 'demo-component';
+  return comp;
+}
 </script>

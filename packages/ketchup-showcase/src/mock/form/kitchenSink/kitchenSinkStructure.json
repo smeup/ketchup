@@ -66,63 +66,63 @@
         "data": [
           {
             "value": "CH",
-            "description": "Switzerland"
+            "text": "Switzerland"
           },
           {
             "value": "ES",
-            "description": "Spain"
+            "text": "Spain"
           },
           {
             "value": "IT",
-            "description": "Italy"
+            "text": "Italy"
           },
           {
             "value": "UK",
-            "description": "United Kingdom"
+            "text": "United Kingdom"
           },
           {
             "value": "GEM",
-            "description": "Global error message"
+            "text": "Global error message"
           },
           {
             "value": "GWM",
-            "description": "Global warning message"
+            "text": "Global warning message"
           },
           {
             "value": "GIM",
-            "description": "Global info message"
+            "text": "Global info message"
           },
           {
             "value": "FEM",
-            "description": "Field error message"
+            "text": "Field error message"
           },
           {
             "value": "FWM",
-            "description": "Field warning message"
+            "text": "Field warning message"
           },
           {
             "value": "FIM",
-            "description": "Field info message"
+            "text": "Field info message"
           },
           {
             "value": "GVM",
-            "description": "Global values modify"
+            "text": "Global values modify"
           },
           {
             "value": "FVM",
-            "description": "Field value modify"
+            "text": "Field value modify"
           },
           {
             "value": "FVU",
-            "description": "Field value updated"
+            "text": "Field value updated"
           },
           {
             "value": "GRS",
-            "description": "Global readonly set"
+            "text": "Global readonly set"
           },
           {
             "value": "GRU",
-            "description": "Global readonly unset"
+            "text": "Global readonly unset"
           }
         ]
       },
@@ -148,63 +148,63 @@
         "data": [
           {
             "value": "01",
-            "description": "Val d'Aosta"
+            "text": "Val d'Aosta"
           },
           {
             "value": "02",
-            "description": "Piemonte"
+            "text": "Piemonte"
           },
           {
             "value": "03",
-            "description": "Lombardia"
+            "text": "Lombardia"
           },
           {
             "value": "08",
-            "description": "Lazio"
+            "text": "Lazio"
           },
           {
             "value": "GEM",
-            "description": "Global error message"
+            "text": "Global error message"
           },
           {
             "value": "GWM",
-            "description": "Global warning message"
+            "text": "Global warning message"
           },
           {
             "value": "GIM",
-            "description": "Global info message"
+            "text": "Global info message"
           },
           {
             "value": "FEM",
-            "description": "Field error message"
+            "text": "Field error message"
           },
           {
             "value": "FWM",
-            "description": "Field warning message"
+            "text": "Field warning message"
           },
           {
             "value": "FIM",
-            "description": "Field info message"
+            "text": "Field info message"
           },
           {
             "value": "GVM",
-            "description": "Global values modify"
+            "text": "Global values modify"
           },
           {
             "value": "FVM",
-            "description": "Field value modify"
+            "text": "Field value modify"
           },
           {
             "value": "FVU",
-            "description": "Field value updated"
+            "text": "Field value updated"
           },
           {
             "value": "GRS",
-            "description": "Global readonly set"
+            "text": "Global readonly set"
           },
           {
             "value": "GRU",
-            "description": "Global readonly unset"
+            "text": "Global readonly unset"
           }
         ]
       },

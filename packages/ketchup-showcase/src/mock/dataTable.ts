@@ -35,7 +35,6 @@ export function createDataForPagination(
     columns.push({
       name: 'FLD' + i,
       title: 'Column ' + i,
-      size: 10,
       hideValuesRepetitions:
         useStepValues &&
         (Math.random() > 0.5 || stepValuesAlwaysFilteredRows.indexOf(i) >= 0),
@@ -55,7 +54,7 @@ export function createDataForPagination(
         (!useStepValues ? i.toString() : stepValue.toString()) + j.toString();
 
       cell.obj = {
-        t: 'NR',
+        t: '',
         p: '',
         k: cell.value,
       };
@@ -87,12 +86,7 @@ export function filterFakeDepartmentData(filter: string, dataSuffix: string) {
   let rowsFiltered = data.rows;
   if (filter) {
     rowsFiltered = data.rows.filter((row: any) => {
-      let includes =
-        row.cells['code'].value +
-        ' ' +
-        row.cells['desc'].value +
-        ' ' +
-        row.cells['size'].value;
+      let includes = row.cells['code'].value + ' ' + row.cells['desc'].value;
       return includes.toUpperCase().includes(filter.toUpperCase());
     });
   }
@@ -107,17 +101,10 @@ export function createFakeDepartmentData(dataSuffix: string) {
   columns.push({
     name: 'code',
     title: 'Code',
-    size: 10,
   });
   columns.push({
     name: 'desc',
     title: 'Description',
-    size: 10,
-  });
-  columns.push({
-    name: 'size',
-    title: 'Size',
-    size: 10,
   });
   const rows = [];
   for (let i = 0; i < fld3Values.length; i++) {
@@ -129,9 +116,6 @@ export function createFakeDepartmentData(dataSuffix: string) {
     };
     currentRow.cells['desc'] = {
       value: fld3Values[i] + dataSuffix,
-    };
-    currentRow.cells['size'] = {
-      value: '' + fld3Values[i].length + i,
     };
     for (let j = 0; j < columns.length; j++) {
       currentRow.cells[columns[j].name].obj = {
@@ -153,22 +137,28 @@ export const defaultDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -178,9 +168,9 @@ export const defaultDataTable = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
+            k: 'Shareholders module',
           },
-          value: 'Customers module',
+          value: 'Shareholders module',
           options: true,
         },
         FLD2: {
@@ -624,24 +614,30 @@ export const hiddenColumnsData = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
       visible: false,
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
       visible: false,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -651,9 +647,9 @@ export const hiddenColumnsData = {
           obj: {
             t: 'TA',
             p: 'B£AMO',
-            k: 'Customers module',
+            k: 'Customer module',
           },
-          value: 'Customers module',
+          value: 'Customer module',
         },
         FLD2: {
           obj: {
@@ -761,17 +757,28 @@ export const iconImagesDataTable = {
     {
       name: 'FLD1',
       title: 'Person',
-      size: '',
+      // Checks 'clickable' class is not added when present but false
+      clickable: false,
     },
     {
       name: 'FLD2',
       title: 'Icon',
-      size: 10,
+      // Checks 'clickable' class is added
+      clickable: true,
+      obj: {
+        t: 'J4',
+        p: 'ICO',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Image',
-      size: 10,
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -791,7 +798,8 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'CN;COL;Customers module',
           },
-          value: 'mdi mdi-account',
+          data: { resource: 'account' },
+          value: 'account',
         },
         FLD3: {
           obj: {
@@ -799,8 +807,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'CN;COL;Customers module',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BCN%253BCOL.jsf?ln=smeupImages',
+          data: { resource: 'https://via.placeholder.com/64?text=PF' },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
       },
     },
@@ -820,7 +828,8 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'OG;J1;PATHFILE',
           },
-          value: 'mdi mdi-folder',
+          data: { resource: 'folder' },
+          value: 'folder',
         },
         FLD3: {
           obj: {
@@ -828,8 +837,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'OG;J1;PATHFILE',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/OG%253BJ1%253BPATHFILE.jsf?ln=smeupImages',
+          data: { resource: 'https://via.placeholder.com/64?text=PF' },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
       },
     },
@@ -849,7 +858,8 @@ export const iconImagesDataTable = {
             p: 'ICO',
             k: 'J1;KEY;CTRL',
           },
-          value: 'mdi mdi-play',
+          data: { resource: 'play' },
+          value: 'play',
         },
         FLD3: {
           obj: {
@@ -857,8 +867,8 @@ export const iconImagesDataTable = {
             p: 'IMG',
             k: 'J1;KEY;CTRL',
           },
-          value:
-            'https://webuptest.smeup.com/WebUPNightly/javax.faces.resource/J1%253BKEY%253BCTRL.jsf?ln=smeupImages',
+          data: { resource: 'https://via.placeholder.com/64?text=PF' },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
       },
     },
@@ -870,22 +880,28 @@ export const cellStyleDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1038,22 +1054,28 @@ export const cellStyleDataTable2 = {
     {
       name: 'FLD1',
       title: 'Column A',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Column B',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Column C',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Column D',
-      size: 10,
     },
   ],
   rows: [
@@ -1208,22 +1230,28 @@ export const sortDataTable = {
     {
       name: 'FLD1',
       title: 'Software',
-      size: '',
     },
     {
       name: 'FLD2',
       title: 'Working License',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD3',
       title: 'Price',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Expiring Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1582,18 +1610,15 @@ export function dataTableCheckboxFactory(
       columns: [
         {
           name: 'A',
-          size: 0,
           title: 'Numero',
         },
         {
           name: 'B',
-          size: 0,
           title: 'BarCode',
         },
         {
           hideValuesRepetitions,
           name: 'C',
-          size: 0,
           title: 'Si/No',
           obj: {
             k: '',

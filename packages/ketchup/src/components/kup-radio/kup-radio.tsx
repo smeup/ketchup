@@ -1,18 +1,18 @@
 import {
     Component,
+    Prop,
+    Element,
+    Host,
     Event,
     EventEmitter,
-    Prop,
     State,
-    Watch,
     h,
+    Method,
 } from '@stencil/core';
-import { generateUniqueId } from '../../utils/utils';
-import {
-    KetchupRadioElement,
-    KetchupRadioChangeEvent,
-    KetchupRadioElementFactory,
-} from './kup-radio-declarations';
+import { MDCRadio } from '@material/radio';
+import { MDCFormField } from '@material/form-field';
+import { ComponentRadioElement } from './kup-radio-declarations';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-radio',
@@ -20,143 +20,209 @@ import {
     shadow: true,
 })
 export class KupRadio {
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+
     /**
-     * Label to describe the radio group
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() label: string = '';
+    @Prop({ reflect: true }) customStyle: string = undefined;
     /**
-     * Direction in which the radio elements must be placed
+     * List of elements.
      */
-    @Prop() direction: string = 'horizontal';
+    @Prop() data: ComponentRadioElement[] = [];
     /**
-     * Chooses which field of an item object should be used to create the list and be filtered.
-     */
-    @Prop() displayedField: string = 'id';
-    /**
-     * Allows to pass an initial selected item for the Radio group
-     */
-    @Prop() initialValue: KetchupRadioElement = KetchupRadioElementFactory();
-    /**
-     * Radio elements to display
-     */
-    @Prop() items: KetchupRadioElement[] = [];
-    /**
-     * Radio elements value
-     */
-    @Prop() radioName: string = '';
-    /**
-     * Chooses which field of an item object should be used to create the list and be filtered.
-     */
-    @Prop() valueField: string = 'id';
-    /**
-     * Sets the radio to be disabled
+     * Defaults at false. When set to true, the component is disabled.
      */
     @Prop({ reflect: true }) disabled: boolean = false;
-
-    //---- Validating props ----
-    @Watch('direction')
-    checkDirection(newVal: string) {
-        if (!/horizontal|vertical/.test(newVal)) {
-            throw new Error(
-                'kup-radio: direction must be horizontal or vertical.'
-            );
-        }
-    }
-
-    //---- Internal state ----
-    @State() selectedRadio: KetchupRadioElement | null = null;
-
-    //---- Lifecycle Hooks ----
-    componentWillLoad() {
-        // When the component is going to be loaded, if there is an initial value set, we can reflect it to internal state
-        // This is used because when component is instantiated it does NOT run watchers.
-        this.reflectInitialValue(this.initialValue);
-    }
-
-    //---- Private methods ----
-    // Always reflect changes of initialValue to value element
-    @Watch('initialValue')
-    reflectInitialValue(
-        newValue: KetchupRadioElement,
-        oldValue?: KetchupRadioElement
-    ) {
-        // When a new initial value is passed, we control that the new item is different from the old one before updating the state
-        if (
-            !oldValue ||
-            newValue[this.valueField] !== oldValue[this.valueField]
-        ) {
-            this.onRadioChanged(newValue);
-        }
-    }
-
-    //---- Emitted events and handlers ----
     /**
-     * When currently selected radio button has been changed.
-     * */
+     * Defaults at false. When set to true, the label will be on the left of the component.
+     */
+    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    /**
+     * Defaults at null. It's the name that binds the radio buttons together.
+     */
+    @Prop({ reflect: true }) name: string = 'radio-list';
+
     @Event({
-        eventName: 'ketchupRadioChanged',
+        eventName: 'kupRadioBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    ketchupRadioChanged: EventEmitter<KetchupRadioChangeEvent>;
+    kupBlur: EventEmitter<{
+        value: string;
+        checked: boolean;
+    }>;
 
-    // Typing for input element UIEvent & {target: HTMLInputElement}
-    onRadioChanged(radio: KetchupRadioElement) {
-        this.ketchupRadioChanged.emit({
-            value: radio,
-            oldValue: this.selectedRadio,
-            info: {},
-        });
-        this.selectedRadio = radio;
+    @Event({
+        eventName: 'kupRadioChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: string;
+        checked: boolean;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClick: EventEmitter<{
+        value: string;
+        checked: boolean;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioFocus',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupFocus: EventEmitter<{
+        value: string;
+        checked: boolean;
+    }>;
+
+    @Event({
+        eventName: 'kupRadioInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupInput: EventEmitter<{
+        value: string;
+        checked: boolean;
+    }>;
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
-    //---- Rendering functions ----
-    radioElementsComposer() {
-        return this.items.map((radio) => {
-            // The id is necessary for the label to be associated with the input
-            // TODO Anyway this can be extracted into another map object to avoid creating a new id each time the component is painted.
-            const uId = generateUniqueId(radio[this.valueField]);
-            return (
-                <li
-                    class={
-                        'kup-radio__item' +
-                        (this.selectedRadio &&
-                        this.selectedRadio[this.valueField] ===
-                            radio[this.valueField]
-                            ? ' kup-radio__item--selected'
-                            : '')
-                    }
-                >
-                    <div>
-                        <input
-                            id={uId}
-                            disabled={this.disabled}
-                            type="radio"
-                            name={this.radioName}
-                            value={radio[this.valueField]}
-                            onChange={this.onRadioChanged.bind(this, radio)}
-                        />
-                    </div>
-                    <label htmlFor={uId}>{radio[this.displayedField]}</label>
-                </li>
-            );
+    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupBlur.emit({
+            value: target.value,
+            checked: target.checked,
         });
+    }
+
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupChange.emit({
+            value: target.value,
+            checked: target.checked,
+        });
+    }
+
+    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupClick.emit({
+            value: target.value,
+            checked: target.checked,
+        });
+    }
+
+    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupFocus.emit({
+            value: target.value,
+            checked: target.checked,
+        });
+    }
+
+    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupInput.emit({
+            value: target.value,
+            checked: target.checked,
+        });
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        setThemeCustomStyle(this);
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root && !this.disabled) {
+            let formFields: any = root.querySelectorAll('.mdc-form-field');
+            for (let i = 0; i < formFields.length; i++) {
+                let component = MDCRadio.attachTo(
+                    formFields[i].querySelector('.mdc-radio')
+                );
+                let formField = MDCFormField.attachTo(formFields[i]);
+                formField.input = component;
+            }
+        }
     }
 
     render() {
-        let classRadioGroup = 'kup-radio__group';
+        let formClass: string = 'mdc-form-field';
+        let componentClass: string = 'mdc-radio';
+        let componentLabel: string = '';
+        let radioList: Array<HTMLElement> = [];
+        let radioEl: HTMLElement;
 
-        // When direction is horizontal
-        if (this.direction === 'horizontal') {
-            classRadioGroup += ' kup-radio__group--horizontal';
+        if (this.disabled) {
+            componentClass += ' mdc-radio--disabled';
+        }
+
+        if (this.leadingLabel) {
+            formClass += ' mdc-form-field--align-end';
+        }
+
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].checked) {
+                componentClass += ' mdc-radio--checked';
+            }
+            componentLabel = this.data[i].label;
+            let radioId = this.name + i;
+
+            radioEl = (
+                <div class={formClass}>
+                    <div class={componentClass}>
+                        <input
+                            class="mdc-radio__native-control"
+                            type="radio"
+                            id={radioId}
+                            name={this.name}
+                            value={this.data[i].value}
+                            checked={this.data[i].checked}
+                            disabled={this.disabled}
+                            onBlur={(e: any) => this.onKupBlur(e)}
+                            onChange={(e: any) => this.onKupChange(e)}
+                            onClick={(e: any) => this.onKupClick(e)}
+                            onFocus={(e: any) => this.onKupFocus(e)}
+                            onInput={(e: any) => this.onKupInput(e)}
+                        ></input>
+                        <div class="mdc-radio__background">
+                            <div class="mdc-radio__outer-circle"></div>
+                            <div class="mdc-radio__inner-circle"></div>
+                        </div>
+                        <div class="mdc-radio__ripple"></div>
+                    </div>
+                    <label htmlFor={this.name}>{componentLabel}</label>
+                </div>
+            );
+            radioList.push(radioEl);
         }
 
         return (
-            <div>
-                {this.label ? <p>{this.label}</p> : null}
-                <ul class={classRadioGroup}>{this.radioElementsComposer()}</ul>
-            </div>
+            <Host class="handles-custom-style">
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">{radioList}</div>
+            </Host>
         );
     }
 }

@@ -10,7 +10,7 @@ const buttonColumnName = 'BTN';
 const btnColumnIndex = columns.reduce((result, col, index) => col.name === buttonColumnName ? index : result, -1);
 
 
-describe('data-table with a button column', () => {
+describe.skip('data-table with a button column', () => {
   let page;
   let tableButtonCells;
 

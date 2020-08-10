@@ -1,41 +1,51 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <field-basic></field-basic>
+      <field-demo></field-demo>
     </template>
     <template v-slot:1>
-      <field-combo></field-combo>
+      <field-basic></field-basic>
     </template>
     <template v-slot:2>
-      <field-graphic></field-graphic>
+      <field-styling></field-styling>
     </template>
     <template v-slot:3>
-      <field-radio></field-radio>
+      <field-cmb></field-cmb>
+    </template>
+    <template v-slot:4>
+      <field-itx></field-itx>
+    </template>
+    <template v-slot:5>
+      <field-rad></field-rad>
     </template>
   </comp>
 </template>
 
 <script>
+import FieldDemo from '@/views/advanced/field/examples/FieldDemo';
 import FieldBasic from '@/views/advanced/field/examples/FieldBasic';
-import FieldCombo from '@/views/advanced/field/examples/FieldCombo';
-import FieldGraphic from '@/views/advanced/field/examples/FieldGraphic';
-import FieldRadio from '@/views/advanced/field/examples/FieldRadio';
+import FieldStyling from '@/views/advanced/field/examples/FieldStyling';
+import FieldCmb from '@/views/advanced/field/examples/FieldCmb';
+import FieldItx from '@/views/advanced/field/examples/FieldItx';
+import FieldRad from '@/views/advanced/field/examples/FieldRad';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
+    FieldDemo,
     FieldBasic,
-    FieldCombo,
-    FieldGraphic,
-    FieldRadio,
+    FieldStyling,
+    FieldCmb,
+    FieldItx,
+    FieldRad,
     Comp,
   },
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-fld',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-field',
       headtitle: 'Field',
-      titles: ['Basic usage', 'Combo', 'Graphic', 'Radio'],
+      titles: ['Playground', 'Basic usage', 'Styling', 'Cmb', 'Itx', 'Rad'],
     };
   },
 };

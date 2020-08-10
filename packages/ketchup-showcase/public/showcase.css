@@ -73,13 +73,14 @@ h3 {
 }
 
 .page-nav-element {
-  max-height: 22px;
-  margin-top: 8px;
+  color: var(--kup-text-color);
   display: block;
+  margin-top: 8px;
+  max-height: 22px;
   padding-left: 15px;
   padding-top: 7.5px;
   transition: all 0.2s ease-in;
-  color: var(--kup-text-color);
+  white-space: pre;
 }
 
 .page-nav-element.active {
@@ -138,7 +139,6 @@ i.v-icon.material-icons {
 }
 
 .demo-container {
-  max-width: 80%;
   text-align: center;
   margin: auto;
 }
@@ -147,13 +147,15 @@ i.v-icon.material-icons {
   margin-bottom: 30px;
 }
 
-.demo-container wup-text-field {
+.demo-container kup-text-field {
   margin: 0 20px;
 }
 
 .kup-container {
   display: inline-flex;
-  margin: 30px 0;
+  margin: 2rem 1.5rem;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .kup-container-fw {
@@ -185,6 +187,7 @@ code.flat {
   font-family: Roboto Mono, consolas, monospace;
   font-size: 1.2rem;
   font-weight: 600;
+  word-break: break-word;
 }
 
 .sample-section .code-word {
@@ -264,6 +267,28 @@ footer.v-footer {
     0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+.v-footer {
+  display: flex;
+  justify-content: center;
+}
+
+a.first-icon {
+  margin-right: 20px;
+}
+
+a.second-icon {
+  margin-left: 20px;
+}
+
+.footer-icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+}
+
 nav.v-toolbar i.v-icon.material-icons,
 .v-input--selection-controls.v-input .v-label {
   color: #ffffff !important;
@@ -288,7 +313,6 @@ nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
 
 span.company-text {
   text-align: center;
-  width: 100%;
   font-size: 0.8rem;
 }
 
@@ -464,7 +488,7 @@ table.instruction-table {
   margin: 0;
 }
 
-#sample-wrapper table.instruction-table wup-switch {
+#sample-wrapper table.instruction-table kup-switch {
   text-align: center;
 }
 
@@ -565,6 +589,10 @@ table.instruction-table th {
   right: 0;
 }
 
+#view-splitter {
+  display: table;
+}
+
 #menu-trigger {
   position: absolute;
   top: 0;
@@ -582,8 +610,11 @@ table.instruction-table th {
   right: 0;
 }
 
+#json-warning,
 #json-setter,
-#json-setter-opener {
+#json-setter-opener,
+#css-setter,
+#css-setter-opener {
   position: absolute;
   z-index: 1;
   display: none;
@@ -593,18 +624,28 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-#json-setter {
+#json-setter,
+#css-setter {
   top: 10px;
   left: 10px;
 }
 
-#json-setter-opener {
+#json-setter-opener,
+#css-setter-opener,
+#json-warning {
   bottom: 10px;
   right: 10px;
 }
 
-#json-setter.shown,
-#json-setter-opener.shown {
+#json-setter-opener.visible + #json-warning {
+  right: 50px;
+}
+
+#json-setter.visible,
+#json-setter-opener.visible,
+#css-setter.visible,
+#css-setter-opener.visible,
+#json-warning.visible {
   display: block;
 }
 
@@ -692,7 +733,7 @@ table.instruction-table th {
   width: 0;
 }
 
-#sample-specs wup-tab-bar {
+#sample-specs kup-tab-bar {
   width: 100%;
 }
 
@@ -714,7 +755,8 @@ table.instruction-table th {
   animation: fadeInFromNone 0.25s ease-out;
 }
 
-#json-tab.padded {
+#json-tab.padded,
+#css-tab.padded {
   padding-top: 75px;
 }
 
@@ -742,7 +784,59 @@ table.instruction-table th {
   background-color: var(--kup-disabled-background-color);
 }
 
+.icon-wrapper {
+  height: 120px;
+  width: 120px;
+  padding: 0.25rem;
+  margin: auto;
+}
+
+.icon-label {
+  margin-top: 0.4rem;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+
+.kup-container kup-image {
+  margin: auto;
+}
+
+.badge-anchor {
+  width: 250px;
+  height: 50px;
+  text-align: center;
+  margin: auto;
+  position: relative;
+  box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+}
+
+.badge-anchor span {
+  line-height: 50px;
+  letter-spacing: 2px;
+}
+
+.icon-wrapper.theme-wrapper {
+  border-radius: 20px;
+  border-style: outset;
+  border-width: 2px;
+  cursor: pointer;
+  margin: 1rem;
+  opacity: 1;
+  padding: 0.75rem;
+  transition: opacity 0.175s;
+}
+
+.icon-wrapper.theme-wrapper:hover {
+  opacity: 0.75;
+}
+
 @media screen and (max-width: 767px) {
+  .demo-container {
+    max-width: 80%;
+  }
+
   #view-swapper,
   #menu-trigger {
     display: none;
@@ -764,7 +858,7 @@ table.instruction-table th {
     display: block;
   }
 
-  .demo-container wup-text-field {
+  .demo-container kup-text-field {
     margin: 2rem 0;
   }
 

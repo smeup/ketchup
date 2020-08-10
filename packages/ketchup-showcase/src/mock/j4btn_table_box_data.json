@@ -2,18 +2,20 @@
   "columns": [
     {
       "name": "DES",
-      "size": 0,
       "title": "Descrizione"
     },
     {
       "name": "RAW",
-      "size": 0,
       "title": "Valore raw"
     },
     {
       "name": "BTN",
-      "size": 0,
-      "title": ""
+      "title": "",
+      "obj": {
+        "t": "J4",
+        "p": "BTN",
+        "k": ""
+      }
     }
   ],
   "rows": [
@@ -38,9 +40,10 @@
           "value": "I(VO;COD_VER;000112)"
         },
         "BTN": {
-          "config": {
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "I(VO;COD_VER;000112)",
             "p": "BTN",
@@ -109,9 +112,10 @@
           "value": "M(J1;URL;https://via.placeholder.com/64?text=img)"
         },
         "BTN": {
-          "config": {
-            "imageSrc": "https://via.placeholder.com/64?text=img"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=img"
           },
+          "value": "https://via.placeholder.com/64?text=img",
           "obj": {
             "k": "M(J1;URL;https://via.placeholder.com/64?text=img)",
             "p": "BTN",
@@ -180,17 +184,17 @@
           "value": "I(VO;COD_VER;000112) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil",
+            "label": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "2",
@@ -245,25 +249,25 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(CN;COL;CASFRA) T(bellicapelli)",
+            "k": "M(CN;COL;CASFRA) T(Action)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "M(CN;COL;CASFRA) T(bellicapelli)"
+          "value": "M(CN;COL;CASFRA) T(Action)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "label": "Action"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
-            "k": "M(CN;COL;CASFRA) T(bellicapelli)",
+            "k": "M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "bellicapelli"
+          "options": false
         }
       },
       "id": "3",
@@ -326,10 +330,11 @@
           "value": "I(VO;COD_VER;000112) H(Edit)"
         },
         "BTN": {
-          "config": {
-            "icon": "mdi mdi-pencil",
+          "data": {
+            "icon": "pencil",
             "tooltip": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "I(VO;COD_VER;000112) H(Edit)",
             "p": "BTN",
@@ -390,20 +395,21 @@
         },
         "RAW": {
           "obj": {
-            "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
+            "k": "M(CN;COL;CASFRA) H(Action)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "M(CN;COL;CASFRA) H(Bellicapelli)"
+          "value": "M(CN;COL;CASFRA) H(Action)"
         },
         "BTN": {
-          "config": {
-            "imageSrc": "https://via.placeholder.com/64?text=CF",
-            "tooltip": "Bellicapelli"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Action"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
-            "k": "M(CN;COL;CASFRA) H(Bellicapelli)",
+            "k": "M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
             "t": "J4"
           },
@@ -470,17 +476,16 @@
           "value": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS)) T(Test)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS)) T(Test)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Test"
+          "options": false
         }
       },
       "id": "6",
@@ -543,9 +548,10 @@
           "value": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))"
         },
         "BTN": {
-          "config": {
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
             "k": "M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
@@ -614,13 +620,11 @@
           "value": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
         },
         "BTN": {
-          "config": {
-            "icon": "mdi mdi-pencil",
-            "buttonStyle": {
-              "backgroundColor": "#3063a5",
-              "color": "#FFF"
-            }
+          "data": {
+            "icon": "pencil",
+            "customStyle": ":host{--kup-main-color: purple;}"
           },
+          "value": "pencil",
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
@@ -689,21 +693,18 @@
           "value": "S(a) I(VO;COD_VER;000112) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "icon": "mdi mdi-pencil",
-            "buttonStyle": {
-              "backgroundColor": "#3063a5",
-              "color": "#FFF"
-            }
+          "data": {
+            "customStyle": ":host{--kup-main-color: purple;}",
+            "icon": "pencil",
+            "label": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "9",
@@ -766,21 +767,17 @@
           "value": "S(a) I(VO;COD_VER;000112) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "icon": "mdi mdi-pencil",
-            "buttonStyle": {
-              "backgroundColor": "#3063a5",
-              "color": "#FFF"
-            }
+          "data": {
+            "customStyle": ":host{--kup-main-color: purple;}",
+            "label": "Edit"
           },
+          "value": "Edit",
           "obj": {
             "k": "S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "10",
@@ -843,10 +840,10 @@
           "value": "B(Yes) I(VO;COD_VER;000112)"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112)",
             "p": "BTN",
@@ -915,10 +912,10 @@
           "value": "B(Yes) M(CN;COL;CASFRA)"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA)",
             "p": "BTN",
@@ -987,18 +984,17 @@
           "value": "B(Yes) I(VO;COD_VER;000112) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil",
+            "label": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "13",
@@ -1053,26 +1049,25 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)",
+            "k": "B(Yes) M(CN;COL;CASFRA) T(Action)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)"
+          "value": "B(Yes) M(CN;COL;CASFRA) T(Action)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "label": "Action"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) T(bellicapelli)",
+            "k": "B(Yes) M(CN;COL;CASFRA) T(Action)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "bellicapelli"
+          "options": false
         }
       },
       "id": "14",
@@ -1135,11 +1130,11 @@
           "value": "B(Yes) I(VO;COD_VER;000112) H(Edit)"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "icon": "mdi mdi-pencil",
+          "data": {
+            "icon": "pencil",
             "tooltip": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) H(Edit)",
             "p": "BTN",
@@ -1200,21 +1195,21 @@
         },
         "RAW": {
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",
+            "k": "B(Yes) M(CN;COL;CASFRA) H(Action)",
             "p": "",
             "t": ""
           },
           "options": false,
-          "value": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)"
+          "value": "B(Yes) M(CN;COL;CASFRA) H(Action)"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=CF",
-            "tooltip": "Bellicapelli"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF",
+            "tooltip": "Action"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
-            "k": "B(Yes) M(CN;COL;CASFRA) H(Bellicapelli)",
+            "k": "B(Yes) M(CN;COL;CASFRA) H(Action)",
             "p": "BTN",
             "t": "J4"
           },
@@ -1281,10 +1276,10 @@
           "value": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
@@ -1353,10 +1348,10 @@
           "value": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=CF"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=CF"
           },
+          "value": "https://via.placeholder.com/64?text=CF",
           "obj": {
             "k": "B(Yes) M(CN;COL;CASFRA) E(F(EXD;*SCO;) 1(CN;CON;CASFRA))",
             "p": "BTN",
@@ -1425,18 +1420,17 @@
           "value": "B(Yes) M(CN;COL;SANCOS) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false,
-            "imageSrc": "https://via.placeholder.com/64?text=SC"
+          "data": {
+            "icon": "https://via.placeholder.com/64?text=SC",
+            "label": "Run action"
           },
+          "value": "https://via.placeholder.com/64?text=SC",
           "obj": {
             "k": "B(Yes) M(CN;COL;SANCOS) T(Run action) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Run action"
+          "options": false
         }
       },
       "id": "19",
@@ -1499,17 +1493,16 @@
           "value": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false
+          "data": {
+            "label": "Dettaglio"
           },
+          "value": "Dettaglio",
           "obj": {
             "k": "B(Yes) T(Dettaglio) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Dettaglio"
+          "options": false
         }
       },
       "id": "20",
@@ -1572,10 +1565,10 @@
           "value": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;CON;SANCOS))"
         },
         "BTN": {
-          "config": {
-            "flat": false,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) E(F(EXD;*SCO;) 1(CN;COL;SANCOS))",
             "p": "BTN",
@@ -1644,18 +1637,17 @@
           "value": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "icon": "pencil",
+            "label": "Edit"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) S(a) I(VO;COD_VER;000112) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "22",
@@ -1718,17 +1710,16 @@
           "value": "B(Yes) S(a) T(Edit)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false
+          "data": {
+            "label": "Edit"
           },
+          "value": "Edit",
           "obj": {
             "k": "B(Yes) S(a) T(Edit)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "23",
@@ -1791,19 +1782,18 @@
           "value": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)"
         },
         "BTN": {
-          "config": {
-            "showtext": true,
-            "flat": false,
-            "fillspace": true,
-            "icon": "mdi mdi-pencil"
+          "data": {
+            "label": "Edit",
+            "fullWidth": true,
+            "icon": "pencil"
           },
+          "value": "pencil",
           "obj": {
             "k": "B(Yes) I(VO;COD_VER;000112) T(Edit) F(Yes)",
             "p": "BTN",
             "t": "J4"
           },
-          "options": false,
-          "value": "Edit"
+          "options": false
         }
       },
       "id": "24",

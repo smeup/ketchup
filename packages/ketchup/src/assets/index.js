@@ -13,43 +13,43 @@ const btnlist = JSON.parse(`{
         "value": "label bottone #1",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-account",
+        "icon": "account",
         "children": []
       },{
         "value": "label bottone #2",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #3",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #4",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #5",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #6",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       },{
         "value": "label bottone #7",
         "options (sarebbe il tasto destro)": true,
         "obj": "J1KEY",
-        "iconClass": "mdi mdi-plus",
+        "icon": "plus",
         "children": []
       }],
       "messages": [],
@@ -57,7 +57,7 @@ const btnlist = JSON.parse(`{
         "row": [
           {
             "exec": "...",
-            "icon": "mdi-clock",
+            "icon": "clock",
             "text": "Scheda orologio"
           }
         ],
@@ -71,7 +71,7 @@ const btnlist = JSON.parse(`{
         "command": [
           {
             "exec": "...",
-            "icon": "mdi-play",
+            "icon": "play",
             "text": "Spotify"
           }
         ]
@@ -80,21 +80,23 @@ const btnlist = JSON.parse(`{
       "dynamisms": []
     }`);
 
-document.querySelector('kup-btn').buttons = btnlist.data;
+if (document.querySelector('kup-btn')) {
+    document.querySelector('kup-btn').buttons = btnlist.data;
 
-document
-    .querySelector('kup-btn')
-    .addEventListener('kupButtonClicked', (event) => {
-        console.log(event);
+    document
+        .querySelector('kup-btn')
+        .addEventListener('kupButtonClicked', (event) => {
+            console.log(event);
 
-        const btnIndex = event.detail.id;
+            const btnIndex = event.detail.id;
 
-        const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
+            const jsonBtn = JSON.stringify(btnlist.data[btnIndex]);
 
-        document.getElementById(
-            'btn-label'
-        ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
-    });
+            document.getElementById(
+                'btn-label'
+            ).innerHTML = `Hai premuto sul pulsante: ${jsonBtn} ed il suo indice e' ${btnIndex}`;
+        });
+}
 
 function toggleBtnFillspace(event) {
     const btn = document.querySelector('kup-btn');

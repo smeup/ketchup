@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-text-field',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-text-field',
       headtitle: 'Text Field',
       titles: [
         'Playground',

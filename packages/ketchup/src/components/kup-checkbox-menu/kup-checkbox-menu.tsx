@@ -193,7 +193,7 @@ export class KupCheckboxMenu {
                 {itemsToRender.map((item) => {
                     return (
                         <li>
-                            <wup-checkbox
+                            <kup-checkbox
                                 checked={
                                     this.selectedItems.indexOf(
                                         item[this.valueField]
@@ -222,7 +222,7 @@ export class KupCheckboxMenu {
                     onClick={this.menuStateToggle.bind(this)}
                 >
                     {this.label}
-                    <kup-icon iconClass={'mdi mdi-menu-down'} />
+                    <kup-image resource="drop_down_arrow" />
                 </span>
 
                 <kup-menu
@@ -230,21 +230,22 @@ export class KupCheckboxMenu {
                     onKupMenuClose={this.closeMenu.bind(this)}
                 >
                     <div class="checkbox-menu-header" slot="top-container">
-                        <wup-checkbox
+                        <kup-checkbox
                             onKupCheckboxChange={(e: CustomEvent) => {
                                 this.toggleAllCheckboxesSelection(e);
                             }}
                         />
                         {this.isFilterable ? (
-                            <kup-text-input
-                                placeholder={this.filterLabel}
-                                onKetchupTextInputUpdated={(e: CustomEvent) => {
+                            <kup-text-field
+                                label={this.filterLabel}
+                                full-width={true}
+                                onKupTextFieldInput={(e: CustomEvent) => {
                                     this.currentFilter = e.detail.value;
                                 }}
                             />
                         ) : null}
-                        <kup-icon
-                            iconClass={'mdi mdi-close'}
+                        <kup-image
+                            resource="close"
                             onClick={this.closeMenu.bind(this)}
                         />
                     </div>

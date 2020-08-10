@@ -1,17 +1,13 @@
 import { KupState } from '../kup-state/kup-state';
 
 import {
-    GenericMap,
+    GenericFilter,
     GroupObject,
     SortObject,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
-    filters: GenericMap = {};
-    columnsWidth: Array<{
-        column: string;
-        width: number;
-    }> = [];
+    filters: GenericFilter = {};
     expandGroups = false;
     density: string = 'small';
     enableSortableColumns: boolean = false;

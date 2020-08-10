@@ -2,16 +2,9 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <wup-tab-bar
-        @kupTabBarClick="tabSelection"
-        :data.prop="demoTabs"
-      ></wup-tab-bar>
+      <kup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></kup-tab-bar>
       <div id="sample-specs-container">
-        <table
-          id="props-tab"
-          v-if="demoProps !== null"
-          class="instruction-table sample-section"
-        >
+        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
           <thead>
             <tr>
               <th>Prop</th>
@@ -33,31 +26,27 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'"
-                >Use the JSON tab to view/change this prop.</td
-              >
+              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
+              <td v-if="propList.try === 'css'">Use the CSS tab to view/change this prop.</td>
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <wup-switch
-                  v-bind:id="propList.prop"
-                  @kupSwitchChange="updateDemoSwitch"
-                ></wup-switch>
+                <kup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
-                <wup-text-field
+                <kup-text-field
                   full-width
                   v-bind:id="propList.prop"
                   @kupTextFieldInput="updateDemoField"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
               <td class="text-cell" v-if="propList.try === 'array'">
-                <wup-text-field
+                <kup-text-field
                   full-width
-                  trailingIcon
+                  trailing-icon
                   icon="add"
                   v-bind:id="propList.prop"
                   @kupTextFieldChange="updateDemoFieldArray"
                   @kupTextFieldIconClick="updateDemoFieldArray"
-                ></wup-text-field>
+                ></kup-text-field>
               </td>
             </tr>
           </tbody>
@@ -92,41 +81,66 @@
         </table>
         <div id="html-tab" class="sample-section" style="display: none;">
           <div class="code-word sample-html"></div>
-          <wup-button
+          <kup-button
             @kupButtonClick="copyHtml"
             id="copy-html"
             icon="file_copy"
             title="Copy HTML markup"
-          ></wup-button>
+          ></kup-button>
         </div>
         <div id="json-tab" class="sample-section padded" style="display: none;">
           <textarea id="json-textarea" style="display: none;"></textarea>
-          <wup-text-field
-            class="shown"
+          <kup-text-field
+            class="visible"
             label="Prop"
             helper="i.e.: data"
             id="json-setter"
-            icon="close"
+            icon="arrow-collapse"
             trailing-icon
-            helperWhenFocused
+            helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
             @kupTextFieldInput="jsonSet"
-          ></wup-text-field>
-          <wup-button
+          ></kup-text-field>
+          <kup-button
             @kupButtonClick="jsonSetSwitch"
             id="json-setter-opener"
             icon="settings"
             title="Show prop field"
-          ></wup-button>
+          ></kup-button>
+          <kup-button
+            id="json-warning"
+            icon="warning"
+            title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
+          ></kup-button>
+        </div>
+        <div id="css-tab" class="sample-section padded" style="display: none;">
+          <textarea id="css-textarea" style="display: none;"></textarea>
+          <kup-text-field
+            class="visible"
+            label="Prop"
+            helper="i.e.: customStyle"
+            id="css-setter"
+            icon="arrow-collapse"
+            trailing-icon
+            helper-when-focused
+            @kupTextFieldIconClick="cssSetSwitch"
+            @kupTextFieldInput="cssSet"
+          ></kup-text-field>
+          <kup-button
+            @kupButtonClick="cssSetSwitch"
+            id="css-setter-opener"
+            icon="settings"
+            title="Show prop field"
+          ></kup-button>
         </div>
       </div>
     </div>
     <div id="sample-dynamic">
       <div id="sample-comp">
-        <div v-html="demoComp" id="sample-comp-wrapper"></div>
+        <div id="sample-comp-wrapper"></div>
       </div>
       <div id="split-container">
-        <wup-button
+        <kup-button
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
@@ -134,8 +148,8 @@
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
-        ></wup-button>
-        <wup-button
+        ></kup-button>
+        <kup-button
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
@@ -143,8 +157,8 @@
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
-        ></wup-button>
-        <wup-button
+        ></kup-button>
+        <kup-button
           @kupButtonClick="splitView"
           id="view-splitter"
           toggable
@@ -152,7 +166,7 @@
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
-        ></wup-button>
+        ></kup-button>
       </div>
     </div>
   </div>
@@ -162,22 +176,20 @@
 export default {
   props: {
     demoTabs: Array,
-    demoComp: String,
+    demoComp: HTMLElement,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Array,
   },
   methods: {
     initEvents() {
+      let demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
+      demoComponentWrapper.appendChild(this.demoComp);
       let demoComponent = document.querySelector('#demo-component');
-      for (let i = 0; i < this.demoEvents.length; i++) {
-        demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
-          this.handleEvent(e)
-        );
-      }
-      if (this.demoData) {
-        for (let i = 0; i < this.demoData.length; i++) {
-          demoComponent[this.demoData[i].prop] = this.demoData[i].value;
+      if (this.demoEvents) {
+        for (let i = 0; i < this.demoEvents.length; i++) {
+          demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
+            this.handleEvent(e)
+          );
         }
       }
     },
@@ -194,6 +206,11 @@ export default {
       for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
           case 'field':
+            if (this.demoProps[i].type === 'number') {
+              document
+                .querySelector('#' + this.demoProps[i].prop)
+                .setAttribute('input-type', 'number');
+            }
             if (demoComponent[this.demoProps[i].prop] !== undefined) {
               document
                 .querySelector('#' + this.demoProps[i].prop)
@@ -221,13 +238,13 @@ export default {
                 let arrayList = demoComponent[this.demoProps[i].prop];
                 let newEntryId = '' + propName + '-' + j;
                 let newEntry =
-                  '<wup-button data-id="' +
+                  '<kup-button data-id="' +
                   propName +
                   '" id="' +
                   newEntryId +
                   '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
                   arrayList[j] +
-                  '"></wup-button>';
+                  '"></kup-button>';
                 document
                   .querySelector('#' + this.demoProps[i].prop)
                   .insertAdjacentHTML('beforebegin', newEntry);
@@ -245,6 +262,7 @@ export default {
 
     handleEvent(e) {
       var d = new Date();
+      console.log('Playground event fired: ', e);
       document.querySelector('#on' + e.type).innerText =
         e.type +
         ' event fired at ' +
@@ -328,13 +346,13 @@ export default {
       }
 
       let newEntry =
-        '<wup-button data-id="' +
+        '<kup-button data-id="' +
         e.target.id +
         '" id="' +
         newEntryId +
         '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
         e.detail.value +
-        '"></wup-button>';
+        '"></kup-button>';
       demoComponent[propName] = arrayList;
       e.target.insertAdjacentHTML('beforebegin', newEntry);
       e.target.initialValue = '';
@@ -371,11 +389,13 @@ export default {
       let eventsTab = document.querySelector('#events-tab');
       let htmlTab = document.querySelector('#html-tab');
       let jsonTab = document.querySelector('#json-tab');
+      let cssTab = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
       htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
+      cssTab.setAttribute('style', 'display: none;');
 
       switch (this.demoTabs[i].text) {
         case 'Props':
@@ -401,6 +421,9 @@ export default {
         case 'JSON':
           jsonTab.setAttribute('style', '');
           break;
+        case 'CSS':
+          cssTab.setAttribute('style', '');
+          break;
       }
     },
 
@@ -408,25 +431,41 @@ export default {
       let jsonSetter = document.querySelector('#json-setter');
       let jsonSetterOpener = document.querySelector('#json-setter-opener');
       let jsonTab = document.querySelector('#json-tab');
-      if (jsonSetter.classList.contains('shown')) {
-        jsonSetter.classList.remove('shown');
+      if (jsonSetter.classList.contains('visible')) {
+        jsonSetter.classList.remove('visible');
         jsonTab.classList.remove('padded');
-        jsonSetterOpener.classList.add('shown');
+        jsonSetterOpener.classList.add('visible');
       } else {
-        jsonSetter.classList.add('shown');
+        jsonSetter.classList.add('visible');
         jsonTab.classList.add('padded');
-        jsonSetterOpener.classList.remove('shown');
+        jsonSetterOpener.classList.remove('visible');
+      }
+    },
+
+    cssSetSwitch() {
+      let cssSetter = document.querySelector('#css-setter');
+      let cssSetterOpener = document.querySelector('#css-setter-opener');
+      let cssTab = document.querySelector('#css-tab');
+      if (cssSetter.classList.contains('visible')) {
+        cssSetter.classList.remove('visible');
+        cssTab.classList.remove('padded');
+        cssSetterOpener.classList.add('visible');
+      } else {
+        cssSetter.classList.add('visible');
+        cssTab.classList.add('padded');
+        cssSetterOpener.classList.remove('visible');
       }
     },
 
     jsonSet(e) {
+      let jsonWarning = document.querySelector('#json-warning');
       let jsonProp = e.detail.value;
       let demoComponent = document.querySelector('#demo-component');
       demoComponent.currentJSONprop = jsonProp;
       let jsonData = demoComponent[jsonProp];
       let stringifiedJSON = JSON.stringify(jsonData, null, 2);
       let jsonTextarea = document.querySelector('#json-textarea');
-      let codemirrorTextarea = document.querySelector('.CodeMirror');
+      let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
       jsonTextarea.value = stringifiedJSON;
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
@@ -437,12 +476,42 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
-        let jsonifiedData = JSON.parse(jsonTextarea.value);
-        let prop = demoComponent.currentJSONprop;
-        demoComponent[prop] = jsonifiedData;
+        try {
+          let jsonifiedData = JSON.parse(jsonTextarea.value);
+          let prop = demoComponent.currentJSONprop;
+          demoComponent[prop] = jsonifiedData;
+          jsonWarning.classList.remove('visible');
+        } catch (error) {
+          jsonWarning.classList.add('visible');
+        }
+      });
+    },
+
+    cssSet(e) {
+      let cssProp = e.detail.value;
+      let demoComponent = document.querySelector('#demo-component');
+      demoComponent.currentCSSprop = cssProp;
+      let cssData = demoComponent[cssProp];
+      let cssTextarea = document.querySelector('#css-textarea');
+      let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
+      cssTextarea.value = cssData;
+      if (codemirrorTextarea) {
+        codemirrorTextarea.remove();
+      }
+      CodeMirror.fromTextArea(cssTextarea, {
+        mode: { name: 'text/css' },
+        lineNumbers: true,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+      }).on('change', function (cm) {
+        cm.save();
+        let demoComponent = document.querySelector('#demo-component');
+        let prop = demoComponent.currentCSSprop;
+        demoComponent[prop] = cssTextarea.value;
       });
     },
   },

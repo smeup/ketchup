@@ -18,7 +18,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-tab-bar :data.prop="data"></wup-tab-bar>
+          <kup-tab-bar :data.prop="data"></kup-tab-bar>
         </div>
         <p class="centered">Sample markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -46,7 +46,7 @@ export default {
           active: false,
         },
       ],
-      markupBasic: '<wup-tab-bar></wup-tab-bar>',
+      markupBasic: '<kup-tab-bar></kup-tab-bar>',
       markupObject:
         "{ text: 'Favorites', icon: '', active: true }, { text: 'Settings', icon: '', active: false}",
     };

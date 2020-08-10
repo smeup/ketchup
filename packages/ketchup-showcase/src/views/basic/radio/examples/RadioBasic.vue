@@ -20,7 +20,7 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <wup-radio :data.prop="data"></wup-radio>
+          <kup-radio :data.prop="data"></kup-radio>
         </div>
         <p class="centered">Sample markup</p>
         <code class="flat">{{ markupBasic }}</code>
@@ -48,7 +48,7 @@ export default {
           checked: false,
         },
       ],
-      markupBasic: '<wup-radio></wup-radio>',
+      markupBasic: '<kup-radio></kup-radio>',
       markupObject:
         "{ value: 'chocolate', label: 'Chocolate', checked: true }, { value: 'cream', label: 'Cream', checked: false}",
     };

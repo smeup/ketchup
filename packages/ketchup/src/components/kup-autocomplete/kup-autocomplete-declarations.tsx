@@ -4,6 +4,7 @@ export enum AutocompleteDisplayMode {
     DESCRIPTION_AND_CODE = 'both',
 }
 
+/*
 export enum AutocompleteSortBy {
     CODE = 'code',
     DESCRIPTION = 'description',
@@ -25,3 +26,4 @@ export interface KupAutocompleteFilterUpdatePayload {
     filter: string;
     matchesMinimumCharsRequired: boolean;
 }
+*/

@@ -3,6 +3,10 @@ export interface DataTable {
     rows?: Array<Row>;
 }
 
+export interface CellData {
+    [index: string]: any;
+}
+
 export interface Cell {
     obj?: {
         t: string;
@@ -13,7 +17,8 @@ export interface Cell {
     style?: GenericMap;
     options?: boolean;
     shape?: string;
-    config?: any;
+    data?: CellData;
+    cardID?: string;
 }
 
 export interface CellsHolder {
@@ -23,14 +28,16 @@ export interface CellsHolder {
 export interface Column {
     name: string;
     title: string;
-    size?: number;
+    size?: string;
     visible?: boolean;
+    clickable?: boolean;
     hideValuesRepetitions?: boolean;
     obj?: {
         t: string;
         p: string;
         k: string;
     };
+    decimals?: number;
 }
 
 export interface Row {
@@ -70,6 +77,15 @@ export interface GenericMap {
     [index: string]: string;
 }
 
+export interface GenericFilter {
+    [index: string]: Filter;
+}
+
+export interface Filter {
+    textField: string;
+    checkBoxes: Array<string>;
+}
+
 export interface SortObject {
     column: string;
     sortMode: SortMode;
@@ -87,7 +103,7 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
-    AVARAGE = 'Avarage',
+    AVERAGE = 'Average',
 }
 
 export enum PaginatorPos {
@@ -124,7 +140,7 @@ export interface KupDataTableCellButtonClick {
     row: Row;
 }
 
-//---- *NEXT functionalit AKA load more ----
+//---- *NEXT functionality AKA load more ----
 export enum LoadMoreMode {
     CONSTANT = 'constant',
     CONSTANT_INCREMENT = 'constant_increment',
@@ -139,7 +155,7 @@ export interface KupDataTableSortedColumnIndexes {
     sortedColumnIndex: number;
 }
 
-//---- Sortable Columns Functionality ----
+//---- Group label display functionality ----
 /**
  * The possible values the display property can have.
  * @enum
@@ -153,3 +169,14 @@ export enum GroupLabelDisplayMode {
     LABEL = 'label',
     VALUE = 'value',
 }
+
+//---- Fixed rows and cells classes ----
+export const FixedCellsClasses = {
+    columns: 'fixed-column',
+    rows: 'fixed-row',
+};
+
+export const FixedCellsCSSVarsBase = {
+    columns: '--ddt_column-left-',
+    rows: '--ddt_row-top-',
+};

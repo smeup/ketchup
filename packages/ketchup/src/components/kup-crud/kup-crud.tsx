@@ -11,11 +11,6 @@ import {
 } from '@stencil/core';
 
 import {
-    KupAutocompleteOption,
-    KupAutocompleteFilterUpdatePayload,
-} from '../kup-autocomplete/kup-autocomplete-declarations';
-
-import {
     FormFields,
     FormCells,
     FormField,
@@ -92,9 +87,11 @@ export class KupCrud {
         detail: FormFieldEventDetail
     ) => Promise<CrudCallBackOnFormEventResult> | undefined = undefined;
 
-    @Prop() autocompleteCallBackOnFilterUpdate: (
-        detail: KupAutocompleteFilterUpdatePayload
-    ) => Promise<KupAutocompleteOption[]> | undefined = undefined;
+    @Prop() autocompleteCallBackOnFilterUpdate: (detail: {
+        filter: string;
+        matchesMinimumCharsRequired: boolean;
+        el: EventTarget;
+    }) => Promise<any[]> | undefined = undefined;
 
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail
@@ -183,13 +180,11 @@ export class KupCrud {
         this.initVisibleFields();
     }
 
-    // TODO: used button event -> missing kup-button event -> implement it
     private onCrudFocused(event) {
         event.stopPropagation();
         this.kupCrudFocused.emit({});
     }
 
-    // TODO: used button events -> missing kup-button event -> implement it
     private onCrudBlurred(event) {
         event.stopPropagation();
         this.kupCrudBlurred.emit({});
@@ -302,10 +297,9 @@ export class KupCrud {
 
         let updateButtonContent = this.hasRowUpdateAction() ? (
             <kup-button
-                showicon={true}
                 flat={true}
-                iconClass="mdi mdi-pencil"
-                onKupButtonClicked={(e) =>
+                icon="pencil"
+                onKupButtonClick={(e) =>
                     this.onUpdateRecordClicked(e, record.id)
                 }
             ></kup-button>
@@ -315,10 +309,9 @@ export class KupCrud {
 
         let deleteButtonContent = this.hasRowDeleteAction() ? (
             <kup-button
-                showicon={true}
                 flat={true}
-                iconClass="mdi mdi-delete"
-                onKupButtonClicked={(e) =>
+                icon="delete"
+                onKupButtonClick={(e) =>
                     this.onDeleteRecordClicked(e, record.id)
                 }
             ></kup-button>
@@ -381,12 +374,10 @@ export class KupCrud {
     render() {
         let insertButtonContent = this.hasInsertAction() ? (
             <kup-button
-                showicon={true}
-                showtext={true}
                 flat={true}
                 label="Add"
-                iconClass="mdi mdi-plus"
-                onKupButtonClicked={(e) => this.onInsertRecordClicked(e)}
+                icon="plus"
+                onKupButtonClick={(e) => this.onInsertRecordClicked(e)}
             ></kup-button>
         ) : (
             ''
@@ -413,24 +404,19 @@ export class KupCrud {
             }
         });
 
-        const btnStyle = {};
-        btnStyle['--kup-button_border-color-focused'] = '#66D3FA';
-
         let configureButtonContent = this.hasConfigureAction() ? (
             <kup-button
-                style={btnStyle}
                 id="open-modal"
                 label="Configure"
-                showtext={true}
                 flat={false}
-                onKupButtonClicked={(e) =>
+                onKupButtonClick={(e) =>
                     this.onUpdateRecordClicked(
                         e,
                         this.records && this.records[0].id
                     )
                 }
-                onBlur={(e) => this.onCrudBlurred(e)}
-                onFocus={(e) => this.onCrudFocused(e)}
+                onKupButtonBlur={(e) => this.onCrudBlurred(e)}
+                onKupButtonFocus={(e) => this.onCrudFocused(e)}
             >
                 Configure
             </kup-button>

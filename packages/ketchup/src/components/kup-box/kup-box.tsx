@@ -4,6 +4,7 @@ import {
     Component,
     Event,
     Prop,
+    Host,
     State,
     Watch,
     EventEmitter,
@@ -33,21 +34,15 @@ import {
     isPassword,
     isIcon,
     isChart,
-    isCheckbox
+    isCheckbox,
 } from '../../utils/object-utils';
 
 import {
+    isEditor,
     isImage,
     isProgressBar,
-    getFromConfig,
-    getValue,
-    buildProgressBarConfig,
-    buildIconConfig,
+    getShape,
 } from '../../utils/cell-utils';
-
-import { buildButtonConfig } from '../../utils/widget-utils';
-
-import { replacePlaceHolders } from '../../utils/utils';
 
 import {
     filterRows,
@@ -55,9 +50,9 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
-import { KetchupComboEvent } from '../kup-combo/kup-combo-declarations';
+import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { KupImage } from '../kup-image/kup-image';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 
 @Component({
     tag: 'kup-box',
@@ -65,94 +60,105 @@ import { KupImage } from '../kup-image/kup-image';
     shadow: true,
 })
 export class KupBox {
-    @Element() el: HTMLElement;
-    /**
-     * Data
-     */
-    @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
-
-    /**
-     * How the field will be displayed. If not present, a default one will be created.
-     */
-    @Prop() layout: Layout;
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Number of columns
      */
-    @Prop() columns = 1;
-
+    @Prop() cardData: ComponentCardElement = undefined;
     /**
-     * Enable sorting
+     * Number of columns
      */
-    @Prop()
-    sortEnabled = false;
-
+    @Prop({ reflect: true }) columns = 1;
     /**
-     * If sorting is enabled, specifies which column to sort
+     * Alignment of the content. Can be set to left, right or center.
      */
-    @Prop({ mutable: true })
-    sortBy: string;
-
+    @Prop({ reflect: true })
+    contentAlign: string = 'center';
     /**
-     * Enable filtering
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop()
-    filterEnabled = false;
-
+    @Prop({ reflect: true }) customStyle: string = undefined;
     /**
-     * Enable multi selection
+     * Data
      */
-    @Prop()
-    multiSelection = false;
-
+    @Prop() data: { columns?: Column[]; rows?: BoxRow[] };
     /**
-     * Automatically selects the box at the specified index
+     * Enable dragging
      */
-    @Prop()
-    selectBox: number;
-
+    @Prop({ reflect: true })
+    dragEnabled = false;
     /**
-     * If enabled, highlights the selected box/boxes
+     * Enable dropping
      */
-    @Prop()
-    showSelection = true;
-
+    @Prop({ reflect: true })
+    dropEnabled = false;
+    /**
+     * Drop can be done in section
+     */
+    @Prop({ reflect: true })
+    dropOnSection: false;
     /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
      */
-    @Prop()
+    @Prop({ reflect: true })
     enableRowActions = false;
-
     /**
-     * Enables pagination
+     * Enable filtering
      */
     @Prop({ reflect: true })
-    pagination = false;
-
+    filterEnabled = false;
+    /**
+     * How the field will be displayed. If not present, a default one will be created.
+     */
+    @Prop() layout: Layout;
+    /**
+     * Enable multi selection
+     */
+    @Prop({ reflect: true })
+    multiSelection = false;
+    /**
+     * Removes border
+     */
+    @Prop({ reflect: true })
+    noBorder: boolean = false;
+    /**
+     * Removes padding
+     */
+    @Prop({ reflect: true })
+    noPadding: boolean = false;
     /**
      * Number of boxes per page
      */
     @Prop({ reflect: true })
     pageSize = 10;
-
     /**
-     * Enable dragging
+     * Enables pagination
      */
-    @Prop()
-    dragEnabled = false;
-
+    @Prop({ reflect: true })
+    pagination = false;
     /**
-     * Enable dropping
+     * Automatically selects the box at the specified index
      */
-    @Prop()
-    dropEnabled = false;
-
+    @Prop({ reflect: true })
+    selectBox: number;
     /**
-     * Drop can be done in section
+     * If enabled, highlights the selected box/boxes
      */
-    @Prop()
-    dropOnSection: false;
+    @Prop({ reflect: true })
+    showSelection = true;
+    /**
+     * If sorting is enabled, specifies which column to sort
+     */
+    @Prop({ mutable: true, reflect: true })
+    sortBy: string;
+    /**
+     * Enable sorting
+     */
+    @Prop({ reflect: true })
+    sortEnabled = false;
 
     @State()
     private globalFilterValue = '';
@@ -321,8 +327,17 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
-    // lifecycle hooks
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
+        setThemeCustomStyle(this);
         this.onDataChanged();
     }
 
@@ -351,7 +366,7 @@ export class KupBox {
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
-            : [{ title: '', name: '', size: 0 }];
+            : [{ title: '', name: '', size: undefined }];
     }
 
     private initVisibleColumns(): void {
@@ -453,8 +468,9 @@ export class KupBox {
         };
     }
 
-    private onSortChange(kupComboEvent: KetchupComboEvent) {
-        this.sortBy = kupComboEvent.value.id;
+    private onSortChange(e: CustomEvent) {
+        console.log(e);
+        this.sortBy = e.detail.value;
         this.initRows();
     }
 
@@ -641,7 +657,7 @@ export class KupBox {
         this.searchParentWithClass(target, 'box').classList.add('item-dragged');
 
         var transferData = {};
-        transferData['fromId'] = this.el.id;
+        transferData['fromId'] = this.rootElement.id;
         transferData['fromRow'] = row;
         transferData['fromSelectedRows'] = this.selectedRows;
         event.dataTransfer.setData('text', JSON.stringify(transferData));
@@ -649,7 +665,7 @@ export class KupBox {
         event.dataTransfer.dropEffect = 'move';
 
         this.kupBoxDragStarted.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -669,7 +685,7 @@ export class KupBox {
         );
 
         this.kupBoxDragEnded.emit({
-            fromId: this.el.id,
+            fromId: this.rootElement.id,
             fromRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { fromSelectedRows: this.selectedRows }
@@ -725,7 +741,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: row,
             ...(this.selectedRows && this.selectedRows.length
                 ? { toSelectedRows: this.selectedRows }
@@ -781,7 +797,7 @@ export class KupBox {
             jsonData['fromSelectedRows'].length
                 ? { fromSelectedRows: jsonData['fromSelectedRows'] }
                 : {}),
-            toId: this.el.id,
+            toId: this.rootElement.id,
             toRow: null,
         });
     }
@@ -832,6 +848,87 @@ export class KupBox {
     }
 
     // render methods
+    private renderSectionAsCard(row: BoxRow) {
+        let cntBTN: number = 0;
+        let cntIMG: number = 0;
+        let cntPGB: number = 0;
+        let cnt: number = 0;
+        let cardData = {};
+
+        //First cycle sets specific binds between cardIDs and cells
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                if (cell.cardID) {
+                    switch (cell.obj.p) {
+                        case 'BTN':
+                            cardData[cell.cardID] = {
+                                label: cell.value,
+                            };
+                            break;
+                        case 'IMG':
+                            cardData[cell.cardID] = {
+                                resource: cell.value,
+                            };
+                            break;
+                        case 'PGB':
+                            cardData[cell.cardID] = {
+                                value: cell.value,
+                            };
+                            break;
+                        default:
+                            cardData[cell.cardID] = cell.value;
+                            break;
+                    }
+                }
+            }
+        }
+
+        //Second cycle sets leftover binds automatically
+        for (var key in row.cells) {
+            if (row.cells.hasOwnProperty(key)) {
+                var cell = row.cells[key];
+                switch (cell.obj.p) {
+                    case 'BTN':
+                        do {
+                            cntBTN++;
+                        } while (cardData['button' + cntBTN]);
+
+                        cardData['button' + cntBTN] = {
+                            label: cell.value,
+                        };
+                        break;
+                    case 'IMG':
+                        do {
+                            cntIMG++;
+                        } while (cardData['image' + cntIMG]);
+
+                        cardData['image' + cntIMG] = {
+                            resource: cell.value,
+                        };
+                        break;
+                    case 'PGB':
+                        do {
+                            cntPGB++;
+                        } while (cardData['progressBar' + cntPGB]);
+
+                        cardData['progressBar' + cntPGB] = {
+                            value: cell.value,
+                        };
+                        break;
+                    default:
+                        do {
+                            cnt++;
+                        } while (cardData['text' + cnt]);
+
+                        cardData['text' + cnt] = cell.value;
+                        break;
+                }
+            }
+        }
+        return <kup-card data={cardData} {...this.cardData}></kup-card>;
+    }
+
     private renderRow(row: BoxRow) {
         const visibleColumns = [...this.visibleColumns];
 
@@ -864,14 +961,18 @@ export class KupBox {
             };
 
             while (size-- > 0) {
-                boxContent.push(
-                    this.renderSection(
-                        sections[cnt++],
-                        parent,
-                        row,
-                        visibleColumns
-                    )
-                );
+                if (!this.cardData) {
+                    boxContent.push(
+                        this.renderSection(
+                            sections[cnt++],
+                            parent,
+                            row,
+                            visibleColumns
+                        )
+                    );
+                } else {
+                    boxContent.push(this.renderSectionAsCard(row));
+                }
             }
         }
 
@@ -881,11 +982,9 @@ export class KupBox {
         if (this.multiSelection) {
             multiSel = (
                 <div class="box-selection">
-                    <input
-                        type="checkbox"
+                    <kup-checkbox
                         checked={isSelected}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={() => this.onSelectionCheckChange(row)}
+                        onKupCheckboxClick={(e) => e.stopPropagation()}
                     />
                 </div>
             );
@@ -938,12 +1037,12 @@ export class KupBox {
         }
 
         let badges = null;
-        if (row.badges && row.badges.length > 0) {
-            badges = row.badges.map((badge) => (
+        if (row.badgeData && row.badgeData.length > 0) {
+            badges = row.badgeData.map((badge) => (
                 <kup-badge
                     text={badge.text}
                     position={badge.position}
-                    icon={badge.icon}
+                    imageData={badge.imageData}
                     class="centered"
                 />
             ));
@@ -1063,7 +1162,7 @@ export class KupBox {
         const isGrid = !!section.columns;
 
         const sectionClass: { [index: string]: boolean } = {
-            'box-section center-aligned': true, //TODO: Manage 'center-aligned' as prop to give the chance to use 'left-aligned' or 'right-aligned' when needed
+            'box-section': true,
             open: sectionExpanded,
             column: !isGrid && !section.horizontal,
             grid: isGrid,
@@ -1147,9 +1246,13 @@ export class KupBox {
         row: BoxRow;
         visibleColumns: Column[];
     }) {
+        let classObj: Record<string, boolean> = {
+            'box-object': true,
+        };
         let boContent = null;
 
         let boStyle = {};
+        //let boInnerHTML = null;
 
         if (boxObject.column) {
             const cell = row.cells[boxObject.column];
@@ -1174,116 +1277,126 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
+                let props: any = cell.data;
 
-                if (isImage(cell, boxObject)) {
-                    let badges = getFromConfig(cell, boxObject, 'badges');
-                    let src = getValue(cell, boxObject);
-                    if (!src) {
-                        let srcTemplate = getFromConfig(
-                            cell,
-                            boxObject,
-                            'srcTemplate'
+                if (isButton(cell.obj)) {
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-button"
+                                componentName="kup-button"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
                         );
-                        if (srcTemplate) {
-                            src = replacePlaceHolders(srcTemplate, cell);
-                        }
+                    } else {
+                        boContent = undefined;
                     }
-                    let height = getFromConfig(cell, boxObject, 'height');
-                    let width = getFromConfig(cell, boxObject, 'width');
-                    boContent = (
-                        <kup-image
-                            src={src}
-                            badges={badges}
-                            width="auto"
-                            height="auto"
-                            maxWidth={width ? width : KupImage.DEFAULT_WIDTH}
-                            maxHeight={
-                                height ? height : KupImage.DEFAULT_HEIGHT
-                            }
-                        />
-                    );
-                } else if (isButton(cell.obj)) {
-                    boContent = (
-                        <kup-button
-                            {...buildButtonConfig(cell.value, cell.config)}
-                        />
-                    );
+                } else if (
+                    isChart(cell.obj) ||
+                    getShape(cell, boxObject) === 'GRA'
+                ) {
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-chart"
+                                componentName="kup-chart"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else if (isCheckbox(cell.obj)) {
-                    let checked = cell.value == '1';
+                    if (props) {
+                        props['disabled'] = row;
+                    } else {
+                        props = { disabled: row };
+                    }
                     boContent = (
-                        <kup-checkbox
-                            checked={checked}
-                            disabled={true}
-                        ></kup-checkbox>
-                    );
-                } else if (isRadio(cell.obj)) {
-                    let initialValue = {
-                        label: '',
-                        value: '1',
-                    };
-                    let items = [
-                        {
-                            label: '',
-                            value: cell.value,
-                        },
-                    ];
-
-                    boContent = (
-                        <kup-radio
-                            disabled={true}
-                            items={items}
-                            initialValue={initialValue}
-                            value-field="value"
+                        <kup-lazy
+                            class="cell-checkbox"
+                            componentName="kup-checkbox"
+                            showPlaceholder={false}
+                            data={...props}
                         />
                     );
+                } else if (isEditor(cell, boxObject)) {
+                    boContent = <kup-editor text={cell.value}></kup-editor>;
+                } else if (isRadio(cell.obj)) {
+                    if (props) {
+                        props['disabled'] = true;
+                        boContent = (
+                            <kup-lazy
+                                class="cell-radio"
+                                componentName="kup-radio"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isIcon(cell.obj)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = '18px';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '18px';
+                        }
+                        boContent = (
+                            <kup-lazy
+                                class="cell-icon"
+                                componentName="kup-image"
+                                showPlaceholder={false}
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isImage(cell, boxObject)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = 'auto';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '64px';
+                        }
+                        if (props.badgeData) {
+                            classObj['has-padding'] = true;
+                        }
+                        boContent = (
+                            <kup-lazy
+                                class="cell-image"
+                                componentName="kup-image"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else if (isPassword(cell.obj)) {
                     boContent = (
-                        <kup-text-input
+                        <kup-text-field
                             input-type="password"
                             initial-value={cell.value}
                             disabled={true}
-                        ></kup-text-input>
+                        ></kup-text-field>
                     );
                 } else if (isProgressBar(cell, boxObject)) {
-                    const value = getValue(cell, boxObject);
-                    boContent = (
-                        <kup-progress-bar
-                            {...buildProgressBarConfig(
-                                cell,
-                                boxObject,
-                                false,
-                                value
-                            )}
-                        />
-                    );
-                } else if (isChart(cell.obj)) {
-                    const props: {
-                        value: string;
-                        width?: number;
-                        height?: number;
-                        cellConfig: any;
-                    } = {
-                        value: cell.value,
-                        cellConfig: cell.config,
-                    };
-        
-                    // check if column has width
-                    const height: number = Number(getFromConfig(cell, boxObject, 'height'));
-                    const width: number = Number(getFromConfig(cell, boxObject, 'width'));
-                    if (height > 0) {
-                        props.height = height;
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-progress-bar"
+                                componentName="kup-progress-bar"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
                     }
-                    if (width > 0) {
-                        props.width = width;
-                    }
-        
-                    boContent = (
-                        <kup-chart-cell {...props} />
-                    );
-                } else if (isIcon(cell.obj)) {
-                    boContent = (
-                        <kup-icon {...buildIconConfig(cell, cell.value)} />
-                    );
                 } else {
                     boContent = cell.value;
                 }
@@ -1296,7 +1409,7 @@ export class KupBox {
         return (
             <div
                 data-column={boxObject.column}
-                class="box-object"
+                class={classObj}
                 style={boStyle}
             >
                 {boContent}
@@ -1305,36 +1418,46 @@ export class KupBox {
     }
 
     render() {
+        let wrapperClass = this.contentAlign + '-aligned';
+
+        if (this.noBorder) {
+            wrapperClass += ' no-border';
+        }
+
+        if (this.noPadding) {
+            wrapperClass += ' no-padding';
+        }
+
         let sortPanel = null;
         if (this.sortEnabled) {
-            let initialValue = { value: '', id: '' };
-
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
                 const item = {
-                    value: column.title,
-                    id: column.name,
+                    text: column.title,
+                    value: column.name,
+                    selected: column.name === this.sortBy,
                 };
-
-                if (column.name === this.sortBy) {
-                    // setting initial value
-                    initialValue = item;
-                }
 
                 return item;
             });
 
             const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            let textfieldData = {
+                initialValue: this.sortBy,
+                label: 'Sort by',
+                trailingIcon: true,
+            };
+            let listData = {
+                data: items,
+                selectable: true,
+            };
 
             sortPanel = (
                 <div id="sort-panel">
-                    <kup-combo
-                        displayedField="value"
-                        items={items}
-                        initialValue={initialValue}
-                        onKetchupComboSelected={(e) =>
-                            this.onSortChange(e.detail)
-                        }
+                    <kup-combobox
+                        textfieldData={textfieldData}
+                        listData={listData}
+                        onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>
             );
@@ -1344,9 +1467,10 @@ export class KupBox {
         if (this.filterEnabled) {
             filterPanel = (
                 <div id="filter-panel">
-                    <kup-text-input
-                        placeholder="Cerca" // TODO
-                        onKetchupTextInputUpdated={(event) =>
+                    <kup-text-field
+                        label="Cerca" // TODO
+                        full-width={true}
+                        onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     >
@@ -1359,7 +1483,7 @@ export class KupBox {
                         >
                             <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                         </svg>
-                    </kup-text-input>
+                    </kup-text-field>
                 </div>
             );
         }
@@ -1398,34 +1522,39 @@ export class KupBox {
         };
 
         return (
-            <div
-                class="box-component"
-                onDragOver={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDragOver(e)
-                        : null
-                }
-                onDragLeave={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDragLeave(e)
-                        : null
-                }
-                onDrop={
-                    this.dropEnabled &&
-                    (this.dropOnSection || !this.getRows().length)
-                        ? (e) => this.onSectionDrop(e)
-                        : null
-                }
-            >
-                {sortPanel}
-                {filterPanel}
-                {paginator}
-                <div id="box-container" style={containerStyle}>
-                    {boxContent}
+            <Host class="handles-custom-style">
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component" class={wrapperClass}>
+                    <div
+                        class="box-component"
+                        onDragOver={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDragOver(e)
+                                : null
+                        }
+                        onDragLeave={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDragLeave(e)
+                                : null
+                        }
+                        onDrop={
+                            this.dropEnabled &&
+                            (this.dropOnSection || !this.getRows().length)
+                                ? (e) => this.onSectionDrop(e)
+                                : null
+                        }
+                    >
+                        {sortPanel}
+                        {filterPanel}
+                        {paginator}
+                        <div id="box-container" style={containerStyle}>
+                            {boxContent}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </Host>
         );
     }
 }

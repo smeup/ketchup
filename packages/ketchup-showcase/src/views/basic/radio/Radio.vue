@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/wup-radio',
+        'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-radio',
       headtitle: 'Radio',
       titles: ['Playground', 'Basic usage', 'Adding labels', 'Disabled'],
     };

@@ -25,10 +25,10 @@ export default {
                   {
                     column: 'FLD1',
                     shape: 'IMG',
-                    config: {
-                      srcTemplate:
-                        'https://via.placeholder.com/64?text={{obj.k}}',
+                    data: {
+                      resource: 'https://via.placeholder.com/64?text={{obj.k}}',
                     },
+                    value: 'https://via.placeholder.com/64?text={{obj.k}}',
                   },
                 ],
               },
@@ -37,6 +37,9 @@ export default {
                   { content: [{ column: 'FLD2' }] },
                   { content: [{ column: 'FLD3', shape: 'PGB' }] },
                 ],
+              },
+              {
+                sections: [{ content: [{ column: 'FLD4', shape: 'EDT' }] }],
               },
             ],
           },

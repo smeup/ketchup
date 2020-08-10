@@ -32,7 +32,7 @@ const perfTest = async (): Promise<number> => {
     return diff;
 };
 
-it('kup-box performance logger', async (done) => {
+it.skip('kup-box performance logger', async (done) => {
     const MAX_ITER = 5;
 
     let iter = MAX_ITER;
@@ -45,9 +45,7 @@ it('kup-box performance logger', async (done) => {
         sum += time;
     }
 
-    const avarage = Math.floor(sum / MAX_ITER);
-
-    console.log(`avarage time: ${avarage} (run ${MAX_ITER} times)`);
+    const average = Math.floor(sum / MAX_ITER);
 
     done();
 });

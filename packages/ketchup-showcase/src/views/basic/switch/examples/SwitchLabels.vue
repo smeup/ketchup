@@ -9,11 +9,11 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-switch
+          <kup-switch
             leading-label
             label="This label is on the left"
-          ></wup-switch>
-          <wup-switch label="This label is on the right"></wup-switch>
+          ></kup-switch>
+          <kup-switch label="This label is on the right"></kup-switch>
         </div>
         <p class="centered">Left aligned sample markup</p>
         <code class="flat">{{ markupLeft }}</code>
@@ -29,8 +29,8 @@ export default {
   name: 'SwitchLabels',
   data() {
     return {
-      markupLeft: '<wup-switch leading-label label="Your label"></wup-switch>',
-      markupRight: '<wup-switch label="Your label"></wup-switch>',
+      markupLeft: '<kup-switch leading-label label="Your label"></kup-switch>',
+      markupRight: '<kup-switch label="Your label"></kup-switch>',
     };
   },
 };

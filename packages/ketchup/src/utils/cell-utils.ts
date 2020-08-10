@@ -35,8 +35,8 @@ export function getFromConfig(
     propName: string
 ): any {
     let prop = null;
-    if (cell && cell.config) {
-        prop = get(cell.config, propName, null);
+    if (cell && cell.data) {
+        prop = get(cell.data, propName, null);
     }
     if (!prop && boxObject && boxObject.config) {
         prop = get(boxObject.config, propName, null);
@@ -125,22 +125,31 @@ export function isImage(cell: Cell, boxObject: BoxObject) {
 // -------------
 
 export function buildIconConfig(cell: Cell, value: string) {
-    let iconStylesheets = null;
-    let iconStyle = null;
-    let imageSrc = null;
+    let badgeData = undefined;
+    let color = undefined;
+    let customStyle = undefined;
+    let data = undefined;
+    let sizeX = undefined;
+    let sizeY = undefined;
 
-    if (cell && cell.config) {
-        const config = cell.config;
-        iconStylesheets = config.iconStylesheets;
-        iconStyle = config.iconStyle;
-        imageSrc = config.imageSrc;
+    if (cell && cell.data) {
+        const config = cell.data;
+        badgeData = config.badgeData;
+        color = config.color;
+        customStyle = config.customStyle;
+        data = config.data;
+        sizeX = config.sizeX;
+        sizeY = config.sizeY;
     }
 
     return {
-        iconClass: value,
-        iconStyle: iconStyle,
-        ...(iconStylesheets ? { iconStylesheets: iconStylesheets } : {}),
-        ...(imageSrc ? { imageSrc: imageSrc } : {}),
+        badgeData: badgeData,
+        color: color,
+        customStyle: customStyle,
+        data: data,
+        resource: value,
+        sizeX: sizeX,
+        sizeY: sizeY,
     };
 }
 
@@ -192,4 +201,13 @@ export function isMultipleConfigurator(cell: Cell, boxObject: BoxObject) {
 export function isInputText(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'ITX' === shape || !shape;
+}
+
+// -------------
+// INPUT EDITOR
+// -------------
+
+export function isEditor(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'EDT' === shape;
 }

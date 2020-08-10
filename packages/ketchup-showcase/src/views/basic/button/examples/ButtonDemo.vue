@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -19,25 +14,21 @@ export default {
   name: 'ButtonDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupButtonClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupButtonFocus',
+          type: 'focus',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupButtonBlur',
+          type: 'blur',
         },
       ],
-      demoComp:
-        '<wup-button icon="sentiment_satisfied_alt" id="demo-component" label="demo"></wup-button>',
       demoProps: [
         {
           prop: 'checked',
@@ -46,6 +37,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
         },
         {
           prop: 'disabled',
@@ -63,9 +62,33 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'fullHeight',
+          description:
+            'The button will fill all available vertical space. Has no effect on icon buttons variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'fullWidth',
+          description:
+            'The button will fill all available horizontal space. Has no effect on icon buttons variant.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'icon',
           description:
             'The button will be rendered with the specified Material Design icon.',
+          type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'iconColor',
+          description:
+            'Sets the color of the icon. When unset, it will be managed by the component.',
           type: 'string',
           default: 'null',
           try: 'field',
@@ -109,6 +132,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'tooltip',
+          description:
+            'When set, this tooltip will be displayed on mouse over (using the HTML attribute title).',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'trailingIcon',
           description:
             'The button will display its associated icon after the text.',
@@ -117,21 +148,37 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupButtonClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupButtonFocus',
-          type: 'focus',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupButtonBlur',
-          type: 'blur',
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-button');
+  comp.icon = 'widgets';
+  comp.id = 'demo-component';
+  comp.label = 'Demo';
+  return comp;
+}
 </script>

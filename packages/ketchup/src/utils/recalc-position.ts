@@ -1,39 +1,60 @@
-// Element repositioning function on scroll and/or resize
+// Element repositioning function - it starts when "el" class list gets updated and the class "dynamic-position-active" is found
 //
 // Arguments:
 //
 // - el       = element to reposition
 // - anchorEl = "el" position will be anchored to this element
-// - margin (As of February 2020 this is disabled, it can no longer be set and it defaults to 0. Still kept in code for potential future implementations)  = "el" distance from its parent in pixels
+// - margin   = "el" distance from its parent in pixels
 //
-export class positionRecalc {
-    positionRecalcSetup(el: HTMLElement, anchorEl: HTMLElement) {
-        el.classList.add('dynamic-position');
-        anchorEl.classList.add('dynamic-position-anchor');
-        var positionEl = function(el: HTMLElement, anchorEl: HTMLElement) {
-            let offsetH: number = el.clientHeight;
-            let offsetW: number = el.clientWidth;
-            let margin: number = 0;
-            const rect = anchorEl.getBoundingClientRect();
-            el.removeAttribute('style');
-
-            if (window.innerHeight - rect.bottom < offsetH) {
-                el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
-            } else {
-                el.style.top = `${rect.bottom + margin}px`;
-            }
-            if (window.innerWidth - rect.left < offsetW) {
-                el.style.right = `${window.innerWidth - rect.right}px`;
-            } else {
-                el.style.left = `${rect.left}px`;
-            }
-        };
-        positionEl(el, anchorEl);
-        document.addEventListener('scroll', function() {
-            positionEl(el, anchorEl);
-        });
-        document.addEventListener('resize', function() {
-            positionEl(el, anchorEl);
-        });
+export function positionRecalc(
+    el: any,
+    anchorEl: HTMLElement,
+    margin?: number
+) {
+    el.classList.add('dynamic-position');
+    anchorEl.classList.add('dynamic-position-anchor');
+    if (!margin) {
+        margin = 0;
     }
+    el['anchorEl'] = anchorEl;
+    el['anchorMargin'] = margin;
+
+    var observer = new MutationObserver(function(mutations) {
+        let target: any = mutations[0].target;
+        if (target.classList.contains('dynamic-position-active')) {
+            el['anchorInterval'] = setInterval(
+                function() {
+                    let offsetH: number = el.clientHeight;
+                    let offsetW: number = el.clientWidth;
+                    const rect = el.anchorEl.getBoundingClientRect();
+
+                    el.style.top = ``;
+                    el.style.right = ``;
+                    el.style.bottom = ``;
+                    el.style.left = ``;
+
+                    if (window.innerHeight - rect.bottom < offsetH) {
+                        el.style.bottom = `${window.innerHeight -
+                            rect.top +
+                            el['anchorMargin']}px`;
+                    } else {
+                        el.style.top = `${rect.bottom + el['anchorMargin']}px`;
+                    }
+                    if (window.innerWidth - rect.left < offsetW) {
+                        el.style.right = `${window.innerWidth - rect.right}px`;
+                    } else {
+                        el.style.left = `${rect.left}px`;
+                    }
+                },
+                10,
+                el
+            );
+        } else {
+            clearInterval(el['anchorInterval']);
+        }
+    });
+    observer.observe(el, {
+        attributes: true,
+        attributeFilter: ['class'],
+    });
 }

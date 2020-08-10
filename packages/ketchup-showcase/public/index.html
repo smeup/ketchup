@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="codemirror/codemirror.css" />
     <script src="codemirror/codemirror.js"></script>
     <script src="codemirror/javascript.js"></script>
+    <script src="codemirror/css.js"></script>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -81,6 +82,28 @@
       integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      function setTheme(themeID) {
+        let dom = document.documentElement;
+
+        dom.setAttribute('kup-theme', themeID);
+      }
+
+      function changeTheme() {
+        let dom = document.documentElement;
+
+        if (dom.querySelector('#inspire').classList.contains('theme--dark')) {
+          dom.querySelector('#inspire').classList.add('theme--light');
+          dom.querySelector('#inspire').classList.remove('theme--dark');
+          setTheme('default');
+        } else {
+          dom.querySelector('#inspire').classList.remove('theme--light');
+          dom.querySelector('#inspire').classList.add('theme--dark');
+          setTheme('dark');
+        }
+      }
+    </script>
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.js"></script>
     -->
@@ -97,153 +120,4 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-
-  <style>
-    :root {
-      --kup-background-color: #ffffff;
-      --kup-header-background-color: #2e2e2e;
-      --kup-drawer-background-color: #ffffff;
-      --kup-main-color: #d64325;
-      --kup-display-mode: block;
-      --kup-font-family: 'Oswald', sans-serif;
-      --kup-font-size: 14px;
-      --kup-text-on-main-color: #ffffff;
-      --kup-text-color: #2e2e2e;
-      --kup-icon-color: #505050;
-      --kup-hover-background-color: #f0f0f0;
-      --kup-hover-color: #545454;
-      --kup-border-color: #e0e0e0;
-      --kup-disabled-text-color: #5c5c5c;
-      --kup-disabled-background-color: #eaeaea;
-      --kup-field-background-color: #fafafa;
-
-      --mdc-theme-primary: var(--kup-main-color);
-      --mdc-theme-on-primary: var(--kup-text-on-main-color);
-      --mdc-theme-secondary: var(--kup-main-color);
-      --mdc-theme-on-secondary: var(--kup-text-on-main-color);
-      --mdc-theme-surface: var(--kup-background-color);
-      --mdc-theme-on-surface: var(--kup-text-color);
-      --mdc-theme-background: var(--kup-background-color);
-      --mdc-theme-text-primary-on-background: var(--kup-text-color);
-    }
-  </style>
-  <script>
-    function changeTheme() {
-      var DOMEl = document.documentElement;
-      var themeArray = DOMEl.themeJSON;
-      if (DOMEl.hasAttribute('style')) {
-        DOMEl.removeAttribute('style');
-      }
-
-      if (DOMEl.querySelector('#inspire').classList.contains('theme--dark')) {
-        DOMEl.querySelector('#inspire').classList.add('theme--light');
-        DOMEl.querySelector('#inspire').classList.remove('theme--dark');
-      } else {
-        DOMEl.querySelector('#inspire').classList.remove('theme--light');
-        DOMEl.querySelector('#inspire').classList.add('theme--dark');
-        for (let i = 0; i < themeArray.length; i++) {
-          DOMEl.style.setProperty(themeArray[i].name, themeArray[i].value);
-        }
-      }
-    }
-
-    document.documentElement.themeJSON = [
-      {
-        name: '--kup-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-header-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-drawer-background-color',
-        value: '#1f1f1f',
-      },
-      {
-        name: '--kup-main-color',
-        value: '#82f0e2',
-      },
-      {
-        name: '--kup-display-mode',
-        value: 'block',
-      },
-      {
-        name: '--kup-font-family',
-        value: 'Roboto, sans-serif',
-      },
-      {
-        name: '--kup-font-size',
-        value: '14px',
-      },
-      {
-        name: '--kup-text-color',
-        value: '#f5f5f5',
-      },
-      {
-        name: '--kup-icon-color',
-        value: '#e0e0e0',
-      },
-      {
-        name: '--kup-hover-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-hover-color',
-        value: '#dddddd',
-      },
-      {
-        name: '--kup-text-on-main-color',
-        value: '#555555',
-      },
-      {
-        name: '--kup-border-color',
-        value: '#535353',
-      },
-      {
-        name: '--kup-disabled-text-color',
-        value: '#7e7e7e',
-      },
-      {
-        name: '--kup-disabled-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-field-background-color',
-        value: '#2a2a2a',
-      },
-      {
-        name: '--mdc-theme-primary',
-        value: 'var(--kup-main-color)',
-      },
-      {
-        name: '--mdc-theme-on-primary',
-        value: 'var(--kup-text-on-main-color)',
-      },
-      {
-        name: '--mdc-theme-secondary',
-        value: 'var(--kup-main-color)',
-      },
-      {
-        name: '--mdc-theme-on-secondary',
-        value: 'var(--kup-text-on-main-color)',
-      },
-      {
-        name: '--mdc-theme-surface',
-        value: 'var(--kup-background-color)',
-      },
-      {
-        name: '--mdc-theme-on-surface',
-        value: 'var(--kup-text-color)',
-      },
-      {
-        name: '--mdc-theme-background',
-        value: 'var(--kup-background-color)',
-      },
-      {
-        name: '--mdc-theme-text-primary-on-background',
-        value: 'var(--kup-text-color)',
-      },
-    ];
-  </script>
 </html>

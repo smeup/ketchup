@@ -7,12 +7,7 @@ h3 {
 <template>
   <div>
     <h3>With Fixed Tooltip</h3>
-    <kup-data-table
-      :data.prop="data"
-      @kupOptionClicked="handleKupOptionClicked"
-      @kupLoadRequest="onLoadData($event, 1)"
-      @kupDetailRequest="loadBornToDie"
-    ></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
@@ -35,21 +30,20 @@ export default {
   data() {
     return {
       data: {
-        ...defaultDataTable,
+        data: defaultDataTable,
+        onKupOptionClicked: (e) => {
+          this.handleKupOptionClicked(e.detail);
+        },
+        onKupLoadRequest: (e) => {
+          this.onLoadData(e, 1);
+        },
+        onKupDetailRequest: (e) => {
+          this.loadBornToDie(e);
+        },
       },
       images: {
         ...imageUrls,
       },
-      columnsWidth: [
-        {
-          column: 'FLD1',
-          width: 100,
-        },
-        {
-          column: 'FLD3',
-          width: 300,
-        },
-      ],
       loadQuantity: '',
     };
   },

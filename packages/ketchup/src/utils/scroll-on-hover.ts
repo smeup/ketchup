@@ -5,15 +5,28 @@
 // - el       = element that needs to scroll on mouse over
 //
 
-var scrollOnHoverX: number = 0;
-var scrollOnHoverY: number = 0;
-var scrollTimeout: any = 'off';
-
 export class scrollOnHover {
-    scrollOnHoverSetup(el: HTMLElement) {
-        el.classList.add('hover-scrolling-el');
-        el.parentElement.classList.add('hover-scrolling-parent');
-        document.createElement;
+    scrollOnHoverDisable(el: HTMLElement) {
+        if (!el) {
+            return;
+        }
+        el.classList.remove('hover-scrolling-el');
+        el.parentElement.classList.remove('hover-scrolling-parent');
+        el.removeEventListener('scroll', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('click', (event: any) =>
+            this.setChildrenScroll(event.target)
+        );
+        el.removeEventListener('mousemove', (event: MouseEvent) =>
+            this.handleScroll(event)
+        );
+        el.removeEventListener('mouseleave', (event: MouseEvent) =>
+            this.killScroll(event)
+        );
+    }
+
+    setupArrows() {
         let arrowsContainer: HTMLElement = document.createElement('div');
         arrowsContainer.setAttribute('id', 'container-scrolling-arrow');
         let leftArrow1: HTMLElement = document.createElement('div');
@@ -36,44 +49,73 @@ export class scrollOnHover {
             rightArrow2,
             rightArrow3
         );
-        el.append(arrowsContainer);
-        el.addEventListener('scroll', (event: any) =>
-            this.setChildrenScroll(event.target)
-        );
-        el.addEventListener('click', (event: any) =>
-            this.setChildrenScroll(event.target)
-        );
+        return arrowsContainer;
+    }
+
+    scrollOnHoverSetup(el: HTMLElement) {
+        if (!el) {
+            return;
+        }
+        let arrows = this.setupArrows();
+        el.classList.add('hover-scrolling-el');
+        el.parentElement.classList.add('hover-scrolling-parent');
+        el['scrollTimeout'] = 'off';
+        el.append(arrows);
+        el['childrenToScroll'] = el.querySelectorAll('.hover-scrolling-child');
+        if (el['childrenToScroll']) {
+            el.addEventListener('scroll', (event: any) =>
+                this.setChildrenScroll(event.target)
+            );
+            el.addEventListener('click', (event: any) =>
+                this.setChildrenScroll(event.target)
+            );
+        }
         el.addEventListener('mousemove', (event: MouseEvent) =>
             this.handleScroll(event)
         );
         el.addEventListener('mouseleave', (event: MouseEvent) =>
-            this.killScroll(event)
+            this.killScroll(event.target)
         );
     }
 
-    handleScroll(event: any) {
-        scrollOnHoverX = event.clientX;
-        scrollOnHoverY = event.clientY;
-        let el = event.target
-            .closest('.hover-scrolling-parent')
-            .querySelectorAll('.hover-scrolling-el')[0];
-        const elPos = el.getBoundingClientRect();
-        this.setChildrenScroll(el);
-        let arrowContainter = el.querySelectorAll(
-            '#container-scrolling-arrow'
-        )[0];
+    async setCoordinates(event: any, el: any) {
+        if (!el) {
+            return;
+        }
+        let arrowContainer = el.querySelector('#container-scrolling-arrow');
+        el['clientRect'] = el.getBoundingClientRect();
+        el['scrollOnHoverX'] = event.clientX;
+        el['scrollOnHoverY'] = event.clientY;
+        arrowContainer.style.left = event.clientX + 'px';
+        arrowContainer.style.top = event.clientY + 'px';
+    }
+
+    async handleScroll(event: any) {
+        let parentEl = event.target.closest('.hover-scrolling-parent');
+        if (!parentEl) {
+            return;
+        }
+        let el = parentEl.querySelector('.hover-scrolling-el');
+        if (!el) {
+            return;
+        }
+        this.setCoordinates(event, el);
+        if (el['scrollTimeout'] !== 'off') {
+            return;
+        }
+        if (el['childrenToScroll']) {
+            this.setChildrenScroll(el);
+        }
         let trueWidth = el.clientWidth;
-        arrowContainter.style.top = scrollOnHoverY + 'px';
-        arrowContainter.style.left = scrollOnHoverX + 'px';
 
         if (trueWidth === 0) {
             trueWidth = el.offsetWidth;
         }
         if (el.scrollWidth > trueWidth + 10) {
-            if (trueWidth !== 0 && scrollTimeout === 'off') {
+            if (trueWidth !== 0 && el.scrollTimeout === 'off') {
                 let percRight = trueWidth - trueWidth * 0.1;
                 let percLeft = trueWidth - trueWidth * 0.9;
-                let elOffset = scrollOnHoverX - elPos.left;
+                let elOffset = el.scrollOnHoverX - el.clientRect.left;
                 let maxScrollLeft = el.scrollWidth - trueWidth;
                 var leftArrow = el.querySelectorAll(
                     '#container-scrolling-arrow .left-scrolling-arrow'
@@ -86,15 +128,13 @@ export class scrollOnHover {
                         for (let i = 0; i < leftArrow.length; i++) {
                             leftArrow[i].classList.add('activated');
                         }
-                        scrollTimeout = setTimeout(() => {
+                        el['scrollTimeout'] = setTimeout(() => {
                             this.startScrollOnHover(
                                 el,
                                 leftArrow,
                                 maxScrollLeft,
-                                arrowContainter,
                                 percRight,
                                 percLeft,
-                                event,
                                 'left'
                             );
                         }, 500);
@@ -104,15 +144,13 @@ export class scrollOnHover {
                         for (let i = 0; i < rightArrow.length; i++) {
                             rightArrow[i].classList.add('activated');
                         }
-                        scrollTimeout = setTimeout(() => {
+                        el['scrollTimeout'] = setTimeout(() => {
                             this.startScrollOnHover(
                                 el,
                                 rightArrow,
                                 maxScrollLeft,
-                                arrowContainter,
                                 percRight,
                                 percLeft,
-                                event,
                                 'right'
                             );
                         }, 500);
@@ -122,54 +160,51 @@ export class scrollOnHover {
         }
     }
 
-    startScrollOnHover(
+    async startScrollOnHover(
         el: any,
         arrow: any,
         maxScrollLeft: number,
-        arrowContainter: HTMLElement,
         percRight: number,
         percLeft: number,
-        event: any,
         direction: string
     ) {
-        const elPos = el.getBoundingClientRect();
-
-        let elOffset = scrollOnHoverX - elPos.left;
+        if (!el) {
+            return;
+        }
+        let elOffset = el.scrollOnHoverX - el.clientRect.left;
         if (
-            scrollTimeout === 'off' ||
+            el.scrollTimeout === 'off' ||
             (elOffset > percLeft && elOffset < percRight)
         ) {
-            this.killScroll(event);
+            this.killScroll(el);
             return;
         }
         if (direction === 'right' && percRight > elOffset) {
-            this.killScroll(event);
+            this.killScroll(el);
             return;
         }
         if (direction === 'left' && percLeft < elOffset) {
-            this.killScroll(event);
+            this.killScroll(el);
             return;
         }
         var step = el.scrollLeft;
         this.setChildrenScroll(el);
-        arrowContainter.style.top = scrollOnHoverY + 'px';
-        arrowContainter.style.left = scrollOnHoverX + 'px';
         for (let i = 0; i < arrow.length; i++) {
             arrow[i].classList.add('animated');
         }
         var firstArrow = arrow[0];
         if (firstArrow.classList.contains('left-scrolling-arrow')) {
             if (step === 0) {
-                this.killScroll(event);
+                this.killScroll(el);
                 return;
             }
-            step = step - parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            step = step - parseInt('10', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         } else {
             if (step === maxScrollLeft) {
-                this.killScroll(event);
+                this.killScroll(el);
                 return;
             }
-            step = step + parseInt('1', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            step = step + parseInt('10', 10); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
         }
         el.scrollLeft = step;
         setTimeout(() => {
@@ -177,29 +212,17 @@ export class scrollOnHover {
                 el,
                 arrow,
                 maxScrollLeft,
-                arrowContainter,
                 percRight,
                 percLeft,
-                event,
                 direction
             );
-        }, 50);
-        //Doppio lancio per aumentare la velocità ad ogni giro (in cascata)
-        setTimeout(() => {
-            this.startScrollOnHover(
-                el,
-                arrow,
-                maxScrollLeft,
-                arrowContainter,
-                percRight,
-                percLeft,
-                event,
-                direction
-            );
-        }, 250);
+        }, 10);
     }
 
     setChildrenScroll(el: any) {
+        if (!el) {
+            return;
+        }
         let step = el.scrollLeft;
         let childrenToScroll = el.querySelectorAll('.hover-scrolling-child');
         if (childrenToScroll) {
@@ -209,19 +232,12 @@ export class scrollOnHover {
         }
     }
 
-    killScroll(event: any) {
-        let el: any;
-        if (event.target.shadowRoot) {
-            el = event.target.shadowRoot.querySelectorAll(
-                '.hover-scrolling-el'
-            )[0];
-        } else {
-            el = event.target
-                .closest('.hover-scrolling-parent')
-                .querySelectorAll('.hover-scrolling-el')[0];
+    async killScroll(el: any) {
+        if (!el) {
+            return;
         }
-        scrollTimeout = 'off';
-        clearTimeout(scrollTimeout);
+        el['scrollTimeout'] = 'off';
+        clearTimeout(el.scrollTimeout);
         var leftArrow = el.querySelectorAll(
             '#container-scrolling-arrow .left-scrolling-arrow'
         );

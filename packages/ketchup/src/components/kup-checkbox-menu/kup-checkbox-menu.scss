@@ -17,10 +17,10 @@
 
     &--disabled {
       cursor: initial;
-      opacity: .54;
+      opacity: 0.54;
     }
 
-    > kup-icon {
+    > kup-image {
       display: inline-block;
       margin-left: 5px;
     }
@@ -29,15 +29,15 @@
   // Container of the elements to put inside the menu top header
   &-header {
     align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     display: inline-flex;
     padding: $menu-lateral-padding;
 
-    > *:nth-child(1n+2) {
+    > *:nth-child(1n + 2) {
       margin-left: $menu-lateral-padding;
     }
 
-    kup-icon {
+    kup-image {
       cursor: pointer;
     }
   }

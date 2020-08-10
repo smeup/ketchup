@@ -9,8 +9,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-radio leading-label :data.prop="dataLeft"></wup-radio>
-          <wup-radio :data.prop="dataRight"></wup-radio>
+          <kup-radio leading-label :data.prop="dataLeft"></kup-radio>
+          <kup-radio :data.prop="dataRight"></kup-radio>
         </div>
         <p class="centered">Left aligned sample markup</p>
         <code class="flat">{{ markupLeft }}</code>
@@ -38,7 +38,7 @@ export default {
           checked: false,
         },
       ],
-      markupLeft: '<wup-radio leading-label></wup-radio>',
+      markupLeft: '<kup-radio leading-label></kup-radio>',
     };
   },
 };

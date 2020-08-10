@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,30 +14,38 @@ export default {
   name: 'RadioDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupRadioClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupRadioChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupRadioInput',
+          type: 'input',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupRadioFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupRadioBlur',
+          type: 'blur',
         },
       ],
-      demoComp: '<wup-radio id="demo-component"></wup-radio>',
       demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
         {
           prop: 'data',
           description:
@@ -76,50 +78,53 @@ export default {
           try: 'field',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupRadioClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupRadioChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupRadioInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupRadioFocus',
-          type: 'focus',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupRadioBlur',
-          type: 'blur',
-        },
-      ],
-      demoData: [
-        {
-          prop: 'data',
-          value: [
-            {
-              value: '1',
-              label: 'First option',
-              checked: true,
-            },
-            {
-              value: '2',
-              label: 'Second option',
-              checked: false,
-            },
-          ],
-        },
-        {
-          prop: 'name',
-          value: 'radio-list',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-radio');
+  comp.data = [
+    {
+      value: '1',
+      label: 'First option',
+      checked: true,
+    },
+    {
+      value: '2',
+      label: 'Second option',
+      checked: false,
+    },
+  ];
+  comp.id = 'demo-component';
+  comp.name = 'radio-list';
+  return comp;
+}
 </script>

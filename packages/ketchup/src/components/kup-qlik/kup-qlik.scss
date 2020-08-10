@@ -1,0 +1,130 @@
+.kup-qlik-container-fluid{
+	width: 100%;
+}
+
+.kup-qlik-container {
+	width: 100%;
+}
+
+@media (min-width: 576px) { 
+	.kup-qlik-container {
+		width: 576px;
+	}
+	
+	.kup-qlik-row  > .qvobject {
+		flex: 0 0 auto;
+		min-width: 200px;
+		margin: 0px auto 5px auto;
+	}	
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+	.kup-qlik-container {
+		width: 768px;
+	}
+	
+	.kup-qlik-row  > .qvobject {
+		flex: 0 0 auto;
+		min-width: 200px;
+		margin: 0px auto 5px auto;
+	}
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+	.kup-qlik-container {
+		width: 992px;
+	}
+	
+	.kup-qlik-row  > .qvobject {
+		flex: 0 0 auto;
+		min-width: 200px;
+		margin: 0px auto 5px auto;
+	}
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+	.kup-qlik-container {
+		width: 1200px;
+	}
+	
+	.kup-qlik-row  > .qvobject {
+		flex: 0 0 auto;
+		min-width: 200px;
+		margin: 0px auto 5px auto;
+	}
+ }
+
+ .kup-qlik-row {
+	 display: flex;
+	 display: ms-flexbox;
+	 flex-wrap: wrap;
+	 -ms-flex-wrap: wrap;
+	 margin-bottom: 5px;
+
+	.size-M{
+		height: var(--lyo_obj-height);
+	}
+
+	.size-S{
+		height: calc(var(--lyo_obj-height)/2);
+	}
+
+	.size-XS{
+		height: calc(var(--lyo_obj-height)/3);
+	}
+
+	.size-L{
+		height: calc(var(--lyo_obj-height)*2);
+	}
+
+	.size-XL{
+		height: calc(var(--lyo_obj-height)*3);
+	}
+
+	.bordered {
+		border: 1px solid var(--kup-border-color,#969696);
+	}
+
+	.col-1 {
+		width: 10%;
+	}
+
+	.col-2 {
+		width: 20%;
+	}
+
+	.col-3 {
+		width: 30%;
+	}
+
+	.col-4 {
+		width: 40%;
+	}
+
+	.col-5 {
+		width: 50%;
+	}
+
+	.col-6 {
+		width: 60%;
+	}
+
+	.col-7 {
+		width: 70%;
+	}
+
+	.col-8 {
+		width: 80%;
+	}
+
+	.col-9 {
+		width: 90%;
+	}
+
+	.col-10 {
+		width: 100%;
+	}
+}

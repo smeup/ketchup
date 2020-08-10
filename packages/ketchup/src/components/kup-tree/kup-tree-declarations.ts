@@ -1,7 +1,7 @@
 import {
-  CellsHolder,
-  RowAction,
-} from "./../kup-data-table/kup-data-table-declarations";
+    CellsHolder,
+    RowAction,
+} from './../kup-data-table/kup-data-table-declarations';
 
 /**
  * The name of the property used by the tree component to store whether a TreeNode is open or closed
@@ -10,38 +10,41 @@ import {
 export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
-  actions?: Array<RowAction>;
+    actions?: Array<RowAction>;
 
-  cells: CellsHolder;
+    cells: CellsHolder;
 
-  children: Array<TreeNode>;
+    children: Array<TreeNode>;
 
-  disabled: boolean;
+    disabled: boolean;
 
-  expandable: boolean;
+    expandable: boolean;
 
-  iconClass?: string;
+    icon?: string;
 
-  iconSrc?:string;
+    iconColor?: string;
 
-  id?: string;
+    id?: string;
 
-  obj: {
-    t: string;
-    p: string;
-    k: string;
-  };
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
 
-  options?: boolean;
+    options?: boolean;
 
-  // TODO what is this?
-  readOnly?: boolean;
+    // TODO what is this?
+    readOnly?: boolean;
 
-  style?: {[index: string]: string;};
+    style?: { [index: string]: string };
 
-  value: string;
+    value: string;
 
-  [treeExpandedPropName]?: boolean;
+    /** used for render or not render node (and children) while filtering */
+    visible?: boolean;
+
+    [treeExpandedPropName]?: boolean;
 }
 
 export type TreeNodePath = number[];

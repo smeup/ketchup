@@ -29,18 +29,22 @@
 
 ### Depends on
 
-- [wup-checkbox](../wup-checkbox)
-- [kup-icon](../kup-icon)
+- [kup-checkbox](../kup-checkbox)
+- [kup-image](../kup-image)
 - [kup-menu](../kup-menu)
-- [kup-text-input](../kup-text-input)
+- [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-checkbox-menu --> wup-checkbox
-  kup-checkbox-menu --> kup-icon
+  kup-checkbox-menu --> kup-checkbox
+  kup-checkbox-menu --> kup-image
   kup-checkbox-menu --> kup-menu
-  kup-checkbox-menu --> kup-text-input
+  kup-checkbox-menu --> kup-text-field
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-text-field --> kup-image
   style kup-checkbox-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

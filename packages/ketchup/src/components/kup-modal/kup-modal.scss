@@ -18,17 +18,22 @@
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
   z-index: 10;
 }
+
 .modal {
   font-family: var(--font-family, Helvetica);
   font-size: var(--font-size, 13px);
-  background-color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: var(--border-radius, 0.2em);
   min-width: 300px;
+  position: relative;
+  margin: auto;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  height: 100vh;
+  padding: 5vh 0;
+  background: none;
 }
+
 .modal-header {
   font-size: 1.3em;
   padding: 5px 10px 5px 10px;
@@ -59,6 +64,7 @@
 }
 
 .modal-content {
+  background: var(--kup-background-color);
   position: relative;
   top: 0;
   left: 0;

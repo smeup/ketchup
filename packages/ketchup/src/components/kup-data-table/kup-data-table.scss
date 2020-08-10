@@ -9,8 +9,8 @@
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --dtt_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-input elements used to filter rows.
-* @prop --dtt_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-input elements used to filter rows.
+* @prop --dtt_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-field elements used to filter rows.
+* @prop --dtt_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-field elements used to filter rows.
 * @prop --dtt_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
 * @prop --dtt_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
 * @prop --dtt_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
@@ -28,6 +28,7 @@
 * @prop --dtt_remove-icon-color, --kup-data-table_remove-icon-color: Color of the remove group icon.
 * @prop --dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover: Color of the remove group icon at hover.
 * @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
+* @prop --dtt_table-wrapper-height, --kup-data-table_table-wrapper-height: The height of the table inside the data table.
 */
 
 :host {
@@ -112,16 +113,152 @@
     transparent
   );
 
+  --dtt_table-wrapper-height: var(--kup-data-table_table-wrapper-height, auto);
+
   position: relative;
-  z-index: 0;
 }
 
+//-------- Fixed columns and rows declarations --------
+/*
+* Section comments declarations.
+* [fcr-ff] - This is a workaround necessary to support correctly the Firefox browser,
+*
+*/
+
+// The z-index of the data table main wrapper.
+$table-below-wrapper--z-index: 0;
+// z-indexes to allow correct layering of different pieces of fixed and sticky positioning
+// These values must be decreasing order
+$sticky-header--z-index: 10;
+$sticky-cell--row-column-z-index: 8;
+$sticky-cell--column-z-index: 6;
+$sticky-cell--row-z-index: 4;
+
+// Base style for the cells which are sticky
+%fixedCellsBase {
+  background-color: var(--dtt_background-color);
+  position: sticky;
+
+  &:hover {
+    background-color: var(--dtt_hover-background-color);
+  }
+
+  // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
+  thead &,
+  sticky-header & {
+    background-color: var(--dtt_head-background-color);
+    z-index: #{$sticky-header--z-index};
+
+    &:hover {
+      background-color: var(--dtt_head-background-color);
+    }
+  }
+}
+
+//-- Fixed cells (rows and columns) --
+$fixed-row-class: fixed-row;
+
+@mixin fixedRowSeparator($bottom-position) {
+  bottom: $bottom-position;
+  border-bottom: 1px solid var(--dtt_border-color);
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: auto;
+  z-index: 1;
+}
+
+@mixin fixedColumnSeparator($right-position) {
+  bottom: 0;
+  border-right: 1px solid var(--dtt_border-color);
+  content: '';
+  height: auto;
+  position: absolute;
+  right: $right-position;
+  top: 0;
+  width: 0;
+  z-index: 1;
+}
+
+// For a fixed row
+.#{$fixed-row-class} {
+  @extend %fixedCellsBase;
+  top: 0;
+  z-index: $sticky-cell--row-z-index;
+
+  // When the cell must keep its border
+  thead &::after,
+  &.show-row-separator::after {
+    @include fixedRowSeparator(-1px);
+  }
+
+  // @see [fcr-ff]
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(
+        0
+      ); // marked as !important otherwise the previous declaration will take precedence
+    }
+  }
+}
+
+// For a fixed column
+// MUST be after to take precedence
+.fixed-column {
+  @extend %fixedCellsBase;
+  left: 0;
+  z-index: $sticky-cell--column-z-index; // Must be higher than row
+
+  // When the cell must keep its border
+  &.show-column-separator::before {
+    @include fixedColumnSeparator(-1px);
+  }
+
+  // This is a small fix for Firefox since it has a strange bug which "compresses" the content of the sticky cells
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(0);
+    }
+
+    .row-separation &:not(.#{$fixed-row-class})::after {
+      bottom: -1px;
+    }
+  }
+
+  // When there is both the column and the row fixed
+  &.#{$fixed-row-class} {
+    z-index: $sticky-cell--row-column-z-index; // Must be higher than column
+  }
+}
+
+//-------- TABLE WRAPPER --------
 #data-table-wrapper {
   background-color: var(--dtt_background-color);
 
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
+
   .below-wrapper {
+    height: var(--dtt_table-wrapper-height);
+    overflow: auto;
+    z-index: $table-below-wrapper--z-index;
+  }
+
+  .below-wrapper.custom-size {
+    overflow: unset;
+  }
+
+  .below-wrapper:not(.custom-size) {
     overflow-x: auto;
   }
 
@@ -163,24 +300,70 @@
      * [3] - Mandatory for width property to take effect.
      */
     &.auto-width {
-      margin: auto;
       min-width: auto; // [mandatory] See [1] [2]
       width: 0; // [mandatory] See [1] [2]
     }
 
+    &.custom-size th {
+      position: sticky;
+      top: 0;
+    }
+
     > thead {
       background: var(--dtt_head-background-color);
+      border: 1px solid var(--kup-border-color);
 
+      // Table header styles
       th {
         background: var(--dtt_head-background-color);
-        border-bottom: 2px solid var(--dtt_border-color);
-        border-right: 1px solid var(--dtt_border-color);
+        border-bottom: 2px solid var(--kup-border-color);
+        border-right: 1px solid var(--kup-border-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
-        position: relative;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
-        top: 0;
+        top: 0; // This is mandatory for the sticky
+        // Enforce consistent vertical alignment with sibiling header cells
+        //  when filter field or sort/filter icons are present.
+        vertical-align: middle;
         white-space: nowrap; // [column-width-related][mandatory] Text cannot wrap
+
+        // The after for the rows separator element fallback for Firefox and sticky rows
+        &::after {
+          @include fixedRowSeparator(0);
+          border-bottom: 2px solid var(--kup-border-color);
+          bottom: -2px;
+        }
+
+        // The before for the columns separator element fallback for Firefox and sticky columns
+        // Not clear why it's needed, removing on 05/12/2020
+        //&::before {
+        //  @include fixedColumnSeparator(0);
+        //  right: -1px;
+        //}
+
+        & .filter-remove {
+          --kup-main-color: var(--kup-icon-color);
+          display: inline-block;
+          margin-left: 0.25rem;
+        }
+
+        // On Firefox, things changes
+        @supports (-moz-appearance: none) {
+          // Remove the border bottom, because it causes too much trouble
+          // FFS, tried re-enabling it on 05/11/2020
+          // border-bottom: 0;
+
+          // The row separator:
+          &::after {
+            bottom: 0; // Is slightly placed to the bottom
+            left: -1px; // gets slightly bigger to cover the absence of a border-right
+          }
+
+          // The column separator
+          &::before {
+            content: none; // Is not rendered on firefox because it does not render right-border on thead.
+          }
+        }
 
         //---- Column name container ----
         $column-sort-margin: 0.5rem;
@@ -199,30 +382,28 @@
           text-align: right;
         }
 
+        &.centered {
+          text-align: center;
+        }
+
         //---- Filters ----
-        kup-text-input.datatable-filter {
-          --kup-text-input_border-color: var(--dtt_filter-border-color);
-          --kup-text-input_background-color: var(--dtt_filter-background-color);
+        kup-text-field.datatable-filter {
+          --kup-text-field_border-color: var(--dtt_filter-border-color);
+          --kup-text-field_background-color: var(--dtt_filter-background-color);
         }
 
         //---- Sort and remove-filter icons ----
+        // Base for an header cell
+        &.header-cell {
+          // When column is sortable
+          &--sortable {
+            cursor: pointer;
+          }
+        }
+
         .column-sort {
-          cursor: pointer;
-          margin-left: $column-sort-margin;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-
-            &:hover {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
-
-          .mdi-sort-ascending,
-          .mdi-sort-descending {
-            color: var(--dtt_main-color);
-          }
+          float: left;
+          margin: 0 $column-sort-margin;
         }
 
         .remove-filter {
@@ -242,6 +423,7 @@
         .column-menu {
           background-color: var(--dtt_background-color);
           box-shadow: var(--dtt_box-shadow);
+          display: none;
           color: var(--dtt_color);
           position: absolute;
           z-index: 100;
@@ -250,11 +432,7 @@
           min-width: -moz-max-content; /* Firefox/Gecko */
           min-width: -webkit-max-content; /* Chrome */
 
-          &.closed {
-            display: none;
-          }
-
-          &.open {
+          &.visible.dynamic-position-active {
             display: block;
             -webkit-animation: display-none-transition 0.5s both;
             -webkit-animation-timing-function: cubic-bezier(
@@ -274,19 +452,26 @@
             text-align: left;
 
             > li {
-              padding: 0.8rem;
+              padding: 0 0.5rem;
               transition: color 0.2s ease-in-out;
               color: var(--dtt_color);
               transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
-              &:hover {
-                cursor: pointer;
-                color: var(--dtt_hover-color);
-                background-color: var(--dtt_hover-background-color);
+              &.textfield-row {
+                padding: 0.5rem 0.5rem;
               }
 
-              .mdi {
-                margin-right: 0.5rem;
+              &.button-row {
+                border-bottom: 1px solid var(--kup-border-color);
+              }
+
+              &.checkbox-row {
+                max-height: 20vh;
+                overflow: auto;
+              }
+
+              & kup-button {
+                display: inline-block;
               }
             }
           }
@@ -312,11 +497,16 @@
       }
     }
 
+    //-------- data-table main body --------
     > tbody {
       border: 1px solid var(--dtt_border-color);
       cursor: auto;
 
       > tr {
+        kup-button {
+          display: inline-block;
+        }
+
         &:not(.group-total):hover,
         &:hover + .group-total,
         &.selected {
@@ -336,7 +526,6 @@
 
           &.group-label {
             border-bottom: none;
-            line-height: 0.75rem;
           }
 
           &.group-total {
@@ -348,17 +537,30 @@
             padding: 0.5rem 0;
 
             .group-cell-content {
+              .icon-container,
+              .indent {
+                float: left;
+              }
+              .icon-container {
+                margin: 0 0.25rem;
+                height: 1.25rem;
+                width: 1.25rem;
+              }
+              kup-image {
+                &.collapsed {
+                  transform: rotate(90deg);
+                }
+                &.expanded {
+                  transform: rotate(180deg);
+                }
+              }
+              .indent {
+                margin-left: 0.25rem;
+              }
               > span {
                 display: inline-flex;
                 outline: none;
                 margin-left: 0.25rem;
-
-                &:before {
-                  font-size: calc(var(--dtt_font-size) * 1.25);
-                }
-              }
-              > span.text {
-                vertical-align: text-bottom;
               }
             }
 
@@ -383,7 +585,10 @@
           }
 
           &.number {
-            text-align: right;
+            .cell-content {
+              display: block;
+              text-align: right;
+            }
           }
 
           .row-expander {
@@ -412,9 +617,19 @@
 
           // The container of the effective cell content
           .cell-content {
-            & kup-icon {
-              display: inline-block;
+            display: flex;
+
+            &.is-vertical {
+              margin: auto;
+              & > * {
+                margin: auto;
+              }
             }
+
+            &.has-padding {
+              padding: 1rem;
+            }
+
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]
@@ -445,9 +660,17 @@
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-graphic-cell {
-              display: flex;
-            }
+          }
+
+          kup-lazy {
+            display: flex;
+            margin: auto;
+          }
+
+          & .indent ~ kup-lazy {
+            display: inline-block;
+            margin: 0;
+            vertical-align: middle;
           }
 
           // Class assigned to the image of a cell
@@ -489,6 +712,7 @@
         &.activated {
           opacity: 1;
           pointer-events: all;
+          z-index: $sticky-header--z-index;
         }
 
         &[hidden] {
@@ -500,34 +724,26 @@
         }
 
         th-sticky {
-          padding: 0.5rem 0;
+          box-sizing: border-box;
           display: inline-flex;
+          padding: 0.5rem 0.3125rem;
 
           &.number {
             text-align: right;
+          }
+
+          &.centered {
+            text-align: center;
           }
         }
 
         .column-title {
           width: 100%;
           font-weight: bold;
-          margin: 0 0.3125rem;
+          margin: auto;
           white-space: nowrap;
-        }
-
-        .column-sort {
-          cursor: pointer;
-
-          .mdi {
-            color: var(--dtt_icons-color);
-            transition: color 0.2s ease-in-out;
-          }
-
-          &:hover {
-            .mdi {
-              color: var(--dtt_icons-hover-color);
-            }
-          }
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -548,27 +764,33 @@
     }
 
     &.density- {
-      &small {
-        tbody > tr > td {
+      kup-lazy.to-be-loaded {
+        height: 36px;
+      }
+
+      &dense {
+        tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
-          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding: 0.25rem 0;
-          transition: padding 0.1s;
+        }
+        kup-lazy.to-be-loaded {
+          height: 26px;
         }
       }
 
-      &big {
-        tbody > tr > td {
+      &wide {
+        tbody > tr > td:not(.is-graphic) {
           padding-top: 1rem;
           padding-bottom: 1rem;
-          transition: padding 0.1s;
         }
         tbody > tr.group > td {
           padding: 0.75rem 0;
-          transition: padding 0.1s;
+        }
+        kup-lazy.to-be-loaded {
+          height: 50px;
         }
       }
     }
@@ -649,8 +871,7 @@
     height: 100%;
     cursor: pointer;
     outline: none;
-    margin-left: 0.25rem;
-    margin-right: 2rem; //For WebUP Toolbar
+    margin: 0.5rem 0 0;
     padding: 0 0.25rem;
     float: right;
 
@@ -676,7 +897,6 @@
     cursor: default;
     opacity: 0;
     pointer-events: none;
-    padding: 1rem;
     width: 200px; //I.E.
     width: fit-content;
     background: var(--dtt_background-color);
@@ -750,18 +970,12 @@
 .density-panel,
 .fontsize-panel {
   position: relative;
-  margin: 0;
+  margin: 0.7rem;
   display: flex;
   align-items: center;
   box-shadow: var(--dtt_density-box-shadow);
   width: 200px; //I.E.
   width: max-content;
-
-  .mdi:before,
-  &:before {
-    color: var(--dtt_density-icon-color);
-    font-size: 120%;
-  }
 
   .density-label,
   .fontsize-label {

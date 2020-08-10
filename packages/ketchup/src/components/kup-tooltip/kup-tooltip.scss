@@ -26,6 +26,7 @@
       box-shadow: var(--tlt_shadow);
       border-radius: 3px;
       min-width: 350px;
+      writing-mode: horizontal-tb;
 
       #main-content {
         margin: 20px;
@@ -37,10 +38,23 @@
           margin-right: 15px;
         }
 
+        .title {
+          display: inline-block;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
         .right {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
+          & kup-button {
+            display: inline-block;
+          }
         }
 
         &.layout2 {
@@ -82,7 +96,7 @@
         }
 
         .detail-row {
-          display: flex;          
+          display: flex;
           justify-content: space-between;
 
           &:not(:last-child) {
@@ -96,20 +110,20 @@
       }
 
       #detail-actions {
-        border-top: 1px solid var(--tlt_border_color);                
+        border-top: 1px solid var(--tlt_border_color);
         padding: 6px {
           top: 2px;
           bottom: 2px;
-        } 
-        
+        }
+
         display: flex;
-        justify-content: flex-end;        
+        justify-content: flex-end;
       }
-      
+
       #detail-actions[hidden] {
         display: none;
       }
-      
+
       .detail-actions__box {
         cursor: pointer;
       }

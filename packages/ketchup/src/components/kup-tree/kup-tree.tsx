@@ -1,12 +1,15 @@
 import {
     Component,
+    Prop,
+    Element,
+    Host,
     Event,
     EventEmitter,
-    h,
-    Prop,
     State,
+    h,
     Watch,
     JSX,
+    Method,
 } from '@stencil/core';
 
 import { Cell, Column } from './../kup-data-table/kup-data-table-declarations';
@@ -24,21 +27,23 @@ import {
     isImage,
     isLink,
     isVoCodver,
+    isButton,
+    isChart,
+    isProgressBar,
+    isRadio,
+    isNumber,
 } from '../../utils/object-utils';
 
-import { styleHasBorderRadius } from './../kup-data-table/kup-data-table-helper';
-
 import { scrollOnHover } from '../../utils/scroll-on-hover';
-
-/*import {
-  ComboItem,
-  ComboPosition,
-  KetchupComboEvent,
-} from './kup-combo-declarations';
-import { eventFromElement } from '../../utils/utils';
-import { getElementOffset } from '../../utils/offset';
-import { GenericObject } from '../../types/GenericTypes';
-*/
+import { MDCRipple } from '@material/ripple';
+import { errorLogging } from '../../utils/error-logging';
+import { isFilterCompliantForValue } from '../../utils/filters';
+import numeral from 'numeral';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import {
+    styleHasBorderRadius,
+    styleHasWritingMode,
+} from '../kup-data-table/kup-data-table-helper';
 
 @Component({
     tag: 'kup-tree',
@@ -46,64 +51,29 @@ import { GenericObject } from '../../types/GenericTypes';
     shadow: true,
 })
 export class KupTree {
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+
     /**
-     * Scroll on hover
+     * Auto select programmatic selectic node
      */
-    @Prop()
-    hoverScroll: boolean = true;
+    @Prop({ reflect: true }) autoSelectionNodeMode: boolean = true;
     /**
-     * The columns of the tree when tree visualization is active
+     * The columns of the tree when tree visualization is active.
      */
     @Prop() columns?: Column[];
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
     @Prop() data: TreeNode[] = [];
     /**
-     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+     * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop() expanded: boolean = false;
-    /**
-     * Shows the tree data as a table.
-     */
-    @Prop({ reflect: true }) showColumns: boolean = false;
-    /**
-     * Flag: shows the header of the tree when the tree is displayed as a table.
-     * @see showColumns
-     */
-    @Prop({ reflect: true }) showHeader: boolean = false;
-    /**
-     * Show the icons of the various nodes of the tree.
-     */
-    @Prop({ reflect: true }) showIcons: boolean = true;
-    /**
-     * An array of integers containing the path to a selected child.\
-     * Groups up the properties SelFirst, SelItem, SelName.
-     */
-    @Prop({ mutable: true }) selectedNode: TreeNodePath = [];
-
-    /**
-     * auto select programmatic selectic node
-     */
-    @Prop() autoSelectionNodeMode: boolean = true;
-    /**
-     * When a node has options in its data and is on mouse over state while this prop is true,
-     * the node must shows the cog wheel to trigger object navigation upon click.
-     *
-     * This will generate an event to inform the navigation object has been activated.
-     */
-    @Prop() showObjectNavigation: boolean = false;
-    /**
-     * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
-     * tree have been passed inside the data property.
-     *
-     * Therefore, when expanding a node, the tree must emit an event (or run a given callback)
-     * and wait for the child nodes to be downloaded from the server.
-     *
-     * For more information:
-     * @see dynamicExpansionCallback
-     */
-    @Prop({ reflect: true }) useDynamicExpansion: boolean = false;
+    @Prop({ reflect: true }) density: string = 'medium';
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      * Used in combination with showObjectNavigation.
@@ -121,6 +91,58 @@ export class KupTree {
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
     /**
+     * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
+     */
+    @Prop({ reflect: true }) expanded: boolean = false;
+    /**
+     * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+     */
+    @Prop({ reflect: true }) filterValue: string = '';
+    /**
+     * Activates the scroll on hover function
+     */
+    @Prop({ reflect: true }) hoverScroll: boolean = true;
+    /**
+     * An array of integers containing the path to a selected child.\
+     * Groups up the properties SelFirst, SelItem, SelName.
+     */
+    @Prop({ mutable: true }) selectedNode: TreeNodePath = [];
+    /**
+     * Shows the tree data as a table.
+     */
+    @Prop({ reflect: true }) showColumns: boolean = false;
+    /**
+     * When set to true enables the tree nodes filter.
+     */
+    @Prop({ reflect: true }) showFilter: boolean = false;
+    /**
+     * Flag: shows the header of the tree when the tree is displayed as a table.
+     * @see showColumns
+     */
+    @Prop({ reflect: true }) showHeader: boolean = false;
+    /**
+     * Shows the icons of the nodes.
+     */
+    @Prop({ reflect: true }) showIcons: boolean = true;
+    /**
+     * When a node has options in its data and is on mouse over state while this prop is true,
+     * the node must shows the cog wheel to trigger object navigation upon click.
+     *
+     * This will generate an event to inform the navigation object has been activated.
+     */
+    @Prop({ reflect: true }) showObjectNavigation: boolean = false;
+    /**
+     * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
+     * tree have been passed inside the data property.
+     *
+     * Therefore, when expanding a node, the tree must emit an event (or run a given callback)
+     * and wait for the child nodes to be downloaded from the server.
+     *
+     * For more information:
+     * @see dynamicExpansionCallback
+     */
+    @Prop({ reflect: true }) useDynamicExpansion: boolean = false;
+    /**
      * Nodes of the tree are draggable and can be sorted.
      * Currently this feature is not available.
      */
@@ -128,13 +150,14 @@ export class KupTree {
 
     //-------- State --------
     visibleColumns: Column[] = [];
-    selectedNodeString: string = '';
+    @State() selectedNodeString: string = '';
 
     @State() stateSwitcher: boolean = false;
 
     private treeWrapperRef: any;
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
+    private selectedColumn: string = '';
 
     //-------- Events --------
     /**
@@ -207,20 +230,42 @@ export class KupTree {
     kupTreeNodeSelected: EventEmitter<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        columnName: string;
         auto: boolean;
     }>;
 
+    @Event({
+        eventName: 'kupTreeNodeButtonClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeButtonClicked: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        column: Column;
+        columnName: string;
+        auto: boolean;
+    }>;
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     //-------- Lifecycle hooks --------
     componentWillLoad() {
+        setThemeCustomStyle(this);
+
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
             // the default value of the treeExpandedPropName is set to true
             this.data.forEach((rootNode) => {
-                this.enrichWithIsExpanded(
+                this.expandCollapseAllNodes(
                     rootNode,
-                    this.expanded &&
-                        !this.useDynamicExpansion &&
-                        !rootNode.disabled
+                    this.expanded && !this.useDynamicExpansion
                 );
             });
         }
@@ -228,6 +273,23 @@ export class KupTree {
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
             this.selectedNodeString = this.selectedNode.toString();
+        }
+    }
+
+    componentWillRender() {
+        this.filterNodes();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
         }
     }
 
@@ -255,13 +317,12 @@ export class KupTree {
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
             newData.forEach((rootNode) => {
-                this.enrichWithIsExpanded(
+                this.expandCollapseAllNodes(
                     rootNode,
-                    this.expanded &&
-                        !this.useDynamicExpansion &&
-                        !rootNode.disabled
+                    this.expanded && !this.useDynamicExpansion
                 );
             });
+            this.filterNodes();
         }
     }
 
@@ -273,7 +334,7 @@ export class KupTree {
     }
 
     //-------- Methods --------
-    enrichWithIsExpanded(treeNode: TreeNode, expandNode: boolean = false) {
+    expandCollapseNode(treeNode: TreeNode, expandNode: boolean = false) {
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable) {
             // If the node does not already have the property to toggle expansion we add it
@@ -285,17 +346,21 @@ export class KupTree {
             )
                 ? treeNode[treeExpandedPropName] || expandNode
                 : expandNode;
+        }
+    }
 
+    expandCollapseAllNodes(treeNode: TreeNode, expandNode: boolean = false) {
+        // The node is expandable, which means there are sub trees
+        if (treeNode.expandable && !treeNode.disabled) {
+            this.expandCollapseNode(treeNode, expandNode);
             // Enriches also direct subtrees recursively (if it has children)
             if (treeNode.children && treeNode.children.length) {
                 // To save some function calls, only child elements which are expandable will be enriched
                 for (let i = 0; i < treeNode.children.length; i++) {
-                    if (treeNode.children[i].expandable) {
-                        this.enrichWithIsExpanded(
-                            treeNode.children[i],
-                            expandNode && !treeNode.children[i].disabled
-                        );
-                    }
+                    this.expandCollapseAllNodes(
+                        treeNode.children[i],
+                        expandNode
+                    );
                 }
             }
         }
@@ -343,6 +408,23 @@ export class KupTree {
         this.stateSwitcher = !this.stateSwitcher;
     }
 
+    private onJ4btnClicked(
+        treeNodeData: TreeNode,
+        treeNodePath: string,
+        column: Column,
+        auto: boolean
+    ) {
+        this.kupTreeNodeButtonClicked.emit({
+            treeNodePath: treeNodePath
+                .split(',')
+                .map((treeNodeIndex) => parseInt(treeNodeIndex)),
+            treeNode: treeNodeData,
+            column: column,
+            columnName: column.name,
+            auto: auto,
+        });
+    }
+
     // When a TreeNode can be selected
     hdlTreeNodeClicked(
         treeNodeData: TreeNode,
@@ -361,9 +443,11 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
                 treeNode: treeNodeData,
+                columnName: this.selectedColumn,
                 auto: auto,
             });
         }
+        this.selectedColumn = '';
     }
 
     // When a TreeNode must be expanded or closed.
@@ -458,7 +542,7 @@ export class KupTree {
 
     // Handler for clicking onto the cells option object
     hdlOptionClicked(
-        e: UIEvent,
+        e: CustomEvent,
         cell: Cell,
         column: Column,
         treeNode: TreeNode
@@ -488,17 +572,73 @@ export class KupTree {
         return strToRet;
     }
 
+    onFilterChange(event: CustomEvent) {
+        this.filterValue = event.detail.value;
+    }
+
+    private setAllVisible(items: TreeNode[]) {
+        items.forEach((element) => {
+            element.visible = true;
+            this.setAllVisible(element.children);
+        });
+    }
+
+    private filterNodes() {
+        if (this.data == null || this.data.length == 0) {
+            return;
+        }
+        if (this.filterValue.trim() == '') {
+            this.setAllVisible(this.data);
+            return;
+        }
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.setNodeVisibility(this.data[i])) {
+            }
+        }
+    }
+
+    private setNodeVisibility(node: TreeNode): boolean {
+        let visibility: boolean = isFilterCompliantForValue(
+            node.value,
+            this.filterValue
+        );
+        if (node.disabled != true && node.expandable == true) {
+            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
+            if (visibility == true) {
+                this.setAllVisible(node.children);
+            } else {
+                for (let i = 0; i < node.children.length; i++) {
+                    if (this.setNodeVisibility(node.children[i])) {
+                        visibility = true;
+                        this.expandCollapseNode(node, true);
+                    }
+                }
+            }
+        }
+        node.visible = visibility;
+        return visibility;
+    }
+
+    log(methodName: string, msg: string) {
+        errorLogging(
+            'kup-tree',
+            methodName + '() ' + this.rootElement.id + ' - ' + msg,
+            'log'
+        );
+    }
+
     //-------- Rendering --------
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
         return (
-            <span
-                aria-label="Opzioni oggetto"
-                class="options mdi mdi-settings"
-                role="button"
-                title="Opzioni oggetto"
-                onClick={(e: UIEvent) =>
+            <kup-button
+                class="options"
+                custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
+                icon="settings"
+                tooltip="Options"
+                onKupButtonClick={(e: CustomEvent) =>
                     this.hdlOptionClicked(e, cell, column, treeNode)
                 }
+                onClick={(e: MouseEvent) => e.stopPropagation()}
             />
         );
     }
@@ -509,17 +649,28 @@ export class KupTree {
      * @param previousRowCellValue - An optional value of the previous cell on the same column. If set and equal to the value of the current cell, makes the value of the current cell go blank.
      * @param cellData - Additional data for the current cell.
      * @param cellData.column - The column object to which the cell belongs.
-     * @param cellData.row - The row object to which the cell belongs.
+     * @param cellData.treeNode - The treeNode object to which the cell belongs.
+     * @param cellData.treeNodePath - The treeNodePath to which the cell belongs.
      */
     renderCell(
         cell: Cell,
         cellData: {
             column: Column;
             treeNode: TreeNode;
+            treeNodePath: string;
         },
         previousRowCellValue?: string
     ) {
-        // TODO missing a piece to create a complete rendering of a cell @see kup-data-table row 1145 (basically missing style={cellStyle} class={cellClass})
+        let showOptions =
+            !cellData.treeNode.disabled &&
+            cell.options &&
+            this.showObjectNavigation;
+
+        const classObj: Record<string, boolean> = {
+            'cell-content': true,
+            'has-options': showOptions,
+            clickable: !!cellData.column.clickable,
+        };
 
         // When the previous row value is different from the current value, we can show the current value.
         const valueToDisplay =
@@ -527,59 +678,172 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let props: any = cell.data;
 
-        if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            content = <span class={valueToDisplay} />;
-        } else if (isImage(cell.obj)) {
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    cellData.treeNode,
+                    cellData.treeNodePath,
+                    cellData.column,
+                    false
+                );
+                content = (
+                    <kup-lazy
+                        class="cell-button"
+                        componentName="kup-button"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
+            if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                props['disabled'] = cellData.treeNode.readOnly;
+            }
             content = (
-                <img src={valueToDisplay} alt="" width="64" height="64" />
+                <kup-lazy
+                    class="cell-checkbox"
+                    componentName="kup-checkbox"
+                    showPlaceholder={false}
+                    data={...props}
+                />
             );
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-icon"
+                        componentName="kup-image"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isImage(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
         } else if (isLink(cell.obj)) {
             content = (
-                <a href={valueToDisplay} target="_blank">
+                <a class="cell-link" href={valueToDisplay} target="_blank">
                     {valueToDisplay}
                 </a>
             );
-        } else if (isCheckbox(cell.obj)) {
-            // A tree currently is not editable. Checkbox are always disabled.
-            content = (
-                <kup-checkbox
-                    checked={!!cell.obj.k}
-                    disabled={
-                        cellData.treeNode.hasOwnProperty('readOnly')
-                            ? cellData.treeNode.readOnly
-                            : true
-                    }
-                />
-            );
-        } else if (isBar(cell.obj)) {
-            // KupTree cannot have the tree columns resized.
-            // This constant keeps the possible width type to keep a certain degree of compatibility with kup-data-table,
-            // From which this type of content was taken
-            const props: {
-                value: string;
-                width?: number;
-            } = {
-                value: cell.value,
-            };
+        } else if (isNumber(cell.obj)) {
+            const cellValue = numeral(cell.obj.k).value();
 
-            // Controls if we should display this cell value
-            content = valueToDisplay ? <kup-graphic-cell {...props} /> : null;
+            if (cellValue < 0) {
+                classObj['negative-number'] = true;
+            }
+        } else if (isProgressBar(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-lazy
+                        class="cell-progress-bar"
+                        componentName="kup-progress-bar"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isRadio(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                content = (
+                    <kup-lazy
+                        class="cell-radio"
+                        componentName="kup-radio"
+                        showPlaceholder={false}
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
         }
-
-        // TODO add this once the progressbar has been implemented among the graphics forms.
-        // else if (isProgressBar(cell.obj)) {
-        //     content = <kup-progress-bar />;
-        // }
 
         // Elements of the cell
         let cellElements = [];
+        let tdStyle = undefined;
+        let style = undefined;
+        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
+            style = cell.style;
+        } else {
+            tdStyle = cell.style;
+        }
 
         cellElements.push(
-            <span
-                class="cell-content"
-                style={styleHasBorderRadius(cell) ? cell.style : null}
-            >
+            <span style={style} class={classObj}>
                 {content}
             </span>
         );
@@ -595,11 +859,7 @@ export class KupTree {
          *
          * @namespace KupTree.renderCellOption
          */
-        if (
-            !cellData.treeNode.disabled &&
-            cell.options &&
-            this.showObjectNavigation
-        ) {
+        if (showOptions) {
             cellElements.push(
                 this.renderOptionElement(
                     cell,
@@ -608,9 +868,11 @@ export class KupTree {
                 )
             );
         }
-
         return (
-            <td style={!styleHasBorderRadius(cell) ? cell.style : null}>
+            <td
+                onClick={() => (this.selectedColumn = cellData.column.name)}
+                style={tdStyle}
+            >
                 {cellElements}
             </td>
         );
@@ -657,51 +919,63 @@ export class KupTree {
             ((treeNodeData.children && treeNodeData.children.length) ||
                 this.useDynamicExpansion)
         );
-        let treeExpandIcon = (
-            <span
-                class={
-                    'expand-icon kup-tree__icon kup-tree__node__expander' +
-                    (hasExpandIcon ? ' mdi mdi-menu-right' : '')
-                }
-                onClick={
-                    hasExpandIcon && !treeNodeData.disabled
-                        ? (event) => {
-                              event.stopPropagation();
-                              this.hdlTreeNodeExpanderClicked(
-                                  treeNodeData,
-                                  treeNodePath
-                              );
-                          }
-                        : null
-                }
-            />
-        );
+        let treeExpandIcon;
+        if (hasExpandIcon) {
+            treeExpandIcon = (
+                <kup-image
+                    class="expand-icon kup-tree__icon kup-tree__node__expander"
+                    sizeX="1.5rem"
+                    sizeY="1.5rem"
+                    resource="menu-right"
+                    onClick={
+                        hasExpandIcon && !treeNodeData.disabled
+                            ? (event) => {
+                                  event.stopPropagation();
+                                  this.hdlTreeNodeExpanderClicked(
+                                      treeNodeData,
+                                      treeNodePath
+                                  );
+                              }
+                            : null
+                    }
+                ></kup-image>
+            );
+        } else {
+            treeExpandIcon = (
+                <span
+                    class={
+                        'expand-icon kup-tree__icon kup-tree__node__expander'
+                    }
+                    onClick={
+                        hasExpandIcon && !treeNodeData.disabled
+                            ? (event) => {
+                                  event.stopPropagation();
+                                  this.hdlTreeNodeExpanderClicked(
+                                      treeNodeData,
+                                      treeNodePath
+                                  );
+                              }
+                            : null
+                    }
+                />
+            );
+        }
 
         // When TreeNode icons are visible, creates the icon if one is specified
         let treeNodeIcon: any = null;
         if (this.showIcons) {
-            if (treeNodeData.iconSrc) {
-                if (treeNodeData.iconSrc === '') {
+            if (treeNodeData.icon) {
+                if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
                     treeNodeIcon = (
-                        <img
+                        <kup-image
                             class="kup-tree__icon"
-                            src={treeNodeData.iconSrc}
-                        />
-                    );
-                }
-            } else if (treeNodeData.iconClass) {
-                if (treeNodeData.iconClass === '') {
-                    treeNodeIcon = <span class="kup-tree__icon" />;
-                } else {
-                    treeNodeIcon = (
-                        <span
-                            class={
-                                'kup-tree__icon mdi mdi-' +
-                                treeNodeData.iconClass
-                            }
-                        />
+                            sizeX="1.5rem"
+                            sizeY="1.5rem"
+                            resource={treeNodeData.icon}
+                            color={treeNodeData.iconColor}
+                        ></kup-image>
                     );
                 }
             } else {
@@ -760,6 +1034,7 @@ export class KupTree {
                     this.renderCell(treeNodeData.cells[column.name], {
                         column,
                         treeNode: treeNodeData,
+                        treeNodePath: treeNodePath,
                     })
                 );
             }
@@ -778,7 +1053,13 @@ export class KupTree {
                 data-tree-path={treeNodePath}
                 {...treeNodeOptions}
             >
-                <td style={treeNodeData.style || null}>
+                <td
+                    class={{
+                        'mdc-ripple-surface':
+                            !this.showColumns && !treeNodeData.disabled,
+                    }}
+                    style={treeNodeData.style || null}
+                >
                     {indent}
                     {treeExpandIcon}
                     {treeNodeIcon}
@@ -806,7 +1087,7 @@ export class KupTree {
     ): JSX.Element[] {
         let treeNodes = [];
 
-        if (treeNodeData) {
+        if (treeNodeData && treeNodeData.visible == true) {
             // Creates and adds the root of the current tree
             treeNodes.push(
                 this.renderTreeNode(treeNodeData, treeNodePath, treeNodeDepth)
@@ -835,6 +1116,16 @@ export class KupTree {
     }
 
     render() {
+        let wrapperClass: string = 'density-medium';
+        switch (this.density) {
+            case 'dense':
+                wrapperClass = 'density-dense';
+                break;
+            case 'wide':
+                wrapperClass = 'density-wide';
+                break;
+        }
+
         // Computes the visible columns for later use
         if (this.showColumns && this.columns) {
             this.visibleColumns = this.columns.filter((column) =>
@@ -862,33 +1153,57 @@ export class KupTree {
         // Calculates if header must be shown or not
         const visibleHeader = this.showHeader && this.showColumns;
 
+        let filterField = null;
+        if (
+            this.showFilter &&
+            this.data &&
+            this.data.length &&
+            this.data.length > 0
+        ) {
+            filterField = (
+                <kup-text-field
+                    class="filter"
+                    label="Filter"
+                    outlined={false}
+                    initialValue={this.filterValue}
+                    onKupTextFieldSubmit={(e) => {
+                        this.onFilterChange(e);
+                    }}
+                ></kup-text-field>
+            );
+        }
         return (
-            <div class="container">
-                <link
-                    href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-                <div
-                    class="wrapper"
-                    ref={(el) => (this.treeWrapperRef = el as any)}
-                >
-                    <table
-                        class="kup-tree"
-                        ref={(el) => (this.treeRef = el as any)}
-                        data-show-columns={this.showColumns}
-                        data-show-object-navigation={this.showObjectNavigation}
+            <Host class="handles-custom-style">
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component" class={wrapperClass}>
+                    <div
+                        class="wrapper"
+                        ref={(el) => (this.treeWrapperRef = el as any)}
                     >
-                        <thead class={{ 'header--is-visible': visibleHeader }}>
-                            <tr>
-                                <th />
-                                {visibleHeader ? this.renderHeader() : null}
-                            </tr>
-                        </thead>
-                        <tbody>{treeNodes}</tbody>
-                    </table>
+                        {filterField}
+                        <table
+                            class="kup-tree"
+                            ref={(el) => (this.treeRef = el as any)}
+                            data-show-columns={this.showColumns}
+                            data-show-object-navigation={
+                                this.showObjectNavigation
+                            }
+                        >
+                            <thead
+                                class={{
+                                    'header--is-visible': visibleHeader,
+                                }}
+                            >
+                                <tr>
+                                    <th />
+                                    {visibleHeader ? this.renderHeader() : null}
+                                </tr>
+                            </thead>
+                            <tbody>{treeNodes}</tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </Host>
         );
     }
 }

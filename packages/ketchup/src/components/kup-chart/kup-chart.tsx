@@ -1,10 +1,13 @@
 import {
     Component,
+    Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
-    Prop,
+    State,
     h,
+    Method,
 } from '@stencil/core';
 
 import {
@@ -13,7 +16,10 @@ import {
     ChartOptions,
     ChartClickedEvent,
     ChartAxis,
+    ChartOfflineMode,
 } from './kup-chart-declarations';
+
+import { ResizeObserver } from 'resize-observer';
 
 import { convertColumns, convertRows } from './kup-chart-builder';
 
@@ -21,41 +27,37 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
+import { errorLogging } from '../../utils/error-logging';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+
 declare const google: any;
+declare const $: any;
 
 @Component({
     tag: 'kup-chart',
+    styleUrl: 'kup-chart.scss',
     shadow: true,
 })
 export class KupChart {
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+    @State() themeColors: string[] = undefined;
+    @State() themeText: string = undefined;
+
     @Prop() data: DataTable;
 
     @Prop()
-    types: ChartType[] = [ChartType.Hbar];
+    asp: ChartAspect;
 
     @Prop({ reflect: true })
     axis: string;
 
     @Prop()
-    series: string[];
-
-    @Prop()
-    asp: ChartAspect;
-
-    @Prop()
     colors: string[] = [];
-
-    @Prop({ reflect: true })
-    width: number;
-
-    @Prop({ reflect: true })
-    height: number;
-
-    @Prop({ reflect: true })
-    legend = true;
-
-    @Prop({ reflect: true })
-    stacked = false;
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+     */
+    @Prop({ reflect: true }) customStyle: string = undefined;
 
     @Prop({ reflect: true })
     graphTitle: string;
@@ -66,11 +68,32 @@ export class KupChart {
     @Prop({ reflect: true })
     graphTitleSize: number;
 
+    @Prop()
+    hAxis: ChartAxis;
+
+    @Prop({ reflect: true })
+    legend = true;
+
+    @Prop()
+    series: string[];
+
     @Prop({ reflect: true })
     showMarks = false;
 
+    @Prop({ reflect: true })
+    sizeX: string = '100%';
+
+    @Prop({ reflect: true })
+    sizeY: string = '100%';
+
+    @Prop({ reflect: true })
+    offlineMode: ChartOfflineMode = undefined;
+
+    @Prop({ reflect: true })
+    stacked = false;
+
     @Prop()
-    hAxis: ChartAxis;
+    types: ChartType[] = [ChartType.Hbar];
 
     @Prop()
     vAxis: ChartAxis;
@@ -80,8 +103,6 @@ export class KupChart {
      */
     @Prop()
     version = '45.2';
-
-    @Element() el: HTMLElement;
 
     /**
      * Triggered when a chart serie is clicked
@@ -99,42 +120,16 @@ export class KupChart {
     private gChart: any;
 
     private gChartDataTable: any;
-
     private gChartView: any;
+    private elStyle = undefined;
+    private observer: ResizeObserver = undefined;
 
-    componentDidLoad() {
-        if (!this.axis || !this.series) {
-            // cannot create chart
-            return;
-        }
+    //---- Methods ----
 
-        // loading charts
-        if (google) {
-            // getting google charts css from main document
-            document
-                .querySelectorAll(
-                    `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
-                )
-                .forEach((node) =>
-                    this.el.shadowRoot.appendChild(node.cloneNode())
-                );
-
-            try {
-                this.loadGoogleChart();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-
-    componentWillUpdate() {
-        if (this.gChart) {
-            this.gChart.clearChart();
-        }
-    }
-
-    componentDidUpdate() {
-        this.loadGoogleChart();
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
     }
 
     private loadGoogleChart() {
@@ -216,30 +211,32 @@ export class KupChart {
 
     private createGoogleChartOptions() {
         const opts: ChartOptions = {
+            backgroundColor: 'transparent',
             is3D: ChartAspect.D3 === this.asp,
         };
 
         if (this.colors && this.colors.length > 0) {
             opts.colors = this.colors;
-        }
-
-        if (this.width) {
-            opts.width = this.width;
-        }
-
-        if (this.height) {
-            opts.height = this.height;
+        } else {
+            opts.colors = this.themeColors;
         }
 
         if (!this.legend) {
             opts.legend = {
                 position: 'none',
             };
+        } else {
+            opts.legend = {
+                position: 'right',
+                textStyle: { color: this.themeText },
+            };
         }
 
         if (
             this.stacked &&
-            (ChartType.Hbar === this.getMainChartType() ||
+            (ChartType.ColumnChart === this.getMainChartType() ||
+                ChartType.Unk === this.getMainChartType() ||
+                ChartType.Hbar === this.getMainChartType() ||
                 ChartType.Vbar === this.getMainChartType())
         ) {
             opts.isStacked = true;
@@ -279,10 +276,16 @@ export class KupChart {
 
         if (this.vAxis) {
             opts.vAxis = this.vAxis;
+            opts.vAxis['textStyle'] = { color: this.themeText };
+        } else {
+            opts.vAxis = { textStyle: { color: this.themeText } };
         }
 
         if (this.hAxis) {
             opts.hAxis = this.hAxis;
+            opts.hAxis['textStyle'] = { color: this.themeText };
+        } else {
+            opts.hAxis = { textStyle: { color: this.themeText } };
         }
 
         return opts;
@@ -401,7 +404,198 @@ export class KupChart {
         }
     }
 
+    private loadOfflineChart() {
+        if (!this.offlineMode.value || this.offlineMode.value == '') {
+            let message =
+                "Incorrect or incomplete data, can't render chart in offline mode!";
+            errorLogging(this.rootElement.tagName, message);
+            return;
+        }
+
+        let valueAsArray: string[] = this.offlineMode.value.split(';');
+        let colors: string[] = undefined;
+
+        var options = {
+            height: this.rootElement.clientHeight,
+            width: this.rootElement.clientWidth,
+        };
+
+        if (this.colors && this.colors.length > 0) {
+            colors = this.colors;
+        } else {
+            colors = this.themeColors;
+        }
+
+        switch (this.offlineMode.shape) {
+            case 'box':
+                options['type'] = 'box';
+                break;
+
+            case 'bul':
+            case 'bullet':
+                options['type'] = 'bullet';
+                options['targetWidth'] = this.rootElement.clientWidth / 20;
+                break;
+
+            case 'dis':
+            case 'discrete':
+                options['type'] = 'discrete';
+                options['lineColor'] = colors[0];
+                break;
+
+            case 'lin':
+            case 'line':
+                options['type'] = 'line';
+                options['lineColor'] = colors[0];
+                options['fillColor'] = colors[1];
+                break;
+
+            case 'pie':
+                options['type'] = 'pie';
+                options['sliceColors'] = colors;
+                break;
+
+            case 'tri':
+            case 'tristate':
+                options['type'] = 'tristate';
+                options['barWidth'] =
+                    this.rootElement.clientWidth / valueAsArray.length;
+                break;
+
+            default:
+                options['type'] = 'bar';
+                options['barColor'] = colors[0];
+                options['negBarColor'] = colors[1];
+                options['zeroBarColor'] = colors[2];
+                options['barWidth'] =
+                    this.rootElement.clientWidth / valueAsArray.length;
+        }
+
+        $(this.chartContainer).sparkline(
+            this.complianceCheck(valueAsArray),
+            options
+        );
+    }
+
+    private complianceCheck(valueAsArray: string[]): number[] {
+        let ints: number[] = [valueAsArray.length];
+        let i = 0;
+        valueAsArray.forEach((element) => {
+            try {
+                element = element.replace(',', '.');
+                ints[i++] = parseFloat(element);
+            } catch (e) {
+                ints[i++] = null;
+            }
+        });
+        return ints;
+    }
+
+    private fetchThemeColors() {
+        let color1 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-1'
+        );
+        let color2 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-2'
+        );
+        let color3 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-3'
+        );
+        let color4 = document.documentElement.style.getPropertyValue(
+            '--kup-chart-color-4'
+        );
+        this.themeText = document.documentElement.style.getPropertyValue(
+            '--kup-text-color'
+        );
+        this.themeColors = [color1, color2, color3, color4];
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        setThemeCustomStyle(this);
+        this.fetchThemeColors();
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
+    }
+
+    componentDidLoad() {
+        this.observer = new ResizeObserver(() => {
+            if (!this.offlineMode) {
+                const options = this.createGoogleChartOptions();
+                try {
+                    this.gChart.draw(this.gChartView, options);
+                } catch (error) {}
+            } else {
+                this.loadOfflineChart();
+            }
+        });
+        this.observer.observe(this.rootElement);
+
+        if (!this.offlineMode && (!this.axis || !this.series)) {
+            return;
+        }
+
+        // loading charts
+        if (google && !this.offlineMode) {
+            // getting google charts css from main document
+            document
+                .querySelectorAll(
+                    `link[href^="https://www.gstatic.com/charts/${this.version}/css"]`
+                )
+                .forEach((node) =>
+                    this.rootElement.shadowRoot.appendChild(node.cloneNode())
+                );
+
+            try {
+                this.loadGoogleChart();
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            try {
+                this.loadOfflineChart();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
+    componentWillUpdate() {
+        if (this.gChart) {
+            this.gChart.clearChart();
+        }
+    }
+
+    componentDidUpdate() {
+        if (!this.offlineMode) {
+            this.loadGoogleChart();
+        } else {
+            this.loadOfflineChart();
+        }
+    }
+
     render() {
-        return <div id="chart" ref={(el) => (this.chartContainer = el)} />;
+        this.elStyle = undefined;
+        this.elStyle = {
+            height: this.sizeY,
+            minHeight: this.sizeY,
+            width: this.sizeX,
+            minWidth: this.sizeX,
+        };
+
+        return (
+            <Host class="handles-custom-style" style={this.elStyle}>
+                <style>{setCustomStyle(this)}</style>
+                <div
+                    id="kup-component"
+                    ref={(chartContainer) =>
+                        (this.chartContainer = chartContainer)
+                    }
+                />
+            </Host>
+        );
     }
 }

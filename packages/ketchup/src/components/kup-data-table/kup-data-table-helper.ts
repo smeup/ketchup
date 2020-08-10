@@ -6,14 +6,21 @@ import {
     SortObject,
     Cell,
     SortMode,
-    GenericMap,
     GroupObject,
     TotalMode,
     TotalsMap,
     Column,
+    GenericFilter,
+    Filter,
 } from './kup-data-table-declarations';
 
-import { isNumber } from '../../utils/object-utils';
+import { isNumber, isDate } from '../../utils/object-utils';
+import { isEmpty, stringToNumber } from '../../utils/utils';
+import { errorLogging } from '../../utils/error-logging';
+import {
+    isFilterCompliantForValue,
+    filterIsNegative,
+} from '../../utils/filters';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -131,73 +138,143 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 }
 
 //-------- FILTER FUNCTIONS --------
-/**
- * This regular expressions returns a match like this one:
- * if the string does not match is null, otherwise the indexes are equal to the object below:
- *
- * @property {string} 0 - The entire match of the regexp; is equal to the cellValue.
- * @property {string} 1 - Either !' or ' it's the start of the regexp.
- * @property {string} 2 - Either % or null: means the string must start with the given string.
- * @property {string} 3 - Either "" or a string with a length.
- * @property {string} 4 - Either % or null: means the string must finish with the given string.
- * @property {string} 5 - Always equal to ': it's the end of the filter.
- */
-const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
-
-/**
- * Given a cell value and a filter value, returns if that cell (and therefore its row) should be displayed
- * if the filter is matched.
- *
- * Web filters can also be expressions: by putting strings between single quotes (') it's possible to activate filter expressions.
- * Valid syntax:
- * 'filter' = search for exact phrase;
- * '' = match when value is empty;
- * 'filter%' = match when a string starts with "filter";
- * '%filter' = match when a string ends with "filter";
- * '%filter%' = match when a string contains "filter".
- *
- * It is also possible to negate the expression by prepending "!" in front of the expression.
- * For example: !'' = value in the cell must not be empty.
- *
- * With no expression set, the filter is by default set to '%filter%'.
- *
- * @param cellValue - The value of the current cell.
- * @param parsedFilter - The value of the current filter.
- * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
- * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
- */
-function matchSpecialFilter(
-    cellValue: string,
-    parsedFilter: RegExpMatchArray | null,
-    ignoreNegativeFlag: boolean = false
-): boolean {
-    // TODO uncomment this if a filter composed of white space characters can be used to specify a cell with blank value.
-    if (parsedFilter) {
-        // endsWith and startWith are not supported by IE 11
-        // Check here https://www.w3schools.com/jsref/jsref_endswith.asp
-        const toRet: boolean =
-            (parsedFilter[3] === '' && !cellValue.trim()) ||
-            (!parsedFilter[2] &&
-                parsedFilter[4] &&
-                cellValue.startsWith(parsedFilter[3])) ||
-            (parsedFilter[2] &&
-                !parsedFilter[4] &&
-                cellValue.endsWith(parsedFilter[3])) ||
-            (!parsedFilter[2] &&
-                !parsedFilter[4] &&
-                cellValue === parsedFilter[3]) ||
-            (parsedFilter[2] &&
-                parsedFilter[4] &&
-                cellValue.indexOf(parsedFilter[3]) >= 0);
-        return !ignoreNegativeFlag
-            ? parsedFilter[1].indexOf('!') < 0
-                ? toRet
-                : !toRet
-            : toRet;
+export function hasFilters(filters: GenericFilter = {}) {
+    if (filters == null) {
+        return false;
+    }
+    let keys = Object.keys(filters);
+    if (keys == null || keys.length < 1) {
+        return false;
+    }
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        if (hasFiltersForColumn(filters, key)) {
+            return true;
+        }
     }
     return false;
 }
 
+export function hasFiltersForColumn(
+    filters: GenericFilter = {},
+    column: string
+) {
+    let textfield = getTextFieldFilterValue(filters, column);
+    if (textfield != null && textfield.trim() != '') {
+        return true;
+    }
+    let checkboxes = getCheckBoxFilterValues(filters, column);
+    if (checkboxes == null || checkboxes.length < 1) {
+        return false;
+    }
+    return true;
+}
+
+export function getCheckBoxFilterValues(
+    filters: GenericFilter = {},
+    column: string
+): Array<string> {
+    let values = [];
+    if (filters == null) {
+        return values;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return values;
+    }
+    if (filter.checkBoxes == null) {
+        return values;
+    }
+    values = filter.checkBoxes;
+    return values;
+}
+
+export function addCheckBoxFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [] };
+        filters[column] = filter;
+    }
+    if (newFilter == null) {
+        filter.checkBoxes = [];
+    } else {
+        if (!filter.checkBoxes.includes(newFilter)) {
+            filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+        }
+    }
+}
+
+export function removeCheckBoxFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    remFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return;
+    }
+    let index = filter.checkBoxes.indexOf(remFilter.trim());
+    if (index >= 0) {
+        let chs = [];
+        for (let i = 0; i < filter.checkBoxes.length; i++) {
+            if (i != index) {
+                chs[chs.length] = filter.checkBoxes[i];
+            }
+        }
+        filter.checkBoxes = [...chs];
+    }
+}
+
+export function getTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string
+): string {
+    let value = '';
+
+    if (filters == null) {
+        return value;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return value;
+    }
+    value = filter.textField;
+    return value;
+}
+
+export function setTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [] };
+        filters[column] = filter;
+    }
+    filter.textField = newFilter.trim();
+}
+
+export function log(methodName: string, msg: string) {
+    errorLogging(
+        'kup-data-table-helper',
+        methodName + '()' + ' - ' + msg,
+        'log'
+    );
+}
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -210,121 +287,119 @@ function matchSpecialFilter(
  */
 export function filterRows(
     rows: Array<Row> = [],
-    filters: GenericMap = {},
+    filters: GenericFilter = {},
     globalFilter: string = '',
     columns: Array<string> = []
 ): Array<Row> {
-    if (!rows) {
+    if (!rows || rows == null) {
         return [];
     }
 
     // There are rows to filter
-    /**
-     *  Flag to check if current filter is using a global filter.
-     */
+    let filteredRows: Array<Row> = [];
     const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
-    if ((filters && Object.keys(filters).length > 0) || isUsingGlobalFilter) {
-        // Before filtering the rows, we analyze the global filter
-        /**
-         * Holds the RegExp parsed data of the global filter, if an expression filter is set.
-         * @see filterAnalyzer
-         */
-        const analyzedGlobalFilter = isUsingGlobalFilter
-            ? globalFilter.match(filterAnalyzer)
-            : undefined;
-        /**
-         * When using an expression filter, this flag shows if the current global filter is negative.
-         * @see filterAnalyzer
-         */
-        const globalFilterIsNegative: boolean = analyzedGlobalFilter
-            ? analyzedGlobalFilter[1].indexOf('!') >= 0
-            : false;
-
-        // filtering rows
-        return rows.filter((r: Row) => {
-            if (isUsingGlobalFilter) {
-                // There are no columns -> display element
-                if (columns.length === 0) {
-                    return true;
-                }
-
-                // Search among all columns for the global filter
-                let found = false;
-
-                for (let i = 0; i < columns.length; i++) {
-                    let cellValue;
-                    const cell = r.cells[columns[i]];
-
-                    if (cell) cellValue = cell.value;
-
-                    // checks if the value of the filter is contained inside value of the object
-                    // Or is if the filter is a special filter to be matched.
-                    // Since it is a global filter, we do not take into consideration the negative modifier in this control.
-                    if (
-                        (cellValue &&
-                            cellValue
-                                .toLowerCase()
-                                .includes(globalFilter.toLocaleLowerCase())) ||
-                        matchSpecialFilter(
-                            cellValue,
-                            analyzedGlobalFilter,
-                            true
-                        )
-                    ) {
-                        // the element matches the global filter
-                        found = true;
-                        break;
-                    }
-                }
-
-                // If no value matches the global filter and the global filter is not negative
-                // OR we have found a match and the global filter is negative
-                // the current element gets filtered.
-                if (
-                    (!found && !globalFilterIsNegative) ||
-                    (found && globalFilterIsNegative)
-                ) {
-                    return false;
-                }
+    if (hasFilters(filters) || isUsingGlobalFilter) {
+        for (let i = 0; i < rows.length; i++) {
+            let r: Row = rows[i];
+            if (
+                isRowCompliant(
+                    r,
+                    filters,
+                    globalFilter,
+                    isUsingGlobalFilter,
+                    columns
+                )
+            ) {
+                filteredRows[filteredRows.length] = r;
             }
-
-            // Controls if we have other filters and gets their scope
-            let keys: Array<string> = filters ? Object.keys(filters) : [];
-
-            // There are no filters to check -> the element is valid
-            if (keys.length === 0) {
-                return true;
-            }
-
-            return (
-                // Filters
-                keys.filter((key) => {
-                    const filterValue = filters[key];
-
-                    // getting cell value
-                    const cellValue = r.cells[key];
-                    if (!cellValue) {
-                        return false;
-                    }
-                    // Same as above with the difference that here we DO take into consideration the negative modifier
-                    if (
-                        cellValue.value
-                            .toLowerCase()
-                            .includes(filterValue.toLowerCase()) ||
-                        matchSpecialFilter(
-                            cellValue.value,
-                            filterValue.match(filterAnalyzer)
-                        )
-                    ) {
-                        return true;
-                    }
-                }).length === keys.length
-            );
-        });
+        }
+    } else {
+        filteredRows = [...rows];
     }
 
-    return rows;
+    return filteredRows;
+}
+
+export function isRowCompliant(
+    r: Row,
+    filters: GenericFilter = {},
+    globalFilter: string = '',
+    isUsingGlobalFilter: boolean = false,
+    columns: Array<string> = []
+) {
+    if (isUsingGlobalFilter) {
+        let retValue = true;
+        // There are no columns -> display element
+        if (columns && columns != null && columns.length > 0) {
+            retValue = false;
+            let _filterIsNegative = filterIsNegative(globalFilter);
+
+            // Search among all columns for the global filter
+            for (let i = 0; i < columns.length; i++) {
+                const cell = r.cells[columns[i]];
+                retValue = isFilterCompliantForCell(cell, globalFilter);
+                if (retValue == true && !_filterIsNegative) {
+                    break;
+                }
+                if (retValue == false && _filterIsNegative) {
+                    break;
+                }
+            }
+        }
+        if (!retValue) {
+            return false;
+        }
+    }
+
+    // There are no filters to check -> the element is valid
+    if (!hasFilters(filters)) {
+        return true;
+    }
+
+    let keys = Object.keys(filters);
+
+    // Filters
+    for (let i = 0; i < keys.length; i++) {
+        let key: string = keys[i];
+
+        const cell = r.cells[key];
+        if (!cell) {
+            return false;
+        }
+
+        let filterValue = getTextFieldFilterValue(filters, key);
+        if (!isFilterCompliantForCell(cell, filterValue)) {
+            return false;
+        }
+
+        let filterValues = getCheckBoxFilterValues(filters, key);
+        if (filterValues.length == 0) {
+            continue;
+        }
+        let retValue = false;
+        for (let i = 0; i < filterValues.length; i++) {
+            let fv = filterValues[i];
+            if (cell && cell.value != null && fv != null) {
+                if (
+                    cell.value.toLowerCase().trim() == fv.toLowerCase().trim()
+                ) {
+                    retValue = true;
+                }
+            }
+        }
+        if (!retValue) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
+    if (!cellValue) {
+        return false;
+    }
+    return isFilterCompliantForValue(cellValue.value, filterValue);
 }
 
 export function groupRows(
@@ -453,7 +528,7 @@ export function groupRows(
         }
     });
 
-    adjustGroupsAvarage(groupRows, totals);
+    adjustGroupsAverage(groupRows, totals);
 
     return groupRows;
 }
@@ -479,9 +554,7 @@ function updateGroupTotal(
         const cell = addedRow.cells[key];
 
         if (cell) {
-            let isNumber = false;
-
-            if (cell && cell.obj) isNumber = cell.obj.t === 'NR';
+            let _isNumber = isNumber(cell.obj);
 
             const totalMode = totals[key];
 
@@ -502,11 +575,11 @@ function updateGroupTotal(
                     break;
 
                 case TotalMode.SUM:
-                case TotalMode.AVARAGE:
-                    if (isNumber) {
-                        const cellValue = numeral(cell.obj.k);
+                case TotalMode.AVERAGE:
+                    if (_isNumber) {
+                        const cellValue = numeral(stringToNumber(cell.value));
 
-                        groupRow.group.totals[key] = cellValue
+                        groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
 
@@ -516,7 +589,7 @@ function updateGroupTotal(
                             const currentParentSum =
                                 parent.group.totals[key] || 0;
 
-                            parent.group.totals[key] = cellValue
+                            parent.group.totals[key] = numeral(cellValue)
                                 .add(currentParentSum)
                                 .value();
 
@@ -533,7 +606,7 @@ function updateGroupTotal(
     });
 }
 
-function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
+function adjustGroupsAverage(groupRows: Array<Row>, totals: TotalsMap): void {
     if (!groupRows || !totals) {
         return;
     }
@@ -544,19 +617,19 @@ function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
         return;
     }
 
-    const avarageKeys = keys.filter((key) => TotalMode.AVARAGE === totals[key]);
+    const averageKeys = keys.filter((key) => TotalMode.AVERAGE === totals[key]);
 
-    if (avarageKeys.length > 0) {
+    if (averageKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)
-            .forEach((groupRow) => adjustGroupAvarage(groupRow, avarageKeys));
+            .forEach((groupRow) => adjustGroupAverage(groupRow, averageKeys));
     }
 }
 
 /**
  * @returns number of 'leaf' of group
  */
-function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
+function adjustGroupAverage(row: Row, average: Array<string>): number {
     const children = row.group.children;
 
     if (children.length === 0) {
@@ -568,22 +641,22 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     // check if child is a grouping row
     if (children[0].group) {
         children.forEach((child) => {
-            numberOfLeaf += adjustGroupAvarage(child, avarage);
+            numberOfLeaf += adjustGroupAverage(child, average);
         });
 
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
+        // adjust average
+        average.forEach((averageKey) => {
+            row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
                 .divide(numberOfLeaf)
                 .value();
         });
     } else {
         numberOfLeaf = children.length;
 
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
-                .divide(row.group.children.length)
+        // adjust average
+        average.forEach((averageKey) => {
+            row.group.totals[averageKey] = numeral(row.group.totals[averageKey])
+                .divide(numberOfLeaf)
                 .value();
         });
     }
@@ -620,7 +693,7 @@ export function normalizeTotals(
     columns: Array<Column>,
     totals: TotalsMap
 ): TotalsMap {
-    if (!columns || !totals) {
+    if (isEmpty(columns) || isEmpty(totals)) {
         return {};
     }
 
@@ -630,7 +703,7 @@ export function normalizeTotals(
     k.forEach((key) => {
         if (key === '*ALL') {
             columns.forEach((c) => {
-                if (c.obj && isNumber(c.obj)) {
+                if (isNumber(c.obj)) {
                     rettotals[c.name] = totals[key];
                 }
             });
@@ -646,7 +719,7 @@ export function calcTotals(
     rows: Array<Row> = [],
     totals: { [index: string]: TotalMode } = {}
 ): { [index: string]: number } {
-    if (!rows || !totals) {
+    if (isEmpty(rows) || isEmpty(totals)) {
         return {};
     }
     const keys = Object.keys(totals);
@@ -668,8 +741,8 @@ export function calcTotals(
                     const cell = r.cells[key];
 
                     // check if number
-                    if (cell && cell.obj && cell.obj.t === 'NR') {
-                        const cellValue = numeral(cell.obj.k);
+                    if (cell && isNumber(cell.obj)) {
+                        const cellValue = numeral(stringToNumber(cell.value));
 
                         const currentFooterValue = footerRow[key] || 0;
 
@@ -683,13 +756,11 @@ export function calcTotals(
 
         // fixing count and avg
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVARAGE) {
+            if (totals[key] === TotalMode.AVERAGE) {
                 const sum: number = footerRow[key];
 
                 if (sum && rows.length > 0) {
-                    footerRow[key] = numeral(sum)
-                        .divide(rows.length)
-                        .value();
+                    footerRow[key] = numeral(sum).divide(rows.length).value();
                 }
             } else if (totals[key] === TotalMode.COUNT) {
                 footerRow[key] = rows.length;
@@ -706,32 +777,33 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
     const obj1 = cell1.obj;
     const obj2 = cell2.obj;
 
+    if (obj1 == null || obj2 == null) {
+        return localCompareAsInJava(cell1.value, cell2.value);
+    }
+
+    // If either the type or the parameter of the current object are not equal.
     if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
-        let compare = obj1.t.localeCompare(obj2.t);
+        let compare = localCompareAsInJava(obj1.t, obj2.t);
         if (compare === 0) {
-            compare = obj1.p.localeCompare(obj2.p);
+            compare = localCompareAsInJava(obj1.p, obj2.p);
         }
-        return compare;
+        return compare * sm;
     }
 
     // number
-    if ('NR' === obj1.t) {
-        const n1: number = numeral(obj1.k).value();
-        const n2: number = numeral(obj2.k).value();
+    if (isNumber(obj1)) {
+        const n1: number = stringToNumber(cell1.value);
+        const n2: number = stringToNumber(cell2.value);
 
         if (n1 === n2) {
             return 0;
         }
 
-        if (n1 > n2) {
-            return sm * 1;
-        } else {
-            return sm * -1;
-        }
+        return sm * (n1 > n2 ? 1 : -1);
     }
 
     // date
-    if ('D8' === obj1.t) {
+    if (isDate(obj1)) {
         let m1: moment.Moment;
         let m2: moment.Moment;
 
@@ -743,7 +815,7 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
             m2 = moment(obj2.k, 'DDMMYYYY');
         } else {
             // no valid format -> check via k
-            return obj1.k.localeCompare(obj2.k);
+            return sm * localCompareAsInJava(obj1.k, obj2.k);
         }
 
         if (m1.isSame(m2)) {
@@ -757,11 +829,41 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         }
     }
 
-    // sort by cell value
-    let value1 = cell1.value;
-    let value2 = cell2.value;
+    return (
+        sm *
+        (obj1.k && obj2.k
+            ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
+            : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
+    );
+}
 
-    return sm * value1.localeCompare(value2);
+/**
+ * Given two strings to compare, the functions decides which string comes before the other or if they are equal.
+ * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
+ * the Java version of compareTo().
+ *
+ * This function has been taken from the link below, but it is slightly improved.
+ * @param t1
+ * @param t2
+ * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
+ */
+function localCompareAsInJava(t1: string, t2: string): number {
+    const lim = Math.min(t1.length, t2.length);
+
+    let k = 0;
+    while (k < lim) {
+        const c1 = t1[k];
+        const c2 = t2[k];
+        if (c1 !== c2) {
+            if (c1.charCodeAt(0) === 32) {
+                return c1.charCodeAt(0) + c2.charCodeAt(0);
+            } else {
+                return c1.charCodeAt(0) - c2.charCodeAt(0);
+            }
+        }
+        k++;
+    }
+    return t1.length - t2.length;
 }
 
 function adjustGroupId(row: Row): void {

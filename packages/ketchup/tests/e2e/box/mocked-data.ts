@@ -227,8 +227,8 @@ export const j4btnData = {
                             'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;CASFRA)',
                     },
                     value: 'View',
-                    config: {
-                        icon: 'mdi mdi-magnify',
+                    data: {
+                        icon: 'magnify',
                         showtext: true,
                     },
                 },
@@ -268,8 +268,8 @@ export const j4btnData = {
                             'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;PARFRA)',
                     },
                     value: 'View',
-                    config: {
-                        icon: 'mdi mdi-magnify',
+                    data: {
+                        icon: 'magnify',
                         showtext: true,
                     },
                 },
@@ -309,8 +309,8 @@ export const j4btnData = {
                             'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;DELGIO)',
                     },
                     value: 'View',
-                    config: {
-                        icon: 'mdi mdi-magnify',
+                    data: {
+                        icon: 'magnify',
                         showtext: true,
                     },
                 },
@@ -350,8 +350,8 @@ export const j4btnData = {
                             'VO;COD_VER;000001;Visualizza;F(EXD;*SCO;) 1(CN;COL;PARFRA)',
                     },
                     value: 'View',
-                    config: {
-                        icon: 'mdi mdi-magnify',
+                    data: {
+                        icon: 'magnify',
                         showtext: true,
                     },
                 },
@@ -444,6 +444,9 @@ export const pgbData = {
                         p: 'PGB',
                         k: '80',
                     },
+                    data: {
+                        value: '80',
+                    },
                     value: '80',
                 },
             },
@@ -472,10 +475,11 @@ export const pgbData = {
                         p: 'PGB',
                         k: '100\\*LAB;Done',
                     },
-                    value: '100',
-                    config: {
-                        labelText: 'Done',
+                    data: {
+                        value: '100',
+                        label: 'Done',
                     },
+                    value: '100',
                 },
             },
         },
@@ -503,10 +507,11 @@ export const pgbData = {
                         p: 'PGB',
                         k: '75',
                     },
-                    value: '75',
-                    config: {
+                    data: {
+                        value: '75',
                         hideLabel: true,
                     },
+                    value: '75',
                 },
             },
         },
@@ -534,10 +539,11 @@ export const pgbData = {
                         p: 'PGB',
                         k: '#C01BAF;33',
                     },
-                    value: '33',
-                    config: {
-                        foregroundColor: 'green',
+                    data: {
+                        value: '33',
+                        customStyle: ':host{--kup-main-color: green}',
                     },
+                    value: '33',
                 },
             },
         },
@@ -648,7 +654,7 @@ export const badgeData = {
             },
             badges: [
                 {
-                    icon: 'mdi mdi-account',
+                    icon: 'account_box',
                     position: 'TL',
                 },
             ],

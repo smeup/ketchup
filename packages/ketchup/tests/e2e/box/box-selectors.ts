@@ -7,6 +7,6 @@ export const boxWrapperSelector = containerSelector + ' .box-wrapper';
 export const boxSelector = boxWrapperSelector + ' .box';
 
 export const filterSelector =
-    baseSelector + '#filter-panel kup-text-input >>> input';
+    baseSelector + '#filter-panel kup-text-field >>> input';
 
-export const sortSelector = baseSelector + '#sort-panel kup-combo';
+export const sortSelector = baseSelector + '#sort-panel kup-combobox';

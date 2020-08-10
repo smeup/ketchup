@@ -1,72 +1,40 @@
-/**
-* @prop --chi_color, --kup-chip_color: Text color
-* @prop --chi_icon-color, --kup-chip_icon-color: Icon color
-* @prop --chi_icon-color-hover, --kup-chip_icon-color-hover: Icon color on mouse hover
-* @prop --chi_background, --kup-chip_background: Background color
-* @prop --chi_background-hover, --kup-chip_background-hover: Background color on mouse hover
-* @prop --chi_disabled-color, --kup-chip_disabled-color: Text color when the chip is disabled
-* @prop --chi_disabled-background-color, --kup-chip_disabled-background-color: Background color when the chip is disabled
-*/
+@import '@material/chips/mdc-chips';
 
 :host {
-  --chi_color: var(--kup-chip_color, #{$gray-1a});
-  --chi_icon-color: var(--kup-chip_icon-color, #{$mainRed});
-  --chi_icon-color-hover: var(--kup-chip_icon-color-hover, #{$mainRedLight});
-  --chi_background: var(--kup-chip_background, #{$gray-f0});
-  --chi_background-hover: var(--kup-chip_background-hover, #{$gray-e5});
-  --chi_disabled-color: var(--kup-chip_disabled-color, #{$gray-88});
-  --chi_disabled-background-color: var(
-    --kup-chip_disabled-background-color,
-    #{$gray-f0}
-  );
+  display: var(--kup-display-mode);
 }
 
-#chip {
-  background: var(--chi_background);
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  margin: 0.5rem;
-  margin-left: 0;
-  padding: 0.5rem;
+.mdc-chip {
+  background-color: var(--kup-chip-background-color);
+  color: var(--kup-text-color);
+}
+
+.mdc-chip-set--choice .mdc-chip--selected {
+  color: var(--kup-main-color);
+
+  & .mdc-chip__ripple {
+    background-color: var(--kup-main-color);
+    opacity: 0.25;
+  }
+}
+
+.mdc-chip__primary-action {
   outline: none;
-  cursor: default;
+}
 
-  &:not(.disabled):hover {
-    background: var(--chi_background-hover);
-  }
+svg path {
+  color: var(--kup-text-color);
+  stroke: var(--kup-text-color);
+}
 
-  #content {
-    margin: 0 3px;
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-    justify-content: space-between;
-    color: var(--chi_color);
+.mdc-chip__icon--leading-hidden {
+  display: none;
+}
 
-    svg {
-      cursor: pointer;
-      fill: var(--chi_icon-color);
-      margin-left: 4px;
-
-      &:hover {
-        fill: var(--chi_icon-color-hover);
-      }
-    }
-  }
-
-  &.disabled {
-    background: var(--chi_disabled-background-color);
-
-    #content {
-      color: var(--chi_disabled-color);
-    }
-
-    #content {
-      svg {
-        cursor: default;
-        fill: var(--chi_disabled-color);
-      }
-    }
+.remove-icon {
+  margin-left: 4px;
+  margin-right: -4px;
+  &:hover {
+    opacity: 0.75;
   }
 }

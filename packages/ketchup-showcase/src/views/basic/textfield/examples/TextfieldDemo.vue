@@ -1,11 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -19,26 +14,50 @@ export default {
   name: 'TextfieldDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupTextFieldClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupTextFieldChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupTextFieldInput',
+          type: 'input',
+        },
+        {
+          name: 'kupTextFieldFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupTextFieldBlur',
+          type: 'blur',
+        },
+        {
+          name: 'kupTextFieldIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldClearIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldSubmit',
+          type: 'click',
         },
       ],
-      demoComp:
-        '<wup-text-field icon="sentiment_satisfied_alt" initialvalue="Some text" label="Demo" id="demo-component"></wup-text-field>',
       demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
         {
           prop: 'disabled',
           description:
@@ -48,9 +67,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'emitSubmitEventOnEnter',
+          description:
+            "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'forceFocus',
+          description:
+            'Defaults at false. When set to true, the component will be focused.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'fullHeight',
           description:
-            'Sets the height of the component to fill all the available horizontal space given by its parent.',
+            'Sets the height of the component to fill all the available horizontal space provided by its parent.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -58,7 +93,7 @@ export default {
         {
           prop: 'fullWidth',
           description:
-            'Sets the width of the component to fill all the available horizontal space given by its parent.',
+            'Sets the width of the component to fill all the available horizontal space provided by its parent.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -82,7 +117,7 @@ export default {
         {
           prop: 'icon',
           description:
-            'The text-field will be rendered with the specified Material Design icon.',
+            "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
           type: 'string',
           default: 'undefined',
           try: 'field',
@@ -93,6 +128,22 @@ export default {
           type: 'string',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'inputType',
+          description:
+            'The HTML type of the input element. It has no effect on text areas.',
+          type: 'string',
+          default: 'text',
+          try: 'field',
+        },
+        {
+          prop: 'isClearable',
+          description:
+            "Displays a clear-shaped trailing icon which resets the field when clicked. It shouldn't be used in textareas.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'label',
@@ -120,6 +171,14 @@ export default {
         {
           prop: 'outlined',
           description: 'Renders an outlined text field.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'readOnly',
+          description:
+            'Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -154,29 +213,38 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupTextFieldClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupTextFieldChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTextFieldInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTextFieldFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupTextFieldBlur',
-          type: 'blur',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-text-field');
+  comp.icon = 'widgets';
+  comp.id = 'demo-component';
+  comp.initialValue = 'Some text';
+  comp.label = 'Demo';
+  return comp;
+}
 </script>

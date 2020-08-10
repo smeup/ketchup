@@ -33,3 +33,14 @@ $mainShadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
 
 //---- Transitions ----
 $trn-time: 0.6s;
+
+:host {
+  --mdc-theme-primary: var(--kup-main-color);
+  --mdc-theme-on-primary: var(--kup-text-on-main-color);
+  --mdc-theme-secondary: var(--kup-main-color);
+  --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+  --mdc-theme-surface: var(--kup-background-color);
+  --mdc-theme-on-surface: var(--kup-text-color);
+  --mdc-theme-background: var(--kup-background-color);
+  --mdc-theme-text-primary-on-background: var(--kup-text-color);
+}

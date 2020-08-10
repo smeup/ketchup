@@ -23,12 +23,10 @@ export default JSON.parse(`
         {
           "name": "nome della colonna -> code",
           "title": "titolo -> text",
-          "size": ""
         },
         {
           "name": "FLD1",
           "title": "column 2",
-          "size": 10
         }
       ],
       "rows": [

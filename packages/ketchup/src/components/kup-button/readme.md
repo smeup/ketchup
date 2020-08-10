@@ -1,95 +1,93 @@
 # kup-button
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description | Type      | Default                                                                        |
-| ------------- | -------------- | ----------- | --------- | ------------------------------------------------------------------------------ |
-| `align`       | `align`        |             | `string`  | `undefined`                                                                    |
-| `buttonClass` | `button-class` |             | `string`  | `undefined`                                                                    |
-| `buttonStyle` | --             |             | `{}`      | `undefined`                                                                    |
-| `fillspace`   | `fillspace`    |             | `boolean` | `false`                                                                        |
-| `flat`        | `flat`         |             | `boolean` | `false`                                                                        |
-| `iconClass`   | `icon-class`   |             | `string`  | `undefined`                                                                    |
-| `iconUrl`     | `icon-url`     |             | `string`  | `'https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css'` |
-| `imageSrc`    | `image-src`    |             | `string`  | `undefined`                                                                    |
-| `label`       | `label`        |             | `string`  | `undefined`                                                                    |
-| `rounded`     | `rounded`      |             | `boolean` | `false`                                                                        |
-| `showicon`    | `showicon`     |             | `boolean` | `true`                                                                         |
-| `showtext`    | `showtext`     |             | `boolean` | `true`                                                                         |
-| `textmode`    | `textmode`     |             | `string`  | `undefined`                                                                    |
-| `tooltip`     | `tooltip`      |             | `string`  | `undefined`                                                                    |
-| `transparent` | `transparent`  |             | `boolean` | `false`                                                                        |
+| Property       | Attribute       | Description                                                                                                                                   | Type      | Default     |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `checked`      | `checked`       | Defaults at false. When set to true, the icon button state will be on.                                                                        | `boolean` | `false`     |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                               | `string`  | `undefined` |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                               | `boolean` | `false`     |
+| `flat`         | `flat`          | Defaults at false. When set to true, the button will be rendered flat.                                                                        | `boolean` | `false`     |
+| `fullHeight`   | `full-height`   | Defaults at false. When set to true fill all the available horizontal space.                                                                  | `boolean` | `false`     |
+| `fullWidth`    | `full-width`    | Defaults at false. When set to true fill all the available horizontal space.                                                                  | `boolean` | `false`     |
+| `icon`         | `icon`          | Defaults at null. When set, the button will show this icon.                                                                                   | `string`  | `null`      |
+| `iconColor`    | `icon-color`    | If not set, it will be managed by the component.                                                                                              | `string`  | `null`      |
+| `iconOff`      | `icon-off`      | Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`  | `null`      |
+| `label`        | `label`         | Defaults at null. When set, the button will show this text.                                                                                   | `string`  | `null`      |
+| `outlined`     | `outlined`      | Defaults at false. When set to true, the button will be rendered with a colored outline.                                                      | `boolean` | `false`     |
+| `shaped`       | `shaped`        | Defaults at false. When set to true, the button will be rendered with rounded edges.                                                          | `boolean` | `false`     |
+| `toggable`     | `toggable`      | Defaults at false. When set to true, the icon button will be toggable on/off.                                                                 | `boolean` | `false`     |
+| `tooltip`      | `tooltip`       | When set, this tooltip will be displayed on mouse over (using the HTML attribute title).                                                      | `string`  | `undefined` |
+| `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                                                            | `boolean` | `false`     |
 
 
 ## Events
 
-| Event              | Description | Type                           |
-| ------------------ | ----------- | ------------------------------ |
-| `kupButtonClicked` |             | `CustomEvent<{ id: string; }>` |
+| Event            | Description | Type                                          |
+| ---------------- | ----------- | --------------------------------------------- |
+| `kupButtonBlur`  |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupButtonClick` |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupButtonFocus` |             | `CustomEvent<{ id: string; value: string; }>` |
 
 
-## CSS Custom Properties
+## Methods
 
-| Name                                                                  | Description                                                   |
-| --------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `--btn_animation-duration, --kup-button_animation-duration`           | Sets duration of all transitions of the component.            |
-| `--btn_border, --kup-button_border`                                   | Sets border of the button.                                    |
-| `--btn_border-color, --kup-button_border-color`                       | Sets border color of the button only when it is transparent.  |
-| `--btn_border-radius, --kup-button_border-radius`                     | Sets border radius of the button.                             |
-| `--btn_box-shadow, --kup-button_box-shadow`                           | Sets hover box shadow of the button.                          |
-| `--btn_color-danger`                                                  | Background color of the button when danger state is set       |
-| `--btn_color-danger--hover`                                           | Background color of the button when danger:hover state is set |
-| `--btn_color-info`                                                    | Background color of the button when info state is set         |
-| `--btn_color-selected`                                                | Background color of the button when selected state is set     |
-| `--btn_color-warning`                                                 | Background color of the button when warning state is set      |
-| `--btn_font-family, --kup-button_font-family`                         | sets the font family of the button                            |
-| `--btn_font-size, --kup-button_font-size`                             | Sets button font size.                                        |
-| `--btn_font-style, --kup-button_font-style`                           | Sets button font style.                                       |
-| `--btn_font-weight, --kup-button_font-weight`                         | Sets the font weight of the button                            |
-| `--btn_icon--transparent, --kup-button_icon-color--transparent`       | Sets icon color when button is transparent.                   |
-| `--btn_icon-color, --kup-button_icon-color`                           | Sets icon color.                                              |
-| `--btn_icon-size, --kup-button_icon-size`                             | Set icon size.                                                |
-| `--btn_main-color, --kup-button_main-color`                           | Sets the main color of the button.                            |
-| `--btn_main-color-active, --kup-button_main-color-hover`              | Sets the main color of the button when active.                |
-| `--btn_main-color-hover, --kup-button_main-color-hover`               | Sets the main color of the button at mouse over.              |
-| `--btn_opacity, --kup-button_opacity`                                 | Sets opacity of the button.                                   |
-| `--btn_text-color, --kup-button_text-color`                           | Sets color of the button text.                                |
-| `--btn_text-color--transparent, --kup-button_text-color--transparent` | Sets text color when button is transparent.                   |
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
+ - [kup-card](../kup-card)
  - [kup-crud](../kup-crud)
  - [kup-data-table](../kup-data-table)
- - [kup-fld](../kup-fld)
+ - [kup-field](../kup-field)
  - [kup-form](../kup-form)
- - [kup-html](../kup-html)
+ - [kup-iframe](../kup-iframe)
+ - [kup-nav-bar](../kup-nav-bar)
+ - [kup-paginator](../kup-paginator)
  - [kup-search](../kup-search)
  - [kup-tooltip](../kup-tooltip)
+ - [kup-tree](../kup-tree)
+
+### Depends on
+
+- [kup-image](../kup-image)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-box --> kup-button
+  kup-button --> kup-image
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-btn --> kup-button
   kup-calendar --> kup-button
+  kup-card --> kup-button
   kup-crud --> kup-button
   kup-data-table --> kup-button
-  kup-fld --> kup-button
+  kup-field --> kup-button
   kup-form --> kup-button
-  kup-html --> kup-button
+  kup-iframe --> kup-button
+  kup-nav-bar --> kup-button
+  kup-paginator --> kup-button
   kup-search --> kup-button
   kup-tooltip --> kup-button
+  kup-tree --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,0 +1,11 @@
+:host {
+  display: var(--kup-display-mode);
+  margin: auto;
+  position: relative;
+
+  #kup-component {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}

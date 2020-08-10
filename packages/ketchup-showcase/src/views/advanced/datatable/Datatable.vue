@@ -10,19 +10,19 @@
       <datatable-checkbox></datatable-checkbox>
     </template>
     <template v-slot:3>
-      <datatable-columns-width></datatable-columns-width>
-    </template>
-    <template v-slot:4>
       <datatable-filters></datatable-filters>
     </template>
-    <template v-slot:5>
+    <template v-slot:4>
       <datatable-graphic-cell></datatable-graphic-cell>
     </template>
-    <template v-slot:6>
+    <template v-slot:5>
       <datatable-chart-cell></datatable-chart-cell>
     </template>
-    <template v-slot:7>
+    <template v-slot:6>
       <datatable-groups></datatable-groups>
+    </template>
+    <template v-slot:7>
+      <datatable-fixed-columns-rows />
     </template>
     <template v-slot:8>
       <datatable-j4btn></datatable-j4btn>
@@ -60,18 +60,29 @@
     <template v-slot:19>
       <datatable-j4ico></datatable-j4ico>
     </template>
+    <template v-slot:20>
+      <datatable-images-and-badges />
+    </template>
   </comp>
 </template>
+
+<style>
+kup-lazy.to-be-loaded {
+  min-height: 300px;
+  transition: all 0.25s;
+}
+</style>
 
 <script>
 import DatatableDemo from '@/views/advanced/datatable/examples/DatatableDemo';
 import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';
 import DatatableCheckbox from '@/views/advanced/datatable/examples/DatatableCheckbox';
-import DatatableColumnsWidth from '@/views/advanced/datatable/examples/DatatableColumnsWidth';
 import DatatableFilters from '@/views/advanced/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/advanced/datatable/examples/DatatableGraphicCell';
 import DatatableChartCell from '@/views/advanced/datatable/examples/DatatableChartCell';
+import DatatableFixedColumnsRows from '@/views/advanced/datatable/examples/DatatableFixedColumnsRows';
 import DatatableGroups from '@/views/advanced/datatable/examples/DatatableGroups';
+import DatatableImagesAndBadges from '@/views/advanced/datatable/examples/DatatableImagesAndBadges';
 import DatatableJ4btn from '@/views/advanced/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/advanced/datatable/examples/DatatableJ4ico';
 import DatatablePagination from '@/views/advanced/datatable/examples/DatatablePagination';
@@ -91,11 +102,12 @@ export default {
     DatatableDemo,
     DatatableBasic,
     DatatableCheckbox,
-    DatatableColumnsWidth,
     DatatableFilters,
     DatatableGraphicCell,
     DatatableChartCell,
+    DatatableFixedColumnsRows,
     DatatableGroups,
+    DatatableImagesAndBadges,
     DatatableJ4btn,
     DatatablePagination,
     DatatableProgressbar,
@@ -119,11 +131,11 @@ export default {
         'Playground',
         'Basic usage',
         'With checkboxes',
-        'Custom column width',
         'With filters',
         'Graphic cells',
         'Chart cells',
         'Groups',
+        'With Fixed columns and rows',
         'With J4BTN',
         'Pagination',
         'With progress bar',
@@ -136,6 +148,7 @@ export default {
         'With tooltip',
         'With totals',
         'With J4Ico',
+        'Images and badges',
       ],
     };
   },

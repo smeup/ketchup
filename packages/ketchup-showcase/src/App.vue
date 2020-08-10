@@ -16,6 +16,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
+
           <v-list dense>
             <v-list-group v-for="(section, j) in group.items" :key="j">
               <template v-slot:activator>
@@ -27,32 +28,7 @@
               </template>
             </v-list-group>
 
-            <v-list-tile
-              v-for="route in group.advancedItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.javascriptItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
+            <v-list-tile v-for="route in group.advancedItems" :key="route.to.name" :to="route.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -70,48 +46,65 @@
               </template>
             </v-list-group>
 
-            <v-list-tile
-              v-for="route in group.basicItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
+            <v-list-tile v-for="route in group.cssItems" :key="route.to.name" :to="route.to">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
+
+            <v-list-tile v-for="route in group.javascriptItems" :key="route.to.name" :to="route.to">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list dense>
+            <v-list-group v-for="(section, j) in group.items" :key="j">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list-group>
+
+            <v-list-tile v-for="route in group.basicItems" :key="route.to.name" :to="route.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
         </v-list-group>
-        <v-list>
-          <v-list-tile
-            :to="{
-              name: 'theming',
-            }"
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>Theming</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
       </v-list>
     </v-navigation-drawer>
 
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <div class="logo_header">
-        <img
-          src="ketchup_logo_header.svg"
-          class="light"
-          style="height: 40px;"
-        />
+        <img src="ketchup_logo_header.svg" class="light" style="height: 40px;" />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
-      <wup-switch
+      <kup-switch
         onclick="changeTheme();"
         style="min-width: 150px; --kup-text-color: #f5f5f5;"
         leading-label
         label="Dark Mode"
         id="theme-switch"
-      ></wup-switch>
+      ></kup-switch>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -126,7 +119,25 @@
     </v-content>
 
     <v-footer app>
-      <span class="company-text">© Copyright 2020 - SME UP Spa</span>
+      <a
+        class="first-icon"
+        target="_blank"
+        rel="noopener"
+        title="View Ketch.UP on GitHub"
+        href="https://github.com/smeup/ketchup"
+      >
+        <kup-image class="footer-icon" resource="github" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
+      <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
+      <a
+        class="second-icon"
+        target="_blank"
+        rel="noopener"
+        title="View Ketch.UP on npm"
+        href="https://www.npmjs.com/package/@sme.up/ketchup"
+      >
+        <kup-image class="footer-icon" resource="npm" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
     </v-footer>
   </v-app>
 </template>
@@ -140,12 +151,6 @@ export default {
       {
         title: 'Advanced',
         advancedItems: [
-          {
-            title: 'Autocomplete',
-            to: {
-              name: 'autocomplete',
-            },
-          },
           {
             title: 'Box',
             to: {
@@ -165,15 +170,15 @@ export default {
             },
           },
           {
-            title: `Chart`,
+            title: `Card`,
             to: {
-              name: 'chart',
+              name: 'card',
             },
           },
           {
-            title: `Chips`,
+            title: `Chart`,
             to: {
-              name: 'chips',
+              name: 'chart',
             },
           },
           {
@@ -207,18 +212,6 @@ export default {
             },
           },
           {
-            title: `Html`,
-            to: {
-              name: 'html',
-            },
-          },
-          {
-            title: `Image`,
-            to: {
-              name: 'image',
-            },
-          },
-          {
             title: `Image button`,
             to: {
               name: 'imagebutton',
@@ -228,18 +221,6 @@ export default {
             title: `Menu`,
             to: {
               name: 'menu',
-            },
-          },
-          {
-            title: `Portal`,
-            to: {
-              name: 'portal',
-            },
-          },
-          {
-            title: 'Progress bar',
-            to: {
-              name: 'progressbar',
             },
           },
           {
@@ -266,6 +247,18 @@ export default {
         title: 'Basic',
         basicItems: [
           {
+            title: 'Autocomplete',
+            to: {
+              name: 'autocomplete',
+            },
+          },
+          {
+            title: `Badge`,
+            to: {
+              name: 'badge',
+            },
+          },
+          {
             title: `Button`,
             to: {
               name: 'button',
@@ -278,9 +271,69 @@ export default {
             },
           },
           {
+            title: `Chip`,
+            to: {
+              name: 'chip',
+            },
+          },
+          {
+            title: `Combobox`,
+            to: {
+              name: 'combobox',
+            },
+          },
+          {
+            title: 'Grid',
+            to: {
+              name: 'grid',
+            },
+          },
+          {
+            title: `Iframe`,
+            to: {
+              name: 'iframe',
+            },
+          },
+          {
+            title: `Image`,
+            to: {
+              name: 'image',
+            },
+          },
+          {
+            title: 'Lazy',
+            to: {
+              name: 'lazy',
+            },
+          },
+          {
+            title: `List`,
+            to: {
+              name: 'list',
+            },
+          },
+          {
+            title: 'Nav Bar',
+            to: {
+              name: 'navbar',
+            },
+          },
+          {
+            title: 'Progress bar',
+            to: {
+              name: 'progressbar',
+            },
+          },
+          {
             title: `Radio`,
             to: {
               name: 'radio',
+            },
+          },
+          {
+            title: `Spinner`,
+            to: {
+              name: 'spinner',
             },
           },
           {
@@ -304,8 +357,31 @@ export default {
         ],
       },
       {
-        title: 'Javascript',
+        title: 'CSS',
+        cssItems: [
+          {
+            title: 'Customization',
+            to: {
+              name: 'customization',
+            },
+          },
+          {
+            title: 'Theming',
+            to: {
+              name: 'theming',
+            },
+          },
+        ],
+      },
+      {
+        title: 'JavaScript',
         javascriptItems: [
+          {
+            title: 'Error logging',
+            to: {
+              name: 'errorlogging',
+            },
+          },
           {
             title: 'Scroll on hover',
             to: {
@@ -425,14 +501,5 @@ select,
 // When there is the need to hide overflow
 .hide-overflow {
   overflow: hidden;
-}
-
-//---- Common styles for elements ----
-// Combo must have display flex.
-kup-fld {
-  border: 1px solid rgba(0, 0, 0, 0.54);
-  border-radius: 4px;
-  display: inline-flex;
-  padding: 12px;
 }
 </style>

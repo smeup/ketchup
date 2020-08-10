@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -21,29 +15,13 @@ export default {
   name: 'ChartDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupChartClicked',
+          type: 'click',
         },
       ],
-      demoComp: '<kup-chart legend id="demo-component"></kup-chart>',
       demoProps: [
         {
           prop: 'asp',
@@ -66,6 +44,14 @@ export default {
           type: 'string[]',
           default: '[]',
           try: 'array',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
         },
         {
           prop: 'data',
@@ -103,18 +89,19 @@ export default {
           try: 'json',
         },
         {
-          prop: 'height',
-          description: 'Height of the graph (in pixels).',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'legend',
           description: 'Displays the legend of the graph.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'offlineMode',
+          description:
+            'Renders charts without the Google API and using jQuery Sparkline.',
+          type: 'ChartOfflineMode',
+          default: 'undefined',
+          try: 'json',
         },
         {
           prop: 'series',
@@ -130,6 +117,22 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'sizeX',
+          description:
+            'The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
+        },
+        {
+          prop: 'sizeY',
+          description:
+            'The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).',
+          type: 'string',
+          default: '100%',
+          try: 'field',
         },
         {
           prop: 'stacked',
@@ -161,47 +164,42 @@ export default {
           default: '45.2',
           try: 'field',
         },
-        {
-          prop: 'width',
-          description: 'Width of the graph (in pixels).',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
-        },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupChartClicked',
-          type: 'click',
-        },
-      ],
-      demoData: [
-        {
-          prop: 'data',
-          value: baseData,
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          prop: 'series',
-          value: ['Col2', 'Col3', 'Col4'],
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          prop: 'colors',
-          value: ['#fc8e1c', 'Black', '#45c4ea'],
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          prop: 'axis',
-          value: 'Col1',
-        },
-        {
-          prop: 'types',
-          value: ['Hbar'],
-        },
-        {
-          prop: 'asp',
-          value: '2D',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-chart');
+  comp.asp = '2D';
+  comp.axis = 'Col1';
+  comp.data = baseData;
+  comp.id = 'demo-component';
+  comp.legend = true;
+  comp.series = ['Col2', 'Col3', 'Col4'];
+  comp.type = ['Hbar'];
+  return comp;
+}
 </script>

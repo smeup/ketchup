@@ -15,8 +15,18 @@ export const config: Config = {
         {
             src: 'dash.html',
         },
+        {
+            src: 'dash-list.html',
+        },
+        {
+            src: 'tree.html',
+        },
+        {
+            src: 'nav-bar.html',
+        },
     ],
-    namespace: 'mycomponent',
+
+    namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },
         { type: 'docs-readme' },

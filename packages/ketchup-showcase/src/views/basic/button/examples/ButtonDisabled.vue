@@ -4,15 +4,17 @@
       <p>
         Sometimes the user shouldn't be able to interact with the component. The
         attribute
-        <span class="code-word">disabled</span> renders an unclickable button
+        <span
+          class="code-word"
+        >disabled</span> renders an unclickable button
         which can only be displayed, but not clicked.
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <wup-button disabled text="Raised"></wup-button>
-          <wup-button disabled flat label="Flat"></wup-button>
-          <wup-button disabled outlined label="Transparent"></wup-button>
-          <wup-button disabled icon="favorite"></wup-button>
+          <kup-button disabled label="Raised"></kup-button>
+          <kup-button disabled flat label="Flat"></kup-button>
+          <kup-button disabled outlined label="Transparent"></kup-button>
+          <kup-button disabled icon="favorite"></kup-button>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
@@ -26,7 +28,7 @@ export default {
   name: 'ButtonDisabled',
   data() {
     return {
-      markupDisabled: '<wup-button disabled label="Disabled"></wup-button>',
+      markupDisabled: '<kup-button disabled label="Disabled"></kup-button>',
     };
   },
 };
