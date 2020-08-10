@@ -17,6 +17,7 @@ import { ComponentChipElement } from "./components/kup-chip/kup-chip-declaration
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { KupStore } from "./components/kup-state/kup-store";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { Badge, CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -486,6 +487,7 @@ export namespace Components {
           * Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.
          */
         "forceOneLine": boolean;
+        "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
         /**
           * When set to true it activates the global filter.
          */
@@ -575,6 +577,8 @@ export namespace Components {
           * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
          */
         "sortableColumnsMutateData": boolean;
+        "stateId": string;
+        "store": KupStore;
         /**
           * Sets the height of the table.
          */
@@ -2487,6 +2491,8 @@ declare namespace LocalJSX {
           * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event
          */
         "sortableColumnsMutateData"?: boolean;
+        "stateId"?: string;
+        "store"?: KupStore;
         /**
           * Sets the height of the table.
          */

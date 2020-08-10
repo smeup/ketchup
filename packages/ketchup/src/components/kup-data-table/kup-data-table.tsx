@@ -88,13 +88,92 @@ import {
 import { logMessage } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 
+import { KupDataTableState } from './kup-data-table-state';
+import { KupStore } from '../kup-state/kup-store';
+
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
     shadow: true,
 })
 export class KupDataTable {
-    @Element() rootElement!: HTMLElement;
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupDataTableState = new KupDataTableState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                // *** PROPS ***
+                this.filters = state.filters;
+                this.groups = state.groups;
+                this.expandGroups = state.expandGroups;
+                this.density = state.density;
+                this.enableSortableColumns = state.enableSortableColumns;
+                this.forceOneLine = state.forceOneLine;
+                this.globalFilter = state.globalFilter;
+                this.globalFilterValue = state.globalFilterValue;
+                this.headerIsPersistent = state.headerIsPersistent;
+                this.loadMoreLimit = state.loadMoreLimit;
+                this.multiSelection = state.multiSelection;
+                this.rowsPerPage = state.rowsPerPage;
+                this.showFilters = state.showFilters;
+                this.showHeader = state.showHeader;
+                this.showLoadMore = state.showLoadMore;
+                this.sortEnabled = state.sortEnabled;
+                this.sort = state.sort;
+                this.sortableColumnsMutateData =
+                    state.sortableColumnsMutateData;
+                //
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            // *** PROPS ***
+            this.state.filters = this.filters;
+            this.state.groups = this.groups;
+            this.state.expandGroups = this.expandGroups;
+            this.state.density = this.density;
+            this.state.enableSortableColumns = this.enableSortableColumns;
+            this.state.forceOneLine = this.forceOneLine;
+            this.state.globalFilter = this.globalFilter;
+            this.state.globalFilterValue = this.globalFilterValue;
+            this.state.headerIsPersistent = this.headerIsPersistent;
+            this.state.loadMoreLimit = this.loadMoreLimit;
+            this.state.multiSelection = this.multiSelection;
+            this.state.rowsPerPage = this.rowsPerPage;
+            this.state.showFilters = this.showFilters;
+            this.state.showHeader = this.showHeader;
+            this.state.showLoadMore = this.showLoadMore;
+            this.state.sortEnabled = this.sortEnabled;
+            this.state.sort = this.sort;
+            this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+            //
+            console.log(
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
+    @Element() rootElement: HTMLElement;
 
     /**
      * Expands groups when set to true.
@@ -643,6 +722,9 @@ export class KupDataTable {
     //======== Lifecycle Hooks ========
     componentWillLoad() {
         logMessage(this, 'Component initialized.');
+        // *** Store
+        this.initWithPersistedState();
+        // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
 
@@ -723,6 +805,9 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        // *** Store
+        this.persistState();
+        // ***
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
         document.removeEventListener('resize', this.stickyHeaderPosition);
@@ -1455,6 +1540,16 @@ export class KupDataTable {
         );
 
         this.adjustGroupState();
+    }
+
+    @Method()
+    async getInternalState() {
+        // TODO - Just for test
+        return {
+            groups: this.groups,
+            filters: this.filters,
+            data: this.data,
+        };
     }
 
     // Handler for loadMore button is clicked.
