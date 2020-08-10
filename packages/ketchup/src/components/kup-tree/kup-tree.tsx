@@ -621,14 +621,6 @@ export class KupTree {
         return visibility;
     }
 
-    log(methodName: string, msg: string) {
-        logMessage(
-            'kup-tree',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
-
     //-------- Rendering --------
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
         return (
