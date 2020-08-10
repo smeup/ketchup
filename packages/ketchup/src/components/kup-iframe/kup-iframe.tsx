@@ -59,10 +59,20 @@ export class KupIframe {
         window.open(this.src, '_blank');
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
+    }
+
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            logMessage('kup-iframe', message);
+            logMessage(this, message);
             return;
         }
 

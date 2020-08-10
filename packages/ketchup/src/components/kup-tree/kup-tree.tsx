@@ -257,6 +257,7 @@ export class KupTree {
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -276,23 +277,6 @@ export class KupTree {
         }
     }
 
-    componentWillRender() {
-        this.filterNodes();
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
-        }
-    }
-
     componentDidLoad() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
@@ -308,6 +292,24 @@ export class KupTree {
                 this.launchNodeEvent(path, tn);
             } else {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
+            }
+        }
+        logMessage(this, 'Component ready.');
+    }
+
+    componentWillRender() {
+        this.filterNodes();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
             }
         }
     }

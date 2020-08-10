@@ -11,6 +11,7 @@ import {
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-calendar',
@@ -176,6 +177,10 @@ export class KupCalendar {
     }
 
     // ---- Lifecycle ----
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
     componentDidLoad() {
         const plugins = [interactionPlugin];
         if (this.weekView) {
@@ -264,6 +269,7 @@ export class KupCalendar {
         });
 
         this.calendar.render();
+        logMessage(this, 'Component ready.');
     }
 
     componentDidUnload() {

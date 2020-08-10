@@ -65,13 +65,18 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            logMessage(this.rootElement.tagName, message);
+            logMessage(this, message);
             return;
         }
 

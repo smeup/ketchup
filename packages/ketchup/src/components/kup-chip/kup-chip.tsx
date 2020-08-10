@@ -161,7 +161,12 @@ export class KupChip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentWillUpdate() {
@@ -175,7 +180,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    logMessage(this.rootElement.tagName, message);
+                    logMessage(this, message);
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -214,12 +219,12 @@ export class KupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    logMessage(this.rootElement.tagName, message);
+                    logMessage(this, message);
             }
         }
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            logMessage('kup-chip', message);
+            logMessage(this, message);
         }
         for (let i = 0; i < this.data.length; i++) {
             let componentClass: string = 'mdc-chip';

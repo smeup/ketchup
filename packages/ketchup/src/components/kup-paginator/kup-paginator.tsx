@@ -166,13 +166,15 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
-    log(methodName: string, msg: string) {
-        logMessage('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
@@ -249,9 +251,6 @@ export class KupPaginator {
                 <div class="align-left"></div>
             </div>
         );
-        //lcltime = new Date();
-        //let endtime = lcltime.getTime();
-        //this.log('render', 'time spent [' + (endtime - starttime) + ']');
 
         return compCreated;
     }

@@ -14,6 +14,7 @@ import {
     SearchSelectionUpdatedEventDetail,
     SearchFilterSubmittedEventDetail,
 } from './kup-search-declarations';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-search',
@@ -87,10 +88,6 @@ export class KupSearch {
     // ON SOMETHING
     // -------------------------------------------------------------------------
 
-    componentWillLoad() {
-        this.onInitialValueChanged();
-    }
-
     @Watch('initialValue')
     onInitialValueChanged() {
         this.value = this.initialValue;
@@ -158,6 +155,15 @@ export class KupSearch {
     //--------------------------------------------------------------------------
     // RENDERING
     // -------------------------------------------------------------------------
+
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+        this.onInitialValueChanged();
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
+    }
 
     render() {
         return (

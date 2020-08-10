@@ -293,6 +293,7 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
 
         const root = this.rootElement.shadowRoot;
@@ -307,8 +308,8 @@ export class KupCard {
         this.observer.observe(this.rootElement);
     }
 
-    disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {
@@ -323,7 +324,7 @@ export class KupCard {
             this.layoutNumber < 1
         ) {
             let message = 'Data or layout information missing, not rendering!';
-            logMessage(this.rootElement.tagName, message);
+            logMessage(this, message);
             return;
         }
         let wrapperClass = undefined;
@@ -358,5 +359,9 @@ export class KupCard {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
     }
 }

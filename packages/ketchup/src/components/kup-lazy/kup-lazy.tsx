@@ -1,6 +1,7 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { EventListenerCallback, Method } from '@stencil/core/internal';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-lazy',
@@ -72,6 +73,7 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
     }
 
@@ -82,6 +84,7 @@ export class KupLazy {
             document.addEventListener('resize', this.viewportCheck);
             document.addEventListener('scroll', this.viewportCheck);
         }
+        logMessage(this, 'Component ready.');
     }
 
     componentWillUpdate() {

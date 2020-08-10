@@ -146,7 +146,12 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
@@ -217,7 +222,7 @@ export class KupField {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            logMessage('kup-field', message);
+            logMessage(this, message);
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':

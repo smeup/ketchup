@@ -118,7 +118,12 @@ export class KupImage {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {
@@ -288,7 +293,7 @@ export class KupImage {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this.rootElement.tagName, message);
+            logMessage(this, message);
             return;
         }
 

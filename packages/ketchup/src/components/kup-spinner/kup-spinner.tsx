@@ -8,6 +8,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-spinner',
@@ -66,7 +67,12 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidUpdate() {

@@ -408,7 +408,7 @@ export class KupChart {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
             let message =
                 "Incorrect or incomplete data, can't render chart in offline mode!";
-            logMessage(this.rootElement.tagName, message);
+            logMessage(this, message);
             return;
         }
 
@@ -513,12 +513,9 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
         this.fetchThemeColors();
-    }
-
-    disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
     }
 
     componentDidLoad() {
@@ -561,6 +558,7 @@ export class KupChart {
                 console.error(err);
             }
         }
+        logMessage(this, 'Component ready.');
     }
 
     componentWillUpdate() {
@@ -597,5 +595,9 @@ export class KupChart {
                 />
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
     }
 }

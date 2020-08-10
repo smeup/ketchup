@@ -1042,7 +1042,7 @@ export namespace Components {
          */
         "bordered": boolean;
         /**
-          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config": QlikServer;
         /**
@@ -3003,7 +3003,7 @@ declare namespace LocalJSX {
          */
         "bordered"?: boolean;
         /**
-          * Set Qlik Server's connection parameters  {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config"?: QlikServer;
         /**

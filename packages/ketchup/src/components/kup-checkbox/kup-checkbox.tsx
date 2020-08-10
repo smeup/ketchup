@@ -12,6 +12,7 @@ import {
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-checkbox',
@@ -155,7 +156,12 @@ export class KupCheckbox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentWillRender() {

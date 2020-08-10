@@ -12,6 +12,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-button',
@@ -159,7 +160,12 @@ export class KupButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentWillRender() {

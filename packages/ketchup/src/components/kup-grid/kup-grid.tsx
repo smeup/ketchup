@@ -54,13 +54,18 @@ export class KupGrid {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
         if (!this.data || this.data.length === 0) {
             let message = 'Missing data, not rendering!';
-            logMessage(this.rootElement.tagName, message);
+            logMessage(this, message);
             return;
         }
 

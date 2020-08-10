@@ -53,6 +53,7 @@ import {
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-box',
@@ -337,6 +338,7 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
         this.onDataChanged();
     }
@@ -346,6 +348,7 @@ export class KupBox {
 
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
+        logMessage(this, 'Component ready.');
     }
 
     componentDidUnload() {

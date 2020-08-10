@@ -108,14 +108,14 @@
         let dom = document.documentElement;
         let debugToggler = document.querySelector('#debug-toggler');
 
-        if (!dom['kup-debug']) {
+        if (!dom['kupDebug']) {
           console.log('Debug activated.');
           debugToggler.customStyle = '';
-          dom['kup-debug'] = true;
+          dom['kupDebug'] = true;
         } else {
           console.log('Debug deactivated.');
           debugToggler.customStyle = ':host{--kup-main-color: white}';
-          dom['kup-debug'] = false;
+          dom['kupDebug'] = false;
         }
       }
     </script>

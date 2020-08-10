@@ -265,11 +265,8 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    logMessage(
-                        this.rootElement.tagName,
-                        'Executing callback error'
-                    );
-                    logMessage(this.rootElement.tagName, err);
+                    logMessage(this, 'Executing callback error');
+                    logMessage(this, err);
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -370,7 +367,12 @@ export class KupAutocomplete {
 
     //---- Lifecycle hooks ----
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {

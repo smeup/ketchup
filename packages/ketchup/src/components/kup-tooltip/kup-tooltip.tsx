@@ -16,6 +16,7 @@ import {
     TooltipAction,
     TooltipObject,
 } from './kup-tooltip-declarations';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tooltip',
@@ -435,6 +436,16 @@ export class KupTooltip {
                 </div>
             </div>
         );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
