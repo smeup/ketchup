@@ -64,6 +64,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `sort`                      | --                             | Defines the current sorting options.                                                                                                                                                                                           | `SortObject[]`                                                                                   | `[]`                                 |
 | `sortEnabled`               | `sort-enabled`                 | When set to true enables the sorting of the columns.                                                                                                                                                                           | `boolean`                                                                                        | `true`                               |
 | `sortableColumnsMutateData` | `sortable-columns-mutate-data` | If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event                                                                                       | `boolean`                                                                                        | `true`                               |
+| `stateId`                   | `state-id`                     |                                                                                                                                                                                                                                | `string`                                                                                         | `''`                                 |
+| `store`                     | --                             |                                                                                                                                                                                                                                | `KupStore`                                                                                       | `undefined`                          |
 | `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                         | `undefined`                          |
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                         | `undefined`                          |
 | `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timout for tooltip detail                                                                                                                                                                                          | `number`                                                                                         | `undefined`                          |
@@ -96,6 +98,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 #### Returns
 
 Type: `Promise<Column[]>`
+
+
+
+### `getInternalState() => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
+
+
+
+#### Returns
+
+Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
 
 
 
