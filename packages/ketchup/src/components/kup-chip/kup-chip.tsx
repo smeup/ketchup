@@ -180,7 +180,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    logMessage(this, message);
+                    logMessage(this, message, 'warning');
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -219,12 +219,12 @@ export class KupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    logMessage(this, message);
+                    logMessage(this, message, 'warning');
             }
         }
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
         }
         for (let i = 0; i < this.data.length; i++) {
             let componentClass: string = 'mdc-chip';

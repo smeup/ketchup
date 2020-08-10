@@ -76,7 +76,7 @@ export class KupBadge {
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

@@ -265,8 +265,8 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    logMessage(this, 'Executing callback error');
-                    logMessage(this, err);
+                    logMessage(this, 'Executing callback error', 'error');
+                    logMessage(this, err, 'error');
                 });
         } else {
             this.listEl.resetFilter(newFilter);

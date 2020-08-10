@@ -48,7 +48,7 @@ export function consistencyCheck(
                     i +
                     ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                logMessage('kup-list-utils', message);
+                logMessage('kup-list-utils', message, 'warning');
             }
             if (listData['data'][i].selected && !firstSelectedFound) {
                 firstSelectedFound = true;

@@ -408,7 +408,7 @@ export class KupChart {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
             let message =
                 "Incorrect or incomplete data, can't render chart in offline mode!";
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

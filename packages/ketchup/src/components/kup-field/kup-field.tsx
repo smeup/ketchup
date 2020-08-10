@@ -222,7 +222,7 @@ export class KupField {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':

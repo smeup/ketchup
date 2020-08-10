@@ -72,7 +72,7 @@ export class KupIframe {
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

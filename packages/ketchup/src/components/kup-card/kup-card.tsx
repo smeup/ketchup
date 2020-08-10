@@ -324,7 +324,7 @@ export class KupCard {
             this.layoutNumber < 1
         ) {
             let message = 'Data or layout information missing, not rendering!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
         let wrapperClass = undefined;

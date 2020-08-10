@@ -1,12 +1,3 @@
-// Error logging
-//
-// Arguments:
-//
-// - comp      = the component triggering the message (or a string)
-// - message   = the actual message of the error
-// - type      = error triggers a console.error, warning triggers a console.warning, otherwise it will be a console.log. logs will be hidden unless the "kup-debug" attribute on document element is true.
-//
-//
 declare global {
     interface HTMLElement {
         kupDebug: boolean;

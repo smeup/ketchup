@@ -65,7 +65,7 @@ export class KupGrid {
     render() {
         if (!this.data || this.data.length === 0) {
             let message = 'Missing data, not rendering!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

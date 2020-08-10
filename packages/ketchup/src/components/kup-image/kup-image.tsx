@@ -293,7 +293,7 @@ export class KupImage {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message);
+            logMessage(this, message, 'warning');
             return;
         }
 
