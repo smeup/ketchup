@@ -1,4 +1,4 @@
-import { errorLogging } from '../utils/error-logging';
+import { logMessage } from './debug-manager';
 
 declare global {
     interface HTMLElement {
@@ -209,7 +209,7 @@ async function initThemes() {
     } else {
         let message =
             'Ketchup themes were already set by a third party application.';
-        errorLogging('theme manager', message);
+        logMessage('theme manager', message);
     }
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'default');
@@ -230,12 +230,12 @@ function setTheme() {
     let message = '';
     let themeValue = dom.getAttribute('kup-theme');
     message = 'Setting theme to: ' + themeValue + '.';
-    errorLogging('theme manager', message);
+    logMessage('theme manager', message);
 
     dom.kupCurrentTheme = dom.kupThemes[themeValue];
     if (!dom.kupCurrentTheme) {
         message = 'Invalid theme name, falling back to default.';
-        errorLogging('theme manager', message);
+        logMessage('theme manager', message);
         dom.kupCurrentTheme = dom.kupThemes['default'];
     }
     let variables = dom.kupCurrentTheme.cssVariables;
@@ -303,7 +303,7 @@ export function dynColorContrast(component: any, color: string) {
             ' from ' +
             component.dynColor +
             '.';
-        errorLogging('theme manager', message);
+        logMessage('theme manager', message);
         component.dynColor = textColour;
         component.refresh = !component.refresh;
     }

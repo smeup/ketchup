@@ -19,7 +19,8 @@ import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 import { KupImage } from '../kup-image/kup-image';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-list',
@@ -494,6 +495,7 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
     }
 
@@ -502,7 +504,7 @@ export class KupList {
         this.focIndex = -1;
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
-        if (root != null) {
+        if (root) {
             this.listComponent = MDCList.attachTo(
                 root.querySelector('.mdc-list')
             );
@@ -513,6 +515,7 @@ export class KupList {
                 (listItemEl: any) => new MDCRipple(listItemEl)
             );
         }
+        logMessage(this, 'Component ready.');
     }
 
     itemCompliant(item: ComponentListElement): boolean {

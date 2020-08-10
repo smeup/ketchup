@@ -36,10 +36,10 @@ import {
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
     styleHasBorderRadius,
     styleHasWritingMode,
@@ -257,6 +257,7 @@ export class KupTree {
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -276,23 +277,6 @@ export class KupTree {
         }
     }
 
-    componentWillRender() {
-        this.filterNodes();
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
-        }
-    }
-
     componentDidLoad() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
@@ -308,6 +292,24 @@ export class KupTree {
                 this.launchNodeEvent(path, tn);
             } else {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
+            }
+        }
+        logMessage(this, 'Component ready.');
+    }
+
+    componentWillRender() {
+        this.filterNodes();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
             }
         }
     }
@@ -617,14 +619,6 @@ export class KupTree {
         }
         node.visible = visibility;
         return visibility;
-    }
-
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-tree',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
     }
 
     //-------- Rendering --------

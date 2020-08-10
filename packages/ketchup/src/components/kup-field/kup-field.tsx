@@ -12,8 +12,8 @@ import {
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
-import { errorLogging } from '../../utils/error-logging';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-field',
@@ -146,7 +146,12 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
@@ -217,7 +222,7 @@ export class KupField {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            errorLogging('kup-field', message);
+            logMessage(this, message, 'warning');
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':

@@ -10,8 +10,8 @@ import {
     Method,
 } from '@stencil/core';
 import { BadgePosition } from './kup-badge-declarations';
-import { errorLogging } from '../../utils/error-logging';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-badge',
@@ -65,13 +65,18 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

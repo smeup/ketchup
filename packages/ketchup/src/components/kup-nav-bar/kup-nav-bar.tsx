@@ -23,7 +23,8 @@ import {
     setThemeCustomStyle,
     setCustomStyle,
     dynColorContrast,
-} from '../../utils/theming';
+} from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -199,7 +200,12 @@ export class KupNavBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {

@@ -1,12 +1,12 @@
 import {
     Component,
-    h,
     Prop,
+    Element,
     Event,
     EventEmitter,
     Watch,
-    Element,
     State,
+    h,
 } from '@stencil/core';
 
 import { Row } from '../kup-data-table/kup-data-table-declarations';
@@ -16,6 +16,7 @@ import {
     TooltipAction,
     TooltipObject,
 } from './kup-tooltip-declarations';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tooltip',
@@ -23,6 +24,7 @@ import {
     shadow: true,
 })
 export class KupTooltip {
+    @Element() rootElement: HTMLElement;
     /**
      * Layout used to display the items
      */
@@ -55,9 +57,6 @@ export class KupTooltip {
 
     @State()
     visible = false;
-
-    @Element()
-    tooltipEl: HTMLElement;
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -435,6 +434,16 @@ export class KupTooltip {
                 </div>
             </div>
         );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {

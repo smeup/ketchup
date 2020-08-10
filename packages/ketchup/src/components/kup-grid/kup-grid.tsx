@@ -9,8 +9,8 @@ import {
     Method,
 } from '@stencil/core';
 import { ComponentGridElement } from './kup-grid-declarations';
-import { errorLogging } from '../../utils/error-logging';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-grid',
@@ -54,13 +54,18 @@ export class KupGrid {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
         if (!this.data || this.data.length === 0) {
             let message = 'Missing data, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
 

@@ -8,7 +8,7 @@ import {
     h,
 } from '@stencil/core';
 
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-iframe',
@@ -59,10 +59,20 @@ export class KupIframe {
         window.open(this.src, '_blank');
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
+    }
+
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-iframe', message);
+            logMessage(this, message, 'warning');
             return;
         }
 

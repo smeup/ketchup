@@ -7,7 +7,8 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-progress-bar',
@@ -73,13 +74,18 @@ export class KupProgressBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != undefined && this.isRadial) {
+        if (root && this.isRadial) {
             let deg = this.value * 3.6 + 'deg';
             root.querySelector('.left-side').setAttribute(
                 'style',

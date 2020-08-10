@@ -205,9 +205,9 @@ let cssRoutes = [
 
 let javascriptRoutes = [
   {
-    path: `/errorlogging`,
-    name: 'errorlogging',
-    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+    path: `/debugging`,
+    name: 'debugging',
+    component: () => import(`@/views/javascript/debugging/Debugging.vue`),
   },
   {
     path: `/scrollonhover`,

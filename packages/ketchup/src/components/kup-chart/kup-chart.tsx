@@ -27,8 +27,8 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
-import { errorLogging } from '../../utils/error-logging';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 declare const google: any;
 declare const $: any;
@@ -408,7 +408,7 @@ export class KupChart {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
             let message =
                 "Incorrect or incomplete data, can't render chart in offline mode!";
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
 
@@ -513,12 +513,9 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
         this.fetchThemeColors();
-    }
-
-    disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
     }
 
     componentDidLoad() {
@@ -561,6 +558,7 @@ export class KupChart {
                 console.error(err);
             }
         }
+        logMessage(this, 'Component ready.');
     }
 
     componentWillUpdate() {
@@ -597,5 +595,9 @@ export class KupChart {
                 />
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
     }
 }

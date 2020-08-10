@@ -1,13 +1,20 @@
-// Error logging
-//
-// Arguments:
-//
-// - comp      = the component triggering the message
-// - message   = the actual message of the error
-// - type      = error triggers a console.error, warning triggers a console.warning, otherwise it will be a console.log
-//
-//
-export function errorLogging(comp: string, message: string, type?: string) {
+declare global {
+    interface HTMLElement {
+        kupDebug: boolean;
+    }
+}
+
+export function logMessage(comp: any, message: string, type?: string) {
+    if ((!type || type === 'log') && !document.documentElement['kupDebug']) {
+        return;
+    }
+    let id: string = '';
+    if (comp.rootElement) {
+        id =
+            ' ' + comp.rootElement.tagName + '#' + comp.rootElement.id + ' => ';
+    } else {
+        id = ' ' + comp + ' => ';
+    }
     var d = new Date(),
         minutes =
             d.getMinutes().toString().length == 1
@@ -61,22 +68,26 @@ export function errorLogging(comp: string, message: string, type?: string) {
 
     switch (type) {
         case 'error':
-            console.error(consoleDate + ' (' + comp + '):' + message);
+            console.error(consoleDate + id + message);
+            window.dispatchEvent(
+                new CustomEvent('kupError', {
+                    bubbles: true,
+                    detail: { comp, consoleDate, type, message },
+                })
+            );
             break;
         case 'warning':
-            console.warn(consoleDate + ' (' + comp + '):' + message);
+            console.warn(consoleDate + id + message);
+            window.dispatchEvent(
+                new CustomEvent('kupError', {
+                    bubbles: true,
+                    detail: { comp, consoleDate, type, message },
+                })
+            );
             break;
         case 'log':
-            console.log(consoleDate + ' (' + comp + '):' + message);
-            break;
         default:
-            console.log(consoleDate + ' (' + comp + '):' + message);
+            console.log(consoleDate + id + message);
+            break;
     }
-
-    window.dispatchEvent(
-        new CustomEvent('kupError', {
-            bubbles: true,
-            detail: { comp, consoleDate, type, message },
-        })
-    );
 }

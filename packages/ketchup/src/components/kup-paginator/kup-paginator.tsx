@@ -1,8 +1,15 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-paginator',
@@ -10,6 +17,8 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupPaginator {
+    @Element() rootElement: HTMLElement;
+
     @Prop({ reflect: true }) currentPage = 1;
 
     @Prop({ reflect: true }) max = 0;
@@ -166,13 +175,15 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+    componentWillLoad() {
+        logMessage(this, 'Component initialized.');
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
@@ -249,9 +260,6 @@ export class KupPaginator {
                 <div class="align-left"></div>
             </div>
         );
-        //lcltime = new Date();
-        //let endtime = lcltime.getTime();
-        //this.log('render', 'time spent [' + (endtime - starttime) + ']');
 
         return compCreated;
     }

@@ -11,13 +11,13 @@ import {
     Method,
 } from '@stencil/core';
 
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -265,11 +265,8 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    errorLogging(
-                        this.rootElement.tagName,
-                        'Executing callback error'
-                    );
-                    errorLogging(this.rootElement.tagName, err);
+                    logMessage(this, 'Executing callback error', 'error');
+                    logMessage(this, err, 'error');
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -370,7 +367,12 @@ export class KupAutocomplete {
 
     //---- Lifecycle hooks ----
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {

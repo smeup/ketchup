@@ -15,12 +15,12 @@ import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
     setCustomStyle,
     colorContrast,
-} from '../../utils/theming';
+} from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-card',
@@ -293,6 +293,7 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
 
         const root = this.rootElement.shadowRoot;
@@ -307,8 +308,8 @@ export class KupCard {
         this.observer.observe(this.rootElement);
     }
 
-    disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {
@@ -323,7 +324,7 @@ export class KupCard {
             this.layoutNumber < 1
         ) {
             let message = 'Data or layout information missing, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
         let wrapperClass = undefined;
@@ -358,5 +359,9 @@ export class KupCard {
                 </div>
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.observer.unobserve(this.rootElement);
     }
 }

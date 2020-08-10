@@ -85,7 +85,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -719,26 +719,9 @@ export class KupDataTable {
         }
     };
 
-    // private theadObserver = new IntersectionObserver(
-    //     (entries) => {
-    //         entries.forEach((entry) => {
-    //             if (entry.intersectionRatio === 1) {
-    //                 // fully visible
-    //                 console.log('fully visible', entry.target);
-    //             } else if (entry.intersectionRatio === 0) {
-    //                 // hidden
-    //                 console.log('hidden', entry.target);
-    //             }
-    //         });
-    //     },
-    //     {
-    //         threshold: [0, 0.5, 1],
-    //         rootMargin: '-100px 0px 0px 0px',
-    //     }
-    // );
-
     //======== Lifecycle Hooks ========
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         // *** Store
         this.initWithPersistedState();
         // ***
@@ -818,6 +801,7 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+        logMessage(this, 'Component ready.');
     }
 
     componentDidUnload() {
@@ -2051,18 +2035,8 @@ export class KupDataTable {
                         let checkBoxesFilter = this.getCheckBoxFilterValues(
                             column.name
                         );
-                        let lcltime = new Date();
-                        let starttime = lcltime.getTime();
                         let columnValues: string[] = this.getColumnValues(
                             column.name
-                        );
-                        lcltime = new Date();
-                        let endtime = lcltime.getTime();
-                        this.log(
-                            'renderHeader',
-                            'time spent for getColumnValues() [' +
-                                (endtime - starttime) +
-                                ']'
                         );
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
@@ -3387,9 +3361,5 @@ export class KupDataTable {
             </div>
         );
         return compCreated;
-    }
-
-    private log(methodName: string, msg: string) {
-        errorLogging('kup-data-table', methodName + '()' + ' - ' + msg, 'log');
     }
 }

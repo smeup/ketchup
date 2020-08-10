@@ -12,7 +12,8 @@ import {
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-radio',
@@ -149,7 +150,12 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentDidRender() {

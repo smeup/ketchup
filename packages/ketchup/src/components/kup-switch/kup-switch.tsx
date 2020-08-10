@@ -11,7 +11,8 @@ import {
 } from '@stencil/core';
 import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-switch',
@@ -141,7 +142,12 @@ export class KupSwitch {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logMessage(this, 'Component initialized.');
         setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logMessage(this, 'Component ready.');
     }
 
     componentWillRender() {
