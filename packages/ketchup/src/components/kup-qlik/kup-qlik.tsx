@@ -1,4 +1,4 @@
-import { Component, Prop, h, State } from '@stencil/core';
+import { Component, Prop, Element, h, State } from '@stencil/core';
 import qApp from './qApp';
 import { QlikServer, KupQlikGrid } from './kup-qlik-declarations';
 import { logMessage } from '../../utils/debug-manager';
@@ -9,6 +9,7 @@ import { logMessage } from '../../utils/debug-manager';
     shadow: false,
 })
 export class KupQlik {
+    @Element() rootElement: HTMLElement;
     /**
      * Set Qlik Server's connection parameters
      * {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}

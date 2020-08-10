@@ -1,11 +1,12 @@
 import {
-    Prop,
     Component,
-    h,
+    Prop,
+    Element,
     Event,
     EventEmitter,
     State,
     Watch,
+    h,
 } from '@stencil/core';
 
 import { TableData, Row } from '../kup-data-table/kup-data-table-declarations';
@@ -23,6 +24,7 @@ import { logMessage } from '../../utils/debug-manager';
 })
 // TODO: complete this component... actually is only a simplified version for tests inside form...
 export class KupSearch {
+    @Element() rootElement: HTMLElement;
     //--------------------------------------------------------------------------
     // PROPS
     // -------------------------------------------------------------------------

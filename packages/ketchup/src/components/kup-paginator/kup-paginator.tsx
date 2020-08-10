@@ -1,4 +1,11 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
@@ -10,6 +17,8 @@ import { logMessage } from '../../utils/debug-manager';
     shadow: true,
 })
 export class KupPaginator {
+    @Element() rootElement: HTMLElement;
+
     @Prop({ reflect: true }) currentPage = 1;
 
     @Prop({ reflect: true }) max = 0;
