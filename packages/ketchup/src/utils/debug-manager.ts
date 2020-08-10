@@ -7,7 +7,16 @@
 // - type      = error triggers a console.error, warning triggers a console.warning, otherwise it will be a console.log
 //
 //
+declare global {
+    interface HTMLElement {
+        'kup-debug': boolean;
+    }
+}
+
 export function logMessage(comp: string, message: string, type?: string) {
+    if ((!type || type === 'log') && !document.documentElement['kup-debug']) {
+        return;
+    }
     var d = new Date(),
         minutes =
             d.getMinutes().toString().length == 1
