@@ -693,7 +693,7 @@ export class KupDataTable {
             );
         }
 
-        if (root != null) {
+        if (root) {
             let menu: HTMLElement = root.querySelector('.column-menu');
             if (menu) {
                 let wrapper: HTMLElement = menu.closest('th');
@@ -2708,12 +2708,7 @@ export class KupDataTable {
                     cell
                 );
                 content = (
-                    <kup-lazy
-                        class="cell-button"
-                        componentName="kup-button"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
+                    <kup-button class="cell-button" {...props}></kup-button>
                 );
             } else {
                 content = undefined;
@@ -2737,12 +2732,7 @@ export class KupDataTable {
                 props = { disabled: row.readOnly };
             }
             content = (
-                <kup-lazy
-                    class="cell-checkbox"
-                    componentName="kup-checkbox"
-                    showPlaceholder={false}
-                    data={...props}
-                />
+                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
             );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
@@ -2755,19 +2745,7 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                let cellStyle = {
-                    width: props['sizeX'],
-                    height: props['sizeY'],
-                };
-                content = (
-                    <kup-lazy
-                        style={cellStyle}
-                        class="cell-icon"
-                        componentName="kup-image"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
-                );
+                content = <kup-image class="cell-icon" {...props}></kup-image>;
             } else {
                 content = undefined;
             }
@@ -2820,11 +2798,10 @@ export class KupDataTable {
         } else if (isProgressBar(cell.obj)) {
             if (props) {
                 content = (
-                    <kup-lazy
+                    <kup-progress-bar
                         class="cell-progress-bar"
-                        componentName="kup-progress-bar"
-                        data={...props}
-                    />
+                        {...props}
+                    ></kup-progress-bar>
                 );
             } else {
                 content = undefined;
@@ -2832,14 +2809,7 @@ export class KupDataTable {
         } else if (isRadio(cell.obj)) {
             if (props) {
                 props['disabled'] = row.readOnly;
-                content = (
-                    <kup-lazy
-                        class="cell-radio"
-                        componentName="kup-radio"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
-                );
+                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
             } else {
                 content = undefined;
             }
