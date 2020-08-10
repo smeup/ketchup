@@ -85,7 +85,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 
 @Component({
@@ -3295,6 +3295,6 @@ export class KupDataTable {
     }
 
     private log(methodName: string, msg: string) {
-        errorLogging('kup-data-table', methodName + '()' + ' - ' + msg, 'log');
+        logMessage('kup-data-table', methodName + '()' + ' - ' + msg, 'log');
     }
 }

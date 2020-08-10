@@ -11,8 +11,8 @@ import {
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
-import { errorLogging } from '../../utils/error-logging';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-chip',
@@ -175,7 +175,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    errorLogging(this.rootElement.tagName, message);
+                    logMessage(this.rootElement.tagName, message);
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -214,12 +214,12 @@ export class KupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    errorLogging(this.rootElement.tagName, message);
+                    logMessage(this.rootElement.tagName, message);
             }
         }
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            errorLogging('kup-chip', message);
+            logMessage('kup-chip', message);
         }
         for (let i = 0; i < this.data.length; i++) {
             let componentClass: string = 'mdc-chip';

@@ -379,7 +379,7 @@ export default {
           {
             title: 'Error logging',
             to: {
-              name: 'errorlogging',
+              name: 'logmessage',
             },
           },
           {

@@ -7,7 +7,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-progress-bar',

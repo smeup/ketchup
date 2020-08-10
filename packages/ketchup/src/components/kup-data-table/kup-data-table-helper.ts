@@ -16,7 +16,7 @@ import {
 
 import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty, stringToNumber } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
@@ -269,11 +269,7 @@ export function setTextFieldFilterValue(
 }
 
 export function log(methodName: string, msg: string) {
-    errorLogging(
-        'kup-data-table-helper',
-        methodName + '()' + ' - ' + msg,
-        'log'
-    );
+    logMessage('kup-data-table-helper', methodName + '()' + ' - ' + msg, 'log');
 }
 /**
  * Filters the rows data of a data-table component according to the parameters

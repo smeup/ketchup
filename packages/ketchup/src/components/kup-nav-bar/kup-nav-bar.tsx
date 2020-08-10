@@ -23,7 +23,7 @@ import {
     setThemeCustomStyle,
     setCustomStyle,
     dynColorContrast,
-} from '../../utils/theming';
+} from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-nav-bar',

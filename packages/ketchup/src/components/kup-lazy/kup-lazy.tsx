@@ -1,6 +1,6 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { EventListenerCallback, Method } from '@stencil/core/internal';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-lazy',

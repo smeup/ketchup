@@ -36,10 +36,10 @@ import {
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
     styleHasBorderRadius,
     styleHasWritingMode,
@@ -620,7 +620,7 @@ export class KupTree {
     }
 
     log(methodName: string, msg: string) {
-        errorLogging(
+        logMessage(
             'kup-tree',
             methodName + '() ' + this.rootElement.id + ' - ' + msg,
             'log'

@@ -1,25 +1,25 @@
 <template>
   <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
     <template v-slot:0>
-      <errorlogging-basic></errorlogging-basic>
+      <logmessage-basic></logmessage-basic>
     </template>
   </comp>
 </template>
 
 <script>
-import ErrorloggingBasic from '@/views/javascript/errorlogging/examples/ErrorloggingBasic';
+import LogmessageBasic from '@/views/javascript/logmessage/examples/LogmessageBasic';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
-    ErrorloggingBasic,
+    LogmessageBasic,
     Comp,
   },
   data() {
     return {
       giturl:
-        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/error-logging.ts',
-      headtitle: 'Error logging',
+        'https://github.com/smeup/ketchup/blob/develop/packages/ketchup/src/utils/debug-manager.ts',
+      headtitle: 'Logmessage',
       titles: ['Basic usage'],
     };
   },

@@ -12,9 +12,9 @@ import {
     Method,
 } from '@stencil/core';
 import { Badge, CssDraw } from './kup-image-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-image',
@@ -288,7 +288,7 @@ export class KupImage {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this.rootElement.tagName, message);
             return;
         }
 

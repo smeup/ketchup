@@ -23,7 +23,7 @@
     <p>
       In this page there is a chip component declared without any data. This
       triggers an informational console entry. Check it out to see the output of
-      the errorLogging script.
+      the logMessage script.
     </p>
     <kup-chip></kup-chip>
   </div>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       codeSample:
-        'errorLogging(comp: string, message: string, type?: string) {...}',
+        'logMessage(comp: string, message: string, type?: string) {...}',
     };
   },
 };

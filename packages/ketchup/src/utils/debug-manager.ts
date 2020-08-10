@@ -7,7 +7,7 @@
 // - type      = error triggers a console.error, warning triggers a console.warning, otherwise it will be a console.log
 //
 //
-export function errorLogging(comp: string, message: string, type?: string) {
+export function logMessage(comp: string, message: string, type?: string) {
     var d = new Date(),
         minutes =
             d.getMinutes().toString().length == 1

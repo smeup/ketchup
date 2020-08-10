@@ -1,4 +1,4 @@
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 
 export interface ComponentListElement {
     text: string;
@@ -48,7 +48,7 @@ export function consistencyCheck(
                     i +
                     ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
 
-                errorLogging('kup-list-utils', message);
+                logMessage('kup-list-utils', message);
             }
             if (listData['data'][i].selected && !firstSelectedFound) {
                 firstSelectedFound = true;

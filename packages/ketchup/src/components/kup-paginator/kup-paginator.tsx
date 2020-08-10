@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-paginator',
@@ -167,7 +167,7 @@ export class KupPaginator {
     }
 
     log(methodName: string, msg: string) {
-        errorLogging('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+        logMessage('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
     }
 
     render() {
