@@ -44,12 +44,14 @@ Type: `Promise<void>`
 
  - [kup-data-table](../kup-data-table)
  - [kup-list](../kup-list)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-data-table --> kup-radio
   kup-list --> kup-radio
+  kup-tree --> kup-radio
   style kup-radio fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

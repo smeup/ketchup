@@ -52,6 +52,7 @@ Type: `Promise<void>`
  - [kup-checkbox-menu](../kup-checkbox-menu)
  - [kup-data-table](../kup-data-table)
  - [kup-list](../kup-list)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
@@ -60,6 +61,7 @@ graph TD;
   kup-checkbox-menu --> kup-checkbox
   kup-data-table --> kup-checkbox
   kup-list --> kup-checkbox
+  kup-tree --> kup-checkbox
   style kup-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
