@@ -479,12 +479,13 @@ export default {
       }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
+        let prop = demoComponent.currentJSONprop;
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
-          let prop = demoComponent.currentJSONprop;
           demoComponent[prop] = jsonifiedData;
           jsonWarning.classList.remove('visible');
         } catch (error) {
+          demoComponent[prop] = jsonTextarea.value;
           jsonWarning.classList.add('visible');
         }
       });
