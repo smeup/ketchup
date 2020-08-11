@@ -8,12 +8,10 @@ export function logMessage(comp: any, message: string, type?: string) {
     if ((!type || type === 'log') && !document.documentElement['kupDebug']) {
         return;
     }
-    let obj: object = undefined;
     let id: string = '';
     if (comp.rootElement) {
         id =
             ' ' + comp.rootElement.tagName + '#' + comp.rootElement.id + ' => ';
-        obj = JSON.parse(JSON.stringify(comp));
     } else {
         id = ' ' + comp + ' => ';
     }
@@ -70,7 +68,7 @@ export function logMessage(comp: any, message: string, type?: string) {
 
     switch (type) {
         case 'error':
-            console.error(consoleDate + id + message, obj);
+            console.error(consoleDate + id + message);
             window.dispatchEvent(
                 new CustomEvent('kupError', {
                     bubbles: true,
@@ -79,7 +77,7 @@ export function logMessage(comp: any, message: string, type?: string) {
             );
             break;
         case 'warning':
-            console.warn(consoleDate + id + message, obj);
+            console.warn(consoleDate + id + message);
             window.dispatchEvent(
                 new CustomEvent('kupError', {
                     bubbles: true,
@@ -89,7 +87,7 @@ export function logMessage(comp: any, message: string, type?: string) {
             break;
         case 'log':
         default:
-            console.log(consoleDate + id + message, obj);
+            console.log(consoleDate + id + message);
             break;
     }
 }
