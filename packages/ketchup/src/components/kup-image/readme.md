@@ -51,7 +51,6 @@ Type: `Promise<void>`
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
- - [kup-lazy](../kup-lazy)
  - [kup-list](../kup-list)
  - [kup-progress-bar](../kup-progress-bar)
  - [kup-tab-bar](../kup-tab-bar)
@@ -77,7 +76,6 @@ graph TD;
   kup-chip --> kup-image
   kup-data-table --> kup-image
   kup-form --> kup-image
-  kup-lazy --> kup-image
   kup-list --> kup-image
   kup-progress-bar --> kup-image
   kup-tab-bar --> kup-image

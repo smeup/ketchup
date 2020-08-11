@@ -128,7 +128,6 @@ graph TD;
   kup-chip --> kup-image
   kup-button --> kup-image
   kup-progress-bar --> kup-image
-  kup-lazy --> kup-image
   kup-text-field --> kup-image
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list

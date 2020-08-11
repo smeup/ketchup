@@ -25,3 +25,20 @@
     display: var(--kup-display-mode);
   }
 }
+
+svg {
+  fill: var(--kup-icon-color);
+  animation: shine ease 2s infinite;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
