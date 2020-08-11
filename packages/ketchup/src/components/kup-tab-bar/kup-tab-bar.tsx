@@ -33,6 +33,9 @@ export class KupTabBar {
      */
     @Prop() data: ComponentTabBarElement[] = [];
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     @Event({
         eventName: 'kupTabBarBlur',
         composed: true,
@@ -97,12 +100,14 @@ export class KupTabBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentDidRender() {

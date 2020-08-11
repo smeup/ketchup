@@ -114,6 +114,8 @@ export class KupTextField {
     @Prop({ reflect: true }) trailingLabel: boolean = false;
 
     private inputEl = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -328,13 +330,15 @@ export class KupTextField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
         this.watchInitialValue();
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentDidRender() {

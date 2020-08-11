@@ -506,6 +506,8 @@ export class KupDataTable {
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -721,7 +723,7 @@ export class KupDataTable {
 
     //======== Lifecycle Hooks ========
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         // *** Store
         this.initWithPersistedState();
         // ***
@@ -801,7 +803,9 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentDidUnload() {

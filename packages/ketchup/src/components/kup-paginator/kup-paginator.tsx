@@ -29,6 +29,9 @@ export class KupPaginator {
 
     @Prop({ reflect: true }) selectedPerPage = 10;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     /**
      * When the current page change
      */
@@ -176,11 +179,13 @@ export class KupPaginator {
     }
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     render() {
