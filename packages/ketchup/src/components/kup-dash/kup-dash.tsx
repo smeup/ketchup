@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-dash',
@@ -18,6 +19,9 @@ export class KupDash {
     @Prop()
     index = 0;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     @Event({
         eventName: 'ketchupDashClicked',
         composed: true,
@@ -32,6 +36,18 @@ export class KupDash {
         this.dashClicked.emit({
             id: this.index,
         });
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     render() {

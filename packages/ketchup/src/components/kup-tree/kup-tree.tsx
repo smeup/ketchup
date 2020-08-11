@@ -158,6 +158,8 @@ export class KupTree {
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     //-------- Events --------
     /**
@@ -257,7 +259,7 @@ export class KupTree {
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -294,7 +296,9 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillRender() {

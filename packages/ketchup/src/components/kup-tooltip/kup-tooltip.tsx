@@ -127,8 +127,9 @@ export class KupTooltip {
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
     private mouseLeaveTimeout: NodeJS.Timeout;
-
     private wrapperEl: HTMLSpanElement;
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     // ---- Private methods ----
     private hasDetailData(): boolean {
@@ -439,11 +440,13 @@ export class KupTooltip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     render() {

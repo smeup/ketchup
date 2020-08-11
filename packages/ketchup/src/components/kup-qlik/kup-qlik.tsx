@@ -83,6 +83,8 @@ export class KupQlik {
 
     private isload = false;
     private app = null;
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     /**
      * Set in DOM head require import
@@ -211,14 +213,16 @@ export class KupQlik {
     }
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         if (this.doconnection) {
             this.loadApp();
         }
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillRender() {

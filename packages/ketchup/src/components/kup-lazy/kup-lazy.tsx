@@ -34,6 +34,8 @@ export class KupLazy {
     private viewportCheck: EventListenerCallback = () => {
         this.isInViewport = this.isElementPartiallyInViewport();
     };
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     //---- Methods ----
 
@@ -73,7 +75,7 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
     }
 
@@ -88,8 +90,10 @@ export class KupLazy {
                 document.addEventListener('resize', this.viewportCheck);
                 document.addEventListener('scroll', this.viewportCheck);
             }
-        }, 50);
-        logMessage(this, 'Component ready.');
+        }, 10);
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillUpdate() {

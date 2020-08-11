@@ -55,6 +55,9 @@ export class KupSearch {
         detail: SearchFilterSubmittedEventDetail
     ) => Promise<TableData> | undefined = undefined;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     //--------------------------------------------------------------------------
     // EVENTS
     // -------------------------------------------------------------------------
@@ -159,12 +162,14 @@ export class KupSearch {
     // -------------------------------------------------------------------------
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         this.onInitialValueChanged();
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     render() {

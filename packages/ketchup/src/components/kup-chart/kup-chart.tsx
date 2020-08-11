@@ -104,6 +104,9 @@ export class KupChart {
     @Prop()
     version = '45.2';
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     /**
      * Triggered when a chart serie is clicked
      */
@@ -513,7 +516,7 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
@@ -558,7 +561,9 @@ export class KupChart {
                 console.error(err);
             }
         }
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillUpdate() {

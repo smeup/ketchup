@@ -95,6 +95,8 @@ export class KupList {
     private checkboxes: KupCheckbox[] = [];
 
     private focIndex: number = -1;
+    private startTime: number = 0;
+    private endTime: number = 0;
 
     /**
      * Events.
@@ -495,7 +497,7 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
     }
 
@@ -515,7 +517,9 @@ export class KupList {
                 (listItemEl: any) => new MDCRipple(listItemEl)
             );
         }
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     itemCompliant(item: ComponentListElement): boolean {

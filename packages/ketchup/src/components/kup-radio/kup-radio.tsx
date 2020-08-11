@@ -45,6 +45,9 @@ export class KupRadio {
      */
     @Prop({ reflect: true }) name: string = 'radio-list';
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+
     @Event({
         eventName: 'kupRadioBlur',
         composed: true,
@@ -150,12 +153,14 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentDidRender() {
