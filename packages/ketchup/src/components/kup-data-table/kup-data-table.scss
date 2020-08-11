@@ -667,7 +667,9 @@ $fixed-row-class: fixed-row;
             margin: auto;
           }
 
-          & .indent ~ kup-lazy {
+          & .indent ~ kup-lazy,
+          & .indent ~ kup-image,
+          & .indent ~ kup-button {
             display: inline-block;
             margin: 0;
             vertical-align: middle;
