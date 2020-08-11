@@ -13,7 +13,7 @@ export function logMessage(comp: any, message: string, type?: string) {
     if (comp.rootElement) {
         id =
             ' ' + comp.rootElement.tagName + '#' + comp.rootElement.id + ' => ';
-        obj = JSON.parse(JSON.stringify(comp));
+        obj = comp;
     } else {
         id = ' ' + comp + ' => ';
     }
