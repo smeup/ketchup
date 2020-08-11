@@ -160,6 +160,9 @@ export class KupTree {
     private selectedColumn: string = '';
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //-------- Events --------
     /**
@@ -302,6 +305,8 @@ export class KupTree {
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         this.filterNodes();
     }
 
@@ -316,6 +321,12 @@ export class KupTree {
                 }
             }
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     //-------- Watchers --------

@@ -36,6 +36,9 @@ export class KupLazy {
     };
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //---- Methods ----
 
@@ -105,6 +108,20 @@ export class KupLazy {
             document.removeEventListener('resize', this.viewportCheck);
             document.removeEventListener('scroll', this.viewportCheck);
         }
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {

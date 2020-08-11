@@ -508,6 +508,9 @@ export class KupDataTable {
     private sizedColumns: Column[] = undefined;
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -735,6 +738,11 @@ export class KupDataTable {
         }
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         document.addEventListener('click', this.onDocumentClick);
@@ -777,6 +785,12 @@ export class KupDataTable {
             this.scrollOnHoverInstance = undefined;
         }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     componentDidLoad() {

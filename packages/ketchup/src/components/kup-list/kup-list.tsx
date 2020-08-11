@@ -97,6 +97,9 @@ export class KupList {
     private focIndex: number = -1;
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Events.
@@ -494,6 +497,31 @@ export class KupList {
         }
     }
 
+    itemCompliant(item: ComponentListElement): boolean {
+        if (item.isSeparator) {
+            return true;
+        }
+        if (!this.filter) {
+            return true;
+        }
+
+        if (this.displayMode == ItemsDisplayMode.CODE) {
+            return (
+                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            );
+        }
+        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
+            return (
+                item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+            );
+        }
+
+        return (
+            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+            item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+        );
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -522,28 +550,17 @@ export class KupList {
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
-    itemCompliant(item: ComponentListElement): boolean {
-        if (item.isSeparator) {
-            return true;
-        }
-        if (!this.filter) {
-            return true;
-        }
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
 
-        if (this.displayMode == ItemsDisplayMode.CODE) {
-            return (
-                item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-            );
-        }
-        if (this.displayMode == ItemsDisplayMode.DESCRIPTION) {
-            return (
-                item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-            );
-        }
-
-        return (
-            item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
-            item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
     }
 

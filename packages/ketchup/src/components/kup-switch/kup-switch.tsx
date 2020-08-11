@@ -47,6 +47,9 @@ export class KupSwitch {
 
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupSwitchBlur',
@@ -156,6 +159,8 @@ export class KupSwitch {
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -175,6 +180,12 @@ export class KupSwitch {
             );
             formField.input = component;
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {

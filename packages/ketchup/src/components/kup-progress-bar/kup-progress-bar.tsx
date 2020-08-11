@@ -66,6 +66,9 @@ export class KupProgressBar {
 
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //---- Methods ----
 
@@ -87,6 +90,11 @@ export class KupProgressBar {
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -97,6 +105,12 @@ export class KupProgressBar {
                 'transform: rotate(' + deg + ')'
             );
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
