@@ -775,6 +775,9 @@ export class KupDataTable {
             this.scrollOnHoverInstance = undefined;
         }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     componentDidLoad() {
@@ -806,7 +809,7 @@ export class KupDataTable {
 
     componentDidUnload() {
         // *** Store
-        this.persistState();
+        //this.persistState();
         // ***
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
