@@ -50,6 +50,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
@@ -75,6 +76,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
   kup-card --> kup-button

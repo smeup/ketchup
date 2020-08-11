@@ -707,12 +707,7 @@ export class KupTree {
                     false
                 );
                 content = (
-                    <kup-lazy
-                        class="cell-button"
-                        componentName="kup-button"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
+                    <kup-button class="cell-button" {...props}></kup-button>
                 );
             } else {
                 content = undefined;
@@ -734,12 +729,7 @@ export class KupTree {
                 props['disabled'] = cellData.treeNode.readOnly;
             }
             content = (
-                <kup-lazy
-                    class="cell-checkbox"
-                    componentName="kup-checkbox"
-                    showPlaceholder={false}
-                    data={...props}
-                />
+                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
             );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
@@ -752,14 +742,7 @@ export class KupTree {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = (
-                    <kup-lazy
-                        class="cell-icon"
-                        componentName="kup-image"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
-                );
+                content = <kup-image class="cell-icon" {...props}></kup-image>;
             } else {
                 content = undefined;
             }
@@ -799,11 +782,10 @@ export class KupTree {
         } else if (isProgressBar(cell.obj)) {
             if (props) {
                 content = (
-                    <kup-lazy
+                    <kup-progress-bar
                         class="cell-progress-bar"
-                        componentName="kup-progress-bar"
-                        data={...props}
-                    />
+                        {...props}
+                    ></kup-progress-bar>
                 );
             } else {
                 content = undefined;
@@ -813,14 +795,7 @@ export class KupTree {
                 if (cellData.treeNode.hasOwnProperty('readOnly')) {
                     props['disabled'] = cellData.treeNode.readOnly;
                 }
-                content = (
-                    <kup-lazy
-                        class="cell-radio"
-                        componentName="kup-radio"
-                        showPlaceholder={false}
-                        data={...props}
-                    />
-                );
+                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
             } else {
                 content = undefined;
             }

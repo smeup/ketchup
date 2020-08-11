@@ -109,7 +109,10 @@ Type: `Promise<void>`
 
 - [kup-button](../kup-button)
 - [kup-lazy](../kup-lazy)
+- [kup-checkbox](../kup-checkbox)
 - [kup-image](../kup-image)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
 - [kup-text-field](../kup-text-field)
 
 ### Graph
@@ -117,13 +120,16 @@ Type: `Promise<void>`
 graph TD;
   kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
   kup-tree --> kup-text-field
   kup-button --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-lazy --> kup-image
+  kup-progress-bar --> kup-image
   kup-text-field --> kup-image
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -36,17 +36,9 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
-### Depends on
-
-- [kup-image](../kup-image)
-
 ### Graph
 ```mermaid
 graph TD;
-  kup-lazy --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-box --> kup-lazy
   kup-data-table --> kup-lazy
   kup-tree --> kup-lazy

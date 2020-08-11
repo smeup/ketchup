@@ -1285,12 +1285,10 @@ export class KupBox {
                 if (isButton(cell.obj)) {
                     if (props) {
                         boContent = (
-                            <kup-lazy
+                            <kup-button
                                 class="cell-button"
-                                componentName="kup-button"
-                                showPlaceholder={false}
-                                data={...props}
-                            />
+                                {...props}
+                            ></kup-button>
                         );
                     } else {
                         boContent = undefined;
@@ -1317,29 +1315,13 @@ export class KupBox {
                         props = { disabled: row };
                     }
                     boContent = (
-                        <kup-lazy
+                        <kup-checkbox
                             class="cell-checkbox"
-                            componentName="kup-checkbox"
-                            showPlaceholder={false}
-                            data={...props}
-                        />
+                            {...props}
+                        ></kup-checkbox>
                     );
                 } else if (isEditor(cell, boxObject)) {
                     boContent = <kup-editor text={cell.value}></kup-editor>;
-                } else if (isRadio(cell.obj)) {
-                    if (props) {
-                        props['disabled'] = true;
-                        boContent = (
-                            <kup-lazy
-                                class="cell-radio"
-                                componentName="kup-radio"
-                                showPlaceholder={false}
-                                data={...props}
-                            />
-                        );
-                    } else {
-                        boContent = undefined;
-                    }
                 } else if (isIcon(cell.obj)) {
                     if (props) {
                         if (!props.sizeX) {
@@ -1349,12 +1331,7 @@ export class KupBox {
                             props['sizeY'] = '18px';
                         }
                         boContent = (
-                            <kup-lazy
-                                class="cell-icon"
-                                componentName="kup-image"
-                                showPlaceholder={false}
-                                data={...props}
-                            />
+                            <kup-image class="cell-icon" {...props}></kup-image>
                         );
                     } else {
                         boContent = undefined;
@@ -1391,11 +1368,22 @@ export class KupBox {
                 } else if (isProgressBar(cell, boxObject)) {
                     if (props) {
                         boContent = (
-                            <kup-lazy
+                            <kup-progress-bar
                                 class="cell-progress-bar"
-                                componentName="kup-progress-bar"
-                                data={...props}
-                            />
+                                {...props}
+                            ></kup-progress-bar>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isRadio(cell.obj)) {
+                    if (props) {
+                        props['disabled'] = true;
+                        boContent = (
+                            <kup-radio
+                                class="cell-radio"
+                                {...props}
+                            ></kup-radio>
                         );
                     } else {
                         boContent = undefined;

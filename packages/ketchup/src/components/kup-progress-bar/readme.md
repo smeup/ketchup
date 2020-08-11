@@ -37,9 +37,11 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -52,9 +54,11 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-box --> kup-progress-bar
   kup-card --> kup-progress-bar
   kup-data-table --> kup-progress-bar
   kup-form --> kup-progress-bar
+  kup-tree --> kup-progress-bar
   style kup-progress-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -185,7 +185,6 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-text-field --> kup-image
-  kup-lazy --> kup-image
   kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
