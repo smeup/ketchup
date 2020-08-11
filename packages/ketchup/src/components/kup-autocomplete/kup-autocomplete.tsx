@@ -56,6 +56,9 @@ export class KupAutocomplete {
     private elStyle: any = undefined;
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Event example.
@@ -379,8 +382,19 @@ export class KupAutocomplete {
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         positionRecalc(this.listEl, this.textfieldEl);
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {

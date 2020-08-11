@@ -38,6 +38,9 @@ export class KupChip {
 
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupChipBlur',
@@ -194,6 +197,11 @@ export class KupChip {
         }
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -201,6 +209,12 @@ export class KupChip {
             const chipSetEl = root.querySelector('.mdc-chip-set');
             new MDCChipSet(chipSetEl);
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {

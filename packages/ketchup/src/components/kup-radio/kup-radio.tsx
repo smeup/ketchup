@@ -47,6 +47,9 @@ export class KupRadio {
 
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -163,6 +166,11 @@ export class KupRadio {
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
@@ -176,6 +184,12 @@ export class KupRadio {
                 formField.input = component;
             }
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {

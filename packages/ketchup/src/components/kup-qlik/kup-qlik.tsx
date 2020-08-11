@@ -85,6 +85,9 @@ export class KupQlik {
     private app = null;
     private startTime: number = 0;
     private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Set in DOM head require import
@@ -226,6 +229,8 @@ export class KupQlik {
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         this.setRender(this.grid);
     }
 
@@ -264,5 +269,11 @@ export class KupQlik {
                 this.doSelection(this.grid);
             });
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 }
