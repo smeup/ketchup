@@ -2140,6 +2140,7 @@ export class KupDataTable {
                                 this.dragStarterAttribute,
                                 ''
                             );
+                            console.log(e.target);
                             this.theadRef.setAttribute(
                                 this.dragFlagAttribute,
                                 ''

@@ -479,6 +479,10 @@ $fixed-row-class: fixed-row;
       }
 
       //---- Columns drag style ----
+      & th[draggable] {
+        position: relative;
+      }
+
       &[columns-dragging] {
         // When the drag is over a valid target
         [drag-over] {
