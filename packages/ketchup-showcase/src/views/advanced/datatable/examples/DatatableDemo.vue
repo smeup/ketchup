@@ -37,7 +37,7 @@ export default {
           description:
             'Enables the sorting of columns by dragging them into different columns.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {

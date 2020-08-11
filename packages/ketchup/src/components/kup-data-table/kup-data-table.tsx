@@ -193,7 +193,7 @@ export class KupDataTable {
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */
-    @Prop({ reflect: true }) enableSortableColumns: boolean = false;
+    @Prop({ reflect: true }) enableSortableColumns: boolean = true;
 
     /**
      * List of filters set by the user.
