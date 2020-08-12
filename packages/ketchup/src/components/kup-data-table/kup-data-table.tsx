@@ -250,6 +250,11 @@ export class KupDataTable {
     @Prop({ reflect: true }) headerIsPersistent = true;
 
     /**
+     * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+     */
+    @Prop({ reflect: true }) lazyLoadRows: boolean = false;
+
+    /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
     @Prop({ reflect: true }) loadMoreLimit: number = 1000;
@@ -511,6 +516,8 @@ export class KupDataTable {
     private renderCount: number = 0;
     private renderStart: number = 0;
     private renderEnd: number = 0;
+    private intObserver: IntersectionObserver = undefined;
+    private observedEl: Element = undefined;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -724,9 +731,36 @@ export class KupDataTable {
         }
     };
 
+    setObserver() {
+        let callback: IntersectionObserverCallback = (
+            entries: IntersectionObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    logMessage(
+                        this,
+                        'Last row entering the viewport, loading more elements.'
+                    );
+                    let delta = this.rows.length - this.currentRowsPerPage;
+                    if (delta < this.loadMoreStep) {
+                        this.currentRowsPerPage += delta;
+                    } else {
+                        this.currentRowsPerPage += this.loadMoreStep;
+                    }
+                    this.intObserver.unobserve(this.observedEl);
+                }
+            });
+        };
+        let options: IntersectionObserverInit = {
+            threshold: 0.25,
+        };
+        this.intObserver = new IntersectionObserver(callback, options);
+    }
+
     //======== Lifecycle Hooks ========
     componentWillLoad() {
         this.startTime = performance.now();
+        this.setObserver();
         // *** Store
         this.initWithPersistedState();
         // ***
@@ -745,6 +779,11 @@ export class KupDataTable {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+        if (this.paginatedRows.length < this.rows.length && this.lazyLoadRows) {
+            let rows = root.querySelectorAll('tbody > tr');
+            this.observedEl = rows[this.paginatedRows.length - 1];
+            this.intObserver.observe(this.observedEl);
+        }
         document.addEventListener('click', this.onDocumentClick);
         if (
             this.headerIsPersistent &&
