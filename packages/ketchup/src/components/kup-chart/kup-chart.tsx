@@ -20,6 +20,8 @@ import {
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
+import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
+import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
 import { convertColumns, convertRows } from './kup-chart-builder';
 
@@ -128,7 +130,7 @@ export class KupChart {
     private gChartDataTable: any;
     private gChartView: any;
     private elStyle = undefined;
-    private observer: ResizeObserver = undefined;
+    private resObserver: ResizeObserver = undefined;
 
     //---- Methods ----
 
@@ -516,26 +518,43 @@ export class KupChart {
         this.themeColors = [color1, color2, color3, color4];
     }
 
+    setObserver() {
+        let callback: ResizeObserverCallback = (
+            entries: ResizeObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                logMessage(
+                    this,
+                    'Size changed to x: ' +
+                        entry.contentRect.width +
+                        ', y: ' +
+                        entry.contentRect.height +
+                        '.'
+                );
+                if (!this.offlineMode) {
+                    const options = this.createGoogleChartOptions();
+                    try {
+                        this.gChart.draw(this.gChartView, options);
+                    } catch (error) {}
+                } else {
+                    this.loadOfflineChart();
+                }
+            });
+        };
+        this.resObserver = new ResizeObserver(callback);
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.startTime = performance.now();
+        this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.observer = new ResizeObserver(() => {
-            if (!this.offlineMode) {
-                const options = this.createGoogleChartOptions();
-                try {
-                    this.gChart.draw(this.gChartView, options);
-                } catch (error) {}
-            } else {
-                this.loadOfflineChart();
-            }
-        });
-        this.observer.observe(this.rootElement);
+        this.resObserver.observe(this.rootElement);
 
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
@@ -620,6 +639,6 @@ export class KupChart {
     }
 
     disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
+        this.resObserver.unobserve(this.rootElement);
     }
 }
