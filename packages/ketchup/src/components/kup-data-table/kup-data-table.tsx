@@ -124,6 +124,7 @@ export class KupDataTable {
                 this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
                 this.headerIsPersistent = state.headerIsPersistent;
+                this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
                 this.multiSelection = state.multiSelection;
                 this.rowsPerPage = state.rowsPerPage;
@@ -151,6 +152,7 @@ export class KupDataTable {
             this.state.globalFilter = this.globalFilter;
             this.state.globalFilterValue = this.globalFilterValue;
             this.state.headerIsPersistent = this.headerIsPersistent;
+            this.state.lazyLoadRows = this.lazyLoadRows;
             this.state.loadMoreLimit = this.loadMoreLimit;
             this.state.multiSelection = this.multiSelection;
             //this.state.rowsPerPage = this.rowsPerPage;
