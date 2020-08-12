@@ -623,13 +623,6 @@ $fixed-row-class: fixed-row;
           .cell-content {
             display: flex;
 
-            &.is-vertical {
-              margin: auto;
-              & > * {
-                margin: auto;
-              }
-            }
-
             &.has-padding {
               padding: 1rem;
             }
@@ -643,6 +636,15 @@ $fixed-row-class: fixed-row;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
+            }
+
+            &.is-vertical,
+            :host([force-one-line]) &.is-vertical {
+              display: flex;
+              margin: auto;
+              & > * {
+                margin: auto;
+              }
             }
 
             &.negative-number {

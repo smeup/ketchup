@@ -250,7 +250,7 @@ export class KupDataTable {
     @Prop({ reflect: true }) headerIsPersistent = true;
 
     /**
-     * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+     * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
      */
     @Prop({ reflect: true }) lazyLoadRows: boolean = false;
 
@@ -2679,7 +2679,7 @@ export class KupDataTable {
                 };
 
                 let cellStyle: GenericObject = null;
-                if (!styleHasBorderRadius(cell) && !styleHasWritingMode(cell)) {
+                if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
                 }
 
@@ -3032,7 +3032,8 @@ export class KupDataTable {
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
-                    {this.rows.length >= this.rowsPerPage ? (
+                    {!this.lazyLoadRows &&
+                    this.rows.length >= this.rowsPerPage ? (
                         <kup-paginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             max={this.rows.length}
@@ -3279,7 +3280,8 @@ export class KupDataTable {
             );
         }
 
-        let paginatorTop = null;
+        let paginatorTop = undefined;
+        let paginatorBottom = undefined;
         if (
             PaginatorPos.TOP === this.paginatorPos ||
             PaginatorPos.BOTH === this.paginatorPos
@@ -3287,7 +3289,6 @@ export class KupDataTable {
             paginatorTop = this.renderPaginator(true);
         }
 
-        let paginatorBottom = null;
         if (
             PaginatorPos.BOTTOM === this.paginatorPos ||
             PaginatorPos.BOTH === this.paginatorPos
