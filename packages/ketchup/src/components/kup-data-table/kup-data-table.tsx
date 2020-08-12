@@ -2679,7 +2679,7 @@ export class KupDataTable {
                 };
 
                 let cellStyle: GenericObject = null;
-                if (!styleHasBorderRadius(cell) && !styleHasWritingMode(cell)) {
+                if (!styleHasBorderRadius(cell)) {
                     cellStyle = cell.style;
                 }
 
