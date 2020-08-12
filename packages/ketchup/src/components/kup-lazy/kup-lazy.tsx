@@ -58,6 +58,7 @@ export class KupLazy {
                             '.'
                     );
                     this.isInViewport = true;
+                    this.intObserver.unobserve(this.rootElement);
                 }
             });
         };
