@@ -102,7 +102,7 @@ export default {
         {
           prop: 'lazyLoadRows',
           description:
-            'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
+            'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -251,7 +251,7 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-data-table');
   comp.data = defaultDataTable;
-  comp.density = 'small';
+  comp.density = 'dense';
   comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
