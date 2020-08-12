@@ -509,6 +509,10 @@ export namespace Components {
          */
         "headerIsPersistent": boolean;
         /**
+          * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+         */
+        "lazyLoadRows": boolean;
+        /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */
         "lineBreakCharacter": string;
@@ -2370,6 +2374,10 @@ declare namespace LocalJSX {
           * When set to true the header will stick on top of the table when scrolling.
          */
         "headerIsPersistent"?: boolean;
+        /**
+          * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+         */
+        "lazyLoadRows"?: boolean;
         /**
           * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
          */

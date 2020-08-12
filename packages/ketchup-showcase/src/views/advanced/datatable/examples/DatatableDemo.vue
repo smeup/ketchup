@@ -100,6 +100,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'lazyLoadRows',
+          description:
+            'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'loadMoreLimit',
           description:
             'Sets a maximum limit of new records which can be required by the load more functionality.',

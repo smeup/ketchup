@@ -31,9 +31,7 @@ export class KupLazy {
 
     @Prop() showPlaceholder: boolean = true;
 
-    private viewportCheck: EventListenerCallback = () => {
-        this.isInViewport = this.isElementPartiallyInViewport();
-    };
+    private intObserver: IntersectionObserver = undefined;
     private startTime: number = 0;
     private endTime: number = 0;
     private renderCount: number = 0;
@@ -47,67 +45,42 @@ export class KupLazy {
         this.customStyleTheme = customStyleTheme;
     }
 
-    isElementPartiallyInViewport() {
-        var rect = this.rootElement.getBoundingClientRect();
-
-        if (
-            rect.top === 0 &&
-            rect.left === 0 &&
-            rect.right === 0 &&
-            rect.bottom === 0 &&
-            rect.height === 0 &&
-            rect.width === 0 &&
-            rect.x === 0 &&
-            rect.y === 0
-        ) {
-            return false;
-        }
-
-        var windowHeight =
-            window.innerHeight || document.documentElement.clientHeight;
-        var windowWidth =
-            window.innerWidth || document.documentElement.clientWidth;
-
-        var vertInView =
-            rect.top <= windowHeight && rect.top + rect.height >= 0;
-        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
-
-        return vertInView && horInView;
+    setObserver() {
+        let callback: IntersectionObserverCallback = (
+            entries: IntersectionObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    logMessage(
+                        this,
+                        'kup-lazy entering the viewport, rendering ' +
+                            this.componentName +
+                            '.'
+                    );
+                    this.isInViewport = true;
+                    this.intObserver.unobserve(this.rootElement);
+                }
+            });
+        };
+        let options: IntersectionObserverInit = {
+            threshold: 0.25,
+        };
+        this.intObserver = new IntersectionObserver(callback, options);
     }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.startTime = performance.now();
+        this.setObserver();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        setTimeout(() => {
-            this.isInViewport = this.isElementPartiallyInViewport();
-            if (!this.isInViewport) {
-                document.addEventListener(
-                    'DOMContentLoaded',
-                    this.viewportCheck
-                );
-                document.addEventListener('resize', this.viewportCheck);
-                document.addEventListener('scroll', this.viewportCheck);
-            }
-        }, 10);
+        this.intObserver.observe(this.rootElement);
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
-    }
-
-    componentWillUpdate() {
-        if (this.isInViewport) {
-            document.removeEventListener(
-                'DOMContentLoaded',
-                this.viewportCheck
-            );
-            document.removeEventListener('resize', this.viewportCheck);
-            document.removeEventListener('scroll', this.viewportCheck);
-        }
     }
 
     componentWillRender() {
@@ -263,5 +236,9 @@ export class KupLazy {
                 <div id="kup-component">{content}</div>
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.intObserver.unobserve(this.rootElement);
     }
 }
