@@ -37,7 +37,7 @@ export default {
           description:
             'Enables the sorting of columns by dragging them into different columns.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
@@ -97,6 +97,14 @@ export default {
             'When set to true the header will stick on top of the table when scrolling.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'lazyLoadRows',
+          description:
+            'When set to true, extra rows will be automatically loaded once the last row enters the viewport.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

@@ -10,6 +10,8 @@ import {
     Method,
 } from '@stencil/core';
 import { ResizeObserver } from 'resize-observer';
+import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
+import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
@@ -67,7 +69,12 @@ export class KupCard {
     private elStyle = undefined;
     private oldSizeY = undefined;
     private scalingActive = false;
-    private observer: ResizeObserver = undefined;
+    private resObserver: ResizeObserver = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupCardClick',
@@ -290,10 +297,30 @@ export class KupCard {
         });
     }
 
+    setObserver() {
+        let callback: ResizeObserverCallback = (
+            entries: ResizeObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                logMessage(
+                    this,
+                    'Size changed to x: ' +
+                        entry.contentRect.width +
+                        ', y: ' +
+                        entry.contentRect.height +
+                        '.'
+                );
+                this.layoutManager();
+            });
+        };
+        this.resObserver = new ResizeObserver(callback);
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
+        this.setObserver();
         setThemeCustomStyle(this);
 
         const root = this.rootElement.shadowRoot;
@@ -301,19 +328,28 @@ export class KupCard {
         this.listenButtonEvents(root);
         this.listenChipEvents(root);
         this.listenImageEvents(root);
-
-        this.observer = new ResizeObserver(() => {
-            this.layoutManager();
-        });
-        this.observer.observe(this.rootElement);
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.resObserver.observe(this.rootElement);
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
     }
 
     componentDidRender() {
         this.layoutManager();
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -362,6 +398,6 @@ export class KupCard {
     }
 
     disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
+        this.resObserver.unobserve(this.rootElement);
     }
 }

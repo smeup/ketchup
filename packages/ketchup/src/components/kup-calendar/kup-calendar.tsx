@@ -31,6 +31,12 @@ export class KupCalendar {
     @Prop({ reflect: true }) hideNavigation = false;
     @Prop({ reflect: true }) initialDate: string;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
     /**
      * When an event is clicked
      */
@@ -178,7 +184,7 @@ export class KupCalendar {
 
     // ---- Lifecycle ----
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
     }
 
     componentDidLoad() {
@@ -269,13 +275,23 @@ export class KupCalendar {
         });
 
         this.calendar.render();
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
-    componentDidUnload() {
-        if (this.calendar) {
-            this.calendar.destroy();
-        }
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -303,5 +319,11 @@ export class KupCalendar {
                 <div ref={(el) => (this.calendarContainer = el)}></div>
             </div>
         );
+    }
+
+    disconnectedCallback() {
+        if (this.calendar) {
+            this.calendar.destroy();
+        }
     }
 }

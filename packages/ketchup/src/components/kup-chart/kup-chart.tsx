@@ -20,6 +20,8 @@ import {
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
+import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
+import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
 import { convertColumns, convertRows } from './kup-chart-builder';
 
@@ -104,6 +106,12 @@ export class KupChart {
     @Prop()
     version = '45.2';
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
     /**
      * Triggered when a chart serie is clicked
      */
@@ -122,7 +130,7 @@ export class KupChart {
     private gChartDataTable: any;
     private gChartView: any;
     private elStyle = undefined;
-    private observer: ResizeObserver = undefined;
+    private resObserver: ResizeObserver = undefined;
 
     //---- Methods ----
 
@@ -510,26 +518,43 @@ export class KupChart {
         this.themeColors = [color1, color2, color3, color4];
     }
 
+    setObserver() {
+        let callback: ResizeObserverCallback = (
+            entries: ResizeObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                logMessage(
+                    this,
+                    'Size changed to x: ' +
+                        entry.contentRect.width +
+                        ', y: ' +
+                        entry.contentRect.height +
+                        '.'
+                );
+                if (!this.offlineMode) {
+                    const options = this.createGoogleChartOptions();
+                    try {
+                        this.gChart.draw(this.gChartView, options);
+                    } catch (error) {}
+                } else {
+                    this.loadOfflineChart();
+                }
+            });
+        };
+        this.resObserver = new ResizeObserver(callback);
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
+        this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.observer = new ResizeObserver(() => {
-            if (!this.offlineMode) {
-                const options = this.createGoogleChartOptions();
-                try {
-                    this.gChart.draw(this.gChartView, options);
-                } catch (error) {}
-            } else {
-                this.loadOfflineChart();
-            }
-        });
-        this.observer.observe(this.rootElement);
+        this.resObserver.observe(this.rootElement);
 
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
@@ -558,7 +583,23 @@ export class KupChart {
                 console.error(err);
             }
         }
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     componentWillUpdate() {
@@ -598,6 +639,6 @@ export class KupChart {
     }
 
     disconnectedCallBack() {
-        this.observer.unobserve(this.rootElement);
+        this.resObserver.unobserve(this.rootElement);
     }
 }

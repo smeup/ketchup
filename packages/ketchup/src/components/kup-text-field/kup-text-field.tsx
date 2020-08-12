@@ -114,6 +114,11 @@ export class KupTextField {
     @Prop({ reflect: true }) trailingLabel: boolean = false;
 
     private inputEl = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -325,176 +330,6 @@ export class KupTextField {
         throw new Error(`The value ${newValue} is not a valid string.`);
     }
 
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        logMessage(this, 'Component initialized.');
-        setThemeCustomStyle(this);
-        this.watchInitialValue();
-    }
-
-    componentDidLoad() {
-        logMessage(this, 'Component ready.');
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            const component = new MDCTextField(
-                root.querySelector('.mdc-text-field')
-            );
-            if (root.querySelector('.mdc-form-field')) {
-                const formField = MDCFormField.attachTo(
-                    root.querySelector('.mdc-form-field')
-                );
-                formField.input = component;
-            }
-            if (root.querySelector('.mdc-text-field-helper-text')) {
-                new MDCTextFieldHelperText(
-                    document.querySelector('.mdc-text-field-helper-text')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-character-counter')) {
-                new MDCTextFieldCharacterCounter(
-                    document.querySelector('.mdc-text-field-character-counter')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-icon')) {
-                new MDCTextFieldIcon(
-                    document.querySelector('.mdc-text-field-icon')
-                );
-            }
-        }
-    }
-
-    render() {
-        let componentClass: string = 'mdc-text-field';
-        let labelEl: HTMLElement = null;
-        let helperEl: HTMLElement = null;
-        let iconEl: HTMLElement = null;
-        let clearIconEl: HTMLElement = null;
-        let charEl: HTMLElement = null;
-        let widgetEl: HTMLElement = null;
-        let placeholderLabel: string = null;
-
-        if (!this.label) {
-            componentClass += ' mdc-text-field--no-label';
-        }
-
-        if (this.disabled) {
-            componentClass += ' mdc-text-field--disabled';
-        }
-
-        if (this.shaped) {
-            componentClass += ' shaped';
-        }
-
-        if (this.fullWidth) {
-            componentClass += ' mdc-text-field--fullwidth';
-            placeholderLabel = this.label;
-        } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
-            labelEl = (
-                <label class="mdc-floating-label" htmlFor="kup-input">
-                    {this.label}
-                </label>
-            );
-        }
-
-        if (this.isClearable) {
-            clearIconEl = (
-                <kup-image
-                    tabindex="1"
-                    class="material-icons mdc-text-field__icon clear-icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource="clear"
-                    onClick={() => this.onKupClearIconClick()}
-                ></kup-image>
-            );
-            componentClass += ' is-clearable';
-        }
-
-        if (this.icon) {
-            iconEl = (
-                <kup-image
-                    tabindex="0"
-                    class="material-icons mdc-text-field__icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource={this.icon}
-                    onClick={(e: any) => this.onKupIconClick(e)}
-                ></kup-image>
-            );
-            if (this.trailingIcon) {
-                componentClass += ' mdc-text-field--with-trailing-icon';
-            } else {
-                componentClass += ' mdc-text-field--with-leading-icon';
-            }
-        }
-
-        if (this.helper) {
-            let helperClass: string = 'mdc-text-field-helper-text';
-
-            if (!this.helperWhenFocused) {
-                helperClass += ' mdc-text-field-helper-text--persistent';
-            }
-
-            if (this.maxLength && !this.textArea) {
-                let charString = '0 / ' + this.maxLength;
-                charEl = (
-                    <div class="mdc-text-field-character-counter">
-                        {charString}
-                    </div>
-                );
-            }
-
-            helperEl = (
-                <div class="mdc-text-field-helper-line">
-                    <div class={helperClass}>{this.helper}</div>
-                    {charEl}
-                </div>
-            );
-        } else {
-            if (this.maxLength && !this.textArea) {
-                let charString = '0 / ' + this.maxLength;
-                charEl = (
-                    <div class="mdc-text-field-character-counter">
-                        {charString}
-                    </div>
-                );
-                helperEl = (
-                    <div class="mdc-text-field-helper-line">{charEl}</div>
-                );
-            }
-        }
-
-        if (this.textArea || this.outlined) {
-            widgetEl = this.outlinedStyling(
-                componentClass,
-                labelEl,
-                placeholderLabel,
-                iconEl,
-                clearIconEl
-            );
-        } else {
-            widgetEl = this.defaultStyling(
-                componentClass,
-                labelEl,
-                placeholderLabel,
-                iconEl,
-                clearIconEl
-            );
-        }
-
-        if (this.leadingLabel || this.trailingLabel) {
-            widgetEl = this.renderForm(widgetEl, helperEl);
-        } else {
-            widgetEl = this.renderTextField(widgetEl, helperEl);
-        }
-        return widgetEl;
-    }
-
     outlinedStyling(
         componentClass: string,
         labelEl: HTMLElement,
@@ -690,5 +525,188 @@ export class KupTextField {
                 </div>
             </Host>
         );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+        this.watchInitialValue();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            const component = new MDCTextField(
+                root.querySelector('.mdc-text-field')
+            );
+            if (root.querySelector('.mdc-form-field')) {
+                const formField = MDCFormField.attachTo(
+                    root.querySelector('.mdc-form-field')
+                );
+                formField.input = component;
+            }
+            if (root.querySelector('.mdc-text-field-helper-text')) {
+                new MDCTextFieldHelperText(
+                    document.querySelector('.mdc-text-field-helper-text')
+                );
+            }
+            if (root.querySelector('.mdc-text-field-character-counter')) {
+                new MDCTextFieldCharacterCounter(
+                    document.querySelector('.mdc-text-field-character-counter')
+                );
+            }
+            if (root.querySelector('.mdc-text-field-icon')) {
+                new MDCTextFieldIcon(
+                    document.querySelector('.mdc-text-field-icon')
+                );
+            }
+        }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
+    }
+
+    render() {
+        let componentClass: string = 'mdc-text-field';
+        let labelEl: HTMLElement = null;
+        let helperEl: HTMLElement = null;
+        let iconEl: HTMLElement = null;
+        let clearIconEl: HTMLElement = null;
+        let charEl: HTMLElement = null;
+        let widgetEl: HTMLElement = null;
+        let placeholderLabel: string = null;
+
+        if (!this.label) {
+            componentClass += ' mdc-text-field--no-label';
+        }
+
+        if (this.disabled) {
+            componentClass += ' mdc-text-field--disabled';
+        }
+
+        if (this.shaped) {
+            componentClass += ' shaped';
+        }
+
+        if (this.fullWidth) {
+            componentClass += ' mdc-text-field--fullwidth';
+            placeholderLabel = this.label;
+        } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
+            labelEl = (
+                <label class="mdc-floating-label" htmlFor="kup-input">
+                    {this.label}
+                </label>
+            );
+        }
+
+        if (this.isClearable) {
+            clearIconEl = (
+                <kup-image
+                    tabindex="1"
+                    class="material-icons mdc-text-field__icon clear-icon"
+                    sizeX="24px"
+                    sizeY="24px"
+                    resource="clear"
+                    onClick={() => this.onKupClearIconClick()}
+                ></kup-image>
+            );
+            componentClass += ' is-clearable';
+        }
+
+        if (this.icon) {
+            iconEl = (
+                <kup-image
+                    tabindex="0"
+                    class="material-icons mdc-text-field__icon"
+                    sizeX="24px"
+                    sizeY="24px"
+                    resource={this.icon}
+                    onClick={(e: any) => this.onKupIconClick(e)}
+                ></kup-image>
+            );
+            if (this.trailingIcon) {
+                componentClass += ' mdc-text-field--with-trailing-icon';
+            } else {
+                componentClass += ' mdc-text-field--with-leading-icon';
+            }
+        }
+
+        if (this.helper) {
+            let helperClass: string = 'mdc-text-field-helper-text';
+
+            if (!this.helperWhenFocused) {
+                helperClass += ' mdc-text-field-helper-text--persistent';
+            }
+
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
+                charEl = (
+                    <div class="mdc-text-field-character-counter">
+                        {charString}
+                    </div>
+                );
+            }
+
+            helperEl = (
+                <div class="mdc-text-field-helper-line">
+                    <div class={helperClass}>{this.helper}</div>
+                    {charEl}
+                </div>
+            );
+        } else {
+            if (this.maxLength && !this.textArea) {
+                let charString = '0 / ' + this.maxLength;
+                charEl = (
+                    <div class="mdc-text-field-character-counter">
+                        {charString}
+                    </div>
+                );
+                helperEl = (
+                    <div class="mdc-text-field-helper-line">{charEl}</div>
+                );
+            }
+        }
+
+        if (this.textArea || this.outlined) {
+            widgetEl = this.outlinedStyling(
+                componentClass,
+                labelEl,
+                placeholderLabel,
+                iconEl,
+                clearIconEl
+            );
+        } else {
+            widgetEl = this.defaultStyling(
+                componentClass,
+                labelEl,
+                placeholderLabel,
+                iconEl,
+                clearIconEl
+            );
+        }
+
+        if (this.leadingLabel || this.trailingLabel) {
+            widgetEl = this.renderForm(widgetEl, helperEl);
+        } else {
+            widgetEl = this.renderTextField(widgetEl, helperEl);
+        }
+        return widgetEl;
     }
 }

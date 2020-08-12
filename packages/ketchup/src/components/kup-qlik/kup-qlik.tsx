@@ -83,6 +83,11 @@ export class KupQlik {
 
     private isload = false;
     private app = null;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Set in DOM head require import
@@ -211,17 +216,21 @@ export class KupQlik {
     }
 
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         if (this.doconnection) {
             this.loadApp();
         }
     }
 
     componentDidLoad() {
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         this.setRender(this.grid);
     }
 
@@ -260,5 +269,11 @@ export class KupQlik {
                 this.doSelection(this.grid);
             });
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 }

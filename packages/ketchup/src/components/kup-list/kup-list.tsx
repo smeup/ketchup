@@ -95,6 +95,11 @@ export class KupList {
     private checkboxes: KupCheckbox[] = [];
 
     private focIndex: number = -1;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Events.
@@ -492,32 +497,6 @@ export class KupList {
         }
     }
 
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        logMessage(this, 'Component initialized.');
-        setThemeCustomStyle(this);
-    }
-
-    componentDidLoad() {
-        this.listComponent = null;
-        this.focIndex = -1;
-        // Called once just after the component fully loaded and the first render() occurs.
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list')
-            );
-
-            this.listComponent.singleSelection = this.isSingleSelection();
-
-            this.listComponent.listElements.map(
-                (listItemEl: any) => new MDCRipple(listItemEl)
-            );
-        }
-        logMessage(this, 'Component ready.');
-    }
-
     itemCompliant(item: ComponentListElement): boolean {
         if (item.isSeparator) {
             return true;
@@ -540,6 +519,48 @@ export class KupList {
         return (
             item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
             item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+        );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.listComponent = null;
+        this.focIndex = -1;
+        // Called once just after the component fully loaded and the first render() occurs.
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.listComponent = MDCList.attachTo(
+                root.querySelector('.mdc-list')
+            );
+
+            this.listComponent.singleSelection = this.isSingleSelection();
+
+            this.listComponent.listElements.map(
+                (listItemEl: any) => new MDCRipple(listItemEl)
+            );
+        }
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
     }
 

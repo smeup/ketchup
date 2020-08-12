@@ -158,6 +158,11 @@ export class KupTree {
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //-------- Events --------
     /**
@@ -257,7 +262,7 @@ export class KupTree {
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -294,10 +299,14 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         this.filterNodes();
     }
 
@@ -312,6 +321,12 @@ export class KupTree {
                 }
             }
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     //-------- Watchers --------

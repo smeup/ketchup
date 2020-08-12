@@ -19,11 +19,11 @@ export function positionRecalc(
     el['anchorEl'] = anchorEl;
     el['anchorMargin'] = margin;
 
-    var observer = new MutationObserver(function(mutations) {
+    var mutObserver = new MutationObserver(function (mutations) {
         let target: any = mutations[0].target;
         if (target.classList.contains('dynamic-position-active')) {
             el['anchorInterval'] = setInterval(
-                function() {
+                function () {
                     let offsetH: number = el.clientHeight;
                     let offsetW: number = el.clientWidth;
                     const rect = el.anchorEl.getBoundingClientRect();
@@ -34,9 +34,9 @@ export function positionRecalc(
                     el.style.left = ``;
 
                     if (window.innerHeight - rect.bottom < offsetH) {
-                        el.style.bottom = `${window.innerHeight -
-                            rect.top +
-                            el['anchorMargin']}px`;
+                        el.style.bottom = `${
+                            window.innerHeight - rect.top + el['anchorMargin']
+                        }px`;
                     } else {
                         el.style.top = `${rect.bottom + el['anchorMargin']}px`;
                     }
@@ -53,7 +53,7 @@ export function positionRecalc(
             clearInterval(el['anchorInterval']);
         }
     });
-    observer.observe(el, {
+    mutObserver.observe(el, {
         attributes: true,
         attributeFilter: ['class'],
     });

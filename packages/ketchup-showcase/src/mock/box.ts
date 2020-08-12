@@ -247,11 +247,11 @@ export const j4btnData = {
             k: 'AR;ART;Florence',
           },
           data: {
-            resource: 'images/Florence.JPG',
+            resource: 'images/Florence.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Florence.JPG',
+          value: 'images/Florence.jpg',
         },
         FLD2: {
           obj: {
@@ -338,11 +338,11 @@ export const j4btnData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/Milan.JPG',
+            resource: 'images/Milan.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Milan.JPG',
+          value: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
@@ -384,11 +384,11 @@ export const j4btnData = {
             k: 'AR;ART;Rome',
           },
           data: {
-            resource: 'images/Rome.JPG',
+            resource: 'images/Rome.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
-          value: 'images/Rome.JPG',
+          value: 'images/Rome.jpg',
         },
         FLD2: {
           obj: {
@@ -689,7 +689,7 @@ export const imgBadgeData = {
             k: 'AR;ART;Milan',
           },
           data: {
-            resource: 'images/Milan.JPG',
+            resource: 'images/Milan.jpg',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
@@ -699,7 +699,7 @@ export const imgBadgeData = {
               },
             ],
           },
-          value: 'images/Milan.JPG',
+          value: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {

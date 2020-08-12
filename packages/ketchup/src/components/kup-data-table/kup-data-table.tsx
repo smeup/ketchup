@@ -194,7 +194,7 @@ export class KupDataTable {
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */
-    @Prop({ reflect: true }) enableSortableColumns: boolean = false;
+    @Prop({ reflect: true }) enableSortableColumns: boolean = true;
 
     /**
      * List of filters set by the user.
@@ -249,6 +249,11 @@ export class KupDataTable {
      * When set to true the header will stick on top of the table when scrolling.
      */
     @Prop({ reflect: true }) headerIsPersistent = true;
+
+    /**
+     * When set to true, extra rows will be automatically loaded once the last row enters the viewport.
+     */
+    @Prop({ reflect: true }) lazyLoadRows: boolean = false;
 
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
@@ -507,6 +512,13 @@ export class KupDataTable {
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+    private intObserver: IntersectionObserver = undefined;
+    private observedEl: Element = undefined;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -720,9 +732,36 @@ export class KupDataTable {
         }
     };
 
+    setObserver() {
+        let callback: IntersectionObserverCallback = (
+            entries: IntersectionObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    logMessage(
+                        this,
+                        'Last row entering the viewport, loading more elements.'
+                    );
+                    let delta = this.rows.length - this.currentRowsPerPage;
+                    if (delta < this.loadMoreStep) {
+                        this.currentRowsPerPage += delta;
+                    } else {
+                        this.currentRowsPerPage += this.loadMoreStep;
+                    }
+                    this.intObserver.unobserve(this.observedEl);
+                }
+            });
+        };
+        let options: IntersectionObserverInit = {
+            threshold: 0.25,
+        };
+        this.intObserver = new IntersectionObserver(callback, options);
+    }
+
     //======== Lifecycle Hooks ========
     componentWillLoad() {
-        logMessage(this, 'Component initialized.');
+        this.startTime = performance.now();
+        this.setObserver();
         // *** Store
         this.initWithPersistedState();
         // ***
@@ -734,8 +773,18 @@ export class KupDataTable {
         }
     }
 
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+        if (this.paginatedRows.length < this.rows.length && this.lazyLoadRows) {
+            let rows = root.querySelectorAll('tbody > tr');
+            this.observedEl = rows[this.paginatedRows.length - 1];
+            this.intObserver.observe(this.observedEl);
+        }
         document.addEventListener('click', this.onDocumentClick);
         if (
             this.headerIsPersistent &&
@@ -776,6 +825,13 @@ export class KupDataTable {
             this.scrollOnHoverInstance = undefined;
         }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
+
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
         // *** Store
         this.persistState();
         // ***
@@ -805,7 +861,9 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-        logMessage(this, 'Component ready.');
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentDidUnload() {

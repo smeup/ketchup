@@ -66,6 +66,11 @@ export class KupImage {
     private isUrl: boolean = false;
     private elStyle = undefined;
     private imageCanvas: imageCanvas;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
     canvas: HTMLCanvasElement;
 
     @Event({
@@ -113,41 +118,6 @@ export class KupImage {
         this.kupLoad.emit({
             el: e.target,
         });
-    }
-
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        logMessage(this, 'Component initialized.');
-        setThemeCustomStyle(this);
-    }
-
-    componentDidLoad() {
-        logMessage(this, 'Component ready.');
-    }
-
-    componentDidRender() {
-        if (this.isCanvas && !this.imageCanvas) {
-            this.imageCanvas = new imageCanvas();
-        }
-        if (this.isCanvas && this.resource) {
-            this.canvas.height = this.canvas.clientHeight;
-            this.canvas.width = this.canvas.clientWidth;
-            this.imageCanvas.drawCanvas(this.resource, this.canvas);
-        }
-    }
-
-    componentWillRender() {
-        this.isUrl = false;
-        if (this.resource) {
-            if (
-                this.resource.indexOf('.') > -1 ||
-                this.resource.indexOf('/') > -1 ||
-                this.resource.indexOf('\\') > -1
-            ) {
-                this.isUrl = true;
-            }
-        }
     }
 
     renderCanvas() {
@@ -245,6 +215,51 @@ export class KupImage {
             >
                 {steps}
             </div>
+        );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+        this.isUrl = false;
+        if (this.resource) {
+            if (
+                this.resource.indexOf('.') > -1 ||
+                this.resource.indexOf('/') > -1 ||
+                this.resource.indexOf('\\') > -1
+            ) {
+                this.isUrl = true;
+            }
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas && !this.imageCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+        if (this.isCanvas && this.resource) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
+            this.imageCanvas.drawCanvas(this.resource, this.canvas);
+        }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
     }
 

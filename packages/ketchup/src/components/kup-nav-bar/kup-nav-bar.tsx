@@ -56,6 +56,11 @@ export class KupNavBar {
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private dynColor: string = 'white';
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Listen('click', { target: 'document' })
     listenClick() {
@@ -197,33 +202,6 @@ export class KupNavBar {
         }
         return listEl.menuVisible == true;
     }
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        logMessage(this, 'Component initialized.');
-        setThemeCustomStyle(this);
-    }
-
-    componentDidLoad() {
-        logMessage(this, 'Component ready.');
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root != null) {
-            const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            //MDCTopAppBar.attachTo(topAppBarElement);
-            new MDCTopAppBar(topAppBarElement);
-        }
-        if (this.menuListEl != null) {
-            positionRecalc(this.menuListEl, this.menuButtonEl);
-        }
-        if (this.optionsListEl != null) {
-            positionRecalc(this.optionsListEl, this.optionsButtonEl);
-        }
-        const header = this.rootElement.shadowRoot.querySelector('header');
-        dynColorContrast(this, window.getComputedStyle(header).backgroundColor);
-    }
 
     prepMenuList(listData: ComponentListElement[]): HTMLElement {
         this.menuListEl = null;
@@ -261,6 +239,46 @@ export class KupNavBar {
         );
 
         return comp;
+    }
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root != null) {
+            const topAppBarElement = root.querySelector('.mdc-top-app-bar');
+            //MDCTopAppBar.attachTo(topAppBarElement);
+            new MDCTopAppBar(topAppBarElement);
+        }
+        if (this.menuListEl != null) {
+            positionRecalc(this.menuListEl, this.menuButtonEl);
+        }
+        if (this.optionsListEl != null) {
+            positionRecalc(this.optionsListEl, this.optionsButtonEl);
+        }
+        const header = this.rootElement.shadowRoot.querySelector('header');
+        dynColorContrast(this, window.getComputedStyle(header).backgroundColor);
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
