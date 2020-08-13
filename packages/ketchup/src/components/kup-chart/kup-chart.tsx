@@ -30,7 +30,11 @@ import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
 import { logMessage } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import {
+    setThemeCustomStyle,
+    setCustomStyle,
+    randomColor,
+} from '../../utils/theme-manager';
 
 declare const google: any;
 declare const $: any;
@@ -515,7 +519,16 @@ export class KupChart {
         this.themeText = document.documentElement.style.getPropertyValue(
             '--kup-text-color'
         );
-        this.themeColors = [color1, color2, color3, color4];
+
+        let colorArray: string[] = [color1, color2, color3, color4];
+        for (
+            let index = 0;
+            index < this.data.rows.length || index < this.data.columns.length;
+            index++
+        ) {
+            colorArray.push(randomColor(160));
+        }
+        this.themeColors = colorArray;
     }
 
     setObserver() {
