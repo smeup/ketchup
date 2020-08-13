@@ -292,24 +292,16 @@ export function setCustomStyle(component: any) {
     }
 }
 
-export function dynColorContrast(component: any, color: string) {
-    let textColour = colorContrast(color);
-    if (textColour !== component.dynColor) {
-        let message =
-            'Detected low contrast on ' +
-            component.rootElement.tagName +
-            ', switching to ' +
-            textColour +
-            ' from ' +
-            component.dynColor +
-            '.';
-        logMessage('theme manager', message);
-        component.dynColor = textColour;
-        component.refresh = !component.refresh;
-    }
-}
-
 export function colorContrast(color: string) {
+    if (color.indexOf('#') > -1) {
+        let oldColor = color;
+        let rgbColor = hexToRgb(color);
+        color = 'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
+        logMessage(
+            'theme manager',
+            'Received HEX color ' + oldColor + ', converted to ' + color + '.'
+        );
+    }
     const colorValues = color.replace(/[^\d,.]/g, '').split(',');
     const brightness = Math.round(
         (parseInt(colorValues[0]) * 299 +
@@ -317,8 +309,8 @@ export function colorContrast(color: string) {
             parseInt(colorValues[2]) * 114) /
             1000
     );
-    const textColour = brightness > 125 ? 'black' : 'white';
-    return textColour;
+    const textColor = brightness > 125 ? 'black' : 'white';
+    return textColor;
 }
 
 export function randomColor(brightness: number) {
@@ -334,4 +326,15 @@ export function randomColor(brightness: number) {
         randomChannel(brightness) +
         randomChannel(brightness)
     );
+}
+
+export function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+        ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+          }
+        : null;
 }
