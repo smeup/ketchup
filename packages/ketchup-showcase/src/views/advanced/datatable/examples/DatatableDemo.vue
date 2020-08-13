@@ -104,7 +104,7 @@ export default {
           description:
             'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
