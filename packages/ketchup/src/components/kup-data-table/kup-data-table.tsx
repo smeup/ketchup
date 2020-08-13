@@ -124,6 +124,7 @@ export class KupDataTable {
                 this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
                 this.headerIsPersistent = state.headerIsPersistent;
+                this.lazyLoadRows = state.lazyLoadRows;
                 this.loadMoreLimit = state.loadMoreLimit;
                 this.multiSelection = state.multiSelection;
                 this.rowsPerPage = state.rowsPerPage;
@@ -151,9 +152,11 @@ export class KupDataTable {
             this.state.globalFilter = this.globalFilter;
             this.state.globalFilterValue = this.globalFilterValue;
             this.state.headerIsPersistent = this.headerIsPersistent;
+            this.state.lazyLoadRows = this.lazyLoadRows;
             this.state.loadMoreLimit = this.loadMoreLimit;
             this.state.multiSelection = this.multiSelection;
-            this.state.rowsPerPage = this.rowsPerPage;
+            //this.state.rowsPerPage = this.rowsPerPage;
+            this.state.rowsPerPage = this.currentRowsPerPage;
             this.state.showFilters = this.showFilters;
             this.state.showHeader = this.showHeader;
             this.state.showLoadMore = this.showLoadMore;
@@ -766,13 +769,11 @@ export class KupDataTable {
         // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
-
-        if (this.expandGroups) {
-            this.forceGroupExpansion();
-        }
     }
 
     componentWillRender() {
+        this.groupState = {};
+        this.forceGroupExpansion();
         this.renderCount++;
         this.renderStart = performance.now();
     }
@@ -824,12 +825,16 @@ export class KupDataTable {
             this.scrollOnHoverInstance = undefined;
         }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
+
         this.renderEnd = performance.now();
         let timeDiff: number = this.renderEnd - this.renderStart;
         logMessage(
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     componentDidLoad() {
@@ -863,7 +868,7 @@ export class KupDataTable {
 
     componentDidUnload() {
         // *** Store
-        this.persistState();
+        //this.persistState();
         // ***
         document.removeEventListener('click', this.onDocumentClick);
         document.removeEventListener('scroll', this.stickyHeaderPosition);
@@ -1108,7 +1113,7 @@ export class KupDataTable {
         }
 
         // forcing row expanded
-        row.group.expanded = true;
+        row.group.expanded = this.expandGroups;
 
         // updating group state
         // check if already present
