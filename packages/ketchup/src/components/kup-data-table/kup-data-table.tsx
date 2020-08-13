@@ -769,13 +769,11 @@ export class KupDataTable {
         // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
-
-        if (this.expandGroups) {
-            this.forceGroupExpansion();
-        }
     }
 
     componentWillRender() {
+        this.groupState = {};
+        this.forceGroupExpansion();
         this.renderCount++;
         this.renderStart = performance.now();
     }
@@ -1115,7 +1113,7 @@ export class KupDataTable {
         }
 
         // forcing row expanded
-        row.group.expanded = true;
+        row.group.expanded = this.expandGroups;
 
         // updating group state
         // check if already present
