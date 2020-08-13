@@ -8,7 +8,7 @@ export function logMessage(comp: any, message: string, type?: string) {
     if ((!type || type === 'log') && !document.documentElement['kupDebug']) {
         return;
     }
-    let obj: object = undefined;
+    let obj: object | string = undefined;
     let id: string = '';
     if (comp.rootElement) {
         id =
@@ -16,6 +16,7 @@ export function logMessage(comp: any, message: string, type?: string) {
         obj = comp;
     } else {
         id = ' ' + comp + ' => ';
+        obj = '';
     }
     var d = new Date(),
         minutes =
