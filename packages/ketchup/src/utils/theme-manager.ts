@@ -33,8 +33,8 @@ const kupThemes = JSON.parse(`{
             "--kup-title-background-color": "#111111",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-3": "#860bb5",
+            "--kup-chart-color-4": "#1a83e4"
         }
     },
     "default": {
@@ -58,10 +58,10 @@ const kupThemes = JSON.parse(`{
             "--kup-chip-background-color": "#eaeaea",
             "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-1": "#ff5959",
+            "--kup-chart-color-2": "#e0a0a0",
+            "--kup-chart-color-3": "#8e1010",
+            "--kup-chart-color-4": "#f5f5dc"
         }
     },
     "graphite": {
@@ -85,10 +85,10 @@ const kupThemes = JSON.parse(`{
             "--kup-chip-background-color": "#eaeaea",
             "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f0f0f0",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-1": "red",
+            "--kup-chart-color-2": "blue",
+            "--kup-chart-color-3": "orange",
+            "--kup-chart-color-4": "green"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
@@ -319,4 +319,19 @@ export function colorContrast(color: string) {
     );
     const textColour = brightness > 125 ? 'black' : 'white';
     return textColour;
+}
+
+export function randomColor(brightness: number) {
+    function randomChannel(brightness: number) {
+        var r = 255 - brightness;
+        var n = 0 | (Math.random() * r + brightness);
+        var s = n.toString(16);
+        return s.length == 1 ? '0' + s : s;
+    }
+    return (
+        '#' +
+        randomChannel(brightness) +
+        randomChannel(brightness) +
+        randomChannel(brightness)
+    );
 }
