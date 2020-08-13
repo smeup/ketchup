@@ -34,6 +34,7 @@ import {
     setThemeCustomStyle,
     setCustomStyle,
     randomColor,
+    colorContrast,
 } from '../../utils/theme-manager';
 
 declare const google: any;
@@ -140,6 +141,8 @@ export class KupChart {
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme =
+            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
     }
@@ -298,6 +301,15 @@ export class KupChart {
             opts.hAxis['textStyle'] = { color: this.themeText };
         } else {
             opts.hAxis = { textStyle: { color: this.themeText } };
+        }
+
+        if (this.types[0] === 'Pie') {
+            opts.slices = [];
+            for (let index = 0; index < opts.colors.length; index++) {
+                opts.slices.push({
+                    textStyle: { color: colorContrast(opts.colors[index]) },
+                });
+            }
         }
 
         return opts;
@@ -526,8 +538,9 @@ export class KupChart {
             index < this.data.rows.length || index < this.data.columns.length;
             index++
         ) {
-            colorArray.push(randomColor(160));
+            colorArray.push(randomColor(25));
         }
+
         this.themeColors = colorArray;
     }
 

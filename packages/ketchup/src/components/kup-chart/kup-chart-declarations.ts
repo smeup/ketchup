@@ -34,6 +34,11 @@ export interface ChartOptions {
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
     series?: any;
+    slices?: {
+        color?: string;
+        offset?: number;
+        textStyle?: { color?: string };
+    }[];
     hAxis?: ChartAxis;
     vAxis?: ChartAxis;
 }

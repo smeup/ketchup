@@ -22,7 +22,7 @@ import { positionRecalc } from '../../utils/recalc-position';
 import {
     setThemeCustomStyle,
     setCustomStyle,
-    dynColorContrast,
+    colorContrast,
 } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
 
@@ -55,7 +55,7 @@ export class KupNavBar {
     private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
-    private dynColor: string = 'white';
+    private textColor: string = 'white';
     private startTime: number = 0;
     private endTime: number = 0;
     private renderCount: number = 0;
@@ -109,7 +109,10 @@ export class KupNavBar {
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme =
+            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
@@ -240,11 +243,20 @@ export class KupNavBar {
 
         return comp;
     }
+
+    private fetchThemeColors() {
+        let color = document.documentElement.style.getPropertyValue(
+            '--kup-header-background-color'
+        );
+        this.textColor = colorContrast(color);
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.startTime = performance.now();
         setThemeCustomStyle(this);
+        this.fetchThemeColors();
     }
 
     componentDidLoad() {
@@ -271,8 +283,6 @@ export class KupNavBar {
         if (this.optionsListEl != null) {
             positionRecalc(this.optionsListEl, this.optionsButtonEl);
         }
-        const header = this.rootElement.shadowRoot.querySelector('header');
-        dynColorContrast(this, window.getComputedStyle(header).backgroundColor);
         this.renderEnd = performance.now();
         let timeDiff: number = this.renderEnd - this.renderStart;
         logMessage(
@@ -294,9 +304,9 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
-                            customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                            customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                             icon={action.icon}
-                            iconColor={this.dynColor}
+                            iconColor={this.textColor}
                             tooltip={action.tooltip}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
@@ -318,9 +328,9 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="more_vert"
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip="Options"
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
@@ -335,9 +345,9 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon={action.icon}
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip={action.tooltip}
                     onKupButtonClick={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
@@ -356,9 +366,9 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="menu"
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip="Open navigation menu"
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}
@@ -370,7 +380,7 @@ export class KupNavBar {
 
         let headerClassName =
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
-        let titleStyle = { color: this.dynColor };
+        let titleStyle = { color: this.textColor };
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
