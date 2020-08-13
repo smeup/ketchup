@@ -822,6 +822,12 @@ export class KupTree {
         let style = undefined;
         if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
             style = cell.style;
+            if (styleHasBorderRadius(cell) && !style['padding']) {
+                style['padding'] = '5px';
+            }
+            if (style['text-align']) {
+                style['float'] = style['text-align'];
+            }
         } else {
             tdStyle = cell.style;
         }
