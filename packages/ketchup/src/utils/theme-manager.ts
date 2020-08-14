@@ -202,6 +202,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-4": "#81e447"
         },
         "customStyles": {
+            "master": "#kup-component { background-color: red; }",
             "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BUTTON": "#kup-component { border: 1px solid var(--kup-border-color); }",
