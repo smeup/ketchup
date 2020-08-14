@@ -27,7 +27,13 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-list show-icons selectable="false" :data.prop="dataLIST" role-type="listbox"></kup-list>
+          <kup-list
+            two-line
+            show-icons
+            selectable="false"
+            :data.prop="dataLIST"
+            role-type="listbox"
+          ></kup-list>
         </div>
         <p class="centered">Sample icons markup</p>
         <code class="flat">{{ markupIcons }}</code>
