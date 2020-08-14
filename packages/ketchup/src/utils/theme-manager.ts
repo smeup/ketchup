@@ -94,6 +94,33 @@ const kupThemes = JSON.parse(`{
             "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
         }
     },
+    "IBMh2o": {
+        "cssVariables": {
+            "--kup-background-color": "#000000",
+            "--kup-header-background-color": "#000000",
+            "--kup-drawer-background-color": "#000000",
+            "--kup-main-color": "rgb(187, 198, 5)",
+            "--kup-display-mode": "block",
+            "--kup-font-family": "'Rajdhani', sans-serif",
+            "--kup-font-size": "15px",
+            "--kup-text-on-main-color": "#000000",
+            "--kup-text-color": "#ffffff",
+            "--kup-icon-color": "#9d9d9d",
+            "--kup-hover-background-color": "#404040",
+            "--kup-hover-color": "#ffffff",
+            "--kup-border-color": "#9d9d9d",
+            "--kup-disabled-text-color": "#7b7b7b",
+            "--kup-disabled-background-color": "#151515",
+            "--kup-field-background-color": "transparent",
+            "--kup-chip-background-color": "#222222",
+            "--kup-spinner-color": "#ffe600",
+            "--kup-title-background-color": "#111111",
+            "--kup-chart-color-1": "#ffffff",
+            "--kup-chart-color-2": "rgb(187, 198, 5)",
+            "--kup-chart-color-3": "#ffe600",
+            "--kup-chart-color-4": "#effd02"
+        }
+    },
     "ocean": {
         "cssVariables": {
             "--kup-background-color": "#e9f1ff",
@@ -175,6 +202,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-4": "#81e447"
         },
         "customStyles": {
+            "master": "#kup-component { background-color: red; }",
             "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BUTTON": "#kup-component { border: 1px solid var(--kup-border-color); }",
@@ -188,6 +216,7 @@ const kupThemes = JSON.parse(`{
             "KUP-IMAGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-LAZY": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-LIST": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-NAV-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
@@ -250,7 +279,8 @@ function setTheme() {
     let components: any = document.querySelectorAll('.handles-custom-style');
     for (let i = 0; i < components.length; i++) {
         components[i].refreshCustomStyle(
-            fetchThemeCustomStyle(components[i].tagName)
+            fetchThemeCustomStyle('master') +
+                fetchThemeCustomStyle(components[i].tagName)
         );
     }
 }
@@ -262,8 +292,16 @@ export function fetchThemeCustomStyle(component: string) {
     }
     let completeStyle: string = undefined;
 
+    if (styles['master']) {
+        completeStyle = styles['master'];
+    }
+
     if (styles[component]) {
-        completeStyle = styles[component];
+        if (completeStyle) {
+            completeStyle += styles[component];
+        } else {
+            completeStyle = styles[component];
+        }
     }
 
     return completeStyle;

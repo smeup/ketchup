@@ -13,17 +13,19 @@
       <br />
       <span class="code-word" style="margin-left: 2rem;">"cssVariables"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"YOUR_CSS_VARIABLE"</span>,
+      <span class="code-word" style="margin-left: 3.5rem;">"--kup-main-color"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"YOUR_CSS_VARIABLE"</span>,
+      <span class="code-word" style="margin-left: 3.5rem;">"--kup-text-color"</span>,
       <br />
       <span class="code-word" style="margin-left: 3.5rem;">"..."</span>,
       <br />
       <span class="code-word" style="margin-left: 2rem;">"customStyles"</span>
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"YOUR_CUSTOM_STYLE"</span>,
+      <span class="code-word" style="margin-left: 3.5rem;">"master"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"YOUR_CUSTOM_STYLE"</span>,
+      <span class="code-word" style="margin-left: 3.5rem;">"KUP-BUTTON"</span>,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem;">"KUP-TEXT-FIELD"</span>,
       <br />
       <span class="code-word" style="margin-left: 3.5rem;">"..."</span>,
     </p>

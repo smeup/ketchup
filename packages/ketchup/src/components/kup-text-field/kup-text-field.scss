@@ -30,11 +30,21 @@
 
 .mdc-form-field {
   & label {
+    font-family: var(--kup-font-family);
     margin: auto;
   }
 }
 
+div.mdc-text-field-helper-text {
+  font-family: var(--kup-font-family);
+}
+
 .mdc-text-field {
+  input,
+  label {
+    font-family: var(--kup-font-family);
+  }
+
   & kup-image {
     cursor: pointer;
     outline: none;
