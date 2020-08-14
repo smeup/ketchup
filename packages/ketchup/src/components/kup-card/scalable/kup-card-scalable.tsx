@@ -34,8 +34,8 @@ export function create2(component: KupCard) {
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                            sizeX="1.25em"
+                            sizeY="1.25em"
                             color={component.data['color1']}
                             id="image1"
                             customStyle="img {object-fit: contain;}"
@@ -90,8 +90,8 @@ export function create4(component: KupCard) {
                 <div class="icon">
                     {component.data['image1'] && (
                         <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                            sizeX="1.25em"
+                            sizeY="1.25em"
                             color={component.data['color1']}
                             id="image1"
                             customStyle="img {object-fit: contain;}"
