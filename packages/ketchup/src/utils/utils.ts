@@ -147,25 +147,69 @@ export function numberToString(input: number, decimals: number): string {
 }
 
 /**
- * input formatted by locale US, decimal separator . (like java decimal numbers)
+ * type type of number for calculate suffix
+ **/
+export function getNumericValueSuffixByType(type: string): string {
+    type = type.toUpperCase();
+    let nstr = '';
+    if (type == 'P') {
+        nstr = ' %';
+    } else if (type == 'VE') {
+        nstr = ' €';
+    } else if (type == 'VL') {
+        nstr = ' £';
+    } else if (type == 'VV') {
+        nstr = ' $';
+    }
+    return nstr;
+}
+
+/**
+ * input number, decimal separator . (like java decimal numbers)
+ * decimals number of decimals for output
+ * type type of number for calculate suffix
+ * output formatted by actual browser locale
+ **/
+export function numberToFormattedStringNumber(
+    input: number,
+    decimals: number,
+    type: string
+): string {
+    let nstr = numberToString(input, decimals);
+    nstr = nstr + getNumericValueSuffixByType(type);
+    return nstr;
+}
+
+/**
+ * input string formatted by locale US, decimal separator . (like java decimal numbers)
+ * decimals number of decimals for output
+ * type type of number for calculate suffix
  * output formatted by actual browser locale
  **/
 export function unformattedStringToFormattedStringNumber(
     input: string,
-    decimals: number
+    decimals: number,
+    type: string
 ): string {
-    return numberToString(stringToNumber(input), decimals);
+    return numberToFormattedStringNumber(stringToNumber(input), decimals, type);
 }
 
 /**
  * input formatted by actual browser locale
+ * type type of number for calculate suffix
  * output formatted by locale US, decimal separator . (like java decimal numbers)
  **/
 export function formattedStringToUnformattedStringNumber(
-    input: string
+    input: string,
+    type: string
 ): string {
     if (input == null || input.trim() == '') {
         input = '0';
+    }
+
+    let suffix = getNumericValueSuffixByType(type);
+    if (suffix != '') {
+        input = input.replace(suffix, '');
     }
     let decFmt: string = getDecimalSeparator(navigator.language);
     let regExpr: RegExp = null;
