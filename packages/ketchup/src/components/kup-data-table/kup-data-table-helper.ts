@@ -820,11 +820,17 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         }
     }
 
+    /**
+     * order by value contained in cell.value,
+     * the value could be calculated from another cell and the cell.obj is the object of original cell
+     **/
     return (
-        sm *
-        (obj1.k && obj2.k
-            ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
-            : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
+        sm * localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
+        /*
+            (obj1.k && obj2.k
+                ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
+                : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
+                */
     );
 }
 

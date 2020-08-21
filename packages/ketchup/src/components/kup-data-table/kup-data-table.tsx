@@ -78,6 +78,7 @@ import {
     numberToString,
     formattedStringToUnformattedStringNumber,
     unformattedStringToFormattedStringNumber,
+    numberToFormattedStringNumber,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -1312,7 +1313,10 @@ export class KupDataTable {
 
         let newFilter = detail.value.trim();
         if (newFilter != '' && isNumber(column.obj)) {
-            newFilter = formattedStringToUnformattedStringNumber(newFilter);
+            newFilter = formattedStringToUnformattedStringNumber(
+                newFilter,
+                column.obj ? column.obj.p : ''
+            );
         }
 
         const newFilters: GenericFilter = { ...this.filters };
@@ -2072,7 +2076,8 @@ export class KupDataTable {
                         if (filterInitialValue != '' && isNumber(column.obj)) {
                             filterInitialValue = unformattedStringToFormattedStringNumber(
                                 filterInitialValue,
-                                column.decimals
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
                             );
                         }
                         columnMenuItems.push(
@@ -2123,7 +2128,8 @@ export class KupDataTable {
                             } else if (v != '' && isNumber(column.obj)) {
                                 label = unformattedStringToFormattedStringNumber(
                                     v,
-                                    column.decimals
+                                    column.decimals,
+                                    column.obj ? column.obj.p : ''
                                 );
                             }
 
@@ -2392,9 +2398,14 @@ export class KupDataTable {
             // no footer
             return null;
         }
-
         const footerCells = this.getVisibleColumns().map((column: Column) => (
-            <td>{numberToString(this.footer[column.name], column.decimals)}</td>
+            <td>
+                {numberToFormattedStringNumber(
+                    this.footer[column.name],
+                    column.decimals,
+                    column.obj ? column.obj.p : ''
+                )}
+            </td>
         ));
 
         let selectRowCell = null;
@@ -2483,9 +2494,10 @@ export class KupDataTable {
                 for (let column of visibleColumns) {
                     cells.push(
                         <td class="total">
-                            {numberToString(
+                            {numberToFormattedStringNumber(
                                 row.group.totals[column.name],
-                                column.decimals
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
                             )}
                         </td>
                     );
@@ -2798,6 +2810,7 @@ export class KupDataTable {
         const classObj: Record<string, boolean> = {
             'cell-content': true,
             clickable: !!column.clickable,
+            'force-one-line': this.forceOneLine == true ? true : null,
         };
 
         // When the previous row value is different from the current value, we can show the current value.
@@ -2917,9 +2930,10 @@ export class KupDataTable {
 
             if (content && content != '') {
                 const cellValueNumber: number = stringToNumber(cell.value);
-                const cellValue = numberToString(
-                    cellValueNumber,
-                    column.decimals ? column.decimals : -1
+                const cellValue = unformattedStringToFormattedStringNumber(
+                    cell.value,
+                    column.decimals ? column.decimals : -1,
+                    cell.obj ? cell.obj.p : ''
                 );
                 content = cellValue;
                 if (cellValueNumber < 0) {

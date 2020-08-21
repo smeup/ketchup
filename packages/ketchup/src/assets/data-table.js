@@ -1997,3 +1997,237 @@ if (averageTest != null) {
     averageTest.totals = averageTestTotals;
     averageTest.groups = averageTestGroups;
 }
+
+const tempDataTableTestData = {
+    columns: [
+        {
+            name: 'COL001',
+            obj: {
+                k: '',
+                p: 'COL',
+                t: 'CN',
+            },
+            title: 'Tipo',
+        },
+        {
+            name: 'COL002',
+            title: 'Tipo',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'CICCIO',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'CICCIO',
+                },
+                COL002: {
+                    obj: {
+                        k: 'CICCIO',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'CICCIA',
+                },
+            },
+            id: '7',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'ZAMCHI',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'ZAMCHI',
+                },
+                COL002: {
+                    obj: {
+                        k: 'ZAMCHI',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Chiara Zambelli',
+                },
+            },
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'MINCLA',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'MINCLA',
+                },
+                COL002: {
+                    obj: {
+                        k: 'MINCLA',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Claudio Minelli',
+                },
+            },
+            id: '1',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'CASFRA',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'CASFRA',
+                },
+                COL002: {
+                    obj: {
+                        k: 'CASFRA',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Francesco Casetta',
+                },
+            },
+            id: '4',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'PARFRA',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'PARFRA',
+                },
+                COL002: {
+                    obj: {
+                        k: 'PARFRA',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Franco Parodi',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'FIOGIA',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'FIOGIA',
+                },
+                COL002: {
+                    obj: {
+                        k: 'FIOGIA',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Gianluca Fioletti',
+                },
+            },
+            id: '5',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'SANCOS',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                COL002: {
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Mauro Sanfilippo',
+                },
+            },
+            id: '0',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                COL001: {
+                    obj: {
+                        k: 'FEDROB',
+                        p: 'COL',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'FEDROB',
+                },
+                COL002: {
+                    obj: {
+                        k: 'FEDROB',
+                        p: '',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'Roberto Fedrigotti',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+
+const tempDataTableTestSort = [
+    {
+        column: 'COL002',
+        sortMode: 'A',
+    },
+];
+
+const tempDataTableTest = document.getElementById('temp-data-table-test');
+
+if (tempDataTableTest != null) {
+    tempDataTableTest.data = tempDataTableTestData;
+    tempDataTableTest.sort = tempDataTableTestSort;
+}
