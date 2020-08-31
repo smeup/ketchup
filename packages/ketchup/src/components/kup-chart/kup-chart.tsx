@@ -520,7 +520,6 @@ export class KupChart {
         for (let index = 1, color = undefined; color !== ''; index++) {
             let key = '--kup-chart-color-' + index;
             color = document.documentElement.style.getPropertyValue(key);
-            console.log('color:', color);
             if (color) {
                 colorArray.push(color);
             }
