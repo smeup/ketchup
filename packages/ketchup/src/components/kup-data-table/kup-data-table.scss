@@ -479,9 +479,6 @@ $fixed-row-class: fixed-row;
       }
 
       //---- Columns drag style ----
-      & th[draggable] {
-        position: relative;
-      }
 
       &[columns-dragging] {
         // When the drag is over a valid target
@@ -624,6 +621,7 @@ $fixed-row-class: fixed-row;
             display: flex;
 
             &.has-padding {
+              box-sizing: border-box;
               padding: 1rem;
             }
 
