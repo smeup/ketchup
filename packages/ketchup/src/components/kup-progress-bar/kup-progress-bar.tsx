@@ -182,15 +182,7 @@ export class KupProgressBar {
                 );
             }
         } else {
-            if (!this.hideLabel && this.label && this.label.trim() != '') {
-                if (this.isRadial) {
-                    label = <span class="label">{this.label}</span>;
-                } else {
-                    label = this.label;
-                }
-            }
-            /*
-            if (!this.hideLabel && this.label && this.label.trim() != '') {
+            if (!this.hideLabel) {
                 if (this.isRadial) {
                     if (this.label) {
                         label = <span class="label">{this.label}</span>;
@@ -209,7 +201,7 @@ export class KupProgressBar {
                         label = this.value + '%';
                     }
                 }
-            }*/
+            }
         }
 
         if (this.value > 0) {
