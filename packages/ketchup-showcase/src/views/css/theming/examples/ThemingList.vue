@@ -341,7 +341,7 @@
               <td class="prevent-cr">
                 <span class="code-word">--kup-chart-color-4</span>
               </td>
-              <td>Sets the fourth color of kup-chart.</td>
+              <td>Sets the fourth color of kup-chart and so on. It is possible to specify an infinite amount of "--kup-chart-color" variables.</td>
               <td class="prevent-cr">
                 <span class="code-word">color</span>
               </td>
