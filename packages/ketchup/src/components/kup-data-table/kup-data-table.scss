@@ -621,6 +621,7 @@ $fixed-row-class: fixed-row;
             display: flex;
 
             &.has-padding {
+              box-sizing: border-box;
               padding: 1rem;
             }
 
