@@ -516,23 +516,18 @@ export class KupChart {
     }
 
     private fetchThemeColors() {
-        let color1 = document.documentElement.style.getPropertyValue(
-            '--kup-chart-color-1'
-        );
-        let color2 = document.documentElement.style.getPropertyValue(
-            '--kup-chart-color-2'
-        );
-        let color3 = document.documentElement.style.getPropertyValue(
-            '--kup-chart-color-3'
-        );
-        let color4 = document.documentElement.style.getPropertyValue(
-            '--kup-chart-color-4'
-        );
+        let colorArray: string[] = [];
+        for (let index = 1, color = undefined; color !== ''; index++) {
+            let key = '--kup-chart-color-' + index;
+            color = document.documentElement.style.getPropertyValue(key);
+            console.log('color:', color);
+            if (color) {
+                colorArray.push(color);
+            }
+        }
         this.themeText = document.documentElement.style.getPropertyValue(
             '--kup-text-color'
         );
-
-        let colorArray: string[] = [color1, color2, color3, color4];
         for (
             let index = 0;
             index < this.data.rows.length || index < this.data.columns.length;
