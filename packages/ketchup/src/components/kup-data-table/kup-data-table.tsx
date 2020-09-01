@@ -1847,6 +1847,10 @@ export class KupDataTable {
         if (isNumber(column.obj)) {
             columnClass.number = true;
         }
+
+        if (isIcon(column.obj) || isVoCodver(column.obj)) {
+            columnClass.icon = true;
+        }
         // For fixed cells styles and classes
         const fixedCellStyle = this.composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
@@ -2960,11 +2964,7 @@ export class KupDataTable {
             }
         }
 
-        // if cell.style has border, apply style to cellcontent
-        let style = null;
-        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
-            style = cell.style;
-        }
+        let style = cell.style;
 
         if (styleHasWritingMode(cell)) {
             classObj['is-vertical'] = true;

@@ -378,6 +378,10 @@ $fixed-row-class: fixed-row;
           white-space: normal;
         }
 
+        &.icon {
+          width: 30px;
+        }
+
         &.number {
           text-align: right;
         }
@@ -739,6 +743,10 @@ $fixed-row-class: fixed-row;
           box-sizing: border-box;
           display: inline-flex;
           padding: 0.5rem 0.3125rem;
+
+          &.icon {
+            width: 30px;
+          }
 
           &.number {
             text-align: right;
