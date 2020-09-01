@@ -636,6 +636,10 @@ $fixed-row-class: fixed-row;
               width: 100%;
             }
 
+            &.is-tooltip {
+              position: relative;
+            }
+
             &.is-vertical,
             :host([force-one-line]) &.is-vertical {
               display: inline-flex;
