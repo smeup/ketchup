@@ -638,8 +638,9 @@ $fixed-row-class: fixed-row;
 
             &.is-vertical,
             :host([force-one-line]) &.is-vertical {
-              display: flex;
+              display: inline-flex;
               margin: auto;
+              width: -webkit-fill-available;
               & > * {
                 margin: auto;
               }

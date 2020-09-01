@@ -527,12 +527,20 @@ export class KupChart {
         this.themeText = document.documentElement.style.getPropertyValue(
             '--kup-text-color'
         );
-        for (
-            let index = 0;
-            index < this.data.rows.length || index < this.data.columns.length;
-            index++
-        ) {
-            colorArray.push(randomColor(25));
+
+        try {
+            for (
+                let index = 0;
+                index < this.data.rows.length ||
+                index < this.data.columns.length;
+                index++
+            ) {
+                colorArray.push(randomColor(25));
+            }
+        } catch (error) {
+            if (!this.offlineMode) {
+                logMessage(this, 'Chart colors setup failed!', 'warning');
+            }
         }
 
         this.themeColors = colorArray;
