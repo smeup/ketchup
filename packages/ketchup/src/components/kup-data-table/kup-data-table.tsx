@@ -1847,6 +1847,10 @@ export class KupDataTable {
         if (isNumber(column.obj)) {
             columnClass.number = true;
         }
+
+        if (isIcon(column.obj) || isVoCodver(column.obj)) {
+            columnClass.icon = true;
+        }
         // For fixed cells styles and classes
         const fixedCellStyle = this.composeFixedCellStyleAndClass(
             columnIndex + 1 + extraCells,
@@ -2960,11 +2964,7 @@ export class KupDataTable {
             }
         }
 
-        // if cell.style has border, apply style to cellcontent
-        let style = null;
-        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
-            style = cell.style;
-        }
+        let style = cell.style;
 
         if (styleHasWritingMode(cell)) {
             classObj['is-vertical'] = true;
@@ -2974,19 +2974,10 @@ export class KupDataTable {
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
         if (hasTooltip(cell.obj)) {
-            let tooltipStyle = {
-                color: 'transparent',
-                height: '100%',
-                left: '0',
-                position: 'absolute',
-                top: '0',
-                width: '100%',
-            };
             classObj['is-tooltip'] = true;
             content = [
                 content,
                 <kup-tooltip
-                    style={tooltipStyle}
                     class="datatable-tooltip"
                     loadTimeout={this.tooltipLoadTimeout}
                     detailTimeout={this.tooltipDetailTimeout}
@@ -3002,9 +2993,7 @@ export class KupDataTable {
                             tooltip: ev.srcElement,
                         })
                     }
-                >
-                    {content}
-                </kup-tooltip>,
+                ></kup-tooltip>,
             ];
         }
 
