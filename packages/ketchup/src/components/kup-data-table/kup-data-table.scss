@@ -645,6 +645,7 @@ $fixed-row-class: fixed-row;
               display: inline-flex;
               margin: auto;
               width: -webkit-fill-available;
+              align-items: center;
               & > * {
                 margin: auto;
               }
