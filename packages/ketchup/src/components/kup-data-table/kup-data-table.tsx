@@ -2974,19 +2974,10 @@ export class KupDataTable {
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
         if (hasTooltip(cell.obj)) {
-            let tooltipStyle = {
-                color: 'transparent',
-                height: '100%',
-                left: '0',
-                position: 'absolute',
-                top: '0',
-                width: '100%',
-            };
             classObj['is-tooltip'] = true;
             content = [
                 content,
                 <kup-tooltip
-                    style={tooltipStyle}
                     class="datatable-tooltip"
                     loadTimeout={this.tooltipLoadTimeout}
                     detailTimeout={this.tooltipDetailTimeout}
@@ -3002,9 +2993,7 @@ export class KupDataTable {
                             tooltip: ev.srcElement,
                         })
                     }
-                >
-                    {content}
-                </kup-tooltip>,
+                ></kup-tooltip>,
             ];
         }
 

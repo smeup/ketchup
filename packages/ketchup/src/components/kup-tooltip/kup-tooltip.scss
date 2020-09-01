@@ -16,7 +16,6 @@
   --tlt_display: var(--kup-tlt_display, inline-block);
 
   #wrapper {
-    position: relative;
     display: var(--tlt_display);
 
     #tooltip {
@@ -129,5 +128,20 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+:host(.datatable-tooltip) {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  #wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
   }
 }
