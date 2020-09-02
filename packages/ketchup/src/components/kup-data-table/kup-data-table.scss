@@ -307,6 +307,7 @@ $fixed-row-class: fixed-row;
     &.custom-size th {
       position: sticky;
       top: 0;
+      z-index: 1;
     }
 
     > thead {
@@ -806,7 +807,8 @@ $fixed-row-class: fixed-row;
           padding-bottom: 0.2rem;
         }
         tbody > tr.group > td {
-          padding: 0.25rem 0;
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
         }
         kup-lazy.to-be-loaded {
           height: 26px;
@@ -819,7 +821,8 @@ $fixed-row-class: fixed-row;
           padding-bottom: 1rem;
         }
         tbody > tr.group > td {
-          padding: 0.75rem 0;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
         }
         kup-lazy.to-be-loaded {
           height: 50px;
