@@ -631,13 +631,17 @@ $fixed-row-class: fixed-row;
 
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
-              display: inline-block; // [column-width-related][mandatory][3]
               max-width: 100%;
               overflow: hidden;
               text-overflow: ellipsis;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
+
+              & .tooltip-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
             }
 
             &.is-tooltip {
