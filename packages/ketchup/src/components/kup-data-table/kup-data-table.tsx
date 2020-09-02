@@ -2976,7 +2976,7 @@ export class KupDataTable {
         if (hasTooltip(cell.obj)) {
             classObj['is-tooltip'] = true;
             content = [
-                <span class="tooltip-text">{content}</span>,
+                content,
                 <kup-tooltip
                     class="datatable-tooltip"
                     loadTimeout={this.tooltipLoadTimeout}
