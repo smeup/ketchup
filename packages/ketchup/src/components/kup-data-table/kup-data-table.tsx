@@ -770,11 +770,11 @@ export class KupDataTable {
         // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+        this.groupState = {};
+        this.forceGroupExpansion();
     }
 
     componentWillRender() {
-        this.groupState = {};
-        this.forceGroupExpansion();
         this.renderCount++;
         this.renderStart = performance.now();
     }

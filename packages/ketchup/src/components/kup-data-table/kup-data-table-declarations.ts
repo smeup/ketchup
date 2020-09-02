@@ -104,6 +104,7 @@ export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
     AVERAGE = 'Average',
+    FORMULA = 'FORMULA#',
 }
 
 export enum PaginatorPos {
