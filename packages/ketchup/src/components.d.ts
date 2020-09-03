@@ -20,7 +20,8 @@ import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } f
 import { KupStore } from "./components/kup-state/kup-store";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
-import { Badge, CssDraw } from "./components/kup-image/kup-image-declarations";
+import { KupBadge } from "./components/kup-badge/kup-badge";
+import { CssDraw } from "./components/kup-image/kup-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
@@ -796,7 +797,7 @@ export namespace Components {
         /**
           * Sets the data of badges.
          */
-        "badgeData": Badge[];
+        "badgeData": KupBadge[];
         /**
           * The color of the icon, defaults to the main color of the app.
          */
@@ -2718,7 +2719,7 @@ declare namespace LocalJSX {
         /**
           * Sets the data of badges.
          */
-        "badgeData"?: Badge[];
+        "badgeData"?: KupBadge[];
         /**
           * The color of the icon, defaults to the main color of the app.
          */
