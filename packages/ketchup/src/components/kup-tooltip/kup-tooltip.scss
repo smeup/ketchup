@@ -16,12 +16,12 @@
   --tlt_display: var(--kup-tlt_display, inline-block);
 
   #wrapper {
-    position: relative;
     display: var(--tlt_display);
 
     #tooltip {
       position: fixed;
       background: var(--tlt_background);
+      color: var(--kup-text-color);
       z-index: 1000;
       box-shadow: var(--tlt_shadow);
       border-radius: 3px;
@@ -128,5 +128,20 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+:host(.datatable-tooltip) {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  #wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
   }
 }

@@ -307,6 +307,7 @@ $fixed-row-class: fixed-row;
     &.custom-size th {
       position: sticky;
       top: 0;
+      z-index: 1;
     }
 
     > thead {
@@ -376,6 +377,10 @@ $fixed-row-class: fixed-row;
           text-overflow: ellipsis;
           vertical-align: bottom;
           white-space: normal;
+        }
+
+        &.icon {
+          width: 30px;
         }
 
         &.number {
@@ -479,9 +484,6 @@ $fixed-row-class: fixed-row;
       }
 
       //---- Columns drag style ----
-      & th[draggable] {
-        position: relative;
-      }
 
       &[columns-dragging] {
         // When the drag is over a valid target
@@ -624,6 +626,7 @@ $fixed-row-class: fixed-row;
             display: flex;
 
             &.has-padding {
+              box-sizing: border-box;
               padding: 1rem;
             }
 
@@ -636,12 +639,30 @@ $fixed-row-class: fixed-row;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
+
+              & .cell-bar,
+              & .cell-button,
+              & .cell-chart,
+              & .cell-checkbox,
+              & .cell-icon,
+              & .cell-image,
+              & .cell-progress-bar,
+              & .cell-radio {
+                display: flex;
+                justify-content: center;
+              }
+            }
+
+            &.is-tooltip {
+              position: relative;
             }
 
             &.is-vertical,
             :host([force-one-line]) &.is-vertical {
-              display: flex;
+              display: inline-flex;
               margin: auto;
+              width: -webkit-fill-available;
+              align-items: center;
               & > * {
                 margin: auto;
               }
@@ -736,6 +757,10 @@ $fixed-row-class: fixed-row;
           display: inline-flex;
           padding: 0.5rem 0.3125rem;
 
+          &.icon {
+            width: 30px;
+          }
+
           &.number {
             text-align: right;
           }
@@ -782,7 +807,8 @@ $fixed-row-class: fixed-row;
           padding-bottom: 0.2rem;
         }
         tbody > tr.group > td {
-          padding: 0.25rem 0;
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
         }
         kup-lazy.to-be-loaded {
           height: 26px;
@@ -795,7 +821,8 @@ $fixed-row-class: fixed-row;
           padding-bottom: 1rem;
         }
         tbody > tr.group > td {
-          padding: 0.75rem 0;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
         }
         kup-lazy.to-be-loaded {
           height: 50px;

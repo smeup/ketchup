@@ -118,10 +118,10 @@ export class KupBadge {
 
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
-                this.imageData['sizeX'] = '.8rem';
+                this.imageData['sizeX'] = '1rem';
             }
             if (!this.imageData['sizeY']) {
-                this.imageData['sizeY'] = '.8rem';
+                this.imageData['sizeY'] = '1rem';
             }
             if (!this.imageData['color']) {
                 this.imageData['color'] = 'var(--kup-text-on-main-color)';
