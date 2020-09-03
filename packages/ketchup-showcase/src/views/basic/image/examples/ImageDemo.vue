@@ -29,7 +29,7 @@ export default {
         {
           prop: 'badgeData',
           description: 'Sets the data of badges.',
-          type: 'Badge',
+          type: 'KupBadge',
           default: '[]',
           try: 'json',
         },

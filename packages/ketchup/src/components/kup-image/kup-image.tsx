@@ -11,10 +11,11 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { Badge, CssDraw } from './kup-image-declarations';
+import { CssDraw } from './kup-image-declarations';
 import { logMessage } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupBadge } from '../kup-badge/kup-badge';
 
 @Component({
     tag: 'kup-image',
@@ -29,7 +30,7 @@ export class KupImage {
     /**
      * Sets the data of badges.
      */
-    @Prop() badgeData: Badge[] = undefined;
+    @Prop() badgeData: KupBadge[] = undefined;
     /**
      * The color of the icon, defaults to the main color of the app.
      */
@@ -287,17 +288,11 @@ export class KupImage {
             );
         }
 
-        let badgeCollection = [];
+        let badgeCollection: KupBadge[] = [];
         if (this.badgeData) {
-            badgeCollection = this.badgeData.map((badge) => {
-                return (
-                    <kup-badge
-                        imageData={badge.imageData}
-                        text={badge.text}
-                        position={badge.position}
-                    />
-                );
-            });
+            for (let index = 0; index < this.badgeData.length; index++) {
+                badgeCollection.push(<kup-badge {...this.badgeData[index]} />);
+            }
         }
 
         if (this.isCanvas) {
