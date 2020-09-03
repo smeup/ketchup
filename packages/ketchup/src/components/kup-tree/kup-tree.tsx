@@ -370,6 +370,10 @@ export class KupTree {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     //-------- Watchers --------
