@@ -520,7 +520,7 @@ export function groupRows(
     });
 
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
-    adjustGroupsAverageOrFormula(groupRows, TotalMode.FORMULA, totals);
+    adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
     return groupRows;
 }
@@ -591,7 +591,7 @@ function updateGroupTotal(
                     break;
 
                 default: {
-                    if (totalMode.indexOf(TotalMode.FORMULA) != 0) {
+                    if (totalMode.indexOf(TotalMode.MATH) != 0) {
                         console.warn(`invalid total mode: ${totalMode}`);
                     }
                     break;
@@ -621,9 +621,9 @@ function adjustGroupsAverageOrFormula(
     if (type == TotalMode.AVERAGE) {
         toAdjustKeys = keys.filter((key) => TotalMode.AVERAGE === totals[key]);
     }
-    if (type == TotalMode.FORMULA) {
+    if (type == TotalMode.MATH) {
         toAdjustKeys = keys.filter(
-            (key) => totals[key].indexOf(TotalMode.FORMULA) == 0
+            (key) => totals[key].indexOf(TotalMode.MATH) == 0
         );
     }
 
@@ -678,8 +678,8 @@ function adjustGroupAverageOrFormula(
                 .divide(numberOfLeaf)
                 .value();
         }
-        if (type == TotalMode.FORMULA) {
-            let formula = totals[key].substring(TotalMode.FORMULA.length);
+        if (type == TotalMode.MATH) {
+            let formula = totals[key].substring(TotalMode.MATH.length);
             row.group.totals[key] = evaluateFormula(formula, row.group.totals);
         }
     });
@@ -780,7 +780,7 @@ export function calcTotals(
             keys.filter(
                 (key) =>
                     TotalMode.COUNT !== totals[key] &&
-                    totals[key].indexOf(TotalMode.FORMULA) != 0
+                    totals[key].indexOf(TotalMode.MATH) != 0
             ).forEach((key) => {
                 // getting column
                 const cell = r.cells[key];
@@ -806,8 +806,8 @@ export function calcTotals(
                 }
             } else if (totals[key] === TotalMode.COUNT) {
                 footerRow[key] = rows.length;
-            } else if (totals[key].indexOf(TotalMode.FORMULA) == 0) {
-                let formula = totals[key].substring(TotalMode.FORMULA.length);
+            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
+                let formula = totals[key].substring(TotalMode.MATH.length);
                 footerRow[key] = evaluateFormula(formula, footerRow);
             }
         }

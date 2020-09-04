@@ -1998,8 +1998,8 @@ if (averageTest != null) {
     averageTest.groups = averageTestGroups;
 }
 
-// formula test
-const formulaTestData = {
+// math test
+const mathTestData = {
     columns: [
         {
             name: 'XXCODI',
@@ -2760,28 +2760,28 @@ const formulaTestData = {
         },
     ],
 };
-const formulaTestTotals = {
+const mathTestTotals = {
     XXFACO: 'Sum',
     XXARTI: 'Count',
     XXQTCO: 'Sum',
-    XXFAPD: 'FORMULA#([XXFAPR]-[XXFACO])*100/[XXFAPR]',
-    XXQTDE: 'FORMULA#([XXQTPR]-[XXQTCO])',
+    XXFAPD: 'MATH([XXFAPR]-[XXFACO])*100/[XXFAPR]',
+    XXQTDE: 'MATH([XXQTPR]-[XXQTCO])',
     XXQTPR: 'Sum',
     XXFAPR: 'Sum',
-    XXFADE: 'FORMULA#([XXFAPR]-[XXFACO])',
-    XXQTPD: 'FORMULA#([XXQTPR]-[XXQTCO])*100/[XXQTPR]',
+    XXFADE: 'MATH([XXFAPR]-[XXFACO])',
+    XXQTPD: 'MATH([XXQTPR]-[XXQTCO])*100/[XXQTPR]',
 };
-const formulaTestGroups = [
+const mathTestGroups = [
     {
         column: 'XXARTI',
         visible: true,
     },
 ];
-const formulaTest = document.getElementById('formula-test');
-if (formulaTest != null) {
-    formulaTest.data = formulaTestData;
-    formulaTest.totals = formulaTestTotals;
-    formulaTest.groups = formulaTestGroups;
+const mathTest = document.getElementById('math-test');
+if (mathTest != null) {
+    mathTest.data = mathTestData;
+    mathTest.totals = mathTestTotals;
+    mathTest.groups = mathTestGroups;
 }
 
 const tempDataTableTestData = {
