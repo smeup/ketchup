@@ -639,17 +639,6 @@ $fixed-row-class: fixed-row;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
-
-              & .cell-bar,
-              & .cell-button,
-              & .cell-chart,
-              & .cell-checkbox,
-              & .cell-icon,
-              & .cell-image,
-              & .cell-radio {
-                display: flex;
-                justify-content: center;
-              }
             }
 
             &.is-tooltip {
