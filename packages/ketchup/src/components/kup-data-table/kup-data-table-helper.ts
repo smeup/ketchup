@@ -20,6 +20,7 @@ import {
     isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
+import { logMessage } from '../../utils/debug-manager';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -696,10 +697,21 @@ export function evaluateFormula(
     for (let i = 0; i < keys.length; i++) {
         let key = keys[i];
         let value: number = row[key];
-        let re: RegExp = new RegExp(key, 'g');
-        formula1 = formula1.replace(re, value.toString());
+        if (value != null && !isNaN(value)) {
+            let re: RegExp = new RegExp(key, 'g');
+            formula1 = formula1.replace(re, value.toString());
+        }
     }
-    return evaluateString(formula1);
+    try {
+        return evaluateString(formula1);
+    } catch (e) {
+        logMessage(
+            'kup-data-table-helper',
+            'Error during evaluate formula [' + formula1 + ']',
+            'error'
+        );
+        return NaN;
+    }
 }
 
 export function evaluateString(f: string) {

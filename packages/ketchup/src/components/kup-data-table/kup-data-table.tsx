@@ -781,7 +781,11 @@ export class KupDataTable {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-        if (this.paginatedRows.length < this.rows.length && this.lazyLoadRows) {
+        if (
+            this.paginatedRows != null &&
+            this.paginatedRows.length < this.rows.length &&
+            this.lazyLoadRows
+        ) {
             let rows = root.querySelectorAll('tbody > tr');
             this.observedEl = rows[this.paginatedRows.length - 1];
             this.intObserver.observe(this.observedEl);
@@ -3248,7 +3252,7 @@ export class KupDataTable {
         this.sizedColumns = this.getSizedColumns();
 
         let rows = null;
-        if (this.paginatedRows.length === 0) {
+        if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.calculateColspan()}>Empty data</td>
