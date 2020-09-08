@@ -72,6 +72,7 @@ export class KupTree {
                 );
                 // *** PROPS ***
                 this.density = state.density;
+                this.filterValue = state.filterValue;
                 //
             }
         }
@@ -81,6 +82,7 @@ export class KupTree {
         if (this.store && this.stateId) {
             // *** PROPS ***
             this.state.density = this.density;
+            this.state.filterValue = this.filterValue;
             //
             console.log(
                 'Persisting state for stateId ' + this.stateId + ': ',

@@ -9,6 +9,7 @@ import { KupState } from '../kup-state/kup-state';
 export class KupTreeState implements KupState {
 
     density: string = 'small';
+    filterValue: string = '';
 
     public toDebugString() {
         // TODO
