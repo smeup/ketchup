@@ -54,13 +54,56 @@ import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
-
+import { KupTreeState } from './kup-box-state';
+import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
     shadow: true,
 })
 export class KupBox {
+
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupTreeState = new KupTreeState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                // *** ADD PROPS ***
+                
+                //
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            // *** ADD PROPS ***
+            
+            //
+            console.log(
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
 
@@ -371,6 +414,9 @@ export class KupBox {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     componentDidUnload() {
