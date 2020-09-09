@@ -44,13 +44,58 @@ import {
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
-
+import { KupTreeState } from './kup-tree-state';
+import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
     shadow: true,
 })
 export class KupTree {
+
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupTreeState = new KupTreeState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                // *** PROPS ***
+                this.density = state.density;
+                this.filterValue = state.filterValue;
+                //
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            // *** PROPS ***
+            this.state.density = this.density;
+            this.state.filterValue = this.filterValue;
+            //
+            console.log(
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
 
@@ -327,6 +372,10 @@ export class KupTree {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     //-------- Watchers --------
