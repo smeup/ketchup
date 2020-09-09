@@ -2935,6 +2935,7 @@ export class KupDataTable {
             }
         } else if (isButton(cell.obj)) {
             if (props) {
+                classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['className'] = 'cell-button';
                 content = (
@@ -2950,6 +2951,7 @@ export class KupDataTable {
             }
         } else if (isChart(cell.obj)) {
             if (props) {
+                classObj['is-centered'] = true;
                 props['className'] = 'cell-chart';
                 content = <lazy-chart props={props}></lazy-chart>;
             } else {
@@ -2961,6 +2963,7 @@ export class KupDataTable {
             } else {
                 props = { disabled: row.readOnly };
             }
+            classObj['is-centered'] = true;
             props['className'] = 'cell-checkbox';
             content = <lazy-checkbox props={props}></lazy-checkbox>;
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
@@ -2974,6 +2977,7 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
+                classObj['is-centered'] = true;
                 props['className'] = 'cell-icon';
                 content = <lazy-image props={props}></lazy-image>;
             } else {
@@ -2994,6 +2998,7 @@ export class KupDataTable {
                     width: props['sizeX'],
                     height: props['sizeY'],
                 };
+                classObj['is-centered'] = true;
                 props['className'] = 'cell-image';
                 props['style'] = cellStyle;
                 content = <lazy-image props={props}></lazy-image>;
