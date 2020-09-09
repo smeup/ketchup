@@ -391,6 +391,9 @@ export class KupDataTable {
     private openedMenu: string = null;
 
     @State()
+    private openedCustomSettings: boolean = false;
+
+    @State()
     private fontsize: string = 'medium';
 
     /**
@@ -3085,7 +3088,11 @@ export class KupDataTable {
     }
 
     private onCustomSettingsClick(top: boolean) {
-        this.openCustomSettings(top);
+        if (!this.openedCustomSettings) {
+            this.openCustomSettings(top);
+        } else {
+            this.closeCustomSettings(top);
+        }
     }
 
     private openCustomSettings(top: boolean) {
@@ -3096,6 +3103,7 @@ export class KupDataTable {
 
         elPanel.classList.add('visible');
         elPanel.classList.add('dynamic-position-active');
+        this.openedCustomSettings = true;
     }
 
     private closeCustomSettings(top: boolean) {
@@ -3107,9 +3115,16 @@ export class KupDataTable {
         }
         elPanel.classList.remove('visible');
         elPanel.classList.remove('dynamic-position-active');
+        this.openedCustomSettings = false;
     }
 
     private renderPaginator(top: boolean) {
+        let density: HTMLElement = undefined;
+        let fontsize: HTMLElement = undefined;
+        if (this.openedCustomSettings) {
+            density = this.renderDensityPanel();
+            fontsize = this.renderFontSizePanel();
+        }
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
@@ -3150,8 +3165,8 @@ export class KupDataTable {
                                 : (this.customizeBottomPanelRef = el as any);
                         }}
                     >
-                        {this.renderDensityPanel()}
-                        {this.renderFontSizePanel()}
+                        {density}
+                        {fontsize}
                     </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
