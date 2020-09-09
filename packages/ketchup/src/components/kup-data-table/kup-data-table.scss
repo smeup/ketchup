@@ -639,6 +639,12 @@ $fixed-row-class: fixed-row;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
+
+              kup-button,
+              kup-checkbox,
+              kup-image {
+                display: flex;
+              }
             }
 
             &.is-tooltip {
