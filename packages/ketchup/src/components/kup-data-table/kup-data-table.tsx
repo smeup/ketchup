@@ -111,10 +111,7 @@ export class KupDataTable {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                console.log(
-                    'Initialize with state for stateId ' + this.stateId,
-                    state
-                );
+                logMessage(this, 'Initializing stateId ' + this.stateId);
                 // *** PROPS ***
                 this.filters = state.filters;
                 this.groups = state.groups;
@@ -164,11 +161,7 @@ export class KupDataTable {
             this.state.sortEnabled = this.sortEnabled;
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
-            //
-            console.log(
-                'Persisting state for stateId ' + this.stateId + ': ',
-                this.state
-            );
+            logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
     }
