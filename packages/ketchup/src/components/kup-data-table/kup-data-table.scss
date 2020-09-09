@@ -640,9 +640,7 @@ $fixed-row-class: fixed-row;
               white-space: nowrap;
               width: 100%;
 
-              kup-button,
-              kup-checkbox,
-              kup-image {
+              &.is-centered {
                 display: flex;
               }
             }
