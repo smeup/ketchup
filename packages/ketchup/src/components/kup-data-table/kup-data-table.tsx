@@ -111,10 +111,7 @@ export class KupDataTable {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                console.log(
-                    'Initialize with state for stateId ' + this.stateId,
-                    state
-                );
+                logMessage(this, 'Initializing stateId ' + this.stateId);
                 // *** PROPS ***
                 this.filters = state.filters;
                 this.groups = state.groups;
@@ -164,11 +161,7 @@ export class KupDataTable {
             this.state.sortEnabled = this.sortEnabled;
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
-            //
-            console.log(
-                'Persisting state for stateId ' + this.stateId + ': ',
-                this.state
-            );
+            logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
     }
@@ -396,6 +389,9 @@ export class KupDataTable {
      */
     @State()
     private openedMenu: string = null;
+
+    @State()
+    private openedCustomSettings: boolean = false;
 
     @State()
     private fontsize: string = 'medium';
@@ -3092,7 +3088,11 @@ export class KupDataTable {
     }
 
     private onCustomSettingsClick(top: boolean) {
-        this.openCustomSettings(top);
+        if (!this.openedCustomSettings) {
+            this.openCustomSettings(top);
+        } else {
+            this.closeCustomSettings(top);
+        }
     }
 
     private openCustomSettings(top: boolean) {
@@ -3103,6 +3103,7 @@ export class KupDataTable {
 
         elPanel.classList.add('visible');
         elPanel.classList.add('dynamic-position-active');
+        this.openedCustomSettings = true;
     }
 
     private closeCustomSettings(top: boolean) {
@@ -3114,9 +3115,16 @@ export class KupDataTable {
         }
         elPanel.classList.remove('visible');
         elPanel.classList.remove('dynamic-position-active');
+        this.openedCustomSettings = false;
     }
 
     private renderPaginator(top: boolean) {
+        let density: HTMLElement = undefined;
+        let fontsize: HTMLElement = undefined;
+        if (this.openedCustomSettings) {
+            density = this.renderDensityPanel();
+            fontsize = this.renderFontSizePanel();
+        }
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
@@ -3157,8 +3165,8 @@ export class KupDataTable {
                                 : (this.customizeBottomPanelRef = el as any);
                         }}
                     >
-                        {this.renderDensityPanel()}
-                        {this.renderFontSizePanel()}
+                        {density}
+                        {fontsize}
                     </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
