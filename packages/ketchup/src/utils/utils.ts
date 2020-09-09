@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import numeral from 'numeral';
+import { logMessage } from './debug-manager';
 
 export function format(first: string, middle: string, last: string): string {
     return (
@@ -175,6 +176,9 @@ export function numberToFormattedStringNumber(
     decimals: number,
     type: string
 ): string {
+    if (input == null || isNaN(input)) {
+        return '';
+    }
     let nstr = numberToString(input, decimals);
     nstr = nstr + getNumericValueSuffixByType(type);
     return nstr;

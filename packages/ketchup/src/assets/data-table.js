@@ -1998,6 +1998,792 @@ if (averageTest != null) {
     averageTest.groups = averageTestGroups;
 }
 
+// math test
+const mathTestData = {
+    columns: [
+        {
+            name: 'XXCODI',
+            title: 'Codice',
+        },
+        {
+            name: 'XXCODI_',
+            obj: {
+                k: '',
+                p: 'CNCLI',
+                t: 'DE',
+            },
+            title: 'CALC0',
+        },
+        {
+            decimals: 2,
+            name: 'XXFAPR',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Fatturato\nanno precedente',
+        },
+        {
+            decimals: 2,
+            name: 'XXFACO',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Fatturato\nanno corrente',
+        },
+        {
+            decimals: 2,
+            name: 'XXFADE',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Fatturato\ndifferenza',
+        },
+        {
+            decimals: 2,
+            name: 'XXFAPD',
+            obj: {
+                k: '',
+                p: 'P',
+                t: 'NR',
+            },
+            title: 'Fatturato\ndiff. %',
+        },
+        {
+            name: 'XXARTI',
+            obj: {
+                k: '',
+                p: '',
+                t: 'AR',
+            },
+            title: 'Codice',
+        },
+        {
+            name: 'XXARTI_',
+            obj: {
+                k: '',
+                p: 'AR',
+                t: 'DE',
+            },
+            title: 'CALC0',
+        },
+        {
+            decimals: 2,
+            name: 'XXQTPR',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Quantità\nanno precedente',
+        },
+        {
+            decimals: 2,
+            name: 'XXQTCO',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Quantità\nanno corrente',
+        },
+        {
+            decimals: 2,
+            name: 'XXQTDE',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Quantità\ndifferenza',
+        },
+        {
+            decimals: 2,
+            name: 'XXQTPD',
+            obj: {
+                k: '',
+                p: 'P',
+                t: 'NR',
+            },
+            title: 'Quantità\ndiff. %',
+        },
+        {
+            decimals: 2,
+            name: 'OEE1',
+            obj: {
+                k: '',
+                p: '',
+                t: 'NR',
+            },
+            title: 'Fat diff perc',
+        },
+        {
+            name: 'XXTIPO',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'Tipo',
+            visible: false,
+        },
+        {
+            name: 'groupingRowColumnCode',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: '',
+            visible: false,
+        },
+        {
+            name: 'groupingRowColumnCodeLevel',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: '',
+            visible: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                XXFACO: {
+                    obj: {
+                        k: '1152203.03',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '1,152,203.03',
+                },
+                OEE1: {
+                    obj: {
+                        k: '0',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '0.00',
+                },
+                XXARTI: {
+                    obj: {
+                        k: 'A01',
+                        p: '',
+                        t: 'AR',
+                    },
+                    options: true,
+                    value: 'A01',
+                },
+                XXQTCO: {
+                    obj: {
+                        k: '203.03',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '203.03',
+                },
+                groupingRowColumnCodeLevel: {
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                XXFAPD: {
+                    obj: {
+                        k: '7.99305',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '7.99',
+                },
+                XXQTDE: {
+                    obj: {
+                        k: '119.97',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '119.97',
+                },
+                XXQTPR: {
+                    obj: {
+                        k: '323',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '323.00',
+                },
+                XXCODI_: {
+                    obj: {
+                        k: '',
+                        p: 'CNCLI',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                XXARTI_: {
+                    obj: {
+                        k: '',
+                        p: 'AR',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    obj: {
+                        k: '1',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '1',
+                },
+                XXCODI: {
+                    obj: {
+                        k: 'C0001',
+                        p: 'CLI',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'C0001',
+                },
+                XXTIPO: {
+                    obj: {
+                        k: 'CNCLI',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'CNCLI',
+                },
+                XXFAPR: {
+                    obj: {
+                        k: '1252300',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '1,252,300.00',
+                },
+                XXFADE: {
+                    obj: {
+                        k: '100096.97',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '100,096.97',
+                },
+                XXQTPD: {
+                    obj: {
+                        k: '37.14241',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '37.14',
+                },
+            },
+            id: '2',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                XXFACO: {
+                    obj: {
+                        k: '235203.4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '235,203.40',
+                },
+                OEE1: {
+                    obj: {
+                        k: '0',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '0.00',
+                },
+                XXARTI: {
+                    obj: {
+                        k: 'A01',
+                        p: '',
+                        t: 'AR',
+                    },
+                    options: true,
+                    value: 'A01',
+                },
+                XXQTCO: {
+                    obj: {
+                        k: '235.4',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '235.40',
+                },
+                groupingRowColumnCodeLevel: {
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                XXFAPD: {
+                    obj: {
+                        k: '73.64077',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '73.64',
+                },
+                XXQTDE: {
+                    obj: {
+                        k: '656.63',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '656.63',
+                },
+                XXQTPR: {
+                    obj: {
+                        k: '892.03',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '892.03',
+                },
+                XXCODI_: {
+                    obj: {
+                        k: '',
+                        p: 'CNCLI',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                XXARTI_: {
+                    obj: {
+                        k: '',
+                        p: 'AR',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    obj: {
+                        k: '2',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '2',
+                },
+                XXCODI: {
+                    obj: {
+                        k: 'C0003',
+                        p: 'CLI',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'C0003',
+                },
+                XXTIPO: {
+                    obj: {
+                        k: 'CNCLI',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'CNCLI',
+                },
+                XXFAPR: {
+                    obj: {
+                        k: '892300.03',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '892,300.03',
+                },
+                XXFADE: {
+                    obj: {
+                        k: '657096.63',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '657,096.63',
+                },
+                XXQTPD: {
+                    obj: {
+                        k: '73.61075',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '73.61',
+                },
+            },
+            id: '3',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                XXFACO: {
+                    obj: {
+                        k: '3452203.2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '3,452,203.20',
+                },
+                OEE1: {
+                    obj: {
+                        k: '0',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '0.00',
+                },
+                XXARTI: {
+                    obj: {
+                        k: 'A02',
+                        p: '',
+                        t: 'AR',
+                    },
+                    options: true,
+                    value: 'A02',
+                },
+                XXQTCO: {
+                    obj: {
+                        k: '34203.2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '34,203.20',
+                },
+                groupingRowColumnCodeLevel: {
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                XXFAPD: {
+                    obj: {
+                        k: '-137.7059',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-137.71',
+                },
+                XXQTDE: {
+                    obj: {
+                        k: '-21903',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-21,903.00',
+                },
+                XXQTPR: {
+                    obj: {
+                        k: '12300.2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '12,300.20',
+                },
+                XXCODI_: {
+                    obj: {
+                        k: '',
+                        p: 'CNCLI',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                XXARTI_: {
+                    obj: {
+                        k: '',
+                        p: 'AR',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    obj: {
+                        k: '3',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '3',
+                },
+                XXCODI: {
+                    obj: {
+                        k: 'C0002',
+                        p: 'CLI',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'C0002',
+                },
+                XXTIPO: {
+                    obj: {
+                        k: 'CNCLI',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'CNCLI',
+                },
+                XXFAPR: {
+                    obj: {
+                        k: '1452300.2',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '1,452,300.20',
+                },
+                XXFADE: {
+                    obj: {
+                        k: '-1999903',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-1,999,903.00',
+                },
+                XXQTPD: {
+                    obj: {
+                        k: '-178.07028',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-178.07',
+                },
+            },
+            id: '6',
+            object: '',
+            readOnly: true,
+        },
+        {
+            cells: {
+                XXFACO: {
+                    obj: {
+                        k: '10238415.76',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '10,238,415.76',
+                },
+                OEE1: {
+                    obj: {
+                        k: '0',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '0.00',
+                },
+                XXARTI: {
+                    obj: {
+                        k: 'A04',
+                        p: '',
+                        t: 'AR',
+                    },
+                    options: true,
+                    value: 'A04',
+                },
+                XXQTCO: {
+                    obj: {
+                        k: '15.76',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '15.76',
+                },
+                groupingRowColumnCodeLevel: {
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                XXFAPD: {
+                    obj: {
+                        k: '-3.49884',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-3.50',
+                },
+                XXQTDE: {
+                    obj: {
+                        k: '7.34',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '7.34',
+                },
+                XXQTPR: {
+                    obj: {
+                        k: '23.1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '23.10',
+                },
+                XXCODI_: {
+                    obj: {
+                        k: '',
+                        p: 'CNCLI',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                XXARTI_: {
+                    obj: {
+                        k: '',
+                        p: 'AR',
+                        t: 'DE',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    obj: {
+                        k: '4',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '4',
+                },
+                XXCODI: {
+                    obj: {
+                        k: 'C0004',
+                        p: 'CLI',
+                        t: 'CN',
+                    },
+                    options: true,
+                    value: 'C0004',
+                },
+                XXTIPO: {
+                    obj: {
+                        k: 'CNCLI',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'CNCLI',
+                },
+                XXFAPR: {
+                    obj: {
+                        k: '9892300.1',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '9,892,300.10',
+                },
+                XXFADE: {
+                    obj: {
+                        k: '-346115.66',
+                        p: '',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '-346,115.66',
+                },
+                XXQTPD: {
+                    obj: {
+                        k: '31.77489',
+                        p: 'P',
+                        t: 'NR',
+                    },
+                    options: false,
+                    value: '31.77',
+                },
+            },
+            id: '9',
+            object: '',
+            readOnly: true,
+        },
+    ],
+};
+const mathTestTotals = {
+    XXFACO: 'Sum',
+    XXARTI: 'Count',
+    XXQTCO: 'Sum',
+    XXFAPD: 'MATH([XXFAPR]-[XXFACO])*100/[XXFAPR]',
+    XXQTDE: 'MATH([XXQTPR]-[XXQTCO])',
+    XXQTPR: 'Sum',
+    XXFAPR: 'Sum',
+    XXFADE: 'MATH([XXFAPR]-[XXFACO])',
+    XXQTPD: 'MATH([XXQTPR]-[XXQTCO])*100/[XXQTPR]',
+};
+const mathTestGroups = [
+    {
+        column: 'XXARTI',
+        visible: true,
+    },
+];
+const mathTest = document.getElementById('math-test');
+if (mathTest != null) {
+    mathTest.data = mathTestData;
+    mathTest.totals = mathTestTotals;
+    mathTest.groups = mathTestGroups;
+}
+
 const tempDataTableTestData = {
     columns: [
         {

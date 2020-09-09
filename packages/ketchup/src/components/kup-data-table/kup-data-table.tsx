@@ -822,11 +822,11 @@ export class KupDataTable {
         // ***
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+        this.groupState = {};
+        this.forceGroupExpansion();
     }
 
     componentWillRender() {
-        this.groupState = {};
-        this.forceGroupExpansion();
         this.renderCount++;
         this.renderStart = performance.now();
     }
@@ -839,7 +839,11 @@ export class KupDataTable {
         for (let index = 0; index < lazyComps.length; index++) {
             this.intObserverCell.observe(lazyComps[index]);
         }
-        if (this.paginatedRows.length < this.rows.length && this.lazyLoadRows) {
+        if (
+            this.paginatedRows != null &&
+            this.paginatedRows.length < this.rows.length &&
+            this.lazyLoadRows
+        ) {
             let rows = root.querySelectorAll('tbody > tr');
             this.observedEl = rows[this.paginatedRows.length - 1];
             this.intObserver.observe(this.observedEl);
@@ -3308,7 +3312,7 @@ export class KupDataTable {
         this.sizedColumns = this.getSizedColumns();
 
         let rows = null;
-        if (this.paginatedRows.length === 0) {
+        if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.calculateColspan()}>Empty data</td>
