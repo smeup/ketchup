@@ -528,6 +528,10 @@ $fixed-row-class: fixed-row;
           border-top: 1px solid var(--dtt_border-color);
           cursor: pointer;
 
+          & .lazy-loaded {
+            display: none;
+          }
+
           &.group-label {
             border-bottom: none;
           }
@@ -679,12 +683,6 @@ $fixed-row-class: fixed-row;
             padding: 0 1px;
           }
 
-          kup-lazy {
-            display: flex;
-            margin: auto;
-          }
-
-          & .indent ~ kup-lazy,
           & .indent ~ kup-image,
           & .indent ~ kup-button {
             display: inline-block;
@@ -787,10 +785,6 @@ $fixed-row-class: fixed-row;
     }
 
     &.density- {
-      kup-lazy.to-be-loaded {
-        height: 36px;
-      }
-
       &dense {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
@@ -799,9 +793,6 @@ $fixed-row-class: fixed-row;
         tbody > tr.group > td {
           padding-top: 0.25rem;
           padding-bottom: 0.25rem;
-        }
-        kup-lazy.to-be-loaded {
-          height: 26px;
         }
       }
 
@@ -813,9 +804,6 @@ $fixed-row-class: fixed-row;
         tbody > tr.group > td {
           padding-top: 0.75rem;
           padding-bottom: 0.75rem;
-        }
-        kup-lazy.to-be-loaded {
-          height: 50px;
         }
       }
     }

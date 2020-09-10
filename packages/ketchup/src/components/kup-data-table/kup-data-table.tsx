@@ -2924,7 +2924,7 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                props['className'] = 'cell-bar';
+                props['className'] = 'cell-bar lazy-loaded';
                 content = <lazy-image props={props}></lazy-image>;
             } else {
                 content = undefined;
@@ -2933,7 +2933,7 @@ export class KupDataTable {
             if (props) {
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                props['className'] = 'cell-button';
+                props['className'] = 'cell-button lazy-loaded';
                 content = (
                     <lazy-button
                         lazyrow={row}
@@ -2948,7 +2948,7 @@ export class KupDataTable {
         } else if (isChart(cell.obj)) {
             if (props) {
                 classObj['is-centered'] = true;
-                props['className'] = 'cell-chart';
+                props['className'] = 'cell-chart lazy-loaded';
                 content = <lazy-chart props={props}></lazy-chart>;
             } else {
                 content = undefined;
@@ -2960,7 +2960,7 @@ export class KupDataTable {
                 props = { disabled: row.readOnly };
             }
             classObj['is-centered'] = true;
-            props['className'] = 'cell-checkbox';
+            props['className'] = 'cell-checkbox lazy-loaded';
             content = <lazy-checkbox props={props}></lazy-checkbox>;
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
@@ -2995,7 +2995,7 @@ export class KupDataTable {
                     height: props['sizeY'],
                 };
                 classObj['is-centered'] = true;
-                props['className'] = 'cell-image';
+                props['className'] = 'cell-image lazy-loaded';
                 props['style'] = cellStyle;
                 content = <lazy-image props={props}></lazy-image>;
             } else {
@@ -3024,7 +3024,7 @@ export class KupDataTable {
             }
         } else if (isProgressBar(cell.obj)) {
             if (props) {
-                props['className'] = 'cell-progress-bar';
+                props['className'] = 'cell-progress-bar lazy-loaded';
                 content = <lazy-progress-bar props={props}></lazy-progress-bar>;
             } else {
                 content = undefined;
@@ -3032,7 +3032,7 @@ export class KupDataTable {
         } else if (isRadio(cell.obj)) {
             if (props) {
                 props['disabled'] = row.readOnly;
-                props['className'] = 'cell-radio';
+                props['className'] = 'cell-radio lazy-loaded';
                 content = <lazy-radio props={props}></lazy-radio>;
             } else {
                 content = undefined;
@@ -3053,7 +3053,7 @@ export class KupDataTable {
             props = {};
             props['loadTimeout'] = this.tooltipLoadTimeout;
             props['detailTimeout'] = this.tooltipDetailTimeout;
-            props['className'] = 'datatable-tooltip';
+            props['className'] = 'datatable-tooltip lazy-loaded';
             content = [
                 content,
                 (content = (
