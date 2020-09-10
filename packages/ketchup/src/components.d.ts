@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
+import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
@@ -17,7 +18,6 @@ import { ComponentChipElement } from "./components/kup-chip/kup-chip-declaration
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { KupStore } from "./components/kup-state/kup-store";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -127,6 +127,10 @@ export namespace Components {
          */
         "filterEnabled": boolean;
         /**
+          * Global filter value state
+         */
+        "globalFilterValueState": string;
+        /**
           * How the field will be displayed. If not present, a default one will be created.
          */
         "layout": Layout;
@@ -157,6 +161,10 @@ export namespace Components {
          */
         "selectBox": number;
         /**
+          * Global filter value state
+         */
+        "selectedRowsState": BoxRow[];
+        /**
           * If enabled, highlights the selected box/boxes
          */
         "showSelection": boolean;
@@ -168,6 +176,8 @@ export namespace Components {
           * Enable sorting
          */
         "sortEnabled": boolean;
+        "stateId": string;
+        "store": KupStore;
     }
     interface KupBtn {
         "buttons": any[];
@@ -1810,6 +1820,10 @@ declare namespace LocalJSX {
          */
         "filterEnabled"?: boolean;
         /**
+          * Global filter value state
+         */
+        "globalFilterValueState"?: string;
+        /**
           * How the field will be displayed. If not present, a default one will be created.
          */
         "layout"?: Layout;
@@ -1898,6 +1912,10 @@ declare namespace LocalJSX {
          */
         "selectBox"?: number;
         /**
+          * Global filter value state
+         */
+        "selectedRowsState"?: BoxRow[];
+        /**
           * If enabled, highlights the selected box/boxes
          */
         "showSelection"?: boolean;
@@ -1909,6 +1927,8 @@ declare namespace LocalJSX {
           * Enable sorting
          */
         "sortEnabled"?: boolean;
+        "stateId"?: string;
+        "store"?: KupStore;
     }
     interface KupBtn {
         "buttons"?: any[];

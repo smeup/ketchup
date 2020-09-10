@@ -54,7 +54,7 @@ import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
-import { KupTreeState } from './kup-box-state';
+import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-box',
@@ -70,32 +70,28 @@ export class KupBox {
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
 
-    state: KupTreeState = new KupTreeState();
+    state: KupBoxState = new KupBoxState();
 
     initWithPersistedState(): void {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                console.log(
-                    'Initialize with state for stateId ' + this.stateId,
-                    state
-                );
-                // *** ADD PROPS ***
-                
-                //
+                logMessage(this, 'Initialize with state for stateId ' + this.stateId + ': ' +state);
+                // *** PROPS ***
+                this.sortBy = this.state.sortBy;
+                this.globalFilterValueState = this.state.globalFilterValueState;
+                this.selectedRowsState = this.state.selectedRowsState;
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
-            // *** ADD PROPS ***
-            
-            //
-            console.log(
-                'Persisting state for stateId ' + this.stateId + ': ',
-                this.state
-            );
+                // *** PROPS ***
+                this.state.sortBy = this.sortBy;
+                this.state.globalFilterValueState = this.globalFilterValue;
+                this.state.selectedRowsState = this.selectedRows;
+                logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
             this.store.persistState(this.stateId, this.state);
         }
     }
@@ -198,6 +194,16 @@ export class KupBox {
      */
     @Prop({ mutable: true, reflect: true })
     sortBy: string;
+    /**
+     * Global filter value state
+     */
+    @Prop({ mutable: true, reflect: true })
+    globalFilterValueState: string;
+    /**
+     * Global filter value state
+     */
+    @Prop({ mutable: true, reflect: true })
+    selectedRowsState: BoxRow[] = [];
     /**
      * Enable sorting
      */
@@ -400,6 +406,10 @@ export class KupBox {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+
+        // Initialize @State from @Prop 
+        this.globalFilterValue = this.globalFilterValueState;
+        this.selectedRows = this.selectedRowsState;
     }
 
     componentWillRender() {
@@ -560,7 +570,7 @@ export class KupBox {
         );
     }
 
-    private handleAutomaticBoxSelection() {
+    private handleAutomaticBoxSelection() { 
         // automatic row selection
         if (
             this.selectBox &&
