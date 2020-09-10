@@ -29,6 +29,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
 ### Depends on
 
 - [kup-button](../kup-button)
@@ -43,6 +47,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
