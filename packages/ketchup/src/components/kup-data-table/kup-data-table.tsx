@@ -2070,6 +2070,14 @@ export class KupDataTable {
                                     this.closeMenu();
                                 }}
                             />
+                            <kup-button
+                                icon="table-column-remove"
+                                tooltip="Hide column"
+                                onKupButtonClick={() => {
+                                    column.visible = false;
+                                    this.closeMenu();
+                                }}
+                            />                            
                         </li>
                     );
 
