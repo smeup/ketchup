@@ -552,7 +552,7 @@ export class KupBox {
     private onSortChange(e: CustomEvent) {
         console.log(e);
         this.sortBy = e.detail.value;
-        this.initRows();
+//        this.initRows();
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -1501,6 +1501,10 @@ export class KupBox {
         if (this.sortEnabled) {
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
+
+                console.log("Colonna " + JSON.stringify(column));
+
+
                 const item = {
                     text: column.title,
                     value: column.name,
@@ -1509,8 +1513,7 @@ export class KupBox {
 
                 return item;
             });
-
-            const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 initialValue: this.sortBy,
                 label: 'Sort by',
@@ -1520,6 +1523,9 @@ export class KupBox {
                 data: items,
                 selectable: true,
             };
+
+            console.log("textfieldData " + JSON.stringify(textfieldData));
+            console.log("listData " + JSON.stringify(listData));
 
             sortPanel = (
                 <div id="sort-panel">
@@ -1539,6 +1545,7 @@ export class KupBox {
                     <kup-text-field
                         label="Cerca" // TODO
                         full-width={true}
+                        initial-value={this.globalFilterValueState}
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
