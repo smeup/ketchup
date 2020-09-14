@@ -131,8 +131,10 @@ export class KupDataTable {
                 this.showLoadMore = state.showLoadMore;
                 this.sortEnabled = state.sortEnabled;
                 this.sort = state.sort;
+                this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
+                this.selectRow = state.selectRow;
                 //
             }
         }
@@ -161,6 +163,8 @@ export class KupDataTable {
             this.state.sortEnabled = this.sortEnabled;
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+            this.state.pageSelected = this.currentPage;
+            this.state.selectRow = this.lastSelectRowIndex;
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -275,6 +279,11 @@ export class KupDataTable {
     @Prop({ reflect: true }) loadMoreStep: number = 60;
 
     /**
+     * Current selected page set on component load
+     */
+    @Prop() pageSelected: number = -1;
+
+    /**
      * When set to true enables rows multi selection.
      */
     @Prop({ reflect: true }) multiSelection = false;
@@ -367,6 +376,9 @@ export class KupDataTable {
     @Prop() tooltipDetailTimeout: number;
 
     //-------- State --------
+
+    @State()
+    private lastSelectRowIndex = -1;
 
     @State()
     private currentPage = 1;
@@ -764,8 +776,13 @@ export class KupDataTable {
         // *** Store
         this.initWithPersistedState();
         // ***
+        if (this.pageSelected > 0) {
+            this.currentPage = this.pageSelected;
+            this.pageSelected = -1;
+        }
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+        this.adjustPaginator();
         this.groupState = {};
         this.forceGroupExpansion();
     }
@@ -850,6 +867,7 @@ export class KupDataTable {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
                 this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
+                this.lastSelectRowIndex = this.selectRow;
                 this.kupAutoRowSelect.emit({
                     selectedRow: this.selectedRows[0],
                 });
@@ -1435,6 +1453,7 @@ export class KupDataTable {
     }
 
     private handleRowSelect(target: any, row: Row, ctrlKey: boolean) {
+        this.lastSelectRowIndex = this.selectedRows.indexOf(row);
         if (this.multiSelection) {
             if (
                 (ctrlKey && this.selectedRows) ||
@@ -1470,6 +1489,7 @@ export class KupDataTable {
     }
 
     private onSelectAll({ target }) {
+        this.lastSelectRowIndex = this.renderedRows.length;
         if (target.checked) {
             // select all rows
             this.selectedRows = this.renderedRows;
