@@ -26,6 +26,8 @@ export class KupDataTableState implements KupState {
     sortEnabled = true;
     sort: Array<SortObject> = [];
     sortableColumnsMutateData: boolean = true;
+    pageSelected: number = 1;
+    selectRow: number;
 
     public toDebugString() {
         // TODO

@@ -131,8 +131,10 @@ export class KupDataTable {
                 this.showLoadMore = state.showLoadMore;
                 this.sortEnabled = state.sortEnabled;
                 this.sort = state.sort;
+                this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
+                this.selectRow = state.selectRow;
                 //
             }
         }
@@ -161,6 +163,11 @@ export class KupDataTable {
             this.state.sortEnabled = this.sortEnabled;
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+            this.state.pageSelected = this.currentPage;
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.state.selectRow =
+                    this.renderedRows.indexOf(this.selectedRows[0]) + 1;
+            }
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -273,6 +280,11 @@ export class KupDataTable {
      * @see loadMoreLimit
      */
     @Prop({ reflect: true }) loadMoreStep: number = 60;
+
+    /**
+     * Current selected page set on component load
+     */
+    @Prop() pageSelected: number = -1;
 
     /**
      * When set to true enables rows multi selection.
@@ -764,8 +776,12 @@ export class KupDataTable {
         // *** Store
         this.initWithPersistedState();
         // ***
+        if (this.pageSelected > 0) {
+            this.currentPage = this.pageSelected;
+        }
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+        this.adjustPaginator();
         this.groupState = {};
         this.forceGroupExpansion();
     }
