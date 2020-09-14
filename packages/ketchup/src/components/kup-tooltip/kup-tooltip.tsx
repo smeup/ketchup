@@ -13,6 +13,7 @@ import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     TooltipData,
     TooltipDetailData,
+    TooltipRelatedObject,
     TooltipAction,
     TooltipObject,
 } from './kup-tooltip-declarations';
@@ -54,6 +55,12 @@ export class KupTooltip {
      */
     @Prop()
     loadTimeout: number = 1000;
+
+    /**
+     * Container element for tooltip
+     */
+    @Prop()
+    relatedObject: TooltipRelatedObject;
 
     @State()
     visible = false;
@@ -103,6 +110,16 @@ export class KupTooltip {
     kupDefaultOptionClicked: EventEmitter<{
         obj: TooltipObject;
     }>;
+
+    @Watch('relatedObject')
+    onElementChanged() {
+        if (this.relatedObject) {
+            this.visible = true;
+            this.kupTooltipLoadData.emit(this.relatedObject);
+        } else {
+            this.visible = false;
+        }
+    }
 
     @Watch('data')
     onDataChanged() {
@@ -335,8 +352,11 @@ export class KupTooltip {
     private positionRecalc() {
         // resetting position
         this.tooltipPosition = {};
-
-        const rect = this.wrapperEl.getBoundingClientRect();
+        let rect;
+        if (this.relatedObject) 
+            rect = this.relatedObject.element.getBoundingClientRect();
+        else
+            rect = this.wrapperEl.getBoundingClientRect();
         let threshold = this.hasDetailData ? 300 : 150;
 
         // vertical position

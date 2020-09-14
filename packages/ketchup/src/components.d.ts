@@ -27,7 +27,7 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
@@ -1306,6 +1306,10 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject": TooltipRelatedObject;
     }
     interface KupTree {
         /**
@@ -3360,6 +3364,10 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupTooltipLoadData"?: (event: CustomEvent<any>) => void;
         "onKupTooltipLoadDetail"?: (event: CustomEvent<any>) => void;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject"?: TooltipRelatedObject;
     }
     interface KupTree {
         /**

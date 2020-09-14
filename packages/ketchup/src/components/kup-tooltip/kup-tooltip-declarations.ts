@@ -29,3 +29,8 @@ export interface TooltipAction {
 export interface TooltipDetailData extends DataTable {    
     actions?: {command: Array<TooltipAction>};
 }
+
+export interface TooltipRelatedObject {
+    element: HTMLElement;
+    object?: any;
+}
