@@ -164,7 +164,10 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
-            this.state.selectRow = this.lastSelectRowIndex;
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.state.selectRow =
+                    this.renderedRows.indexOf(this.selectedRows[0]) + 1;
+            }
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -376,9 +379,6 @@ export class KupDataTable {
     @Prop() tooltipDetailTimeout: number;
 
     //-------- State --------
-
-    @State()
-    private lastSelectRowIndex = -1;
 
     @State()
     private currentPage = 1;
@@ -778,7 +778,6 @@ export class KupDataTable {
         // ***
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
-            this.pageSelected = -1;
         }
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
@@ -867,7 +866,6 @@ export class KupDataTable {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
                 this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
-                this.lastSelectRowIndex = this.selectRow;
                 this.kupAutoRowSelect.emit({
                     selectedRow: this.selectedRows[0],
                 });
@@ -1453,7 +1451,6 @@ export class KupDataTable {
     }
 
     private handleRowSelect(target: any, row: Row, ctrlKey: boolean) {
-        this.lastSelectRowIndex = this.selectedRows.indexOf(row);
         if (this.multiSelection) {
             if (
                 (ctrlKey && this.selectedRows) ||
@@ -1489,7 +1486,6 @@ export class KupDataTable {
     }
 
     private onSelectAll({ target }) {
-        this.lastSelectRowIndex = this.renderedRows.length;
         if (target.checked) {
             // select all rows
             this.selectedRows = this.renderedRows;
