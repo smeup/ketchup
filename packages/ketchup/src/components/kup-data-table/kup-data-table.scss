@@ -1,5 +1,4 @@
 /**
-* @prop --dtt_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
 * @prop --dtt_border-color, --kup-data-table_border-color: border-color for the whole table.
 * @prop --dtt_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
@@ -31,7 +30,6 @@
 
 :host {
   // variables
-  --dtt_background-color: var(--kup-data-table_background-color, #ffffff);
   --dtt_border-color: var(--kup-data-table_border-color, #{$gray-bd});
   --dtt_box-shadow: var(
     --kup-data-table_box-shadow,
@@ -134,7 +132,7 @@ $sticky-cell--row-z-index: 4;
 
 // Base style for the cells which are sticky
 %fixedCellsBase {
-  background-color: var(--dtt_background-color);
+  background: var(--kup-background-color);
   position: sticky;
 
   &:hover {
@@ -241,8 +239,6 @@ $fixed-row-class: fixed-row;
 
 //-------- TABLE WRAPPER --------
 #data-table-wrapper {
-  background-color: var(--dtt_background-color);
-
   //---- Below wrapper ----
   // contains the table and other bottom elements of the matrix
 
@@ -424,7 +420,7 @@ $fixed-row-class: fixed-row;
 
         //---- Column menu icon ----
         .column-menu {
-          background-color: var(--dtt_background-color);
+          background: var(--kup-background-color);
           box-shadow: var(--dtt_box-shadow);
           display: none;
           color: var(--dtt_color);
@@ -919,12 +915,12 @@ $fixed-row-class: fixed-row;
   }
 
   .customize-panel {
+    background: var(--kup-background-color);
     cursor: default;
     opacity: 0;
     pointer-events: none;
     width: 200px; //I.E.
     width: fit-content;
-    background: var(--dtt_background-color);
     box-shadow: var(--dtt_box-shadow);
     transition: opacity 0.25s ease;
 
@@ -1025,7 +1021,6 @@ $fixed-row-class: fixed-row;
 
   .density-panel-overlay,
   .fontsize-panel-overlay {
-    background: var(--dtt_background-color);
     position: absolute;
     top: 1.6rem;
     right: 0;
