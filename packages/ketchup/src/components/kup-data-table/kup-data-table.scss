@@ -1,5 +1,4 @@
 /**
-* @prop --dtt_border-color, --kup-data-table_border-color: border-color for the whole table.
 * @prop --dtt_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
 * @prop --dtt_cell-image_max-height, --kup-data-table_cell-image_max-height: The max height images object inside cells can have
@@ -30,7 +29,6 @@
 
 :host {
   // variables
-  --dtt_border-color: var(--kup-data-table_border-color, #{$gray-bd});
   --dtt_box-shadow: var(
     --kup-data-table_box-shadow,
     0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
@@ -156,7 +154,7 @@ $fixed-row-class: fixed-row;
 
 @mixin fixedRowSeparator($bottom-position) {
   bottom: $bottom-position;
-  border-bottom: 1px solid var(--dtt_border-color);
+  border-bottom: 1px solid var(--kup-border-color);
   content: '';
   height: 0;
   left: 0;
@@ -168,7 +166,7 @@ $fixed-row-class: fixed-row;
 
 @mixin fixedColumnSeparator($right-position) {
   bottom: 0;
-  border-right: 1px solid var(--dtt_border-color);
+  border-right: 1px solid var(--kup-border-color);
   content: '';
   height: auto;
   position: absolute;
@@ -499,7 +497,7 @@ $fixed-row-class: fixed-row;
 
     //-------- data-table main body --------
     > tbody {
-      border: 1px solid var(--dtt_border-color);
+      border: 1px solid var(--kup-border-color);
       cursor: auto;
 
       > tr {
@@ -521,7 +519,7 @@ $fixed-row-class: fixed-row;
         &.group {
           background: var(--dtt_group-background-color);
           font-weight: bold;
-          border-top: 1px solid var(--dtt_border-color);
+          border-top: 1px solid var(--kup-border-color);
           cursor: pointer;
 
           &.group-label {
@@ -699,11 +697,11 @@ $fixed-row-class: fixed-row;
     }
 
     &.row-separation > tbody > tr {
-      border-bottom: 1px solid var(--dtt_border-color);
+      border-bottom: 1px solid var(--kup-border-color);
     }
 
     &.column-separation > tbody > tr > td {
-      border-right: 1px solid var(--dtt_border-color);
+      border-right: 1px solid var(--kup-border-color);
     }
 
     & sticky-header {
@@ -713,7 +711,7 @@ $fixed-row-class: fixed-row;
     &.persistent-header {
       & ~ sticky-header {
         background: var(--dtt_head-background-color);
-        border-bottom: 2px solid var(--dtt_border-color);
+        border-bottom: 2px solid var(--kup-border-color);
         box-shadow: var(--dtt_box-shadow);
         color: var(--dtt_color);
         display: block;
