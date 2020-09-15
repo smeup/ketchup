@@ -200,7 +200,7 @@ export class KupBox {
     @Prop({ mutable: true, reflect: true })
     globalFilterValueState: string;
     /**
-     * Global filter value state
+     * Multiple selection
      */
     @Prop({ mutable: true, reflect: true })
     selectedRowsState: BoxRow[] = [];
@@ -443,6 +443,15 @@ export class KupBox {
         this.rowActionMenuOpened = row;
     }
 
+    private getColumnByDesc(columns: Column[], title: string): Column {
+        for (let column of columns) {
+            if (column.title === title) {
+                return column;
+            }
+        }
+        return null;
+    }
+    
     // private methods
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -551,8 +560,8 @@ export class KupBox {
 
     private onSortChange(e: CustomEvent) {
         console.log(e);
-        this.sortBy = e.detail.value;
-//        this.initRows();
+        let column = this.getColumnByDesc(this.visibleColumns, e.detail.value);
+        this.sortBy = column.name;
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -1059,6 +1068,11 @@ export class KupBox {
 
         const isSelected = this.selectedRows.includes(row);
 
+        console.log("Selected rows " + JSON.stringify(this.selectedRows));
+        console.log("Row " + JSON.stringify(row));
+
+        console.log("is selected " + isSelected);
+
         let multiSel = null;
         if (this.multiSelection) {
             multiSel = (
@@ -1501,16 +1515,11 @@ export class KupBox {
         if (this.sortEnabled) {
             // creating items
             const visibleColumnsItems = this.visibleColumns.map((column) => {
-
-                console.log("Colonna " + JSON.stringify(column));
-
-
                 const item = {
                     text: column.title,
                     value: column.name,
                     selected: column.name === this.sortBy,
                 };
-
                 return item;
             });
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
@@ -1523,9 +1532,6 @@ export class KupBox {
                 data: items,
                 selectable: true,
             };
-
-            console.log("textfieldData " + JSON.stringify(textfieldData));
-            console.log("listData " + JSON.stringify(listData));
 
             sortPanel = (
                 <div id="sort-panel">

@@ -161,7 +161,7 @@ export namespace Components {
          */
         "selectBox": number;
         /**
-          * Global filter value state
+          * Multiple selection
          */
         "selectedRowsState": BoxRow[];
         /**
@@ -1912,7 +1912,7 @@ declare namespace LocalJSX {
          */
         "selectBox"?: number;
         /**
-          * Global filter value state
+          * Multiple selection
          */
         "selectedRowsState"?: BoxRow[];
         /**
