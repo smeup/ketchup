@@ -223,12 +223,21 @@ let javascriptRoutes = [
   },
 ];
 
+let testRoutes = [
+  {
+    path: `/test/performance`,
+    name: 'testPerformance',
+    component: () => import(`@/views/test/Performance.vue`),
+  },
+];
+
 const routes = [
   ...baseRoutes,
   ...advancedRoutes,
   ...cssRoutes,
   ...javascriptRoutes,
   ...basicRoutes,
+  ...testRoutes,
 ];
 
 export default new Router({
