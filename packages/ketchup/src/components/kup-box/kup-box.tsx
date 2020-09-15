@@ -409,7 +409,9 @@ export class KupBox {
 
         // Initialize @State from @Prop 
         this.globalFilterValue = this.globalFilterValueState;
-        this.selectedRows = this.selectedRowsState;
+        if(this.multiSelection){
+            this.selectedRows = this.selectedRowsState;
+        }
     }
 
     componentWillRender() {
@@ -1067,11 +1069,6 @@ export class KupBox {
         }
 
         const isSelected = this.selectedRows.includes(row);
-
-        console.log("Selected rows " + JSON.stringify(this.selectedRows));
-        console.log("Row " + JSON.stringify(row));
-
-        console.log("is selected " + isSelected);
 
         let multiSel = null;
         if (this.multiSelection) {
