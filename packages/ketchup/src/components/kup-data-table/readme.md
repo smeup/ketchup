@@ -116,30 +116,28 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 ## CSS Custom Properties
 
-| Name                                                                      | Description                                                             |
-| ------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `--dtt_cell-image_max-height, --kup-data-table_cell-image_max-height`     | The max height images object inside cells can have                      |
-| `--dtt_cell-image_min-height, --kup-data-table_cell-image_min-height`     | The minimum height images object inside cells can have                  |
-| `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.                  |
-| `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.                   |
-| `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.                        |
-| `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.             |
-| `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden.           |
-| `--dtt_filter-background-color, --kup-data-table_filter-background-color` | Sets background color onto kup-text-field elements used to filter rows. |
-| `--dtt_filter-border-color, --kup-data-table_filter-border-color`         | Sets border color onto kup-text-field elements used to filter rows.     |
-| `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                   |
-| `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                |
-| `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                   |
-| `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                  |
-| `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                |
-| `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                     |
-| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                              |
-| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                             |
-| `--dtt_paginator-background, --kup-data-table_paginator-background`       | Color of the paginator's background.                                    |
-| `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                                         |
-| `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                                |
-| `--dtt_table-wrapper-height, --kup-data-table_table-wrapper-height`       | The height of the table inside the data table.                          |
-| `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                                |
+| Name                                                                      | Description                                                   |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `--dtt_cell-image_max-height, --kup-data-table_cell-image_max-height`     | The max height images object inside cells can have            |
+| `--dtt_cell-image_min-height, --kup-data-table_cell-image_min-height`     | The minimum height images object inside cells can have        |
+| `--dtt_density-box-shadow, --kup-data-table_density-box-shadow`           | Box shadow of the density combo, to match paginator's.        |
+| `--dtt_density-icon-background, --kup-data-table_density-icon-background` | Background of the density icon, to match paginator's.         |
+| `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.              |
+| `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.   |
+| `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden. |
+| `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                         |
+| `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                      |
+| `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                         |
+| `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                        |
+| `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                      |
+| `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                           |
+| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                    |
+| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                   |
+| `--dtt_paginator-background, --kup-data-table_paginator-background`       | Color of the paginator's background.                          |
+| `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                               |
+| `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                      |
+| `--dtt_table-wrapper-height, --kup-data-table_table-wrapper-height`       | The height of the table inside the data table.                |
+| `--dtt_text-on-main-color, --kup-data-table_text-on-main-color`           | Color of the grouping chips of a column.                      |
 
 
 ## Dependencies
