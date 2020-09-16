@@ -130,8 +130,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 | `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                                   |
 | `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                                |
 | `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                                   |
-| `--dtt_hover-background-color, --kup-data-table_hover-background-color`   | background-color of a row when it's selected or hovered.                |
-| `--dtt_hover-color, --kup-data-table_hover-color`                         | text color of a row when it's selected or hovered.                      |
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                                  |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                                |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                                     |

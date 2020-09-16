@@ -6,9 +6,7 @@
 * @prop --dtt_filter-border-color, --kup-data-table_filter-border-color: Sets border color onto kup-text-field elements used to filter rows.
 * @prop --dtt_filter-background-color, --kup-data-table_filter-background-color: Sets background color onto kup-text-field elements used to filter rows.
 * @prop --dtt_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
-* @prop --dtt_hover-color, --kup-data-table_hover-color: text color of a row when it's selected or hovered.
 * @prop --dtt_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
-* @prop --dtt_hover-background-color, --kup-data-table_hover-background-color: background-color of a row when it's selected or hovered.
 * @prop --dtt_icons-color, --kup-data-table_icons-color: Color of a table icon.
 * @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
 * @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
@@ -47,7 +45,6 @@
     --kup-data-table_group-background-color,
     #{$gray-f9}
   );
-  --dtt_hover-color: var(--kup-data-table_hover-color, #{$mainTextColor});
   --dtt_head-background-color: var(
     --kup-data-table_head-background-color,
     #f4f4f4
@@ -57,10 +54,6 @@
     64px
   );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
-  --dtt_hover-background-color: var(
-    --kup-data-table_hover-background-color,
-    #{$gray-f0}
-  );
   --dtt_icons-color: var(--kup-data-table_icons-color, #{$gray-80});
   --dtt_icons-hover-color: var(
     --kup-data-table_icons-hover-color,
@@ -127,7 +120,7 @@ $sticky-cell--row-z-index: 4;
   position: sticky;
 
   &:hover {
-    background-color: var(--dtt_hover-background-color);
+    background-color: var(--kup-hover-background-color);
   }
 
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
@@ -502,8 +495,8 @@ $fixed-row-class: fixed-row;
         &:hover + .group-total,
         &.selected {
           > td {
-            color: var(--dtt_hover-color);
-            background-color: var(--dtt_hover-background-color);
+            color: var(--kup-hover-color);
+            background-color: var(--kup-hover-background-color);
             transition: background-color 250ms ease-in-out;
           }
         }
@@ -1046,10 +1039,10 @@ $fixed-row-class: fixed-row;
 
       &:hover,
       &.active {
-        color: var(--dtt_hover-color);
-        background-color: var(--dtt_hover-background-color);
+        color: var(--kup-hover-color);
+        background-color: var(--kup-hover-background-color);
         svg {
-          fill: var(--dtt_hover-color);
+          fill: var(--kup-hover-color);
         }
       }
     }
