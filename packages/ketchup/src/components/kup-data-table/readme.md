@@ -125,7 +125,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 | `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.              |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.   |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden. |
-| `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                         |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                           |
 | `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                    |
 | `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                   |

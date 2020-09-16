@@ -3,7 +3,6 @@
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
 * @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
 * @prop --dtt_main-color-lighter, --kup-data-table_main-color: Set lighter text color. Has the precedence.
 * @prop --dtt_main-color-darker, --kup-data-table_main-color: Set darker text color. Has the precedence.
@@ -32,7 +31,6 @@
     64px
   );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
-  --dtt_font-size: var(--kup-data-table_font-size, 0.9375rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
   --dtt_main-color-lighter: var(
     --kup-data-table_main-color-lighter,
@@ -217,7 +215,7 @@ $fixed-row-class: fixed-row;
   table {
     border-collapse: collapse;
     color: var(--kup-text-color);
-    font-size: var(--dtt_font-size);
+    font-size: var(--kup-font-size);
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
     min-width: -moz-max-content; /* Firefox/Gecko */
     min-width: -webkit-max-content; /* Chrome */
@@ -322,7 +320,7 @@ $fixed-row-class: fixed-row;
         .column-title {
           // Mandatory to allow ellipsis of the the column title when column size is really small.
           display: inline-block; // Mandatory to allow width related props to take effect
-          //  max-width: calc(100% - var(--dtt_font-size) - #{$column-sort-margin});
+          //  max-width: calc(100% - var(--kup-font-size) - #{$column-sort-margin});
           overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: bottom;
@@ -594,7 +592,7 @@ $fixed-row-class: fixed-row;
               :host([force-one-line]) & {
                 // Takes into account the size of the cogwheel icon and its margin
                 // TODO there is also the indentation to take in account. A mini refactor on how indentation works could be useful
-                width: calc(100% - #{$options-margin} - var(--dtt_font-size));
+                width: calc(100% - #{$options-margin} - var(--kup-font-size));
               }
             }
           }
@@ -746,25 +744,25 @@ $fixed-row-class: fixed-row;
 
     &.fontsize- {
       &small {
-        font-size: calc(var(--dtt_font-size) * 0.75);
+        font-size: calc(var(--kup-font-size) * 0.75);
         transition: font-size 0.1s;
 
         .group-cell-content {
           > span {
             &:before {
-              font-size: calc(var(--dtt_font-size) * 1) !important;
+              font-size: calc(var(--kup-font-size) * 1) !important;
             }
           }
         }
       }
       &big {
-        font-size: calc(var(--dtt_font-size) * 1.25);
+        font-size: calc(var(--kup-font-size) * 1.25);
         transition: font-size 0.1s;
 
         .group-cell-content {
           > span {
             &:before {
-              font-size: calc(var(--dtt_font-size) * 1.5) !important;
+              font-size: calc(var(--kup-font-size) * 1.5) !important;
             }
           }
         }
@@ -864,7 +862,7 @@ $fixed-row-class: fixed-row;
       max-width: 150px;
       overflow: hidden;
       color: var(--kup-text-color);
-      font-size: calc(var(--dtt_font-size) * 0.9);
+      font-size: calc(var(--kup-font-size) * 0.9);
     }
   }
 
@@ -898,7 +896,7 @@ $fixed-row-class: fixed-row;
 
     & span.density-label,
     & span.fontsize-label {
-      font-size: calc(var(--dtt_font-size) * 0.9);
+      font-size: calc(var(--kup-font-size) * 0.9);
     }
 
     &:hover,
