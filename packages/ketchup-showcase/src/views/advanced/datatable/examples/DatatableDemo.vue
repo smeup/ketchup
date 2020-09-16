@@ -182,6 +182,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showLoadMore',
+          description:
+            'If set to true, displays the button to load more records.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject[]',
