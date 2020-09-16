@@ -3,8 +3,6 @@
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --dtt_icons-color, --kup-data-table_icons-color: Color of a table icon.
-* @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
 * @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
 * @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
 * @prop --dtt_main-color-lighter, --kup-data-table_main-color: Set lighter text color. Has the precedence.
@@ -34,11 +32,6 @@
     64px
   );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
-  --dtt_icons-color: var(--kup-data-table_icons-color, #{$gray-80});
-  --dtt_icons-hover-color: var(
-    --kup-data-table_icons-hover-color,
-    #{$smeup-primary}
-  );
   --dtt_font-size: var(--kup-data-table_font-size, 0.9375rem);
   --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
   --dtt_main-color-lighter: var(
@@ -362,19 +355,6 @@ $fixed-row-class: fixed-row;
           margin: 0 $column-sort-margin;
         }
 
-        .remove-filter {
-          cursor: pointer;
-          fill: var(--dtt_icons-color);
-          margin-left: $column-sort-margin;
-          transition: color 0.2s ease-in-out;
-          vertical-align: text-top;
-          width: var(--dtt_font-size);
-
-          &:hover {
-            fill: var(--dtt_icons-hover-color);
-          }
-        }
-
         //---- Column menu icon ----
         .column-menu {
           background: var(--kup-background-color);
@@ -557,16 +537,6 @@ $fixed-row-class: fixed-row;
             display: inline-block;
             height: 1rem;
             width: 2rem;
-          }
-
-          .options {
-            margin-left: $options-margin;
-            color: var(--dtt_icons-color);
-
-            &:hover {
-              color: var(--dtt_icons-hover-color);
-              transition: color 250ms ease-out;
-            }
           }
 
           .row-action {
@@ -1042,29 +1012,5 @@ $fixed-row-class: fixed-row;
   }
   100% {
     opacity: 1;
-  }
-}
-
-// Button to load more records.
-.load-more-records {
-  background-color: transparent;
-  border: 0 none;
-  color: var(--dtt_icons-color);
-  cursor: pointer;
-  display: inline-block;
-  font-size: calc(var(--dtt_font-size) * 1.2);
-  height: calc(var(--dtt_font-size) * 1.2);
-  margin: 0 6px;
-  padding: 0;
-  transition: color 0.3s;
-  width: calc(var(--dtt_font-size) * 1.2);
-
-  &:hover {
-    color: var(--dtt_icons-hover-color);
-  }
-
-  &::before {
-    height: inherit;
-    width: inherit;
   }
 }
