@@ -209,6 +209,11 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     sortEnabled = false;
+    /**
+     * Disable swipe
+     */
+    @Prop({ reflect: true })
+    swipeDisabled = false;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -1088,7 +1093,7 @@ export class KupBox {
         }
 
         let rowObject = null;
-        if (this.enableRowActions) {
+        if (this.enableRowActions && !this.swipeDisabled) {
             const menuClass = {
                 'row-action-menu': true,
                 open: row === this.rowActionMenuOpened,

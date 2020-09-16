@@ -178,6 +178,10 @@ export namespace Components {
         "sortEnabled": boolean;
         "stateId": string;
         "store": KupStore;
+        /**
+          * Disable swipe
+         */
+        "swipeDisabled": boolean;
     }
     interface KupBtn {
         "buttons": any[];
@@ -1929,6 +1933,10 @@ declare namespace LocalJSX {
         "sortEnabled"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
+        /**
+          * Disable swipe
+         */
+        "swipeDisabled"?: boolean;
     }
     interface KupBtn {
         "buttons"?: any[];

@@ -31,6 +31,7 @@
 | `sortEnabled`            | `sort-enabled`              | Enable sorting                                                                                                  | `boolean`                                  | `false`     |
 | `stateId`                | `state-id`                  |                                                                                                                 | `string`                                   | `''`        |
 | `store`                  | --                          |                                                                                                                 | `KupStore`                                 | `undefined` |
+| `swipeDisabled`          | `swipe-disabled`            | Disable swipe                                                                                                   | `boolean`                                  | `false`     |
 
 
 ## Events
