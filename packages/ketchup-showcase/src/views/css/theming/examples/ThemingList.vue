@@ -301,7 +301,7 @@
               <td class="prevent-cr">
                 <span class="code-word">--kup-title-background-color</span>
               </td>
-              <td>Sets the color of titles (trees, data tables, etc.).</td>
+              <td>Sets the background color of titles (trees, data tables, etc.).</td>
               <td class="prevent-cr">
                 <span class="code-word">color</span>
               </td>
@@ -311,6 +311,18 @@
                   id="title-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-title-color</span>
+              </td>
+              <td>Sets the color of titles (trees, data tables, etc.).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="title-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
