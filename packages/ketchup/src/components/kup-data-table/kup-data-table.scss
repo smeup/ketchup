@@ -3,8 +3,6 @@
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --dtt_group-background-color, --kup-data-table_group-background-color: background-color when grouping elements.
-* @prop --dtt_head-background-color, --kup-data-table_head-background-color: Background color of the table header.
 * @prop --dtt_icons-color, --kup-data-table_icons-color: Color of a table icon.
 * @prop --dtt_icons-hover-color, --kup-data-table_icons-hover-color: Color of a hovered icon.
 * @prop --dtt_font-size, --kup-data-table_font-size: Sets basic font size.
@@ -30,14 +28,6 @@
   --dtt_drag-over--forbidden: var(
     --kup-data-table_drag-over--forbidden,
     #{rgba($smeup-danger, 0.24)}
-  );
-  --dtt_group-background-color: var(
-    --kup-data-table_group-background-color,
-    #{$gray-f9}
-  );
-  --dtt_head-background-color: var(
-    --kup-data-table_head-background-color,
-    #f4f4f4
   );
   --dtt_cell-image_max-height: var(
     --kup-data-table_cell-image_max-height,
@@ -116,12 +106,9 @@ $sticky-cell--row-z-index: 4;
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
   thead &,
   sticky-header & {
-    background-color: var(--dtt_head-background-color);
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
     z-index: #{$sticky-header--z-index};
-
-    &:hover {
-      background-color: var(--dtt_head-background-color);
-    }
   }
 }
 
@@ -279,14 +266,16 @@ $fixed-row-class: fixed-row;
     }
 
     > thead {
-      background: var(--dtt_head-background-color);
+      background-color: var(--kup-title-background-color);
       border: 1px solid var(--kup-border-color);
+      color: var(--kup-title-color);
 
       // Table header styles
       th {
-        background: var(--dtt_head-background-color);
+        background-color: var(--kup-title-bakground-color);
         border-bottom: 2px solid var(--kup-border-color);
         border-right: 1px solid var(--kup-border-color);
+        color: var(--kup-title-color);
         box-sizing: border-box; // [column-width-related][mandatory] make specified sizes be respected
         padding: 0.5rem 0.3125rem;
         text-overflow: ellipsis; // [column-width-related][mandatory] places ... to shorten table caption
@@ -487,9 +476,10 @@ $fixed-row-class: fixed-row;
 
         // grouping
         &.group {
-          background: var(--dtt_group-background-color);
-          font-weight: bold;
+          background: var(--kup-title-background-color);
           border-top: 1px solid var(--kup-border-color);
+          color: var(--kup-title-color);
+          font-weight: bold;
           cursor: pointer;
 
           &.group-label {
@@ -680,10 +670,10 @@ $fixed-row-class: fixed-row;
 
     &.persistent-header {
       & ~ sticky-header {
-        background: var(--dtt_head-background-color);
+        background: var(--kup-title-background-color);
         border-bottom: 2px solid var(--kup-border-color);
         box-shadow: var(--kup-box-shadow);
-        color: var(--kup-text-color);
+        color: var(--kup-title-color);
         display: block;
         opacity: 0;
         overflow: hidden;

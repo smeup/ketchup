@@ -126,8 +126,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.   |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden. |
 | `--dtt_font-size, --kup-data-table_font-size`                             | Sets basic font size.                                         |
-| `--dtt_group-background-color, --kup-data-table_group-background-color`   | background-color when grouping elements.                      |
-| `--dtt_head-background-color, --kup-data-table_head-background-color`     | Background color of the table header.                         |
 | `--dtt_icons-color, --kup-data-table_icons-color`                         | Color of a table icon.                                        |
 | `--dtt_icons-hover-color, --kup-data-table_icons-hover-color`             | Color of a hovered icon.                                      |
 | `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                           |
