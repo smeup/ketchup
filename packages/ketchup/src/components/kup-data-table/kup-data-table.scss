@@ -3,9 +3,6 @@
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-* @prop --dtt_main-color, --kup-data-table_main-color: Set text color. Has the precedence.
-* @prop --dtt_main-color-lighter, --kup-data-table_main-color: Set lighter text color. Has the precedence.
-* @prop --dtt_main-color-darker, --kup-data-table_main-color: Set darker text color. Has the precedence.
 * @prop --dtt_text-on-main-color, --kup-data-table_text-on-main-color: Color of the grouping chips of a column.
 * @prop --dtt_density-box-shadow, --kup-data-table_density-box-shadow: Box shadow of the density combo, to match paginator's.
 * @prop --dtt_density-icon-background, --kup-data-table_density-icon-background: Background of the density icon, to match paginator's.
@@ -31,15 +28,6 @@
     64px
   );
   --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
-  --dtt_main-color: var(--kup-data-table_main-color, #6aaaa7);
-  --dtt_main-color-lighter: var(
-    --kup-data-table_main-color-lighter,
-    #{lighten($smeup-primary, 10)}
-  );
-  --dtt_main-color-darker: var(
-    --kup-data-table_main-color-darker,
-    #{darken($smeup-primary, 10)}
-  );
   --dtt_text-on-main-color: var(--kup-data-table_text-on-main-color, #ffffff);
   --dtt_negative-number-color: var(
     --kup-data-table_negative-number-color,
@@ -855,15 +843,6 @@ $fixed-row-class: fixed-row;
     & span.density-label,
     & span.fontsize-label {
       font-size: calc(var(--kup-font-size) * 0.9);
-    }
-
-    &:hover,
-    &.activated {
-      &:before,
-      & span.density-label,
-      & span.fontsize-label {
-        color: var(--dtt_main-color);
-      }
     }
 
     .paginator-tab-text {
