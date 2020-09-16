@@ -118,7 +118,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 | Name                                                                      | Description                                                             |
 | ------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `--dtt_box-shadow, --kup-data-table_box-shadow`                           | common box-shadow used by the table.                                    |
 | `--dtt_cell-image_max-height, --kup-data-table_cell-image_max-height`     | The max height images object inside cells can have                      |
 | `--dtt_cell-image_min-height, --kup-data-table_cell-image_min-height`     | The minimum height images object inside cells can have                  |
 | `--dtt_color, --kup-data-table_color`                                     | Text color of the column menu when hovering a header cell.              |

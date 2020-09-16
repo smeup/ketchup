@@ -1,5 +1,4 @@
 /**
-* @prop --dtt_box-shadow, --kup-data-table_box-shadow: common box-shadow used by the table.
 * @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
 * @prop --dtt_cell-image_max-height, --kup-data-table_cell-image_max-height: The max height images object inside cells can have
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
@@ -29,10 +28,6 @@
 
 :host {
   // variables
-  --dtt_box-shadow: var(
-    --kup-data-table_box-shadow,
-    0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)
-  );
   --dtt_color: var(--kup-data-table_color, #{$gray-1a});
   --dtt_drag-over--allowed: var(
     --kup-data-table_drag-over--allowed,
@@ -419,7 +414,7 @@ $fixed-row-class: fixed-row;
         //---- Column menu icon ----
         .column-menu {
           background: var(--kup-background-color);
-          box-shadow: var(--dtt_box-shadow);
+          box-shadow: var(--kup-box-shadow);
           display: none;
           color: var(--dtt_color);
           position: absolute;
@@ -712,7 +707,7 @@ $fixed-row-class: fixed-row;
       & ~ sticky-header {
         background: var(--dtt_head-background-color);
         border-bottom: 2px solid var(--kup-border-color);
-        box-shadow: var(--dtt_box-shadow);
+        box-shadow: var(--kup-box-shadow);
         color: var(--dtt_color);
         display: block;
         opacity: 0;
@@ -919,7 +914,7 @@ $fixed-row-class: fixed-row;
     pointer-events: none;
     width: 200px; //I.E.
     width: fit-content;
-    box-shadow: var(--dtt_box-shadow);
+    box-shadow: var(--kup-box-shadow);
     transition: opacity 0.25s ease;
 
     &.visible {
