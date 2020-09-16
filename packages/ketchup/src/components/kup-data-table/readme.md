@@ -125,9 +125,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 | `--dtt_density-icon-color, --kup-data-table_density-icon-color`           | Color of the density icon, to match paginator's.              |
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`           | the color of the cell when the drop of the drag is allowed.   |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden`       | the color of the cell when the drop of the drag is forbidden. |
-| `--dtt_main-color, --kup-data-table_main-color`                           | Set text color. Has the precedence.                           |
-| `--dtt_main-color-darker, --kup-data-table_main-color`                    | Set darker text color. Has the precedence.                    |
-| `--dtt_main-color-lighter, --kup-data-table_main-color`                   | Set lighter text color. Has the precedence.                   |
 | `--dtt_paginator-background, --kup-data-table_paginator-background`       | Color of the paginator's background.                          |
 | `--dtt_remove-icon-color, --kup-data-table_remove-icon-color`             | Color of the remove group icon.                               |
 | `--dtt_remove-icon-color-hover, --kup-data-table_remove-icon-color-hover` | Color of the remove group icon at hover.                      |

@@ -788,28 +788,17 @@ $fixed-row-class: fixed-row;
 
   .customize-panel {
     background: var(--kup-background-color);
-    cursor: default;
-    opacity: 0;
-    pointer-events: none;
+    box-shadow: var(--kup-box-shadow);
     width: 200px; //I.E.
     width: fit-content;
-    box-shadow: var(--kup-box-shadow);
-    transition: opacity 0.25s ease;
+  }
 
-    &.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
+  .customize-element {
+    padding: 0 1rem 1rem 1rem;
+  }
 
-    & .panel-label {
-      min-width: 150px;
-      text-align: left;
-      text-overflow: ellipsis;
-      max-width: 150px;
-      overflow: hidden;
-      color: var(--kup-text-color);
-      font-size: calc(var(--kup-font-size) * 0.9);
-    }
+  .customize-element:nth-child(1) {
+    padding-top: 1rem;
   }
 
   .paginator-button {
@@ -847,88 +836,6 @@ $fixed-row-class: fixed-row;
 
     .paginator-tab-text {
       margin-left: 0.25rem;
-    }
-  }
-}
-
-.density-panel,
-.fontsize-panel {
-  position: relative;
-  margin: 0.7rem;
-  display: flex;
-  align-items: center;
-  box-shadow: var(--dtt_density-box-shadow);
-  width: 200px; //I.E.
-  width: max-content;
-
-  .density-label,
-  .fontsize-label {
-    padding: 0.5rem 0.5rem;
-    cursor: pointer;
-  }
-
-  svg {
-    height: 1.5rem;
-    width: 1.5rem;
-  }
-
-  [role='button'] {
-    outline: none;
-    cursor: pointer;
-    display: flex;
-
-    svg {
-      fill: #{$gray-bd};
-    }
-  }
-
-  .density-panel-overlay,
-  .fontsize-panel-overlay {
-    position: absolute;
-    top: 1.6rem;
-    right: 0;
-    display: none;
-    opacity: 0;
-    z-index: 10;
-    box-shadow: #{$mainShadow};
-    width: 100px; // I.E. fallback
-    width: max-content;
-
-    .wrapper {
-      display: flex;
-      align-items: center;
-      outline: none;
-      color: var(--kup-text-color);
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      transition: color 0.25s, background-color 0.25s, opacity 0.25s;
-
-      &:first-child {
-        padding-top: 0.75rem;
-      }
-
-      &:last-child {
-        padding-bottom: 0.75rem;
-      }
-
-      svg {
-        margin-right: 0.5rem;
-        fill: var(--kup-text-color);
-      }
-
-      &:hover,
-      &.active {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
-        svg {
-          fill: var(--kup-hover-color);
-        }
-      }
-    }
-
-    &.open {
-      opacity: 1;
-      display: block;
     }
   }
 }

@@ -3125,7 +3125,7 @@ export class KupDataTable {
                     />
                     <div
                         onMouseLeave={() => this.closeCustomSettings(top)}
-                        class="customize-panel"
+                        class="kup-menu customize-panel"
                         ref={(el) => {
                             top
                                 ? (this.customizeTopPanelRef = el as any)
@@ -3213,7 +3213,7 @@ export class KupDataTable {
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="fontsize-panel">
+            <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     listData={listData}
@@ -3269,7 +3269,7 @@ export class KupDataTable {
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="density-panel">
+            <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
                     selectMode={ItemsDisplayMode.DESCRIPTION}

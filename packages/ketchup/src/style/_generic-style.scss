@@ -168,7 +168,8 @@
   }
 }
 
-//Material menu
+//Material menu and kup contextual menu
+div.kup-menu,
 div.mdc-menu {
   animation: fadeInFromNone 0.25s ease-out;
   display: none;
