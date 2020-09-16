@@ -1,5 +1,4 @@
 /**
-* @prop --dtt_color, --kup-data-table_color: Text color of the column menu when hovering a header cell.
 * @prop --dtt_cell-image_max-height, --kup-data-table_cell-image_max-height: The max height images object inside cells can have
 * @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
@@ -28,7 +27,6 @@
 
 :host {
   // variables
-  --dtt_color: var(--kup-data-table_color, #{$gray-1a});
   --dtt_drag-over--allowed: var(
     --kup-data-table_drag-over--allowed,
     #{rgba($smeup-primary, 0.24)}
@@ -255,7 +253,7 @@ $fixed-row-class: fixed-row;
    */
   table {
     border-collapse: collapse;
-    color: var(--dtt_color);
+    color: var(--kup-text-color);
     font-size: var(--dtt_font-size);
     min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
     min-width: -moz-max-content; /* Firefox/Gecko */
@@ -416,7 +414,7 @@ $fixed-row-class: fixed-row;
           background: var(--kup-background-color);
           box-shadow: var(--kup-box-shadow);
           display: none;
-          color: var(--dtt_color);
+          color: var(--kup-text-color);
           position: absolute;
           z-index: 100;
           font-weight: normal;
@@ -446,7 +444,7 @@ $fixed-row-class: fixed-row;
             > li {
               padding: 0 0.5rem;
               transition: color 0.2s ease-in-out;
-              color: var(--dtt_color);
+              color: var(--kup-text-color);
               transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
               &.textfield-row {
@@ -708,7 +706,7 @@ $fixed-row-class: fixed-row;
         background: var(--dtt_head-background-color);
         border-bottom: 2px solid var(--kup-border-color);
         box-shadow: var(--kup-box-shadow);
-        color: var(--dtt_color);
+        color: var(--kup-text-color);
         display: block;
         opacity: 0;
         overflow: hidden;
@@ -928,7 +926,7 @@ $fixed-row-class: fixed-row;
       text-overflow: ellipsis;
       max-width: 150px;
       overflow: hidden;
-      color: var(--dtt_color);
+      color: var(--kup-text-color);
       font-size: calc(var(--dtt_font-size) * 0.9);
     }
   }
@@ -1028,7 +1026,7 @@ $fixed-row-class: fixed-row;
       display: flex;
       align-items: center;
       outline: none;
-      color: var(--dtt_color);
+      color: var(--kup-text-color);
       cursor: pointer;
       padding: 0.5rem 1rem;
       transition: color 0.25s, background-color 0.25s, opacity 0.25s;
@@ -1043,7 +1041,7 @@ $fixed-row-class: fixed-row;
 
       svg {
         margin-right: 0.5rem;
-        fill: var(--dtt_color);
+        fill: var(--kup-text-color);
       }
 
       &:hover,
