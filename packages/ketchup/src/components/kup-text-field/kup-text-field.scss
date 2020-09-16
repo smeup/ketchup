@@ -145,16 +145,16 @@ div.mdc-text-field-helper-text {
   }
 
   &.mdc-text-field--disabled {
-    color: var(--kup-disabled-text-color);
+    color: var(--kup-disabled-color);
     background: var(--kup-disabled-background-color);
 
     & .mdc-text-field__input {
-      color: var(--kup-disabled-text-color);
+      color: var(--kup-disabled-color);
       background: var(--kup-disabled-background-color);
     }
 
     & label {
-      color: var(--kup-disabled-text-color);
+      color: var(--kup-disabled-color);
       background: var(--kup-disabled-background-color);
     }
   }

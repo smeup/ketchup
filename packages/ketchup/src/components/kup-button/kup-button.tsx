@@ -226,7 +226,7 @@ export class KupButton {
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
-            iconColor = 'var(--kup-disabled-text-color)';
+            iconColor = 'var(--kup-disabled-color)';
         } else {
             iconColor = this.iconColor;
         }

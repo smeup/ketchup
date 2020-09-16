@@ -246,7 +246,7 @@ export class KupNavBar {
 
     private fetchThemeColors() {
         let color = document.documentElement.style.getPropertyValue(
-            '--kup-header-background-color'
+            '--kup-nav-bar-background-color'
         );
         this.textColor = colorContrast(color);
     }
