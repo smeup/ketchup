@@ -1068,7 +1068,12 @@ export class KupBox {
             }
         }
 
-        const isSelected = this.selectedRows.includes(row);
+        var isSelected = false;
+        for (let select of this.selectedRows) {
+            if (select.id === row.id) {
+                isSelected = true;
+            }
+        }
 
         let multiSel = null;
         if (this.multiSelection) {
