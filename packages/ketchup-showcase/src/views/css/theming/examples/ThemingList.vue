@@ -18,17 +18,17 @@
           <tbody>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-display-mode</span>
+                <span class="code-word">--kup-main-color</span>
               </td>
               <td>
-                Sets the display property of the components, useful to
-                switch between inline/block.
+                Sets the main color of the app, changing components
+                accordingly.
               </td>
               <td class="prevent-cr">
-                <span class="code-word">display</span>
+                <span class="code-word">color</span>
               </td>
               <td class="text-cell">
-                <kup-text-field full-width id="display-mode" @kupTextFieldInput="updateCSS"></kup-text-field>
+                <kup-text-field full-width id="main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -106,21 +106,6 @@
                   id="drawer-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-main-color</span>
-              </td>
-              <td>
-                Sets the main color of the app, changing components
-                accordingly.
-              </td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field full-width id="main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>

@@ -1,7 +1,7 @@
 @import '@material/chips/mdc-chips';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 }
 
 .mdc-chip {

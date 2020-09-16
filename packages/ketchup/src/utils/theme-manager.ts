@@ -12,11 +12,10 @@ const dom = document.documentElement;
 const kupThemes = JSON.parse(`{
     "dark": {
         "cssVariables": {
+            "--kup-main-color": "#82f0e2",
             "--kup-background-color": "#2d2d2d",
             "--kup-header-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
-            "--kup-main-color": "#82f0e2",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-size": "14px",
             "--kup-text-on-main-color": "#555555",
@@ -41,11 +40,10 @@ const kupThemes = JSON.parse(`{
     },
     "default": {
         "cssVariables": {
+            "--kup-main-color": "#d64325",
             "--kup-background-color": "#ffffff",
             "--kup-header-background-color": "#2e2e2e",
             "--kup-drawer-background-color": "#ffffff",
-            "--kup-main-color": "#d64325",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "14px",
             "--kup-text-on-main-color": "#ffffff",
@@ -70,11 +68,10 @@ const kupThemes = JSON.parse(`{
     },
     "graphite": {
         "cssVariables": {
+            "--kup-main-color": "#888888",
             "--kup-background-color": "#ffffff",
             "--kup-header-background-color": "#535353",
             "--kup-drawer-background-color": "#ffffff",
-            "--kup-main-color": "#888888",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "13px",
             "--kup-text-on-main-color": "#ffffff",
@@ -108,11 +105,10 @@ const kupThemes = JSON.parse(`{
     },
     "IBMh2o": {
         "cssVariables": {
+            "--kup-main-color": "rgb(187, 198, 5)",
             "--kup-background-color": "#000000",
             "--kup-header-background-color": "#000000",
             "--kup-drawer-background-color": "#000000",
-            "--kup-main-color": "rgb(187, 198, 5)",
-            "--kup-display-mode": "block",
             "--kup-font-family": "'Rajdhani', sans-serif",
             "--kup-font-size": "15px",
             "--kup-text-on-main-color": "#000000",
@@ -137,11 +133,10 @@ const kupThemes = JSON.parse(`{
     },
     "ocean": {
         "cssVariables": {
+            "--kup-main-color": "#0081c5",
             "--kup-background-color": "#e9f1ff",
             "--kup-header-background-color": "#001d3e",
             "--kup-drawer-background-color": "#e6f1ff",
-            "--kup-main-color": "#0081c5",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-size": "16px",
             "--kup-text-on-main-color": "#ffffff",
@@ -166,11 +161,10 @@ const kupThemes = JSON.parse(`{
     },
     "wildlife": {
         "cssVariables": {
+            "--kup-main-color": "#0fa918",
             "--kup-background-color": "#f7fff6",
             "--kup-header-background-color": "#095a1f",
             "--kup-drawer-background-color": "#dbfbd5",
-            "--kup-main-color": "#0fa918",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "16px",
             "--kup-text-on-main-color": "#ffffff",
@@ -195,11 +189,10 @@ const kupThemes = JSON.parse(`{
     },
     "test": {
         "cssVariables": {
+            "--kup-main-color": "#d64325",
             "--kup-background-color": "#ffffff",
             "--kup-header-background-color": "#f5f5f5",
             "--kup-drawer-background-color": "#ffffff",
-            "--kup-main-color": "#d64325",
-            "--kup-display-mode": "block",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "14px",
             "--kup-text-on-main-color": "#ffffff",

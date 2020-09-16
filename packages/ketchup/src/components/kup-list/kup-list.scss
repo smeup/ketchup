@@ -3,7 +3,7 @@
 @import '@material/menu-surface/mdc-menu-surface';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 
   .mdc-list-item {
     & .mdc-list-item__text,
