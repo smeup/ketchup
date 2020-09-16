@@ -211,6 +211,18 @@
             </tr>
             <tr>
               <td class="prevent-cr">
+                <span class="code-word">--kup-box-shadow</span>
+              </td>
+              <td>Generic box shadow mostly used for stacked elements (like contextual menus).</td>
+              <td class="prevent-cr">
+                <span class="code-word">box-shadow</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="box-shadow" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
                 <span class="code-word">--kup-disabled-text-color</span>
               </td>
               <td>Sets the color of disabled text.</td>
