@@ -785,25 +785,6 @@ $fixed-row-class: fixed-row;
   text-align: center;
 }
 
-// grouping chips
-#group-chips {
-  display: flex;
-
-  > .group-chip {
-    display: flex;
-    background-color: var(--dtt_main-color);
-    padding: 0.5rem;
-    color: var(--dtt_text-on-main-color);
-    margin-right: 0.5rem;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 0.75;
-    }
-  }
-}
-
 .paginator-tabs {
   width: 100%;
 
