@@ -82,7 +82,7 @@ export class KupBox {
                 this.globalFilterValueState = this.state.globalFilterValueState;
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
-                //this.selectBoxId = this.state.selectBoxId;
+                this.selectBoxId = this.state.selectBoxId;
             }
         }
     }
@@ -94,7 +94,7 @@ export class KupBox {
                 this.state.globalFilterValueState = this.globalFilterValue;
                 this.state.selectedRowsState = this.selectedRows;
                 this.state.pageSelected = this.currentPage;
-                //this.selectBoxId = this.state.selectBoxId;
+                this.selectBoxId = this.state.selectBoxId;
                 logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
             this.store.persistState(this.stateId, this.state);
         }
@@ -431,7 +431,7 @@ export class KupBox {
         // Initialize @State from @Prop 
         this.globalFilterValue = this.globalFilterValueState;
         this.currentPage = this.state.pageSelected;
-        //this.selectBoxId = this.state.selectBoxId;
+        this.selectBoxId = this.state.selectBoxId;
         if(this.multiSelection){
             this.selectedRows = this.selectedRowsState;
         }
