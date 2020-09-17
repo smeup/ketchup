@@ -284,6 +284,30 @@
             </tr>
             <tr>
               <td class="prevent-cr">
+                <span class="code-word">--kup-warning-color</span>
+              </td>
+              <td>Sets the color which defines a warning status within the app.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="warning-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-danger-color</span>
+              </td>
+              <td>Sets the color which defines a danger status within the app.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="danger-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
                 <span class="code-word">--kup-spinner-color</span>
               </td>
               <td>Sets the color of spinners.</td>
