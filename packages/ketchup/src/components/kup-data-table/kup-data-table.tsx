@@ -1987,9 +1987,6 @@ export class KupDataTable {
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
                      * The payload event is simulated here.
-                     *
-                     * This SVG was created by Niccolò from Dreamonkey.
-                     * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                      */
                     filter = (
                         <kup-button
@@ -2011,7 +2008,7 @@ export class KupDataTable {
                 // When sorting is enabled, there are two things to do:
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
-                if (this.sortEnabled && isStringObject(column.obj)) {
+                if (this.sortEnabled) {
                     let iconName = this.getSortIcon(column.name);
                     if (iconName !== '') {
                         sortIcon = (

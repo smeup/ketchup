@@ -1,23 +1,5 @@
-/**
-* @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
-* @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
-*/
-
 :host {
-  // variables
-  --dtt_drag-over--allowed: var(
-    --kup-data-table_drag-over--allowed,
-    #{rgba($smeup-primary, 0.24)}
-  );
-  --dtt_drag-over--forbidden: var(
-    --kup-data-table_drag-over--forbidden,
-    #{rgba($smeup-danger, 0.24)}
-  );
-  --dtt_negative-number-color: var(
-    --kup-data-table_negative-number-color,
-    #{$mainRed}
-  );
-
+  display: block;
   position: relative;
 }
 
@@ -367,9 +349,14 @@ $fixed-row-class: fixed-row;
       //---- Columns drag style ----
 
       &[columns-dragging] {
+        th {
+          position: relative;
+        }
+
         // When the drag is over a valid target
         [drag-over] {
-          background-color: var(--dtt_drag-over--allowed);
+          background-color: var(--kup-disabled-background-color);
+          color: var(--kup-disabled-color);
 
           // Mandatory to allow a correct drop effect when dragging
           > * {
@@ -378,8 +365,15 @@ $fixed-row-class: fixed-row;
         }
 
         // When the drag is over but it is the starting element
-        [drag-over][drag-starter] {
-          background-color: var(--dtt_drag-over--forbidden);
+        [drag-over][drag-starter]::after {
+          background-color: var(--kup-danger-color);
+          color: var(--kup-danger-color);
+          position: absolute;
+          opacity: 0.25;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
         }
       }
     }
@@ -533,7 +527,7 @@ $fixed-row-class: fixed-row;
             }
 
             &.negative-number {
-              color: var(--dtt_negative-number-color);
+              color: var(--kup-danger-color);
             }
           }
 
