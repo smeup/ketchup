@@ -15,12 +15,12 @@ import {
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
-import { isEmpty } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { isEmpty, stringToNumber } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
+import { logMessage } from '../../utils/debug-manager';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -266,14 +266,6 @@ export function setTextFieldFilterValue(
         filters[column] = filter;
     }
     filter.textField = newFilter.trim();
-}
-
-export function log(methodName: string, msg: string) {
-    errorLogging(
-        'kup-data-table-helper',
-        methodName + '()' + ' - ' + msg,
-        'log'
-    );
 }
 /**
  * Filters the rows data of a data-table component according to the parameters
@@ -528,7 +520,8 @@ export function groupRows(
         }
     });
 
-    adjustGroupsAvarage(groupRows, totals);
+    adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
+    adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
     return groupRows;
 }
@@ -575,11 +568,11 @@ function updateGroupTotal(
                     break;
 
                 case TotalMode.SUM:
-                case TotalMode.AVARAGE:
+                case TotalMode.AVERAGE:
                     if (_isNumber) {
-                        const cellValue = numeral(cell.obj.k);
+                        const cellValue = numeral(stringToNumber(cell.value));
 
-                        groupRow.group.totals[key] = cellValue
+                        groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
 
@@ -589,7 +582,7 @@ function updateGroupTotal(
                             const currentParentSum =
                                 parent.group.totals[key] || 0;
 
-                            parent.group.totals[key] = cellValue
+                            parent.group.totals[key] = numeral(cellValue)
                                 .add(currentParentSum)
                                 .value();
 
@@ -598,15 +591,22 @@ function updateGroupTotal(
                     }
                     break;
 
-                default:
-                    console.warn(`invalid total mode: ${totalMode}`);
+                default: {
+                    if (totalMode.indexOf(TotalMode.MATH) != 0) {
+                        console.warn(`invalid total mode: ${totalMode}`);
+                    }
                     break;
+                }
             }
         }
     });
 }
 
-function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
+function adjustGroupsAverageOrFormula(
+    groupRows: Array<Row>,
+    type: TotalMode,
+    totals: TotalsMap
+): void {
     if (!groupRows || !totals) {
         return;
     }
@@ -617,19 +617,40 @@ function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
         return;
     }
 
-    const avarageKeys = keys.filter((key) => TotalMode.AVARAGE === totals[key]);
+    let toAdjustKeys;
 
-    if (avarageKeys.length > 0) {
+    if (type == TotalMode.AVERAGE) {
+        toAdjustKeys = keys.filter((key) => TotalMode.AVERAGE === totals[key]);
+    }
+    if (type == TotalMode.MATH) {
+        toAdjustKeys = keys.filter(
+            (key) => totals[key].indexOf(TotalMode.MATH) == 0
+        );
+    }
+
+    if (toAdjustKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)
-            .forEach((groupRow) => adjustGroupAvarage(groupRow, avarageKeys));
+            .forEach((groupRow) =>
+                adjustGroupAverageOrFormula(
+                    groupRow,
+                    type,
+                    toAdjustKeys,
+                    totals
+                )
+            );
     }
 }
 
 /**
  * @returns number of 'leaf' of group
  */
-function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
+function adjustGroupAverageOrFormula(
+    row: Row,
+    type: TotalMode,
+    toAdjustKeys: Array<string>,
+    totals: TotalsMap
+): number {
     const children = row.group.children;
 
     if (children.length === 0) {
@@ -641,27 +662,60 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     // check if child is a grouping row
     if (children[0].group) {
         children.forEach((child) => {
-            numberOfLeaf += adjustGroupAvarage(child, avarage);
-        });
-
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
-                .divide(numberOfLeaf)
-                .value();
+            numberOfLeaf += adjustGroupAverageOrFormula(
+                child,
+                type,
+                toAdjustKeys,
+                totals
+            );
         });
     } else {
         numberOfLeaf = children.length;
-
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
-                .divide(row.group.children.length)
-                .value();
-        });
     }
+    // adjust average/formulas
+    toAdjustKeys.forEach((key) => {
+        if (type == TotalMode.AVERAGE) {
+            row.group.totals[key] = numeral(row.group.totals[key])
+                .divide(numberOfLeaf)
+                .value();
+        }
+        if (type == TotalMode.MATH) {
+            let formula = totals[key].substring(TotalMode.MATH.length);
+            row.group.totals[key] = evaluateFormula(formula, row.group.totals);
+        }
+    });
 
     return numberOfLeaf;
+}
+
+export function evaluateFormula(
+    formula: string,
+    row: { [index: string]: number }
+): number {
+    let formula1: string = formula;
+    const keys = Object.keys(row);
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        let value: number = row[key];
+        if (value != null && !isNaN(value)) {
+            let re: RegExp = new RegExp(key, 'g');
+            formula1 = formula1.replace(re, value.toString());
+        }
+    }
+    try {
+        return evaluateString(formula1);
+    } catch (e) {
+        logMessage(
+            'kup-data-table-helper',
+            'Error during evaluate formula [' + formula1 + ']',
+            'error'
+        );
+        return NaN;
+    }
+}
+
+export function evaluateString(f: string) {
+    return Function('"use strict"; return (' + f + ')')();
 }
 
 export function normalizeRows(
@@ -735,28 +789,28 @@ export function calcTotals(
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
         rows.forEach((r) => {
-            keys.filter((key) => TotalMode.COUNT !== totals[key]).forEach(
-                (key) => {
-                    // getting column
-                    const cell = r.cells[key];
+            keys.filter(
+                (key) =>
+                    TotalMode.COUNT !== totals[key] &&
+                    totals[key].indexOf(TotalMode.MATH) != 0
+            ).forEach((key) => {
+                // getting column
+                const cell = r.cells[key];
 
-                    // check if number
-                    if (cell && isNumber(cell.obj)) {
-                        const cellValue = numeral(cell.obj.k);
+                // check if number
+                if (cell && isNumber(cell.obj)) {
+                    const cellValue = numeral(stringToNumber(cell.value));
 
-                        const currentFooterValue = footerRow[key] || 0;
+                    const currentFooterValue = footerRow[key] || 0;
 
-                        footerRow[key] = cellValue
-                            .add(currentFooterValue)
-                            .value();
-                    }
+                    footerRow[key] = cellValue.add(currentFooterValue).value();
                 }
-            );
+            });
         });
 
         // fixing count and avg
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVARAGE) {
+            if (totals[key] === TotalMode.AVERAGE) {
                 const sum: number = footerRow[key];
 
                 if (sum && rows.length > 0) {
@@ -764,6 +818,9 @@ export function calcTotals(
                 }
             } else if (totals[key] === TotalMode.COUNT) {
                 footerRow[key] = rows.length;
+            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
+                let formula = totals[key].substring(TotalMode.MATH.length);
+                footerRow[key] = evaluateFormula(formula, footerRow);
             }
         }
     }
@@ -792,8 +849,8 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
 
     // number
     if (isNumber(obj1)) {
-        const n1: number = numeral(obj1.k).value();
-        const n2: number = numeral(obj2.k).value();
+        const n1: number = stringToNumber(cell1.value);
+        const n2: number = stringToNumber(cell2.value);
 
         if (n1 === n2) {
             return 0;
@@ -829,11 +886,17 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         }
     }
 
+    /**
+     * order by value contained in cell.value,
+     * the value could be calculated from another cell and the cell.obj is the object of original cell
+     **/
     return (
-        sm *
-        (obj1.k && obj2.k
-            ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
-            : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
+        sm * localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
+        /*
+            (obj1.k && obj2.k
+                ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
+                : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
+                */
     );
 }
 

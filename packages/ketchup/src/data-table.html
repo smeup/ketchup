@@ -85,13 +85,19 @@
 
     <body>
         <div class="data-examples">
+
+            <h1>temp test</h1>
+            <kup-data-table lazy-load-rows="false" id="temp-data-table-test"></kup-data-table>
+
+
             <h1>No data</h1>
-            <kup-data-table density="small" show-load-more></kup-data-table>
+            <kup-data-table lazy-load-rows="false" density="small" show-load-more></kup-data-table>
 
             <h1>Only columns</h1>
             <kup-data-table
                 id="only-cols"
                 paginator-pos="Both"
+                lazy-load-rows="false"
             ></kup-data-table>
 
             <h1>Columns and rows</h1>
@@ -99,38 +105,38 @@
                 <kup-data-table
                     id="basic-data"
                     enable-sortable-columns
+                    lazy-load-rows="false"
                 ></kup-data-table
             ></div>
 
             <h1>Radio buttons</h1>
-            <kup-data-table id="radio-buttons"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="radio-buttons"></kup-data-table>
         </div>
 
         <div class="filter-examples">
             <h1>Filters</h1>
-            <kup-data-table id="show-filter"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="show-filter"></kup-data-table>
 
             <h1>Filters on checkboxes</h1>
-            <kup-data-table id="show-filter-and-checkbox"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="show-filter-and-checkbox"></kup-data-table>
 
             <h1>Filters with initial value</h1>
-            <kup-data-table id="filter"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="filter"></kup-data-table>
 
             <h1>Filters with global filter</h1>
-            <kup-data-table id="global-filter"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="global-filter"></kup-data-table>
         </div>
 
         <div class="sort-examples">
             <h1>Sort disabled</h1>
-            <kup-data-table sort-enabled="false" id="no-sort"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" sort-enabled="false" id="no-sort"></kup-data-table>
 
             <h1>DftSort</h1>
             <p>
                 Sort ascending on first column, sort descending on second column
             </p>
-            <kup-data-table id="dft-sort"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="dft-sort"></kup-data-table>
         </div>
-
         <div class="pagination-examples">
             <h1>Pagination</h1>
             <div>
@@ -144,33 +150,40 @@
                     >Submit</button
                 >
             </div>
-            <kup-data-table paginator-pos="Top" id="pagination"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" paginator-pos="Top" id="pagination"></kup-data-table>
 
             <h1>Pagination bottom</h1>
-            <kup-data-table paginator-pos="Bottom" id="pagination-bottom"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" paginator-pos="Bottom" id="pagination-bottom"></kup-data-table>
 
             <h1>Pagination both</h1>
-            <kup-data-table paginator-pos="Both" id="pagination-both"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" paginator-pos="Both" id="pagination-both"></kup-data-table>
 
             <h1>Totals test</h1>
-            <kup-data-table id="totals-test"></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="totals-test"></kup-data-table>
+
+            <h1>Average test</h1>
+            <kup-data-table lazy-load-rows="false" id="average-test" expand-groups></kup-data-table>
+
+            <h1>Math Formulas test</h1>
+            <kup-data-table lazy-load-rows="false" id="math-test" expand-groups></kup-data-table>
         </div>
 
         <h1>Custom columns width (Column A = 100px / Column C = 300px)</h1>
-        <kup-data-table id="custom-columns-width"></kup-data-table>
+        <kup-data-table lazy-load-rows="false" id="custom-columns-width"></kup-data-table>
 
         <h1>Hidden header</h1>
-        <kup-data-table show-header="false" id="hidden-header"></kup-data-table>
+        <kup-data-table lazy-load-rows="false" show-header="false" id="hidden-header"></kup-data-table>
 
         <h1>Hidden grid</h1>
-        <kup-data-table show-grid="false" id="hidden-grid"></kup-data-table>
+        <kup-data-table lazy-load-rows="false" show-grid="false" id="hidden-grid"></kup-data-table>
 
         <h1>SelectRow</h1>
-        <kup-data-table select-row="3" id="select-row"></kup-data-table>
+        <kup-data-table lazy-load-rows="false" select-row="3" id="select-row"></kup-data-table>
 
         <h1>Graphic cells</h1>
-        <kup-data-table id="graphic-cells"></kup-data-table>
+        <kup-data-table lazy-load-rows="false" id="graphic-cells"></kup-data-table>
 
+        
         <script src="/assets/data-table.js"></script>
         <!-- <script src="/assets/index.js"></script>-->
         <style>

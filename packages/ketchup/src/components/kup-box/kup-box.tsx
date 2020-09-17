@@ -41,14 +41,8 @@ import {
     isEditor,
     isImage,
     isProgressBar,
-    getFromConfig,
-    getValue,
-    buildProgressBarConfig,
-    buildIconConfig,
     getShape,
 } from '../../utils/cell-utils';
-
-import { buildButtonConfig } from '../../utils/widget-utils';
 
 import {
     filterRows,
@@ -58,7 +52,8 @@ import {
 
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-box',
@@ -67,6 +62,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupBox {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Number of columns
@@ -82,7 +78,7 @@ export class KupBox {
     @Prop({ reflect: true })
     contentAlign: string = 'center';
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -164,6 +160,12 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     sortEnabled = false;
+
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @State()
     private globalFilterValue = '';
@@ -332,10 +334,18 @@ export class KupBox {
         this.handleAutomaticBoxSelection();
     }
 
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
         this.onDataChanged();
     }
 
@@ -344,6 +354,23 @@ export class KupBox {
 
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     componentDidUnload() {
@@ -1244,6 +1271,9 @@ export class KupBox {
         row: BoxRow;
         visibleColumns: Column[];
     }) {
+        let classObj: Record<string, boolean> = {
+            'box-object': true,
+        };
         let boContent = null;
 
         let boStyle = {};
@@ -1272,34 +1302,83 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
+                let props: any = cell.data;
 
                 if (isButton(cell.obj)) {
-                    boContent = (
-                        <kup-button
-                            {...buildButtonConfig(cell.value, cell.config)}
-                        />
-                    );
+                    if (props) {
+                        boContent = (
+                            <kup-button
+                                class="cell-button"
+                                {...props}
+                            ></kup-button>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (
+                    isChart(cell.obj) ||
+                    getShape(cell, boxObject) === 'GRA'
+                ) {
+                    if (props) {
+                        boContent = (
+                            <kup-lazy
+                                class="cell-chart"
+                                componentName="kup-chart"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else if (isCheckbox(cell.obj)) {
-                    let checked = cell.value == '1';
+                    if (props) {
+                        props['disabled'] = row;
+                    } else {
+                        props = { disabled: row };
+                    }
                     boContent = (
                         <kup-checkbox
-                            checked={checked}
-                            disabled={true}
+                            class="cell-checkbox"
+                            {...props}
                         ></kup-checkbox>
                     );
-                } else if (isRadio(cell.obj)) {
-                    let radioProp = {
-                        data: [
-                            {
-                                label: '',
-                                value: cell.value,
-                                checked: cell.value == '1',
-                            },
-                        ],
-                        disabled: true,
-                    };
-
-                    boContent = <kup-radio {...radioProp} />;
+                } else if (isEditor(cell, boxObject)) {
+                    boContent = <kup-editor text={cell.value}></kup-editor>;
+                } else if (isIcon(cell.obj)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = '18px';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '18px';
+                        }
+                        boContent = (
+                            <kup-image class="cell-icon" {...props}></kup-image>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isImage(cell, boxObject)) {
+                    if (props) {
+                        if (!props.sizeX) {
+                            props['sizeX'] = 'auto';
+                        }
+                        if (!props.sizeY) {
+                            props['sizeY'] = '64px';
+                        }
+                        if (props.badgeData) {
+                            classObj['has-padding'] = true;
+                        }
+                        boContent = (
+                            <kup-lazy
+                                class="cell-image"
+                                componentName="kup-image"
+                                data={...props}
+                            />
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
                 } else if (isPassword(cell.obj)) {
                     boContent = (
                         <kup-text-field
@@ -1309,52 +1388,28 @@ export class KupBox {
                         ></kup-text-field>
                     );
                 } else if (isProgressBar(cell, boxObject)) {
-                    const value = getValue(cell, boxObject);
-                    boContent = (
-                        <kup-progress-bar
-                            {...buildProgressBarConfig(
-                                cell,
-                                boxObject,
-                                false,
-                                value
-                            )}
-                        />
-                    );
-                } else if (
-                    isChart(cell.obj) ||
-                    getShape(cell, boxObject) === 'GRA'
-                ) {
-                    const props: {
-                        value: string;
-                        width?: number;
-                        height?: number;
-                        cellConfig: any;
-                    } = {
-                        value: cell.value,
-                        cellConfig: cell.config,
-                    };
-
-                    // check if column has width
-                    const height: number = Number(
-                        getFromConfig(cell, boxObject, 'height')
-                    );
-                    const width: number = Number(
-                        getFromConfig(cell, boxObject, 'width')
-                    );
-                    if (height > 0) {
-                        props.height = height;
+                    if (props) {
+                        boContent = (
+                            <kup-progress-bar
+                                class="cell-progress-bar"
+                                {...props}
+                            ></kup-progress-bar>
+                        );
+                    } else {
+                        boContent = undefined;
                     }
-                    if (width > 0) {
-                        props.width = width;
+                } else if (isRadio(cell.obj)) {
+                    if (props) {
+                        props['disabled'] = true;
+                        boContent = (
+                            <kup-radio
+                                class="cell-radio"
+                                {...props}
+                            ></kup-radio>
+                        );
+                    } else {
+                        boContent = undefined;
                     }
-
-                    boContent = <kup-chart-cell {...props} />;
-                } else if (isIcon(cell.obj) || isImage(cell, boxObject)) {
-                    boContent = (
-                        <kup-image {...buildIconConfig(cell, cell.value)} />
-                    );
-                } else if (isEditor(cell, boxObject)) {
-                    boContent = <kup-editor text={cell.value}></kup-editor>;
                 } else {
                     boContent = cell.value;
                 }
@@ -1367,7 +1422,7 @@ export class KupBox {
         return (
             <div
                 data-column={boxObject.column}
-                class="box-object"
+                class={classObj}
                 style={boStyle}
             >
                 {boContent}
@@ -1480,7 +1535,7 @@ export class KupBox {
         };
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div

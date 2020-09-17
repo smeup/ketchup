@@ -8,6 +8,7 @@ import {
     State,
     h,
     Listen,
+    Method,
 } from '@stencil/core';
 import {
     ComponentNavBarData,
@@ -19,10 +20,11 @@ import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
-    fetchThemeCustomStyle,
+    setThemeCustomStyle,
     setCustomStyle,
-    dynColorContrast,
-} from '../../utils/theming';
+    colorContrast,
+} from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -31,10 +33,10 @@ import {
 })
 export class KupNavBar {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -53,7 +55,12 @@ export class KupNavBar {
     private optionsListEl: any = undefined;
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
-    private dynColor: string = 'white';
+    private textColor: string = 'white';
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Listen('click', { target: 'document' })
     listenClick() {
@@ -97,7 +104,16 @@ export class KupNavBar {
     kupNavbarOptionItemClick: EventEmitter<{
         value: any;
     }>;
+
     //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme =
+            'Needs to be refreshed every time the theme changes because there are dynamic colors.';
+        this.customStyleTheme = customStyleTheme;
+        this.fetchThemeColors();
+    }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
         let selectedValue: string = e.detail.selected.value;
@@ -189,28 +205,6 @@ export class KupNavBar {
         }
         return listEl.menuVisible == true;
     }
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root != null) {
-            const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            //MDCTopAppBar.attachTo(topAppBarElement);
-            new MDCTopAppBar(topAppBarElement);
-        }
-        if (this.menuListEl != null) {
-            positionRecalc(this.menuListEl, this.menuButtonEl);
-        }
-        if (this.optionsListEl != null) {
-            positionRecalc(this.optionsListEl, this.optionsButtonEl);
-        }
-        const header = this.rootElement.shadowRoot.querySelector('header');
-        dynColorContrast(this, window.getComputedStyle(header).backgroundColor);
-    }
 
     prepMenuList(listData: ComponentListElement[]): HTMLElement {
         this.menuListEl = null;
@@ -250,6 +244,53 @@ export class KupNavBar {
         return comp;
     }
 
+    private fetchThemeColors() {
+        let color = document.documentElement.style.getPropertyValue(
+            '--kup-header-background-color'
+        );
+        this.textColor = colorContrast(color);
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+        this.fetchThemeColors();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root != null) {
+            const topAppBarElement = root.querySelector('.mdc-top-app-bar');
+            //MDCTopAppBar.attachTo(topAppBarElement);
+            new MDCTopAppBar(topAppBarElement);
+        }
+        if (this.menuListEl != null) {
+            positionRecalc(this.menuListEl, this.menuButtonEl);
+        }
+        if (this.optionsListEl != null) {
+            positionRecalc(this.optionsListEl, this.optionsButtonEl);
+        }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
+    }
+
     render() {
         let wrapperClass = undefined;
 
@@ -263,9 +304,9 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
-                            customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                            customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                             icon={action.icon}
-                            iconColor={this.dynColor}
+                            iconColor={this.textColor}
                             tooltip={action.tooltip}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
@@ -287,9 +328,9 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="more_vert"
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip="Options"
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
@@ -304,9 +345,9 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon={action.icon}
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip={action.tooltip}
                     onKupButtonClick={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
@@ -325,9 +366,9 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.dynColor}; }`}
+                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="menu"
-                    iconColor={this.dynColor}
+                    iconColor={this.textColor}
                     tooltip="Open navigation menu"
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}
@@ -339,9 +380,9 @@ export class KupNavBar {
 
         let headerClassName =
             'mdc-top-app-bar ' + getClassNameByComponentMode(this.mode);
-        let titleStyle = { color: this.dynColor };
+        let titleStyle = { color: this.textColor };
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>

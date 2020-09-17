@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -21,35 +15,25 @@ export default {
   name: 'TreeDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupOptionClicked',
+          type: 'custom',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupTreeNodeCollapse',
+          type: 'custom',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupTreeNodeExpand',
+          type: 'custom',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupTreeNodeSelected',
+          type: 'custom',
         },
       ],
-      demoComp:
-        '<kup-tree show-icons hover-scroll auto-selection-node-mode id="demo-component"></kup-tree>',
       demoProps: [
         {
           prop: 'autoSelectionNodeMode',
@@ -69,9 +53,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -174,172 +158,188 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupOptionClicked',
-          type: 'custom',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupTreeNodeCollapse',
-          type: 'custom',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTreeNodeExpand',
-          type: 'custom',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTreeNodeSelected',
-          type: 'custom',
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        data: [
-          {
-            cells: {
-              Mat: {
-                obj: { t: 'NR', p: '', k: '00Mat' },
-                value: '00Mat',
-                options: true,
-              },
-              Program: {
-                obj: { t: 'NR', p: '', k: '00Program' },
-                value: '00Program',
-                options: false,
-              },
-              Attack: {
-                obj: { t: 'NR', p: '', k: '00Attack' },
-                value: '00Attack',
-                options: true,
-              },
-            },
-            children: [
-              {
-                cells: {
-                  Mat: {
-                    obj: { t: 'NR', p: '', k: '10Mat' },
-                    value: '10Mat',
-                    options: false,
-                  },
-                  Program: {
-                    obj: { t: 'NR', p: '', k: '10Program' },
-                    value: '10Program',
-                    options: false,
-                  },
-                  Attack: {
-                    obj: { t: 'NR', p: '', k: '10Attack' },
-                    value: '10Attack',
-                    options: true,
-                  },
-                },
-                children: [],
-                disabled: false,
-                expandable: false,
-                npm: 'filter_1',
-                id: '00100',
-                isExpanded: false,
-                obj: { t: 'TN', p: '', k: 'First node' },
-                options: false,
-                value: 'First node',
-              },
-              {
-                cells: {
-                  Mat: {
-                    obj: { t: 'NR', p: '', k: '11Mat' },
-                    value: '11Mat',
-                    options: false,
-                  },
-                  Program: {
-                    obj: { t: 'NR', p: '', k: '11Program' },
-                    value: '11Program',
-                    options: true,
-                  },
-                  Attack: {
-                    obj: { t: 'NR', p: '', k: '11Attack' },
-                    value: '11Attack',
-                    options: false,
-                  },
-                },
-                children: [
-                  {
-                    cells: {
-                      Mat: {
-                        obj: { t: 'NR', p: '', k: '20Mat' },
-                        value: '20Mat',
-                        options: true,
-                      },
-                      Program: {
-                        obj: { t: 'NR', p: '', k: '20Program' },
-                        value: '20Program',
-                        options: false,
-                      },
-                      Attack: {
-                        obj: { t: 'NR', p: '', k: '20Attack' },
-                        value: '20Attack',
-                        options: true,
-                      },
-                    },
-                    children: [
-                      {
-                        cells: {
-                          Mat: {
-                            obj: { t: 'NR', p: '', k: '30Mat' },
-                            value: '30Mat',
-                            options: false,
-                          },
-                          Program: {
-                            obj: { t: 'NR', p: '', k: '30Program' },
-                            value: '30Program',
-                            options: true,
-                          },
-                          Attack: {
-                            obj: { t: 'NR', p: '', k: '30Attack' },
-                            value: '30Attack',
-                            options: false,
-                          },
-                        },
-                        children: [],
-                        disabled: false,
-                        expandable: false,
-                        icon: 'account',
-                        id: '0010300',
-                        isExpanded: false,
-                        obj: { t: 'TN', p: '', k: 'FIOGIA30' },
-                        options: false,
-                        value: 'FIOGIA30',
-                      },
-                    ],
-                    disabled: true,
-                    expandable: true,
-                    icon: 'favorite',
-                    id: '001201',
-                    isExpanded: false,
-                    obj: { t: 'TN', p: '', k: 'Second node item' },
-                    options: true,
-                    value: 'Second node item',
-                  },
-                ],
-                disabled: false,
-                expandable: true,
-                icon: 'filter_2',
-                id: '00111',
-                isExpanded: true,
-                obj: { t: 'TN', p: '', k: 'Second node' },
-                options: false,
-                value: 'Second node',
-              },
-            ],
-            disabled: false,
-            expandable: true,
-            icon: 'widgets',
-            id: '0005',
-            isExpanded: true,
-            obj: { t: '', p: '', k: 'Demo' },
-            options: true,
-            value: 'Demo',
-          },
-        ],
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-tree');
+  comp.autoSelectionNodeMode = true;
+  comp.data = [
+    {
+      cells: {
+        Mat: {
+          obj: { t: 'NR', p: '', k: '00Mat' },
+          value: '00Mat',
+          options: true,
+        },
+        Program: {
+          obj: { t: 'NR', p: '', k: '00Program' },
+          value: '00Program',
+          options: false,
+        },
+        Attack: {
+          obj: { t: 'NR', p: '', k: '00Attack' },
+          value: '00Attack',
+          options: true,
+        },
+      },
+      children: [
+        {
+          cells: {
+            Mat: {
+              obj: { t: 'NR', p: '', k: '10Mat' },
+              value: '10Mat',
+              options: false,
+            },
+            Program: {
+              obj: { t: 'NR', p: '', k: '10Program' },
+              value: '10Program',
+              options: false,
+            },
+            Attack: {
+              obj: { t: 'NR', p: '', k: '10Attack' },
+              value: '10Attack',
+              options: true,
+            },
+          },
+          children: [],
+          disabled: false,
+          expandable: false,
+          npm: 'filter_1',
+          id: '00100',
+          isExpanded: false,
+          obj: { t: 'TN', p: '', k: 'First node' },
+          options: false,
+          value: 'First node',
+        },
+        {
+          cells: {
+            Mat: {
+              obj: { t: 'NR', p: '', k: '11Mat' },
+              value: '11Mat',
+              options: false,
+            },
+            Program: {
+              obj: { t: 'NR', p: '', k: '11Program' },
+              value: '11Program',
+              options: true,
+            },
+            Attack: {
+              obj: { t: 'NR', p: '', k: '11Attack' },
+              value: '11Attack',
+              options: false,
+            },
+          },
+          children: [
+            {
+              cells: {
+                Mat: {
+                  obj: { t: 'NR', p: '', k: '20Mat' },
+                  value: '20Mat',
+                  options: true,
+                },
+                Program: {
+                  obj: { t: 'NR', p: '', k: '20Program' },
+                  value: '20Program',
+                  options: false,
+                },
+                Attack: {
+                  obj: { t: 'NR', p: '', k: '20Attack' },
+                  value: '20Attack',
+                  options: true,
+                },
+              },
+              children: [
+                {
+                  cells: {
+                    Mat: {
+                      obj: { t: 'NR', p: '', k: '30Mat' },
+                      value: '30Mat',
+                      options: false,
+                    },
+                    Program: {
+                      obj: { t: 'NR', p: '', k: '30Program' },
+                      value: '30Program',
+                      options: true,
+                    },
+                    Attack: {
+                      obj: { t: 'NR', p: '', k: '30Attack' },
+                      value: '30Attack',
+                      options: false,
+                    },
+                  },
+                  children: [],
+                  disabled: false,
+                  expandable: false,
+                  icon: 'account',
+                  id: '0010300',
+                  isExpanded: false,
+                  obj: { t: 'TN', p: '', k: 'FIOGIA30' },
+                  options: false,
+                  value: 'FIOGIA30',
+                },
+              ],
+              disabled: true,
+              expandable: true,
+              icon: 'favorite',
+              id: '001201',
+              isExpanded: false,
+              obj: { t: 'TN', p: '', k: 'Second node item' },
+              options: true,
+              value: 'Second node item',
+            },
+          ],
+          disabled: false,
+          expandable: true,
+          icon: 'filter_2',
+          id: '00111',
+          isExpanded: true,
+          obj: { t: 'TN', p: '', k: 'Second node' },
+          options: false,
+          value: 'Second node',
+        },
+      ],
+      disabled: false,
+      expandable: true,
+      icon: 'widgets',
+      id: '0005',
+      isExpanded: true,
+      obj: { t: '', p: '', k: 'Demo' },
+      options: true,
+      value: 'Demo',
+    },
+  ];
+  comp.hoverScroll = true;
+  comp.id = 'demo-component';
+  comp.showIcons = true;
+  return comp;
+}
 </script>

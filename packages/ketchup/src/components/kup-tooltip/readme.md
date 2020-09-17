@@ -32,7 +32,6 @@
 ### Used by
 
  - [kup-data-table](../kup-data-table)
- - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -49,7 +48,6 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-data-table --> kup-tooltip
-  kup-tree --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

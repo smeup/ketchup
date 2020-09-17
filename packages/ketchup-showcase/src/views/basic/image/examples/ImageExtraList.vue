@@ -499,6 +499,10 @@
             <kup-image size-x="48px" size-y="48px" resource="gauge"></kup-image>
             <div class="icon-label">gauge</div>
           </div>
+          <div class="icon-wrapper" title="github">
+            <kup-image size-x="48px" size-y="48px" resource="github"></kup-image>
+            <div class="icon-label">github</div>
+          </div>
           <div class="icon-wrapper" title="gmail">
             <kup-image size-x="48px" size-y="48px" resource="gmail"></kup-image>
             <div class="icon-label">gmail</div>
@@ -538,6 +542,10 @@
           <div class="icon-wrapper" title="key-variant">
             <kup-image size-x="48px" size-y="48px" resource="key-variant"></kup-image>
             <div class="icon-label">key-variant</div>
+          </div>
+          <div class="icon-wrapper" title="lazy">
+            <kup-image size-x="48px" size-y="48px" resource="lazy"></kup-image>
+            <div class="icon-label">lazy</div>
           </div>
           <div class="icon-wrapper" title="lightbulb-on">
             <kup-image size-x="48px" size-y="48px" resource="lightbulb-on"></kup-image>
@@ -606,6 +614,10 @@
           <div class="icon-wrapper" title="monitor">
             <kup-image size-x="48px" size-y="48px" resource="monitor"></kup-image>
             <div class="icon-label">monitor</div>
+          </div>
+          <div class="icon-wrapper" title="npm">
+            <kup-image size-x="48px" size-y="48px" resource="npm"></kup-image>
+            <div class="icon-label">npm</div>
           </div>
           <div class="icon-wrapper" title="omega">
             <kup-image size-x="48px" size-y="48px" resource="omega"></kup-image>

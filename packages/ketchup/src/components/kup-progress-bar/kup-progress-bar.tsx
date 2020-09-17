@@ -1,5 +1,14 @@
-import { Component, Prop, Element, Host, State, h } from '@stencil/core';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    Method,
+} from '@stencil/core';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-progress-bar',
@@ -8,14 +17,14 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupProgressBar {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
      */
     @Prop({ reflect: true }) centeredLabel: boolean = true;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -55,22 +64,53 @@ export class KupProgressBar {
      */
     @Prop({ reflect: true }) value: number = 0;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
     }
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != undefined && this.isRadial) {
+        if (root && this.isRadial) {
             let deg = this.value * 3.6 + 'deg';
             root.querySelector('.left-side').setAttribute(
                 'style',
                 'transform: rotate(' + deg + ')'
             );
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -200,7 +240,7 @@ export class KupProgressBar {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {el}

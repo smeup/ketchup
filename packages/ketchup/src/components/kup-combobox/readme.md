@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property        | Attribute      | Description                                                                                 | Type                                                                                             | Default                        |
-| --------------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`   | `custom-style` | Custom style to be passed to the component.                                                 | `string`                                                                                         | `undefined`                    |
-| `isSelect`      | `is-select`    | Lets the combobox behave as a select element.                                               | `boolean`                                                                                        | `false`                        |
-| `listData`      | --             | Props of the list.                                                                          | `Object`                                                                                         | `{}`                           |
-| `selectMode`    | `select-mode`  | Sets how the return the elected item value. Suported values: "code", "description", "both". | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `textfieldData` | --             | Props of the text field.                                                                    | `Object`                                                                                         | `{}`                           |
+| Property        | Attribute      | Description                                                                                                     | Type                                                                                             | Default                        |
+| --------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`   | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
+| `isSelect`      | `is-select`    | Lets the combobox behave as a select element.                                                                   | `boolean`                                                                                        | `false`                        |
+| `listData`      | --             | Props of the list.                                                                                              | `Object`                                                                                         | `{}`                           |
+| `selectMode`    | `select-mode`  | Sets how the return the elected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `textfieldData` | --             | Props of the text field.                                                                                        | `Object`                                                                                         | `{}`                           |
 
 
 ## Events
@@ -26,6 +26,19 @@
 | `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>` |
 | `kupComboboxItemClick`       |                | `CustomEvent<{ value: any; }>` |
 | `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>` |
+
+
+## Methods
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

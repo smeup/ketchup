@@ -63,7 +63,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | -------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------- |
 | `autoSelectionNodeMode`    | `auto-selection-node-mode` | Auto select programmatic selectic node                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                         | `true`      |
 | `columns`                  | --                         | The columns of the tree when tree visualization is active.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `Column[]`                                                                        | `undefined` |
-| `customStyle`              | `custom-style`             | Custom style to be passed to the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `string`                                                                          | `undefined` |
+| `customStyle`              | `custom-style`             | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `string`                                                                          | `undefined` |
 | `data`                     | --                         | The json data used to populate the tree view: the basic, always visible tree nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `TreeNode[]`                                                                      | `[]`        |
 | `density`                  | `density`                  | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `string`                                                                          | `'medium'`  |
 | `dynamicExpansionCallback` | --                         | Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]>` | `undefined` |
@@ -76,6 +76,8 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `showHeader`               | `show-header`              | Flag: shows the header of the tree when the tree is displayed as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `boolean`                                                                         | `false`     |
 | `showIcons`                | `show-icons`               | Shows the icons of the nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `boolean`                                                                         | `true`      |
 | `showObjectNavigation`     | `show-object-navigation`   | When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.                                                                                                                                                                                                                                                                                                                                                                                                                                           | `boolean`                                                                         | `false`     |
+| `stateId`                  | `state-id`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `string`                                                                          | `''`        |
+| `store`                    | --                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `KupStore`                                                                        | `undefined` |
 | `useDynamicExpansion`      | `use-dynamic-expansion`    | When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:                                                                                                                                                                                                                                                                                                                                            | `boolean`                                                                         | `false`     |
 
 
@@ -83,8 +85,6 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 | Event                      | Description                                                                                                                                                                 | Type                                                                                                                                          |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `kupDetailRequest`         | When a tooltip request detail data                                                                                                                                          | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
-| `kupLoadRequest`           | When a tooltip request initial data                                                                                                                                         | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                                                          |
 | `kupOptionClicked`         | When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}. | `CustomEvent<{ cell: Cell; column: Column; treeNode: TreeNode; }>`                                                                            |
 | `kupTreeNodeButtonClicked` |                                                                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; }>`                         |
 | `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                                                              | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                            |
@@ -92,37 +92,46 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                                                             | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; }>`                                         |
 
 
+## Methods
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on
 
 - [kup-button](../kup-button)
-- [kup-image](../kup-image)
+- [kup-lazy](../kup-lazy)
 - [kup-checkbox](../kup-checkbox)
-- [kup-chart-cell](../kup-chart-cell)
+- [kup-image](../kup-image)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
-- [kup-tooltip](../kup-tooltip)
 - [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tree --> kup-button
-  kup-tree --> kup-image
+  kup-tree --> kup-lazy
   kup-tree --> kup-checkbox
-  kup-tree --> kup-chart-cell
+  kup-tree --> kup-image
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
-  kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-button --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-progress-bar --> kup-image
-  kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-text-field --> kup-image
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

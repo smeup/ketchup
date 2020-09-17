@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,41 +14,24 @@ export default {
   name: 'FieldDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupFldChange',
+          type: 'CustomEvent',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupFldSubmit',
+          type: 'CustomEvent',
         },
       ],
-      demoComp: '<kup-field type="itx" id="demo-component"></kup-field>',
       demoProps: [
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -112,75 +89,97 @@ export default {
           try: 'field',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupFldChange',
-          type: 'CustomEvent',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupFldSubmit',
-          type: 'CustomEvent',
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        data: { icon: 'widgets', label: 'demo' },
-        dataCMB: {
-          textfieldData: {
-            trailingIcon: true,
-            icon: 'arrow_drop_down',
-            label: 'demo',
-          },
-          listData: {
-            data: [
-              {
-                text: 'First choice',
-                value: '1',
-                selected: true,
-              },
-              {
-                text: 'Selected choice',
-                value: '2',
-              },
-              {
-                text: 'Third choice',
-                value: '3',
-              },
-            ],
-            selectable: true,
-          },
-        },
-        dataITX: { icon: 'widgets', label: 'demo' },
-        dataRAD: {
-          data: [
-            {
-              value: '1',
-              label: 'First',
-              checked: false,
-            },
-            {
-              value: '2',
-              label: 'Second',
-              checked: false,
-            },
-            {
-              value: '3',
-              label: 'Third',
-              checked: true,
-            },
-            {
-              value: '4',
-              label: 'Fourth',
-              checked: false,
-            },
-            {
-              value: '5',
-              label: 'Fifth',
-              checked: false,
-            },
-          ],
-        },
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-field');
+  comp.data = { icon: 'widgets', label: 'demo' };
+  comp.dataCMB = {
+    textfieldData: {
+      trailingIcon: true,
+      icon: 'arrow_drop_down',
+      label: 'demo',
+    },
+    listData: {
+      data: [
+        {
+          text: 'First choice',
+          value: '1',
+          selected: true,
+        },
+        {
+          text: 'Selected choice',
+          value: '2',
+        },
+        {
+          text: 'Third choice',
+          value: '3',
+        },
+      ],
+      selectable: true,
+    },
+  };
+  comp.dataITX = { icon: 'widgets', label: 'demo' };
+  comp.dataRAD = {
+    data: [
+      {
+        value: '1',
+        label: 'First',
+        checked: false,
+      },
+      {
+        value: '2',
+        label: 'Second',
+        checked: false,
+      },
+      {
+        value: '3',
+        label: 'Third',
+        checked: true,
+      },
+      {
+        value: '4',
+        label: 'Fourth',
+        checked: false,
+      },
+      {
+        value: '5',
+        label: 'Fifth',
+        checked: false,
+      },
+    ],
+  };
+  comp.id = 'demo-component';
+  comp.type = 'ITX';
+  return comp;
+}
 </script>

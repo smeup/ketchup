@@ -19,7 +19,8 @@ import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 import { KupImage } from '../kup-image/kup-image';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-list',
@@ -28,7 +29,7 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
@@ -36,7 +37,7 @@ export class KupList {
     @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
     @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
     /**
-     * Sets a custom style for the component by feeding this string into a <style> tag.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -94,6 +95,11 @@ export class KupList {
     private checkboxes: KupCheckbox[] = [];
 
     private focIndex: number = -1;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * Events.
@@ -196,9 +202,12 @@ export class KupList {
         }
     }
 
-    /**
-     * --- Methods ----
-     */
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
@@ -488,30 +497,6 @@ export class KupList {
         }
     }
 
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
-    }
-
-    componentDidLoad() {
-        this.listComponent = null;
-        this.focIndex = -1;
-        // Called once just after the component fully loaded and the first render() occurs.
-        const root = this.rootElement.shadowRoot;
-        if (root != null) {
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list')
-            );
-
-            this.listComponent.singleSelection = this.isSingleSelection();
-
-            this.listComponent.listElements.map(
-                (listItemEl: any) => new MDCRipple(listItemEl)
-            );
-        }
-    }
-
     itemCompliant(item: ComponentListElement): boolean {
         if (item.isSeparator) {
             return true;
@@ -534,6 +519,48 @@ export class KupList {
         return (
             item.value.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
             item.text.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+        );
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.listComponent = null;
+        this.focIndex = -1;
+        // Called once just after the component fully loaded and the first render() occurs.
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.listComponent = MDCList.attachTo(
+                root.querySelector('.mdc-list')
+            );
+
+            this.listComponent.singleSelection = this.isSingleSelection();
+
+            this.listComponent.listElements.map(
+                (listItemEl: any) => new MDCRipple(listItemEl)
+            );
+        }
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
     }
 
@@ -576,7 +603,7 @@ export class KupList {
         let index = 0;
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <ul

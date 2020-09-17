@@ -1,8 +1,15 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-paginator',
@@ -10,6 +17,8 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupPaginator {
+    @Element() rootElement: HTMLElement;
+
     @Prop({ reflect: true }) currentPage = 1;
 
     @Prop({ reflect: true }) max = 0;
@@ -19,6 +28,12 @@ export class KupPaginator {
     @Prop({ reflect: true }) perPage = 10;
 
     @Prop({ reflect: true }) selectedPerPage = 10;
+
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     /**
      * When the current page change
@@ -166,13 +181,33 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
@@ -249,9 +284,6 @@ export class KupPaginator {
                 <div class="align-left"></div>
             </div>
         );
-        //lcltime = new Date();
-        //let endtime = lcltime.getTime();
-        //this.log('render', 'time spent [' + (endtime - starttime) + ']');
 
         return compCreated;
     }

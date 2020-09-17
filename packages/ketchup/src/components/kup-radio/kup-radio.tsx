@@ -7,11 +7,13 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-radio',
@@ -20,10 +22,10 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupRadio {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -42,6 +44,12 @@ export class KupRadio {
      * Defaults at null. It's the name that binds the radio buttons together.
      */
     @Prop({ reflect: true }) name: string = 'radio-list';
+
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -100,6 +108,11 @@ export class KupRadio {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
@@ -143,13 +156,25 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
     }
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             let formFields: any = root.querySelectorAll('.mdc-form-field');
             for (let i = 0; i < formFields.length; i++) {
                 let component = MDCRadio.attachTo(
@@ -159,6 +184,12 @@ export class KupRadio {
                 formField.input = component;
             }
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -213,7 +244,7 @@ export class KupRadio {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{radioList}</div>
             </Host>

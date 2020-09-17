@@ -1,5 +1,3 @@
-@import url(https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css);
-
 /**
 * @prop --dtt_background-color, --kup-data-table_background-color: background-color of the whole component (paginator and table).
 * @prop --dtt_border-color, --kup-data-table_border-color: border-color for the whole table.
@@ -307,6 +305,7 @@ $fixed-row-class: fixed-row;
     &.custom-size th {
       position: sticky;
       top: 0;
+      z-index: 1;
     }
 
     > thead {
@@ -378,8 +377,16 @@ $fixed-row-class: fixed-row;
           white-space: normal;
         }
 
+        &.icon {
+          width: 30px;
+        }
+
         &.number {
           text-align: right;
+        }
+
+        &.centered {
+          text-align: center;
         }
 
         //---- Filters ----
@@ -475,6 +482,7 @@ $fixed-row-class: fixed-row;
       }
 
       //---- Columns drag style ----
+
       &[columns-dragging] {
         // When the drag is over a valid target
         [drag-over] {
@@ -581,7 +589,10 @@ $fixed-row-class: fixed-row;
           }
 
           &.number {
-            text-align: right;
+            .cell-content {
+              display: block;
+              text-align: right;
+            }
           }
 
           .row-expander {
@@ -610,15 +621,13 @@ $fixed-row-class: fixed-row;
 
           // The container of the effective cell content
           .cell-content {
-            & .icon-container {
-              display: inline-block;
-              width: 16px;
-              height: 16px;
-              vertical-align: middle;
+            display: flex;
+
+            &.has-padding {
+              box-sizing: border-box;
+              padding: 1rem;
             }
-            & kup-image {
-              display: inline-block;
-            }
+
             // When there is the necessity to hide long text
             :host([force-one-line]) & {
               display: inline-block; // [column-width-related][mandatory][3]
@@ -628,6 +637,25 @@ $fixed-row-class: fixed-row;
               vertical-align: middle;
               white-space: nowrap;
               width: 100%;
+
+              &.is-centered {
+                display: flex;
+              }
+            }
+
+            &.is-tooltip {
+              position: relative;
+            }
+
+            &.is-vertical,
+            :host([force-one-line]) &.is-vertical {
+              display: inline-flex;
+              margin: auto;
+              width: -webkit-fill-available;
+              align-items: center;
+              & > * {
+                margin: auto;
+              }
             }
 
             &.negative-number {
@@ -649,9 +677,19 @@ $fixed-row-class: fixed-row;
 
           &.is-graphic {
             padding: 0 1px;
-            & kup-image {
-              display: flex;
-            }
+          }
+
+          kup-lazy {
+            display: flex;
+            margin: auto;
+          }
+
+          & .indent ~ kup-lazy,
+          & .indent ~ kup-image,
+          & .indent ~ kup-button {
+            display: inline-block;
+            margin: 0;
+            vertical-align: middle;
           }
 
           // Class assigned to the image of a cell
@@ -709,8 +747,16 @@ $fixed-row-class: fixed-row;
           display: inline-flex;
           padding: 0.5rem 0.3125rem;
 
+          &.icon {
+            width: 30px;
+          }
+
           &.number {
             text-align: right;
+          }
+
+          &.centered {
+            text-align: center;
           }
         }
 
@@ -741,23 +787,35 @@ $fixed-row-class: fixed-row;
     }
 
     &.density- {
-      &small {
+      kup-lazy.to-be-loaded {
+        height: 36px;
+      }
+
+      &dense {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 0.2rem;
           padding-bottom: 0.2rem;
         }
         tbody > tr.group > td {
-          padding: 0.25rem 0;
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+        }
+        kup-lazy.to-be-loaded {
+          height: 26px;
         }
       }
 
-      &big {
+      &wide {
         tbody > tr > td:not(.is-graphic) {
           padding-top: 1rem;
           padding-bottom: 1rem;
         }
         tbody > tr.group > td {
-          padding: 0.75rem 0;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+        }
+        kup-lazy.to-be-loaded {
+          height: 50px;
         }
       }
     }

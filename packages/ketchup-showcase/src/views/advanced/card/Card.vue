@@ -14,10 +14,13 @@
         <card-menu></card-menu>
       </template>
       <template v-slot:4>
-        <card-material></card-material>
+        <card-standard></card-standard>
       </template>
       <template v-slot:5>
-        <card-custom></card-custom>
+        <card-collapsible></card-collapsible>
+      </template>
+      <template v-slot:6>
+        <card-scalable></card-scalable>
       </template>
     </comp>
   </div>
@@ -28,8 +31,9 @@ import CardDemo from '@/views/advanced/card/examples/CardDemo';
 import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
-import CardMaterial from '@/views/advanced/card/examples/CardMaterial';
-import CardCustom from '@/views/advanced/card/examples/CardCustom';
+import CardCollapsible from '@/views/advanced/card/examples/CardCollapsible';
+import CardScalable from '@/views/advanced/card/examples/CardScalable';
+import CardStandard from '@/views/advanced/card/examples/CardStandard';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
@@ -37,8 +41,9 @@ export default {
     CardBasic,
     CardStyling,
     CardMenu,
-    CardMaterial,
-    CardCustom,
+    CardCollapsible,
+    CardScalable,
+    CardStandard,
     Comp,
   },
   data() {
@@ -51,8 +56,9 @@ export default {
         'Basic usage',
         'Styling',
         'Menu variant',
-        'Material layouts',
-        'Custom layouts',
+        'Standard layouts',
+        'Collapsible layouts',
+        'Scalable layouts',
       ],
     };
   },

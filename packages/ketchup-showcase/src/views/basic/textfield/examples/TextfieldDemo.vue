@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoEvents="demoEvents"></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -14,37 +14,48 @@ export default {
   name: 'TextfieldDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupTextFieldClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupTextFieldChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupTextFieldInput',
+          type: 'input',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupTextFieldFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupTextFieldBlur',
+          type: 'blur',
+        },
+        {
+          name: 'kupTextFieldIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldClearIconClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTextFieldSubmit',
+          type: 'click',
         },
       ],
-      demoComp:
-        '<kup-text-field icon="widgets" initial-value="Some text" label="Demo" id="demo-component"></kup-text-field>',
       demoProps: [
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -202,41 +213,38 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupTextFieldClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupTextFieldChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTextFieldInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupTextFieldFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupTextFieldBlur',
-          type: 'blur',
-        },
-        {
-          name: 'kupTextFieldIconClick',
-          type: 'click',
-        },
-        {
-          name: 'kupTextFieldClearIconClick',
-          type: 'click',
-        },
-        {
-          name: 'kupTextFieldSubmit',
-          type: 'click',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-text-field');
+  comp.icon = 'widgets';
+  comp.id = 'demo-component';
+  comp.initialValue = 'Some text';
+  comp.label = 'Demo';
+  return comp;
+}
 </script>

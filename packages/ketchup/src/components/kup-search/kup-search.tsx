@@ -1,11 +1,12 @@
 import {
-    Prop,
     Component,
-    h,
+    Prop,
+    Element,
     Event,
     EventEmitter,
     State,
     Watch,
+    h,
 } from '@stencil/core';
 
 import { TableData, Row } from '../kup-data-table/kup-data-table-declarations';
@@ -14,6 +15,7 @@ import {
     SearchSelectionUpdatedEventDetail,
     SearchFilterSubmittedEventDetail,
 } from './kup-search-declarations';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-search',
@@ -22,6 +24,7 @@ import {
 })
 // TODO: complete this component... actually is only a simplified version for tests inside form...
 export class KupSearch {
+    @Element() rootElement: HTMLElement;
     //--------------------------------------------------------------------------
     // PROPS
     // -------------------------------------------------------------------------
@@ -51,6 +54,12 @@ export class KupSearch {
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail
     ) => Promise<TableData> | undefined = undefined;
+
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //--------------------------------------------------------------------------
     // EVENTS
@@ -86,10 +95,6 @@ export class KupSearch {
     //--------------------------------------------------------------------------
     // ON SOMETHING
     // -------------------------------------------------------------------------
-
-    componentWillLoad() {
-        this.onInitialValueChanged();
-    }
 
     @Watch('initialValue')
     onInitialValueChanged() {
@@ -158,6 +163,31 @@ export class KupSearch {
     //--------------------------------------------------------------------------
     // RENDERING
     // -------------------------------------------------------------------------
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        this.onInitialValueChanged();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
+    }
 
     render() {
         return (

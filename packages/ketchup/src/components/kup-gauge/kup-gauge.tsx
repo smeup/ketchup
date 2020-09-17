@@ -1,4 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
+import { logMessage } from '../../utils/debug-manager';
 
 declare const d3: any;
 
@@ -91,10 +92,15 @@ export class KupGauge {
     /**
      * Set Width gauge.
      */
-    @Prop() widthComponent: string='22vw';
+    @Prop() widthComponent: string = '22vw';
 
     //---- Internal not reactive state ----
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
     // Arcs generator
     private arcGenerator = d3.arc();
 
@@ -178,6 +184,30 @@ export class KupGauge {
             rightX +
             ' ' +
             rightY
+        );
+    }
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
     }
 
@@ -318,37 +348,52 @@ export class KupGauge {
                   })
                 : [];
 
-    const style = {fontSize: this.calculateValueFontSize()};
-    const width = {width: this.widthComponent};
-    return (
-      <div class="gauge__container">
-        <svg
-          class="gauge" style={width}
-          viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}>
-          <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
-            {arcsElements}
-          </g>
-          {this.needleCircle ?
-          <circle
-            class="gauge__needle-base"
-            cx={halvedSize}
-            cy={halvedSize}
-            r={needleCircleRadius}/> : null }
-          <path
-            class="gauge__needle"
-            d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
-          />
-          {textElements}
-        </svg>
-        <div>
-        {this.showValue ?
-            <div
-              class="gauge__value-text"
-              text-anchor="middle"
-              style={style}>{this.value + ' ' + this.measurementUnit}</div>
-            : null}
-       </div>
-      </div>
-    );
-  }
+        const style = { fontSize: this.calculateValueFontSize() };
+        const width = { width: this.widthComponent };
+        return (
+            <div class="gauge__container">
+                <svg
+                    class="gauge"
+                    style={width}
+                    viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
+                >
+                    <g
+                        transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
+                    >
+                        {arcsElements}
+                    </g>
+                    {this.needleCircle ? (
+                        <circle
+                            class="gauge__needle-base"
+                            cx={halvedSize}
+                            cy={halvedSize}
+                            r={needleCircleRadius}
+                        />
+                    ) : null}
+                    <path
+                        class="gauge__needle"
+                        d={this.paintNeedle(
+                            needleLength,
+                            needleCircleRadius,
+                            halvedSize,
+                            halvedSize,
+                            this.calculateValuePercentage(this.value)
+                        )}
+                    />
+                    {textElements}
+                </svg>
+                <div>
+                    {this.showValue ? (
+                        <div
+                            class="gauge__value-text"
+                            text-anchor="middle"
+                            style={style}
+                        >
+                            {this.value + ' ' + this.measurementUnit}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+        );
+    }
 }

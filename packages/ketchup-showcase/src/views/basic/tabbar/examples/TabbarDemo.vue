@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -21,6 +15,39 @@ export default {
   name: 'TabbarDemo',
   data() {
     return {
+      demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kupTabBarClick',
+          type: 'click',
+        },
+        {
+          name: 'kupTabBarFocus',
+          type: 'focus',
+        },
+        {
+          name: 'kupTabBarBlur',
+          type: 'blur',
+        },
+      ],
+      demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
+          prop: 'data',
+          description:
+            'Object array containing the data of the tabs: text to be shown, optional icon and status (if active or not).',
+          type: 'ComponentTabBarElement[]',
+          default: '[]',
+          try: 'json',
+        },
+      ],
       demoTabs: [
         {
           text: 'Props',
@@ -48,64 +75,35 @@ export default {
           active: false,
         },
       ],
-      demoComp: '<kup-tab-bar id="demo-component"></kup-tab-bar>',
-      demoProps: [
-        {
-          prop: 'customStyle',
-          description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
-          type: 'string',
-          default: 'null',
-          try: 'css',
-        },
-        {
-          prop: 'data',
-          description:
-            'Object array containing the data of the tabs: text to be shown, optional icon and status (if active or not).',
-          type: 'ComponentTabBarElement[]',
-          default: '[]',
-          try: 'json',
-        },
-      ],
-      demoEvents: [
-        {
-          name: 'kupTabBarClick',
-          type: 'click',
-        },
-        {
-          name: 'kupTabBarFocus',
-          type: 'focus',
-        },
-        {
-          name: 'kupTabBarBlur',
-          type: 'blur',
-        },
-      ],
-      demoData: {
-        data: [
-          {
-            text: 'First',
-            icon: 'filter_1',
-            active: true,
-          },
-          {
-            text: 'Second',
-            icon: 'filter_2',
-            active: false,
-          },
-          {
-            text: 'Third',
-            icon: 'filter_3',
-            active: false,
-          },
-          {
-            text: 'Fourth',
-            icon: 'filter_4',
-            active: false,
-          },
-        ],
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-tab-bar');
+  comp.data = [
+    {
+      text: 'First',
+      icon: 'filter_1',
+      active: true,
+    },
+    {
+      text: 'Second',
+      icon: 'filter_2',
+      active: false,
+    },
+    {
+      text: 'Third',
+      icon: 'filter_3',
+      active: false,
+    },
+    {
+      text: 'Fourth',
+      icon: 'filter_4',
+      active: false,
+    },
+  ];
+  comp.id = 'demo-component';
+  return comp;
+}
 </script>

@@ -1,0 +1,30 @@
+@import 'kup-card-collapsible-1.scss';
+@import 'kup-card-collapsible-2.scss';
+
+.collapsible-card {
+  .collapsible-trigger {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+
+    kup-button {
+      margin: auto;
+      width: 48px;
+    }
+  }
+
+  .collapsible-wrapper {
+    overflow: auto;
+  }
+
+  &.collapsible-active {
+    padding-bottom: 50px;
+
+    .collapsible-trigger {
+      display: block;
+    }
+  }
+}

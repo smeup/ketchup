@@ -5,16 +5,16 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                      | Type      | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------------ | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style to be passed to the component.                                                      | `string`  | `undefined` |
-| `data`        | --             | Effective data to pass to the component.                                                         | `Object`  | `{}`        |
-| `label`       | `label`        | The text of the label. If set to empty or has only white space chars, the label will be removed. | `string`  | `''`        |
-| `labelPos`    | `label-pos`    | Sets the label's position, left right or top.                                                    | `string`  | `'left'`    |
-| `showSubmit`  | `show-submit`  | Sets whether the submit button must be displayed or not.                                         | `boolean` | `false`     |
-| `submitLabel` | `submit-label` | Sets the submit button's label.                                                                  | `string`  | `''`        |
-| `submitPos`   | `submit-pos`   | Sets the submit button's position, top right bottom or left.                                     | `string`  | `'right'`   |
-| `type`        | `type`         | The type of the FLD                                                                              | `string`  | `undefined` |
+| Property      | Attribute      | Description                                                                                                     | Type      | Default     |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `data`        | --             | Effective data to pass to the component.                                                                        | `Object`  | `{}`        |
+| `label`       | `label`        | The text of the label. If set to empty or has only white space chars, the label will be removed.                | `string`  | `''`        |
+| `labelPos`    | `label-pos`    | Sets the label's position, left right or top.                                                                   | `string`  | `'left'`    |
+| `showSubmit`  | `show-submit`  | Sets whether the submit button must be displayed or not.                                                        | `boolean` | `false`     |
+| `submitLabel` | `submit-label` | Sets the submit button's label.                                                                                 | `string`  | `''`        |
+| `submitPos`   | `submit-pos`   | Sets the submit button's position, top right bottom or left.                                                    | `string`  | `'right'`   |
+| `type`        | `type`         | The type of the FLD                                                                                             | `string`  | `undefined` |
 
 
 ## Events
@@ -34,6 +34,16 @@ Provides an interface to get the current value programmatically
 #### Returns
 
 Type: `Promise<string | object>`
+
+
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 

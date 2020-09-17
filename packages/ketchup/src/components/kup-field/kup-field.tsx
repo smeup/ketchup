@@ -12,8 +12,8 @@ import {
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
-import { errorLogging } from '../../utils/error-logging';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-field',
@@ -22,10 +22,10 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupField {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
 
@@ -64,6 +64,12 @@ export class KupField {
      */
     @Prop({ reflect: true }) type: string = undefined;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
     //-- Not reactive --
     currentValue: object | string = null;
     previousValue: object | string = null;
@@ -97,6 +103,11 @@ export class KupField {
     kupSubmit: EventEmitter<KupFldSubmitEvent>;
 
     //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
@@ -141,7 +152,28 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -212,7 +244,7 @@ export class KupField {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            errorLogging('kup-field', message);
+            logMessage(this, message, 'warning');
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':
@@ -252,7 +284,7 @@ export class KupField {
         }
 
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}

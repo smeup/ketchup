@@ -1,0 +1,51 @@
+.collapsible-layout-1 {
+  color: var(--kup-text-color);
+  box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+
+  .section-1 {
+    background-color: var(--color-1);
+    display: flex;
+    flex: 0 0 10%;
+    max-width: 10%;
+  }
+
+  .section-2 {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex: 0 0 90%;
+    flex-direction: column;
+    max-width: 90%;
+
+    .sub-1 {
+      min-height: 1.5rem;
+      display: flex;
+      padding: 0.6rem 0.8rem 0;
+      font-size: 1rem;
+      font-weight: bold;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .left {
+        text-align: left;
+        width: 80%;
+      }
+      .right {
+        text-align: right;
+        width: 20%;
+      }
+    }
+    .sub-2 {
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.875rem;
+    }
+  }
+}

@@ -5,34 +5,38 @@ import {
     JSX,
     Host,
     Event,
+    getAssetPath,
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
-import { Badge, CssDraw } from './kup-image-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { CssDraw } from './kup-image-declarations';
+import { logMessage } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupBadge } from '../kup-badge/kup-badge';
 
 @Component({
     tag: 'kup-image',
+    assetsDirs: ['assets'],
     styleUrl: 'kup-image.scss',
     shadow: true,
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets the data of badges.
      */
-    @Prop() badgeData: Badge[] = undefined;
+    @Prop() badgeData: KupBadge[] = undefined;
     /**
      * The color of the icon, defaults to the main color of the app.
      */
     @Prop({ reflect: true }) color: string = 'var(--kup-icon-color)';
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -63,6 +67,11 @@ export class KupImage {
     private isUrl: boolean = false;
     private elStyle = undefined;
     private imageCanvas: imageCanvas;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
     canvas: HTMLCanvasElement;
 
     @Event({
@@ -87,6 +96,11 @@ export class KupImage {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
@@ -107,36 +121,6 @@ export class KupImage {
         });
     }
 
-    //---- Lifecycle hooks ----
-    componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
-
-        if (this.isCanvas) {
-            this.imageCanvas = new imageCanvas();
-        }
-    }
-
-    componentDidRender() {
-        if (this.isCanvas && this.resource) {
-            this.canvas.height = this.canvas.clientHeight;
-            this.canvas.width = this.canvas.clientWidth;
-            this.imageCanvas.drawCanvas(this.resource, this.canvas);
-        }
-    }
-
-    componentWillRender() {
-        this.isUrl = false;
-        if (this.resource) {
-            if (
-                this.resource.indexOf('.') > -1 ||
-                this.resource.indexOf('/') > -1 ||
-                this.resource.indexOf('\\') > -1
-            ) {
-                this.isUrl = true;
-            }
-        }
-    }
-
     renderCanvas() {
         return (
             <div
@@ -155,9 +139,10 @@ export class KupImage {
         let svgMask: string = undefined;
         let svgStyle: any = undefined;
         let image: Element = undefined;
+        let url: string = getAssetPath(`./assets/svg/${this.resource}.svg`);
 
         if (!this.isUrl) {
-            svgMask = `url('assets/svg/${this.resource}.svg') no-repeat center`;
+            svgMask = `url('${url}') no-repeat center`;
             svgStyle = {
                 mask: svgMask,
                 background: this.color,
@@ -234,6 +219,51 @@ export class KupImage {
         );
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+        this.isUrl = false;
+        if (this.resource) {
+            if (
+                this.resource.indexOf('.') > -1 ||
+                this.resource.indexOf('/') > -1 ||
+                this.resource.indexOf('\\') > -1
+            ) {
+                this.isUrl = true;
+            }
+        }
+    }
+
+    componentDidRender() {
+        if (this.isCanvas && !this.imageCanvas) {
+            this.imageCanvas = new imageCanvas();
+        }
+        if (this.isCanvas && this.resource) {
+            this.canvas.height = this.canvas.clientHeight;
+            this.canvas.width = this.canvas.clientWidth;
+            this.imageCanvas.drawCanvas(this.resource, this.canvas);
+        }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
+    }
+
     render() {
         let el: Element = undefined;
         let feedback: HTMLElement = undefined;
@@ -258,17 +288,11 @@ export class KupImage {
             );
         }
 
-        let badgeCollection = [];
+        let badgeCollection: KupBadge[] = [];
         if (this.badgeData) {
-            badgeCollection = this.badgeData.map((badge) => {
-                return (
-                    <kup-badge
-                        imageData={badge.imageData}
-                        text={badge.text}
-                        position={badge.position}
-                    />
-                );
-            });
+            for (let index = 0; index < this.badgeData.length; index++) {
+                badgeCollection.push(<kup-badge {...this.badgeData[index]} />);
+            }
         }
 
         if (this.isCanvas) {
@@ -279,12 +303,12 @@ export class KupImage {
             el = this.renderFromData();
         } else {
             let message = 'Resource undefined, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 {feedback}
                 {el}

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,34 +14,29 @@ export default {
   name: 'ListDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupListClick',
+          type: 'click',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupListChange',
+          type: 'change',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupListInput',
+          type: 'input',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupListFocus',
+          type: 'focus',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupListBlur',
+          type: 'blur',
         },
       ],
-      demoComp: '<kup-list id="demo-component"></kup-list>',
       demoProps: [
         {
           prop: 'arrowDown',
@@ -68,9 +57,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -150,56 +139,65 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupListClick',
-          type: 'click',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupListChange',
-          type: 'change',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupListInput',
-          type: 'input',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupListFocus',
-          type: 'focus',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupListBlur',
-          type: 'blur',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        data: [
-          {
-            text: 'First choice',
-            value: '1',
-            icon: 'add_alert',
-            trailingIcon: true,
-          },
-          {
-            text: 'Selected choice',
-            value: '2',
-            selected: true,
-            icon: 'ac_unit',
-          },
-          {
-            text: null,
-            value: null,
-            isSeparator: true,
-          },
-          {
-            text: 'Third choice (below a separator)',
-            value: '3',
-            icon: '3d_rotation',
-          },
-        ],
-        selectable: true,
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-list');
+  comp.data = [
+    {
+      text: 'First choice',
+      value: '1',
+      icon: 'add_alert',
+      trailingIcon: true,
+    },
+    {
+      text: 'Selected choice',
+      value: '2',
+      selected: true,
+      icon: 'ac_unit',
+    },
+    {
+      text: null,
+      value: null,
+      isSeparator: true,
+    },
+    {
+      text: 'Third choice (below a separator)',
+      value: '3',
+      icon: '3d_rotation',
+    },
+  ];
+  comp.id = 'demo-component';
+  comp.selectable = true;
+  return comp;
+}
 </script>

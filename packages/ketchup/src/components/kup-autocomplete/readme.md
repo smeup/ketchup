@@ -1,7 +1,5 @@
 # kup-autocomplete
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -10,7 +8,7 @@
 | Property                 | Attribute               | Description                                                                                                                                          | Type                                                                                                     | Default                 |
 | ------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------- |
 | `callBackOnFilterUpdate` | --                      | Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.                     | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined`             |
-| `customStyle`            | `custom-style`          | Custom style to be passed to the component.                                                                                                          | `string`                                                                                                 | `undefined`             |
+| `customStyle`            | `custom-style`          | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`                                                                                                 | `undefined`             |
 | `listData`               | --                      | Props of the list.                                                                                                                                   | `Object`                                                                                                 | `{}`                    |
 | `minimumChars`           | `minimum-chars`         | The minimum number of chars to trigger the autocomplete                                                                                              | `number`                                                                                                 | `1`                     |
 | `selectMode`             | `select-mode`           | Sets how the return the selected item value                                                                                                          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.CODE` |
@@ -30,6 +28,19 @@
 | `kupAutocompleteIconClick`     |                | `CustomEvent<{ value: any; }>`                                           |
 | `kupAutocompleteInput`         |                | `CustomEvent<{ value: any; }>`                                           |
 | `kupAutocompleteItemClick`     |                | `CustomEvent<{ value: any; }>`                                           |
+
+
+## Methods
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

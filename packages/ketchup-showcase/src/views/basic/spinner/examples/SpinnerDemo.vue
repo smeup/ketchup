@@ -1,6 +1,6 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -14,25 +14,7 @@ export default {
   name: 'SpinnerDemo',
   data() {
     return {
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
-        },
-      ],
-      demoComp:
-        '<kup-spinner active layout="1" id="demo-component"></kup-spinner>',
+      demoComp: createComp(),
       demoProps: [
         {
           prop: 'active',
@@ -51,9 +33,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -103,7 +85,32 @@ export default {
           try: 'field',
         },
       ],
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-spinner');
+  comp.active = true;
+  comp.id = 'demo-component';
+  comp.layout = '1';
+  return comp;
+}
 </script>

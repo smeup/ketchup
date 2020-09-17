@@ -137,7 +137,7 @@
     </div>
     <div id="sample-dynamic">
       <div id="sample-comp">
-        <div v-html="demoComp" id="sample-comp-wrapper"></div>
+        <div id="sample-comp-wrapper"></div>
       </div>
       <div id="split-container">
         <kup-button
@@ -176,26 +176,20 @@
 export default {
   props: {
     demoTabs: Array,
-    demoComp: String,
+    demoComp: HTMLElement,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Object,
   },
   methods: {
     initEvents() {
+      let demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
+      demoComponentWrapper.appendChild(this.demoComp);
       let demoComponent = document.querySelector('#demo-component');
       if (this.demoEvents) {
         for (let i = 0; i < this.demoEvents.length; i++) {
           demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
             this.handleEvent(e)
           );
-        }
-      }
-      if (this.demoData) {
-        const keys = Object.keys(this.demoData);
-
-        for (let k of keys) {
-          demoComponent[k] = this.demoData[k];
         }
       }
     },
@@ -268,6 +262,7 @@ export default {
 
     handleEvent(e) {
       var d = new Date();
+      console.log('Playground event fired: ', e);
       document.querySelector('#on' + e.type).innerText =
         e.type +
         ' event fired at ' +
@@ -481,15 +476,16 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
+        let prop = demoComponent.currentJSONprop;
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
-          let prop = demoComponent.currentJSONprop;
           demoComponent[prop] = jsonifiedData;
           jsonWarning.classList.remove('visible');
         } catch (error) {
+          demoComponent[prop] = jsonTextarea.value;
           jsonWarning.classList.add('visible');
         }
       });
@@ -512,7 +508,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentCSSprop;

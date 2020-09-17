@@ -55,7 +55,7 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
-  kup-data-table --> kup-chart-cell
+  kup-data-table --> kup-lazy
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip

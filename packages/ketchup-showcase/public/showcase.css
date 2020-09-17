@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+
 /* Global */
 html {
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size) !important;
   transition: all 0.25s ease 0s;
+}
+
+html .application {
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size) !important;
 }
 
 .container {
@@ -135,7 +142,7 @@ h3 {
 }
 
 i.v-icon.material-icons {
-  color: var(--main-text-color);
+  color: var(--kup-icon-color);
 }
 
 .demo-container {
@@ -267,6 +274,28 @@ footer.v-footer {
     0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+.v-footer {
+  display: flex;
+  justify-content: center;
+}
+
+a.first-icon {
+  margin-right: 20px;
+}
+
+a.second-icon {
+  margin-left: 20px;
+}
+
+.footer-icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+}
+
 nav.v-toolbar i.v-icon.material-icons,
 .v-input--selection-controls.v-input .v-label {
   color: #ffffff !important;
@@ -291,7 +320,6 @@ nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
 
 span.company-text {
   text-align: center;
-  width: 100%;
   font-size: 0.8rem;
 }
 

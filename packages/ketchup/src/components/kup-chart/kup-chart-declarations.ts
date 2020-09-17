@@ -14,6 +14,7 @@ export enum ChartType {
     Sankey = 'Sankey',
     Scatter = 'Scatter',
     Unk = 'Unk',
+    ColumnChart = 'ColumnChart',
     Vbar = 'Vbar',
 }
 
@@ -23,15 +24,21 @@ export enum ChartAspect {
 }
 
 export interface ChartOptions {
+    backgroundColor: string;
     is3D: boolean;
     colors?: string[];
-    width?: number;
-    height?: number;
-    legend?: { position: string };
+    width?: string;
+    height?: string;
+    legend?: { position: string; textStyle?: { color?: string } };
     isStacked?: boolean;
     title?: string;
     titleTextStyle?: { color?: string; fontSize?: number };
     series?: any;
+    slices?: {
+        color?: string;
+        offset?: number;
+        textStyle?: { color?: string };
+    }[];
     hAxis?: ChartAxis;
     vAxis?: ChartAxis;
 }
@@ -40,6 +47,7 @@ export interface ChartAxis {
     ticks?: string[];
     gridlines?: ChartAxisGridlines;
     viewWindow?: ChartAxisViewWindow;
+    textStyle?: { color?: string; fontSize?: number };
 }
 
 export interface ChartAxisGridlines {
@@ -57,4 +65,9 @@ export interface ChartClickedEvent {
     row?: Row;
     rowindex?: number;
     colindex?: number;
+}
+
+export interface ChartOfflineMode {
+    value: string;
+    shape: string;
 }

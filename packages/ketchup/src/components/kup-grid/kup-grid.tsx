@@ -1,7 +1,16 @@
-import { Component, Prop, Element, Host, State, h, JSX } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    JSX,
+    Method,
+} from '@stencil/core';
 import { ComponentGridElement } from './kup-grid-declarations';
-import { errorLogging } from '../../utils/error-logging';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-grid',
@@ -10,14 +19,14 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 })
 export class KupGrid {
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
      */
     @Prop({ reflect: true }) columns: number = 12;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -34,17 +43,50 @@ export class KupGrid {
     @Prop({ reflect: true }) singleLine: boolean = false;
 
     private elStyle = undefined;
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
         if (!this.data || this.data.length === 0) {
             let message = 'Missing data, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
+            logMessage(this, message, 'warning');
             return;
         }
 
@@ -100,7 +142,7 @@ export class KupGrid {
         }
 
         return (
-            <Host style={this.elStyle}>
+            <Host class="handles-custom-style" style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass}>

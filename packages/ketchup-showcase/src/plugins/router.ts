@@ -66,6 +66,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
+    path: `/lazy`,
+    name: 'lazy',
+    component: () => import(`@/views/basic/lazy/Lazy.vue`),
+  },
+  {
     path: `/list`,
     name: 'list',
     component: () => import(`@/views/basic/list/List.vue`),
@@ -200,9 +205,9 @@ let cssRoutes = [
 
 let javascriptRoutes = [
   {
-    path: `/errorlogging`,
-    name: 'errorlogging',
-    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+    path: `/debugging`,
+    name: 'debugging',
+    component: () => import(`@/views/javascript/debugging/Debugging.vue`),
   },
   {
     path: `/scrollonhover`,
@@ -218,12 +223,21 @@ let javascriptRoutes = [
   },
 ];
 
+let testRoutes = [
+  {
+    path: `/test/performance`,
+    name: 'testPerformance',
+    component: () => import(`@/views/test/Performance.vue`),
+  },
+];
+
 const routes = [
   ...baseRoutes,
   ...advancedRoutes,
   ...cssRoutes,
   ...javascriptRoutes,
   ...basicRoutes,
+  ...testRoutes,
 ];
 
 export default new Router({

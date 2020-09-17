@@ -389,12 +389,12 @@ describe('it calc totals', () => {
         });
     });
 
-    it('avarage', () => {
+    it('average', () => {
         const totals = calcTotals(mockedRows, {
-            FLD1: TotalMode.AVARAGE,
-            FLD2: TotalMode.AVARAGE,
-            FLD3: TotalMode.AVARAGE,
-            FLD4: TotalMode.AVARAGE,
+            FLD1: TotalMode.AVERAGE,
+            FLD2: TotalMode.AVERAGE,
+            FLD3: TotalMode.AVERAGE,
+            FLD4: TotalMode.AVERAGE,
         });
         expect(totals).toEqual({
             FLD2: 8,
@@ -405,7 +405,7 @@ describe('it calc totals', () => {
     it('mixed', () => {
         const totals = calcTotals(mockedRows, {
             FLD1: TotalMode.SUM,
-            FLD2: TotalMode.AVARAGE,
+            FLD2: TotalMode.AVERAGE,
             FLD3: TotalMode.SUM,
             FLD4: TotalMode.COUNT,
         });

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -21,35 +15,41 @@ export default {
   name: 'BoxDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupAutoBoxSelect',
+          type: 'CustomEvent',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupBoxClicked',
+          type: 'CustomEvent',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragEnded',
+          type: 'CustomEvent',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragStarted',
+          type: 'CustomEvent',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupBoxDropped',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupBoxSelected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionClicked',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionMenuClicked',
+          type: 'CustomEvent',
         },
       ],
-      demoComp:
-        '<kup-box content-align="center" no-border id="demo-component"></kup-box>',
       demoProps: [
         {
           prop: 'cardData',
@@ -77,9 +77,9 @@ export default {
         {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -197,45 +197,44 @@ export default {
           try: 'switch',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupAutoBoxSelect',
-          type: 'CustomEvent',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupBoxClicked',
-          type: 'CustomEvent',
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDragEnded',
-          type: 'CustomEvent',
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDragStarted',
-          type: 'CustomEvent',
+          text: 'JSON',
+          icon: '',
+          active: false,
         },
         {
-          name: 'kupBoxDropped',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupBoxSelected',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionClicked',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionMenuClicked',
-          type: 'CustomEvent',
+          text: 'CSS',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        columns: '4',
-        data: defaultData,
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-box');
+  comp.columns = '4';
+  comp.contentAlign = 'center';
+  comp.data = defaultData;
+  comp.id = 'demo-component';
+  comp.noBorder = true;
+  return comp;
+}
 </script>

@@ -1,28 +1,38 @@
 # kup-chip
 
-
-
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                    | Type                     | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------ | ----------- |
-| `customStyle` | `custom-style` | Custom style to be passed to the component.                                    | `string`                 | `undefined` |
-| `data`        | --             | List of elements.                                                              | `ComponentChipElement[]` | `[]`        |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `string`                 | `undefined` |
+| Property      | Attribute      | Description                                                                                                     | Type                     | Default     |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------ | ----------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                 | `undefined` |
+| `data`        | --             | List of elements.                                                                                               | `ComponentChipElement[]` | `[]`        |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                  | `string`                 | `undefined` |
 
 
 ## Events
 
-| Event              | Description | Type                                               |
-| ------------------ | ----------- | -------------------------------------------------- |
-| `kupChipBlur`      |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipClick`     |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
-| `kupChipError`     |             | `CustomEvent<{ el: EventTarget; }>`                |
-| `kupChipFocus`     |             | `CustomEvent<{ value: string; }>`                  |
-| `kupChipIconClick` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+| Event              | Description | Type                                                         |
+| ------------------ | ----------- | ------------------------------------------------------------ |
+| `kupChipBlur`      |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipClick`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipFocus`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipIconClick` |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+
+
+## Methods
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

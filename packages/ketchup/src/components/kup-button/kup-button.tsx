@@ -7,10 +7,12 @@ import {
     EventEmitter,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logMessage } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-button',
@@ -20,14 +22,14 @@ import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
 export class KupButton {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Defaults at false. When set to true, the icon button state will be on.
      */
     @Prop({ reflect: true }) checked: boolean = false;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -83,6 +85,12 @@ export class KupButton {
      */
     @Prop({ reflect: true }) trailingIcon: boolean = false;
 
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
+
     @Event({
         eventName: 'kupButtonBlur',
         composed: true,
@@ -90,8 +98,8 @@ export class KupButton {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -101,8 +109,8 @@ export class KupButton {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     @Event({
@@ -112,11 +120,16 @@ export class KupButton {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        id: any;
-        value: any;
+        id: string;
+        value: string;
     }>;
 
     //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     onKupBlur() {
         this.kupBlur.emit({
@@ -153,10 +166,19 @@ export class KupButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
     }
 
     componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
         if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
@@ -171,7 +193,7 @@ export class KupButton {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             let button = root.querySelector('.kup-button');
             if (button != undefined) {
                 const buttonRipple = MDCRipple.attachTo(button);
@@ -183,6 +205,12 @@ export class KupButton {
                 }
             }
         }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
@@ -258,7 +286,7 @@ export class KupButton {
                 trailingEl = labelEl;
             }
             return (
-                <Host style={elStyle}>
+                <Host class="handles-custom-style" style={elStyle}>
                     <style>{setCustomStyle(this)}</style>
                     <div id="kup-component" style={elStyle}>
                         <button
@@ -324,7 +352,7 @@ export class KupButton {
                 );
             }
             return (
-                <Host>
+                <Host class="handles-custom-style">
                     <style>{setCustomStyle(this)}</style>
                     <div id="kup-component">
                         {/* 

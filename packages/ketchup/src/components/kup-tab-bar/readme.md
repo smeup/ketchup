@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                 | Type                       | Default     |
-| ------------- | -------------- | ------------------------------------------- | -------------------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style to be passed to the component. | `string`                   | `undefined` |
-| `data`        | --             | List of elements.                           | `ComponentTabBarElement[]` | `[]`        |
+| Property      | Attribute      | Description                                                                                                     | Type                       | Default     |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ----------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                   | `undefined` |
+| `data`        | --             | List of elements.                                                                                               | `ComponentTabBarElement[]` | `[]`        |
 
 
 ## Events
@@ -18,6 +18,19 @@
 | `kupTabBarBlur`  |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 | `kupTabBarClick` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 | `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
+
+
+## Methods
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Dependencies

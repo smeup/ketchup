@@ -105,6 +105,12 @@
         label="Dark Mode"
         id="theme-switch"
       ></kup-switch>
+      <kup-button
+        onclick="toggleDebug()"
+        id="debug-toggler"
+        icon="bug"
+        custom-style=":host{--kup-main-color: white}"
+      ></kup-button>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
       </v-toolbar-side-icon>
@@ -119,12 +125,32 @@
     </v-content>
 
     <v-footer app>
-      <span class="company-text">© Copyright 2020 - SME UP Spa</span>
+      <a
+        class="first-icon"
+        target="_blank"
+        rel="noopener"
+        title="View Ketch.UP on GitHub"
+        href="https://github.com/smeup/ketchup"
+      >
+        <kup-image class="footer-icon" resource="github" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
+      <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
+      <a
+        class="second-icon"
+        target="_blank"
+        rel="noopener"
+        title="View Ketch.UP on npm"
+        href="https://www.npmjs.com/package/@sme.up/ketchup"
+      >
+        <kup-image class="footer-icon" resource="npm" color="white" size-x="24px" size-y="24px"></kup-image>
+      </a>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+function toggleDebug() {}
+
 export default {
   data: () => ({
     darkTheme: false,
@@ -283,6 +309,12 @@ export default {
             },
           },
           {
+            title: 'Lazy',
+            to: {
+              name: 'lazy',
+            },
+          },
+          {
             title: `List`,
             to: {
               name: 'list',
@@ -353,9 +385,9 @@ export default {
         title: 'JavaScript',
         javascriptItems: [
           {
-            title: 'Error logging',
+            title: 'Debugging',
             to: {
-              name: 'errorlogging',
+              name: 'debugging',
             },
           },
           {

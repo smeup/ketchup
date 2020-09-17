@@ -1,12 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoTabs="demoTabs"
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoEvents="demoEvents"
-      :demoData="demoData"
-    ></demo>
+    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
   </div>
 </template>
 
@@ -20,25 +14,17 @@ export default {
   name: 'IframeDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupIframeError',
+          type: 'error',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupIframeLoad',
+          type: 'load',
         },
       ],
-      demoComp:
-        '<kup-iframe src="https://ketchup.smeup.com" id="demo-component"></kup-iframe>',
       demoProps: [
         {
           prop: 'buttonData',
@@ -63,22 +49,34 @@ export default {
           try: 'field',
         },
       ],
-      demoEvents: [
+      demoTabs: [
         {
-          name: 'kupIframeError',
-          type: 'error',
+          text: 'Props',
+          icon: '',
+          active: true,
         },
         {
-          name: 'kupIframeLoad',
-          type: 'load',
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
         },
       ],
-      demoData: {
-        buttonData: {
-          flat: true,
-        },
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-iframe');
+  comp.buttonData = {
+    flat: true,
+  };
+  comp.id = 'demo-component';
+  comp.src = 'https://ketchup.smeup.com';
+  return comp;
+}
 </script>

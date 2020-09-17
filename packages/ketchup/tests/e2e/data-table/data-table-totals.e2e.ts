@@ -25,7 +25,14 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('9');
-        expect(footerCells[2]).toEqualText('9');
+        //expect(footerCells[2]).toEqualText('9,00');
+        const cellValue = '9,00';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
     it('sums', async () => {
@@ -48,10 +55,17 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('865.38');
+        //expect(footerCells[2]).toEqualText('865,38');
+        const cellValue = '865,38';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
-    it('avarage', async () => {
+    it('average', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -59,9 +73,9 @@ describe('totals', () => {
 
         element.setProperty('data', multiSortMockData);
         element.setProperty('totals', {
-            FLD1: 'Avarage',
-            FLD2: 'Avarage',
-            FLD3: 'Avarage',
+            FLD1: 'Average',
+            FLD2: 'Average',
+            FLD3: 'Average',
         });
 
         await page.waitForChanges();
@@ -71,7 +85,14 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('');
         expect(footerCells[1]).toEqualText('8');
-        expect(footerCells[2]).toEqualText('96.15333333333334');
+        //expect(footerCells[2]).toEqualText('96,15');
+        const cellValue = '96,15';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 
     it('mixed', async () => {
@@ -84,7 +105,7 @@ describe('totals', () => {
         element.setProperty('totals', {
             FLD1: 'Count',
             FLD2: 'Sum',
-            FLD3: 'Avarage',
+            FLD3: 'Average',
         });
 
         await page.waitForChanges();
@@ -94,6 +115,13 @@ describe('totals', () => {
 
         expect(footerCells[0]).toEqualText('9');
         expect(footerCells[1]).toEqualText('72');
-        expect(footerCells[2]).toEqualText('96.15333333333334');
+        //expect(footerCells[2]).toEqualText('96,15');
+        const cellValue = '96,15';
+        expect(
+            footerCells[2].textContent ==
+                cellValue.replace(RegExp(/\./g), ',') ||
+                footerCells[2].textContent ==
+                    cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 });

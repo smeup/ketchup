@@ -9,6 +9,7 @@ import {
     h,
     Watch,
     JSX,
+    Method,
 } from '@stencil/core';
 
 import { Cell, Column } from './../kup-data-table/kup-data-table-declarations';
@@ -31,35 +32,72 @@ import {
     isProgressBar,
     isRadio,
     isNumber,
-    hasTooltip,
 } from '../../utils/object-utils';
-
-import {
-    styleHasBorderRadius,
-    styleHasWritingMode,
-} from './../kup-data-table/kup-data-table-helper';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { errorLogging } from '../../utils/error-logging';
+import { logMessage } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
-import {
-    buildIconConfig,
-    buildProgressBarConfig,
-} from '../../utils/cell-utils';
-import { buildButtonConfig } from '../../utils/widget-utils';
-import { getBoolean } from '../../utils/utils';
 import numeral from 'numeral';
-import { fetchThemeCustomStyle, setCustomStyle } from '../../utils/theming';
-
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import {
+    styleHasBorderRadius,
+    styleHasWritingMode,
+} from '../kup-data-table/kup-data-table-helper';
+import { KupTreeState } from './kup-tree-state';
+import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
     shadow: true,
 })
 export class KupTree {
+
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupTreeState = new KupTreeState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                console.log(
+                    'Initialize with state for stateId ' + this.stateId,
+                    state
+                );
+                // *** PROPS ***
+                this.density = state.density;
+                this.filterValue = state.filterValue;
+                //
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            // *** PROPS ***
+            this.state.density = this.density;
+            this.state.filterValue = this.filterValue;
+            //
+            console.log(
+                'Persisting state for stateId ' + this.stateId + ': ',
+                this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
-    @State() refresh: boolean = false;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Auto select programmatic selectic node
@@ -70,7 +108,7 @@ export class KupTree {
      */
     @Prop() columns?: Column[];
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
     /**
@@ -165,6 +203,11 @@ export class KupTree {
     private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //-------- Events --------
     /**
@@ -255,37 +298,17 @@ export class KupTree {
         auto: boolean;
     }>;
 
-    /**
-     * When a tooltip request initial data
-     */
-    @Event({
-        eventName: 'kupLoadRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoadRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
-    }>;
+    //---- Methods ----
 
-    /**
-     * When a tooltip request detail data
-     */
-    @Event({
-        eventName: 'kupDetailRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDetailRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
-    }>;
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     //-------- Lifecycle hooks --------
     componentWillLoad() {
-        fetchThemeCustomStyle(this, false);
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
@@ -301,23 +324,6 @@ export class KupTree {
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
             this.selectedNodeString = this.selectedNode.toString();
-        }
-    }
-
-    componentWillRender() {
-        this.filterNodes();
-    }
-
-    componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root != null) {
-            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
-            if (rippleCells) {
-                for (let i = 0; i < rippleCells.length; i++) {
-                    MDCRipple.attachTo(rippleCells[i]);
-                }
-            }
         }
     }
 
@@ -338,6 +344,38 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+        this.filterNodes();
+    }
+
+    componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
+            if (rippleCells) {
+                for (let i = 0; i < rippleCells.length; i++) {
+                    MDCRipple.attachTo(rippleCells[i]);
+                }
+            }
+        }
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
+
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     //-------- Watchers --------
@@ -647,14 +685,6 @@ export class KupTree {
         return visibility;
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging(
-            'kup-tree',
-            methodName + '() ' + this.rootElement.id + ' - ' + msg,
-            'log'
-        );
-    }
-
     //-------- Rendering --------
     renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
         return (
@@ -706,163 +736,153 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let props: any = cell.data;
 
-        if (valueToDisplay) {
-            if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-                content = (
-                    <kup-image
-                        {...buildIconConfig(cell, valueToDisplay)}
-                        onKupImageClick={(e: Event) => {
-                            e.stopPropagation();
-                            this.onJ4btnClicked(
-                                cellData.treeNode,
-                                cellData.treeNodePath,
-                                cellData.column,
-                                false
-                            );
-                        }}
-                        onClick={(e: MouseEvent) => e.stopPropagation()}
-                    />
-                );
-            } else if (isNumber(cell.obj)) {
-                const cellValue = numeral(cell.obj.k).value();
-
-                if (cellValue < 0) {
-                    classObj['negative-number'] = true;
+        if (isBar(cell.obj)) {
+            if (props) {
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
-            } else if (isImage(cell.obj)) {
                 content = (
-                    <kup-image
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isButton(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    cellData.treeNode,
+                    cellData.treeNodePath,
+                    cellData.column,
+                    false
+                );
+                content = (
+                    <kup-button class="cell-button" {...props}></kup-button>
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isChart(cell.obj)) {
+            if (props) {
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
+            } else {
+                content = undefined;
+            }
+        } else if (isCheckbox(cell.obj)) {
+            if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                props['disabled'] = cellData.treeNode.readOnly;
+            }
+            content = (
+                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
+            );
+        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = <kup-image class="cell-icon" {...props}></kup-image>;
+            } else {
+                content = undefined;
+            }
+        } else if (isImage(cell.obj)) {
+            if (props) {
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                }
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                content = (
+                    <kup-lazy
                         class="cell-image"
-                        badgeData={cell.config ? cell.config.badges : undefined}
-                        sizeX="auto"
-                        sizeY="var(--dtt_cell-image_max-height)"
-                        resource={valueToDisplay}
+                        componentName="kup-image"
+                        data={...props}
                     />
                 );
-            } else if (isLink(cell.obj)) {
-                content = (
-                    <a href={valueToDisplay} target="_blank">
-                        {valueToDisplay}
-                    </a>
-                );
-            } else if (isCheckbox(cell.obj)) {
-                let checked = cell.obj.k == '1';
-                // A tree currently is not editable. Checkbox are always disabled.
-                content = (
-                    <kup-checkbox
-                        checked={checked}
-                        disabled={
-                            cellData.treeNode.hasOwnProperty('readOnly')
-                                ? cellData.treeNode.readOnly
-                                : true
-                        }
-                    />
-                );
-            } else if (isButton(cell.obj)) {
-                content = (
-                    <kup-button
-                        {...buildButtonConfig(cell.value, cell.config)}
-                        onKupButtonClick={(e: Event) => {
-                            e.stopPropagation();
-                            this.onJ4btnClicked(
-                                cellData.treeNode,
-                                cellData.treeNodePath,
-                                cellData.column,
-                                false
-                            );
-                        }}
-                        onClick={(e: MouseEvent) => e.stopPropagation()}
-                    />
-                );
-            } else if (isBar(cell.obj)) {
-                const props: {
-                    data: any;
-                    sizeY: string;
-                } = {
-                    data: cell.value,
-                    sizeY: '35px',
-                };
+            } else {
+                content = undefined;
+            }
+        } else if (isLink(cell.obj)) {
+            content = (
+                <a class="cell-link" href={valueToDisplay} target="_blank">
+                    {valueToDisplay}
+                </a>
+            );
+        } else if (isNumber(cell.obj)) {
+            const cellValue = numeral(cell.obj.k).value();
 
-                content = valueToDisplay ? <kup-image {...props} /> : null;
-            } else if (isChart(cell.obj)) {
-                const props: {
-                    cellConfig: any;
-                    value: string;
-                    width?: number;
-                } = {
-                    cellConfig: cell.config,
-                    value: cell.value,
-                };
-
-                content = <kup-chart-cell {...props} />;
-            } else if (isProgressBar(cell.obj)) {
+            if (cellValue < 0) {
+                classObj['negative-number'] = true;
+            }
+        } else if (isProgressBar(cell.obj)) {
+            if (props) {
                 content = (
                     <kup-progress-bar
-                        {...buildProgressBarConfig(
-                            cell,
-                            null,
-                            true,
-                            valueToDisplay
-                        )}
-                    />
+                        class="cell-progress-bar"
+                        {...props}
+                    ></kup-progress-bar>
                 );
-            } else if (isRadio(cell.obj)) {
-                let radioProp = {
-                    data: [
-                        {
-                            label: '',
-                            value: cell.value,
-                            checked: getBoolean(cell.obj.k),
-                        },
-                    ],
-                    disabled: cellData.treeNode.hasOwnProperty('readOnly')
-                        ? cellData.treeNode.readOnly
-                        : true,
-                };
-
-                content = <kup-radio {...radioProp} />;
+            } else {
+                content = undefined;
             }
-        } else {
-            content = null;
-        }
-
-        // if cell.style has border, apply style to cellcontent
-        let style = null;
-        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
-            style = cell.style;
-        }
-        /**
-         * Controls if current cell needs a tooltip and eventually adds it.
-         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-         */
-        if (hasTooltip(cell.obj)) {
-            content = (
-                <kup-tooltip
-                    class="datatable-tooltip"
-                    onKupTooltipLoadData={(ev) =>
-                        this.kupLoadRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                    onKupTooltipLoadDetail={(ev) =>
-                        this.kupDetailRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                >
-                    {content}
-                </kup-tooltip>
-            );
+        } else if (isRadio(cell.obj)) {
+            if (props) {
+                if (cellData.treeNode.hasOwnProperty('readOnly')) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                }
+                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
+            } else {
+                content = undefined;
+            }
         }
 
         // Elements of the cell
         let cellElements = [];
+        let tdStyle = undefined;
+        let style = undefined;
+        if (styleHasBorderRadius(cell) || styleHasWritingMode(cell)) {
+            style = cell.style;
+            if (styleHasBorderRadius(cell) && !style['padding']) {
+                style['padding'] = '5px';
+            }
+            if (style['text-align']) {
+                style['float'] = style['text-align'];
+            }
+        } else {
+            tdStyle = cell.style;
+        }
 
         cellElements.push(
-            <span class={classObj} style={style}>
+            <span style={style} class={classObj}>
                 {content}
             </span>
         );
@@ -890,7 +910,7 @@ export class KupTree {
         return (
             <td
                 onClick={() => (this.selectedColumn = cellData.column.name)}
-                style={style}
+                style={tdStyle}
             >
                 {cellElements}
             </td>
@@ -1192,7 +1212,7 @@ export class KupTree {
             );
         }
         return (
-            <Host>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div

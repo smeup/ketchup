@@ -7,7 +7,7 @@
 
 | Property                 | Attribute                    | Description                                                                                                                              | Type      | Default     |
 | ------------------------ | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle`            | `custom-style`               | Custom style to be passed to the component.                                                                                              | `string`  | `undefined` |
+| `customStyle`            | `custom-style`               | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                          | `string`  | `undefined` |
 | `disabled`               | `disabled`                   | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean` | `false`     |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.         | `boolean` | `true`      |
 | `forceFocus`             | `force-focus`                | Defaults at false. When set to true, the component will be focused.                                                                      | `boolean` | `false`     |
@@ -53,6 +53,16 @@ Imperatively sets a new value of the input.
 #### Returns
 
 Type: `Promise<boolean>`
+
+
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 

@@ -1,8 +1,9 @@
 @import '@material/menu/mdc-menu';
 @import '@material/menu-surface/mdc-menu-surface';
 @import '@material/ripple/mdc-ripple';
-@import 'custom/kup-card-custom';
-@import 'material/kup-card-material.scss';
+@import 'collapsible/kup-card-collapsible';
+@import 'scalable/kup-card-scalable';
+@import 'standard/kup-card-standard';
 
 :host {
   display: var(--kup-display-mode);
@@ -14,6 +15,10 @@
   }
 }
 
-.dynamic-wrapper {
-  overflow: auto;
+.mdc-ripple-surface {
+  cursor: pointer;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  position: relative;
 }
