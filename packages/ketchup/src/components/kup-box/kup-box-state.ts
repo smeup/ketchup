@@ -10,7 +10,6 @@ export class KupBoxState implements KupState {
     sortBy: string = '';
     selectedRowsState: BoxRow[] = [];
     pageSelected: number = 1;
-    selectBoxId: string ='';
 
     /*Add attribute*/
 

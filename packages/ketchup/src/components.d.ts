@@ -148,6 +148,10 @@ export namespace Components {
          */
         "noPadding": boolean;
         /**
+          * return number page
+         */
+        "pageSelected": number;
+        /**
           * Number of boxes per page
          */
         "pageSize": number;
@@ -1903,6 +1907,10 @@ declare namespace LocalJSX {
         "onKupRowActionMenuClicked"?: (event: CustomEvent<{
         row: BoxRow;
     }>) => void;
+        /**
+          * return number page
+         */
+        "pageSelected"?: number;
         /**
           * Number of boxes per page
          */

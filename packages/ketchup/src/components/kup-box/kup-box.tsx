@@ -82,7 +82,6 @@ export class KupBox {
                 this.globalFilterValueState = this.state.globalFilterValueState;
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
-                this.selectBoxId = this.state.selectBoxId;
             }
         }
     }
@@ -94,7 +93,6 @@ export class KupBox {
                 this.state.globalFilterValueState = this.globalFilterValue;
                 this.state.selectedRowsState = this.selectedRows;
                 this.state.pageSelected = this.currentPage;
-                this.selectBoxId = this.state.selectBoxId;
                 logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
             this.store.persistState(this.stateId, this.state);
         }
@@ -224,12 +222,6 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     pageSelected : number;
-
-     /**
-     * return id row
-     */
-    @Prop({ reflect: true })
-    selectBoxId : String;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -431,7 +423,6 @@ export class KupBox {
         // Initialize @State from @Prop 
         this.globalFilterValue = this.globalFilterValueState;
         this.currentPage = this.state.pageSelected;
-        this.selectBoxId = this.state.selectBoxId;
         if(this.multiSelection){
             this.selectedRows = this.selectedRowsState;
         }
@@ -605,24 +596,19 @@ export class KupBox {
     }
 
     private handleAutomaticBoxSelection() { 
-        // automatic row selection
-        if(this.selectBoxId){
-            for (let boxRow of this.rows) {
-                if (boxRow.id === this.selectBoxId) {
-                    this.kupAutoBoxSelect.emit({
-                        row : boxRow,
-                    });
-                }
-            }
-        }
-        else if (
+       if (
             this.selectBox &&
             this.selectBox > 0 &&
             this.selectBox <= this.rows.length
         ) {
             this.selectedRows = [];
-            this.selectedRows.push(this.rows[this.selectBox - 1]);
 
+  
+            for (let boxRow of this.rows) {
+                if (boxRow.id === (this.selectBox - 1).toString()) {
+                    this.selectedRows.push(boxRow);
+                }
+        }
             this.kupAutoBoxSelect.emit({
                 row: this.selectedRows[0],
             });
