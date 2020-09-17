@@ -172,6 +172,9 @@
 div.kup-menu,
 div.mdc-menu {
   animation: fadeInFromNone 0.25s ease-out;
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
   display: none;
   max-height: 40vh;
   opacity: 0;
