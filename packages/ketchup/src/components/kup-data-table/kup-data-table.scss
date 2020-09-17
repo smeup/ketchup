@@ -1,6 +1,4 @@
 /**
-* @prop --dtt_cell-image_max-height, --kup-data-table_cell-image_max-height: The max height images object inside cells can have
-* @prop --dtt_cell-image_min-height, --kup-data-table_cell-image_min-height: The minimum height images object inside cells can have
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
 * @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
@@ -17,11 +15,6 @@
     --kup-data-table_drag-over--forbidden,
     #{rgba($smeup-danger, 0.24)}
   );
-  --dtt_cell-image_max-height: var(
-    --kup-data-table_cell-image_max-height,
-    64px
-  );
-  --dtt_cell-image_min-height: var(--kup-data-table_cell-image_min-height, 0);
   --dtt_negative-number-color: var(
     --kup-data-table_negative-number-color,
     #{$mainRed}
@@ -579,13 +572,6 @@ $fixed-row-class: fixed-row;
             display: inline-block;
             margin: 0;
             vertical-align: middle;
-          }
-
-          // Class assigned to the image of a cell
-          // Allows regulation of sizes
-          .cell-image {
-            max-height: var(--dtt_cell-image_max-height);
-            min-height: var(--dtt_cell-image_min-height);
           }
         }
       }
