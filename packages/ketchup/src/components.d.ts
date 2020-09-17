@@ -554,9 +554,13 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
-          * Selects the specified row.
+          * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow": number;
+        /**
+          * Selects the row with the specified id
+         */
+        "selectRowById": String;
         /**
           * When set to true enables the column filters.
          */
@@ -2446,6 +2450,10 @@ declare namespace LocalJSX {
         row: Row;
     }>) => void;
         /**
+          * When rows selctions reset
+         */
+        "onKupResetSelectedRows"?: (event: CustomEvent<{}>) => void;
+        /**
           * When a row action is clicked
          */
         "onKupRowActionClicked"?: (event: CustomEvent<{
@@ -2459,6 +2467,7 @@ declare namespace LocalJSX {
          */
         "onKupRowSelected"?: (event: CustomEvent<{
         selectedRows: Array<Row>;
+        selectedRow: Row;
         clickedColumn: string;
     }>) => void;
         /**
@@ -2478,9 +2487,13 @@ declare namespace LocalJSX {
          */
         "rowsPerPage"?: number;
         /**
-          * Selects the specified row.
+          * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow"?: number;
+        /**
+          * Selects the row with the specified id
+         */
+        "selectRowById"?: String;
         /**
           * When set to true enables the column filters.
          */
