@@ -3333,6 +3333,8 @@ export class KupDataTable {
             globalFilter = (
                 <div id="globalFilter">
                     <kup-text-field
+                        fullWidth={true}
+                        icon="magnify"
                         initialValue={this.globalFilterValue}
                         label="Global filter"
                         onKupTextFieldInput={(event) =>
