@@ -2,7 +2,6 @@
 * @prop --dtt_drag-over--allowed, --kup-data-table_drag-over--allowed: the color of the cell when the drop of the drag is allowed.
 * @prop --dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden: the color of the cell when the drop of the drag is forbidden.
 * @prop --dtt_paginator-background, --kup-data-table_paginator-background: Color of the paginator's background.
-* @prop --dtt_table-wrapper-height, --kup-data-table_table-wrapper-height: The height of the table inside the data table.
 */
 
 :host {
@@ -23,8 +22,6 @@
     --kup-data-table_paginator-background,
     transparent
   );
-
-  --dtt_table-wrapper-height: var(--kup-data-table_table-wrapper-height, auto);
 
   position: relative;
 }
@@ -155,7 +152,7 @@ $fixed-row-class: fixed-row;
   // contains the table and other bottom elements of the matrix
 
   .below-wrapper {
-    height: var(--dtt_table-wrapper-height);
+    height: auto;
     overflow: auto;
     z-index: $table-below-wrapper--z-index;
   }

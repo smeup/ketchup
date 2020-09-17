@@ -121,7 +121,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 | `--dtt_drag-over--allowed, --kup-data-table_drag-over--allowed`     | the color of the cell when the drop of the drag is allowed.   |
 | `--dtt_drag-over--forbidden, --kup-data-table_drag-over--forbidden` | the color of the cell when the drop of the drag is forbidden. |
 | `--dtt_paginator-background, --kup-data-table_paginator-background` | Color of the paginator's background.                          |
-| `--dtt_table-wrapper-height, --kup-data-table_table-wrapper-height` | The height of the table inside the data table.                |
 
 
 ## Dependencies

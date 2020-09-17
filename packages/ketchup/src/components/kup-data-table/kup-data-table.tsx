@@ -3455,12 +3455,13 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper" style={elStyle}>
+            <div id="data-table-wrapper">
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
                 </div>
                 <div
+                    style={elStyle}
                     class={belowClass}
                     ref={(el: HTMLDivElement) => (this.tableAreaRef = el)}
                 >
