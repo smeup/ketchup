@@ -13,7 +13,7 @@ import { staticData } from './mocked-data';
  */
 async function globalFilterSelector(page: E2EPage): Promise<E2EElement> {
     const temp = ((await page.evaluateHandle(
-        `document.querySelector("kup-data-table").shadowRoot.querySelector("#globalFilter > kup-text-field").shadowRoot.querySelector("input")`
+        `document.querySelector("kup-data-table").shadowRoot.querySelector("#global-filter > kup-text-field").shadowRoot.querySelector("input")`
     )) as unknown) as E2EElement;
     return temp;
 }

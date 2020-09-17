@@ -834,6 +834,7 @@ export class KupDataTable {
                 let wrapper: HTMLElement = menu.closest('th');
                 positionRecalc(menu, wrapper);
                 menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
             }
         }
 
@@ -2176,7 +2177,7 @@ export class KupDataTable {
 
                     if (columnMenuItems.length !== 0) {
                         columnMenu = (
-                            <div class={`column-menu visible`}>
+                            <div class={`kup-menu column-menu`}>
                                 <ul
                                     role="menubar"
                                     onMouseUp={(e) => e.stopPropagation()}
@@ -3328,7 +3329,7 @@ export class KupDataTable {
         let globalFilter = null;
         if (this.globalFilter) {
             globalFilter = (
-                <div id="globalFilter">
+                <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
                         icon="magnify"
@@ -3452,7 +3453,7 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper">
+            <div id="kup-component">
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
