@@ -3039,7 +3039,7 @@ export class KupDataTable {
         const label = 'Show more data';
         return (
             <kup-button
-                class="loadmore-button"
+                class="load-more-button"
                 label={label}
                 flat
                 icon="plus"
