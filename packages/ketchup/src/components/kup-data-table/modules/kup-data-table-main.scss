@@ -148,6 +148,8 @@ thead {
       --kup-main-color: var(--kup-icon-color);
       display: inline-block;
       margin-left: 0.25rem;
+      height: 0;
+      vertical-align: text-top;
     }
 
     // On Firefox, things changes
@@ -171,7 +173,7 @@ thead {
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
-      vertical-align: bottom;
+      vertical-align: middle;
       white-space: normal;
     }
 
