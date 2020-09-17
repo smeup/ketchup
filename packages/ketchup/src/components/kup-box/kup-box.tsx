@@ -229,7 +229,7 @@ export class KupBox {
      * return id row
      */
     @Prop({ reflect: true })
-    selectBoxId : number;
+    selectBoxId : String;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -607,9 +607,13 @@ export class KupBox {
     private handleAutomaticBoxSelection() { 
         // automatic row selection
         if(this.selectBoxId){
-
-            this.selectedRows = [];
-            this.selectedRows.push(this.rows[this.selectBoxId - 1])
+            for (let boxRow of this.rows) {
+                if (boxRow.id === this.selectBoxId) {
+                    this.kupAutoBoxSelect.emit({
+                        row : boxRow,
+                    });
+                }
+            }
         }
         else if (
             this.selectBox &&
