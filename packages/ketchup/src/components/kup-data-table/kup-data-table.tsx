@@ -796,6 +796,17 @@ export class KupDataTable {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
+        }
+
         if (
             this.paginatedRows != null &&
             this.paginatedRows.length < this.rows.length &&
@@ -813,28 +824,6 @@ export class KupDataTable {
         ) {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
-        }
-
-        if (this.customizeTopButtonRef) {
-            positionRecalc(
-                this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            positionRecalc(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
-            );
-        }
-
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
-            if (menu) {
-                let wrapper: HTMLElement = menu.closest('th');
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-            }
         }
 
         if (
@@ -860,6 +849,19 @@ export class KupDataTable {
     componentDidLoad() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
+        }
 
         // observing table
         // this.theadObserver.observe(this.theadRef);
