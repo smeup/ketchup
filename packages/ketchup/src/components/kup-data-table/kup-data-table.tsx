@@ -135,6 +135,7 @@ export class KupDataTable {
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
+                this.selectRowById = state.selectRowById;
                 //
             }
         }
@@ -305,7 +306,7 @@ export class KupDataTable {
     /**
      * Selects the row with the specified id
      */
-    @Prop({ reflect: true }) selectRowById: String;
+    @Prop({ reflect: true }) selectRowById: string;
 
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
