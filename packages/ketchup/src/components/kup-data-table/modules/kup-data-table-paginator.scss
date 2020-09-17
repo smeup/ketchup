@@ -1,3 +1,10 @@
+.paginator-wrapper {
+  display: flex;
+  flex-flow: wrap;
+  min-width: max-content;
+  min-height: 2rem;
+}
+
 .paginator-tabs {
   width: 100%;
 
