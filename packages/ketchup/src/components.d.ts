@@ -560,7 +560,7 @@ export namespace Components {
         /**
           * Selects the row with the specified id
          */
-        "selectRowById": String;
+        "selectRowById": string;
         /**
           * When set to true enables the column filters.
          */
@@ -2493,7 +2493,7 @@ declare namespace LocalJSX {
         /**
           * Selects the row with the specified id
          */
-        "selectRowById"?: String;
+        "selectRowById"?: string;
         /**
           * When set to true enables the column filters.
          */
