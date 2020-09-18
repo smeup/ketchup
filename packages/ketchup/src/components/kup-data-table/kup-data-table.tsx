@@ -705,8 +705,9 @@ export class KupDataTable {
                             this.currentRowsPerPage += delta;
                         } else {
                             this.currentRowsPerPage += this.loadMoreStep;
-                            this.intObserver.unobserve(this.observedEl);
                         }
+                        this.intObserver.unobserve(entry.target);
+                        this.observedEl = undefined;
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
