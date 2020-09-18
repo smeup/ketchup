@@ -124,9 +124,9 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
-- [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
 - [kup-lazy](../kup-lazy)
+- [kup-image](../kup-image)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-tooltip](../kup-tooltip)
@@ -139,9 +139,9 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
-  kup-data-table --> kup-image
   kup-data-table --> kup-text-field
   kup-data-table --> kup-lazy
+  kup-data-table --> kup-image
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-tooltip

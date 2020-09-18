@@ -173,7 +173,7 @@ thead {
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
-      vertical-align: middle;
+      vertical-align: bottom;
       white-space: normal;
     }
 
@@ -415,10 +415,15 @@ tbody {
   height: 1.25rem;
   width: 1.25rem;
 
+  &.ascending {
+    mask: url(/assets/svg/arrow_drop_up.svg) center center no-repeat;
+  }
+
   &.collapsed {
     mask: url(/assets/svg/menu-right.svg) center center no-repeat;
   }
 
+  &.descending,
   &.expanded {
     mask: url(/assets/svg/arrow_drop_down.svg) center center no-repeat;
   }

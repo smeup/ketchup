@@ -1689,9 +1689,7 @@ export class KupDataTable {
         // check if column in sort array
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
-                return 'A' === sortObj.sortMode
-                    ? 'arrow_drop_down'
-                    : 'arrow_drop_up';
+                return 'A' === sortObj.sortMode ? 'descending' : 'ascending';
             }
         }
 
@@ -1985,17 +1983,10 @@ export class KupDataTable {
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
                 if (this.sortEnabled) {
-                    let iconName = this.getSortIcon(column.name);
-                    if (iconName !== '') {
-                        sortIcon = (
-                            <kup-image
-                                class="column-sort"
-                                resource={iconName}
-                                title={this.getSortDecode(column.name)}
-                                sizeX="18px"
-                                sizeY="18px"
-                            />
-                        );
+                    let iconClass = this.getSortIcon(column.name);
+                    if (iconClass !== '') {
+                        iconClass += ' icon-container';
+                        sortIcon = <span class={iconClass}></span>;
                     }
 
                     // The handler for triggering the sorting of a column
