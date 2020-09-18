@@ -18,6 +18,7 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
+import { KupTooltip } from "./components/kup-tooltip/kup-tooltip";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -27,7 +28,7 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
@@ -1310,6 +1311,10 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject": TooltipRelatedObject;
     }
     interface KupTree {
         /**
@@ -2426,7 +2431,7 @@ declare namespace LocalJSX {
          */
         "onKupDetailRequest"?: (event: CustomEvent<{
         cell: Cell;
-        tooltip: EventTarget;
+        tooltip: KupTooltip;
     }>) => void;
         "onKupLoadMoreClicked"?: (event: CustomEvent<{
         loadItems: number;
@@ -2436,7 +2441,7 @@ declare namespace LocalJSX {
          */
         "onKupLoadRequest"?: (event: CustomEvent<{
         cell: Cell;
-        tooltip: EventTarget;
+        tooltip: KupTooltip;
     }>) => void;
         /**
           * When cell option is clicked
@@ -3366,8 +3371,12 @@ declare namespace LocalJSX {
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
     }>) => void;
-        "onKupTooltipLoadData"?: (event: CustomEvent<any>) => void;
-        "onKupTooltipLoadDetail"?: (event: CustomEvent<any>) => void;
+        "onKupTooltipLoadData"?: (event: CustomEvent<{ relatedObject: TooltipRelatedObject }>) => void;
+        "onKupTooltipLoadDetail"?: (event: CustomEvent<{ relatedObject: TooltipRelatedObject }>) => void;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject"?: TooltipRelatedObject;
     }
     interface KupTree {
         /**

@@ -18,6 +18,21 @@
   #wrapper {
     display: var(--tlt_display);
 
+    /*
+    position: absolute;
+
+    &.is-tooltip {
+      position: relative;
+    }
+
+    &.visible.dynamic-position-active {
+      display: block;
+      -webkit-animation: display-none-transition 0.5s both;
+      -webkit-animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
+      animation: display-none-transition 0.5s both;
+      animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
+    }*/
+
     #tooltip {
       position: fixed;
       background: var(--tlt_background);
@@ -133,14 +148,18 @@
 
 :host(.datatable-tooltip) {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  /*height: 100%;
+  width: 100%;*/
+  height: 0;
+  width: 0;
   left: 0;
   top: 0;
   #wrapper {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    /*height: 100%;
+    width: 100%;*/
+    height: 0;
+    width: 0;
     left: 0;
     top: 0;
   }
