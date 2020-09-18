@@ -694,7 +694,6 @@ export class KupDataTable {
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                console.log(entry);
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
                         logMessage(
