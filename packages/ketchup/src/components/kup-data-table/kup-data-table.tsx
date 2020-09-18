@@ -383,6 +383,9 @@ export class KupDataTable {
     //-------- State --------
 
     @State()
+    private lazyLoadCells = false;
+
+    @State()
     private currentPage = 1;
 
     @State()
@@ -886,6 +889,7 @@ export class KupDataTable {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        this.lazyLoadCells = true;
     }
 
     componentDidUnload() {
@@ -2914,7 +2918,7 @@ export class KupDataTable {
         let props: any = cell.data;
 
         if (isBar(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 if (!props.sizeY) {
                     props['sizeY'] = '26px';
                     if (this.density === 'medium') {
@@ -2935,7 +2939,7 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isButton(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['onKupButtonClick'] = this.onJ4btnClicked.bind(
@@ -2951,7 +2955,7 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isChart(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
                 content = (
                     <kup-lazy
@@ -2964,17 +2968,24 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
-            classObj['is-centered'] = true;
-            if (props) {
-                props['disabled'] = row.readOnly;
+            if (this.lazyLoadCells) {
+                classObj['is-centered'] = true;
+                if (props) {
+                    props['disabled'] = row.readOnly;
+                } else {
+                    props = { disabled: row.readOnly };
+                }
+                content = (
+                    <kup-checkbox
+                        class="cell-checkbox"
+                        {...props}
+                    ></kup-checkbox>
+                );
             } else {
-                props = { disabled: row.readOnly };
+                content = undefined;
             }
-            content = (
-                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
-            );
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = '18px';
@@ -2990,7 +3001,7 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isImage(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = 'auto';
@@ -3038,7 +3049,7 @@ export class KupDataTable {
                 }
             }
         } else if (isProgressBar(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 content = (
                     <kup-progress-bar
                         class="cell-progress-bar"
@@ -3049,7 +3060,7 @@ export class KupDataTable {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 props['disabled'] = row.readOnly;
                 content = <kup-radio class="cell-radio" {...props}></kup-radio>;
             } else {
