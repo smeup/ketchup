@@ -1963,15 +1963,13 @@ export class KupDataTable {
                      * The payload event is simulated here.
                      */
                     filter = (
-                        <kup-button
-                            class="filter-remove"
-                            icon="filter-remove"
-                            custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
+                        <span
                             title={svgLabel}
-                            onKupButtonClick={() => {
+                            class="icon-container filter-remove"
+                            onClick={() => {
                                 this.onRemoveFilter(column.name);
                             }}
-                        />
+                        ></span>
                     );
                 }
 

@@ -144,14 +144,6 @@ thead {
     vertical-align: middle;
     white-space: nowrap;
 
-    & .filter-remove {
-      --kup-main-color: var(--kup-icon-color);
-      display: inline-block;
-      margin-left: 0.25rem;
-      height: 0;
-      vertical-align: text-top;
-    }
-
     // On Firefox, things changes
     @supports (-moz-appearance: none) {
       // The row separator:
@@ -426,5 +418,15 @@ tbody {
   &.descending,
   &.expanded {
     mask: url(/assets/svg/arrow_drop_down.svg) center center no-repeat;
+  }
+
+  &.filter-remove {
+    margin: 0;
+    margin-left: 0.25rem;
+    float: right;
+    mask: url(/assets/svg/filter-remove.svg) center center no-repeat;
+    &:hover {
+      opacity: 0.75;
+    }
   }
 }
