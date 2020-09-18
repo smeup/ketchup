@@ -533,6 +533,9 @@ export class KupDataTable {
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private observedEl: Element = undefined;
+    private navBarHeight: number = 0;
+    private theadIntersecting: boolean = false;
+    private tableIntersecting: boolean = false;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -659,90 +662,30 @@ export class KupDataTable {
     onDocumentClick = () => {};
 
     stickyHeaderPosition = () => {
-        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
-            return;
-        }
-        let tableBody: HTMLTableElement = this.tableRef;
-        if (tableBody) {
-            let el: any = this.stickyTheadRef;
-            let parent: any = tableBody.closest('.below-wrapper');
-            var headerHeight: number;
-            if (document.querySelectorAll('.header')[0]) {
-                headerHeight = document.querySelectorAll('.header')[0]
-                    .clientHeight;
-            } else {
-                headerHeight = 0;
-            }
-            el.style.top = headerHeight + 'px';
-            if (
-                this.isElementPartiallyInViewport(tableBody, headerHeight, el)
-            ) {
-                let widthTable: number = parent.offsetWidth;
-                el.style.maxWidth = widthTable + 'px';
+        if (this.tableRef) {
+            this.stickyTheadRef.style.top = this.navBarHeight + 'px';
+            if (this.tableIntersecting) {
+                let widthTable: number = this.tableAreaRef.offsetWidth;
+                this.stickyTheadRef.style.maxWidth = widthTable + 'px';
 
-                if (
-                    !this.isElementPartiallyInViewport(
-                        this.theadRef,
-                        headerHeight,
-                        el
-                    )
-                ) {
-                    var thCollection: any = this.theadRef.querySelectorAll(
+                if (!this.theadIntersecting) {
+                    let thCollection: any = this.theadRef.querySelectorAll(
                         'th'
                     );
-                    var thStickyCollection: any = el.querySelectorAll(
+                    let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
                         'th-sticky'
                     );
                     for (let i = 0; i < thCollection.length; i++) {
                         let widthTH = thCollection[i].offsetWidth;
                         thStickyCollection[i].style.width = widthTH + 'px';
                     }
-                    el.classList.add('activated');
+                    this.stickyTheadRef.classList.add('activated');
                 } else {
-                    el.classList.remove('activated');
+                    this.stickyTheadRef.classList.remove('activated');
                 }
             } else {
-                el.classList.remove('activated');
+                this.stickyTheadRef.classList.remove('activated');
             }
-        }
-    };
-
-    isElementPartiallyInViewport = (el: any, offset: number, row: any) => {
-        var rect = el.getBoundingClientRect();
-        if (
-            rect.top === 0 &&
-            rect.left === 0 &&
-            rect.right === 0 &&
-            rect.bottom === 0 &&
-            rect.height === 0 &&
-            rect.width === 0 &&
-            rect.x === 0 &&
-            rect.y === 0
-        ) {
-            return false;
-        }
-
-        var windowHeight =
-            window.innerHeight || document.documentElement.clientHeight;
-        var windowWidth =
-            window.innerWidth || document.documentElement.clientWidth;
-        windowHeight = windowHeight - offset;
-
-        var vertInView =
-            rect.top - offset <= windowHeight &&
-            rect.top - offset + rect.height >= 0;
-        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
-
-        // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
-        if (
-            el.tagName !== 'THEAD' &&
-            row.clientHeight * 2 > rect.bottom - offset &&
-            vertInView &&
-            horInView
-        ) {
-            return false && false;
-        } else {
-            return vertInView && horInView;
         }
     };
 
@@ -751,29 +694,61 @@ export class KupDataTable {
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    logMessage(
-                        this,
-                        'Last row entering the viewport, loading more elements.'
-                    );
-                    let delta = this.rows.length - this.currentRowsPerPage;
-                    if (delta < this.loadMoreStep) {
-                        this.currentRowsPerPage += delta;
-                    } else {
-                        this.currentRowsPerPage += this.loadMoreStep;
+                console.log(entry);
+                if (entry.target.tagName === 'TR') {
+                    if (entry.isIntersecting) {
+                        logMessage(
+                            this,
+                            'Last row entering the viewport, loading more elements.'
+                        );
+                        let delta = this.rows.length - this.currentRowsPerPage;
+                        if (delta < this.loadMoreStep) {
+                            this.currentRowsPerPage += delta;
+                        } else {
+                            this.currentRowsPerPage += this.loadMoreStep;
+                            this.intObserver.unobserve(this.observedEl);
+                        }
                     }
-                    this.intObserver.unobserve(this.observedEl);
+                }
+                if (entry.target.tagName === 'THEAD') {
+                    if (entry.isIntersecting) {
+                        this.theadIntersecting = true;
+                    } else {
+                        this.theadIntersecting = false;
+                    }
+                }
+                if (entry.target.tagName === 'TABLE') {
+                    if (entry.isIntersecting) {
+                        this.tableIntersecting = true;
+                    } else {
+                        this.tableIntersecting = false;
+                    }
+                }
+                if (
+                    this.tableHeight === undefined &&
+                    this.tableWidth === undefined
+                ) {
+                    this.stickyHeaderPosition();
                 }
             });
         };
         let options: IntersectionObserverInit = {
-            threshold: 0.25,
+            threshold: 0,
+            rootMargin: '-' + this.navBarHeight + 'px 0px 0px 0px',
         };
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
-    //======== Lifecycle Hooks ========
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
+        if (document.querySelectorAll('.header')[0]) {
+            this.navBarHeight = document.querySelectorAll(
+                '.header'
+            )[0].clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
         this.startTime = performance.now();
         this.setObserver();
         // *** Store
@@ -814,17 +789,11 @@ export class KupDataTable {
         ) {
             let rows = root.querySelectorAll('tbody > tr');
             this.observedEl = rows[this.paginatedRows.length - 1];
-            this.intObserver.observe(this.observedEl);
+            if (this.observedEl) {
+                this.intObserver.observe(this.observedEl);
+            }
         }
         document.addEventListener('click', this.onDocumentClick);
-        if (
-            this.headerIsPersistent &&
-            this.tableHeight === undefined &&
-            this.tableWidth === undefined
-        ) {
-            document.addEventListener('scroll', this.stickyHeaderPosition);
-            document.addEventListener('resize', this.stickyHeaderPosition);
-        }
 
         if (
             this.scrollOnHoverInstance !== undefined &&
@@ -862,6 +831,14 @@ export class KupDataTable {
                 this.customizeBottomButtonRef
             );
         }
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            this.intObserver.observe(this.tableRef);
+            this.intObserver.observe(this.theadRef);
+        }
 
         // observing table
         // this.theadObserver.observe(this.theadRef);
@@ -894,8 +871,6 @@ export class KupDataTable {
         //this.persistState();
         // ***
         document.removeEventListener('click', this.onDocumentClick);
-        document.removeEventListener('scroll', this.stickyHeaderPosition);
-        document.removeEventListener('resize', this.stickyHeaderPosition);
 
         // Remove function to close header menu onto the document
         if (this.documentHandlerCloseHeaderMenu) {
