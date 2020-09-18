@@ -135,7 +135,7 @@ export class KupDataTable {
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
-                this.selectRowById = state.selectRowById;
+                this.selectRowsById = state.selectRowsById;
                 //
             }
         }
@@ -304,9 +304,9 @@ export class KupDataTable {
     @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
-     * Selects the row with the specified id
+     * Semicolon separated rows id to select
      */
-    @Prop({ reflect: true }) selectRowById: string;
+    @Prop({ reflect: true }) selectRowsById: string;
 
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
@@ -571,7 +571,6 @@ export class KupDataTable {
     })
     kupRowSelected: EventEmitter<{
         selectedRows: Array<Row>;
-        selectedRow: Row;
         clickedColumn: string;
     }>;
 
@@ -879,15 +878,16 @@ export class KupDataTable {
         // this.theadObserver.observe(this.theadRef);
 
         // automatic row selection
-        if (this.selectRowById) {
+        if (this.selectRowsById) {
             this.selectedRows = [];
-            let found: Row = this.renderedRows.find((r) => {
-                return r.id === this.selectRowById;
+            let selectedIds: Array<string> = this.selectRowsById.split(';');
+            this.selectedRows = this.renderedRows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
             });
-            if (found) {
-                this.selectedRows.push(found);
-                this.kupAutoRowSelect.emit({
-                    selectedRow: this.selectedRows[0],
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.kupRowSelected.emit({
+                    selectedRows: this.selectedRows,
+                    clickedColumn: null,
                 });
             }
         } else if (this.selectRow && this.selectRow > 0) {
@@ -1462,7 +1462,6 @@ export class KupDataTable {
 
         this.kupRowSelected.emit({
             selectedRows: this.selectedRows,
-            selectedRow: row,
             clickedColumn,
         });
     }
@@ -1532,7 +1531,6 @@ export class KupDataTable {
             // triggering event
             this.kupRowSelected.emit({
                 selectedRows: this.selectedRows,
-                selectedRow: null,
                 clickedColumn: null,
             });
         } else {
@@ -2754,6 +2752,9 @@ export class KupDataTable {
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
+                if (cell.cssClass) {
+                    cellClass[cell.cssClass] = true;
+                }
 
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
@@ -2817,6 +2818,9 @@ export class KupDataTable {
             const rowClass = {
                 selected: this.selectedRows.includes(row),
             };
+            if (row.cssClass) {
+                rowClass[row.cssClass] = true;
+            }
 
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>

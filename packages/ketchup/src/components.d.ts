@@ -558,9 +558,9 @@ export namespace Components {
          */
         "selectRow": number;
         /**
-          * Selects the row with the specified id
+          * Semicolon separated rows id to select
          */
-        "selectRowById": string;
+        "selectRowsById": string;
         /**
           * When set to true enables the column filters.
          */
@@ -2467,7 +2467,6 @@ declare namespace LocalJSX {
          */
         "onKupRowSelected"?: (event: CustomEvent<{
         selectedRows: Array<Row>;
-        selectedRow: Row;
         clickedColumn: string;
     }>) => void;
         /**
@@ -2491,9 +2490,9 @@ declare namespace LocalJSX {
          */
         "selectRow"?: number;
         /**
-          * Selects the row with the specified id
+          * Semicolon separated rows id to select
          */
-        "selectRowById"?: string;
+        "selectRowsById"?: string;
         /**
           * When set to true enables the column filters.
          */

@@ -505,6 +505,9 @@ $fixed-row-class: fixed-row;
     > tbody {
       border: 1px solid var(--dtt_border-color);
       cursor: auto;
+      & .clickable {
+        cursor: pointer;
+      }
 
       > tr {
         kup-button {
