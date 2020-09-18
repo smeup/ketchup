@@ -131,8 +131,10 @@ export class KupDataTable {
                 this.showLoadMore = state.showLoadMore;
                 this.sortEnabled = state.sortEnabled;
                 this.sort = state.sort;
+                this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
+                this.selectRow = state.selectRow;
                 //
             }
         }
@@ -161,6 +163,11 @@ export class KupDataTable {
             this.state.sortEnabled = this.sortEnabled;
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+            this.state.pageSelected = this.currentPage;
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.state.selectRow =
+                    this.renderedRows.indexOf(this.selectedRows[0]) + 1;
+            }
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -275,6 +282,11 @@ export class KupDataTable {
     @Prop({ reflect: true }) loadMoreStep: number = 60;
 
     /**
+     * Current selected page set on component load
+     */
+    @Prop() pageSelected: number = -1;
+
+    /**
      * When set to true enables rows multi selection.
      */
     @Prop({ reflect: true }) multiSelection = false;
@@ -367,6 +379,9 @@ export class KupDataTable {
     @Prop() tooltipDetailTimeout: number;
 
     //-------- State --------
+
+    @State()
+    private lazyLoadCells = false;
 
     @State()
     private currentPage = 1;
@@ -517,7 +532,6 @@ export class KupDataTable {
     private renderStart: number = 0;
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
-    private intObserverCell: IntersectionObserver = undefined;
     private observedEl: Element = undefined;
 
     /**
@@ -758,66 +772,19 @@ export class KupDataTable {
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
-    setObserverCell() {
-        let callback: IntersectionObserverCallback = (
-            entries: IntersectionObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    let t = entry.target as any;
-                    let comp = document.createElement(
-                        t.tagName.replace('LAZY-', 'KUP-')
-                    );
-
-                    for (var key in t.props) {
-                        if (t.props.hasOwnProperty(key)) {
-                            comp[key] = t.props[key];
-                        }
-                    }
-
-                    if (comp.tagName === 'KUP-BUTTON') {
-                        comp.addEventListener(
-                            'kupButtonClick',
-                            this.onJ4btnClicked.bind(
-                                this,
-                                t['lazyrow'],
-                                t['lazycolumn'],
-                                t['lazycell']
-                            )
-                        );
-                    } else if (comp.tagName === 'KUP-TOOLTIP') {
-                        comp.addEventListener(
-                            'kupTooltipLoadData',
-                            this.onTooltipLoadData.bind(this, t['lazycell'])
-                        );
-                        comp.addEventListener(
-                            'kupTooltipLoadDetail',
-                            this.onTooltipLoadDetail.bind(this, t['lazycell'])
-                        );
-                    }
-
-                    t.closest('.cell-content').appendChild(comp);
-                    this.intObserverCell.unobserve(entry.target);
-                    t.remove();
-                }
-            });
-        };
-        let options: IntersectionObserverInit = {
-            threshold: 0,
-        };
-        this.intObserverCell = new IntersectionObserver(callback, options);
-    }
-
     //======== Lifecycle Hooks ========
     componentWillLoad() {
         this.startTime = performance.now();
         this.setObserver();
-        this.setObserverCell();
         // *** Store
         this.initWithPersistedState();
         // ***
+        if (this.pageSelected > 0) {
+            this.currentPage = this.pageSelected;
+        }
         this.rowsPerPageHandler(this.rowsPerPage);
         this.initRows();
+        this.adjustPaginator();
         this.groupState = {};
         this.forceGroupExpansion();
     }
@@ -829,12 +796,17 @@ export class KupDataTable {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-        let lazyComps = root.querySelectorAll(
-            'lazy-button, lazy-chart, lazy-checkbox, lazy-image, lazy-progress-bar, lazy-tooltip'
-        );
-        for (let index = 0; index < lazyComps.length; index++) {
-            this.intObserverCell.observe(lazyComps[index]);
+
+        if (root) {
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
         }
+
         if (
             this.paginatedRows != null &&
             this.paginatedRows.length < this.rows.length &&
@@ -852,28 +824,6 @@ export class KupDataTable {
         ) {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
-        }
-
-        if (this.customizeTopButtonRef) {
-            positionRecalc(
-                this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            positionRecalc(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
-            );
-        }
-
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
-            if (menu) {
-                let wrapper: HTMLElement = menu.closest('th');
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-            }
         }
 
         if (
@@ -900,6 +850,19 @@ export class KupDataTable {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
 
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
+        }
+
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
@@ -923,6 +886,7 @@ export class KupDataTable {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        this.lazyLoadCells = true;
     }
 
     componentDidUnload() {
@@ -1633,36 +1597,6 @@ export class KupDataTable {
     //        row,
     //    });
     //}
-
-    private onTooltipLoadData(cell: Cell) {
-        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const tooltipEvent = arguments[1] as UIEvent;
-        if (tooltipEvent) {
-            // Prevents double events to be fired.
-            tooltipEvent.stopPropagation();
-        } else {
-            throw 'kup-data-table error: missing event';
-        }
-        this.kupLoadRequest.emit({
-            cell,
-            tooltip: tooltipEvent.srcElement,
-        });
-    }
-
-    private onTooltipLoadDetail(cell: Cell) {
-        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const tooltipEvent = arguments[1] as UIEvent;
-        if (tooltipEvent) {
-            // Prevents double events to be fired.
-            tooltipEvent.stopPropagation();
-        } else {
-            throw 'kup-data-table error: missing event';
-        }
-        this.kupDetailRequest.emit({
-            cell,
-            tooltip: tooltipEvent.srcElement,
-        });
-    }
 
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
@@ -2914,7 +2848,7 @@ export class KupDataTable {
         let props: any = cell.data;
 
         if (isBar(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 if (!props.sizeY) {
                     props['sizeY'] = '26px';
                     if (this.density === 'medium') {
@@ -2924,46 +2858,65 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                props['className'] = 'cell-bar';
-                content = <lazy-image props={props}></lazy-image>;
+                content = (
+                    <kup-lazy
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isButton(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                props['className'] = 'cell-button';
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
                 content = (
-                    <lazy-button
-                        lazyrow={row}
-                        lazycolumn={column}
-                        lazycell={cell}
-                        props={props}
-                    ></lazy-button>
+                    <kup-button class="cell-button" {...props}></kup-button>
                 );
             } else {
                 content = undefined;
             }
         } else if (isChart(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 classObj['is-centered'] = true;
-                props['className'] = 'cell-chart';
-                content = <lazy-chart props={props}></lazy-chart>;
+                content = (
+                    <kup-lazy
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
-            if (props) {
-                props['disabled'] = row.readOnly;
+            if (this.lazyLoadCells) {
+                classObj['is-centered'] = true;
+                if (props) {
+                    props['disabled'] = row.readOnly;
+                } else {
+                    props = { disabled: row.readOnly };
+                }
+                content = (
+                    <kup-checkbox
+                        class="cell-checkbox"
+                        {...props}
+                    ></kup-checkbox>
+                );
             } else {
-                props = { disabled: row.readOnly };
+                content = undefined;
             }
-            classObj['is-centered'] = true;
-            props['className'] = 'cell-checkbox';
-            content = <lazy-checkbox props={props}></lazy-checkbox>;
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
+                classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = '18px';
                 }
@@ -2973,14 +2926,13 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                classObj['is-centered'] = true;
-                props['className'] = 'cell-icon';
-                content = <lazy-image props={props}></lazy-image>;
+                content = <kup-image class="cell-icon" {...props}></kup-image>;
             } else {
                 content = undefined;
             }
         } else if (isImage(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
+                classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = 'auto';
                 }
@@ -2994,10 +2946,14 @@ export class KupDataTable {
                     width: props['sizeX'],
                     height: props['sizeY'],
                 };
-                classObj['is-centered'] = true;
-                props['className'] = 'cell-image';
-                props['style'] = cellStyle;
-                content = <lazy-image props={props}></lazy-image>;
+                content = (
+                    <kup-lazy
+                        style={cellStyle}
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
             } else {
                 content = undefined;
             }
@@ -3023,17 +2979,20 @@ export class KupDataTable {
                 }
             }
         } else if (isProgressBar(cell.obj)) {
-            if (props) {
-                props['className'] = 'cell-progress-bar';
-                content = <lazy-progress-bar props={props}></lazy-progress-bar>;
+            if (props && this.lazyLoadCells) {
+                content = (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        {...props}
+                    ></kup-progress-bar>
+                );
             } else {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
-            if (props) {
+            if (props && this.lazyLoadCells) {
                 props['disabled'] = row.readOnly;
-                props['className'] = 'cell-radio';
-                content = <lazy-radio props={props}></lazy-radio>;
+                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
             } else {
                 content = undefined;
             }
@@ -3048,17 +3007,27 @@ export class KupDataTable {
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
-        if (hasTooltip(cell.obj)) {
+        if (hasTooltip(cell.obj) && this.lazyLoadCells) {
             classObj['is-tooltip'] = true;
-            props = {};
-            props['loadTimeout'] = this.tooltipLoadTimeout;
-            props['detailTimeout'] = this.tooltipDetailTimeout;
-            props['className'] = 'datatable-tooltip';
             content = [
                 content,
-                (content = (
-                    <lazy-tooltip lazycell={cell} props={props}></lazy-tooltip>
-                )),
+                <kup-tooltip
+                    class="datatable-tooltip"
+                    loadTimeout={this.tooltipLoadTimeout}
+                    detailTimeout={this.tooltipDetailTimeout}
+                    onKupTooltipLoadData={(ev) =>
+                        this.kupLoadRequest.emit({
+                            cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                    onKupTooltipLoadDetail={(ev) =>
+                        this.kupDetailRequest.emit({
+                            cell,
+                            tooltip: ev.srcElement,
+                        })
+                    }
+                ></kup-tooltip>,
             ];
         }
 

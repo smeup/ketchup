@@ -1115,20 +1115,3 @@ $fixed-row-class: fixed-row;
     width: inherit;
   }
 }
-
-lazy-checkbox,
-lazy-button,
-lazy-chart {
-  display: block;
-  min-height: 50px;
-}
-
-lazy-image {
-  display: block;
-  min-height: 18px;
-}
-
-lazy-progress-bar {
-  display: block;
-  min-height: 1.75rem;
-}

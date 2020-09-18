@@ -54,6 +54,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `loadMoreMode`              | `load-more-mode`               | Establish the modality of how many new records will be downloaded.  This property is regulated also by loadMoreStep.                                                                                                           | `LoadMoreMode.CONSTANT \| LoadMoreMode.CONSTANT_INCREMENT \| LoadMoreMode.PROGRESSIVE_THRESHOLD` | `LoadMoreMode.PROGRESSIVE_THRESHOLD` |
 | `loadMoreStep`              | `load-more-step`               | The number of records which will be requested to be downloaded when clicking on the load more button.  This property is regulated also by loadMoreMode.                                                                        | `number`                                                                                         | `60`                                 |
 | `multiSelection`            | `multi-selection`              | When set to true enables rows multi selection.                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
+| `pageSelected`              | `page-selected`                | Current selected page set on component load                                                                                                                                                                                    | `number`                                                                                         | `-1`                                 |
 | `paginatorPos`              | `paginator-pos`                | Sets the position of the paginator. Available positions: top, bottom or both.                                                                                                                                                  | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP`                                   | `PaginatorPos.TOP`                   |
 | `rowActions`                | --                             | Sets the actions of the rows.                                                                                                                                                                                                  | `RowAction[]`                                                                                    | `undefined`                          |
 | `rowsPerPage`               | `rows-per-page`                | Sets the number of rows per page to display.                                                                                                                                                                                   | `number`                                                                                         | `10`                                 |
@@ -159,6 +160,10 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
+- [kup-lazy](../kup-lazy)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-radio](../kup-radio)
+- [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
 - [kup-chip](../kup-chip)
@@ -170,6 +175,10 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
+  kup-data-table --> kup-lazy
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-radio
+  kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
@@ -178,6 +187,9 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-text-field --> kup-image
+  kup-progress-bar --> kup-image
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field

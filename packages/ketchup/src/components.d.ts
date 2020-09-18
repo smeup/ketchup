@@ -556,6 +556,10 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
+          * Current selected page set on component load
+         */
+        "pageSelected": number;
+        /**
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
@@ -2493,6 +2497,10 @@ declare namespace LocalJSX {
         selectedRows: Array<Row>;
         clickedColumn: string;
     }>) => void;
+        /**
+          * Current selected page set on component load
+         */
+        "pageSelected"?: number;
         /**
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
