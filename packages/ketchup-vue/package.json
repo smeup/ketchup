@@ -48,7 +48,7 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "ts-jest": "^23.0.0",
-    "typescript": "^3.0.0",
+    "typescript": "3.9.3",
     "vue-class-component": "^6.0.0",
     "vue-cli-plugin-vuetify": "^0.5.0",
     "vue-material-design-icons": "^2.3.0",
