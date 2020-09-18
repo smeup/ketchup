@@ -2458,7 +2458,9 @@ export class KupDataTable {
                 return null;
             }
 
-            const iconClass = row.group.expanded ? 'expanded' : 'collapsed';
+            const iconClass = row.group.expanded
+                ? 'icon-container expanded'
+                : 'icon-container collapsed';
 
             const jsxRows = [];
 
@@ -2475,13 +2477,7 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <span class="icon-container">
-                                <kup-image
-                                    resource="arrow_drop_up"
-                                    class={iconClass}
-                                    title="Expand/collapse group"
-                                />
-                            </span>
+                            <span class={iconClass}></span>
                             <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
@@ -2523,13 +2519,7 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <span class="icon-container">
-                                    <kup-image
-                                        resource="arrow_drop_up"
-                                        class={iconClass}
-                                        title="Expand/collapse group"
-                                    />
-                                </span>
+                                <span class={iconClass}></span>
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
