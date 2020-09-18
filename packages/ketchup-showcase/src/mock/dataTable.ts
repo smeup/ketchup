@@ -2618,7 +2618,6 @@ export function dataTableCheckboxFactory(
     },
     key: 'i146',
   };
-  
 }
 
 export const performanceDataTable = {
