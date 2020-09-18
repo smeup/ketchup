@@ -51,8 +51,8 @@ export async function runRecalc(el: HTMLElement) {
     if (!el.isConnected || !el.classList.contains('dynamic-position-active')) {
         return;
     }
-    let offsetH: number = el.clientHeight;
-    let offsetW: number = el.clientWidth;
+    let offsetH: number = el['offsetH'];
+    let offsetW: number = el['offsetW'];
     const rect = el.anchorEl.getBoundingClientRect();
 
     el.style.top = ``;
