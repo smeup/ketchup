@@ -148,7 +148,7 @@ export namespace Components {
          */
         "noPadding": boolean;
         /**
-          * return number page
+          * current number page
          */
         "pageSelected": number;
         /**
@@ -160,6 +160,10 @@ export namespace Components {
          */
         "pagination": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * current rows per page
+         */
+        "rowsPerPage": number;
         /**
           * Automatically selects the box at the specified index
          */
@@ -1912,7 +1916,7 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
-          * return number page
+          * current number page
          */
         "pageSelected"?: number;
         /**
@@ -1923,6 +1927,10 @@ declare namespace LocalJSX {
           * Enables pagination
          */
         "pagination"?: boolean;
+        /**
+          * current rows per page
+         */
+        "rowsPerPage"?: number;
         /**
           * Automatically selects the box at the specified index
          */

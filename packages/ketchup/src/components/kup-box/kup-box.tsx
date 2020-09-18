@@ -82,6 +82,7 @@ export class KupBox {
                 this.globalFilterValueState = this.state.globalFilterValueState;
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
+                this.rowsPerPage = this.state.rowsPerPage;
             }
         }
     }
@@ -93,6 +94,7 @@ export class KupBox {
                 this.state.globalFilterValueState = this.globalFilterValue;
                 this.state.selectedRowsState = this.selectedRows;
                 this.state.pageSelected = this.currentPage;
+                this.state.rowsPerPage = this.currentRowsPerPage;
                 logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
             this.store.persistState(this.stateId, this.state);
         }
@@ -216,12 +218,16 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     swipeDisabled = false;
-
      /**
-     * return number page
+     * current number page
      */
     @Prop({ reflect: true })
     pageSelected : number;
+     /**
+     * current rows per page
+     */
+    @Prop({ reflect: true })
+    rowsPerPage : number;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -417,7 +423,9 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if(this.pageSize){
+        if(this.rowsPerPage){
+            this.currentRowsPerPage = this.rowsPerPage;
+        } else if (this.pageSize){
             this.currentRowsPerPage = this.pageSize;
         }
         setThemeCustomStyle(this);
@@ -436,7 +444,9 @@ export class KupBox {
 
         // Initialize @State from @Prop 
         this.globalFilterValue = this.globalFilterValueState;
-        this.currentPage = this.state.pageSelected;
+        this.currentPage = this.pageSelected;
+//        this.currentRowsPerPage = this.rowsPerPage;
+
         if(this.multiSelection){
             this.selectedRows = this.selectedRowsState;
         }
@@ -532,7 +542,7 @@ export class KupBox {
             this.rows = paginateRows(
                 this.rows,
                 this.currentPage,
-                this.pageSize
+                this.currentRowsPerPage
             );
         }
     }
@@ -613,7 +623,7 @@ export class KupBox {
        if (
             this.selectBox &&
             this.selectBox > 0 &&
-            this.selectBox <= this.rows.length
+            (this.selectBox - 1) <= this.rows.length
         ) {
             this.selectedRows = [];
 
