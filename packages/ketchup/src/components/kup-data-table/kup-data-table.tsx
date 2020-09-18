@@ -91,6 +91,8 @@ import { unformatDate } from '../../utils/cell-formatter';
 
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -513,6 +515,9 @@ export class KupDataTable {
      */
     private theadRef: any;
     private tableRef: HTMLTableElement;
+
+    private tooltip: KupTooltip;
+
     /**
      * Reference to the working area of teh table. This is the below-wrapper reference.
      */
@@ -636,7 +641,7 @@ export class KupDataTable {
     })
     kupLoadRequest: EventEmitter<{
         cell: Cell;
-        tooltip: EventTarget;
+        tooltip: KupTooltip;
     }>;
 
     /**
@@ -650,7 +655,7 @@ export class KupDataTable {
     })
     kupDetailRequest: EventEmitter<{
         cell: Cell;
-        tooltip: EventTarget;
+        tooltip: KupTooltip;
     }>;
 
     onDocumentClick = () => {};
@@ -901,6 +906,51 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
+
+    private setTooltip(event: MouseEvent, cell: Cell) {
+        let related: TooltipRelatedObject = null;
+        if (cell != null) {
+            related = {} as TooltipRelatedObject;
+            related.element = event.target as HTMLElement;
+            related.object = cell;
+        }
+
+        let newValue = related;
+        let oldValue = this.tooltip.relatedObject;
+        if (newValue == null && oldValue == null) {
+            return;
+        }
+        if (newValue != null && oldValue != null) {
+            if (
+                newValue.object == oldValue.object &&
+                newValue.element == oldValue.element
+            ) {
+                return;
+            }
+        }
+        this.closeMenu();
+        this.tooltip.relatedObject = related;
+    }
+
+    private requestLoadTooltip(relatedObject: TooltipRelatedObject) {
+        if (relatedObject == null) {
+            return;
+        }
+        this.kupLoadRequest.emit({
+            cell: relatedObject.object,
+            tooltip: this.tooltip,
+        });
+    }
+
+    private requestLoadDetailTooltip(relatedObject: TooltipRelatedObject) {
+        if (relatedObject == null) {
+            return;
+        }
+        this.kupDetailRequest.emit({
+            cell: relatedObject.object,
+            tooltip: this.tooltip,
+        });
+    }
 
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -1509,6 +1559,11 @@ export class KupDataTable {
         this.openedMenu = null;
     }
 
+    private closeMenuAndTooltip() {
+        this.closeMenu();
+        this.setTooltip(null, null);
+    }
+
     private isOpenedMenu(): boolean {
         return this.openedMenu != null;
     }
@@ -1518,9 +1573,9 @@ export class KupDataTable {
     }
 
     private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
-        if (this.isOpenedMenu()) {
-            this.closeMenu();
-        }
+        //if (this.isOpenedMenu()) {
+        this.closeMenuAndTooltip();
+        //}
         this.openMenu(column);
         // Prevent opening of the default browser menu
         e.preventDefault();
@@ -1563,13 +1618,13 @@ export class KupDataTable {
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
-            this.closeMenu();
+            this.closeMenuAndTooltip();
         }
     }
 
     private switchColumnGroup(group: GroupObject, column: string) {
         // resetting opened menu
-        this.closeMenu();
+        this.closeMenuAndTooltip();
 
         // reset group state
         this.groupState = {};
@@ -2083,7 +2138,7 @@ export class KupDataTable {
                                     this.kupAddColumn.emit({
                                         column: column.name,
                                     });
-                                    this.closeMenu();
+                                    this.closeMenuAndTooltip();
                                 }}
                             />
                         </li>
@@ -2109,7 +2164,7 @@ export class KupDataTable {
                                     initialValue={filterInitialValue}
                                     onKupTextFieldSubmit={(e) => {
                                         this.onFilterChange(e, column);
-                                        this.closeMenu();
+                                        this.closeMenuAndTooltip();
                                     }}
                                 ></kup-text-field>
                             </li>
@@ -2411,6 +2466,23 @@ export class KupDataTable {
         );
 
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
+    }
+
+    renderTooltip() {
+        return (
+            <kup-tooltip
+                class="datatable-tooltip"
+                loadTimeout={this.tooltipLoadTimeout}
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
+                onKupTooltipLoadData={(ev) =>
+                    this.requestLoadTooltip(ev.detail.relatedObject)
+                }
+                onKupTooltipLoadDetail={(ev) =>
+                    this.requestLoadDetailTooltip(ev.detail.relatedObject)
+                }
+            ></kup-tooltip>
+        );
     }
 
     renderFooter() {
@@ -2994,32 +3066,21 @@ export class KupDataTable {
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
-        if (hasTooltip(cell.obj)) {
-            classObj['is-tooltip'] = true;
-            content = [
-                content,
-                <kup-tooltip
-                    class="datatable-tooltip"
-                    loadTimeout={this.tooltipLoadTimeout}
-                    detailTimeout={this.tooltipDetailTimeout}
-                    onKupTooltipLoadData={(ev) =>
-                        this.kupLoadRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                    onKupTooltipLoadDetail={(ev) =>
-                        this.kupDetailRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                ></kup-tooltip>,
-            ];
+        const _hasTooltip: boolean = hasTooltip(cell.obj);
+        if (_hasTooltip) {
+            //classObj['is-tooltip'] = true;
         }
 
         return (
-            <span class={classObj} style={style}>
+            <span
+                class={classObj}
+                style={style}
+                onMouseOver={(ev) =>
+                    _hasTooltip
+                        ? this.setTooltip(ev, cell)
+                        : this.setTooltip(null, null)
+                }
+            >
                 {indend}
                 {content}
             </span>
@@ -3317,6 +3378,8 @@ export class KupDataTable {
         // footer
         const footer = this.renderFooter();
 
+        const tooltip = this.renderTooltip();
+
         let globalFilter = null;
         if (this.globalFilter) {
             globalFilter = (
@@ -3442,7 +3505,11 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper" style={elStyle}>
+            <div
+                id="data-table-wrapper"
+                style={elStyle}
+                onMouseLeave={() => this.closeMenuAndTooltip()}
+            >
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
@@ -3465,6 +3532,7 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
+                    {tooltip}
                     {stickyEl}
                 </div>
                 {paginatorBottom}

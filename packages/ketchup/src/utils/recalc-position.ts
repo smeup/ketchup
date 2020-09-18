@@ -9,23 +9,33 @@
 export function positionRecalc(
     el: any,
     anchorEl: HTMLElement,
-    margin?: number
+    margin?: number,
+    offsetH?: number,
+    offsetW?: number
 ) {
     el.classList.add('dynamic-position');
     anchorEl.classList.add('dynamic-position-anchor');
     if (!margin) {
         margin = 0;
     }
+    if (!offsetH) {
+        offsetH = el.clientHeight;
+    }
+    if (!offsetW) {
+        offsetW = el.clientWidth;
+    }
     el['anchorEl'] = anchorEl;
     el['anchorMargin'] = margin;
+    el['offsetH'] = offsetH;
+    el['offsetW'] = offsetW;
 
     var mutObserver = new MutationObserver(function (mutations) {
         let target: any = mutations[0].target;
         if (target.classList.contains('dynamic-position-active')) {
             el['anchorInterval'] = setInterval(
                 function () {
-                    let offsetH: number = el.clientHeight;
-                    let offsetW: number = el.clientWidth;
+                    let offsetH: number = el['offsetH'];
+                    let offsetW: number = el['offsetW'];
                     const rect = el.anchorEl.getBoundingClientRect();
 
                     el.style.top = ``;
