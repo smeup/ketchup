@@ -247,6 +247,10 @@ export class KupBox {
     @State()
     private currentPage = 1;
 
+    @State()
+    private currentRowsPerPage = 10;
+
+
     /**
      * Triggered when a box is clicked
      */
@@ -370,11 +374,17 @@ export class KupBox {
     private rows: BoxRow[] = [];
     private filteredRows: BoxRow[] = [];
 
+    @Watch('pageSize')
+    rowsPerPageHandler(newValue: number) {
+        this.currentRowsPerPage = newValue;
+    }
+
     @Watch('globalFilterValue')
     @Watch('sortBy')
     @Watch('pagination')
     @Watch('pageSize')
     @Watch('currentPage')
+    @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
     }
@@ -407,8 +417,12 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        if(this.pageSize){
+            this.currentRowsPerPage = this.pageSize;
+        }
         setThemeCustomStyle(this);
         this.onDataChanged();
+        this.adjustPaginator();
     }
 
     componentDidLoad() {
@@ -955,6 +969,22 @@ export class KupBox {
 
     private handlePageChanged({ detail }) {
         this.currentPage = detail.newPage;
+    }
+
+    private handleRowsPerPageChanged({ detail }) {
+        this.currentRowsPerPage = detail.newRowsPerPage;
+        this.adjustPaginator();
+    }
+
+    private adjustPaginator() {
+        const numberOfRows = this.rows.length;
+
+        // check if current page is valid
+        const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
+        if (this.currentPage > numberOfPages) {
+            // reset page
+            this.currentPage = 1;
+        }
     }
 
     // render methods
@@ -1597,7 +1627,10 @@ export class KupBox {
                     max={this.filteredRows.length}
                     perPage={this.pageSize}
                     currentPage={this.currentPage}
+                    selectedPerPage={this.currentRowsPerPage}
                     onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) => this.handleRowsPerPageChanged(e)}
+
                     mode={PaginatorMode.SIMPLE}
                 />
             );
