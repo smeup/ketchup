@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup tooltip tests</title>
+
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+
+        <link
+            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <style>
+            #container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #container > div {
+                margin: 1rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <h3>Elements</h3>
+            <kup-tooltip id="globaltooltip"></kup-tooltip>
+            <div style="display: inline-flex;">
+                <div id="rosso" style="margin: 2px; background-color: red; width: 150px; height: 150px;"></div>
+                <div id="verde" style="margin: 2px; background-color: green; width: 150px; height: 150px;"></div>
+                <div id="blu" style="margin: 2px; background-color: blue; width: 150px; height: 150px;"></div>
+                <script src="/assets/tooltip.js"></script>
+            </div>
+        </div>
+    </body>
+</html>

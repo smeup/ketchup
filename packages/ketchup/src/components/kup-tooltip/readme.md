@@ -7,24 +7,25 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                      | Type                | Default     |
-| --------------- | ---------------- | -------------------------------- | ------------------- | ----------- |
-| `data`          | --               | Data for top section             | `TooltipData`       | `undefined` |
-| `detailData`    | --               | Data for the detail              | `TooltipDetailData` | `undefined` |
-| `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`            | `800`       |
-| `layout`        | `layout`         | Layout used to display the items | `string`            | `'1'`       |
-| `loadTimeout`   | `load-timeout`   | Timeout for tooltip              | `number`            | `1000`      |
+| Property        | Attribute        | Description                      | Type                   | Default     |
+| --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
+| `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
+| `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
+| `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
+| `layout`        | `layout`         | Layout used to display the items | `string`               | `'1'`       |
+| `loadTimeout`   | `load-timeout`   | Timeout for tooltip              | `number`               | `1000`      |
+| `relatedObject` | --               | Container element for tooltip    | `TooltipRelatedObject` | `undefined` |
 
 
 ## Events
 
-| Event                     | Description | Type                                             |
-| ------------------------- | ----------- | ------------------------------------------------ |
-| `kupActionCommandClicked` |             | `CustomEvent<{ actionCommand: TooltipAction; }>` |
-| `kupDefaultActionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`           |
-| `kupDefaultOptionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`           |
-| `kupTooltipLoadData`      |             | `CustomEvent<any>`                               |
-| `kupTooltipLoadDetail`    |             | `CustomEvent<any>`                               |
+| Event                     | Description | Type                                                    |
+| ------------------------- | ----------- | ------------------------------------------------------- |
+| `kupActionCommandClicked` |             | `CustomEvent<{ actionCommand: TooltipAction; }>`        |
+| `kupDefaultActionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`                  |
+| `kupDefaultOptionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`                  |
+| `kupTooltipLoadData`      |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; }>` |
+| `kupTooltipLoadDetail`    |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; }>` |
 
 
 ## Dependencies
