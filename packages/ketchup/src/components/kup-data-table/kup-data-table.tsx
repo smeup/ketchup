@@ -711,7 +711,13 @@ export class KupDataTable {
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
+                    console.log(entry);
                     if (entry.isIntersecting) {
+                        this.theadIntersecting = true;
+                    } else if (
+                        entry.boundingClientRect.bottom > this.navBarHeight
+                    ) {
+                        //If the thead is not intersecting but it still is inside the viewport, is to be considered intersected
                         this.theadIntersecting = true;
                     } else {
                         this.theadIntersecting = false;
