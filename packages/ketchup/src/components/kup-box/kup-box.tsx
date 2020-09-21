@@ -1360,11 +1360,8 @@ export class KupBox {
                     }
                 } else if (isImage(cell, boxObject)) {
                     if (props) {
-                        if (!props.sizeX) {
-                            props['sizeX'] = 'auto';
-                        }
                         if (!props.sizeY) {
-                            props['sizeY'] = '64px';
+                            props['sizeY'] = 'auto';
                         }
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
