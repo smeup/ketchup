@@ -3085,7 +3085,7 @@ export class KupDataTable {
                     props['sizeX'] = 'auto';
                 }
                 if (!props.sizeY) {
-                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
+                    props['sizeY'] = '64px';
                 }
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
