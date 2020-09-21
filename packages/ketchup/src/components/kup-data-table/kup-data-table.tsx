@@ -2805,7 +2805,7 @@ export class KupDataTable {
         let props: any = cell.data;
 
         if (isBar(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
                 if (!props.sizeY) {
                     props['sizeY'] = '26px';
                     if (this.density === 'medium') {
@@ -2815,18 +2815,42 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                content = (
-                    <kup-lazy
-                        class="cell-bar"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
+                let cellStyle = {
+                    height: props['sizeY'],
+                    width: '100%',
+                };
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-lazy
+                            style={cellStyle}
+                            class="cell-bar"
+                            componentName="kup-image"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-bar placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
         } else if (isButton(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
+                let height: string = '';
+                if (props.label) {
+                    height = '36px';
+                } else {
+                    height = '48px';
+                }
+                let cellStyle = {
+                    height: height,
+                    width: '100%',
+                };
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['onKupButtonClick'] = this.onJ4btnClicked.bind(
@@ -2835,44 +2859,80 @@ export class KupDataTable {
                     column,
                     cell
                 );
-                content = (
-                    <kup-button class="cell-button" {...props}></kup-button>
-                );
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-button
+                            style={cellStyle}
+                            class="cell-button"
+                            {...props}
+                        ></kup-button>
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-button placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
         } else if (isChart(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
+                let cellStyle = {
+                    height: '26px',
+                    width: '100%',
+                };
                 classObj['is-centered'] = true;
-                content = (
-                    <kup-lazy
-                        class="cell-chart"
-                        componentName="kup-chart"
-                        data={...props}
-                    />
-                );
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-lazy
+                            class="cell-chart"
+                            componentName="kup-chart"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-chart placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
+            let cellStyle = {
+                height: '40px',
+                width: '40px',
+            };
+            classObj['is-centered'] = true;
+            if (props) {
+                props['disabled'] = row.readOnly;
+            } else {
+                props = { disabled: row.readOnly };
+            }
             if (this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                if (props) {
-                    props['disabled'] = row.readOnly;
-                } else {
-                    props = { disabled: row.readOnly };
-                }
                 content = (
                     <kup-checkbox
+                        style={cellStyle}
                         class="cell-checkbox"
                         {...props}
                     ></kup-checkbox>
                 );
             } else {
-                content = undefined;
+                content = (
+                    <span
+                        style={cellStyle}
+                        class="cell-checkbox placeholder"
+                    ></span>
+                );
             }
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
                 classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = '18px';
@@ -2880,15 +2940,34 @@ export class KupDataTable {
                 if (!props.sizeY) {
                     props['sizeY'] = '18px';
                 }
+                let cellStyle = {
+                    height: props['sizeY'],
+                    width: props['sizeX'],
+                };
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                content = <kup-image class="cell-icon" {...props}></kup-image>;
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-image
+                            style={cellStyle}
+                            class="cell-icon"
+                            {...props}
+                        ></kup-image>
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-icon placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
         } else if (isImage(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
                 classObj['is-centered'] = true;
                 if (!props.sizeX) {
                     props['sizeX'] = 'auto';
@@ -2900,17 +2979,26 @@ export class KupDataTable {
                     classObj['has-padding'] = true;
                 }
                 let cellStyle = {
-                    width: props['sizeX'],
                     height: props['sizeY'],
+                    width: props['sizeX'],
                 };
-                content = (
-                    <kup-lazy
-                        style={cellStyle}
-                        class="cell-image"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-lazy
+                            style={cellStyle}
+                            class="cell-image"
+                            componentName="kup-image"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-image placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
@@ -2936,20 +3024,55 @@ export class KupDataTable {
                 }
             }
         } else if (isProgressBar(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                content = (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        {...props}
-                    ></kup-progress-bar>
-                );
+            if (props) {
+                let height: string;
+                if (!props.isSlim) {
+                    height = '31.5px';
+                } else {
+                    height = '17.5px';
+                }
+                let cellStyle = {
+                    height: height,
+                    width: '100%',
+                };
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-progress-bar
+                            style={cellStyle}
+                            class="cell-progress-bar"
+                            {...props}
+                        ></kup-progress-bar>
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-progress-bar placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
         } else if (isRadio(cell.obj)) {
-            if (props && this.lazyLoadCells) {
+            if (props) {
+                let cellStyle = {
+                    height: '40px',
+                    width: '100%',
+                };
                 props['disabled'] = row.readOnly;
-                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
+                if (this.lazyLoadCells) {
+                    content = (
+                        <kup-radio class="cell-radio" {...props}></kup-radio>
+                    );
+                } else {
+                    content = (
+                        <span
+                            style={cellStyle}
+                            class="cell-radio placeholder"
+                        ></span>
+                    );
+                }
             } else {
                 content = undefined;
             }
