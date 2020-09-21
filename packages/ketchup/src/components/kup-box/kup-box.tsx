@@ -623,12 +623,12 @@ export class KupBox {
        if (
             this.selectBox &&
             this.selectBox > 0 &&
-            (this.selectBox - 1) <= this.rows.length
+            (this.selectBox) <= this.data.rows.length
         ) {
             this.selectedRows = [];
 
   
-            for (let boxRow of this.rows) {
+            for (let boxRow of this.data.rows) {
                 if (boxRow.id === (this.selectBox - 1).toString()) {
                     this.selectedRows.push(boxRow);
                 }
