@@ -92,7 +92,10 @@ import { unformatDate } from '../../utils/cell-formatter';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
+import {
+    TooltipRelatedObject,
+    ViewMode,
+} from '../kup-tooltip/kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -633,34 +636,6 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
-    /**
-     * When a tooltip request initial data
-     */
-    @Event({
-        eventName: 'kupLoadRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoadRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: KupTooltip;
-    }>;
-
-    /**
-     * When a tooltip request detail data
-     */
-    @Event({
-        eventName: 'kupDetailRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDetailRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: KupTooltip;
-    }>;
-
     onDocumentClick = () => {};
 
     stickyHeaderPosition = () => {
@@ -936,26 +911,6 @@ export class KupDataTable {
         }
         this.closeMenu();
         this.tooltip.relatedObject = related;
-    }
-
-    private requestLoadTooltip(relatedObject: TooltipRelatedObject) {
-        if (relatedObject == null) {
-            return;
-        }
-        this.kupLoadRequest.emit({
-            cell: relatedObject.object,
-            tooltip: this.tooltip,
-        });
-    }
-
-    private requestLoadDetailTooltip(relatedObject: TooltipRelatedObject) {
-        if (relatedObject == null) {
-            return;
-        }
-        this.kupDetailRequest.emit({
-            cell: relatedObject.object,
-            tooltip: this.tooltip,
-        });
     }
 
     private getColumns(): Array<Column> {
@@ -2481,12 +2436,6 @@ export class KupDataTable {
                 loadTimeout={this.tooltipLoadTimeout}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
-                onKupTooltipLoadData={(ev) =>
-                    this.requestLoadTooltip(ev.detail.relatedObject)
-                }
-                onKupTooltipLoadDetail={(ev) =>
-                    this.requestLoadDetailTooltip(ev.detail.relatedObject)
-                }
             ></kup-tooltip>
         );
     }

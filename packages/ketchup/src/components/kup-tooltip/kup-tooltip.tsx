@@ -16,6 +16,8 @@ import {
     TooltipRelatedObject,
     TooltipAction,
     TooltipObject,
+    ViewMode,
+    TooltipCellOptions,
 } from './kup-tooltip-declarations';
 import { logMessage } from '../../utils/debug-manager';
 //import { positionRecalc } from '../../utils/recalc-position';
@@ -46,6 +48,12 @@ export class KupTooltip {
     detailData: TooltipDetailData;
 
     /**
+     * Data for cell options
+     */
+    @Prop()
+    cellOptions: TooltipCellOptions;
+
+    /**
      * Timeout for loadDetail
      */
     @Prop()
@@ -66,13 +74,19 @@ export class KupTooltip {
     @State()
     visible = false;
 
+    @State()
+    viewMode: ViewMode = ViewMode.TOOTLIP;
+
     @Event({
         eventName: 'kupTooltipLoadData',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTooltipLoadData: EventEmitter<{ relatedObject: TooltipRelatedObject }>;
+    kupTooltipLoadData: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
 
     @Event({
         eventName: 'kupTooltipLoadDetail',
@@ -80,7 +94,21 @@ export class KupTooltip {
         cancelable: false,
         bubbles: true,
     })
-    kupTooltipLoadDetail: EventEmitter<{ relatedObject: TooltipRelatedObject }>;
+    kupTooltipLoadDetail: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipLoadCellOptions',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTooltipLoadCellOptions: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
 
     @Event({
         eventName: 'kupActionCommandClicked',
@@ -156,6 +184,10 @@ export class KupTooltip {
         return !!this.detailData && !!this.detailData.rows;
     }
 
+    private hasCellOptionsData(): boolean {
+        return !!this.cellOptions && !!this.cellOptions.children != null;
+    }
+
     private hasActionsData(): boolean {
         return (
             this.hasDetailData() &&
@@ -191,9 +223,27 @@ export class KupTooltip {
         }
     }
 
+    private isViewModeTooltip(): boolean {
+        return this.viewMode == ViewMode.TOOTLIP;
+    }
+
+    private isViewModeCellOptions(): boolean {
+        return this.viewMode == ViewMode.CELL_OPTIONS;
+    }
+
     private loadDetail() {
         this.resetLoadDetailTimeout();
-        this.kupTooltipLoadDetail.emit({ relatedObject: this.relatedObject });
+        if (this.isViewModeTooltip()) {
+            this.kupTooltipLoadDetail.emit({
+                relatedObject: this.relatedObject,
+                tooltip: this,
+            });
+        } else if (this.isViewModeCellOptions()) {
+            this.kupTooltipLoadCellOptions.emit({
+                relatedObject: this.relatedObject,
+                tooltip: this,
+            });
+        }
     }
 
     get rows(): Row[] {
@@ -253,6 +303,7 @@ export class KupTooltip {
             this.visible = true;
             this.kupTooltipLoadData.emit({
                 relatedObject: this.relatedObject,
+                tooltip: this,
             });
         }, this.loadTimeout);
     }
@@ -309,9 +360,12 @@ export class KupTooltip {
         // reset data
         this.data = null;
         this.detailData = null;
+        this.cellOptions = null;
 
         // reset visibility
         this.visible = false;
+
+        this.viewMode = ViewMode.TOOTLIP;
 
         // reset timeouts
         this.resetTimeouts();
@@ -484,10 +538,26 @@ export class KupTooltip {
                         </div>
                     ));
             }
+            detailActions = [
+                ...detailActions,
+                <div class="detail-actions__box">
+                    <kup-button
+                        flat={true}
+                        tooltip={this.getTooltipForShowOptionsButton()}
+                        icon={this.getIconForShowOptionsButton()}
+                        onKupButtonClick={() => this.onShowRightClickOptions()}
+                    ></kup-button>
+                </div>,
+            ];
+        }
+        if (this.hasCellOptionsData()) {
+            detailContent = [
+                <span>cell options {JSON.stringify(this.cellOptions)}</span>,
+            ];
         }
 
         const detailClass = {
-            visible: this.hasDetailData(),
+            visible: this.hasDetailData() || this.hasCellOptionsData(),
         };
 
         const tooltipStyle = {
@@ -513,6 +583,32 @@ export class KupTooltip {
         );
     }
 
+    getTooltipForShowOptionsButton(): string {
+        if (this.isViewModeTooltip()) {
+            return 'Show row options';
+        } else if (this.isViewModeCellOptions()) {
+            return 'Show tooltip info';
+        } else {
+            return '???';
+        }
+    }
+
+    getIconForShowOptionsButton(): string {
+        if (this.isViewModeTooltip()) {
+            return 'extension';
+        } else if (this.isViewModeCellOptions()) {
+            return 'comment';
+        } else {
+            return '???';
+        }
+    }
+
+    onShowRightClickOptions() {
+        this.viewMode =
+            this.viewMode == ViewMode.TOOTLIP
+                ? ViewMode.CELL_OPTIONS
+                : ViewMode.TOOTLIP;
+    }
     //---- Lifecycle hooks ----
 
     componentWillLoad() {

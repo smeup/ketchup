@@ -9,6 +9,7 @@
 
 | Property        | Attribute        | Description                      | Type                   | Default     |
 | --------------- | ---------------- | -------------------------------- | ---------------------- | ----------- |
+| `cellOptions`   | --               | Data for cell options            | `TooltipCellOptions`   | `undefined` |
 | `data`          | --               | Data for top section             | `TooltipData`          | `undefined` |
 | `detailData`    | --               | Data for the detail              | `TooltipDetailData`    | `undefined` |
 | `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
@@ -19,13 +20,14 @@
 
 ## Events
 
-| Event                     | Description | Type                                                    |
-| ------------------------- | ----------- | ------------------------------------------------------- |
-| `kupActionCommandClicked` |             | `CustomEvent<{ actionCommand: TooltipAction; }>`        |
-| `kupDefaultActionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`                  |
-| `kupDefaultOptionClicked` |             | `CustomEvent<{ obj: TooltipObject; }>`                  |
-| `kupTooltipLoadData`      |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; }>` |
-| `kupTooltipLoadDetail`    |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; }>` |
+| Event                       | Description | Type                                                                         |
+| --------------------------- | ----------- | ---------------------------------------------------------------------------- |
+| `kupActionCommandClicked`   |             | `CustomEvent<{ actionCommand: TooltipAction; }>`                             |
+| `kupDefaultActionClicked`   |             | `CustomEvent<{ obj: TooltipObject; }>`                                       |
+| `kupDefaultOptionClicked`   |             | `CustomEvent<{ obj: TooltipObject; }>`                                       |
+| `kupTooltipLoadCellOptions` |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
+| `kupTooltipLoadData`        |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
+| `kupTooltipLoadDetail`      |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
 
 
 ## Dependencies
