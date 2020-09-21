@@ -729,7 +729,6 @@ export class KupDataTable {
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
-                    console.log(entry);
                     if (entry.isIntersecting) {
                         this.theadIntersecting = true;
                     } else if (
