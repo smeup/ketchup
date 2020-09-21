@@ -1,4 +1,6 @@
 @import 'modules/kup-data-table-main';
+@import 'modules/kup-data-table-head';
+@import 'modules/kup-data-table-body';
 @import 'modules/kup-data-table-paginator';
 @import 'modules/kup-data-table-sticky-header';
 @import 'modules/kup-data-table-fixed-rows';
@@ -7,15 +9,4 @@
 :host {
   display: block;
   position: relative;
-}
-
-.below-wrapper {
-  height: auto;
-  overflow: auto;
-  &.custom-size {
-    overflow: unset;
-  }
-  &:not(.custom-size) {
-    overflow-x: auto;
-  }
 }
