@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  --mdc-theme-on-surface: var(--kup-title-color);
 }
 
 .mdc-chip {
@@ -23,8 +24,8 @@
 }
 
 svg path {
-  color: var(--kup-text-color);
-  stroke: var(--kup-text-color);
+  color: var(--kup-title-color);
+  stroke: var(--kup-title-color);
 }
 
 .mdc-chip__icon--leading-hidden {
