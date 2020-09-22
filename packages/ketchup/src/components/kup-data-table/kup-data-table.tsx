@@ -3314,7 +3314,6 @@ export class KupDataTable {
                         }}
                     />
                     <div
-                        onMouseLeave={() => this.closeCustomSettings(top)}
                         class="kup-menu customize-panel"
                         ref={(el) => {
                             top
