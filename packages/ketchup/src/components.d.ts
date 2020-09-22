@@ -316,7 +316,10 @@ export namespace Components {
         "graphTitleColor": string;
         "graphTitleSize": number;
         "hAxis": ChartAxis;
-        "legend": boolean;
+        /**
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top.
+         */
+        "legend": string;
         "offlineMode": ChartOfflineMode;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "series": string[];
@@ -2136,7 +2139,10 @@ declare namespace LocalJSX {
         "graphTitleColor"?: string;
         "graphTitleSize"?: number;
         "hAxis"?: ChartAxis;
-        "legend"?: boolean;
+        /**
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top.
+         */
+        "legend"?: string;
         "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
