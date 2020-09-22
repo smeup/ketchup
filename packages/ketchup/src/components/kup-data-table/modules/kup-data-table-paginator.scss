@@ -15,6 +15,7 @@
   .customize-panel {
     background: var(--kup-background-color);
     box-shadow: var(--kup-box-shadow);
+    min-width: 200px;
     width: 200px;
     width: fit-content;
   }
