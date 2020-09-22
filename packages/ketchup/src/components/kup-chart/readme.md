@@ -18,7 +18,7 @@
 | `graphTitleColor` | `graph-title-color` |                                                                                                                  | `string`                           | `undefined`        |
 | `graphTitleSize`  | `graph-title-size`  |                                                                                                                  | `number`                           | `undefined`        |
 | `hAxis`           | --                  |                                                                                                                  | `ChartAxis`                        | `undefined`        |
-| `legend`          | `legend`            |                                                                                                                  | `boolean`                          | `true`             |
+| `legend`          | `legend`            | Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top.                      | `string`                           | `'right'`          |
 | `offlineMode`     | --                  |                                                                                                                  | `ChartOfflineMode`                 | `undefined`        |
 | `series`          | --                  |                                                                                                                  | `string[]`                         | `undefined`        |
 | `showMarks`       | `show-marks`        |                                                                                                                  | `boolean`                          | `false`            |

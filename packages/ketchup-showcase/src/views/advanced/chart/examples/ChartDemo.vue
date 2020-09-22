@@ -90,10 +90,11 @@ export default {
         },
         {
           prop: 'legend',
-          description: 'Displays the legend of the graph.',
-          type: 'boolean',
-          default: 'true',
-          try: 'switch',
+          description:
+            'Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.',
+          type: 'string',
+          default: 'right',
+          try: 'field',
         },
         {
           prop: 'offlineMode',
@@ -197,7 +198,7 @@ function createComp() {
   comp.axis = 'Col1';
   comp.data = baseData;
   comp.id = 'demo-component';
-  comp.legend = true;
+  comp.legend = 'right';
   comp.series = ['Col2', 'Col3', 'Col4'];
   comp.type = ['Hbar'];
   return comp;
