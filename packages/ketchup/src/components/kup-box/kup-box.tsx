@@ -18,6 +18,7 @@ import {
     SortObject,
     SortMode,
     RowAction,
+    Cell
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -35,6 +36,7 @@ import {
     isIcon,
     isChart,
     isCheckbox,
+    hasTooltip
 } from '../../utils/object-utils';
 
 import {
@@ -54,6 +56,12 @@ import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import {
+    TooltipRelatedObject
+} from '../kup-tooltip/kup-tooltip-declarations';
+import { emit } from 'process';
+
 
 @Component({
     tag: 'kup-box',
@@ -160,6 +168,16 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     sortEnabled = false;
+
+    /**
+     * Defines the timout for tooltip load
+     */
+    @Prop() tooltipLoadTimeout: number;
+
+    /**
+     * Defines the timout for tooltip detail
+     */
+    @Prop() tooltipDetailTimeout: number;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -301,12 +319,28 @@ export class KupBox {
         toSelectedRows?: BoxRow[];
     }>;
 
+    /**
+     * Triggered when tooltip raise same event
+     */
+    @Event({
+        eventName: 'kupTooltipLoadData',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTooltipLoadData: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
+
     private boxLayout: Layout;
 
     private visibleColumns: Column[] = [];
 
     private rows: BoxRow[] = [];
     private filteredRows: BoxRow[] = [];
+
+    private tooltip: KupTooltip;
 
     @Watch('globalFilterValue')
     @Watch('sortBy')
@@ -872,6 +906,30 @@ export class KupBox {
         this.currentPage = detail.newPage;
     }
 
+    private setTooltip(event: MouseEvent, cell: Cell) {
+        let related: TooltipRelatedObject = null;
+        if (cell != null) {
+            related = {} as TooltipRelatedObject;
+            related.element = event.target as HTMLElement;
+            related.object = cell;
+        }
+
+        let newValue = related;
+        let oldValue = this.tooltip.relatedObject;
+        if (newValue == null && oldValue == null) {
+            return;
+        }
+        if (newValue != null && oldValue != null) {
+            if (
+                newValue.object == oldValue.object &&
+                newValue.element == oldValue.element
+            ) {
+                return;
+            }
+        }        
+        this.tooltip.relatedObject = related;
+    }
+
     // render methods
     private renderSectionAsCard(row: BoxRow) {
         let cntBTN: number = 0;
@@ -1083,8 +1141,8 @@ export class KupBox {
             draggable: this.dragEnabled,
             selected: this.showSelection && isSelected,
             column: !horizontal,
-        };
-
+        };        
+        
         return (
             <div class="box-wrapper">
                 <div
@@ -1109,7 +1167,7 @@ export class KupBox {
                     }
                     onDrop={
                         this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
-                    }
+                    }                    
                 >
                     {multiSel}
                     {boxContent}
@@ -1278,11 +1336,15 @@ export class KupBox {
 
         let boStyle = {};
         //let boInnerHTML = null;
-
+        let cell = null;
+        let _hasTooltip = false;
         if (boxObject.column) {
-            const cell = row.cells[boxObject.column];
+            cell = row.cells[boxObject.column];                        
 
-            if (cell) {
+            if (cell) {                
+                _hasTooltip = hasTooltip(cell.obj);
+                _hasTooltip = true;
+                console.log("_hastTooltip = " + _hasTooltip);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1421,12 +1483,27 @@ export class KupBox {
 
         return (
             <div
+                onMouseOver={
+                (e) =>_hasTooltip ? this.setTooltip(e, cell) : this.setTooltip(null, null)
+            }
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
             >
                 {boContent}
             </div>
+        );
+    }
+
+    renderTooltip() {
+        return (
+            <kup-tooltip
+                class="datatable-tooltip"
+                loadTimeout={this.tooltipLoadTimeout}
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}                
+                onKupTooltipLoadData = {(ev: any) => this.kupTooltipLoadData.emit(ev)}
+            ></kup-tooltip>
         );
     }
 
@@ -1534,6 +1611,8 @@ export class KupBox {
             'grid-template-columns': `repeat(${this.columns}, 1fr)`,
         };
 
+        const tooltip = this.renderTooltip();        
+
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
@@ -1557,7 +1636,7 @@ export class KupBox {
                             (this.dropOnSection || !this.getRows().length)
                                 ? (e) => this.onSectionDrop(e)
                                 : null
-                        }
+                        }                        
                     >
                         {sortPanel}
                         {filterPanel}
@@ -1565,6 +1644,7 @@ export class KupBox {
                         <div id="box-container" style={containerStyle}>
                             {boxContent}
                         </div>
+                        {tooltip}
                     </div>
                 </div>
             </Host>

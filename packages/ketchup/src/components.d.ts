@@ -10,6 +10,8 @@ import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
+import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { KupTooltip } from "./components/kup-tooltip/kup-tooltip";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
@@ -27,7 +29,6 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
@@ -168,6 +169,14 @@ export namespace Components {
           * Enable sorting
          */
         "sortEnabled": boolean;
+        /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
     }
     interface KupBtn {
         "buttons": any[];
@@ -1898,6 +1907,13 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
+          * Triggered when tooltip raise same event
+         */
+        "onKupTooltipLoadData"?: (event: CustomEvent<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>) => void;
+        /**
           * Number of boxes per page
          */
         "pageSize"?: number;
@@ -1921,6 +1937,14 @@ declare namespace LocalJSX {
           * Enable sorting
          */
         "sortEnabled"?: boolean;
+        /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
     }
     interface KupBtn {
         "buttons"?: any[];
