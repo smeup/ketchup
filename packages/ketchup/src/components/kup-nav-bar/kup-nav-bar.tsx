@@ -307,7 +307,7 @@ export class KupNavBar {
                             customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                             icon={action.icon}
                             iconColor={this.textColor}
-                            tooltip={action.tooltip}
+                            title={action.tooltip}
                             onKupButtonClick={() =>
                                 this.onKupOptionButtonClick(action.value)
                             }
@@ -331,7 +331,7 @@ export class KupNavBar {
                     customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="more_vert"
                     iconColor={this.textColor}
-                    tooltip="Options"
+                    title="Options"
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
                     onClick={(e) => e.stopPropagation()}
                     ref={(el) => (this.optionsButtonEl = el as any)}
@@ -348,7 +348,7 @@ export class KupNavBar {
                     customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon={action.icon}
                     iconColor={this.textColor}
-                    tooltip={action.tooltip}
+                    title={action.tooltip}
                     onKupButtonClick={() =>
                         this.onKupNavbarMenuButtonClick(action.value)
                     }
@@ -369,7 +369,7 @@ export class KupNavBar {
                     customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
                     icon="menu"
                     iconColor={this.textColor}
-                    tooltip="Open navigation menu"
+                    title="Open navigation menu"
                     disabled={menuButtons.length == 0}
                     onKupButtonClick={() => this.openList(this.menuListEl)}
                     onClick={(e) => e.stopPropagation()}

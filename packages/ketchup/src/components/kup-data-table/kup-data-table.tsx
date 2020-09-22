@@ -2132,14 +2132,14 @@ export class KupDataTable {
                         <li role="menuitem" class="button-row">
                             <kup-button
                                 icon="book"
-                                tooltip={groupLabel}
+                                title={groupLabel}
                                 onKupButtonClick={() =>
                                     this.switchColumnGroup(group, column.name)
                                 }
                             />
                             <kup-button
                                 icon="table-column-plus-after"
-                                tooltip="Add column"
+                                title="Add column"
                                 onKupButtonClick={() => {
                                     this.kupAddColumn.emit({
                                         column: column.name,
@@ -2149,12 +2149,12 @@ export class KupDataTable {
                             />
                             <kup-button
                                 icon="table-column-remove"
-                                tooltip="Hide column"
+                                title="Hide column"
                                 onKupButtonClick={() => {
                                     column.visible = false;
                                     this.closeMenu();
                                 }}
-                            />                            
+                            />
                         </li>
                     );
 
@@ -2734,7 +2734,7 @@ export class KupDataTable {
                     rowActionExpander = (
                         <kup-button
                             icon="chevron-right"
-                            tooltip="Expand items"
+                            title="Expand items"
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
@@ -2879,7 +2879,7 @@ export class KupDataTable {
             return (
                 <kup-button
                     icon={action.icon}
-                    tooltip={action.text}
+                    title={action.text}
                     onKupButtonClick={(e) => {
                         this.onDefaultRowActionClick(e, {
                             action,
@@ -3235,7 +3235,7 @@ export class KupDataTable {
                 label={label}
                 flat
                 icon="plus"
-                tooltip={label}
+                title={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
                     this.onLoadMoreClick();
@@ -3303,7 +3303,7 @@ export class KupDataTable {
                     <kup-button
                         class="paginator-button custom-settings"
                         icon="settings"
-                        tooltip="Show customization options"
+                        title="Show customization options"
                         onKupButtonClick={() => {
                             this.onCustomSettingsClick(top);
                         }}

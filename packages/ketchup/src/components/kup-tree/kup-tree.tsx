@@ -52,7 +52,6 @@ import { KupStore } from '../kup-state/kup-store';
     shadow: true,
 })
 export class KupTree {
-
     //////////////////////////////
     // Begin state stuff
     //////////////////////////////
@@ -692,7 +691,7 @@ export class KupTree {
                 class="options"
                 custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
                 icon="settings"
-                tooltip="Options"
+                title="Options"
                 onKupButtonClick={(e: CustomEvent) =>
                     this.hdlOptionClicked(e, cell, column, treeNode)
                 }

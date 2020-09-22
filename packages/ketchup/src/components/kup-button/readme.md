@@ -20,7 +20,6 @@
 | `outlined`     | `outlined`      | Defaults at false. When set to true, the button will be rendered with a colored outline.                                                      | `boolean` | `false`     |
 | `shaped`       | `shaped`        | Defaults at false. When set to true, the button will be rendered with rounded edges.                                                          | `boolean` | `false`     |
 | `toggable`     | `toggable`      | Defaults at false. When set to true, the icon button will be toggable on/off.                                                                 | `boolean` | `false`     |
-| `tooltip`      | `tooltip`       | When set, this tooltip will be displayed on mouse over (using the HTML attribute title).                                                      | `string`  | `undefined` |
 | `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                                                            | `boolean` | `false`     |
 
 

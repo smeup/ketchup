@@ -132,14 +132,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'tooltip',
-          description:
-            'When set, this tooltip will be displayed on mouse over (using the HTML attribute title).',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'trailingIcon',
           description:
             'The button will display its associated icon after the text.',

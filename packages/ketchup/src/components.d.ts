@@ -229,10 +229,6 @@ export namespace Components {
          */
         "toggable": boolean;
         /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip": string;
-        /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
         "trailingIcon": boolean;
@@ -1995,10 +1991,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
         "toggable"?: boolean;
-        /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip"?: string;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
