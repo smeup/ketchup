@@ -54,13 +54,56 @@ import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
-
+import { KupBoxState } from './kup-box-state';
+import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
     shadow: true,
 })
 export class KupBox {
+
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupBoxState = new KupBoxState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                logMessage(this, 'Initialize with state for stateId ' + this.stateId + ': ' +state);
+                // *** PROPS ***
+                this.sortBy = this.state.sortBy;
+                this.globalFilterValueState = this.state.globalFilterValueState;
+                this.selectedRowsState = this.state.selectedRowsState;
+                this.pageSelected = this.state.pageSelected;
+                this.rowsPerPage = this.state.rowsPerPage;
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+                // *** PROPS ***
+                this.state.sortBy = this.sortBy;
+                this.state.globalFilterValueState = this.globalFilterValue;
+                this.state.selectedRowsState = this.selectedRows;
+                this.state.pageSelected = this.currentPage;
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
 
@@ -156,10 +199,35 @@ export class KupBox {
     @Prop({ mutable: true, reflect: true })
     sortBy: string;
     /**
+     * Global filter value state
+     */
+    @Prop({ mutable: true, reflect: true })
+    globalFilterValueState: string;
+    /**
+     * Multiple selection
+     */
+    @Prop({ mutable: true, reflect: true })
+    selectedRowsState: BoxRow[] = [];
+    /**
      * Enable sorting
      */
     @Prop({ reflect: true })
     sortEnabled = false;
+    /**
+     * Disable swipe
+     */
+    @Prop({ reflect: true })
+    swipeDisabled = false;
+     /**
+     * current number page
+     */
+    @Prop({ reflect: true })
+    pageSelected : number;
+     /**
+     * current rows per page
+     */
+    @Prop({ reflect: true })
+    rowsPerPage : number;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -184,6 +252,10 @@ export class KupBox {
 
     @State()
     private currentPage = 1;
+
+    @State()
+    private currentRowsPerPage = 10;
+
 
     /**
      * Triggered when a box is clicked
@@ -308,11 +380,17 @@ export class KupBox {
     private rows: BoxRow[] = [];
     private filteredRows: BoxRow[] = [];
 
+    @Watch('pageSize')
+    rowsPerPageHandler(newValue: number) {
+        this.currentRowsPerPage = newValue;
+    }
+
     @Watch('globalFilterValue')
     @Watch('sortBy')
     @Watch('pagination')
     @Watch('pageSize')
     @Watch('currentPage')
+    @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
     }
@@ -345,8 +423,14 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        if(this.rowsPerPage){
+            this.currentRowsPerPage = this.rowsPerPage;
+        } else if (this.pageSize){
+            this.currentRowsPerPage = this.pageSize;
+        }
         setThemeCustomStyle(this);
         this.onDataChanged();
+        this.adjustPaginator();
     }
 
     componentDidLoad() {
@@ -357,6 +441,15 @@ export class KupBox {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+
+        // Initialize @State from @Prop 
+        this.globalFilterValue = this.globalFilterValueState;
+        this.currentPage = this.pageSelected;
+//        this.currentRowsPerPage = this.rowsPerPage;
+
+        if(this.multiSelection){
+            this.selectedRows = this.selectedRowsState;
+        }
     }
 
     componentWillRender() {
@@ -371,6 +464,9 @@ export class KupBox {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     componentDidUnload() {
@@ -387,6 +483,15 @@ export class KupBox {
         this.rowActionMenuOpened = row;
     }
 
+    private getColumnByDesc(columns: Column[], title: string): Column {
+        for (let column of columns) {
+            if (column.title === title) {
+                return column;
+            }
+        }
+        return null;
+    }
+    
     // private methods
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -437,7 +542,7 @@ export class KupBox {
             this.rows = paginateRows(
                 this.rows,
                 this.currentPage,
-                this.pageSize
+                this.currentRowsPerPage
             );
         }
     }
@@ -495,8 +600,8 @@ export class KupBox {
 
     private onSortChange(e: CustomEvent) {
         console.log(e);
-        this.sortBy = e.detail.value;
-        this.initRows();
+        let column = this.getColumnByDesc(this.visibleColumns, e.detail.value);
+        this.sortBy = column.name;
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -514,16 +619,20 @@ export class KupBox {
         );
     }
 
-    private handleAutomaticBoxSelection() {
-        // automatic row selection
-        if (
+    private handleAutomaticBoxSelection() { 
+       if (
             this.selectBox &&
             this.selectBox > 0 &&
-            this.selectBox <= this.rows.length
+            (this.selectBox) <= this.data.rows.length
         ) {
             this.selectedRows = [];
-            this.selectedRows.push(this.rows[this.selectBox - 1]);
 
+  
+            for (let boxRow of this.data.rows) {
+                if (boxRow.id === (this.selectBox - 1).toString()) {
+                    this.selectedRows.push(boxRow);
+                }
+        }
             this.kupAutoBoxSelect.emit({
                 row: this.selectedRows[0],
             });
@@ -872,6 +981,22 @@ export class KupBox {
         this.currentPage = detail.newPage;
     }
 
+    private handleRowsPerPageChanged({ detail }) {
+        this.currentRowsPerPage = detail.newRowsPerPage;
+        this.adjustPaginator();
+    }
+
+    private adjustPaginator() {
+        const numberOfRows = this.rows.length;
+
+        // check if current page is valid
+        const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
+        if (this.currentPage > numberOfPages) {
+            // reset page
+            this.currentPage = 1;
+        }
+    }
+
     // render methods
     private renderSectionAsCard(row: BoxRow) {
         let cntBTN: number = 0;
@@ -1001,7 +1126,12 @@ export class KupBox {
             }
         }
 
-        const isSelected = this.selectedRows.includes(row);
+        var isSelected = false;
+        for (let select of this.selectedRows) {
+            if (select.id === row.id) {
+                isSelected = true;
+            }
+        }
 
         let multiSel = null;
         if (this.multiSelection) {
@@ -1016,7 +1146,7 @@ export class KupBox {
         }
 
         let rowObject = null;
-        if (this.enableRowActions) {
+        if (this.enableRowActions && !this.swipeDisabled) {
             const menuClass = {
                 'row-action-menu': true,
                 open: row === this.rowActionMenuOpened,
@@ -1450,11 +1580,9 @@ export class KupBox {
                     value: column.name,
                     selected: column.name === this.sortBy,
                 };
-
                 return item;
             });
-
-            const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 initialValue: this.sortBy,
                 label: 'Sort by',
@@ -1483,6 +1611,7 @@ export class KupBox {
                     <kup-text-field
                         label="Cerca" // TODO
                         full-width={true}
+                        initial-value={this.globalFilterValueState}
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
@@ -1508,7 +1637,10 @@ export class KupBox {
                     max={this.filteredRows.length}
                     perPage={this.pageSize}
                     currentPage={this.currentPage}
+                    selectedPerPage={this.currentRowsPerPage}
                     onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) => this.handleRowsPerPageChanged(e)}
+
                     mode={PaginatorMode.SIMPLE}
                 />
             );
