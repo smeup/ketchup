@@ -246,7 +246,7 @@ export class KupTooltip {
         }
     }
 
-    get rows(): Row[] {
+    private getRows(): Row[] {
         return this.hasDetailData() ? this.detailData.rows : [];
     }
 
@@ -507,7 +507,7 @@ export class KupTooltip {
         let detailContent = null;
         let detailActions = null;
         if (this.hasDetailData()) {
-            detailContent = this.rows.map((row) =>
+            detailContent = this.getRows().map((row) =>
                 row.cells['label'].value === '' ||
                 row.cells['value'].value === '' ? (
                     <span></span>

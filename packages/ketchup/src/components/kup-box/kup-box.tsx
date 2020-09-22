@@ -318,21 +318,7 @@ export class KupBox {
         toRow: BoxRow;
         toSelectedRows?: BoxRow[];
     }>;
-
-    /**
-     * Triggered when tooltip raise same event
-     */
-    @Event({
-        eventName: 'kupTooltipLoadData',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTooltipLoadData: EventEmitter<{
-        relatedObject: TooltipRelatedObject;
-        tooltip: KupTooltip;
-    }>;
-
+    
     private boxLayout: Layout;
 
     private visibleColumns: Column[] = [];
@@ -1341,10 +1327,8 @@ export class KupBox {
         if (boxObject.column) {
             cell = row.cells[boxObject.column];                        
 
-            if (cell) {                
-                _hasTooltip = hasTooltip(cell.obj);
-                _hasTooltip = true;
-                console.log("_hastTooltip = " + _hasTooltip);
+            if (cell) {                                
+                _hasTooltip = hasTooltip(cell.obj);                
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1501,8 +1485,7 @@ export class KupBox {
                 class="datatable-tooltip"
                 loadTimeout={this.tooltipLoadTimeout}
                 detailTimeout={this.tooltipDetailTimeout}
-                ref={(el: any) => (this.tooltip = el as KupTooltip)}                
-                onKupTooltipLoadData = {(ev: any) => this.kupTooltipLoadData.emit(ev)}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}                                
             ></kup-tooltip>
         );
     }
