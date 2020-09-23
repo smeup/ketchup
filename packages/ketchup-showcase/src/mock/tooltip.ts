@@ -227,8 +227,8 @@ export const lustForLife = {
 };
 
 export const cellOptions = {
-  pippo: 'pluto',
-  paperina: 'minni',
+  value: 'cellOptions value',
+  visible: true,
 };
 
 export const imageUrls = {

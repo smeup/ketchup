@@ -40,16 +40,27 @@
 
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
+- [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-tooltip --> kup-tree
   kup-button --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-text-field
+  kup-progress-bar --> kup-image
+  kup-text-field --> kup-image
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```

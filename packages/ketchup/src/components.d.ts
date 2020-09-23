@@ -597,11 +597,11 @@ export namespace Components {
          */
         "tableWidth": string;
         /**
-          * Defines the timout for tooltip detail
+          * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
         /**
-          * Defines the timout for tooltip load
+          * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
         /**
@@ -2515,11 +2515,11 @@ declare namespace LocalJSX {
          */
         "tableWidth"?: string;
         /**
-          * Defines the timout for tooltip detail
+          * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
         /**
-          * Defines the timout for tooltip load
+          * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout"?: number;
         /**

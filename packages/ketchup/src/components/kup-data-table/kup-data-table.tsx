@@ -374,12 +374,12 @@ export class KupDataTable {
     @Prop() lineBreakCharacter: string = '|';
 
     /**
-     * Defines the timout for tooltip load
+     * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail
+     * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -797,6 +797,14 @@ export class KupDataTable {
             this.intObserver.observe(this.observedEl);
         }
         document.addEventListener('click', this.onDocumentClick);
+
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
+            this
+        );
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -857,12 +865,14 @@ export class KupDataTable {
             }
         }
 
+        /*
         // Attach function to close header menu onto the document
         this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
             this
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+        */
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
@@ -3029,18 +3039,12 @@ export class KupDataTable {
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
         const _hasTooltip: boolean = hasTooltip(cell.obj);
-        if (_hasTooltip) {
-            //classObj['is-tooltip'] = true;
-        }
-
         return (
             <span
                 class={classObj}
                 style={style}
                 onMouseOver={(ev) =>
-                    _hasTooltip
-                        ? this.setTooltip(ev, cell)
-                        : this.setTooltip(null, null)
+                    _hasTooltip ? this.setTooltip(ev, cell) : null
                 }
             >
                 {indend}
@@ -3467,11 +3471,7 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div
-                id="data-table-wrapper"
-                style={elStyle}
-                onMouseLeave={() => this.closeMenuAndTooltip()}
-            >
+            <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
