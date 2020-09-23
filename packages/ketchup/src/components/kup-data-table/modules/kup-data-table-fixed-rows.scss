@@ -16,24 +16,24 @@ $sticky-cell--row-z-index: 4;
 
 // Base style for the cells which are sticky
 %fixedCellsBase {
-  background: var(--kup-background-color);
+  background: rgb(var(--kup-background-color));
   position: sticky;
 
   &:hover {
-    background-color: var(--kup-hover-background-color);
+    background-color: rgb(var(--kup-hover-background-color));
   }
 
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
   thead & {
-    background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
+    background-color: rgb(var(--kup-title-background-color));
+    color: rgb(var(--kup-title-color));
     z-index: #{$sticky-header--z-index};
   }
 }
 
 @mixin fixedRowSeparator($bottom-position) {
   bottom: $bottom-position;
-  border-bottom: 1px solid var(--kup-border-color);
+  border-bottom: 1px solid rgb(var(--kup-border-color));
   content: '';
   height: 0;
   left: 0;
@@ -45,7 +45,7 @@ $sticky-cell--row-z-index: 4;
 
 @mixin fixedColumnSeparator($right-position) {
   bottom: 0;
-  border-right: 1px solid var(--kup-border-color);
+  border-right: 1px solid rgb(var(--kup-border-color));
   content: '';
   height: auto;
   position: absolute;
@@ -70,7 +70,7 @@ $sticky-cell--row-z-index: 4;
   // The after for the rows separator element fallback for Firefox and sticky rows
   th::after {
     @include fixedRowSeparator(0);
-    border-bottom: 2px solid var(--kup-border-color);
+    border-bottom: 2px solid rgb(var(--kup-border-color));
     bottom: -2px;
   }
 
