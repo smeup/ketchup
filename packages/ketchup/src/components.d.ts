@@ -168,6 +168,14 @@ export namespace Components {
           * Enable sorting
          */
         "sortEnabled": boolean;
+        /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
     }
     interface KupBtn {
         "buttons": any[];
@@ -1921,6 +1929,14 @@ declare namespace LocalJSX {
           * Enable sorting
          */
         "sortEnabled"?: boolean;
+        /**
+          * Defines the timout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
     }
     interface KupBtn {
         "buttons"?: any[];
