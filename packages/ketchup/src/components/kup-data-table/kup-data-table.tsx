@@ -439,12 +439,17 @@ export class KupDataTable {
     @Watch('filters')
     @Watch('globalFilterValue')
     @Watch('rowsPerPage')
-    @Watch('groups')
     @Watch('totals')
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
+    }
+
+    @Watch('groups')
+    recalculateRowsAndUndoSelections() {
+        this.recalculateRows();
+        this.resetSelectedRows();
     }
 
     @Watch('fixedColumns')
@@ -860,7 +865,10 @@ export class KupDataTable {
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
         // *** Store
-        this.persistState();
+        //Twice execution not useful
+        if (this.lazyLoadCells) {
+            this.persistState();
+        }
         // ***
     }
 
@@ -2188,7 +2196,7 @@ export class KupDataTable {
                                     column.visible = false;
                                     this.closeMenu();
                                 }}
-                            />                            
+                            />
                         </li>
                     );
 

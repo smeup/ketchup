@@ -321,7 +321,7 @@ export namespace Components {
         "graphTitleSize": number;
         "hAxis": ChartAxis;
         /**
-          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top.
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend": string;
         "offlineMode": ChartOfflineMode;
@@ -2148,7 +2148,7 @@ declare namespace LocalJSX {
         "graphTitleSize"?: number;
         "hAxis"?: ChartAxis;
         /**
-          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top.
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend"?: string;
         "offlineMode"?: ChartOfflineMode;
