@@ -5,8 +5,7 @@
 
   // When the drag is over a valid target
   [drag-over] {
-    background-color: var(--kup-disabled-background-color);
-    color: var(--kup-disabled-color);
+    background-color: rgba(var(--kup-success-color-rgb), 0.25);
 
     // Mandatory to allow a correct drop effect when dragging
     > * {
@@ -15,15 +14,7 @@
   }
 
   // When the drag is over but it is the starting element
-  [drag-over][drag-starter]::after {
-    background-color: var(--kup-danger-color);
-    color: var(--kup-danger-color);
-    content: '';
-    position: absolute;
-    opacity: 0.25;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+  [drag-over][drag-starter] {
+    background-color: rgba(var(--kup-danger-color-rgb), 0.25);
   }
 }
