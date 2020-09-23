@@ -2310,7 +2310,10 @@ export class KupDataTable {
                                     KupDataTableColumnDragType
                                 ) >= 0
                             ) {
-                                const overElement = e.target as HTMLElement;
+                                let overElement = e.target as HTMLElement;
+                                if (overElement.tagName !== 'TH') {
+                                    overElement = overElement.closest('th');
+                                }
                                 overElement.setAttribute(
                                     this.dragOverAttribute,
                                     ''
