@@ -284,6 +284,18 @@
             </tr>
             <tr>
               <td class="prevent-cr">
+                <span class="code-word">--kup-success-color</span>
+              </td>
+              <td>Sets the color which defines a success status within the app.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="success-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
                 <span class="code-word">--kup-warning-color</span>
               </td>
               <td>Sets the color which defines a warning status within the app.</td>
