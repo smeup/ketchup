@@ -16,6 +16,7 @@ import { defaultDataTable } from '@/mock/dataTable';
 
 import {
   bornToDie,
+  cellOptions,
   ultraviolence,
   honeymoon,
   lustForLife,
@@ -34,11 +35,14 @@ export default {
         onKupOptionClicked: (e) => {
           this.handleKupOptionClicked(e.detail);
         },
-        onKupLoadRequest: (e) => {
+        onKupTooltipLoadData: (e) => {
           this.onLoadData(e, 1);
         },
-        onKupDetailRequest: (e) => {
+        onKupTooltipLoadDetail: (e) => {
           this.loadBornToDie(e);
+        },
+        onKupTooltipLoadCellOptions: (e) => {
+          this.loadCellOptions(e);
         },
       },
       images: {
@@ -55,6 +59,9 @@ export default {
 
     loadBornToDie(event) {
       setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
+    },
+    loadCellOptions(event) {
+      setTimeout(() => (event.detail.tooltip.cellOptions = cellOptions), 400);
     },
 
     onLoadData(event, index) {

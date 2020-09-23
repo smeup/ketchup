@@ -92,7 +92,10 @@ import { unformatDate } from '../../utils/cell-formatter';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
+import {
+    TooltipRelatedObject,
+    ViewMode,
+} from '../kup-tooltip/kup-tooltip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -373,12 +376,12 @@ export class KupDataTable {
     @Prop() lineBreakCharacter: string = '|';
 
     /**
-     * Defines the timout for tooltip load
+     * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail
+     * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -651,34 +654,6 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
-    /**
-     * When a tooltip request initial data
-     */
-    @Event({
-        eventName: 'kupLoadRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoadRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: KupTooltip;
-    }>;
-
-    /**
-     * When a tooltip request detail data
-     */
-    @Event({
-        eventName: 'kupDetailRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDetailRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: KupTooltip;
-    }>;
-
     onDocumentClick = () => {};
 
     stickyHeaderPosition = () => {
@@ -840,6 +815,14 @@ export class KupDataTable {
             this.intObserver.observe(this.observedEl);
         }
         document.addEventListener('click', this.onDocumentClick);
+
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
+            this
+        );
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -915,12 +898,14 @@ export class KupDataTable {
             }
         }
 
+        /*
         // Attach function to close header menu onto the document
         this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
             this
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+        */
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
@@ -979,26 +964,6 @@ export class KupDataTable {
         }
         this.closeMenu();
         this.tooltip.relatedObject = related;
-    }
-
-    private requestLoadTooltip(relatedObject: TooltipRelatedObject) {
-        if (relatedObject == null) {
-            return;
-        }
-        this.kupLoadRequest.emit({
-            cell: relatedObject.object,
-            tooltip: this.tooltip,
-        });
-    }
-
-    private requestLoadDetailTooltip(relatedObject: TooltipRelatedObject) {
-        if (relatedObject == null) {
-            return;
-        }
-        this.kupDetailRequest.emit({
-            cell: relatedObject.object,
-            tooltip: this.tooltip,
-        });
     }
 
     private getColumns(): Array<Column> {
@@ -2531,12 +2496,6 @@ export class KupDataTable {
                 loadTimeout={this.tooltipLoadTimeout}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
-                onKupTooltipLoadData={(ev) =>
-                    this.requestLoadTooltip(ev.detail.relatedObject)
-                }
-                onKupTooltipLoadDetail={(ev) =>
-                    this.requestLoadDetailTooltip(ev.detail.relatedObject)
-                }
             ></kup-tooltip>
         );
     }
@@ -3136,18 +3095,12 @@ export class KupDataTable {
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
         const _hasTooltip: boolean = hasTooltip(cell.obj);
-        if (_hasTooltip) {
-            //classObj['is-tooltip'] = true;
-        }
-
         return (
             <span
                 class={classObj}
                 style={style}
                 onMouseOver={(ev) =>
-                    _hasTooltip
-                        ? this.setTooltip(ev, cell)
-                        : this.setTooltip(null, null)
+                    _hasTooltip ? this.setTooltip(ev, cell) : null
                 }
             >
                 {indend}
@@ -3574,11 +3527,7 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div
-                id="data-table-wrapper"
-                style={elStyle}
-                onMouseLeave={() => this.closeMenuAndTooltip()}
-            >
+            <div id="data-table-wrapper" style={elStyle}>
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}

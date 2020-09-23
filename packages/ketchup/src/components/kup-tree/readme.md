@@ -107,6 +107,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-tooltip](../kup-tooltip)
+
 ### Depends on
 
 - [kup-button](../kup-button)
@@ -133,6 +137,7 @@ graph TD;
   kup-badge --> kup-image
   kup-progress-bar --> kup-image
   kup-text-field --> kup-image
+  kup-tooltip --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
