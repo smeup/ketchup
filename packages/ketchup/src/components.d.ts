@@ -639,6 +639,11 @@ export namespace Components {
          */
         "totals": TotalsMap;
     }
+    interface KupDrawer {
+        "menu": string;
+        "open": () => Promise<void>;
+        "opened": boolean;
+    }
     interface KupEditor {
         /**
           * The html to be rendered and edited
@@ -1521,6 +1526,12 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
+    }
+    var HTMLKupDrawerElement: {
+        prototype: HTMLKupDrawerElement;
+        new (): HTMLKupDrawerElement;
+    };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
     var HTMLKupEditorElement: {
@@ -1694,6 +1705,7 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
+        "kup-drawer": HTMLKupDrawerElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -2599,6 +2611,10 @@ declare namespace LocalJSX {
           * Defines the current totals options.
          */
         "totals"?: TotalsMap;
+    }
+    interface KupDrawer {
+        "menu"?: string;
+        "opened"?: boolean;
     }
     interface KupEditor {
         /**
@@ -3588,6 +3604,7 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
+        "kup-drawer": KupDrawer;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3636,6 +3653,7 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
+            "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
