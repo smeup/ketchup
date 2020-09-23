@@ -292,7 +292,9 @@ function setTheme() {
         if (variables.hasOwnProperty(key)) {
             var val = variables[key];
             if (key.indexOf('color') > -1) {
-                dom.style.setProperty(key, colorCheck(val).rgbValues);
+                let rgbKey = key + '-rgb';
+                let rgbVal = colorCheck(val).rgbValues;
+                dom.style.setProperty(rgbKey, rgbVal);
             } else {
                 dom.style.setProperty(key, val);
             }

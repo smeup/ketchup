@@ -1,5 +1,5 @@
 tbody {
-  border: 1px solid rgb(var(--kup-border-color));
+  border: 1px solid var(--kup-border-color);
   cursor: auto;
 
   td {
@@ -14,21 +14,21 @@ tbody {
     &:not(.group-total):hover,
     &:hover + .group-total {
       td {
-        color: rgb(var(--kup-hover-color));
-        background-color: rgb(var(--kup-hover-background-color));
+        color: var(--kup-hover-color);
+        background-color: var(--kup-hover-background-color);
       }
     }
 
     &.selected:hover td,
     &.selected td {
-      background-color: rgba(var(--kup-main-color), 0.175);
+      background-color: rgba(var(--kup-main-color-rgb), 0.175);
     }
 
     // grouping
     &.group {
-      background: rgb(var(--kup-title-background-color));
-      border-top: 1px solid rgb(var(--kup-border-color));
-      color: rgb(var(--kup-title-color));
+      background: var(--kup-title-background-color);
+      border-top: 1px solid var(--kup-border-color);
+      color: var(--kup-title-color);
       font-weight: bold;
       cursor: pointer;
 
@@ -134,7 +134,7 @@ tbody {
         }
 
         &.negative-number {
-          color: rgb(var(--kup-danger-color));
+          color: var(--kup-danger-color);
         }
       }
 

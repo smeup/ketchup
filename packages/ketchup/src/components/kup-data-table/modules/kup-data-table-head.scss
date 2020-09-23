@@ -1,13 +1,13 @@
 thead {
-  background-color: rgb(var(--kup-title-background-color));
-  border: 1px solid rgb(var(--kup-border-color));
-  color: rgb(var(--kup-title-color));
+  background-color: var(--kup-title-background-color);
+  border: 1px solid var(--kup-border-color);
+  color: var(--kup-title-color);
 
   th {
-    background-color: rgb(var(--kup-title-background-color));
-    border-bottom: 2px solid rgb(var(--kup-border-color));
-    border-right: 1px solid rgb(var(--kup-border-color));
-    color: rgb(var(--kup-title-color));
+    background-color: var(--kup-title-background-color);
+    border-bottom: 2px solid var(--kup-border-color);
+    border-right: 1px solid var(--kup-border-color);
+    color: var(--kup-title-color);
     box-sizing: border-box;
     padding: 0.5rem 0.3125rem;
     text-overflow: ellipsis;
@@ -68,10 +68,10 @@ thead {
 
     //---- Column menu icon ----
     .column-menu {
-      background: rgb(var(--kup-background-color));
+      background: var(--kup-background-color);
       box-shadow: var(--kup-box-shadow);
       display: none;
-      color: rgb(var(--kup-text-color));
+      color: var(--kup-text-color);
       position: absolute;
       z-index: 100;
       font-weight: normal;
@@ -89,7 +89,7 @@ thead {
         > li {
           padding: 0 0.5rem;
           transition: color 0.2s ease-in-out;
-          color: rgb(var(--kup-text-color));
+          color: var(--kup-text-color);
           transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
           &.textfield-row {
@@ -97,7 +97,7 @@ thead {
           }
 
           &.button-row {
-            border-bottom: 1px solid rgb(var(--kup-border-color));
+            border-bottom: 1px solid var(--kup-border-color);
           }
 
           &.checkbox-row {
