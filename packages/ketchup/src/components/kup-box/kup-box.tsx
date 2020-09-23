@@ -222,7 +222,7 @@ export class KupBox {
      * current number page
      */
     @Prop({ reflect: true })
-    pageSelected : number;
+    pageSelected : number = 1;
      /**
      * current rows per page
      */
@@ -631,8 +631,9 @@ export class KupBox {
             for (let boxRow of this.data.rows) {
                 if (boxRow.id === (this.selectBox - 1).toString()) {
                     this.selectedRows.push(boxRow);
+                    break;
                 }
-        }
+            }
             this.kupAutoBoxSelect.emit({
                 row: this.selectedRows[0],
             });
