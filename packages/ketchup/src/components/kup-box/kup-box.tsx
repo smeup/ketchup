@@ -247,12 +247,12 @@ export class KupBox {
     rowsPerPage: number;
 
     /**
-     * Defines the timout for tooltip load
+     * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail
+     * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -1601,16 +1601,17 @@ export class KupBox {
 
         return (
             <div
-                onMouseOver={(e) =>
-                    _hasTooltip
-                        ? this.setTooltip(e, cell)
-                        : this.setTooltip(null, null)
-                }
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
             >
-                {boContent}
+                <span
+                    onMouseOver={(e) =>
+                        _hasTooltip ? this.setTooltip(e, cell) : null
+                    }
+                >
+                    {boContent}
+                </span>
             </div>
         );
     }
@@ -1618,7 +1619,7 @@ export class KupBox {
     renderTooltip() {
         return (
             <kup-tooltip
-                class="datatable-tooltip"
+                class="box-tooltip"
                 loadTimeout={this.tooltipLoadTimeout}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}

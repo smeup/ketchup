@@ -34,6 +34,7 @@
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
 
 ### Depends on
@@ -61,6 +62,7 @@ graph TD;
   kup-tree --> kup-text-field
   kup-progress-bar --> kup-image
   kup-text-field --> kup-image
+  kup-box --> kup-tooltip
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```

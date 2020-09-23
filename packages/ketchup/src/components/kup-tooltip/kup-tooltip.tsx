@@ -577,6 +577,7 @@ export class KupTooltip {
                         tooltip={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
                         onKupButtonClick={() => this.onShowRightClickOptions()}
+                        onClick={(e) => e.stopPropagation()}
                     ></kup-button>
                 </div>,
             ];
@@ -663,9 +664,10 @@ export class KupTooltip {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+        /**
         if (this.waitingForResponse == false) {
             this.positionRecalculated = false;
-        }
+        }*/
     }
 
     render() {
