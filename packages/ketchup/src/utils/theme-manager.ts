@@ -397,6 +397,17 @@ export function randomColor(brightness: number) {
 }
 
 export function colorCheck(color: string) {
+    //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
+    if (color === 'transparent') {
+        color = dom.kupCurrentTheme.cssVariables['--kup-background-color'];
+        logMessage(
+            'theme manager',
+            'Received TRANSPARENT color, converted to ' +
+                color +
+                ' (theme background).'
+        );
+    }
+
     //Testing whether the color isn't "rgb" nor "hex" value, supposedly is a code word
     if (color.substr(0, 1) !== '#' && color.substr(0, 3) !== 'rgb') {
         let oldColor = color;
