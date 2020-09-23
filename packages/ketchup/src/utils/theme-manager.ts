@@ -291,7 +291,11 @@ function setTheme() {
     for (var key in variables) {
         if (variables.hasOwnProperty(key)) {
             var val = variables[key];
-            dom.style.setProperty(key, val);
+            if (key.indexOf('color') > -1) {
+                dom.style.setProperty(key, colorCheck(val).rgbValues);
+            } else {
+                dom.style.setProperty(key, val);
+            }
         }
     }
     var event = new CustomEvent('kupThemeChanged');
@@ -351,7 +355,7 @@ export function setCustomStyle(component: any) {
 }
 
 export function colorContrast(color: string) {
-    color = colorCheck(color);
+    color = colorCheck(color).rgbColor;
     const colorValues = color.replace(/[^\d,.]/g, '').split(',');
     const brightness = Math.round(
         (parseInt(colorValues[0]) * 299 +
@@ -404,7 +408,13 @@ export function colorCheck(color: string) {
         );
     }
 
-    return color;
+    let rgbValues: string = undefined;
+    var values = color.match(
+        /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
+    );
+    rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+
+    return { rgbColor: color, rgbValues: rgbValues };
 }
 
 export function hexToRgb(hex: string) {
