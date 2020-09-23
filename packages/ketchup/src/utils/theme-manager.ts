@@ -295,9 +295,8 @@ function setTheme() {
                 let rgbKey = key + '-rgb';
                 let rgbVal = colorCheck(val).rgbValues;
                 dom.style.setProperty(rgbKey, rgbVal);
-            } else {
-                dom.style.setProperty(key, val);
             }
+            dom.style.setProperty(key, val);
         }
     }
     var event = new CustomEvent('kupThemeChanged');
