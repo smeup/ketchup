@@ -15,15 +15,15 @@
   }
 
   &:disabled {
-    color: rgb(var(--kup-disabled-color));
+    color: var(--kup-disabled-color);
   }
 
   &.mdc-button--outlined:disabled {
-    border-color: rgb(var(--kup-disabled-color));
+    border-color: var(--kup-disabled-color);
   }
 
   &.mdc-button--raised:disabled {
-    background: rgb(var(--kup-disabled-background-color));
+    background: var(--kup-disabled-background-color);
   }
 
   &.fullwidth {
@@ -38,11 +38,11 @@
 .mdc-icon-button {
   &::after,
   &::before {
-    background-color: rgb(var(--kup-main-color));
+    background-color: var(--kup-main-color);
   }
 
   &:disabled {
-    color: rgb(var(--kup-disabled-color));
+    color: var(--kup-disabled-color);
     opacity: 0.75;
   }
 }
