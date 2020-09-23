@@ -288,15 +288,28 @@ function setTheme() {
         dom.kupCurrentTheme = dom.kupThemes['default'];
     }
     let variables = dom.kupCurrentTheme.cssVariables;
+    let rgbVariables: [{ rgbKey: string; rgbVal: string }] = undefined;
     for (var key in variables) {
         if (variables.hasOwnProperty(key)) {
             var val = variables[key];
             if (key.indexOf('color') > -1) {
                 let rgbKey = key + '-rgb';
                 let rgbVal = colorCheck(val).rgbValues;
-                dom.style.setProperty(rgbKey, rgbVal);
+                if (rgbVariables) {
+                    rgbVariables.push({ rgbVal: rgbVal, rgbKey: rgbKey });
+                } else {
+                    rgbVariables = [{ rgbKey: rgbKey, rgbVal: rgbVal }];
+                }
             }
             dom.style.setProperty(key, val);
+        }
+    }
+    if (rgbVariables) {
+        for (let index = 0; index < rgbVariables.length; index++) {
+            dom.style.setProperty(
+                rgbVariables[index].rgbKey,
+                rgbVariables[index].rgbVal
+            );
         }
     }
     var event = new CustomEvent('kupThemeChanged');
