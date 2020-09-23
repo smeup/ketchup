@@ -60,7 +60,7 @@
     "sass-loader": "^7.1.0",
     "start-server-and-test": "^1.7.10",
     "ts-jest": "^23.0.0",
-    "typescript": "^3.0.0",
+    "typescript": "3.9.3",
     "vue-template-compiler": "^2.5.17"
   },
   "vaadin": { "disableUsageStatistics": true }

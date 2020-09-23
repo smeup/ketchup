@@ -18,7 +18,7 @@ import {
     SortObject,
     SortMode,
     RowAction,
-    Cell
+    Cell,
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -36,7 +36,7 @@ import {
     isIcon,
     isChart,
     isCheckbox,
-    hasTooltip
+    hasTooltip,
 } from '../../utils/object-utils';
 
 import {
@@ -57,18 +57,70 @@ import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import {
-    TooltipRelatedObject
-} from '../kup-tooltip/kup-tooltip-declarations';
+import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
 import { emit } from 'process';
 
-
+import { KupBoxState } from './kup-box-state';
+import { KupStore } from '../kup-state/kup-store';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
     shadow: true,
 })
 export class KupBox {
+    //////////////////////////////
+    // Begin state stuff
+    //////////////////////////////
+
+    @Prop() stateId: string = '';
+    @Prop() store: KupStore;
+
+    state: KupBoxState = new KupBoxState();
+
+    initWithPersistedState(): void {
+        if (this.store && this.stateId) {
+            const state = this.store.getState(this.stateId);
+            if (state != null) {
+                logMessage(
+                    this,
+                    'Initialize with state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        state
+                );
+                // *** PROPS ***
+                this.sortBy = this.state.sortBy;
+                this.globalFilterValueState = this.state.globalFilterValueState;
+                this.selectedRowsState = this.state.selectedRowsState;
+                this.pageSelected = this.state.pageSelected;
+                this.rowsPerPage = this.state.rowsPerPage;
+            }
+        }
+    }
+
+    persistState(): void {
+        if (this.store && this.stateId) {
+            // *** PROPS ***
+            this.state.sortBy = this.sortBy;
+            this.state.globalFilterValueState = this.globalFilterValue;
+            this.state.selectedRowsState = this.selectedRows;
+            this.state.pageSelected = this.currentPage;
+            this.state.rowsPerPage = this.currentRowsPerPage;
+            logMessage(
+                this,
+                'Persisting state for stateId ' +
+                    this.stateId +
+                    ': ' +
+                    this.state
+            );
+            this.store.persistState(this.stateId, this.state);
+        }
+    }
+
+    //////////////////////////////
+    // End state stuff
+    //////////////////////////////
+
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
 
@@ -164,10 +216,35 @@ export class KupBox {
     @Prop({ mutable: true, reflect: true })
     sortBy: string;
     /**
+     * Global filter value state
+     */
+    @Prop({ mutable: true, reflect: true })
+    globalFilterValueState: string;
+    /**
+     * Multiple selection
+     */
+    @Prop({ mutable: true, reflect: true })
+    selectedRowsState: BoxRow[] = [];
+    /**
      * Enable sorting
      */
     @Prop({ reflect: true })
     sortEnabled = false;
+    /**
+     * Disable swipe
+     */
+    @Prop({ reflect: true })
+    swipeDisabled = false;
+    /**
+     * current number page
+     */
+    @Prop({ reflect: true })
+    pageSelected: number = 1;
+    /**
+     * current rows per page
+     */
+    @Prop({ reflect: true })
+    rowsPerPage: number;
 
     /**
      * Defines the timout for tooltip load
@@ -202,6 +279,9 @@ export class KupBox {
 
     @State()
     private currentPage = 1;
+
+    @State()
+    private currentRowsPerPage = 10;
 
     /**
      * Triggered when a box is clicked
@@ -318,7 +398,7 @@ export class KupBox {
         toRow: BoxRow;
         toSelectedRows?: BoxRow[];
     }>;
-    
+
     private boxLayout: Layout;
 
     private visibleColumns: Column[] = [];
@@ -327,12 +407,17 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
+    @Watch('pageSize')
+    rowsPerPageHandler(newValue: number) {
+        this.currentRowsPerPage = newValue;
+    }
 
     @Watch('globalFilterValue')
     @Watch('sortBy')
     @Watch('pagination')
     @Watch('pageSize')
     @Watch('currentPage')
+    @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
     }
@@ -365,8 +450,14 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        if (this.rowsPerPage) {
+            this.currentRowsPerPage = this.rowsPerPage;
+        } else if (this.pageSize) {
+            this.currentRowsPerPage = this.pageSize;
+        }
         setThemeCustomStyle(this);
         this.onDataChanged();
+        this.adjustPaginator();
     }
 
     componentDidLoad() {
@@ -377,6 +468,15 @@ export class KupBox {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+
+        // Initialize @State from @Prop
+        this.globalFilterValue = this.globalFilterValueState;
+        this.currentPage = this.pageSelected;
+        //        this.currentRowsPerPage = this.rowsPerPage;
+
+        if (this.multiSelection) {
+            this.selectedRows = this.selectedRowsState;
+        }
     }
 
     componentWillRender() {
@@ -391,6 +491,9 @@ export class KupBox {
             this,
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
+        // *** Store
+        this.persistState();
+        // ***
     }
 
     componentDidUnload() {
@@ -405,6 +508,15 @@ export class KupBox {
 
         // show menu
         this.rowActionMenuOpened = row;
+    }
+
+    private getColumnByDesc(columns: Column[], title: string): Column {
+        for (let column of columns) {
+            if (column.title === title) {
+                return column;
+            }
+        }
+        return null;
     }
 
     // private methods
@@ -457,7 +569,7 @@ export class KupBox {
             this.rows = paginateRows(
                 this.rows,
                 this.currentPage,
-                this.pageSize
+                this.currentRowsPerPage
             );
         }
     }
@@ -515,8 +627,8 @@ export class KupBox {
 
     private onSortChange(e: CustomEvent) {
         console.log(e);
-        this.sortBy = e.detail.value;
-        this.initRows();
+        let column = this.getColumnByDesc(this.visibleColumns, e.detail.value);
+        this.sortBy = column.name;
     }
 
     private onGlobalFilterChange({ detail }) {
@@ -535,15 +647,19 @@ export class KupBox {
     }
 
     private handleAutomaticBoxSelection() {
-        // automatic row selection
         if (
             this.selectBox &&
             this.selectBox > 0 &&
-            this.selectBox <= this.rows.length
+            this.selectBox <= this.data.rows.length
         ) {
             this.selectedRows = [];
-            this.selectedRows.push(this.rows[this.selectBox - 1]);
 
+            for (let boxRow of this.data.rows) {
+                if (boxRow.id === (this.selectBox - 1).toString()) {
+                    this.selectedRows.push(boxRow);
+                    break;
+                }
+            }
             this.kupAutoBoxSelect.emit({
                 row: this.selectedRows[0],
             });
@@ -912,8 +1028,24 @@ export class KupBox {
             ) {
                 return;
             }
-        }        
+        }
         this.tooltip.relatedObject = related;
+    }
+
+    private handleRowsPerPageChanged({ detail }) {
+        this.currentRowsPerPage = detail.newRowsPerPage;
+        this.adjustPaginator();
+    }
+
+    private adjustPaginator() {
+        const numberOfRows = this.rows.length;
+
+        // check if current page is valid
+        const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
+        if (this.currentPage > numberOfPages) {
+            // reset page
+            this.currentPage = 1;
+        }
     }
 
     // render methods
@@ -1045,7 +1177,12 @@ export class KupBox {
             }
         }
 
-        const isSelected = this.selectedRows.includes(row);
+        var isSelected = false;
+        for (let select of this.selectedRows) {
+            if (select.id === row.id) {
+                isSelected = true;
+            }
+        }
 
         let multiSel = null;
         if (this.multiSelection) {
@@ -1060,7 +1197,7 @@ export class KupBox {
         }
 
         let rowObject = null;
-        if (this.enableRowActions) {
+        if (this.enableRowActions && !this.swipeDisabled) {
             const menuClass = {
                 'row-action-menu': true,
                 open: row === this.rowActionMenuOpened,
@@ -1127,8 +1264,8 @@ export class KupBox {
             draggable: this.dragEnabled,
             selected: this.showSelection && isSelected,
             column: !horizontal,
-        };        
-        
+        };
+
         return (
             <div class="box-wrapper">
                 <div
@@ -1153,7 +1290,7 @@ export class KupBox {
                     }
                     onDrop={
                         this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
-                    }                    
+                    }
                 >
                     {multiSel}
                     {boxContent}
@@ -1325,10 +1462,10 @@ export class KupBox {
         let cell = null;
         let _hasTooltip = false;
         if (boxObject.column) {
-            cell = row.cells[boxObject.column];                        
+            cell = row.cells[boxObject.column];
 
-            if (cell) {                                
-                _hasTooltip = hasTooltip(cell.obj);                
+            if (cell) {
+                _hasTooltip = hasTooltip(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1406,11 +1543,8 @@ export class KupBox {
                     }
                 } else if (isImage(cell, boxObject)) {
                     if (props) {
-                        if (!props.sizeX) {
-                            props['sizeX'] = 'auto';
-                        }
                         if (!props.sizeY) {
-                            props['sizeY'] = '64px';
+                            props['sizeY'] = 'auto';
                         }
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
@@ -1467,9 +1601,11 @@ export class KupBox {
 
         return (
             <div
-                onMouseOver={
-                (e) =>_hasTooltip ? this.setTooltip(e, cell) : this.setTooltip(null, null)
-            }
+                onMouseOver={(e) =>
+                    _hasTooltip
+                        ? this.setTooltip(e, cell)
+                        : this.setTooltip(null, null)
+                }
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
@@ -1485,7 +1621,7 @@ export class KupBox {
                 class="datatable-tooltip"
                 loadTimeout={this.tooltipLoadTimeout}
                 detailTimeout={this.tooltipDetailTimeout}
-                ref={(el: any) => (this.tooltip = el as KupTooltip)}                                
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
             ></kup-tooltip>
         );
     }
@@ -1510,11 +1646,9 @@ export class KupBox {
                     value: column.name,
                     selected: column.name === this.sortBy,
                 };
-
                 return item;
             });
-
-            const items = [{ value: '', id: '' }, ...visibleColumnsItems];
+            const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
                 initialValue: this.sortBy,
                 label: 'Sort by',
@@ -1543,6 +1677,7 @@ export class KupBox {
                     <kup-text-field
                         label="Cerca" // TODO
                         full-width={true}
+                        initial-value={this.globalFilterValueState}
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
@@ -1568,7 +1703,11 @@ export class KupBox {
                     max={this.filteredRows.length}
                     perPage={this.pageSize}
                     currentPage={this.currentPage}
+                    selectedPerPage={this.currentRowsPerPage}
                     onKupPageChanged={(e) => this.handlePageChanged(e)}
+                    onKupRowsPerPageChanged={(e) =>
+                        this.handleRowsPerPageChanged(e)
+                    }
                     mode={PaginatorMode.SIMPLE}
                 />
             );
@@ -1594,7 +1733,7 @@ export class KupBox {
             'grid-template-columns': `repeat(${this.columns}, 1fr)`,
         };
 
-        const tooltip = this.renderTooltip();        
+        const tooltip = this.renderTooltip();
 
         return (
             <Host class="handles-custom-style">
@@ -1619,7 +1758,7 @@ export class KupBox {
                             (this.dropOnSection || !this.getRows().length)
                                 ? (e) => this.onSectionDrop(e)
                                 : null
-                        }                        
+                        }
                     >
                         {sortPanel}
                         {filterPanel}

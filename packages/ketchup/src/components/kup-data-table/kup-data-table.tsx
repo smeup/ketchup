@@ -140,6 +140,7 @@ export class KupDataTable {
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
+                this.selectRowsById = state.selectRowsById;
                 //
             }
         }
@@ -169,10 +170,6 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                this.state.selectRow =
-                    this.renderedRows.indexOf(this.selectedRows[0]) + 1;
-            }
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -312,7 +309,12 @@ export class KupDataTable {
     @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
-     * Selects the specified row.
+     * Semicolon separated rows id to select
+     */
+    @Prop({ reflect: true }) selectRowsById: string;
+
+    /**
+     * Selects the row at the specified rendered rows prosition (base 1).
      */
     @Prop({ reflect: true }) selectRow: number;
 
@@ -440,12 +442,17 @@ export class KupDataTable {
     @Watch('filters')
     @Watch('globalFilterValue')
     @Watch('rowsPerPage')
-    @Watch('groups')
     @Watch('totals')
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
+    }
+
+    @Watch('groups')
+    recalculateRowsAndUndoSelections() {
+        this.recalculateRows();
+        this.resetSelectedRows();
     }
 
     @Watch('fixedColumns')
@@ -541,6 +548,17 @@ export class KupDataTable {
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private observedEl: Element = undefined;
+
+    /**
+     * When rows selctions reset
+     */
+    @Event({
+        eventName: 'kupResetSelectedRows',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupResetSelectedRows: EventEmitter<{}>;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -830,7 +848,10 @@ export class KupDataTable {
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
         // *** Store
-        this.persistState();
+        //Twice execution not useful
+        if (this.lazyLoadCells) {
+            this.persistState();
+        }
         // ***
     }
 
@@ -855,7 +876,19 @@ export class KupDataTable {
         // this.theadObserver.observe(this.theadRef);
 
         // automatic row selection
-        if (this.selectRow && this.selectRow > 0) {
+        if (this.selectRowsById) {
+            this.selectedRows = [];
+            let selectedIds: Array<string> = this.selectRowsById.split(';');
+            this.selectedRows = this.renderedRows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
+            });
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.kupRowSelected.emit({
+                    selectedRows: this.selectedRows,
+                    clickedColumn: null,
+                });
+            }
+        } else if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
                 this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
@@ -897,6 +930,16 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
+
+    private resetSelectedRows() {
+        this.selectedRows = [];
+        this.kupResetSelectedRows.emit();
+    }
+
+    private resetCurrentPage() {
+        this.currentPage = 1;
+        this.resetSelectedRows();
+    }
 
     private setTooltip(event: MouseEvent, cell: Cell) {
         let related: TooltipRelatedObject = null;
@@ -1180,7 +1223,7 @@ export class KupDataTable {
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
         if (this.currentPage > numberOfPages) {
             // reset page
-            this.currentPage = 1;
+            this.resetCurrentPage();
         }
     }
 
@@ -1338,7 +1381,7 @@ export class KupDataTable {
 
     private onRemoveFilter(column: string) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
         newFilters[column] = { textField: '', checkBoxes: [] };
         this.filters = newFilters;
@@ -1346,7 +1389,7 @@ export class KupDataTable {
 
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         let newFilter = detail.value.trim();
         if (newFilter != '' && isNumber(column.obj)) {
@@ -1363,7 +1406,7 @@ export class KupDataTable {
 
     private onFilterChange2({ detail }, column: Column, filterValue: string) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         const newFilters = { ...this.filters };
 
@@ -1409,7 +1452,7 @@ export class KupDataTable {
 
     private onGlobalFilterChange({ detail }) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
     }
@@ -1510,16 +1553,15 @@ export class KupDataTable {
         if (target.checked) {
             // select all rows
             this.selectedRows = this.renderedRows;
+            // triggering event
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+            });
         } else {
             // deselect all rows
-            this.selectedRows = [];
+            this.resetSelectedRows();
         }
-
-        // triggering event
-        this.kupRowSelected.emit({
-            selectedRows: this.selectedRows,
-            clickedColumn: null,
-        });
     }
 
     private openMenu(column: string) {
@@ -2110,6 +2152,14 @@ export class KupDataTable {
                                         column: column.name,
                                     });
                                     this.closeMenuAndTooltip();
+                                }}
+                            />
+                            <kup-button
+                                icon="table-column-remove"
+                                tooltip="Hide column"
+                                onKupButtonClick={() => {
+                                    column.visible = false;
+                                    this.closeMenu();
                                 }}
                             />
                         </li>
@@ -2751,6 +2801,9 @@ export class KupDataTable {
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
+                if (cell.cssClass) {
+                    cellClass[cell.cssClass] = true;
+                }
 
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
@@ -2814,6 +2867,9 @@ export class KupDataTable {
             const rowClass = {
                 selected: this.selectedRows.includes(row),
             };
+            if (row.cssClass) {
+                rowClass[row.cssClass] = true;
+            }
 
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>

@@ -9,7 +9,6 @@ import {
     h,
 } from '@stencil/core';
 
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     TooltipData,
     TooltipDetailData,
@@ -20,6 +19,7 @@ import {
     TooltipCellOptions,
 } from './kup-tooltip-declarations';
 import { logMessage } from '../../utils/debug-manager';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
 //import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
