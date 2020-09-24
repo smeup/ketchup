@@ -304,7 +304,7 @@ export class KupTree {
         cancelable: false,
         bubbles: true,
     })
-    kupDidLoad: EventEmitter<{}>;
+    kupDidLoad: EventEmitter<void>;
 
      /**
      * Triggered when stop propagation event
@@ -315,7 +315,7 @@ export class KupTree {
         cancelable: false,
         bubbles: true,
     })
-    kupDidUnload: EventEmitter<{}>;
+    kupDidUnload: EventEmitter<void>;
 
     //---- Methods ----
 
