@@ -65,7 +65,8 @@ h3 {
   top: auto;
   width: 250px;
   max-height: 75vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .logo_header {
