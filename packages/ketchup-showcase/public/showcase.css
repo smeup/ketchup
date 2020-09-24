@@ -266,9 +266,18 @@ footer.v-footer {
     0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+nav {
+  z-index: 90 !important;
+}
+
+aside {
+  z-index: 100 !important;
+}
+
 .v-footer {
   display: flex;
   justify-content: center;
+  z-index: 110 !important;
 }
 
 a.first-icon {
@@ -525,7 +534,7 @@ table.instruction-table th {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 130;
 }
 
 #sample-wrapper.theming {
@@ -592,8 +601,7 @@ table.instruction-table th {
   left: 0;
 }
 
-#sample-wrapper.detached #menu-trigger,
-#sample-wrapper.detached #view-swapper {
+#sample-wrapper.detached #menu-trigger {
   display: none;
 }
 
@@ -671,7 +679,7 @@ table.instruction-table th {
   display: none;
   position: fixed;
   background-color: black;
-  z-index: 90;
+  z-index: 120;
   top: 0;
   left: 0;
   opacity: 0.85;
@@ -691,7 +699,7 @@ table.instruction-table th {
 #sample-wrapper.full #sample-dynamic {
   width: 50%;
   background-color: var(--kup-background-color);
-  z-index: 91;
+  z-index: 140;
 }
 
 #sample-dynamic-wrapper {
