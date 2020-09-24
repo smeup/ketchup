@@ -403,26 +403,26 @@ export class KupBox {
      * Triggered when start propagation event 
      */
     @Event({
-        eventName: 'kupBoxStateTrue',
+        eventName: 'kupDidLoad',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxStateTrue: EventEmitter<{
-        EventEmitter: true;
+    kupDidLoad: EventEmitter<{
+        EventEmitter: Boolean;
     }>;
 
      /**
      * Triggered when stop propagation event
      */
     @Event({
-        eventName: 'kupBoxStateFalse',
+        eventName: 'kupDidUnload',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupBoxStateFalse: EventEmitter<{
-        EventEmitter: false;
+    kupDidUnload: EventEmitter<{
+        EventEmitter: Boolean;
     }>;
 
     private boxLayout: Layout;
@@ -503,6 +503,8 @@ export class KupBox {
         if (this.multiSelection) {
             this.selectedRows = this.selectedRowsState;
         }
+        this.kupDidLoad.emit({EventEmitter: true});
+        
     }
 
     componentWillRender() {
@@ -522,14 +524,10 @@ export class KupBox {
         // ***
     }
 
-    componentWillUnload() {
-        this.kupBoxStateFalse.emit();
-    }
-
     componentDidUnload() {
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));
-        this.kupBoxStateTrue.emit();
+        this.kupDidUnload.emit({EventEmitter: false});
     }
 
     // @Methods
