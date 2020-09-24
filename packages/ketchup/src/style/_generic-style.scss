@@ -30,14 +30,14 @@
   & .left-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid var(--main-color);
+    border-right: 8px solid var(--kup-main-color);
     transform: translate(30px, -10px);
   }
 
   & .right-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid var(--main-color);
+    border-left: 8px solid var(--kup-main-color);
     transform: translate(-30px, -10px);
   }
 
