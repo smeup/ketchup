@@ -364,10 +364,6 @@ tbody {
       word-break: break-all;
       word-wrap: break-word;
 
-      kup-tooltip.datatable-tooltip {
-        --kup-tlt_display: table-row;
-      }
-
       &.number {
         .cell-content {
           display: block;
