@@ -27,6 +27,9 @@ export const config: Config = {
         {
             src: 'tooltip.html',
         },
+        {
+            src: 'drawer.html',
+        },
     ],
 
     namespace: 'ketchup',

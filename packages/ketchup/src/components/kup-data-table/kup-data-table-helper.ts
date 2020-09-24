@@ -202,6 +202,9 @@ export function addCheckBoxFilterValue(
         filter = { textField: '', checkBoxes: [] };
         filters[column] = filter;
     }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
+    }
     if (newFilter == null) {
         filter.checkBoxes = [];
     } else {
@@ -222,6 +225,9 @@ export function removeCheckBoxFilterValue(
     let filter: Filter = filters[column];
     if (filter == null) {
         return;
+    }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
     }
     let index = filter.checkBoxes.indexOf(remFilter.trim());
     if (index >= 0) {

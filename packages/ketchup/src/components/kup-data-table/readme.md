@@ -71,8 +71,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `store`                     | --                             |                                                                                                                                                                                                                                | `KupStore`                                                                                       | `undefined`                          |
 | `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                         | `undefined`                          |
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                         | `undefined`                          |
-| `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timout for tooltip detail                                                                                                                                                                                          | `number`                                                                                         | `undefined`                          |
-| `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timout for tooltip load                                                                                                                                                                                            | `number`                                                                                         | `undefined`                          |
+| `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timeout for tooltip detail                                                                                                                                                                                         | `number`                                                                                         | `undefined`                          |
+| `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timeout for tooltip load                                                                                                                                                                                           | `number`                                                                                         | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options.                                                                                                                                                                                            | `TotalsMap`                                                                                      | `undefined`                          |
 
 
@@ -84,9 +84,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupAutoRowSelect`         | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
-| `kupDetailRequest`         | When a tooltip request detail data             | `CustomEvent<{ cell: Cell; tooltip: KupTooltip; }>`                                                           |
 | `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupLoadRequest`           | When a tooltip request initial data            | `CustomEvent<{ cell: Cell; tooltip: KupTooltip; }>`                                                           |
 | `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupResetSelectedRows`     | When rows selctions reset                      | `CustomEvent<{}>`                                                                                             |
 | `kupRowActionClicked`      | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
@@ -157,6 +155,14 @@ graph TD;
   kup-text-field --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-tooltip --> kup-tree
+  kup-tree --> kup-button
+  kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-text-field
   kup-progress-bar --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox

@@ -18,6 +18,7 @@ import {
     SortObject,
     SortMode,
     RowAction,
+    Cell,
 } from '../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -35,6 +36,7 @@ import {
     isIcon,
     isChart,
     isCheckbox,
+    hasTooltip,
 } from '../../utils/object-utils';
 
 import {
@@ -54,6 +56,10 @@ import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
+import { emit } from 'process';
+
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 @Component({
@@ -62,7 +68,6 @@ import { KupStore } from '../kup-state/kup-store';
     shadow: true,
 })
 export class KupBox {
-
     //////////////////////////////
     // Begin state stuff
     //////////////////////////////
@@ -76,7 +81,13 @@ export class KupBox {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                logMessage(this, 'Initialize with state for stateId ' + this.stateId + ': ' +state);
+                logMessage(
+                    this,
+                    'Initialize with state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        state
+                );
                 // *** PROPS ***
                 this.sortBy = this.state.sortBy;
                 this.globalFilterValueState = this.state.globalFilterValueState;
@@ -89,13 +100,19 @@ export class KupBox {
 
     persistState(): void {
         if (this.store && this.stateId) {
-                // *** PROPS ***
-                this.state.sortBy = this.sortBy;
-                this.state.globalFilterValueState = this.globalFilterValue;
-                this.state.selectedRowsState = this.selectedRows;
-                this.state.pageSelected = this.currentPage;
-                this.state.rowsPerPage = this.currentRowsPerPage;
-                logMessage(this, 'Persisting state for stateId ' + this.stateId + ': ' +this.state);
+            // *** PROPS ***
+            this.state.sortBy = this.sortBy;
+            this.state.globalFilterValueState = this.globalFilterValue;
+            this.state.selectedRowsState = this.selectedRows;
+            this.state.pageSelected = this.currentPage;
+            this.state.rowsPerPage = this.currentRowsPerPage;
+            logMessage(
+                this,
+                'Persisting state for stateId ' +
+                    this.stateId +
+                    ': ' +
+                    this.state
+            );
             this.store.persistState(this.stateId, this.state);
         }
     }
@@ -218,16 +235,26 @@ export class KupBox {
      */
     @Prop({ reflect: true })
     swipeDisabled = false;
-     /**
+    /**
      * current number page
      */
     @Prop({ reflect: true })
-    pageSelected : number = 1;
-     /**
+    pageSelected: number = 1;
+    /**
      * current rows per page
      */
     @Prop({ reflect: true })
-    rowsPerPage : number;
+    rowsPerPage: number;
+
+    /**
+     * Defines the timeout for tooltip load
+     */
+    @Prop() tooltipLoadTimeout: number;
+
+    /**
+     * Defines the timeout for tooltip detail
+     */
+    @Prop() tooltipDetailTimeout: number;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -255,7 +282,6 @@ export class KupBox {
 
     @State()
     private currentRowsPerPage = 10;
-
 
     /**
      * Triggered when a box is clicked
@@ -380,6 +406,7 @@ export class KupBox {
     private rows: BoxRow[] = [];
     private filteredRows: BoxRow[] = [];
 
+    private tooltip: KupTooltip;
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -423,9 +450,9 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if(this.rowsPerPage){
+        if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
-        } else if (this.pageSize){
+        } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
         setThemeCustomStyle(this);
@@ -442,12 +469,12 @@ export class KupBox {
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
 
-        // Initialize @State from @Prop 
+        // Initialize @State from @Prop
         this.globalFilterValue = this.globalFilterValueState;
         this.currentPage = this.pageSelected;
-//        this.currentRowsPerPage = this.rowsPerPage;
+        //        this.currentRowsPerPage = this.rowsPerPage;
 
-        if(this.multiSelection){
+        if (this.multiSelection) {
             this.selectedRows = this.selectedRowsState;
         }
     }
@@ -491,7 +518,7 @@ export class KupBox {
         }
         return null;
     }
-    
+
     // private methods
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -619,15 +646,14 @@ export class KupBox {
         );
     }
 
-    private handleAutomaticBoxSelection() { 
-       if (
+    private handleAutomaticBoxSelection() {
+        if (
             this.selectBox &&
             this.selectBox > 0 &&
-            (this.selectBox) <= this.data.rows.length
+            this.selectBox <= this.data.rows.length
         ) {
             this.selectedRows = [];
 
-  
             for (let boxRow of this.data.rows) {
                 if (boxRow.id === (this.selectBox - 1).toString()) {
                     this.selectedRows.push(boxRow);
@@ -980,6 +1006,30 @@ export class KupBox {
 
     private handlePageChanged({ detail }) {
         this.currentPage = detail.newPage;
+    }
+
+    private setTooltip(event: MouseEvent, cell: Cell) {
+        let related: TooltipRelatedObject = null;
+        if (cell != null) {
+            related = {} as TooltipRelatedObject;
+            related.element = event.target as HTMLElement;
+            related.object = cell;
+        }
+
+        let newValue = related;
+        let oldValue = this.tooltip.relatedObject;
+        if (newValue == null && oldValue == null) {
+            return;
+        }
+        if (newValue != null && oldValue != null) {
+            if (
+                newValue.object == oldValue.object &&
+                newValue.element == oldValue.element
+            ) {
+                return;
+            }
+        }
+        this.tooltip.relatedObject = related;
     }
 
     private handleRowsPerPageChanged({ detail }) {
@@ -1409,11 +1459,13 @@ export class KupBox {
 
         let boStyle = {};
         //let boInnerHTML = null;
-
+        let cell = null;
+        let _hasTooltip = false;
         if (boxObject.column) {
-            const cell = row.cells[boxObject.column];
+            cell = row.cells[boxObject.column];
 
             if (cell) {
+                _hasTooltip = hasTooltip(cell.obj);
                 // removing column from visibleColumns
                 let index = -1;
 
@@ -1553,8 +1605,25 @@ export class KupBox {
                 class={classObj}
                 style={boStyle}
             >
-                {boContent}
+                <span
+                    onMouseOver={(e) =>
+                        _hasTooltip ? this.setTooltip(e, cell) : null
+                    }
+                >
+                    {boContent}
+                </span>
             </div>
+        );
+    }
+
+    renderTooltip() {
+        return (
+            <kup-tooltip
+                class="box-tooltip"
+                loadTimeout={this.tooltipLoadTimeout}
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
+            ></kup-tooltip>
         );
     }
 
@@ -1637,8 +1706,9 @@ export class KupBox {
                     currentPage={this.currentPage}
                     selectedPerPage={this.currentRowsPerPage}
                     onKupPageChanged={(e) => this.handlePageChanged(e)}
-                    onKupRowsPerPageChanged={(e) => this.handleRowsPerPageChanged(e)}
-
+                    onKupRowsPerPageChanged={(e) =>
+                        this.handleRowsPerPageChanged(e)
+                    }
                     mode={PaginatorMode.SIMPLE}
                 />
             );
@@ -1663,6 +1733,8 @@ export class KupBox {
         const containerStyle = {
             'grid-template-columns': `repeat(${this.columns}, 1fr)`,
         };
+
+        const tooltip = this.renderTooltip();
 
         return (
             <Host class="handles-custom-style">
@@ -1695,6 +1767,7 @@ export class KupBox {
                         <div id="box-container" style={containerStyle}>
                             {boxContent}
                         </div>
+                        {tooltip}
                     </div>
                 </div>
             </Host>

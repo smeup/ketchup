@@ -104,6 +104,14 @@ graph TD;
   kup-data-table --> kup-chip
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-tooltip --> kup-tree
+  kup-tree --> kup-button
+  kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-text-field
   kup-progress-bar --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
