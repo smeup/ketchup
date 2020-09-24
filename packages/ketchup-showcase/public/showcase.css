@@ -40,10 +40,6 @@ h3 {
   max-width: 80% !important;
 }
 
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
 #page-wrapper {
   display: inline-flex;
   position: relative;
@@ -68,6 +64,8 @@ h3 {
   right: 0;
   top: auto;
   width: 250px;
+  max-height: 75vh;
+  overflow: auto;
 }
 
 .logo_header {
@@ -132,7 +130,7 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--kup-text-color);
+  background-color: var(--kup-disabled-color);
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -355,24 +353,18 @@ a.primary--text {
   color: var(--kup-text-color);
 }
 
-div.logo img {
-  margin: 1rem auto 2rem auto;
-  display: none;
+div.logo svg {
   cursor: pointer;
-}
-
-#inspire.theme--light div.logo img.light {
   display: block;
+  fill: var(--kup-main-color);
+  margin: 1rem auto 2rem auto;
   height: 70px;
   margin-top: 30px;
   margin-bottom: 50px;
 }
 
-#inspire.theme--dark div.logo img.dark {
+div.logo svg.visible {
   display: block;
-  height: 70px;
-  margin-top: 30px;
-  margin-bottom: 50px;
 }
 
 div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {

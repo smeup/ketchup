@@ -84,21 +84,15 @@
     <script>
       function setTheme(themeID) {
         let dom = document.documentElement;
-
         dom.setAttribute('kup-theme', themeID);
       }
 
       function changeTheme() {
         let dom = document.documentElement;
-
-        if (dom.querySelector('#inspire').classList.contains('theme--dark')) {
-          dom.querySelector('#inspire').classList.add('theme--light');
-          dom.querySelector('#inspire').classList.remove('theme--dark');
-          setTheme('default');
-        } else {
-          dom.querySelector('#inspire').classList.remove('theme--light');
-          dom.querySelector('#inspire').classList.add('theme--dark');
+        if (dom.getAttribute('kup-theme') !== 'dark') {
           setTheme('dark');
+        } else {
+          setTheme('default');
         }
       }
 
