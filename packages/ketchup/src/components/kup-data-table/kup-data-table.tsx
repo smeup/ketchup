@@ -3548,7 +3548,7 @@ export class KupDataTable {
                         fullWidth={true}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        label="Global filter"
+                        label="Search..."
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
