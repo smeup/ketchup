@@ -80,37 +80,6 @@
       integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
       crossorigin="anonymous"
     ></script>
-
-    <script>
-      function setTheme(themeID) {
-        let dom = document.documentElement;
-        dom.setAttribute('kup-theme', themeID);
-      }
-
-      function changeTheme() {
-        let dom = document.documentElement;
-        if (dom.getAttribute('kup-theme') !== 'dark') {
-          setTheme('dark');
-        } else {
-          setTheme('default');
-        }
-      }
-
-      function toggleDebug() {
-        let dom = document.documentElement;
-        let debugToggler = document.querySelector('#debug-toggler');
-
-        if (!dom['kupDebug']) {
-          console.log('Debug activated.');
-          debugToggler.customStyle = '';
-          dom['kupDebug'] = true;
-        } else {
-          console.log('Debug deactivated.');
-          debugToggler.customStyle = ':host{--kup-main-color: white}';
-          dom['kupDebug'] = false;
-        }
-      }
-    </script>
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.js"></script>
     -->
