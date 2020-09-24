@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" :dark="darkTheme">
+  <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" fixed app>
       <div class="logo">
         <a target="_blank" href="https://www.smeup.com/">
@@ -153,7 +153,6 @@ function toggleDebug() {}
 
 export default {
   data: () => ({
-    darkTheme: false,
     drawer: null,
     groupNavigationSections: [
       {
