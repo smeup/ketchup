@@ -3241,9 +3241,11 @@ export class KupDataTable {
     private renderPaginator(top: boolean) {
         let density: HTMLElement = undefined;
         let fontsize: HTMLElement = undefined;
+        let grid: HTMLElement = undefined;
         if (this.openedCustomSettings) {
             density = this.renderDensityPanel();
             fontsize = this.renderFontSizePanel();
+            grid = this.renderGridPanel();
         }
         return (
             <div class="paginator-wrapper">
@@ -3285,6 +3287,7 @@ export class KupDataTable {
                         }}
                     >
                         {density}
+                        {grid}
                         {fontsize}
                     </div>
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
@@ -3294,7 +3297,7 @@ export class KupDataTable {
     }
 
     private transcodeItem(
-        item: string,
+        item: string | ShowGrid,
         searchIn: Array<string>,
         returnFrom: Array<string>
     ): string {
@@ -3359,9 +3362,10 @@ export class KupDataTable {
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
-            label: 'Font size:',
+            label: 'Font size',
             icon: 'arrow_drop_down',
         };
         return (
@@ -3415,9 +3419,10 @@ export class KupDataTable {
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             initialValue: this.getDensityDecodeFromCode(this.density),
-            label: 'Row density:',
+            label: 'Row density',
             icon: 'arrow_drop_down',
         };
         return (
@@ -3432,6 +3437,59 @@ export class KupDataTable {
                         this.density = this.getDensityCodeFromDecode(
                             e.detail.value
                         );
+                    }}
+                />
+            </div>
+        );
+    }
+
+    private GRID_CODES: Array<string> = ['Complete', 'Col', 'Row', 'None'];
+    private GRID_DECODES: Array<string> = [
+        'Complete',
+        'Columns',
+        'Rows',
+        'None',
+    ];
+    private GRID_ICONS: Array<string> = [
+        'grid_on',
+        'view_column',
+        'view_headline',
+        'grid_off',
+    ];
+
+    private getGridCodeFromDecode(decode: string): string {
+        return this.transcodeItem(decode, this.GRID_DECODES, this.GRID_CODES);
+    }
+
+    private renderGridPanel() {
+        let listItems: ComponentListElement[] = this.createListData(
+            this.GRID_CODES,
+            this.GRID_DECODES,
+            this.GRID_ICONS,
+            this.showGrid
+        );
+
+        let listData = { data: listItems, showIcons: true };
+
+        let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
+            trailingIcon: true,
+            initialValue: this.getFontSizeDecodeFromCode(this.showGrid),
+            label: 'Grid type',
+            icon: 'arrow_drop_down',
+        };
+        return (
+            <div class="customize-element grid-panel">
+                <kup-combobox
+                    isSelect={true}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        let grid: any = this.getGridCodeFromDecode(
+                            e.detail.value
+                        );
+                        this.showGrid = grid;
                     }}
                 />
             </div>
