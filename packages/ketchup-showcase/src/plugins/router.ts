@@ -169,11 +169,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
   },
   {
-    path: `/menu`,
-    name: 'menu',
-    component: () => import(`@/views/advanced/menu/Menu.vue`),
-  },
-  {
     path: `/search`,
     name: 'search',
     component: () => import(`@/views/advanced/search/Search.vue`),

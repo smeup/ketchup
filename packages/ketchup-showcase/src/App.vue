@@ -277,12 +277,6 @@ export default {
             },
           },
           {
-            title: `Menu`,
-            to: {
-              name: 'menu',
-            },
-          },
-          {
             title: 'Search',
             to: {
               name: 'search',

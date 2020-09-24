@@ -47,7 +47,6 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-button](../kup-button)
  - [kup-card](../kup-card)
- - [kup-checkbox-menu](../kup-checkbox-menu)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
@@ -72,7 +71,6 @@ graph TD;
   kup-box --> kup-image
   kup-button --> kup-image
   kup-card --> kup-image
-  kup-checkbox-menu --> kup-image
   kup-chip --> kup-image
   kup-data-table --> kup-image
   kup-form --> kup-image
