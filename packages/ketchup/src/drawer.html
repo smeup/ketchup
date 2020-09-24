@@ -1,59 +1,61 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
-        />
-        <title>Stencil Component Starter</title>
-        <style>
-            body {
-                font-family: sans-serif;
-            }
+<html dir="ltr"
+      lang="en">
 
-            .side-nav ul {
-                list-style: none;
-            }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
 
-            .side-nav li {
-                margin: 1rem 0;
-            }
+    .side-nav ul {
+      list-style: none;
+    }
 
-            .side-nav a {
-                text-decoration: none;
-                color: black;
-            }
-        </style>
+    .side-nav li {
+      margin: 1rem 0;
+    }
 
-        <script type="module" src="/build/ketchup.esm.js"></script>
-        <script nomodule src="/build/ketchup.js"></script>
-    </head>
-    <body>
-        <!-- <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>-->
-        <button id="side-drawer-btn" onclick="appari()">|||</button>
+    .side-nav a {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
 
-        <kup-drawer menu="Main Menu">
-            <nav class="side-nav">
-                <ul>
-                    <li><a href="/">First Link</a></li>
-                    <li><a href="/">Second Link</a></li>
-                    <li><a href="/">Third Link</a></li>
-                    <li><a href="/">four Link</a></li>
-                </ul>
-            </nav>
-        </kup-drawer>
+  <script type="module"
+          src="/build/ketchup.esm.js"></script>
+  <script nomodule
+          src="/build/ketchup.js"></script>
+</head>
 
-        <script>
-            const sideDrawerButton = document.querySelector('#side-drawer-btn');
-            const sideDrawer = document.querySelector('kup-drawer');
+<body>
+  <button id="side-drawer-btn"
+          onclick="openDrawer()">Open Drawer</button>
 
-            function appari() {
-                if (!sideDrawer.opened) {
-                    // sideDrawer.open = true;
-                    sideDrawer.open();
-                }
-            }
-        </script>
-    </body>
+  <kup-drawer menu="Main Menu">
+    <nav class="side-nav">
+      <ul>
+        <li><a href="/">First Link</a></li>
+        <li><a href="/">Second Link</a></li>
+        <li><a href="/">Third Link</a></li>
+        <li><a href="/">four Link</a></li>
+      </ul>
+    </nav>
+  </kup-drawer>
+
+  <script>
+    const sideDrawer = document.querySelector('kup-drawer');
+
+    function openDrawer() {
+      if (!sideDrawer.opened) {
+        sideDrawer.open();
+      }
+    }
+  </script>
+</body>
+
 </html>
