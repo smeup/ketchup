@@ -399,18 +399,13 @@ export class KupBox {
         toSelectedRows?: BoxRow[];
     }>;
 
-     /**
-     * Triggered when start propagation event 
-     */
     @Event({
         eventName: 'kupDidLoad',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupDidLoad: EventEmitter<{
-        EventEmitter: Boolean;
-    }>;
+    kupDidLoad: EventEmitter<void>;
 
      /**
      * Triggered when stop propagation event
@@ -421,9 +416,7 @@ export class KupBox {
         cancelable: false,
         bubbles: true,
     })
-    kupDidUnload: EventEmitter<{
-        EventEmitter: Boolean;
-    }>;
+    kupDidUnload: EventEmitter<void>;
 
     private boxLayout: Layout;
 
@@ -503,7 +496,7 @@ export class KupBox {
         if (this.multiSelection) {
             this.selectedRows = this.selectedRowsState;
         }
-        this.kupDidLoad.emit({EventEmitter: true});
+        this.kupDidLoad.emit();
         
     }
 
@@ -525,9 +518,9 @@ export class KupBox {
     }
 
     componentDidUnload() {
+        this.kupDidUnload.emit();
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));
-        this.kupDidUnload.emit({EventEmitter: false});
     }
 
     // @Methods
