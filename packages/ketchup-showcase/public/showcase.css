@@ -129,16 +129,15 @@ h3 {
 
 ::-webkit-scrollbar {
   width: 9px;
-  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888888;
+  background-color: var(--kup-text-color);
   transition: background-color 0.2s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #aaaaaa;
+::-webkit-scrollbar-track {
+  background-color: var(--kup-background-color);
 }
 
 i.v-icon.material-icons {
@@ -201,11 +200,6 @@ code.flat {
   text-align: center;
   top: calc(50% - 18px);
   position: relative;
-}
-
-#inspire.theme--dark .code-word,
-#inspire.theme--dark code.flat {
-  color: var(--main-color);
 }
 
 .centered {
