@@ -126,14 +126,14 @@
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <kup-switch
-        @kupSwitchChange="(e)=> {changeTheme(e)}"
+        @kupSwitchChange="(e)=> {this.changeTheme(e)}"
         style="min-width: 150px; --kup-text-color: #f5f5f5;"
         leading-label
         label="Dark Mode"
         id="theme-switch"
       ></kup-switch>
       <kup-button
-        onclick="toggleDebug()"
+        @kupButtonClick="()=> {this.toggleDebug()}"
         id="debug-toggler"
         icon="bug"
         custom-style=":host{--kup-main-color: white}"
@@ -176,15 +176,13 @@
 </template>
 
 <script>
-function toggleDebug() {}
-
 export default {
   methods: {
     changeTheme(e) {
       if (e.detail.value === 'on') {
-        setTheme('dark');
+        this.setTheme('dark');
       } else {
-        setTheme('default');
+        this.setTheme('default');
       }
     },
     setTheme(themeID) {

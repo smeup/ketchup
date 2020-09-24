@@ -19,6 +19,11 @@ export default {
   name: 'ThemingTemplates',
 };
 
+function setTheme(themeID) {
+  let dom = document.documentElement;
+  dom.setAttribute('kup-theme', themeID);
+}
+
 function getThemes() {
   const dom = document.documentElement;
   if (!dom.kupCurrentTheme) {
@@ -38,7 +43,7 @@ function getThemes() {
       themeWrapper.style.backgroundColor = variables['--kup-background-color'];
       themeWrapper.style.borderColor = variables['--kup-border-color'];
       themeWrapper.id = key;
-      themeWrapper.onclick = function() {
+      themeWrapper.onclick = function () {
         setTheme(themeWrapper.id);
       };
       themeImage.color = variables['--kup-main-color'];
