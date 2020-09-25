@@ -14,6 +14,7 @@
 
     .side-nav ul {
       list-style: none;
+      
     }
 
     .side-nav li {
@@ -33,28 +34,83 @@
 </head>
 
 <body>
-  <button id="side-drawer-btn"
-          onclick="openDrawer()">Open Drawer</button>
+ 
+   <kup-button class="hydrated handles-custom-style"  icon label="open drawer" id="side-drawer-btn" icon-off></kup-button>
 
-  <kup-drawer menu="Main Menu">
-    <nav class="side-nav">
-      <ul>
-        <li><a href="/">First Link</a></li>
-        <li><a href="/">Second Link</a></li>
-        <li><a href="/">Third Link</a></li>
-        <li><a href="/">four Link</a></li>
-      </ul>
+    <kup-drawer permanent>
+      
+<span slot="title">Titolo</span>
+<span slot="subtitle">Sottotitolo</span>
+      
+     
+      <nav class="side-nav" slot="MainContent">
+      <kup-list show-icons class="handles-custom-style hydrated" data   display-mode="description" filter role-type="listbox" selectable ></kup-list>
+      
     </nav>
   </kup-drawer>
 
+
   <script>
     const sideDrawer = document.querySelector('kup-drawer');
+    const list = document.querySelector('kup-list');
+    const bot = document.querySelector('kup-button');
+   
+   list.data=[
+  {
+    "text": "First choice",
+    "value": "1",
+    "icon": "add_alert",
+    "trailingIcon": true,
+    "selected": false
+  },
+  {
+    "text": "Selected choice",
+    "value": "2",
+    "selected": false,
+    "icon": "ac_unit"
+  },
+  
+  {
+    "text": "Third choice",
+    "value": "3",
+    "icon": "3d_rotation",
+    "selected": true
+  }
+];
+
+list.addEventListener ('kupListClick',  (e)=> { 
+  console.log ('Event Recieved'); 
+  
+      console.log(e);
+      
+      if(e.detail.selected.value=='1')
+      {
+        console.log("first-choice");
+       
+      }
+       
+      if(e.detail.selected.value=='2')
+      {
+        console.log("second-choice");
+     
+      }
+       
+      if(e.detail.selected.value=='3')
+      {
+        console.log("third-choice");
+    
+      }
+    }
+    );
+
 
     function openDrawer() {
       if (!sideDrawer.opened) {
         sideDrawer.open();
       }
     }
+
+    bot.addEventListener('kupButtonClick',openDrawer);
   </script>
 </body>
 
