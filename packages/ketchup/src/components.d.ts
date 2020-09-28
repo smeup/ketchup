@@ -556,7 +556,7 @@ export namespace Components {
          */
         "selectRow": number;
         /**
-          * Semicolon separated rows id to select
+          * Semicolon separated rows id to select.
          */
         "selectRowsById": string;
         /**
@@ -2396,6 +2396,23 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
+
+        /**
+          * When a tooltip request detail data
+         */
+        "onKupDetailRequest"?: (event: CustomEvent<{
+        cell: Cell;
+        tooltip: KupTooltip;
+    }>) => void;
+        /**
+          * When component load is complete
+         */
+        "onKupDidLoad"?: (event: CustomEvent<{}>) => void;
+        /**
+          * When component uloade is complete
+         */
+        "onKupDidUnload"?: (event: CustomEvent<{}>) => void;
+
         "onKupLoadMoreClicked"?: (event: CustomEvent<{
         loadItems: number;
     }>) => void;
@@ -2407,7 +2424,7 @@ declare namespace LocalJSX {
         row: Row;
     }>) => void;
         /**
-          * When rows selctions reset
+          * When rows selections reset
          */
         "onKupResetSelectedRows"?: (event: CustomEvent<{}>) => void;
         /**
@@ -2447,7 +2464,7 @@ declare namespace LocalJSX {
          */
         "selectRow"?: number;
         /**
-          * Semicolon separated rows id to select
+          * Semicolon separated rows id to select.
          */
         "selectRowsById"?: string;
         /**

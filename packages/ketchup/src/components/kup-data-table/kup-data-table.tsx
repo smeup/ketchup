@@ -170,6 +170,14 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
+            this.state.selectRowsById = this.selectedRows.reduce(
+                (accumulator, row, currentIndex) => {
+                    const prefix = currentIndex > 0 ? ';' : '';
+                    return accumulator + prefix + row.id;
+                },
+                ''
+            );
+
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -309,7 +317,7 @@ export class KupDataTable {
     @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
-     * Semicolon separated rows id to select
+     * Semicolon separated rows id to select.
      */
     @Prop({ reflect: true }) selectRowsById: string;
 
@@ -552,7 +560,29 @@ export class KupDataTable {
     private tableIntersecting: boolean = false;
 
     /**
-     * When rows selctions reset
+     * When component uloade is complete
+     */
+    @Event({
+        eventName: 'kupDidUnload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidUnload: EventEmitter<{}>;
+
+    /**
+     * When component load is complete
+     */
+    @Event({
+        eventName: 'kupDidLoad',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidLoad: EventEmitter<{}>;
+
+    /**
+     * When rows selections reset
      */
     @Event({
         eventName: 'kupResetSelectedRows',
@@ -877,6 +907,7 @@ export class KupDataTable {
             this.selectedRows = this.renderedRows.filter((r) => {
                 return selectedIds.indexOf(r.id) >= 0;
             });
+
             if (this.selectedRows && this.selectedRows.length > 0) {
                 this.kupRowSelected.emit({
                     selectedRows: this.selectedRows,
@@ -905,6 +936,7 @@ export class KupDataTable {
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
+        this.kupDidLoad.emit();
     }
 
     componentDidUnload() {
@@ -919,6 +951,7 @@ export class KupDataTable {
                 this.documentHandlerCloseHeaderMenu
             );
         }
+        this.kupDidUnload.emit();
     }
 
     //======== Utility methods ========
