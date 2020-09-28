@@ -34,6 +34,8 @@
 | `stateId`                | `state-id`                  |                                                                                                                 | `string`                                   | `''`        |
 | `store`                  | --                          |                                                                                                                 | `KupStore`                                 | `undefined` |
 | `swipeDisabled`          | `swipe-disabled`            | Disable swipe                                                                                                   | `boolean`                                  | `false`     |
+| `tooltipDetailTimeout`   | `tooltip-detail-timeout`    | Defines the timeout for tooltip detail                                                                          | `number`                                   | `undefined` |
+| `tooltipLoadTimeout`     | `tooltip-load-timeout`      | Defines the timeout for tooltip load                                                                            | `number`                                   | `undefined` |
 
 
 ## Events
@@ -106,6 +108,7 @@ Type: `Promise<void>`
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
+- [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
 - [kup-paginator](../kup-paginator)
 
@@ -122,6 +125,7 @@ graph TD;
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
+  kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-paginator
   kup-card --> kup-image
@@ -136,6 +140,16 @@ graph TD;
   kup-button --> kup-image
   kup-progress-bar --> kup-image
   kup-text-field --> kup-image
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-image
+  kup-tooltip --> kup-tree
+  kup-tree --> kup-button
+  kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-text-field
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-image

@@ -1,9 +1,15 @@
 <template>
   <div>
-    <kup-lazy ref="dataTable" component-name="kup-data-table" :data.prop="data"></kup-lazy>
+    <kup-lazy
+      ref="dataTable"
+      component-name="kup-data-table"
+      :data.prop="data"
+    ></kup-lazy>
 
     <ul>
-      <li v-if="action">Clicked action: text: {{ action.text }} - icon: {{ action.icon }}</li>
+      <li v-if="action"
+        >Clicked action: text: {{ action.text }} - icon: {{ action.icon }}</li
+      >
       <li v-if="actionIndex >= 0">Action index: {{ actionIndex }}</li>
       <li v-if="actionType">Action type: {{ actionType }}</li>
       <li v-if="row">Row: {{ row }}</li>
@@ -29,7 +35,12 @@ export default {
             icon: 'account',
           },
         ],
-        onKupRowActionClicked: (e, action, index, type, row) => {
+        onKupRowActionClicked: (e) => {
+          var action, index, type, row;
+          action = e.detail.action;
+          index = e.detail.index;
+          type = e.detail.type;
+          row = e.detail.row;
           this.actionType = type;
           this.row = row;
 

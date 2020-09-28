@@ -1,4 +1,5 @@
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
+import { TreeNode } from '../kup-tree/kup-tree-declarations';
 
 export interface TooltipObject {
     t: String;
@@ -33,4 +34,11 @@ export interface TooltipDetailData extends DataTable {
 export interface TooltipRelatedObject {
     element: HTMLElement;
     object?: any;
+}
+
+export interface TooltipCellOptions extends TreeNode {}
+
+export enum ViewMode {
+    TOOTLIP = 'tip',
+    CELL_OPTIONS = 'cellopt',
 }
