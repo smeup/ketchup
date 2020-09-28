@@ -38,11 +38,13 @@ export class KupDrawer {
        if(this.right==true)
        {
             this.select=true;
+            this.right=false;
             if(this.permanent==true)
             {
 
             }
             else{
+            
                 this.permanent=true;
                 this.permanent=false;
             }
@@ -100,7 +102,7 @@ export class KupDrawer {
             <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
             <aside class={this.c}>
                 <div class="header">
-
+              
                <div class='title'>
                    <slot name='title'/>
                </div>
@@ -110,6 +112,7 @@ export class KupDrawer {
                    <slot name='subtitle'/>
                </div>
                <kup-button class='header-button' onKupButtonClick={() => this.onCloseDrawer()} icon="close" ></kup-button>
+               
                 </div>
 
                 <main>{mainContent}</main>
