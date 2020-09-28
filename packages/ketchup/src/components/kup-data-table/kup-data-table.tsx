@@ -686,7 +686,7 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
-    stickyHeaderPosition = () => {
+    private stickyHeaderPosition = () => {
         if (this.tableRef) {
             this.stickyTheadRef.style.top = this.navBarHeight + 'px';
             if (this.tableIntersecting) {
@@ -714,7 +714,7 @@ export class KupDataTable {
         }
     };
 
-    setObserver() {
+    private setObserver() {
         let callback: IntersectionObserverCallback = (
             entries: IntersectionObserverEntry[]
         ) => {
@@ -774,9 +774,11 @@ export class KupDataTable {
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
-    columnMenuPosition(root: ShadowRoot) {
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
+    private columnMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '.column-menu'
+            );
             if (menu) {
                 let wrapper: HTMLElement = menu.closest('th');
                 positionRecalc(menu, wrapper);
@@ -786,8 +788,8 @@ export class KupDataTable {
         }
     }
 
-    didRenderObservers(root: ShadowRoot) {
-        let rows = root.querySelectorAll('tbody > tr');
+    private didRenderObservers() {
+        let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (
             this.paginatedRows != null &&
             this.paginatedRows.length < this.rows.length &&
@@ -800,7 +802,18 @@ export class KupDataTable {
         }
     }
 
-    didRenderEventHandling() {
+    private didLoadObservers() {
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            this.intObserver.observe(this.tableRef);
+            this.intObserver.observe(this.theadRef);
+        }
+    }
+
+    private didRenderEventHandling() {
         // Attach function to close header menu onto the document
         this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
             this
@@ -809,13 +822,33 @@ export class KupDataTable {
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
     }
 
-    checkScrollOnHover() {
+    private setScrollOnHover() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+    }
+
+    private checkScrollOnHover() {
         if (
             this.scrollOnHoverInstance !== undefined &&
             (this.tableHeight !== undefined || this.tableWidth !== undefined)
         ) {
             this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
             this.scrollOnHoverInstance = undefined;
+        }
+    }
+
+    private customizePanelPosition() {
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
         }
     }
 
@@ -850,11 +883,9 @@ export class KupDataTable {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        this.columnMenuPosition(root);
+        this.columnMenuPosition();
         this.checkScrollOnHover();
-        this.didRenderObservers(root);
+        this.didRenderObservers();
         this.didRenderEventHandling();
 
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
@@ -873,32 +904,9 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-
-        if (this.customizeTopButtonRef) {
-            positionRecalc(
-                this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            positionRecalc(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
-            );
-        }
-        if (
-            this.headerIsPersistent &&
-            this.tableHeight === undefined &&
-            this.tableWidth === undefined
-        ) {
-            this.intObserver.observe(this.tableRef);
-            this.intObserver.observe(this.theadRef);
-        }
-
-        // observing table
-        // this.theadObserver.observe(this.theadRef);
+        this.setScrollOnHover();
+        this.customizePanelPosition();
+        this.didLoadObservers();
 
         // automatic row selection
         if (this.selectRowsById) {
@@ -924,14 +932,6 @@ export class KupDataTable {
             }
         }
 
-        /*
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-        */
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
@@ -940,10 +940,6 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
-        // *** Store
-        //this.persistState();
-        // ***
-
         // Remove function to close header menu onto the document
         if (this.documentHandlerCloseHeaderMenu) {
             document.removeEventListener(
@@ -1678,13 +1674,6 @@ export class KupDataTable {
         }
     }
 
-    //private onOptionClicked(column: string, row: Row) {
-    //    this.kupOptionClicked.emit({
-    //        column,
-    //        row,
-    //    });
-    //}
-
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
         const buttonEvent = arguments[3] as UIEvent;
@@ -1828,10 +1817,6 @@ export class KupDataTable {
         if (this.multiSelection) {
             colSpan += 1;
         }
-
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     colSpan += 1;
-        // }
 
         if (this.hasRowActions()) {
             colSpan += 1;
@@ -2448,9 +2433,6 @@ export class KupDataTable {
         }
 
         let groupColumn = null;
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     groupColumn = <th-sticky />;
-        // }
 
         // Empty cell for the actions
         let actionsColumn = null;
