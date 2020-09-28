@@ -2938,26 +2938,16 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let props: any = cell.data;
         let cellType: string = this.getCellType(cell.obj);
 
-        if (
-            cellType === 'bar' ||
-            cellType === 'button' ||
-            cellType === 'chart' ||
-            cellType === 'checkbox' ||
-            cellType === 'icon' ||
-            cellType === 'image' ||
-            cellType === 'progress-bar' ||
-            cellType === 'radio'
-        ) {
+        if (cell.data) {
             if (!this.lazyLoadCells) {
-                content = this.setLazyKupCell(cellType, props, cell);
+                content = this.setLazyKupCell(cellType, cell.data, cell);
             } else {
                 content = this.setKupCell(
                     cellType,
                     classObj,
-                    props,
+                    cell.data,
                     cell,
                     row,
                     column
@@ -3018,14 +3008,10 @@ export class KupDataTable {
     }
 
     private setLazyKupCell(cellType: string, props: any, cell: Cell) {
-        if (props) {
-            this.setCellSize(cellType, props, cell);
-            let lazyClass = 'cell-' + cellType + ' placeholder';
-            let style = { minHeight: props.sizeY };
-            return <span style={style} class={lazyClass}></span>;
-        } else {
-            return undefined;
-        }
+        this.setCellSize(cellType, props, cell);
+        let lazyClass = 'cell-' + cellType + ' placeholder';
+        let style = { minHeight: props.sizeY };
+        return <span style={style} class={lazyClass}></span>;
     }
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
@@ -3119,127 +3105,90 @@ export class KupDataTable {
         row: Row,
         column: Column
     ) {
+        let lazyStyle = {
+            minHeight: props.sizeY,
+            minWidth: props.sizeX,
+        };
         switch (cellType) {
             case 'bar':
-                if (props) {
-                    let style = {
-                        minHeight: props.sizeY,
-                        minWidth: props.sizeX,
-                    };
-                    return (
-                        <kup-lazy
-                            style={style}
-                            class="cell-bar"
-                            componentName="kup-image"
-                            data={...props}
-                        />
-                    );
-                } else {
-                    return undefined;
-                }
+                return (
+                    <kup-lazy
+                        style={lazyStyle}
+                        class="cell-bar"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+
             case 'button':
-                if (props) {
-                    classObj['is-centered'] = true;
-                    props['disabled'] = row.readOnly;
-                    props['onKupButtonClick'] = this.onJ4btnClicked.bind(
-                        this,
-                        row,
-                        column,
-                        cell
-                    );
-                    return (
-                        <kup-button class="cell-button" {...props}></kup-button>
-                    );
-                } else {
-                    return undefined;
-                }
+                classObj['is-centered'] = true;
+                props['disabled'] = row.readOnly;
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
+                return <kup-button class="cell-button" {...props}></kup-button>;
+
             case 'chart':
-                if (props) {
-                    classObj['is-centered'] = true;
-                    let style = {
-                        minHeight: props.sizeY,
-                        minWidth: props.sizeX,
-                    };
-                    return (
-                        <kup-lazy
-                            style={style}
-                            class="cell-chart"
-                            componentName="kup-chart"
-                            data={...props}
-                        />
-                    );
-                } else {
-                    return undefined;
-                }
+                classObj['is-centered'] = true;
+                return (
+                    <kup-lazy
+                        style={lazyStyle}
+                        class="cell-chart"
+                        componentName="kup-chart"
+                        data={...props}
+                    />
+                );
+
             case 'checkbox':
+                classObj['is-centered'] = true;
                 if (props) {
-                    classObj['is-centered'] = true;
-                    if (props) {
-                        props['disabled'] = row.readOnly;
-                    } else {
-                        props = { disabled: row.readOnly };
-                    }
-                    return (
-                        <kup-checkbox
-                            class="cell-checkbox"
-                            {...props}
-                        ></kup-checkbox>
-                    );
-                } else {
-                    return undefined;
-                }
-            case 'icon':
-                if (props) {
-                    classObj['is-centered'] = true;
-                    if (props.badgeData) {
-                        classObj['has-padding'] = true;
-                    }
-                    return <kup-image class="cell-icon" {...props}></kup-image>;
-                } else {
-                    return undefined;
-                }
-            case 'image':
-                if (props) {
-                    classObj['is-centered'] = true;
-                    if (props.badgeData) {
-                        classObj['has-padding'] = true;
-                    }
-                    let style = {
-                        minHeight: props.sizeY,
-                        minWidth: props.sizeX,
-                    };
-                    return (
-                        <kup-lazy
-                            style={style}
-                            class="cell-image"
-                            componentName="kup-image"
-                            data={...props}
-                        />
-                    );
-                } else {
-                    return undefined;
-                }
-            case 'progress-bar':
-                if (props) {
-                    return (
-                        <kup-progress-bar
-                            class="cell-progress-bar"
-                            {...props}
-                        ></kup-progress-bar>
-                    );
-                } else {
-                    return undefined;
-                }
-            case 'radio':
-                if (props) {
-                    classObj['is-centered'] = true;
                     props['disabled'] = row.readOnly;
-                    return (
-                        <kup-radio class="cell-radio" {...props}></kup-radio>
-                    );
                 } else {
-                    return undefined;
+                    props = { disabled: row.readOnly };
                 }
+                return (
+                    <kup-checkbox
+                        class="cell-checkbox"
+                        {...props}
+                    ></kup-checkbox>
+                );
+
+            case 'icon':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <kup-image class="cell-icon" {...props}></kup-image>;
+
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return (
+                    <kup-lazy
+                        style={lazyStyle}
+                        class="cell-image"
+                        componentName="kup-image"
+                        data={...props}
+                    />
+                );
+
+            case 'progress-bar':
+                return (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        {...props}
+                    ></kup-progress-bar>
+                );
+
+            case 'radio':
+                classObj['is-centered'] = true;
+                props['disabled'] = row.readOnly;
+                return <kup-radio class="cell-radio" {...props}></kup-radio>;
         }
     }
 
