@@ -164,7 +164,7 @@
                 <span class="code-word">color</span>
               </td>
               <td class="text-cell">
-                <kup-text-field full-width id="disabled-text-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+                <kup-text-field full-width id="disabled-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>

@@ -19,7 +19,7 @@
     var(--kup-border-color),
     var(--kup-disabled-background-color)
   );
-  @include mdc-checkbox-disabled-ink-color(var(--kup-disabled-text-color));
+  @include mdc-checkbox-disabled-ink-color(var(--kup-disabled-color));
   @include mdc-checkbox-ink-color(var(--kup-text-on-main-color));
 }
 
