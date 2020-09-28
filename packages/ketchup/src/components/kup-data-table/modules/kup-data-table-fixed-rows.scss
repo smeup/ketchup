@@ -16,7 +16,8 @@ $sticky-cell--row-z-index: 4;
 
 // Base style for the cells which are sticky
 %fixedCellsBase {
-  background: var(--kup-background-color);
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
   position: sticky;
 
   &:hover {
