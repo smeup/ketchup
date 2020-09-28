@@ -547,7 +547,6 @@ export class KupDataTable {
     private renderStart: number = 0;
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
-    private observedEl: Element = undefined;
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
@@ -657,8 +656,6 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
-    onDocumentClick = () => {};
-
     stickyHeaderPosition = () => {
         if (this.tableRef) {
             this.stickyTheadRef.style.top = this.navBarHeight + 'px';
@@ -694,18 +691,23 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
-                        logMessage(
-                            this,
-                            'Last row entering the viewport, loading more elements.'
-                        );
-                        let delta = this.rows.length - this.currentRowsPerPage;
-                        if (delta < this.loadMoreStep) {
-                            this.currentRowsPerPage += delta;
-                        } else {
-                            this.currentRowsPerPage += this.loadMoreStep;
+                        entry.target.classList.add('in-viewport');
+                        if (entry.target.classList.contains('last-row')) {
+                            logMessage(
+                                this,
+                                'Last row entering the viewport, loading more elements.'
+                            );
+                            let delta =
+                                this.rows.length - this.currentRowsPerPage;
+                            if (delta < this.loadMoreStep) {
+                                this.currentRowsPerPage += delta;
+                            } else {
+                                this.currentRowsPerPage += this.loadMoreStep;
+                            }
+                            entry.target.classList.remove('last-row');
                         }
-                        this.intObserver.unobserve(entry.target);
-                        this.observedEl = undefined;
+                    } else {
+                        entry.target.classList.remove('in-viewport');
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
@@ -742,6 +744,51 @@ export class KupDataTable {
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
+    columnMenuPosition(root: ShadowRoot) {
+        if (root) {
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
+        }
+    }
+
+    didRenderObservers(root: ShadowRoot) {
+        let rows = root.querySelectorAll('tbody > tr');
+        if (
+            this.paginatedRows != null &&
+            this.paginatedRows.length < this.rows.length &&
+            this.lazyLoadRows
+        ) {
+            rows[this.paginatedRows.length - 1].classList.add('last-row');
+        }
+        for (let index = 0; index < rows.length; index++) {
+            this.intObserver.observe(rows[index]);
+        }
+    }
+
+    didRenderEventHandling() {
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
+            this
+        );
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+    }
+
+    checkScrollOnHover() {
+        if (
+            this.scrollOnHoverInstance !== undefined &&
+            (this.tableHeight !== undefined || this.tableWidth !== undefined)
+        ) {
+            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
+            this.scrollOnHoverInstance = undefined;
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -775,43 +822,11 @@ export class KupDataTable {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
-            if (menu) {
-                let wrapper: HTMLElement = menu.closest('th');
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-                menu.classList.add('visible');
-            }
-        }
+        this.columnMenuPosition(root);
+        this.checkScrollOnHover();
+        this.didRenderObservers(root);
+        this.didRenderEventHandling();
 
-        if (
-            this.paginatedRows != null &&
-            this.paginatedRows.length < this.rows.length &&
-            this.lazyLoadRows
-        ) {
-            let rows = root.querySelectorAll('tbody > tr');
-            this.observedEl = rows[this.paginatedRows.length - 1];
-            if (this.observedEl) {
-                this.intObserver.observe(this.observedEl);
-            }
-        }
-        document.addEventListener('click', this.onDocumentClick);
-
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-
-        if (
-            this.scrollOnHoverInstance !== undefined &&
-            (this.tableHeight !== undefined || this.tableWidth !== undefined)
-        ) {
-            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
-            this.scrollOnHoverInstance = undefined;
-        }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
 
         this.renderEnd = performance.now();
@@ -821,7 +836,6 @@ export class KupDataTable {
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
         // *** Store
-        //Twice execution not useful
         if (this.lazyLoadCells) {
             this.persistState();
         }
@@ -897,7 +911,6 @@ export class KupDataTable {
         // *** Store
         //this.persistState();
         // ***
-        document.removeEventListener('click', this.onDocumentClick);
 
         // Remove function to close header menu onto the document
         if (this.documentHandlerCloseHeaderMenu) {
@@ -2652,6 +2665,7 @@ export class KupDataTable {
 
                 selectRowCell = (
                     <td
+                        row-select-cell
                         class={
                             selectionStyleAndClass
                                 ? selectionStyleAndClass.fixedCellClasses
@@ -2713,6 +2727,7 @@ export class KupDataTable {
 
                 rowActionsCell = (
                     <td
+                        row-action-cell
                         class={
                             actionsStyleAndClass
                                 ? actionsStyleAndClass.fixedCellClasses
@@ -2903,26 +2918,25 @@ export class KupDataTable {
                         props['sizeY'] = '50px';
                     }
                 }
-                let cellStyle = {
-                    height: props['sizeY'],
-                    width: '100%',
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
                 if (this.lazyLoadCells) {
                     content = (
                         <kup-lazy
-                            style={cellStyle}
                             class="cell-bar"
                             componentName="kup-image"
                             data={...props}
                         />
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-bar placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-bar placeholder"></span>;
                 }
             } else {
                 content = undefined;
@@ -2935,10 +2949,13 @@ export class KupDataTable {
                 } else {
                     height = '48px';
                 }
-                let cellStyle = {
-                    height: height,
-                    width: '100%',
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = height;
+                    }
+                } else {
+                    cell.style = { minHeight: height };
+                }
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 props['onKupButtonClick'] = this.onJ4btnClicked.bind(
@@ -2949,30 +2966,32 @@ export class KupDataTable {
                 );
                 if (this.lazyLoadCells) {
                     content = (
-                        <kup-button
-                            style={cellStyle}
-                            class="cell-button"
-                            {...props}
-                        ></kup-button>
+                        <kup-button class="cell-button" {...props}></kup-button>
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-button placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-button placeholder"></span>;
                 }
             } else {
                 content = undefined;
             }
         } else if (isChart(cell.obj)) {
             if (props) {
-                let cellStyle = {
-                    height: '26px',
-                    width: '100%',
-                };
                 classObj['is-centered'] = true;
+                if (!props.sizeX) {
+                    props['sizeX'] = '100%';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '100%';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
                 if (this.lazyLoadCells) {
                     content = (
                         <kup-lazy
@@ -2982,42 +3001,34 @@ export class KupDataTable {
                         />
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-chart placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-chart placeholder"></span>;
                 }
             } else {
                 content = undefined;
             }
         } else if (isCheckbox(cell.obj)) {
-            let cellStyle = {
-                height: '40px',
-                width: '40px',
-            };
             classObj['is-centered'] = true;
             if (props) {
                 props['disabled'] = row.readOnly;
             } else {
                 props = { disabled: row.readOnly };
             }
+            if (cell.style) {
+                if (!cell.style.height) {
+                    cell.style['minHeight'] = '40px';
+                }
+            } else {
+                cell.style = { minHeight: '40px' };
+            }
             if (this.lazyLoadCells) {
                 content = (
                     <kup-checkbox
-                        style={cellStyle}
                         class="cell-checkbox"
                         {...props}
                     ></kup-checkbox>
                 );
             } else {
-                content = (
-                    <span
-                        style={cellStyle}
-                        class="cell-checkbox placeholder"
-                    ></span>
-                );
+                content = <span class="cell-checkbox placeholder"></span>;
             }
         } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
             if (props) {
@@ -3028,28 +3039,24 @@ export class KupDataTable {
                 if (!props.sizeY) {
                     props['sizeY'] = '18px';
                 }
-                let cellStyle = {
-                    height: props['sizeY'],
-                    width: props['sizeX'],
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
                 if (this.lazyLoadCells) {
                     content = (
-                        <kup-image
-                            style={cellStyle}
-                            class="cell-icon"
-                            {...props}
-                        ></kup-image>
+                        <kup-image class="cell-icon" {...props}></kup-image>
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-icon placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-icon placeholder"></span>;
                 }
             } else {
                 content = undefined;
@@ -3066,26 +3073,25 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                let cellStyle = {
-                    height: props['sizeY'],
-                    width: props['sizeX'],
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
                 if (this.lazyLoadCells) {
                     content = (
                         <kup-lazy
-                            style={cellStyle}
                             class="cell-image"
                             componentName="kup-image"
                             data={...props}
                         />
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-image placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-image placeholder"></span>;
                 }
             } else {
                 content = undefined;
@@ -3119,24 +3125,23 @@ export class KupDataTable {
                 } else {
                     height = '17.5px';
                 }
-                let cellStyle = {
-                    height: height,
-                    width: '100%',
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = height;
+                    }
+                } else {
+                    cell.style = { minHeight: height };
+                }
                 if (this.lazyLoadCells) {
                     content = (
                         <kup-progress-bar
-                            style={cellStyle}
                             class="cell-progress-bar"
                             {...props}
                         ></kup-progress-bar>
                     );
                 } else {
                     content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-progress-bar placeholder"
-                        ></span>
+                        <span class="cell-progress-bar placeholder"></span>
                     );
                 }
             } else {
@@ -3144,22 +3149,20 @@ export class KupDataTable {
             }
         } else if (isRadio(cell.obj)) {
             if (props) {
-                let cellStyle = {
-                    height: '40px',
-                    width: '100%',
-                };
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
                 props['disabled'] = row.readOnly;
                 if (this.lazyLoadCells) {
                     content = (
                         <kup-radio class="cell-radio" {...props}></kup-radio>
                     );
                 } else {
-                    content = (
-                        <span
-                            style={cellStyle}
-                            class="cell-radio placeholder"
-                        ></span>
-                    );
+                    content = <span class="cell-radio placeholder"></span>;
                 }
             } else {
                 content = undefined;
