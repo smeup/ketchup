@@ -190,10 +190,8 @@ thead {
   color: var(--kup-title-color);
 
   th {
-    background-color: var(--kup-title-background-color);
     border-bottom: 2px solid var(--kup-border-color);
     border-right: 1px solid var(--kup-border-color);
-    color: var(--kup-title-color);
     box-sizing: border-box;
     padding: 0.5rem 0.3125rem;
     text-overflow: ellipsis;
@@ -305,24 +303,20 @@ tbody {
   border: 1px solid var(--kup-border-color);
   cursor: auto;
 
-  td {
-    transition: background-color 250ms ease-in-out;
-  }
-
   tr {
+    transition: background-color 250ms ease-in-out;
+
     kup-button {
       max-width: max-content;
     }
 
     &:not(.group):hover {
-      td {
-        color: var(--kup-hover-color);
-        background-color: var(--kup-hover-background-color);
-      }
+      color: var(--kup-hover-color);
+      background-color: var(--kup-hover-background-color);
     }
 
-    &.selected:hover td,
-    &.selected td {
+    &.selected:hover,
+    &.selected {
       background-color: rgba(var(--kup-main-color-rgb), 0.175);
     }
 
