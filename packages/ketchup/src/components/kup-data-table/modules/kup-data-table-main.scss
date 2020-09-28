@@ -311,8 +311,7 @@ tbody {
 
   tr {
     kup-button {
-      display: inline-block;
-      max-width: fit-content;
+      max-width: max-content;
     }
 
     &:not(.group):hover {
@@ -442,17 +441,56 @@ tbody {
       }
 
       kup-lazy {
-        display: flex;
         margin: auto;
       }
 
       & .indent ~ kup-lazy,
       & .indent ~ kup-image,
       & .indent ~ kup-button {
-        display: inline-block;
         margin: 0;
         vertical-align: middle;
       }
     }
+  }
+}
+
+tr {
+  &:not(:nth-child(1)) {
+    kup-button,
+    kup-checkbox,
+    kup-lazy,
+    kup-progress-bar {
+      display: none;
+      animation: fadeInFromNone 0.25s ease-out;
+    }
+  }
+
+  &.in-viewport {
+    kup-checkbox,
+    kup-lazy {
+      display: flex;
+    }
+    kup-button {
+      display: inline-block;
+    }
+    kup-progress-bar {
+      display: block;
+    }
+  }
+
+  & .indent {
+    & ~ kup-button,
+    & ~ kup-checkbox,
+    & ~ kup-image {
+      display: inline-block;
+    }
+  }
+
+  [row-select-cell] {
+    min-height: 40px;
+  }
+
+  td[row-action-cell] kup-button {
+    display: inline-block;
   }
 }
