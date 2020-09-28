@@ -2939,65 +2939,32 @@ export class KupDataTable {
         // Sets the default value
         let content: any = valueToDisplay;
         let props: any = cell.data;
+        let cellType: string = this.getCellType(cell.obj);
 
-        if (isBar(cell.obj)) {
-            content = this.barCell(props);
-        } else if (isButton(cell.obj)) {
-            if (props) {
-                classObj['is-centered'] = true;
-            }
-            content = this.buttonCell(props, cell, row, column);
-        } else if (isChart(cell.obj)) {
-            if (props) {
-                classObj['is-centered'] = true;
-            }
-            content = this.chartCell(props);
-        } else if (isCheckbox(cell.obj)) {
-            if (props) {
-                classObj['is-centered'] = true;
-            }
-            content = this.checkboxCell(props, cell, row);
-        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props) {
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-            }
-            content = this.iconCell(props, cell);
-        } else if (isImage(cell.obj)) {
-            if (props) {
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-            }
-            content = this.imageCell(props);
-        } else if (isLink(cell.obj)) {
-            content = (
-                <a class="cell-link" href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
-            );
-        } else if (isNumber(cell.obj)) {
-            content = valueToDisplay;
-
-            if (content && content != '') {
-                const cellValueNumber: number = stringToNumber(cell.value);
-                const cellValue = unformattedStringToFormattedStringNumber(
-                    cell.value,
-                    column.decimals ? column.decimals : -1,
-                    cell.obj ? cell.obj.p : ''
+        if (
+            cellType === 'bar' ||
+            cellType === 'button' ||
+            cellType === 'chart' ||
+            cellType === 'checkbox' ||
+            cellType === 'icon' ||
+            cellType === 'image' ||
+            cellType === 'progress-bar' ||
+            cellType === 'radio'
+        ) {
+            if (!this.lazyLoadCells) {
+                content = this.setLazyKupCell(cellType, props, cell);
+            } else {
+                content = this.setKupCell(
+                    cellType,
+                    classObj,
+                    props,
+                    cell,
+                    row,
+                    column
                 );
-                content = cellValue;
-                if (cellValueNumber < 0) {
-                    classObj['negative-number'] = true;
-                }
             }
-        } else if (isProgressBar(cell.obj)) {
-            content = this.progressBarCell(props);
-        } else if (isRadio(cell.obj)) {
-            content = this.radioCell(props, cell, row);
+        } else {
+            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3024,202 +2991,288 @@ export class KupDataTable {
         );
     }
 
-    private barCell(props: any) {
+    private getCellType(obj: any) {
+        if (isBar(obj)) {
+            return 'bar';
+        } else if (isButton(obj)) {
+            return 'button';
+        } else if (isChart(obj)) {
+            return 'chart';
+        } else if (isCheckbox(obj)) {
+            return 'checkbox';
+        } else if (isIcon(obj) || isVoCodver(obj)) {
+            return 'icon';
+        } else if (isImage(obj)) {
+            return 'image';
+        } else if (isLink(obj)) {
+            return 'link';
+        } else if (isNumber(obj)) {
+            return 'number';
+        } else if (isProgressBar(obj)) {
+            return 'progress-bar';
+        } else if (isRadio(obj)) {
+            return 'radio';
+        } else {
+            return 'string';
+        }
+    }
+
+    private setLazyKupCell(cellType: string, props: any, cell: Cell) {
         if (props) {
-            if (!props.sizeY) {
-                props['sizeY'] = '26px';
-                if (this.density === 'medium') {
-                    props['sizeY'] = '36px';
+            this.setCellSize(cellType, props, cell);
+            let lazyClass = 'cell-' + cellType + ' placeholder';
+            let style = { minHeight: props.sizeY };
+            return <span style={style} class={lazyClass}></span>;
+        } else {
+            return undefined;
+        }
+    }
+
+    private setCellSize(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
+            case 'bar':
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
                 }
-                if (this.density === 'wide') {
-                    props['sizeY'] = '50px';
+                break;
+            case 'button':
+                let height: string = '';
+                if (props.label) {
+                    height = '36px';
+                } else {
+                    height = '48px';
                 }
-            }
-            if (this.lazyLoadCells) {
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = height;
+                    }
+                } else {
+                    cell.style = { minHeight: height };
+                }
+                break;
+            case 'chart':
+                if (!props.sizeX) {
+                    props['sizeX'] = '100%';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '100%';
+                }
+                break;
+
+            case 'checkbox':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+            case 'radio':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+        }
+    }
+
+    private setKupCell(
+        cellType: string,
+        classObj: Record<string, boolean>,
+        props: any,
+        cell: Cell,
+        row: Row,
+        column: Column
+    ) {
+        switch (cellType) {
+            case 'bar':
+                if (props) {
+                    let style = {
+                        minHeight: props.sizeY,
+                        minWidth: props.sizeX,
+                    };
+                    return (
+                        <kup-lazy
+                            style={style}
+                            class="cell-bar"
+                            componentName="kup-image"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'button':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    props['disabled'] = row.readOnly;
+                    props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                        this,
+                        row,
+                        column,
+                        cell
+                    );
+                    return (
+                        <kup-button class="cell-button" {...props}></kup-button>
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'chart':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    let style = {
+                        minHeight: props.sizeY,
+                        minWidth: props.sizeX,
+                    };
+                    return (
+                        <kup-lazy
+                            style={style}
+                            class="cell-chart"
+                            componentName="kup-chart"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'checkbox':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    if (props) {
+                        props['disabled'] = row.readOnly;
+                    } else {
+                        props = { disabled: row.readOnly };
+                    }
+                    return (
+                        <kup-checkbox
+                            class="cell-checkbox"
+                            {...props}
+                        ></kup-checkbox>
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'icon':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    if (props.badgeData) {
+                        classObj['has-padding'] = true;
+                    }
+                    return <kup-image class="cell-icon" {...props}></kup-image>;
+                } else {
+                    return undefined;
+                }
+            case 'image':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    if (props.badgeData) {
+                        classObj['has-padding'] = true;
+                    }
+                    let style = {
+                        minHeight: props.sizeY,
+                        minWidth: props.sizeX,
+                    };
+                    return (
+                        <kup-lazy
+                            style={style}
+                            class="cell-image"
+                            componentName="kup-image"
+                            data={...props}
+                        />
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'progress-bar':
+                if (props) {
+                    return (
+                        <kup-progress-bar
+                            class="cell-progress-bar"
+                            {...props}
+                        ></kup-progress-bar>
+                    );
+                } else {
+                    return undefined;
+                }
+            case 'radio':
+                if (props) {
+                    classObj['is-centered'] = true;
+                    props['disabled'] = row.readOnly;
+                    return (
+                        <kup-radio class="cell-radio" {...props}></kup-radio>
+                    );
+                } else {
+                    return undefined;
+                }
+        }
+    }
+
+    private setCell(
+        cellType: string,
+        content: string,
+        classObj: Record<string, boolean>,
+        cell: Cell,
+        column: Column
+    ) {
+        switch (cellType) {
+            case 'link':
                 return (
-                    <kup-lazy
-                        class="cell-bar"
-                        componentName="kup-image"
-                        data={...props}
-                    />
+                    <a class="cell-link" href={content} target="_blank">
+                        {content}
+                    </a>
                 );
-            } else {
-                return <span class="cell-bar placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private buttonCell(props: any, cell: Cell, row: Row, column: Column) {
-        if (props) {
-            let height: string = '';
-            if (props.label) {
-                height = '36px';
-            } else {
-                height = '48px';
-            }
-            if (cell.style) {
-                if (!cell.style.height) {
-                    cell.style['minHeight'] = height;
+            case 'number':
+                if (content && content != '') {
+                    const cellValueNumber: number = stringToNumber(cell.value);
+                    const cellValue = unformattedStringToFormattedStringNumber(
+                        cell.value,
+                        column.decimals ? column.decimals : -1,
+                        cell.obj ? cell.obj.p : ''
+                    );
+                    if (cellValueNumber < 0) {
+                        classObj['negative-number'] = true;
+                    }
+                    return cellValue;
                 }
-            } else {
-                cell.style = { minHeight: height };
-            }
-            props['disabled'] = row.readOnly;
-            props['onKupButtonClick'] = this.onJ4btnClicked.bind(
-                this,
-                row,
-                column,
-                cell
-            );
-            if (this.lazyLoadCells) {
-                return <kup-button class="cell-button" {...props}></kup-button>;
-            } else {
-                return <span class="cell-button placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private chartCell(props: any) {
-        if (props) {
-            if (!props.sizeX) {
-                props['sizeX'] = '100%';
-            }
-            if (!props.sizeY) {
-                props['sizeY'] = '100%';
-            }
-            if (this.lazyLoadCells) {
-                return (
-                    <kup-lazy
-                        class="cell-chart"
-                        componentName="kup-chart"
-                        data={...props}
-                    />
-                );
-            } else {
-                return <span class="cell-chart placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private checkboxCell(props: any, cell: Cell, row: Row) {
-        if (props) {
-            props['disabled'] = row.readOnly;
-        } else {
-            props = { disabled: row.readOnly };
-        }
-        if (cell.style) {
-            if (!cell.style.height) {
-                cell.style['minHeight'] = '40px';
-            }
-        } else {
-            cell.style = { minHeight: '40px' };
-        }
-        if (this.lazyLoadCells) {
-            return (
-                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
-            );
-        } else {
-            return <span class="cell-checkbox placeholder"></span>;
-        }
-    }
-
-    private iconCell(props: any, cell: Cell) {
-        if (props) {
-            if (!props.sizeX) {
-                props['sizeX'] = '18px';
-            }
-            if (!props.sizeY) {
-                props['sizeY'] = '18px';
-            }
-            if (cell.style) {
-                if (!cell.style.height) {
-                    cell.style['minHeight'] = props['sizeY'];
-                }
-            } else {
-                cell.style = {
-                    minHeight: props['sizeY'],
-                };
-            }
-            if (this.lazyLoadCells) {
-                return <kup-image class="cell-icon" {...props}></kup-image>;
-            } else {
-                return <span class="cell-icon placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private imageCell(props: any) {
-        if (props) {
-            if (!props.sizeX) {
-                props['sizeX'] = 'auto';
-            }
-            if (!props.sizeY) {
-                props['sizeY'] = '64px';
-            }
-            if (this.lazyLoadCells) {
-                return (
-                    <kup-lazy
-                        class="cell-image"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
-            } else {
-                return <span class="cell-image placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private progressBarCell(props: any) {
-        if (props) {
-            let height: string;
-            if (!props.isSlim) {
-                height = '31.5px';
-            } else {
-                height = '17.5px';
-            }
-            if (this.lazyLoadCells) {
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            } else {
-                return <span class="cell-progress-bar placeholder"></span>;
-            }
-        } else {
-            return undefined;
-        }
-    }
-
-    private radioCell(props: any, cell: Cell, row: Row) {
-        if (props) {
-            if (cell.style) {
-                if (!cell.style.height) {
-                    cell.style['minHeight'] = '40px';
-                }
-            } else {
-                cell.style = { minHeight: '40px' };
-            }
-            props['disabled'] = row.readOnly;
-            if (this.lazyLoadCells) {
-                return <kup-radio class="cell-radio" {...props}></kup-radio>;
-            } else {
-                return <span class="cell-radio placeholder"></span>;
-            }
-        } else {
-            return undefined;
+            case 'string':
+            default:
+                return content;
         }
     }
 
