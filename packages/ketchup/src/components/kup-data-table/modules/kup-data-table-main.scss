@@ -458,8 +458,7 @@ tr {
   &:not(:nth-child(1)) {
     kup-button,
     kup-checkbox,
-    kup-lazy,
-    kup-progress-bar {
+    kup-image {
       display: none;
       animation: fadeInFromNone 0.25s ease-out;
     }
@@ -467,6 +466,7 @@ tr {
 
   &.in-viewport {
     kup-checkbox,
+    kup-image,
     kup-lazy {
       display: flex;
     }
@@ -476,12 +476,14 @@ tr {
     kup-progress-bar {
       display: block;
     }
+    & .indent ~ kup-image {
+      display: inline-block;
+    }
   }
 
   & .indent {
     & ~ kup-button,
-    & ~ kup-checkbox,
-    & ~ kup-image {
+    & ~ kup-checkbox {
       display: inline-block;
     }
   }
