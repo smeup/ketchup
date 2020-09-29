@@ -449,21 +449,32 @@ tbody {
 }
 
 tr {
-  kup-checkbox,
-  kup-image {
-    display: flex;
+  &:not(:nth-child(1)) {
+    kup-button,
+    kup-checkbox,
+    kup-image {
+      display: none;
+      animation: fadeInFromNone 0.25s ease-out;
+    }
   }
 
-  kup-button {
-    display: inline-block;
-  }
+  &.in-viewport {
+    kup-checkbox,
+    kup-image {
+      display: flex;
+    }
 
-  kup-progress-bar {
-    display: block;
-  }
+    kup-button {
+      display: inline-block;
+    }
 
-  & .indent ~ kup-image {
-    display: inline-block;
+    kup-progress-bar {
+      display: block;
+    }
+
+    & .indent ~ kup-image {
+      display: inline-block;
+    }
   }
 
   .indent {

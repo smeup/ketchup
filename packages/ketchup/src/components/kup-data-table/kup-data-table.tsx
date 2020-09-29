@@ -717,6 +717,7 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
+                        entry.target.classList.add('in-viewport');
                         if (entry.target.classList.contains('last-row')) {
                             logMessage(
                                 this,
@@ -730,8 +731,9 @@ export class KupDataTable {
                                 this.currentRowsPerPage += this.loadMoreStep;
                             }
                             entry.target.classList.remove('last-row');
-                            this.intObserver.unobserve(entry.target);
                         }
+                    } else {
+                        entry.target.classList.remove('in-viewport');
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
@@ -790,7 +792,9 @@ export class KupDataTable {
             this.lazyLoadRows
         ) {
             rows[this.paginatedRows.length - 1].classList.add('last-row');
-            this.intObserver.observe(rows[this.paginatedRows.length - 1]);
+        }
+        for (let index = 0; index < rows.length; index++) {
+            this.intObserver.observe(rows[index]);
         }
     }
 
