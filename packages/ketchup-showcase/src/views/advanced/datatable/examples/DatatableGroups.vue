@@ -10,19 +10,34 @@ h3 {
     <kup-lazy component-name="kup-data-table" :data.prop="dataGroup"></kup-lazy>
 
     <h3>Single group (hidden)</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="dataGroup2"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="dataGroup2"
+    ></kup-lazy>
 
     <h3>Multiple group (visible)</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="dataGroup3"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="dataGroup3"
+    ></kup-lazy>
 
     <h3>Multiple group (hidden)</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="dataGroup4"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="dataGroup4"
+    ></kup-lazy>
 
     <h3>Single group and totals</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="dataGroup5"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="dataGroup5"
+    ></kup-lazy>
 
-    <h3>Multiple group and expansion</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="dataGroup6"></kup-lazy>
+    <h3>Multiple group, expansion and group display label as VALUE</h3>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="dataGroup6"
+    ></kup-lazy>
   </div>
 </template>
 
@@ -99,6 +114,7 @@ export default {
           },
         ],
         expandGroups: true,
+        groupLabelDisplay: 'VALUE',
       },
     };
   },
