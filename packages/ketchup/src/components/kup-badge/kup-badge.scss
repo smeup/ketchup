@@ -1,6 +1,9 @@
 :host {
   display: block;
   position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
 
   #kup-component {
     background-color: var(--kup-main-color);
@@ -14,25 +17,25 @@
   }
 }
 
-:host(.top-right) {
+:host([position='TR']) {
   top: 0;
   right: 0;
+  bottom: unset;
+  left: unset;
   transform: translate(50%, -50%);
 }
 
-:host(.top-left) {
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-}
-
-:host(.bottom-right) {
-  bottom: 0;
+:host([position='BR']) {
+  top: unset;
   right: 0;
+  bottom: 0;
+  left: unset;
   transform: translate(50%, 50%);
 }
 
-:host(.bottom-left) {
+:host([position='BL']) {
+  top: unset;
+  right: unset;
   bottom: 0;
   left: 0;
   transform: translate(-50%, 50%);

@@ -25,7 +25,7 @@ export class KupBadge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The data of the image displayed inside the badge.
      */
@@ -37,7 +37,7 @@ export class KupBadge {
     /**
      * The text displayed inside the badge.
      */
-    @Prop({ reflect: true }) text: string = undefined;
+    @Prop() text: string = undefined;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -104,15 +104,7 @@ export class KupBadge {
 
         let imageEl: HTMLElement = undefined;
 
-        const isTopRight = BadgePosition.TOP_RIGHT === this.position;
-        const isBottomRight = BadgePosition.BOTTOM_RIGHT === this.position;
-        const isBottomLeft = BadgePosition.BOTTOM_LEFT === this.position;
-
         const hostClass = {
-            'top-left': !isTopRight && !isBottomRight && !isBottomLeft,
-            'top-right': isTopRight,
-            'bottom-right': isBottomRight,
-            'bottom-left': isBottomLeft,
             'handles-custom-style': true,
         };
 
