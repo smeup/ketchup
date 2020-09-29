@@ -114,7 +114,7 @@ export default {
           },
         ],
         expandGroups: true,
-        groupLabelDisplay: 'VALUE',
+        groupLabelDisplay: 'Value',
       },
     };
   },
