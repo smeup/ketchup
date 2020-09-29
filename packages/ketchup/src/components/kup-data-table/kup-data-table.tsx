@@ -717,7 +717,6 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('in-viewport');
                         if (entry.target.classList.contains('last-row')) {
                             logMessage(
                                 this,
@@ -731,9 +730,8 @@ export class KupDataTable {
                                 this.currentRowsPerPage += this.loadMoreStep;
                             }
                             entry.target.classList.remove('last-row');
+                            this.intObserver.unobserve(entry.target);
                         }
-                    } else {
-                        entry.target.classList.remove('in-viewport');
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
@@ -792,9 +790,7 @@ export class KupDataTable {
             this.lazyLoadRows
         ) {
             rows[this.paginatedRows.length - 1].classList.add('last-row');
-        }
-        for (let index = 0; index < rows.length; index++) {
-            this.intObserver.observe(rows[index]);
+            this.intObserver.observe(rows[this.paginatedRows.length - 1]);
         }
     }
 
@@ -2898,6 +2894,7 @@ export class KupDataTable {
         // Sets the default value
         let content: any = valueToDisplay;
         let cellType: string = this.getCellType(cell.obj);
+        classObj[cellType + '-cell'] = true;
 
         if (cell.data) {
             if (!this.lazyLoadCells) {
@@ -3069,7 +3066,7 @@ export class KupDataTable {
                 if (props.resource === '') {
                     return undefined;
                 } else {
-                    return <kup-image class="cell-bar" {...props} />;
+                    return <kup-image {...props} />;
                 }
 
             case 'button':
@@ -3081,11 +3078,11 @@ export class KupDataTable {
                     column,
                     cell
                 );
-                return <kup-button class="cell-button" {...props}></kup-button>;
+                return <kup-button {...props}></kup-button>;
 
             case 'chart':
                 classObj['is-centered'] = true;
-                return <kup-chart class="cell-chart" {...props} />;
+                return <kup-chart {...props} />;
 
             case 'checkbox':
                 classObj['is-centered'] = true;
@@ -3094,39 +3091,29 @@ export class KupDataTable {
                 } else {
                     props = { disabled: row.readOnly };
                 }
-                return (
-                    <kup-checkbox
-                        class="cell-checkbox"
-                        {...props}
-                    ></kup-checkbox>
-                );
+                return <kup-checkbox {...props}></kup-checkbox>;
 
             case 'icon':
                 classObj['is-centered'] = true;
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return <kup-image class="cell-icon" {...props}></kup-image>;
+                return <kup-image {...props}></kup-image>;
 
             case 'image':
                 classObj['is-centered'] = true;
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return <kup-image class="cell-image" {...props} />;
+                return <kup-image {...props} />;
 
             case 'progress-bar':
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        {...props}
-                    ></kup-progress-bar>
-                );
+                return <kup-progress-bar {...props}></kup-progress-bar>;
 
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                return <kup-radio class="cell-radio" {...props}></kup-radio>;
+                return <kup-radio {...props}></kup-radio>;
         }
     }
 
