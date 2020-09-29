@@ -52,7 +52,6 @@ import { KupStore } from '../kup-state/kup-store';
     shadow: true,
 })
 export class KupTree {
-
     //////////////////////////////
     // Begin state stuff
     //////////////////////////////
@@ -225,6 +224,7 @@ export class KupTree {
         cell: Cell;
         column: Column;
         treeNode: TreeNode;
+        tree: KupTree;
     }>;
 
     /**
@@ -239,6 +239,7 @@ export class KupTree {
     kupTreeNodeCollapse: EventEmitter<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        tree: KupTree;
     }>;
 
     /**
@@ -266,6 +267,7 @@ export class KupTree {
         treeNode: TreeNode;
         usesDynamicExpansion?: boolean;
         dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
     }>;
 
     /**
@@ -282,6 +284,7 @@ export class KupTree {
         treeNode: TreeNode;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>;
 
     @Event({
@@ -296,6 +299,7 @@ export class KupTree {
         column: Column;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>;
 
     //---- Methods ----
@@ -488,6 +492,7 @@ export class KupTree {
             column: column,
             columnName: column.name,
             auto: auto,
+            tree: this,
         });
     }
 
@@ -511,6 +516,7 @@ export class KupTree {
                 treeNode: treeNodeData,
                 columnName: this.selectedColumn,
                 auto: auto,
+                tree: this,
             });
         }
         this.selectedColumn = '';
@@ -544,6 +550,7 @@ export class KupTree {
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
                         usesDynamicExpansion: this.useDynamicExpansion,
+                        tree: this,
                     });
                 } else {
                     // TreeNode is now collapsed -> Fires collapsed event
@@ -552,6 +559,7 @@ export class KupTree {
                     this.kupTreeNodeCollapse.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
+                        tree: this,
                     });
                 }
             } else if (this.useDynamicExpansion) {
@@ -578,6 +586,7 @@ export class KupTree {
                                 treeNodePath: arrayTreeNodePath,
                                 treeNode: treeNodeData,
                                 usesDynamicExpansion: true,
+                                tree: this,
                             });
                         })
                         .catch((err) => {
@@ -595,6 +604,7 @@ export class KupTree {
                         treeNodePath: arrayTreeNodePath,
                         usesDynamicExpansion: true,
                         dynamicExpansionRequireChildren: true,
+                        tree: this,
                     });
 
                     // TODO remove these comments if this behavior will be accepted
@@ -620,6 +630,7 @@ export class KupTree {
             cell,
             column,
             treeNode,
+            tree: this,
         });
     }
 

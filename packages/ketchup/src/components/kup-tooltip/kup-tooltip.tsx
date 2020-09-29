@@ -148,6 +148,14 @@ export class KupTooltip {
 
     @Watch('data')
     onDataChanged() {
+        if (this.relatedObject == null) {
+            this.data = null;
+        }
+        if (this.data == null) {
+            this.visible = false;
+        } else {
+            this.visible = true;
+        }
         if (this.visible == true) {
             this.positionRecalc_();
             this.startLoadDetail(true);
@@ -157,6 +165,12 @@ export class KupTooltip {
     @Watch('cellOptions')
     @Watch('detailData')
     onTooltipDetailChanged() {
+        if (this.relatedObject == null) {
+            this.data = null;
+        }
+        if (this.data == null) {
+            this.visible = false;
+        }
         if (
             this.visible == true &&
             (this.cellOptions != null || this.detailData != null)
@@ -252,6 +266,12 @@ export class KupTooltip {
 
     private loadDetail() {
         this.resetLoadDetailTimeout();
+        if (this.relatedObject == null) {
+            return;
+        }
+        if (this.data == null) {
+            return;
+        }
         if (this.isViewModeTooltip()) {
             this.cellOptions = null;
             this.kupTooltipLoadDetail.emit({
@@ -322,7 +342,9 @@ export class KupTooltip {
     private prepareLoadData() {
         this.waitingForResponse = true;
         this.tooltipTimeout = setTimeout(() => {
-            this.visible = true;
+            if (this.relatedObject == null) {
+                return;
+            }
             this.kupTooltipLoadData.emit({
                 relatedObject: this.relatedObject,
                 tooltip: this,
@@ -513,7 +535,7 @@ export class KupTooltip {
     }
 
     private createTooltip() {
-        if (!this.data) {
+        if (this.data == null) {
             return null;
         }
 
@@ -625,9 +647,9 @@ export class KupTooltip {
 
     getIconForShowOptionsButton(): string {
         if (this.isViewModeTooltip()) {
-            return 'extension';
+            return 'menu';
         } else if (this.isViewModeCellOptions()) {
-            return 'comment';
+            return 'menu';
         } else {
             return '???';
         }

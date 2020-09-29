@@ -75,7 +75,6 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
-    numberToString,
     formattedStringToUnformattedStringNumber,
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
@@ -92,10 +91,7 @@ import { unformatDate } from '../../utils/cell-formatter';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import {
-    TooltipRelatedObject,
-    ViewMode,
-} from '../kup-tooltip/kup-tooltip-declarations';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 @Component({
     tag: 'kup-data-table',
@@ -846,13 +842,6 @@ export class KupDataTable {
         }
         document.addEventListener('click', this.onDocumentClick);
 
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -929,14 +918,13 @@ export class KupDataTable {
             }
         }
 
-        /*
         // Attach function to close header menu onto the document
         this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
             this
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-        */
+
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
@@ -974,29 +962,10 @@ export class KupDataTable {
         this.resetSelectedRows();
     }
 
-    private setTooltip(event: MouseEvent, cell: Cell) {
-        let related: TooltipRelatedObject = null;
-        if (cell != null) {
-            related = {} as TooltipRelatedObject;
-            related.element = event.target as HTMLElement;
-            related.object = cell;
-        }
-
-        let newValue = related;
-        let oldValue = this.tooltip.relatedObject;
-        if (newValue == null && oldValue == null) {
-            return;
-        }
-        if (newValue != null && oldValue != null) {
-            if (
-                newValue.object == oldValue.object &&
-                newValue.element == oldValue.element
-            ) {
-                return;
-            }
-        }
+    private _setTooltip(event: MouseEvent, cell: Cell) {
+        //unsetTooltip(this.tooltip);
+        setTooltip(event, cell, this.tooltip);
         this.closeMenu();
-        this.tooltip.relatedObject = related;
     }
 
     private getColumns(): Array<Column> {
@@ -1607,7 +1576,7 @@ export class KupDataTable {
 
     private closeMenuAndTooltip() {
         this.closeMenu();
-        this.setTooltip(null, null);
+        unsetTooltip(this.tooltip);
     }
 
     private isOpenedMenu(): boolean {
@@ -3133,7 +3102,7 @@ export class KupDataTable {
                 class={classObj}
                 style={style}
                 onMouseOver={(ev) =>
-                    _hasTooltip ? this.setTooltip(ev, cell) : null
+                    _hasTooltip ? this._setTooltip(ev, cell) : null
                 }
             >
                 {indend}
@@ -3560,7 +3529,11 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper" style={elStyle}>
+            <div
+                id="data-table-wrapper"
+                style={elStyle}
+                onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
+            >
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}

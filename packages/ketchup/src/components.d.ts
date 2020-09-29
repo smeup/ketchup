@@ -3540,6 +3540,7 @@ declare namespace LocalJSX {
         cell: Cell;
         column: Column;
         treeNode: TreeNode;
+        tree: KupTree;
     }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
@@ -3547,6 +3548,7 @@ declare namespace LocalJSX {
         column: Column;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
@@ -3554,6 +3556,7 @@ declare namespace LocalJSX {
         "onKupTreeNodeCollapse"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
@@ -3572,6 +3575,7 @@ declare namespace LocalJSX {
         treeNode: TreeNode;
         usesDynamicExpansion?: boolean;
         dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a node of the tree has been selected
@@ -3581,6 +3585,7 @@ declare namespace LocalJSX {
         treeNode: TreeNode;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.

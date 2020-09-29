@@ -57,11 +57,10 @@ import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import { TooltipRelatedObject } from '../kup-tooltip/kup-tooltip-declarations';
-import { emit } from 'process';
 
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
@@ -626,7 +625,6 @@ export class KupBox {
     }
 
     private onSortChange(e: CustomEvent) {
-        console.log(e);
         let column = this.getColumnByDesc(this.visibleColumns, e.detail.value);
         this.sortBy = column.name;
     }
@@ -1008,28 +1006,8 @@ export class KupBox {
         this.currentPage = detail.newPage;
     }
 
-    private setTooltip(event: MouseEvent, cell: Cell) {
-        let related: TooltipRelatedObject = null;
-        if (cell != null) {
-            related = {} as TooltipRelatedObject;
-            related.element = event.target as HTMLElement;
-            related.object = cell;
-        }
-
-        let newValue = related;
-        let oldValue = this.tooltip.relatedObject;
-        if (newValue == null && oldValue == null) {
-            return;
-        }
-        if (newValue != null && oldValue != null) {
-            if (
-                newValue.object == oldValue.object &&
-                newValue.element == oldValue.element
-            ) {
-                return;
-            }
-        }
-        this.tooltip.relatedObject = related;
+    private _setTooltip(event: MouseEvent, cell: Cell) {
+        setTooltip(event, cell, this.tooltip);
     }
 
     private handleRowsPerPageChanged({ detail }) {
@@ -1607,7 +1585,7 @@ export class KupBox {
             >
                 <span
                     onMouseOver={(e) =>
-                        _hasTooltip ? this.setTooltip(e, cell) : null
+                        _hasTooltip ? this._setTooltip(e, cell) : null
                     }
                 >
                     {boContent}
@@ -1739,7 +1717,11 @@ export class KupBox {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass}>
+                <div
+                    id="kup-component"
+                    class={wrapperClass}
+                    onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
+                >
                     <div
                         class="box-component"
                         onDragOver={
