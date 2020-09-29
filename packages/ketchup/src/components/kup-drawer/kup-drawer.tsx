@@ -46,7 +46,8 @@ export class KupDrawer {
             else{
             
                 this.permanent=true;
-                this.permanent=false;
+                this.permanent=false;              //select lo ho usato per riuscire a far tornare false la propietà right per attiavre il meccanismo
+                                                   //le altre prop che vanno da true a false servono per far attivare la reflect .
             }
                 
        }
