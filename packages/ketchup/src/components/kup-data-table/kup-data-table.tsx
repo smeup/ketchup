@@ -121,6 +121,7 @@ export class KupDataTable {
                 this.filters = state.filters;
                 this.groups = state.groups;
                 this.expandGroups = state.expandGroups;
+                this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
@@ -152,6 +153,7 @@ export class KupDataTable {
             this.state.filters = this.filters;
             this.state.groups = this.groups;
             this.state.expandGroups = this.expandGroups;
+            this.state.groupLabelDisplay = this.groupLabelDisplay;
             this.state.density = this.density;
             this.state.enableSortableColumns = this.enableSortableColumns;
             this.state.forceOneLine = this.forceOneLine;
@@ -2549,18 +2551,13 @@ export class KupDataTable {
         if (row.group) {
             // Composes the label the group must display
             let composedGroupLabel: string;
-            switch (this.groupLabelDisplay) {
-                case GroupLabelDisplayMode.LABEL:
-                    composedGroupLabel = row.group.columnLabel;
-                    break;
-                case GroupLabelDisplayMode.VALUE:
-                    composedGroupLabel = row.group.label;
-                    break;
-                case GroupLabelDisplayMode.BOTH:
-                default:
-                    composedGroupLabel =
-                        row.group.columnLabel + ' = ' + row.group.label;
-                    break;
+            if (this.groupLabelDisplay.valueOf() == 'LABEL') {
+                composedGroupLabel = row.group.columnLabel;
+            } else if (this.groupLabelDisplay.valueOf() == 'VALUE') {
+                composedGroupLabel = row.group.label;
+            } else {
+                composedGroupLabel =
+                    row.group.columnLabel + ' = ' + row.group.label;
             }
 
             if (row.group.children.length === 0) {
