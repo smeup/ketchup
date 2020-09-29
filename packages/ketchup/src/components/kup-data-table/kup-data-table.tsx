@@ -2553,13 +2553,18 @@ export class KupDataTable {
         if (row.group) {
             // Composes the label the group must display
             let composedGroupLabel: string;
-            if (this.groupLabelDisplay.valueOf() == 'LABEL') {
-                composedGroupLabel = row.group.columnLabel;
-            } else if (this.groupLabelDisplay.valueOf() == 'VALUE') {
-                composedGroupLabel = row.group.label;
-            } else {
-                composedGroupLabel =
-                    row.group.columnLabel + ' = ' + row.group.label;
+            switch (this.groupLabelDisplay) {
+                case GroupLabelDisplayMode.LABEL:
+                    composedGroupLabel = row.group.columnLabel;
+                    break;
+                case GroupLabelDisplayMode.VALUE:
+                    composedGroupLabel = row.group.label;
+                    break;
+                case GroupLabelDisplayMode.BOTH:
+                default:
+                    composedGroupLabel =
+                        row.group.columnLabel + ' = ' + row.group.label;
+                    break;
             }
 
             if (row.group.children.length === 0) {
