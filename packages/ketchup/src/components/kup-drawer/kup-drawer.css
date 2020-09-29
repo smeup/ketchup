@@ -76,12 +76,12 @@
 
 .title {
   font-size: 1.5rem;
-  color:var(--kup-text-on-main-color);
+  color: var(--kup-text-on-main-color);
   margin: 0;
 }
 .subtitle {
   font-size: 0.75rem;
-  color: var(---kup-text-on-main-color);
+  color: var(--kup-text-on-main-color);
   margin: 0;
 }
 
