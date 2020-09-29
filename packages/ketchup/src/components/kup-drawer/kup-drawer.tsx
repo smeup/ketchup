@@ -18,7 +18,7 @@ export class KupDrawer {
     select:boolean;
     
     c:string;
-
+    
 
 
   //---- Methods ----
@@ -97,6 +97,7 @@ export class KupDrawer {
       
         this.c= this.selectclass();
         console.log(this.select,this.permanent,this.right,this.c);
+        
        
 
         return [
